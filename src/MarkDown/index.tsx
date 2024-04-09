@@ -1,4 +1,4 @@
-import { ConfigProvider, Table, theme } from 'antd';
+import { ConfigProvider, Table, TableProps, theme } from 'antd';
 import React, { useMemo, type FC } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -10,9 +10,11 @@ import remarkGfm from 'remark-gfm';
  * @param dart - A boolean indicating whether to use the dark theme or not.
  * @returns The parsed markdown content.
  */
-export const MarkdownParser: FC<{ value: string; dart?: boolean }> = (
-  props,
-) => {
+export const MarkDownRender: FC<{
+  value: string;
+  dart?: boolean;
+  tableProps?: TableProps<any>;
+}> = (props) => {
   const algorithm = useMemo(() => {
     if (props.dart) {
       return theme.darkAlgorithm;
@@ -101,6 +103,7 @@ export const MarkdownParser: FC<{ value: string; dart?: boolean }> = (
                 bordered
                 sticky
                 pagination={false}
+                {...props.tableProps}
                 columns={columns}
                 dataSource={dataSource}
               />

@@ -1,1 +1,1 @@
-export { MarkdownParser as MarkDown } from './MarkDown';
+export { MarkDownRender } from './MarkDown';

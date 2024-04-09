@@ -1,12 +1,13 @@
-# Foo
+# MarkDownRender
 
-This is an example component.
+MarkDownRender 可以把 table 修改为 antd 的 table，并进行样式上的修改
 
 ```jsx
-import { MarkDown } from 'mdToJSON';
+import { MarkDownRender } from 'mdToJSON';
 
 export default () => (
-  <MarkDown
+  <MarkDownRender
+    tableProps={{ bordered: true }}
     value={`### pro-components 的 Table 有哪些配置？
 
 #### ProTable - ProTable
