@@ -1,0 +1,9 @@
+[submodule "pro-components"]
+	path = pro-components
+	url = git@github.com:ant-design/pro-components.git
+[submodule "ant-design"]
+	path = ant-design
+	url = git@github.com:ant-design/ant-design.git
+[submodule "umi"]
+	path = umi
+	url = git@github.com:umijs/umi.git
