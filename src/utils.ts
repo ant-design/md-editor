@@ -15,6 +15,7 @@ export type NodeToSchema = {
   originalNode?: RootContent;
   otherProps?: {
     chatType?: string;
+    pureTitle?: string;
     data?: { [key: string]: string }[];
     columns?: { title: string; dataIndex: string; key: string }[];
     dataSource?: { [key: string]: string }[];
@@ -88,8 +89,12 @@ const nodeToSchema = (node: RootContent): NodeToSchema | undefined => {
     const pref = node.children.at(0);
     return {
       type: 'heading',
+      otherProps: {
+        // @ts-ignore
+        pureTitle: pref ? myRemark.stringify(pref) : myRemark.stringify(node),
+      },
       // @ts-ignore
-      value: pref ? myRemark.stringify(pref) : myRemark.stringify(node),
+      value: myRemark.stringify(node),
       nodeType: node.type,
       originalNode: node,
     };
@@ -105,7 +110,7 @@ export const mdToApassifySchema = (md: string) => {
       const preNode = preList.at(-1);
       let title = '';
       if (preNode?.type === 'heading' && node.type !== 'heading') {
-        title = preNode.value || '';
+        title = preNode?.otherProps?.pureTitle || '';
         preList.pop();
       }
 
