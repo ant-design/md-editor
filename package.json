@@ -45,6 +45,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/charts": "^2.0.3",
     "@ant-design/pro-card": "^2.6.0",
     "@ant-design/pro-components": "^2.7.0",
     "@ant-design/pro-descriptions": "2.5.36",
@@ -56,6 +57,8 @@
     "@ant-design/pro-skeleton": "2.1.11",
     "@ant-design/pro-table": "3.15.2",
     "@ant-design/pro-utils": "2.15.6",
+    "@types/mdast": "^4.0.3",
+    "mdast": "^3.0.0",
     "react-markdown": "^9.0.1",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",

@@ -1,9 +1,23 @@
-﻿import { BetaSchemaForm } from '@ant-design/pro-components';
+﻿import { Pie } from '@ant-design/charts';
+import { BetaSchemaForm } from '@ant-design/pro-components';
 import { Table } from 'antd';
 import React, { type FC } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { mdToApassifySchema } from './utils';
+import { NodeToSchema, mdToApassifySchema } from './utils';
+
+const defaultPieConfig = {
+  angleField: 'value',
+  colorField: 'type',
+
+  legend: {
+    color: {
+      title: false,
+      position: 'right',
+      rowPadding: 5,
+    },
+  },
+};
 /**
  * MarkdownParser component.
  *
@@ -13,33 +27,72 @@ import { mdToApassifySchema } from './utils';
  */
 export const MdToJSONRender: FC<{
   value: string;
+  itemRender?: (props: React.ReactNode, node: NodeToSchema) => React.ReactNode;
 }> = (props) => {
   const apassifySchema = mdToApassifySchema(props.value);
-  return apassifySchema.map((node, index) => {
+  const defaultRender = (
+    node: NodeToSchema,
+    index: React.Key | null | undefined,
+  ) => {
     if (node.type === 'table') {
       return (
         <Table
           key={index}
-          columns={node.columns}
-          dataSource={node.dataSource}
+          size="small"
+          bordered
           pagination={false}
+          {...node.otherProps}
         />
       );
     }
     if (node.type === 'code' && node.lang === 'json') {
       return (
-        <pre key={index}>{JSON.stringify(JSON.parse(node.value), null, 2)}</pre>
+        <pre key={index}>
+          {JSON.stringify(JSON.parse(node.value || '{}'), null, 2)}
+        </pre>
       );
     }
     if (node.type === 'code' && node.lang === 'schema') {
       return (
-        <BetaSchemaForm key={index} columns={JSON.parse(node.value.trim())} />
+        <BetaSchemaForm
+          key={index}
+          columns={JSON.parse(node.value?.trim() || '{}')}
+        />
       );
+    }
+    if (node.type === 'chart') {
+      if (node.otherProps?.chatType === 'pie') {
+        return (
+          <Pie
+            data={
+              node.otherProps.data?.map((item) => {
+                return {
+                  type: item.type,
+                  value: parseFloat(item.value),
+                };
+              }) || []
+            }
+            {...defaultPieConfig}
+            label={{
+              text: 'type',
+              position: 'outside',
+              textAlign: 'center',
+            }}
+          />
+        );
+      }
     }
     return (
       <Markdown key={index} remarkPlugins={[remarkGfm]}>
         {node.value}
       </Markdown>
     );
+  };
+  return apassifySchema.map((node, index) => {
+    const dom = defaultRender(node, index);
+    if (props.itemRender) {
+      return props.itemRender(dom, node);
+    }
+    return dom;
   });
 };
