@@ -1,4 +1,6 @@
-﻿import { Card } from 'antd';
+﻿import { Card, Space } from 'antd';
+//@ts-ignore
+import pdfjs from 'html2pdf.js';
 import { MdToJSONRender } from 'mdToJSON';
 import React from 'react';
 import Markdown from 'react-markdown';
@@ -37,7 +39,7 @@ This is [an example](id) reference-style link.
 
 ### 图片
 
-![This is an alt text.](/image/sample.webp "This is a sample image.")
+![This is an alt text.](https://gw.alipayobjects.com/zos/antfincdn/7VBnGHwjaW/bianzu%2525202.svg "This is a sample image.")
 
 
 ### 表格
@@ -107,26 +109,51 @@ This is [an example](id) reference-style link.
         }}
         styles={{
           body: {
+            padding: 0,
+          },
+        }}
+        extra={
+          <Space>
+            <a
+              onClick={() => {
+                pdfjs()
+                  .set({
+                    dpi: 120,
+                    html2canvas: { scale: 3, useCORS: true },
+                    pagebreak: { avoid: ['img', '.avoid-break'] },
+                  })
+                  .from(document.querySelector('#pdf'))
+                  .save();
+              }}
+            >
+              导出 PDF
+            </a>
+          </Space>
+        }
+      >
+        <div
+          id="pdf"
+          style={{
             display: 'flex',
             flexDirection: 'column',
             gap: 16,
-          },
-        }}
-      >
-        <MdToJSONRender
-          value={defaultValue}
-          itemRender={(defaultDom, node) => {
-            if (node.type === 'markdown' || node.type === 'heading') {
-              return <div className="markdown-body">{defaultDom}</div>;
-            }
-
-            return (
-              <Card bordered title={node.title}>
-                {defaultDom}
-              </Card>
-            );
+            padding: 24,
           }}
-        />
+        >
+          <MdToJSONRender
+            value={defaultValue}
+            itemRender={(defaultDom, node) => {
+              if (node.type === 'markdown' || node.type === 'heading') {
+                return <div className="markdown-body">{defaultDom}</div>;
+              }
+              return (
+                <Card bordered title={node.title} className="avoid-break">
+                  {defaultDom}
+                </Card>
+              );
+            }}
+          />
+        </div>
       </Card>
     </div>
   );

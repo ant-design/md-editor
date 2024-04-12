@@ -91,7 +91,21 @@ export const MdToJSONRender: FC<{
       );
     }
     return (
-      <Markdown key={index} remarkPlugins={[remarkGfm]}>
+      <Markdown
+        key={index}
+        remarkPlugins={[remarkGfm]}
+        components={{
+          img: (props) => {
+            return (
+              <img
+                {...props}
+                style={{ maxWidth: '100%' }}
+                crossOrigin="anonymous"
+              />
+            );
+          },
+        }}
+      >
         {'### ' + node.title + '\n' + node.value || ''}
       </Markdown>
     );
