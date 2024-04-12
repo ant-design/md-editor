@@ -3,10 +3,9 @@ hero:
   title: mdToJSONSchema
   description: 一个增强 markdown 的工具，可以将 markdown 转换为 JSON Schema
   actions:
-    - text: Hello
-      link: /
-    - text: World
-      link: /
+    - text: 快速开始
+      link: /components/mark-down
+
 features:
   - title: 标准的 markdown，默认能渲染
     emoji: 💎
