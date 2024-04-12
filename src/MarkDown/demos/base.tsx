@@ -1,18 +1,19 @@
 ﻿import { Card } from 'antd';
-import { mdToApassifySchema, MdToJSONRender } from 'mdToJSON';
+import { MdToJSONRender } from 'mdToJSON';
 import React from 'react';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import './air.css';
 
 export default () => {
-  const defaultValue = `
-## 注释
+  const defaultValue = `# 顶部标题
+
+### 注释
 
 > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
 
-This is an H1
-=======
-  
-This is an H2
-----------
+
+
 
 ### 加线
   
@@ -49,7 +50,23 @@ This is [an example](id) reference-style link.
 | defaultData | 默认的数据 | T[] | - |
   
 \`\`\`schema
-[{"title":"标题","dataIndex":"title","formItemProps":{"rules":[{"required":true,"message":"此项为必填项"}]},"width":"m"},{"title":"状态","dataIndex":"state","valueType":"select","valueEnum":{},"width":"m"}]
+[
+  {
+    "title": "标题",
+    "dataIndex": "title",
+    "formItemProps": {
+      "rules": [{ "required": true, "message": "此项为必填项" }]
+    },
+    "width": "m"
+  },
+  {
+    "title": "状态",
+    "dataIndex": "state",
+    "valueType": "select",
+    "valueEnum": {},
+    "width": "m"
+  }
+]
 \`\`\`
 
 ### 图表
@@ -64,11 +81,28 @@ This is [an example](id) reference-style link.
 | pie       | 其他   | 5     |
 
 `;
-  const schema = mdToApassifySchema(defaultValue);
   return (
-    <>
-      <pre>{JSON.stringify(schema, null, 2)}</pre>
+    <div
+      style={{
+        display: 'flex',
+        gap: 16,
+        padding: 24,
+      }}
+    >
       <Card
+        className="markdown-body"
+        style={{
+          flex: 1,
+          maxWidth: '48%',
+        }}
+      >
+        <Markdown remarkPlugins={[remarkGfm]}>{defaultValue}</Markdown>
+      </Card>
+      <Card
+        style={{
+          flex: 1,
+          maxWidth: '50%',
+        }}
         styles={{
           body: {
             display: 'flex',
@@ -80,6 +114,10 @@ This is [an example](id) reference-style link.
         <MdToJSONRender
           value={defaultValue}
           itemRender={(defaultDom, node) => {
+            if (node.type === 'markdown' || node.type === 'heading') {
+              return <div className="markdown-body">{defaultDom}</div>;
+            }
+
             return (
               <Card bordered title={node.title}>
                 {defaultDom}
@@ -88,6 +126,6 @@ This is [an example](id) reference-style link.
           }}
         />
       </Card>
-    </>
+    </div>
   );
 };

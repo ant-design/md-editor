@@ -82,9 +82,17 @@ export const MdToJSONRender: FC<{
         );
       }
     }
+
+    if (node.type === 'heading') {
+      return (
+        <Markdown key={index} remarkPlugins={[remarkGfm]}>
+          {node.value}
+        </Markdown>
+      );
+    }
     return (
       <Markdown key={index} remarkPlugins={[remarkGfm]}>
-        {node.value}
+        {'### ' + node.title + '\n' + node.value || ''}
       </Markdown>
     );
   };

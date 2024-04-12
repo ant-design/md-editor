@@ -58,6 +58,7 @@
     "@ant-design/pro-table": "3.15.2",
     "@ant-design/pro-utils": "2.15.6",
     "@types/mdast": "^4.0.3",
+    "katex": "^0.16.10",
     "mdast": "^3.0.0",
     "react-markdown": "^9.0.1",
     "remark": "^15.0.1",
