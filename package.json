@@ -2,6 +2,7 @@
   "name": "mdToJSON",
   "version": "0.0.1",
   "description": "A react library developed with dumi",
+  "repository": "git@github.com:chenshuai2144/mdToJSON.git",
   "license": "MIT",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,9 +15,9 @@
     "dev": "dumi dev",
     "docs:build": "dumi build",
     "doctor": "father doctor",
-    "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "linçt": "npm run lint:es && npm run lint:css",
     "prepare": "husky install && dumi setup",
     "prepublishOnly": "father doctor && npm run build",
     "start": "npm run dev"
@@ -44,6 +45,17 @@
     ]
   },
   "dependencies": {
+    "@ant-design/pro-card": "^2.6.0",
+    "@ant-design/pro-components": "^2.7.0",
+    "@ant-design/pro-descriptions": "2.5.36",
+    "@ant-design/pro-field": "2.14.9",
+    "@ant-design/pro-form": "2.25.1",
+    "@ant-design/pro-layout": "7.19.0",
+    "@ant-design/pro-list": "2.5.51",
+    "@ant-design/pro-provider": "2.14.1",
+    "@ant-design/pro-skeleton": "2.1.11",
+    "@ant-design/pro-table": "3.15.2",
+    "@ant-design/pro-utils": "2.15.6",
     "react-markdown": "^9.0.1",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
@@ -80,6 +92,5 @@
   },
   "authors": [
     "qixian.cs@outlook.com"
-  ],
-  "repository": "git@github.com:chenshuai2144/mdToJSON.git"
+  ]
 }

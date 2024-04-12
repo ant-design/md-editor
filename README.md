@@ -38,3 +38,9 @@ $ pnpm run doctor
 ## LICENSE
 
 MIT
+
+```pie
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15
+```

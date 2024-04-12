@@ -41,7 +41,13 @@ export const mdToApassifySchema = (md: string) => {
         dataSource,
       };
     }
-
+    if (node.type === 'code') {
+      return {
+        type: 'code',
+        value: node.value,
+        lang: node.lang,
+      };
+    }
     return {
       type: 'markdown',
       // @ts-ignore
