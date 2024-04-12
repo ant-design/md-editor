@@ -3,6 +3,6 @@ import { defineConfig } from 'dumi';
 export default defineConfig({
   outputPath: 'docs-dist',
   themeConfig: {
-    name: 'mdToJSONSchema',
+    name: '@chenshuai2144/mdToJSONSchema',
   },
 });

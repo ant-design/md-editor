@@ -3,7 +3,7 @@
 MarkDownRender 可以把 table 修改为 antd 的 table，并进行样式上的修改
 
 ```tsx
-import { MarkDownRender } from 'mdToJSON';
+import { MarkDownRender } from '@chenshuai2144/mdToJSONSchema';
 
 export default () => (
   <MarkDownRender
