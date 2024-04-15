@@ -12,5 +12,5 @@
       "mdToJSON/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/*"]
+  "include": [".dumirc.ts", "src/**/*", "src/MarkDown/demos/.tsx"]
 }
