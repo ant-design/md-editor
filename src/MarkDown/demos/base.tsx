@@ -74,15 +74,15 @@ This is [an example](id) reference-style link.
 \`\`\`
 
 ### 图表
-
-| chartType | type | value |
-|-----------|------|-------|
-| pie       | 分类一  | 27    |
-| pie       | 分类二  | 25    |
-| pie       | 分类三  | 18    |
-| pie       | 分类四  | 15    |
-| pie       | 分类五  | 10    |
-| pie       | 其他   | 5     |
+<!-- {"chartType": "pie"} -->
+| type | value |
+|------|-------|
+| 分类一  | 27    |
+| 分类二  | 25    |
+| 分类三  | 18    |
+| 分类四  | 15    |
+| 分类五  | 10    |
+| 其他   | 5     |
 
 `;
   return (

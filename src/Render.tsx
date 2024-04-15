@@ -61,7 +61,7 @@ export const MdToJSONRender: FC<{
       );
     }
     if (node.type === 'chart') {
-      if (node.otherProps?.chatType === 'pie') {
+      if (node.otherProps?.chartType === 'pie') {
         return (
           <Pie
             data={

@@ -14,7 +14,7 @@ export type NodeToSchema = {
   title?: string;
   originalNode?: RootContent;
   otherProps?: {
-    chatType?: string;
+    chartType?: string;
     pureTitle?: string;
     data?: { [key: string]: string }[];
     columns?: { title: string; dataIndex: string; key: string }[];
@@ -22,7 +22,10 @@ export type NodeToSchema = {
   };
 };
 
-const nodeToSchema = (node: RootContent): NodeToSchema | undefined => {
+const nodeToSchema = (
+  node: RootContent,
+  config: NodeToSchema['otherProps'],
+): NodeToSchema | undefined | null => {
   if (node.type === 'table') {
     const tableHeader = node.children?.at(0);
     const columns =
@@ -50,11 +53,11 @@ const nodeToSchema = (node: RootContent): NodeToSchema | undefined => {
         }, {} as any);
       }) || [];
 
-    if (dataSource.at(0).chartType) {
+    if (config?.chartType) {
       return {
         type: 'chart',
         otherProps: {
-          chatType: dataSource.at(0).chartType,
+          chartType: config?.chartType,
           data: dataSource.map((item) => {
             delete item?.chartType;
             return {
@@ -99,6 +102,29 @@ const nodeToSchema = (node: RootContent): NodeToSchema | undefined => {
       originalNode: node,
     };
   }
+  if (node.type === 'html') {
+    const value = node.value?.match(/\{[^\{\}]*\}/)?.at(0) || '{}';
+    try {
+      return {
+        type: 'config',
+        otherProps: JSON.parse(value),
+        nodeType: node.type,
+        originalNode: node,
+      };
+    } catch (error) {
+      return null;
+    }
+  }
+};
+
+const getTitle = (
+  preNode: NodeToSchema | undefined,
+  node: RootContent | undefined,
+) => {
+  if (preNode?.type === 'heading' && node?.type !== 'heading') {
+    return preNode?.otherProps?.pureTitle || '';
+  }
+  return '';
 };
 
 export const mdToApassifySchema = (md: string) => {
@@ -107,21 +133,30 @@ export const mdToApassifySchema = (md: string) => {
 
   return ast.children.reduce(
     (preList, node) => {
-      const preNode = preList.at(-1);
-      let title = '';
-      if (preNode?.type === 'heading' && node.type !== 'heading') {
-        title = preNode?.otherProps?.pureTitle || '';
+      let preNode = preList.at(-1);
+
+      let title = getTitle(preNode, node);
+      if (title) {
         preList.pop();
       }
+      let config = undefined;
 
-      const propSchema = nodeToSchema(node);
+      if (preNode?.type === 'config') {
+        title = preNode.title || '';
+        config = preNode.otherProps;
+        if (config) {
+          preList.pop();
+        }
+      }
+
+      const propSchema = nodeToSchema(node, config);
 
       if (propSchema) {
         if (title) {
           propSchema.title = title;
         }
         preList.push(propSchema);
-      } else {
+      } else if (propSchema === undefined) {
         preList.push({
           type: 'markdown',
           nodeType: node.type,
