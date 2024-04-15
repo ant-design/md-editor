@@ -1,6 +1,6 @@
 {
   "name": "@chenshuai2144/md-to-json-schema",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": " 一个增强 markdown 的工具，可以将 markdown 转换为 JSON Schema",
   "repository": "git@github.com:chenshuai2144/mdToJSONSchema.git",
   "license": "MIT",
