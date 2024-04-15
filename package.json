@@ -45,6 +45,13 @@
     ]
   },
   "dependencies": {
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.4",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
     "@ant-design/charts": "^2.0.3",
     "@ant-design/pro-card": "^2.6.0",
     "@ant-design/pro-components": "^2.7.0",
@@ -57,20 +64,9 @@
     "@ant-design/pro-skeleton": "2.1.11",
     "@ant-design/pro-table": "3.15.2",
     "@ant-design/pro-utils": "2.15.6",
-    "@types/mdast": "^4.0.3",
-    "html2pdf.js": "^0.10.1",
-    "katex": "^0.16.10",
-    "mdast": "^3.0.0",
-    "react-markdown": "^9.0.1",
-    "remark": "^15.0.1",
-    "remark-gfm": "^4.0.0",
-    "remark-parse": "^11.0.0",
-    "unified": "^11.0.4",
-    "unist-util-visit": "^5.0.0"
-  },
-  "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@types/mdast": "^4.0.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
@@ -78,6 +74,7 @@
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
+    "html2pdf.js": "^0.10.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
@@ -85,6 +82,7 @@
     "prettier-plugin-packagejson": "^2.4.10",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-markdown": "^9.0.1",
     "stylelint": "^14.9.1",
     "typescript": "^5.4.4"
   },

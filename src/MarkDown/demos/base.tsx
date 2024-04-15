@@ -1,5 +1,5 @@
-﻿import { MdToJSONRender } from '@chenshuai2144/mdToJSONSchema';
-import { Card, Space } from 'antd';
+﻿import { Card, Space } from 'antd';
+import { MdToJSONRender } from './Render';
 //@ts-ignore
 import pdfjs from 'html2pdf.js';
 import React from 'react';

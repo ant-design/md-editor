@@ -1,10 +1,13 @@
 ﻿import { Pie } from '@ant-design/charts';
 import { BetaSchemaForm } from '@ant-design/pro-components';
+import {
+  NodeToSchema,
+  mdToApassifySchema,
+} from '@chenshuai2144/md-to-json-schema';
 import { Table } from 'antd';
 import React, { type FC } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { NodeToSchema, mdToApassifySchema } from './utils';
 
 const defaultPieConfig = {
   angleField: 'value',

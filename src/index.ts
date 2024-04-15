@@ -1,3 +1,1 @@
-export { MarkDownRender } from './MarkDown';
-export { MdToJSONRender } from './Render';
-export * from './utils';
+export { MdToJSONRender } from './MarkDown/demos/Render';
