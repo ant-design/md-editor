@@ -57,6 +57,7 @@ const nodeToSchema = (
       return {
         type: 'chart',
         otherProps: {
+          ...(config || {}),
           chartType: config?.chartType,
           data: dataSource.map((item) => {
             delete item?.chartType;
