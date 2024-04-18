@@ -1,1 +1,1 @@
-export { MdToJSONRender } from './MarkDown/demos/Render';
+export * from './MarkDown/index';

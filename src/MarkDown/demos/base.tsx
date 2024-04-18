@@ -143,7 +143,7 @@ This is [an example](id) reference-style link.
           <MdToJSONRender
             value={defaultValue}
             itemRender={(defaultDom, node) => {
-              if (node.type === 'markdown' || node.type === 'heading') {
+              if (node.type === 'heading') {
                 return <div className="markdown-body">{defaultDom}</div>;
               }
               return (

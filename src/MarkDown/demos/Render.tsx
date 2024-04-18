@@ -28,11 +28,13 @@ const defaultPieConfig = {
  * @param dart - A boolean indicating whether to use the dark theme or not.
  * @returns The parsed markdown content.
  */
+
 export const MdToJSONRender: FC<{
   value: string;
   itemRender?: (props: React.ReactNode, node: NodeToSchema) => React.ReactNode;
 }> = (props) => {
   const apassifySchema = mdToApassifySchema(props.value);
+
   const defaultRender = (
     node: NodeToSchema,
     index: React.Key | null | undefined,
@@ -109,7 +111,7 @@ export const MdToJSONRender: FC<{
           },
         }}
       >
-        {'### ' + node.title + '\n' + node.value || ''}
+        {node.value || ''}
       </Markdown>
     );
   };
