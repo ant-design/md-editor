@@ -83,21 +83,23 @@ export default () => {
         }}
       >
         <Card
-          className="markdown-body"
           style={{
             flex: 1,
             maxWidth: '48%',
+            height: '100%',
           }}
           styles={{
             body: {
               padding: 0,
               position: 'relative',
+              height: '100%',
+              minHeight: '100vh',
             },
           }}
         >
           <MarkDownEditor
             preview="preview"
-            height="100%"
+            height="100vh"
             value={value}
             onChange={(e) => setValue(e || '')}
           />
