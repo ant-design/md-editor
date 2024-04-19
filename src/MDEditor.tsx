@@ -109,5 +109,3 @@ export const MarkDownEditor: React.FC<
     </div>
   );
 };
-
-export default MarkDownEditor;

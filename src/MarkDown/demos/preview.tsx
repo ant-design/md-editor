@@ -149,7 +149,16 @@ export default () => {
                   return <div className="markdown-body">{defaultDom}</div>;
                 }
                 return (
-                  <Card bordered title={node.title} className="avoid-break">
+                  <Card
+                    bordered
+                    title={node.title}
+                    className="avoid-break"
+                    styles={{
+                      body: {
+                        padding: 16,
+                      },
+                    }}
+                  >
                     {defaultDom}
                   </Card>
                 );
