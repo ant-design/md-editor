@@ -8,48 +8,35 @@ import remarkGfm from 'remark-gfm';
 import './air.css';
 
 export default () => {
-  const defaultValue = `# 顶部标题
+  const defaultValue = `# 数据分析师和风险评估报告
 
-### 注释
-
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-
-
-
-
-### 加线
+## 财务数据分析师报告
   
-**这是加粗**
-__这也是加粗__
-*这是倾斜*
-_这也是倾斜_
-***这是加粗倾斜***
-~~这是加删除线~~
-
-### 列表
-
-
-- 列表内容
-- 列表内容
-- 列表内容
-
-### 链接
-
-This is [an example](id) reference-style link.
-
-### 图片
-
-![This is an alt text.](https://gw.alipayobjects.com/zos/antfincdn/7VBnGHwjaW/bianzu%2525202.svg "This is a sample image.")
-
-
-### 表格
-
-| 属性 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| request | 获取 dataSource 的方法 | (params?: {pageSize,current},sort,filter) => {data,success,total} | - |
-| params | 用于 request 查询的额外参数，一旦变化会触发重新加载 | object | - |
-| postData | 对通过 request 获取的数据进行处理 | (data: T[]) => T[] | - |
-| defaultData | 默认的数据 | T[] | - |
+### 基础数据
+  
+<!-- {"chartType": "bar", "x":"指标", "y":"值"} -->
+| 指标       | 值    |
+|----------|------|
+| 所有者权益  | 100000 |
+| 被告案件数量 | 100  |
+| 被告案件总金额 | 2000 |
+  
+### 统计数据
+  
+在对比前后统计数据时，我们发现：
+  
+- **被告案件总金额距离上一次的同比**为_50%_，这个指标显著说明了企业在处理司法案件方面的财务支出较上一次统计有显著增长，这可能影响企业的财务健康度。
+  
+## 电力数据分析师报告
+  
+对于电力数据分析师，当前没有提供具体的基础数据和统计数据。这可能表明在电力领域，我们目前没有显著的数据变动或者需要关注的数据点。
+  
+## 风险评估师报告
+  
+对于企业的整体风险评估，**风险评估师**明确表示：**本企业风险较高**。这个评估结果提示我们需要紧急关注企业运营和财务状况，特别是对潜在风险进行深入分析和制定出相应的风险控制措施。
+  
+---
+本报告基于当前提供的数据进行编写，旨在为企业提供一个大概的数据分析和风险评估概况。对于具体的数据分析需要，建议进行更深入的研究与分析。
 
 ## 渲染表单
 

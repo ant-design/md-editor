@@ -158,15 +158,41 @@ export const mdToApassifySchema = (md: string) => {
         }
         preList.push(propSchema);
       } else if (propSchema === undefined) {
-        preList.push({
-          type: 'markdown',
-          nodeType: node.type,
-          originalNode: node,
-          title,
-          // @ts-ignore
-          value: myRemark.stringify(node),
-        });
+        if (preNode?.nodeType === 'paragraph') {
+          preList.pop();
+          preList.push({
+            type: 'markdown',
+            nodeType: node.type,
+            originalNode: node,
+            title: title || preNode?.title,
+            // @ts-ignore
+            value: preNode.value + '\n' + myRemark.stringify(node),
+          });
+        } else if (
+          node.type === 'paragraph' &&
+          preNode?.nodeType !== 'heading'
+        ) {
+          preList.pop();
+          preList.push({
+            type: 'markdown',
+            nodeType: node.type,
+            originalNode: node,
+            title: title || preNode?.title,
+            // @ts-ignore
+            value: preNode.value + '\n' + myRemark.stringify(node),
+          });
+        } else {
+          preList.push({
+            type: 'markdown',
+            nodeType: node.type,
+            originalNode: node,
+            title,
+            // @ts-ignore
+            value: myRemark.stringify(node),
+          });
+        }
       }
+
       return preList;
     },
 

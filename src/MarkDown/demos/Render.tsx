@@ -1,4 +1,4 @@
-﻿import { Pie } from '@ant-design/charts';
+﻿import { Bar, Pie } from '@ant-design/charts';
 import { BetaSchemaForm } from '@ant-design/pro-components';
 import {
   NodeToSchema,
@@ -80,6 +80,20 @@ export const MdToJSONRender: FC<{
             {...defaultPieConfig}
             label={{
               text: 'type',
+              position: 'outside',
+              textAlign: 'center',
+            }}
+          />
+        );
+      }
+      if (node.otherProps?.chartType === 'bar') {
+        return (
+          <Bar
+            data={node.otherProps.data || []}
+            yField="值"
+            xField="指标"
+            label={{
+              text: '指标',
               position: 'outside',
               textAlign: 'center',
             }}
