@@ -98,7 +98,7 @@ export default () => {
           <MarkDownEditor
             height="100%"
             value={value}
-            onChange={(e) => setValue(e)}
+            onChange={(e) => setValue(e || '')}
           />
         </Card>
         <Card
