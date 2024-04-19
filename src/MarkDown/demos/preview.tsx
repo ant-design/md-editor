@@ -96,6 +96,7 @@ export default () => {
           }}
         >
           <MarkDownEditor
+            preview="preview"
             height="100%"
             value={value}
             onChange={(e) => setValue(e || '')}
