@@ -108,12 +108,16 @@ const nodeToSchema = (
   if (node.type === 'html') {
     const value = node?.value?.match(/\{[^{}]*\}/)?.at(0) || '{}';
     try {
-      return {
-        type: 'config',
-        otherProps: JSON.parse(value),
-        nodeType: node?.type,
-        originalNode: node,
-      };
+      try {
+        return {
+          type: 'config',
+          otherProps: JSON.parse(value),
+          nodeType: node?.type,
+          originalNode: node,
+        };
+      } catch (error) {
+        return null;
+      }
     } catch (error) {
       return null;
     }

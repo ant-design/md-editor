@@ -51,19 +51,18 @@ export const MdToJSONRender: FC<{
       );
     }
     if (node?.type === 'code' && node?.lang === 'json') {
-      return (
-        <pre key={index}>
-          {JSON.stringify(JSON.parse(node?.value || '{}'), null, 2)}
-        </pre>
-      );
+      let json = {};
+      try {
+        json = JSON.parse(node?.value || '{}');
+      } catch (error) {}
+      return <pre key={index}>{JSON.stringify(json, null, 2)}</pre>;
     }
     if (node?.type === 'code' && node?.lang === 'schema') {
-      return (
-        <BetaSchemaForm
-          key={index}
-          columns={JSON.parse(node?.value?.trim() || '{}')}
-        />
-      );
+      let json = [];
+      try {
+        json = JSON.parse(node?.value || '{}');
+      } catch (error) {}
+      return <BetaSchemaForm key={index} columns={json} />;
     }
     if (node?.type === 'chart') {
       if (node?.otherProps?.chartType === 'pie') {
