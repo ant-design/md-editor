@@ -16,6 +16,8 @@ export type NodeToSchema = {
   otherProps?: {
     chartType?: string;
     pureTitle?: string;
+    x?: string;
+    y?: string;
     data?: { [key: string]: string }[];
     columns?: { title: string; dataIndex: string; key: string }[];
     dataSource?: { [key: string]: string }[];
@@ -27,7 +29,7 @@ const nodeToSchema = (
   config: NodeToSchema['otherProps'],
 ): NodeToSchema | undefined | null => {
   if (node.type === 'table') {
-    const tableHeader = node.children?.at(0);
+    const tableHeader = node?.children?.at(0);
     const columns =
       tableHeader?.children
         // @ts-ignore
@@ -41,7 +43,7 @@ const nodeToSchema = (
         }) || [];
 
     const dataSource =
-      node.children?.slice(1).map((row) => {
+      node?.children?.slice(1).map((row) => {
         return row.children?.reduce((acc, cell, index) => {
           // @ts-ignore
           acc[columns[index].dataIndex] = myRemark
@@ -66,7 +68,7 @@ const nodeToSchema = (
             };
           }),
         },
-        nodeType: node.type,
+        nodeType: node?.type,
         originalNode: node,
       };
     }
@@ -76,21 +78,21 @@ const nodeToSchema = (
         columns,
         dataSource,
       },
-      nodeType: node.type,
+      nodeType: node?.type,
       originalNode: node,
     };
   }
   if (node.type === 'code') {
     return {
       type: 'code',
-      value: node.value,
-      lang: node.lang || 'text',
-      nodeType: node.type,
+      value: node?.value,
+      lang: node?.lang || 'text',
+      nodeType: node?.type,
       originalNode: node,
     };
   }
   if (node.type === 'heading') {
-    const pref = node.children.at(0);
+    const pref = node?.children.at(0);
     return {
       type: 'heading',
       otherProps: {
@@ -99,17 +101,17 @@ const nodeToSchema = (
       },
       // @ts-ignore
       value: myRemark.stringify(node),
-      nodeType: node.type,
+      nodeType: node?.type,
       originalNode: node,
     };
   }
   if (node.type === 'html') {
-    const value = node.value?.match(/\{[^\{\}]*\}/)?.at(0) || '{}';
+    const value = node?.value?.match(/\{[^{}]*\}/)?.at(0) || '{}';
     try {
       return {
         type: 'config',
         otherProps: JSON.parse(value),
-        nodeType: node.type,
+        nodeType: node?.type,
         originalNode: node,
       };
     } catch (error) {
@@ -129,73 +131,93 @@ const getTitle = (
 };
 
 export const mdToApassifySchema = (md: string) => {
-  const processor = unified().use(parse).use(remarkGfm, { singleTilde: false });
-  const ast = processor.parse(md);
+  try {
+    const processor = unified()
+      .use(parse)
+      .use(remarkGfm, { singleTilde: false });
+    const ast = processor.parse(md);
+    return ast.children.reduce(
+      (preList, node) => {
+        let preNode = preList.at(-1);
 
-  return ast.children.reduce(
-    (preList, node) => {
-      let preNode = preList.at(-1);
-
-      let title = getTitle(preNode, node);
-      if (title) {
-        preList.pop();
-      }
-      let config = undefined;
-
-      if (preNode?.type === 'config') {
-        title = preNode.title || '';
-        config = preNode.otherProps;
-        if (config) {
-          preList.pop();
-        }
-      }
-
-      const propSchema = nodeToSchema(node, config);
-
-      if (propSchema) {
+        let title = getTitle(preNode, node);
         if (title) {
-          propSchema.title = title;
-        }
-        preList.push(propSchema);
-      } else if (propSchema === undefined) {
-        if (preNode?.nodeType === 'paragraph') {
           preList.pop();
-          preList.push({
-            type: 'markdown',
-            nodeType: node.type,
-            originalNode: node,
-            title: title || preNode?.title,
-            // @ts-ignore
-            value: preNode.value + '\n' + myRemark.stringify(node),
-          });
-        } else if (
-          node.type === 'paragraph' &&
-          preNode?.nodeType !== 'heading'
-        ) {
-          preList.pop();
-          preList.push({
-            type: 'markdown',
-            nodeType: node.type,
-            originalNode: node,
-            title: title || preNode?.title,
-            // @ts-ignore
-            value: preNode.value + '\n' + myRemark.stringify(node),
-          });
-        } else {
-          preList.push({
-            type: 'markdown',
-            nodeType: node.type,
-            originalNode: node,
-            title,
-            // @ts-ignore
-            value: myRemark.stringify(node),
-          });
         }
-      }
+        let config = undefined;
 
-      return preList;
-    },
+        if (preNode?.type === 'config') {
+          title = preNode?.title || '';
+          config = preNode?.otherProps;
+          if (config) {
+            preList.pop();
+          }
+        }
 
-    [] as NodeToSchema[],
-  );
+        try {
+          const propSchema = nodeToSchema(node, config);
+
+          if (propSchema) {
+            if (title) {
+              propSchema.title = title;
+            }
+            preList.push(propSchema);
+          } else if (propSchema === undefined) {
+            if (preNode?.nodeType === 'paragraph') {
+              if (preNode?.value) {
+                preList.pop();
+                preList.push({
+                  type: 'markdown',
+                  nodeType: node?.type,
+                  originalNode: node,
+                  title: title || preNode?.title,
+                  // @ts-ignore
+                  value: preNode?.value + '\n' + myRemark.stringify(node),
+                });
+              } else {
+                preList.push({
+                  type: 'markdown',
+                  nodeType: node?.type,
+                  originalNode: node,
+                  title: title || preNode?.title,
+                  // @ts-ignore
+                  value: myRemark.stringify(node),
+                });
+              }
+            } else if (
+              node?.type === 'paragraph' &&
+              preNode?.nodeType !== 'heading' &&
+              preNode?.value
+            ) {
+              preList.pop();
+              preList.push({
+                type: 'markdown',
+                nodeType: node?.type,
+                originalNode: node,
+                title: title || preNode?.title,
+                // @ts-ignore
+                value: preNode?.value + '\n' + myRemark.stringify(node),
+              });
+            } else {
+              preList.push({
+                type: 'markdown',
+                nodeType: node?.type,
+                originalNode: node,
+                title,
+                // @ts-ignore
+                value: myRemark.stringify(node),
+              });
+            }
+          }
+        } catch (error) {}
+
+        return preList;
+      },
+
+      [] as NodeToSchema[],
+    );
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };

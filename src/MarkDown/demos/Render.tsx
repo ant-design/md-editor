@@ -39,38 +39,38 @@ export const MdToJSONRender: FC<{
     node: NodeToSchema,
     index: React.Key | null | undefined,
   ) => {
-    if (node.type === 'table') {
+    if (node?.type === 'table') {
       return (
         <Table
           key={index}
           size="small"
           bordered
           pagination={false}
-          {...node.otherProps}
+          {...node?.otherProps}
         />
       );
     }
-    if (node.type === 'code' && node.lang === 'json') {
+    if (node?.type === 'code' && node?.lang === 'json') {
       return (
         <pre key={index}>
-          {JSON.stringify(JSON.parse(node.value || '{}'), null, 2)}
+          {JSON.stringify(JSON.parse(node?.value || '{}'), null, 2)}
         </pre>
       );
     }
-    if (node.type === 'code' && node.lang === 'schema') {
+    if (node?.type === 'code' && node?.lang === 'schema') {
       return (
         <BetaSchemaForm
           key={index}
-          columns={JSON.parse(node.value?.trim() || '{}')}
+          columns={JSON.parse(node?.value?.trim() || '{}')}
         />
       );
     }
-    if (node.type === 'chart') {
-      if (node.otherProps?.chartType === 'pie') {
+    if (node?.type === 'chart') {
+      if (node?.otherProps?.chartType === 'pie') {
         return (
           <Pie
             data={
-              node.otherProps.data?.map((item) => {
+              node?.otherProps?.data?.map((item) => {
                 return {
                   type: item.type,
                   value: parseFloat(item.value),
@@ -86,14 +86,13 @@ export const MdToJSONRender: FC<{
           />
         );
       }
-      if (node.otherProps?.chartType === 'bar') {
+      if (node?.otherProps?.chartType === 'bar') {
         return (
           <Bar
-            data={node.otherProps.data || []}
-            yField="值"
-            xField="指标"
+            data={node?.otherProps?.data || []}
+            yField={node?.otherProps?.y}
+            xField={node?.otherProps?.x}
             label={{
-              text: '指标',
               position: 'outside',
               textAlign: 'center',
             }}
@@ -102,10 +101,10 @@ export const MdToJSONRender: FC<{
       }
     }
 
-    if (node.type === 'heading') {
+    if (node?.type === 'heading') {
       return (
         <Markdown key={index} remarkPlugins={[remarkGfm]}>
-          {node.value}
+          {node?.value}
         </Markdown>
       );
     }
@@ -125,7 +124,7 @@ export const MdToJSONRender: FC<{
           },
         }}
       >
-        {node.value || ''}
+        {node?.value || ''}
       </Markdown>
     );
   };
