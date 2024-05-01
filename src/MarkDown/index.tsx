@@ -165,7 +165,6 @@ export const mdToApassifySchema = (md: string) => {
 
         try {
           const propSchema = nodeToSchema(node, config);
-
           if (propSchema) {
             if (title) {
               propSchema.title = title;
@@ -196,6 +195,7 @@ export const mdToApassifySchema = (md: string) => {
             } else if (
               node?.type === 'paragraph' &&
               preNode?.nodeType !== 'heading' &&
+              !preNode?.lang &&
               preNode?.value
             ) {
               preList.pop();

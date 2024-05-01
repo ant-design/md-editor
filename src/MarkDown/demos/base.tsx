@@ -9,7 +9,7 @@ import './air.css';
 
 export default () => {
   const defaultValue =
-    'What specific aspect of Apple would you like to research more about? Please choose from the following options: Business Model, Product, Financials. \n\n```schema \n[ { "title": "标题", "dataIndex": "title", "formItemProps": { "rules": [{ "required": true, "message": "此项为必填项" }] }, "width": "m" }, { "title": "状态", "dataIndex": "state", "valueType": "select", "valueEnum": { "Business Model": "Business Model", "Product": "Product", "Financials": "Financials" }, "width": "m" } ]\n```';
+    '\n# What company or topic would you like to research?\n\n```schema\n[{"valueType":"textarea","title":"","dataIndex":"post_data","width":"l"}]\n```\n\nTry Search [[Click here to visit Google](https://www.google.com),[Click here to visit ABC](https://www.abc.com)]\n';
   return (
     <div
       style={{
