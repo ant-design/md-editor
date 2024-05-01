@@ -151,15 +151,18 @@ export const mdToApassifySchema = (md: string) => {
         let preNode = preList.at(-1);
 
         let title = getTitle(preNode, node);
-        if (title) {
+        if (title && preNode?.type === 'heading' && node.type !== 'html') {
           preList.pop();
         }
         let config = undefined;
 
         if (preNode?.type === 'config' || preNode?.type === 'heading') {
-          title = preNode?.title || '';
-          config = preNode?.otherProps;
-          if (config) {
+          if (preNode?.type === 'config') {
+            title = preNode?.title || title;
+          }
+          config = config || preNode?.otherProps;
+
+          if (config && preNode?.type === 'config') {
             preList.pop();
           }
         }
