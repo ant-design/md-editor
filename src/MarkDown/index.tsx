@@ -8,7 +8,7 @@ const myRemark = remark().use(remarkGfm);
 
 export type NodeToSchemaType<
   T = {
-    x: string;
+    x?: string;
   },
 > = {
   type: string;
