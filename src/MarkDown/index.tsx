@@ -157,14 +157,11 @@ export const mdToApassifySchema = (md: string) => {
         let config = undefined;
 
         if (preNode?.type === 'config' || preNode?.type === 'heading') {
-          if (preNode?.type === 'config') {
-            title = preNode?.title || title;
-          }
           config = config || preNode?.otherProps;
-
-          if (config && preNode?.type === 'config') {
-            preList.pop();
-          }
+        }
+        if (preNode?.type === 'config') {
+          title = preNode?.title || title;
+          preList.pop();
         }
 
         try {
