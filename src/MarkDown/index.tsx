@@ -6,7 +6,11 @@ import { unified } from 'unified';
 
 const myRemark = remark().use(remarkGfm);
 
-export type NodeToSchema = {
+export type NodeToSchemaType<
+  T = {
+    x: string;
+  },
+> = {
   type: string;
   value?: string;
   lang?: string;
@@ -17,17 +21,18 @@ export type NodeToSchema = {
     chartType?: string;
     pureTitle?: string;
     x?: string;
+    id?: string;
     y?: string;
     data?: { [key: string]: string }[];
     columns?: { title: string; dataIndex: string; key: string }[];
     dataSource?: { [key: string]: string }[];
-  };
+  } & T;
 };
 
 const nodeToSchema = (
   node: RootContent,
-  config: NodeToSchema['otherProps'],
-): NodeToSchema | undefined | null => {
+  config: NodeToSchemaType['otherProps'],
+): NodeToSchemaType | undefined | null => {
   if (node.type === 'table') {
     const tableHeader = node?.children?.at(0);
     const columns =
@@ -125,7 +130,7 @@ const nodeToSchema = (
 };
 
 const getTitle = (
-  preNode: NodeToSchema | undefined,
+  preNode: NodeToSchemaType | undefined,
   node: RootContent | undefined,
 ) => {
   if (preNode?.type === 'heading' && node?.type !== 'heading') {
@@ -218,7 +223,7 @@ export const mdToApassifySchema = (md: string) => {
         return preList;
       },
 
-      [] as NodeToSchema[],
+      [] as NodeToSchemaType[],
     );
   } catch (error) {
     console.log(error);

@@ -1,7 +1,7 @@
 ﻿import { Bar, Pie } from '@ant-design/charts';
 import { BetaSchemaForm } from '@ant-design/pro-components';
 import {
-  NodeToSchema,
+  NodeToSchemaType,
   mdToApassifySchema,
 } from '@chenshuai2144/md-to-json-schema';
 import { Table } from 'antd';
@@ -31,12 +31,15 @@ const defaultPieConfig = {
 
 export const MdToJSONRender: FC<{
   value: string;
-  itemRender?: (props: React.ReactNode, node: NodeToSchema) => React.ReactNode;
+  itemRender?: (
+    props: React.ReactNode,
+    node: NodeToSchemaType,
+  ) => React.ReactNode;
 }> = (props) => {
   const apassifySchema = mdToApassifySchema(props.value);
 
   const defaultRender = (
-    node: NodeToSchema,
+    node: NodeToSchemaType,
     index: React.Key | null | undefined,
   ) => {
     if (node?.type === 'table') {
