@@ -101,6 +101,7 @@ const nodeToSchema = (
     return {
       type: 'heading',
       otherProps: {
+        ...config,
         // @ts-ignore
         pureTitle: pref ? myRemark.stringify(pref) : myRemark.stringify(node),
       },
@@ -155,7 +156,7 @@ export const mdToApassifySchema = (md: string) => {
         }
         let config = undefined;
 
-        if (preNode?.type === 'config') {
+        if (preNode?.type === 'config' || preNode?.type === 'heading') {
           title = preNode?.title || '';
           config = preNode?.otherProps;
           if (config) {
@@ -164,7 +165,7 @@ export const mdToApassifySchema = (md: string) => {
         }
 
         try {
-          const propSchema = nodeToSchema(node, config);
+          const propSchema = nodeToSchema(node, config || preNode?.otherProps);
           if (propSchema) {
             if (title) {
               propSchema.title = title;
@@ -178,6 +179,7 @@ export const mdToApassifySchema = (md: string) => {
                   type: 'markdown',
                   nodeType: node?.type,
                   originalNode: node,
+                  otherProps: config,
                   title: title || preNode?.title,
                   // @ts-ignore
                   value: preNode?.value + '\n' + myRemark.stringify(node),
@@ -187,6 +189,7 @@ export const mdToApassifySchema = (md: string) => {
                   type: 'markdown',
                   nodeType: node?.type,
                   originalNode: node,
+                  otherProps: config,
                   title: title || preNode?.title,
                   // @ts-ignore
                   value: myRemark.stringify(node),
@@ -203,6 +206,7 @@ export const mdToApassifySchema = (md: string) => {
                 type: 'markdown',
                 nodeType: node?.type,
                 originalNode: node,
+                otherProps: config,
                 title: title || preNode?.title,
                 // @ts-ignore
                 value: preNode?.value + '\n' + myRemark.stringify(node),
@@ -212,6 +216,7 @@ export const mdToApassifySchema = (md: string) => {
                 type: 'markdown',
                 nodeType: node?.type,
                 originalNode: node,
+                otherProps: config,
                 title,
                 // @ts-ignore
                 value: myRemark.stringify(node),

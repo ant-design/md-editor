@@ -38,6 +38,8 @@ export const MdToJSONRender: FC<{
 }> = (props) => {
   const apassifySchema = mdToApassifySchema(props.value);
 
+  console.log(apassifySchema);
+
   const defaultRender = (
     node: NodeToSchemaType,
     index: React.Key | null | undefined,
