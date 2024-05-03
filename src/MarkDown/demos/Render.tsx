@@ -5,6 +5,7 @@ import {
   mdToApassifySchema,
 } from '@chenshuai2144/md-to-json-schema';
 import { Table } from 'antd';
+import json5 from 'json5';
 import React, { type FC } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -58,14 +59,14 @@ export const MdToJSONRender: FC<{
     if (node?.type === 'code' && node?.lang === 'json') {
       let json = {};
       try {
-        json = JSON.parse(node?.value || '{}');
+        json = json5.parse(node?.value || '{}');
       } catch (error) {}
-      return <pre key={index}>{JSON.stringify(json, null, 2)}</pre>;
+      return <pre key={index}>{json5.stringify(json, null, 2)}</pre>;
     }
     if (node?.type === 'code' && node?.lang === 'schema') {
       let json = [];
       try {
-        json = JSON.parse(node?.value || '{}');
+        json = json5.parse(node?.value || '{}');
       } catch (error) {}
       return <BetaSchemaForm key={index} columns={json} />;
     }

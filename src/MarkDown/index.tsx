@@ -1,3 +1,4 @@
+import json5 from 'json5';
 import { RootContent } from 'mdast';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
@@ -117,7 +118,7 @@ const nodeToSchema = (
       try {
         return {
           type: 'config',
-          otherProps: JSON.parse(value),
+          otherProps: json5.parse(value),
           nodeType: node?.type,
           originalNode: node,
         };

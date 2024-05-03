@@ -47,6 +47,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
     "@uiw/react-md-editor": "^4.0.4",
+    "json5": "^2.2.3",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
