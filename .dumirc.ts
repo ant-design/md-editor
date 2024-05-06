@@ -2,7 +2,8 @@ import { defineConfig } from 'dumi';
 
 export default defineConfig({
   outputPath: 'docs-dist',
+  title: 'md2schema',
   themeConfig: {
-    name: '@chenshuai2144/md-to-json-schema',
+    name: 'md2schema',
   },
 });
