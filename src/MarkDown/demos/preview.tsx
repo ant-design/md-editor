@@ -1,10 +1,15 @@
-﻿import { MarkDownEditor } from '@chenshuai2144/md-to-json-schema';
+﻿import {
+  MarkDownEditor,
+  NodeToSchemaType,
+} from '@chenshuai2144/md-to-json-schema';
 import { Card, Space } from 'antd';
-import { MdToJSONRender } from './Render';
+import { MessageRender } from './Render';
 
 //@ts-ignore
 import pdfjs from 'html2pdf.js';
 import React, { useState } from 'react';
+import { EditCard } from './EditCard';
+import { InvertTransition } from './Transition';
 import './air.css';
 
 const defaultValue = `# 财务数据分析报告
@@ -107,26 +112,29 @@ export default () => {
               padding: 24,
             }}
           >
-            <MdToJSONRender
+            <MessageRender
               value={value}
-              itemRender={(defaultDom, node) => {
-                if (node.type === 'heading') {
-                  return <div className="markdown-body">{defaultDom}</div>;
+              drag
+              itemRender={(defaultDom, node, index) => {
+                if (index === 0 && node.type === 'heading') {
+                  return <>{defaultDom}</>;
                 }
-                return (
-                  <Card
-                    bordered
-                    title={node.title}
-                    className="avoid-break"
-                    styles={{
-                      body: {
-                        padding: 16,
-                      },
-                    }}
-                  >
-                    {defaultDom}
-                  </Card>
-                );
+                if (node.type !== 'heading') {
+                  return (
+                    <InvertTransition delay={index * 0.1}>
+                      <EditCard
+                        node={
+                          node as NodeToSchemaType<{
+                            report_id?: number;
+                            id: number;
+                          }>
+                        }
+                        defaultDom={defaultDom}
+                      />
+                    </InvertTransition>
+                  );
+                }
+                return defaultDom;
               }}
             />
           </div>

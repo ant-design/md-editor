@@ -1,10 +1,13 @@
 ﻿import { Card, Space } from 'antd';
-import { MdToJSONRender } from './Render';
+import MessageRender from './Render';
 //@ts-ignore
+import { NodeToSchemaType } from '@chenshuai2144/md-to-json-schema';
 import pdfjs from 'html2pdf.js';
 import React from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { EditCard } from './EditCard';
+import { InvertTransition } from './Transition';
 import './air.css';
 
 export default () => {
@@ -13,7 +16,7 @@ export default () => {
 
 <!-- {"MarkdownType": "report", "section_id": "8"} -->
 ## 创始人
-
+AW
 腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。
 
 以下是关于这些创始人的详细信息：
@@ -113,16 +116,25 @@ export default () => {
             padding: 24,
           }}
         >
-          <MdToJSONRender
+          <MessageRender
             value={defaultValue}
-            itemRender={(defaultDom, node) => {
+            drag
+            itemRender={(defaultDom, node, index) => {
               if (node.type === 'heading') {
                 return <div className="markdown-body">{defaultDom}</div>;
               }
               return (
-                <Card bordered title={node.title} className="avoid-break">
-                  {defaultDom}
-                </Card>
+                <InvertTransition delay={index * 0.1}>
+                  <EditCard
+                    node={
+                      node as NodeToSchemaType<{
+                        report_id?: number;
+                        id: number;
+                      }>
+                    }
+                    defaultDom={defaultDom}
+                  />
+                </InvertTransition>
               );
             }}
           />
