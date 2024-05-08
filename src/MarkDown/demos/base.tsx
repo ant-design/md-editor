@@ -36,15 +36,42 @@ export default () => {
   
   
   ## 数据
-  <!-- {"MarkdownType": "section", "id": "17","submitText":"nihao" } -->
-  \`\`\`schema
-          [
-  
-              { "title": "分析逻辑1", "valueType": "checkCard", "extra":"查看代码", "fieldProps": {"options":["🍎 Apple", "🍐 Pear", "🍊 Orange"]}, "width": "l" },
-              { "title": "分析模块2", "valueType": "checkCard", "extra":"查看代码", "fieldProps": {"options":[{"title":"Fruit","value":"Fruit","children":[{"title":"🍎 Apple","value":"apple"},{"title":"🍐 Pear","value":"pear"},{"title":"🍊 Orange","value":"orange"}]}]}, "width": "l" },
-          ]
-  \`\`\`
-  `;
+
+  <!-- {"MarkdownType": "section", "id": "17","submitText":"下一步",  "initialValues":{"stepName":"选底层文件"} } -->
+\`\`\`schema
+  [
+    {
+      "title": "分析逻辑1",
+      "dataIndex": "post_data",
+      "valueType": "checkCard",
+      "extra": "查看代码",
+      "fieldProps": { "options": ["🍎 Apple", "🍐 Pear", "🍊 Orange"] },
+      "width": "l"
+    },
+    {
+      "title": "分析模块2",
+      "dataIndex": "post_data",
+      "valueType": "checkCard",
+      "extra": "查看代码",
+      "fieldProps": {
+        "options": [
+          {
+            "title": "Fruit",
+            "value": "Fruit",
+            "children": [
+              { "title": "🍎 Apple", "value": "apple" },
+              { "title": "🍐 Pear", "value": "pear" },
+              { "title": "🍊 Orange", "value": "orange" }
+            ]
+          }
+        ]
+      },
+      "width": "l"
+    }
+  ]
+\`\`\`
+`;
+
   return (
     <div
       style={{

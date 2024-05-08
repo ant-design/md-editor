@@ -114,7 +114,8 @@ const nodeToSchema = (
     };
   }
   if (node.type === 'html') {
-    const value = node?.value?.match(/\{[^{}]*\}/)?.at(0) || '{}';
+    const value =
+      node?.value?.replace('<!--', '').replace(' -->', '').trim() || '{}';
     try {
       try {
         return {
