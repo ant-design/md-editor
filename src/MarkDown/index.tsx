@@ -95,6 +95,7 @@ const nodeToSchema = (
       lang: node?.lang || 'text',
       nodeType: node?.type,
       originalNode: node,
+      otherProps: config,
     };
   }
   if (node.type === 'heading') {
