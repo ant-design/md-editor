@@ -203,13 +203,6 @@ export const MessageRender: FC<{
             width: '100%',
           }}
         >
-          <div
-            style={{
-              width: '100%',
-            }}
-          >
-            {node.title ? <h3>{node.title}</h3> : null}
-          </div>
           <ProConfigProvider
             valueTypeMap={{
               chatInputArea: {
