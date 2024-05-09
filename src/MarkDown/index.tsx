@@ -154,16 +154,18 @@ export const mdToApassifySchema = (md: string) => {
         let preNode = preList.at(-1);
 
         let title = getTitle(preNode, node);
-        if (title && preNode?.type === 'heading' && node.type !== 'html') {
-          preList.pop();
-        }
+
         let config = undefined;
 
-        if (preNode?.type === 'config' || preNode?.type === 'heading') {
+        if (preNode?.type === 'config' || node?.type === 'heading') {
           config = config || preNode?.otherProps;
         }
         if (preNode?.type === 'config') {
           title = preNode?.title || title;
+          preList.pop();
+        }
+
+        if (title && preNode?.type === 'heading') {
           preList.pop();
         }
 
@@ -173,6 +175,7 @@ export const mdToApassifySchema = (md: string) => {
             if (title) {
               propSchema.title = title;
             }
+            console.log(propSchema);
             preList.push(propSchema);
           } else if (propSchema === undefined) {
             if (preNode?.nodeType === 'paragraph') {

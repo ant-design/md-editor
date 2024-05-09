@@ -141,8 +141,6 @@ export const MessageRender: FC<{
     }>[];
   }, [props.value]);
 
-  console.log(schemaList);
-
   const schemaMap = useMemo(() => {
     return schemaList.reduce((acc, node, index) => {
       acc.set(index, node);
