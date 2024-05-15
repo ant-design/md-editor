@@ -1,10 +1,10 @@
 ﻿import { Bar, Pie } from '@ant-design/charts';
 import { DragOutlined, SendOutlined } from '@ant-design/icons';
-import { BetaSchemaForm, ProConfigProvider } from '@ant-design/pro-components';
 import {
   NodeToSchemaType,
-  mdToApassifySchema,
-} from '@chenshuai2144/md-to-json-schema';
+  mdToJsonSchema,
+} from '@ant-design/md-to-json-schema';
+import { BetaSchemaForm, ProConfigProvider } from '@ant-design/pro-components';
 import {
   DndContext,
   DragEndEvent,
@@ -136,10 +136,12 @@ export const MessageRender: FC<{
   ) => React.ReactNode;
 }> = (props) => {
   const schemaList = useMemo(() => {
-    return mdToApassifySchema(props.value) as NodeToSchemaType<{
+    return mdToJsonSchema(props.value) as NodeToSchemaType<{
       order?: number;
     }>[];
   }, [props.value]);
+
+  console.log(schemaList);
 
   const schemaMap = useMemo(() => {
     return schemaList.reduce((acc, node, index) => {

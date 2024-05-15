@@ -8,8 +8,8 @@
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@chenshuai2144/md-to-json-schema": ["src"],
-      "@chenshuai2144/md-to-json-schema/*": ["src/*", "*"]
+      "@ant-design/md-to-json-schema": ["src"],
+      "@ant-design/md-to-json-schema/*": ["src/*", "*"]
     }
   },
   "include": [".dumirc.ts", "src/**/*", "src/MarkDown/demos/.tsx"]

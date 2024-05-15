@@ -1,7 +1,7 @@
 ﻿import { Card, Space } from 'antd';
 import MessageRender from './Render';
 //@ts-ignore
-import { NodeToSchemaType } from '@chenshuai2144/md-to-json-schema';
+import { NodeToSchemaType } from '@ant-design/md-to-json-schema';
 import pdfjs from 'html2pdf.js';
 import React from 'react';
 import Markdown from 'react-markdown';

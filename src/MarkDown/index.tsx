@@ -7,17 +7,14 @@ import { unified } from 'unified';
 
 const myRemark = remark().use(remarkGfm);
 
-export type NodeToSchemaType<
-  T = {
-    x?: string;
-  },
-> = {
+export type NodeToSchemaType<T = any> = {
   type: string;
   value?: string;
   lang?: string;
   nodeType: string;
   title?: string;
   originalNode?: RootContent;
+  contextProps?: T;
   otherProps?: {
     chartType?: string;
     pureTitle?: string;
@@ -33,6 +30,7 @@ export type NodeToSchemaType<
 const nodeToSchema = (
   node: RootContent,
   config: NodeToSchemaType['otherProps'],
+  contextProps?: NodeToSchemaType['contextProps'],
 ): NodeToSchemaType | undefined | null => {
   if (node.type === 'table') {
     const tableHeader = node?.children?.at(0);
@@ -74,18 +72,17 @@ const nodeToSchema = (
             };
           }),
         },
+        contextProps: contextProps,
         nodeType: node?.type,
         originalNode: node,
       };
     }
     return {
       type: 'table',
-      otherProps: {
-        columns,
-        dataSource,
-      },
+      otherProps: { ...(config || {}), columns, dataSource },
       nodeType: node?.type,
       originalNode: node,
+      contextProps: contextProps,
     };
   }
   if (node.type === 'code') {
@@ -95,6 +92,7 @@ const nodeToSchema = (
       lang: node?.lang || 'text',
       nodeType: node?.type,
       originalNode: node,
+      contextProps: contextProps,
       otherProps: config,
     };
   }
@@ -111,6 +109,7 @@ const nodeToSchema = (
       value: myRemark.stringify(node),
       nodeType: node?.type,
       originalNode: node,
+      contextProps: contextProps,
     };
   }
   if (node.type === 'html') {
@@ -123,6 +122,7 @@ const nodeToSchema = (
           otherProps: json5.parse(value),
           nodeType: node?.type,
           originalNode: node,
+          contextProps: contextProps,
         };
       } catch (error) {
         return null;
@@ -143,7 +143,7 @@ const getTitle = (
   return '';
 };
 
-export const mdToApassifySchema = (md: string) => {
+export const mdToJsonSchema = (md: string) => {
   try {
     const processor = unified()
       .use(parse)
@@ -170,12 +170,16 @@ export const mdToApassifySchema = (md: string) => {
         }
 
         try {
-          const propSchema = nodeToSchema(node, config || preNode?.otherProps);
+          const propSchema = nodeToSchema(
+            node,
+            config,
+            config || preNode?.contextProps,
+          );
+          const contextProps = config || preNode?.contextProps;
           if (propSchema) {
             if (title) {
               propSchema.title = title;
             }
-            console.log(propSchema);
             preList.push(propSchema);
           } else if (propSchema === undefined) {
             if (preNode?.nodeType === 'paragraph') {
@@ -186,6 +190,7 @@ export const mdToApassifySchema = (md: string) => {
                   nodeType: node?.type,
                   originalNode: node,
                   otherProps: config,
+                  contextProps,
                   title: title || preNode?.title,
                   // @ts-ignore
                   value: preNode?.value + '\n' + myRemark.stringify(node),
@@ -195,6 +200,7 @@ export const mdToApassifySchema = (md: string) => {
                   type: 'markdown',
                   nodeType: node?.type,
                   originalNode: node,
+                  contextProps,
                   otherProps: config,
                   title: title || preNode?.title,
                   // @ts-ignore
@@ -211,6 +217,8 @@ export const mdToApassifySchema = (md: string) => {
               preList.push({
                 type: 'markdown',
                 nodeType: node?.type,
+                contextProps:
+                  config || preNode?.contextProps || preNode.otherProps,
                 originalNode: node,
                 otherProps: config,
                 title: title || preNode?.title,
@@ -222,6 +230,8 @@ export const mdToApassifySchema = (md: string) => {
                 type: 'markdown',
                 nodeType: node?.type,
                 originalNode: node,
+                contextProps:
+                  config || preNode?.contextProps || preNode?.otherProps,
                 otherProps: config,
                 title,
                 // @ts-ignore

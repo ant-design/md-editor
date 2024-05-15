@@ -1,10 +1,10 @@
 ﻿import { EditOutlined } from '@ant-design/icons';
+import { NodeToSchemaType } from '@ant-design/md-to-json-schema';
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { NodeToSchemaType } from '@chenshuai2144/md-to-json-schema';
 import { Card, message } from 'antd';
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
