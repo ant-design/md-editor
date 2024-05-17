@@ -373,10 +373,10 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
         delete otherProps.dataSource;
         delete otherProps.columns;
         return [
+          node?.title ? '## ' + node?.title || '' : '',
           Object.keys(otherProps).length > 0
             ? '<!--' + json5.stringify(otherProps) + '-->'
             : '',
-          node?.title ? '## ' + node?.title || '' : '',
           myRemark.stringify({
             type: 'root',
             children: [
