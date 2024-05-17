@@ -260,7 +260,12 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
       const otherProps = { ...node.otherProps } || {};
 
       if (node.type === 'heading') {
-        return node.value;
+        return [
+          Object.keys(otherProps).length > 0
+            ? '<!--' + json5.stringify(otherProps) + '-->'
+            : '',
+          node.value,
+        ];
       }
       if (node.type === 'table') {
         const columns: any[] = node.otherProps?.columns || [];
@@ -295,7 +300,7 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
         delete otherProps.dataSource;
         delete otherProps.columns;
         return [
-          Object.keys(otherProps).length > 1
+          Object.keys(otherProps).length > 0
             ? '<!--' + json5.stringify(otherProps) + '-->'
             : '',
           node?.title ? '## ' + node?.title || '' : '',
@@ -319,11 +324,20 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
       if (node.type === 'code') {
         return [
           node?.title ? '## ' + node?.title || '' : '',
+          Object.keys(otherProps).length > 0
+            ? '<!--' + json5.stringify(otherProps) + '-->'
+            : '',
           '```' + node.lang + '\n' + node.value + '\n```',
         ];
       }
       if (node.type === 'markdown') {
-        return [node?.title ? '## ' + node?.title || '' : '', node.value];
+        return [
+          Object.keys(otherProps).length > 0
+            ? '<!--' + json5.stringify(otherProps) + '-->'
+            : '',
+          node?.title ? '## ' + node?.title || '' : '',
+          node.value,
+        ];
       }
       if (node.type === 'chart') {
         const columns: any[] = node.otherProps?.columns || [];
@@ -359,7 +373,7 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
         delete otherProps.dataSource;
         delete otherProps.columns;
         return [
-          Object.keys(otherProps).length > 1
+          Object.keys(otherProps).length > 0
             ? '<!--' + json5.stringify(otherProps) + '-->'
             : '',
           node?.title ? '## ' + node?.title || '' : '',
@@ -381,10 +395,21 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
         ];
       }
       if (node.type === 'config') {
-        return '<!--' + json5.stringify(node.otherProps) + '-->';
+        return [
+          Object.keys(otherProps).length > 0
+            ? '<!--' + json5.stringify(otherProps) + '-->'
+            : '',
+          '<!--' + json5.stringify(node.otherProps) + '-->',
+        ];
       }
-      return node.value;
+      return [
+        Object.keys(otherProps).length > 0
+          ? '<!--' + json5.stringify(otherProps) + '-->'
+          : '',
+        node.value,
+      ];
     })
     .flat()
+    .filter(Boolean)
     .join('\n\n');
 };

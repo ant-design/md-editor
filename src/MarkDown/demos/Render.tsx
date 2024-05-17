@@ -2,6 +2,7 @@
 import { DragOutlined, SendOutlined } from '@ant-design/icons';
 import {
   NodeToSchemaType,
+  jsonSchemaToMd,
   mdToJsonSchema,
 } from '@ant-design/md-to-json-schema';
 import { BetaSchemaForm, ProConfigProvider } from '@ant-design/pro-components';
@@ -140,6 +141,8 @@ export const MessageRender: FC<{
       order?: number;
     }>[];
   }, [props.value]);
+
+  console.log(jsonSchemaToMd(schemaList));
 
   const schemaMap = useMemo(() => {
     return schemaList.reduce((acc, node, index) => {
