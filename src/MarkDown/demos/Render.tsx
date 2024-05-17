@@ -141,8 +141,6 @@ export const MessageRender: FC<{
     }>[];
   }, [props.value]);
 
-  console.log(schemaList);
-
   const schemaMap = useMemo(() => {
     return schemaList.reduce((acc, node, index) => {
       acc.set(index, node);
@@ -267,7 +265,7 @@ export const MessageRender: FC<{
         return (
           <Pie
             data={
-              node.otherProps.data?.map((item) => {
+              node.otherProps.dataSource?.map((item) => {
                 return {
                   type: item.type,
                   value: parseFloat(item.value),
@@ -286,7 +284,7 @@ export const MessageRender: FC<{
       if (node.otherProps?.chartType === 'bar') {
         return (
           <Bar
-            data={node.otherProps.data || []}
+            data={node.otherProps.dataSource || []}
             yField={node.otherProps?.y}
             xField={node.otherProps?.x}
             label={{

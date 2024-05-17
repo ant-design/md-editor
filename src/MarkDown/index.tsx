@@ -1,5 +1,5 @@
 import json5 from 'json5';
-import { RootContent } from 'mdast';
+import { RootContent, TableCell, TableRow } from 'mdast';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import parse from 'remark-parse';
@@ -21,7 +21,6 @@ export type NodeToSchemaType<T = any> = {
     x?: string;
     id?: string;
     y?: string;
-    data?: { [key: string]: string }[];
     columns?: { title: string; dataIndex: string; key: string }[];
     dataSource?: { [key: string]: string }[];
   } & T;
@@ -64,8 +63,9 @@ const nodeToSchema = (
         type: 'chart',
         otherProps: {
           ...(config || {}),
+          columns,
           chartType: config?.chartType,
-          data: dataSource.map((item) => {
+          dataSource: dataSource.map((item) => {
             delete item?.chartType;
             return {
               ...item,
@@ -96,12 +96,14 @@ const nodeToSchema = (
       otherProps: config,
     };
   }
-  if (node.type === 'heading') {
-    const pref = node?.children.at(0);
+
+  if (node.type === 'heading' && node.depth === 2) {
+    const pref = node.children?.at(0);
     return {
       type: 'heading',
       otherProps: {
         ...config,
+
         // @ts-ignore
         pureTitle: pref ? myRemark.stringify(pref) : myRemark.stringify(node),
       },
@@ -250,4 +252,139 @@ export const mdToJsonSchema = (md: string) => {
     console.log(error);
     return [];
   }
+};
+
+export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
+  return jsonSchema
+    .map((node) => {
+      const otherProps = { ...node.otherProps } || {};
+
+      if (node.type === 'heading') {
+        return node.value;
+      }
+      if (node.type === 'table') {
+        const columns: any[] = node.otherProps?.columns || [];
+        const dataSource: any[] = node.otherProps?.dataSource || [];
+        const tableHeader = columns.map((column) => {
+          return {
+            type: 'tableCell',
+            children: [
+              {
+                type: 'text',
+                value: column.title,
+              },
+            ],
+          } as TableCell;
+        });
+        const tableBody = dataSource.map((row) => {
+          return {
+            type: 'tableRow',
+            children: columns.map((column) => {
+              return {
+                type: 'tableCell',
+                children: [
+                  {
+                    type: 'text',
+                    value: row[column.dataIndex],
+                  },
+                ],
+              };
+            }),
+          } as TableRow;
+        });
+        delete otherProps.dataSource;
+        delete otherProps.columns;
+        return [
+          Object.keys(otherProps).length > 1
+            ? '<!--' + json5.stringify(otherProps) + '-->'
+            : '',
+          node?.title ? '## ' + node?.title || '' : '',
+          myRemark.stringify({
+            type: 'root',
+            children: [
+              {
+                type: 'table',
+                children: [
+                  {
+                    type: 'tableRow',
+                    children: tableHeader,
+                  },
+                  ...tableBody,
+                ],
+              },
+            ],
+          }),
+        ];
+      }
+      if (node.type === 'code') {
+        return [
+          node?.title ? '## ' + node?.title || '' : '',
+          '```' + node.lang + '\n' + node.value + '\n```',
+        ];
+      }
+      if (node.type === 'markdown') {
+        return [node?.title ? '## ' + node?.title || '' : '', node.value];
+      }
+      if (node.type === 'chart') {
+        const columns: any[] = node.otherProps?.columns || [];
+        const dataSource: any[] = node.otherProps?.dataSource || [];
+        const tableHeader = columns.map((column) => {
+          return {
+            type: 'tableCell',
+            children: [
+              {
+                type: 'text',
+                value: column.title,
+              },
+            ],
+          } as TableCell;
+        });
+        const tableBody = dataSource.map((row) => {
+          return {
+            type: 'tableRow',
+            children: columns.map((column) => {
+              return {
+                type: 'tableCell',
+                children: [
+                  {
+                    type: 'text',
+                    value: row[column.dataIndex],
+                  },
+                ],
+              };
+            }),
+          } as TableRow;
+        });
+        const otherProps = node.otherProps;
+        delete otherProps.dataSource;
+        delete otherProps.columns;
+        return [
+          Object.keys(otherProps).length > 1
+            ? '<!--' + json5.stringify(otherProps) + '-->'
+            : '',
+          node?.title ? '## ' + node?.title || '' : '',
+          myRemark.stringify({
+            type: 'root',
+            children: [
+              {
+                type: 'table',
+                children: [
+                  {
+                    type: 'tableRow',
+                    children: tableHeader,
+                  },
+                  ...tableBody,
+                ],
+              },
+            ],
+          }),
+        ];
+      }
+      if (node.type === 'config') {
+        return '<!--' + json5.stringify(node.otherProps) + '-->';
+      }
+      return node.value;
+    })
+    .flat()
+    .join('\n\n');
 };
