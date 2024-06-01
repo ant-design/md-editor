@@ -194,8 +194,8 @@ export const mdToJsonSchema = (md: string) => {
                   otherProps: config,
                   contextProps,
                   title: title || String(preNode?.title),
-                  // @ts-ignore
                   value: String(
+                    // @ts-ignore
                     preNode?.value + '\n' + myRemark.stringify(node),
                   ),
                 });
