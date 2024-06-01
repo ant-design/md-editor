@@ -39,7 +39,7 @@ const nodeToSchema = (
         ?.map((node) => myRemark.stringify(node)?.replace(/\n/g, '').trim())
         .map((title) => {
           return {
-            title,
+            title: String(title),
             dataIndex: title,
             key: title,
           };
@@ -88,7 +88,7 @@ const nodeToSchema = (
   if (node.type === 'code') {
     return {
       type: 'code',
-      value: node?.value,
+      value: String(node?.value),
       lang: node?.lang || 'text',
       nodeType: node?.type,
       originalNode: node,
@@ -155,7 +155,7 @@ export const mdToJsonSchema = (md: string) => {
       (preList, node) => {
         let preNode = preList.at(-1);
 
-        let title = getTitle(preNode, node);
+        let title = String(getTitle(preNode, node));
 
         let config = undefined;
 
@@ -163,7 +163,7 @@ export const mdToJsonSchema = (md: string) => {
           config = config || preNode?.otherProps;
         }
         if (preNode?.type === 'config') {
-          title = preNode?.title || title;
+          title = String(preNode?.title) || title;
           preList.pop();
         }
 
@@ -193,9 +193,11 @@ export const mdToJsonSchema = (md: string) => {
                   originalNode: node,
                   otherProps: config,
                   contextProps,
-                  title: title || preNode?.title,
+                  title: title || String(preNode?.title),
                   // @ts-ignore
-                  value: preNode?.value + '\n' + myRemark.stringify(node),
+                  value: String(
+                    preNode?.value + '\n' + myRemark.stringify(node),
+                  ),
                 });
               } else {
                 preList.push({
@@ -204,9 +206,9 @@ export const mdToJsonSchema = (md: string) => {
                   originalNode: node,
                   contextProps,
                   otherProps: config,
-                  title: title || preNode?.title,
+                  title: title || String(preNode?.title),
                   // @ts-ignore
-                  value: myRemark.stringify(node),
+                  value: String(myRemark.stringify(node)),
                 });
               }
             } else if (
@@ -223,9 +225,9 @@ export const mdToJsonSchema = (md: string) => {
                   config || preNode?.contextProps || preNode.otherProps,
                 originalNode: node,
                 otherProps: config,
-                title: title || preNode?.title,
+                title: title || String(preNode?.title),
                 // @ts-ignore
-                value: preNode?.value + '\n' + myRemark.stringify(node),
+                value: String(preNode?.value + '\n' + myRemark.stringify(node)),
               });
             } else {
               preList.push({
@@ -237,7 +239,7 @@ export const mdToJsonSchema = (md: string) => {
                 otherProps: config,
                 title,
                 // @ts-ignore
-                value: myRemark.stringify(node),
+                value: String(myRemark.stringify(node)),
               });
             }
           }
