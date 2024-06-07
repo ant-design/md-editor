@@ -260,6 +260,38 @@ export const mdToJsonSchema = (md: string) => {
   }
 };
 
+export const mdToTocList = (md: string) => {
+  const processor = unified().use(parse).use(remarkGfm, { singleTilde: false });
+  const ast = processor.parse(md);
+  return ast.children.reduce(
+    (preList, node) => {
+      if (node.type === 'heading') {
+        const pref = node.children?.at(0);
+        preList.push({
+          type: 'heading',
+          value:
+            pref?.type === 'text'
+              ? pref.value
+              : pref
+              ? myRemark.stringify(pref as any)
+              : myRemark.stringify(node as any),
+          nodeType: node?.type,
+          version: node?.depth,
+          originalNode: node,
+        });
+      }
+      return preList;
+    },
+    [] as {
+      type: string;
+      value: string;
+      nodeType: string;
+      version: number;
+      originalNode: RootContent;
+    }[],
+  );
+};
+
 export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
   return jsonSchema
     .map((node) => {
