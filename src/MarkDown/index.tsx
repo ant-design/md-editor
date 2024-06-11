@@ -72,6 +72,8 @@ const nodeToSchema = (
             };
           }),
         },
+        // @ts-ignore
+        value: myRemark.stringify(node),
         contextProps: contextProps,
         nodeType: node?.type,
         originalNode: node,
@@ -82,6 +84,8 @@ const nodeToSchema = (
       otherProps: { ...(config || {}), columns, dataSource },
       nodeType: node?.type,
       originalNode: node,
+      // @ts-ignore
+      value: myRemark.stringify(node),
       contextProps: contextProps,
     };
   }
