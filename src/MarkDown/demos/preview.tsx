@@ -118,7 +118,7 @@ export default () => {
               <a
                 onClick={() => {
                   console.log(
-                    PdfMarkToPdfDownload(htmlToPdfMark(mdToHtml(value)), {
+                    PdfMarkToPdfDownload(htmlToPdfMark(mdToHtml(value), {}), {
                       fileName: '腾讯研究报告.pdf',
                       fontUrl: {
                         normal:
@@ -129,7 +129,7 @@ export default () => {
                         bolditalics:
                           'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
                       },
-                    }),
+                    }).download(),
                   );
                 }}
               >

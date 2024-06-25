@@ -528,7 +528,7 @@ export const PdfMarkToPdfDownload = (
   pdfMake.fonts = {
     Roboto: props.fontUrl,
   };
-  return pdfMake.createPdf(
+  const document = pdfMake.createPdf(
     { content: pdfData },
     {
       defaultStyle: {
@@ -536,4 +536,6 @@ export const PdfMarkToPdfDownload = (
       },
     },
   );
+  document.download(props.fileName);
+  return document;
 };
