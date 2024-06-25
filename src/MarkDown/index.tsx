@@ -1,11 +1,18 @@
 import json5 from 'json5';
-import { RootContent, TableCell, TableRow } from 'mdast';
+import { Root, RootContent, TableCell, TableRow } from 'mdast';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import parse from 'remark-parse';
 import { unified } from 'unified';
 
-const myRemark = remark().use(remarkGfm);
+const stringifyObj = remark().use(remarkGfm);
+
+const myRemark = {
+  stringify: (obj: Root) => {
+    const mdStr = stringifyObj.stringify(obj);
+    return mdStr;
+  },
+};
 
 export type NodeToSchemaType<T = any> = {
   type: string;
@@ -35,8 +42,15 @@ const nodeToSchema = (
     const tableHeader = node?.children?.at(0);
     const columns =
       tableHeader?.children
-        // @ts-ignore
-        ?.map((node) => myRemark.stringify(node)?.replace(/\n/g, '').trim())
+        ?.map((node) =>
+          myRemark
+            .stringify({
+              type: 'root',
+              children: [node],
+            })
+            ?.replace(/\n/g, '')
+            .trim(),
+        )
         .map((title) => {
           return {
             title: title,
@@ -48,10 +62,11 @@ const nodeToSchema = (
     const dataSource =
       node?.children?.slice(1).map((row) => {
         return row.children?.reduce((acc, cell, index) => {
-          // @ts-ignore
           acc[columns[index].dataIndex] = myRemark
-            // @ts-ignore
-            .stringify(cell)
+            .stringify({
+              type: 'root',
+              children: [cell],
+            })
             ?.replace(/\n/g, '')
             .trim();
           return acc;
@@ -72,8 +87,10 @@ const nodeToSchema = (
             };
           }),
         },
-        // @ts-ignore
-        value: myRemark.stringify(node),
+        value: myRemark.stringify({
+          type: 'root',
+          children: [node],
+        }),
         contextProps: contextProps,
         nodeType: node?.type,
         originalNode: node,
@@ -84,8 +101,10 @@ const nodeToSchema = (
       otherProps: { ...(config || {}), columns, dataSource },
       nodeType: node?.type,
       originalNode: node,
-      // @ts-ignore
-      value: myRemark.stringify(node),
+      value: myRemark.stringify({
+        type: 'root',
+        children: [node],
+      }),
       contextProps: contextProps,
     };
   }
@@ -113,11 +132,19 @@ const nodeToSchema = (
           pref?.type === 'text'
             ? pref.value
             : pref
-            ? myRemark.stringify(pref as any)
-            : myRemark.stringify(node as any),
+            ? myRemark.stringify({
+                type: 'root',
+                children: [pref],
+              })
+            : myRemark.stringify({
+                type: 'root',
+                children: [node],
+              }),
       },
-      // @ts-ignore
-      value: myRemark.stringify(node),
+      value: myRemark.stringify({
+        type: 'root',
+        children: [node],
+      }),
       nodeType: node?.type,
       originalNode: node,
       contextProps: contextProps,
@@ -204,8 +231,12 @@ export const mdToJsonSchema = (md: string) => {
                   contextProps,
                   title: title || preNode?.title,
                   value:
-                    // @ts-ignore
-                    preNode?.value + '\n' + myRemark.stringify(node),
+                    preNode?.value +
+                    '\n' +
+                    myRemark.stringify({
+                      type: 'root',
+                      children: [node],
+                    }),
                 });
               } else {
                 preList.push({
@@ -215,8 +246,10 @@ export const mdToJsonSchema = (md: string) => {
                   contextProps,
                   otherProps: config,
                   title: title || preNode?.title,
-                  // @ts-ignore
-                  value: myRemark.stringify(node),
+                  value: myRemark.stringify({
+                    type: 'root',
+                    children: [node],
+                  }),
                 });
               }
             } else if (
@@ -234,8 +267,13 @@ export const mdToJsonSchema = (md: string) => {
                 originalNode: node,
                 otherProps: config,
                 title: title || preNode?.title,
-                // @ts-ignore
-                value: preNode?.value + '\n' + myRemark.stringify(node),
+                value:
+                  preNode?.value +
+                  '\n' +
+                  myRemark.stringify({
+                    type: 'root',
+                    children: [node],
+                  }),
               });
             } else {
               preList.push({
@@ -246,8 +284,10 @@ export const mdToJsonSchema = (md: string) => {
                   config || preNode?.contextProps || preNode?.otherProps,
                 otherProps: config,
                 title,
-                // @ts-ignore
-                value: myRemark.stringify(node),
+                value: myRemark.stringify({
+                  type: 'root',
+                  children: [node],
+                }),
               });
             }
           }
@@ -277,8 +317,14 @@ export const mdToTocList = (md: string) => {
             pref?.type === 'text'
               ? pref.value
               : pref
-              ? myRemark.stringify(pref as any)
-              : myRemark.stringify(node as any),
+              ? myRemark.stringify({
+                  type: 'root',
+                  children: [pref],
+                })
+              : myRemark.stringify({
+                  type: 'root',
+                  children: [node],
+                }),
           nodeType: node?.type,
           version: node?.depth,
           originalNode: node,
