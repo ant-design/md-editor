@@ -1,10 +1,12 @@
+import htmlToPdfmake from 'html-to-pdfmake';
 import json5 from 'json5';
 import { Root, RootContent, TableCell, TableRow } from 'mdast';
+import pdfMake from 'pdfmake';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
+import remarkHtml from 'remark-html';
 import parse from 'remark-parse';
 import { unified } from 'unified';
-
 const stringifyObj = remark().use(remarkGfm);
 
 const myRemark = {
@@ -500,4 +502,40 @@ export const jsonSchemaToMd = (jsonSchema: NodeToSchemaType[]) => {
     .flat()
     .filter(Boolean)
     .join('\n\n');
+};
+
+export const mdToHtml = (md: string) => {
+  const processor = remark().use(remarkGfm).use(remarkHtml);
+  return processor.processSync(md).toString();
+};
+
+export const htmlToPdfMark = (html: string) => {
+  return htmlToPdfmake(html, {});
+};
+
+export const PdfMarkToPdfDownload = (
+  pdfData: any,
+  props: {
+    fileName: string;
+    fontUrl: {
+      normal: string;
+      bold: string;
+      italics: string;
+      bolditalics: string;
+    };
+  },
+) => {
+  pdfMake.fonts = {
+    Roboto: props.fontUrl,
+  };
+  pdfMake
+    .createPdf(
+      { content: pdfData },
+      {
+        defaultStyle: {
+          font: 'Roboto',
+        },
+      },
+    )
+    .download(props.fileName);
 };

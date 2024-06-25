@@ -1,9 +1,13 @@
-﻿import { NodeToSchemaType } from '@ant-design/md-to-json-schema';
+﻿import {
+  NodeToSchemaType,
+  PdfMarkToPdfDownload,
+  htmlToPdfMark,
+  mdToHtml,
+} from '@ant-design/md-to-json-schema';
 import { Card, Input, Space } from 'antd';
 import { MessageRender } from './Render';
 
 //@ts-ignore
-import pdfjs from 'html2pdf.js';
 import React, { useState } from 'react';
 import { EditCard } from './EditCard';
 import { InvertTransition } from './Transition';
@@ -113,14 +117,20 @@ export default () => {
             <Space>
               <a
                 onClick={() => {
-                  pdfjs()
-                    .set({
-                      dpi: 120,
-                      html2canvas: { scale: 3, useCORS: true },
-                      pagebreak: { avoid: ['img', '.avoid-break'] },
-                    })
-                    .from(document.querySelector('#pdf'))
-                    .save();
+                  console.log(
+                    PdfMarkToPdfDownload(htmlToPdfMark(mdToHtml(value)), {
+                      fileName: '腾讯研究报告.pdf',
+                      fontUrl: {
+                        normal:
+                          'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                        bold: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                        italics:
+                          'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                        bolditalics:
+                          'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                      },
+                    }),
+                  );
                 }}
               >
                 导出 PDF

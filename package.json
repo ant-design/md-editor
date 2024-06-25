@@ -50,9 +50,12 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "framer-motion": "^11.1.7",
+    "html-to-pdfmake": "^2.5.10",
     "json5": "^2.2.3",
+    "pdfmake": "^0.2.10",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
+    "remark-html": "^16.0.1",
     "remark-parse": "^11.0.0",
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0"
