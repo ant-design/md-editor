@@ -509,8 +509,8 @@ export const mdToHtml = (md: string) => {
   return processor.processSync(md).toString();
 };
 
-export const htmlToPdfMark = (html: string) => {
-  return htmlToPdfmake(html, {});
+export const htmlToPdfMark = (html: string, options: any) => {
+  return htmlToPdfmake(html, options);
 };
 
 export const PdfMarkToPdfDownload = (
@@ -528,14 +528,12 @@ export const PdfMarkToPdfDownload = (
   pdfMake.fonts = {
     Roboto: props.fontUrl,
   };
-  pdfMake
-    .createPdf(
-      { content: pdfData },
-      {
-        defaultStyle: {
-          font: 'Roboto',
-        },
+  return pdfMake.createPdf(
+    { content: pdfData },
+    {
+      defaultStyle: {
+        font: 'Roboto',
       },
-    )
-    .download(props.fileName);
+    },
+  );
 };
