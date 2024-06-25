@@ -69,7 +69,6 @@
     "@types/mdast": "^4.0.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@uiw/react-md-editor": "^4.0.4",
     "@umijs/lint": "^4.0.0",
     "antd": "^5.16.1",
     "dumi": "^2.2.13",
