@@ -118,18 +118,25 @@ export default () => {
               <a
                 onClick={() => {
                   console.log(
-                    PdfMarkToPdfDownload(htmlToPdfMark(mdToHtml(value), {}), {
-                      fileName: '腾讯研究报告.pdf',
-                      fontUrl: {
-                        normal:
-                          'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                        bold: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                        italics:
-                          'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                        bolditalics:
-                          'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                    PdfMarkToPdfDownload(
+                      htmlToPdfMark(mdToHtml(value), {
+                        defaultStyles: {
+                          th: { bold: true, fillColor: '#DFEAFD' },
+                        },
+                      }),
+                      {
+                        fileName: '腾讯研究报告.pdf',
+                        fontUrl: {
+                          normal:
+                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                          bold: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                          italics:
+                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                          bolditalics:
+                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
+                        },
                       },
-                    }).download(),
+                    ).download(),
                   );
                 }}
               >

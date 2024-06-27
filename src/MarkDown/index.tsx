@@ -41,6 +41,8 @@ const nodeToSchema = (
   contextProps?: NodeToSchemaType['contextProps'],
 ): NodeToSchemaType | undefined | null => {
   if (node.type === 'table') {
+    const keyMap = new Map<string, string>();
+
     const tableHeader = node?.children?.at(0);
     const columns =
       tableHeader?.children
@@ -53,7 +55,16 @@ const nodeToSchema = (
             ?.replace(/\n/g, '')
             .trim(),
         )
-        .map((title) => {
+        .map((title, index) => {
+          if (keyMap.has(title)) {
+            keyMap.set(title, keyMap.get(title) + '_' + index);
+            return {
+              title: title,
+              dataIndex: title + '_' + index,
+              key: title + '_' + index,
+            };
+          }
+          keyMap.set(title, title);
           return {
             title: title,
             dataIndex: title,
@@ -74,7 +85,6 @@ const nodeToSchema = (
           return acc;
         }, {} as any);
       }) || [];
-
     if (config?.chartType) {
       return {
         type: 'chart',
@@ -529,7 +539,9 @@ export const PdfMarkToPdfDownload = (
     Roboto: props.fontUrl,
   };
   const document = pdfMake.createPdf(
-    { content: pdfData },
+    {
+      content: pdfData,
+    },
     {
       defaultStyle: {
         font: 'Roboto',
