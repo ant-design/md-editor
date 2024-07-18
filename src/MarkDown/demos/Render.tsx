@@ -1,27 +1,11 @@
 ﻿import { Bar, Pie } from '@ant-design/charts';
-import { DragOutlined, SendOutlined } from '@ant-design/icons';
+import { SendOutlined } from '@ant-design/icons';
 import {
   NodeToSchemaType,
   mdToJsonSchema,
 } from '@ant-design/md-to-json-schema';
 import { BetaSchemaForm, ProConfigProvider } from '@ant-design/pro-components';
-import {
-  DndContext,
-  DragEndEvent,
-  KeyboardSensor,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+
 import { Input, Table, message } from 'antd';
 import json5 from 'json5';
 import React, { useEffect, useMemo, type FC } from 'react';
@@ -40,50 +24,6 @@ const defaultPieConfig = {
     },
   },
 };
-
-export function SortableItem(props: {
-  id: any;
-  children: React.ReactNode;
-  drag?: boolean;
-}) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({
-      id: props.id,
-    });
-
-  if (transform) {
-    transform.scaleX = 1;
-    transform.scaleY = 1;
-  }
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-  if (props.drag === true) {
-    return (
-      <div
-        style={{
-          ...style,
-          display: 'flex',
-          gap: 8,
-          position: 'relative',
-        }}
-        {...attributes}
-      >
-        {React.cloneElement(props.children as React.ReactElement, {
-          ...(props.children as React.ReactElement)?.props,
-          dragHandle: (
-            <div ref={setNodeRef} {...listeners}>
-              <DragOutlined />
-            </div>
-          ),
-        })}
-      </div>
-    );
-  }
-  return props.children;
-}
 
 class ErrorBoundary extends React.Component<
   {
@@ -140,6 +80,8 @@ export const MessageRender: FC<{
       order?: number;
     }>[];
   }, [props.value]);
+
+  console.log(schemaList);
 
   const schemaMap = useMemo(() => {
     return schemaList.reduce((acc, node, index) => {
@@ -325,71 +267,30 @@ export const MessageRender: FC<{
     );
   };
 
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  );
-
-  function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-
-    if (!over) return;
-    if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id as unknown as number);
-        const newIndex = items.indexOf(over.id as unknown as number);
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
-  }
-
   return (
-    <DndContext
-      key={props.value?.toString()}
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        {items.map((index) => {
-          const node = schemaMap.get(index) as NodeToSchemaType<{
-            submitText?: string;
-            x?: string | undefined;
-          }>;
-          if (!node) {
-            console.log('node not found', index, schemaMap);
-            return null;
-          }
+    <div key={props.value?.toString()}>
+      {items.map((index) => {
+        const node = schemaMap.get(index) as NodeToSchemaType<{
+          submitText?: string;
+          x?: string | undefined;
+        }>;
+        if (!node) {
+          console.log('node not found', index, schemaMap);
+          return null;
+        }
 
-          const dom = (
-            <ErrorBoundary>{defaultRender(node, index)}</ErrorBoundary>
-          );
+        const dom = <ErrorBoundary>{defaultRender(node, index)}</ErrorBoundary>;
 
-          if (props.itemRender) {
-            return (
-              <SortableItem id={index} key={index} drag={props.drag}>
-                {props.itemRender(dom, node, index)}
-              </SortableItem>
-            );
-          }
+        if (props.itemRender) {
+          return props.itemRender(dom, node, index);
+        }
 
-          if (node.type === 'heading') {
-            return (
-              <SortableItem id={index} key={index}>
-                {dom}
-              </SortableItem>
-            );
-          }
-          return (
-            <SortableItem id={index} key={index} drag={props.drag}>
-              {dom}
-            </SortableItem>
-          );
-        })}
-      </SortableContext>
-    </DndContext>
+        if (node.type === 'heading') {
+          return dom;
+        }
+        return dom;
+      })}
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "jsx": "react",
+    "target": "ESNext",
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],

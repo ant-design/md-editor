@@ -210,6 +210,7 @@ export const mdToJsonSchema = (md: string) => {
         if (preNode?.type === 'config' || node?.type === 'heading') {
           config = config || preNode?.otherProps;
         }
+
         if (preNode?.type === 'config') {
           title = preNode?.title || title;
           preList.pop();
