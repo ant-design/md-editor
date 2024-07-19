@@ -1,4 +1,13 @@
-import { Editor, Element, Node, NodeEntry, Path, Point, Range, Transforms } from 'slate';
+import {
+  Editor,
+  Element,
+  Node,
+  NodeEntry,
+  Path,
+  Point,
+  Range,
+  Transforms,
+} from 'slate';
 import { Elements, ListNode, TableRowNode } from '../../el';
 import { EditorUtils } from '../utils/editorUtils';
 
@@ -26,11 +35,18 @@ export type CheckMdParams = {
 interface MdNode {
   reg: RegExp;
   matchKey?: string | RegExp;
-  checkAllow?: (ctx: { editor: Editor; node: NodeEntry<Element>; sel: Range }) => boolean;
+  checkAllow?: (ctx: {
+    editor: Editor;
+    node: NodeEntry<Element>;
+    sel: Range;
+  }) => boolean;
   run: (ctx: CheckMdParams) => void | boolean;
 }
 
-const matchText = (insert: (ctx: CheckMdParams) => void, matchString?: string) => {
+const matchText = (
+  insert: (ctx: CheckMdParams) => void,
+  matchString?: string,
+) => {
   return (ctx: CheckMdParams) => {
     const { sel, editor, match, startText } = ctx;
     const leaf = Node.leaf(editor, sel.anchor.path);
@@ -42,7 +58,10 @@ const matchText = (insert: (ctx: CheckMdParams) => void, matchString?: string) =
     }
     Transforms.select(editor, {
       anchor: { path: sel.anchor.path, offset: match.index! },
-      focus: { path: sel.anchor.path, offset: match.index! + startText.length - 1 },
+      focus: {
+        path: sel.anchor.path,
+        offset: match.index! + startText.length - 1,
+      },
     });
     insert(ctx);
     const addSel = editor.selection;
@@ -71,7 +90,10 @@ export const MdElements: Record<string, MdNode> = {
             },
             {
               type: 'table-row',
-              children: columns.map((c) => ({ type: 'table-cell', children: [{ text: '' }] })),
+              children: columns.map((c) => ({
+                type: 'table-cell',
+                children: [{ text: '' }],
+              })),
             },
           ] as TableRowNode[],
         },
@@ -137,9 +159,15 @@ export const MdElements: Record<string, MdNode> = {
     run: ({ editor, match, sel, startText }) => {
       Transforms.select(editor, {
         anchor: { path: sel.anchor.path, offset: match.index! },
-        focus: { path: sel.anchor.path, offset: match.index! + startText.length },
+        focus: {
+          path: sel.anchor.path,
+          offset: match.index! + startText.length,
+        },
       });
-      Transforms.insertNodes(editor, [{ text: match[1], url: match[2] }, { text: '' }]);
+      Transforms.insertNodes(editor, [
+        { text: match[1], url: match[2] },
+        { text: '' },
+      ]);
       return true;
     },
   },
@@ -149,10 +177,18 @@ export const MdElements: Record<string, MdNode> = {
     run: ({ editor, match, sel, startText }) => {
       Transforms.select(editor, {
         anchor: { path: sel.anchor.path, offset: match.index! },
-        focus: { path: sel.anchor.path, offset: match.index! + startText.length },
+        focus: {
+          path: sel.anchor.path,
+          offset: match.index! + startText.length,
+        },
       });
       Transforms.insertNodes(editor, [
-        { type: 'media', alt: match[1], url: match[2], children: [{ text: '' }] },
+        {
+          type: 'media',
+          alt: match[1],
+          url: match[2],
+          children: [{ text: '' }],
+        },
       ]);
       return true;
     },
@@ -162,7 +198,8 @@ export const MdElements: Record<string, MdNode> = {
     matchKey: ' ',
     checkAllow: (ctx) => {
       if (ctx.node[0].type === 'paragraph') {
-        const list = Editor.parent(ctx.editor, ctx.node[1])[0].type === 'list-item';
+        const list =
+          Editor.parent(ctx.editor, ctx.node[1])[0].type === 'list-item';
         return !(list && !Path.hasPrevious(ctx.node[1]));
       }
       return false;
@@ -197,10 +234,14 @@ export const MdElements: Record<string, MdNode> = {
       if (Editor.parent(ctx.editor, ctx.node[1])[0].type === 'list-item') {
         return Path.hasPrevious(ctx.node[1]);
       }
-      return ['paragraph'].includes(ctx.node[0].type) && !Path.hasPrevious(ctx.sel.anchor.path);
+      return (
+        ['paragraph'].includes(ctx.node[0].type) &&
+        !Path.hasPrevious(ctx.sel.anchor.path)
+      );
     },
     run: ({ editor, match, sel, path }) => {
-      const removeLength = match[0].match(/\s*(\d+\.|-|\*|\+)\s+/)?.[0].length || 0;
+      const removeLength =
+        match[0].match(/\s*(\d+\.|-|\*|\+)\s+/)?.[0].length || 0;
       let texts: any[] = [{ text: '' }];
       if (!Point.equals(sel.anchor, Editor.end(editor, path))) {
         texts = EditorUtils.cutText(editor, sel.anchor);
@@ -233,10 +274,15 @@ export const MdElements: Record<string, MdNode> = {
   },
   hr: {
     reg: /^\s*\*\*\*|___|---\s*/,
-    checkAllow: (ctx) => ctx.node[0].type === 'paragraph' && ctx.node[1][0] !== 0,
+    checkAllow: (ctx) =>
+      ctx.node[0].type === 'paragraph' && ctx.node[1][0] !== 0,
     run: ({ editor, path }) => {
       Transforms.delete(editor, { at: path });
-      Transforms.insertNodes(editor, { type: 'hr', children: [{ text: '' }] }, { at: path });
+      Transforms.insertNodes(
+        editor,
+        { type: 'hr', children: [{ text: '' }] },
+        { at: path },
+      );
       insertAfter(editor, path);
     },
   },
@@ -276,7 +322,10 @@ export const MdElements: Record<string, MdNode> = {
     },
     run: ({ sel, editor, path, match, el }) => {
       if (sel && Range.isCollapsed(sel)) {
-        const text = EditorUtils.cutText(editor, { path: sel.anchor.path, offset: 1 });
+        const text = EditorUtils.cutText(editor, {
+          path: sel.anchor.path,
+          offset: 1,
+        });
         Transforms.delete(editor, {
           at: path,
         });
@@ -297,14 +346,18 @@ export const MdElements: Record<string, MdNode> = {
     reg: /[*]{2}([^*][^\n]*)[*]{2}/,
     matchKey: '*',
     run: matchText(({ editor, match }) => {
-      Transforms.insertNodes(editor, [{ text: match[1], bold: true }], { select: true });
+      Transforms.insertNodes(editor, [{ text: match[1], bold: true }], {
+        select: true,
+      });
     }, '*'),
   },
   italic: {
     reg: /[*]([^\n*]+)[*]/,
     matchKey: '*',
     run: matchText(({ editor, match }) => {
-      Transforms.insertNodes(editor, [{ text: match[1], italic: true }], { select: true });
+      Transforms.insertNodes(editor, [{ text: match[1], italic: true }], {
+        select: true,
+      });
     }, '*'),
   },
   inlineCode: {
@@ -318,16 +371,24 @@ export const MdElements: Record<string, MdNode> = {
     reg: /[*]{3}([^\n]+)[*]{3}/,
     matchKey: '*',
     run: matchText(({ editor, match }) => {
-      Transforms.insertNodes(editor, [{ text: match[1], italic: true, bold: true }], {
-        select: true,
-      });
+      Transforms.insertNodes(
+        editor,
+        [{ text: match[1], italic: true, bold: true }],
+        {
+          select: true,
+        },
+      );
     }),
   },
   strikethrough: {
     reg: /~~([^\n]+)~~/,
     matchKey: '~',
     run: matchText(({ editor, match }) => {
-      Transforms.insertNodes(editor, [{ text: match[1], strikethrough: true }], { select: true });
+      Transforms.insertNodes(
+        editor,
+        [{ text: match[1], strikethrough: true }],
+        { select: true },
+      );
     }),
   },
 };

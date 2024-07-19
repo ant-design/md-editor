@@ -1,10 +1,21 @@
 import { runInAction } from 'mobx';
 import { useMemo, useRef } from 'react';
 import { Subject } from 'rxjs';
-import { BaseOperation, BaseSelection, Editor, Element, NodeEntry, Path, Range } from 'slate';
+import {
+  BaseOperation,
+  BaseSelection,
+  Editor,
+  Element,
+  NodeEntry,
+  Path,
+  Range,
+} from 'slate';
 import { EditorStore } from '../store';
 
-export const selChange$ = new Subject<{ sel: BaseSelection; node: NodeEntry<any> } | null>();
+export const selChange$ = new Subject<{
+  sel: BaseSelection;
+  node: NodeEntry<any>;
+} | null>();
 const floatBarIgnoreNode = new Set(['code-line']);
 
 export function useOnchange(editor: Editor, store: EditorStore) {
@@ -40,7 +51,9 @@ export function useOnchange(editor: Editor, store: EditorStore) {
         const domSelection = window.getSelection();
         const domRange = domSelection?.getRangeAt(0);
         if (rangeContent.current === domRange?.toString()) {
-          return store.setState((state) => (state.refreshFloatBar = !state.refreshFloatBar));
+          return store.setState(
+            (state) => (state.refreshFloatBar = !state.refreshFloatBar),
+          );
         }
         rangeContent.current = domRange?.toString() || '';
         const rect = domRange?.getBoundingClientRect();

@@ -28,7 +28,10 @@ export const getRemoteMediaType = async (url: string) => {
   }
 };
 
-export const convertRemoteImages = async (node: IFileItem, store: EditorStore) => {
+export const convertRemoteImages = async (
+  node: IFileItem,
+  store: EditorStore,
+) => {
   if (node.ext === 'md') {
     const schema = node.schema;
     if (schema) {

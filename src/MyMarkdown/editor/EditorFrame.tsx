@@ -15,7 +15,10 @@ import { getImageData } from './utils';
 import { mediaType } from './utils/dom';
 
 export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
-  const mt = useMemo(() => mediaType(tab.current?.filePath || ''), [tab.current]);
+  const mt = useMemo(
+    () => mediaType(tab.current?.filePath || ''),
+    [tab.current],
+  );
   useLayoutEffect(() => {
     tab.store.openFilePath = tab.current?.filePath || null;
   }, [tab.current?.filePath]);
@@ -40,7 +43,11 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
             <>
               {mt === 'image' ? (
                 <div style={{ paddingTop: pt + 20 }}>
-                  <img src={getImageData(tab.current?.filePath)} alt="" className={'block'} />
+                  <img
+                    src={getImageData(tab.current?.filePath)}
+                    alt=""
+                    className={'block'}
+                  />
                 </div>
               ) : (
                 <div
@@ -51,7 +58,9 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
                   className={'px-10 pb-5'}
                 >
                   <iframe
-                    className={'w-full h-full overflow-y-auto rounded border b1'}
+                    className={
+                      'w-full h-full overflow-y-auto rounded border b1'
+                    }
                     src={tab.current.filePath}
                   />
                 </div>
@@ -70,7 +79,9 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
             visible={tab.store.openViewImage}
             onClose={action(() => (tab.store.openViewImage = false))}
             index={tab.store.viewImageIndex}
-            onIndexChange={action((i: number) => (tab.store.viewImageIndex = i))}
+            onIndexChange={action(
+              (i: number) => (tab.store.viewImageIndex = i),
+            )}
           />
         </div>
         {tab && <Heading note={tab.current} />}

@@ -23,7 +23,15 @@ import { codes, constants, types } from 'micromark-util-symbol';
  * @param {TokenType} stringType
  * @param {boolean | undefined} [disallowEol=false]
  */
-export function factoryLabel(effects, ok, nok, type, markerType, stringType, disallowEol) {
+export function factoryLabel(
+  effects,
+  ok,
+  nok,
+  type,
+  markerType,
+  stringType,
+  disallowEol,
+) {
   let size = 0;
   let balance = 0;
   /** @type {Token | undefined} */

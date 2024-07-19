@@ -298,7 +298,9 @@ export function factoryAttributes(
 
     // Note: blank lines can’t exist in content.
     if (markdownLineEnding(code)) {
-      return disallowEol ? nok(code) : factoryWhitespace(effects, valueQuotedBetween)(code);
+      return disallowEol
+        ? nok(code)
+        : factoryWhitespace(effects, valueQuotedBetween)(code);
     }
 
     effects.enter(attributeValueData);

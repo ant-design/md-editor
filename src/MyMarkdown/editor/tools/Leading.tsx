@@ -109,9 +109,14 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
         box.current = e?.parentElement || undefined;
       }}
     >
-      <div className={`h-full pt-10 pb-10 pr-4 overflow-y-auto`} style={{ width: 200 }}>
+      <div
+        className={`h-full pt-10 pb-10 pr-4 overflow-y-auto`}
+        style={{ width: 200 }}
+      >
         <div className={'text-gray-500 text-sm mb-4'}>大纲</div>
-        <div className={'space-y-1 dark:text-gray-400 text-gray-600/90 text-sm'}>
+        <div
+          className={'space-y-1 dark:text-gray-400 text-gray-600/90 text-sm'}
+        >
           {state().headings.map((h) => (
             <div
               key={h.key}

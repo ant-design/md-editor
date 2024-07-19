@@ -61,7 +61,11 @@ export const deserialize = (
 
   const { nodeName } = el;
   let target = el;
-  if (nodeName === 'PRE' && el.childNodes[0] && el.childNodes[0].nodeName === 'CODE') {
+  if (
+    nodeName === 'PRE' &&
+    el.childNodes[0] &&
+    el.childNodes[0].nodeName === 'CODE'
+  ) {
     target = el.childNodes[0];
   }
   let children = Array.from(target.childNodes)
@@ -79,12 +83,17 @@ export const deserialize = (
   }
   if (
     TEXT_TAGS[nodeName as 'A'] &&
-    Array.from(el.childNodes).some((e) => e.nodeType !== 3 && !TEXT_TAGS[e.nodeName as 'A'])
+    Array.from(el.childNodes).some(
+      (e) => e.nodeType !== 3 && !TEXT_TAGS[e.nodeName as 'A'],
+    )
   ) {
     return jsx('fragment', {}, children);
   }
   if (ELEMENT_TAGS[nodeName as 'BLOCKQUOTE']) {
-    if (!parentTag || !['h1', 'h2', 'code', 'h3', 'h4', 'h5', 'th', 'td'].includes(parentTag)) {
+    if (
+      !parentTag ||
+      !['h1', 'h2', 'code', 'h3', 'h4', 'h5', 'th', 'td'].includes(parentTag)
+    ) {
       if (nodeName === 'PRE') {
         const dom = findElementByNode(el);
         const dataset = dom.dataset;
@@ -98,7 +107,9 @@ export const deserialize = (
                 type: 'code-line',
                 children: [
                   {
-                    text: n.textContent?.replace(/\n/g, '')?.replace(/\t/g, '  ') || '',
+                    text:
+                      n.textContent?.replace(/\n/g, '')?.replace(/\t/g, '  ') ||
+                      '',
                   },
                 ],
               };
@@ -155,9 +166,14 @@ const getTextsNode = (nodes: any[]) => {
 const processFragment = (fragment: any[], parentType = '') => {
   let trans: any[] = [];
   let container: null | any = null;
-  fragment = fragment.filter((f) => !(!f.type && !f.text) || (f.type === 'media' && !f.url));
+  fragment = fragment.filter(
+    (f) => !(!f.type && !f.text) || (f.type === 'media' && !f.url),
+  );
   for (let f of fragment) {
-    if (f.type === 'paragraph' && f.children?.every((s: any) => s.type === 'media')) {
+    if (
+      f.type === 'paragraph' &&
+      f.children?.every((s: any) => s.type === 'media')
+    ) {
       trans.push(...f.children);
       continue;
     }
@@ -215,14 +231,19 @@ export const htmlParser = (editor: Editor, html: string) => {
       Transforms.select(editor, Range.start(sel));
       setTimeout(() => {
         const node = Editor.node(editor, [0]);
-        if (editor.children.length > 1 && node[0].type === 'paragraph' && !Node.string(node[0])) {
+        if (
+          editor.children.length > 1 &&
+          node[0].type === 'paragraph' &&
+          !Node.string(node[0])
+        ) {
           Transforms.delete(editor, { at: [0] });
         }
       });
     }
     const [n] = Editor.nodes<Element>(editor, {
       match: (n) =>
-        Element.isElement(n) && ['code', 'table-cell', 'head', 'list-item'].includes(n.type),
+        Element.isElement(n) &&
+        ['code', 'table-cell', 'head', 'list-item'].includes(n.type),
       at: Range.isCollapsed(sel) ? sel.anchor.path : Range.start(sel).path,
     });
     if (n) node = n;
@@ -238,12 +259,18 @@ export const htmlParser = (editor: Editor, html: string) => {
           if (!Node.string(p[0])) {
             Transforms.insertNodes(editor, children, { at: Path.next(n[1]) });
             const parent = Node.parent(editor, p[1]);
-            const nextPath = [...n[1].slice(0, -1), n[1][n[1].length - 1] + children.length];
+            const nextPath = [
+              ...n[1].slice(0, -1),
+              n[1][n[1].length - 1] + children.length,
+            ];
             if (parent.children.length > 1) {
               Transforms.moveNodes(editor, {
                 at: {
                   anchor: { path: Path.next(p[1]), offset: 0 },
-                  focus: { path: [...p[1].slice(0, -1), parent.children.length - 1], offset: 0 },
+                  focus: {
+                    path: [...p[1].slice(0, -1), parent.children.length - 1],
+                    offset: 0,
+                  },
                 },
                 to: [...nextPath, 1],
               });
@@ -251,17 +278,25 @@ export const htmlParser = (editor: Editor, html: string) => {
             Transforms.delete(editor, { at: n[1] });
             Transforms.select(
               editor,
-              Editor.end(editor, [...nextPath.slice(0, -1), nextPath.pop() - 1]),
+              Editor.end(editor, [
+                ...nextPath.slice(0, -1),
+                nextPath.pop() - 1,
+              ]),
             );
           } else {
             Transforms.insertNodes(editor, children, { at: Path.next(n[1]) });
             Transforms.select(
               editor,
-              Editor.end(editor, [...n[1].slice(0, -1), n[1].pop()! + children.length]),
+              Editor.end(editor, [
+                ...n[1].slice(0, -1),
+                n[1].pop()! + children.length,
+              ]),
             );
           }
           if (fragment.length > 1) {
-            Transforms.insertNodes(editor, fragment.slice(1), { at: Path.next(Path.parent(n[1])) });
+            Transforms.insertNodes(editor, fragment.slice(1), {
+              at: Path.next(Path.parent(n[1])),
+            });
           }
           return true;
         }
@@ -296,14 +331,18 @@ export const htmlParser = (editor: Editor, html: string) => {
       }
     }
   }
-  if (inner && !['code', 'code-line', 'table-cell'].includes(node?.[0].type)) return false;
+  if (inner && !['code', 'code-line', 'table-cell'].includes(node?.[0].type))
+    return false;
   if (fragment[0].type === 'media') {
     const path = EditorUtils.findMediaInsertPath(editor);
     if (path) {
       Transforms.insertFragment(editor, fragment, { at: path });
       Transforms.select(
         editor,
-        Editor.start(editor, [...path.slice(0, -1), path[path.length - 1] + fragment.length - 1]),
+        Editor.start(editor, [
+          ...path.slice(0, -1),
+          path[path.length - 1] + fragment.length - 1,
+        ]),
       );
     }
   } else {

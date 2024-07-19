@@ -10,7 +10,13 @@ import {
   Range,
   Transforms,
 } from 'slate';
-import { CodeLineNode, HeadNode, NodeTypes, ParagraphNode, TableNode } from '../../../el';
+import {
+  CodeLineNode,
+  HeadNode,
+  NodeTypes,
+  ParagraphNode,
+  TableNode,
+} from '../../../el';
 import { EditorStore } from '../../store';
 import { isMod } from '../../utils';
 import { EditorUtils } from '../../utils/editorUtils';
@@ -21,7 +27,10 @@ export class EnterKey {
     ['[', ']'],
     ['{', '}'],
   ]);
-  constructor(private readonly store: EditorStore, private readonly backspace: BackspaceKey) {}
+  constructor(
+    private readonly store: EditorStore,
+    private readonly backspace: BackspaceKey,
+  ) {}
   get editor() {
     return this.store.editor;
   }
@@ -82,7 +91,10 @@ export class EnterKey {
                   Transforms.move(this.editor, { unit: 'offset' });
                 }
               }
-            } else if (sel.anchor.offset === 0 && !Path.hasPrevious(sel.anchor.path)) {
+            } else if (
+              sel.anchor.offset === 0 &&
+              !Path.hasPrevious(sel.anchor.path)
+            ) {
               EditorUtils.moveBeforeSpace(this.editor, sel.anchor.path);
             }
           }
@@ -144,14 +156,20 @@ export class EnterKey {
       if (ul.children.length === 1 && realEmpty) {
         e.preventDefault();
         Transforms.delete(this.editor, { at: ulPath });
-        Transforms.insertNodes(this.editor, EditorUtils.p, { at: ulPath, select: true });
+        Transforms.insertNodes(this.editor, EditorUtils.p, {
+          at: ulPath,
+          select: true,
+        });
         return;
       }
       if (realEmpty) {
         e.preventDefault();
         if (!Path.hasPrevious(parentPath)) {
           Transforms.delete(this.editor, { at: parentPath });
-          Transforms.insertNodes(this.editor, EditorUtils.p, { at: ulPath, select: true });
+          Transforms.insertNodes(this.editor, EditorUtils.p, {
+            at: ulPath,
+            select: true,
+          });
         } else if (!Editor.hasPath(this.editor, Path.next(parentPath))) {
           Transforms.delete(this.editor, { at: parentPath });
           Transforms.insertNodes(this.editor, EditorUtils.p, {
@@ -200,7 +218,11 @@ export class EnterKey {
     }
   }
 
-  private table(node: NodeEntry<TableNode>, sel: BaseSelection, e: React.KeyboardEvent) {
+  private table(
+    node: NodeEntry<TableNode>,
+    sel: BaseSelection,
+    e: React.KeyboardEvent,
+  ) {
     if (isMod(e)) {
       if (e.shiftKey) {
         Transforms.insertNodes(
@@ -220,19 +242,28 @@ export class EnterKey {
         Transforms.insertNodes(this.editor, insertRow, {
           at: Path.next(row[1]),
         });
-        Transforms.select(this.editor, Editor.start(this.editor, Path.next(row[1])));
+        Transforms.select(
+          this.editor,
+          Editor.start(this.editor, Path.next(row[1])),
+        );
       }
     } else {
       const index = node[1][node[1].length - 1];
       const nextRow = Path.next(Path.parent(node[1]));
       if (Editor.hasPath(this.editor, nextRow)) {
-        Transforms.select(this.editor, Editor.end(this.editor, [...nextRow, index]));
+        Transforms.select(
+          this.editor,
+          Editor.end(this.editor, [...nextRow, index]),
+        );
       } else {
         const tableNext = Path.next(Path.parent(Path.parent(node[1])));
         if (Editor.hasPath(this.editor, tableNext)) {
           Transforms.select(this.editor, Editor.start(this.editor, tableNext));
         } else {
-          Transforms.insertNodes(this.editor, EditorUtils.p, { at: tableNext, select: true });
+          Transforms.insertNodes(this.editor, EditorUtils.p, {
+            at: tableNext,
+            select: true,
+          });
         }
       }
     }
@@ -281,20 +312,28 @@ export class EnterKey {
           },
           { at: Path.next(path) },
         );
-        Transforms.select(this.editor, Editor.start(this.editor, Path.next(path)));
+        Transforms.select(
+          this.editor,
+          Editor.start(this.editor, Path.next(path)),
+        );
       }
     }
     return true;
   }
 
-  private paragraph(e: React.KeyboardEvent, node: NodeEntry<ParagraphNode>, sel: Range) {
+  private paragraph(
+    e: React.KeyboardEvent,
+    node: NodeEntry<ParagraphNode>,
+    sel: Range,
+  ) {
     const parent = Editor.parent(this.editor, node[1]);
     const end = Editor.end(this.editor, node[1]);
     if (Point.equals(end, sel.focus)) {
       if (parent[0].type !== 'list-item' || Path.hasPrevious(node[1])) {
         const str = Node.string(node[0]);
         for (let n of BlockMathNodes) {
-          if (n.checkAllow && !n.checkAllow({ editor: this.editor, node, sel })) continue;
+          if (n.checkAllow && !n.checkAllow({ editor: this.editor, node, sel }))
+            continue;
           const m = str.match(n.reg);
           if (m) {
             n.run({
@@ -332,7 +371,10 @@ export class EnterKey {
             },
           });
         }
-        Transforms.select(this.editor, Editor.start(this.editor, Path.next(node[1])));
+        Transforms.select(
+          this.editor,
+          Editor.start(this.editor, Path.next(node[1])),
+        );
         e.preventDefault();
       } else {
         e.preventDefault();
@@ -353,7 +395,10 @@ export class EnterKey {
               },
               { at: parent[1] },
             );
-            Transforms.select(this.editor, Editor.start(this.editor, Path.next(parent[1])));
+            Transforms.select(
+              this.editor,
+              Editor.start(this.editor, Path.next(parent[1])),
+            );
             return;
           } else {
             checked = false;
@@ -386,15 +431,28 @@ export class EnterKey {
           EditorUtils.clearMarks(this.editor);
         }
 
-        Transforms.select(this.editor, Editor.start(this.editor, Path.next(parent[1])));
+        Transforms.select(
+          this.editor,
+          Editor.start(this.editor, Path.next(parent[1])),
+        );
         if (Editor.hasPath(this.editor, Path.next(node[1]))) {
-          EditorUtils.moveNodes(this.editor, Path.next(node[1]), Path.next(parent[1]), 1);
+          EditorUtils.moveNodes(
+            this.editor,
+            Path.next(node[1]),
+            Path.next(parent[1]),
+            1,
+          );
         }
       }
     }
   }
 
-  private codeLine(node: CodeLineNode, path: Path, sel: BaseSelection, e: React.KeyboardEvent) {
+  private codeLine(
+    node: CodeLineNode,
+    path: Path,
+    sel: BaseSelection,
+    e: React.KeyboardEvent,
+  ) {
     if (isMod(e)) {
       const parent = Path.parent(path);
       Transforms.insertNodes(
@@ -425,15 +483,25 @@ export class EnterKey {
         const line = { type: 'code-line', children: [{ text: space + '  ' }] };
         Transforms.insertNodes(
           this.editor,
-          [line, { type: 'code-line', children: [{ text: space + remainText }] }],
+          [
+            line,
+            { type: 'code-line', children: [{ text: space + remainText }] },
+          ],
           { at: next },
         );
-        Transforms.select(this.editor, Editor.end(this.editor, Path.next(path)));
+        Transforms.select(
+          this.editor,
+          Editor.end(this.editor, Path.next(path)),
+        );
       } else {
         const text = space + '  ' + str.slice(end.offset);
-        Transforms.insertNodes(this.editor, [{ type: 'code-line', children: [{ text }] }], {
-          at: next,
-        });
+        Transforms.insertNodes(
+          this.editor,
+          [{ type: 'code-line', children: [{ text }] }],
+          {
+            at: next,
+          },
+        );
         Transforms.select(this.editor, {
           path: [...Path.next(path), 0],
           offset: (space + '  ').length,

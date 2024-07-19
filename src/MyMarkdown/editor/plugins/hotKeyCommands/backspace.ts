@@ -66,12 +66,18 @@ export class BackspaceKey {
       if (start.offset === 0 && !Path.hasPrevious(start.path)) {
         const pre = Path.hasPrevious(path);
         if (pre) {
-          Transforms.select(this.editor, Editor.end(this.editor, Path.previous(path)));
+          Transforms.select(
+            this.editor,
+            Editor.end(this.editor, Path.previous(path)),
+          );
         } else {
           const rowPath = Path.parent(path);
           const preRow = Path.hasPrevious(rowPath);
           if (preRow) {
-            Transforms.select(this.editor, Editor.end(this.editor, Path.previous(rowPath)));
+            Transforms.select(
+              this.editor,
+              Editor.end(this.editor, Path.previous(rowPath)),
+            );
           }
         }
         const parent = Editor.parent(this.editor, Path.parent(node[1]));
@@ -81,7 +87,10 @@ export class BackspaceKey {
           parent[0].children?.every((c: any) => !Node.string(c))
         ) {
           Transforms.delete(this.editor, { at: parent[1] });
-          Transforms.insertNodes(this.editor, EditorUtils.p, { select: true, at: parent[1] });
+          Transforms.insertNodes(this.editor, EditorUtils.p, {
+            select: true,
+            at: parent[1],
+          });
         }
         return true;
       }
@@ -111,7 +120,9 @@ export class BackspaceKey {
      * 防止删除paragraph与空table-cell混合
      */
     if (sel.anchor.offset === 0) {
-      const preInline = Editor.previous<any>(this.editor, { at: sel.focus.path });
+      const preInline = Editor.previous<any>(this.editor, {
+        at: sel.focus.path,
+      });
       if (preInline && preInline[0].type === 'break') {
         Transforms.delete(this.editor, { at: preInline[1] });
         return true;
@@ -145,7 +156,10 @@ export class BackspaceKey {
             return true;
           }
         }
-        if (!pre && !Editor.previous<any>(this.editor, { at: sel.anchor.path })) {
+        if (
+          !pre &&
+          !Editor.previous<any>(this.editor, { at: sel.anchor.path })
+        ) {
           const parent = Editor.parent(this.editor, path);
           if (parent[0].type === 'blockquote') {
             if (Editor.hasPath(this.editor, Path.next(path))) {
@@ -158,11 +172,16 @@ export class BackspaceKey {
               { type: 'paragraph', children: el.children },
               { at: parent[1] },
             );
-            Transforms.select(this.editor, Editor.start(this.editor, parent[1]));
+            Transforms.select(
+              this.editor,
+              Editor.start(this.editor, parent[1]),
+            );
             return true;
           }
           if (parent[0].type === 'list-item') {
-            const preListItem = Editor.previous<any>(this.editor, { at: parent[1] });
+            const preListItem = Editor.previous<any>(this.editor, {
+              at: parent[1],
+            });
             if (!preListItem) {
               const hasNext = Editor.hasPath(this.editor, Path.next(parent[1]));
               const listPath = Path.parent(parent[1]);
@@ -171,15 +190,27 @@ export class BackspaceKey {
               } else {
                 Transforms.delete(this.editor, { at: listPath });
               }
-              Transforms.insertNodes(this.editor, EditorUtils.copy(parent[0].children), {
-                at: listPath,
-              });
-              Transforms.select(this.editor, Editor.start(this.editor, listPath));
+              Transforms.insertNodes(
+                this.editor,
+                EditorUtils.copy(parent[0].children),
+                {
+                  at: listPath,
+                },
+              );
+              Transforms.select(
+                this.editor,
+                Editor.start(this.editor, listPath),
+              );
             } else {
               let cur = Path.next(path);
               const moveIndex = preListItem[0].children.length;
               if (Editor.hasPath(this.editor, cur)) {
-                EditorUtils.moveNodes(this.editor, cur, preListItem[1], moveIndex);
+                EditorUtils.moveNodes(
+                  this.editor,
+                  cur,
+                  preListItem[1],
+                  moveIndex,
+                );
               }
               const movePath = [...preListItem[1], moveIndex];
               Transforms.moveNodes(this.editor, {

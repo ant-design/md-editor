@@ -20,7 +20,11 @@ export const useMonitorHeight = (store: EditorStore, el: Element) => {
         setTimeout(() => {
           try {
             first.current = false;
-            Transforms.setNodes(store.editor, { h: dom.clientHeight }, { at: path });
+            Transforms.setNodes(
+              store.editor,
+              { h: dom.clientHeight },
+              { at: path },
+            );
             dom.style.containIntrinsicSize = `0px ${dom.clientHeight}px`;
             // @ts-ignore
             dom.style.contentVisibility = 'auto';

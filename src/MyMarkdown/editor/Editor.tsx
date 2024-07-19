@@ -60,7 +60,9 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
         store.initializing = false;
         store.setState((state) => (state.pauseCodeHighlight = false));
         requestIdleCallback(() => {
-          store.setState((state) => (state.refreshHighlight = !state.refreshHighlight));
+          store.setState(
+            (state) => (state.refreshHighlight = !state.refreshHighlight),
+          );
         });
       });
     } else {
@@ -120,7 +122,10 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
       const target = e.target as HTMLDivElement;
       if (target.dataset.slateEditor) {
         const top = (target.lastElementChild as HTMLElement)?.offsetTop;
-        if (store.container && store.container.scrollTop + e.clientY - 60 > top) {
+        if (
+          store.container &&
+          store.container.scrollTop + e.clientY - 60 > top
+        ) {
           if (EditorUtils.checkEnd(editor)) {
             e.preventDefault();
           }
@@ -148,7 +153,9 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
               store.editor,
               {
                 type: 'media',
-                url: toUnixPath(relative(join(note.filePath, '..'), node.filePath)),
+                url: toUnixPath(
+                  relative(join(note.filePath, '..'), node.filePath),
+                ),
                 children: [{ text: '' }],
               },
               { at: path, select: true },
@@ -229,7 +236,11 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
               if (insert) {
                 e.preventDefault();
                 const next = Editor.next(store.editor, { at: path });
-                if (next && next[0].type === 'paragraph' && !Node.string(next[0])) {
+                if (
+                  next &&
+                  next[0].type === 'paragraph' &&
+                  !Node.string(next[0])
+                ) {
                   Transforms.delete(store.editor, { at: next[1] });
                 }
               }
@@ -271,7 +282,10 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
             editor,
             //@ts-ignore
             text.split('\n').map((c) => {
-              return { type: 'code-line', children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }] };
+              return {
+                type: 'code-line',
+                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
+              };
             }),
           );
           e.stopPropagation();
@@ -298,7 +312,8 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
 
   const compositionEnd = useCallback((e: React.CompositionEvent) => {
     store.inputComposition = false;
-    if (store.pauseCodeHighlight) runInAction(() => (store.pauseCodeHighlight = false));
+    if (store.pauseCodeHighlight)
+      runInAction(() => (store.pauseCodeHighlight = false));
   }, []);
 
   const onError = useCallback((e: React.SyntheticEvent) => {

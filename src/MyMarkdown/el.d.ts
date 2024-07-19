@@ -12,8 +12,16 @@ export type CodeNode = {
   frontmatter?: boolean;
   h?: number;
 };
-export type CodeLineNode = { type: 'code-line'; children: BaseElement['children']; num?: number };
-export type ParagraphNode = { type: 'paragraph'; children: BaseElement['children']; h?: number };
+export type CodeLineNode = {
+  type: 'code-line';
+  children: BaseElement['children'];
+  num?: number;
+};
+export type ParagraphNode = {
+  type: 'paragraph';
+  children: BaseElement['children'];
+  h?: number;
+};
 export type TableNode = { type: 'table' | 'chart'; children: TableRowNode[] };
 export type TableRowNode = { type: 'table-row'; children: TableCellNode[] };
 export type TableCellNode = {
@@ -22,7 +30,10 @@ export type TableCellNode = {
   align?: Align;
   children: BaseElement['children'];
 };
-export type BlockQuoteNode = { type: 'blockquote'; children: (BlockQuoteNode | ParagraphNode)[] };
+export type BlockQuoteNode = {
+  type: 'blockquote';
+  children: (BlockQuoteNode | ParagraphNode)[];
+};
 export type ListNode = {
   type: 'list';
   children: ListItemNode[];

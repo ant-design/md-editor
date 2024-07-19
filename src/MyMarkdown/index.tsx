@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
-import { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parser';
 import { EditorStore } from './editor/store';
@@ -84,7 +84,6 @@ export const MarkdownEditor: React.FC<{
   }, []);
 
   useSystemKeyboard(t.store);
-  const ref = useRef<HTMLDivElement>(null);
 
   return (
     <div

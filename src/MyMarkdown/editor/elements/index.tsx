@@ -1,7 +1,10 @@
 import React, { CSSProperties, useContext, useMemo } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { RenderElementProps, RenderLeafProps } from 'slate-react/dist/components/editable';
+import {
+  RenderElementProps,
+  RenderLeafProps,
+} from 'slate-react/dist/components/editable';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
@@ -29,7 +32,11 @@ export const MElement = (props: RenderElementProps) => {
       return <Head {...props} />;
     case 'hr':
       return (
-        <div {...props.attributes} contentEditable={false} className={'m-hr select-none'}>
+        <div
+          {...props.attributes}
+          contentEditable={false}
+          className={'m-hr select-none'}
+        >
           {props.children}
         </div>
       );
@@ -84,7 +91,12 @@ export const MLeaf = (props: RenderLeafProps) => {
     if (leaf.current) {
       style.background = '#f59e0b';
     }
-    const dirty = leaf.bold || leaf.code || leaf.italic || leaf.strikethrough || leaf.highColor;
+    const dirty =
+      leaf.bold ||
+      leaf.code ||
+      leaf.italic ||
+      leaf.strikethrough ||
+      leaf.highColor;
     const selectFormat = () => {
       try {
         if (EditorUtils.isDirtLeaf(props.leaf)) {
@@ -140,8 +152,12 @@ export const MLeaf = (props: RenderLeafProps) => {
         }}
         data-fnc={leaf.fnc ? 'fnc' : undefined}
         data-fnd={leaf.fnd ? 'fnd' : undefined}
-        data-fnc-name={leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined}
-        data-fnd-name={leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined}
+        data-fnc-name={
+          leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+        }
+        data-fnd-name={
+          leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+        }
         className={`${!!dirty ? 'mx-[1px]' : ''} ${className}`}
         style={style}
       >

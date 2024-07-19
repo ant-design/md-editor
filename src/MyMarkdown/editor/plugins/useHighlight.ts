@@ -9,7 +9,10 @@ import { langSet, loadedLanguage } from '../utils/highlight';
 
 const htmlReg = /<[a-z]+[\s"'=:;()\w\-\[\]\/.]*\/?>(.*<\/[a-z]+>:?)?/g;
 export const codeCache = new WeakMap<object, { path: Path; range: Range[] }>();
-export const cacheTextNode = new WeakMap<object, { path: Path; range: Range[] }>();
+export const cacheTextNode = new WeakMap<
+  object,
+  { path: Path; range: Range[] }
+>();
 export const clearAllCodeCache = (editor: Editor) => {
   const codes = Array.from<any>(
     Editor.nodes(editor, {
@@ -20,7 +23,13 @@ export const clearAllCodeCache = (editor: Editor) => {
   codes.map((c) => codeCache.delete(c[0]));
 };
 
-const highlightNodes = new Set(['paragraph', 'table-cell', 'code', 'head', 'code-line']);
+const highlightNodes = new Set([
+  'paragraph',
+  'table-cell',
+  'code',
+  'head',
+  'code-line',
+]);
 let clearTimer = 0;
 
 export const clearCodeCache = (node: any) => {
@@ -54,7 +63,10 @@ export function useHighlight(store?: EditorStore) {
                 for (let m of matchHtml) {
                   textRanges.push({
                     anchor: { path: [...path, i], offset: m.index },
-                    focus: { path: [...path, i], offset: m.index + m[0].length },
+                    focus: {
+                      path: [...path, i],
+                      offset: m.index + m[0].length,
+                    },
                     html: true,
                   });
                 }
@@ -63,17 +75,25 @@ export function useHighlight(store?: EditorStore) {
                   if (typeof m.index !== 'number') continue;
                   textRanges.push({
                     anchor: { path: [...path, i], offset: m.index },
-                    focus: { path: [...path, i], offset: m.index + m[0].length },
+                    focus: {
+                      path: [...path, i],
+                      offset: m.index + m[0].length,
+                    },
                     fnc: !m[0].endsWith(':'),
                     fnd: m[0].endsWith(':'),
                   });
                 }
-                const matchSymbol = (c.text as string).matchAll(/[\[\]\{\}@;#$￥&]/g);
+                const matchSymbol = (c.text as string).matchAll(
+                  /[\[\]\{\}@;#$￥&]/g,
+                );
                 // @ts-ignore
                 for (let m of matchSymbol) {
                   textRanges.push({
                     anchor: { path: [...path, i], offset: m.index },
-                    focus: { path: [...path, i], offset: m.index! + m[0].length },
+                    focus: {
+                      path: [...path, i],
+                      offset: m.index! + m[0].length,
+                    },
                     color: '#8b5cf6',
                   });
                 }

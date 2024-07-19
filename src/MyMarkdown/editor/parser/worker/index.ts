@@ -23,7 +23,11 @@ const findImageElement = (str: string) => {
       const url = match[0].match(/src="([^"\n]+)"/);
       const height = match[0].match(/height="(\d+)"/);
       const align = match[0].match(/data\-align="(\w+)"/);
-      return { url: url?.[1], height: height ? +height[1] : undefined, align: align?.[1] };
+      return {
+        url: url?.[1],
+        height: height ? +height[1] : undefined,
+        align: align?.[1],
+      };
     }
     return null;
   } catch (e) {
@@ -50,13 +54,18 @@ const findAttachment = (str: string) => {
 const parseText = (els: Content[], leaf: CustomLeaf = {}) => {
   let leafs: CustomLeaf[] = [];
   for (let n of els) {
-    if (n.type === 'strong') leafs = leafs.concat(parseText(n.children, { ...leaf, bold: true }));
+    if (n.type === 'strong')
+      leafs = leafs.concat(parseText(n.children, { ...leaf, bold: true }));
     if (n.type === 'emphasis')
       leafs = leafs.concat(parseText(n.children, { ...leaf, italic: true }));
     if (n.type === 'delete')
-      leafs = leafs.concat(parseText(n.children, { ...leaf, strikethrough: true }));
-    if (n.type === 'link') leafs = leafs.concat(parseText(n.children, { ...leaf, url: n.url }));
-    if (n.type === 'inlineCode') leafs.push({ ...leaf, text: n.value, code: true });
+      leafs = leafs.concat(
+        parseText(n.children, { ...leaf, strikethrough: true }),
+      );
+    if (n.type === 'link')
+      leafs = leafs.concat(parseText(n.children, { ...leaf, url: n.url }));
+    if (n.type === 'inlineCode')
+      leafs.push({ ...leaf, text: n.value, code: true });
     // @ts-ignore
     leafs.push({ ...leaf, text: n.value || '' });
   }
@@ -67,7 +76,10 @@ const parseTable = (table: Table, preNode: Content) => {
   const keyMap = new Map<string, string>();
 
   // @ts-ignore
-  const config = preNode.type === 'code' && preNode.language === 'html' ? preNode.otherProps : {};
+  const config =
+    preNode.type === 'code' && preNode.language === 'html'
+      ? preNode.otherProps
+      : {};
 
   const tableHeader = table?.children?.at(0);
   const columns =
@@ -119,15 +131,19 @@ const parseTable = (table: Table, preNode: Content) => {
     children: table.children.map((r: { children: any[] }, l: number) => {
       return {
         type: 'table-row',
-        children: r.children.map((c: { children: string | any[] }, i: string | number) => {
-          return {
-            type: 'table-cell',
-            align: aligns?.[i as number] || undefined,
-            title: l === 0,
-            // @ts-ignore
-            children: c.children?.length ? parserBlock(c.children, false, c) : [{ text: '' }],
-          };
-        }),
+        children: r.children.map(
+          (c: { children: string | any[] }, i: string | number) => {
+            return {
+              type: 'table-cell',
+              align: aligns?.[i as number] || undefined,
+              title: l === 0,
+              // @ts-ignore
+              children: c.children?.length
+                ? parserBlock(c.children, false, c)
+                : [{ text: '' }],
+            };
+          },
+        ),
       };
     }),
     otherProps: {
@@ -158,11 +174,14 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
         el = {
           type: 'head',
           level: n.depth,
-          children: n.children?.length ? parserBlock(n.children, false, n) : [{ text: '' }],
+          children: n.children?.length
+            ? parserBlock(n.children, false, n)
+            : [{ text: '' }],
         };
         break;
       case 'html':
-        const value = n?.value?.replace('<!--', '').replace(' -->', '').trim() || '{}';
+        const value =
+          n?.value?.replace('<!--', '').replace(' -->', '').trim() || '{}';
         if (value) {
           try {
             contextProps = JSON.parse(value);
@@ -202,7 +221,9 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
           if (breakMatch) {
             el = { type: 'break', children: [{ text: '' }] };
           } else {
-            const htmlMatch = n.value.match(/<\/?(b|i|del|code|span|a)[^\n>]*?>/);
+            const htmlMatch = n.value.match(
+              /<\/?(b|i|del|code|span|a)[^\n>]*?>/,
+            );
             if (htmlMatch) {
               const [str, tag] = htmlMatch;
               if (
@@ -303,7 +324,11 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
           const text = children[0].children[0]?.text;
           const m = text.match(/^\[([x\s])]/);
           if (m) {
-            el = { type: 'list-item', checked: m ? m[1] === 'x' : undefined, children: children };
+            el = {
+              type: 'list-item',
+              checked: m ? m[1] === 'x' : undefined,
+              children: children,
+            };
             children[0].children[0].text = text.replace(/^\[([x\s])]/, '');
             break;
           }
@@ -311,8 +336,13 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
         el = { type: 'list-item', checked: n.checked, children: children };
         break;
       case 'paragraph':
-        if (n.children?.[0].type === 'html' && n.children[0].value.startsWith('<a')) {
-          const text = n.children.map((n: any) => (n as any).value || '').join('');
+        if (
+          n.children?.[0].type === 'html' &&
+          n.children[0].value.startsWith('<a')
+        ) {
+          const text = n.children
+            .map((n: any) => (n as any).value || '')
+            .join('');
           const attach = findAttachment(text);
           if (attach) {
             const name = text.match(/\>(.*)<\/a\>/);
@@ -428,7 +458,14 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
           }
           break;
         } else if (
-          ['strong', 'link', 'text', 'emphasis', 'delete', 'inlineCode'].includes(n.type)
+          [
+            'strong',
+            'link',
+            'text',
+            'emphasis',
+            'delete',
+            'inlineCode',
+          ].includes(n.type)
         ) {
           if (n.type === 'text') {
             el = { text: n.value };
@@ -441,7 +478,10 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
               leaf.url = decodeURIComponent(n.url);
             }
             // @ts-ignore
-            el = parseText(n.children?.length ? n.children : [{ value: leaf.url || '' }], leaf);
+            el = parseText(
+              n.children?.length ? n.children : [{ value: leaf.url || '' }],
+              leaf,
+            );
           }
         } else if (n.type === 'break') {
           el = { text: '\n' };
@@ -451,7 +491,8 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
     }
 
     if (preNode && top) {
-      const distance = (n.position?.start.line || 0) - (preNode.position?.end.line || 0);
+      const distance =
+        (n.position?.start.line || 0) - (preNode.position?.end.line || 0);
       if (distance >= 4) {
         const lines = Math.floor((distance - 2) / 2);
         Array.from(new Array(lines)).forEach(() => {

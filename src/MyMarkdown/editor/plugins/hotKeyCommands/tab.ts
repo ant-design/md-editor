@@ -11,7 +11,12 @@ import {
   Text,
   Transforms,
 } from 'slate';
-import { CodeLineNode, NodeTypes, ParagraphNode, TableCellNode } from '../../../el';
+import {
+  CodeLineNode,
+  NodeTypes,
+  ParagraphNode,
+  TableCellNode,
+} from '../../../el';
 
 export class TabKey {
   constructor(private readonly editor: Editor) {}
@@ -23,7 +28,8 @@ export class TabKey {
     if (Range.isCollapsed(sel)) {
       const [node] = Editor.nodes<any>(this.editor, {
         match: (n) =>
-          Element.isElement(n) && ['table-cell', 'paragraph', 'code-line'].includes(n.type),
+          Element.isElement(n) &&
+          ['table-cell', 'paragraph', 'code-line'].includes(n.type),
         mode: 'lowest',
       });
       if (sel) {
@@ -136,7 +142,11 @@ export class TabKey {
     }
   }
 
-  private codeLine(e: React.KeyboardEvent, node: NodeEntry<CodeLineNode>, sel: Range) {
+  private codeLine(
+    e: React.KeyboardEvent,
+    node: NodeEntry<CodeLineNode>,
+    sel: Range,
+  ) {
     if (e.shiftKey) {
       const str = Node.string(node[0]);
       const reg = /^(\t|\s{1,2})/;
@@ -175,7 +185,10 @@ export class TabKey {
     const text = Node.string(node);
     if (shift) {
       if (Path.hasPrevious(nodePath)) {
-        Transforms.select(this.editor, Editor.end(this.editor, Path.previous(nodePath)));
+        Transforms.select(
+          this.editor,
+          Editor.end(this.editor, Path.previous(nodePath)),
+        );
       } else if (Path.hasPrevious(Path.parent(nodePath))) {
         Transforms.select(
           this.editor,
@@ -186,8 +199,13 @@ export class TabKey {
     } else {
       if (text.length === sel!.anchor.offset) {
         if (Editor.hasPath(this.editor, Path.next(nodePath))) {
-          Transforms.select(this.editor, Editor.end(this.editor, Path.next(nodePath)));
-        } else if (Editor.hasPath(this.editor, Path.next(Path.parent(nodePath)))) {
+          Transforms.select(
+            this.editor,
+            Editor.end(this.editor, Path.next(nodePath)),
+          );
+        } else if (
+          Editor.hasPath(this.editor, Path.next(Path.parent(nodePath)))
+        ) {
           Transforms.select(
             this.editor,
             Editor.end(this.editor, [...Path.next(Path.parent(nodePath)), 0]),
@@ -204,7 +222,10 @@ export class TabKey {
       const li = Editor.node(this.editor, Path.parent(node[1]));
       const ul = Editor.node(this.editor, Path.parent(li[1]));
       const container = Editor.node(this.editor, Path.parent(ul[1]));
-      if (!Path.hasPrevious(ul[1]) && Node.parent(this.editor, ul[1]).type === 'list-item')
+      if (
+        !Path.hasPrevious(ul[1]) &&
+        Node.parent(this.editor, ul[1]).type === 'list-item'
+      )
         return true;
       const top = !Path.hasPrevious(node[1]);
       const first = !Path.hasPrevious(li[1]);
@@ -212,7 +233,10 @@ export class TabKey {
         Transforms.liftNodes(this.editor, { at: li[1] });
         if (container[0].type === 'list-item') {
           const movePath = first ? ul[1] : Path.next(ul[1]);
-          Transforms.moveNodes(this.editor, { at: movePath, to: Path.next(container[1]) });
+          Transforms.moveNodes(this.editor, {
+            at: movePath,
+            to: Path.next(container[1]),
+          });
           let start = li[0].children.length;
           while (Editor.hasPath(this.editor, movePath)) {
             Transforms.moveNodes(this.editor, {
@@ -222,19 +246,27 @@ export class TabKey {
             start++;
           }
         } else {
-          Transforms.unwrapNodes(this.editor, { at: first ? ul[1] : Path.next(ul[1]) });
+          Transforms.unwrapNodes(this.editor, {
+            at: first ? ul[1] : Path.next(ul[1]),
+          });
         }
       } else {
         const move = li[0].children.length - node[1].slice().pop()! - 1;
         Transforms.liftNodes(this.editor, {
-          at: { anchor: Editor.start(this.editor, node[1]), focus: Editor.end(this.editor, li[1]) },
+          at: {
+            anchor: Editor.start(this.editor, node[1]),
+            focus: Editor.end(this.editor, li[1]),
+          },
         });
         const nextPath = Path.next(li[1]);
         const lastIndex = nextPath.slice().pop()!;
         Transforms.liftNodes(this.editor, {
           at: {
             anchor: { path: nextPath, offset: 1 },
-            focus: { path: nextPath.slice(0, -1).concat([lastIndex + move]), offset: 0 },
+            focus: {
+              path: nextPath.slice(0, -1).concat([lastIndex + move]),
+              offset: 0,
+            },
           },
         });
       }

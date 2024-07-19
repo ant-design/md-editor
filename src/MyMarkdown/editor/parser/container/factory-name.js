@@ -33,7 +33,11 @@ export function factoryName(effects, ok, nok, type) {
 
   /** @type {State} */
   function name(code) {
-    if (code === codes.dash || code === codes.underscore || asciiAlphanumeric(code)) {
+    if (
+      code === codes.dash ||
+      code === codes.underscore ||
+      asciiAlphanumeric(code)
+    ) {
       effects.consume(code);
       return name;
     }

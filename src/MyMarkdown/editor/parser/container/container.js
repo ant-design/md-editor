@@ -32,7 +32,9 @@ function tokenizeDirectiveContainer(effects, ok, nok) {
   const self = this;
   const tail = self.events[self.events.length - 1];
   const initialSize =
-    tail && tail[1].type === types.linePrefix ? tail[2].sliceSerialize(tail[1], true).length : 0;
+    tail && tail[1].type === types.linePrefix
+      ? tail[2].sliceSerialize(tail[1], true).length
+      : 0;
   let sizeOpen = 0;
   /** @type {Token} */
   let previous;
@@ -61,7 +63,13 @@ function tokenizeDirectiveContainer(effects, ok, nok) {
     }
 
     effects.exit('directiveContainerSequence');
-    return factoryName.call(self, effects, afterName, nok, 'directiveContainerName')(code);
+    return factoryName.call(
+      self,
+      effects,
+      afterName,
+      nok,
+      'directiveContainerName',
+    )(code);
   }
 
   /** @type {State} */
@@ -194,7 +202,12 @@ function tokenizeDirectiveContainer(effects, ok, nok) {
   function tokenizeClosingFence(effects, ok, nok) {
     let size = 0;
 
-    return factorySpace(effects, closingPrefixAfter, types.linePrefix, constants.tabSize);
+    return factorySpace(
+      effects,
+      closingPrefixAfter,
+      types.linePrefix,
+      constants.tabSize,
+    );
 
     /** @type {State} */
     function closingPrefixAfter(code) {

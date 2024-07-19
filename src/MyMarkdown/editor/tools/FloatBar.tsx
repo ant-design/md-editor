@@ -112,7 +112,27 @@ export const FloatBar = observer(() => {
       store.openLinkPanel = true;
     });
   }, []);
-
+  const resize = useCallback((force = false) => {
+    if (store.domRect && !store.openLinkPanel) {
+      let left = store.domRect.x;
+      left =
+        left - ((state.openSelectColor ? 260 : 228) - store.domRect.width) / 2;
+      const container = store.container!;
+      if (left < 4) left = 4;
+      const barWidth = state.openSelectColor ? 264 : 232;
+      if (left > container.clientWidth - barWidth)
+        left = container.clientWidth - barWidth;
+      let top =
+        state.open && !force
+          ? state.top
+          : container.scrollTop + store.domRect.top - 80;
+      setState({
+        open: true,
+        left,
+        top,
+      });
+    }
+  }, []);
   useSubject(store.floatBar$, (type) => {
     if (type === 'link') {
       const [text] = Editor.nodes(store.editor, {
@@ -137,28 +157,6 @@ export const FloatBar = observer(() => {
     }
   });
   useEffect(() => {}, [store.refreshFloatBar]);
-
-  const resize = useCallback((force = false) => {
-    if (store.domRect && !store.openLinkPanel) {
-      let left = store.domRect.x;
-      left =
-        left - ((state.openSelectColor ? 260 : 228) - store.domRect.width) / 2;
-      const container = store.container!;
-      if (left < 4) left = 4;
-      const barWidth = state.openSelectColor ? 264 : 232;
-      if (left > container.clientWidth - barWidth)
-        left = container.clientWidth - barWidth;
-      let top =
-        state.open && !force
-          ? state.top
-          : container.scrollTop + store.domRect.top - 80;
-      setState({
-        open: true,
-        left,
-        top,
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (store.domRect) {
@@ -216,38 +214,49 @@ export const FloatBar = observer(() => {
       style={{
         left: state.left,
         top: state.top,
+        display: state.open ? undefined : 'none',
       }}
       onMouseDown={(e) => {
         e.preventDefault();
         e.stopPropagation();
       }}
-      className={`${
-        state.open ? 'duration-100' : 'hidden'
-      } float-bar rounded overflow-hidden ctx-panel
-      `}
+      className={`float-bar`}
     >
       <div
-        className={`${
-          state.openSelectColor ? 'w-[260px]' : 'w-[228px]'
-        } h-full overflow-hidden`}
+        style={{
+          minWidth: state.openSelectColor ? '260px' : '228px',
+          height: '100%',
+          overflow: 'hidden',
+          padding: '0 6px',
+        }}
       >
         {!state.openSelectColor && (
           <div
-            className={
-              'flex *:h-full *:flex *:items-center justify-center h-full'
-            }
+            style={{
+              display: 'flex',
+              height: '100%',
+              gap: '1px',
+              justifyContent: 'center',
+            }}
           >
-            <div className={`flex *:h-full *:flex *:items-center`}>
+            <div
+              style={{
+                display: 'flex',
+                height: '100%',
+                alignItems: 'center',
+                padding: '2px 6px',
+              }}
+            >
               <div
-                className={`${
-                  EditorUtils.isFormatActive(store.editor, 'highColor')
-                    ? 'text-blue-500'
-                    : 'dark:text-gray-200 text-gray-600'
-                } py-0.5 px-1.5  ${
-                  state.hoverSelectColor
-                    ? 'dark:bg-gray-100/10 bg-gray-200/50'
-                    : ''
-                } dark:hover:bg-gray-100/10 hover:bg-gray-200/50 cursor-pointer`}
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  padding: '2px 6px',
+                  color: EditorUtils.isFormatActive(store.editor, 'highColor')
+                    ? '#000'
+                    : undefined,
+                }}
                 onMouseEnter={(e) => e.stopPropagation()}
                 onClick={() => {
                   if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
@@ -263,9 +272,12 @@ export const FloatBar = observer(() => {
                 <FontColorsOutlined />
               </div>
               <div
-                className={
-                  'h-6 text-xs px-0.5 dark:hover:bg-gray-100/10 hover:bg-gray-200/50 cursor-pointer'
-                }
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  padding: '2px 6px',
+                }}
                 onMouseEnter={() => setState({ hoverSelectColor: true })}
                 onMouseLeave={() => setState({ hoverSelectColor: false })}
                 onClick={() => {
@@ -281,47 +293,41 @@ export const FloatBar = observer(() => {
                 <div
                   key={t.type}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={(e) => {
+                  onClick={() => {
                     EditorUtils.toggleFormat(store.editor, t.type);
                   }}
-                  className={`${
-                    EditorUtils.isFormatActive(store.editor, t.type)
-                      ? 'text-blue-500 '
-                      : 'dark:hover:text-gray-200 hover:text-gray-600'
-                  }
-              cursor-pointer py-0.5 px-1.5 dark:hover:bg-gray-100/10 hover:bg-gray-200/50
-              `}
+                  style={{
+                    display: 'flex',
+                    height: '100%',
+                    alignItems: 'center',
+                    padding: '2px 6px',
+                    color: EditorUtils.isFormatActive(store.editor, t.type)
+                      ? '#000'
+                      : undefined,
+                  }}
                 >
                   {t.icon}
                 </div>
               </Tooltip>
             ))}
             <div
-              className={
-                'h-full w-[1px] dark:bg-gray-200/10 bg-gray-200 flex-shrink-0'
-              }
-            />
-            <div
               onMouseDown={(e) => e.preventDefault()}
-              onClick={(e) => {
+              onClick={() => {
                 openLink();
               }}
-              className={`${
-                EditorUtils.isFormatActive(store.editor, 'url')
-                  ? 'text-blue-500 '
-                  : 'dark:hover:text-gray-200 hover:text-gray-600'
-              }
-              cursor-pointer py-0.5 px-1.5 dark:hover:bg-gray-100/10 hover:bg-gray-200/50
-              `}
+              style={{
+                display: 'flex',
+                height: '100%',
+                alignItems: 'center',
+                padding: '2px 6px',
+                color: EditorUtils.isFormatActive(store.editor, 'url')
+                  ? '#000'
+                  : undefined,
+              }}
             >
               <LinkOutlined />
               <span className={'ml-1 text-[13px]'}>Link</span>
             </div>
-            <div
-              className={
-                'h-full w-[1px] dark:bg-gray-200/10 bg-gray-200 flex-shrink-0'
-              }
-            />
             <Tooltip
               mouseEnterDelay={0.3}
               title={
@@ -332,9 +338,12 @@ export const FloatBar = observer(() => {
               }
             >
               <div
-                className={
-                  'cursor-pointer px-2 dark:hover:text-gray-200 dark:hover:bg-gray-200/5 hover:bg-gray-200/50 hover:text-gray-600'
-                }
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  padding: '2px 6px',
+                }}
                 onClick={() => {
                   EditorUtils.clearMarks(store.editor, true);
                   EditorUtils.highColor(store.editor);

@@ -17,7 +17,9 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
         if (parent.parentElement?.dataset.be === 'list-item') {
           if (
             !parent.previousSibling ||
-            (parent.previousSibling as HTMLElement).classList.contains('check-item')
+            (parent.previousSibling as HTMLElement).classList.contains(
+              'check-item',
+            )
           ) {
             parent = parent.parentElement;
           }

@@ -11,7 +11,11 @@ export const toAbsolutePath = (filePath: string, target: string) => {
 
 export const isLink = (url: string = '') => /^\w+:\/\//i.test(url);
 
-export const toSpacePath = (rootPath: string, openPath: string, path: string) => {
+export const toSpacePath = (
+  rootPath: string,
+  openPath: string,
+  path: string,
+) => {
   if (isLink(path) || isAbsolute(path)) {
     return path;
   }

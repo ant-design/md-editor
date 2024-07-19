@@ -5,7 +5,10 @@ import { EditorStore } from '../../store';
 import { isMod } from '../../utils';
 import { EditorUtils } from '../../utils/editorUtils';
 
-export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEvent) => {
+export const keyArrow = (
+  store: EditorStore,
+  e: React.KeyboardEvent | KeyboardEvent,
+) => {
   const editor = store.editor;
   const sel = editor.selection;
   if (sel && Range.isCollapsed(sel)) {
@@ -22,7 +25,10 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
             offset: str.match(/^[\s\t]*/)?.[0].length || 0,
           });
         } else {
-          Transforms.select(editor, Editor.start(editor, Path.parent(sel.focus.path)));
+          Transforms.select(
+            editor,
+            Editor.start(editor, Path.parent(sel.focus.path)),
+          );
         }
         e.preventDefault();
       }
@@ -35,7 +41,11 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
       const leaf = Node.leaf(editor, sel.focus.path);
       const dirt = EditorUtils.isDirtLeaf(leaf);
       const pre = Editor.previous<any>(editor, { at: sel.focus.path });
-      if (sel.focus.offset === 0 && pre && (pre[0].type === 'media' || pre[0].type === 'attach')) {
+      if (
+        sel.focus.offset === 0 &&
+        pre &&
+        (pre[0].type === 'media' || pre[0].type === 'attach')
+      ) {
         Transforms.select(editor, pre[1]);
       } else if (sel.focus.offset === 0 && dirt) {
         EditorUtils.moveBeforeSpace(editor, sel.focus.path);
@@ -73,7 +83,11 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
           } else {
             EditorUtils.moveAfterSpace(editor, node[1]);
           }
-        } else if (sel.focus.offset === leaf.text?.length && next && next[0].type === 'media') {
+        } else if (
+          sel.focus.offset === leaf.text?.length &&
+          next &&
+          next[0].type === 'media'
+        ) {
           Transforms.select(editor, next[1]);
         } else if (
           sel.focus.offset === leaf.text?.length &&
@@ -89,14 +103,20 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
             Editor.isVoid(editor, Node.get(editor, Path.next(sel.focus.path)))
           ) {
             if (Editor.hasPath(editor, Path.next(Path.next(sel.focus.path)))) {
-              Transforms.select(editor, Editor.start(editor, Path.next(Path.next(sel.focus.path))));
+              Transforms.select(
+                editor,
+                Editor.start(editor, Path.next(Path.next(sel.focus.path))),
+              );
             }
           } else {
             Transforms.move(editor, { unit: 'offset' });
           }
         }
       } else {
-        Transforms.select(editor, Editor.end(editor, Path.parent(sel.focus.path)));
+        Transforms.select(
+          editor,
+          Editor.end(editor, Path.parent(sel.focus.path)),
+        );
       }
       return;
     }
@@ -108,7 +128,8 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
       const [el, path] = node;
       const pre = Editor.node(editor, EditorUtils.findPrev(editor, path));
       if (!Path.hasPrevious(path) && EditorUtils.isTop(editor, path)) {
-        const input = store.container?.querySelector<HTMLInputElement>('.page-title');
+        const input =
+          store.container?.querySelector<HTMLInputElement>('.page-title');
         input?.focus();
         return;
       }
@@ -165,7 +186,10 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
         Transforms.select(editor, next[1]);
         return;
       }
-      if (el.type === 'table-cell' && !Editor.hasPath(editor, Path.next(sel.focus.path))) {
+      if (
+        el.type === 'table-cell' &&
+        !Editor.hasPath(editor, Path.next(sel.focus.path))
+      ) {
         const row = Path.parent(path);
         const table = Path.parent(row);
         if (!Editor.hasPath(editor, Path.next(row))) {
@@ -214,7 +238,9 @@ export const keyArrow = (store: EditorStore, e: React.KeyboardEvent | KeyboardEv
           }
         }
         if (
-          (Node.string(el) || el.children.length > 1 || el.children[0].type === 'media') &&
+          (Node.string(el) ||
+            el.children.length > 1 ||
+            el.children[0].type === 'media') &&
           EditorUtils.checkSelEnd(editor, path)
         ) {
           Transforms.insertNodes(editor, EditorUtils.p, {

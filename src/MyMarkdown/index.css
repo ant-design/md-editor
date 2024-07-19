@@ -105,9 +105,9 @@
   color: var(--md-text);
   height: max-content;
   width: 100%;
-  font-family: -apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-    Noto Color Emoji;
+  font-family: -apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   outline: none;
   tab-size: 4;
   caret-color: var(--md-text);
@@ -957,6 +957,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 .float-bar {
   position: absolute;
   z-index: 20;
+  overflow: hidden;
   height: 2rem;
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;

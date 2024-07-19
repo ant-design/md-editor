@@ -19,7 +19,9 @@ export const sizeUnit = (size: number) => {
 
 export const copy = <T = any>(data: T): T => JSON.parse(JSON.stringify(data));
 
-export const isMod = (e: MouseEvent | KeyboardEvent | React.KeyboardEvent | React.MouseEvent) => {
+export const isMod = (
+  e: MouseEvent | KeyboardEvent | React.KeyboardEvent | React.MouseEvent,
+) => {
   return e.metaKey || e.ctrlKey;
 };
 

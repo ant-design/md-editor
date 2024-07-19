@@ -1,4 +1,13 @@
-import { Editor, Element, Node, Path, Point, Range, Text, Transforms } from 'slate';
+import {
+  Editor,
+  Element,
+  Node,
+  Path,
+  Point,
+  Range,
+  Text,
+  Transforms,
+} from 'slate';
 import { History } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 import { CustomLeaf } from '../../el';
@@ -27,7 +36,10 @@ export class EditorUtils {
     Transforms.select(store.editor, path);
     try {
       const top = store.container!.scrollTop;
-      const dom = ReactEditor.toDOMNode(store.editor, Node.get(store.editor, path));
+      const dom = ReactEditor.toDOMNode(
+        store.editor,
+        Node.get(store.editor, path),
+      );
       const offsetTop = getOffsetTop(dom, store.container!);
       if (top > offsetTop) {
         store.container!.scroll({
@@ -158,7 +170,15 @@ export class EditorUtils {
     if (!editor.selection) return;
     Transforms.unsetNodes(
       editor,
-      ['url', 'strikethrough', 'italic', 'code', 'bold', 'textColor', 'highColor'],
+      [
+        'url',
+        'strikethrough',
+        'italic',
+        'code',
+        'bold',
+        'textColor',
+        'highColor',
+      ],
       {
         split,
         match: Text.isText,
@@ -191,7 +211,8 @@ export class EditorUtils {
     if (!insertNodes) insertNodes = [EditorUtils.p];
     editor.children = JSON.parse(JSON.stringify(insertNodes));
     if (force) {
-      editor.history = typeof force === 'boolean' ? { redos: [], undos: [] } : force;
+      editor.history =
+        typeof force === 'boolean' ? { redos: [], undos: [] } : force;
     }
     editor.onChange();
   }
@@ -210,7 +231,9 @@ export class EditorUtils {
 
   static cutText(editor: Editor, start: Point, end?: Point) {
     let leaf = Node.leaf(editor, start.path);
-    let texts: CustomLeaf[] = [{ ...leaf, text: leaf.text?.slice(start.offset) || '' }];
+    let texts: CustomLeaf[] = [
+      { ...leaf, text: leaf.text?.slice(start.offset) || '' },
+    ];
     let next = Editor.next(editor, { at: start.path });
     while (next) {
       if (end && Path.equals(next[1], end.path)) {
@@ -260,7 +283,11 @@ export class EditorUtils {
   }
 
   static highColor(editor: Editor, color?: string) {
-    Transforms.setNodes(editor, { highColor: color }, { match: Text.isText, split: true });
+    Transforms.setNodes(
+      editor,
+      { highColor: color },
+      { match: Text.isText, split: true },
+    );
   }
 
   static checkEnd(editor: Editor) {

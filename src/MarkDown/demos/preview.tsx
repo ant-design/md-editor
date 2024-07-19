@@ -1,17 +1,5 @@
-﻿import {
-  NodeToSchemaType,
-  PdfMarkToPdfDownload,
-  htmlToPdfMark,
-  mdToHtml,
-} from '@ant-design/md-to-json-schema';
-import { Card, Input, Space } from 'antd';
-import { MessageRender } from './Render';
-
-//@ts-ignore
-import React, { useState } from 'react';
-import { EditCard } from './EditCard';
-import { InvertTransition } from './Transition';
-import './air.css';
+﻿import { MarkdownEditor } from '@ant-design/md-to-json-schema';
+import React from 'react';
 
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
@@ -69,8 +57,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 `;
 export default () => {
-  const [value, setValue] = useState(defaultValue);
-
   return (
     <>
       <div
@@ -80,107 +66,7 @@ export default () => {
           padding: 24,
         }}
       >
-        <Card
-          style={{
-            flex: 1,
-            maxWidth: '48%',
-            height: '100%',
-          }}
-          styles={{
-            body: {
-              padding: 0,
-              position: 'relative',
-              height: '100%',
-              minHeight: '100vh',
-            },
-          }}
-        >
-          <Input.TextArea
-            style={{
-              minHeight: '100vh',
-            }}
-            value={value}
-            onChange={(e) => setValue(e.target.value || '')}
-          />
-        </Card>
-        <Card
-          style={{
-            flex: 1,
-            maxWidth: '50%',
-          }}
-          styles={{
-            body: {
-              padding: 0,
-            },
-          }}
-          extra={
-            <Space>
-              <a
-                onClick={() => {
-                  console.log(
-                    PdfMarkToPdfDownload(
-                      htmlToPdfMark(mdToHtml(value), {
-                        defaultStyles: {
-                          th: { bold: true, fillColor: '#DFEAFD' },
-                        },
-                      }),
-                      {
-                        fileName: '腾讯研究报告.pdf',
-                        fontUrl: {
-                          normal:
-                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                          bold: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                          italics:
-                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                          bolditalics:
-                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/file/A*RrWLR5c9EEcAAAAAAAAAAAAADkN6AQ/AlibabaPuHuiTi-3-55-Regular.ttf',
-                        },
-                      },
-                    ).download(),
-                  );
-                }}
-              >
-                导出 PDF
-              </a>
-            </Space>
-          }
-        >
-          <div
-            id="pdf"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 16,
-              padding: 24,
-            }}
-          >
-            <MessageRender
-              value={value}
-              drag
-              itemRender={(defaultDom, node, index) => {
-                if (index === 0 && node.type === 'heading') {
-                  return <>{defaultDom}</>;
-                }
-                if (node.type !== 'heading') {
-                  return (
-                    <InvertTransition delay={index * 0.1}>
-                      <EditCard
-                        node={
-                          node as NodeToSchemaType<{
-                            report_id?: number;
-                            id: number;
-                          }>
-                        }
-                        defaultDom={defaultDom}
-                      />
-                    </InvertTransition>
-                  );
-                }
-                return defaultDom;
-              }}
-            />
-          </div>
-        </Card>
+        <MarkdownEditor width={'80vw'} initValue={defaultValue} />
       </div>
     </>
   );

@@ -25,10 +25,18 @@ export class MatchKey {
     const sel = this.editor.selection;
     if (!sel || !Range.isCollapsed(sel)) return;
     for (let n of TextMatchNodes) {
-      if (typeof n.matchKey === 'object' ? n.matchKey.test(e.key) : n.matchKey === e.key) {
-        if (n.checkAllow && !n.checkAllow({ editor: this.editor, node, sel })) continue;
+      if (
+        typeof n.matchKey === 'object'
+          ? n.matchKey.test(e.key)
+          : n.matchKey === e.key
+      ) {
+        if (n.checkAllow && !n.checkAllow({ editor: this.editor, node, sel }))
+          continue;
         const str =
-          Node.string(Node.leaf(this.editor, sel.anchor.path)).slice(0, sel.anchor.offset) + e.key;
+          Node.string(Node.leaf(this.editor, sel.anchor.path)).slice(
+            0,
+            sel.anchor.offset,
+          ) + e.key;
         const m = str.match(n.reg);
         if (m) {
           if (n.run(this.createParams(node, m))) {

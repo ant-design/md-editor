@@ -1,4 +1,5 @@
-﻿import { observer } from 'mobx-react-lite';
+﻿/* eslint-disable @typescript-eslint/no-use-before-define */
+import { observer } from 'mobx-react-lite';
 import React, {
   Fragment,
   MutableRefObject,
@@ -15,15 +16,75 @@ import Command from '../icons/keyboard/Command';
 import Enter from '../icons/keyboard/Enter';
 import Option from '../icons/keyboard/Option';
 import Shift from '../icons/keyboard/Shift';
-import { isMac } from '../utils';
 import { getOffsetLeft, getOffsetTop } from '../utils/dom';
+import { isMac } from '../utils/index';
 import { useLocalState } from '../utils/useLocalState';
+
+const Menu = observer(
+  (props: {
+    e?: MouseEvent | React.MouseEvent;
+    parent?: HTMLDivElement;
+    menus: IMenu[];
+    root: HTMLDivElement;
+    onClose?: (e: React.MouseEvent) => void;
+  }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [state, setState] = useLocalState({
+      x: 0,
+      y: 0,
+    });
+    useLayoutEffect(() => {
+      const dom = ref.current!;
+      if (props.e) {
+        let x = props.e.pageX,
+          y = props.e.pageY;
+        if (x + dom.clientWidth > window.innerWidth && x - dom.clientWidth > 0)
+          x -= dom.clientWidth;
+        if (
+          y + dom.clientHeight > window.innerHeight &&
+          y - dom.clientHeight > 0
+        )
+          y -= dom.clientHeight;
+        setState({ x, y });
+      }
+      if (props.parent) {
+        let left = props.parent.clientWidth - 2;
+        let top = -5;
+        const offsetLeft = getOffsetLeft(props.parent, props.root);
+        const offsetTop = getOffsetTop(props.parent, props.root);
+        if (
+          offsetLeft + dom.clientWidth + props.parent.clientWidth >
+            window.innerWidth &&
+          offsetLeft - dom.clientWidth > 0
+        ) {
+          left = -dom.clientWidth - 2;
+        }
+        if (
+          offsetTop + dom.clientHeight - 5 > window.innerHeight &&
+          offsetTop - dom.clientHeight + props.parent.clientHeight > 0
+        ) {
+          top = -dom.clientHeight + props.parent.clientHeight + 5;
+        }
+        setState({ x: left, y: top });
+      }
+    }, [props.parent]);
+    return (
+      <div
+        ref={ref}
+        style={{ left: state.x, top: state.y, zIndex: 10 }}
+        className={`context-menu`}
+      >
+        <MenuRender menus={props.menus} root={props.root} boxRef={ref} />
+      </div>
+    );
+  },
+);
 
 export type IMenu = {
   text?: string | ReactNode;
   type?: string;
   hr?: boolean;
-  click?: Function;
+  click?: any;
   key?: string;
   disabled?: boolean;
   children?: IMenu[];
@@ -31,7 +92,8 @@ export type IMenu = {
 };
 const keyIconClass = 'w-[13px] h-[13px]';
 const transformKey = (key: string) => {
-  if (key === 'cmd') return !isMac ? 'Ctrl' : <Command className={keyIconClass} />;
+  if (key === 'cmd')
+    return !isMac ? 'Ctrl' : <Command className={keyIconClass} />;
   if (key === 'option') return <Option className={keyIconClass} />;
   if (key === 'shift') return <Shift className={keyIconClass} />;
   if (key === 'backspace') return <Backspace className={keyIconClass} />;
@@ -81,7 +143,7 @@ const MenuRender = observer(
                       });
                     }
                   }}
-                  onMouseLeave={(e) => {
+                  onMouseLeave={() => {
                     setState({ visibleIndex: -1 });
                   }}
                   className={`whitespace-nowrap relative group py-0.5 px-2
@@ -108,10 +170,18 @@ const MenuRender = observer(
                         </span>
                       ))}
                     {m.children?.length && (
-                      <ArrowRight className={'text-gray-400 text-xs group-hover:text-white'} />
+                      <ArrowRight
+                        className={
+                          'text-gray-400 text-xs group-hover:text-white'
+                        }
+                      />
                     )}
                     {state.visibleIndex === i && (
-                      <Menu menus={state.subMenus} root={props.root} parent={currentDom.current} />
+                      <Menu
+                        menus={state.subMenus}
+                        root={props.root}
+                        parent={currentDom.current}
+                      />
                     )}
                   </span>
                 </div>
@@ -119,58 +189,6 @@ const MenuRender = observer(
             </Fragment>
           ))}
         </div>
-      </div>
-    );
-  },
-);
-
-const Menu = observer(
-  (props: {
-    e?: MouseEvent | React.MouseEvent;
-    parent?: HTMLDivElement;
-    menus: IMenu[];
-    root: HTMLDivElement;
-    onClose?: (e: React.MouseEvent) => void;
-  }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [state, setState] = useLocalState({
-      x: 0,
-      y: 0,
-    });
-    useLayoutEffect(() => {
-      const dom = ref.current!;
-      if (props.e) {
-        let x = props.e.pageX,
-          y = props.e.pageY;
-        if (x + dom.clientWidth > window.innerWidth && x - dom.clientWidth > 0)
-          x -= dom.clientWidth;
-        if (y + dom.clientHeight > window.innerHeight && y - dom.clientHeight > 0)
-          y -= dom.clientHeight;
-        setState({ x, y });
-      }
-      if (props.parent) {
-        let left = props.parent.clientWidth - 2;
-        let top = -5;
-        const offsetLeft = getOffsetLeft(props.parent, props.root);
-        const offsetTop = getOffsetTop(props.parent, props.root);
-        if (
-          offsetLeft + dom.clientWidth + props.parent.clientWidth > window.innerWidth &&
-          offsetLeft - dom.clientWidth > 0
-        ) {
-          left = -dom.clientWidth - 2;
-        }
-        if (
-          offsetTop + dom.clientHeight - 5 > window.innerHeight &&
-          offsetTop - dom.clientHeight + props.parent.clientHeight > 0
-        ) {
-          top = -dom.clientHeight + props.parent.clientHeight + 5;
-        }
-        setState({ x: left, y: top });
-      }
-    }, [props.parent]);
-    return (
-      <div ref={ref} style={{ left: state.x, top: state.y, zIndex: 10 }} className={`context-menu`}>
-        <MenuRender menus={props.menus} root={props.root} boxRef={ref} />
       </div>
     );
   },
@@ -187,7 +205,9 @@ const Entry = observer(
     const [show, setShow] = useState(true);
     return (
       <div
-        className={`inset-0 leading-5 drag-none z-[2000] fixed ${show ? '' : 'animate-hide'}`}
+        className={`inset-0 leading-5 drag-none z-[2000] fixed ${
+          show ? '' : 'animate-hide'
+        }`}
         onClick={(e) => {
           e.stopPropagation();
           setShow(false);
@@ -202,7 +222,11 @@ const Entry = observer(
     );
   },
 );
-export const openMenus = (e: MouseEvent | React.MouseEvent, menus: IMenu[], cb?: () => void) => {
+export const openMenus = (
+  e: MouseEvent | React.MouseEvent,
+  menus: IMenu[],
+  cb?: () => void,
+) => {
   const div = window.document.createElement('div');
   const root = createRoot(div);
   window.document.body.append(div);

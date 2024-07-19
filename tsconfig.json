@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "strict": true,
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -13,5 +12,5 @@
       "@ant-design/md-to-json-schema/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/*", "src/MarkDown/demos/.tsx"]
+  "include": [".dumirc.ts", "src/**/**/*", "src/MarkDown/demos/.tsx"]
 }

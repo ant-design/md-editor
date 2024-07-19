@@ -6,8 +6,9 @@ const space = '  ';
 const inlineNode = new Set(['break']);
 export const isMix = (t: Text) => {
   return (
-    Object.keys(t).filter((key) => ['bold', 'code', 'italic', 'strikethrough'].includes(key))
-      .length > 1
+    Object.keys(t).filter((key) =>
+      ['bold', 'code', 'italic', 'strikethrough'].includes(key),
+    ).length > 1
   );
 };
 const textHtml = (t: Text) => {
@@ -38,7 +39,8 @@ const textStyle = (t: Text) => {
 };
 const composeText = (t: Text, parent: any[]) => {
   if (!t.text) return '';
-  if (t.highColor || (t.strikethrough && (t.bold || t.italic || t.code))) return textHtml(t);
+  if (t.highColor || (t.strikethrough && (t.bold || t.italic || t.code)))
+    return textHtml(t);
   const siblings = parent[parent.length - 1]?.children;
   // @ts-ignore
   const index = siblings?.findIndex((n) => n === t);
@@ -72,7 +74,10 @@ const table = (el: TableNode, preString = '', parent: any[]) => {
   let output = '',
     colLength = new Map<number, number>();
   for (let i = 0; i < data[0].length; i++) {
-    colLength.set(i, data.map((d) => stringWidth(d[i])).sort((a, b) => b - a)[0]);
+    colLength.set(
+      i,
+      data.map((d) => stringWidth(d[i])).sort((a, b) => b - a)[0],
+    );
   }
   for (let i = 0; i < data.length; i++) {
     let cells: string[] = [];
@@ -101,7 +106,11 @@ const table = (el: TableNode, preString = '', parent: any[]) => {
     if (i === 0) {
       output += `${preString}| ${cells
         .map((_, i) => {
-          const removeLength = head[i].align ? (head[i].align === 'center' ? 2 : 1) : 0;
+          const removeLength = head[i].align
+            ? head[i].align === 'center'
+              ? 2
+              : 1
+            : 0;
           let str = '-'.repeat(Math.max(colLength.get(i)! - removeLength, 2));
           switch (head[i].align) {
             case 'left':
@@ -130,7 +139,10 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += preString + toMarkdown(node.children, preString, newParent);
       break;
     case 'head':
-      str += '#'.repeat(node.level) + ' ' + toMarkdown(node.children, preString, newParent);
+      str +=
+        '#'.repeat(node.level) +
+        ' ' +
+        toMarkdown(node.children, preString, newParent);
       break;
     case 'code':
       const code = node.children
@@ -144,13 +156,15 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       } else if (node.frontmatter) {
         str += `${preString}---\n${code}\n${preString}---`;
       } else {
-        str += `${preString}\`\`\`${node.language || '`'}\n${code}\n${preString}\`\`\`${
-          !node.language ? '`' : ''
-        }`;
+        str += `${preString}\`\`\`${
+          node.language || '`'
+        }\n${code}\n${preString}\`\`\`${!node.language ? '`' : ''}`;
       }
       break;
     case 'attach':
-      str += `<a href="${encodeURI(node.url)}" download data-size="${node.size}">${node.name}</a>`;
+      str += `<a href="${encodeURI(node.url)}" download data-size="${
+        node.size
+      }">${node.name}</a>`;
       break;
     case 'blockquote':
       str += toMarkdown(node.children, preString, newParent);
@@ -160,13 +174,17 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       const type = mediaType(url);
       if (node.height) {
         if (type === 'video') {
-          str += `<video src="${encodeURI(url)}" alt="" height="${node.height || ''}"/>`;
+          str += `<video src="${encodeURI(url)}" alt="" height="${
+            node.height || ''
+          }"/>`;
         } else if (type === 'image') {
-          str += `<img src="${encodeURI(url)}" alt="" height="${node.height || ''}" ${
-            node.align ? `data-align="${node.align}"` : ''
-          }/>`;
+          str += `<img src="${encodeURI(url)}" alt="" height="${
+            node.height || ''
+          }" ${node.align ? `data-align="${node.align}"` : ''}/>`;
         } else {
-          str += `<iframe src="${encodeURI(url)}" alt="" height="${node.height || ''}"/>`;
+          str += `<iframe src="${encodeURI(url)}" alt="" height="${
+            node.height || ''
+          }"/>`;
         }
       } else {
         if (type === 'video') {
@@ -206,7 +224,11 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
   return str;
 };
 
-export const toMarkdown = (tree: any[], preString = '', parent: any[] = [{ root: true }]) => {
+export const toMarkdown = (
+  tree: any[],
+  preString = '',
+  parent: any[] = [{ root: true }],
+) => {
   let str = '';
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
@@ -220,7 +242,8 @@ export const toMarkdown = (tree: any[], preString = '', parent: any[] = [{ root:
       if (i === 0) {
         str += preString;
         str += list.order ? `${index + 1}. ` : '- ';
-        if (typeof p.checked === 'boolean') str += `[${p.checked ? 'x' : ' '}] `;
+        if (typeof p.checked === 'boolean')
+          str += `[${p.checked ? 'x' : ' '}] `;
         const nodeStr = parserNode(node, '', parent);
         const lines = nodeStr.split('\n');
         // 处理table多行组件问题
@@ -249,7 +272,10 @@ export const toMarkdown = (tree: any[], preString = '', parent: any[] = [{ root:
             str += `\n\n${pre}<br/>\n\n`;
           } else {
             str +=
-              '\n\n' + pre + parserNode(node, preString, parent)?.replace(/^[\s\t]+/g, '') + '\n\n';
+              '\n\n' +
+              pre +
+              parserNode(node, preString, parent)?.replace(/^[\s\t]+/g, '') +
+              '\n\n';
           }
         } else {
           str += parserNode(node, pre, parent) + '\n';
@@ -274,7 +300,10 @@ export const toMarkdown = (tree: any[], preString = '', parent: any[] = [{ root:
       if (!Node.string(node)?.replace(/\s|\t/g, '')) {
         str += '<br/>\n\n';
       } else {
-        str += preString + parserNode(node, preString, parent)?.replace(/^[\s\t]+/g, '') + '\n\n';
+        str +=
+          preString +
+          parserNode(node, preString, parent)?.replace(/^[\s\t]+/g, '') +
+          '\n\n';
       }
     } else {
       str += parserNode(node, preString, parent);

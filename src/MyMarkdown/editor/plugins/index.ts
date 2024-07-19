@@ -5,13 +5,18 @@ export const inlineNode = new Set(['break']);
 const voidNode = new Set(['hr', 'break']);
 export const withMarkdown = (editor: Editor, store: EditorStore) => {
   const { isInline, isVoid, apply } = editor;
-  editor.isInline = (element) => inlineNode.has(element.type) || isInline(element);
+  editor.isInline = (element) =>
+    inlineNode.has(element.type) || isInline(element);
 
   editor.isVoid = (element) => {
     return voidNode.has(element.type) || isVoid(element);
   };
   editor.apply = (operation) => {
-    if (operation.type === 'merge_node' && operation.properties?.type === 'table-cell') return;
+    if (
+      operation.type === 'merge_node' &&
+      operation.properties?.type === 'table-cell'
+    )
+      return;
     if (!store.manual) {
       if (operation.type === 'move_node') {
         const node = Node.get(editor, operation.path);

@@ -231,7 +231,7 @@ export const TableAttr = observer(() => {
 
   const insertCol = useCallback(
     (tablePath: Path, rows: number, index: number) => {
-      Array.from(new Array(rows)).map((_, i) => {
+      Array.from(new Array(rows)).forEach((_, i) => {
         Transforms.insertNodes(
           editor,
           {
@@ -272,7 +272,7 @@ export const TableAttr = observer(() => {
       }
       Transforms.delete(editor, { at: path });
       if (path[path.length - 1] === 0) {
-        Array.from(new Array(columns)).map((_, i) => {
+        Array.from(new Array(columns)).forEach((_, i) => {
           Transforms.setNodes(
             editor,
             {
@@ -347,7 +347,7 @@ export const TableAttr = observer(() => {
         }
         break;
       case 'moveLeftOneCol':
-        Array.from(new Array(rows)).map((_, i) => {
+        Array.from(new Array(rows)).forEach((_, i) => {
           Transforms.moveNodes(editor, {
             at: [...tableRef.current![1], i, index],
             to: [
@@ -359,7 +359,7 @@ export const TableAttr = observer(() => {
         });
         break;
       case 'moveRightOneCol':
-        Array.from(new Array(rows)).map((_, i) => {
+        Array.from(new Array(rows)).forEach((_, i) => {
           Transforms.moveNodes(editor, {
             at: [...tableRef.current![1], i, index],
             to: [
@@ -386,7 +386,7 @@ export const TableAttr = observer(() => {
             Editor.start(editor, [...tableRef.current[1], row, index - 1]),
           );
         }
-        Array.from(new Array(rows)).map((_, i) => {
+        Array.from(new Array(rows)).forEach((_, i) => {
           Transforms.delete(editor, {
             at: [...tableRef.current![1], rows - i - 1, index],
           });
@@ -424,12 +424,15 @@ export const TableAttr = observer(() => {
         left: state().left,
         top: state().top,
         width: 'auto',
+        display: state().visible ? 'flex' : 'none',
+        background: 'rgba(255,255,255,0.9)',
+        backDropFilter: 'blur(8px)',
+        border: '1px solid #f0f0f0',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
       }}
       onMouseDown={(e) => e.preventDefault()}
-      className={`${
-        state().visible ? '' : 'hidden'
-      } dark:bg-black/90 bg-white/90 backdrop-blur border-t border-l border-r border-gray-200 dark:border-gray-100/20
-        text-sm absolute z-10 items-center flex justify-between dark:text-gray-300 text-gray-500 h-[24px] w-full px-2 rounded-tr rounded-tl select-none
+      className={`bg-white/90 backdrop-blur border-t border-l border-r border-gray-200 
+        text-sm absolute z-10 items-center flex justify-between  text-gray-500 h-[24px] w-full px-2 rounded-tr rounded-tl select-none
       `}
     >
       <div className={'flex items-center space-x-2 text-center'}>

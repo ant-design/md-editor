@@ -17,7 +17,10 @@ export const useKeyboard = (store: EditorStore) => {
     const enter = new EnterKey(store, backspace);
     const match = new MatchKey(store.editor);
     return (e: React.KeyboardEvent) => {
-      if (store.openInsertCompletion && (isHotkey('up', e) || isHotkey('down', e))) {
+      if (
+        store.openInsertCompletion &&
+        (isHotkey('up', e) || isHotkey('down', e))
+      ) {
         e.preventDefault();
         return;
       }
@@ -51,7 +54,11 @@ export const useKeyboard = (store: EditorStore) => {
       match.run(e);
 
       if (e.key.toLowerCase().startsWith('arrow')) {
-        if (store.openLangCompletion && ['ArrowUp', 'ArrowDown'].includes(e.key)) return;
+        if (
+          store.openLangCompletion &&
+          ['ArrowUp', 'ArrowDown'].includes(e.key)
+        )
+          return;
         keyArrow(store, e);
       } else {
         if (e.key === 'Tab') tab.run(e);

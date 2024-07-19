@@ -1,5 +1,4 @@
 import { action, makeAutoObservable, runInAction } from 'mobx';
-import { isAbsolute, join } from 'path';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
@@ -22,7 +21,6 @@ import { MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
-import { getImageData } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
@@ -127,15 +125,6 @@ export class EditorStore {
       this.viewImages = nodes
         .map((n) => {
           let realUrl = n[0].url;
-          if (realUrl && !realUrl?.startsWith('http') && !realUrl.startsWith('file:')) {
-            const file = isAbsolute(realUrl)
-              ? n[0].url
-              : join(this.openFilePath || '', '..', realUrl);
-            const data = getImageData(file);
-            if (data) {
-              realUrl = data;
-            }
-          }
           return realUrl!;
         })
         .filter((url) => !/^\w+:/.test(url) || /^\w+:/.test(url));
@@ -210,7 +199,10 @@ export class EditorStore {
   insertLink(filePath: string) {
     const p = parse(filePath);
     const insertPath = filePath;
-    let node = { text: filePath.startsWith('http') ? filePath : p.name, url: insertPath };
+    let node = {
+      text: filePath.startsWith('http') ? filePath : p.name,
+      url: insertPath,
+    };
     const sel = this.editor.selection;
     if (!sel || !Range.isCollapsed(sel)) return;
     // @ts-ignore
@@ -223,7 +215,8 @@ export class EditorStore {
     } else {
       // @ts-ignore
       const [par] = Editor.nodes<any>(this.editor, {
-        match: (n) => Element.isElement(n) && ['table', 'code', 'head'].includes(n.type),
+        match: (n) =>
+          Element.isElement(n) && ['table', 'code', 'head'].includes(n.type),
       });
       Transforms.insertNodes(
         this.editor,
@@ -287,7 +280,8 @@ export class EditorStore {
       Editor.nodes<any>(this.editor, {
         at: [],
         match: (n) =>
-          Element.isElement(n) && ['paragraph', 'table-cell', 'code-line', 'head'].includes(n.type),
+          Element.isElement(n) &&
+          ['paragraph', 'table-cell', 'code-line', 'head'].includes(n.type),
       }),
     );
     let matchCount = 0;
@@ -408,7 +402,10 @@ export class EditorStore {
       const dom = ReactEditor.toDOMNode(this.editor, node);
       if (dom) {
         const top = this.offsetTop(dom);
-        if (top > this.container!.scrollTop && top < this.container!.scrollTop + window.innerHeight)
+        if (
+          top > this.container!.scrollTop &&
+          top < this.container!.scrollTop + window.innerHeight
+        )
           return;
         this.container!.scroll({
           top: top - 100,
@@ -469,12 +466,18 @@ export class EditorStore {
       points.push({
         el: el,
         direction: 'top',
-        left: el.dataset.be === 'list-item' && !el.classList.contains('task') ? left - 16 : left,
+        left:
+          el.dataset.be === 'list-item' && !el.classList.contains('task')
+            ? left - 16
+            : left,
         top: top - 2,
       });
       points.push({
         el: el,
-        left: el.dataset.be === 'list-item' && !el.classList.contains('task') ? left - 16 : left,
+        left:
+          el.dataset.be === 'list-item' && !el.classList.contains('task')
+            ? left - 16
+            : left,
         direction: 'bottom',
         top: top + el.clientHeight + 2,
       });
@@ -520,7 +523,8 @@ export class EditorStore {
         if (last && this.dragEl) {
           let [dragPath, dragNode] = this.toPath(this.dragEl);
           let [targetPath] = this.toPath(last.el);
-          let toPath = last.direction === 'top' ? targetPath : Path.next(targetPath);
+          let toPath =
+            last.direction === 'top' ? targetPath : Path.next(targetPath);
           if (!Path.equals(targetPath, dragPath)) {
             const parent = Node.parent(this.editor, dragPath);
             if (
@@ -543,7 +547,9 @@ export class EditorStore {
                   { at: toPath, select: true },
                 );
                 if (parent.children?.length === 1) {
-                  if (EditorUtils.isNextPath(Path.parent(dragPath), targetPath)) {
+                  if (
+                    EditorUtils.isNextPath(Path.parent(dragPath), targetPath)
+                  ) {
                     delPath = Path.next(Path.parent(dragPath));
                   } else {
                     delPath = Path.parent(dragPath);
