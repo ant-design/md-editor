@@ -90,7 +90,7 @@ export const MdElements: Record<string, MdNode> = {
             },
             {
               type: 'table-row',
-              children: columns.map((c) => ({
+              children: columns.map(() => ({
                 type: 'table-cell',
                 children: [{ text: '' }],
               })),
@@ -130,7 +130,7 @@ export const MdElements: Record<string, MdNode> = {
       );
     },
     reg: /^\s*(#{1,5})(\s+)([^\n]*)$/,
-    run: ({ editor, path, match, sel, startText }) => {
+    run: ({ editor, path, match, sel }) => {
       let text: any = [{ text: '' }];
       if (!Point.equals(sel.anchor, Editor.end(editor, path))) {
         text = EditorUtils.cutText(editor, sel.anchor);
@@ -320,7 +320,7 @@ export const MdElements: Record<string, MdNode> = {
     checkAllow: (ctx) => {
       return ctx.node[0].type === 'paragraph';
     },
-    run: ({ sel, editor, path, match, el }) => {
+    run: ({ sel, editor, path }) => {
       if (sel && Range.isCollapsed(sel)) {
         const text = EditorUtils.cutText(editor, {
           path: sel.anchor.path,

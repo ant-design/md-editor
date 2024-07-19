@@ -6,7 +6,6 @@ import { Tab } from '..';
 import { MEditor } from './Editor';
 import { EditorStoreContext } from './store';
 import { FloatBar } from './tools/FloatBar';
-import { InsertAutocomplete } from './tools/InsertAutocomplete';
 import { InsertLink } from './tools/InsertLink';
 import { LangAutocomplete } from './tools/LangAutocomplete';
 import { Heading } from './tools/Leading';
@@ -71,7 +70,7 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
           <InsertLink />
           <TableAttr />
           <LangAutocomplete />
-          <InsertAutocomplete />
+          {/* <InsertAutocomplete /> */}
           <PhotoSlider
             maskOpacity={0.5}
             className={'desktop-img-view'}

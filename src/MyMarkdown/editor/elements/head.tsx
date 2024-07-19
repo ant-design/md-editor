@@ -19,6 +19,7 @@ export function Head({
       `h${element.level}`,
       {
         ...attributes,
+        id: slugify(str),
         ['data-be']: 'head',
         className: 'drag-el',
         ['data-head']: slugify(Node.string(element) || ''),

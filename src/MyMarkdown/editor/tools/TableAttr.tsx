@@ -472,10 +472,13 @@ export const TableAttr = observer(() => {
                           e.stopPropagation();
                           resetGird(i + 1, j + 1);
                         }}
-                        className={`cursor-pointer w-4 h-4 border-gray-500 border ${getScaleGirdClass(
-                          i + 1,
-                          j + 1,
-                        )}`}
+                        style={{
+                          width: '20px',
+                          height: '20px',
+                          cursor: 'pointer',
+                          border: '1px solid #f0f0f0',
+                        }}
+                        className={`${getScaleGirdClass(i + 1, j + 1)}`}
                         key={j}
                       />
                     ))}

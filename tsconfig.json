@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
-    "declaration": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "jsx": "react",
-    "target": "ESNext",
-    "baseUrl": "./",
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
     "paths": {
       "@@/*": [".dumi/tmp/*"],
       "@ant-design/md-to-json-schema": ["src"],

@@ -969,15 +969,4 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 
 .context-menu {
   position: absolute;
-  border-radius: 0.5rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
-  padding: 0.25rem;
-  font-size: 13px;
-  background-color: #fff;
-}
-
-:is(.dark .context-menu) {
-  border-color: rgb(229 231 235 / 0.2);
 }

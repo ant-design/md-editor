@@ -1,3 +1,4 @@
+import { Anchor } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useRef } from 'react';
@@ -29,12 +30,6 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
     active: '',
   });
   const box = useRef<HTMLElement>();
-  useEffect(() => {
-    cache.clear();
-    getHeading();
-    setState({ active: '' });
-  }, [note]);
-
   const getHeading = useCallback(() => {
     if (note) {
       const schema = note.schema;
@@ -76,6 +71,12 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
     }
   }, [note]);
 
+  useEffect(() => {
+    cache.clear();
+    getHeading();
+    setState({ active: '' });
+  }, [note]);
+
   useDebounce(getHeading, 100, [note, note?.refresh]);
 
   useEffect(() => {
@@ -100,46 +101,24 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
     return () => {};
   }, []);
   return (
-    <div
-      style={{
-        top: 0,
-        position: 'sticky',
-      }}
-      ref={(e) => {
-        box.current = e?.parentElement || undefined;
-      }}
-    >
-      <div
-        className={`h-full pt-10 pb-10 pr-4 overflow-y-auto`}
-        style={{ width: 200 }}
-      >
-        <div className={'text-gray-500 text-sm mb-4'}>大纲</div>
-        <div
-          className={'space-y-1 dark:text-gray-400 text-gray-600/90 text-sm'}
-        >
-          {state().headings.map((h) => (
-            <div
-              key={h.key}
-              onClick={() => {
-                console.log(store.container);
-                if (h.dom && store.container) {
-                  store.container.scroll({
-                    top: getOffsetTop(h.dom, store.container) - 10,
-                    behavior: 'smooth',
-                  });
-                }
-              }}
-              className={`${levelClass.get(h.level)} cursor-pointer ${
-                state().active === h.id
-                  ? 'text-blue-500'
-                  : 'dark:hover:text-gray-200 hover:text-gray-800'
-              }`}
-            >
-              {h.title}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <>
+      <Anchor
+        items={state().headings.map((h) => ({
+          id: h.id,
+          key: h.key,
+          href: `#${h.id}`,
+          onclick: () => {
+            if (h.dom && store.container) {
+              store.container.scroll({
+                top: getOffsetTop(h.dom, store.container) - 10,
+                behavior: 'smooth',
+              });
+            }
+          },
+          title: h.title,
+          level: h.level,
+        }))}
+      />
+    </>
   );
 });
