@@ -9,7 +9,7 @@ import {
 import { Popover, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -46,8 +46,6 @@ export const TableAttr = observer(() => {
           setState({
             rows: table[0].children.length,
             cols: table[0].children[0].children.length,
-            width: dom.clientWidth,
-            visible: true,
           });
         }
       } catch (e) {}

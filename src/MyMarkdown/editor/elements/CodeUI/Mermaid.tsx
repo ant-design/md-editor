@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Node, Transforms } from 'slate';
 import { ReactEditor, useSlateStatic } from 'slate-react';
@@ -14,10 +14,7 @@ export const Mermaid = observer(
     });
     const divRef = useRef<HTMLDivElement>(null);
     const timer = useRef(0);
-    const id = useMemo(
-      () => 'm' + (Date.now() + Math.ceil(Math.random() * 1000)),
-      [],
-    );
+
     const render = useCallback(() => {}, []);
 
     useEffect(() => {

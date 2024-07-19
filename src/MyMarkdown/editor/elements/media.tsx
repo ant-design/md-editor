@@ -21,7 +21,7 @@ const resize = (ctx: {
   e: React.MouseEvent;
   dom: HTMLElement;
   height?: number;
-  cb: Function;
+  cb: (e: any) => void;
 }) => {
   const height = ctx.height || ctx.dom.clientHeight;
   const startY = ctx.e.clientY;
@@ -77,7 +77,7 @@ export function Media({
       img.referrerPolicy = 'no-referrer';
       img.crossOrigin = 'anonymous';
       img.src = realUrl!;
-      img.onerror = (e) => {
+      img.onerror = () => {
         setState({ loadSuccess: false });
       };
       img.onload = () => setState({ loadSuccess: true });
@@ -217,35 +217,6 @@ export function Media({
               // @ts-ignore
               ref={ref}
             />
-          )}
-          {state().type === 'audio' && (
-            <audio
-              controls={true}
-              src={state().url}
-              onMouseDown={(e) => {
-                e.preventDefault();
-              }}
-              className={`select-none ${
-                state().dragging ? 'pointer-events-none' : ''
-              }`}
-              // @ts-ignore
-              ref={ref}
-            />
-          )}
-          {state().type === 'other' && (
-            <div
-              className={'p-2 rounded bg-black/5 dark:bg-white/10 flex-1'}
-              // @ts-ignore
-              ref={ref}
-            >
-              <webview
-                src={state().url}
-                className={`w-full h-full select-none border-none rounded ${
-                  state().dragging ? 'pointer-events-none' : ''
-                }`}
-                allowFullScreen={true}
-              />
-            </div>
           )}
           {state().type === 'image' && (
             <img

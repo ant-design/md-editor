@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import React, {
   MutableRefObject,
   ReactNode,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -26,11 +26,12 @@ const Menu = observer(
       x: 0,
       y: 0,
     });
-    useLayoutEffect(() => {
+    useEffect(() => {
       const dom = ref.current!;
       if (props.e) {
-        let x = props.e.pageX,
-          y = props.e.pageY;
+        let x = props.e.clientX,
+          y = props.e.clientY;
+
         if (x + dom.clientWidth > window.innerWidth && x - dom.clientWidth > 0)
           x -= dom.clientWidth;
         if (
@@ -38,6 +39,7 @@ const Menu = observer(
           y - dom.clientHeight > 0
         )
           y -= dom.clientHeight;
+
         setState({ x, y });
       }
       if (props.parent) {
@@ -61,10 +63,11 @@ const Menu = observer(
         setState({ x: left, y: top });
       }
     }, [props.parent]);
+
     return (
       <div
         ref={ref}
-        style={{ left: state.x, top: state.y, zIndex: 10 }}
+        style={{ left: state.x, top: state.y, zIndex: 99999 }}
         className={`context-menu`}
       >
         <MenuRender menus={props.menus} root={props.root} boxRef={ref} />

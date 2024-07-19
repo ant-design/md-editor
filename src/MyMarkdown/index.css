@@ -98,7 +98,6 @@
 }
 
 .content {
-  color: var(--md-text);
   height: max-content;
   width: 100%;
   font-family: -apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont,
@@ -106,8 +105,6 @@
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   outline: none;
   tab-size: 4;
-  caret-color: var(--md-text);
-  overflow: hidden;
   position: relative;
   line-height: 1.5;
   white-space: normal;
@@ -964,5 +961,5 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 }
 
 .context-menu {
-  position: absolute;
+  position: fixed;
 }
