@@ -429,13 +429,24 @@ export const TableAttr = observer(() => {
         backDropFilter: 'blur(8px)',
         border: '1px solid #f0f0f0',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        justifyContent: 'space-between',
+        color: '#666',
+        padding: '4px',
+        position: 'absolute',
+        alignItems: 'center',
+        zIndex: 10,
+        height: '24px',
+        gap: '4px',
       }}
       onMouseDown={(e) => e.preventDefault()}
-      className={`bg-white/90 backdrop-blur border-t border-l border-r border-gray-200 
-        text-sm absolute z-10 items-center flex justify-between  text-gray-500 h-[24px] w-full px-2 rounded-tr rounded-tl select-none
-      `}
     >
-      <div className={'flex items-center space-x-2 text-center'}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '4px',
+          alignItems: 'center',
+        }}
+      >
         <Popover
           placement="bottomLeft"
           title={null}
@@ -492,7 +503,7 @@ export const TableAttr = observer(() => {
         </Popover>
         <Tooltip placement={'top'} title={'align left'} mouseEnterDelay={0.5}>
           <div
-            onClick={(e) => setAligns('left')}
+            onClick={() => setAligns('left')}
             className={`${
               state().align === 'left'
                 ? 'bg-gray-300/30 dark:bg-gray-300/10'
@@ -530,7 +541,13 @@ export const TableAttr = observer(() => {
           <EllipsisOutlined />
         </div>
       </div>
-      <div className={'flex items-center'}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '4px',
+          alignItems: 'center',
+        }}
+      >
         <DeleteOutlined
           className={'cursor-pointer t-handle'}
           onClick={remove}
