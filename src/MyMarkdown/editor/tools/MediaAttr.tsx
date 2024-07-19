@@ -174,7 +174,10 @@ export const MediaAttr = observer(() => {
       }
     }
   }, []);
-
+  const close = useCallback(() => {
+    nodeRef.current = undefined;
+    setState({ focus: false, visible: false });
+  }, []);
   const blur = useCallback((e: MouseEvent) => {
     e.preventDefault();
     if (!domRef.current?.contains(e.target as HTMLElement) && state().focus) {
@@ -182,11 +185,6 @@ export const MediaAttr = observer(() => {
       window.removeEventListener('keydown', keyboard);
     }
     window.removeEventListener('click', blur);
-  }, []);
-
-  const close = useCallback(() => {
-    nodeRef.current = undefined;
-    setState({ focus: false, visible: false });
   }, []);
 
   useSubject(store.mediaNode$, (node) => {

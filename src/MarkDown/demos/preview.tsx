@@ -1,5 +1,4 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-to-json-schema';
-import React from 'react';
 
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
@@ -15,6 +14,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 
 ## 表格
+
 
 | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
 | ------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
@@ -53,7 +53,44 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 | 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  | 
 | 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  |
 | -金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  | 
-| -云           | 2,012   | 1,521   | 1,353   | 2,799   | 1,977   | 
+| -云           | 2,012   | 1,521   | 1,353   | 2,799   | 1,977   |
+
+
+\`\`\`schema
+[
+  {
+    valueType: "mindMap",
+    fieldProps: {
+      nodeData: {
+        id: "d451a556d866ba7b",
+        topic: "new topic",
+        root: true,
+        children: [
+          {
+            topic: "new node",
+            id: "d451a6f027c33b1f",
+            direction: 0,
+            children: [
+              {
+                topic: "new node",
+                id: "d451a724b7c10970",
+              },
+              {
+                topic: "new node",
+                id: "d451a77ca7348eae",
+              },
+              {
+                topic: "new node",
+                id: "d451a78e1ec7181c",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+]
+
 
 `;
 export default () => {

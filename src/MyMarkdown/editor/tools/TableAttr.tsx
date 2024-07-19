@@ -424,7 +424,6 @@ export const TableAttr = observer(() => {
         width: 'auto',
         display: state().visible ? 'flex' : 'none',
         background: 'rgba(255,255,255,0.9)',
-        backDropFilter: 'blur(8px)',
         border: '1px solid #f0f0f0',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         justifyContent: 'space-between',
@@ -460,10 +459,16 @@ export const TableAttr = observer(() => {
                 onMouseLeave={() => setState({ enterScale: false })}
               >
                 {Array.from(new Array(10)).map((_, i) => (
-                  <div className={'flex space-x-0.5'} key={i}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 2,
+                    }}
+                    key={i}
+                  >
                     {Array.from(new Array(6)).map((_, j) => (
                       <div
-                        onMouseEnter={(e) => {
+                        onMouseEnter={() => {
                           setState({ selectRows: i + 1, selectCols: j + 1 });
                         }}
                         onClick={(e) => {
