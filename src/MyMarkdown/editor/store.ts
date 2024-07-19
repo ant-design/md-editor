@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { action, makeAutoObservable, runInAction } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';

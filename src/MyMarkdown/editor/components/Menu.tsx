@@ -95,7 +95,7 @@ const MenuRender = observer(
       return menus.map(
         (m) =>
           ({
-            click: m.click,
+            onClick: m.click,
             label: m.hr ? null : m.text,
             type: m.hr ? 'divider' : undefined,
             children: m.children ? menusToItems(m.children) : undefined,

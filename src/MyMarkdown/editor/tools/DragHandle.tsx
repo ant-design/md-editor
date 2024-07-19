@@ -1,6 +1,6 @@
 import { DragOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
-import React, { CSSProperties, useRef } from 'react';
+import { CSSProperties, useRef } from 'react';
 import { useEditorStore } from '../store';
 
 export const DragHandle = observer((props: { style?: CSSProperties }) => {
@@ -12,7 +12,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
       style={{ ...props.style }}
       contentEditable={false}
       ref={ref}
-      onMouseDown={(e) => {
+      onMouseDown={() => {
         let parent = ref.current!.parentElement!;
         if (parent.parentElement?.dataset.be === 'list-item') {
           if (

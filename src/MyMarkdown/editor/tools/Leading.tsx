@@ -17,12 +17,34 @@ type Leading = {
 };
 
 const cache = new Map<object, Leading>();
-const levelClass = new Map([
-  [1, ''],
-  [2, 'pl-3'],
-  [3, 'pl-6'],
-  [4, 'pl-9'],
-]);
+
+function buildTree(data: any[]) {
+  let tree = {} as Record<string, any>;
+
+  data.forEach((item: { level?: any }) => {
+    if (item.level === 1) {
+      tree = { ...item, children: [] };
+    } else {
+      let currentLevel = tree;
+      for (let i = 2; i < item.level; i++) {
+        if (!currentLevel.children) {
+          currentLevel.children = [];
+        }
+        if (currentLevel.children[currentLevel.children.length - 1]) {
+          currentLevel =
+            currentLevel.children[currentLevel.children.length - 1];
+        }
+      }
+      if (!currentLevel.children) {
+        currentLevel.children = [];
+      }
+      currentLevel.children.push({ ...item, children: [] });
+    }
+  });
+
+  return tree;
+}
+
 export const Heading = observer(({ note }: { note: IFileItem }) => {
   const store = useEditorStore();
   const [state, setState] = useGetSetState({
@@ -100,21 +122,25 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
     }
     return () => {};
   }, []);
+
+  if (!buildTree(state().headings).children) {
+    return null;
+  }
   return (
     <>
       <Anchor
-        items={state().headings.map((h) => ({
+        offsetTop={64}
+        items={buildTree(state().headings).children?.map((h: any) => ({
           id: h.id,
           key: h.key,
           href: `#${h.id}`,
-          onclick: () => {
-            if (h.dom && store.container) {
-              store.container.scroll({
-                top: getOffsetTop(h.dom, store.container) - 10,
-                behavior: 'smooth',
-              });
-            }
-          },
+
+          children: h?.children?.map((subH: any) => ({
+            id: subH.id,
+            key: subH.key,
+            href: `#${subH.id}`,
+            title: subH.title,
+          })),
           title: h.title,
           level: h.level,
         }))}

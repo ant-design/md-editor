@@ -16,13 +16,7 @@ import { Button, Input, Tabs } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useSubject } from '../../hooks/subscribe';

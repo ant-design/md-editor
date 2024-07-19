@@ -41,17 +41,13 @@
   display: block;
   cursor: text;
   --tw-text-opacity: 0.3;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
+  color: rgb(156 163 175 /0.85);
 }
 
 .float-color-icon {
   width: 20px;
   height: 20px;
   border-radius: 4px;
-}
-
-:is(.dark .edit-area.focus [data-empty]):before {
-  color: rgb(209 213 219 / 0.3);
 }
 
 .edit-area.focus [data-empty]:before {

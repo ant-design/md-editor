@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
       "@ant-design/md-to-json-schema": ["src"],

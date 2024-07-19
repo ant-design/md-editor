@@ -2,77 +2,39 @@ import {
   BoldOutlined,
   CaretDownOutlined,
   ClearOutlined,
+  CodeOutlined,
   FontColorsOutlined,
   ItalicOutlined,
   LinkOutlined,
   StrikethroughOutlined,
 } from '@ant-design/icons';
-import { Tooltip } from 'antd';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { BaseRange, Editor, NodeEntry, Range, Text, Transforms } from 'slate';
 import { useSubject } from '../../hooks/subscribe';
 import { IFileItem } from '../../index';
-import ICode from '../icons/ICode';
-import Command from '../icons/keyboard/Command';
-import Ctrl from '../icons/keyboard/Ctrl';
-import Option from '../icons/keyboard/Option';
-import Shift from '../icons/keyboard/Shift';
 import { useEditorStore } from '../store';
-import { isMac } from '../utils';
 import { getSelRect } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { useLocalState } from '../utils/useLocalState';
 
-function Mod() {
-  if (isMac) {
-    return <Command className={'w-3 h-3'} />;
-  } else {
-    return <Ctrl className={'w-3 h-3'} />;
-  }
-}
 const tools = [
   {
     type: 'bold',
     icon: <BoldOutlined />,
-    tooltip: (
-      <div className={'text-xs flex items-center space-x-1'}>
-        <Mod />
-        <span>B</span>
-      </div>
-    ),
   },
   {
     type: 'italic',
     icon: <ItalicOutlined />,
-    tooltip: (
-      <div className={'text-xs flex items-center space-x-1'}>
-        <Mod />
-        <span>I</span>
-      </div>
-    ),
   },
   {
     type: 'strikethrough',
     icon: <StrikethroughOutlined />,
-    tooltip: (
-      <div className={'text-xs flex items-center space-x-1'}>
-        <Mod />
-        <Shift />
-        <span>S</span>
-      </div>
-    ),
   },
   {
     type: 'code',
-    icon: <ICode className={'text-base ml-[1px]'} />,
-    tooltip: (
-      <div className={'text-xs flex items-center space-x-0.5'}>
-        <Option />
-        <span>`</span>
-      </div>
-    ),
+    icon: <CodeOutlined />,
   },
 ];
 
@@ -115,8 +77,7 @@ export const FloatBar = observer(() => {
   const resize = useCallback((force = false) => {
     if (store.domRect && !store.openLinkPanel) {
       let left = store.domRect.x;
-      left =
-        left - ((state.openSelectColor ? 260 : 228) - store.domRect.width) / 2;
+      left = left - (228 - store.domRect.width) / 2;
       const container = store.container!;
       if (left < 4) left = 4;
       const barWidth = state.openSelectColor ? 264 : 232;
@@ -202,13 +163,14 @@ export const FloatBar = observer(() => {
     window.addEventListener('resize', change);
     return () => window.removeEventListener('resize', change);
   }, []);
-  const setLink = useCallback(() => {
-    Transforms.setNodes(
-      store.editor,
-      { url: state.url || undefined },
-      { match: Text.isText, split: true },
-    );
-  }, []);
+
+  // const setLink = useCallback(() => {
+  //   Transforms.setNodes(
+  //     store.editor,
+  //     { url: state.url || undefined },
+  //     { match: Text.isText, split: true },
+  //   );
+  // }, []);
   return (
     <div
       style={{
@@ -224,7 +186,6 @@ export const FloatBar = observer(() => {
     >
       <div
         style={{
-          minWidth: state.openSelectColor ? '260px' : '228px',
           height: '100%',
           overflow: 'hidden',
           padding: '0 6px',
@@ -285,30 +246,34 @@ export const FloatBar = observer(() => {
                   resize();
                 }}
               >
-                <CaretDownOutlined className={'scale-95'} />
+                <CaretDownOutlined
+                  style={{
+                    transform: state.hoverSelectColor
+                      ? 'rotate(180deg)'
+                      : 'none',
+                  }}
+                />
               </div>
             </div>
             {tools.map((t) => (
-              <Tooltip title={t.tooltip} key={t.type} mouseEnterDelay={0.3}>
-                <div
-                  key={t.type}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
-                    EditorUtils.toggleFormat(store.editor, t.type);
-                  }}
-                  style={{
-                    display: 'flex',
-                    height: '100%',
-                    alignItems: 'center',
-                    padding: '2px 6px',
-                    color: EditorUtils.isFormatActive(store.editor, t.type)
-                      ? '#000'
-                      : undefined,
-                  }}
-                >
-                  {t.icon}
-                </div>
-              </Tooltip>
+              <div
+                key={t.type}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  EditorUtils.toggleFormat(store.editor, t.type);
+                }}
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  padding: '2px 6px',
+                  color: EditorUtils.isFormatActive(store.editor, t.type)
+                    ? '#000'
+                    : undefined,
+                }}
+              >
+                {t.icon}
+              </div>
             ))}
             <div
               onMouseDown={(e) => e.preventDefault()}
@@ -326,40 +291,37 @@ export const FloatBar = observer(() => {
               }}
             >
               <LinkOutlined />
-              <span className={'ml-1 text-[13px]'}>Link</span>
+              <span>Link</span>
             </div>
-            <Tooltip
-              mouseEnterDelay={0.3}
-              title={
-                <div className={'text-xs flex items-center space-x-1'}>
-                  <Mod />
-                  <span>\</span>
-                </div>
-              }
+            <div
+              style={{
+                display: 'flex',
+                height: '100%',
+                alignItems: 'center',
+                padding: '2px 6px',
+              }}
+              onClick={() => {
+                EditorUtils.clearMarks(store.editor, true);
+                EditorUtils.highColor(store.editor);
+              }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  height: '100%',
-                  alignItems: 'center',
-                  padding: '2px 6px',
-                }}
-                onClick={() => {
-                  EditorUtils.clearMarks(store.editor, true);
-                  EditorUtils.highColor(store.editor);
-                }}
-              >
-                <ClearOutlined />
-              </div>
-            </Tooltip>
+              <ClearOutlined />
+            </div>
           </div>
         )}
         {state.openSelectColor && (
-          <div className={'flex items-center space-x-2 justify-center h-full'}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 2,
+              height: '100%',
+              alignItems: 'center',
+            }}
+          >
             <div
-              className={
-                'w-5 h-5 rounded border cursor-pointer dark:border-white/20 dark:hover:border-white/50 border-black/20 hover:border-black/50 flex items-center justify-center dark:text-white/30 dark:hover:text-white/50 text-black/30 hover:text-black/50'
-              }
+              style={{
+                cursor: 'pointer',
+              }}
               onClick={() => {
                 EditorUtils.highColor(store.editor);
                 setState({ openSelectColor: false });
@@ -371,8 +333,8 @@ export const FloatBar = observer(() => {
             {colors.map((c) => (
               <div
                 key={c.color}
-                style={{ backgroundColor: c.color }}
-                className={`float-color-icon flex-shrink-0 duration-200`}
+                style={{ backgroundColor: c.color, cursor: 'pointer' }}
+                className={`float-color-icon`}
                 onClick={() => {
                   localStorage.setItem('high-color', c.color);
                   EditorUtils.highColor(store.editor, c.color);

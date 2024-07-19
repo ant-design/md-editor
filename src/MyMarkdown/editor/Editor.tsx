@@ -135,38 +135,35 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     [note],
   );
 
-  const drop = useCallback(
-    (e: React.DragEvent<HTMLDivElement>) => {
-      const node = note;
-      if (!node.folder) {
-        const type = mediaType(node.filePath);
-        if (node.ext === 'md' || type === 'other') {
-          Transforms.insertNodes(store.editor, {
-            text: node.filename,
-            url: toUnixPath(relative(join(note.filePath, '..'), node.filePath)),
-          });
-        } else {
-          EditorUtils.focus(store.editor);
-          const path = EditorUtils.findMediaInsertPath(store.editor);
-          if (path) {
-            Transforms.insertNodes(
-              store.editor,
-              {
-                type: 'media',
-                url: toUnixPath(
-                  relative(join(note.filePath, '..'), node.filePath),
-                ),
-                children: [{ text: '' }],
-              },
-              { at: path, select: true },
-            );
-          }
+  const drop = useCallback(() => {
+    const node = note;
+    if (!node.folder) {
+      const type = mediaType(node.filePath);
+      if (node.ext === 'md' || type === 'other') {
+        Transforms.insertNodes(store.editor, {
+          text: node.filename,
+          url: toUnixPath(relative(join(note.filePath, '..'), node.filePath)),
+        });
+      } else {
+        EditorUtils.focus(store.editor);
+        const path = EditorUtils.findMediaInsertPath(store.editor);
+        if (path) {
+          Transforms.insertNodes(
+            store.editor,
+            {
+              type: 'media',
+              url: toUnixPath(
+                relative(join(note.filePath, '..'), node.filePath),
+              ),
+              children: [{ text: '' }],
+            },
+            { at: path, select: true },
+          );
         }
-        return;
       }
-    },
-    [note],
-  );
+      return;
+    }
+  }, [note]);
 
   const focus = useCallback(() => {
     store.setState((state) => (state.focus = true));
@@ -310,7 +307,7 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     }
   }, []);
 
-  const compositionEnd = useCallback((e: React.CompositionEvent) => {
+  const compositionEnd = useCallback(() => {
     store.inputComposition = false;
     if (store.pauseCodeHighlight)
       runInAction(() => (store.pauseCodeHighlight = false));
