@@ -8,6 +8,11 @@ import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 import './index.css';
 
+export { EditorUtils, parserMdToSchema };
+
+export * from './editor/elements';
+export * from './el';
+
 export type IFileItem = {
   cid: string;
   filePath: string;

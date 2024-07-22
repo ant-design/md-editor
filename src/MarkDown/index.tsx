@@ -1,6 +1,6 @@
 import htmlToPdfmake from 'html-to-pdfmake';
 import json5 from 'json5';
-import { Root, RootContent, TableCell, TableRow } from 'mdast';
+import type { Root, RootContent, TableCell, TableRow } from 'mdast';
 import pdfMake from 'pdfmake';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';

@@ -2,11 +2,17 @@
 /* eslint-disable @typescript-eslint/no-loop-func */
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { Content, Root, Table } from 'mdast';
+import type { Root, RootContent, Table } from 'mdast';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import { Element } from 'slate';
-import { CustomLeaf, Elements, MediaNode, TableNode } from '../../../el';
+import {
+  ChartNode,
+  CustomLeaf,
+  Elements,
+  MediaNode,
+  TableNode,
+} from '../../../el';
 import parser from './parser';
 
 const stringifyObj = remark().use(remarkGfm);
@@ -55,7 +61,7 @@ const findAttachment = (str: string) => {
   }
 };
 
-const parseText = (els: Content[], leaf: CustomLeaf = {}) => {
+const parseText = (els: RootContent[], leaf: CustomLeaf = {}) => {
   let leafs: CustomLeaf[] = [];
   for (let n of els) {
     if (n.type === 'strong')
@@ -76,7 +82,10 @@ const parseText = (els: Content[], leaf: CustomLeaf = {}) => {
   return leafs;
 };
 
-const parseTable = (table: Table, preNode: Content) => {
+const parseTableOrChart = (
+  table: Table,
+  preNode: RootContent,
+): TableNode | ChartNode => {
   const keyMap = new Map<string, string>();
 
   // @ts-ignore
@@ -131,9 +140,7 @@ const parseTable = (table: Table, preNode: Content) => {
     }) || [];
   const aligns = table.align;
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
-  const node: TableNode & {
-    otherProps: any;
-  } = {
+  const node: TableNode | ChartNode = {
     type: config?.chartType || config?.at?.(0)?.chartType ? 'chart' : 'table',
     children: isChart
       ? [{ text: '' } as any]
@@ -168,11 +175,16 @@ const parseTable = (table: Table, preNode: Content) => {
   };
   return node;
 };
-const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
+
+const parserBlock = (
+  nodes: RootContent[],
+  top = false,
+  parent?: RootContent,
+) => {
   if (!nodes?.length) return [{ type: 'paragraph', children: [{ text: '' }] }];
   let els: (Elements | Text)[] = [];
   let el: Element | null | Element[] = null;
-  let preNode: null | Content = null;
+  let preNode: null | RootContent = null;
   let preElement: Element = null;
   let htmlTag: { tag: string; color?: string; url?: string }[] = [];
   let contextProps = {};
@@ -448,7 +460,7 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
         };
         break;
       case 'table':
-        el = parseTable(n, preElement);
+        el = parseTableOrChart(n, preElement);
         break;
       default:
         if (n.type === 'text' && htmlTag.length) {
@@ -550,7 +562,7 @@ const findLinks = (
   return links;
 };
 
-export const worker = (md: string) => {
+export const parserMarkdown = (md: string) => {
   const root = parser.parse(md || '');
   const schema = parserBlock(root.children as any[], true);
   const links = findLinks(schema);

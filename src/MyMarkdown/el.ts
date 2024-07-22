@@ -12,28 +12,47 @@ export type CodeNode = {
   frontmatter?: boolean;
   h?: number;
 };
+
 export type CodeLineNode = {
   type: 'code-line';
   children: BaseElement['children'];
   num?: number;
 };
+
 export type ParagraphNode = {
   type: 'paragraph';
   children: BaseElement['children'];
   h?: number;
 };
-export type TableNode = { type: 'table' | 'chart'; children: TableRowNode[] };
+
+export type TableNode = {
+  type: 'table';
+  children: TableRowNode[];
+  otherProps: {
+    config: ChartTypeConfig | ChartTypeConfig[];
+    columns: {
+      title: string;
+      dataIndex: string;
+      key: string;
+    }[];
+    dataSource: any[];
+  };
+};
+
 export type TableRowNode = { type: 'table-row'; children: TableCellNode[] };
+
 export type TableCellNode = {
   type: 'table-cell';
   title?: boolean;
   align?: Align;
   children: BaseElement['children'];
 };
+
 export type BlockQuoteNode = {
   type: 'blockquote';
   children: (BlockQuoteNode | ParagraphNode)[];
 };
+
 export type ListNode = {
   type: 'list';
   children: ListItemNode[];
@@ -42,19 +61,45 @@ export type ListNode = {
   task?: boolean;
   h?: number;
 };
+
+export type ChartTypeConfig = {
+  chartType: string;
+  x?: string;
+  y?: string;
+  [key: string]: any;
+};
+
+export type ChartNode = {
+  type: 'chart';
+  children: BaseElement['children'];
+  otherProps: {
+    config: ChartTypeConfig | ChartTypeConfig[];
+    columns: {
+      title: string;
+      dataIndex: string;
+      key: string;
+    }[];
+    dataSource: any[];
+  };
+};
+
 export type ListItemNode = {
   type: 'list-item';
   children: BaseElement['children'];
   checked?: boolean;
 };
+
 export type HeadNode = {
   type: 'head';
   children: BaseElement['children'];
   level: number;
   h?: number;
 };
+
 export type HrNode = { type: 'hr' };
+
 export type BreakNode = { type: 'break' };
+
 export type MediaNode = {
   type: 'media';
   url?: string;
@@ -106,7 +151,8 @@ export type CustomLeaf = {
   fnc?: boolean;
   fnd?: boolean;
 };
-export type NodeTypes<T = Elements> = T['type'];
+
+export type NodeTypes<T extends Elements = Elements> = T['type'];
 
 export type MapValue<T> = T extends Map<any, infer I>
   ? I

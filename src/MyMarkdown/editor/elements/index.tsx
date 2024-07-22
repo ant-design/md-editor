@@ -168,3 +168,19 @@ export const MLeaf = (props: RenderLeafProps) => {
     );
   }, [props.leaf, props.leaf.text, code.lang]);
 };
+
+export {
+  Blockquote,
+  Chart,
+  CodeCtx,
+  CodeElement,
+  CodeLine,
+  Head,
+  List,
+  ListItem,
+  Media,
+  Paragraph,
+  Schema,
+  Table,
+  TableCell,
+};

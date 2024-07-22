@@ -1,6 +1,15 @@
+/* eslint-disable no-param-reassign */
 import { remove as removeDiacritics } from 'diacritics';
+
 const rControl = /[\u0000-\u001f]/g;
 const rSpecial = /[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'<>,.?/]+/g;
+
+/**
+ * Calculates the offset top of a DOM element relative to a target element.
+ * @param dom The DOM element for which to calculate the offset top.
+ * @param target The target element relative to which the offset top is calculated. Defaults to document.body.
+ * @returns The offset top of the DOM element.
+ */
 export const getOffsetTop = (
   dom: HTMLElement,
   target: HTMLElement = document.body,
@@ -13,6 +22,12 @@ export const getOffsetTop = (
   return top;
 };
 
+/**
+ * Calculates the offset left of a given DOM element relative to a target element.
+ * @param dom - The DOM element for which to calculate the offset left.
+ * @param target - The target element relative to which the offset left is calculated. Defaults to `document.body`.
+ * @returns The offset left of the DOM element relative to the target element.
+ */
 export const getOffsetLeft = (
   dom: HTMLElement,
   target: HTMLElement = document.body,
@@ -25,6 +40,13 @@ export const getOffsetLeft = (
   return left;
 };
 
+/**
+ * Converts a string to a slug by removing diacritics, special characters,
+ * and ensuring it follows slug conventions.
+ *
+ * @param str - The string to be converted to a slug.
+ * @returns The slugified string.
+ */
 export const slugify = (str: string): string => {
   return (
     removeDiacritics(str)
@@ -33,9 +55,9 @@ export const slugify = (str: string): string => {
       // Replace special characters
       .replace(rSpecial, '-')
       // Remove continuous separators
-      .replace(/\-{2,}/g, '-')
+      .replace(/-{2,}/g, '-')
       // Remove prefixing and trailing separators
-      .replace(/^\-+|\-+$/g, '')
+      .replace(/^-+|-+$/g, '')
       // ensure it doesn't start with a number (#121)
       .replace(/^(\d)/, '_$1')
       // lowercase
@@ -43,6 +65,11 @@ export const slugify = (str: string): string => {
   );
 };
 
+/**
+ * Determines the media type based on the file extension.
+ * @param name - The name of the file.
+ * @returns The media type of the file.
+ */
 export const mediaType = (name?: string) => {
   name = name || '';
   name = name.split('?')[0];
@@ -72,6 +99,10 @@ export const mediaType = (name?: string) => {
   return 'other';
 };
 
+/**
+ * Retrieves the bounding rectangle of the current selection.
+ * @returns The bounding rectangle of the selection, or null if no selection exists.
+ */
 export const getSelRect = () => {
   const domSelection = window.getSelection();
   const domRange = domSelection?.getRangeAt(0);

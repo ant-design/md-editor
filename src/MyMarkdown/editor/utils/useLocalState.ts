@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { action, AnnotationsMap } from 'mobx';
 import { useLocalObservable } from 'mobx-react-lite';
 import { useCallback } from 'react';

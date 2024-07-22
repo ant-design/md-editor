@@ -26,15 +26,15 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
   const value = useRef<any[]>([EditorUtils.p]);
   const saveTimer = useRef(0);
   const nodeRef = useRef<IFileItem>();
-  const renderElement = useCallback(
+  const elementRenderElement = useCallback(
     (props: any) => <MElement {...props} children={props.children} />,
     [],
   );
-  const renderLeaf = useCallback(
+  const leafRender = useCallback(
     (props: any) => <MLeaf {...props} children={props.children} />,
     [],
   );
-  const keydown = useKeyboard(store);
+  const onKeyDown = useKeyboard(store);
   const onChange = useOnchange(editor, store);
   const first = useRef(true);
   const save = useCallback(async () => {}, [note]);
@@ -137,7 +137,11 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     [note],
   );
 
-  const drop = useCallback(() => {
+  /**
+   * 处理拖拽事件
+   * @description drop event
+   */
+  const onDrop = useCallback(() => {
     const node = note;
     if (!node.folder) {
       const type = mediaType(node.filePath);
@@ -167,12 +171,21 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     }
   }, [note]);
 
-  const focus = useCallback(() => {
+  /**
+   * 处理焦点事件, 隐藏所有的range
+   * @description focus event
+   */
+  const onFocus = useCallback(() => {
     store.setState((state) => (state.focus = true));
     store.hideRanges();
   }, []);
 
-  const blur = useCallback(() => {
+  /**
+   * 处理失去焦点事件,关掉所有的浮层
+   * @description blur event
+   * @param {React.FocusEvent<HTMLDivElement>} e
+   */
+  const onBlur = useCallback(() => {
     store.setState((state) => {
       state.focus = false;
       state.tableCellNode = null;
@@ -191,7 +204,7 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
    * @description paste event
    * @param {React.ClipboardEvent<HTMLDivElement>} e
    */
-  const paste = useCallback(
+  const onPaste = useCallback(
     async (e: React.ClipboardEvent<HTMLDivElement>) => {
       e.stopPropagation();
       e.preventDefault();
@@ -321,7 +334,10 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     [note],
   );
 
-  const compositionStart = useCallback((e: React.CompositionEvent) => {
+  /**
+   * 处理输入法开始事件
+   */
+  const onCompositionStart = useCallback((e: React.CompositionEvent) => {
     store.inputComposition = true;
     runInAction(() => (store.pauseCodeHighlight = true));
     if (editor.selection && Range.isCollapsed(editor.selection)) {
@@ -329,7 +345,10 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     }
   }, []);
 
-  const compositionEnd = useCallback(() => {
+  /**
+   * 处理输入法结束事件
+   */
+  const onCompositionEnd = useCallback(() => {
     store.inputComposition = false;
     if (store.pauseCodeHighlight)
       runInAction(() => (store.pauseCodeHighlight = false));
@@ -354,15 +373,15 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
           fontSize: 16,
         }}
         onMouseDown={checkEnd}
-        onDrop={drop}
-        onFocus={focus}
-        onBlur={blur}
-        onPaste={paste}
-        onCompositionStart={compositionStart}
-        onCompositionEnd={compositionEnd}
-        renderElement={renderElement}
-        onKeyDown={keydown}
-        renderLeaf={renderLeaf}
+        onDrop={onDrop}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onPaste={onPaste}
+        onCompositionStart={onCompositionStart}
+        onCompositionEnd={onCompositionEnd}
+        renderElement={elementRenderElement}
+        onKeyDown={onKeyDown}
+        renderLeaf={leafRender}
       />
     </Slate>
   );

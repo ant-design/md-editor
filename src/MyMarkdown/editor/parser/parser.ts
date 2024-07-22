@@ -1,4 +1,4 @@
-import { worker } from './worker';
+import { parserMarkdown } from './worker';
 export type ParserResult = {
   schema: any[];
   links: { path: number[]; target: string }[];
@@ -17,5 +17,5 @@ const transformResult = (result: ParserResult) => {
 };
 
 export const parserMdToSchema = (code: string): ParserResult => {
-  return transformResult(worker(code));
+  return transformResult(parserMarkdown(code));
 };
