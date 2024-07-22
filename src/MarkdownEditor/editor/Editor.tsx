@@ -61,11 +61,6 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
       requestIdleCallback(() => {
         store.initializing = false;
         store.setState((state) => (state.pauseCodeHighlight = false));
-        requestIdleCallback(() => {
-          store.setState(
-            (state) => (state.refreshHighlight = !state.refreshHighlight),
-          );
-        });
       });
     } else {
       nodeRef.current = undefined;

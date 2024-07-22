@@ -2,15 +2,20 @@ import { Editor, Node, Transforms } from 'slate';
 import { EditorStore } from '../store';
 
 export const inlineNode = new Set(['break']);
+
 const voidNode = new Set(['hr', 'break']);
+
 export const withMarkdown = (editor: Editor, store: EditorStore) => {
   const { isInline, isVoid, apply } = editor;
-  editor.isInline = (element) =>
-    inlineNode.has(element.type) || isInline(element);
+
+  editor.isInline = (element) => {
+    return inlineNode.has(element.type) || isInline(element);
+  };
 
   editor.isVoid = (element) => {
     return voidNode.has(element.type) || isVoid(element);
   };
+
   editor.apply = (operation) => {
     if (
       operation.type === 'merge_node' &&
@@ -49,5 +54,6 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
     }
     apply(operation);
   };
+
   return editor;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { runInAction } from 'mobx';
 import { useMemo, useRef } from 'react';
 import { Subject } from 'rxjs';
@@ -21,7 +22,7 @@ const floatBarIgnoreNode = new Set(['code-line']);
 export function useOnchange(editor: Editor, store: EditorStore) {
   const rangeContent = useRef('');
   return useMemo(() => {
-    return (value: any, operations: BaseOperation[]) => {
+    return (_value: any, _operations: BaseOperation[]) => {
       const sel = editor.selection;
       const [node] = Editor.nodes<Element>(editor, {
         match: (n) => Element.isElement(n),
@@ -80,6 +81,12 @@ export function useOnchange(editor: Editor, store: EditorStore) {
           state.tableCellNode = null;
           state.refreshTableAttr = !state.refreshTableAttr;
         });
+      }
+
+      if (node && node[0].type === 'chart') {
+        store.chartNode = node;
+      } else if (store.chartNode) {
+        store.chartNode = null;
       }
     };
   }, [editor]);

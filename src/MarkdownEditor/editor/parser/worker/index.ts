@@ -12,6 +12,7 @@ import {
   Elements,
   MediaNode,
   TableNode,
+  TableRowNode,
 } from '../../../el';
 import parser from './parser';
 
@@ -140,28 +141,28 @@ const parseTableOrChart = (
     }) || [];
   const aligns = table.align;
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
-  const node: TableNode | ChartNode = {
-    type: config?.chartType || config?.at?.(0)?.chartType ? 'chart' : 'table',
-    children: isChart
-      ? [{ text: '' } as any]
-      : table.children.map((r: { children: any[] }, l: number) => {
+  const children = table.children.map((r: { children: any[] }, l: number) => {
+    return {
+      type: 'table-row',
+      children: r.children.map(
+        (c: { children: string | any[] }, i: string | number) => {
           return {
-            type: 'table-row',
-            children: r.children.map(
-              (c: { children: string | any[] }, i: string | number) => {
-                return {
-                  type: 'table-cell',
-                  align: aligns?.[i as number] || undefined,
-                  title: l === 0,
-                  // @ts-ignore
-                  children: c.children?.length
-                    ? parserBlock(c.children as any, false, c as any)
-                    : [{ text: '' }],
-                };
-              },
-            ),
+            type: 'table-cell',
+            align: aligns?.[i as number] || undefined,
+            title: l === 0,
+            // @ts-ignore
+            children: c.children?.length
+              ? parserBlock(c.children as any, false, c as any)
+              : [{ text: '' }],
           };
-        }),
+        },
+      ),
+    };
+  }) as TableRowNode[];
+
+  const node: TableNode | ChartNode = {
+    type: isChart ? 'chart' : 'table',
+    children,
     otherProps: {
       config: config,
       columns,
@@ -429,12 +430,19 @@ const parserBlock = (
           language: n.lang,
           render: n.meta === 'render',
           value: n.value,
-          children: n.value.split('\n').map((s: any) => {
-            return {
-              type: 'code-line',
-              children: [{ text: s }],
-            };
-          }),
+          children:
+            n.lang === 'schema'
+              ? [
+                  {
+                    text: '',
+                  },
+                ]
+              : n.value.split('\n').map((s: any) => {
+                  return {
+                    type: 'code-line',
+                    children: [{ text: s }],
+                  };
+                }),
         };
         break;
       case 'yaml':

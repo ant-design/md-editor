@@ -183,7 +183,7 @@
 }
 
 .content .attach .file {
-  border-radius: 0.5rem;
+  border-radius: 4px;
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
@@ -215,7 +215,7 @@
   cursor: default;
   user-select: none;
   justify-content: center;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   background-color: rgb(107 114 128 / 0.05);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -275,7 +275,7 @@
 }
 
 .content .high-text {
-  border-radius: 1px;
+  border-radius: 4px;
   background: var(--md-high);
 }
 
@@ -402,25 +402,6 @@
   color: rgb(251 113 133 / 0.9);
 }
 
-.t-handle {
-  display: flex;
-  height: 1.25rem;
-  width: 1.25rem;
-  cursor: default;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.125rem;
-  transition-duration: 200ms;
-}
-
-.t-handle:hover {
-  background-color: rgb(209 213 219 / 0.4);
-}
-
-:is(.dark .t-handle:hover) {
-  background-color: rgb(209 213 219 / 0.2);
-}
-
 blockquote {
   padding: 3px 14px 3px 21px;
   position: relative;
@@ -451,7 +432,7 @@ blockquote:before {
   width: 4px;
   position: absolute;
   display: block;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
@@ -806,7 +787,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   z-index: 10;
   display: block;
   height: 0.125rem;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   background-color: rgb(0 0 0 / 0.5);
   transition-duration: 200ms;
 }
@@ -857,7 +838,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 
 .inline-code-input {
   line-height: 1.3em;
-  border-radius: 0.125rem;
+  border-radius: 4px;
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
@@ -957,7 +938,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   border: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
   height: 42px;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   background-color: rgb(255 255 255 / 10%);
   font-size: 16px;
   color: rgb(107 114 128 / 80%);
@@ -997,4 +978,60 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 
 .context-menu {
   position: fixed;
+}
+
+.table-attr-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  position: absolute;
+  align-items: center;
+  z-index: 10;
+  gap: 4px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.table-attr-toolbar .table-attr-toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-attr-toolbar .table-attr-toolbar-item:hover {
+  background-color: rgb(209 213 219 / 0.4);
+}
+
+.chart-attr-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 4px;
+  width: 100%;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: rgba(255, 255, 255, 1);
+  align-items: center;
+  z-index: 10;
+  gap: 4px;
+}
+
+.chart-attr-toolbar .chart-attr-toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chart-attr-toolbar .chart-attr-toolbar-item:hover {
+  background-color: rgb(209 213 219 / 0.4);
 }

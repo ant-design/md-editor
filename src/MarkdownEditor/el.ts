@@ -34,6 +34,7 @@ export type TableNode = {
   type: 'table';
   children: TableRowNode[];
   otherProps: {
+    showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];
     columns: {
       title: string;
@@ -78,6 +79,7 @@ export type ChartNode = {
   type: 'chart';
   children: BaseElement['children'];
   otherProps: {
+    showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];
     columns: {
       title: string;

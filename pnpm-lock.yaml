@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@ant-design/charts':
+        specifier: ^2.1.1
+        version: 2.1.1(lodash-es@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/icons':
         specifier: ^5.3.6
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ant-design/pro-components':
+        specifier: ^2.7.0
+        version: 2.7.14(antd@5.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@babel/runtime':
         specifier: ^7.24.8
         version: 7.24.8
@@ -99,12 +105,6 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
     devDependencies:
-      '@ant-design/charts':
-        specifier: ^2.1.1
-        version: 2.1.1(lodash-es@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ant-design/pro-components':
-        specifier: ^2.7.0
-        version: 2.7.14(antd@5.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/pro-descriptions':
         specifier: 2.5.36
         version: 2.5.36(antd@5.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

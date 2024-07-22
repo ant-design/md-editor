@@ -18,7 +18,7 @@ import { withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
-import { MediaNode, TableCellNode } from '../el';
+import { ChartNode, MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
@@ -71,6 +71,7 @@ export class EditorStore {
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
+  chartNode: null | NodeEntry<ChartNode> = null;
   refreshHighlight = false;
   pauseCodeHighlight = false;
   domRect: DOMRect | null = null;

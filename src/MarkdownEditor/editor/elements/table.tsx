@@ -40,7 +40,7 @@ export const Table = observer((props: RenderElementProps) => {
   return useMemo(() => {
     return (
       <div
-        className={'m-table drag-el'}
+        className={'drag-el'}
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}

@@ -16,12 +16,12 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
   try {
     json = json5.parse(node.value || '[]');
   } catch (error) {
-    console.log(error, node.value);
     return <pre>{node.value}</pre>;
   }
 
   return (
     <div
+      contentEditable={false}
       style={{
         padding: 24,
         borderRadius: 8,

@@ -4,7 +4,6 @@ import {
   AlignRightOutlined,
   AppstoreAddOutlined,
   DeleteOutlined,
-  EllipsisOutlined,
 } from '@ant-design/icons';
 import { Popover, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
@@ -18,6 +17,9 @@ import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 
+/**
+ * 表格设置器
+ */
 export const TableAttr = observer(() => {
   const store = useEditorStore();
   const editor = store.editor;
@@ -420,148 +422,120 @@ export const TableAttr = observer(() => {
 
   useSubject(store.tableTask$, task);
 
+  const baseClassName = 'table-attr-toolbar';
+
   return (
     <div
+      className={baseClassName}
       style={{
         left: state().left,
         top: state().top,
         width: 'auto',
         display: state().visible ? 'flex' : 'none',
-        background: 'rgba(255,255,255,0.9)',
-        border: '1px solid #f0f0f0',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        justifyContent: 'space-between',
-        color: '#666',
-        padding: '4px',
-        position: 'absolute',
-        alignItems: 'center',
-        zIndex: 10,
-        height: '24px',
-        gap: '4px',
       }}
       onMouseDown={(e) => e.preventDefault()}
     >
-      <div
-        style={{
-          display: 'flex',
-          gap: '4px',
-          alignItems: 'center',
+      <Popover
+        placement="bottomLeft"
+        title={null}
+        open={state().scaleOpen}
+        onOpenChange={(open) => {
+          setState({ scaleOpen: open });
         }}
-      >
-        <Popover
-          placement="bottomLeft"
-          title={null}
-          open={state().scaleOpen}
-          onOpenChange={(open) => {
-            setState({ scaleOpen: open });
-          }}
-          content={
-            <div>
-              <div
-                className={'space-y-0.5'}
-                onMouseEnter={() => setState({ enterScale: true })}
-                onMouseLeave={() => setState({ enterScale: false })}
-              >
-                {Array.from(new Array(10)).map((_, i) => (
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: 2,
-                    }}
-                    key={i}
-                  >
-                    {Array.from(new Array(6)).map((_, j) => (
-                      <div
-                        onMouseEnter={() => {
-                          setState({ selectRows: i + 1, selectCols: j + 1 });
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          resetGird(i + 1, j + 1);
-                        }}
-                        style={{
-                          width: '20px',
-                          height: '20px',
-                          cursor: 'pointer',
-                          border: '1px solid #f0f0f0',
-                        }}
-                        className={`${getScaleGirdClass(i + 1, j + 1)}`}
-                        key={j}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              <div className={'mt-4 border-t border-gray-500 pt-2 text-center'}>
-                {state().enterScale ? (
-                  <span>
-                    {state().selectCols} x {state().selectRows}
-                  </span>
-                ) : (
-                  <span>
-                    {state().cols} x {state().rows}
-                  </span>
-                )}
-              </div>
+        content={
+          <div>
+            <div
+              className={'space-y-0.5'}
+              onMouseEnter={() => setState({ enterScale: true })}
+              onMouseLeave={() => setState({ enterScale: false })}
+            >
+              {Array.from(new Array(10)).map((_, i) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 2,
+                  }}
+                  key={i}
+                >
+                  {Array.from(new Array(6)).map((_, j) => (
+                    <div
+                      onMouseEnter={() => {
+                        setState({ selectRows: i + 1, selectCols: j + 1 });
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        resetGird(i + 1, j + 1);
+                      }}
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        cursor: 'pointer',
+                        border: '1px solid #f0f0f0',
+                      }}
+                      className={`${getScaleGirdClass(i + 1, j + 1)}`}
+                      key={j}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
-          }
-          trigger="click"
-        >
-          <div className={'t-handle'}>
-            <AppstoreAddOutlined />
+            <div className={'mt-4 border-t border-gray-500 pt-2 text-center'}>
+              {state().enterScale ? (
+                <span>
+                  {state().selectCols} x {state().selectRows}
+                </span>
+              ) : (
+                <span>
+                  {state().cols} x {state().rows}
+                </span>
+              )}
+            </div>
           </div>
-        </Popover>
-        <Tooltip placement={'top'} title={'align left'} mouseEnterDelay={0.5}>
-          <div
-            onClick={() => setAligns('left')}
-            className={`${
-              state().align === 'left'
-                ? 'bg-gray-300/30 dark:bg-gray-300/10'
-                : ''
-            } t-handle`}
-          >
-            <AlignLeftOutlined />
-          </div>
-        </Tooltip>
-        <Tooltip placement={'top'} title={'align center'} mouseEnterDelay={0.5}>
-          <div
-            onClick={() => setAligns('center')}
-            className={`${
-              state().align === 'center'
-                ? 'bg-gray-300/30 dark:bg-gray-300/10'
-                : ''
-            } t-handle`}
-          >
-            <AlignCenterOutlined />
-          </div>
-        </Tooltip>
-        <Tooltip placement={'top'} title={'align right'} mouseEnterDelay={0.5}>
-          <div
-            onClick={() => setAligns('right')}
-            className={`${
-              state().align === 'right'
-                ? 'bg-gray-300/30 dark:bg-gray-300/10'
-                : ''
-            } t-handle`}
-          >
-            <AlignRightOutlined />
-          </div>
-        </Tooltip>
-        <div className={`t-handle`}>
-          <EllipsisOutlined />
-        </div>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          gap: '4px',
-          alignItems: 'center',
-        }}
+        }
+        trigger="click"
       >
-        <DeleteOutlined
-          className={'cursor-pointer t-handle'}
-          onClick={remove}
-        />
+        <div className={`${baseClassName}-item`}>
+          <AppstoreAddOutlined />
+        </div>
+      </Popover>
+      <Tooltip placement={'top'} title={'align left'} mouseEnterDelay={0.5}>
+        <div
+          onClick={() => setAligns('left')}
+          className={`${baseClassName}-item`}
+          style={{
+            color: state().align === 'left' ? '#000' : undefined,
+            fontWeight: state().align === 'left' ? 'bold' : 'normal',
+          }}
+        >
+          <AlignLeftOutlined />
+        </div>
+      </Tooltip>
+      <Tooltip placement={'top'} title={'align center'} mouseEnterDelay={0.5}>
+        <div
+          onClick={() => setAligns('center')}
+          style={{
+            color: state().align === 'center' ? '#000' : undefined,
+            fontWeight: state().align === 'center' ? 'bold' : 'normal',
+          }}
+          className={`${baseClassName}-item`}
+        >
+          <AlignCenterOutlined />
+        </div>
+      </Tooltip>
+      <Tooltip placement={'top'} title={'align right'} mouseEnterDelay={0.5}>
+        <div
+          onClick={() => setAligns('right')}
+          style={{
+            color: state().align === 'right' ? '#000' : undefined,
+            fontWeight: state().align === 'right' ? 'bold' : 'normal',
+          }}
+          className={`${baseClassName}-item`}
+        >
+          <AlignRightOutlined />
+        </div>
+      </Tooltip>
+      <div className={`${baseClassName}-item`} title="删除">
+        <DeleteOutlined onClick={remove} />
       </div>
     </div>
   );
