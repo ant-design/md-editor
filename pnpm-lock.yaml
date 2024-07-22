@@ -11,6 +11,12 @@ importers:
       '@ant-design/icons':
         specifier: ^5.3.6
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@babel/runtime':
+        specifier: ^7.24.8
+        version: 7.24.8
+      antd:
+        specifier: ^5.16.1
+        version: 5.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       diacritics:
         specifier: ^1.3.0
         version: 1.3.0
@@ -94,7 +100,7 @@ importers:
         version: 5.0.0
     devDependencies:
       '@ant-design/charts':
-        specifier: ^2.0.3
+        specifier: ^2.1.1
         version: 2.1.1(lodash-es@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/pro-components':
         specifier: ^2.7.0
@@ -126,9 +132,6 @@ importers:
       '@umijs/lint':
         specifier: ^4.0.0
         version: 4.3.6(eslint@8.57.0)(stylelint@14.16.1)(typescript@5.5.3)
-      antd:
-        specifier: ^5.16.1
-        version: 5.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dumi:
         specifier: ^2.2.13
         version: 2.4.6(@babel/core@7.24.9)(@swc/helpers@0.5.1)(@types/node@20.5.1)(@types/react@18.3.3)(eslint@8.57.0)(lightningcss@1.22.1)(prettier@2.8.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.4)(stylelint@14.16.1)(terser@5.31.3)(type-fest@1.4.0)(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.4.2(@swc/helpers@0.5.1)))
@@ -9944,7 +9947,7 @@ snapshots:
 
   '@loadable/component@5.15.2(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.24.8
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
       react-is: 16.13.1
@@ -10745,7 +10748,7 @@ snapshots:
 
   '@umijs/history@5.3.1':
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.24.8
       query-string: 6.14.1
 
   '@umijs/lint@4.3.6(eslint@8.57.0)(stylelint@14.16.1)(typescript@5.5.3)':
@@ -13864,7 +13867,7 @@ snapshots:
 
   history@5.3.0:
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.24.8
 
   hmac-drbg@1.0.1:
     dependencies:
@@ -17101,7 +17104,7 @@ snapshots:
 
   react-helmet-async@1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.24.8
       invariant: 2.2.4
       prop-types: 15.8.1
       react: 18.3.1
