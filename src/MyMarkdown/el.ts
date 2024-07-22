@@ -4,9 +4,14 @@ import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 
 type Align = 'left' | 'center' | 'right';
+
 export type CodeNode = {
   type: 'code';
-  children: CodeLineNode[];
+  children: {
+    type: 'code-line';
+    children: BaseElement['children'];
+    num?: number;
+  }[];
   language?: string;
   render?: boolean;
   frontmatter?: boolean;
@@ -119,6 +124,7 @@ export type AttachNode = {
   size: number;
   url: string;
 };
+
 export type Elements =
   | CodeNode
   | CodeLineNode
@@ -133,6 +139,7 @@ export type Elements =
   | HrNode
   | MediaNode
   | BreakNode
+  | ChartNode
   | AttachNode;
 
 export type CustomLeaf = {

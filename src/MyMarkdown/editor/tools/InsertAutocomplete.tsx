@@ -473,35 +473,44 @@ export const InsertAutocomplete = observer(() => {
       close();
     }
   }, [store.openInsertCompletion]);
+  const baseClassName = 'insert-autocomplete';
   return (
     <div
       ref={dom}
-      className={`
-      ${
-        !store.openInsertCompletion || !state.filterOptions.length
-          ? 'hidden'
-          : ''
-      }
-        absolute z-50 ${
-          state.insertLink || state.insertAttachment ? 'w-80' : 'w-44'
-        } max-h-52 overflow-y-auto p-1
-        rounded-lg py-1 text-gray-700/90 ctx-panel dark:text-gray-300 dark:border-gray-200/10
-      `}
-      onMouseDown={(e) => {
-        e.preventDefault();
-      }}
+      className={baseClassName}
       style={{
+        position: 'absolute',
+        zIndex: 50,
+        display:
+          !store.openInsertCompletion || !state.filterOptions.length
+            ? 'none'
+            : 'block',
+        width: state.insertLink || state.insertAttachment ? 320 : 160,
+        maxHeight: 212,
+        overflowY: 'auto',
+        padding: 4,
+        borderRadius: 4,
+        paddingTop: 2,
+        color: 'rgba(0,0,0,0.9)',
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        border: '1px solid rgba(0,0,0,0.1)',
         left: state.left,
         top: state.top,
         bottom: state.bottom,
+      }}
+      onMouseDown={(e) => {
+        e.preventDefault();
       }}
     >
       {!state.insertLink && !state.insertAttachment && (
         <>
           <div
-            className={
-              'text-xs leading-6 pl-1 dark:text-gray-400 text-gray-500 mb-1'
-            }
+            className={`${baseClassName}-title`}
+            style={{
+              color: 'rgba(0,0,0,0.8)',
+              fontSize: 12,
+              marginBottom: 4,
+            }}
           >
             快速插入
           </div>
@@ -515,6 +524,7 @@ export const InsertAutocomplete = observer(() => {
               <div>
                 {l.children.map((el) => (
                   <div
+                    className={`${baseClassName}-item`}
                     key={el.key}
                     data-action={el.key}
                     onClick={(e) => {
@@ -528,13 +538,19 @@ export const InsertAutocomplete = observer(() => {
                         ),
                       });
                     }}
-                    className={`h-7 rounded px-2 cursor-pointer flex items-center text-[13px] space-x-1.5
-                  ${
-                    el.key === selectedKey
-                      ? 'bg-gray-100 dark:bg-gray-300/10'
-                      : ''
-                  }
-                `}
+                    style={{
+                      height: 16,
+                      borderRadius: 4,
+                      padding: '4px 8px',
+                      color: 'rgba(0,0,0,0.8)',
+                      fontSize: 14,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 4,
+                      backgroundColor:
+                        el.key === selectedKey ? 'rgba(0,0,0,0.1)' : '',
+                    }}
                   >
                     {el.icon}
                     <span>{el.label[0]}</span>
@@ -546,14 +562,24 @@ export const InsertAutocomplete = observer(() => {
         </>
       )}
       {state.insertLink && (
-        <div className={'py-3 px-1'}>
+        <div
+          className={'py-3 px-1'}
+          style={{
+            padding: 8,
+          }}
+        >
           <div
-            className={
-              'text-sm flex items-center mb-2 dark:text-white/70 text-black/70'
-            }
+            style={{
+              fontSize: 14,
+              color: 'rgba(0,0,0,0.8)',
+              marginBottom: 4,
+              display: 'flex',
+              alignContent: 'center',
+              gap: 4,
+            }}
           >
-            <PlayCircleOutlined className={'text-sm'} />
-            <span className={'mx-1'}>Embed media links</span>
+            <PlayCircleOutlined />
+            <span>Embed media links</span>
           </div>
           <Input
             placeholder={'Paste media link'}
@@ -580,7 +606,12 @@ export const InsertAutocomplete = observer(() => {
         </div>
       )}
       {state.insertAttachment && (
-        <div className={'px-1 pb-3'}>
+        <div
+          style={{
+            width: 320,
+            padding: 8,
+          }}
+        >
           <Tabs
             size={'small'}
             items={[

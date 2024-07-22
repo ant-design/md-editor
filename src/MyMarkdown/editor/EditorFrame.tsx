@@ -6,6 +6,7 @@ import { Tab } from '..';
 import { MEditor } from './Editor';
 import { EditorStoreContext } from './store';
 import { FloatBar } from './tools/FloatBar';
+import { InsertAutocomplete } from './tools/InsertAutocomplete';
 import { InsertLink } from './tools/InsertLink';
 import { Heading } from './tools/Leading';
 import { TableAttr } from './tools/TableAttr';
@@ -43,22 +44,30 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
                 <div style={{ paddingTop: pt + 20 }}>
                   <img
                     src={getImageData(tab.current?.filePath)}
-                    alt=""
-                    className={'block'}
+                    style={{
+                      display: 'block',
+                      margin: 'auto',
+                      maxWidth: '100%',
+                      boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                    }}
                   />
                 </div>
               ) : (
                 <div
                   style={{
                     ...size,
+                    padding: '20px 10px',
                     paddingTop: pt + 20,
                   }}
-                  className={'px-10 pb-5'}
                 >
                   <iframe
-                    className={
-                      'w-full h-full overflow-y-auto rounded border b1'
-                    }
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      overflowY: 'auto',
+                      borderRadius: '4px',
+                      border: '1px solid #d1d5db',
+                    }}
                     src={tab.current.filePath}
                   />
                 </div>
@@ -68,7 +77,7 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
           <FloatBar />
           <InsertLink />
           <TableAttr />
-          {/* <InsertAutocomplete /> */}
+          <InsertAutocomplete />
           <PhotoSlider
             maskOpacity={0.5}
             className={'desktop-img-view'}
