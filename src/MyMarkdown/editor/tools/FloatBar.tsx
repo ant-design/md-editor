@@ -49,6 +49,10 @@ const colors = [
   { color: 'rgba(14, 165, 233, 1)' },
 ];
 const fileMap = new Map<string, IFileItem>();
+
+/**
+ * 浮动工具栏,用于设置文本样式
+ */
 export const FloatBar = observer(() => {
   const store = useEditorStore();
   const inputRef = useRef<any>();
@@ -171,181 +175,161 @@ export const FloatBar = observer(() => {
   //     { match: Text.isText, split: true },
   //   );
   // }, []);
+  const baseClassName = `float-bar`;
   return (
     <div
       style={{
         left: state.left,
         top: state.top,
         display: state.open ? undefined : 'none',
+        padding: 4,
       }}
       onMouseDown={(e) => {
         e.preventDefault();
         e.stopPropagation();
       }}
-      className={`float-bar`}
+      className={baseClassName}
     >
-      <div
-        style={{
-          height: '100%',
-          overflow: 'hidden',
-          padding: '0 6px',
-        }}
-      >
-        {!state.openSelectColor && (
-          <div
-            style={{
-              display: 'flex',
-              height: '100%',
-              gap: '1px',
-              justifyContent: 'center',
-            }}
-          >
+      {!state.openSelectColor && (
+        <div
+          style={{
+            display: 'flex',
+            height: '100%',
+            gap: '1px',
+            justifyContent: 'center',
+          }}
+        >
+          <div role="button" className={`${baseClassName}-item`}>
             <div
               style={{
                 display: 'flex',
                 height: '100%',
                 alignItems: 'center',
                 padding: '2px 6px',
+                fontWeight: EditorUtils.isFormatActive(
+                  store.editor,
+                  'highColor',
+                )
+                  ? 'bold'
+                  : undefined,
+                color: localStorage.getItem('high-color') || undefined,
+              }}
+              role="button"
+              onMouseEnter={(e) => e.stopPropagation()}
+              onClick={() => {
+                if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
+                  EditorUtils.highColor(store.editor);
+                } else {
+                  EditorUtils.highColor(
+                    store.editor,
+                    localStorage.getItem('high-color') || '#10b981',
+                  );
+                }
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  height: '100%',
-                  alignItems: 'center',
-                  padding: '2px 6px',
-                  color: EditorUtils.isFormatActive(store.editor, 'highColor')
-                    ? '#000'
-                    : undefined,
-                }}
-                onMouseEnter={(e) => e.stopPropagation()}
-                onClick={() => {
-                  if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
-                    EditorUtils.highColor(store.editor);
-                  } else {
-                    EditorUtils.highColor(
-                      store.editor,
-                      localStorage.getItem('high-color') || '#10b981',
-                    );
-                  }
-                }}
-              >
-                <FontColorsOutlined />
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  height: '100%',
-                  alignItems: 'center',
-                  padding: '2px 6px',
-                }}
-                onMouseEnter={() => setState({ hoverSelectColor: true })}
-                onMouseLeave={() => setState({ hoverSelectColor: false })}
-                onClick={() => {
-                  setState({ openSelectColor: true, hoverSelectColor: false });
-                  resize();
-                }}
-              >
-                <CaretDownOutlined
-                  style={{
-                    transform: state.hoverSelectColor
-                      ? 'rotate(180deg)'
-                      : 'none',
-                  }}
-                />
-              </div>
+              <FontColorsOutlined />
             </div>
-            {tools.map((t) => (
-              <div
-                key={t.type}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  EditorUtils.toggleFormat(store.editor, t.type);
-                }}
-                style={{
-                  display: 'flex',
-                  height: '100%',
-                  alignItems: 'center',
-                  padding: '2px 6px',
-                  color: EditorUtils.isFormatActive(store.editor, t.type)
-                    ? '#000'
-                    : undefined,
-                }}
-              >
-                {t.icon}
-              </div>
-            ))}
             <div
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => {
-                openLink();
-              }}
               style={{
                 display: 'flex',
                 height: '100%',
                 alignItems: 'center',
-                padding: '2px 6px',
-                color: EditorUtils.isFormatActive(store.editor, 'url')
+                fontSize: 12,
+              }}
+              onMouseEnter={() => setState({ hoverSelectColor: true })}
+              onMouseLeave={() => setState({ hoverSelectColor: false })}
+              onClick={() => {
+                setState({ openSelectColor: true, hoverSelectColor: false });
+                resize();
+              }}
+            >
+              <CaretDownOutlined />
+            </div>
+          </div>
+          {tools.map((t) => (
+            <div
+              role="button"
+              key={t.type}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                EditorUtils.toggleFormat(store.editor, t.type);
+              }}
+              className={`${baseClassName}-item`}
+              style={{
+                color: EditorUtils.isFormatActive(store.editor, t.type)
                   ? '#000'
                   : undefined,
               }}
             >
-              <LinkOutlined />
-              <span>Link</span>
+              {t.icon}
             </div>
-            <div
-              style={{
-                display: 'flex',
-                height: '100%',
-                alignItems: 'center',
-                padding: '2px 6px',
-              }}
-              onClick={() => {
-                EditorUtils.clearMarks(store.editor, true);
-                EditorUtils.highColor(store.editor);
-              }}
-            >
-              <ClearOutlined />
-            </div>
-          </div>
-        )}
-        {state.openSelectColor && (
+          ))}
           <div
+            role="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              openLink();
+            }}
+            className={`${baseClassName}-item`}
             style={{
-              display: 'flex',
-              gap: 2,
-              height: '100%',
-              alignItems: 'center',
+              color: EditorUtils.isFormatActive(store.editor, 'url')
+                ? '#000'
+                : undefined,
             }}
           >
+            <LinkOutlined />
+            <span>Link</span>
+          </div>
+          <div
+            role="button"
+            className={`${baseClassName}-item`}
+            onClick={() => {
+              EditorUtils.clearMarks(store.editor, true);
+              EditorUtils.highColor(store.editor);
+            }}
+          >
+            <ClearOutlined />
+          </div>
+        </div>
+      )}
+      {state.openSelectColor && (
+        <div
+          style={{
+            display: 'flex',
+            gap: 4,
+            alignItems: 'center',
+          }}
+        >
+          <div
+            className={`${baseClassName}-item`}
+            style={{
+              cursor: 'pointer',
+            }}
+            role="button"
+            onClick={() => {
+              EditorUtils.highColor(store.editor);
+              setState({ openSelectColor: false });
+              resize();
+            }}
+          >
+            /
+          </div>
+          {colors.map((c) => (
             <div
-              style={{
-                cursor: 'pointer',
-              }}
+              role="button"
+              className={`${baseClassName}-item-color`}
+              key={c.color}
+              style={{ backgroundColor: c.color, cursor: 'pointer' }}
               onClick={() => {
-                EditorUtils.highColor(store.editor);
+                localStorage.setItem('high-color', c.color);
+                EditorUtils.highColor(store.editor, c.color);
                 setState({ openSelectColor: false });
                 resize();
               }}
-            >
-              /
-            </div>
-            {colors.map((c) => (
-              <div
-                key={c.color}
-                style={{ backgroundColor: c.color, cursor: 'pointer' }}
-                className={`float-color-icon`}
-                onClick={() => {
-                  localStorage.setItem('high-color', c.color);
-                  EditorUtils.highColor(store.editor, c.color);
-                  setState({ openSelectColor: false });
-                  resize();
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 });

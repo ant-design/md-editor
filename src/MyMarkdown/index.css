@@ -954,14 +954,45 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 .float-bar {
   position: absolute;
   z-index: 20;
+  border: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
-  height: 2rem;
+  height: 42px;
   border-radius: 0.25rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  font-size: 13px;
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
+  background-color: rgb(255 255 255 / 10%);
+  font-size: 16px;
+  color: rgb(107 114 128 / 80%);
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+  padding: 4px 0;
+}
+
+.float-bar .float-bar-item {
+  display: flex;
+  height: 100%;
+  border-radius: 4px;
+  line-height: 32px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.float-bar .float-bar-item-color {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.float-bar .float-bar-item-color:hover {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 1px;
+}
+
+.float-bar .float-bar-item:hover {
+  background-color: rgb(229 231 235 / 0.3);
+}
+
+.float-bar > * {
+  box-sizing: border-box;
 }
 
 .context-menu {

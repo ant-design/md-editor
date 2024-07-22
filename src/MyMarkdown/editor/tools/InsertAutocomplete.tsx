@@ -387,6 +387,9 @@ export const InsertAutocomplete = observer(() => {
     });
   });
 
+  /**
+   * 插入媒体
+   */
   const insertMedia = useCallback(async () => {
     setState({ loading: true });
     try {
@@ -473,6 +476,7 @@ export const InsertAutocomplete = observer(() => {
       close();
     }
   }, [store.openInsertCompletion]);
+
   const baseClassName = 'insert-autocomplete';
   return (
     <div

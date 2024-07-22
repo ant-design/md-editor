@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import {
-  DeleteOutlined,
-  DownCircleFilled,
-  KubernetesOutlined,
-} from '@ant-design/icons';
-import { Tooltip } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { Input, InputRef, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
@@ -20,10 +16,14 @@ import { isLink, parsePath, toRelativePath, toSpacePath } from '../utils/path';
 
 type DocItem = IFileItem & { path: string; parentPath?: string };
 const width = 370;
+
+/**
+ * 链接的配置面板
+ */
 export const InsertLink = observer(() => {
   const store = useEditorStore();
   const selRef = useRef<Selection>();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<InputRef>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const docMap = useRef(
     new Map<string, IFileItem & { path: string; parentPath?: string }>(),
@@ -198,6 +198,7 @@ export const InsertLink = observer(() => {
       if (left + width > window.innerWidth - 4) {
         left = window.innerWidth - 4 - width;
       }
+
       const url = EditorUtils.getUrl(store.editor);
       let path = url;
       if (url && !url.startsWith('#') && !isLink(url)) {
@@ -244,23 +245,48 @@ export const InsertLink = observer(() => {
       store.openLinkPanel = false;
     });
   }, []);
+
   if (!state().open) return null;
+
   return createPortal(
     <div
-      className={'fixed z-[100] inset-0'}
+      style={{
+        pointerEvents: 'auto',
+        position: 'fixed',
+        zIndex: 100,
+        inset: 0,
+      }}
       onClick={() => close(state().oldUrl)}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={'absolute z-30 w-[370px] ctx-panel pt-3 flex flex-col'}
         style={{
           left: state().left,
           top: state().mode === 'top' ? state().y : undefined,
           bottom: state().mode === 'bottom' ? state().y : undefined,
+          pointerEvents: 'auto',
+          width: 370,
+          backgroundColor: 'rgba(255,255,255,0.3)',
+          padding: 4,
+          borderRadius: 4,
+          boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+          backdropFilter: 'blur(10px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
         }}
       >
-        <div className={'px-3 flex items-center'}>
-          <input
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 6px',
+            width: '100%',
+            gap: 8,
+          }}
+        >
+          <Input
             ref={inputRef}
             value={state().inputKeyword}
             spellCheck={false}
@@ -308,13 +334,17 @@ export const InsertLink = observer(() => {
               });
             }}
             placeholder={`${'Link or #head'}`}
-            className={`flex-1 text-sm border rounded dark:border-gray-200/30 border-gray-300 h-8 px-2 outline-none bg-zinc-100 dark:bg-black/30`}
+            style={{
+              flex: 1,
+            }}
           />
           <Tooltip title={'移除链接'} mouseEnterDelay={0.5}>
             <div
-              className={
-                'p-1 rounded ml-1 hover:bg-gray-200/70 cursor-pointer dark:hover:bg-gray-100/10 text-gray-600 dark:text-gray-300'
-              }
+              style={{
+                cursor: 'pointer',
+                fontSize: 20,
+                color: 'rgba(0,0,0,0.5)',
+              }}
               onClick={() => {
                 close();
               }}
@@ -322,125 +352,6 @@ export const InsertLink = observer(() => {
               <DeleteOutlined />
             </div>
           </Tooltip>
-        </div>
-        <div
-          className={
-            'flex-1 overflow-y-auto py-2 max-h-[200px] px-2 text-[15px] relative'
-          }
-          ref={scrollRef}
-        >
-          {isLink(state().inputKeyword) ||
-          (!!state().inputKeyword && !state().anchors.length) ? (
-            <>
-              <div
-                onClick={() => {
-                  close(state().inputKeyword);
-                }}
-                className={`flex justify-center py-1.5 rounded bg-gray-200/70 dark:bg-gray-100/10 cursor-pointer px-2 flex-col`}
-              >
-                <div
-                  className={
-                    'text-gray-600 dark:text-gray-300 flex items-stretch'
-                  }
-                >
-                  <KubernetesOutlined className={'flex-shrink-0 mt-0.5'} />
-                  <span className={'ml-1 flex-1 max-w-full text-sm break-all'}>
-                    {state().inputKeyword}
-                  </span>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              {!!state().anchors.length &&
-                state().filterAnchors.map((a, i) => (
-                  <div
-                    key={i}
-                    onMouseEnter={() => {
-                      setState({ index: i });
-                    }}
-                    onClick={() => {
-                      setPath(a.item.path + a.value);
-                    }}
-                    className={`flex justify-center py-1 rounded ${
-                      state().index === i
-                        ? 'bg-gray-200/70 dark:bg-gray-100/10'
-                        : ''
-                    } cursor-pointer px-2 flex-col`}
-                  >
-                    <div
-                      className={
-                        'text-gray-700 dark:text-white/90 flex items-center leading-6'
-                      }
-                    >
-                      <DownCircleFilled />
-                      <span className={'ml-1 flex-1 max-w-full truncate'}>
-                        {a.item.filePath === store.openFilePath
-                          ? ''
-                          : a.item.filename + '.md'}
-                        {a.value}
-                      </span>
-                    </div>
-                    {!!a.item.parentPath && (
-                      <div
-                        className={
-                          'text-gray-500 dark:text-gray-400 text-sm pl-[18px] truncate'
-                        }
-                      >
-                        {a.item.parentPath}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              {!state().anchors.length &&
-                state().filterDocs.map((f, i) => {
-                  return (
-                    <div
-                      key={f.cid}
-                      onMouseEnter={() => {
-                        setState({ index: i });
-                      }}
-                      onClick={() => {
-                        setPath(f.path);
-                      }}
-                      className={`flex justify-center py-1 rounded ${
-                        state().index === i
-                          ? 'bg-gray-200/70 dark:bg-gray-100/10'
-                          : ''
-                      } cursor-pointer px-2 flex-col ${
-                        f.filePath === store.openFilePath ? 'hidden' : ''
-                      }`}
-                    >
-                      <div
-                        className={
-                          'text-gray-700 dark:text-white/90 flex items-center leading-6'
-                        }
-                      >
-                        <DownCircleFilled />
-                        <span className={'ml-1 flex-1 max-w-full truncate'}>
-                          {f.filename}
-                        </span>
-                      </div>
-                      {!!f.parentPath && (
-                        <div
-                          className={
-                            'text-gray-500 dark:text-white/70 text-sm pl-[18px] truncate'
-                          }
-                        >
-                          {f.parentPath}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              {((!!state().anchors.length && !state().filterAnchors.length) ||
-                (!!state().docs.length && !state().filterDocs.length)) && (
-                <div className={'py-4 text-center text-gray-400'}>
-                  没有相关文档
-                </div>
-              )}
-            </>
-          )}
         </div>
       </div>
     </div>,

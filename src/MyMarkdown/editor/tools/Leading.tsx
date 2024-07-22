@@ -45,6 +45,9 @@ function buildTree(data: any[]) {
   return tree;
 }
 
+/**
+ * 配置次级标题的锚点
+ */
 export const Heading = observer(({ note }: { note: IFileItem }) => {
   const store = useEditorStore();
   const [state, setState] = useGetSetState({
