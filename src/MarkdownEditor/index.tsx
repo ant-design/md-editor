@@ -102,11 +102,11 @@ export const MarkdownEditor: React.FC<{
       ref={(dom) => {
         t.store.setState((state) => (state.container = dom));
       }}
+      className="markdown-editor"
       style={{
-        contentVisibility: 'inherit',
         width: width || '400px',
         minWidth: 300,
-        height: height || 'auto',
+        height: height || '80vh',
         padding: '12px 24px',
         display: 'flex',
         maxHeight: '100%',

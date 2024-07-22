@@ -130,24 +130,25 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
     return null;
   }
   return (
-    <>
-      <Anchor
-        offsetTop={64}
-        items={buildTree(state().headings).children?.map((h: any) => ({
-          id: h.id,
-          key: h.key,
-          href: `#${h.id}`,
+    <Anchor
+      style={{
+        minWidth: 120,
+      }}
+      offsetTop={64}
+      items={buildTree(state().headings).children?.map((h: any) => ({
+        id: h.id,
+        key: h.key,
+        href: `#${h.id}`,
 
-          children: h?.children?.map((subH: any) => ({
-            id: subH.id,
-            key: subH.key,
-            href: `#${subH.id}`,
-            title: subH.title,
-          })),
-          title: h.title,
-          level: h.level,
-        }))}
-      />
-    </>
+        children: h?.children?.map((subH: any) => ({
+          id: subH.id,
+          key: subH.key,
+          href: `#${subH.id}`,
+          title: subH.title,
+        })),
+        title: h.title,
+        level: h.level,
+      }))}
+    />
   );
 });

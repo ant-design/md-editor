@@ -36,7 +36,7 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
   return (
     <EditorStoreContext.Provider value={tab.store}>
       <>
-        <div className="content">
+        <div className="content" style={{ flex: 1 }}>
           <MEditor note={tab.current} />
           {mt !== 'other' && mt !== 'markdown' && (
             <>
@@ -90,7 +90,13 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
             )}
           />
         </div>
-        {tab && <Heading note={tab.current} />}
+        <div
+          style={{
+            minWidth: '120px',
+          }}
+        >
+          <Heading note={tab.current} />
+        </div>
       </>
     </EditorStoreContext.Provider>
   );

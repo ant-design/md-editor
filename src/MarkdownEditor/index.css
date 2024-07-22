@@ -1,4 +1,21 @@
-﻿.edit-area {
+﻿.markdown-editor {
+  box-sizing: border-box;
+  height: max-content;
+  max-width: 100%;
+  font-family: -apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  outline: none;
+  tab-size: 4;
+  position: relative;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.markdown-editor * {
+  box-sizing: border-box;
+}
+.edit-area {
   padding-bottom: 160px;
   min-height: calc(100vh - 40px);
   outline: none !important;
@@ -102,16 +119,7 @@
 }
 
 .content {
-  height: max-content;
-  width: 100%;
-  font-family: -apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont,
-    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  outline: none;
-  tab-size: 4;
-  position: relative;
-  line-height: 1.5;
-  white-space: normal;
+  box-sizing: border-box;
 }
 
 .content .link {
@@ -297,7 +305,7 @@
 .content table {
   width: 100%;
   position: relative;
-  font-size: 0.9em;
+  table-layout: fixed;
 }
 
 .content .m-table {

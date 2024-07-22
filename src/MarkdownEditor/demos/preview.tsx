@@ -84,16 +84,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 `;
 export default () => {
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          gap: 16,
-          padding: 24,
-        }}
-      >
-        <MarkdownEditor width={'80vw'} initValue={defaultValue} />
-      </div>
-    </>
+    <MarkdownEditor width={'100vw'} height={'100vh'} initValue={defaultValue} />
   );
 };

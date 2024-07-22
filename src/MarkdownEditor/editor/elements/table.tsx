@@ -44,6 +44,11 @@ export const Table = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
+        style={{
+          width: '100%',
+          maxWidth: '100%',
+          overflow: 'auto',
+        }}
       >
         <DragHandle />
         <table>
