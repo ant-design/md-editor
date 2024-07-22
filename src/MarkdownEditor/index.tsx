@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
-import React, { useMemo } from 'react';
+import React, { useImperativeHandle, useMemo } from 'react';
 import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parser';
 import { EditorStore } from './editor/store';
@@ -50,18 +50,22 @@ export const MarkdownEditor: React.FC<{
   width?: string | number;
   height?: string | number;
   initValue?: string;
+  styles?: React.CSSProperties;
+  readonly?: boolean;
+  tabRef?: React.MutableRefObject<Tab | undefined>;
 }> = (props) => {
+  const { initValue, width, styles, height, ...rest } = props;
+
+  // 初始化 tab
   const t = useMemo(() => {
     const now = Date.now();
-    const list = parserMdToSchema(props.initValue!)?.schema;
+    const list = parserMdToSchema(initValue!)?.schema;
     list.push(EditorUtils.p);
     const data = {
       cid: nanoid(),
       filePath: 'new.md',
       folder: false,
-      schema: props.initValue
-        ? list
-        : JSON.parse(JSON.stringify([EditorUtils.p])),
+      schema: initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])),
       sort: 0,
       lastOpenTime: now,
       spaceId: undefined,
@@ -88,7 +92,11 @@ export const MarkdownEditor: React.FC<{
     );
   }, []);
 
+  // 初始化快捷键
   useSystemKeyboard(t.store);
+
+  // 导入外部 hooks
+  useImperativeHandle(props.tabRef, () => t, [t]);
 
   return (
     <div
@@ -97,18 +105,19 @@ export const MarkdownEditor: React.FC<{
       }}
       style={{
         contentVisibility: 'inherit',
-        width: props.width || '400px',
+        width: width || '400px',
         minWidth: 300,
-        height: props.height || 'auto',
+        height: height || 'auto',
         padding: '12px 24px',
         display: 'flex',
         maxHeight: '100%',
         overflow: 'auto',
         gap: 24,
+        ...styles,
       }}
       key={t.id}
     >
-      <EditorFrame tab={t} />
+      <EditorFrame tab={t} {...rest} />
     </div>
   );
 };
