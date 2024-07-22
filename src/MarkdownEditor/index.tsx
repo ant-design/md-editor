@@ -51,10 +51,9 @@ export const MarkdownEditor: React.FC<{
   height?: string | number;
   initValue?: string;
   styles?: React.CSSProperties;
-  readonly?: boolean;
   tabRef?: React.MutableRefObject<Tab | undefined>;
 }> = (props) => {
-  const { initValue, width, styles, height, ...rest } = props;
+  const { initValue, width, tabRef, styles, height, ...rest } = props;
 
   // 初始化 tab
   const t = useMemo(() => {
@@ -96,7 +95,7 @@ export const MarkdownEditor: React.FC<{
   useSystemKeyboard(t.store);
 
   // 导入外部 hooks
-  useImperativeHandle(props.tabRef, () => t, [t]);
+  useImperativeHandle(tabRef, () => t, [t]);
 
   return (
     <div
