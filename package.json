@@ -47,7 +47,9 @@
     ]
   },
   "dependencies": {
+    "@ant-design/charts": "^2.1.1",
     "@ant-design/icons": "^5.3.6",
+    "@ant-design/pro-components": "^2.7.0",
     "@babel/runtime": "^7.24.8",
     "antd": "^5.16.1",
     "diacritics": "^1.3.0",
@@ -79,8 +81,6 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@ant-design/charts": "^2.1.1",
-    "@ant-design/pro-components": "^2.7.0",
     "@ant-design/pro-descriptions": "2.5.36",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
