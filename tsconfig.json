@@ -16,8 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "@ant-design/md-to-json-schema": ["src"],
-      "@ant-design/md-to-json-schema/*": ["src/*", "*"]
+      "@ant-design/md-editor": ["src"],
+      "@ant-design/md-editor/*": ["src/*", "*"]
     }
   },
   "include": [".dumirc.ts", "src/**/**/*", "src/MarkDown/demos/.tsx"]
