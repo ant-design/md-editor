@@ -1,7 +1,7 @@
 ---
 hero:
-  title: md2schema
-  description: 一个增强 markdown 的工具，可以将 markdown 转换为 JSON Schema
+  title: MDEditor
+  description: 一个增强 markdown 的工具，可以用最简单的办法来编辑 markdown，并且扩展能力
   actions:
     - text: 快速开始
       link: /components/mark-down

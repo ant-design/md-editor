@@ -1,4 +1,4 @@
-﻿import { MarkdownEditor } from '@ant-design/md-to-json-schema';
+﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 

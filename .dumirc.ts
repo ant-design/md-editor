@@ -2,9 +2,9 @@ import { defineConfig } from 'dumi';
 
 export default defineConfig({
   outputPath: 'docs-dist',
-  title: 'md2schema',
+  title: 'MDEditor',
   mfsu: false,
   themeConfig: {
-    name: 'md2schema',
+    name: 'MDEditor',
   },
 });

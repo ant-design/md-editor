@@ -1,2 +1,1 @@
-export * from './MarkDown/index';
-export * from './MyMarkdown/index';
+export * from './MarkdownEditor/index';
