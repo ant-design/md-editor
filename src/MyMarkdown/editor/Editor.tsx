@@ -7,7 +7,8 @@ import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, Slate } from 'slate-react';
 import { IFileItem } from '../index';
 import { MElement, MLeaf } from './elements';
-import { htmlParser, markdownParser } from './plugins/htmlParser';
+import { htmlParser } from './plugins/htmlParser';
+import { markdownParser } from './plugins/markdownParser';
 import { clearAllCodeCache } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -185,6 +186,11 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
     });
   }, []);
 
+  /**
+   * 处理粘贴事件，会把粘贴的内容转换为对应的节点
+   * @description paste event
+   * @param {React.ClipboardEvent<HTMLDivElement>} e
+   */
   const paste = useCallback(
     async (e: React.ClipboardEvent<HTMLDivElement>) => {
       e.stopPropagation();
@@ -194,7 +200,9 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
       }
       const text = await navigator.clipboard.readText();
 
-      if (text && isMarkdown(text)) {
+      if (!text) return;
+
+      if (isMarkdown(text)) {
         if (markdownParser(editor, text)) {
           e.stopPropagation();
           e.preventDefault();
@@ -202,106 +210,107 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
         }
       }
 
-      if (text) {
-        try {
-          if (text.startsWith('media://') || text.startsWith('attach://')) {
-            const path = EditorUtils.findMediaInsertPath(store.editor);
-            let insert = false;
-            const urlObject = new URL(text);
-            let url = urlObject.searchParams.get('url');
-            if (url && !url.startsWith('http')) {
-              url = toUnixPath(url);
+      try {
+        if (text.startsWith('media://') || text.startsWith('attach://')) {
+          const path = EditorUtils.findMediaInsertPath(store.editor);
+          let insert = false;
+          const urlObject = new URL(text);
+          let url = urlObject.searchParams.get('url');
+          if (url && !url.startsWith('http')) {
+            url = toUnixPath(url);
+          }
+          if (path) {
+            if (text.startsWith('media://')) {
+              insert = true;
+              Transforms.insertNodes(
+                store.editor,
+                {
+                  type: 'media',
+                  height: urlObject.searchParams.get('height')
+                    ? +urlObject.searchParams.get('height')!
+                    : undefined,
+                  url: url || undefined,
+                  children: [{ text: '' }],
+                },
+                { select: true, at: path },
+              );
             }
-            if (path) {
-              if (text.startsWith('media://')) {
-                insert = true;
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'media',
-                    height: urlObject.searchParams.get('height')
-                      ? +urlObject.searchParams.get('height')!
-                      : undefined,
-                    url: url || undefined,
-                    children: [{ text: '' }],
-                  },
-                  { select: true, at: path },
-                );
-              }
-              if (text.startsWith('attach://')) {
-                insert = true;
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'attach',
-                    name: urlObject.searchParams.get('name'),
-                    size: Number(urlObject.searchParams.get('size') || 0),
-                    url: url || undefined,
-                    children: [{ text: '' }],
-                  },
-                  { select: true, at: path },
-                );
-              }
-              if (insert) {
-                e.preventDefault();
-                const next = Editor.next(store.editor, { at: path });
-                if (
-                  next &&
-                  next[0].type === 'paragraph' &&
-                  !Node.string(next[0])
-                ) {
-                  Transforms.delete(store.editor, { at: next[1] });
-                }
+            if (text.startsWith('attach://')) {
+              insert = true;
+              Transforms.insertNodes(
+                store.editor,
+                {
+                  type: 'attach',
+                  name: urlObject.searchParams.get('name'),
+                  size: Number(urlObject.searchParams.get('size') || 0),
+                  url: url || undefined,
+                  children: [{ text: '' }],
+                },
+                { select: true, at: path },
+              );
+            }
+            if (insert) {
+              e.preventDefault();
+              const next = Editor.next(store.editor, { at: path });
+              if (
+                next &&
+                next[0].type === 'paragraph' &&
+                !Node.string(next[0])
+              ) {
+                Transforms.delete(store.editor, { at: next[1] });
               }
             }
           }
-          if (text.startsWith('http') || isAbsolute(text)) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (['image', 'video', 'audio'].includes(mediaType(text))) {
-              if (text.startsWith('http')) {
-                const path = EditorUtils.findMediaInsertPath(store.editor);
-                if (!path) return;
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'media',
-                    url: text,
-                    children: [{ text: '' }],
-                  },
-                  { select: true, at: path },
-                );
-              }
-            } else {
-              store.insertLink(text);
-            }
-          }
-        } catch (e) {
-          console.log('paste text error', text, e);
         }
+        if (text.startsWith('http') || isAbsolute(text)) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (['image', 'video', 'audio'].includes(mediaType(text))) {
+            if (text.startsWith('http')) {
+              const path = EditorUtils.findMediaInsertPath(store.editor);
+              if (!path) return;
+              Transforms.insertNodes(
+                store.editor,
+                {
+                  type: 'media',
+                  url: text,
+                  children: [{ text: '' }],
+                },
+                { select: true, at: path },
+              );
+            }
+          } else {
+            store.insertLink(text);
+          }
+        }
+      } catch (e) {
+        console.log('paste text error', text, e);
       }
 
-      if (text) {
-        //@ts-ignore
-        const [node] = Editor.nodes<Element>(editor, {
-          match: (n) => Element.isElement(n) && n.type === 'code',
-        });
-        if (node) {
-          Transforms.insertFragment(
-            editor,
-            //@ts-ignore
-            text.split('\n').map((c) => {
-              return {
-                type: 'code-line',
-                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
-              };
-            }),
-          );
-          e.stopPropagation();
-          e.preventDefault();
-          return;
-        }
+      //@ts-ignore
+      const [node] = Editor.nodes<Element>(editor, {
+        match: (n) => Element.isElement(n) && n.type === 'code',
+      });
+      if (node) {
+        Transforms.insertFragment(
+          editor,
+          //@ts-ignore
+          text.split('\n').map((c) => {
+            return {
+              type: 'code-line',
+              children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
+            };
+          }),
+        );
+        e.stopPropagation();
+        e.preventDefault();
+        return;
       }
+
+      Transforms.insertNodes(editor, {
+        type: 'paragraph',
+        children: [{ text }],
+      });
 
       let paste = e.clipboardData.getData('text/html');
       if (paste && htmlParser(editor, paste)) {

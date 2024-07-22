@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { parserMdToSchema } from '../parser/parser';
 import { EditorUtils } from '../utils/editorUtils';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
@@ -218,20 +217,13 @@ const processFragment = (fragment: any[], parentType = '') => {
   }
   return trans;
 };
-export const markdownParser = (editor: Editor, markdown: string) => {
-  const nodes = JSON.parse(JSON.stringify(parserMdToSchema(markdown).schema));
 
-  nodes.push({ type: 'paragraph', children: [{ text: '' }] });
-
-  const fragment = nodes;
-  const sel = editor.selection;
-  if (sel) {
-    Transforms.insertNodes(editor, fragment, { at: sel });
-    return true;
-  }
-  Transforms.insertNodes(editor, fragment);
-  return true;
-};
+/**
+ * 转化 html 到 slate
+ * @param editor
+ * @param html
+ * @returns
+ */
 export const htmlParser = (editor: Editor, html: string) => {
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
@@ -241,6 +233,7 @@ export const htmlParser = (editor: Editor, html: string) => {
   let [node] = Editor.nodes<Element>(editor, {
     match: (n) => Element.isElement(n),
   });
+
   if (sel) {
     if (!Range.isCollapsed(sel)) {
       const back = new BackspaceKey(editor);
