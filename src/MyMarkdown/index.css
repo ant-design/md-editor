@@ -4,6 +4,10 @@
   outline: none !important;
 }
 
+.edit-area * {
+  box-sizing: border-box;
+}
+
 .page-title {
   font-size: 2em;
   margin-bottom: 1rem;

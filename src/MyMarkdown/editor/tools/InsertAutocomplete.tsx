@@ -42,13 +42,13 @@ type InsertOptions = {
 
 const replaceUrl = [
   {
-    reg: /https?:\/\/youtu.be\/([\w\-]+)(\?si=\w+)?/i,
+    reg: /https?:\/\/youtu.be\/([\w-]+)(\?si=\w+)?/i,
     replace: (match: RegExpMatchArray) => {
       return `https://www.youtube.com/embed/${match[1]}${match[2] || ''}`;
     },
   },
   {
-    reg: /https?:\/\/www.bilibili.com\/video\/([\w\-]+)\/?/,
+    reg: /https?:\/\/www.bilibili.com\/video\/([\w-]+)\/?/,
     replace: (match: RegExpMatchArray) => {
       return `https://player.bilibili.com/player.html?isOutside=true&bvid=${match[1]}`;
     },
@@ -206,6 +206,7 @@ export const InsertAutocomplete = observer(() => {
 
   const clickClose = useCallback((e: Event) => {
     if (!dom.current?.contains(e.target as HTMLElement)) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       close();
     }
   }, []);
@@ -263,7 +264,7 @@ export const InsertAutocomplete = observer(() => {
           throw new Error();
         }
         size = Number(res.headers.get('content-length') || 0);
-        const match = url.match(/([\w\_\-]+)\.\w+$/);
+        const match = url.match(/([\w_-]+)\.\w+$/);
         if (match) {
           name = match[1];
         }
@@ -350,17 +351,17 @@ export const InsertAutocomplete = observer(() => {
   }, []);
 
   useSubject(store.insertCompletionText$, (text) => {
-    text = text || '';
+    let tempText = text || '';
     const insertOptions = getInsertOptions({
       isTop: ctx.current.isTop,
     });
     let filterOptions: InsertOptions[] = [];
     let options: InsertOptions['children'] = [];
-    if (text) {
+    if (tempText) {
       for (let item of insertOptions) {
         const ops = item.children.filter((op) => {
           return op.label.some((l) =>
-            l.toLowerCase().includes(text.toLowerCase()),
+            l.toLowerCase().includes(tempText.toLowerCase()),
           );
         });
         options.push(...ops);
@@ -380,7 +381,7 @@ export const InsertAutocomplete = observer(() => {
     }
     setState({
       index: 0,
-      text,
+      text: tempText,
       options,
       filterOptions,
     });
@@ -397,7 +398,7 @@ export const InsertAutocomplete = observer(() => {
           break;
         }
       }
-      if (!/^(\w+\:)?\/\//.test(url)) {
+      if (!/^(\w+:)?\/\//.test(url)) {
         throw new Error();
       }
       const type = await getRemoteMediaType(url);

@@ -1,4 +1,5 @@
 import { isAbsolute, join, relative } from 'path';
+//@ts-ignore
 import { slash } from 'slash2';
 
 export const toRelativePath = (from: string, to: string) => {
@@ -24,7 +25,7 @@ export const toSpacePath = (
 };
 
 export const parsePath = (path: string) => {
-  const m = path.match(/#([^\n#\/]+)?$/);
+  const m = path.match(/#([^\n#/]+)?$/);
   if (m) {
     return { path: path.replace(m[0], ''), hash: m[1] || '' };
   }

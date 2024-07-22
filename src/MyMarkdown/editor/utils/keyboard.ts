@@ -11,6 +11,7 @@ import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';
 
 export type Methods<T> = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   [P in keyof T]: T[P] extends Function ? P : never;
 }[keyof T];
 
@@ -27,7 +28,6 @@ export class KeyboardTask {
     return Editor.nodes<any>(this.editor, {
       mode: 'lowest',
       match: (m) => {
-        console.log(m);
         return Element.isElement(m);
       },
     });
@@ -518,7 +518,9 @@ export class KeyboardTask {
     });
   }
 
-  localImage(type: 'image' | 'video' = 'image') {}
+  localImage(type: 'image' | 'video' = 'image') {
+    console.log('localImage', type);
+  }
 
   insertMedia() {
     EditorUtils.blur(this.store.editor);
@@ -605,7 +607,7 @@ export const useSystemKeyboard = (store: EditorStore) => {
           const url = `media://file?url=${readlUrl}&height=${
             node[0].height || ''
           }`;
-          window.api.copyToClipboard(url);
+          navigator.clipboard.writeText(url);
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store.editor, { at: node[1] });
             ReactEditor.focus(store.editor);
@@ -613,7 +615,7 @@ export const useSystemKeyboard = (store: EditorStore) => {
         }
         if (node[0].type === 'attach') {
           const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0].url}`;
-          window.api.copyToClipboard(url);
+          navigator.clipboard.writeText(url);
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store.editor, { at: node[1] });
             ReactEditor.focus(store.editor);

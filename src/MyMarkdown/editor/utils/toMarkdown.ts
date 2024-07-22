@@ -1,135 +1,13 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '../../el';
 import { mediaType } from './dom';
+
 const space = '  ';
 const inlineNode = new Set(['break']);
-export const isMix = (t: Text) => {
-  return (
-    Object.keys(t).filter((key) =>
-      ['bold', 'code', 'italic', 'strikethrough'].includes(key),
-    ).length > 1
-  );
-};
-const textHtml = (t: Text) => {
-  let str = t.text || '';
-  if (t.highColor) str = `<span style="color:${t.highColor}">${str}</span>`;
-  if (t.code) str = `<code>${str}</code>`;
-  if (t.italic) str = `<i>${str}</i>`;
-  if (t.bold) str = `<b>${str}</b>`;
-  if (t.strikethrough) str = `<del>${str}</del>`;
-  if (t.url) str = `<a href="${t.url}">${str}</a>`;
-  return str;
-};
-const textStyle = (t: Text) => {
-  if (!t.text) return '';
-  let str = t.text.replace(/(?<!\\)\\/g, '\\').replace(/\n/g, '  \n');
-  let preStr = '',
-    afterStr = '';
-  if (t.code || t.bold || t.strikethrough || t.italic) {
-    preStr = str.match(/^\s+/)?.[0] || '';
-    afterStr = str.match(/\s+$/)?.[0] || '';
-    str = str.trim();
-  }
-  if (t.code) str = `\`${str}\``;
-  if (t.italic) str = `*${str}*`;
-  if (t.bold) str = `**${str}**`;
-  if (t.strikethrough) str = `~~${str}~~`;
-  return `${preStr}${str}${afterStr}`;
-};
-const composeText = (t: Text, parent: any[]) => {
-  if (!t.text) return '';
-  if (t.highColor || (t.strikethrough && (t.bold || t.italic || t.code)))
-    return textHtml(t);
-  const siblings = parent[parent.length - 1]?.children;
-  // @ts-ignore
-  const index = siblings?.findIndex((n) => n === t);
-  let str = textStyle(t)!;
-  if (t.url) {
-    str = `[${t.text}](${encodeURI(t.url)})`;
-  } else if (isMix(t) && index !== -1) {
-    const next = siblings[index + 1];
-    if (!str.endsWith(' ') && next && !Node.string(next).startsWith(' ')) {
-      str += ' ';
-    }
-  }
-  return str;
-};
-const table = (el: TableNode, preString = '', parent: any[]) => {
-  const children = el.children;
-  const head = children[0]?.children;
-  if (!children.length || !head.length) return '';
-  let data: string[][] = [];
-  for (let c of children) {
-    const row: string[] = [];
-    if (c.type === 'table-row') {
-      for (let n of c.children) {
-        if (n.type === 'table-cell') {
-          row.push(toMarkdown(n.children, '', [...parent, n]));
-        }
-      }
-    }
-    data.push(row);
-  }
-  let output = '',
-    colLength = new Map<number, number>();
-  for (let i = 0; i < data[0].length; i++) {
-    colLength.set(
-      i,
-      data.map((d) => stringWidth(d[i])).sort((a, b) => b - a)[0],
-    );
-  }
-  for (let i = 0; i < data.length; i++) {
-    let cells: string[] = [];
-    for (let j = 0; j < data[i].length; j++) {
-      let str = data[i][j];
-      const strLength = stringWidth(str);
-      const length = colLength.get(j) || 2;
-      if (length > strLength) {
-        if (head[j].align === 'right') {
-          str = ' '.repeat(length - strLength) + str;
-        } else if (head[j].align === 'center') {
-          const spaceLength = length - strLength;
-          const pre = Math.floor(spaceLength / 2);
-          if (pre > 0) str = ' '.repeat(pre) + str;
-          const next = spaceLength - pre;
-          if (next > 0) str = str + ' '.repeat(next);
-        } else {
-          str += ' '.repeat(length - strLength);
-        }
-      }
-      str = str.replace(/\|/g, '\\|');
-      cells.push(str);
-    }
-    output += `${preString}| ${cells.join(' | ')} |`;
-    if (i !== data.length - 1 || data.length === 1) output += '\n';
-    if (i === 0) {
-      output += `${preString}| ${cells
-        .map((_, i) => {
-          const removeLength = head[i].align
-            ? head[i].align === 'center'
-              ? 2
-              : 1
-            : 0;
-          let str = '-'.repeat(Math.max(colLength.get(i)! - removeLength, 2));
-          switch (head[i].align) {
-            case 'left':
-              str = `:${str}`;
-              break;
-            case 'center':
-              str = `:${str}:`;
-              break;
-            case 'right':
-              str = `${str}:`;
-              break;
-          }
-          return str;
-        })
-        .join(' | ')} |\n`;
-    }
-  }
-  return output;
-};
 
 const parserNode = (node: any, preString = '', parent: any[]) => {
   let str = '';
@@ -170,8 +48,8 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += toMarkdown(node.children, preString, newParent);
       break;
     case 'media':
-      const url = node.url;
-      const type = mediaType(url);
+      let url = node.url;
+      let type = mediaType(url);
       if (node.height) {
         if (type === 'video') {
           str += `<video src="${encodeURI(url)}" alt="" height="${
@@ -316,4 +194,131 @@ export const toMarkdown = (
     }
   }
   return str;
+};
+
+export const isMix = (t: Text) => {
+  return (
+    Object.keys(t).filter((key) =>
+      ['bold', 'code', 'italic', 'strikethrough'].includes(key),
+    ).length > 1
+  );
+};
+const textHtml = (t: Text) => {
+  let str = t.text || '';
+  if (t.highColor) str = `<span style="color:${t.highColor}">${str}</span>`;
+  if (t.code) str = `<code>${str}</code>`;
+  if (t.italic) str = `<i>${str}</i>`;
+  if (t.bold) str = `<b>${str}</b>`;
+  if (t.strikethrough) str = `<del>${str}</del>`;
+  if (t.url) str = `<a href="${t.url}">${str}</a>`;
+  return str;
+};
+const textStyle = (t: Text) => {
+  if (!t.text) return '';
+  let str = t.text.replace(/(?<!\\)\\/g, '\\').replace(/\n/g, '  \n');
+  let preStr = '',
+    afterStr = '';
+  if (t.code || t.bold || t.strikethrough || t.italic) {
+    preStr = str.match(/^\s+/)?.[0] || '';
+    afterStr = str.match(/\s+$/)?.[0] || '';
+    str = str.trim();
+  }
+  if (t.code) str = `\`${str}\``;
+  if (t.italic) str = `*${str}*`;
+  if (t.bold) str = `**${str}**`;
+  if (t.strikethrough) str = `~~${str}~~`;
+  return `${preStr}${str}${afterStr}`;
+};
+const composeText = (t: Text, parent: any[]) => {
+  if (!t.text) return '';
+  if (t.highColor || (t.strikethrough && (t.bold || t.italic || t.code)))
+    return textHtml(t);
+  const siblings = parent[parent.length - 1]?.children;
+  // @ts-ignore
+  const index = siblings?.findIndex((n) => n === t);
+  let str = textStyle(t)!;
+  if (t.url) {
+    str = `[${t.text}](${encodeURI(t.url)})`;
+  } else if (isMix(t) && index !== -1) {
+    const next = siblings[index + 1];
+    if (!str.endsWith(' ') && next && !Node.string(next).startsWith(' ')) {
+      str += ' ';
+    }
+  }
+  return str;
+};
+const table = (el: TableNode, preString = '', parent: any[]) => {
+  const children = el.children;
+  const head = children[0]?.children;
+  if (!children.length || !head.length) return '';
+  let data: string[][] = [];
+  for (let c of children) {
+    const row: string[] = [];
+    if (c.type === 'table-row') {
+      for (let n of c.children) {
+        if (n.type === 'table-cell') {
+          row.push(toMarkdown(n.children, '', [...parent, n]));
+        }
+      }
+    }
+    data.push(row);
+  }
+  let output = '',
+    colLength = new Map<number, number>();
+  for (let i = 0; i < data[0].length; i++) {
+    colLength.set(
+      i,
+      data.map((d) => stringWidth(d[i])).sort((a, b) => b - a)[0],
+    );
+  }
+  for (let i = 0; i < data.length; i++) {
+    let cells: string[] = [];
+    for (let j = 0; j < data[i].length; j++) {
+      let str = data[i][j];
+      const strLength = stringWidth(str);
+      const length = colLength.get(j) || 2;
+      if (length > strLength) {
+        if (head[j].align === 'right') {
+          str = ' '.repeat(length - strLength) + str;
+        } else if (head[j].align === 'center') {
+          const spaceLength = length - strLength;
+          const pre = Math.floor(spaceLength / 2);
+          if (pre > 0) str = ' '.repeat(pre) + str;
+          const next = spaceLength - pre;
+          if (next > 0) str = str + ' '.repeat(next);
+        } else {
+          str += ' '.repeat(length - strLength);
+        }
+      }
+      str = str.replace(/\|/g, '\\|');
+      cells.push(str);
+    }
+    output += `${preString}| ${cells.join(' | ')} |`;
+    if (i !== data.length - 1 || data.length === 1) output += '\n';
+    if (i === 0) {
+      output += `${preString}| ${cells
+        .map((_, i) => {
+          const removeLength = head[i].align
+            ? head[i].align === 'center'
+              ? 2
+              : 1
+            : 0;
+          let str = '-'.repeat(Math.max(colLength.get(i)! - removeLength, 2));
+          switch (head[i].align) {
+            case 'left':
+              str = `:${str}`;
+              break;
+            case 'center':
+              str = `:${str}:`;
+              break;
+            case 'right':
+              str = `${str}:`;
+              break;
+          }
+          return str;
+        })
+        .join(' | ')} |\n`;
+    }
+  }
+  return output;
 };

@@ -72,6 +72,7 @@
     "slate-history": "^0.100.0",
     "slate-hyperscript": "^0.100.0",
     "slate-react": "0.107.0",
+    "string-width": "^7.2.0",
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0"
   },

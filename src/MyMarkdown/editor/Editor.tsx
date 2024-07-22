@@ -7,11 +7,12 @@ import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, Slate } from 'slate-react';
 import { IFileItem } from '../index';
 import { MElement, MLeaf } from './elements';
-import { htmlParser } from './plugins/htmlParser';
+import { htmlParser, markdownParser } from './plugins/htmlParser';
 import { clearAllCodeCache } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import { useEditorStore } from './store';
+import { isMarkdown } from './utils';
 import { mediaType } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
@@ -186,10 +187,21 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
 
   const paste = useCallback(
     async (e: React.ClipboardEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      e.preventDefault();
       if (!Range.isCollapsed(store.editor.selection!)) {
         Transforms.delete(store.editor, { at: store.editor.selection! });
       }
       const text = await navigator.clipboard.readText();
+
+      if (text && isMarkdown(text)) {
+        if (markdownParser(editor, text)) {
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+        }
+      }
+
       if (text) {
         try {
           if (text.startsWith('media://') || text.startsWith('attach://')) {
@@ -290,6 +302,7 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
           return;
         }
       }
+
       let paste = e.clipboardData.getData('text/html');
       if (paste && htmlParser(editor, paste)) {
         e.stopPropagation();

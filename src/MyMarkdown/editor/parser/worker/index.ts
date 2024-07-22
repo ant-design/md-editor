@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-loop-func */
+/* eslint-disable no-case-declarations */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Content, Root, Table } from 'mdast';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
@@ -22,7 +26,7 @@ const findImageElement = (str: string) => {
     if (match) {
       const url = match[0].match(/src="([^"\n]+)"/);
       const height = match[0].match(/height="(\d+)"/);
-      const align = match[0].match(/data\-align="(\w+)"/);
+      const align = match[0].match(/data-align="(\w+)"/);
       return {
         url: url?.[1],
         height: height ? +height[1] : undefined,
@@ -77,8 +81,10 @@ const parseTable = (table: Table, preNode: Content) => {
 
   // @ts-ignore
   const config =
+    // @ts-ignore
     preNode.type === 'code' && preNode.language === 'html'
-      ? preNode.otherProps
+      ? // @ts-ignore
+        preNode.otherProps
       : {};
 
   const tableHeader = table?.children?.at(0);
@@ -124,30 +130,33 @@ const parseTable = (table: Table, preNode: Content) => {
       }, {} as any);
     }) || [];
   const aligns = table.align;
+  const isChart = config?.chartType || config?.at?.(0)?.chartType;
   const node: TableNode & {
     otherProps: any;
   } = {
-    type: config?.chartType ? 'chart' : 'table',
-    children: table.children.map((r: { children: any[] }, l: number) => {
-      return {
-        type: 'table-row',
-        children: r.children.map(
-          (c: { children: string | any[] }, i: string | number) => {
-            return {
-              type: 'table-cell',
-              align: aligns?.[i as number] || undefined,
-              title: l === 0,
-              // @ts-ignore
-              children: c.children?.length
-                ? parserBlock(c.children, false, c)
-                : [{ text: '' }],
-            };
-          },
-        ),
-      };
-    }),
+    type: config?.chartType || config?.at?.(0)?.chartType ? 'chart' : 'table',
+    children: isChart
+      ? [{ text: '' } as any]
+      : table.children.map((r: { children: any[] }, l: number) => {
+          return {
+            type: 'table-row',
+            children: r.children.map(
+              (c: { children: string | any[] }, i: string | number) => {
+                return {
+                  type: 'table-cell',
+                  align: aligns?.[i as number] || undefined,
+                  title: l === 0,
+                  // @ts-ignore
+                  children: c.children?.length
+                    ? parserBlock(c.children as any, false, c as any)
+                    : [{ text: '' }],
+                };
+              },
+            ),
+          };
+        }),
     otherProps: {
-      ...config,
+      config: config,
       columns,
       dataSource: dataSource.map((item) => {
         delete item?.chartType;
@@ -257,7 +266,7 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
                     el = { text: n.value };
                   }
                 } else if (tag === 'a') {
-                  const url = str.match(/href="([\w:.\/_\-#\\]+)"/);
+                  const url = str.match(/href="([\w:./_\-#\\]+)"/);
                   if (url) {
                     htmlTag.push({
                       tag: tag,
@@ -345,7 +354,7 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
             .join('');
           const attach = findAttachment(text);
           if (attach) {
-            const name = text.match(/\>(.*)<\/a\>/);
+            const name = text.match(/>(.*)<\/a>/);
             el = {
               type: 'attach',
               url: decodeURIComponent(attach.url),
@@ -477,8 +486,8 @@ const parserBlock = (nodes: Content[], top = false, parent?: Content) => {
             if (n.type === 'link') {
               leaf.url = decodeURIComponent(n.url);
             }
-            // @ts-ignore
             el = parseText(
+              // @ts-ignore
               n.children?.length ? n.children : [{ value: leaf.url || '' }],
               leaf,
             );

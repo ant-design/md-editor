@@ -23,7 +23,6 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
   return (
     <div
       style={{
-        width: '100%',
         padding: 24,
         borderRadius: 8,
         border: '1px solid rgb(209 213 219 / 0.8)',

@@ -16,7 +16,7 @@ const defaultPieConfig = {
 };
 
 export const Chart: React.FC<RenderElementProps> = (props) => {
-  const { element: node } = props;
+  const { element: node, attributes, children } = props;
   const chartData =
     node.otherProps?.dataSource?.map((item: any) => {
       return {
@@ -25,88 +25,104 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         column_list: Object.keys(item),
       };
     }) || [];
-  const chartType = node.otherProps?.chartType;
-  if (chartType === 'pie') {
-    return (
-      <div
-        style={{
-          maxWidth: 400,
-          margin: 'auto',
-        }}
-      >
-        <Pie
-          data={chartData}
-          {...defaultPieConfig}
-          label={{
-            text: 'type',
-            position: 'outside',
-            textAlign: 'center',
-          }}
-        />
-      </div>
-    );
-  }
-  if (chartType === 'bar') {
-    return (
-      <div
-        style={{
-          maxWidth: 400,
-          margin: 'auto',
-        }}
-      >
-        <Bar
-          data={chartData || []}
-          yField={node.otherProps?.y}
-          xField={node.otherProps?.x}
-          label={{
-            position: 'outside',
-            textAlign: 'center',
-          }}
-        />{' '}
-      </div>
-    );
-  }
 
-  if (chartType === 'line') {
-    return (
-      <div
-        style={{
-          maxWidth: 400,
-          margin: 'auto',
-        }}
-      >
-        <Line
-          data={chartData}
-          yField={node.otherProps?.y}
-          xField={node.otherProps?.x}
-          label={{
-            position: 'outside',
-            textAlign: 'center',
-          }}
-        />
-      </div>
-    );
-  }
-  if (node.otherProps?.chartType === 'column') {
-    return (
-      <div
-        style={{
-          maxWidth: 400,
-          margin: 'auto',
-        }}
-      >
-        <Column
-          data={chartData}
-          yField={node.otherProps?.y}
-          xField={node.otherProps?.x}
-          label={{
-            position: 'outside',
-            textAlign: 'center',
-          }}
-        />
-      </div>
-    );
-  }
+  const config = [node.otherProps?.config].flat(1);
 
-  return null;
+  return (
+    <div {...attributes}>
+      <div contentEditable={false}>
+        {config.map(({ chartType, x, y, ...rest }, index) => {
+          if (chartType === 'pie') {
+            return (
+              <div
+                key={index}
+                style={{
+                  maxWidth: 400,
+                  margin: 'auto',
+                }}
+              >
+                <Pie
+                  data={chartData}
+                  {...defaultPieConfig}
+                  label={{
+                    text: 'type',
+                    position: 'outside',
+                    textAlign: 'center',
+                  }}
+                />
+              </div>
+            );
+          }
+          if (chartType === 'bar') {
+            return (
+              <div
+                key={index}
+                style={{
+                  maxWidth: 400,
+                  margin: 'auto',
+                }}
+              >
+                <Bar
+                  data={chartData || []}
+                  yField={y}
+                  xField={x}
+                  label={{
+                    position: 'outside',
+                    textAlign: 'center',
+                  }}
+                  {...rest}
+                />
+              </div>
+            );
+          }
+
+          if (chartType === 'line') {
+            return (
+              <div
+                key={index}
+                style={{
+                  maxWidth: 400,
+                  margin: 'auto',
+                }}
+              >
+                <Line
+                  key={index}
+                  data={chartData}
+                  yField={y}
+                  xField={x}
+                  label={{
+                    position: 'outside',
+                    textAlign: 'center',
+                  }}
+                />
+              </div>
+            );
+          }
+          if (chartType === 'column') {
+            return (
+              <div
+                key={index}
+                style={{
+                  maxWidth: 400,
+                  margin: 'auto',
+                }}
+              >
+                <Column
+                  data={chartData}
+                  yField={y}
+                  xField={x}
+                  label={{
+                    position: 'outside',
+                    textAlign: 'center',
+                  }}
+                />
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+      <div>{children}</div>
+    </div>
+  );
 };

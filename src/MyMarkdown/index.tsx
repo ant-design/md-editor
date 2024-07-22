@@ -48,14 +48,14 @@ export const MarkdownEditor: React.FC<{
 }> = (props) => {
   const t = useMemo(() => {
     const now = Date.now();
+    const list = parserMdToSchema(props.initValue!)?.schema;
+    list.push(EditorUtils.p);
     const data = {
       cid: nanoid(),
       filePath: 'new.md',
       folder: false,
       schema: props.initValue
-        ? parserMdToSchema(props.initValue)?.schema.filter(
-            (s) => s.language !== 'html',
-          )
+        ? list
         : JSON.parse(JSON.stringify([EditorUtils.p])),
       sort: 0,
       lastOpenTime: now,
@@ -95,7 +95,7 @@ export const MarkdownEditor: React.FC<{
         width: props.width || '400px',
         minWidth: 300,
         height: props.height || 'auto',
-        padding: 12,
+        padding: '12px 24px',
         display: 'flex',
         maxHeight: '100%',
         overflow: 'auto',

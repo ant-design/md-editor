@@ -5,7 +5,15 @@ export type ParserResult = {
 };
 
 const transformResult = (result: ParserResult) => {
-  return { schema: result.schema, links: result.links || [] };
+  return {
+    schema: result.schema?.filter((s) => {
+      if (s.language === 'html' && s.otherProps) {
+        return false;
+      }
+      return true;
+    }),
+    links: result.links || [],
+  };
 };
 
 export const parserMdToSchema = (code: string): ParserResult => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { HookAPI } from 'antd/es/modal/useModal';
 import { customAlphabet } from 'nanoid';
 import React from 'react';
@@ -34,8 +35,11 @@ export function base64ToArrayBuffer(base64: string) {
   return bytes.buffer;
 }
 
-export const getImageData = (filePath: string = '', force = false) => {
-  return '';
+export const getImageData = (filePath: string = '') => {
+  if (filePath.startsWith('data:image')) {
+    return filePath;
+  }
+  return filePath;
 };
 
 export function toArrayBuffer(buffer: any) {
@@ -87,3 +91,33 @@ export const encodeHtml = (str: string) => {
 export const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 
 export const isWindows = /windows|win32/i.test(navigator.userAgent);
+
+export function isMarkdown(text: string) {
+  // 常见的 Markdown 语法特征
+  const markdownPatterns = [
+    /^#{1,6} /, // 标题 (#, ##, ###, ####, #####, ######)
+    /^\*{1,3}[^*]+?\*{1,3}/, // 斜体和粗体 (*italic*, **bold**, ***bolditalic***)
+    /^> /, // 引用 (>)
+    /^[-*+] /, // 无序列表 (-, *, +)
+    /^\d+\. /, // 有序列表 (1., 2., 3., ...)
+    /\[[^\]]+\]\([^)]+\)/, // 链接 [text](url)
+    /!\[[^\]]+\]\([^)]+\)/, // 图片 ![alt](url)
+    /`[^`]+`/, // 行内代码 (`code`)
+    /^```/, // 代码块 (``` code ```)
+    /^---$/, // 分隔线 (---)
+    /^\|\s/, // 表格 (| header | header |)
+    /^(\s{4}|\t)/, // 代码块缩进
+  ];
+
+  // 检查每一行是否匹配任何一个 Markdown 语法特征
+  const lines = text.split('\n');
+  for (let line of lines) {
+    for (let pattern of markdownPatterns) {
+      if (pattern.test(line.trim())) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

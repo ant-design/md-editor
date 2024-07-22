@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-param-reassign */
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
+import { parserMdToSchema } from '../parser/parser';
 import { EditorUtils } from '../utils/editorUtils';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
@@ -214,6 +217,20 @@ const processFragment = (fragment: any[], parentType = '') => {
     trans.push(f);
   }
   return trans;
+};
+export const markdownParser = (editor: Editor, markdown: string) => {
+  const nodes = JSON.parse(JSON.stringify(parserMdToSchema(markdown).schema));
+
+  nodes.push({ type: 'paragraph', children: [{ text: '' }] });
+
+  const fragment = nodes;
+  const sel = editor.selection;
+  if (sel) {
+    Transforms.insertNodes(editor, fragment, { at: sel });
+    return true;
+  }
+  Transforms.insertNodes(editor, fragment);
+  return true;
 };
 export const htmlParser = (editor: Editor, html: string) => {
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;

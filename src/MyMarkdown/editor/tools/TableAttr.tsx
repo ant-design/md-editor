@@ -57,16 +57,20 @@ export const TableAttr = observer(() => {
     if (el) {
       tableCellRef.current = el;
       if ((el.at(0) as TableCellNode)?.title) {
-        const dom = ReactEditor.toDOMNode(editor, el[0]) as HTMLElement;
-        let top = store.offsetTop(dom);
-        let left =
-          dom.getBoundingClientRect().left -
-          store.container!.getBoundingClientRect().left;
-        setState({
-          top: top - 24 + 3,
-          left,
-          visible: true,
-        });
+        try {
+          const dom = ReactEditor.toDOMNode(editor, el[0]) as HTMLElement;
+          let top = store.offsetTop(dom);
+          let left =
+            dom.getBoundingClientRect().left -
+            store.container!.getBoundingClientRect().left;
+          setState({
+            top: top - 24 + 3,
+            left,
+            visible: true,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       } else {
         setState({
           visible: false,
