@@ -15,6 +15,7 @@ export const markdownParser = (editor: Editor, markdown: string) => {
   const fragment = nodes;
   const sel = editor.selection;
   if (sel) {
+    Transforms.removeNodes(editor, { at: sel });
     Transforms.insertNodes(editor, fragment, { at: sel });
     return true;
   }
