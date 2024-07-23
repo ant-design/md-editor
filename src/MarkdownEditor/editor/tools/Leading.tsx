@@ -77,13 +77,6 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
                 schema: s,
               });
               headings.push(cache.get(s)!);
-              setTimeout(() => {
-                if (cache.get(s)) {
-                  cache.get(s)!.dom = store.container?.querySelector(
-                    `[data-head="${id}"]`,
-                  ) as HTMLElement;
-                }
-              }, 200);
             }
           }
         }
@@ -109,7 +102,7 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
     if (div) {
       const scroll = (e: Event) => {
         const top = (e.target as HTMLElement).scrollTop;
-        const container = store.container;
+        const container = store?.container;
         if (!container) return;
         const heads = state().headings.slice().reverse();
         for (let h of heads) {

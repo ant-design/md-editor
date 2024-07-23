@@ -8,7 +8,6 @@ import { EditorStoreContext } from './store';
 import { FloatBar } from './tools/FloatBar';
 import { InsertAutocomplete } from './tools/InsertAutocomplete';
 import { InsertLink } from './tools/InsertLink';
-import { Heading } from './tools/Leading';
 import { TableAttr } from './tools/TableAttr';
 import { getImageData } from './utils';
 import { mediaType } from './utils/dom';
@@ -89,13 +88,6 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
               (i: number) => (tab.store.viewImageIndex = i),
             )}
           />
-        </div>
-        <div
-          style={{
-            minWidth: '120px',
-          }}
-        >
-          <Heading note={tab.current} />
         </div>
       </>
     </EditorStoreContext.Provider>

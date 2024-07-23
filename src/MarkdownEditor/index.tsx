@@ -1,9 +1,15 @@
 import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
-import React, { useEffect, useImperativeHandle, useMemo } from 'react';
+import React, {
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parser';
 import { EditorStore } from './editor/store';
+import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 import './index.css';
@@ -51,10 +57,20 @@ export const MarkdownEditor: React.FC<{
   height?: string | number;
   initValue?: string;
   readonly?: boolean;
-  styles?: React.CSSProperties;
+  style?: React.CSSProperties;
+  toc?: boolean;
   tabRef?: React.MutableRefObject<Tab | undefined>;
 }> = (props) => {
-  const { initValue, width, tabRef, readonly, styles, height, ...rest } = props;
+  const {
+    initValue,
+    width,
+    tabRef,
+    toc = true,
+    readonly,
+    style,
+    height,
+    ...rest
+  } = props;
 
   // 初始化 tab
   const t = useMemo(() => {
@@ -92,6 +108,8 @@ export const MarkdownEditor: React.FC<{
     );
   }, []);
 
+  const [mount, setMount] = useState(false);
+
   // 初始化快捷键
   useSystemKeyboard(t.store);
 
@@ -106,22 +124,26 @@ export const MarkdownEditor: React.FC<{
     <div
       ref={(dom) => {
         t.store.setState((state) => (state.container = dom));
+        setMount(true);
       }}
       className="markdown-editor"
       style={{
         width: width || '400px',
-        minWidth: 300,
+        minWidth: readonly ? '200px' : '800px',
         height: height || '80vh',
-        padding: '24px 48px',
+        padding: props.readonly ? '8px' : '24px 48px',
         display: 'flex',
         maxHeight: '100%',
         overflow: 'auto',
         gap: 24,
-        ...styles,
+        ...style,
       }}
       key={t.id}
     >
       <EditorFrame tab={t} {...rest} />
+      {t.current && mount && toc !== false && t.store?.container ? (
+        <Heading note={t.current} />
+      ) : null}
     </div>
   );
 };
