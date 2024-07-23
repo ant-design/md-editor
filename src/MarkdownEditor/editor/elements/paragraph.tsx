@@ -19,7 +19,7 @@ export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
       >
-        <DragHandle style={{ left: -20 }} />
+        <DragHandle />
         {props.children}
       </p>
     );

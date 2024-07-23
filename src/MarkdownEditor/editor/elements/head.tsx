@@ -28,7 +28,7 @@ export function Head({
         ['data-empty']: !str && selected ? 'true' : undefined,
       },
       <>
-        <DragHandle style={{ left: -28, paddingRight: 10 }} />
+        <DragHandle />
         {children}
       </>,
     );

@@ -1,4 +1,4 @@
-import { DragOutlined } from '@ant-design/icons';
+import { HolderOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { CSSProperties, useRef } from 'react';
 import { useEditorStore } from '../store';
@@ -28,7 +28,9 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
         store.dragEl = parent;
       }}
     >
-      <DragOutlined className={'drag-icon'} />
+      <div className="drag-icon">
+        <HolderOutlined />
+      </div>
     </span>
   );
 });

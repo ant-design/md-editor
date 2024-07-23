@@ -107,7 +107,7 @@ export const MarkdownEditor: React.FC<{
         width: width || '400px',
         minWidth: 300,
         height: height || '80vh',
-        padding: '12px 24px',
+        padding: '24px 48px',
         display: 'flex',
         maxHeight: '100%',
         overflow: 'auto',
