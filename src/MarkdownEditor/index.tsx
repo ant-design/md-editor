@@ -76,7 +76,9 @@ export const MarkdownEditor: React.FC<{
   const t = useMemo(() => {
     const now = Date.now();
     const list = parserMdToSchema(initValue!)?.schema;
-    list.push(EditorUtils.p);
+    if (!props.readonly) {
+      list.push(EditorUtils.p);
+    }
     const data = {
       cid: nanoid(),
       filePath: 'new.md',

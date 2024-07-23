@@ -16,7 +16,6 @@
   box-sizing: border-box;
 }
 .edit-area {
-  min-height: calc(100vh - 40px);
   outline: none !important;
 }
 
