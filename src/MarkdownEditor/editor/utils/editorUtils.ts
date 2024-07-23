@@ -257,6 +257,7 @@ export class EditorUtils {
         match: (n) => !!n[format],
         mode: 'lowest',
       });
+      //@ts-ignore
       return value ? match?.[0]?.[format] === value : !!match;
     } catch (e) {
       return false;

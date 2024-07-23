@@ -21,7 +21,7 @@ import { EditorUtils } from '../utils/editorUtils';
  * @param locale
  * @returns
  */
-function reverseFormatNumber(val: string, locale: Intl.LocalesArgument) {
+function reverseFormatNumber(val: string, locale: any) {
   let group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');
   let decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '');
   let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '');
