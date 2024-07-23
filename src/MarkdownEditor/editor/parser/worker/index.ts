@@ -109,6 +109,7 @@ const parseTableOrChart = (
           ?.replace(/\n/g, '')
           .trim(),
       )
+      .map((title) => title.replaceAll('\\', '') || ' ')
       .map((title, index) => {
         if (keyMap.has(title)) {
           keyMap.set(title, keyMap.get(title) + '_' + index);

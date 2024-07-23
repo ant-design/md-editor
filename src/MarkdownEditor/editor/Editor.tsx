@@ -366,6 +366,7 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
         className={`edit-area  ${store.focus ? 'focus' : ''}`}
         style={{
           fontSize: 16,
+          paddingBottom: store?.readonly ? 0 : 160,
         }}
         onMouseDown={checkEnd}
         onDrop={onDrop}

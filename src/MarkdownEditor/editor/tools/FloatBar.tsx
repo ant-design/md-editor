@@ -83,7 +83,6 @@ export const FloatBar = observer(() => {
       let left = store.domRect.x;
       left = left - (228 - store.domRect.width) / 2;
       const container = store.container!;
-      console.log(container);
       if (left < 4) left = 4;
       const barWidth = state.openSelectColor ? 264 : 232;
       if (left > container.clientWidth - barWidth)

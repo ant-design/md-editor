@@ -222,6 +222,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 zIndex: 1,
                 width: '100%',
                 opacity: 0,
+                height: '100%',
+                overflow: 'hidden',
               }}
             >
               {children}
@@ -260,21 +262,24 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     },
                   },
                 },
-                label: {
-                  position: 'inside',
-                  fill: '#fff',
-                  fillOpacity: 1,
-                  background: true,
-                  backgroundFill: 'rgb(23, 131, 255)',
-                  backgroundPadding: [4, 6, 4, 6],
-                  backgroundRadius: 4,
-                  fontSize: 13,
-                  opacity: 1,
-                  textAlign: 'center',
-                  formatter: (value: number) => {
-                    return stringFormatNumber(value);
-                  },
-                },
+                label:
+                  chartData?.length > 10
+                    ? undefined
+                    : {
+                        position: 'inside',
+                        fill: '#fff',
+                        fillOpacity: 1,
+                        background: true,
+                        backgroundFill: 'rgb(23, 131, 255)',
+                        backgroundPadding: [4, 6, 4, 6],
+                        backgroundRadius: 4,
+                        fontSize: 13,
+                        opacity: 1,
+                        textAlign: 'center',
+                        formatter: (value: number) => {
+                          return stringFormatNumber(value);
+                        },
+                      },
               };
               if (chartType === 'pie') {
                 return (
