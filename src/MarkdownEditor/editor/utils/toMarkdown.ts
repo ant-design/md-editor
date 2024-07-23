@@ -89,6 +89,9 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
     case 'table':
       str += table(node, preString, newParent);
       break;
+    case 'chart':
+      str += table(node, preString, newParent);
+      break;
     case 'hr':
       str += preString + '***';
       break;
@@ -110,6 +113,9 @@ export const toMarkdown = (
   let str = '';
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
+    if (node.otherProps) {
+      str += `<!--${JSON.stringify(node.otherProps)}-->\n`;
+    }
     const p = parent[parent.length - 1];
     if (p.type === 'list-item') {
       const list = parent[parent.length - 2];
@@ -265,6 +271,7 @@ const table = (el: TableNode, preString = '', parent: any[]) => {
   }
   let output = '',
     colLength = new Map<number, number>();
+
   for (let i = 0; i < data[0].length; i++) {
     colLength.set(
       i,
