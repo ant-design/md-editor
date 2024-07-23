@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
-import React, { useImperativeHandle, useMemo } from 'react';
+import React, { useEffect, useImperativeHandle, useMemo } from 'react';
 import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parser';
 import { EditorStore } from './editor/store';
@@ -50,10 +50,11 @@ export const MarkdownEditor: React.FC<{
   width?: string | number;
   height?: string | number;
   initValue?: string;
+  readonly?: boolean;
   styles?: React.CSSProperties;
   tabRef?: React.MutableRefObject<Tab | undefined>;
 }> = (props) => {
-  const { initValue, width, tabRef, styles, height, ...rest } = props;
+  const { initValue, width, tabRef, readonly, styles, height, ...rest } = props;
 
   // 初始化 tab
   const t = useMemo(() => {
@@ -96,6 +97,10 @@ export const MarkdownEditor: React.FC<{
 
   // 导入外部 hooks
   useImperativeHandle(tabRef, () => t, [t]);
+
+  useEffect(() => {
+    t.store.readonly = readonly || false;
+  }, [readonly]);
 
   return (
     <div
