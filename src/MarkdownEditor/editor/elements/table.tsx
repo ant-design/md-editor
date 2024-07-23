@@ -9,7 +9,7 @@ export function TableCell(props: RenderElementProps) {
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
     store.openTableMenus(e, head);
   }, []);
-  return useMemo(() => {
+  return React.useMemo(() => {
     return props.element.title ? (
       <th
         {...props.attributes}

@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { useLayoutEffect, useMemo } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { PhotoSlider } from 'react-photo-view';
 import { Tab } from '..';
 import { MEditor } from './Editor';
@@ -30,7 +30,7 @@ export const EditorFrame = observer(({ tab }: { tab: Tab }) => {
   }, []);
   const pt = 0;
 
-  if (!tab.current) return null;
+  if (!tab.current) return null as React.ReactNode;
 
   return (
     <EditorStoreContext.Provider value={tab.store}>

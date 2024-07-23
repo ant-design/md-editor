@@ -1,6 +1,6 @@
 import { Checkbox } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { createElement, useMemo } from 'react';
+import React, { createElement, useMemo } from 'react';
 import { ElementProps, ListItemNode, ListNode } from '../../el';
 import { useMEditor } from '../../hooks/editor';
 import { useEditorStore } from '../store';
@@ -8,7 +8,7 @@ import { useEditorStore } from '../store';
 export const List = observer(
   ({ element, attributes, children }: ElementProps<ListNode>) => {
     const store = useEditorStore();
-    return useMemo(() => {
+    return React.useMemo(() => {
       const tag = element.order ? 'ol' : 'ul';
       return (
         <div

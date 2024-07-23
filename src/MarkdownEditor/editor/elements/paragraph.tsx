@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useMemo } from 'react';
+import React from 'react';
 import { Node } from 'slate';
 import { ElementProps, ParagraphNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
@@ -9,7 +9,7 @@ import { DragHandle } from '../tools/DragHandle';
 export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
   const store = useEditorStore();
   const [selected] = useSelStatus(props.element);
-  return useMemo(() => {
+  return React.useMemo(() => {
     const str = Node.string(props.element);
     return (
       <p

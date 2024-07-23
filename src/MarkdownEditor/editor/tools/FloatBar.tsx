@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { BaseRange, Editor, NodeEntry, Range, Text, Transforms } from 'slate';
 import { useSubject } from '../../hooks/subscribe';
 import { IFileItem } from '../../index';
@@ -22,7 +22,7 @@ import { useLocalState } from '../utils/useLocalState';
 const tools = [
   {
     type: 'bold',
-    icon: <BoldOutlined />,
+    icon: (<BoldOutlined />) as React.ReactNode,
   },
   {
     type: 'italic',

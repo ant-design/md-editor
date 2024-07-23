@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { runInAction } from 'mobx';
-import { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Subject } from 'rxjs';
 import {
   BaseOperation,
@@ -21,7 +21,7 @@ const floatBarIgnoreNode = new Set(['code-line']);
 
 export function useOnchange(editor: Editor, store: EditorStore) {
   const rangeContent = useRef('');
-  return useMemo(() => {
+  return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
       const sel = editor.selection;
       const [node] = Editor.nodes<Element>(editor, {

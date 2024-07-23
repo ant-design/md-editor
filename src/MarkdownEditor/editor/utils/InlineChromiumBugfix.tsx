@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import React from 'react';
 
 export function InlineChromiumBugfix() {
-  return useMemo(
+  return React.useMemo(
     () => (
       <span
         className={'h-0 leading-none'}

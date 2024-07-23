@@ -1,11 +1,11 @@
-import { CSSProperties, useRef } from 'react';
+import React, { CSSProperties } from 'react';
 import { useDebounce } from 'react-use';
 import { Element, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { EditorStore } from '../store';
 
 export const useMonitorHeight = (store: EditorStore, el: Element) => {
-  const first = useRef(true);
+  const first = React.useRef(true);
   useDebounce(
     () => {
       try {

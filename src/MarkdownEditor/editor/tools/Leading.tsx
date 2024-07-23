@@ -1,12 +1,13 @@
 import { Anchor } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { nanoid } from 'nanoid';
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useDebounce, useGetSetState } from 'react-use';
 import { Node } from 'slate';
 import { IFileItem } from '../../index';
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
+
 type Leading = {
   title: string;
   level: number;
@@ -120,7 +121,7 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
   }, []);
 
   if (!buildTree(state().headings).children) {
-    return null;
+    return null as React.ReactNode;
   }
   return (
     <Anchor

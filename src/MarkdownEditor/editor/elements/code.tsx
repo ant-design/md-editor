@@ -6,7 +6,7 @@ import {
 import { AutoComplete } from 'antd';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { createContext, useCallback, useContext, useMemo } from 'react';
+import React, { createContext, useCallback, useContext, useMemo } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -50,7 +50,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
     });
   }, [props.element, props.element.children, state().lang]);
 
-  const child = useMemo(() => {
+  const child = React.useMemo(() => {
     return <code>{props.children}</code>;
   }, [props.element, props.element.children, store.refreshHighlight]);
 

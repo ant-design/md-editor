@@ -1,4 +1,4 @@
-import { createElement, useMemo } from 'react';
+import React, { createElement } from 'react';
 import { Node } from 'slate';
 import { ElementProps, HeadNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
@@ -13,7 +13,7 @@ export function Head({
 }: ElementProps<HeadNode>) {
   const store = useEditorStore();
   const [selected, path] = useSelStatus(element);
-  return useMemo(() => {
+  return React.useMemo(() => {
     const str = Node.string(element);
     return createElement(
       `h${element.level}`,

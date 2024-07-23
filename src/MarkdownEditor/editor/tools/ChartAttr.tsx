@@ -1,7 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { ChartNode } from '../../el';
@@ -24,7 +24,7 @@ export const ChartAttr: React.FC<{
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
 
-  const remove = useCallback(() => {
+  const remove = React.useCallback(() => {
     const chart = props.node || store?.chartNode?.at(0);
     if (!chart) return;
 

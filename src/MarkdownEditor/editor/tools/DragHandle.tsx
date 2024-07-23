@@ -1,10 +1,10 @@
 import { HolderOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
-import { CSSProperties, useRef } from 'react';
+import React, { CSSProperties } from 'react';
 import { useEditorStore } from '../store';
 
 export const DragHandle = observer((props: { style?: CSSProperties }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
   const store = useEditorStore();
   return (
     <span

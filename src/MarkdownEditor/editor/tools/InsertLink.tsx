@@ -4,7 +4,7 @@ import { Input, InputRef, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetSetState } from 'react-use';
 import { Node, Selection, Text, Transforms } from 'slate';
@@ -96,7 +96,7 @@ export const InsertLink = observer(() => {
     }
   }, []);
 
-  const keydown = useCallback((e: KeyboardEvent) => {
+  const keydown = React.useCallback((e: KeyboardEvent) => {
     if (isHotkey('esc', e)) {
       close(state().oldUrl);
     }
