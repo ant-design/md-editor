@@ -2,7 +2,7 @@
   "name": "@ant-design/md-editor",
   "version": "1.0.0",
   "description": " 一个增强 markdown 的工具，可以将 markdown 转换为 JSON Schema",
-  "repository": "git@github.com:chenshuai2144/mdToJSONSchema.git",
+  "repository": "git@github.com:chenshuai2144/@ant-design/md-editorSchema.git",
   "license": "MIT",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

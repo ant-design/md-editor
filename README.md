@@ -1,7 +1,7 @@
-# mdToJSON
+# @ant-design/md-editor
 
-[![NPM version](https://img.shields.io/npm/v/mdToJSON.svg?style=flat)](https://npmjs.org/package/mdToJSON)
-[![NPM downloads](http://img.shields.io/npm/dm/mdToJSON.svg?style=flat)](https://npmjs.org/package/mdToJSON)
+[![NPM version](https://img.shields.io/npm/v/@ant-design/md-editor.svg?style=flat)](https://npmjs.org/package/@ant-design/md-editor)
+[![NPM downloads](http://img.shields.io/npm/dm/@ant-design/md-editor.svg?style=flat)](https://npmjs.org/package/@ant-design/md-editor)
 
 A react library developed with dumi
 
