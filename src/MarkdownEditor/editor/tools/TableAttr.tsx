@@ -8,7 +8,7 @@ import {
 import { Popover, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -36,7 +36,7 @@ export const TableAttr = observer(() => {
     selectCols: 0,
     selectRows: 0,
   });
-  const tableRef = useRef<NodeEntry<TableNode>>();
+  const tableRef = React.useRef<NodeEntry<TableNode>>();
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
   const resize = useCallback(() => {
     const table = tableRef.current;

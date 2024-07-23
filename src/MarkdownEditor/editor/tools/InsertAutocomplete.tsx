@@ -16,7 +16,7 @@ import { Button, Input, Tabs } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useSubject } from '../../hooks/subscribe';
@@ -36,7 +36,7 @@ type InsertOptions = {
     key: string;
     task: Methods<KeyboardTask> | 'attachment';
     args?: any[];
-    icon?: ReactNode;
+    icon?: React.ReactNode;
   }[];
 };
 
