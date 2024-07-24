@@ -1,6 +1,6 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
-const defaultValue = `<!-- [{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "bar", "x": "sens_type", "y": "percentage"}] -->
+const defaultValue = `<!-- [{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "bar", "x": "sens_type", "y": "percentage"},{"chartType": "bar", "x": "sens_type", "y": "percentage"}] -->
 |    | sens_type        |   count |   percentage |
 |---:|:-----------------|--------:|-------------:|
 |  0 | 12312322         |       4 |       2.439  |
@@ -54,7 +54,7 @@ export default () => {
           border: '1px solid #eee',
         }}
         toc={false}
-        width={'49vw'}
+        width={'calc(50vw - 8px)'}
         height={'99vh'}
         initValue={defaultValue}
       />
@@ -64,7 +64,7 @@ export default () => {
           border: '1px solid #eee',
         }}
         toc={false}
-        width={'49vw'}
+        width={'calc(50vw - 8px)'}
         height={'99vh'}
         initValue={defaultValue}
       />

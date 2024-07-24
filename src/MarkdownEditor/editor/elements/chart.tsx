@@ -224,198 +224,178 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 opacity: 0,
                 height: '100%',
                 overflow: 'hidden',
+                pointerEvents: 'none',
               }}
             >
               {children}
             </div>
-            {config.map(({ chartType, x, y, ...rest }, index) => {
-              if (
-                typeof window === 'undefined' ||
-                typeof document === 'undefined'
-              ) {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      maxWidth: 600,
-                      margin: 'auto',
-                      position: 'relative',
-                      zIndex: 9,
-                    }}
-                  ></div>
-                );
-              }
-              chartData = chartData.map((item: any) => {
-                return {
-                  ...item,
-                  [x]: numberString(item[x]),
-                  [y]: numberString(item[y]),
-                };
-              });
-              const defaultProps = {
-                tooltip: {
-                  title: (d: any) => {
-                    return d[x];
-                  },
-                  items: [
-                    {
-                      field: y,
-                      valueFormatter: (value: string) => {
-                        return stringFormatNumber(value);
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 8,
+              }}
+            >
+              {config
+                .map(({ chartType, x, y, ...rest }, index) => {
+                  if (
+                    typeof window === 'undefined' ||
+                    typeof document === 'undefined'
+                  ) {
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          maxWidth: 600,
+                          margin: 'auto',
+                          position: 'relative',
+                          zIndex: 9,
+                        }}
+                      ></div>
+                    );
+                  }
+                  chartData = chartData.map((item: any) => {
+                    return {
+                      ...item,
+                      [x]: numberString(item[x]),
+                      [y]: numberString(item[y]),
+                    };
+                  });
+                  const defaultProps = {
+                    tooltip: {
+                      title: (d: any) => {
+                        return d[x];
                       },
+                      items: [
+                        {
+                          field: y,
+                          valueFormatter: (value: string) => {
+                            return stringFormatNumber(value);
+                          },
+                        },
+                      ],
                     },
-                  ],
-                },
-                axis: {
-                  x: {
-                    labelFormatter: (value: number | string) => {
-                      return stringFormatNumber(value);
-                    },
-                  },
-                  y: {
-                    labelFormatter: (value: number | string) => {
-                      return stringFormatNumber(value);
-                    },
-                  },
-                },
-                label:
-                  chartData?.length > 10
-                    ? undefined
-                    : {
-                        position: 'inside',
-                        fill: '#fff',
-                        fillOpacity: 1,
-                        background: true,
-                        backgroundFill: 'rgb(23, 131, 255)',
-                        backgroundPadding: [4, 6, 4, 6],
-                        backgroundRadius: 4,
-                        fontSize: 13,
-                        opacity: 1,
-                        textAlign: 'center',
-                        formatter: (value: number) => {
+                    axis: {
+                      x: {
+                        labelFormatter: (value: number | string) => {
                           return stringFormatNumber(value);
                         },
                       },
-              };
-              if (chartType === 'pie') {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      maxWidth: 600,
-                      margin: 'auto',
-                      position: 'relative',
-                      zIndex: 9,
-                    }}
-                  >
-                    <Pie
-                      data={chartData}
-                      {...defaultPieConfig}
-                      angleField={y}
-                      colorField={x}
-                      label={{
-                        text: 'type',
-                        position: 'outside',
-                        textAlign: 'center',
-                      }}
-                    />
-                  </div>
-                );
-              }
-              if (chartType === 'bar') {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      maxWidth: 600,
-                      margin: 'auto',
-                      position: 'relative',
-                      zIndex: 9,
-                    }}
-                  >
-                    <Bar
-                      data={chartData}
-                      yField={y}
-                      xField={x}
-                      {...defaultProps}
-                      {...rest}
-                    />
-                  </div>
-                );
-              }
-
-              if (chartType === 'line') {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      maxWidth: 600,
-                      margin: 'auto',
-                      position: 'relative',
-                      zIndex: 9,
-                    }}
-                  >
-                    <Line
-                      key={index}
-                      data={chartData}
-                      yField={y}
-                      xField={x}
-                      {...defaultProps}
-                      {...rest}
-                    />
-                  </div>
-                );
-              }
-              if (chartType === 'column') {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      maxWidth: 600,
-                      margin: 'auto',
-                      position: 'relative',
-                      zIndex: 9,
-                    }}
-                  >
-                    <Column
-                      data={chartData}
-                      yField={y}
-                      xField={x}
-                      {...defaultProps}
-                      {...rest}
-                    />
-                  </div>
-                );
-              }
-              if (chartType === 'area') {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      maxWidth: 600,
-                      margin: 'auto',
-                      position: 'relative',
-                      zIndex: 9,
-                    }}
-                  >
-                    <Area
-                      data={chartData}
-                      yField={y}
-                      xField={x}
-                      {...{
-                        style: {
-                          fill: 'rgb(23, 131, 255)',
-                          opacity: 0.7,
+                      y: {
+                        labelFormatter: (value: number | string) => {
+                          return stringFormatNumber(value);
                         },
+                      },
+                    },
+                    label:
+                      chartData?.length > 10
+                        ? undefined
+                        : {
+                            position: 'inside',
+                            fill: '#fff',
+                            fillOpacity: 1,
+                            background: true,
+                            backgroundFill: 'rgb(23, 131, 255)',
+                            backgroundPadding: [4, 6, 4, 6],
+                            backgroundRadius: 4,
+                            fontSize: 13,
+                            opacity: 1,
+                            textAlign: 'center',
+                            formatter: (value: number) => {
+                              return stringFormatNumber(value);
+                            },
+                          },
+                  };
+                  if (chartType === 'pie') {
+                    return (
+                      <Pie
+                        key={index}
+                        data={chartData}
+                        {...defaultPieConfig}
+                        angleField={y}
+                        colorField={x}
+                        label={{
+                          text: 'type',
+                          position: 'outside',
+                          textAlign: 'center',
+                        }}
+                      />
+                    );
+                  }
+                  if (chartType === 'bar') {
+                    return (
+                      <Bar
+                        data={chartData}
+                        yField={y}
+                        key={index}
+                        xField={x}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+
+                  if (chartType === 'line') {
+                    return (
+                      <Line
+                        key={index}
+                        data={chartData}
+                        yField={y}
+                        xField={x}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+                  if (chartType === 'column') {
+                    return (
+                      <Column
+                        key={index}
+                        data={chartData}
+                        yField={y}
+                        xField={x}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+                  if (chartType === 'area') {
+                    return (
+                      <Area
+                        key={index}
+                        data={chartData}
+                        yField={y}
+                        xField={x}
+                        {...{
+                          style: {
+                            fill: 'rgb(23, 131, 255)',
+                            opacity: 0.7,
+                          },
+                        }}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+                  return null;
+                })
+                .map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        border: '1px solid #eee',
+                        borderRadius: 4,
+                        width: '50%',
+                        minWidth: 240,
+                        flex: 1,
                       }}
-                      {...defaultProps}
-                      {...rest}
-                    />
-                  </div>
-                );
-              }
-              return null;
-            })}
+                    >
+                      {item}
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         )}
       </div>

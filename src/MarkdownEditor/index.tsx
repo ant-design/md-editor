@@ -138,7 +138,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       className="markdown-editor"
       style={{
         width: width || '400px',
-        minWidth: readonly ? '200px' : '800px',
+        minWidth: readonly ? '200px' : '400px',
         height: height || '80vh',
         padding: props.readonly ? '8px' : '24px 48px',
         display: 'flex',
