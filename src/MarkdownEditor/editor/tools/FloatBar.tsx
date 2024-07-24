@@ -154,6 +154,11 @@ export const FloatBar = observer(() => {
     return () => {};
   }, [state.open]);
 
+  const highColor = React.useMemo(() => {
+    if (typeof localStorage === 'undefined') return undefined;
+    return localStorage.getItem('high-color');
+  }, [EditorUtils.isFormatActive(store.editor, 'highColor')]);
+
   useEffect(() => {
     const change = () => {
       if (state.open) {
@@ -175,6 +180,7 @@ export const FloatBar = observer(() => {
   //     { match: Text.isText, split: true },
   //   );
   // }, []);
+
   const baseClassName = `float-bar`;
   return (
     <div
@@ -212,7 +218,7 @@ export const FloatBar = observer(() => {
                 )
                   ? 'bold'
                   : undefined,
-                color: localStorage.getItem('high-color') || undefined,
+                color: highColor || undefined,
               }}
               role="button"
               onMouseEnter={(e) => e.stopPropagation()}
@@ -220,10 +226,7 @@ export const FloatBar = observer(() => {
                 if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
                   EditorUtils.highColor(store.editor);
                 } else {
-                  EditorUtils.highColor(
-                    store.editor,
-                    localStorage.getItem('high-color') || '#10b981',
-                  );
+                  EditorUtils.highColor(store.editor, highColor || '#10b981');
                 }
               }}
             >

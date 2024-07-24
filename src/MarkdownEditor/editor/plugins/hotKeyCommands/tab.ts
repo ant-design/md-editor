@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import React from 'react';
 import {
   BasePoint,
