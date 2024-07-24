@@ -229,6 +229,22 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               {children}
             </div>
             {config.map(({ chartType, x, y, ...rest }, index) => {
+              if (
+                typeof window === 'undefined' ||
+                typeof document === 'undefined'
+              ) {
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      maxWidth: 600,
+                      margin: 'auto',
+                      position: 'relative',
+                      zIndex: 9,
+                    }}
+                  ></div>
+                );
+              }
               chartData = chartData.map((item: any) => {
                 return {
                   ...item,
