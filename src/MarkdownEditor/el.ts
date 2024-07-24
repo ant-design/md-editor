@@ -51,6 +51,7 @@ export type TableCellNode = {
   type: 'table-cell';
   title?: boolean;
   align?: Align;
+  //@ts-ignore
   children: BaseElement['children'];
 };
 
