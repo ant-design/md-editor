@@ -22,9 +22,11 @@ export const MEditor = observer(
   ({
     note,
     eleItemRender,
+    ...props
   }: {
     note: IFileItem;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
+    onChange?: MarkdownEditorProps['onChange'];
   }) => {
     const store = useEditorStore();
 
@@ -43,7 +45,7 @@ export const MEditor = observer(
       [],
     );
     const onKeyDown = useKeyboard(store);
-    const onChange = useOnchange(editor, store);
+    const onChange = useOnchange(editor, store, props.onChange);
     const first = useRef(true);
     const save = useCallback(async () => {}, [note]);
 

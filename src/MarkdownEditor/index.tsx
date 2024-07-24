@@ -64,8 +64,14 @@ export type MarkdownEditorProps = {
     props: RenderElementProps,
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
+
+  onChange?: (value: string) => void;
 };
 
+/**
+ * MarkdownEditor
+ * @param props
+ */
 export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const {
     initValue,

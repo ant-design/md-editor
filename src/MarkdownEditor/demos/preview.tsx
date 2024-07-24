@@ -84,6 +84,13 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 `;
 export default () => {
   return (
-    <MarkdownEditor width={'100vw'} height={'100vh'} initValue={defaultValue} />
+    <MarkdownEditor
+      width={'100vw'}
+      height={'100vh'}
+      initValue={defaultValue}
+      onChange={(e) => {
+        console.log('onChange', e);
+      }}
+    />
   );
 };

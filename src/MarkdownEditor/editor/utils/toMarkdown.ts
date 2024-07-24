@@ -114,7 +114,12 @@ export const toMarkdown = (
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
     if (node.otherProps) {
-      str += `<!--${JSON.stringify(node.otherProps)}-->\n`;
+      let configProps = {
+        ...node.otherProps,
+      };
+      delete configProps['columns'];
+      delete configProps['dataSource'];
+      str += `<!--${JSON.stringify(configProps)}-->\n`;
     }
     const p = parent[parent.length - 1];
     if (p.type === 'list-item') {
