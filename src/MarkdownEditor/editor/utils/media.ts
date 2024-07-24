@@ -32,47 +32,43 @@ export const convertRemoteImages = async (
   node: IFileItem,
   store: EditorStore,
 ) => {
-  if (node.ext === 'md') {
-    const schema = node.schema;
-    if (schema) {
-      const stack = schema.slice();
-      let change = false;
-      while (stack.length) {
-        const item = stack.pop()!;
-        if (item.type === 'media') {
-          if (item.url?.startsWith('http')) {
-            const ext = item.url.match(/[\w_-]+\.(png|webp|jpg|jpeg|gif|svg)/i);
-            if (ext) {
-              try {
-                change = true;
-                Transforms.setNodes(
-                  store.editor,
-                  {
-                    url: item.url,
-                  },
-                  { at: ReactEditor.findPath(store.editor, item) },
-                );
-              } catch (e) {
-                console.error(e);
-              }
-            }
-          } else if (item.url?.startsWith('data:')) {
-            const m = item.url.match(/data:image\/(\w+);base64,(.*)/);
-            if (m) {
-              try {
-                Transforms.setNodes(
-                  store.editor,
-                  {
-                    url: item.url,
-                  },
-                  { at: ReactEditor.findPath(store.editor, item) },
-                );
-              } catch (e) {}
+  const schema = node.schema;
+  if (schema) {
+    const stack = schema.slice();
+    while (stack.length) {
+      const item = stack.pop()!;
+      if (item.type === 'media') {
+        if (item.url?.startsWith('http')) {
+          const ext = item.url.match(/[\w_-]+\.(png|webp|jpg|jpeg|gif|svg)/i);
+          if (ext) {
+            try {
+              Transforms.setNodes(
+                store.editor,
+                {
+                  url: item.url,
+                },
+                { at: ReactEditor.findPath(store.editor, item) },
+              );
+            } catch (e) {
+              console.error(e);
             }
           }
-        } else if (item.children?.length) {
-          stack.push(...item.children);
+        } else if (item.url?.startsWith('data:')) {
+          const m = item.url.match(/data:image\/(\w+);base64,(.*)/);
+          if (m) {
+            try {
+              Transforms.setNodes(
+                store.editor,
+                {
+                  url: item.url,
+                },
+                { at: ReactEditor.findPath(store.editor, item) },
+              );
+            } catch (e) {}
+          }
         }
+      } else if (item.children?.length) {
+        stack.push(...item.children);
       }
     }
   }

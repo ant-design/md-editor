@@ -8,7 +8,6 @@ import {
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
-import { toSpacePath } from '../utils/path';
 import { Blockquote } from './blockquote';
 import { Chart } from './chart';
 import { CodeCtx, CodeElement, CodeLine } from './code';
@@ -118,7 +117,7 @@ export const MLeaf = (props: RenderLeafProps) => {
           draggable={false}
           title={`mod + click to open link, mod + alt + click to open file in new tab`}
           onDragStart={dragStart}
-          data-url={toSpacePath(location.href, '', leaf.url)}
+          data-url={leaf.url}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
