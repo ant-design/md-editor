@@ -78,7 +78,6 @@ export class EditorStore {
   container: null | HTMLDivElement = null;
   history = false;
   inputComposition = false;
-  openFilePath: string | null = null;
   tableTask$ = new Subject<string>();
   viewImages: string[] = [];
   viewImageIndex = 0;
@@ -102,7 +101,6 @@ export class EditorStore {
       editor: false,
       tableCellNode: false,
       inputComposition: false,
-      openFilePath: false,
       container: false,
       highlightCache: false,
       dragEl: false,

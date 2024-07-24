@@ -12,7 +12,7 @@ import { IFileItem } from '../..';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
-import { isLink, parsePath, toRelativePath, toSpacePath } from '../utils/path';
+import { isLink, parsePath } from '../utils/path';
 
 type DocItem = IFileItem & { path: string; parentPath?: string };
 const width = 370;
@@ -86,12 +86,8 @@ export const InsertLink = observer(() => {
       if (!parse.path && parse.hash) {
         return close('#' + parse.hash);
       }
-      const filePath = store.openFilePath || '';
       const realPath = parse.path;
-      const relativePath =
-        realPath === store.openFilePath
-          ? ''
-          : toRelativePath(filePath, realPath);
+      const relativePath = realPath;
       close(`${relativePath}${parse.hash ? `#${parse.hash}` : ''}`);
     }
   }, []);
@@ -202,7 +198,7 @@ export const InsertLink = observer(() => {
       const url = EditorUtils.getUrl(store.editor);
       let path = url;
       if (url && !url.startsWith('#') && !isLink(url)) {
-        path = toSpacePath('.', store.openFilePath || '', url);
+        path = url;
       }
       const parse = parsePath(path);
       setState({

@@ -12,22 +12,18 @@ import { EditorStore } from './editor/store';
 import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
+
 import './index.css';
 
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
+export * from './editor/utils';
 export * from './el';
 
 export type IFileItem = {
   cid: string;
-  filePath: string;
   root?: boolean;
-  ext: string;
-  filename: string;
-  spaceId?: string;
-  folder: boolean;
-  parent?: IFileItem;
   children?: IFileItem[];
   expand?: boolean;
   editName?: string;
@@ -37,7 +33,6 @@ export type IFileItem = {
   sort: number;
   schema?: any[];
   history?: any;
-  lastOpenTime?: number;
   hidden?: boolean;
   links?: { path: number[]; target: string }[];
 };
@@ -81,14 +76,9 @@ export const MarkdownEditor: React.FC<{
     }
     const data = {
       cid: nanoid(),
-      filePath: 'new.md',
-      folder: false,
       schema: initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])),
       sort: 0,
       lastOpenTime: now,
-      spaceId: undefined,
-      ext: 'md',
-      filename: '腾讯报告',
     };
     return observable(
       {

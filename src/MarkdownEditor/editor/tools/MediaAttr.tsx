@@ -6,20 +6,16 @@ import {
 import { AutoComplete } from 'antd';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
-import { relative } from 'path';
 import React, { ReactNode, useCallback, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { MediaNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
-import { IFileItem } from '../../index';
 import { keyArrow } from '../plugins/hotKeyCommands/arrow';
 import { useEditorStore } from '../store';
-import { getImageData } from '../utils';
-import { getOffsetLeft, mediaType } from '../utils/dom';
+import { getOffsetLeft } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
-import { toUnixPath } from '../utils/path';
 
 export const MediaAttr = observer(() => {
   const store = useEditorStore();
@@ -39,34 +35,6 @@ export const MediaAttr = observer(() => {
 
   const getFilePaths = useCallback(() => {
     let files: { label: string | ReactNode; value: string }[] = [];
-    const stack: IFileItem[] = [];
-    while (stack.length) {
-      const node = stack.shift()!;
-      if (
-        !node.folder &&
-        ['image', 'video', 'document'].includes(mediaType(node.filePath))
-      ) {
-        const path = toUnixPath(relative('.', node.filePath!));
-        files.push({
-          label: (
-            <div className={'flex items-center'}>
-              <div className={'flex-1 max-w-full truncate'}>{path}</div>
-              <div>
-                <img
-                  src={getImageData(node.filePath)}
-                  alt=""
-                  className={'w-7 h-7 ml-4 rounded-sm'}
-                />
-              </div>
-            </div>
-          ),
-          value: path,
-        });
-      }
-      if (node.folder) {
-        stack.push(...(node.children || []));
-      }
-    }
     return files;
   }, []);
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { action, runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { isAbsolute, join, relative } from 'path';
+import { isAbsolute } from 'path';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, Slate } from 'slate-react';
@@ -136,35 +136,7 @@ export const MEditor = observer(({ note }: { note: IFileItem }) => {
    * 处理拖拽事件
    * @description drop event
    */
-  const onDrop = useCallback(() => {
-    const node = note;
-    if (!node.folder) {
-      const type = mediaType(node.filePath);
-      if (node.ext === 'md' || type === 'other') {
-        Transforms.insertNodes(store.editor, {
-          text: node.filename,
-          url: toUnixPath(relative(join(note.filePath, '..'), node.filePath)),
-        });
-      } else {
-        EditorUtils.focus(store.editor);
-        const path = EditorUtils.findMediaInsertPath(store.editor);
-        if (path) {
-          Transforms.insertNodes(
-            store.editor,
-            {
-              type: 'media',
-              url: toUnixPath(
-                relative(join(note.filePath, '..'), node.filePath),
-              ),
-              children: [{ text: '' }],
-            },
-            { at: path, select: true },
-          );
-        }
-      }
-      return;
-    }
-  }, [note]);
+  const onDrop = useCallback(() => {}, [note]);
 
   /**
    * 处理焦点事件, 隐藏所有的range
