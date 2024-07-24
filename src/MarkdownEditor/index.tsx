@@ -13,6 +13,7 @@ import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
+import { RenderElementProps } from 'slate-react';
 import './index.css';
 
 export { EditorUtils, parserMdToSchema };
@@ -47,7 +48,11 @@ export interface Tab {
   id: string;
 }
 
-export const MarkdownEditor: React.FC<{
+/**
+ * MarkdownEditor 的 props
+ * @param props
+ */
+export type MarkdownEditorProps = {
   width?: string | number;
   height?: string | number;
   initValue?: string;
@@ -55,7 +60,13 @@ export const MarkdownEditor: React.FC<{
   style?: React.CSSProperties;
   toc?: boolean;
   tabRef?: React.MutableRefObject<Tab | undefined>;
-}> = (props) => {
+  eleItemRender?: (
+    props: RenderElementProps,
+    defaultDom: React.ReactNode,
+  ) => React.ReactElement;
+};
+
+export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const {
     initValue,
     width,
@@ -132,7 +143,7 @@ export const MarkdownEditor: React.FC<{
       }}
       key={t.id}
     >
-      <EditorFrame tab={t} {...rest} />
+      <EditorFrame {...rest} tab={t} />
       {t.current && mount && toc !== false && t.store?.container ? (
         <Heading note={t.current} />
       ) : null}
