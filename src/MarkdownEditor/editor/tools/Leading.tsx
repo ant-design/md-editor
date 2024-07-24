@@ -46,6 +46,39 @@ function buildTree(data: any[]) {
   return tree;
 }
 
+export const schemaToHeading = (schema: any) => {
+  const headings: Leading[] = [];
+  for (let s of schema) {
+    if (s.type === 'head' && s.level <= 4) {
+      const title = Node.string(s);
+      const id = slugify(title);
+      if (title) {
+        headings.push({
+          title,
+          level: s.level,
+          id,
+          key: nanoid(),
+          schema: s,
+        });
+      }
+    }
+  }
+
+  return buildTree(headings)?.children?.map((h: any) => ({
+    id: h.id,
+    key: h.key,
+    href: `#${h.id}`,
+    children: h?.children?.map((subH: any) => ({
+      id: subH.id,
+      key: subH.key,
+      href: `#${subH.id}`,
+      title: subH.title,
+    })),
+    title: h.title,
+    level: h.level,
+  }));
+};
+
 /**
  * 配置次级标题的锚点
  */
@@ -133,7 +166,6 @@ export const Heading = observer(({ note }: { note: IFileItem }) => {
         id: h.id,
         key: h.key,
         href: `#${h.id}`,
-
         children: h?.children?.map((subH: any) => ({
           id: subH.id,
           key: subH.key,
