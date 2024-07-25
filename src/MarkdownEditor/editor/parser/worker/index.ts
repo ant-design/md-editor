@@ -93,9 +93,11 @@ const parseTableOrChart = (
   // @ts-ignore
   const config =
     // @ts-ignore
-    preNode.type === 'code' && preNode.language === 'html'
+    preNode?.type === 'code' && // @ts-ignore
+    preNode?.language === 'html' && // @ts-ignore
+    preNode?.otherProps
       ? // @ts-ignore
-        preNode.otherProps
+        preNode?.otherProps
       : {};
 
   const tableHeader = table?.children?.at(0);
@@ -578,9 +580,14 @@ const findLinks = (
   return links;
 };
 
-export const parserMarkdown = (md: string) => {
+export const parserMarkdown = (
+  md: string,
+): {
+  schema: Elements[];
+  links: { path: number[]; target: string }[];
+} => {
   const root = parser.parse(md || '');
-  const schema = parserBlock(root.children as any[], true);
+  const schema = parserBlock(root.children as any[], true) as Elements[];
   const links = findLinks(schema);
   return { schema, links };
 };

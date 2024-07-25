@@ -12,6 +12,13 @@ export type CodeNode = {
     children: BaseElement['children'];
     num?: number;
   }[];
+  otherProps?: {
+    className?: string;
+    highlight?: boolean;
+    language?: string;
+    render?: boolean;
+    frontmatter?: boolean;
+  };
   language?: string;
   render?: boolean;
   frontmatter?: boolean;
@@ -33,7 +40,7 @@ export type ParagraphNode = {
 export type TableNode = {
   type: 'table';
   children: TableRowNode[];
-  otherProps: {
+  otherProps?: {
     showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];
     columns: {
@@ -79,7 +86,7 @@ export type ChartTypeConfig = {
 export type ChartNode = {
   type: 'chart';
   children: BaseElement['children'];
-  otherProps: {
+  otherProps?: {
     showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];
     columns: {

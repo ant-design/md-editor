@@ -17,7 +17,7 @@ import { getOffsetTop } from './dom';
 
 export class EditorUtils {
   static get p() {
-    return { type: 'paragraph', children: [{ text: '' }] };
+    return { type: 'paragraph', children: [{ text: '' }] } as const;
   }
   static focus(editor: Editor) {
     try {
