@@ -6,6 +6,8 @@ import { useEditorStore } from '../store';
 export const DragHandle = observer((props: { style?: CSSProperties }) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const store = useEditorStore();
+  if (!store) return null;
+  if (store.readonly === true) return null;
   return (
     <span
       className={'drag-handle'}
