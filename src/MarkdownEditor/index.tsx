@@ -149,7 +149,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       }}
       key={t.id}
     >
-      <EditorFrame {...rest} tab={t} />
+      <EditorFrame readonly={readonly} {...rest} tab={t} />
       {t.current && mount && toc !== false && t.store?.container ? (
         <Heading note={t.current} />
       ) : null}

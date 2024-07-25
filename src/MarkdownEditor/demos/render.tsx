@@ -44,6 +44,10 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 | -云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   | 
 
 
+|    |   num_of_data_levels |
+|---:|---------------------:|
+|  0 |                   24 |
+
 ## 表单
 
 \`\`\`schema

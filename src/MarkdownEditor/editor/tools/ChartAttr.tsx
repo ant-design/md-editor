@@ -63,11 +63,13 @@ export const ChartAttr: React.FC<{
           </Tooltip>
         );
       })}
-      <Tooltip title="删除">
-        <div className={`${baseClassName}-item`}>
-          <DeleteOutlined onClick={remove} />
-        </div>
-      </Tooltip>
+      {store.readonly ? null : (
+        <Tooltip title="删除">
+          <div className={`${baseClassName}-item`}>
+            <DeleteOutlined onClick={remove} />
+          </div>
+        </Tooltip>
+      )}
     </div>
   );
 });

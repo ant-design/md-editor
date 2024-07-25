@@ -113,7 +113,20 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           border: store.readonly ? 'none' : '1px solid #eee',
         }}
       >
-        {store.readonly ? null : (
+        {store.readonly ? (
+          <ChartAttr
+            node={node}
+            options={[
+              {
+                icon: source ? <PieChartFilled /> : <CodeOutlined />,
+                title: source ? '图表' : '源码',
+                onClick: () => {
+                  setSource(!source);
+                },
+              },
+            ]}
+          />
+        ) : (
           <ChartAttr
             node={node}
             options={[
@@ -203,7 +216,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           />
         )}
         {source ? (
-          <table>
+          <table contentEditable={store.readonly ? false : true}>
             <tbody>{children}</tbody>
           </table>
         ) : (
@@ -237,6 +250,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               >
                 {children}
               </div>
+
               <div
                 style={{
                   display: 'flex',
