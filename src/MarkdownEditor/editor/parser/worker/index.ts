@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-loop-func */
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import json5 from 'json5';
 import type { Root, RootContent, Table } from 'mdast';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
@@ -426,11 +427,18 @@ const parserBlock = (
         el = { type: 'hr', children: [{ text: '' }] };
         break;
       case 'code':
+        let json = [];
+        try {
+          json = json5.parse(n.value || '[]');
+        } catch (error) {
+          json = n.value as any;
+        }
+        const isSchema = n.lang === 'schema' || n.lang === 'apaasify';
         el = {
-          type: n.lang === 'schema' ? 'schema' : 'code',
+          type: isSchema ? n.lang : 'code',
           language: n.lang,
           render: n.meta === 'render',
-          value: n.value,
+          value: isSchema ? json : n.value,
           children:
             n.lang === 'schema'
               ? [
