@@ -6,7 +6,7 @@ import {
   ProFormSegmented,
   ProFormText,
 } from '@ant-design/pro-components';
-import { ConfigProvider, Popover } from 'antd';
+import { ConfigProvider, Descriptions, Popover } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { Transforms } from 'slate';
 import { RenderElementProps } from 'slate-react';
@@ -91,6 +91,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
       }) || []
     );
   }, [node.otherProps?.dataSource]);
+
+  const columns = node.otherProps?.columns || [];
 
   const config = [node.otherProps?.config].flat(1);
 
@@ -338,10 +340,13 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           {...defaultPieConfig}
                           angleField={y}
                           colorField={x}
+                          legend={{
+                            navEffect: 'linear',
+                          }}
                           label={{
-                            text: 'type',
-                            position: 'outside',
-                            textAlign: 'center',
+                            connector: false,
+                            text: x,
+                            position: 'inside',
                           }}
                         />
                       );
@@ -401,6 +406,51 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         />
                       );
                     }
+                    if (chartType === 'descriptions') {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 8,
+                          }}
+                        >
+                          {chartData.map((row: Record<string, any>) => {
+                            return (
+                              <Descriptions
+                                bordered
+                                key={index}
+                                column={{
+                                  xxl: 2,
+                                  xl: 2,
+                                  lg: 2,
+                                  md: 2,
+                                  sm: 1,
+                                  xs: 1,
+                                }}
+                                items={columns
+                                  .map(
+                                    (column: {
+                                      title: string;
+                                      dataIndex: string;
+                                    }) => {
+                                      console.log(column.title);
+                                      if (!column.title || !column.dataIndex)
+                                        return null;
+                                      return {
+                                        label: column.title,
+                                        children: row[column.dataIndex],
+                                      };
+                                    },
+                                  )
+                                  .filter((item: any) => !!item)}
+                              />
+                            );
+                          })}
+                        </div>
+                      );
+                    }
                     return null;
                   })
                   .map((item, index) => {
@@ -408,10 +458,9 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       <div
                         key={index}
                         style={{
-                          border: '1px solid #eee',
                           borderRadius: 4,
                           width: '50%',
-                          minWidth: 240,
+                          minWidth: 300,
                           flex: 1,
                         }}
                       >

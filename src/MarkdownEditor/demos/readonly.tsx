@@ -1,6 +1,6 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
-const defaultValue = `<!-- [{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "bar", "x": "sens_type", "y": "percentage"},{"chartType": "bar", "x": "sens_type", "y": "percentage"}] -->
+const defaultValue = `<!-- [{"chartType": "bar", "x": "sens_type", "y": "count"},{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"},{"chartType": "descriptions", "x": "sens_type", "y": "percentage"}] -->
 |    | sens_type        |   count |   percentage |
 |---:|:-----------------|--------:|-------------:|
 |  0 | 12312322         |       4 |       2.439  |
@@ -22,22 +22,6 @@ const defaultValue = `<!-- [{"chartType": "bar", "x": "sens_type", "y": "count"}
 | 16 | 星座             |       2 |       1.2195 |
 | 17 | 国籍             |       2 |       1.2195 |
 | 18 | 民族             |       2 |       1.2195 |
-| 19 | PFE文件1         |       1 |       0.6098 |
-| 20 | 工商注册号       |       1 |       0.6098 |
-| 21 | suxiangtest      |       1 |       0.6098 |
-| 22 | 军官证           |       1 |       0.6098 |
-| 23 | 组织结构代码     |       1 |       0.6098 |
-| 24 | MEID             |       1 |       0.6098 |
-| 25 | 车架号           |       1 |       0.6098 |
-| 26 | idfa             |       1 |       0.6098 |
-| 27 | imei             |       1 |       0.6098 |
-| 28 | imsi             |       1 |       0.6098 |
-| 29 | android_id       |       1 |       0.6098 |
-| 30 | 发票代码         |       1 |       0.6098 |
-| 31 | 护照号码         |       1 |       0.6098 |
-| 32 | 统一社会信用代码 |       1 |       0.6098 |
-| 33 | 元数据           |       1 |       0.6098 |
-| 34 | 3位数字          |       2 |       1.2195 |
 
 `;
 export default () => {
