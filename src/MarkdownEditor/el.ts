@@ -111,7 +111,7 @@ export type HeadNode = {
   h?: number;
 };
 
-export type HrNode = { type: 'hr' };
+export type HrNode = { type: 'hr'; children: undefined };
 
 export type BreakNode = { type: 'break' };
 

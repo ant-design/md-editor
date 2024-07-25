@@ -14,6 +14,7 @@ import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
 import { RenderElementProps } from 'slate-react';
+import { Elements } from './el';
 import './index.css';
 
 export { EditorUtils, parserMdToSchema };
@@ -64,7 +65,7 @@ export type MarkdownEditorProps = {
     props: RenderElementProps,
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
-
+  schema: Elements[];
   onChange?: (value: string) => void;
 };
 
@@ -91,9 +92,13 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     if (!props.readonly) {
       list.push(EditorUtils.p);
     }
+    const schema =
+      props.schema ||
+      (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
+
     const data = {
       cid: nanoid(),
-      schema: initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])),
+      schema,
       sort: 0,
       lastOpenTime: now,
     };

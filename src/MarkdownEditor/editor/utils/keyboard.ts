@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { AttachNode, MediaNode } from '../../el';
+import { AttachNode, MediaNode, TableNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { parserMdToSchema } from '../parser/parser';
 import { EditorStore } from '../store';
@@ -181,7 +181,7 @@ export class KeyboardTask {
         ['paragraph', 'table-cell'].includes(node[0].type)
       ) {
         const first = res.schema.shift();
-        Editor.insertNode(this.editor, first.children);
+        Editor.insertNode(this.editor, (first as TableNode)?.children);
       }
       if (res.schema.length) {
         if (['code-line', 'table-cell'].includes(node[0].type)) {
