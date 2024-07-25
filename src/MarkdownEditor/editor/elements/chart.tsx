@@ -277,11 +277,13 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     },
                     axis: {
                       x: {
+                        title: x,
                         labelFormatter: (value: number | string) => {
                           return stringFormatNumber(value);
                         },
                       },
                       y: {
+                        title: y,
                         labelFormatter: (value: number | string) => {
                           return stringFormatNumber(value);
                         },
