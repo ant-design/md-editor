@@ -65,8 +65,8 @@ export type MarkdownEditorProps = {
     props: RenderElementProps,
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
-  schema: Elements[];
-  onChange?: (value: string) => void;
+  initSchemaValue?: Elements[];
+  onChange?: (value: string, schema: Elements[]) => void;
 };
 
 /**
@@ -93,7 +93,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       list.push(EditorUtils.p);
     }
     const schema =
-      props.schema ||
+      props.initSchemaValue ||
       (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
 
     const data = {

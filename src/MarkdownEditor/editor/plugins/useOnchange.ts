@@ -11,6 +11,7 @@ import {
   Path,
   Range,
 } from 'slate';
+import { Elements } from '../../el';
 import { EditorStore } from '../store';
 import { toMarkdown } from '../utils';
 
@@ -23,13 +24,13 @@ const floatBarIgnoreNode = new Set(['code-line']);
 export function useOnchange(
   editor: Editor,
   store: EditorStore,
-  onChange?: (value: string) => void,
+  onChange?: (value: string, schema: Elements[]) => void,
 ) {
   const rangeContent = useRef('');
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
       if (onChange) {
-        onChange(toMarkdown(_value));
+        onChange(toMarkdown(_value), _value);
       }
       const sel = editor.selection;
       const [node] = Editor.nodes<Element>(editor, {
