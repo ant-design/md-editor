@@ -439,19 +439,18 @@ const parserBlock = (
           language: n.lang,
           render: n.meta === 'render',
           value: isSchema ? json : n.value,
-          children:
-            n.lang === 'schema'
-              ? [
-                  {
-                    text: '',
-                  },
-                ]
-              : n.value.split('\n').map((s: any) => {
-                  return {
-                    type: 'code-line',
-                    children: [{ text: s }],
-                  };
-                }),
+          children: isSchema
+            ? [
+                {
+                  text: '',
+                },
+              ]
+            : n.value.split('\n').map((s: any) => {
+                return {
+                  type: 'code-line',
+                  children: [{ text: s }],
+                };
+              }),
         };
         break;
       case 'yaml':

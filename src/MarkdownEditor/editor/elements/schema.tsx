@@ -14,6 +14,13 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
       }}
     >
       <code>{JSON.stringify(node.value, null, 2)}</code>
+      <div
+        style={{
+          display: 'none',
+        }}
+      >
+        {props.children}
+      </div>
     </div>
   );
   return null;
