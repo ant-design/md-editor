@@ -919,9 +919,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   border-radius: 20px;
 }
 
-.float-bar {
-  position: absolute;
-  z-index: 20;
+.toolbar {
   border: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
   height: 42px;
@@ -934,9 +932,41 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   padding: 4px 0;
 }
 
+.toolbar .toolbar-item {
+  display: flex;
+  height: 100%;
+  border-radius: 4px;
+  line-height: 32px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.toolbar .toolbar-item:hover {
+  background-color: rgb(229 231 235 / 0.3);
+}
+
+.float-bar {
+  position: absolute;
+  z-index: 20;
+  border: 1px solid rgb(229 231 235 / 0.8);
+  overflow: hidden;
+  height: 28px;
+  border-radius: 4px;
+  background-color: rgb(255 255 255);
+  font-size: 16px;
+  color: rgb(107 114 128 / 80%);
+  backdrop-filter: blur(8px);
+  padding: 4px 0;
+}
+
 .float-bar .float-bar-item {
   display: flex;
   height: 100%;
+  align-items: center;
+  gap: 4px;
   border-radius: 4px;
   line-height: 32px;
   padding: 0 10px;

@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { nanoid } from 'nanoid';
 import React, {
   useEffect,
@@ -8,12 +8,18 @@ import React, {
 } from 'react';
 import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parser';
-import { EditorStore } from './editor/store';
+import { EditorStore, EditorStoreContext } from './editor/store';
 import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
+import { PhotoSlider } from 'react-photo-view';
 import { RenderElementProps } from 'slate-react';
+import { FloatBar } from './editor/tools/FloatBar';
+import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
+import { InsertLink } from './editor/tools/InsertLink';
+import { TableAttr } from './editor/tools/TableAttr';
+import { ToolBar } from './editor/tools/ToolBar';
 import { Elements } from './el';
 import './index.css';
 
@@ -60,6 +66,9 @@ export type MarkdownEditorProps = {
   readonly?: boolean;
   style?: React.CSSProperties;
   toc?: boolean;
+  toolBar?: {
+    enable?: boolean;
+  };
   tabRef?: React.MutableRefObject<Tab | undefined>;
   eleItemRender?: (
     props: RenderElementProps,
@@ -77,6 +86,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const {
     initValue,
     width,
+    toolBar,
     tabRef,
     toc = true,
     readonly,
@@ -135,29 +145,60 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   }, [readonly]);
 
   return (
-    <div
-      ref={(dom) => {
-        t.store.setState((state) => (state.container = dom));
-        setMount(true);
-      }}
-      className="markdown-editor"
-      style={{
-        width: width || '400px',
-        minWidth: readonly ? '200px' : '400px',
-        height: height || '80vh',
-        padding: props.readonly ? '8px' : '24px 48px',
-        display: 'flex',
-        maxHeight: '100%',
-        overflow: 'auto',
-        gap: 24,
-        ...style,
-      }}
-      key={t.id}
-    >
-      <EditorFrame readonly={readonly} {...rest} tab={t} />
-      {t.current && mount && toc !== false && t.store?.container ? (
-        <Heading note={t.current} />
-      ) : null}
-    </div>
+    <EditorStoreContext.Provider value={t.store}>
+      <>
+        <div
+          style={{
+            width: width || '400px',
+          }}
+        >
+          {toolBar?.enable ? <ToolBar /> : <FloatBar />}
+        </div>
+        <div
+          ref={(dom) => {
+            t.store.setState((state) => (state.container = dom));
+            setMount(true);
+          }}
+          className="markdown-editor"
+          style={{
+            width: width || '400px',
+            minWidth: readonly ? '200px' : '400px',
+            height: height || '80vh',
+            padding: props.readonly ? '8px' : '24px 48px',
+            display: 'flex',
+            maxHeight: '100%',
+            overflow: 'auto',
+            gap: 24,
+            ...style,
+          }}
+          key={t.id}
+        >
+          <EditorFrame readonly={readonly} {...rest} tab={t} />
+          {t.current && mount && toc !== false && t.store?.container ? (
+            <Heading note={t.current} />
+          ) : null}
+        </div>
+        <>
+          {readonly ? (
+            <></>
+          ) : (
+            <>
+              <InsertLink />
+              <TableAttr />
+              <InsertAutocomplete />
+            </>
+          )}
+          <PhotoSlider
+            maskOpacity={0.5}
+            className={'desktop-img-view'}
+            images={t.store.viewImages.map((src) => ({ src, key: src }))}
+            visible={t.store.openViewImage}
+            onClose={action(() => (t.store.openViewImage = false))}
+            index={t.store.viewImageIndex}
+            onIndexChange={action((i: number) => (t.store.viewImageIndex = i))}
+          />
+        </>
+      </>
+    </EditorStoreContext.Provider>
   );
 };

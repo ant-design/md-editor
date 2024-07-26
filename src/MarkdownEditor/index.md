@@ -7,3 +7,5 @@
 <code src="./demos/readonly.tsx" background="var(--main-bg-color)" title="只读模式" iframe></code>
 
 <code src="./demos/render.tsx" background="var(--main-bg-color)" title="自定义render" iframe></code>
+
+<code src="./demos/minPreview.tsx" background="var(--main-bg-color)" title="自定义toolbar" iframe></code>

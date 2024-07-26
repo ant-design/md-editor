@@ -52,6 +52,7 @@ export function useOnchange(
           node,
         });
       });
+
       if (
         sel &&
         !floatBarIgnoreNode.has(node[0].type) &&
@@ -60,11 +61,9 @@ export function useOnchange(
       ) {
         const domSelection = window.getSelection();
         const domRange = domSelection?.getRangeAt(0);
-        if (rangeContent.current === domRange?.toString()) {
-          return store.setState(
-            (state) => (state.refreshFloatBar = !state.refreshFloatBar),
-          );
-        }
+        store.setState(
+          (state) => (state.refreshFloatBar = !state.refreshFloatBar),
+        );
         rangeContent.current = domRange?.toString() || '';
         const rect = domRange?.getBoundingClientRect();
         if (rect) {

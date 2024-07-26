@@ -3,7 +3,6 @@ import {
   CaretDownOutlined,
   ClearOutlined,
   CodeOutlined,
-  FontColorsOutlined,
   ItalicOutlined,
   LinkOutlined,
   StrikethroughOutlined,
@@ -11,8 +10,7 @@ import {
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useRef } from 'react';
-import { BaseRange, Editor, NodeEntry, Range, Text, Transforms } from 'slate';
-import { useSubject } from '../../hooks/subscribe';
+import { BaseRange, Editor, NodeEntry, Range, Transforms } from 'slate';
 import { IFileItem } from '../../index';
 import { useEditorStore } from '../store';
 import { getSelRect } from '../utils/dom';
@@ -51,21 +49,15 @@ const colors = [
 const fileMap = new Map<string, IFileItem>();
 
 /**
- * 浮动工具栏,用于设置文本样式
+ * 基础工具栏
+ * @param props
+ * @returns
  */
-export const FloatBar = observer(() => {
+export const BaseToolBar = observer((props: { prefix?: string }) => {
   const store = useEditorStore();
-  const inputRef = useRef<any>();
-  const [state, setState] = useLocalState({
-    open: false,
-    left: 0,
-    top: 0,
-    url: '',
-    hoverSelectColor: false,
-    openSelectColor: false,
-  });
+  const [, setRefresh] = React.useState(false);
+  const [openSelectColor, setOpenSelectColor] = React.useState(false);
 
-  const sel = useRef<BaseRange>();
   const el = useRef<NodeEntry<any>>();
 
   const openLink = useCallback(() => {
@@ -78,131 +70,26 @@ export const FloatBar = observer(() => {
       store.openLinkPanel = true;
     });
   }, []);
-  const resize = useCallback((force = false) => {
-    if (store.domRect && !store.openLinkPanel) {
-      let left = store.domRect.x;
-      left = left - (228 - store.domRect.width) / 2;
-      const container = store.container!;
-      if (left < 4) left = 4;
-      const barWidth = state.openSelectColor ? 264 : 232;
-      if (left > container.clientWidth - barWidth)
-        left = container.clientWidth - barWidth;
-      let top =
-        state.open && !force
-          ? state.top
-          : container.scrollTop + store.domRect.top - 80;
-      setState({
-        open: true,
-        left,
-        top,
-      });
-    }
-  }, []);
-  useSubject(store.floatBar$, (type) => {
-    if (type === 'link') {
-      const [text] = Editor.nodes(store.editor, {
-        match: Text.isText,
-      });
-      if (text && text[0].url) {
-        Transforms.select(store.editor, text[1]);
-      }
-      setTimeout(() => {
-        store.setState((store) => (store.domRect = getSelRect()));
-        resize(true);
-        openLink();
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 16);
-      });
-    } else if (type === 'highlight') {
-      if (!Range.isCollapsed(store.editor.selection!)) {
-        setState({ openSelectColor: true, hoverSelectColor: false });
-        resize(true);
-      }
-    }
-  });
-  useEffect(() => {}, [store.refreshFloatBar]);
 
   useEffect(() => {
-    if (store.domRect) {
-      resize(true);
-      sel.current = store.editor.selection!;
-    } else {
-      setState({ open: false });
-      fileMap.clear();
-    }
-  }, [store.domRect, store.openSearch]);
-
-  useEffect(() => {
-    if (state.open) {
-      const close = (e: KeyboardEvent) => {
-        if (e.key === 'Escape' && !store.openLinkPanel) {
-          e.preventDefault();
-          setState({ open: false });
-          fileMap.clear();
-          const end = Range.end(sel.current!).path;
-          if (Editor.hasPath(store.editor, end)) {
-            Transforms.select(store.editor, Editor.end(store.editor, end));
-          }
-        }
-      };
-      window.addEventListener('keydown', close);
-      return () => window.removeEventListener('keydown', close);
-    } else {
-      setState({ openSelectColor: false, hoverSelectColor: false });
-    }
-    return () => {};
-  }, [state.open]);
+    setRefresh((r) => !r);
+  }, [store.refreshFloatBar]);
 
   const highColor = React.useMemo(() => {
     if (typeof localStorage === 'undefined') return undefined;
     return localStorage.getItem('high-color');
   }, [EditorUtils.isFormatActive(store.editor, 'highColor')]);
 
-  useEffect(() => {
-    const change = () => {
-      if (state.open) {
-        const rect = getSelRect();
-        if (rect) {
-          store.setState((state) => (state.domRect = rect));
-        }
-        resize(true);
-      }
-    };
-    window.addEventListener('resize', change);
-    return () => window.removeEventListener('resize', change);
-  }, []);
+  const baseClassName = props.prefix || `toolbar-action`;
 
-  // const setLink = useCallback(() => {
-  //   Transforms.setNodes(
-  //     store.editor,
-  //     { url: state.url || undefined },
-  //     { match: Text.isText, split: true },
-  //   );
-  // }, []);
-
-  const baseClassName = `float-bar`;
   return (
-    <div
-      style={{
-        left: state.left,
-        top: state.top,
-        display: state.open ? undefined : 'none',
-        padding: 4,
-      }}
-      onMouseDown={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      className={baseClassName}
-    >
-      {!state.openSelectColor && (
+    <>
+      {!openSelectColor && (
         <div
           style={{
             display: 'flex',
             height: '100%',
             gap: '1px',
-            justifyContent: 'center',
           }}
         >
           <div role="button" className={`${baseClassName}-item`}>
@@ -211,14 +98,15 @@ export const FloatBar = observer(() => {
                 display: 'flex',
                 height: '100%',
                 alignItems: 'center',
-                padding: '2px 6px',
                 fontWeight: EditorUtils.isFormatActive(
                   store.editor,
                   'highColor',
                 )
                   ? 'bold'
                   : undefined,
-                color: highColor || undefined,
+                textDecoration: 'underline solid ' + highColor,
+                textDecorationLine: 'underline',
+                textDecorationThickness: 2,
               }}
               role="button"
               onMouseEnter={(e) => e.stopPropagation()}
@@ -230,7 +118,7 @@ export const FloatBar = observer(() => {
                 }
               }}
             >
-              <FontColorsOutlined />
+              A
             </div>
             <div
               style={{
@@ -239,11 +127,8 @@ export const FloatBar = observer(() => {
                 alignItems: 'center',
                 fontSize: 12,
               }}
-              onMouseEnter={() => setState({ hoverSelectColor: true })}
-              onMouseLeave={() => setState({ hoverSelectColor: false })}
               onClick={() => {
-                setState({ openSelectColor: true, hoverSelectColor: false });
-                resize();
+                setOpenSelectColor(true);
               }}
             >
               <CaretDownOutlined />
@@ -295,7 +180,7 @@ export const FloatBar = observer(() => {
           </div>
         </div>
       )}
-      {state.openSelectColor && (
+      {openSelectColor && (
         <div
           style={{
             display: 'flex',
@@ -311,8 +196,7 @@ export const FloatBar = observer(() => {
             role="button"
             onClick={() => {
               EditorUtils.highColor(store.editor);
-              setState({ openSelectColor: false });
-              resize();
+              setOpenSelectColor(false);
             }}
           >
             /
@@ -326,13 +210,109 @@ export const FloatBar = observer(() => {
               onClick={() => {
                 localStorage.setItem('high-color', c.color);
                 EditorUtils.highColor(store.editor, c.color);
-                setState({ openSelectColor: false });
-                resize();
+                setOpenSelectColor(false);
               }}
             />
           ))}
         </div>
       )}
+    </>
+  );
+});
+/**
+ * 浮动工具栏,用于设置文本样式
+ */
+export const FloatBar = observer(() => {
+  const store = useEditorStore();
+  const [state, setState] = useLocalState({
+    open: false,
+    left: 0,
+    top: 0,
+    url: '',
+  });
+
+  const sel = useRef<BaseRange>();
+
+  const resize = useCallback((force = false) => {
+    if (store.domRect && !store.openLinkPanel) {
+      let left = store.domRect.x;
+      left = left - (228 - store.domRect.width) / 2;
+      const container = store.container!;
+      if (left < 4) left = 4;
+      const barWidth = 232;
+      if (left > container.clientWidth - barWidth)
+        left = container.clientWidth - barWidth;
+      let top =
+        state.open && !force
+          ? state.top
+          : container.scrollTop + store.domRect.top - 80;
+      setState({
+        open: true,
+        left,
+        top,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (store.domRect) {
+      resize(true);
+      sel.current = store.editor.selection!;
+    } else {
+      setState({ open: false });
+      fileMap.clear();
+    }
+  }, [store.domRect, store.openSearch]);
+
+  useEffect(() => {
+    if (state.open) {
+      const close = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && !store.openLinkPanel) {
+          e.preventDefault();
+          setState({ open: false });
+          fileMap.clear();
+          const end = Range.end(sel.current!).path;
+          if (Editor.hasPath(store.editor, end)) {
+            Transforms.select(store.editor, Editor.end(store.editor, end));
+          }
+        }
+      };
+      window.addEventListener('keydown', close);
+      return () => window.removeEventListener('keydown', close);
+    }
+    return () => {};
+  }, [state.open]);
+
+  useEffect(() => {
+    const change = () => {
+      if (state.open) {
+        const rect = getSelRect();
+        if (rect) {
+          store.setState((state) => (state.domRect = rect));
+        }
+        resize(true);
+      }
+    };
+    window.addEventListener('resize', change);
+    return () => window.removeEventListener('resize', change);
+  }, []);
+
+  const baseClassName = `float-bar`;
+  return (
+    <div
+      style={{
+        left: state.left,
+        top: state.top,
+        display: state.open ? undefined : 'none',
+        padding: 4,
+      }}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+      className={baseClassName}
+    >
+      <BaseToolBar prefix={baseClassName} />
     </div>
   );
 });

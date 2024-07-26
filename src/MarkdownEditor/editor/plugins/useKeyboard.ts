@@ -78,7 +78,7 @@ export const useKeyboard = (store: EditorStore) => {
         if (!node) return;
         let str = Node.string(node[0]) || '';
         if (node[0].type === 'paragraph') {
-          if (e.key === 'Enter' && /^<[a-z]+[\s"'=:;()\w\-\[\]]*>/.test(str)) {
+          if (e.key === 'Enter' && /^<[a-z]+[\s"'=:;()\w\-[\]]*>/.test(str)) {
             Transforms.delete(store.editor, { at: node[1] });
             Transforms.insertNodes(
               store.editor,
@@ -110,9 +110,6 @@ export const useKeyboard = (store: EditorStore) => {
               const codeMatch = str.match(/^```([\w+\-#]+)$/i);
               if (codeMatch) {
                 runInAction(() => (store.openLangCompletion = true));
-                setTimeout(() => {
-                  store.langCompletionText.next(codeMatch[1]);
-                });
               } else {
                 const insertMatch = str.match(/^\/([^\n]+)?$/i);
                 if (
