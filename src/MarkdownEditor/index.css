@@ -948,6 +948,22 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   background-color: rgb(229 231 235 / 0.3);
 }
 
+.insert-autocomplete {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.insert-autocomplete .insert-autocomplete-item {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  line-height: 24px;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .float-bar {
   position: absolute;
   z-index: 20;

@@ -12,7 +12,7 @@ import {
   UnorderedListOutlined,
   VideoCameraAddOutlined,
 } from '@ant-design/icons';
-import { Button, Input, Tabs } from 'antd';
+import { Button, Divider, Input, Tabs } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
@@ -488,7 +488,7 @@ export const InsertAutocomplete = observer(() => {
         display:
           !store.openInsertCompletion || !state.filterOptions.length
             ? 'none'
-            : 'block',
+            : 'flex',
         width: state.insertLink || state.insertAttachment ? 320 : 160,
         maxHeight: 212,
         overflowY: 'auto',
@@ -519,49 +519,47 @@ export const InsertAutocomplete = observer(() => {
             快速插入
           </div>
           {state.filterOptions.map((l, i) => (
-            <div key={l.key}>
+            <React.Fragment key={l.key}>
               {i !== 0 && (
-                <div
-                  className={'my-1 h-[1px] dark:bg-gray-200/10 bg-gray-200/70'}
-                ></div>
+                <Divider
+                  style={{
+                    margin: '4px 0',
+                    color: 'rgba(0,0,0,0.1)',
+                  }}
+                />
               )}
-              <div>
-                {l.children.map((el) => (
-                  <div
-                    className={`${baseClassName}-item`}
-                    key={el.key}
-                    data-action={el.key}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      insert(state.options[state.index]);
-                    }}
-                    onMouseEnter={() => {
-                      setState({
-                        index: state.options.findIndex(
-                          (op) => op.key === el.key,
-                        ),
-                      });
-                    }}
-                    style={{
-                      height: 16,
-                      borderRadius: 4,
-                      padding: '4px 8px',
-                      color: 'rgba(0,0,0,0.8)',
-                      fontSize: 14,
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 4,
-                      backgroundColor:
-                        el.key === selectedKey ? 'rgba(0,0,0,0.1)' : '',
-                    }}
-                  >
-                    {el.icon}
-                    <span>{el.label[0]}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+              {l.children.map((el) => (
+                <div
+                  className={`${baseClassName}-item`}
+                  key={el.key}
+                  data-action={el.key}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    insert(state.options[state.index]);
+                  }}
+                  onMouseEnter={() => {
+                    setState({
+                      index: state.options.findIndex((op) => op.key === el.key),
+                    });
+                  }}
+                  style={{
+                    borderRadius: 4,
+                    padding: '4px 8px',
+                    color: 'rgba(0,0,0,0.8)',
+                    fontSize: 14,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    backgroundColor:
+                      el.key === selectedKey ? 'rgba(0,0,0,0.1)' : '',
+                  }}
+                >
+                  {el.icon}
+                  <span>{el.label[0]}</span>
+                </div>
+              ))}
+            </React.Fragment>
           ))}
         </>
       )}

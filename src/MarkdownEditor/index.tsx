@@ -16,9 +16,6 @@ import { useSystemKeyboard } from './editor/utils/keyboard';
 import { PhotoSlider } from 'react-photo-view';
 import { RenderElementProps } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
-import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
-import { InsertLink } from './editor/tools/InsertLink';
-import { TableAttr } from './editor/tools/TableAttr';
 import { ToolBar } from './editor/tools/ToolBar';
 import { Elements } from './el';
 import './index.css';
@@ -179,15 +176,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ) : null}
         </div>
         <>
-          {readonly ? (
-            <></>
-          ) : (
-            <>
-              <InsertLink />
-              <TableAttr />
-              <InsertAutocomplete />
-            </>
-          )}
           <PhotoSlider
             maskOpacity={0.5}
             className={'desktop-img-view'}
