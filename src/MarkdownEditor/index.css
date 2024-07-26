@@ -920,9 +920,9 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 }
 
 .toolbar {
-  border: 1px solid rgb(229 231 235 / 0.8);
+  border-bottom: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
-  height: 42px;
+  height: 32px;
   border-radius: 4px;
   background-color: rgb(255 255 255 / 10%);
   font-size: 16px;
@@ -935,15 +935,24 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 .toolbar .toolbar-item {
   display: flex;
   height: 100%;
+  font-size: 16px;
   border-radius: 4px;
   line-height: 32px;
-  padding: 0 10px;
+  padding: 0 6px;
   box-sizing: border-box;
   border-radius: 4px;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   cursor: pointer;
 }
+
+.toolbar .toolbar-item-color {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
 .toolbar .toolbar-item:hover {
   background-color: rgb(229 231 235 / 0.3);
 }

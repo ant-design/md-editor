@@ -7,15 +7,24 @@ import {
   LinkOutlined,
   StrikethroughOutlined,
 } from '@ant-design/icons';
+import { Divider } from 'antd';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useRef } from 'react';
-import { BaseRange, Editor, NodeEntry, Range, Transforms } from 'slate';
-import { IFileItem } from '../../index';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  BaseRange,
+  Editor,
+  Element,
+  NodeEntry,
+  Range,
+  Transforms,
+} from 'slate';
+import { IFileItem, keyTask$ } from '../../index';
 import { useEditorStore } from '../store';
 import { getSelRect } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { useLocalState } from '../utils/useLocalState';
+import { getInsertOptions } from './InsertAutocomplete';
 
 const tools = [
   {
@@ -53,172 +62,254 @@ const fileMap = new Map<string, IFileItem>();
  * @param props
  * @returns
  */
-export const BaseToolBar = observer((props: { prefix?: string }) => {
-  const store = useEditorStore();
-  const [, setRefresh] = React.useState(false);
-  const [openSelectColor, setOpenSelectColor] = React.useState(false);
+export const BaseToolBar = observer(
+  (props: { prefix?: string; showInsertAction?: boolean }) => {
+    const store = useEditorStore();
 
-  const el = useRef<NodeEntry<any>>();
+    const [, setRefresh] = React.useState(false);
+    const [openSelectColor, setOpenSelectColor] = React.useState(false);
 
-  const openLink = useCallback(() => {
-    const sel = store.editor.selection!;
-    el.current = Editor.parent(store.editor, sel.focus.path);
-    store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
-    store.openInsertLink$.next(sel);
-    runInAction(() => {
-      store.refreshHighlight = !store.refreshHighlight;
-      store.openLinkPanel = true;
-    });
-  }, []);
+    const el = useRef<NodeEntry<any>>();
 
-  useEffect(() => {
-    setRefresh((r) => !r);
-  }, [store.refreshFloatBar]);
+    const openLink = useCallback(() => {
+      const sel = store.editor.selection!;
+      el.current = Editor.parent(store.editor, sel.focus.path);
+      store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
+      store.openInsertLink$.next(sel);
+      runInAction(() => {
+        store.refreshHighlight = !store.refreshHighlight;
+        store.openLinkPanel = true;
+      });
+    }, []);
 
-  const highColor = React.useMemo(() => {
-    if (typeof localStorage === 'undefined') return undefined;
-    return localStorage.getItem('high-color');
-  }, [EditorUtils.isFormatActive(store.editor, 'highColor')]);
+    useEffect(() => {
+      setRefresh((r) => !r);
+    }, [store.refreshFloatBar]);
 
-  const baseClassName = props.prefix || `toolbar-action`;
+    const insert = useCallback((op: any) => {
+      const [node] = Editor.nodes<any>(store.editor, {
+        match: (n) => Element.isElement(n),
+        mode: 'lowest',
+      });
+      if (!node) {
+        return;
+      }
+      const path = node[1];
 
-  return (
-    <>
-      {!openSelectColor && (
-        <div
-          style={{
-            display: 'flex',
-            height: '100%',
-            gap: '1px',
-          }}
-        >
-          <div role="button" className={`${baseClassName}-item`}>
-            <div
+      if (op.task === 'image' || op.task === 'attachment') {
+        return;
+      } else if (op) {
+        Transforms.insertText(store.editor, '', {
+          at: {
+            anchor: Editor.start(store.editor, path),
+            focus: Editor.end(store.editor, path),
+          },
+        });
+
+        keyTask$.next({
+          key: op.task,
+          args: op.args,
+        });
+        runInAction(() => {
+          store.openInsertCompletion = false;
+        });
+      }
+    }, []);
+
+    const highColor = React.useMemo(() => {
+      if (typeof localStorage === 'undefined') return undefined;
+      return localStorage.getItem('high-color');
+    }, [EditorUtils.isFormatActive(store.editor, 'highColor')]);
+
+    const baseClassName = props.prefix || `toolbar-action`;
+
+    const insertOptions = useMemo(
+      () =>
+        props.showInsertAction
+          ? getInsertOptions({
+              isTop: false,
+            })
+              .map((o) => o.children)
+              .flat(1)
+          : [],
+      [],
+    );
+
+    return (
+      <>
+        {!openSelectColor && (
+          <div
+            style={{
+              display: 'flex',
+              height: '100%',
+              gap: '1px',
+              alignItems: 'center',
+            }}
+          >
+            {insertOptions
+              .filter(
+                (item) => item.task !== 'image' && item.task !== 'attachment',
+              )
+              .map((t) => {
+                return (
+                  <div
+                    role="button"
+                    key={t.key}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      insert(t);
+                    }}
+                    className={`${baseClassName}-item`}
+                  >
+                    {t.icon}
+                  </div>
+                );
+              })}
+            <Divider
+              type="vertical"
               style={{
-                display: 'flex',
-                height: '100%',
-                alignItems: 'center',
-                fontWeight: EditorUtils.isFormatActive(
-                  store.editor,
-                  'highColor',
-                )
-                  ? 'bold'
-                  : undefined,
-                textDecoration: 'underline solid ' + highColor,
-                textDecorationLine: 'underline',
-                textDecorationThickness: 2,
+                margin: '0 8px',
+                height: '16px',
+                borderColor: 'rgba(0,0,0,0.35)',
               }}
-              role="button"
-              onMouseEnter={(e) => e.stopPropagation()}
-              onClick={() => {
-                if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
-                  EditorUtils.highColor(store.editor);
-                } else {
-                  EditorUtils.highColor(store.editor, highColor || '#10b981');
-                }
-              }}
-            >
-              A
+            />
+            <div role="button" className={`${baseClassName}-item`}>
+              <div
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  fontWeight: EditorUtils.isFormatActive(
+                    store.editor,
+                    'highColor',
+                  )
+                    ? 'bold'
+                    : undefined,
+                  textDecoration: 'underline solid ' + highColor,
+                  textDecorationLine: 'underline',
+                  textDecorationThickness: 2,
+                }}
+                role="button"
+                onMouseEnter={(e) => e.stopPropagation()}
+                onClick={() => {
+                  if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
+                    EditorUtils.highColor(store.editor);
+                  } else {
+                    EditorUtils.highColor(store.editor, highColor || '#10b981');
+                  }
+                }}
+              >
+                A
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  fontSize: 12,
+                }}
+                onClick={() => {
+                  setOpenSelectColor(true);
+                }}
+              >
+                <CaretDownOutlined />
+              </div>
             </div>
-            <div
-              style={{
-                display: 'flex',
-                height: '100%',
-                alignItems: 'center',
-                fontSize: 12,
-              }}
-              onClick={() => {
-                setOpenSelectColor(true);
-              }}
-            >
-              <CaretDownOutlined />
-            </div>
-          </div>
-          {tools.map((t) => (
+            {tools.map((t) => (
+              <div
+                role="button"
+                key={t.type}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  EditorUtils.toggleFormat(store.editor, t.type);
+                }}
+                className={`${baseClassName}-item`}
+                style={{
+                  color: EditorUtils.isFormatActive(store.editor, t.type)
+                    ? '#000'
+                    : undefined,
+                }}
+              >
+                {t.icon}
+              </div>
+            ))}
+
             <div
               role="button"
-              key={t.type}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => {
-                EditorUtils.toggleFormat(store.editor, t.type);
+                openLink();
               }}
               className={`${baseClassName}-item`}
               style={{
-                color: EditorUtils.isFormatActive(store.editor, t.type)
+                color: EditorUtils.isFormatActive(store.editor, 'url')
                   ? '#000'
                   : undefined,
               }}
             >
-              {t.icon}
+              <LinkOutlined />
+              <span>Link</span>
             </div>
-          ))}
-          <div
-            role="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
-              openLink();
-            }}
-            className={`${baseClassName}-item`}
-            style={{
-              color: EditorUtils.isFormatActive(store.editor, 'url')
-                ? '#000'
-                : undefined,
-            }}
-          >
-            <LinkOutlined />
-            <span>Link</span>
-          </div>
-          <div
-            role="button"
-            className={`${baseClassName}-item`}
-            onClick={() => {
-              EditorUtils.clearMarks(store.editor, true);
-              EditorUtils.highColor(store.editor);
-            }}
-          >
-            <ClearOutlined />
-          </div>
-        </div>
-      )}
-      {openSelectColor && (
-        <div
-          style={{
-            display: 'flex',
-            gap: 4,
-            alignItems: 'center',
-          }}
-        >
-          <div
-            className={`${baseClassName}-item`}
-            style={{
-              cursor: 'pointer',
-            }}
-            role="button"
-            onClick={() => {
-              EditorUtils.highColor(store.editor);
-              setOpenSelectColor(false);
-            }}
-          >
-            /
-          </div>
-          {colors.map((c) => (
-            <div
-              role="button"
-              className={`${baseClassName}-item-color`}
-              key={c.color}
-              style={{ backgroundColor: c.color, cursor: 'pointer' }}
-              onClick={() => {
-                localStorage.setItem('high-color', c.color);
-                EditorUtils.highColor(store.editor, c.color);
-                setOpenSelectColor(false);
+            <Divider
+              type="vertical"
+              style={{
+                margin: '0 8px',
+                height: '16px',
+                borderColor: 'rgba(0,0,0,0.35)',
               }}
             />
-          ))}
-        </div>
-      )}
-    </>
-  );
-});
+            <div
+              role="button"
+              className={`${baseClassName}-item`}
+              onClick={() => {
+                EditorUtils.clearMarks(store.editor, true);
+                EditorUtils.highColor(store.editor);
+              }}
+            >
+              <ClearOutlined />
+            </div>
+          </div>
+        )}
+        {openSelectColor && (
+          <div
+            style={{
+              display: 'flex',
+              gap: 4,
+              alignItems: 'center',
+            }}
+          >
+            <div
+              className={`${baseClassName}-item`}
+              style={{
+                cursor: 'pointer',
+              }}
+              role="button"
+              onClick={() => {
+                EditorUtils.highColor(store.editor);
+                setOpenSelectColor(false);
+              }}
+            >
+              /
+            </div>
+            {colors.map((c) => (
+              <div
+                role="button"
+                className={`${baseClassName}-item-color`}
+                key={c.color}
+                style={{ backgroundColor: c.color, cursor: 'pointer' }}
+                onClick={() => {
+                  localStorage.setItem('high-color', c.color);
+                  EditorUtils.highColor(store.editor, c.color);
+                  setOpenSelectColor(false);
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </>
+    );
+  },
+);
 /**
  * 浮动工具栏,用于设置文本样式
  */

@@ -17,7 +17,7 @@ export const ToolBar = observer(() => {
       }}
       className={baseClassName}
     >
-      <BaseToolBar prefix={baseClassName} />
+      <BaseToolBar prefix={baseClassName} showInsertAction={true} />
     </div>
   );
 });

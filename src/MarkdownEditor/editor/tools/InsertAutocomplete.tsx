@@ -2,9 +2,7 @@ import {
   CheckSquareOutlined,
   CodeOutlined,
   FileAddOutlined,
-  FileImageOutlined,
   FontSizeOutlined,
-  MinusOutlined,
   OrderedListOutlined,
   PlayCircleOutlined,
   SwapRightOutlined,
@@ -61,7 +59,7 @@ const replaceUrl = [
   },
 ];
 
-const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
+export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
   ctx,
 ) => {
   const options: InsertOptions[] = [
@@ -87,24 +85,12 @@ const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           task: 'insertCode',
           icon: <CodeOutlined className={'text-base'} />,
         },
-        {
-          label: ['分割线', 'Horizontal line'],
-          key: 'horizontal-line',
-          task: 'horizontalLine',
-          icon: <MinusOutlined className={'text-base'} />,
-        },
       ],
     },
     {
       label: ['媒体', 'media'],
       key: 'media',
       children: [
-        {
-          label: ['图片', 'Image'],
-          key: 'local-image',
-          task: 'localImage',
-          icon: <FileImageOutlined className={'text-base'} />,
-        },
         {
           label: ['远程媒体', 'Media link'],
           task: 'image',
@@ -350,43 +336,6 @@ export const InsertAutocomplete = observer(() => {
     }
   }, []);
 
-  useSubject(store.insertCompletionText$, (text) => {
-    let tempText = text || '';
-    const insertOptions = getInsertOptions({
-      isTop: ctx.current.isTop,
-    });
-    let filterOptions: InsertOptions[] = [];
-    let options: InsertOptions['children'] = [];
-    if (tempText) {
-      for (let item of insertOptions) {
-        const ops = item.children.filter((op) => {
-          return op.label.some((l) =>
-            l.toLowerCase().includes(tempText.toLowerCase()),
-          );
-        });
-        options.push(...ops);
-        if (ops.length) {
-          filterOptions.push({
-            ...item,
-            children: ops,
-          });
-        }
-      }
-    } else {
-      filterOptions = insertOptions;
-      options = insertOptions.reduce(
-        (a, b) => a.concat(b.children),
-        [] as InsertOptions['children'],
-      );
-    }
-    setState({
-      index: 0,
-      text: tempText,
-      options,
-      filterOptions,
-    });
-  });
-
   /**
    * 插入媒体
    */
@@ -430,6 +379,43 @@ export const InsertAutocomplete = observer(() => {
       setState({ loading: false });
     }
   }, []);
+
+  useSubject(store.insertCompletionText$, (text) => {
+    let tempText = text || '';
+    const insertOptions = getInsertOptions({
+      isTop: ctx.current.isTop,
+    });
+    let filterOptions: InsertOptions[] = [];
+    let options: InsertOptions['children'] = [];
+    if (tempText) {
+      for (let item of insertOptions) {
+        const ops = item.children.filter((op) => {
+          return op.label.some((l) =>
+            l.toLowerCase().includes(tempText.toLowerCase()),
+          );
+        });
+        options.push(...ops);
+        if (ops.length) {
+          filterOptions.push({
+            ...item,
+            children: ops,
+          });
+        }
+      }
+    } else {
+      filterOptions = insertOptions;
+      options = insertOptions.reduce(
+        (a, b) => a.concat(b.children),
+        [] as InsertOptions['children'],
+      );
+    }
+    setState({
+      index: 0,
+      text: tempText,
+      options,
+      filterOptions,
+    });
+  });
 
   useEffect(() => {
     if (store.openInsertCompletion) {
