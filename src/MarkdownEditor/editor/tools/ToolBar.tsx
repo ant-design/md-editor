@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { BaseToolBar } from './FloatBar';
 
 /**
@@ -19,5 +20,5 @@ export const ToolBar = observer(() => {
     >
       <BaseToolBar prefix={baseClassName} showInsertAction={true} />
     </div>
-  );
+  ) as React.ReactNode;
 });
