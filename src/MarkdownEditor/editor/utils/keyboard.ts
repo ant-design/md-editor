@@ -512,21 +512,6 @@ export class KeyboardTask {
       );
   }
 
-  image() {
-    runInAction(() => {
-      this.store.openInsertNetworkImage = true;
-    });
-  }
-
-  localImage(type: 'image' | 'video' = 'image') {
-    console.log('localImage', type);
-  }
-
-  insertMedia() {
-    EditorUtils.blur(this.store.editor);
-    this.store.openInsertNetworkImage = true;
-  }
-
   undo() {
     try {
       this.store.editor.undo();
@@ -571,9 +556,6 @@ const keyMap: [string, Methods<KeyboardTask>, any[]?, boolean?][] = [
   ['mod+shift+s', 'format', ['strikethrough']],
   ['option+`', 'format', ['code']],
   ['mod+\\', 'clear'],
-  ['mod+option+p', 'image'],
-  ['mod+p', 'localImage'],
-  ['mod+shift+p', 'insertMedia'],
   ['mod+option+m', 'insertCode', ['mermaid']],
 ];
 
@@ -589,11 +571,6 @@ export const useSystemKeyboard = (store: EditorStore) => {
     action((e: KeyboardEvent) => {
       if (!store) return;
 
-      if (isHotkey('esc', e)) {
-        if (store.openSearch) {
-          store.setOpenSearch(false);
-        }
-      }
       if (isHotkey('mod+c', e) || isHotkey('mod+x', e)) {
         const [node] = Editor.nodes<MediaNode | AttachNode>(store.editor, {
           mode: 'lowest',

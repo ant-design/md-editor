@@ -38,8 +38,6 @@ export class EditorStore {
     refresh: false,
   };
   manual = false;
-  openInsertNetworkImage = false;
-  webview = false;
   initializing = false;
   sel: BaseSelection | undefined;
   focus = false;
@@ -55,7 +53,6 @@ export class EditorStore {
     'attach',
   ]);
   dragEl: null | HTMLElement = null;
-  openSearch = false;
   focusSearch = false;
   searchRanges: Range[] = [];
   openInsertCompletion = false;
@@ -89,8 +86,7 @@ export class EditorStore {
     setTimeout(() => (this.manual = false), 30);
   }
 
-  constructor(webview = false, history = false) {
-    this.webview = webview;
+  constructor(history = false) {
     this.history = history;
     this.dragStart = this.dragStart.bind(this);
     withErrorReporting(this.editor);
@@ -238,7 +234,7 @@ export class EditorStore {
   }
 
   offsetTop(node: HTMLElement) {
-    let top = this.openSearch ? 46 : 0;
+    let top = 0;
     const doc = this.doc;
     while (doc?.contains(node.offsetParent) && doc !== node) {
       top += node.offsetTop;
@@ -328,59 +324,6 @@ export class EditorStore {
     if (scroll) requestIdleCallback(() => this.toPoint());
   }
 
-  setOpenSearch(open: boolean) {
-    this.openSearch = open;
-    this.domRect = null;
-    if (!open) {
-      this.highlightCache.clear();
-      this.searchRanges = [];
-      this.refreshHighlight = !this.refreshHighlight;
-    } else {
-      this.focusSearch = !this.focusSearch;
-      if (this.search.text) {
-        this.matchSearch();
-        this.toPoint();
-      }
-    }
-  }
-
-  setSearchText(text?: string) {
-    this.searchRanges = [];
-    this.search.currentIndex = 0;
-    this.search.text = text || '';
-    clearTimeout(this.searchTimer);
-    this.searchTimer = window.setTimeout(() => {
-      this.matchSearch();
-    }, 300);
-  }
-
-  private changeCurrent() {
-    this.searchRanges.forEach((r, i) => {
-      this.searchRanges[i].current = i === this.search.currentIndex;
-    });
-    this.refreshHighlight = !this.refreshHighlight;
-  }
-
-  nextSearch() {
-    if (this.search.currentIndex === this.searchRanges.length - 1) {
-      this.search.currentIndex = 0;
-    } else {
-      this.search.currentIndex++;
-    }
-    this.changeCurrent();
-    this.toPoint();
-  }
-
-  prevSearch() {
-    if (this.search.currentIndex === 0) {
-      this.search.currentIndex = this.searchRanges.length - 1;
-    } else {
-      this.search.currentIndex--;
-    }
-    this.changeCurrent();
-    this.toPoint();
-  }
-
   setState(value: (state: EditorStore) => void) {
     if (value instanceof Function) {
       value(this);
@@ -418,6 +361,20 @@ export class EditorStore {
     const node = ReactEditor.toSlateNode(this.editor, el);
     const path = ReactEditor.findPath(this.editor, node);
     return [path, node] as [Path, Node];
+  }
+
+  /**
+   * Clear the content of the editor
+   */
+  clearContent() {
+    Transforms.removeNodes(this.editor, {
+      at: [],
+      match: (n) => Element.isElement(n),
+    });
+    Transforms.insertNodes(this.editor, {
+      type: 'paragraph',
+      children: [{ text: '' }],
+    });
   }
 
   dragStart(e: React.DragEvent) {

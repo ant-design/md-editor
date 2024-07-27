@@ -148,6 +148,7 @@ export const BaseToolBar = observer(
           >
             {insertOptions
               .filter(
+                //@ts-ignore
                 (item) => item.task !== 'image' && item.task !== 'attachment',
               )
               .map((t) => {
@@ -353,7 +354,7 @@ export const FloatBar = observer(() => {
       setState({ open: false });
       fileMap.clear();
     }
-  }, [store.domRect, store.openSearch]);
+  }, [store.domRect]);
 
   useEffect(() => {
     if (state.open) {

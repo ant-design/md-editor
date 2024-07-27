@@ -14,7 +14,7 @@ import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
 import { PhotoSlider } from 'react-photo-view';
-import { RenderElementProps } from 'slate-react';
+import { ReactEditor, RenderElementProps } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
 import { ToolBar } from './editor/tools/ToolBar';
 import { Elements } from './el';
@@ -167,6 +167,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             overflow: 'auto',
             gap: 24,
             ...style,
+          }}
+          onClick={() => {
+            ReactEditor.focus(t.store.editor);
           }}
           key={t.id}
         >

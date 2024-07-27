@@ -349,6 +349,7 @@ export const MEditor = observer(
           style={{
             fontSize: 16,
           }}
+          autoFocus
           onMouseDown={checkEnd}
           onDrop={onDrop}
           onFocus={onFocus}
