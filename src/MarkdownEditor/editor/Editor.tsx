@@ -2,7 +2,7 @@
 import { action, runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { isAbsolute } from 'path';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, Slate } from 'slate-react';
 import { IFileItem, MarkdownEditorProps } from '../index';
@@ -339,13 +339,26 @@ export const MEditor = observer(
       }
     }, []);
 
+    const childrenIsEmpty = useMemo(() => {
+      if (!editor.children) return false;
+      if (!Array.isArray(editor.children)) return;
+      if (editor.children.length === 0) return false;
+      return (
+        value.current.filter(
+          (v) => v.type === 'paragraph' && v.children?.at?.(0)?.text === '',
+        ).length < 1
+      );
+    }, [editor.children]);
+
     return (
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <Editable
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
-          className={`edit-area  ${store.focus ? 'focus' : ''}`}
+          className={`edit-area ${
+            store.focus || !childrenIsEmpty ? 'focus' : ''
+          }`}
           style={{
             fontSize: 16,
           }}
