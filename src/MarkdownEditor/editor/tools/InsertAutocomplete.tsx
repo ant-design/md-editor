@@ -8,7 +8,6 @@ import {
   SwapRightOutlined,
   TableOutlined,
   UnorderedListOutlined,
-  VideoCameraAddOutlined,
 } from '@ant-design/icons';
 import { Button, Divider, Input, Tabs } from 'antd';
 import isHotkey from 'is-hotkey';
@@ -91,13 +90,13 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       label: ['媒体', 'media'],
       key: 'media',
       children: [
-        {
-          label: ['远程媒体', 'Media link'],
-          task: 'image',
-          key: 'media-link',
-          args: ['', true],
-          icon: <VideoCameraAddOutlined className={'text-base'} />,
-        },
+        // {
+        //   label: ['远程媒体', 'Media link'],
+        //   task: 'image',
+        //   key: 'media-link',
+        //   args: ['', true],
+        //   icon: <VideoCameraAddOutlined className={'text-base'} />,
+        // },
         {
           label: ['附件', 'Attachment'],
           task: 'attachment',
@@ -211,7 +210,9 @@ export const InsertAutocomplete = observer(() => {
   }, []);
 
   const insert = useCallback((op: InsertOptions['children'][number]) => {
+    //@ts-ignore
     if (op.task === 'image' || op.task === 'attachment') {
+      //@ts-ignore
       if (op.task === 'image') {
         setState({ insertLink: true });
         setTimeout(() => {

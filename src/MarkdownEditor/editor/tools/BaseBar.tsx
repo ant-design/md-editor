@@ -142,6 +142,7 @@ export const BaseToolBar = observer(
           >
             {insertOptions
               .filter(
+                //@ts-ignore
                 (item) => item.task !== 'image' && item.task !== 'attachment',
               )
               .map((t) => {
