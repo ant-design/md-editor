@@ -922,14 +922,13 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 .toolbar {
   border-bottom: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
-  height: 32px;
-  border-radius: 4px;
+  height: 42px;
   background-color: rgb(255 255 255 / 10%);
   font-size: 16px;
   color: rgb(107 114 128 / 80%);
   backdrop-filter: blur(8px);
   box-sizing: border-box;
-  padding: 4px 0;
+  padding: 6px 4px;
 }
 
 .toolbar .toolbar-item {

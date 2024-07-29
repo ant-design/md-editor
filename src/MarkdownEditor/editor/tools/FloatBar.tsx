@@ -1,63 +1,16 @@
-import {
-  BoldOutlined,
-  CaretDownOutlined,
-  ClearOutlined,
-  CodeOutlined,
-  ItalicOutlined,
-  LinkOutlined,
-  StrikethroughOutlined,
-} from '@ant-design/icons';
-import { Divider } from 'antd';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import {
-  BaseRange,
-  Editor,
-  Element,
-  NodeEntry,
-  Range,
-  Transforms,
-} from 'slate';
-import { IFileItem, keyTask$ } from '../../index';
+import { useCallback, useEffect, useRef } from 'react';
+import { BaseRange, Editor, Range, Transforms } from 'slate';
+import { IFileItem } from '../../index';
 import { useEditorStore } from '../store';
 import { getSelRect } from '../utils/dom';
-import { EditorUtils } from '../utils/editorUtils';
 import { useLocalState } from '../utils/useLocalState';
-import { getInsertOptions } from './InsertAutocomplete';
+import { BaseToolBar } from './BaseBar';
 
-const tools = [
-  {
-    type: 'bold',
-    icon: (<BoldOutlined />) as React.ReactNode,
-  },
-  {
-    type: 'italic',
-    icon: <ItalicOutlined />,
-  },
-  {
-    type: 'strikethrough',
-    icon: <StrikethroughOutlined />,
-  },
-  {
-    type: 'code',
-    icon: <CodeOutlined />,
-  },
-];
-
-const colors = [
-  { color: 'rgba(16,185,129,1)' },
-  { color: 'rgba(245,158,11,1)' },
-  { color: 'rgba(59,130,246,1)' },
-  { color: 'rgba(156,163,175,.8)' },
-  { color: 'rgba(99,102, 241,1)' },
-  { color: 'rgba(244,63,94,1)' },
-  { color: 'rgba(217,70,239,1)' },
-  { color: 'rgba(14, 165, 233, 1)' },
-];
 const fileMap = new Map<string, IFileItem>();
 
 /**
+<<<<<<< HEAD
  * 基础工具栏
  * @param props
  * @returns
@@ -312,6 +265,8 @@ export const BaseToolBar = observer(
   },
 );
 /**
+=======
+>>>>>>> cb26273 (默认关闭 textArea padding)
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer(() => {

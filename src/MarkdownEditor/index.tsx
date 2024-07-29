@@ -65,6 +65,7 @@ export type MarkdownEditorProps = {
   toc?: boolean;
   toolBar?: {
     enable?: boolean;
+    extra?: React.ReactNode[];
   };
   tabRef?: React.MutableRefObject<Tab | undefined>;
   eleItemRender?: (
@@ -149,7 +150,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             width: width || '400px',
           }}
         >
-          {toolBar?.enable ? <ToolBar /> : <FloatBar />}
+          {toolBar?.enable ? <ToolBar extra={toolBar.extra} /> : <FloatBar />}
         </div>
         <div
           ref={(dom) => {

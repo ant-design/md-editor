@@ -1,4 +1,5 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
+import { Button } from 'antd';
 
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
@@ -84,16 +85,26 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 `;
 export default () => {
   return (
-    <>
+    <div
+      style={{
+        border: '1px solid #f0f0f0',
+        width: '40vw',
+      }}
+    >
       <MarkdownEditor
         toc={false}
         toolBar={{
           enable: true,
+          extra: [
+            <Button key="save" type="primary" size="small">
+              Save
+            </Button>,
+          ],
         }}
         width={'40vw'}
         height={'40vh'}
         initValue={defaultValue}
       />
-    </>
+    </div>
   );
 };
