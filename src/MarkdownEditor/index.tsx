@@ -145,13 +145,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   return (
     <EditorStoreContext.Provider value={t.store}>
       <>
-        <div
-          style={{
-            width: width || '400px',
-          }}
-        >
-          {toolBar?.enable ? <ToolBar extra={toolBar.extra} /> : <FloatBar />}
-        </div>
+        {!readonly ? (
+          <div
+            style={{
+              width: width || '400px',
+            }}
+          >
+            {toolBar?.enable ? <ToolBar extra={toolBar.extra} /> : <FloatBar />}
+          </div>
+        ) : null}
         <div
           ref={(dom) => {
             t.store.setState((state) => (state.container = dom));
