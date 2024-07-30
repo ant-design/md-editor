@@ -5,6 +5,7 @@ export default () => {
     <div
       style={{
         border: '1px solid #f0f0f0',
+        width: '40vw',
       }}
     >
       <MarkdownEditor
