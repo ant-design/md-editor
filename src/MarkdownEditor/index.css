@@ -117,6 +117,7 @@
 
 .content {
   box-sizing: border-box;
+  width: 100%;
 }
 
 .content .link {
@@ -294,9 +295,8 @@
 }
 
 .content table {
-  width: 100%;
+  width: fit-content;
   position: relative;
-  table-layout: fixed;
 }
 
 .content .m-table {

@@ -120,6 +120,86 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
             node={node}
             options={[
               {
+                icon: (
+                  <Popover
+                    title="配置图表"
+                    content={
+                      <ConfigProvider componentSize="small">
+                        <ProForm
+                          submitter={{
+                            searchConfig: {
+                              submitText: '更新',
+                            },
+                          }}
+                          onFinish={(values) => {
+                            const path = EditorUtils.findPath(
+                              store.editor,
+                              node,
+                            );
+
+                            Transforms.setNodes(
+                              store.editor,
+                              {
+                                otherProps: {
+                                  ...node.otherProps,
+                                  config: values.config,
+                                },
+                              },
+                              {
+                                at: path,
+                              },
+                            );
+                            setSource(false);
+                          }}
+                        >
+                          <ProFormList
+                            name="config"
+                            creatorRecord={() => {
+                              return {
+                                chartType: 'bar',
+                              };
+                            }}
+                            initialValue={[config].flat(1)}
+                          >
+                            <ProFormSegmented
+                              name="chartType"
+                              request={async () => {
+                                return [
+                                  {
+                                    label: '饼图',
+                                    value: 'pie',
+                                  },
+                                  {
+                                    label: '条形图',
+                                    value: 'bar',
+                                  },
+                                  {
+                                    label: '折线图',
+                                    value: 'line',
+                                  },
+                                  {
+                                    label: '面积图',
+                                    value: 'area',
+                                  },
+                                  {
+                                    label: '柱状图',
+                                    value: 'column',
+                                  },
+                                ];
+                              }}
+                            />
+                            <ProFormText name="x" />
+                            <ProFormText name="y" />
+                          </ProFormList>
+                        </ProForm>
+                      </ConfigProvider>
+                    }
+                  >
+                    📊
+                  </Popover>
+                ),
+              },
+              {
                 icon: source ? <PieChartFilled /> : <CodeOutlined />,
                 title: source ? '图表' : '源码',
                 onClick: () => {
@@ -139,6 +219,11 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     content={
                       <ConfigProvider componentSize="small">
                         <ProForm
+                          submitter={{
+                            searchConfig: {
+                              submitText: '更新',
+                            },
+                          }}
                           onFinish={(values) => {
                             const path = EditorUtils.findPath(
                               store.editor,
@@ -315,7 +400,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       },
                       label:
                         chartData?.length > 10
-                          ? undefined
+                          ? false
                           : {
                               position: 'inside',
                               fill: '#fff',
@@ -344,9 +429,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             navEffect: 'linear',
                           }}
                           label={{
-                            connector: false,
-                            text: x,
-                            position: 'inside',
+                            position: 'spider',
+                            text: (d: any) => `${d[x]} (${d[y]})`,
                           }}
                         />
                       );
@@ -406,7 +490,10 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         />
                       );
                     }
-                    if (chartType === 'descriptions') {
+                    if (
+                      chartType === 'descriptions' ||
+                      (chartData.length < 2 && columns.length > 8)
+                    ) {
                       return (
                         <div
                           key={index}
