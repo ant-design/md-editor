@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
 import { IFileItem } from '../../index';
 import { useEditorStore } from '../store';
@@ -21,7 +21,7 @@ export const FloatBar = observer(() => {
     url: '',
   });
 
-  const sel = useRef<BaseRange>();
+  const sel = React.useRef<BaseRange>();
 
   const resize = useCallback((force = false) => {
     if (store.domRect && !store.openLinkPanel) {
