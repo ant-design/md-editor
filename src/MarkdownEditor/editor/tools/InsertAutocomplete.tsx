@@ -90,7 +90,6 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       label: ['媒体', 'media'],
       key: 'media',
       children: [
-<<<<<<< HEAD
         // {
         //   label: ['远程媒体', 'Media link'],
         //   task: 'image',
@@ -98,8 +97,6 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
         //   args: ['', true],
         //   icon: <VideoCameraAddOutlined className={'text-base'} />,
         // },
-=======
->>>>>>> b58106c (support auto focus)
         {
           label: ['附件', 'Attachment'],
           task: 'attachment',
