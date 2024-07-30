@@ -117,7 +117,11 @@ const parseTableOrChart = (
         if (keyMap.has(title)) {
           keyMap.set(title, keyMap.get(title) + '_' + index);
           return {
-            title: title,
+            title: title
+              ?.replace(/\n/g, '')
+              ?.replace(/\\(?=")/g, '')
+              ?.replace(/\\_/g, '')
+              ?.trim(),
             dataIndex: title + '_' + index,
             key: title + '_' + index,
           };
@@ -139,7 +143,9 @@ const parseTableOrChart = (
             children: [cell],
           })
           ?.replace(/\n/g, '')
-          .trim();
+          ?.replace(/\\(?=")/g, '')
+          ?.replace(/\\_/g, '')
+          ?.trim();
         return acc;
       }, {} as any);
     }) || [];
