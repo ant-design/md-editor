@@ -112,6 +112,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           display: 'flex',
           flexDirection: 'column',
           borderRadius: 4,
+          overflow: 'auto',
           border: store.readonly ? 'none' : '1px solid #eee',
         }}
       >

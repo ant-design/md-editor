@@ -220,7 +220,16 @@ export const BaseToolBar = observer(
               }
             }}
           >
-            A
+            <span
+              style={{
+                display: 'inline-block',
+                width: 16,
+                height: 16,
+                marginTop: -1,
+              }}
+            >
+              A
+            </span>
           </div>
         </div>
         {tools.map((t) => (
