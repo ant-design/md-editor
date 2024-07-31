@@ -1,5 +1,5 @@
 import { Image } from 'antd';
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import { useGetSetState } from 'react-use';
 import { Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -15,7 +15,7 @@ export function Media({
 }: ElementProps<MediaNode>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path, store] = useSelStatus(element);
-  const ref = useRef<HTMLElement>(null);
+  const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
     dragging: false,
@@ -24,12 +24,14 @@ export function Media({
     selected: false,
     type: mediaType(element.url),
   });
+
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
       Transforms.setNodes(store.editor, attr, { at: path });
     },
     [path],
   );
+
   const initial = useCallback(async () => {
     let type = mediaType(element.url);
     type = !type ? 'image' : type;
@@ -63,10 +65,14 @@ export function Media({
   }, [element.url, element.downloadUrl]);
 
   return (
-    <div contentEditable={false} {...attributes}>
+    <div {...attributes}>
       <div
         data-be={'media'}
-        style={{ padding: state().type === 'document' ? '10px 0' : undefined }}
+        style={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+        }}
         draggable={true}
         onContextMenu={(e) => {
           e.stopPropagation();
@@ -86,25 +92,43 @@ export function Media({
         }}
       >
         {state().type === 'image' && (
-          <Image
-            src={state().url}
-            alt={'image'}
-            referrerPolicy={'no-referrer'}
-            crossOrigin={'anonymous'}
-            draggable={false}
-            // @ts-ignore
-            ref={ref}
-            width={'100%'}
+          <div
             style={{
-              display: state().loadSuccess ? 'block' : 'none',
-              width: '100%',
-              height: 'auto',
-              minWidth: 200,
-              minHeight: 20,
+              color: 'transparent',
+              padding: 4,
             }}
-          />
+            ref={htmlRef}
+            contentEditable={false}
+          >
+            <Image
+              src={state().url}
+              alt={'image'}
+              referrerPolicy={'no-referrer'}
+              crossOrigin={'anonymous'}
+              draggable={false}
+              width={'100%'}
+              style={{
+                display: state().loadSuccess ? 'block' : 'none',
+                width: '100%',
+                height: 'auto',
+                position: 'relative',
+                zIndex: 99,
+                minWidth: 200,
+                minHeight: 20,
+              }}
+            />
+          </div>
         )}
-        <span contentEditable={false}>{children}</span>
+        <span
+          style={{
+            fontSize: (htmlRef.current?.clientHeight || 200) * 0.75,
+            width: '2px',
+            height: (htmlRef.current?.clientHeight || 200) * 0.75,
+            lineHeight: 1,
+          }}
+        >
+          {children}
+        </span>
       </div>
     </div>
   );
