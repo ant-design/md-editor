@@ -428,6 +428,11 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           legend={{
                             navEffect: 'linear',
                           }}
+                          interaction={{
+                            elementHighlight: {
+                              background: 'true',
+                            },
+                          }}
                           label={{
                             position: 'spider',
                             text: (d: any) => `${d[x]} (${d[y]})`,

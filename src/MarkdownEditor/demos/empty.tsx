@@ -5,7 +5,8 @@ export default () => {
     <div
       style={{
         border: '1px solid #f0f0f0',
-        width: '40vw',
+        width: '500px',
+        margin: '20px auto',
       }}
     >
       <MarkdownEditor
@@ -13,8 +14,8 @@ export default () => {
         toolBar={{
           enable: true,
         }}
-        width={'40vw'}
-        height={'40vh'}
+        width={'500px'}
+        height={'500px'}
       />
     </div>
   );
