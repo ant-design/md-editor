@@ -285,6 +285,7 @@
   border-width: 1px;
   border-style: solid;
   border-collapse: collapse;
+  white-space: nowrap;
   border-color: rgb(209 213 219 / 0.8);
 }
 
