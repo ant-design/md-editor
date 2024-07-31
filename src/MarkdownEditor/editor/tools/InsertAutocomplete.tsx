@@ -25,6 +25,24 @@ import { KeyboardTask, Methods, keyTask$ } from '../utils/keyboard';
 import { getRemoteMediaType } from '../utils/media';
 import { useLocalState } from '../utils/useLocalState';
 
+const ImageIcon = () => {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      fill="currentColor"
+    >
+      <path
+        d="M320 627.2l29.866667-29.866667 29.866666 29.866667 64 64 149.333334-149.333333 29.866666-29.866667 29.866667 29.866667 196.266667 196.266666V298.666667H213.333333v435.2l106.666667-106.666667z m29.866667 29.866667L238.933333 768h136.533334l-4.266667-4.266667 42.666667-42.666666-64-64zM823.466667 768l-196.266667-196.266667-196.266667 196.266667h392.533334zM896 256v554.666667H170.666667V256h725.333333z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+};
+
 type InsertOptions = {
   label: [string, string];
   key: string;
@@ -90,13 +108,13 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       label: ['媒体', 'media'],
       key: 'media',
       children: [
-        // {
-        //   label: ['远程媒体', 'Media link'],
-        //   task: 'image',
-        //   key: 'media-link',
-        //   args: ['', true],
-        //   icon: <VideoCameraAddOutlined className={'text-base'} />,
-        // },
+        {
+          label: ['本地图片', 'Local image'],
+          task: 'uploadImage',
+          key: 'localeImage',
+          args: ['', true],
+          icon: <ImageIcon />,
+        },
         {
           label: ['附件', 'Attachment'],
           task: 'attachment',

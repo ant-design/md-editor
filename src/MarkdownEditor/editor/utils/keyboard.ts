@@ -4,6 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
+import { MarkdownEditorProps } from '../..';
 import { AttachNode, MediaNode, TableNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { parserMdToSchema } from '../parser/parser';
@@ -18,10 +19,12 @@ export type Methods<T> = {
 export class KeyboardTask {
   store: EditorStore;
   editor: EditorStore['editor'];
+  props: MarkdownEditorProps;
 
-  constructor(store: EditorStore) {
+  constructor(store: EditorStore, props: MarkdownEditorProps) {
     this.store = store;
     this.editor = store.editor;
+    this.props = props;
   }
 
   get curNodes() {
@@ -156,6 +159,36 @@ export class KeyboardTask {
         Editor.insertText(this.editor, text);
       }
     }
+  }
+  /**
+   * 上传图片
+   */
+  uploadImage() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async (e: any) => {
+      const url =
+        (await this.props?.image?.upload?.(Array.from(e.target.files) || [])) ||
+        [];
+      if (Array.isArray(url)) {
+        for (let u of url) {
+          Transforms.insertNodes(this.editor, {
+            type: 'media',
+            url: u,
+            children: [{ text: '' }],
+          });
+        }
+      }
+      if (typeof url === 'string') {
+        Transforms.insertNodes(this.editor, {
+          type: 'media',
+          url: url,
+          children: [{ text: '' }],
+        });
+      }
+    };
+    input.click();
   }
 
   async pasteMarkdownCode() {
@@ -559,8 +592,11 @@ const keyMap: [string, Methods<KeyboardTask>, any[]?, boolean?][] = [
   ['mod+option+m', 'insertCode', ['mermaid']],
 ];
 
-export const useSystemKeyboard = (store: EditorStore) => {
-  const task = new KeyboardTask(store);
+export const useSystemKeyboard = (
+  store: EditorStore,
+  props: MarkdownEditorProps,
+) => {
+  const task = new KeyboardTask(store, props);
   useSubject(keyTask$, ({ key, args }) => {
     // @ts-ignore
     task[key](...(args || []));

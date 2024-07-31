@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
 import React, {
   useEffect,
@@ -13,7 +13,6 @@ import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
-import { PhotoSlider } from 'react-photo-view';
 import { ReactEditor, RenderElementProps } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
 import { ToolBar } from './editor/tools/ToolBar';
@@ -41,7 +40,11 @@ export type IFileItem = {
   hidden?: boolean;
   links?: { path: number[]; target: string }[];
 };
-export interface Tab {
+
+/**
+ * MarkdownEditor 实例
+ */
+export interface MarkdownEditorInstance {
   get current(): IFileItem | undefined;
   history: IFileItem[];
   index: number;
@@ -49,6 +52,7 @@ export interface Tab {
   hasPrev: boolean;
   range?: Range;
   store: EditorStore;
+  editorProps?: MarkdownEditorProps;
   id: string;
 }
 
@@ -59,6 +63,9 @@ export interface Tab {
 export type MarkdownEditorProps = {
   width?: string | number;
   height?: string | number;
+  image?: {
+    upload?: (file: File[]) => Promise<string[] | string>;
+  };
   initValue?: string;
   readonly?: boolean;
   style?: React.CSSProperties;
@@ -67,7 +74,7 @@ export type MarkdownEditorProps = {
     enable?: boolean;
     extra?: React.ReactNode[];
   };
-  tabRef?: React.MutableRefObject<Tab | undefined>;
+  tabRef?: React.MutableRefObject<MarkdownEditorInstance | undefined>;
   eleItemRender?: (
     props: RenderElementProps,
     defaultDom: React.ReactNode,
@@ -93,8 +100,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     ...rest
   } = props;
 
-  // 初始化 tab
-  const t = useMemo(() => {
+  // 初始化实例
+  const instance = useMemo(() => {
     const now = Date.now();
     const list = parserMdToSchema(initValue!)?.schema;
     if (!props.readonly) {
@@ -121,11 +128,12 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         get hasPrev() {
           return false;
         },
+        editorProps: props,
         store: new EditorStore(),
         get hasNext() {
           return false;
         },
-      } as Tab,
+      } as MarkdownEditorInstance,
       { range: false, id: false },
     );
   }, []);
@@ -133,17 +141,18 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const [mount, setMount] = useState(false);
 
   // 初始化快捷键
-  useSystemKeyboard(t.store);
+  useSystemKeyboard(instance.store, props);
 
   // 导入外部 hooks
-  useImperativeHandle(tabRef, () => t, [t]);
+  useImperativeHandle(tabRef, () => instance, [instance]);
 
+  // 初始化 readonly
   useEffect(() => {
-    t.store.readonly = readonly || false;
+    instance.store.readonly = readonly || false;
   }, [readonly]);
 
   return (
-    <EditorStoreContext.Provider value={t.store}>
+    <EditorStoreContext.Provider value={instance.store}>
       <>
         {!readonly ? (
           <div
@@ -156,7 +165,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         ) : null}
         <div
           ref={(dom) => {
-            t.store.setState((state) => (state.container = dom));
+            instance.store.setState((state) => (state.container = dom));
             setMount(true);
           }}
           className="markdown-editor"
@@ -172,26 +181,18 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             ...style,
           }}
           onClick={() => {
-            ReactEditor.focus(t.store.editor);
+            ReactEditor.focus(instance.store.editor);
           }}
-          key={t.id}
+          key={instance.id}
         >
-          <EditorFrame readonly={readonly} {...rest} tab={t} />
-          {t.current && mount && toc !== false && t.store?.container ? (
-            <Heading note={t.current} />
+          <EditorFrame readonly={readonly} {...rest} instance={instance} />
+          {instance.current &&
+          mount &&
+          toc !== false &&
+          instance.store?.container ? (
+            <Heading note={instance.current} />
           ) : null}
         </div>
-        <>
-          <PhotoSlider
-            maskOpacity={0.5}
-            className={'desktop-img-view'}
-            images={t.store.viewImages.map((src) => ({ src, key: src }))}
-            visible={t.store.openViewImage}
-            onClose={action(() => (t.store.openViewImage = false))}
-            index={t.store.viewImageIndex}
-            onIndexChange={action((i: number) => (t.store.viewImageIndex = i))}
-          />
-        </>
       </>
     </EditorStoreContext.Provider>
   );

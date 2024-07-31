@@ -72,6 +72,7 @@ export const slugify = (str: string): string => {
  */
 export const mediaType = (name?: string) => {
   name = name || '';
+  if (name.startsWith('data:')) return 'image';
   name = name.split('?')[0];
   const ext = name.toLowerCase().match(/\.\w+$/)?.[0];
   if (!ext) return 'other';

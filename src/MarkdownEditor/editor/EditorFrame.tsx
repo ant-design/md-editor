@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { MarkdownEditorProps, Tab } from '..';
+import { MarkdownEditorInstance, MarkdownEditorProps } from '..';
 import { MEditor } from './Editor';
 import { InsertAutocomplete } from './tools/InsertAutocomplete';
 import { InsertLink } from './tools/InsertLink';
@@ -8,16 +8,16 @@ import { TableAttr } from './tools/TableAttr';
 
 export const EditorFrame = observer(
   ({
-    tab,
+    instance,
     readonly,
     ...props
   }: MarkdownEditorProps & {
-    tab: Tab;
+    instance: MarkdownEditorInstance;
   }) => {
-    if (!tab.current) return null as React.ReactNode;
+    if (!instance.current) return null as React.ReactNode;
     return (
       <div className="content" style={{ flex: 1 }}>
-        <MEditor note={tab.current} {...props} />
+        <MEditor note={instance.current} {...props} />
         {readonly ? (
           <></>
         ) : (

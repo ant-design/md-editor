@@ -61,7 +61,6 @@
     "mobx-react-lite": "^4.0.7",
     "nanoid": "^5.0.7",
     "querystring": "^0.2.1",
-    "react-photo-view": "^1.2.6",
     "react-use": "^17.5.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
