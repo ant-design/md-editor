@@ -151,6 +151,7 @@ const parseTableOrChart = (
     }) || [];
   const aligns = table.align;
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
+
   const children = table.children.map((r: { children: any[] }, l: number) => {
     return {
       type: 'table-row',
@@ -170,19 +171,64 @@ const parseTableOrChart = (
     };
   }) as TableRowNode[];
 
+  const otherProps = {
+    config: config,
+    columns,
+    dataSource: dataSource.map((item) => {
+      delete item?.chartType;
+      return {
+        ...item,
+      };
+    }),
+  };
+  if (!isChart && dataSource.length < 2 && columns.length > 8) {
+    return parserTableToDescription(children);
+  }
+
   const node: TableNode | ChartNode = {
     type: isChart ? 'chart' : 'table',
     children,
-    otherProps: {
-      config: config,
-      columns,
-      dataSource: dataSource.map((item) => {
-        delete item?.chartType;
+    otherProps,
+  };
+  return node;
+};
+
+function group(array: string | any[], subGroupLength: number) {
+  let index = 0;
+  let newArray = [];
+
+  while (index < array.length) {
+    newArray.push(array.slice(index, (index += subGroupLength)));
+  }
+
+  return newArray;
+}
+
+const parserTableToDescription = (children: TableRowNode[]) => {
+  const header = children[0];
+  const body = children.slice(1);
+  const newChildren = body
+    .map((row) => {
+      const list = group(
+        row.children
+          .map((item, index) => {
+            return [header.children[index], item];
+          })
+          .flat(1),
+        4,
+      );
+
+      return list.map((listItem) => {
         return {
-          ...item,
+          type: 'table-row',
+          children: listItem,
         };
-      }),
-    },
+      });
+    })
+    .flat(1) as TableRowNode[];
+  const node: TableNode = {
+    type: 'table',
+    children: newChildren,
   };
   return node;
 };

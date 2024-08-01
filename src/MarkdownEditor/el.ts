@@ -52,6 +52,11 @@ export type TableNode = {
   };
 };
 
+export type DescriptionNode = {
+  type: 'description';
+  children: TableRowNode[];
+};
+
 export type TableRowNode = { type: 'table-row'; children: TableCellNode[] };
 
 export type TableCellNode = {

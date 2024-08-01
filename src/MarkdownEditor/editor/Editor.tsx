@@ -350,15 +350,18 @@ export const MEditor = observer(
       );
     }, [editor.children]);
 
+    const className = useMemo(() => {
+      if (store.readonly) return 'readonly';
+      return store.focus || !childrenIsEmpty ? 'focus' : '';
+    }, []);
+
     return (
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <Editable
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
-          className={`markdown-editor-edit-area ${
-            store.focus || !childrenIsEmpty ? 'focus' : ''
-          }`}
+          className={`markdown-editor-edit-area ${className}`.trim()}
           style={{
             fontSize: 16,
           }}
