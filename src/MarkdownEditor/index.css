@@ -15,45 +15,15 @@
 .markdown-editor * {
   box-sizing: border-box;
 }
-.edit-area {
+.markdown-editor-edit-area {
   outline: none !important;
 }
 
-.edit-area * {
+.markdown-editor-edit-area * {
   box-sizing: border-box;
 }
 
-.page-title {
-  font-size: 2em;
-  margin-bottom: 1rem;
-  height: 3.5rem;
-  width: 100%;
-  border-bottom-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
-  background-color: transparent;
-  font-weight: 700;
-}
-
-.page-title::placeholder {
-  --tw-placeholder-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
-}
-
-.page-title {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-:is(.dark .page-title) {
-  border-color: rgb(229 231 235 / 0.1);
-}
-
-:is(.dark .page-title)::placeholder {
-  color: rgb(209 213 219 / 0.3);
-}
-
-.edit-area.focus [data-empty]:before {
+.markdown-editor-edit-area.focus [data-empty]:before {
   position: absolute;
   left: 0;
   top: 3px;
@@ -62,139 +32,135 @@
   color: rgb(156 163 175 /0.85);
 }
 
-.float-color-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-}
-
-.edit-area.focus [data-empty]:before {
+.markdown-editor-edit-area.focus [data-empty]:before {
   content: "Press '/' for quick actions";
 }
 
-.edit-area.focus [data-be='list-item'] > :first-child[data-empty]:before {
+.markdown-editor-edit-area.focus
+  [data-be='list-item']
+  > :first-child[data-empty]:before {
   cursor: text;
   content: 'Enter content';
 }
 
-.edit-area.focus [data-be='list-item'].task > :nth-child(2)[data-empty]:before {
+.markdown-editor-edit-area.focus
+  [data-be='list-item'].task
+  > :nth-child(2)[data-empty]:before {
   cursor: text;
   content: 'Enter content';
 }
 
-.edit-area.focus h1[data-empty]::before {
+.markdown-editor-edit-area.focus h1[data-empty]::before {
   cursor: text;
   content: 'Heading 1';
 }
 
-.edit-area.focus h2[data-empty]::before {
+.markdown-editor-edit-area.focus h2[data-empty]::before {
   cursor: text;
   content: 'Heading 2';
 }
 
-.edit-area.focus h3[data-empty]::before {
+.markdown-editor-edit-area.focus h3[data-empty]::before {
   cursor: text;
   content: 'Heading 3';
 }
 
-.edit-area.focus h4[data-empty]::before {
+.markdown-editor-edit-area.focus h4[data-empty]::before {
   cursor: text;
   content: 'Heading 4';
 }
 
-.edit-area.focus h5[data-empty]::before {
+.markdown-editor-edit-area.focus h5[data-empty]::before {
   cursor: text;
   content: 'Heading 5';
 }
 
-.edit-area [data-empty]:before {
+.markdown-editor-edit-area [data-empty]:before {
   display: none;
 }
 
-.edit-area > :first-child {
+.markdown-editor-edit-area > :first-child {
   margin-top: 0;
 }
 
-.content {
+.markdown-editor-content {
   box-sizing: border-box;
   width: 100%;
 }
 
-.content .link {
+.markdown-editor-content .link {
   text-decoration: underline;
 }
 
-.content.line-height-compact {
+.markdown-editor-content.line-height-compact {
   line-height: 1.3;
 }
 
-.content.line-height-compact .check-item {
+.markdown-editor-content.line-height-compact .check-item {
   height: 1.55em;
 }
 
-.content.line-height-compact .drag-handle {
+.markdown-editor-content.line-height-compact .drag-handle {
   top: calc(3px + 0.65em - 11px);
 }
 
-.content.line-height-compact h1,
-.content.line-height-compact h2,
-.content.line-height-compact h3,
-.content.line-height-compact h4,
-.content.line-height-compact h5 {
+.markdown-editor-content.line-height-compact h1,
+.markdown-editor-content.line-height-compact h2,
+.markdown-editor-content.line-height-compact h3,
+.markdown-editor-content.line-height-compact h4,
+.markdown-editor-content.line-height-compact h5 {
   line-height: 1.2;
 }
 
-.content.line-height-compact h1 .drag-handle,
-.content.line-height-compact h2 .drag-handle,
-.content.line-height-compact h3 .drag-handle,
-.content.line-height-compact h4 .drag-handle,
-.content.line-height-compact h5 .drag-handle {
+.markdown-editor-content.line-height-compact h1 .drag-handle,
+.markdown-editor-content.line-height-compact h2 .drag-handle,
+.markdown-editor-content.line-height-compact h3 .drag-handle,
+.markdown-editor-content.line-height-compact h4 .drag-handle,
+.markdown-editor-content.line-height-compact h5 .drag-handle {
   top: calc(3px + 0.6em - 14px) !important;
 }
 
-.content.line-height-loose {
+.markdown-editor-content.line-height-loose {
   line-height: 1.7;
 }
 
-.content.line-height-loose .check-item {
+.markdown-editor-content.line-height-loose .check-item {
   height: 2.1em;
 }
 
-.content.line-height-loose .drag-handle {
+.markdown-editor-content.line-height-loose .drag-handle {
   top: calc(3px + 0.85em - 11px);
 }
 
-.content.line-height-loose h1,
-.content.line-height-loose h2,
-.content.line-height-loose h3,
-.content.line-height-loose h4,
-.content.line-height-loose h5 {
+.markdown-editor-content.line-height-loose h1,
+.markdown-editor-content.line-height-loose h2,
+.markdown-editor-content.line-height-loose h3,
+.markdown-editor-content.line-height-loose h4,
+.markdown-editor-content.line-height-loose h5 {
   line-height: 1.4;
 }
 
-.content.line-height-loose h1 .drag-handle,
-.content.line-height-loose h2 .drag-handle,
-.content.line-height-loose h3 .drag-handle,
-.content.line-height-loose h4 .drag-handle,
-.content.line-height-loose h5 .drag-handle {
+.markdown-editor-content.line-height-loose h1 .drag-handle,
+.markdown-editor-content.line-height-loose h2 .drag-handle,
+.markdown-editor-content.line-height-loose h3 .drag-handle,
+.markdown-editor-content.line-height-loose h4 .drag-handle,
+.markdown-editor-content.line-height-loose h5 .drag-handle {
   top: calc(3px + 0.7em - 14px) !important;
 }
 
-.content .attach {
+.markdown-editor-content .attach {
   padding: 3px 0;
 }
 
-.content .attach:not(:last-child) {
+.markdown-editor-content .attach:not(:last-child) {
   margin-bottom: 0.3em;
 }
 
-.content .attach .file {
+.markdown-editor-content .attach .file {
   border-radius: 4px;
   border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  border-color: rgb(229 231 235 / 1);
+  background-color: rgb(249 250 251 / 1);
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.75rem;
@@ -202,20 +168,11 @@
   transition-duration: 100ms;
 }
 
-:is(.dark .content .attach .file) {
-  border-color: rgb(255 255 255 / 0.1);
-  background-color: rgb(255 255 255 / 0.05);
-}
-
-.content .attach .file.active {
+.markdown-editor-content .attach .file.active {
   border-color: rgb(0 0 0 / 0.5);
 }
 
-:is(.dark .content .attach .file.active) {
-  border-color: rgb(255 255 255 / 0.5);
-}
-
-.content .mermaid-container {
+.markdown-editor-content .mermaid-container {
   margin-bottom: 0.75rem;
   display: flex;
   cursor: default;
@@ -227,7 +184,7 @@
   padding-bottom: 0.75rem;
 }
 
-.content [data-fnc='fnc'] {
+.markdown-editor-content [data-fnc='fnc'] {
   font-size: 0.85em;
   padding-left: 0.125rem;
   padding-right: 0.125rem;
@@ -237,19 +194,11 @@
   transition-duration: 200ms;
 }
 
-.content [data-fnc='fnc']:hover {
+.markdown-editor-content [data-fnc='fnc']:hover {
   color: rgb(20 184 166 /1);
 }
 
-:is(.dark .content [data-fnc='fnc']) {
-  color: rgb(20 184 166 /1);
-}
-
-:is(.dark .content [data-fnc='fnc']:hover) {
-  color: rgb(13 148 136 /1);
-}
-
-.content [data-fnd='fnd'] {
+.markdown-editor-content [data-fnd='fnd'] {
   padding-left: 0.125rem;
   padding-right: 0.125rem;
 
@@ -257,31 +206,22 @@
   transition-duration: 200ms;
 }
 
-.content [data-fnd='fnd']:hover {
+.markdown-editor-content [data-fnd='fnd']:hover {
   color: rgb(132 204 22 /1);
 }
 
-:is(.dark .content [data-fnd='fnd']) {
-  color: rgb(132 204 22 /1);
-}
-
-:is(.dark .content [data-fnd='fnd']:hover) {
-  color: rgb(101 163 13 /1);
-}
-
-.content pre {
+.markdown-editor-content pre {
   margin: 0;
   overflow-x: auto;
 }
 
-.content .high-text {
+.markdown-editor-content .high-text {
   border-radius: 4px;
-  background: var(--md-high);
 }
 
-.content table,
-.content th,
-.content td {
+.markdown-editor-content table,
+.markdown-editor-content th,
+.markdown-editor-content td {
   border-width: 1px;
   border-style: solid;
   border-collapse: collapse;
@@ -289,105 +229,94 @@
   border-color: rgb(209 213 219 / 0.8);
 }
 
-:is(.dark .content table),
-:is(.dark .content th),
-:is(.dark .content td) {
-  border-color: rgb(209 213 219 / 0.2);
-}
-
-.content table {
+.markdown-editor-content table {
   width: fit-content;
   position: relative;
 }
 
-.content .m-table {
+.markdown-editor-content .m-table {
   padding: 3px 0;
   margin-bottom: 0.5em;
   width: 100%;
   overflow: auto;
 }
-.content .m-table table {
+.markdown-editor-content .m-table table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-.content th,
-.content td {
+.markdown-editor-content th,
+.markdown-editor-content td {
   vertical-align: top;
   padding: 0.375em 0.75em;
   text-align: left;
   line-height: 1.7;
 }
 
-.content th {
+.markdown-editor-content th {
   background-color: rgb(229 231 235 / 0.3);
 }
 
-:is(.dark .content th) {
-  background-color: rgb(229 231 235 / 0.05);
-}
-
-.content p {
+.markdown-editor-content p {
   margin-bottom: 0.1em;
   padding: 3px 0;
 }
 
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5 {
+.markdown-editor-content h1,
+.markdown-editor-content h2,
+.markdown-editor-content h3,
+.markdown-editor-content h4,
+.markdown-editor-content h5 {
   position: relative;
   line-height: 1.3;
   padding: 3px 0;
   margin-bottom: 3px;
 }
 
-.content h1 .drag-handle,
-.content h2 .drag-handle,
-.content h3 .drag-handle,
-.content h4 .drag-handle,
-.content h5 .drag-handle {
+.markdown-editor-content h1 .drag-handle,
+.markdown-editor-content h2 .drag-handle,
+.markdown-editor-content h3 .drag-handle,
+.markdown-editor-content h4 .drag-handle,
+.markdown-editor-content h5 .drag-handle {
   top: calc(3px + 0.65em - 14px) !important;
 }
 
-.content h1 {
+.markdown-editor-content h1 {
   font-size: 1.875em;
   margin-top: 1.2em;
   font-weight: 700;
 }
 
-.content h1:first-child {
+.markdown-editor-content h1:first-child {
   margin-top: 0;
 }
 
-.content h2 {
+.markdown-editor-content h2 {
   font-weight: 600;
   font-size: 1.5em;
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-.content h3 {
+.markdown-editor-content h3 {
   font-weight: 600;
   font-size: 1.4em;
   margin-top: 0.8em;
 }
 
-.content h4 {
+.markdown-editor-content h4 {
   font-weight: 500;
   font-size: 1.3em;
   margin-top: 0.7em;
   line-height: 1.2;
 }
 
-.content a {
+.markdown-editor-content a {
   font-weight: 500;
 }
 
 .inline-code {
-  background: var(--md-bg-mute);
   font-size: 0.87em;
   border-radius: 4px;
   padding: 2px 5px;
@@ -399,10 +328,6 @@
   color: rgb(244 63 94 /1);
 }
 
-:is(.dark .inline-code) {
-  color: rgb(251 113 133 / 0.9);
-}
-
 blockquote {
   padding: 3px 14px 3px 21px;
   position: relative;
@@ -410,10 +335,6 @@ blockquote {
   font-size: 0.96em;
 
   color: rgb(75 85 99 /1);
-}
-
-:is(.dark blockquote) {
-  color: rgb(209 213 219 /1);
 }
 
 blockquote:not(:last-child) {
@@ -433,13 +354,7 @@ blockquote:before {
   position: absolute;
   display: block;
   border-radius: 4px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
-}
-
-:is(.dark blockquote):before {
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+  background-color: rgb(107 114 128 / 1);
 }
 
 [data-be]:last-child {
@@ -543,12 +458,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 
 .m-hr {
   height: 1px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-:is(.dark .m-hr) {
-  background-color: rgb(229 231 235 / 0.1);
+  background-color: rgb(229 231 235 / 1);
 }
 
 .m-hr {
@@ -588,18 +498,6 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   position: relative;
 }
 
-.code-container.wrap pre code .code-line::before {
-  display: none;
-  content: counter(step);
-  font-size: 0.93em;
-  counter-increment: step;
-  text-align: center;
-  position: absolute;
-  width: 32px;
-  top: 0;
-  left: -37px;
-}
-
 .code-highlight {
   border-width: 1px;
   border-color: rgb(0 0 0 / 0.1);
@@ -607,14 +505,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   color: rgb(107 114 128 /1);
 }
 
-:is(.dark .code-highlight) {
-  border-color: rgb(229 231 235 / 0.1);
-
-  color: rgb(156 163 175 /1);
-}
-
 .code-highlight {
-  background: var(--md-code-bg);
   border-radius: 4px;
   font-size: 0.85em;
   position: relative;
@@ -791,10 +682,6 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   transition-duration: 200ms;
 }
 
-:is(.dark .move-mark) {
-  background-color: rgb(255 255 255 / 0.5);
-}
-
 .drag-handle {
   position: absolute;
   display: flex;
@@ -840,11 +727,6 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   color: rgb(107 114 128 /1);
 }
 
-:is(.dark .inline-code-input):before,
-:is(.dark .inline-code-input):after {
-  color: rgb(156 163 175 /1);
-}
-
 .inline-code-input:before {
   margin-right: 2px;
 }
@@ -875,15 +757,8 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   border-radius: 100%;
   width: 9px;
   height: 9px;
-  background: var(--bg);
   border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(107 114 128 / var(--tw-border-opacity));
-}
-
-:is(.dark .media-frame .img-drag-handle) {
-  --tw-border-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity));
+  border-color: rgb(107 114 128 / 1);
 }
 
 .media-frame .img-drag-handle.t1 {

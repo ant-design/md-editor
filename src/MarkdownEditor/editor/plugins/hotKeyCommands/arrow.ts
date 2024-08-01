@@ -127,12 +127,6 @@ export const keyArrow = (
       });
       const [el, path] = node;
       const pre = Editor.node(editor, EditorUtils.findPrev(editor, path));
-      if (!Path.hasPrevious(path) && EditorUtils.isTop(editor, path)) {
-        const input =
-          store.container?.querySelector<HTMLInputElement>('.page-title');
-        input?.focus();
-        return;
-      }
       if (pre?.[0].type === 'media' || pre?.[0].type === 'attach') {
         e.preventDefault();
         e.stopPropagation();

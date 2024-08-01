@@ -356,7 +356,7 @@ export const MEditor = observer(
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
-          className={`edit-area ${
+          className={`markdown-editor-edit-area ${
             store.focus || !childrenIsEmpty ? 'focus' : ''
           }`}
           style={{

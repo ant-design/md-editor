@@ -78,7 +78,9 @@ export class EditorStore {
   viewImageIndex = 0;
   openViewImage = false;
   get doc() {
-    return this.container?.querySelector('.content') as HTMLDivElement;
+    return this.container?.querySelector(
+      '.markdown-editor-conten',
+    ) as HTMLDivElement;
   }
 
   doManual() {
