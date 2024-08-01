@@ -27,7 +27,7 @@ export const useMonitorHeight = (store: EditorStore, el: Element) => {
             );
             dom.style.containIntrinsicSize = `0px ${dom.clientHeight}px`;
             // @ts-ignore
-            dom.style.markdown-editor-contenVisibility = 'auto';
+            dom.style.contentVisibility = 'auto';
           } catch (e) {
             console.error(e);
           }
