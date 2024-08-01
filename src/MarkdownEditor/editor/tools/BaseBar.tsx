@@ -315,6 +315,8 @@ export const BaseToolBar = observer(
               flex: 1,
               display: 'flex',
               justifyContent: 'flex-end',
+              alignItems: 'center',
+              height: '100%',
             }}
           >
             {props.extra?.map((item, index) => {
