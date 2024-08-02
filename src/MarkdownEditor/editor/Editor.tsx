@@ -297,16 +297,25 @@ export const MEditor = observer(
           return;
         }
 
+        const clipboardItems = await navigator.clipboard.read();
+
+        try {
+          const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
+          let paste = await pasteItem?.text();
+          if (paste) {
+            htmlParser(editor, paste);
+            return;
+          }
+        } catch (error) {}
+
+        Transforms.removeNodes(editor, {
+          at: editor.selection!,
+          match: (n) => n.type === 'media' || n.type === 'attach',
+        });
         Transforms.insertNodes(editor, {
           type: 'paragraph',
           children: [{ text }],
         });
-
-        let paste = e.clipboardData.getData('text/html');
-        if (paste && htmlParser(editor, paste)) {
-          e.stopPropagation();
-          e.preventDefault();
-        }
       },
       [note],
     );
