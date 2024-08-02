@@ -74,9 +74,7 @@ export class EditorStore {
   history = false;
   inputComposition = false;
   tableTask$ = new Subject<string>();
-  viewImages: string[] = [];
-  viewImageIndex = 0;
-  openViewImage = false;
+
   get doc() {
     return this.container?.querySelector(
       '.markdown-editor-conten',
@@ -104,30 +102,6 @@ export class EditorStore {
       openLinkPanel: false,
       initializing: false,
     });
-  }
-  openPreviewImages(el: MediaNode) {
-    const nodes = Array.from(
-      Editor.nodes<MediaNode>(this.editor, {
-        at: [],
-        match: (n) => n.type === 'media' && n.mediaType === 'image',
-      }),
-    );
-    let index = nodes.findIndex((n) => n[0] === el);
-    if (index < 0) {
-      index = 0;
-    }
-    if (nodes.length) {
-      this.viewImageIndex = index;
-      this.viewImages = nodes
-        .map((n) => {
-          let realUrl = n[0].url;
-          return realUrl!;
-        })
-        .filter((url) => !/^\w+:/.test(url) || /^\w+:/.test(url));
-      if ((this, this.viewImages.length)) {
-        this.openViewImage = true;
-      }
-    }
   }
   openTableMenus(e: MouseEvent | React.MouseEvent, head?: boolean) {
     e.stopPropagation();
@@ -192,6 +166,7 @@ export class EditorStore {
       },
     ]);
   }
+
   insertLink(filePath: string) {
     const p = parse(filePath);
     const insertPath = filePath;
@@ -223,6 +198,9 @@ export class EditorStore {
         { select: true, at: Path.next(par[1]) },
       );
     }
+  }
+  insertNodes(nodes: Node | Node[], options?: any) {
+    Transforms.insertNodes(this.editor, nodes, options);
   }
   hideRanges() {
     if (this.highlightCache.size) {
@@ -264,68 +242,6 @@ export class EditorStore {
     );
   }
 
-  matchSearch(scroll: boolean = true) {
-    this.highlightCache.clear();
-    this.searchRanges = [];
-    if (!this.search.text) {
-      this.search.currentIndex = 0;
-      this.refreshHighlight = !this.refreshHighlight;
-      return;
-    }
-    const nodes = Array.from(
-      Editor.nodes<any>(this.editor, {
-        at: [],
-        match: (n) =>
-          Element.isElement(n) &&
-          ['paragraph', 'table-cell', 'code-line', 'head'].includes(n.type),
-      }),
-    );
-    let matchCount = 0;
-    const keyWord = this.search.text.toLowerCase();
-    for (let n of nodes) {
-      const [el, path] = n;
-      const str = Node.string(el).toLowerCase();
-      if (!str || /^\s+$/.test(str) || !str.includes(keyWord)) {
-        continue;
-      }
-      let ranges: Range[] = [];
-      for (let i = 0; i < el.children.length; i++) {
-        const text = el.children[i].text?.toLowerCase();
-        if (text && text.includes(keyWord)) {
-          const sep = text.split(keyWord);
-          let offset = 0;
-          for (let j = 0; j < sep.length; j++) {
-            if (j === 0) {
-              offset += sep[j].length;
-              continue;
-            }
-            ranges.push({
-              anchor: {
-                path: [...path, i],
-                offset: offset,
-              },
-              focus: {
-                path: [...path, i],
-                offset: offset + keyWord.length,
-              },
-              current: matchCount === this.search.currentIndex,
-              highlight: true,
-            });
-            offset += sep[j].length + keyWord.length;
-            matchCount++;
-          }
-        }
-      }
-      this.searchRanges.push(...ranges);
-      this.highlightCache.set(el, ranges);
-    }
-    if (this.search.currentIndex > matchCount - 1) {
-      this.search.currentIndex = 0;
-    }
-    this.refreshHighlight = !this.refreshHighlight;
-    if (scroll) requestIdleCallback(() => this.toPoint());
-  }
-
   setState(value: (state: EditorStore) => void) {
     if (value instanceof Function) {
       value(this);
@@ -334,28 +250,6 @@ export class EditorStore {
         // @ts-ignore
         this[key] = value[key];
       }
-    }
-  }
-
-  private toPoint() {
-    try {
-      const cur = this.searchRanges[this.search.currentIndex];
-      if (!cur) return;
-      const node = Node.get(this.editor, Path.parent(cur.focus.path));
-      const dom = ReactEditor.toDOMNode(this.editor, node);
-      if (dom) {
-        const top = this.offsetTop(dom);
-        if (
-          top > this.container!.scrollTop &&
-          top < this.container!.scrollTop + window.innerHeight
-        )
-          return;
-        this.container!.scroll({
-          top: top - 100,
-        });
-      }
-    } catch (e) {
-      console.error('toPoint', e);
     }
   }
 
