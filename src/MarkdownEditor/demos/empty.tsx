@@ -1,18 +1,49 @@
-﻿import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  parserMdToSchema,
+} from '@ant-design/md-editor';
+import { Button } from 'antd';
+import React from 'react';
 
 export default () => {
+  const tabRef = React.useRef<MarkdownEditorInstance>();
   return (
     <div
       style={{
         border: '1px solid #f0f0f0',
-        width: '500px',
+        width: '60vw',
         margin: '20px auto',
       }}
     >
       <MarkdownEditor
         toc={false}
+        tabRef={tabRef}
         toolBar={{
           enable: true,
+          extra: [
+            <Button
+              key="插入"
+              onClick={() => {
+                tabRef.current?.store.insertNodes(
+                  parserMdToSchema(
+                    `# 标题
+**粗体**
+*斜体*
+~~删除线~~
+\`行内代码\`
+\`\`\`js
+// 代码块
+\`\`\`
+- 无序列表
+1. 有序列表`,
+                  ).schema,
+                );
+              }}
+            >
+              <span>插入一个markdown</span>
+            </Button>,
+          ],
         }}
         image={{
           upload: async (fileList) => {
@@ -30,7 +61,7 @@ export default () => {
             });
           },
         }}
-        width={'500px'}
+        width={'60vw'}
         height={'500px'}
       />
     </div>
