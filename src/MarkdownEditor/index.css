@@ -85,6 +85,7 @@
 
 .markdown-editor-content {
   box-sizing: border-box;
+  min-width: 0;
   width: 100%;
 }
 

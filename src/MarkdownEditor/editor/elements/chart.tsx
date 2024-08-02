@@ -399,24 +399,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           },
                         },
                       },
-                      label:
-                        chartData?.length > 10
-                          ? false
-                          : {
-                              position: 'inside',
-                              fill: '#fff',
-                              fillOpacity: 1,
-                              background: true,
-                              backgroundFill: 'rgb(23, 131, 255)',
-                              backgroundPadding: [4, 6, 4, 6],
-                              backgroundRadius: 4,
-                              fontSize: 13,
-                              opacity: 1,
-                              textAlign: 'center',
-                              formatter: (value: number) => {
-                                return stringFormatNumber(value);
-                              },
-                            },
+                      label: false,
                     };
                     if (chartType === 'pie') {
                       return (

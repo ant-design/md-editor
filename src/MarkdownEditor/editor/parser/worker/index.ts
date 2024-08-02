@@ -10,6 +10,7 @@ import { Element } from 'slate';
 import {
   ChartNode,
   CustomLeaf,
+  DescriptionNode,
   Elements,
   MediaNode,
   TableNode,
@@ -87,7 +88,7 @@ const parseText = (els: RootContent[], leaf: CustomLeaf = {}) => {
 const parseTableOrChart = (
   table: Table,
   preNode: RootContent,
-): TableNode | ChartNode => {
+): TableNode | ChartNode | DescriptionNode => {
   const keyMap = new Map<string, string>();
 
   // @ts-ignore
@@ -193,41 +194,23 @@ const parseTableOrChart = (
   return node;
 };
 
-function group(array: string | any[], subGroupLength: number) {
-  let index = 0;
-  let newArray = [];
-
-  while (index < array.length) {
-    newArray.push(array.slice(index, (index += subGroupLength)));
-  }
-
-  return newArray;
-}
-
 const parserTableToDescription = (children: TableRowNode[]) => {
   const header = children[0];
   const body = children.slice(1);
+
   const newChildren = body
     .map((row) => {
-      const list = group(
-        row.children
-          .map((item, index) => {
-            return [header.children[index], item];
-          })
-          .flat(1),
-        4,
-      );
-
-      return list.map((listItem) => {
-        return {
-          type: 'table-row',
-          children: listItem,
-        };
-      });
+      const list = row.children
+        .map((item, index) => {
+          return [header.children[index], item];
+        })
+        .flat(1);
+      return list;
     })
-    .flat(1) as TableRowNode[];
-  const node: TableNode = {
-    type: 'table',
+    .flat(1);
+
+  const node: DescriptionNode = {
+    type: 'description',
     children: newChildren,
   };
   return node;

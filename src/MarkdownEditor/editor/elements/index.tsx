@@ -11,6 +11,7 @@ import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { Chart } from './chart';
 import { CodeCtx, CodeElement, CodeLine } from './code';
+import { Description } from './description';
 import { Head } from './head';
 import { List, ListItem } from './list';
 import { Media } from './media';
@@ -58,6 +59,8 @@ export const MElement = (props: RenderElementProps) => {
       return <CodeLine {...props} />;
     case 'table':
       return <Table {...props}>{props.children}</Table>;
+    case 'description':
+      return <Description {...props}>{props.children}</Description>;
     case 'chart':
       return <Chart {...props} />;
     case 'table-row':
