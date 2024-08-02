@@ -32,10 +32,8 @@ export const FloatBar = observer(() => {
       const barWidth = 232;
       if (left > container.clientWidth - barWidth)
         left = container.clientWidth - barWidth;
-      let top =
-        state.open && !force
-          ? state.top
-          : container.scrollTop + store.domRect.top - 80;
+      let top = state.open && !force ? state.top : store.domRect.top - 42;
+
       setState({
         open: true,
         left,
