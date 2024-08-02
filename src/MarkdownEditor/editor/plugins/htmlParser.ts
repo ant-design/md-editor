@@ -10,6 +10,7 @@ const findElementByNode = (node: ChildNode) => {
   return node.parentElement!.children[index] as HTMLElement;
 };
 const fragment = new Set(['body', 'figure', 'div']);
+
 const ELEMENT_TAGS = {
   BLOCKQUOTE: () => ({ type: 'blockquote' }),
   H1: () => ({ type: 'head', level: 1 }),

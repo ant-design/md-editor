@@ -870,6 +870,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   gap: 4px;
   border-radius: 4px;
   line-height: 32px;
+  justify-content: center;
   padding: 0 4px;
   cursor: pointer;
 }

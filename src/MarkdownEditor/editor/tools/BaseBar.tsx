@@ -5,7 +5,7 @@
   LinkOutlined,
   StrikethroughOutlined,
 } from '@ant-design/icons';
-import { ColorPicker, Divider } from 'antd';
+import { ColorPicker, Divider, Dropdown } from 'antd';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -95,6 +95,11 @@ export const BaseToolBar = observer(
     useEffect(() => {
       setRefresh((r) => !r);
     }, [store.refreshFloatBar]);
+    const [node] = Editor.nodes<any>(store.editor, {
+      match: (n) => Element.isElement(n),
+      mode: 'lowest',
+    });
+    const isHeader = node && node[0].type === 'head';
 
     const insert = useCallback((op: any) => {
       const [node] = Editor.nodes<any>(store.editor, {
@@ -144,7 +149,6 @@ export const BaseToolBar = observer(
           : [],
       [],
     );
-
     return (
       <div
         style={{
@@ -154,6 +158,35 @@ export const BaseToolBar = observer(
           alignItems: 'center',
         }}
       >
+        {isHeader ? (
+          <Dropdown
+            menu={{
+              items: ['H1', 'H2', 'H3'].map((item, index) => {
+                return {
+                  label: item,
+                  key: item,
+                  onClick: () => {
+                    Transforms.setNodes(
+                      store.editor,
+                      {
+                        type: 'head',
+                        level: index + 1,
+                      },
+                      {
+                        match: (n) => Element.isElement(n) && n.type === 'head',
+                        at: node[1],
+                      },
+                    );
+                  },
+                };
+              }),
+            }}
+          >
+            <div role="button" className={`${baseClassName}-item`}>
+              h{node[0].level}
+            </div>
+          </Dropdown>
+        ) : null}
         {insertOptions
           .filter(
             //@ts-ignore
@@ -242,6 +275,7 @@ export const BaseToolBar = observer(
                 display: 'inline-block',
                 width: 16,
                 height: 16,
+                textAlign: 'center',
                 marginTop: -1,
               }}
             >
