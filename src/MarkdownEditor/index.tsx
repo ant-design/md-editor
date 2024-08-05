@@ -48,8 +48,6 @@ export interface MarkdownEditorInstance {
   get current(): IFileItem | undefined;
   history: IFileItem[];
   index: number;
-  hasNext: boolean;
-  hasPrev: boolean;
   range?: Range;
   store: EditorStore;
   editorProps?: MarkdownEditorProps;
@@ -63,23 +61,53 @@ export interface MarkdownEditorInstance {
 export type MarkdownEditorProps = {
   width?: string | number;
   height?: string | number;
+  /**
+   * 配置图片数据
+   */
   image?: {
     upload?: (file: File[]) => Promise<string[] | string>;
   };
   initValue?: string;
+  /**
+   * 只读模式
+   */
   readonly?: boolean;
+  /**
+   * 样式
+   */
   style?: React.CSSProperties;
+  /**
+   * 是否显示目录
+   */
   toc?: boolean;
+  /**
+   * 配置工具栏
+   */
   toolBar?: {
     enable?: boolean;
     extra?: React.ReactNode[];
   };
-  tabRef?: React.MutableRefObject<MarkdownEditorInstance | undefined>;
+  /**
+   * 用于外部获取实例
+   */
+  editorRef?: React.MutableRefObject<MarkdownEditorInstance | undefined>;
+  /**
+   * 自定义渲染元素
+   * @param props
+   * @param defaultDom
+   * @returns
+   */
   eleItemRender?: (
     props: RenderElementProps,
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
   initSchemaValue?: Elements[];
+  /**
+   * 内容变化回调
+   * @param value:string
+   * @param schema:Elements[]
+   * @returns
+   */
   onChange?: (value: string, schema: Elements[]) => void;
 };
 
@@ -92,7 +120,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     initValue,
     width,
     toolBar,
-    tabRef,
+    editorRef,
     toc = true,
     readonly,
     style,
@@ -125,14 +153,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         history: [data],
         index: 0,
         id: nanoid(),
-        get hasPrev() {
-          return false;
-        },
         editorProps: props,
         store: new EditorStore(),
-        get hasNext() {
-          return false;
-        },
       } as MarkdownEditorInstance,
       { range: false, id: false },
     );
@@ -144,7 +166,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   useSystemKeyboard(instance.store, props);
 
   // 导入外部 hooks
-  useImperativeHandle(tabRef, () => instance, [instance]);
+  useImperativeHandle(editorRef, () => instance, [instance]);
 
   // 初始化 readonly
   useEffect(() => {
