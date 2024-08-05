@@ -7,6 +7,7 @@ import {
   ProFormSelect,
 } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Popover } from 'antd';
+import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useMemo, useState } from 'react';
 import { Transforms } from 'slate';
 import { RenderElementProps } from 'slate-react';
@@ -460,22 +461,25 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                                   sm: 1,
                                   xs: 1,
                                 }}
-                                items={columns
-                                  .map(
-                                    (column: {
-                                      title: string;
-                                      dataIndex: string;
-                                    }) => {
-                                      console.log(column.title);
-                                      if (!column.title || !column.dataIndex)
-                                        return null;
-                                      return {
-                                        label: column.title,
-                                        children: row[column.dataIndex],
-                                      };
-                                    },
-                                  )
-                                  .filter((item: any) => !!item)}
+                                items={
+                                  columns
+                                    .map(
+                                      (column: {
+                                        title: string;
+                                        dataIndex: string;
+                                      }) => {
+                                        if (!column.title || !column.dataIndex)
+                                          return null;
+                                        return {
+                                          label: column.title || '',
+                                          children: row[column.dataIndex],
+                                        };
+                                      },
+                                    )
+                                    .filter(
+                                      (item: any) => !!item,
+                                    ) as DescriptionsItemType[]
+                                }
                               />
                             );
                           })}
