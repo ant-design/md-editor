@@ -36,8 +36,8 @@ export const FloatBar = observer(() => {
 
       setState({
         open: true,
-        left,
-        top,
+        left: Math.max(left, 4),
+        top: Math.max(top, 4),
       });
     }
   }, []);

@@ -129,75 +129,82 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               setSource(false);
             }}
           >
-            <ProFormList
-              name="config"
-              creatorRecord={() => {
-                return {
-                  chartType: 'bar',
-                };
+            <div
+              style={{
+                maxHeight: '70vh',
+                overflow: 'auto',
               }}
-              initialValue={[config].flat(1)}
             >
-              <ProFormSegmented
-                name="chartType"
-                request={async () => {
-                  return [
-                    {
-                      label: '饼图',
-                      value: 'pie',
-                    },
-                    {
-                      label: '条形图',
-                      value: 'bar',
-                    },
-                    {
-                      label: '折线图',
-                      value: 'line',
-                    },
-                    {
-                      label: '面积图',
-                      value: 'area',
-                    },
-                    {
-                      label: '柱状图',
-                      value: 'column',
-                    },
-                  ];
+              <ProFormList
+                name="config"
+                creatorRecord={() => {
+                  return {
+                    chartType: 'bar',
+                  };
                 }}
-              />
-              <ProFormSelect
-                name="x"
-                fieldProps={{
-                  onClick: (e) => {
-                    e.stopPropagation();
-                  },
-                }}
-                options={columns
-                  ?.filter((item) => item.title)
-                  ?.map((item) => {
-                    return {
-                      label: item.title,
-                      value: item.dataIndex,
-                    };
-                  })}
-              />
-              <ProFormSelect
-                name="y"
-                fieldProps={{
-                  onClick: (e) => {
-                    e.stopPropagation();
-                  },
-                }}
-                options={columns
-                  ?.filter((item) => item.title)
-                  ?.map((item) => {
-                    return {
-                      label: item.title,
-                      value: item.dataIndex,
-                    };
-                  })}
-              />
-            </ProFormList>
+                initialValue={[config].flat(1)}
+              >
+                <ProFormSegmented
+                  name="chartType"
+                  request={async () => {
+                    return [
+                      {
+                        label: '饼图',
+                        value: 'pie',
+                      },
+                      {
+                        label: '条形图',
+                        value: 'bar',
+                      },
+                      {
+                        label: '折线图',
+                        value: 'line',
+                      },
+                      {
+                        label: '面积图',
+                        value: 'area',
+                      },
+                      {
+                        label: '柱状图',
+                        value: 'column',
+                      },
+                    ];
+                  }}
+                />
+                <ProFormSelect
+                  name="x"
+                  fieldProps={{
+                    onClick: (e) => {
+                      e.stopPropagation();
+                    },
+                  }}
+                  options={columns
+                    ?.filter((item) => item.title)
+                    ?.map((item) => {
+                      return {
+                        label: item.title,
+                        value: item.dataIndex,
+                      };
+                    })}
+                />
+                <ProFormSelect
+                  name="y"
+                  fieldProps={{
+                    onClick: (e) => {
+                      e.stopPropagation();
+                    },
+                  }}
+                  options={columns
+                    ?.filter((item) => item.title)
+                    ?.map((item) => {
+                      return {
+                        label: item.title,
+                        value: item.dataIndex,
+                      };
+                    })}
+                />
+              </ProFormList>
+            </div>
           </ProForm>
         </ConfigProvider>
       }
@@ -226,39 +233,41 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           border: store.readonly ? 'none' : '1px solid #eee',
         }}
       >
-        {store.readonly ? (
-          <ChartAttr
-            node={node}
-            options={[
-              {
-                icon: chartPopover,
-              },
-              {
-                icon: source ? <PieChartFilled /> : <CodeOutlined />,
-                title: source ? '图表' : '源码',
-                onClick: () => {
-                  setSource(!source);
+        <div contentEditable={false}>
+          {store.readonly ? (
+            <ChartAttr
+              node={node}
+              options={[
+                {
+                  icon: chartPopover,
                 },
-              },
-            ]}
-          />
-        ) : (
-          <ChartAttr
-            node={node}
-            options={[
-              {
-                icon: chartPopover,
-              },
-              {
-                icon: source ? <PieChartFilled /> : <CodeOutlined />,
-                title: source ? '图表' : '源码',
-                onClick: () => {
-                  setSource(!source);
+                {
+                  icon: source ? <PieChartFilled /> : <CodeOutlined />,
+                  title: source ? '图表' : '源码',
+                  onClick: () => {
+                    setSource(!source);
+                  },
                 },
-              },
-            ]}
-          />
-        )}
+              ]}
+            />
+          ) : (
+            <ChartAttr
+              node={node}
+              options={[
+                {
+                  icon: chartPopover,
+                },
+                {
+                  icon: source ? <PieChartFilled /> : <CodeOutlined />,
+                  title: source ? '图表' : '源码',
+                  onClick: () => {
+                    setSource(!source);
+                  },
+                },
+              ]}
+            />
+          )}
+        </div>
         {source ? (
           <table contentEditable={store.readonly ? false : true}>
             <tbody>{children}</tbody>
