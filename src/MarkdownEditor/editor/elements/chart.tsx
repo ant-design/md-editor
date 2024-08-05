@@ -4,12 +4,13 @@ import {
   ProForm,
   ProFormList,
   ProFormSegmented,
-  ProFormText,
+  ProFormSelect,
 } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Popover } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { Transforms } from 'slate';
 import { RenderElementProps } from 'slate-react';
+import { TableNode } from '../../el';
 import { useEditorStore } from '../store';
 import { ChartAttr } from '../tools/ChartAttr';
 import { DragHandle } from '../tools/DragHandle';
@@ -92,9 +93,117 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
     );
   }, [node.otherProps?.dataSource]);
 
-  const columns = node.otherProps?.columns || [];
+  const columns = (node as TableNode).otherProps?.columns || [];
 
   const config = [node.otherProps?.config].flat(1);
+
+  /**
+   * 图表配置
+   */
+  const chartPopover = (
+    <Popover
+      title="配置图表"
+      content={
+        <ConfigProvider componentSize="small">
+          <ProForm
+            submitter={{
+              searchConfig: {
+                submitText: '更新',
+              },
+            }}
+            onFinish={(values) => {
+              const path = EditorUtils.findPath(store.editor, node);
+              Transforms.setNodes(
+                store.editor,
+                {
+                  otherProps: {
+                    ...node.otherProps,
+                    config: values.config,
+                  },
+                },
+                {
+                  at: path,
+                },
+              );
+              setSource(false);
+            }}
+          >
+            <ProFormList
+              name="config"
+              creatorRecord={() => {
+                return {
+                  chartType: 'bar',
+                };
+              }}
+              initialValue={[config].flat(1)}
+            >
+              <ProFormSegmented
+                name="chartType"
+                request={async () => {
+                  return [
+                    {
+                      label: '饼图',
+                      value: 'pie',
+                    },
+                    {
+                      label: '条形图',
+                      value: 'bar',
+                    },
+                    {
+                      label: '折线图',
+                      value: 'line',
+                    },
+                    {
+                      label: '面积图',
+                      value: 'area',
+                    },
+                    {
+                      label: '柱状图',
+                      value: 'column',
+                    },
+                  ];
+                }}
+              />
+              <ProFormSelect
+                name="x"
+                fieldProps={{
+                  onClick: (e) => {
+                    e.stopPropagation();
+                  },
+                }}
+                options={columns
+                  ?.filter((item) => item.title)
+                  ?.map((item) => {
+                    return {
+                      label: item.title,
+                      value: item.dataIndex,
+                    };
+                  })}
+              />
+              <ProFormSelect
+                name="y"
+                fieldProps={{
+                  onClick: (e) => {
+                    e.stopPropagation();
+                  },
+                }}
+                options={columns
+                  ?.filter((item) => item.title)
+                  ?.map((item) => {
+                    return {
+                      label: item.title,
+                      value: item.dataIndex,
+                    };
+                  })}
+              />
+            </ProFormList>
+          </ProForm>
+        </ConfigProvider>
+      }
+    >
+      📊
+    </Popover>
+  );
 
   return (
     <div
@@ -121,84 +230,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
             node={node}
             options={[
               {
-                icon: (
-                  <Popover
-                    title="配置图表"
-                    content={
-                      <ConfigProvider componentSize="small">
-                        <ProForm
-                          submitter={{
-                            searchConfig: {
-                              submitText: '更新',
-                            },
-                          }}
-                          onFinish={(values) => {
-                            const path = EditorUtils.findPath(
-                              store.editor,
-                              node,
-                            );
-
-                            Transforms.setNodes(
-                              store.editor,
-                              {
-                                otherProps: {
-                                  ...node.otherProps,
-                                  config: values.config,
-                                },
-                              },
-                              {
-                                at: path,
-                              },
-                            );
-                            setSource(false);
-                          }}
-                        >
-                          <ProFormList
-                            name="config"
-                            creatorRecord={() => {
-                              return {
-                                chartType: 'bar',
-                              };
-                            }}
-                            initialValue={[config].flat(1)}
-                          >
-                            <ProFormSegmented
-                              name="chartType"
-                              request={async () => {
-                                return [
-                                  {
-                                    label: '饼图',
-                                    value: 'pie',
-                                  },
-                                  {
-                                    label: '条形图',
-                                    value: 'bar',
-                                  },
-                                  {
-                                    label: '折线图',
-                                    value: 'line',
-                                  },
-                                  {
-                                    label: '面积图',
-                                    value: 'area',
-                                  },
-                                  {
-                                    label: '柱状图',
-                                    value: 'column',
-                                  },
-                                ];
-                              }}
-                            />
-                            <ProFormText name="x" />
-                            <ProFormText name="y" />
-                          </ProFormList>
-                        </ProForm>
-                      </ConfigProvider>
-                    }
-                  >
-                    📊
-                  </Popover>
-                ),
+                icon: chartPopover,
               },
               {
                 icon: source ? <PieChartFilled /> : <CodeOutlined />,
@@ -214,84 +246,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
             node={node}
             options={[
               {
-                icon: (
-                  <Popover
-                    title="配置图表"
-                    content={
-                      <ConfigProvider componentSize="small">
-                        <ProForm
-                          submitter={{
-                            searchConfig: {
-                              submitText: '更新',
-                            },
-                          }}
-                          onFinish={(values) => {
-                            const path = EditorUtils.findPath(
-                              store.editor,
-                              node,
-                            );
-
-                            Transforms.setNodes(
-                              store.editor,
-                              {
-                                otherProps: {
-                                  ...node.otherProps,
-                                  config: values.config,
-                                },
-                              },
-                              {
-                                at: path,
-                              },
-                            );
-                            setSource(false);
-                          }}
-                        >
-                          <ProFormList
-                            name="config"
-                            creatorRecord={() => {
-                              return {
-                                chartType: 'bar',
-                              };
-                            }}
-                            initialValue={[config].flat(1)}
-                          >
-                            <ProFormSegmented
-                              name="chartType"
-                              request={async () => {
-                                return [
-                                  {
-                                    label: '饼图',
-                                    value: 'pie',
-                                  },
-                                  {
-                                    label: '条形图',
-                                    value: 'bar',
-                                  },
-                                  {
-                                    label: '折线图',
-                                    value: 'line',
-                                  },
-                                  {
-                                    label: '面积图',
-                                    value: 'area',
-                                  },
-                                  {
-                                    label: '柱状图',
-                                    value: 'column',
-                                  },
-                                ];
-                              }}
-                            />
-                            <ProFormText name="x" />
-                            <ProFormText name="y" />
-                          </ProFormList>
-                        </ProForm>
-                      </ConfigProvider>
-                    }
-                  >
-                    📊
-                  </Popover>
-                ),
+                icon: chartPopover,
               },
               {
                 icon: source ? <PieChartFilled /> : <CodeOutlined />,

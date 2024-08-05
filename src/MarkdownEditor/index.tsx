@@ -175,32 +175,39 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   return (
     <EditorStoreContext.Provider value={instance.store}>
-      <>
-        {!readonly ? (
+      <div
+        className="markdown-editor"
+        style={{
+          width: width || '400px',
+          minWidth: readonly ? '200px' : '400px',
+          height: height || 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          maxHeight: '100%',
+        }}
+      >
+        {!readonly && toolBar?.enable ? (
           <div
             style={{
               width: width || '400px',
             }}
           >
-            {toolBar?.enable ? <ToolBar extra={toolBar.extra} /> : <FloatBar />}
+            {<ToolBar extra={toolBar.extra} />}
           </div>
-        ) : null}
+        ) : readonly ? null : (
+          <FloatBar />
+        )}
         <div
+          style={{
+            padding: props.readonly ? '8px' : '24px 24px',
+            overflow: 'auto',
+            display: 'flex',
+            gap: 24,
+            ...style,
+          }}
           ref={(dom) => {
             instance.store.setState((state) => (state.container = dom));
             setMount(true);
-          }}
-          className="markdown-editor"
-          style={{
-            width: width || '400px',
-            minWidth: readonly ? '200px' : '400px',
-            height: height || '80vh',
-            padding: props.readonly ? '8px' : '24px 48px',
-            display: 'flex',
-            maxHeight: '100%',
-            overflow: 'auto',
-            gap: 24,
-            ...style,
           }}
           onClick={() => {
             ReactEditor.focus(instance.store.editor);
@@ -215,7 +222,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             <Heading note={instance.current} />
           ) : null}
         </div>
-      </>
+      </div>
     </EditorStoreContext.Provider>
   );
 };

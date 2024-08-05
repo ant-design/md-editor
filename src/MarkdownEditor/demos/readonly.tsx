@@ -38,17 +38,18 @@ export default () => {
           border: '1px solid #eee',
         }}
         toc={false}
-        width={'calc(50vw - 8px)'}
+        width={'calc(50vw - 16px)'}
         height={'99vh'}
         initValue={defaultValue}
       />
+
       <MarkdownEditor
         readonly
         style={{
           border: '1px solid #eee',
         }}
         toc={false}
-        width={'calc(50vw - 8px)'}
+        width={'calc(50vw - 16px)'}
         height={'99vh'}
         initValue={defaultValue}
       />
