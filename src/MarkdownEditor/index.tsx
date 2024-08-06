@@ -189,7 +189,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         {!readonly && toolBar?.enable ? (
           <div
             style={{
-              width: width || '400px',
+              width: '100%',
               maxWidth: '100%',
             }}
           >
