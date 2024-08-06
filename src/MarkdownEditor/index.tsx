@@ -190,6 +190,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           <div
             style={{
               width: width || '400px',
+              maxWidth: '100%',
             }}
           >
             {<ToolBar extra={toolBar.extra} />}
