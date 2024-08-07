@@ -184,6 +184,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           display: 'flex',
           flexDirection: 'column',
           maxHeight: '100%',
+          ...style,
         }}
       >
         {!readonly && toolBar?.enable ? (
@@ -204,7 +205,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             overflow: 'auto',
             display: 'flex',
             gap: 24,
-            ...style,
           }}
           ref={(dom) => {
             instance.store.setState((state) => (state.container = dom));
