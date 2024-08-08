@@ -20,6 +20,7 @@ import { ReactEditor, withReact } from 'slate-react';
 import { parse } from 'querystring';
 import { ChartNode, MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
+import { parserMdToSchema } from './parser/parser';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
@@ -260,7 +261,7 @@ export class EditorStore {
   }
 
   /**
-   * Clear the content of the editor
+   *清空编辑器内容
    */
   clearContent() {
     Transforms.removeNodes(this.editor, {
@@ -271,6 +272,25 @@ export class EditorStore {
       type: 'paragraph',
       children: [{ text: '' }],
     });
+  }
+
+  /**
+   * 设置编辑器内容
+   * @param md
+   */
+  setMDContent(md: string) {
+    const nodeList = parserMdToSchema(md).schema;
+    this.clearContent();
+    Transforms.insertNodes(this.editor, nodeList);
+  }
+
+  /**
+   * 设置编辑器内容，通过节点列表
+   * @param nodeList
+   */
+  setContent(nodeList: Node[]) {
+    this.clearContent();
+    Transforms.insertNodes(this.editor, nodeList);
   }
 
   dragStart(e: React.DragEvent) {

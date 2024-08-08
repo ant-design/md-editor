@@ -18,7 +18,7 @@ export default () => {
     >
       <MarkdownEditor
         toc={false}
-        tabRef={tabRef}
+        editorRef={tabRef}
         toolBar={{
           enable: true,
           extra: [

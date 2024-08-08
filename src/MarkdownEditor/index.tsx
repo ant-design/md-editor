@@ -46,7 +46,6 @@ export type IFileItem = {
  */
 export interface MarkdownEditorInstance {
   get current(): IFileItem | undefined;
-  history: IFileItem[];
   index: number;
   range?: Range;
   store: EditorStore;
@@ -148,9 +147,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     return observable(
       {
         get current() {
-          return this.history[this.index];
+          return data;
         },
-        history: [data],
         index: 0,
         id: nanoid(),
         editorProps: props,
