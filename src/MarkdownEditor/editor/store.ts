@@ -268,10 +268,6 @@ export class EditorStore {
       at: [],
       match: (n) => Element.isElement(n),
     });
-    Transforms.insertNodes(this.editor, {
-      type: 'paragraph',
-      children: [{ text: '' }],
-    });
   }
 
   /**
