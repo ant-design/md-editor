@@ -362,7 +362,7 @@ export const MEditor = observer(
     const className = useMemo(() => {
       if (store.readonly) return 'readonly';
       return store.focus || !childrenIsEmpty ? 'focus' : '';
-    }, []);
+    }, [store.readonly, store.focus, !childrenIsEmpty]);
 
     return (
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
