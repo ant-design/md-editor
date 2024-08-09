@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useMemo } from 'react';
+import React from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
@@ -20,7 +20,7 @@ export const Description = observer((props: RenderElementProps) => {
   const subGroupLength =
     Math.max(Math.floor((store.container?.clientWidth || 0) / 400), 1) * 2;
 
-  return useMemo(() => {
+  return React.useMemo(() => {
     return (
       <div
         className={'drag-el'}
