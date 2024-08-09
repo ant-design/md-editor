@@ -266,7 +266,6 @@ export class EditorStore {
   clearContent() {
     Transforms.removeNodes(this.editor, {
       at: [],
-      match: (n) => Element.isElement(n),
     });
   }
 

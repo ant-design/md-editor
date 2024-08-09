@@ -1,7 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { action, runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { isAbsolute } from 'path';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, Slate } from 'slate-react';
@@ -252,7 +251,7 @@ export const MEditor = observer(
               }
             }
           }
-          if (text.startsWith('http') || isAbsolute(text)) {
+          if (text.startsWith('http')) {
             e.preventDefault();
             e.stopPropagation();
             if (['image', 'video', 'audio'].includes(mediaType(text))) {
