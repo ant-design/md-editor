@@ -1,8 +1,4 @@
-﻿import {
-  MarkdownEditor,
-  MarkdownEditorInstance,
-  parserMdToSchema,
-} from '@ant-design/md-editor';
+﻿import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import React from 'react';
 
@@ -25,9 +21,8 @@ export default () => {
             <Button
               key="插入"
               onClick={() => {
-                tabRef.current?.store.insertNodes(
-                  parserMdToSchema(
-                    `# 标题
+                tabRef.current?.store.setMDContent(
+                  `# 标题
 **粗体**
 *斜体*
 ~~删除线~~
@@ -37,7 +32,6 @@ export default () => {
 \`\`\`
 - 无序列表
 1. 有序列表`,
-                  ).schema,
                 );
               }}
             >

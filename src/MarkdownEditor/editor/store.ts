@@ -276,8 +276,14 @@ export class EditorStore {
    */
   setMDContent(md: string) {
     const nodeList = parserMdToSchema(md).schema;
-    this.clearContent();
-    Transforms.insertNodes(this.editor, nodeList);
+    Transforms.removeNodes(this.editor, {
+      at: [],
+    });
+    const endPoint = Editor.end(this.editor, []);
+
+    Transforms.insertNodes(this.editor, nodeList, {
+      at: Editor.after(this.editor, endPoint),
+    });
   }
 
   /**
