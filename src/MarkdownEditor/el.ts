@@ -140,7 +140,7 @@ export type AttachNode = {
   url: string;
 };
 
-export type SchemaNode = {
+export type SchemaNode<T> = {
   type: 'schema' | 'apaasify';
   children: {
     type: 'code-line';
@@ -148,13 +148,13 @@ export type SchemaNode = {
     num?: number;
   }[];
   otherProps?: {
-    className?: string;
     highlight?: boolean;
     language?: string;
     render?: boolean;
+
     frontmatter?: boolean;
-  };
-  value: Record<string, any>;
+  } & T;
+  value: Record<string, any> | Record<string, any>[];
   language?: string;
   render?: boolean;
   frontmatter?: boolean;

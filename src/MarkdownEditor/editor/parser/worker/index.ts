@@ -471,11 +471,22 @@ const parserBlock = (
           json = n.value as any;
         }
         const isSchema = n.lang === 'schema' || n.lang === 'apaasify';
+
+        // @ts-ignore
+        const config =
+          // @ts-ignore
+          preNode?.type === 'code' && // @ts-ignore
+          preNode?.language === 'html' && // @ts-ignore
+          preNode?.otherProps
+            ? // @ts-ignore
+              preNode?.otherProps
+            : {};
         el = {
           type: isSchema ? n.lang : 'code',
           language: n.lang,
           render: n.meta === 'render',
           value: isSchema ? json : n.value,
+          otherProps: config,
           children: isSchema
             ? [
                 {

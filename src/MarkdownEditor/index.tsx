@@ -75,6 +75,7 @@ export type MarkdownEditorProps = {
    * 样式
    */
   style?: React.CSSProperties;
+  contentStyle?: React.CSSProperties;
   /**
    * 是否显示目录
    */
@@ -123,6 +124,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     toc = true,
     readonly,
     style,
+    contentStyle,
     height,
     ...rest
   } = props;
@@ -203,6 +205,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             overflow: 'auto',
             display: 'flex',
             gap: 24,
+            ...contentStyle,
           }}
           ref={(dom) => {
             instance.store.setState((state) => (state.container = dom));

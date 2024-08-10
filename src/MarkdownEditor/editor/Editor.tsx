@@ -3,7 +3,7 @@ import { action, runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
-import { Editable, Slate } from 'slate-react';
+import { Editable, RenderElementProps, Slate } from 'slate-react';
 import { IFileItem, MarkdownEditorProps } from '../index';
 import { MElement, MLeaf } from './elements';
 import { htmlParser } from './plugins/htmlParser';
@@ -34,7 +34,7 @@ export const MEditor = observer(
     const value = useRef<any[]>([EditorUtils.p]);
     const saveTimer = useRef(0);
     const nodeRef = useRef<IFileItem>();
-    const elementRenderElement = useCallback((props: any) => {
+    const elementRenderElement = useCallback((props: RenderElementProps) => {
       const defaultDom = <MElement {...props} children={props.children} />;
       if (!eleItemRender) return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
