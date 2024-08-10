@@ -1,4 +1,4 @@
-import { BaseEditor, BaseElement, Element } from 'slate';
+import { BaseEditor, BaseElement } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
@@ -140,6 +140,27 @@ export type AttachNode = {
   url: string;
 };
 
+export type SchemaNode = {
+  type: 'schema' | 'apaasify';
+  children: {
+    type: 'code-line';
+    children: BaseElement['children'];
+    num?: number;
+  }[];
+  otherProps?: {
+    className?: string;
+    highlight?: boolean;
+    language?: string;
+    render?: boolean;
+    frontmatter?: boolean;
+  };
+  value: Record<string, any>;
+  language?: string;
+  render?: boolean;
+  frontmatter?: boolean;
+  h?: number;
+};
+
 export type Elements =
   | CodeNode
   | CodeLineNode
@@ -200,6 +221,6 @@ declare module 'slate' {
   }
 }
 
-export interface ElementProps<T = Element> extends RenderElementProps {
+export interface ElementProps<T = Elements> extends RenderElementProps {
   element: T;
 }

@@ -13,10 +13,10 @@ import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
-import { ReactEditor, RenderElementProps } from 'slate-react';
+import { ReactEditor } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
 import { ToolBar } from './editor/tools/ToolBar';
-import { Elements } from './el';
+import { ElementProps, Elements } from './el';
 import './index.css';
 
 export { EditorUtils, parserMdToSchema };
@@ -97,7 +97,7 @@ export type MarkdownEditorProps = {
    * @returns
    */
   eleItemRender?: (
-    props: RenderElementProps,
+    props: ElementProps,
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
   initSchemaValue?: Elements[];
