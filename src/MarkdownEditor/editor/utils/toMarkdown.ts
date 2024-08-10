@@ -14,13 +14,13 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
   const newParent = [...parent, node];
   switch (node.type) {
     case 'paragraph':
-      str += preString + toMarkdown(node.children, preString, newParent);
+      str += preString + schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'head':
       str +=
         '#'.repeat(node.level) +
         ' ' +
-        toMarkdown(node.children, preString, newParent);
+        schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'code':
       const code = node.children
@@ -45,7 +45,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }">${node.name}</a>`;
       break;
     case 'blockquote':
-      str += toMarkdown(node.children, preString, newParent);
+      str += schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'media':
       let url = node.url;
@@ -81,10 +81,10 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }
       break;
     case 'list':
-      str += toMarkdown(node.children, preString, newParent);
+      str += schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'list-item':
-      str += toMarkdown(node.children, preString, newParent);
+      str += schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'table':
       str += table(node, preString, newParent);
@@ -105,7 +105,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
   return str;
 };
 
-export const toMarkdown = (
+export const schemaToMarkdown = (
   tree: any[],
   preString = '',
   parent: any[] = [{ root: true }],
@@ -268,7 +268,7 @@ const table = (el: TableNode, preString = '', parent: any[]) => {
     if (c.type === 'table-row') {
       for (let n of c.children) {
         if (n.type === 'table-cell') {
-          row.push(toMarkdown(n.children, '', [...parent, n]));
+          row.push(schemaToMarkdown(n.children, '', [...parent, n]));
         }
       }
     }

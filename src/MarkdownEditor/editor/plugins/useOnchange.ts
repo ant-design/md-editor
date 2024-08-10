@@ -13,7 +13,7 @@ import {
 } from 'slate';
 import { Elements } from '../../el';
 import { EditorStore } from '../store';
-import { toMarkdown } from '../utils';
+import { schemaToMarkdown } from '../utils';
 
 export const selChange$ = new Subject<{
   sel: BaseSelection;
@@ -30,7 +30,7 @@ export function useOnchange(
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
       if (onChange) {
-        onChange(toMarkdown(_value), _value);
+        onChange(schemaToMarkdown(_value), _value);
       }
       const sel = editor.selection;
       const [node] = Editor.nodes<Element>(editor, {

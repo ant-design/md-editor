@@ -23,6 +23,7 @@ import { openMenus } from './components/Menu';
 import { parserMdToSchema } from './parser/parser';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
+import { schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
@@ -274,6 +275,8 @@ export class EditorStore {
    * @param md
    */
   setMDContent(md: string) {
+    if (!md) return;
+    if (md === schemaToMarkdown(this.editor.children)) return;
     const nodeList = parserMdToSchema(md).schema;
     Transforms.removeNodes(this.editor, {
       at: [],
