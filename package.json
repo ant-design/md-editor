@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/md-editor",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": " 一个增强 markdown 的工具，可以将 markdown 转换为 JSON Schema",
   "repository": "git@github.com:ant-design/md-editor.git",
   "license": "MIT",
