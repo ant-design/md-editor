@@ -1,9 +1,33 @@
 ﻿import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
 import { Button } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default () => {
   const tabRef = React.useRef<MarkdownEditorInstance>();
+  useEffect(() => {
+    const insertMarkdown = () => {
+      setTimeout(() => {
+        tabRef.current?.store.setMDContent(
+          `# 标题
+  **粗体**
+  *斜体*
+  ~~删除线~~
+  \`行内代码\`
+  \`\`\`js
+  // 代码块
+  \`\`\`
+  - 无序列表
+  1. 有序列表`,
+        );
+        setTimeout(() => {
+          tabRef.current?.store.setMDContent('## 你好');
+        }, 1000);
+
+        insertMarkdown();
+      }, 2000);
+    };
+    insertMarkdown();
+  }, []);
   return (
     <div
       style={{

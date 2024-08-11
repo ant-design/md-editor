@@ -278,9 +278,7 @@ export class EditorStore {
     if (!md) return;
     if (md === schemaToMarkdown(this.editor.children)) return;
     const nodeList = parserMdToSchema(md).schema;
-    Transforms.removeNodes(this.editor, {
-      at: [],
-    });
+    this.editor.children = [];
     const endPoint = Editor.end(this.editor, []);
 
     Transforms.insertNodes(this.editor, nodeList, {

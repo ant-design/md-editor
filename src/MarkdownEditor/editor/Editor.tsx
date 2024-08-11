@@ -215,7 +215,6 @@ export const MEditor = observer(
           insertMarkdownNodes(editor, text);
           e.stopPropagation();
           e.preventDefault();
-          console.log('paste markdown');
           return;
         }
 
@@ -292,10 +291,7 @@ export const MEditor = observer(
               store.insertLink(text);
             }
           }
-          console.log('paste http');
-        } catch (e) {
-          console.log('paste text error', text, e);
-        }
+        } catch (e) {}
 
         const [node] = Editor.nodes<Elements>(editor, {
           match: (n) => Element.isElement(n) && n.type === 'code',
