@@ -163,6 +163,8 @@ export type SchemaNode<T> = {
 
 export type Elements =
   | CodeNode
+  | DescriptionNode
+  | SchemaNode<{ valueType: string }>
   | CodeLineNode
   | ParagraphNode
   | TableNode

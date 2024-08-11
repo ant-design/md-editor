@@ -7,7 +7,7 @@ import { parserMdToSchema } from '../parser/parser';
  * @param markdown
  * @returns
  */
-export const markdownParser = (editor: Editor, markdown: string) => {
+export const insertMarkdownNodes = (editor: Editor, markdown: string) => {
   const nodes = JSON.parse(JSON.stringify(parserMdToSchema(markdown).schema));
 
   nodes.push({ type: 'paragraph', children: [{ text: '' }] });

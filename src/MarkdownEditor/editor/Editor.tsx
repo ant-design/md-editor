@@ -4,10 +4,10 @@ import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, RenderElementProps, Slate } from 'slate-react';
-import { IFileItem, MarkdownEditorProps } from '../index';
+import { Elements, IFileItem, MarkdownEditorProps } from '../index';
 import { MElement, MLeaf } from './elements';
-import { htmlParser } from './plugins/htmlParser';
-import { markdownParser } from './plugins/markdownParser';
+import { insertHtmlNodes } from './plugins/htmlParser';
+import { insertMarkdownNodes } from './plugins/markdownParser';
 import { clearAllCodeCache } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -191,12 +191,32 @@ export const MEditor = observer(
 
         if (!text) return;
 
-        if (isMarkdown(text)) {
-          if (markdownParser(editor, text)) {
-            e.stopPropagation();
-            e.preventDefault();
+        const selection = store.editor.selection;
+
+        // 如果是表格或者代码块，直接插入文本
+        if (selection?.focus) {
+          const rangeNodes = Editor.node(editor, [selection.focus.path.at(0)!]);
+          const rangeNode = rangeNodes.at(0) as Elements;
+          if (
+            rangeNode.type === 'table-cell' ||
+            rangeNode.type === 'table-row' ||
+            rangeNode.type === 'table' ||
+            rangeNode.type === 'code' ||
+            rangeNode.type === 'schema' ||
+            rangeNode.type === 'apaasify' ||
+            rangeNode.type === 'description'
+          ) {
+            Transforms.insertText(editor, text);
             return;
           }
+        }
+
+        if (isMarkdown(text)) {
+          insertMarkdownNodes(editor, text);
+          e.stopPropagation();
+          e.preventDefault();
+          console.log('paste markdown');
+          return;
         }
 
         try {
@@ -272,14 +292,15 @@ export const MEditor = observer(
               store.insertLink(text);
             }
           }
+          console.log('paste http');
         } catch (e) {
           console.log('paste text error', text, e);
         }
 
-        //@ts-ignore
-        const [node] = Editor.nodes<Element>(editor, {
+        const [node] = Editor.nodes<Elements>(editor, {
           match: (n) => Element.isElement(n) && n.type === 'code',
         });
+
         if (node) {
           Transforms.insertFragment(
             editor,
@@ -302,7 +323,7 @@ export const MEditor = observer(
           const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
           let paste = await pasteItem?.text();
           if (paste) {
-            htmlParser(editor, paste);
+            insertHtmlNodes(editor, paste);
             return;
           }
         } catch (error) {}

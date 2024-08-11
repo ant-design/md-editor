@@ -225,7 +225,7 @@ const processFragment = (fragment: any[], parentType = '') => {
  * @param html
  * @returns
  */
-export const htmlParser = (editor: Editor, html: string) => {
+export const insertHtmlNodes = (editor: Editor, html: string) => {
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;

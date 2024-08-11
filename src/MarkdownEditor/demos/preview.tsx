@@ -98,7 +98,7 @@ export default () => {
       height={'100vh'}
       initValue={defaultValue}
       onChange={(e) => {
-        console.log('onChange', e);
+        // console.log('onChange', e);
       }}
     />
   );
