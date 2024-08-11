@@ -322,7 +322,9 @@ export const MEditor = observer(
             insertHtmlNodes(editor, paste);
             return;
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log('error', error);
+        }
 
         Transforms.removeNodes(editor, {
           at: editor.selection!,
