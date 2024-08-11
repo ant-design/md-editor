@@ -319,8 +319,12 @@ export const MEditor = observer(
           const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
           let paste = await pasteItem?.text();
           if (paste) {
-            insertHtmlNodes(editor, paste);
-            return;
+            const success = insertHtmlNodes(editor, paste);
+            if (success) {
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
           }
         } catch (error) {
           console.log('error', error);
@@ -330,10 +334,7 @@ export const MEditor = observer(
           at: editor.selection!,
           match: (n) => n.type === 'media' || n.type === 'attach',
         });
-        Transforms.insertNodes(editor, {
-          type: 'paragraph',
-          children: [{ text }],
-        });
+        Transforms.insertText(editor, text);
       },
       [note],
     );
