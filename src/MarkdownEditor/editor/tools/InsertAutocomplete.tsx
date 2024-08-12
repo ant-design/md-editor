@@ -1,7 +1,6 @@
 import {
   CheckSquareOutlined,
   CodeOutlined,
-  FileAddOutlined,
   FontSizeOutlined,
   OrderedListOutlined,
   PlayCircleOutlined,
@@ -114,12 +113,6 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           key: 'localeImage',
           args: ['', true],
           icon: <ImageIcon />,
-        },
-        {
-          label: ['附件', 'Attachment'],
-          task: 'attachment',
-          key: 'attachment',
-          icon: <FileAddOutlined className={'text-base'} />,
         },
       ],
     },
@@ -428,6 +421,7 @@ export const InsertAutocomplete = observer(() => {
         [] as InsertOptions['children'],
       );
     }
+    console.log(options);
     setState({
       index: 0,
       text: tempText,
@@ -525,45 +519,60 @@ export const InsertAutocomplete = observer(() => {
           </div>
           {state.filterOptions.map((l, i) => (
             <React.Fragment key={l.key}>
-              {i !== 0 && (
-                <Divider
-                  style={{
-                    margin: '4px 0',
-                    color: 'rgba(0,0,0,0.1)',
-                  }}
-                />
-              )}
-              {l.children.map((el) => (
-                <div
-                  className={`${baseClassName}-item`}
-                  key={el.key}
-                  data-action={el.key}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    insert(state.options[state.index]);
-                  }}
-                  onMouseEnter={() => {
-                    setState({
-                      index: state.options.findIndex((op) => op.key === el.key),
-                    });
-                  }}
-                  style={{
-                    borderRadius: 4,
-                    padding: '4px 8px',
-                    color: 'rgba(0,0,0,0.8)',
-                    fontSize: 14,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 4,
-                    backgroundColor:
-                      el.key === selectedKey ? 'rgba(0,0,0,0.1)' : '',
-                  }}
-                >
-                  {el.icon}
-                  <span>{el.label[0]}</span>
-                </div>
-              ))}
+              {i !== 0 &&
+                l.children.filter((o) => {
+                  if (!store.editorProps?.image && o.task === 'uploadImage') {
+                    return false;
+                  }
+                  return true;
+                }).length > 0 && (
+                  <Divider
+                    style={{
+                      margin: '4px 0',
+                      color: 'rgba(0,0,0,0.1)',
+                    }}
+                  />
+                )}
+              {l.children
+                .filter((o) => {
+                  if (!store.editorProps?.image && o.task === 'uploadImage') {
+                    return false;
+                  }
+                  return true;
+                })
+                .map((el) => (
+                  <div
+                    className={`${baseClassName}-item`}
+                    key={el.key}
+                    data-action={el.key}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      insert(state.options[state.index]);
+                    }}
+                    onMouseEnter={() => {
+                      setState({
+                        index: state.options.findIndex(
+                          (op) => op.key === el.key,
+                        ),
+                      });
+                    }}
+                    style={{
+                      borderRadius: 4,
+                      padding: '4px 8px',
+                      color: 'rgba(0,0,0,0.8)',
+                      fontSize: 14,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 4,
+                      backgroundColor:
+                        el.key === selectedKey ? 'rgba(0,0,0,0.1)' : '',
+                    }}
+                  >
+                    {el.icon}
+                    <span>{el.label[0]}</span>
+                  </div>
+                ))}
             </React.Fragment>
           ))}
         </>

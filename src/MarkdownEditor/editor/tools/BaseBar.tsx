@@ -110,11 +110,7 @@ export const BaseToolBar = observer(
         return;
       }
       const path = node[1];
-      if (
-        op.task === 'image' ||
-        op.task === 'uploadImage' ||
-        op.task === 'attachment'
-      ) {
+      if (op.task === 'uploadImage') {
         keyTask$.next({
           key: op.task,
           args: op.args,
@@ -152,6 +148,12 @@ export const BaseToolBar = observer(
             })
               .map((o) => o.children)
               .flat(1)
+              .filter((o) => {
+                if (!store.editorProps?.image && o.task === 'uploadImage') {
+                  return false;
+                }
+                return true;
+              })
           : [],
       [],
     );
@@ -193,26 +195,21 @@ export const BaseToolBar = observer(
             </div>
           </Dropdown>
         ) : null}
-        {insertOptions
-          .filter(
-            //@ts-ignore
-            (item) => item.task !== 'image' && item.task !== 'attachment',
-          )
-          .map((t) => {
-            return (
-              <div
-                role="button"
-                key={t.key}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  insert(t);
-                }}
-                className={`${baseClassName}-item`}
-              >
-                {t.icon}
-              </div>
-            );
-          })}
+        {insertOptions.map((t) => {
+          return (
+            <div
+              role="button"
+              key={t.key}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                insert(t);
+              }}
+              className={`${baseClassName}-item`}
+            >
+              {t.icon}
+            </div>
+          );
+        })}
         {insertOptions.length > 0 && (
           <Divider
             type="vertical"

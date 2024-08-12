@@ -349,21 +349,25 @@ export const MEditor = observer(
                 at: store.editor.selection.focus.path!,
               });
             }
-
-            Transforms.insertNodes(
-              store.editor,
-              {
-                type: 'media',
-                url,
-                children: [{ text: '' }],
-              },
-              {
-                select: true,
-                at: selection
-                  ? Editor.after(store.editor, selection.focus.path)!
-                  : Editor.end(store.editor, []),
-              },
-            );
+            [url].flat(1).forEach((u) => {
+              Transforms.insertNodes(
+                store.editor,
+                {
+                  type: 'media',
+                  url: u,
+                  children: [{ text: '' }],
+                },
+                {
+                  select: true,
+                  at: store.editor.selection
+                    ? Editor.after(
+                        store.editor,
+                        store.editor.selection.focus.path,
+                      )!
+                    : Editor.end(store.editor, []),
+                },
+              );
+            });
             e.preventDefault();
             e.stopPropagation();
             return;
@@ -437,7 +441,6 @@ export const MEditor = observer(
       return store.focus || !childrenIsEmpty ? 'focus' : '';
     }, [store.readonly, store.focus, !childrenIsEmpty]);
 
-    console.log('render editor', editor.children);
     return (
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <Editable

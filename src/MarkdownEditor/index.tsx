@@ -171,6 +171,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // 初始化 readonly
   useEffect(() => {
     instance.store.readonly = readonly || false;
+    instance.store.editorProps = props;
   }, [readonly]);
 
   return (
@@ -204,6 +205,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             padding: props.readonly ? '8px' : '24px 24px',
             overflow: 'auto',
             display: 'flex',
+            position: 'relative',
             gap: 24,
             ...contentStyle,
           }}

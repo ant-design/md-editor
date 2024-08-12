@@ -18,6 +18,7 @@ import { withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
+import { MarkdownEditorProps } from '..';
 import { ChartNode, MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
 import { parserMdToSchema } from './parser/parser';
@@ -75,6 +76,7 @@ export class EditorStore {
   container: null | HTMLDivElement = null;
   history = false;
   inputComposition = false;
+  editorProps: MarkdownEditorProps = {};
   tableTask$ = new Subject<string>();
 
   get doc() {
