@@ -437,6 +437,7 @@ export const MEditor = observer(
       return store.focus || !childrenIsEmpty ? 'focus' : '';
     }, [store.readonly, store.focus, !childrenIsEmpty]);
 
+    console.log('render editor', editor.children);
     return (
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <Editable

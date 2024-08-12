@@ -6,9 +6,8 @@ export default () => {
   const tabRef = React.useRef<MarkdownEditorInstance>();
   useEffect(() => {
     const insertMarkdown = () => {
-      setTimeout(() => {
-        tabRef.current?.store.setMDContent(
-          `# 标题
+      tabRef.current?.store.setMDContent(
+        `# 标题
   **粗体**
   *斜体*
   ~~删除线~~
@@ -18,8 +17,7 @@ export default () => {
   \`\`\`
   - 无序列表
   1. 有序列表`,
-        );
-      }, 2000);
+      );
     };
     insertMarkdown();
   }, []);
@@ -42,15 +40,7 @@ export default () => {
               onClick={() => {
                 tabRef.current?.store.setMDContent(
                   `# 标题
-**粗体**
-*斜体*
-~~删除线~~
-\`行内代码\`
-\`\`\`js
-// 代码块
-\`\`\`
-- 无序列表
-1. 有序列表`,
+**粗体**`,
                 );
               }}
             >
@@ -60,17 +50,10 @@ export default () => {
         }}
         image={{
           upload: async (fileList) => {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
               const file = fileList[0];
-              const reader = new FileReader();
-              reader.addEventListener('load', () => {
-                const base64 = reader.result?.toString() || '';
-                resolve(base64);
-              });
-              reader.addEventListener('error', () => {
-                reject(new Error('message'));
-              });
-              reader.readAsDataURL(file);
+              const url = URL.createObjectURL(file);
+              resolve(url);
             });
           },
         }}

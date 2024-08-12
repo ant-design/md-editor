@@ -110,9 +110,15 @@ export const BaseToolBar = observer(
         return;
       }
       const path = node[1];
-
-      if (op.task === 'image' || op.task === 'attachment') {
-        return;
+      if (
+        op.task === 'image' ||
+        op.task === 'uploadImage' ||
+        op.task === 'attachment'
+      ) {
+        keyTask$.next({
+          key: op.task,
+          args: op.args,
+        });
       } else if (op) {
         Transforms.insertText(store.editor, '', {
           at: {

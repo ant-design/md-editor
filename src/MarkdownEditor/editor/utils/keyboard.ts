@@ -173,19 +173,23 @@ export class KeyboardTask {
         [];
       if (Array.isArray(url)) {
         for (let u of url) {
-          Transforms.insertNodes(this.editor, {
-            type: 'media',
-            url: u,
-            children: [{ text: '' }],
-          });
+          Transforms.insertNodes(this.editor, [
+            {
+              type: 'media',
+              url: u,
+              children: [{ text: '' }],
+            },
+          ]);
         }
       }
       if (typeof url === 'string') {
-        Transforms.insertNodes(this.editor, {
-          type: 'media',
-          url: url,
-          children: [{ text: '' }],
-        });
+        Transforms.insertNodes(this.editor, [
+          {
+            type: 'media',
+            url: url,
+            children: [{ text: '' }],
+          },
+        ]);
       }
     };
     input.click();
