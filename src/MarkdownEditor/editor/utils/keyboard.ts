@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import isHotkey from 'is-hotkey';
 import { action, runInAction } from 'mobx';
 import { useCallback, useEffect } from 'react';
@@ -168,28 +169,38 @@ export class KeyboardTask {
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = async (e: any) => {
-      const url =
-        (await this.props?.image?.upload?.(Array.from(e.target.files) || [])) ||
-        [];
-      if (Array.isArray(url)) {
-        for (let u of url) {
+      const hideLoading = message.loading('Uploading...');
+      try {
+        const url =
+          (await this.props?.image?.upload?.(
+            Array.from(e.target.files) || [],
+          )) || [];
+        if (Array.isArray(url)) {
+          for (let u of url) {
+            Transforms.insertNodes(this.editor, [
+              {
+                type: 'media',
+                url: u,
+                children: [{ text: '' }],
+              },
+            ]);
+          }
+        }
+
+        if (typeof url === 'string') {
           Transforms.insertNodes(this.editor, [
             {
               type: 'media',
-              url: u,
+              url: url,
               children: [{ text: '' }],
             },
           ]);
         }
-      }
-      if (typeof url === 'string') {
-        Transforms.insertNodes(this.editor, [
-          {
-            type: 'media',
-            url: url,
-            children: [{ text: '' }],
-          },
-        ]);
+        message.success('Upload success');
+      } catch (error) {
+      } finally {
+        hideLoading();
+        input.value = '';
       }
     };
     input.click();

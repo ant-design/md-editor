@@ -1,4 +1,5 @@
 /* eslint-disable react/no-children-prop */
+import { message } from 'antd';
 import { action, runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -340,34 +341,42 @@ export const MEditor = observer(
         try {
           const urlBlob = await pasteImage();
           if (urlBlob) {
-            const url =
-              (await props.instance.editorProps?.image?.upload?.(
-                [new File([urlBlob], 'inline.png')] || [],
-              )) || [];
-            if (store.editor.selection?.focus.path) {
-              Transforms.delete(store.editor, {
-                at: store.editor.selection.focus.path!,
+            const hideLoading = message.loading('Uploading...');
+            try {
+              const url =
+                (await props.instance.editorProps?.image?.upload?.(
+                  [new File([urlBlob], 'inline.png')] || [],
+                )) || [];
+              if (store.editor.selection?.focus.path) {
+                Transforms.delete(store.editor, {
+                  at: store.editor.selection.focus.path!,
+                });
+              }
+              [url].flat(1).forEach((u) => {
+                Transforms.insertNodes(
+                  store.editor,
+                  {
+                    type: 'media',
+                    url: u,
+                    children: [{ text: '' }],
+                  },
+                  {
+                    select: true,
+                    at: store.editor.selection
+                      ? Editor.after(
+                          store.editor,
+                          store.editor.selection.focus.path,
+                        )!
+                      : Editor.end(store.editor, []),
+                  },
+                );
               });
+              message.success('Upload success');
+            } catch (error) {
+            } finally {
+              hideLoading();
             }
-            [url].flat(1).forEach((u) => {
-              Transforms.insertNodes(
-                store.editor,
-                {
-                  type: 'media',
-                  url: u,
-                  children: [{ text: '' }],
-                },
-                {
-                  select: true,
-                  at: store.editor.selection
-                    ? Editor.after(
-                        store.editor,
-                        store.editor.selection.focus.path,
-                      )!
-                    : Editor.end(store.editor, []),
-                },
-              );
-            });
+
             e.preventDefault();
             e.stopPropagation();
             return;
