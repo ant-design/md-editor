@@ -19,11 +19,6 @@ export default () => {
   - 无序列表
   1. 有序列表`,
         );
-        setTimeout(() => {
-          tabRef.current?.store.setMDContent('## 你好');
-        }, 1000);
-
-        insertMarkdown();
       }, 2000);
     };
     insertMarkdown();

@@ -17,7 +17,7 @@ export const EditorFrame = observer(
     if (!instance.current) return null as React.ReactNode;
     return (
       <div className="markdown-editor-content" style={{ flex: 1 }}>
-        <MEditor note={instance.current} {...props} />
+        <MEditor instance={instance} note={instance.current} {...props} />
         {readonly ? (
           <></>
         ) : (

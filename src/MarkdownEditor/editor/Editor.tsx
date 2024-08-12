@@ -4,7 +4,12 @@ import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, RenderElementProps, Slate } from 'slate-react';
-import { Elements, IFileItem, MarkdownEditorProps } from '../index';
+import {
+  Elements,
+  IFileItem,
+  MarkdownEditorInstance,
+  MarkdownEditorProps,
+} from '../index';
 import { MElement, MLeaf } from './elements';
 import { insertHtmlNodes } from './plugins/htmlParser';
 import { insertMarkdownNodes } from './plugins/markdownParser';
@@ -17,6 +22,22 @@ import { mediaType } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
 
+async function pasteImage(): Promise<Blob | false> {
+  try {
+    const clipboardContents = await navigator.clipboard.read();
+    for (const item of clipboardContents) {
+      if (!item.types.includes('image/png')) {
+        return false;
+      }
+      const blob = await item.getType('image/png');
+      return blob;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return false;
+}
+
 export const MEditor = observer(
   ({
     note,
@@ -26,6 +47,7 @@ export const MEditor = observer(
     note: IFileItem;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
+    instance: MarkdownEditorInstance;
   }) => {
     const store = useEditorStore();
 
@@ -184,14 +206,15 @@ export const MEditor = observer(
       async (e: React.ClipboardEvent<HTMLDivElement>) => {
         e.stopPropagation();
         e.preventDefault();
-        if (!Range.isCollapsed(store.editor.selection!)) {
-          Transforms.delete(store.editor, { at: store.editor.selection! });
-        }
-        const text = await navigator.clipboard.readText();
 
-        if (!text) return;
+        if (!Range.isCollapsed(store.editor.selection!)) {
+          if (store.editor.selection) {
+            Transforms.delete(store.editor, { at: store.editor.selection! });
+          }
+        }
 
         const selection = store.editor.selection;
+        const text = await navigator.clipboard.readText();
 
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
@@ -313,10 +336,34 @@ export const MEditor = observer(
           return;
         }
 
-        const clipboardItems = await navigator.clipboard.read();
-
         try {
+          const urlBlob = await pasteImage();
+          if (urlBlob) {
+            const url =
+              (await props.instance.editorProps?.image?.upload?.(
+                [new File([urlBlob], 'inline.png')] || [],
+              )) || [];
+            Transforms.insertNodes(
+              store.editor,
+              {
+                type: 'media',
+                url,
+                children: [{ text: '' }],
+              },
+              {
+                select: true,
+                at: selection
+                  ? selection.focus.path!
+                  : Editor.end(store.editor, []),
+              },
+            );
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+          const clipboardItems = await navigator.clipboard.read();
           const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
+
           let paste = await pasteItem?.text();
           if (paste) {
             const success = insertHtmlNodes(editor, paste);
