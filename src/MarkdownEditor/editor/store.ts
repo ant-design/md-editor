@@ -297,7 +297,7 @@ export class EditorStore {
 
   dragStart(e: React.DragEvent) {
     e.stopPropagation();
-    this.readonly = true;
+    console.log(e);
     type MovePoint = {
       el: HTMLDivElement;
       direction: 'top' | 'bottom';

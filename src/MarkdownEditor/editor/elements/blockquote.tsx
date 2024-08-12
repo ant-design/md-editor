@@ -6,7 +6,11 @@ export function Blockquote(props: ElementProps<BlockQuoteNode>) {
   const store = useEditorStore();
   return React.useMemo(
     () => (
-      <blockquote data-be={'blockquote'} {...props.attributes}>
+      <blockquote
+        data-be={'blockquote'}
+        {...props.attributes}
+        onDragStart={(e) => store.dragStart(e)}
+      >
         {props.children}
       </blockquote>
     ),

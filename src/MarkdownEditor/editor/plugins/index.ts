@@ -3,7 +3,7 @@ import { EditorStore } from '../store';
 
 export const inlineNode = new Set(['break']);
 
-const voidNode = new Set(['hr', 'break', 'schema', 'apaasify']);
+const voidNode = new Set(['hr', 'break']);
 
 export const withMarkdown = (editor: Editor, store: EditorStore) => {
   const { isInline, isVoid, apply } = editor;

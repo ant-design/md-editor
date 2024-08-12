@@ -208,7 +208,7 @@ export const MEditor = observer(
         e.preventDefault();
 
         if (!Range.isCollapsed(store.editor.selection!)) {
-          if (store.editor.selection) {
+          if (store.editor.selection && store.editor.selection.anchor) {
             Transforms.delete(store.editor, { at: store.editor.selection! });
           }
         }
@@ -219,6 +219,7 @@ export const MEditor = observer(
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
           const rangeNodes = Editor.node(editor, [selection.focus.path.at(0)!]);
+          if (!rangeNodes) return;
           const rangeNode = rangeNodes.at(0) as Elements;
           if (
             rangeNode.type === 'table-cell' ||
@@ -343,6 +344,12 @@ export const MEditor = observer(
               (await props.instance.editorProps?.image?.upload?.(
                 [new File([urlBlob], 'inline.png')] || [],
               )) || [];
+            if (store.editor.selection?.focus.path) {
+              Transforms.delete(store.editor, {
+                at: store.editor.selection.focus.path!,
+              });
+            }
+
             Transforms.insertNodes(
               store.editor,
               {
@@ -353,7 +360,7 @@ export const MEditor = observer(
               {
                 select: true,
                 at: selection
-                  ? selection.focus.path!
+                  ? Editor.after(store.editor, selection.focus.path)!
                   : Editor.end(store.editor, []),
               },
             );

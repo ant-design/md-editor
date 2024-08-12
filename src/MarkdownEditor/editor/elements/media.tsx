@@ -2,9 +2,9 @@ import { Image } from 'antd';
 import React, { useCallback, useLayoutEffect } from 'react';
 import { useGetSetState } from 'react-use';
 import { Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
+import { DragHandle } from '../tools/DragHandle';
 import { mediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 
@@ -67,21 +67,18 @@ export function Media({
   return (
     <div {...attributes}>
       <div
-        data-be={'media'}
+        className={'drag-el'}
+        data-be="media"
         style={{
+          cursor: 'pointer',
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
         }}
+        onDragStart={(e) => store.dragStart(e)}
         draggable={true}
         onContextMenu={(e) => {
           e.stopPropagation();
-        }}
-        onDragStart={(e) => {
-          try {
-            store.dragStart(e);
-            store.dragEl = ReactEditor.toDOMNode(store.editor, element);
-          } catch (e) {}
         }}
         onMouseDown={(e) => {
           e.stopPropagation();
@@ -91,16 +88,18 @@ export function Media({
           EditorUtils.selectMedia(store, path);
         }}
       >
-        {state().type === 'image' && (
-          <div
-            style={{
-              color: 'transparent',
-              padding: 4,
-            }}
-            ref={htmlRef}
-            contentEditable={false}
-          >
-            <Image
+        <DragHandle />
+
+        <div
+          style={{
+            color: 'transparent',
+            padding: 4,
+          }}
+          ref={htmlRef}
+          contentEditable={false}
+        >
+          {!store?.readonly ? (
+            <img
               src={state().url}
               alt={'image'}
               referrerPolicy={'no-referrer'}
@@ -117,8 +116,17 @@ export function Media({
                 minHeight: 20,
               }}
             />
-          </div>
-        )}
+          ) : (
+            <Image
+              src={state().url}
+              alt={'image'}
+              referrerPolicy={'no-referrer'}
+              crossOrigin={'anonymous'}
+              draggable={false}
+              width={'100%'}
+            />
+          )}
+        </div>
         <span
           style={{
             fontSize: (htmlRef.current?.clientHeight || 200) * 0.75,
