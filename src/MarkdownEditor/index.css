@@ -92,6 +92,14 @@
   font-weight: 500;
 }
 
+.markdown-editor-edit-area > p.empty:nth-child(2)::before {
+  cursor: text;
+  content: 'Please enter content';
+  display: block;
+  color: #bec0bf;
+  font-weight: 500;
+}
+
 .markdown-editor-edit-area > :first-child {
   margin-top: 0;
 }

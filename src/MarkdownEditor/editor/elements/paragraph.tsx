@@ -15,7 +15,7 @@ export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
       <p
         {...props.attributes}
         data-be={'paragraph'}
-        className={'drag-el'}
+        className={!str ? 'drag-el empty' : 'drag-el'}
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
       >
