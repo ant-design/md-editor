@@ -94,7 +94,7 @@
 
 .markdown-editor-edit-area > p.empty:nth-child(2)::before {
   cursor: text;
-  content: 'Please enter content';
+  content: 'Please enter content, press '/' for quick actions';
   display: block;
   color: #bec0bf;
   font-weight: 500;
