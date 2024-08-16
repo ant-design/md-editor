@@ -1,5 +1,6 @@
 import { Image } from 'antd';
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect, useRef } from 'react';
+import { ResizableBox } from 'react-resizable';
 import { useGetSetState } from 'react-use';
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
@@ -8,6 +9,80 @@ import { DragHandle } from '../tools/DragHandle';
 import { mediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 
+/**
+ * 修复图片大小的问题
+ * @param props
+ * @returns
+ */
+export const ResizeImage = (
+  props: React.ImgHTMLAttributes<HTMLImageElement> & {
+    onResizeStart?: (e: React.SyntheticEvent) => void;
+    onResizeStop?: (
+      e: React.SyntheticEvent,
+      size: {
+        width: number | string;
+        height: number | string;
+      },
+    ) => void;
+    supportResize?: boolean;
+    defaultSize?: {
+      width?: number;
+      height?: number;
+    };
+  },
+) => {
+  const radio = useRef<number>(1);
+  const [size, setSize] = React.useState({
+    width: props.defaultSize?.width || '100%',
+    height: props.defaultSize?.height || 'auto',
+  } as {
+    width: number | string;
+    height: number | string;
+  });
+  return (
+    <ResizableBox
+      onResizeStart={props.onResizeStart}
+      onResizeStop={(e) => {
+        props.onResizeStop?.(e, size);
+      }}
+      handle={!props.supportResize ? <div /> : undefined}
+      width={size.width as number}
+      height={size.height as number}
+      onResize={(_, { size }) => {
+        setSize({
+          width: size.width,
+          height: size.width / radio.current,
+        });
+      }}
+    >
+      <img
+        draggable={false}
+        onLoad={(e) => {
+          const width = (e.target as HTMLImageElement).clientWidth;
+          const height = (e.target as HTMLImageElement).clientHeight;
+          radio.current = width / height;
+          setSize({
+            width: (e.target as HTMLImageElement).clientWidth,
+            height: (e.target as HTMLImageElement).clientHeight,
+          });
+        }}
+        alt={'image'}
+        referrerPolicy={'no-referrer'}
+        crossOrigin={'anonymous'}
+        width={'100%'}
+        style={{
+          width: '100%',
+          height: 'auto',
+          position: 'relative',
+          zIndex: 99,
+          minWidth: 200,
+          minHeight: 20,
+        }}
+        {...props}
+      />
+    </ResizableBox>
+  );
+};
 export function Media({
   element,
   attributes,
@@ -24,7 +99,6 @@ export function Media({
     selected: false,
     type: mediaType(element.url),
   });
-
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
       Transforms.setNodes(store.editor, attr, { at: path });
@@ -76,7 +150,7 @@ export function Media({
           alignItems: 'center',
         }}
         onDragStart={(e) => store.dragStart(e)}
-        draggable={true}
+        draggable={!state().selected}
         onContextMenu={(e) => {
           e.stopPropagation();
         }}
@@ -89,31 +163,38 @@ export function Media({
         }}
       >
         <DragHandle />
-
         <div
+          onClick={() => {
+            setTimeout(() => {
+              setState({ selected: true });
+            }, 16);
+          }}
+          onBlur={() => {
+            setState({ selected: false });
+          }}
+          tabIndex={-1}
           style={{
             color: 'transparent',
             padding: 4,
           }}
           ref={htmlRef}
+          draggable={false}
           contentEditable={false}
         >
           {!store?.readonly ? (
-            <img
+            <ResizeImage
+              defaultSize={{
+                width: element.width,
+                height: element.height,
+              }}
+              supportResize={state().selected}
               src={state().url}
-              alt={'image'}
-              referrerPolicy={'no-referrer'}
-              crossOrigin={'anonymous'}
-              draggable={false}
-              width={'100%'}
-              style={{
-                display: state().loadSuccess ? 'block' : 'none',
-                width: '100%',
-                height: 'auto',
-                position: 'relative',
-                zIndex: 99,
-                minWidth: 200,
-                minHeight: 20,
+              onResizeStart={() => {
+                setState({ selected: true });
+              }}
+              onResizeStop={(_, size) => {
+                Transforms.setNodes(store.editor, size, { at: path });
+                setState({ selected: false });
               }}
             />
           ) : (
@@ -123,7 +204,8 @@ export function Media({
               referrerPolicy={'no-referrer'}
               crossOrigin={'anonymous'}
               draggable={false}
-              width={'100%'}
+              width={element.width}
+              height={element.height}
             />
           )}
         </div>

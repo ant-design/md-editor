@@ -4,7 +4,6 @@ import {
   FontSizeOutlined,
   OrderedListOutlined,
   PlayCircleOutlined,
-  SwapRightOutlined,
   TableOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
@@ -36,6 +35,21 @@ const ImageIcon = () => {
     >
       <path
         d="M320 627.2l29.866667-29.866667 29.866666 29.866667 64 64 149.333334-149.333333 29.866666-29.866667 29.866667 29.866667 196.266667 196.266666V298.666667H213.333333v435.2l106.666667-106.666667z m29.866667 29.866667L238.933333 768h136.533334l-4.266667-4.266667 42.666667-42.666666-64-64zM823.466667 768l-196.266667-196.266667-196.266667 196.266667h392.533334zM896 256v554.666667H170.666667V256h725.333333z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+};
+
+const Quote = () => {
+  return (
+    <svg viewBox="0 0 1024 1024" version="1.1" width="1em" height="1em">
+      <path
+        d="M128 472.896h341.344v341.344H128zM128 472.896L272.096 192h110.08l-144.128 280.896z"
+        fill="currentColor"
+      ></path>
+      <path
+        d="M544 472.896h341.344v341.344H544zM544 472.896L688.096 192h110.08l-144.128 280.896z"
         fill="currentColor"
       ></path>
     </svg>
@@ -93,7 +107,7 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           label: ['引用', 'Quote'],
           key: 'quote',
           task: 'insertQuote',
-          icon: <SwapRightOutlined className={'text-base'} />,
+          icon: <Quote />,
         },
         {
           label: ['代码', 'Code'],

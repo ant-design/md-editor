@@ -29,7 +29,7 @@
   top: 3px;
   display: block;
   cursor: text;
-  color: rgb(156 163 175 /0.45);
+  color: #d8dad9;
 }
 
 .markdown-editor-edit-area.focus [data-empty]:before {
@@ -53,26 +53,31 @@
 .markdown-editor-edit-area.focus h1[data-empty]::before {
   cursor: text;
   content: 'Please enter a title';
+  color: #bec0bf;
 }
 
 .markdown-editor-edit-area.focus h2[data-empty]::before {
   cursor: text;
   content: 'Please enter a title';
+  color: #bec0bf;
 }
 
 .markdown-editor-edit-area.focus h3[data-empty]::before {
   cursor: text;
   content: 'Please enter a title';
+  color: #bec0bf;
 }
 
 .markdown-editor-edit-area.focus h4[data-empty]::before {
   cursor: text;
   content: 'Please enter a title';
+  color: #bec0bf;
 }
 
 .markdown-editor-edit-area.focus h5[data-empty]::before {
   cursor: text;
   content: 'Please enter a title';
+  color: #bec0bf;
 }
 
 .markdown-editor-edit-area [data-empty]:before {
@@ -83,7 +88,7 @@
 .markdown-editor-edit-area > h1.empty:first-child::before {
   cursor: text;
   content: 'Please enter a title';
-  color: rgb(156 163 175 /0.45);
+  color: #bec0bf;
   font-weight: 500;
 }
 
@@ -961,4 +966,30 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 
 .chart-attr-toolbar .chart-attr-toolbar-item:hover {
   background-color: rgb(209 213 219 / 0.4);
+}
+
+.react-resizable {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.react-resizable-handle-hide {
+  display: none;
+}
+.react-resizable-handle {
+  position: absolute;
+  padding: 0 3px 3px 0;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  cursor: se-resize;
+  z-index: 9999;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  background-color: #2f8ef4;
+  border-radius: 10px;
+  bottom: -7px;
+  right: -7px;
+  pointer-events: all;
 }

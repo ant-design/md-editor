@@ -155,7 +155,7 @@ export const BaseToolBar = observer(
                 return true;
               })
           : [],
-      [],
+      [store.editorProps],
     );
     return (
       <div

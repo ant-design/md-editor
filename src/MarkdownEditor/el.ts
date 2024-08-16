@@ -126,6 +126,7 @@ export type MediaNode = {
   alt: string;
   downloadUrl?: string;
   height?: number;
+  width?: number;
   docId?: string;
   hash?: string;
   h?: number;
