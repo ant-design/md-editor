@@ -29,7 +29,7 @@
   top: 3px;
   display: block;
   cursor: text;
-  color: rgb(156 163 175 /0.85);
+  color: rgb(156 163 175 /0.45);
 }
 
 .markdown-editor-edit-area.focus [data-empty]:before {
@@ -52,31 +52,39 @@
 
 .markdown-editor-edit-area.focus h1[data-empty]::before {
   cursor: text;
-  content: 'Heading 1';
+  content: 'Please enter a title';
 }
 
 .markdown-editor-edit-area.focus h2[data-empty]::before {
   cursor: text;
-  content: 'Heading 2';
+  content: 'Please enter a title';
 }
 
 .markdown-editor-edit-area.focus h3[data-empty]::before {
   cursor: text;
-  content: 'Heading 3';
+  content: 'Please enter a title';
 }
 
 .markdown-editor-edit-area.focus h4[data-empty]::before {
   cursor: text;
-  content: 'Heading 4';
+  content: 'Please enter a title';
 }
 
 .markdown-editor-edit-area.focus h5[data-empty]::before {
   cursor: text;
-  content: 'Heading 5';
+  content: 'Please enter a title';
 }
 
 .markdown-editor-edit-area [data-empty]:before {
   display: none;
+}
+
+.markdown-editor-edit-area > h2.empty:first-child::before,
+.markdown-editor-edit-area > h1.empty:first-child::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: rgb(156 163 175 /0.45);
+  font-weight: 500;
 }
 
 .markdown-editor-edit-area > :first-child {

@@ -21,11 +21,11 @@ export function Head({
         ...attributes,
         id: slugify(str),
         ['data-be']: 'head',
-        className: 'drag-el',
         ['data-head']: slugify(Node.string(element) || ''),
         ['data-title']: path?.[0] === 0,
         onDragStart: store.dragStart,
         ['data-empty']: !str && selected ? 'true' : undefined,
+        className: !str ? 'drag-el empty' : 'drag-el',
       },
       <>
         <DragHandle />

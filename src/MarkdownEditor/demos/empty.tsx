@@ -7,7 +7,7 @@ export default () => {
   useEffect(() => {
     const insertMarkdown = () => {
       tabRef.current?.store.setMDContent(
-        `# 标题
+        `## 标题
   **粗体**
   *斜体*
   ~~删除线~~
