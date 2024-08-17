@@ -11,6 +11,7 @@ import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { Chart } from './chart';
 import { CodeCtx, CodeElement, CodeLine } from './code';
+import { ColumnCell, ColumnGroup } from './column';
 import { Description } from './description';
 import { Head } from './head';
 import { List, ListItem } from './list';
@@ -30,6 +31,10 @@ export const MElement = (props: RenderElementProps) => {
       return <Blockquote {...props} />;
     case 'head':
       return <Head {...props} />;
+    case 'column-group':
+      return <ColumnGroup {...props} />;
+    case 'column-cell':
+      return <ColumnCell {...props} />;
     case 'hr':
       return (
         <div

@@ -56,6 +56,23 @@ const Quote = () => {
   );
 };
 
+const ColumnIcon = () => {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+    >
+      <path
+        fill="currentColor"
+        d="M880 112c17.7 0 32 14.3 32 32v736c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32z m-404 72H184v656h292V184z m364 0H548v656h292V184z"
+      />
+    </svg>
+  );
+};
+
 type InsertOptions = {
   label: [string, string];
   key: string;
@@ -102,6 +119,12 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           key: 'table',
           task: 'insertTable',
           icon: <TableOutlined className={'text-base'} />,
+        },
+        {
+          label: ['分栏', 'Column'],
+          key: 'column',
+          task: 'insertColumn',
+          icon: <ColumnIcon />,
         },
         {
           label: ['引用', 'Quote'],

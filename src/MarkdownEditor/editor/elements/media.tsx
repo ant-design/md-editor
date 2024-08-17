@@ -75,7 +75,6 @@ export const ResizeImage = (
           height: 'auto',
           position: 'relative',
           zIndex: 99,
-          minWidth: 200,
           minHeight: 20,
         }}
         {...props}

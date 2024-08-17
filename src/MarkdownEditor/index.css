@@ -251,6 +251,16 @@
   border-color: rgb(209 213 219 / 0.8);
 }
 
+.markdown-editor-content table.column-group-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.markdown-editor-content table.column-group-table p {
+  margin-top: 0;
+}
+
 .markdown-editor-content table {
   width: fit-content;
   position: relative;

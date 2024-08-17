@@ -166,8 +166,40 @@ export class KeyboardTask {
    */
   uploadImage() {
     const input = document.createElement('input');
+    const [node] = this.curNodes;
     input.type = 'file';
     input.accept = 'image/*';
+    const insertMedia = async (url: string) => {
+      if (node && ['column-cell'].includes(node[0].type)) {
+        Transforms.insertNodes(
+          this.editor,
+          [
+            {
+              type: 'media',
+              url: url,
+              children: [{ text: '' }],
+            },
+          ],
+          {
+            at: [...node[1], 0],
+          },
+        );
+        return;
+      }
+      Transforms.insertNodes(
+        this.editor,
+        [
+          {
+            type: 'media',
+            url: url,
+            children: [{ text: '' }],
+          },
+        ],
+        {
+          at: Path.next(node[1]),
+        },
+      );
+    };
     input.onchange = async (e: any) => {
       const hideLoading = message.loading('Uploading...');
       try {
@@ -177,24 +209,12 @@ export class KeyboardTask {
           )) || [];
         if (Array.isArray(url)) {
           for (let u of url) {
-            Transforms.insertNodes(this.editor, [
-              {
-                type: 'media',
-                url: u,
-                children: [{ text: '' }],
-              },
-            ]);
+            insertMedia(u);
           }
         }
 
         if (typeof url === 'string') {
-          Transforms.insertNodes(this.editor, [
-            {
-              type: 'media',
-              url: url,
-              children: [{ text: '' }],
-            },
-          ]);
+          insertMedia(url);
         }
         message.success('Upload success');
       } catch (error) {
@@ -415,8 +435,51 @@ export class KeyboardTask {
     }
   }
 
+  insertColumn() {
+    const [node] = this.curNodes;
+    if (node) {
+      const path = node[0].type === 'paragraph' ? node[1] : Path.next(node[1]);
+
+      if (!Node.string(node[0])) {
+        Transforms.delete(this.editor, { at: node[1] });
+      }
+      Transforms.insertNodes(
+        this.editor,
+        {
+          type: 'column-group',
+          children: [
+            {
+              type: 'column-cell',
+              children: [{ text: '' }],
+            },
+            {
+              type: 'column-cell',
+              children: [{ text: '' }],
+            },
+          ],
+        },
+        { at: path },
+      );
+
+      Transforms.select(this.editor, Editor.start(this.editor, path));
+    }
+  }
+
   insertCode(type?: 'mermaid' | 'html') {
     const [node] = this.curNodes;
+    if (node && ['column-cell'].includes(node[0].type)) {
+      Transforms.insertNodes(
+        this.editor,
+        {
+          type: 'code',
+          language: undefined,
+          children: [{ type: 'code-line', children: [{ text: '' }] }],
+          render: type === 'html' ? true : undefined,
+        },
+        { at: [...node[1], 0] },
+      );
+      return;
+    }
     if (node && ['paragraph', 'head'].includes(node[0].type)) {
       const path =
         node[0].type === 'paragraph' && !Node.string(node[0])
