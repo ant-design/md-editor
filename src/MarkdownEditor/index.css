@@ -389,10 +389,6 @@ blockquote:before {
   background-color: rgb(107 114 128 / 1);
 }
 
-[data-be]:last-child {
-  margin-bottom: 0;
-}
-
 [data-be='list'] {
   margin-bottom: 0.3em;
   padding-top: 5px;

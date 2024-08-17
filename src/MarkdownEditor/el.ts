@@ -5,7 +5,9 @@ import { RenderElementProps } from 'slate-react/dist/components/editable';
 
 type Align = 'left' | 'center' | 'right';
 
-export type CodeNode = {
+export type CodeNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'code';
   children: {
     type: 'code-line';
@@ -25,19 +27,25 @@ export type CodeNode = {
   h?: number;
 };
 
-export type CodeLineNode = {
+export type CodeLineNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'code-line';
   children: BaseElement['children'];
   num?: number;
 };
 
-export type ParagraphNode = {
+export type ParagraphNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'paragraph';
   children: BaseElement['children'];
   h?: number;
 };
 
-export type TableNode = {
+export type TableNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'table';
   children: TableRowNode[];
   otherProps?: {
@@ -52,12 +60,16 @@ export type TableNode = {
   };
 };
 
-export type DescriptionNode = {
+export type DescriptionNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'description';
   children: TableCellNode[];
 };
 
-export type ColumnNode = {
+export type ColumnNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'column-group';
   children: ColumnCellNode[];
   otherProps?: {
@@ -65,14 +77,23 @@ export type ColumnNode = {
   };
 };
 
-export type ColumnCellNode = {
+export type ColumnCellNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'column-cell';
   children: BaseElement['children'];
 };
 
-export type TableRowNode = { type: 'table-row'; children: TableCellNode[] };
+export type TableRowNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
+  type: 'table-row';
+  children: TableCellNode[];
+};
 
-export type TableCellNode = {
+export type TableCellNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'table-cell';
   title?: boolean;
   align?: Align;
@@ -80,12 +101,16 @@ export type TableCellNode = {
   children: BaseElement['children'];
 };
 
-export type BlockQuoteNode = {
+export type BlockQuoteNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'blockquote';
   children: (BlockQuoteNode | ParagraphNode)[];
 };
 
-export type ListNode = {
+export type ListNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'list';
   children: ListItemNode[];
   order?: boolean;
@@ -94,14 +119,18 @@ export type ListNode = {
   h?: number;
 };
 
-export type ChartTypeConfig = {
+export type ChartTypeConfig<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   chartType: string;
   x?: string;
   y?: string;
   [key: string]: any;
 };
 
-export type ChartNode = {
+export type ChartNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'chart';
   children: TableNode['children'];
   otherProps?: {
@@ -116,24 +145,39 @@ export type ChartNode = {
   };
 };
 
-export type ListItemNode = {
+export type ListItemNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'list-item';
   children: BaseElement['children'];
   checked?: boolean;
 };
 
-export type HeadNode = {
+export type HeadNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'head';
   children: BaseElement['children'];
   level: number;
   h?: number;
 };
 
-export type HrNode = { type: 'hr'; children: undefined };
+export type HrNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
+  type: 'hr';
+  children: undefined;
+};
 
-export type BreakNode = { type: 'break' };
+export type BreakNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
+  type: 'break';
+};
 
-export type MediaNode = {
+export type MediaNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'media';
   url?: string;
   alt: string;
@@ -147,14 +191,18 @@ export type MediaNode = {
   mediaType?: string;
 };
 
-export type AttachNode = {
+export type AttachNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'attach';
   name: string;
   size: number;
   url: string;
 };
 
-export type SchemaNode<T> = {
+export type SchemaNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   type: 'schema' | 'apaasify';
   children: {
     type: 'code-line';
@@ -175,28 +223,30 @@ export type SchemaNode<T> = {
   h?: number;
 };
 
-export type Elements =
-  | CodeNode
-  | DescriptionNode
-  | SchemaNode<{ valueType: string }>
-  | ColumnCellNode
-  | ColumnNode
-  | CodeLineNode
-  | ParagraphNode
-  | TableNode
-  | TableRowNode
-  | TableCellNode
-  | BlockQuoteNode
-  | ListNode
-  | ListItemNode
-  | HeadNode
-  | HrNode
-  | MediaNode
-  | BreakNode
-  | ChartNode
-  | AttachNode;
+export type Elements<T = Record<string, any>> =
+  | CodeNode<T>
+  | DescriptionNode<T>
+  | SchemaNode<{ valueType: string } & T>
+  | ColumnCellNode<T>
+  | ColumnNode<T>
+  | CodeLineNode<T>
+  | ParagraphNode<T>
+  | TableNode<T>
+  | TableRowNode<T>
+  | TableCellNode<T>
+  | BlockQuoteNode<T>
+  | ListNode<T>
+  | ListItemNode<T>
+  | HeadNode<T>
+  | HrNode<T>
+  | MediaNode<T>
+  | BreakNode<T>
+  | ChartNode<T>
+  | AttachNode<T>;
 
-export type CustomLeaf = {
+export type CustomLeaf<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
   bold?: boolean | null;
   code?: boolean | null;
   italic?: boolean | null;
