@@ -174,6 +174,7 @@ const parseTableOrChart = (
     const node: ColumnNode = {
       type: 'column-group',
       children,
+      otherProps: config,
     };
     return node;
   }

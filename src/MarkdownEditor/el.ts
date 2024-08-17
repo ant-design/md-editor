@@ -60,6 +60,9 @@ export type DescriptionNode = {
 export type ColumnNode = {
   type: 'column-group';
   children: ColumnCellNode[];
+  otherProps?: {
+    elementType: string;
+  };
 };
 
 export type ColumnCellNode = {
