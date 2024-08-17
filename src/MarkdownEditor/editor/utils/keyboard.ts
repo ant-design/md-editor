@@ -447,6 +447,9 @@ export class KeyboardTask {
         this.editor,
         {
           type: 'column-group',
+          otherProps: {
+            elementType: 'column',
+          },
           children: [
             {
               type: 'column-cell',

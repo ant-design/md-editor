@@ -57,6 +57,16 @@ export type DescriptionNode = {
   children: TableCellNode[];
 };
 
+export type ColumnNode = {
+  type: 'column-group';
+  children: ColumnCellNode[];
+};
+
+export type ColumnCellNode = {
+  type: 'column-cell';
+  children: BaseElement['children'];
+};
+
 export type TableRowNode = { type: 'table-row'; children: TableCellNode[] };
 
 export type TableCellNode = {
@@ -166,6 +176,8 @@ export type Elements =
   | CodeNode
   | DescriptionNode
   | SchemaNode<{ valueType: string }>
+  | ColumnCellNode
+  | ColumnNode
   | CodeLineNode
   | ParagraphNode
   | TableNode

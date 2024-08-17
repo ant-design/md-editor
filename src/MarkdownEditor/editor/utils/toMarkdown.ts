@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
-import { TableNode } from '../../el';
+import { ColumnNode, DescriptionNode, TableNode } from '../../el';
 import { mediaType } from './dom';
 
 const space = '  ';
@@ -91,6 +91,29 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       break;
     case 'chart':
       str += table(node, preString, newParent);
+      break;
+    case 'column-group':
+      str += table(node, preString, newParent);
+      break;
+    case 'description':
+      str += table(node, preString, newParent);
+      break;
+    case 'schema':
+      const schema = node.children
+        // @ts-ignore
+        .map((c) => {
+          return preString + c.children[0]?.text || '';
+        })
+        .join('\n');
+      if (node.language === 'html' && node.render) {
+        str += `${preString}\n${schema}\n${preString}`;
+      } else if (node.frontmatter) {
+        str += `${preString}---\n${schema}\n${preString}---`;
+      } else {
+        str += `${preString}\`\`\`${
+          node.language || '`'
+        }\n${schema}\n${preString}\`\`\`${!node.language ? '`' : ''}`;
+      }
       break;
     case 'hr':
       str += preString + '***';
@@ -258,7 +281,11 @@ const composeText = (t: Text, parent: any[]) => {
   }
   return str;
 };
-const table = (el: TableNode, preString = '', parent: any[]) => {
+const table = (
+  el: TableNode | ColumnNode | DescriptionNode,
+  preString = '',
+  parent: any[],
+) => {
   const children = el.children;
   const head = children[0]?.children;
   if (!children.length || !head.length) return '';
@@ -271,6 +298,9 @@ const table = (el: TableNode, preString = '', parent: any[]) => {
           row.push(schemaToMarkdown(n.children, '', [...parent, n]));
         }
       }
+    }
+    if (c.type === 'column-cell' || c.type === 'table-cell') {
+      row.push(schemaToMarkdown(c.children, '', [...parent, c]));
     }
     data.push(row);
   }

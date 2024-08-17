@@ -58,6 +58,7 @@ export default () => {
               });
             },
           }}
+          onChange={(e) => console.log(e)}
           width={'60vw'}
           height={'500px'}
         />

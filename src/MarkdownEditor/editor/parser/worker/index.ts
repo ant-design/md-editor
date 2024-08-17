@@ -9,6 +9,8 @@ import remarkGfm from 'remark-gfm';
 import { Element } from 'slate';
 import {
   ChartNode,
+  ColumnCellNode,
+  ColumnNode,
   CustomLeaf,
   DescriptionNode,
   Elements,
@@ -88,7 +90,7 @@ const parseText = (els: RootContent[], leaf: CustomLeaf = {}) => {
 const parseTableOrChart = (
   table: Table,
   preNode: RootContent,
-): TableNode | ChartNode | DescriptionNode => {
+): TableNode | ChartNode | DescriptionNode | ColumnNode => {
   const keyMap = new Map<string, string>();
 
   // @ts-ignore
@@ -150,8 +152,27 @@ const parseTableOrChart = (
         return acc;
       }, {} as any);
     }) || [];
+
   const aligns = table.align;
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
+  const isColumn = config.elementType === 'column';
+
+  /**
+   * 如果是分栏，将表格转换为分栏节点
+   */
+  if (isColumn) {
+    const children = table.children.map((r: { children: any[] }) => {
+      return {
+        type: 'column-cell',
+        children: r.children,
+      };
+    }) as ColumnCellNode[];
+    const node: ColumnNode = {
+      type: 'column-group',
+      children,
+    };
+    return node;
+  }
 
   const children = table.children.map((r: { children: any[] }, l: number) => {
     return {
