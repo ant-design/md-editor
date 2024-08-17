@@ -292,6 +292,7 @@
 
 .markdown-editor-content p {
   margin-bottom: 0.1em;
+  line-height: 1.5;
   padding: 3px 0;
 }
 

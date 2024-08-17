@@ -20,7 +20,7 @@ export type CodeNode<T = Record<string, any>> = {
     language?: string;
     render?: boolean;
     frontmatter?: boolean;
-  };
+  } & T;
   language?: string;
   render?: boolean;
   frontmatter?: boolean;
@@ -30,6 +30,7 @@ export type CodeNode<T = Record<string, any>> = {
 export type CodeLineNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'code-line';
   children: BaseElement['children'];
   num?: number;
@@ -38,6 +39,7 @@ export type CodeLineNode<T = Record<string, any>> = {
 export type ParagraphNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'paragraph';
   children: BaseElement['children'];
   h?: number;
@@ -57,12 +59,13 @@ export type TableNode<T = Record<string, any>> = {
       key: string;
     }[];
     dataSource: any[];
-  };
+  } & T;
 };
 
 export type DescriptionNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'description';
   children: TableCellNode[];
 };
@@ -74,12 +77,13 @@ export type ColumnNode<T = Record<string, any>> = {
   children: ColumnCellNode[];
   otherProps?: {
     elementType: string;
-  };
+  } & T;
 };
 
 export type ColumnCellNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'column-cell';
   children: BaseElement['children'];
 };
@@ -87,6 +91,7 @@ export type ColumnCellNode<T = Record<string, any>> = {
 export type TableRowNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'table-row';
   children: TableCellNode[];
 };
@@ -94,6 +99,7 @@ export type TableRowNode<T = Record<string, any>> = {
 export type TableCellNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'table-cell';
   title?: boolean;
   align?: Align;
@@ -104,6 +110,7 @@ export type TableCellNode<T = Record<string, any>> = {
 export type BlockQuoteNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'blockquote';
   children: (BlockQuoteNode | ParagraphNode)[];
 };
@@ -111,6 +118,7 @@ export type BlockQuoteNode<T = Record<string, any>> = {
 export type ListNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'list';
   children: ListItemNode[];
   order?: boolean;
@@ -122,6 +130,7 @@ export type ListNode<T = Record<string, any>> = {
 export type ChartTypeConfig<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   chartType: string;
   x?: string;
   y?: string;
@@ -142,12 +151,13 @@ export type ChartNode<T = Record<string, any>> = {
       key: string;
     }[];
     dataSource: any[];
-  };
+  } & T;
 };
 
 export type ListItemNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'list-item';
   children: BaseElement['children'];
   checked?: boolean;
@@ -156,6 +166,7 @@ export type ListItemNode<T = Record<string, any>> = {
 export type HeadNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'head';
   children: BaseElement['children'];
   level: number;
@@ -165,6 +176,7 @@ export type HeadNode<T = Record<string, any>> = {
 export type HrNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'hr';
   children: undefined;
 };
@@ -172,12 +184,14 @@ export type HrNode<T = Record<string, any>> = {
 export type BreakNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'break';
 };
 
 export type MediaNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'media';
   url?: string;
   alt: string;
@@ -194,6 +208,7 @@ export type MediaNode<T = Record<string, any>> = {
 export type AttachNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   type: 'attach';
   name: string;
   size: number;
@@ -213,7 +228,6 @@ export type SchemaNode<T = Record<string, any>> = {
     highlight?: boolean;
     language?: string;
     render?: boolean;
-
     frontmatter?: boolean;
   } & T;
   value: Record<string, any> | Record<string, any>[];
@@ -247,6 +261,7 @@ export type Elements<T = Record<string, any>> =
 export type CustomLeaf<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;
+  otherProps?: T;
   bold?: boolean | null;
   code?: boolean | null;
   italic?: boolean | null;
