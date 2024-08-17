@@ -290,19 +290,31 @@ const table = (
   const head = children[0]?.children;
   if (!children.length || !head.length) return '';
   let data: string[][] = [];
-  for (let c of children) {
+
+  if (el.type === 'column-group') {
     const row: string[] = [];
-    if (c.type === 'table-row') {
-      for (let n of c.children) {
-        if (n.type === 'table-cell') {
-          row.push(schemaToMarkdown(n.children, '', [...parent, n]));
-        }
+    for (let n of children) {
+      if (n.type === 'column-cell') {
+        row.push(schemaToMarkdown(n.children, '', [...parent, n]) || 'xxx');
       }
     }
-    if (c.type === 'column-cell' || c.type === 'table-cell') {
-      row.push(schemaToMarkdown(c.children, '', [...parent, c]));
-    }
+    data.push(new Array(row.length).fill('x').map((_, i) => `column${i + 1}`));
     data.push(row);
+  } else {
+    for (let c of children) {
+      const row: string[] = [];
+      if (c.type === 'table-row') {
+        for (let n of c.children) {
+          if (n.type === 'table-cell') {
+            row.push(schemaToMarkdown(n.children, '', [...parent, n]));
+          }
+        }
+      }
+      if (c.type === 'table-cell') {
+        row.push(schemaToMarkdown(c.children, '', [...parent, c]));
+      }
+      data.push(row);
+    }
   }
   let output = '',
     colLength = new Map<number, number>();
@@ -320,9 +332,9 @@ const table = (
       const strLength = stringWidth(str);
       const length = colLength.get(j) || 2;
       if (length > strLength) {
-        if (head[j].align === 'right') {
+        if (head[j]?.align === 'right') {
           str = ' '.repeat(length - strLength) + str;
-        } else if (head[j].align === 'center') {
+        } else if (head[j]?.align === 'center') {
           const spaceLength = length - strLength;
           const pre = Math.floor(spaceLength / 2);
           if (pre > 0) str = ' '.repeat(pre) + str;
@@ -340,13 +352,13 @@ const table = (
     if (i === 0) {
       output += `${preString}| ${cells
         .map((_, i) => {
-          const removeLength = head[i].align
-            ? head[i].align === 'center'
+          const removeLength = head[i]?.align
+            ? head[i]?.align === 'center'
               ? 2
               : 1
             : 0;
           let str = '-'.repeat(Math.max(colLength.get(i)! - removeLength, 2));
-          switch (head[i].align) {
+          switch (head[i]?.align) {
             case 'left':
               str = `:${str}`;
               break;

@@ -428,10 +428,6 @@ export const MEditor = observer(
 
     const onError = useCallback((e: React.SyntheticEvent) => {
       console.log('Editor error', e);
-      //@ts-ignore
-      if (import.meta.env.DEV) {
-        console.warn('Editor exception', e);
-      }
     }, []);
 
     const childrenIsEmpty = useMemo(() => {

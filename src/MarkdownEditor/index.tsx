@@ -84,6 +84,7 @@ export type MarkdownEditorProps = {
    * 配置工具栏
    */
   toolBar?: {
+    min?: boolean;
     enable?: boolean;
     extra?: React.ReactNode[];
   };
@@ -195,7 +196,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               maxWidth: '100%',
             }}
           >
-            {<ToolBar extra={toolBar.extra} />}
+            {<ToolBar extra={toolBar.extra} min={toolBar.min} />}
           </div>
         ) : readonly ? null : (
           <FloatBar />

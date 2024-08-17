@@ -7,16 +7,10 @@ export default () => {
   useEffect(() => {
     const insertMarkdown = () => {
       tabRef.current?.store.setMDContent(
-        `## 标题
-  **粗体**
-  *斜体*
-  ~~删除线~~
-  \`行内代码\`
-  \`\`\`js
-  // 代码块
-  \`\`\`
-  - 无序列表
-  1. 有序列表`,
+        `
+| column1                                                                         | column2 |
+| ------------------------------------------------------------------------------- | ------- |
+| ![](blob:http://localhost:8000/b3fb90af-d975-4954-8299-88b06c03673e) | xxxx    |`,
       );
     };
     insertMarkdown();
@@ -34,6 +28,7 @@ export default () => {
           toc={false}
           editorRef={tabRef}
           toolBar={{
+            min: true,
             enable: true,
             extra: [
               <Button

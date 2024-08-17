@@ -3,9 +3,13 @@
   ClearOutlined,
   ItalicOutlined,
   LinkOutlined,
+  PlusCircleFilled,
+  RedoOutlined,
   StrikethroughOutlined,
+  UndoOutlined,
 } from '@ant-design/icons';
 import { ColorPicker, Divider, Dropdown } from 'antd';
+import classnames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -17,18 +21,11 @@ import { getInsertOptions } from './InsertAutocomplete';
 
 const LineCode = () => {
   return (
-    <svg
-      viewBox="0 0 1024 1024"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      width="1.3em"
-      height="1.3em"
-      fill="currentColor"
-    >
+    <svg viewBox="0 0 1024 1024" version="1.1" width="1.3em" height="1.3em">
       <path
         fill="currentColor"
         d="M153.770667 517.558857l200.387047-197.241905L302.86019 268.190476 48.761905 518.290286l254.439619 243.614476 50.590476-52.833524-200.021333-191.512381zM658.285714 320.316952L709.583238 268.190476l254.098286 250.09981L709.241905 761.904762l-50.590476-52.833524 200.021333-191.512381L658.285714 320.316952z m-112.981333-86.186666L393.99619 785.554286l70.534096 19.358476 151.30819-551.399619-70.534095-19.358476z"
-      ></path>
+      />
     </svg>
   );
 };
@@ -73,6 +70,7 @@ export const BaseToolBar = observer(
     prefix?: string;
     showInsertAction?: boolean;
     extra?: React.ReactNode[];
+    min?: boolean;
   }) => {
     const store = useEditorStore();
 
@@ -99,7 +97,6 @@ export const BaseToolBar = observer(
       match: (n) => Element.isElement(n),
       mode: 'lowest',
     });
-    const isHeader = node && node[0].type === 'head';
 
     /**
      * 插入操作，一般而言不需要作什么特殊设置
@@ -141,6 +138,91 @@ export const BaseToolBar = observer(
           : [],
       [store.editorProps],
     );
+
+    const headDom = (
+      <>
+        <div
+          role="button"
+          className={`${baseClassName}-item`}
+          onClick={() => {
+            keyTask$.next({
+              key: 'redo',
+              args: [],
+            });
+          }}
+        >
+          <RedoOutlined />
+        </div>
+
+        <div
+          role="button"
+          className={`${baseClassName}-item`}
+          onClick={() => {
+            keyTask$.next({
+              key: 'undo',
+              args: [],
+            });
+          }}
+        >
+          <UndoOutlined />
+        </div>
+
+        <div
+          role="button"
+          className={`${baseClassName}-item`}
+          onClick={() => {
+            EditorUtils.clearMarks(store.editor, true);
+            EditorUtils.highColor(store.editor);
+          }}
+        >
+          <ClearOutlined />
+        </div>
+        <Divider
+          type="vertical"
+          style={{
+            margin: '0 4px',
+            height: '18px',
+            borderColor: 'rgba(0,0,0,0.15)',
+          }}
+        />
+        <Dropdown
+          menu={{
+            items: ['H1', 'H2', 'H3'].map((item, index) => {
+              return {
+                label: item,
+                key: item,
+                onClick: () => {
+                  Transforms.setNodes(
+                    store.editor,
+                    {
+                      type: 'head',
+                      level: index + 1,
+                    },
+                    {
+                      match: (n) => Element.isElement(n) && n.type === 'head',
+                      at: node[1],
+                    },
+                  );
+                },
+              };
+            }),
+          }}
+        >
+          <div
+            role="button"
+            className={`${baseClassName}-item`}
+            style={{
+              width: 40,
+              textAlign: 'center',
+              fontSize: node?.[0]?.level ? 14 : 12,
+              justifyContent: 'center',
+            }}
+          >
+            {node?.[0]?.level ? `H${node[0].level}` : '正文'}
+          </div>
+        </Dropdown>
+      </>
+    );
     return (
       <div
         style={{
@@ -150,51 +232,74 @@ export const BaseToolBar = observer(
           alignItems: 'center',
         }}
       >
-        {isHeader ? (
-          <Dropdown
-            menu={{
-              items: ['H1', 'H2', 'H3'].map((item, index) => {
-                return {
-                  label: item,
-                  key: item,
-                  onClick: () => {
-                    Transforms.setNodes(
-                      store.editor,
-                      {
-                        type: 'head',
-                        level: index + 1,
-                      },
-                      {
-                        match: (n) => Element.isElement(n) && n.type === 'head',
-                        at: node[1],
-                      },
-                    );
-                  },
-                };
-              }),
-            }}
-          >
-            <div role="button" className={`${baseClassName}-item`}>
-              h{node[0].level}
-            </div>
-          </Dropdown>
-        ) : null}
-        {insertOptions.map((t) => {
-          return (
+        {props.min ? (
+          <>
             <div
               role="button"
-              key={t.key}
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => {
-                insert(t);
-              }}
-              className={`${baseClassName}-item`}
+              className={classnames(
+                `${baseClassName}-item`,
+                `${baseClassName}-item-min-plus-icon`,
+              )}
             >
-              {t.icon}
+              <Dropdown
+                menu={{
+                  items: insertOptions.map((t) => {
+                    return {
+                      label: (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                          }}
+                        >
+                          {t.icon}
+                          {t.label?.at(0)}
+                        </div>
+                      ),
+                      key: t.key,
+                      onClick: () => {
+                        insert(t);
+                      },
+                    };
+                  }),
+                }}
+              >
+                <PlusCircleFilled />
+              </Dropdown>
             </div>
-          );
-        })}
-        {insertOptions.length > 0 && (
+            <Divider
+              type="vertical"
+              style={{
+                margin: '0 4px',
+                height: '18px',
+                borderColor: 'rgba(0,0,0,0.15)',
+              }}
+            />
+            {headDom}
+          </>
+        ) : (
+          <>
+            {headDom}
+            {insertOptions.map((t) => {
+              return (
+                <div
+                  role="button"
+                  key={t.key}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    insert(t);
+                  }}
+                  className={`${baseClassName}-item`}
+                >
+                  {t.icon}
+                </div>
+              );
+            })}
+          </>
+        )}
+
+        {insertOptions.length > 0 && !props.min && (
           <Divider
             type="vertical"
             style={{
@@ -291,9 +396,9 @@ export const BaseToolBar = observer(
         <Divider
           type="vertical"
           style={{
-            margin: '0 8px',
-            height: '16px',
-            borderColor: 'rgba(0,0,0,0.35)',
+            margin: '0 4px',
+            height: '18px',
+            borderColor: 'rgba(0,0,0,0.15)',
           }}
         />
         <div
@@ -310,7 +415,13 @@ export const BaseToolBar = observer(
           }}
         >
           <LinkOutlined />
-          <span>Link</span>
+          <span
+            style={{
+              fontSize: 12,
+            }}
+          >
+            Link
+          </span>
         </div>
         <Divider
           type="vertical"

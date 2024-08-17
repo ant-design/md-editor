@@ -853,6 +853,10 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
   cursor: pointer;
 }
 
+.toolbar .toolbar-item.toolbar-item-min-plus-icon {
+  color: #1890ff;
+}
+
 .toolbar .toolbar-item-color {
   width: 24px;
   height: 24px;
@@ -861,7 +865,7 @@ ul.m-list ul.m-list ul.m-list ul.m-list {
 }
 
 .toolbar .toolbar-item:hover {
-  background-color: rgb(229 231 235 / 0.3);
+  background-color: rgb(229 231 235 / 0.65);
 }
 
 .insert-autocomplete {

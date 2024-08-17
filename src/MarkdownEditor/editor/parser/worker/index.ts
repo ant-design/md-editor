@@ -155,18 +155,22 @@ const parseTableOrChart = (
 
   const aligns = table.align;
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
-  const isColumn = config.elementType === 'column';
+  const isColumn = config?.elementType === 'column';
 
   /**
    * 如果是分栏，将表格转换为分栏节点
    */
   if (isColumn) {
-    const children = table.children.map((r: { children: any[] }) => {
-      return {
-        type: 'column-cell',
-        children: r.children,
-      };
-    }) as ColumnCellNode[];
+    const children = table.children
+      ?.at(1)
+      ?.children?.map((c: { children: any[] }) => {
+        return {
+          type: 'column-cell',
+          children: c.children?.length
+            ? parserBlock(c.children as any, false, c as any)
+            : [{ text: '' }],
+        };
+      }) as ColumnCellNode[];
     const node: ColumnNode = {
       type: 'column-group',
       children,
@@ -263,7 +267,7 @@ const parserBlock = (
         break;
       case 'html':
         const value =
-          n?.value?.replace('<!--', '').replace(' -->', '').trim() || '{}';
+          n?.value?.replace('<!--', '').replace('-->', '').trim() || '{}';
         if (value) {
           try {
             contextProps = JSON.parse(value);
@@ -366,7 +370,9 @@ const parserBlock = (
             }
           }
         }
-        el.otherProps = contextProps;
+        if (el) {
+          el.otherProps = contextProps;
+        }
 
         break;
       case 'image':
