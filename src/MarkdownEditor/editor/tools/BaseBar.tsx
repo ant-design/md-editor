@@ -101,6 +101,9 @@ export const BaseToolBar = observer(
     });
     const isHeader = node && node[0].type === 'head';
 
+    /**
+     * 插入操作，一般而言不需要作什么特殊设置
+     */
     const insert = useCallback((op: any) => {
       if (!op) {
         return;

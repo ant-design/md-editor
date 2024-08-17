@@ -207,15 +207,9 @@ export class KeyboardTask {
           (await this.props?.image?.upload?.(
             Array.from(e.target.files) || [],
           )) || [];
-        if (Array.isArray(url)) {
-          for (let u of url) {
-            insertMedia(u);
-          }
-        }
-
-        if (typeof url === 'string') {
-          insertMedia(url);
-        }
+        [url].flat().forEach((u: string) => {
+          insertMedia(u);
+        });
         message.success('Upload success');
       } catch (error) {
       } finally {
