@@ -102,35 +102,16 @@ export const BaseToolBar = observer(
     const isHeader = node && node[0].type === 'head';
 
     const insert = useCallback((op: any) => {
-      const [node] = Editor.nodes<any>(store.editor, {
-        match: (n) => Element.isElement(n),
-        mode: 'lowest',
-      });
-      if (!node) {
+      if (!op) {
         return;
       }
-      const path = node[1];
-      if (op.task === 'uploadImage') {
-        keyTask$.next({
-          key: op.task,
-          args: op.args,
-        });
-      } else if (op) {
-        Transforms.insertText(store.editor, '', {
-          at: {
-            anchor: Editor.start(store.editor, path),
-            focus: Editor.end(store.editor, path),
-          },
-        });
-
-        keyTask$.next({
-          key: op.task,
-          args: op.args,
-        });
-        runInAction(() => {
-          store.openInsertCompletion = false;
-        });
-      }
+      keyTask$.next({
+        key: op.task,
+        args: op.args,
+      });
+      runInAction(() => {
+        store.openInsertCompletion = false;
+      });
     }, []);
 
     useEffect(() => {

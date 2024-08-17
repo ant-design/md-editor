@@ -439,8 +439,7 @@ export class KeyboardTask {
     const [node] = this.curNodes;
     if (node) {
       const path = node[0].type === 'paragraph' ? node[1] : Path.next(node[1]);
-
-      if (!Node.string(node[0])) {
+      if (node[0].type === 'paragraph' && !Node.string(node[0])) {
         Transforms.delete(this.editor, { at: node[1] });
       }
       Transforms.insertNodes(

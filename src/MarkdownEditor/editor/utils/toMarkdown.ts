@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
-import { ColumnNode, DescriptionNode, TableNode } from '../../el';
+import { ChartNode, ColumnNode, DescriptionNode, TableNode } from '../../el';
 import { mediaType } from './dom';
 
 const space = '  ';
@@ -282,7 +282,7 @@ const composeText = (t: Text, parent: any[]) => {
   return str;
 };
 const table = (
-  el: TableNode | ColumnNode | DescriptionNode,
+  el: TableNode | ColumnNode | DescriptionNode | ChartNode,
   preString = '',
   parent: any[],
 ) => {

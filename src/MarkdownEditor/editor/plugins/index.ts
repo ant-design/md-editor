@@ -22,6 +22,7 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
       operation.properties?.type === 'table-cell'
     )
       return;
+
     if (!store.manual) {
       if (operation.type === 'move_node') {
         const node = Node.get(editor, operation.path);

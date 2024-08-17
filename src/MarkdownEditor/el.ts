@@ -100,7 +100,7 @@ export type ChartTypeConfig = {
 
 export type ChartNode = {
   type: 'chart';
-  children: BaseElement['children'];
+  children: TableNode['children'];
   otherProps?: {
     showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];
