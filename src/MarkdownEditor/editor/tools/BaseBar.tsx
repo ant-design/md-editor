@@ -212,7 +212,8 @@ export const BaseToolBar = observer(
             role="button"
             className={`${baseClassName}-item`}
             style={{
-              width: 40,
+              width: 36,
+              minWidth: 36,
               textAlign: 'center',
               fontSize: node?.[0]?.level ? 14 : 12,
               justifyContent: 'center',
