@@ -99,7 +99,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += table(node, preString, newParent);
       break;
     case 'schema':
-      str += JSON.stringify(node.value, null, 2);
+      str += '```schema\n' + JSON.stringify(node.otherProps, null, 2) + '\n```';
       break;
     case 'hr':
       str += preString + '***';
