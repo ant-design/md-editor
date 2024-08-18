@@ -99,21 +99,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += table(node, preString, newParent);
       break;
     case 'schema':
-      const schema = node.children
-        // @ts-ignore
-        .map((c) => {
-          return preString + c.children[0]?.text || '';
-        })
-        .join('\n');
-      if (node.language === 'html' && node.render) {
-        str += `${preString}\n${schema}\n${preString}`;
-      } else if (node.frontmatter) {
-        str += `${preString}---\n${schema}\n${preString}---`;
-      } else {
-        str += `${preString}\`\`\`${
-          node.language || '`'
-        }\n${schema}\n${preString}\`\`\`${!node.language ? '`' : ''}`;
-      }
+      str += JSON.stringify(node.value, null, 2);
       break;
     case 'hr':
       str += preString + '***';
