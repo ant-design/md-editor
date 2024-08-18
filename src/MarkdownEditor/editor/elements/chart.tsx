@@ -225,6 +225,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
     >
       <DragHandle />
       <div
+        className="chart-box"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -372,8 +373,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           key={index}
                           data={chartData}
                           {...defaultPieConfig}
-                          angleField={y}
-                          colorField={x}
+                          angleField={y || 'value'}
+                          colorField={x || 'type'}
                           legend={{
                             navEffect: 'linear',
                           }}
