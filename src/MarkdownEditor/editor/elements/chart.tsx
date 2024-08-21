@@ -252,7 +252,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          borderRadius: 4,
+          borderRadius: 18,
           overflow: 'auto',
           border: store.readonly ? 'none' : '1px solid #eee',
         }}
@@ -517,7 +517,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       <div
                         key={index}
                         style={{
-                          borderRadius: 4,
+                          borderRadius: 18,
                           width: '50%',
                           minWidth: 200,
                           maxWidth: 600,

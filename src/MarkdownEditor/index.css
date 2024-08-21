@@ -179,7 +179,7 @@
 }
 
 .markdown-editor-content .attach .file {
-  border-radius: 4px;
+  border-radius: 18px;
   border-width: 1px;
   border-color: rgb(229 231 235 / 1);
   background-color: rgb(249 250 251 / 1);
@@ -200,7 +200,7 @@
   cursor: default;
   user-select: none;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 18px;
   background-color: rgb(107 114 128 / 0.05);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -238,7 +238,7 @@
 }
 
 .markdown-editor-content .high-text {
-  border-radius: 4px;
+  border-radius: 18px;
 }
 
 .markdown-editor-content .ant-descriptions-view table,
@@ -359,7 +359,7 @@
 
 .markdown-editor-content .inline-code {
   font-size: 0.87em;
-  border-radius: 4px;
+  border-radius: 18px;
   padding: 2px 5px;
   position: relative;
   margin: 0 1px;
@@ -394,7 +394,7 @@
   width: 4px;
   position: absolute;
   display: block;
-  border-radius: 4px;
+  border-radius: 18px;
   background-color: rgb(107 114 128 / 1);
 }
 
@@ -549,7 +549,7 @@
 }
 
 .code-highlight {
-  border-radius: 4px;
+  border-radius: 18px;
   font-size: 0.85em;
   position: relative;
   line-height: 1.62em;
@@ -720,7 +720,7 @@
   z-index: 10;
   display: block;
   height: 0.125rem;
-  border-radius: 4px;
+  border-radius: 18px;
   background-color: rgb(0 0 0 / 0.5);
   transition-duration: 200ms;
 }
@@ -741,7 +741,7 @@
 .drag-icon {
   display: flex;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 18px;
   cursor: pointer;
   padding: 4px;
   font-size: 16px;
@@ -758,7 +758,7 @@
 
 .inline-code-input {
   line-height: 1.3em;
-  border-radius: 4px;
+  border-radius: 18px;
   color: rgb(156 163 175 /1);
 }
 
@@ -854,11 +854,11 @@
   display: flex;
   height: 100%;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 18px;
   line-height: 32px;
   padding: 0 6px;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 18px;
   align-items: center;
   gap: 2px;
   cursor: pointer;
@@ -872,7 +872,7 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 18px;
 }
 
 .toolbar .toolbar-item:hover {
@@ -891,7 +891,7 @@
   line-height: 24px;
   gap: 4px;
   padding: 4px;
-  border-radius: 4px;
+  border-radius: 18px;
   cursor: pointer;
 }
 
@@ -901,7 +901,7 @@
   border: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
   height: 28px;
-  border-radius: 4px;
+  border-radius: 18px;
   background-color: rgb(255 255 255);
   font-size: 16px;
   color: rgb(107 114 128 / 80%);
@@ -914,7 +914,7 @@
   height: 100%;
   align-items: center;
   gap: 4px;
-  border-radius: 4px;
+  border-radius: 18px;
   line-height: 32px;
   justify-content: center;
   padding: 0 4px;
@@ -925,7 +925,7 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 18px;
 }
 
 .float-bar .float-bar-item-color:hover {
@@ -959,7 +959,7 @@
   z-index: 10;
   gap: 4px;
   height: 24px;
-  border-radius: 4px;
+  border-radius: 18px;
 }
 
 .table-attr-toolbar .table-attr-toolbar-item {
@@ -967,7 +967,7 @@
   align-items: center;
   gap: 4px;
   padding: 4px;
-  border-radius: 4px;
+  border-radius: 18px;
   cursor: pointer;
 }
 
@@ -993,7 +993,7 @@
   align-items: center;
   gap: 4px;
   padding: 4px;
-  border-radius: 4px;
+  border-radius: 18px;
   cursor: pointer;
 }
 
