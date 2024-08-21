@@ -505,7 +505,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         style={{
                           borderRadius: 4,
                           width: '50%',
-                          minWidth: 260,
+                          minWidth: 200,
                           flex: 1,
                         }}
                       >

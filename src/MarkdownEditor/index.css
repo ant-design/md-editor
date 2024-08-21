@@ -241,6 +241,12 @@
   border-radius: 4px;
 }
 
+.markdown-editor-content .ant-descriptions-view table,
+.markdown-editor-content .ant-descriptions-view th,
+.markdown-editor-content .ant-descriptions-view td {
+  border: none;
+}
+
 .markdown-editor-content table,
 .markdown-editor-content th,
 .markdown-editor-content td {
