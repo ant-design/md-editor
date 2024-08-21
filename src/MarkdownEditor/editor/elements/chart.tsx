@@ -506,6 +506,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           borderRadius: 4,
                           width: '50%',
                           minWidth: 200,
+                          maxWidth: 600,
                           flex: 1,
                         }}
                       >
