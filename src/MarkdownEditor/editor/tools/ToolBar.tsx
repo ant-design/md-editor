@@ -18,7 +18,12 @@ export const ToolBar = (props: {
       }}
       className={baseClassName}
     >
-      <BaseToolBar prefix={baseClassName} showInsertAction={true} {...props} />
+      <BaseToolBar
+        prefix={baseClassName}
+        showEditor={true}
+        showInsertAction={true}
+        {...props}
+      />
     </div>
   ) as React.ReactNode;
 };

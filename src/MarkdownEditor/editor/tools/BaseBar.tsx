@@ -71,6 +71,7 @@ export const BaseToolBar = observer(
     showInsertAction?: boolean;
     extra?: React.ReactNode[];
     min?: boolean;
+    showEditor?: boolean;
   }) => {
     const store = useEditorStore();
 
@@ -141,32 +142,34 @@ export const BaseToolBar = observer(
 
     const headDom = (
       <>
-        <div
-          role="button"
-          className={`${baseClassName}-item`}
-          onClick={() => {
-            keyTask$.next({
-              key: 'redo',
-              args: [],
-            });
-          }}
-        >
-          <RedoOutlined />
-        </div>
-
-        <div
-          role="button"
-          className={`${baseClassName}-item`}
-          onClick={() => {
-            keyTask$.next({
-              key: 'undo',
-              args: [],
-            });
-          }}
-        >
-          <UndoOutlined />
-        </div>
-
+        {props.showEditor ? (
+          <>
+            <div
+              role="button"
+              className={`${baseClassName}-item`}
+              onClick={() => {
+                keyTask$.next({
+                  key: 'redo',
+                  args: [],
+                });
+              }}
+            >
+              <RedoOutlined />
+            </div>
+            <div
+              role="button"
+              className={`${baseClassName}-item`}
+              onClick={() => {
+                keyTask$.next({
+                  key: 'undo',
+                  args: [],
+                });
+              }}
+            >
+              <UndoOutlined />
+            </div>
+          </>
+        ) : null}
         <div
           role="button"
           className={`${baseClassName}-item`}
