@@ -1,5 +1,5 @@
 ﻿import { Area, Bar, Column, Line, Pie } from '@ant-design/charts';
-import { CodeOutlined, PieChartFilled } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import {
   ProForm,
   ProFormList,
@@ -8,7 +8,7 @@ import {
 } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Popover } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Transforms } from 'slate';
 import { RenderElementProps } from 'slate-react';
 import { TableNode } from '../../el';
@@ -79,9 +79,17 @@ const defaultPieConfig = {
   },
 };
 
+const ChartMap = {
+  pie: '饼图',
+  bar: '条形图',
+  line: '折线图',
+  column: '柱状图',
+  area: '面积图',
+  table: '表格',
+};
+
 export const Chart: React.FC<RenderElementProps> = (props) => {
   const store = useEditorStore();
-  const [source, setSource] = useState(false);
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {
     return (
@@ -126,7 +134,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                   at: path,
                 },
               );
-              setSource(false);
             }}
           >
             <div
@@ -167,6 +174,10 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       {
                         label: '柱状图',
                         value: 'column',
+                      },
+                      {
+                        label: '源码',
+                        value: 'table',
                       },
                     ];
                   }}
@@ -209,9 +220,21 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         </ConfigProvider>
       }
     >
-      📊
+      <span
+        style={{
+          fontSize: 12,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+        }}
+      >
+        {ChartMap[(config.at(0)?.chartType as 'bar') || 'bar']}
+        <DownOutlined />
+      </span>
     </Popover>
   );
+
+  const isSource = config?.at(0)?.chartType === 'table';
 
   return (
     <div
@@ -242,13 +265,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 {
                   icon: chartPopover,
                 },
-                {
-                  icon: source ? <PieChartFilled /> : <CodeOutlined />,
-                  title: source ? '图表' : '源码',
-                  onClick: () => {
-                    setSource(!source);
-                  },
-                },
               ]}
             />
           ) : (
@@ -258,19 +274,17 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 {
                   icon: chartPopover,
                 },
-                {
-                  icon: source ? <PieChartFilled /> : <CodeOutlined />,
-                  title: source ? '图表' : '源码',
-                  onClick: () => {
-                    setSource(!source);
-                  },
-                },
               ]}
             />
           )}
         </div>
-        {source ? (
-          <table contentEditable={store.readonly ? false : true}>
+        {isSource ? (
+          <table
+            contentEditable={store.readonly ? false : true}
+            style={{
+              margin: 12,
+            }}
+          >
             <tbody>{children}</tbody>
           </table>
         ) : (

@@ -247,14 +247,16 @@
   border: none;
 }
 
-.markdown-editor-content table,
-.markdown-editor-content th,
-.markdown-editor-content td {
+.markdown-editor-content table {
   border-width: 1px;
   border-style: solid;
   border-collapse: collapse;
   white-space: nowrap;
   border-color: rgb(209 213 219 / 0.8);
+  border-collapse: separate;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 18px;
 }
 
 .markdown-editor-content table.column-group-table {
