@@ -77,6 +77,8 @@ const defaultPieConfig = {
       rowPadding: 5,
     },
   },
+  interactions: [{ type: 'scrollbar' }],
+  color: ['#55A6F3'],
 };
 
 const ChartMap = {
@@ -112,6 +114,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
   const chartPopover = (
     <Popover
       title="配置图表"
+      trigger={'click'}
       content={
         <ConfigProvider componentSize="small">
           <ProForm
@@ -225,11 +228,18 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           fontSize: 12,
           display: 'flex',
           alignItems: 'center',
-          gap: 2,
+          gap: 4,
+          border: '1px solid #f0f0f0',
+          padding: '4px 12px',
+          borderRadius: 14,
         }}
       >
         {ChartMap[(config.at(0)?.chartType as 'bar') || 'bar']}
-        <DownOutlined />
+        <DownOutlined
+          style={{
+            fontSize: 8,
+          }}
+        />
       </span>
     </Popover>
   );
@@ -263,6 +273,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               node={node}
               options={[
                 {
+                  style: { padding: 0 },
                   icon: chartPopover,
                 },
               ]}
@@ -270,11 +281,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           ) : (
             <ChartAttr
               node={node}
-              options={[
-                {
-                  icon: chartPopover,
-                },
-              ]}
+              options={[{ style: { padding: 0 }, icon: chartPopover }]}
             />
           )}
         </div>
@@ -298,7 +305,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
             <div
               style={{
                 position: 'relative',
-                padding: 24,
               }}
             >
               <div
@@ -318,7 +324,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               >
                 {children}
               </div>
-
               <div
                 style={{
                   display: 'flex',
@@ -519,6 +524,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         style={{
                           borderRadius: 18,
                           width: '50%',
+                          margin: 'auto',
                           minWidth: 200,
                           maxWidth: 600,
                           flex: 1,

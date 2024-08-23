@@ -247,18 +247,6 @@
   border: none;
 }
 
-.markdown-editor-content table {
-  border-width: 1px;
-  border-style: solid;
-  border-collapse: collapse;
-  white-space: nowrap;
-  border-color: rgb(209 213 219 / 0.8);
-  border-collapse: separate;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 18px;
-}
-
 .markdown-editor-content table.column-group-table {
   width: 100%;
   border-collapse: collapse;
@@ -271,9 +259,26 @@
 
 .markdown-editor-content table {
   width: fit-content;
+  min-width: 100%;
   position: relative;
+  border-collapse: collapse;
+  white-space: nowrap;
+  border-spacing: 0;
+}
+.markdown-editor-content table.m-editor-description {
+  border: 1px solid rgb(209 213 219 / 0.8);
+}
+.markdown-editor-content table.m-editor-description th,
+.markdown-editor-content table.m-editor-description td {
+  border: 1px solid rgb(209 213 219 / 0.8);
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 500;
 }
 
+.markdown-editor-content table.m-editor-description th {
+  background-color: rgb(229 231 235 / 0.5);
+}
 .markdown-editor-content .m-table {
   padding: 3px 0;
   margin-bottom: 0.5em;
@@ -283,19 +288,27 @@
 .markdown-editor-content .m-table table {
   width: 100%;
   border-collapse: collapse;
+  white-space: nowrap;
+  border-spacing: 0;
+  border-collapse: collapse;
   table-layout: fixed;
 }
 
 .markdown-editor-content th,
 .markdown-editor-content td {
+  text-wrap: nowrap;
   vertical-align: top;
-  padding: 0.375em 0.75em;
+  padding: 7px 20px;
+  border: none;
   text-align: left;
-  line-height: 1.7;
+  line-height: 1;
 }
 
 .markdown-editor-content th {
-  background-color: rgb(229 231 235 / 0.3);
+  border-bottom: 1px solid rgb(209 213 219 / 0.8);
+  border-collapse: collapse;
+  white-space: nowrap;
+  border-spacing: 0;
 }
 
 .markdown-editor-content p {
@@ -979,7 +992,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 4px;
+  padding: 14px 20px;
   width: 100%;
   border-bottom: 1px solid #e5e7eb;
   background-color: rgba(255, 255, 255, 1);

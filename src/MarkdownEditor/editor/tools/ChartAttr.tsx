@@ -15,6 +15,7 @@ export const ChartAttr: React.FC<{
   options?: {
     icon: React.ReactNode;
     title?: string;
+    style?: React.CSSProperties;
     onClick?: () => void;
   }[];
   node: NodeEntry<ChartNode>;
@@ -50,6 +51,7 @@ export const ChartAttr: React.FC<{
               key={index}
               className={`${baseClassName}-item`}
               onClick={item.onClick}
+              style={item.style}
             >
               {item.icon}
             </div>

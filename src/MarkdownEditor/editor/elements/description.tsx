@@ -33,7 +33,7 @@ export const Description = observer((props: RenderElementProps) => {
         }}
       >
         <DragHandle />
-        <table>
+        <table className="m-editor-description">
           <tbody>
             {group(props.children, subGroupLength).map((item, index) => {
               return <tr key={index}>{item}</tr>;
