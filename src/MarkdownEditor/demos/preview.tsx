@@ -96,6 +96,7 @@ export default () => {
     <MarkdownEditor
       width={'100vw'}
       height={'100vh'}
+      reportMode
       initValue={defaultValue}
       onChange={(e) => {
         console.log('onChange', e);

@@ -13,6 +13,7 @@ import { Heading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
+import classNames from 'classnames';
 import { ReactEditor } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
 import { ToolBar } from './editor/tools/ToolBar';
@@ -110,6 +111,12 @@ export type MarkdownEditorProps = {
    * @returns
    */
   onChange?: (value: string, schema: Elements[]) => void;
+
+  /**
+   * 是否开启报告模式,展示效果会发生变化
+   * @default false
+   */
+  reportMode?: boolean;
 };
 
 /**
@@ -178,7 +185,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   return (
     <EditorStoreContext.Provider value={instance.store}>
       <div
-        className="markdown-editor"
+        className={classNames('markdown-editor', {
+          'markdown-editor-readonly': readonly,
+          'markdown-editor-report': props.reportMode,
+        })}
         style={{
           width: width || '400px',
           minWidth: readonly ? '200px' : '400px',
