@@ -339,6 +339,19 @@ export const MEditor = observer(
         }
 
         try {
+          const clipboardItems = await navigator.clipboard.read();
+          const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
+
+          let paste = await pasteItem?.text();
+          if (paste) {
+            const success = insertHtmlNodes(editor, paste);
+            if (success) {
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
+          }
+
           const urlBlob = await pasteImage();
           if (urlBlob) {
             const hideLoading = message.loading('Uploading...');
@@ -380,18 +393,6 @@ export const MEditor = observer(
             e.preventDefault();
             e.stopPropagation();
             return;
-          }
-          const clipboardItems = await navigator.clipboard.read();
-          const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
-
-          let paste = await pasteItem?.text();
-          if (paste) {
-            const success = insertHtmlNodes(editor, paste);
-            if (success) {
-              e.preventDefault();
-              e.stopPropagation();
-              return;
-            }
           }
         } catch (error) {
           console.log('error', error);

@@ -77,8 +77,8 @@ const defaultPieConfig = {
       rowPadding: 5,
     },
   },
+  height: 400,
   interactions: [{ type: 'scrollbar' }],
-  color: ['#55A6F3'],
 };
 
 const ChartMap = {
