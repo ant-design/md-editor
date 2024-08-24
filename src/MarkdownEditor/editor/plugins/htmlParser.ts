@@ -53,6 +53,12 @@ export const deserialize = (
   el: ChildNode,
   parentTag: string = '',
 ): string | any[] | null | Record<string, any> => {
+  if (el.nodeName.toLowerCase() === 'script') return [];
+  if (el.nodeName.toLowerCase() === 'style') return [];
+  if (el.nodeName.toLowerCase() === 'meta') return [];
+  if (el.nodeName.toLowerCase() === 'link') return [];
+  if (el.nodeName.toLowerCase() === 'head') return [];
+  if (el.nodeName.toLowerCase() === 'colgroup') return [];
   if (el.nodeName.toLowerCase() === 'noscript') return [];
   if (el.nodeType === 3) {
     return el.textContent;
@@ -170,9 +176,38 @@ const processFragment = (fragment: any[], parentType = '') => {
   let trans: any[] = [];
   let container: null | any = null;
   fragment = fragment.filter(
-    (f) => !(!f.type && !f.text) || (f.type === 'media' && !f.url),
+    (f) =>
+      !(!f.type && !(f.text as string).trim()) ||
+      (f.type === 'media' && !f.url),
   );
   for (let f of fragment) {
+    if (f.type === 'table') {
+      f.children = (f.children as any[])
+        .filter((r) => {
+          if (r?.text) {
+            if (!f.text?.trim?.().replace(/^\n+|\n+$/g, '')) return false;
+          }
+          if (!r) return false;
+          return true;
+        })
+        .map((r: any, index) => {
+          if (index === 0) {
+            return {
+              type: 'table-row',
+              children: r?.children
+                ?.filter((c: any) => !!c?.children)
+                ?.map((c: any) => {
+                  return {
+                    type: 'table-cell',
+                    children: c.children,
+                    title: true,
+                  };
+                }),
+            };
+          }
+          return r;
+        });
+    }
     if (
       f.type === 'paragraph' &&
       f.children?.every((s: any) => s.type === 'media')
@@ -181,7 +216,7 @@ const processFragment = (fragment: any[], parentType = '') => {
       continue;
     }
     if (f.text) {
-      f.text = f.text.replace(/^\n+|\n+$/g, '');
+      f.text = f.text?.trim?.().replace(/^\n+|\n+$/g, '');
       if (!f.text) continue;
     }
     if (f.type === 'media') {
@@ -229,7 +264,10 @@ export const insertHtmlNodes = (editor: Editor, html: string) => {
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
+
   let fragment = processFragment([deserialize(parsed)].flat(1));
+  console.log(fragment);
+
   if (!fragment?.length) return;
   let [node] = Editor.nodes<Element>(editor, {
     match: (n) => Element.isElement(n),
