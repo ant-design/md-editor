@@ -5,7 +5,7 @@ import {
   AppstoreAddOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
-import { Popover, Tooltip } from 'antd';
+import { Popconfirm, Popover, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -18,7 +18,91 @@ import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 
 /**
+ * InsertRowAfterIcon component.
+ * Renders an SVG icon for inserting a row after in a table.
+ */
+const AddRowBelowIcon = () => {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      width="1em"
+      fill="currentColor"
+      height="1em"
+    >
+      <path
+        d="M878.7 336H145.3c-18.4 0-33.3 14.3-33.3 32v464c0 17.7 14.9 32 33.3 32h733.3c18.4 0 33.3-14.3 33.3-32V368c0.1-17.7-14.8-32-33.2-32zM360 792H184V632h176v160z m0-224H184V408h176v160z m240 224H424V632h176v160z m0-224H424V408h176v160z m240 224H664V632h176v160z m0-224H664V408h176v160zM904 160H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+};
+
+/**
+ * Component for rendering an insert row before icon.
+ */
+const InsertRowAfterIcon = () => {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      width="1em"
+      fill="currentColor"
+      height="1em"
+    >
+      <path
+        d="M904 768H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zM878.7 160H145.3c-18.4 0-33.3 14.3-33.3 32v464c0 17.7 14.9 32 33.3 32h733.3c18.4 0 33.3-14.3 33.3-32V192c0.1-17.7-14.8-32-33.2-32zM360 616H184V456h176v160z m0-224H184V232h176v160z m240 224H424V456h176v160z m0-224H424V232h176v160z m240 224H664V456h176v160z m0-224H664V232h176v160z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+};
+
+/**
+ * Component for rendering an insert column after icon.
+ */
+const InsertColAfterIcon = () => {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      width="1em"
+      fill="currentColor"
+      height="1em"
+    >
+      <path
+        d="M853.333333 128a42.666667 42.666667 0 0 1 42.666667 42.666667v682.666666a42.666667 42.666667 0 0 1-42.666667 42.666667h-256a42.666667 42.666667 0 0 1-42.666666-42.666667V170.666667a42.666667 42.666667 0 0 1 42.666666-42.666667h256z m-42.666666 85.333333h-170.666667v597.333334h170.666667V213.333333zM256 298.666667a213.333333 213.333333 0 1 1 0 426.666666A213.333333 213.333333 0 0 1 256 298.666667z m42.666667 85.333333H213.333333v85.290667L128 469.333333v85.333334l85.333333-0.042667V640h85.333334v-85.376L384 554.666667v-85.333334l-85.333333-0.042666V384z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+};
+
+/**
+ * InsertColBeforeIcon component.
+ * Renders an SVG icon for inserting a column before in a table.
+ */
+const InsertColBeforeIcon = () => {
+  return (
+    <svg viewBox="0 0 1024 1024" version="1.1" width="1em" height="1em">
+      <path
+        fill="currentColor"
+        d="M426.666667 128a42.666667 42.666667 0 0 1 42.666666 42.666667v682.666666a42.666667 42.666667 0 0 1-42.666666 42.666667H170.666667a42.666667 42.666667 0 0 1-42.666667-42.666667V170.666667a42.666667 42.666667 0 0 1 42.666667-42.666667h256zM384 213.333333H213.333333v597.333334h170.666667V213.333333z m384 85.333334a213.333333 213.333333 0 1 1 0 426.666666 213.333333 213.333333 0 0 1 0-426.666666z m42.666667 85.333333h-85.333334v85.290667L640 469.333333v85.333334l85.333333-0.042667V640h85.333334v-85.376L896 554.666667v-85.333334l-85.333333-0.042666V384z"
+      ></path>
+    </svg>
+  );
+};
+
+/**
  * 表格设置器
+ */
+/**
+ * React component for managing table attributes.
+ *
+ * @remarks
+ * This component is responsible for handling various operations related to table attributes, such as resizing, aligning, inserting/removing rows and columns, and more.
+ *
+ * @returns The TableAttr component.
  */
 export const TableAttr = observer(() => {
   const store = useEditorStore();
@@ -53,12 +137,11 @@ export const TableAttr = observer(() => {
       } catch (e) {}
     }, 16);
   }, []);
-
+  const el = store.tableCellNode;
   useEffect(() => {
-    const el = store.tableCellNode;
     if (el) {
       tableCellRef.current = el;
-      if ((el.at(0) as TableCellNode)?.title) {
+      if (el.at(0) as TableCellNode) {
         try {
           const dom = ReactEditor.toDOMNode(editor, el[0]) as HTMLElement;
           let top = store.offsetTop(dom);
@@ -89,7 +172,7 @@ export const TableAttr = observer(() => {
       tableRef.current = undefined;
       setState({ visible: false });
     }
-  }, [store.tableCellNode, store.refreshTableAttr]);
+  }, [store.tableCellNode, el, store.refreshTableAttr]);
 
   const resetGird = useCallback(
     (row: number, col: number) => {
@@ -292,126 +375,143 @@ export const TableAttr = observer(() => {
     [editor],
   );
 
-  const task = useCallback((task: string) => {
-    if (!tableCellRef.current || !tableRef.current) return;
-    const columns = tableRef.current[0].children[0].children.length;
-    const rows = tableRef.current[0].children.length;
-    const path = tableCellRef.current[1];
-    const index = path[path.length - 1];
-    const row = path[path.length - 2];
-    const rowPath = Path.parent(path);
-    store.doManual();
-    switch (task) {
-      case 'insertRowBefore':
-        insertRow(
-          row === 0 ? Path.next(Path.parent(path)) : Path.parent(path),
-          columns,
-        );
-        break;
-      case 'insertRowAfter':
-        insertRow(Path.next(Path.parent(path)), columns);
-        break;
-      case 'insertColBefore':
-        insertCol(tableRef.current[1], rows, index);
-        break;
-      case 'insertColAfter':
-        insertCol(tableRef.current[1], rows, index + 1);
-        break;
-      case 'insertTableCellBreak':
-        Transforms.insertNodes(
-          editor,
-          [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
-          { select: true },
-        );
-        break;
-      case 'moveUpOneRow':
-        if (row > 1) {
-          Transforms.moveNodes(editor, {
-            at: rowPath,
-            to: Path.previous(rowPath),
-          });
-        } else {
-          Transforms.moveNodes(editor, {
-            at: rowPath,
-            to: [...tableRef.current[1], rows - 1],
-          });
-        }
-        break;
-      case 'moveDownOneRow':
-        if (row < rows - 1) {
-          Transforms.moveNodes(editor, {
-            at: rowPath,
-            to: Path.next(rowPath),
-          });
-        } else {
-          Transforms.moveNodes(editor, {
-            at: rowPath,
-            to: [...tableRef.current[1], 1],
-          });
-        }
-        break;
-      case 'moveLeftOneCol':
-        Array.from(new Array(rows)).forEach((_, i) => {
-          Transforms.moveNodes(editor, {
-            at: [...tableRef.current![1], i, index],
-            to: [
-              ...tableRef.current![1],
-              i,
-              index > 0 ? index - 1 : columns - 1,
-            ],
-          });
-        });
-        break;
-      case 'moveRightOneCol':
-        Array.from(new Array(rows)).forEach((_, i) => {
-          Transforms.moveNodes(editor, {
-            at: [...tableRef.current![1], i, index],
-            to: [
-              ...tableRef.current![1],
-              i,
-              index === columns - 1 ? 0 : index + 1,
-            ],
-          });
-        });
-        break;
-      case 'removeCol':
-        if (columns < 2) {
-          remove();
-          return;
-        }
-        if (index < columns - 1) {
-          Transforms.select(
-            editor,
-            Editor.start(editor, [...tableRef.current[1], row, index + 1]),
+  const runTask = useCallback(
+    (
+      task:
+        | 'insertRowBefore'
+        | 'insertRowAfter'
+        | 'insertColBefore'
+        | 'insertColAfter'
+        | 'moveUpOneRow'
+        | 'moveDownOneRow'
+        | 'moveLeftOneCol'
+        | 'moveRightOneCol'
+        | 'removeCol'
+        | 'removeRow'
+        | 'in'
+        | 'insertTableCellBreak',
+    ) => {
+      if (!tableCellRef.current || !tableRef.current) return;
+      const columns = tableRef.current[0].children[0].children.length;
+      const rows = tableRef.current[0].children.length;
+      const path = tableCellRef.current[1];
+      const index = path[path.length - 1];
+      const row = path[path.length - 2];
+      const rowPath = Path.parent(path);
+      store.doManual();
+      switch (task) {
+        case 'insertRowBefore':
+          insertRow(
+            row === 0 ? Path.next(Path.parent(path)) : Path.parent(path),
+            columns,
           );
-        } else {
-          Transforms.select(
+          break;
+        case 'insertRowAfter':
+          insertRow(Path.next(Path.parent(path)), columns);
+          break;
+        case 'insertColBefore':
+          insertCol(tableRef.current[1], rows, index);
+          break;
+        case 'insertColAfter':
+          insertCol(tableRef.current[1], rows, index + 1);
+          break;
+        case 'insertTableCellBreak':
+          Transforms.insertNodes(
             editor,
-            Editor.start(editor, [...tableRef.current[1], row, index - 1]),
+            [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
+            { select: true },
           );
-        }
-        Array.from(new Array(rows)).forEach((_, i) => {
-          Transforms.delete(editor, {
-            at: [...tableRef.current![1], rows - i - 1, index],
+          break;
+        case 'moveUpOneRow':
+          if (row > 1) {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: Path.previous(rowPath),
+            });
+          } else {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: [...tableRef.current[1], rows - 1],
+            });
+          }
+          break;
+        case 'moveDownOneRow':
+          if (row < rows - 1) {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: Path.next(rowPath),
+            });
+          } else {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: [...tableRef.current[1], 1],
+            });
+          }
+          break;
+        case 'moveLeftOneCol':
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.moveNodes(editor, {
+              at: [...tableRef.current![1], i, index],
+              to: [
+                ...tableRef.current![1],
+                i,
+                index > 0 ? index - 1 : columns - 1,
+              ],
+            });
           });
-        });
-        break;
-      case 'removeRow':
-        if (rows < 2) {
-          remove();
-        } else {
-          removeRow(Path.parent(path), index, columns);
-        }
-        break;
-    }
-    ReactEditor.focus(editor);
-  }, []);
+          break;
+        case 'moveRightOneCol':
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.moveNodes(editor, {
+              at: [...tableRef.current![1], i, index],
+              to: [
+                ...tableRef.current![1],
+                i,
+                index === columns - 1 ? 0 : index + 1,
+              ],
+            });
+          });
+          break;
+        case 'removeCol':
+          if (columns < 2) {
+            remove();
+            return;
+          }
+          if (index < columns - 1) {
+            Transforms.select(
+              editor,
+              Editor.start(editor, [...tableRef.current[1], row, index + 1]),
+            );
+          } else {
+            Transforms.select(
+              editor,
+              Editor.start(editor, [...tableRef.current[1], row, index - 1]),
+            );
+          }
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.delete(editor, {
+              at: [...tableRef.current![1], rows - i - 1, index],
+            });
+          });
+          break;
+        case 'removeRow':
+          if (rows < 2) {
+            remove();
+          } else {
+            removeRow(Path.parent(path), index, columns);
+          }
+          break;
+      }
+      ReactEditor.focus(editor);
+    },
+    [],
+  );
 
   useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       if (isHotkey('mod+shift+backspace', e)) {
         e.preventDefault();
-        task('removeRow');
+        runTask('removeRow');
       }
     };
     window.addEventListener('keydown', keydown);
@@ -420,7 +520,7 @@ export const TableAttr = observer(() => {
     };
   }, []);
 
-  useSubject(store.tableTask$, task);
+  useSubject(store.tableTask$, runTask);
 
   const baseClassName = 'table-attr-toolbar';
 
@@ -494,49 +594,100 @@ export const TableAttr = observer(() => {
         }
         trigger="click"
       >
-        <div className={`${baseClassName}-item`}>
+        <div
+          style={{
+            display: 'none',
+          }}
+          className={`${baseClassName}-item`}
+        >
           <AppstoreAddOutlined />
         </div>
       </Popover>
-      <Tooltip placement={'top'} title={'align left'} mouseEnterDelay={0.5}>
+      {(el?.[1]?.at?.(1) || 0) > 0 ? (
         <div
-          onClick={() => setAligns('left')}
           className={`${baseClassName}-item`}
-          style={{
-            color: state().align === 'left' ? '#000' : undefined,
-            fontWeight: state().align === 'left' ? 'bold' : 'normal',
+          onClick={() => {
+            runTask('insertRowBefore');
           }}
+          title="Insert Row Before"
         >
-          <AlignLeftOutlined />
+          <AddRowBelowIcon />
         </div>
-      </Tooltip>
-      <Tooltip placement={'top'} title={'align center'} mouseEnterDelay={0.5}>
-        <div
-          onClick={() => setAligns('center')}
-          style={{
-            color: state().align === 'center' ? '#000' : undefined,
-            fontWeight: state().align === 'center' ? 'bold' : 'normal',
-          }}
-          className={`${baseClassName}-item`}
-        >
-          <AlignCenterOutlined />
-        </div>
-      </Tooltip>
-      <Tooltip placement={'top'} title={'align right'} mouseEnterDelay={0.5}>
-        <div
-          onClick={() => setAligns('right')}
-          style={{
-            color: state().align === 'right' ? '#000' : undefined,
-            fontWeight: state().align === 'right' ? 'bold' : 'normal',
-          }}
-          className={`${baseClassName}-item`}
-        >
-          <AlignRightOutlined />
-        </div>
-      </Tooltip>
-      <div className={`${baseClassName}-item`} title="删除">
-        <DeleteOutlined onClick={remove} />
+      ) : null}
+
+      <div
+        className={`${baseClassName}-item`}
+        title="Insert Row After"
+        onClick={() => {
+          runTask('insertRowAfter');
+        }}
+      >
+        <InsertRowAfterIcon />
       </div>
+      <div
+        className={`${baseClassName}-item`}
+        title="Insert Col Before"
+        onClick={() => {
+          runTask('insertColBefore');
+        }}
+      >
+        <InsertColBeforeIcon />
+      </div>
+      <div
+        className={`${baseClassName}-item`}
+        title="Insert Col After"
+        onClick={() => {
+          runTask('insertColAfter');
+        }}
+      >
+        <InsertColAfterIcon />
+      </div>
+
+      {(el?.[1]?.at?.(1) || 0) === 0 ? (
+        <>
+          <Tooltip placement={'top'} title={'align left'}>
+            <div
+              onClick={() => setAligns('left')}
+              className={`${baseClassName}-item`}
+              style={{
+                color: state().align === 'left' ? '#000' : undefined,
+                fontWeight: state().align === 'left' ? 'bold' : 'normal',
+              }}
+            >
+              <AlignLeftOutlined />
+            </div>
+          </Tooltip>
+          <Tooltip placement={'top'} title={'align center'}>
+            <div
+              onClick={() => setAligns('center')}
+              style={{
+                color: state().align === 'center' ? '#000' : undefined,
+                fontWeight: state().align === 'center' ? 'bold' : 'normal',
+              }}
+              className={`${baseClassName}-item`}
+            >
+              <AlignCenterOutlined />
+            </div>
+          </Tooltip>
+          <Tooltip placement={'top'} title={'align right'}>
+            <div
+              onClick={() => setAligns('right')}
+              style={{
+                color: state().align === 'right' ? '#000' : undefined,
+                fontWeight: state().align === 'right' ? 'bold' : 'normal',
+              }}
+              className={`${baseClassName}-item`}
+            >
+              <AlignRightOutlined />
+            </div>
+          </Tooltip>
+        </>
+      ) : null}
+      <Popconfirm onConfirm={remove} title="Confirm Remove this Table?">
+        <div className={`${baseClassName}-item`} title="Remove">
+          <DeleteOutlined />
+        </div>
+      </Popconfirm>
     </div>
   );
 });

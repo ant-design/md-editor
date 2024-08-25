@@ -77,11 +77,24 @@ export class EditorStore {
   history = false;
   inputComposition = false;
   editorProps: MarkdownEditorProps = {};
-  tableTask$ = new Subject<string>();
+  tableTask$ = new Subject<
+    | 'insertRowBefore'
+    | 'insertRowAfter'
+    | 'insertColBefore'
+    | 'insertColAfter'
+    | 'moveUpOneRow'
+    | 'moveDownOneRow'
+    | 'moveLeftOneCol'
+    | 'moveRightOneCol'
+    | 'removeCol'
+    | 'removeRow'
+    | 'in'
+    | 'insertTableCellBreak'
+  >();
 
   get doc() {
     return this.container?.querySelector(
-      '.markdown-editor-conten',
+      '.markdown-editor-content',
     ) as HTMLDivElement;
   }
 

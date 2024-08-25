@@ -985,7 +985,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px;
+  padding: 4px 8px;
   border-bottom: 1px solid #e5e7eb;
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid #f0f0f0;
@@ -994,7 +994,6 @@
   align-items: center;
   z-index: 10;
   gap: 4px;
-  height: 24px;
   border-radius: 18px;
 }
 
@@ -1003,7 +1002,7 @@
   align-items: center;
   gap: 4px;
   padding: 4px;
-  border-radius: 18px;
+  border-radius: 8px;
   cursor: pointer;
 }
 

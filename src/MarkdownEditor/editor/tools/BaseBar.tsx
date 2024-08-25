@@ -19,6 +19,12 @@ import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { getInsertOptions } from './InsertAutocomplete';
 
+const HeatTextMap = {
+  1: '主标题',
+  2: '段落标题',
+  3: '小标题',
+};
+
 const LineCode = () => {
   return (
     <svg viewBox="0 0 1024 1024" version="1.1" width="1.3em" height="1.3em">
@@ -94,6 +100,10 @@ export const BaseToolBar = observer(
     useEffect(() => {
       setRefresh((r) => !r);
     }, [store.refreshFloatBar]);
+
+    /**
+     * 获取当前节点
+     */
     const [node] = Editor.nodes<any>(store.editor, {
       match: (n) => Element.isElement(n),
       mode: 'lowest',
@@ -140,6 +150,8 @@ export const BaseToolBar = observer(
       [store.editorProps],
     );
 
+    if (!node) return null;
+
     const headDom = (
       <>
         {props.showEditor ? (
@@ -180,53 +192,64 @@ export const BaseToolBar = observer(
         >
           <ClearOutlined />
         </div>
-        <Divider
-          type="vertical"
-          style={{
-            margin: '0 4px',
-            height: '18px',
-            borderColor: 'rgba(0,0,0,0.15)',
-          }}
-        />
-        <Dropdown
-          menu={{
-            items: ['H1', 'H2', 'H3'].map((item, index) => {
-              return {
-                label: item,
-                key: item,
-                onClick: () => {
-                  Transforms.setNodes(
-                    store.editor,
-                    {
-                      type: 'head',
-                      level: index + 1,
+        {['head', 'paragraph'].includes(node?.[0]?.type) ? (
+          <>
+            <Divider
+              type="vertical"
+              style={{
+                margin: '0 4px',
+                height: '18px',
+                borderColor: 'rgba(0,0,0,0.15)',
+              }}
+            />
+            <Dropdown
+              menu={{
+                items: ['H1', 'H2', 'H3'].map((item, index) => {
+                  return {
+                    label: HeatTextMap[item.replace('H', '') as '1'] || item,
+                    key: item,
+                    onClick: () => {
+                      Transforms.setNodes(
+                        store.editor,
+                        {
+                          type: 'head',
+                          level: index + 1,
+                        },
+                        {
+                          match: (n) =>
+                            Element.isElement(n) && n.type === 'head',
+                          at: node[1],
+                        },
+                      );
                     },
-                    {
-                      match: (n) => Element.isElement(n) && n.type === 'head',
-                      at: node[1],
-                    },
-                  );
-                },
-              };
-            }),
-          }}
-        >
-          <div
-            role="button"
-            className={`${baseClassName}-item`}
-            style={{
-              width: 36,
-              minWidth: 36,
-              textAlign: 'center',
-              fontSize: node?.[0]?.level ? 14 : 12,
-              justifyContent: 'center',
-            }}
-          >
-            {node?.[0]?.level ? `H${node[0].level}` : '正文'}
-          </div>
-        </Dropdown>
+                  };
+                }),
+              }}
+            >
+              <div
+                role="button"
+                className={`${baseClassName}-item`}
+                style={{
+                  minWidth: 36,
+                  textAlign: 'center',
+                  fontSize: node?.[0]?.level ? 14 : 12,
+                  justifyContent: 'center',
+                  lineHeight: 1,
+                }}
+              >
+                {node?.[0]?.level
+                  ? `${
+                      HeatTextMap[(node[0].level + '') as '1'] ||
+                      `H${node[0].level}`
+                    }`
+                  : '正文'}
+              </div>
+            </Dropdown>
+          </>
+        ) : null}
       </>
     );
+
     return (
       <div
         style={{
@@ -302,7 +325,6 @@ export const BaseToolBar = observer(
             })}
           </>
         )}
-
         {insertOptions.length > 0 && !props.min && (
           <Divider
             type="vertical"
@@ -313,7 +335,6 @@ export const BaseToolBar = observer(
             }}
           />
         )}
-
         <div
           role="button"
           className={`${baseClassName}-item`}
@@ -379,90 +400,96 @@ export const BaseToolBar = observer(
             </span>
           </div>
         </div>
-        {tools.map((t) => (
-          <div
-            role="button"
-            key={t.type}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
-              EditorUtils.toggleFormat(store.editor, t.type);
-            }}
-            className={`${baseClassName}-item`}
-            style={{
-              color: EditorUtils.isFormatActive(store.editor, t.type)
-                ? '#000'
-                : undefined,
-            }}
-          >
-            {t.icon}
-          </div>
-        ))}
-        <Divider
-          type="vertical"
-          style={{
-            margin: '0 4px',
-            height: '18px',
-            borderColor: 'rgba(0,0,0,0.15)',
-          }}
-        />
-        <div
-          role="button"
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => {
-            openLink();
-          }}
-          className={`${baseClassName}-item`}
-          style={{
-            color: EditorUtils.isFormatActive(store.editor, 'url')
-              ? '#000'
-              : undefined,
-          }}
-        >
-          <LinkOutlined />
-          <span
-            style={{
-              fontSize: 12,
-            }}
-          >
-            Link
-          </span>
-        </div>
-        <Divider
-          type="vertical"
-          style={{
-            margin: '0 8px',
-            height: '16px',
-            borderColor: 'rgba(0,0,0,0.35)',
-          }}
-        />
-        <div
-          role="button"
-          className={`${baseClassName}-item`}
-          onClick={() => {
-            EditorUtils.clearMarks(store.editor, true);
-            EditorUtils.highColor(store.editor);
-          }}
-        >
-          <ClearOutlined />
-        </div>
+        {tools.map((t) => {
+          if (
+            t.type === 'code' &&
+            (['code-line', 'code'].includes(node?.[0]?.type) ||
+              ['table', 'table-cell'].includes(node?.[0]?.type))
+          ) {
+            return null;
+          }
+          return (
+            <div
+              role="button"
+              key={t.type}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                EditorUtils.toggleFormat(store.editor, t.type);
+              }}
+              className={`${baseClassName}-item`}
+              style={{
+                color: EditorUtils.isFormatActive(store.editor, t.type)
+                  ? '#000'
+                  : undefined,
+              }}
+            >
+              {t.icon}
+            </div>
+          );
+        })}
+        {['head', 'paragraph'].includes(node[0]?.type) ? (
+          <>
+            <Divider
+              type="vertical"
+              style={{
+                margin: '0 4px',
+                height: '18px',
+                borderColor: 'rgba(0,0,0,0.15)',
+              }}
+            />
+            <div
+              role="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                openLink();
+              }}
+              className={`${baseClassName}-item`}
+              style={{
+                color: EditorUtils.isFormatActive(store.editor, 'url')
+                  ? '#000'
+                  : undefined,
+              }}
+            >
+              <LinkOutlined />
+              <span
+                style={{
+                  fontSize: 12,
+                }}
+              >
+                Link
+              </span>
+            </div>
+          </>
+        ) : null}
+
         {props.extra ? (
-          <div
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
-            {props.extra?.map((item, index) => {
-              return (
-                <div className={`${baseClassName}-item`} key={index}>
-                  {item}
-                </div>
-              );
-            })}
-          </div>
+          <>
+            <Divider
+              type="vertical"
+              style={{
+                margin: '0 8px',
+                height: '16px',
+                borderColor: 'rgba(0,0,0,0.35)',
+              }}
+            />
+            <div
+              style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                height: '100%',
+              }}
+            >
+              {props.extra?.map((item, index) => {
+                return (
+                  <div className={`${baseClassName}-item`} key={index}>
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
+          </>
         ) : null}
       </div>
     );
