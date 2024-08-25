@@ -43,12 +43,14 @@ export const MEditor = observer(
   ({
     note,
     eleItemRender,
+    reportMode,
     ...props
   }: {
     note: IFileItem;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
+    reportMode?: MarkdownEditorProps['reportMode'];
   }) => {
     const store = useEditorStore();
 
@@ -454,9 +456,15 @@ export const MEditor = observer(
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
           className={`markdown-editor-edit-area ${className}`.trim()}
-          style={{
-            fontSize: 16,
-          }}
+          style={
+            reportMode
+              ? {
+                  fontSize: 16,
+                }
+              : {
+                  fontSize: 14,
+                }
+          }
           autoFocus
           onMouseDown={checkEnd}
           onDrop={onDrop}
