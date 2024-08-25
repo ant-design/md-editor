@@ -40,7 +40,7 @@ export const Table = observer((props: RenderElementProps) => {
   return useMemo(() => {
     return (
       <div
-        className={'drag-el'}
+        className={'drag-el markdown-editor-table'}
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}

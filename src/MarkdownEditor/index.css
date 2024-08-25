@@ -326,8 +326,16 @@
   border-spacing: 0;
 }
 
+.markdown-editor-content:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-editor-content .markdown-editor-table {
+  margin-bottom: 1em;
+}
+
 .markdown-editor-content p {
-  margin-bottom: 0.1em;
+  margin-bottom: 1em;
   line-height: 1.5;
   padding: 3px 0;
 }
@@ -364,8 +372,8 @@
 .markdown-editor-content h2 {
   font-weight: 600;
   font-size: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .markdown-editor-content h3 {
