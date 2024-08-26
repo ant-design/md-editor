@@ -104,6 +104,10 @@
   margin-top: 0;
 }
 
+.markdown-editor-edit-area > :last-child {
+  margin-bottom: 0;
+}
+
 .markdown-editor-content {
   box-sizing: border-box;
   min-width: 0;

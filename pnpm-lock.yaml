@@ -95,9 +95,6 @@ importers:
       slate-history:
         specifier: ^0.100.0
         version: 0.100.0(slate@0.103.0)
-      slate-html-serializer:
-        specifier: ^0.8.13
-        version: 0.8.13(immutable@4.3.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(slate@0.103.0)
       slate-hyperscript:
         specifier: ^0.100.0
         version: 0.100.0(slate@0.103.0)
@@ -135,9 +132,6 @@ importers:
       '@types/react-resizable':
         specifier: ^3.0.8
         version: 3.0.8
-      '@types/slate-html-serializer':
-        specifier: ^0.6.8
-        version: 0.6.8
       '@umijs/lint':
         specifier: ^4.3.12
         version: 4.3.12(eslint@8.57.0)(jest@27.5.1(ts-node@10.9.2(@swc/core@1.4.2(@swc/helpers@0.5.1))(@types/node@20.5.1)(typescript@5.5.4)))(stylelint@14.16.1)(typescript@5.5.4)
@@ -2006,12 +2000,6 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
-
-  '@types/slate-html-serializer@0.6.8':
-    resolution: {integrity: sha512-jz3W46x410Kexw8VzZ3D4B67R44aoiDR85xZN/RBQ8EzS92Vdnasw3b2BtlPJWK/MYQgIuD6+6dRCtdCh4iUAw==}
-
-  '@types/slate@0.47.15':
-    resolution: {integrity: sha512-e9o9LaNpJao2LKVZ3sLJdsG12kiZ3h/z3kKR9aPWBDUXShnQP2P5KtIvj1Jl/cirqwYeCnWB1XLPxgZ/LhsdJQ==}
 
   '@types/sockjs@0.3.36':
     resolution: {integrity: sha512-MK9V6NzAS1+Ud7JV9lJLFqW85VbC9dq3LmwZCuBe4wBDgKC0Kj/jd8Xl+nSviU+Qc3+m7umHHyHg//2KSa0a0Q==}
@@ -4865,10 +4853,6 @@ packages:
 
   immer@10.1.1:
     resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
-
-  immutable@3.8.2:
-    resolution: {integrity: sha512-15gZoQ38eYjEjxkorfbcgBKBL6R7T459OuK+CpcWt7O3KF4uPCx2tD0uFETlUDIyo+1789crbMhTvQBSR5yBMg==}
-    engines: {node: '>=0.10.0'}
 
   immutable@4.3.7:
     resolution: {integrity: sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw==}
@@ -8120,14 +8104,6 @@ packages:
     peerDependencies:
       slate: '>=0.65.3'
 
-  slate-html-serializer@0.8.13:
-    resolution: {integrity: sha512-TRn81JUs7qbzE19A3f7Cw+YM4aiYiKUZM98hX9AQ7YeFqXosB0S07FwezfFt73qZhvHuJTHlnB58gPa48mEg0w==}
-    peerDependencies:
-      immutable: '>=3.8.1 || >4.0.0-rc'
-      react: '>=0.14.0'
-      react-dom: '>=0.14.0'
-      slate: '>=0.36.0 <0.50.0'
-
   slate-hyperscript@0.100.0:
     resolution: {integrity: sha512-fb2KdAYg6RkrQGlqaIi4wdqz3oa0S4zKNBJlbnJbNOwa23+9FLD6oPVx9zUGqCSIpy+HIpOeqXrg0Kzwh/Ii4A==}
     peerDependencies:
@@ -8800,9 +8776,6 @@ packages:
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
-
-  type-of@2.0.1:
-    resolution: {integrity: sha512-39wxbwHdQ2sTiBB8wAzKfQ9GN+om8w+sjNWzr+vZJR5AMD5J+J7Yc8AtXnU9r/r2c8XiDZ/smxutDmZehX/qpQ==}
 
   typed-array-buffer@1.0.2:
     resolution: {integrity: sha512-gEymJYKZtKXzzBzM4jqa9w6Q1Jjm7x2d+sh19AdsD4wqnMPDYyvwpsIc2Q/835kHuo3BEQ7CjelGhfTsoBb2MQ==}
@@ -11666,16 +11639,6 @@ snapshots:
       '@types/node': 22.1.0
       '@types/send': 0.17.4
     optional: true
-
-  '@types/slate-html-serializer@0.6.8':
-    dependencies:
-      '@types/react': 18.3.3
-      '@types/slate': 0.47.15
-
-  '@types/slate@0.47.15':
-    dependencies:
-      '@types/react': 18.3.3
-      immutable: 3.8.2
 
   '@types/sockjs@0.3.36':
     dependencies:
@@ -15662,8 +15625,6 @@ snapshots:
       queue: 6.0.1
 
   immer@10.1.1: {}
-
-  immutable@3.8.2: {}
 
   immutable@4.3.7: {}
 
@@ -20024,14 +19985,6 @@ snapshots:
       is-plain-object: 5.0.0
       slate: 0.103.0
 
-  slate-html-serializer@0.8.13(immutable@4.3.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(slate@0.103.0):
-    dependencies:
-      immutable: 4.3.7
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      slate: 0.103.0
-      type-of: 2.0.1
-
   slate-hyperscript@0.100.0(slate@0.103.0):
     dependencies:
       is-plain-object: 5.0.0
@@ -20822,8 +20775,6 @@ snapshots:
     dependencies:
       media-typer: 0.3.0
       mime-types: 2.1.35
-
-  type-of@2.0.1: {}
 
   typed-array-buffer@1.0.2:
     dependencies:
