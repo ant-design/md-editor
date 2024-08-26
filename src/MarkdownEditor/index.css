@@ -312,12 +312,19 @@
   border-collapse: collapse;
   table-layout: fixed;
 }
-
-.markdown-editor-content th,
-.markdown-editor-content td {
+.markdown-editor-content th {
   text-wrap: nowrap;
   vertical-align: top;
   padding: 12px 20px;
+  border: none;
+  text-align: left;
+  line-height: 1;
+}
+
+.markdown-editor-content td {
+  text-wrap: nowrap;
+  vertical-align: top;
+  padding: 7px 20px;
   border: none;
   text-align: left;
   line-height: 1;
