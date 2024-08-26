@@ -261,12 +261,14 @@ const processFragment = (fragment: any[], parentType = '') => {
  * @returns
  */
 export const insertHtmlNodes = (editor: Editor, html: string) => {
+  if (html.startsWith('<img')) {
+    return false;
+  }
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
 
   let fragment = processFragment([deserialize(parsed)].flat(1));
-  console.log(fragment);
 
   if (!fragment?.length) return;
   let [node] = Editor.nodes<Element>(editor, {

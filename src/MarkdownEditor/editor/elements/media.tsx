@@ -90,6 +90,8 @@ export function Media({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path, store] = useSelStatus(element);
 
+  console.log('Media', element);
+
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -139,7 +141,10 @@ export function Media({
   }, [element.url, element.downloadUrl]);
 
   const imageDom = useMemo(() => {
-    if (state().type !== 'image' || state().type !== 'other') return null;
+    console.log(state().type);
+
+    if (state().type !== 'image' && state().type !== 'other') return null;
+
     return !store?.readonly ? (
       <ResizeImage
         defaultSize={{
@@ -168,7 +173,6 @@ export function Media({
       />
     );
   }, [state().type, state().url, store?.readonly]);
-
   const videoDom = useMemo(() => {
     if (state().type !== 'video') return null;
     return (

@@ -150,8 +150,6 @@ export const BaseToolBar = observer(
       [store.editorProps],
     );
 
-    if (!node) return null;
-
     const headDom = (
       <>
         {props.showEditor ? (
@@ -427,7 +425,7 @@ export const BaseToolBar = observer(
             </div>
           );
         })}
-        {['head', 'paragraph'].includes(node[0]?.type) ? (
+        {['head', 'paragraph'].includes(node?.[0]?.type) ? (
           <>
             <Divider
               type="vertical"
