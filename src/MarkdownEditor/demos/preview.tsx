@@ -57,6 +57,12 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ![video:视频名](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
 
+## 附件
+
+![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
+
+
+
 
 ## 表单
 

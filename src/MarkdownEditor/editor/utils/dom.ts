@@ -74,6 +74,8 @@ export const getMediaType = (name?: string, alt?: string) => {
   if (alt) {
     if (alt.startsWith('data:')) return 'image';
     if (alt.startsWith('video:')) return 'video';
+    if (alt.startsWith('audio:')) return 'audio';
+    if (alt.startsWith('attachment:')) return 'attachment';
   }
   name = name || '';
   if (name.startsWith('data:')) return 'image';

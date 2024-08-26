@@ -1,3 +1,4 @@
+import { EyeOutlined, FileOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
@@ -90,8 +91,6 @@ export function Media({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path, store] = useSelStatus(element);
 
-  console.log('Media', element);
-
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -112,7 +111,9 @@ export function Media({
     let type = getMediaType(element.url, element.alt);
     type = !type ? 'image' : type;
     setState({
-      type: ['image', 'video', 'autio'].includes(type!) ? type! : 'other',
+      type: ['image', 'video', 'autio', 'attachment'].includes(type!)
+        ? type!
+        : 'other',
     });
     let realUrl = element.url;
     setState({ url: realUrl });
@@ -141,8 +142,6 @@ export function Media({
   }, [element.url, element.downloadUrl]);
 
   const imageDom = useMemo(() => {
-    console.log(state().type);
-
     if (state().type !== 'image' && state().type !== 'other') return null;
 
     return !store?.readonly ? (
@@ -174,17 +173,93 @@ export function Media({
     );
   }, [state().type, state().url, store?.readonly]);
   const videoDom = useMemo(() => {
-    if (state().type !== 'video') return null;
-    return (
-      <video
-        controls
-        style={{
-          width: '100%',
-          height: 'auto',
-        }}
-        src={state().url || ''}
-      />
-    );
+    if (state().type === 'video')
+      return (
+        <video
+          controls
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          src={state().url || ''}
+        />
+      );
+
+    if (state().type === 'audio') {
+      return (
+        <audio
+          controls
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          src={state().url || ''}
+        >
+          Your browser does not support the
+          <code>audio</code> element.
+        </audio>
+      );
+    }
+    if (state().type === 'attachment') {
+      return (
+        <div
+          style={{
+            padding: 12,
+            border: '1px solid #f0f0f0',
+            borderRadius: 4,
+            width: '100%',
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            color: '#262626',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              color: '#262626',
+              fontSize: 16,
+            }}
+          >
+            <FileOutlined
+              style={{
+                fontSize: 16,
+              }}
+            />
+            <a
+              href={state().url}
+              style={{
+                overflow: 'ellipsis',
+                textOverflow: 'ellipsis',
+                textWrap: 'nowrap',
+                textDecoration: 'none',
+                display: 'block',
+                color: '#262626',
+              }}
+              download={element.alt?.replace('attachment:', '') || 'attachment'}
+            >
+              {element.alt?.replace('attachment:', '') || 'attachment'}
+            </a>
+          </div>
+          <div className="editor-icon-box">
+            <EyeOutlined
+              onClick={() => {
+                window.open(state().url);
+              }}
+              style={{
+                fontSize: 16,
+                cursor: 'pointer',
+              }}
+            />
+          </div>
+        </div>
+      );
+    }
+    return null;
   }, [state().type, state().url]);
 
   return (
@@ -225,6 +300,7 @@ export function Media({
           style={{
             color: 'transparent',
             padding: 4,
+            width: videoDom ? '100%' : undefined,
           }}
           ref={htmlRef}
           draggable={false}

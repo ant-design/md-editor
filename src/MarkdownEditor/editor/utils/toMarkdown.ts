@@ -49,7 +49,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       break;
     case 'media':
       let url = node.url;
-      let type = getMediaType(url);
+      let type = getMediaType(url, node?.alt);
       if (node.height) {
         if (type === 'video') {
           str += `<video src="${encodeURI(url)}" alt="" height="${
@@ -59,10 +59,6 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
           str += `<img src="${encodeURI(url)}" alt="" height="${
             node.height || ''
           }" ${node.align ? `data-align="${node.align}"` : ''}/>`;
-        } else {
-          str += `<iframe src="${encodeURI(url)}" alt="" height="${
-            node.height || ''
-          }"/>`;
         }
       } else {
         if (type === 'video') {
