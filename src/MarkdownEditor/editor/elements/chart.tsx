@@ -527,6 +527,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           margin: 'auto',
                           minWidth: 200,
                           maxWidth: 600,
+                          maxHeight: '400px',
                           flex: 1,
                         }}
                       >
