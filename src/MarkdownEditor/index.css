@@ -1025,9 +1025,9 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 14px 20px;
+  padding: 6px 8px;
   width: 100%;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid rgba(77, 77, 77, 0.03);
   background-color: rgba(255, 255, 255, 1);
   align-items: center;
   z-index: 10;
