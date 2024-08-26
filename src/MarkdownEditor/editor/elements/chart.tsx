@@ -385,6 +385,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         },
                       },
                       label: false,
+                      height: 400,
                     };
                     if (chartType === 'pie') {
                       return (
@@ -527,7 +528,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           margin: 'auto',
                           minWidth: 200,
                           maxWidth: 600,
-                          maxHeight: '400px',
                           flex: 1,
                         }}
                       >
