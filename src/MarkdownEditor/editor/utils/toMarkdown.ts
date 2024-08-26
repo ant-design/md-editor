@@ -4,7 +4,7 @@
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
 import { ChartNode, ColumnNode, DescriptionNode, TableNode } from '../../el';
-import { mediaType } from './dom';
+import { getMediaType } from './dom';
 
 const space = '  ';
 const inlineNode = new Set(['break']);
@@ -49,7 +49,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       break;
     case 'media':
       let url = node.url;
-      let type = mediaType(url);
+      let type = getMediaType(url);
       if (node.height) {
         if (type === 'video') {
           str += `<video src="${encodeURI(url)}" alt="" height="${

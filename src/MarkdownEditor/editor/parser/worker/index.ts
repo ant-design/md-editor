@@ -42,6 +42,7 @@ const findImageElement = (str: string) => {
         url: url?.[1],
         height: height ? +height[1] : undefined,
         align: align?.[1],
+        alt: match[0].match(/alt="([^"\n]+)"/)?.[1],
       };
     }
     return null;
@@ -282,6 +283,7 @@ const parserBlock = (
             el = {
               type: 'media',
               align: img.align,
+              alt: img.alt,
               height: img?.height,
               url: decodeURIComponent(img?.url || ''),
               children: [{ text: '' }],
@@ -361,6 +363,7 @@ const parserBlock = (
                 el = {
                   type: 'media',
                   align: img.align,
+                  alt: img.alt,
                   height: img?.height,
                   url: img?.url,
                   children: [{ text: '' }],
@@ -460,6 +463,7 @@ const parserBlock = (
               type: 'media',
               children: [{ text: '' }],
               url: decodeURIComponent(c.url),
+              alt: c.alt,
             });
           } else if (c.type === 'html') {
             const img = findImageElement(c.value);
@@ -470,6 +474,7 @@ const parserBlock = (
                 children: [{ text: '' }],
                 url: decodeURIComponent(img.url || ''),
                 height: img.height,
+                alt: img.alt,
               });
             } else {
               textNodes.push({ type: 'html', value: c.value });
@@ -661,6 +666,7 @@ export const parserMarkdown = (
   links: { path: number[]; target: string }[];
 } => {
   const root = parser.parse(md || '');
+  console.log(root);
   const schema = parserBlock(root.children as any[], true) as Elements[];
   const links = findLinks(schema);
   return { schema, links };

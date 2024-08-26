@@ -70,7 +70,11 @@ export const slugify = (str: string): string => {
  * @param name - The name of the file.
  * @returns The media type of the file.
  */
-export const mediaType = (name?: string) => {
+export const getMediaType = (name?: string, alt?: string) => {
+  if (alt) {
+    if (alt.startsWith('data:')) return 'image';
+    if (alt.startsWith('video:')) return 'video';
+  }
   name = name || '';
   if (name.startsWith('data:')) return 'image';
   name = name.split('?')[0];

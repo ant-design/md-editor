@@ -19,7 +19,7 @@ import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import { useEditorStore } from './store';
 import { isMarkdown } from './utils';
-import { mediaType } from './utils/dom';
+import { getMediaType } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
 
@@ -300,7 +300,7 @@ export const MEditor = observer(
           if (text.startsWith('http')) {
             e.preventDefault();
             e.stopPropagation();
-            if (['image', 'video', 'audio'].includes(mediaType(text))) {
+            if (['image', 'video', 'audio'].includes(getMediaType(text))) {
               if (text.startsWith('http')) {
                 const path = EditorUtils.findMediaInsertPath(store.editor);
                 if (!path) return;

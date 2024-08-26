@@ -52,6 +52,12 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 | -云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   | 
 
 
+## 视频
+
+![video:视频名](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
+
+
+
 ## 表单
 
 \`\`\`schema
@@ -88,7 +94,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
     },
   },
 ]
-
 
 `;
 export default () => {

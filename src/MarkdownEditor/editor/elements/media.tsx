@@ -1,12 +1,12 @@
 import { Image } from 'antd';
-import React, { useCallback, useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
 import { useGetSetState } from 'react-use';
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { DragHandle } from '../tools/DragHandle';
-import { mediaType } from '../utils/dom';
+import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 
 /**
@@ -89,6 +89,7 @@ export function Media({
 }: ElementProps<MediaNode>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path, store] = useSelStatus(element);
+
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -96,7 +97,7 @@ export function Media({
     loadSuccess: true,
     url: '',
     selected: false,
-    type: mediaType(element.url),
+    type: getMediaType(element.url, element.alt),
   });
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
@@ -106,7 +107,7 @@ export function Media({
   );
 
   const initial = useCallback(async () => {
-    let type = mediaType(element.url);
+    let type = getMediaType(element.url, element.alt);
     type = !type ? 'image' : type;
     setState({
       type: ['image', 'video', 'autio'].includes(type!) ? type! : 'other',
@@ -136,6 +137,51 @@ export function Media({
     }
     initial();
   }, [element.url, element.downloadUrl]);
+
+  const imageDom = useMemo(() => {
+    if (state().type !== 'image' || state().type !== 'other') return null;
+    return !store?.readonly ? (
+      <ResizeImage
+        defaultSize={{
+          width: element.width,
+          height: element.height,
+        }}
+        supportResize={state().selected}
+        src={state().url}
+        onResizeStart={() => {
+          setState({ selected: true });
+        }}
+        onResizeStop={(_, size) => {
+          Transforms.setNodes(store.editor, size, { at: path });
+          setState({ selected: false });
+        }}
+      />
+    ) : (
+      <Image
+        src={state().url}
+        alt={'image'}
+        referrerPolicy={'no-referrer'}
+        crossOrigin={'anonymous'}
+        draggable={false}
+        width={element.width}
+        height={element.height}
+      />
+    );
+  }, [state().type, state().url, store?.readonly]);
+
+  const videoDom = useMemo(() => {
+    if (state().type !== 'video') return null;
+    return (
+      <video
+        controls
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
+        src={state().url || ''}
+      />
+    );
+  }, [state().type, state().url]);
 
   return (
     <div {...attributes}>
@@ -180,33 +226,8 @@ export function Media({
           draggable={false}
           contentEditable={false}
         >
-          {!store?.readonly ? (
-            <ResizeImage
-              defaultSize={{
-                width: element.width,
-                height: element.height,
-              }}
-              supportResize={state().selected}
-              src={state().url}
-              onResizeStart={() => {
-                setState({ selected: true });
-              }}
-              onResizeStop={(_, size) => {
-                Transforms.setNodes(store.editor, size, { at: path });
-                setState({ selected: false });
-              }}
-            />
-          ) : (
-            <Image
-              src={state().url}
-              alt={'image'}
-              referrerPolicy={'no-referrer'}
-              crossOrigin={'anonymous'}
-              draggable={false}
-              width={element.width}
-              height={element.height}
-            />
-          )}
+          {videoDom}
+          {imageDom}
         </div>
         <span
           style={{

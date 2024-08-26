@@ -2,12 +2,12 @@ import { Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { IFileItem } from '../../index';
 import { EditorStore } from '../store';
-import { mediaType } from './dom';
+import { getMediaType } from './dom';
 
 export const getRemoteMediaType = async (url: string) => {
   if (!url) return 'other';
   try {
-    const type = mediaType(url);
+    const type = getMediaType(url);
     if (type !== 'other') return type;
     let contentType = '';
     const controller = new AbortController();
