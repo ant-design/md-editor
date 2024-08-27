@@ -68,6 +68,8 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
           data-be={'code'}
           style={{
             background: '#fafafa',
+            borderRadius: 4,
+            padding: 8,
           }}
           onDragStart={store.dragStart}
           className={`${'light'} drag-el ${

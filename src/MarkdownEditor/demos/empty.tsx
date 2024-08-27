@@ -11,7 +11,17 @@ export default () => {
 <!-- {"elementType":"column"} -->       
 | column1                                                                         | column2 |
 | ------------------------------------------------------------------------------- | ------- |
-| ![](blob:http://localhost:8000/b3fb90af-d975-4954-8299-88b06c03673e) | xxxx    |`,
+| ![](blob:http://localhost:8000/b3fb90af-d975-4954-8299-88b06c03673e) | xxxx    |
+  
+        
+\`\`\`java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World");
+    }
+}
+ \`\`\`
+ `,
       );
     };
     insertMarkdown();
