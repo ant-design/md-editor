@@ -353,7 +353,11 @@ export const MEditor = observer(
               return;
             }
           }
+        } catch (error) {
+          console.log('error', error);
+        }
 
+        try {
           const urlBlob = await pasteImage();
           if (urlBlob) {
             const hideLoading = message.loading('Uploading...');
@@ -362,6 +366,7 @@ export const MEditor = observer(
                 (await props.instance.editorProps?.image?.upload?.(
                   [new File([urlBlob], 'inline.png')] || [],
                 )) || [];
+
               if (store.editor.selection?.focus.path) {
                 Transforms.delete(store.editor, {
                   at: store.editor.selection.focus.path!,
@@ -388,6 +393,7 @@ export const MEditor = observer(
               });
               message.success('Upload success');
             } catch (error) {
+              console.log('error', error);
             } finally {
               hideLoading();
             }

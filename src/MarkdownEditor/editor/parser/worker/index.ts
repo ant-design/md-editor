@@ -666,7 +666,6 @@ export const parserMarkdown = (
   links: { path: number[]; target: string }[];
 } => {
   const root = parser.parse(md || '');
-  console.log(root);
   const schema = parserBlock(root.children as any[], true) as Elements[];
   const links = findLinks(schema);
   return { schema, links };
