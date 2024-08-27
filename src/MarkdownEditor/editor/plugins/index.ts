@@ -20,9 +20,9 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
     if (
       operation.type === 'merge_node' &&
       operation.properties?.type === 'table-cell'
-    )
+    ) {
       return;
-
+    }
     if (
       operation.type === 'split_node' ||
       operation.type === 'merge_node' ||
@@ -30,26 +30,28 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
       operation.type === 'move_node'
     ) {
       if (operation.type === 'split_node' && operation.path?.at(1) === 1) {
-        const next = Path.next([operation.path.at(0) || 0]);
-        Transforms.insertNodes(
-          editor,
-          [
+        if (operation.properties.type === 'column-cell') {
+          const next = Path.next([operation.path.at(0) || 0]);
+          Transforms.insertNodes(
+            editor,
+            [
+              {
+                type: 'paragraph',
+                children: [{ text: '', p: 'true' }],
+              },
+            ],
             {
-              type: 'paragraph',
-              children: [{ text: '' }],
+              at: next,
             },
-          ],
-          {
-            at: next,
-          },
-        );
-        setTimeout(() => {
-          Transforms.setSelection(editor, {
-            anchor: { path: next, offset: 0 },
-            focus: { path: next, offset: 0 },
-          });
-        }, 100);
-        return;
+          );
+          setTimeout(() => {
+            Transforms.setSelection(editor, {
+              anchor: { path: next, offset: 0 },
+              focus: { path: next, offset: 0 },
+            });
+          }, 100);
+          return;
+        }
       }
       const node = Node.get(editor, operation.path);
       if (node?.type === 'column-cell') {
