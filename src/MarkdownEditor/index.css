@@ -276,6 +276,18 @@
   background-color: rgb(229 231 235 / 0.5);
 }
 
+.markdown-editor-content table.column-group-table {
+  border: 1px solid rgb(209 213 219 / 0.8);
+}
+
+.markdown-editor-content table.column-group-table th,
+.markdown-editor-content table.column-group-table td {
+  border: 1px solid rgb(209 213 219 / 0.8);
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+
 .markdown-editor-content table {
   width: fit-content;
   min-width: 100%;
@@ -405,15 +417,17 @@
 }
 
 .markdown-editor-content .inline-code {
-  font-size: 0.87em;
-  border-radius: 18px;
-  padding: 2px 5px;
-  position: relative;
-  margin: 0 1px;
-  word-break: break-word;
-  top: -1px;
-
-  color: rgb(244 63 94 /1);
+  display: inline;
+  background-color: #0000000f;
+  border-radius: 4px;
+  border: 1px solid #e7e9e8;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue,
+    Helvetica, Arial, sans-serif, Segoe UI;
+  padding: 0 4px;
+  margin: 1px 3px;
+  line-height: 1.1;
+  word-break: break-all;
 }
 
 .markdown-editor-content blockquote {

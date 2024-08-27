@@ -13,7 +13,7 @@ import classnames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Editor, Element, NodeEntry, Transforms } from 'slate';
+import { Editor, Element, NodeEntry } from 'slate';
 import { keyTask$ } from '../../index';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -21,7 +21,7 @@ import { getInsertOptions } from './InsertAutocomplete';
 
 const HeatTextMap = {
   1: '主标题',
-  2: '段落标题',
+  2: '段标题',
   3: '小标题',
 };
 
@@ -150,6 +150,117 @@ export const BaseToolBar = observer(
       [store.editorProps],
     );
 
+    const listDom = useMemo(() => {
+      const list = insertOptions.map((t) => {
+        return (
+          <div
+            role="button"
+            key={t.key}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              insert(t);
+            }}
+            className={`${baseClassName}-item`}
+          >
+            {t.icon}
+          </div>
+        );
+      });
+
+      if (props.showEditor) {
+        list.unshift(
+          <div
+            role="button"
+            key="redo"
+            className={`${baseClassName}-item`}
+            onClick={() => {
+              keyTask$.next({
+                key: 'redo',
+                args: [],
+              });
+            }}
+          >
+            <RedoOutlined />
+          </div>,
+        );
+        list.unshift(
+          <div
+            role="button"
+            className={`${baseClassName}-item`}
+            onClick={() => {
+              keyTask$.next({
+                key: 'undo',
+                args: [],
+              });
+            }}
+          >
+            <UndoOutlined />
+          </div>,
+        );
+        list.push(
+          <div
+            role="button"
+            className={`${baseClassName}-item`}
+            onClick={() => {
+              EditorUtils.clearMarks(store.editor, true);
+              EditorUtils.highColor(store.editor);
+            }}
+          >
+            <ClearOutlined />
+          </div>,
+        );
+        if (['head', 'paragraph'].includes(node?.[0]?.type)) {
+          list.push(
+            <>
+              <Divider
+                type="vertical"
+                style={{
+                  margin: '0 4px',
+                  height: '18px',
+                  borderColor: 'rgba(0,0,0,0.15)',
+                }}
+              />
+              <Dropdown
+                menu={{
+                  items: ['H1', 'H2', 'H3'].map((item, index) => {
+                    return {
+                      label: HeatTextMap[item.replace('H', '') as '1'] || item,
+                      key: item,
+                      onClick: () => {
+                        keyTask$.next({
+                          key: 'head',
+                          args: [index + 1],
+                        });
+                      },
+                    };
+                  }),
+                }}
+              >
+                <div
+                  role="button"
+                  className={`${baseClassName}-item`}
+                  style={{
+                    minWidth: 36,
+                    textAlign: 'center',
+                    fontSize: node?.[0]?.level ? 14 : 12,
+                    justifyContent: 'center',
+                    lineHeight: 1,
+                  }}
+                >
+                  {node?.[0]?.level
+                    ? `${
+                        HeatTextMap[(node[0].level + '') as '1'] ||
+                        `H${node[0].level}`
+                      }`
+                    : '正文'}
+                </div>
+              </Dropdown>
+            </>,
+          );
+        }
+      }
+    }, [insertOptions]);
+
     const headDom = (
       <>
         {props.showEditor ? (
@@ -207,18 +318,10 @@ export const BaseToolBar = observer(
                     label: HeatTextMap[item.replace('H', '') as '1'] || item,
                     key: item,
                     onClick: () => {
-                      Transforms.setNodes(
-                        store.editor,
-                        {
-                          type: 'head',
-                          level: index + 1,
-                        },
-                        {
-                          match: (n) =>
-                            Element.isElement(n) && n.type === 'head',
-                          at: node[1],
-                        },
-                      );
+                      keyTask$.next({
+                        key: 'head',
+                        args: [index + 1],
+                      });
                     },
                   };
                 }),
@@ -306,21 +409,7 @@ export const BaseToolBar = observer(
         ) : (
           <>
             {headDom}
-            {insertOptions.map((t) => {
-              return (
-                <div
-                  role="button"
-                  key={t.key}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
-                    insert(t);
-                  }}
-                  className={`${baseClassName}-item`}
-                >
-                  {t.icon}
-                </div>
-              );
-            })}
+            {listDom}
           </>
         )}
         {insertOptions.length > 0 && !props.min && (
@@ -449,27 +538,12 @@ export const BaseToolBar = observer(
               }}
             >
               <LinkOutlined />
-              <span
-                style={{
-                  fontSize: 12,
-                }}
-              >
-                Link
-              </span>
             </div>
           </>
         ) : null}
 
         {props.extra ? (
           <>
-            <Divider
-              type="vertical"
-              style={{
-                margin: '0 8px',
-                height: '16px',
-                borderColor: 'rgba(0,0,0,0.35)',
-              }}
-            />
             <div
               style={{
                 flex: 1,

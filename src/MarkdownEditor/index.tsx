@@ -214,7 +214,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         <div
           style={{
             padding: props.readonly ? '8px' : '24px 24px',
-            overflow: 'auto',
             display: 'flex',
             position: 'relative',
             gap: 24,

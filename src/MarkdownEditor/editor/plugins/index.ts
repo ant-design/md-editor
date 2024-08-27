@@ -1,4 +1,4 @@
-import { Editor, Node, Transforms } from 'slate';
+import { Editor, Node, Path, Transforms } from 'slate';
 import { EditorStore } from '../store';
 
 export const inlineNode = new Set(['break']);
@@ -22,6 +22,35 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
       operation.properties?.type === 'table-cell'
     )
       return;
+
+    if (
+      operation.type === 'split_node' ||
+      operation.type === 'merge_node' ||
+      operation.type === 'remove_node' ||
+      operation.type === 'move_node'
+    ) {
+      if (operation.type === 'split_node' && operation.path?.at(1) === 1) {
+        const next = Path.next([operation.path.at(0) || 0]);
+        Transforms.insertNodes(
+          editor,
+          [
+            {
+              type: 'paragraph',
+              children: [{ text: '' }],
+            },
+          ],
+          {
+            at: next,
+          },
+        );
+
+        return;
+      }
+      const node = Node.get(editor, operation.path);
+      if (node?.type === 'column-cell') {
+        return;
+      }
+    }
 
     if (!store.manual) {
       if (operation.type === 'move_node') {

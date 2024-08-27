@@ -8,6 +8,7 @@ export default () => {
     const insertMarkdown = () => {
       tabRef.current?.store.setMDContent(
         `
+<!-- {"elementType":"column"} -->       
 | column1                                                                         | column2 |
 | ------------------------------------------------------------------------------- | ------- |
 | ![](blob:http://localhost:8000/b3fb90af-d975-4954-8299-88b06c03673e) | xxxx    |`,

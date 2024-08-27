@@ -174,21 +174,21 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       key: 'head',
       children: [
         {
-          label: ['标题 1', 'Heading 1'],
+          label: ['主标题', 'Heading 1'],
           task: 'head',
           key: 'head1',
           args: [1],
           icon: <FontSizeOutlined className={'text-base'} />,
         },
         {
-          label: ['标题2', 'Heading 2'],
+          label: ['段标题', 'Heading 2'],
           task: 'head',
           key: 'head2',
           icon: <FontSizeOutlined className={'text-base'} />,
           args: [2],
         },
         {
-          label: ['标题3', 'Heading 3'],
+          label: ['小标题', 'Heading 3'],
           task: 'head',
           key: 'head3',
           icon: <FontSizeOutlined className={'text-base'} />,
