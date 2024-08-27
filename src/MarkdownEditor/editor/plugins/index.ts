@@ -43,7 +43,12 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
             at: next,
           },
         );
-
+        setTimeout(() => {
+          Transforms.setSelection(editor, {
+            anchor: { path: next, offset: 0 },
+            focus: { path: next, offset: 0 },
+          });
+        }, 100);
         return;
       }
       const node = Node.get(editor, operation.path);
