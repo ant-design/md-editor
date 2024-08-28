@@ -170,7 +170,14 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    codeReady();
+    instance.store.setState((value) => {
+      value.refreshHighlight = true;
+    });
+    codeReady().then(() => {
+      instance.store.setState((value) => {
+        value.refreshHighlight = false;
+      });
+    });
   }, []);
 
   const [mount, setMount] = useState(false);
