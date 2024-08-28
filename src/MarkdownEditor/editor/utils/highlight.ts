@@ -8,7 +8,7 @@ import {
 export const codeThemes = new Set(Object.keys(bundledThemes));
 export const allLanguages = Object.keys(bundledLanguages);
 export const langSet = new Set(allLanguages);
-export let highlighter: Highlighter;
+export let highlighter: Highlighter = {} as any;
 export const loadedLanguage = new Set<string>(['tex']);
 
 export const codeReady = async (allLanguage = false) => {
