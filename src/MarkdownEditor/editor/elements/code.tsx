@@ -77,9 +77,6 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
               '-apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
             whiteSpace: 'pre-wrap',
             overflowWrap: 'break-word',
-            borderStyle: 'solid',
-            borderWidth: '1px',
-            borderColor: 'rgb(0 0 0 / 0.1)',
             direction: 'ltr',
             position: 'relative',
             marginBottom: '0',
@@ -96,9 +93,6 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
               direction: 'ltr',
               tabSize: 2,
               WebkitUserModify: 'read-only',
-              borderWidth: '0',
-              borderStyle: 'solid',
-              borderColor: '#e5e7eb',
               boxSizing: 'border-box',
               caretColor: 'rgba(0, 0, 0, 0.9)',
               color: 'rgba(0, 0, 0, 0.8)',
@@ -112,7 +106,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
             }}
           >
             <div>
-              {!state().editable && (
+              {!store.readonly && (
                 <Select
                   size={'small'}
                   value={state().lang}
@@ -138,7 +132,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
                   className={'lang-select'}
                 />
               )}
-              {state().editable && (
+              {store.readonly && (
                 <div>
                   {props.element.language ? (
                     <span>

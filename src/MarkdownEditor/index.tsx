@@ -216,6 +216,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ...style,
         }}
         onClick={() => {
+          if (readonly) {
+            return;
+          }
           const latest = instance.store.editor?.children?.at(-1);
           if (latest) {
             if (latest.type !== 'paragraph') {
