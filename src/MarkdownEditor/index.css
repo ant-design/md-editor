@@ -97,6 +97,7 @@
   content: 'Please enter content, press '/' for quick actions';
   display: block;
   color: #bec0bf;
+  position: absolute;
   font-weight: 500;
 }
 
