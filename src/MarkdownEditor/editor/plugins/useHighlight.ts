@@ -1,3 +1,4 @@
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useCallback, useMemo } from 'react';
 import { Editor, Element, Node, NodeEntry, Path, Range } from 'slate';
@@ -5,9 +6,12 @@ import { useSlate } from 'slate-react';
 import { CodeNode } from '../../el';
 import { EditorStore, useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
-import { langSet, loadedLanguage } from '../utils/highlight';
+import { highlighter, langSet, loadedLanguage } from '../utils/highlight';
 
-const htmlReg = /<[a-z]+[\s"'=:;()\w\-\[\]\/.]*\/?>(.*<\/[a-z]+>:?)?/g;
+const htmlReg = /<[a-z]+[\s"'=:;()\w\-[\]/.]*\/?>(.*<\/[a-z]+>:?)?/g;
+const linkReg =
+  /(https?|ftp):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/gi;
+
 export const codeCache = new WeakMap<object, { path: Path; range: Range[] }>();
 export const cacheTextNode = new WeakMap<
   object,
@@ -23,6 +27,16 @@ export const clearAllCodeCache = (editor: Editor) => {
   codes.map((c) => codeCache.delete(c[0]));
 };
 
+export const clearInlineKatex = (editor: Editor) => {
+  const inlineMath = Array.from<any>(
+    Editor.nodes(editor, {
+      match: (n) => n.type === 'inline-katex',
+      at: [],
+    }),
+  );
+  inlineMath.map((c) => cacheTextNode.delete(c[0]));
+};
+
 const highlightNodes = new Set([
   'paragraph',
   'table-cell',
@@ -35,11 +49,40 @@ let clearTimer = 0;
 export const clearCodeCache = (node: any) => {
   codeCache.delete(node);
   clearTimeout(clearTimer);
-  clearTimer = window.setTimeout(() => {}, 60);
 };
 
-const run = (node: NodeEntry, code: string, lang: any) => {};
-let stack: { run: Function; lang: string }[] = [];
+const run = (node: NodeEntry, code: string, lang: any) => {
+  try {
+    const el = node[0];
+    const ranges: Range[] = [];
+    const tokens = highlighter.codeToTokensBase(code, {
+      lang: lang,
+      theme: 'github-light',
+      includeExplanation: false,
+      tokenizeMaxLineLength: 5000,
+    });
+    for (let i = 0; i < tokens.length; i++) {
+      const lineToken = tokens[i];
+      let start = 0;
+      for (let t of lineToken) {
+        const length = t.content.length;
+        if (!length) {
+          continue;
+        }
+        const end = start + length;
+        const path = [...node[1], i, 0];
+        ranges.push({
+          anchor: { path, offset: start },
+          focus: { path, offset: end },
+          color: t.color,
+        });
+        start = end;
+      }
+    }
+    codeCache.set(el, { path: node[1], range: ranges });
+  } catch (e) {}
+};
+let stack: { run: any; lang: string }[] = [];
 
 export function useHighlight(store?: EditorStore) {
   return useCallback(
@@ -50,6 +93,39 @@ export function useHighlight(store?: EditorStore) {
           ranges.push(...(codeCache.get(node)?.range || []));
         }
         const cacheText = cacheTextNode.get(node);
+        if (node.type === 'inline-katex') {
+          if (cacheText && Path.equals(cacheText.path, path)) {
+            ranges.push(...cacheText.range);
+          } else {
+            const code = Node.string(node);
+            if (code) {
+              let textRanges: any[] = [];
+              const tokens = highlighter.codeToTokensBase(code, {
+                lang: 'tex',
+                theme: 'github-light',
+                includeExplanation: false,
+                tokenizeMaxLineLength: 5000,
+              });
+              let start = 0;
+              const lineToken = tokens[0];
+              for (let t of lineToken) {
+                const length = t.content.length;
+                if (!length) {
+                  continue;
+                }
+                const end = start + length;
+                textRanges.push({
+                  anchor: { path, offset: start },
+                  focus: { path, offset: end },
+                  color: t.color,
+                });
+                start = end;
+              }
+              cacheTextNode.set(node, { path, range: textRanges });
+              ranges.push(...textRanges);
+            }
+          }
+        }
         // footnote
         if (['paragraph', 'table-cell'].includes(node.type)) {
           for (let i = 0; i < node.children.length; i++) {
@@ -83,23 +159,24 @@ export function useHighlight(store?: EditorStore) {
                     fnd: m[0].endsWith(':'),
                   });
                 }
-                const matchSymbol = (c.text as string).matchAll(
-                  /[\[\]\{\}@;#$￥&]/g,
-                );
-                // @ts-ignore
-                for (let m of matchSymbol) {
-                  textRanges.push({
-                    anchor: { path: [...path, i], offset: m.index },
-                    focus: {
-                      path: [...path, i],
-                      offset: m.index! + m[0].length,
-                    },
-                    color: '#8b5cf6',
-                  });
-                }
                 cacheTextNode.set(node, { path, range: textRanges });
                 ranges.push(...textRanges);
               }
+            }
+            if (c.text && !c.url && !c.docId && !c.hash) {
+              let textRanges: any[] = [];
+              const links = (c.text as string).matchAll(linkReg);
+              for (let m of links) {
+                textRanges.push({
+                  anchor: { path: [...path, i], offset: m.index },
+                  focus: {
+                    path: [...path, i],
+                    offset: m.index! + m[0].length,
+                  },
+                  link: m[0],
+                });
+              }
+              ranges.push(...textRanges);
             }
           }
         }
@@ -192,7 +269,6 @@ export const SetNodeToDecorations = observer(() => {
     for (let c of codes) {
       if (c.code.length > 10000) continue;
       const lang = c.node[0].language?.toLowerCase() || '';
-      // @ts-ignore
       if (!langSet.has(lang)) continue;
       const el = c.node[0];
       let handle = codeCache.get(el);
@@ -206,6 +282,15 @@ export const SetNodeToDecorations = observer(() => {
           run(c.node, c.code, lang);
         }
       }
+    }
+    if (stack.length) {
+      const loadLang = stack.map((s) => s.lang as any);
+      highlighter.loadLanguage(...loadLang).then(() => {
+        stack.map((s) => loadedLanguage.add(s.lang));
+        stack.forEach((s) => s.run());
+        stack = [];
+        runInAction(() => (store.refreshHighlight = !store.refreshHighlight));
+      });
     }
   }, []);
   useMemo(() => {

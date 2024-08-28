@@ -400,43 +400,50 @@ export class EditorStore {
     window.addEventListener(
       'dragend',
       action(() => {
-        window.removeEventListener('dragover', dragover);
-        this.readonly = false;
-        if (mark) this.container!.removeChild(mark);
-        if (last && this.dragEl) {
-          let [dragPath, dragNode] = this.toPath(this.dragEl);
-          let [targetPath] = this.toPath(last.el);
-          let toPath =
-            last.direction === 'top' ? targetPath : Path.next(targetPath);
-          if (!Path.equals(targetPath, dragPath)) {
-            const parent = Node.parent(this.editor, dragPath);
-            if (
-              Path.equals(Path.parent(targetPath), Path.parent(dragPath)) &&
-              Path.compare(dragPath, targetPath) === -1
-            ) {
-              toPath = Path.previous(toPath);
-            }
-            let delPath = Path.parent(dragPath);
-            const targetNode = Node.get(this.editor, targetPath);
-            if (dragNode.type === 'list-item') {
-              if (targetNode.type !== 'list-item') {
-                Transforms.delete(this.editor, { at: dragPath });
-                Transforms.insertNodes(
-                  this.editor,
-                  {
-                    ...parent,
-                    children: [EditorUtils.copy(dragNode)],
-                  },
-                  { at: toPath, select: true },
-                );
-                if (parent.children?.length === 1) {
-                  if (
-                    EditorUtils.isNextPath(Path.parent(dragPath), targetPath)
-                  ) {
-                    delPath = Path.next(Path.parent(dragPath));
-                  } else {
-                    delPath = Path.parent(dragPath);
+        try {
+          window.removeEventListener('dragover', dragover);
+          this.readonly = false;
+          if (mark) this.container!.removeChild(mark);
+          if (last && this.dragEl) {
+            let [dragPath, dragNode] = this.toPath(this.dragEl);
+            let [targetPath] = this.toPath(last.el);
+            let toPath =
+              last.direction === 'top' ? targetPath : Path.next(targetPath);
+            if (!Path.equals(targetPath, dragPath)) {
+              const parent = Node.parent(this.editor, dragPath);
+              if (
+                Path.equals(Path.parent(targetPath), Path.parent(dragPath)) &&
+                Path.compare(dragPath, targetPath) === -1
+              ) {
+                toPath = Path.previous(toPath);
+              }
+              let delPath = Path.parent(dragPath);
+              const targetNode = Node.get(this.editor, targetPath);
+              if (dragNode.type === 'list-item') {
+                if (targetNode.type !== 'list-item') {
+                  Transforms.delete(this.editor, { at: dragPath });
+                  Transforms.insertNodes(
+                    this.editor,
+                    {
+                      ...parent,
+                      children: [EditorUtils.copy(dragNode)],
+                    },
+                    { at: toPath, select: true },
+                  );
+                  if (parent.children?.length === 1) {
+                    if (
+                      EditorUtils.isNextPath(Path.parent(dragPath), targetPath)
+                    ) {
+                      delPath = Path.next(Path.parent(dragPath));
+                    } else {
+                      delPath = Path.parent(dragPath);
+                    }
                   }
+                } else {
+                  Transforms.moveNodes(this.editor, {
+                    at: dragPath,
+                    to: toPath,
+                  });
                 }
               } else {
                 Transforms.moveNodes(this.editor, {
@@ -444,25 +451,22 @@ export class EditorStore {
                   to: toPath,
                 });
               }
-            } else {
-              Transforms.moveNodes(this.editor, {
-                at: dragPath,
-                to: toPath,
-              });
-            }
-            if (parent.children?.length === 1) {
-              if (
-                Path.equals(Path.parent(toPath), Path.parent(delPath)) &&
-                Path.compare(toPath, delPath) !== 1
-              ) {
-                delPath = Path.next(delPath);
+              if (parent.children?.length === 1) {
+                if (
+                  Path.equals(Path.parent(toPath), Path.parent(delPath)) &&
+                  Path.compare(toPath, delPath) !== 1
+                ) {
+                  delPath = Path.next(delPath);
+                }
+                Transforms.delete(this.editor, { at: delPath });
               }
-              Transforms.delete(this.editor, { at: delPath });
             }
+            if (dragNode?.type !== 'media') this.dragEl!.draggable = false;
           }
-          if (dragNode?.type !== 'media') this.dragEl!.draggable = false;
+          this.dragEl = null;
+        } catch (error) {
+          console.error(error);
         }
-        this.dragEl = null;
       }),
       { once: true },
     );

@@ -716,6 +716,15 @@
   color: rgb(0 0 0 / 0.5);
 }
 
+pre,
+code,
+kbd,
+samp {
+  font-size: 1em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
+    monospace;
+}
+
 .code-highlight .code-line-list {
   counter-reset: step;
   counter-increment: step 0;

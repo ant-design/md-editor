@@ -17,6 +17,7 @@ import classNames from 'classnames';
 import { ReactEditor } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
 import { ToolBar } from './editor/tools/ToolBar';
+import { codeReady } from './editor/utils/highlight';
 import { ElementProps, Elements } from './el';
 import './index.css';
 
@@ -166,6 +167,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       } as MarkdownEditorInstance,
       { range: false, id: false },
     );
+  }, []);
+
+  useEffect(() => {
+    codeReady();
   }, []);
 
   const [mount, setMount] = useState(false);

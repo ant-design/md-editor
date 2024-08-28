@@ -14,7 +14,11 @@ import {
 import { MElement, MLeaf } from './elements';
 import { insertHtmlNodes } from './plugins/htmlParser';
 import { insertMarkdownNodes } from './plugins/markdownParser';
-import { clearAllCodeCache } from './plugins/useHighlight';
+import {
+  clearAllCodeCache,
+  SetNodeToDecorations,
+  useHighlight,
+} from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import { useEditorStore } from './store';
@@ -71,6 +75,7 @@ export const MEditor = observer(
     const onKeyDown = useKeyboard(store);
     const onChange = useOnchange(editor, store, props.onChange);
     const first = useRef(true);
+    const highlight = useHighlight(store);
     const save = useCallback(async () => {}, [note]);
 
     const initialNote = useCallback(async () => {
@@ -457,7 +462,9 @@ export const MEditor = observer(
 
     return (
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
+        <SetNodeToDecorations />
         <Editable
+          decorate={highlight}
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
