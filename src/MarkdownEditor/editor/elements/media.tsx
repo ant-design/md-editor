@@ -62,7 +62,11 @@ export const ResizeImage = (
           let width = (e.target as HTMLImageElement).clientWidth;
           const height = (e.target as HTMLImageElement).clientHeight;
           radio.current = width / height;
-          width = Math.min(width, 600);
+          width = Math.min(
+            width,
+            600,
+            document.documentElement.clientWidth * 0.8 || 600,
+          );
           setSize({
             width: width,
             height: width / radio.current,
