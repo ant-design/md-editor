@@ -285,7 +285,7 @@ export const SetNodeToDecorations = observer(() => {
     }
     if (stack.length) {
       const loadLang = stack.map((s) => s.lang as any);
-      highlighter.loadLanguage(...loadLang).then(() => {
+      highlighter?.loadLanguage?.(...loadLang).then(() => {
         stack.map((s) => loadedLanguage.add(s.lang));
         stack.forEach((s) => s.run());
         stack = [];

@@ -178,6 +178,7 @@ export function Media({
         <video
           controls
           style={{
+            maxWidth: 500,
             width: '100%',
             height: 'auto',
           }}
