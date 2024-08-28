@@ -85,13 +85,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 `;
 export default () => {
   return (
-    <div
-      style={{
-        border: '1px solid #f0f0f0',
-        width: '500px',
-        margin: '20px auto',
-      }}
-    >
+    <div>
       <MarkdownEditor
         toc={false}
         toolBar={{
@@ -102,8 +96,10 @@ export default () => {
             </Button>,
           ],
         }}
-        width={'500px'}
-        height={'500px'}
+        style={{
+          width: '100%',
+        }}
+        reportMode
         initValue={defaultValue}
       />
     </div>

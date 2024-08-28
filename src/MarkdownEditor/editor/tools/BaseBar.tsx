@@ -151,7 +151,7 @@ export const BaseToolBar = observer(
     );
 
     const listDom = useMemo(() => {
-      const list = insertOptions.map((t) => {
+      const options = insertOptions.map((t) => {
         return (
           <div
             role="button"
@@ -167,8 +167,10 @@ export const BaseToolBar = observer(
         );
       });
 
+      const list = [];
+
       if (props.showEditor) {
-        list.unshift(
+        list.push(
           <div
             role="button"
             key="redo"
@@ -183,7 +185,7 @@ export const BaseToolBar = observer(
             <RedoOutlined />
           </div>,
         );
-        list.unshift(
+        list.push(
           <div
             role="button"
             className={`${baseClassName}-item`}
@@ -211,55 +213,58 @@ export const BaseToolBar = observer(
         );
         if (['head', 'paragraph'].includes(node?.[0]?.type)) {
           list.push(
-            <>
-              <Divider
-                type="vertical"
+            <Dropdown
+              menu={{
+                items: ['H1', 'H2', 'H3'].map((item, index) => {
+                  return {
+                    label: HeatTextMap[item.replace('H', '') as '1'] || item,
+                    key: item,
+                    onClick: () => {
+                      keyTask$.next({
+                        key: 'head',
+                        args: [index + 1],
+                      });
+                    },
+                  };
+                }),
+              }}
+            >
+              <div
+                role="button"
+                className={`${baseClassName}-item`}
                 style={{
-                  margin: '0 4px',
-                  height: '18px',
-                  borderColor: 'rgba(0,0,0,0.15)',
-                }}
-              />
-              <Dropdown
-                menu={{
-                  items: ['H1', 'H2', 'H3'].map((item, index) => {
-                    return {
-                      label: HeatTextMap[item.replace('H', '') as '1'] || item,
-                      key: item,
-                      onClick: () => {
-                        keyTask$.next({
-                          key: 'head',
-                          args: [index + 1],
-                        });
-                      },
-                    };
-                  }),
+                  minWidth: 36,
+                  textAlign: 'center',
+                  fontSize: 12,
+                  justifyContent: 'center',
+                  lineHeight: 1,
                 }}
               >
-                <div
-                  role="button"
-                  className={`${baseClassName}-item`}
-                  style={{
-                    minWidth: 36,
-                    textAlign: 'center',
-                    fontSize: node?.[0]?.level ? 14 : 12,
-                    justifyContent: 'center',
-                    lineHeight: 1,
-                  }}
-                >
-                  {node?.[0]?.level
-                    ? `${
-                        HeatTextMap[(node[0].level + '') as '1'] ||
-                        `H${node[0].level}`
-                      }`
-                    : '正文'}
-                </div>
-              </Dropdown>
-            </>,
+                {node?.[0]?.level
+                  ? `${
+                      HeatTextMap[(node[0].level + '') as '1'] ||
+                      `H${node[0].level}`
+                    }`
+                  : '正文'}
+              </div>
+            </Dropdown>,
           );
         }
       }
-    }, [insertOptions]);
+      if (list.length > 0) {
+        list.push(
+          <Divider
+            type="vertical"
+            style={{
+              margin: '0 4px',
+              height: '18px',
+              borderColor: 'rgba(0,0,0,0.15)',
+            }}
+          />,
+        );
+      }
+      return list.concat(options);
+    }, [insertOptions, props.showEditor, node]);
 
     const headDom = (
       <>
@@ -407,10 +412,7 @@ export const BaseToolBar = observer(
             {headDom}
           </>
         ) : (
-          <>
-            {headDom}
-            {listDom}
-          </>
+          listDom
         )}
         {insertOptions.length > 0 && !props.min && (
           <Divider

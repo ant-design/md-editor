@@ -237,6 +237,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             padding: props.readonly ? '8px' : '24px 24px',
             display: 'flex',
             position: 'relative',
+            overflow: 'auto',
             gap: 24,
             ...contentStyle,
           }}
