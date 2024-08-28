@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseToolBar } from './BaseBar';
+import { BaseToolBar, ToolsKeyType } from './BaseBar';
 
 /**
  * 浮动工具栏,用于设置文本样式
@@ -8,6 +8,7 @@ export const ToolBar = (props: {
   prefix?: string;
   extra?: React.ReactNode[];
   min?: boolean;
+  hideTools?: ToolsKeyType[];
 }) => {
   const baseClassName = `toolbar`;
   return (

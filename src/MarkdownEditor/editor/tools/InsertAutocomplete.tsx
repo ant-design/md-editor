@@ -445,7 +445,6 @@ export const InsertAutocomplete = observer(() => {
         [] as InsertOptions['children'],
       );
     }
-    console.log(options);
     setState({
       index: 0,
       text: tempText,

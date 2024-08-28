@@ -15,6 +15,7 @@ import { useSystemKeyboard } from './editor/utils/keyboard';
 
 import classNames from 'classnames';
 import { ReactEditor } from 'slate-react';
+import { ToolsKeyType } from './editor/tools/BaseBar';
 import { FloatBar } from './editor/tools/FloatBar';
 import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
 import { InsertLink } from './editor/tools/InsertLink';
@@ -92,6 +93,7 @@ export type MarkdownEditorProps = {
     min?: boolean;
     enable?: boolean;
     extra?: React.ReactNode[];
+    hideTools?: ToolsKeyType[];
   };
   /**
    * 用于外部获取实例
@@ -241,7 +243,13 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               backgroundColor: '#fff',
             }}
           >
-            {<ToolBar extra={toolBar.extra} min={toolBar.min} />}
+            {
+              <ToolBar
+                hideTools={toolBar.hideTools}
+                extra={toolBar.extra}
+                min={toolBar.min}
+              />
+            }
           </div>
         ) : readonly ? null : (
           <FloatBar />

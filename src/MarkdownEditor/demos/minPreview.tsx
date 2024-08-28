@@ -90,6 +90,7 @@ export default () => {
         toc={false}
         toolBar={{
           enable: true,
+          hideTools: ['code', 'inline-code'],
           extra: [
             <Button key="save" type="primary" size="small">
               Save
@@ -97,7 +98,8 @@ export default () => {
           ],
         }}
         style={{
-          width: '100%',
+          width: '80%',
+          margin: '0 auto',
         }}
         reportMode
         initValue={defaultValue}

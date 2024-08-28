@@ -38,18 +38,22 @@ const LineCode = () => {
 
 const tools = [
   {
+    key: 'bold',
     type: 'bold',
     icon: (<BoldOutlined />) as React.ReactNode,
   },
   {
+    key: 'italic',
     type: 'italic',
     icon: <ItalicOutlined />,
   },
   {
+    key: 'strikethrough',
     type: 'strikethrough',
     icon: <StrikethroughOutlined />,
   },
   {
+    key: 'inline-code',
     type: 'code',
     icon: <LineCode />,
   },
@@ -66,6 +70,27 @@ const colors = [
   { color: 'rgba(14, 165, 233, 1)' },
 ];
 
+export type ToolsKeyType =
+  | 'redo'
+  | 'undo'
+  | 'clear'
+  | 'head'
+  | 'divider'
+  | 'color'
+  | 'table'
+  | 'column'
+  | 'quote'
+  | 'code'
+  | 'b-list'
+  | 'n-list'
+  | 't-list'
+  | 'bold'
+  | 'italic'
+  | 'strikethrough'
+  | 'inline-code'
+  | 'divider'
+  | 'link';
+
 /**
  * 基础工具栏
  * @param props
@@ -77,6 +102,7 @@ export const BaseToolBar = observer(
     showInsertAction?: boolean;
     extra?: React.ReactNode[];
     min?: boolean;
+    hideTools?: ToolsKeyType[];
     showEditor?: boolean;
   }) => {
     const store = useEditorStore();
@@ -167,7 +193,7 @@ export const BaseToolBar = observer(
         );
       });
 
-      const list = [];
+      let list = [];
 
       if (props.showEditor) {
         list.push(
@@ -188,6 +214,7 @@ export const BaseToolBar = observer(
         list.push(
           <div
             role="button"
+            key="undo"
             className={`${baseClassName}-item`}
             onClick={() => {
               keyTask$.next({
@@ -202,6 +229,7 @@ export const BaseToolBar = observer(
         list.push(
           <div
             role="button"
+            key="clear"
             className={`${baseClassName}-item`}
             onClick={() => {
               EditorUtils.clearMarks(store.editor, true);
@@ -214,6 +242,7 @@ export const BaseToolBar = observer(
         if (['head', 'paragraph'].includes(node?.[0]?.type)) {
           list.push(
             <Dropdown
+              key="head"
               menu={{
                 items: ['H1', 'H2', 'H3'].map((item, index) => {
                   return {
@@ -254,6 +283,7 @@ export const BaseToolBar = observer(
       if (list.length > 0) {
         list.push(
           <Divider
+            key="divider"
             type="vertical"
             style={{
               margin: '0 4px',
@@ -263,8 +293,137 @@ export const BaseToolBar = observer(
           />,
         );
       }
-      return list.concat(options);
-    }, [insertOptions, props.showEditor, node]);
+
+      list.push(
+        <div
+          key="color"
+          role="button"
+          className={`${baseClassName}-item`}
+          style={{
+            position: 'relative',
+          }}
+        >
+          <ColorPicker
+            style={{
+              position: 'absolute',
+              opacity: 0,
+              top: 0,
+              left: 0,
+            }}
+            size="small"
+            value={highColor}
+            presets={[
+              {
+                label: 'Colors',
+                colors: colors.map((c) => c.color),
+              },
+            ]}
+            onChange={(e) => {
+              localStorage.setItem('high-color', e.toHexString());
+              EditorUtils.highColor(store.editor, e.toHexString());
+              setHighColor(e.toHexString());
+              setRefresh((r) => !r);
+            }}
+          />
+          <div
+            style={{
+              display: 'flex',
+              height: '100%',
+              alignItems: 'center',
+              fontWeight: EditorUtils.isFormatActive(store.editor, 'highColor')
+                ? 'bold'
+                : undefined,
+              textDecoration: 'underline solid ' + highColor,
+              textDecorationLine: 'underline',
+              textDecorationThickness: 2,
+              lineHeight: 1,
+            }}
+            role="button"
+            onMouseEnter={(e) => e.stopPropagation()}
+            onClick={() => {
+              if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
+                EditorUtils.highColor(store.editor);
+              } else {
+                EditorUtils.highColor(store.editor, highColor || '#10b981');
+              }
+            }}
+          >
+            <span
+              style={{
+                display: 'inline-block',
+                width: 16,
+                height: 16,
+                textAlign: 'center',
+                marginTop: -1,
+              }}
+            >
+              A
+            </span>
+          </div>
+        </div>,
+      );
+
+      list = list.concat(options);
+
+      tools.forEach((tool) => {
+        list.push(
+          <div
+            role="button"
+            key={tool.key}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              EditorUtils.toggleFormat(store.editor, tool.type);
+            }}
+            className={`${baseClassName}-item`}
+            style={{
+              color: EditorUtils.isFormatActive(store.editor, tool.type)
+                ? '#1890ff'
+                : undefined,
+            }}
+          >
+            {tool.icon}
+          </div>,
+        );
+      });
+
+      if (['head', 'paragraph'].includes(node?.[0]?.type)) {
+        list.push(
+          <Divider
+            key="divider"
+            type="vertical"
+            style={{
+              margin: '0 4px',
+              height: '18px',
+              borderColor: 'rgba(0,0,0,0.15)',
+            }}
+          />,
+        );
+        list.push(
+          <div
+            key="link"
+            role="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              openLink();
+            }}
+            className={`${baseClassName}-item`}
+            style={{
+              color: EditorUtils.isFormatActive(store.editor, 'url')
+                ? '#1890ff'
+                : undefined,
+            }}
+          >
+            <LinkOutlined />
+          </div>,
+        );
+      }
+      if (props.hideTools) {
+        list = list.filter((l) => {
+          return !props?.hideTools?.includes(l.key as ToolsKeyType);
+        });
+      }
+      return list;
+    }, [insertOptions, props.showEditor, node, props.hideTools]);
 
     const headDom = (
       <>
@@ -351,10 +510,150 @@ export const BaseToolBar = observer(
                   : '正文'}
               </div>
             </Dropdown>
+            <div
+              key="color"
+              role="button"
+              className={`${baseClassName}-item`}
+              style={{
+                position: 'relative',
+              }}
+            >
+              <ColorPicker
+                style={{
+                  position: 'absolute',
+                  opacity: 0,
+                  top: 0,
+                  left: 0,
+                }}
+                size="small"
+                value={highColor}
+                presets={[
+                  {
+                    label: 'Colors',
+                    colors: colors.map((c) => c.color),
+                  },
+                ]}
+                onChange={(e) => {
+                  localStorage.setItem('high-color', e.toHexString());
+                  EditorUtils.highColor(store.editor, e.toHexString());
+                  setHighColor(e.toHexString());
+                  setRefresh((r) => !r);
+                }}
+              />
+              <div
+                style={{
+                  display: 'flex',
+                  height: '100%',
+                  alignItems: 'center',
+                  fontWeight: EditorUtils.isFormatActive(
+                    store.editor,
+                    'highColor',
+                  )
+                    ? 'bold'
+                    : undefined,
+                  textDecoration: 'underline solid ' + highColor,
+                  textDecorationLine: 'underline',
+                  textDecorationThickness: 2,
+                  lineHeight: 1,
+                }}
+                role="button"
+                onMouseEnter={(e) => e.stopPropagation()}
+                onClick={() => {
+                  if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
+                    EditorUtils.highColor(store.editor);
+                  } else {
+                    EditorUtils.highColor(store.editor, highColor || '#10b981');
+                  }
+                }}
+              >
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 16,
+                    height: 16,
+                    textAlign: 'center',
+                    marginTop: -1,
+                  }}
+                >
+                  A
+                </span>
+              </div>
+            </div>
+            {tools.map((tool) => {
+              return (
+                <div
+                  role="button"
+                  key={tool.key}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    EditorUtils.toggleFormat(store.editor, tool.type);
+                  }}
+                  className={`${baseClassName}-item`}
+                  style={{
+                    color: EditorUtils.isFormatActive(store.editor, tool.type)
+                      ? '#1890ff'
+                      : undefined,
+                  }}
+                >
+                  {tool.icon}
+                </div>
+              );
+            })}
           </>
         ) : null}
       </>
     );
+
+    const minTools = useMemo(() => {
+      if (!props.min) return null;
+      return (
+        <>
+          <div
+            role="button"
+            className={classnames(
+              `${baseClassName}-item`,
+              `${baseClassName}-item-min-plus-icon`,
+            )}
+          >
+            <Dropdown
+              menu={{
+                items: insertOptions.map((t) => {
+                  return {
+                    label: (
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 8,
+                        }}
+                      >
+                        {t.icon}
+                        {t.label?.at(0)}
+                      </div>
+                    ),
+                    key: t.key,
+                    onClick: () => {
+                      insert(t);
+                    },
+                  };
+                }),
+              }}
+            >
+              <PlusCircleFilled />
+            </Dropdown>
+          </div>
+          <Divider
+            type="vertical"
+            style={{
+              margin: '0 4px',
+              height: '18px',
+              borderColor: 'rgba(0,0,0,0.15)',
+            }}
+          />
+          {headDom}
+        </>
+      );
+    }, [insertOptions, props.min, node]);
 
     return (
       <div
@@ -365,184 +664,7 @@ export const BaseToolBar = observer(
           alignItems: 'center',
         }}
       >
-        {props.min ? (
-          <>
-            <div
-              role="button"
-              className={classnames(
-                `${baseClassName}-item`,
-                `${baseClassName}-item-min-plus-icon`,
-              )}
-            >
-              <Dropdown
-                menu={{
-                  items: insertOptions.map((t) => {
-                    return {
-                      label: (
-                        <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 8,
-                          }}
-                        >
-                          {t.icon}
-                          {t.label?.at(0)}
-                        </div>
-                      ),
-                      key: t.key,
-                      onClick: () => {
-                        insert(t);
-                      },
-                    };
-                  }),
-                }}
-              >
-                <PlusCircleFilled />
-              </Dropdown>
-            </div>
-            <Divider
-              type="vertical"
-              style={{
-                margin: '0 4px',
-                height: '18px',
-                borderColor: 'rgba(0,0,0,0.15)',
-              }}
-            />
-            {headDom}
-          </>
-        ) : (
-          listDom
-        )}
-        {insertOptions.length > 0 && !props.min && (
-          <Divider
-            type="vertical"
-            style={{
-              margin: '0 8px',
-              height: '16px',
-              borderColor: 'rgba(0,0,0,0.35)',
-            }}
-          />
-        )}
-        <div
-          role="button"
-          className={`${baseClassName}-item`}
-          style={{
-            position: 'relative',
-          }}
-        >
-          <ColorPicker
-            style={{
-              position: 'absolute',
-              opacity: 0,
-              top: 0,
-              left: 0,
-            }}
-            size="small"
-            value={highColor}
-            presets={[
-              {
-                label: 'Colors',
-                colors: colors.map((c) => c.color),
-              },
-            ]}
-            onChange={(e) => {
-              localStorage.setItem('high-color', e.toHexString());
-              EditorUtils.highColor(store.editor, e.toHexString());
-              setHighColor(e.toHexString());
-              setRefresh((r) => !r);
-            }}
-          />
-          <div
-            style={{
-              display: 'flex',
-              height: '100%',
-              alignItems: 'center',
-              fontWeight: EditorUtils.isFormatActive(store.editor, 'highColor')
-                ? 'bold'
-                : undefined,
-              textDecoration: 'underline solid ' + highColor,
-              textDecorationLine: 'underline',
-              textDecorationThickness: 2,
-              lineHeight: 1,
-            }}
-            role="button"
-            onMouseEnter={(e) => e.stopPropagation()}
-            onClick={() => {
-              if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
-                EditorUtils.highColor(store.editor);
-              } else {
-                EditorUtils.highColor(store.editor, highColor || '#10b981');
-              }
-            }}
-          >
-            <span
-              style={{
-                display: 'inline-block',
-                width: 16,
-                height: 16,
-                textAlign: 'center',
-                marginTop: -1,
-              }}
-            >
-              A
-            </span>
-          </div>
-        </div>
-        {tools.map((t) => {
-          if (
-            t.type === 'code' &&
-            (['code-line', 'code'].includes(node?.[0]?.type) ||
-              ['table', 'table-cell'].includes(node?.[0]?.type))
-          ) {
-            return null;
-          }
-          return (
-            <div
-              role="button"
-              key={t.type}
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => {
-                EditorUtils.toggleFormat(store.editor, t.type);
-              }}
-              className={`${baseClassName}-item`}
-              style={{
-                color: EditorUtils.isFormatActive(store.editor, t.type)
-                  ? '#000'
-                  : undefined,
-              }}
-            >
-              {t.icon}
-            </div>
-          );
-        })}
-        {['head', 'paragraph'].includes(node?.[0]?.type) ? (
-          <>
-            <Divider
-              type="vertical"
-              style={{
-                margin: '0 4px',
-                height: '18px',
-                borderColor: 'rgba(0,0,0,0.15)',
-              }}
-            />
-            <div
-              role="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => {
-                openLink();
-              }}
-              className={`${baseClassName}-item`}
-              style={{
-                color: EditorUtils.isFormatActive(store.editor, 'url')
-                  ? '#000'
-                  : undefined,
-              }}
-            >
-              <LinkOutlined />
-            </div>
-          </>
-        ) : null}
+        {props.min ? minTools : listDom}
 
         {props.extra ? (
           <>
