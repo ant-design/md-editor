@@ -508,6 +508,7 @@ export const InsertAutocomplete = observer(() => {
       style={{
         position: 'absolute',
         zIndex: 50,
+        backdropFilter: 'blur(4px)',
         display:
           !store.openInsertCompletion || !state.filterOptions.length
             ? 'none'

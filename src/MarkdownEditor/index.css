@@ -913,7 +913,6 @@ samp {
   border-bottom: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
   height: 42px;
-  background-color: rgb(255 255 255 / 10%);
   font-size: 16px;
   color: rgb(107 114 128 / 80%);
   backdrop-filter: blur(8px);

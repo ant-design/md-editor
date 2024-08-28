@@ -16,6 +16,9 @@ import { useSystemKeyboard } from './editor/utils/keyboard';
 import classNames from 'classnames';
 import { ReactEditor } from 'slate-react';
 import { FloatBar } from './editor/tools/FloatBar';
+import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
+import { InsertLink } from './editor/tools/InsertLink';
+import { TableAttr } from './editor/tools/TableAttr';
 import { ToolBar } from './editor/tools/ToolBar';
 import { codeReady } from './editor/utils/highlight';
 import { ElementProps, Elements } from './el';
@@ -232,6 +235,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             style={{
               width: '100%',
               maxWidth: '100%',
+              position: 'sticky',
+              zIndex: 1000,
+              top: 0,
+              backgroundColor: '#fff',
             }}
           >
             {<ToolBar extra={toolBar.extra} min={toolBar.min} />}
@@ -242,9 +249,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         <div
           style={{
             padding: props.readonly ? '8px' : '24px 24px',
-            display: 'flex',
-            position: 'relative',
             overflow: 'auto',
+            display: 'flex',
+            height: !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
+            position: 'relative',
             gap: 24,
             ...contentStyle,
           }}
@@ -265,6 +273,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             <Heading note={instance.current} />
           ) : null}
         </div>
+        {readonly ? (
+          <></>
+        ) : (
+          <>
+            <InsertLink />
+            <TableAttr />
+            <InsertAutocomplete />
+          </>
+        )}
       </div>
     </EditorStoreContext.Provider>
   );
