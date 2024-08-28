@@ -203,6 +203,22 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           maxHeight: '100%',
           ...style,
         }}
+        onClick={() => {
+          const latest = instance.store.editor?.children?.at(-1);
+          if (latest) {
+            if (latest.type !== 'paragraph') {
+              instance.store.editor.insertNode(
+                {
+                  type: 'paragraph',
+                  children: [{ text: '' }],
+                },
+                {
+                  at: [instance.store.editor.children.length],
+                },
+              );
+            }
+          }
+        }}
       >
         {!readonly && toolBar?.enable ? (
           <div
