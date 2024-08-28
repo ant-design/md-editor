@@ -51,6 +51,9 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 | -金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  | 
 | -云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   | 
 
+## 图片
+
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
 
 ## 视频
 
@@ -60,9 +63,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ## 附件
 
 ![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
-
-
-
 
 ## 表单
 

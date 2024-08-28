@@ -59,12 +59,13 @@ export const ResizeImage = (
       <img
         draggable={false}
         onLoad={(e) => {
-          const width = (e.target as HTMLImageElement).clientWidth;
+          let width = (e.target as HTMLImageElement).clientWidth;
           const height = (e.target as HTMLImageElement).clientHeight;
           radio.current = width / height;
+          width = Math.min(width, 600);
           setSize({
-            width: (e.target as HTMLImageElement).clientWidth,
-            height: (e.target as HTMLImageElement).clientHeight,
+            width: width,
+            height: width / radio.current,
           });
         }}
         alt={'image'}
@@ -167,11 +168,15 @@ export function Media({
         referrerPolicy={'no-referrer'}
         crossOrigin={'anonymous'}
         draggable={false}
+        style={{
+          maxWidth: 800,
+          marginBottom: 12,
+        }}
         width={element.width}
         height={element.height}
       />
     );
-  }, [state().type, state().url, store?.readonly]);
+  }, [state().type, state().url, store?.readonly, state().selected]);
   const videoDom = useMemo(() => {
     if (state().type === 'video')
       return (
