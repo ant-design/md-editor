@@ -524,9 +524,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         key={index}
                         style={{
                           borderRadius: 18,
-                          width: '50%',
                           margin: 'auto',
-                          minWidth: 200,
+                          minWidth: 300,
                           maxWidth: 600,
                           flex: 1,
                         }}
