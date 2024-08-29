@@ -315,6 +315,7 @@ export function Media({
           ref={htmlRef}
           draggable={false}
           contentEditable={false}
+          className="md-editor-media"
         >
           {videoDom}
           {imageDom}

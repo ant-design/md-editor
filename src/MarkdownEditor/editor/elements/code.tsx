@@ -84,10 +84,11 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
             background: 'rgb(250, 250, 250)',
           }}
           onDragStart={store.dragStart}
-          className={`light drag-el num tab-${4}`}
+          className={`md-editor-code light drag-el num tab-${4}`}
         >
           {!props.element.frontmatter && <DragHandle />}
           <div
+            className="md-editor-code-header"
             contentEditable={false}
             style={{
               direction: 'ltr',
@@ -160,7 +161,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
             </div>
           </div>
           <div
-            className="code-highlight"
+            className="md-editor-code-content code-highlight"
             style={{
               position: 'relative',
               borderRadius: 4,
