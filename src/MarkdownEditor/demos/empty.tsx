@@ -21,6 +21,41 @@ public class HelloWorld {
     }
 }
  \`\`\`
+
+ <!-- {"submitText":"Al 辅助","chartType": "bar", "x":"业务", "y":"2021Q1"} -->
+ \`\`\`schema
+[{
+    fieldProps: {
+      nodeData: {
+        id: "d451a556d866ba7b",
+        topic: "new topic",
+        root: true,
+        children: [
+          {
+            topic: "new node",
+            id: "d451a6f027c33b1f",
+            direction: 0,
+            children: [
+              {
+                topic: "new node",
+                id: "d451a724b7c10970",
+              },
+              {
+                topic: "new node",
+                id: "d451a77ca7348eae",
+              },
+              {
+                topic: "new node",
+                id: "d451a78e1ec7181c",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+]
+ \`\`\`
  `,
       );
     };

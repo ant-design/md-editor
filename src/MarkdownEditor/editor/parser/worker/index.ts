@@ -270,6 +270,7 @@ const parserBlock = (
       case 'html':
         const value =
           n?.value?.replace('<!--', '').replace('-->', '').trim() || '{}';
+
         if (value) {
           try {
             contextProps = JSON.parse(value);
@@ -277,6 +278,7 @@ const parserBlock = (
             console.error('parse html error', e);
           }
         }
+
         if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
           const img = findImageElement(n.value);
           if (img) {
@@ -374,6 +376,7 @@ const parserBlock = (
             }
           }
         }
+
         if (el) {
           el.otherProps = contextProps;
         }
@@ -505,15 +508,13 @@ const parserBlock = (
         }
         const isSchema = n.lang === 'schema' || n.lang === 'apaasify';
 
-        // @ts-ignore
         const config =
-          // @ts-ignore
-          preNode?.type === 'code' && // @ts-ignore
-          preNode?.language === 'html' && // @ts-ignore
-          preNode?.otherProps
-            ? // @ts-ignore
-              preNode?.otherProps
+          preElement?.type === 'code' &&
+          preElement?.language === 'html' &&
+          preElement?.otherProps
+            ? preElement?.otherProps
             : {};
+
         el = {
           type: isSchema ? n.lang : 'code',
           language: n.lang,
