@@ -178,7 +178,10 @@ export const MLeaf = (props: RenderLeafProps) => {
           leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
         }
         className={`${!!dirty ? 'mx-[1px]' : ''} ${className}`}
-        style={style}
+        style={{
+          fontSize: 10,
+          ...style,
+        }}
         id={
           'md-editor-ref' +
           //@ts-ignore
