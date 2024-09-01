@@ -145,9 +145,8 @@ export const MLeaf = (props: RenderLeafProps) => {
           className={`${className}`}
           style={{
             ...style,
-            textDecoration: 'underline',
             textDecorationColor: '#1890ff',
-            textUnderlineOffset: '2px',
+            textUnderlineOffset: '4px',
             cursor: 'pointer',
           }}
           {...props.attributes}
@@ -179,7 +178,7 @@ export const MLeaf = (props: RenderLeafProps) => {
         }
         className={`${!!dirty ? 'mx-[1px]' : ''} ${className}`}
         style={{
-          fontSize: 10,
+          fontSize: leaf.fnc ? 10 : undefined,
           ...style,
         }}
         id={
