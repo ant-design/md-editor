@@ -400,11 +400,16 @@ const parserBlock = (
         el.task = el.children?.some((s: any) => typeof s.checked === 'boolean');
         break;
       case 'footnoteReference':
-        el = { text: `[^${n.identifier}]` };
+        el = {
+          text: `[^${n.identifier}]`,
+          identifier: n.identifier,
+          type: 'footnoteReference',
+        };
         break;
       case 'footnoteDefinition':
         el = {
-          type: 'paragraph',
+          type: 'footnoteDefinition',
+          identifier: n.identifier,
           children: [
             { text: `[^${n.identifier}]:` },
             ...(parserBlock(n.children, false, n)[0] as any)?.children,
@@ -639,7 +644,11 @@ const parserBlock = (
 
     el = null;
   }
-  return els;
+  return els.sort((a, b) => {
+    if ((a as any).type === 'footnoteDefinition') return 1;
+    if ((b as any).type === 'footnoteDefinition') return -1;
+    return 0;
+  });
 };
 
 const findLinks = (

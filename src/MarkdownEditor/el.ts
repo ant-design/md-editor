@@ -45,6 +45,16 @@ export type ParagraphNode<T = Record<string, any>> = {
   h?: number;
 };
 
+export type FootnoteDefinitionNode<T = Record<string, any>> = {
+  originalNode?: any;
+  contextProps?: T;
+  identifier: string;
+  otherProps?: T;
+  type: 'FootnoteDefinition';
+  children: BaseElement['children'];
+  h?: number;
+};
+
 export type TableNode<T = Record<string, any>> = {
   originalNode?: any;
   contextProps?: T;

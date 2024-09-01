@@ -64,6 +64,18 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
+[引用3](https://remarkjs.github.io/react-markdown/#user-content-fnref-1) [^1]
+
+[^1]:leaders.md
+
+## 引用
+
+上上任的武汉大学校长是李晓红。
+[引用](https://markdown.com.cn) [^2]
+
+[^2]:remarkjs.md
+
+
 ## 表单
 
 \`\`\`schema
@@ -100,6 +112,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
     },
   },
 ]
+\`\`\`
 
 `;
 export default () => {
@@ -109,8 +122,8 @@ export default () => {
       height={'100vh'}
       reportMode
       initValue={defaultValue}
-      onChange={(e) => {
-        console.log('onChange', e);
+      onChange={(e, s) => {
+        console.log('onChange', s);
       }}
     />
   );

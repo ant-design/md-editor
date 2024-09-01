@@ -13,6 +13,8 @@ import { Chart } from './chart';
 import { CodeCtx, CodeElement, CodeLine } from './code';
 import { ColumnCell, ColumnGroup } from './column';
 import { Description } from './description';
+import { FootnoteDefinition } from './FootnoteDefinition';
+import { FootnoteReference } from './FootnoteReference';
 import { Head } from './head';
 import { List, ListItem } from './list';
 import { Media } from './media';
@@ -74,6 +76,10 @@ export const MElement = (props: RenderElementProps) => {
       return <TableCell {...props}>{props.children}</TableCell>;
     case 'media':
       return <Media {...props} />;
+    case 'footnoteDefinition':
+      return <FootnoteDefinition {...props} />;
+    case 'footnoteReference':
+      return <FootnoteReference {...props} />;
     default:
       return <Paragraph {...props} />;
   }
@@ -120,10 +126,8 @@ export const MLeaf = (props: RenderLeafProps) => {
     if (leaf.url) {
       return (
         <span
-          style={style}
           data-be={'link'}
           draggable={false}
-          title={`mod + click to open link, mod + alt + click to open file in new tab`}
           onDragStart={dragStart}
           data-url={leaf.url}
           onClick={(e) => {
@@ -136,8 +140,16 @@ export const MLeaf = (props: RenderLeafProps) => {
               selectFormat();
             }
           }}
+          id={leaf.url}
           data-slate-inline={true}
-          className={`mx-[1px] link cursor-default ${className}`}
+          className={`${className}`}
+          style={{
+            ...style,
+            textDecoration: 'underline',
+            textDecorationColor: '#1890ff',
+            textUnderlineOffset: '2px',
+            cursor: 'pointer',
+          }}
           {...props.attributes}
         >
           {!!props.text?.text && <InlineChromiumBugfix />}
@@ -167,6 +179,11 @@ export const MLeaf = (props: RenderLeafProps) => {
         }
         className={`${!!dirty ? 'mx-[1px]' : ''} ${className}`}
         style={style}
+        id={
+          'md-editor-ref' +
+          //@ts-ignore
+          leaf.identifier
+        }
       >
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
         {children}
