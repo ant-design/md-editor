@@ -371,6 +371,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       ></div>
                     );
                   }
+
                   if (chartType === 'table') {
                     return (
                       <div
@@ -381,7 +382,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           borderRadius: 16,
                           border:
                             // 只有一个图表时不显示边框，用消息框自己的
-                            chartData.length < 2 &&
+                            config.length < 2 &&
                             store?.editor?.children?.length < 2
                               ? 'none'
                               : '1px solid #eee',
@@ -614,7 +615,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       style={{
                         border:
                           // 只有一个图表时不显示边框，用消息框自己的
-                          chartData.length < 2 &&
+                          config.length < 2 &&
                           store?.editor?.children?.length < 2
                             ? 'none'
                             : '1px solid #eee',
