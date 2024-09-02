@@ -1,12 +1,7 @@
 ﻿import { Area, Bar, Column, Line, Pie } from '@ant-design/charts';
-import { DownOutlined } from '@ant-design/icons';
-import {
-  ProForm,
-  ProFormList,
-  ProFormSegmented,
-  ProFormSelect,
-} from '@ant-design/pro-components';
-import { ConfigProvider, Descriptions, Popover } from 'antd';
+import { DownOutlined, SettingOutlined } from '@ant-design/icons';
+import { ProForm, ProFormSelect } from '@ant-design/pro-components';
+import { ConfigProvider, Descriptions, Dropdown, Popover } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useMemo } from 'react';
 import { Transforms } from 'slate';
@@ -111,8 +106,62 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
   /**
    * 图表配置
    */
-  const chartPopover = (
+  const getChartPopover = (index: number) => [
+    <Dropdown
+      key="dropdown"
+      menu={{
+        items: Object.keys(ChartMap).map((key) => {
+          return {
+            key,
+            label: ChartMap[key as 'pie'],
+            onClick: () => {
+              const path = EditorUtils.findPath(store.editor, node);
+              const config = JSON.parse(
+                JSON.stringify(node.otherProps?.config || []),
+              );
+              config[index] = {
+                ...config.at(index),
+                chartType: key,
+              };
+
+              Transforms.setNodes(
+                store.editor,
+                {
+                  otherProps: {
+                    ...node.otherProps,
+                    config: config,
+                  },
+                },
+                {
+                  at: path,
+                },
+              );
+            },
+          };
+        }),
+      }}
+    >
+      <span
+        style={{
+          fontSize: 12,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          border: '1px solid #f0f0f0',
+          padding: '4px 12px',
+          borderRadius: 14,
+        }}
+      >
+        {ChartMap[(config.at(index)?.chartType as 'bar') || 'bar']}
+        <DownOutlined
+          style={{
+            fontSize: 8,
+          }}
+        />
+      </span>
+    </Dropdown>,
     <Popover
+      key="config"
       title="配置图表"
       trigger={'click'}
       content={
@@ -123,14 +172,32 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 submitText: '更新',
               },
             }}
+            style={{
+              width: 300,
+            }}
+            initialValues={
+              config.at(index) || {
+                x: '',
+                y: '',
+              }
+            }
             onFinish={(values) => {
               const path = EditorUtils.findPath(store.editor, node);
+              const config = JSON.parse(
+                JSON.stringify(node.otherProps?.config || []),
+              );
+
+              config[index] = {
+                ...config.at(index),
+                ...values,
+              };
+
               Transforms.setNodes(
                 store.editor,
                 {
                   otherProps: {
                     ...node.otherProps,
-                    config: values.config,
+                    config: config,
                   },
                 },
                 {
@@ -145,47 +212,14 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 overflow: 'auto',
               }}
             >
-              <ProFormList
-                name="config"
-                creatorRecord={() => {
-                  return {
-                    chartType: 'bar',
-                  };
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 8,
                 }}
-                initialValue={[config].flat(1)}
               >
-                <ProFormSegmented
-                  name="chartType"
-                  request={async () => {
-                    return [
-                      {
-                        label: '饼图',
-                        value: 'pie',
-                      },
-                      {
-                        label: '条形图',
-                        value: 'bar',
-                      },
-                      {
-                        label: '折线图',
-                        value: 'line',
-                      },
-                      {
-                        label: '面积图',
-                        value: 'area',
-                      },
-                      {
-                        label: '柱状图',
-                        value: 'column',
-                      },
-                      {
-                        label: '源码',
-                        value: 'table',
-                      },
-                    ];
-                  }}
-                />
                 <ProFormSelect
+                  label="X轴"
                   name="x"
                   fieldProps={{
                     onClick: (e) => {
@@ -203,6 +237,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 />
                 <ProFormSelect
                   name="y"
+                  label="Y轴"
                   fieldProps={{
                     onClick: (e) => {
                       e.stopPropagation();
@@ -217,7 +252,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       };
                     })}
                 />
-              </ProFormList>
+              </div>
             </div>
           </ProForm>
         </ConfigProvider>
@@ -225,24 +260,13 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
     >
       <span
         style={{
-          fontSize: 12,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 4,
-          border: '1px solid #f0f0f0',
-          padding: '4px 12px',
-          borderRadius: 14,
+          padding: '4px 8px',
         }}
       >
-        {ChartMap[(config.at(0)?.chartType as 'bar') || 'bar']}
-        <DownOutlined
-          style={{
-            fontSize: 8,
-          }}
-        />
+        <SettingOutlined />
       </span>
-    </Popover>
-  );
+    </Popover>,
+  ];
 
   const isSource = config?.at(0)?.chartType === 'table';
 
@@ -264,27 +288,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           flexDirection: 'column',
           borderRadius: 18,
           overflow: 'auto',
-          border: store.readonly ? 'none' : '1px solid #eee',
         }}
       >
-        <div contentEditable={false}>
-          {store.readonly ? (
-            <ChartAttr
-              node={node}
-              options={[
-                {
-                  style: { padding: 0 },
-                  icon: chartPopover,
-                },
-              ]}
-            />
-          ) : (
-            <ChartAttr
-              node={node}
-              options={[{ style: { padding: 0 }, icon: chartPopover }]}
-            />
-          )}
-        </div>
         {isSource ? (
           <table
             contentEditable={store.readonly ? false : true}
@@ -519,17 +524,35 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     return null;
                   })
                   .map((item, index) => {
+                    const toolBar = getChartPopover(index);
                     return (
                       <div
                         key={index}
                         style={{
+                          border: store.readonly ? 'none' : '1px solid #eee',
                           borderRadius: 18,
                           margin: 'auto',
+                          overflow: 'auto',
                           minWidth: 300,
                           maxWidth: 600,
                           flex: 1,
                         }}
                       >
+                        <div contentEditable={false}>
+                          <ChartAttr
+                            node={node}
+                            options={[
+                              {
+                                style: { padding: 0 },
+                                icon: toolBar.at(0),
+                              },
+                              {
+                                style: { padding: 0 },
+                                icon: toolBar.at(1),
+                              },
+                            ]}
+                          />
+                        </div>
                         {item}
                       </div>
                     );

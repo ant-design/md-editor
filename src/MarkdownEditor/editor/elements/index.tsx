@@ -123,6 +123,7 @@ export const MLeaf = (props: RenderLeafProps) => {
         }
       } catch (e) {}
     };
+
     if (leaf.url) {
       return (
         <span
@@ -158,7 +159,6 @@ export const MLeaf = (props: RenderLeafProps) => {
       );
     }
 
-    console.log('props.leaf', props.leaf);
     return (
       <span
         {...props.attributes}
