@@ -401,7 +401,7 @@ const parserBlock = (
         break;
       case 'footnoteReference':
         el = {
-          text: `[^${n.identifier}]`,
+          text: `${n.identifier}`,
           identifier: n.identifier,
           type: 'footnoteReference',
         };

@@ -111,7 +111,7 @@ export function isMarkdown(text: string) {
   ];
 
   // 检查每一行是否匹配任何一个 Markdown 语法特征
-  const lines = text.split('\n');
+  const lines = text;
   for (let line of lines) {
     for (let pattern of markdownPatterns) {
       if (pattern.test(line.trim())) {

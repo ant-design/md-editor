@@ -157,6 +157,8 @@ export const MLeaf = (props: RenderLeafProps) => {
         </span>
       );
     }
+
+    console.log('props.leaf', props.leaf);
     return (
       <span
         {...props.attributes}
@@ -168,7 +170,7 @@ export const MLeaf = (props: RenderLeafProps) => {
             selectFormat();
           }
         }}
-        data-fnc={leaf.fnc ? 'fnc' : undefined}
+        data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
         data-fnd={leaf.fnd ? 'fnd' : undefined}
         data-fnc-name={
           leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
@@ -183,12 +185,14 @@ export const MLeaf = (props: RenderLeafProps) => {
         }}
         id={
           'md-editor-ref' +
-          //@ts-ignore
-          leaf.identifier
+            //@ts-ignore
+            leaf.identifier || ''
         }
       >
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
-        {children}
+        {leaf.fnc || leaf.identifier
+          ? leaf.text?.replaceAll('[^', '').replaceAll(']', '')
+          : children}
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       </span>
     );

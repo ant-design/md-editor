@@ -432,12 +432,13 @@
 }
 
 .markdown-editor-content blockquote {
-  padding: 3px 14px 3px 21px;
+  display: block;
+  padding-left: 10px;
+  margin: 10px 0;
   position: relative;
-  font-style: italic;
-  font-size: 0.96em;
-
-  color: rgb(75 85 99 /1);
+  color: #262626;
+  opacity: 0.7;
+  font-size: 13x;
 }
 
 .markdown-editor-content blockquote:not(:last-child) {

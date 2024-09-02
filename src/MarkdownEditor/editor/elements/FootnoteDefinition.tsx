@@ -13,7 +13,6 @@ export const FootnoteDefinition = observer(
     const element = props.element;
     return React.useMemo(() => {
       const str = Node.string(props.element);
-
       return (
         <>
           {element.identifier === '1' ? (
@@ -25,9 +24,7 @@ export const FootnoteDefinition = observer(
                 fontSize: 14,
               }}
               contentEditable={false}
-            >
-              脚注
-            </div>
+            />
           ) : null}
           <div
             {...props.attributes}
@@ -44,7 +41,7 @@ export const FootnoteDefinition = observer(
             <DragHandle />
             {element.identifier}.
             <a
-              href={'#md-editor-ref' + element.identifier}
+              href={'#md-editor-ref' + element.identifier || ''}
               style={{
                 color: '#1890FF',
                 textDecoration: 'none',

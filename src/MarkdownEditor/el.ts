@@ -273,6 +273,7 @@ export type CustomLeaf<T = Record<string, any>> = {
   contextProps?: T;
   otherProps?: T;
   bold?: boolean | null;
+  identifier?: string;
   code?: boolean | null;
   italic?: boolean | null;
   strikethrough?: boolean | null;
