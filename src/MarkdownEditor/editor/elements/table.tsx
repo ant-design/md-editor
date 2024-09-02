@@ -37,6 +37,7 @@ export function TableCell(props: RenderElementProps) {
 
 export const Table = observer((props: RenderElementProps) => {
   const store = useEditorStore();
+
   return useMemo(() => {
     return (
       <div
@@ -47,6 +48,12 @@ export const Table = observer((props: RenderElementProps) => {
         style={{
           maxWidth: '100%',
           overflow: 'auto',
+          ...(store.editor.children.length === 1
+            ? {}
+            : {
+                border: '1px solid #e8e8e8',
+                borderRadius: 16,
+              }),
         }}
       >
         <DragHandle />

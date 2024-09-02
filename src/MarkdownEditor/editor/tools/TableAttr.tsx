@@ -524,6 +524,9 @@ export const TableAttr = observer(() => {
 
   const baseClassName = 'table-attr-toolbar';
 
+  if (!store.container) return null;
+  if (store.readonly) return null;
+
   return (
     <div
       className={baseClassName}
@@ -531,6 +534,7 @@ export const TableAttr = observer(() => {
         left: state().left,
         top: state().top,
         width: 'auto',
+        position: 'absolute',
         display: state().visible ? 'flex' : 'none',
       }}
       onMouseDown={(e) => e.preventDefault()}

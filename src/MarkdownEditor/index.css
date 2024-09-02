@@ -262,17 +262,13 @@
   margin-top: 0;
 }
 
-.markdown-editor-report .markdown-editor-content table {
-  border: 1px solid rgb(209 213 219 / 0.8);
-}
-
 .markdown-editor-report .markdown-editor-content table th,
 .markdown-editor-report .markdown-editor-content table td {
-  border: 1px solid rgb(209 213 219 / 0.8);
   padding: 8px 16px;
   text-align: left;
   font-weight: 500;
 }
+
 .markdown-editor-report .markdown-editor-content table th {
   background-color: rgb(229 231 235 / 0.5);
 }

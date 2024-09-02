@@ -121,6 +121,9 @@ export class EditorStore {
     });
   }
   openTableMenus(e: MouseEvent | React.MouseEvent, head?: boolean) {
+    if (this.readonly) {
+      return;
+    }
     e.stopPropagation();
     e.preventDefault();
     openMenus(e, [
