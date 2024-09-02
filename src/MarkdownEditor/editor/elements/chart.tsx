@@ -117,14 +117,12 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
   const store = useEditorStore();
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {
-    return (
-      node.otherProps?.dataSource?.map((item: any) => {
-        return {
-          ...item,
-          column_list: Object.keys(item),
-        };
-      }) || []
-    );
+    return (node.otherProps?.dataSource?.map((item: any) => {
+      return {
+        ...item,
+        column_list: Object.keys(item),
+      };
+    }) || []) as any[];
   }, [node.otherProps?.dataSource]);
 
   const columns = (node as TableNode).otherProps?.columns || [];
@@ -605,7 +603,12 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     <div
                       key={index}
                       style={{
-                        border: store.readonly ? 'none' : '1px solid #eee',
+                        border:
+                          // 只有一个图表时不显示边框，用消息框自己的
+                          chartData.length < 2 &&
+                          store?.editor?.children?.length < 2
+                            ? 'none'
+                            : '1px solid #eee',
                         borderRadius: 18,
                         margin: 'auto',
                         overflow: 'auto',
