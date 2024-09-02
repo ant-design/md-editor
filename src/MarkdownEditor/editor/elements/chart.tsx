@@ -65,24 +65,52 @@ const stringFormatNumber = (value: string | number) => {
 };
 
 const defaultPieConfig = {
-  legend: {
+  color: '#1677ff',
+  height: 400,
+  scale: {
     color: {
-      title: false,
-      position: 'right',
-      rowPadding: 5,
+      type: 'ordinal',
+      range: [
+        '#1677ff',
+        '#15e7e4',
+        '#8954FC',
+        '#F45BB5',
+        '#00A6FF',
+        '#33E59B',
+        '#D666E4',
+        '#6151FF',
+        '#BF3C93',
+        '#005EE0',
+      ],
     },
   },
-  height: 400,
-  interactions: [{ type: 'scrollbar' }],
 };
 
 const ChartMap = {
-  pie: '饼图',
-  bar: '条形图',
-  line: '折线图',
-  column: '柱状图',
-  area: '面积图',
-  table: '表格',
+  pie: {
+    title: '饼图',
+    changeData: ['table'],
+  },
+  bar: {
+    title: '条形图',
+    changeData: ['column', 'line', 'area', 'table'],
+  },
+  line: {
+    title: '折线图',
+    changeData: ['column', 'line', 'area', 'table'],
+  },
+  column: {
+    title: '柱状图',
+    changeData: ['column', 'line', 'area', 'table'],
+  },
+  area: {
+    title: '面积图',
+    changeData: ['column', 'line', 'area', 'table'],
+  },
+  table: {
+    title: '表格',
+    changeData: ['column', 'line', 'area', 'table', 'pie'],
+  },
 };
 
 export const Chart: React.FC<RenderElementProps> = (props) => {
@@ -110,35 +138,38 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
     <Dropdown
       key="dropdown"
       menu={{
-        items: Object.keys(ChartMap).map((key) => {
-          return {
-            key,
-            label: ChartMap[key as 'pie'],
-            onClick: () => {
-              const path = EditorUtils.findPath(store.editor, node);
-              const config = JSON.parse(
-                JSON.stringify(node.otherProps?.config || []),
-              );
-              config[index] = {
-                ...config.at(index),
-                chartType: key,
-              };
+        items:
+          ChartMap[config.at(index).chartType as 'pie']?.changeData?.map(
+            (key: string) => {
+              return {
+                key,
+                label: ChartMap[key as 'pie'].title,
+                onClick: () => {
+                  const path = EditorUtils.findPath(store.editor, node);
+                  const config = [
+                    JSON.parse(JSON.stringify(node.otherProps?.config || [])),
+                  ].flat(1);
+                  config[index] = {
+                    ...config?.at(index),
+                    chartType: key,
+                  };
 
-              Transforms.setNodes(
-                store.editor,
-                {
-                  otherProps: {
-                    ...node.otherProps,
-                    config: config,
-                  },
+                  Transforms.setNodes(
+                    store.editor,
+                    {
+                      otherProps: {
+                        ...node.otherProps,
+                        config: config,
+                      },
+                    },
+                    {
+                      at: path,
+                    },
+                  );
                 },
-                {
-                  at: path,
-                },
-              );
+              };
             },
-          };
-        }),
+          ) || [],
       }}
     >
       <span
@@ -152,7 +183,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           borderRadius: 14,
         }}
       >
-        {ChartMap[(config.at(index)?.chartType as 'bar') || 'bar']}
+        {ChartMap[(config.at(index)?.chartType as 'bar') || 'bar']?.title}
         <DownOutlined
           style={{
             fontSize: 8,
@@ -268,8 +299,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
     </Popover>,
   ];
 
-  const isSource = config?.at(0)?.chartType === 'table';
-
   return (
     <div
       className={'drag-el'}
@@ -290,277 +319,323 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           overflow: 'auto',
         }}
       >
-        {isSource ? (
-          <table
-            contentEditable={store.readonly ? false : true}
+        <ErrorBoundary
+          fallback={
+            <table>
+              <tbody>{children}</tbody>
+            </table>
+          }
+        >
+          <div
             style={{
-              margin: 12,
+              position: 'relative',
             }}
-          >
-            <tbody>{children}</tbody>
-          </table>
-        ) : (
-          <ErrorBoundary
-            fallback={
-              <table>
-                <tbody>{children}</tbody>
-              </table>
-            }
           >
             <div
               style={{
-                position: 'relative',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 1,
+                width: '100%',
+                opacity: 0,
+                height: '100%',
+                overflow: 'hidden',
+                pointerEvents: 'none',
               }}
             >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 1,
-                  width: '100%',
-                  opacity: 0,
-                  height: '100%',
-                  overflow: 'hidden',
-                  pointerEvents: 'none',
-                }}
-              >
-                {children}
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 8,
-                }}
-              >
-                {config
-                  .map(({ chartType, x, y, ...rest }, index) => {
-                    if (
-                      typeof window === 'undefined' ||
-                      typeof document === 'undefined'
-                    ) {
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            maxWidth: 600,
-                            margin: 'auto',
-                            position: 'relative',
-                            zIndex: 9,
-                          }}
-                        ></div>
-                      );
-                    }
-                    chartData = chartData.map((item: any) => {
-                      return {
-                        ...item,
-                        [x]: numberString(item[x]),
-                        [y]: numberString(item[y]),
-                      };
-                    });
-                    const defaultProps = {
-                      tooltip: {
-                        title: (d: any) => {
-                          return d[x];
-                        },
-                        items: [
-                          {
-                            field: y,
-                            valueFormatter: (value: string) => {
-                              return stringFormatNumber(value);
-                            },
-                          },
-                        ],
-                      },
-                      axis: {
-                        x: {
-                          title: x,
-                          labelFormatter: (value: number | string) => {
-                            return stringFormatNumber(value);
-                          },
-                        },
-                        y: {
-                          title: y,
-                          labelFormatter: (value: number | string) => {
-                            return stringFormatNumber(value);
-                          },
-                        },
-                      },
-                      label: false,
-                      height: 400,
-                    };
-                    if (chartType === 'pie') {
-                      return (
-                        <Pie
-                          key={index}
-                          data={chartData}
-                          {...defaultPieConfig}
-                          angleField={y || 'value'}
-                          colorField={x || 'type'}
-                          legend={{
-                            navEffect: 'linear',
-                          }}
-                          interaction={{
-                            elementHighlight: {
-                              background: 'true',
-                            },
-                          }}
-                          label={{
-                            position: 'spider',
-                            text: (d: any) => `${d[x]} (${d[y]})`,
-                          }}
-                        />
-                      );
-                    }
-                    if (chartType === 'bar') {
-                      return (
-                        <Bar
-                          data={chartData}
-                          yField={y}
-                          key={index}
-                          xField={x}
-                          {...defaultProps}
-                          {...rest}
-                        />
-                      );
-                    }
-
-                    if (chartType === 'line') {
-                      return (
-                        <Line
-                          key={index}
-                          data={chartData}
-                          yField={y}
-                          xField={x}
-                          {...defaultProps}
-                          {...rest}
-                        />
-                      );
-                    }
-                    if (chartType === 'column') {
-                      return (
-                        <Column
-                          key={index}
-                          data={chartData}
-                          yField={y}
-                          xField={x}
-                          {...defaultProps}
-                          {...rest}
-                        />
-                      );
-                    }
-                    if (chartType === 'area') {
-                      return (
-                        <Area
-                          key={index}
-                          data={chartData}
-                          yField={y}
-                          xField={x}
-                          {...{
-                            style: {
-                              fill: 'rgb(23, 131, 255)',
-                              opacity: 0.7,
-                            },
-                          }}
-                          {...defaultProps}
-                          {...rest}
-                        />
-                      );
-                    }
-                    if (
-                      chartType === 'descriptions' ||
-                      (chartData.length < 2 && columns.length > 8)
-                    ) {
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 8,
-                          }}
-                        >
-                          {chartData.map((row: Record<string, any>) => {
-                            return (
-                              <Descriptions
-                                bordered
-                                key={index}
-                                column={{
-                                  xxl: 2,
-                                  xl: 2,
-                                  lg: 2,
-                                  md: 2,
-                                  sm: 1,
-                                  xs: 1,
-                                }}
-                                items={
-                                  columns
-                                    .map(
-                                      (column: {
-                                        title: string;
-                                        dataIndex: string;
-                                      }) => {
-                                        if (!column.title || !column.dataIndex)
-                                          return null;
-                                        return {
-                                          label: column.title || '',
-                                          children: row[column.dataIndex],
-                                        };
-                                      },
-                                    )
-                                    .filter(
-                                      (item: any) => !!item,
-                                    ) as DescriptionsItemType[]
-                                }
-                              />
-                            );
-                          })}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })
-                  .map((item, index) => {
-                    const toolBar = getChartPopover(index);
+              {children}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 8,
+              }}
+            >
+              {config
+                .map(({ chartType, x, y, ...rest }, index) => {
+                  if (
+                    typeof window === 'undefined' ||
+                    typeof document === 'undefined'
+                  ) {
                     return (
                       <div
                         key={index}
                         style={{
-                          border: store.readonly ? 'none' : '1px solid #eee',
-                          borderRadius: 18,
-                          margin: 'auto',
-                          overflow: 'auto',
-                          minWidth: 300,
                           maxWidth: 600,
-                          flex: 1,
+                          margin: 'auto',
+                          position: 'relative',
+                          zIndex: 9,
+                        }}
+                      ></div>
+                    );
+                  }
+                  if (chartType === 'table') {
+                    return (
+                      <table
+                        key={index}
+                        contentEditable={store.readonly ? false : true}
+                        style={{
+                          margin: 12,
                         }}
                       >
-                        <div contentEditable={false}>
-                          <ChartAttr
-                            node={node}
-                            options={[
-                              {
-                                style: { padding: 0 },
-                                icon: toolBar.at(0),
-                              },
-                              {
-                                style: { padding: 0 },
-                                icon: toolBar.at(1),
-                              },
-                            ]}
-                          />
-                        </div>
-                        {item}
+                        <tbody>{children}</tbody>
+                      </table>
+                    );
+                  }
+                  chartData = chartData.map((item: any) => {
+                    return {
+                      ...item,
+                      [x]: numberString(item[x]),
+                      [y]: numberString(item[y]),
+                    };
+                  });
+                  const defaultProps = {
+                    tooltip: {
+                      title: (d: any) => {
+                        return d[x];
+                      },
+                      items: [
+                        {
+                          field: y,
+                          valueFormatter: (value: string) => {
+                            return stringFormatNumber(value);
+                          },
+                        },
+                      ],
+                    },
+                    axis: {
+                      x: {
+                        title: x,
+                        label: { autoHide: true },
+                        labelFormatter: (value: number | string) => {
+                          return stringFormatNumber(value);
+                        },
+                      },
+                      y: {
+                        title: y,
+                        label: { autoHide: true },
+                        labelFormatter: (value: number | string) => {
+                          return stringFormatNumber(value);
+                        },
+                      },
+                    },
+                    style: {
+                      maxWidth: 20, // 圆角样式
+                      radiusTopLeft: 4,
+                      radiusTopRight: 4,
+                    },
+                    label: false,
+                    height: 400,
+                    legend: {
+                      color: {
+                        title: false,
+                        position: 'right',
+                        rowPadding: 5,
+                      },
+                    },
+                    color: [
+                      '#1677ff',
+                      '#15e7e4',
+                      '#8954FC',
+                      '#F45BB5',
+                      '#00A6FF',
+                      '#33E59B',
+                      '#D666E4',
+                      '#6151FF',
+                      '#BF3C93',
+                      '#005EE0',
+                    ],
+                    scale: {
+                      color: {
+                        type: 'ordinal',
+                        range: [
+                          '#1677ff',
+                          '#15e7e4',
+                          '#8954FC',
+                          '#F45BB5',
+                          '#00A6FF',
+                          '#33E59B',
+                          '#D666E4',
+                          '#6151FF',
+                          '#BF3C93',
+                          '#005EE0',
+                        ],
+                      },
+                    },
+                  };
+                  if (chartType === 'pie') {
+                    return (
+                      <Pie
+                        key={index}
+                        data={chartData}
+                        {...defaultPieConfig}
+                        angleField={y || 'value'}
+                        colorField={x || 'type'}
+                        interaction={{
+                          elementHighlight: {
+                            background: 'true',
+                          },
+                        }}
+                        innerRadius={0.6}
+                        legend={{
+                          ['color']: {
+                            position: 'right',
+                            title: false,
+                            rowPadding: 5,
+                          },
+                        }}
+                      />
+                    );
+                  }
+                  if (chartType === 'bar') {
+                    return (
+                      <Bar
+                        data={chartData}
+                        yField={y}
+                        key={index}
+                        xField={x}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+
+                  if (chartType === 'line') {
+                    return (
+                      <Line
+                        key={index}
+                        data={chartData}
+                        yField={y}
+                        xField={x}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+                  if (chartType === 'column') {
+                    return (
+                      <Column
+                        key={index}
+                        data={chartData}
+                        yField={y}
+                        xField={x}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+                  if (chartType === 'area') {
+                    return (
+                      <Area
+                        key={index}
+                        data={chartData}
+                        yField={y}
+                        xField={x}
+                        {...{
+                          style: {
+                            fill: 'rgb(23, 131, 255)',
+                            opacity: 0.7,
+                          },
+                        }}
+                        {...defaultProps}
+                        {...rest}
+                      />
+                    );
+                  }
+                  if (
+                    chartType === 'descriptions' ||
+                    (chartData.length < 2 && columns.length > 8)
+                  ) {
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 8,
+                        }}
+                      >
+                        {chartData.map((row: Record<string, any>) => {
+                          return (
+                            <Descriptions
+                              bordered
+                              key={index}
+                              column={{
+                                xxl: 2,
+                                xl: 2,
+                                lg: 2,
+                                md: 2,
+                                sm: 1,
+                                xs: 1,
+                              }}
+                              items={
+                                columns
+                                  .map(
+                                    (column: {
+                                      title: string;
+                                      dataIndex: string;
+                                    }) => {
+                                      if (!column.title || !column.dataIndex)
+                                        return null;
+                                      return {
+                                        label: column.title || '',
+                                        children: row[column.dataIndex],
+                                      };
+                                    },
+                                  )
+                                  .filter(
+                                    (item: any) => !!item,
+                                  ) as DescriptionsItemType[]
+                              }
+                            />
+                          );
+                        })}
                       </div>
                     );
-                  })}
-              </div>
+                  }
+                  return null;
+                })
+                .map((item, index) => {
+                  const toolBar = getChartPopover(index);
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        border: store.readonly ? 'none' : '1px solid #eee',
+                        borderRadius: 18,
+                        margin: 'auto',
+                        overflow: 'auto',
+                        minWidth: 300,
+                        maxWidth: 600,
+                        flex: 1,
+                      }}
+                    >
+                      <div contentEditable={false}>
+                        <ChartAttr
+                          node={node}
+                          options={[
+                            {
+                              style: { padding: 0 },
+                              icon: toolBar.at(0),
+                            },
+                            {
+                              style: { padding: 0 },
+                              icon: toolBar.at(1),
+                            },
+                          ]}
+                        />
+                      </div>
+                      {item}
+                    </div>
+                  );
+                })}
             </div>
-          </ErrorBoundary>
-        )}
+          </div>
+        </ErrorBoundary>
       </div>
     </div>
   );
