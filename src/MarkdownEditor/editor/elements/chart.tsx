@@ -373,15 +373,24 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                   }
                   if (chartType === 'table') {
                     return (
-                      <table
+                      <div
                         key={index}
                         contentEditable={store.readonly ? false : true}
                         style={{
                           margin: 12,
+                          borderRadius: 16,
+                          border:
+                            // 只有一个图表时不显示边框，用消息框自己的
+                            chartData.length < 2 &&
+                            store?.editor?.children?.length < 2
+                              ? 'none'
+                              : '1px solid #eee',
                         }}
                       >
-                        <tbody>{children}</tbody>
-                      </table>
+                        <table contentEditable={store.readonly ? false : true}>
+                          <tbody>{children}</tbody>
+                        </table>
+                      </div>
                     );
                   }
                   chartData = chartData.map((item: any) => {
