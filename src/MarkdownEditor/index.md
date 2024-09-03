@@ -6,6 +6,8 @@
 
 <code src="./demos/preview.tsx" background="var(--main-bg-color)" title="编辑器" iframe="540px"></code>
 
+<code src="./demos/min.tsx" background="var(--main-bg-color)" title="只读模式" iframe="540px"></code>
+
 <code src="./demos/readonly.tsx" background="var(--main-bg-color)" title="只读模式" iframe="540px"></code>
 
 <code src="./demos/render.tsx" background="var(--main-bg-color)" title="自定义render" iframe="540px"></code>
