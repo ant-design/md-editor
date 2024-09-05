@@ -302,9 +302,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
       className={'drag-el'}
       {...attributes}
       data-be={'chart'}
-      style={{
-        marginBottom: 12,
-      }}
       onDragStart={store.dragStart}
     >
       <DragHandle />
