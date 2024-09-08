@@ -187,6 +187,20 @@ export class EditorStore {
     ]);
   }
 
+  isLatestNode(node: Node) {
+    console.log(
+      this.editor.children.at(-1),
+      ReactEditor.findPath(this.editor, node).at(0),
+      ReactEditor.findPath(this.editor, this.editor.children.at(-1)).at(0),
+      ReactEditor.findPath(this.editor, node).at(0) ===
+        ReactEditor.findPath(this.editor, this.editor.children.at(-1)).at(0),
+    );
+    return (
+      ReactEditor.findPath(this.editor, node).at(0) ===
+      ReactEditor.findPath(this.editor, this.editor.children.at(-1)).at(0)
+    );
+  }
+
   insertLink(filePath: string) {
     const p = parse(filePath);
     const insertPath = filePath;

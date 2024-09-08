@@ -21,6 +21,33 @@
 
 .markdown-editor-edit-area * {
   box-sizing: border-box;
+  caret-color: #1890ff;
+}
+
+.typewriter span[data-slate-string] {
+  border-right: 0.15em solid #1890ff;
+  animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #1890ff;
+  }
 }
 
 .markdown-editor-edit-area.focus [data-empty]:before {

@@ -123,6 +123,11 @@ export type MarkdownEditorProps = {
    * @default false
    */
   reportMode?: boolean;
+
+  /**
+   * 是否开启打字机模式
+   */
+  typewriter?: boolean;
 };
 
 /**

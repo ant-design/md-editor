@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Node } from 'slate';
@@ -9,13 +10,17 @@ import { DragHandle } from '../tools/DragHandle';
 export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
   const store = useEditorStore();
   const [selected] = useSelStatus(props.element);
+  const isLatest = store.isLatestNode(props.element);
   return React.useMemo(() => {
     const str = Node.string(props.element);
     return (
       <p
         {...props.attributes}
         data-be={'paragraph'}
-        className={!str ? 'drag-el empty' : 'drag-el'}
+        className={classNames('drag-el', {
+          empty: !str,
+          typewriter: isLatest && store.editorProps.typewriter,
+        })}
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
       >
