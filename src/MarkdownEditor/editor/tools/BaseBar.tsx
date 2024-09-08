@@ -377,7 +377,7 @@ export const BaseToolBar = observer(
             className={`${baseClassName}-item`}
             style={{
               color: EditorUtils.isFormatActive(store.editor, tool.type)
-                ? '#1890ff'
+                ? '#1677ff'
                 : undefined,
             }}
           >
@@ -409,7 +409,7 @@ export const BaseToolBar = observer(
             className={`${baseClassName}-item`}
             style={{
               color: EditorUtils.isFormatActive(store.editor, 'url')
-                ? '#1890ff'
+                ? '#1677ff'
                 : undefined,
             }}
           >
@@ -591,7 +591,7 @@ export const BaseToolBar = observer(
                   className={`${baseClassName}-item`}
                   style={{
                     color: EditorUtils.isFormatActive(store.editor, tool.type)
-                      ? '#1890ff'
+                      ? '#1677ff'
                       : undefined,
                   }}
                 >

@@ -146,7 +146,7 @@ export const MLeaf = (props: RenderLeafProps) => {
           className={`${className}`}
           style={{
             ...style,
-            textDecorationColor: '#1890ff',
+            textDecorationColor: '#1677ff',
             textUnderlineOffset: '4px',
             cursor: 'pointer',
           }}

@@ -21,11 +21,11 @@
 
 .markdown-editor-edit-area * {
   box-sizing: border-box;
-  caret-color: #1890ff;
+  caret-color: #1677ff;
 }
 
 .typewriter span[data-slate-string] {
-  border-right: 0.15em solid #1890ff;
+  border-right: 0.15em solid #1677ff;
   animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
 }
 
@@ -46,7 +46,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: #1890ff;
+    border-color: #1677ff;
   }
 }
 
@@ -959,7 +959,7 @@ samp {
 }
 
 .toolbar .toolbar-item.toolbar-item-min-plus-icon {
-  color: #1890ff;
+  color: #1677ff;
 }
 
 .toolbar .toolbar-item-color {

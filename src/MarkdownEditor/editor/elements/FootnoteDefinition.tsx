@@ -43,7 +43,7 @@ export const FootnoteDefinition = observer(
             <a
               href={'#md-editor-ref' + element.identifier || ''}
               style={{
-                color: '#1890FF',
+                color: '#1677ff',
                 textDecoration: 'none',
                 marginLeft: '5px',
                 cursor: 'pointer',
