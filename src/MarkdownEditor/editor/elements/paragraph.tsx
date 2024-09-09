@@ -28,5 +28,11 @@ export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
         {props.children}
       </p>
     );
-  }, [props.element.children, store.refreshHighlight, selected]);
+  }, [
+    props.element.children,
+    store.refreshHighlight,
+    selected,
+    isLatest,
+    store.editorProps.typewriter,
+  ]);
 });

@@ -189,6 +189,14 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       });
     });
   }, []);
+  useEffect(() => {
+    instance.editorProps = props;
+    instance.store.editorProps = props;
+    instance.store.setState((state) => {
+      state.editorProps = props;
+      state.typewriter = !!props.typewriter;
+    });
+  }, [props]);
 
   const [mount, setMount] = useState(false);
 

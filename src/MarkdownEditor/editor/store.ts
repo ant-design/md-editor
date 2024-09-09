@@ -55,6 +55,7 @@ export class EditorStore {
     'media',
     'attach',
   ]);
+  typewriter: boolean = false;
   dragEl: null | HTMLElement = null;
   focusSearch = false;
   searchRanges: Range[] = [];

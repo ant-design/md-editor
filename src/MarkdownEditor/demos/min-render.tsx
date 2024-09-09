@@ -1,4 +1,5 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
+import { useState } from 'react';
 
 const defaultValue = `## 创始人
 
@@ -119,6 +120,7 @@ const defaultValue = `## 创始人
 \`\`\`
 `;
 export default () => {
+  const [typewriter, setTypewriter] = useState(true);
   return (
     <div
       style={{
@@ -130,6 +132,7 @@ export default () => {
         margin: '0 auto',
         backgroundColor: '#f0f0f0',
       }}
+      onClick={() => setTypewriter(!typewriter)}
     >
       {defaultValue
         .split('##')
@@ -151,7 +154,7 @@ export default () => {
                 toc={false}
                 key={index}
                 width={'100%'}
-                typewriter
+                typewriter={typewriter}
                 height={'auto'}
                 readonly
                 initValue={'## ' + item.trim()}
