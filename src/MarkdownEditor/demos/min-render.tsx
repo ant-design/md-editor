@@ -118,6 +118,17 @@ const defaultValue = `## 创始人
   },
 ]
 \`\`\`
+
+
+## 代码
+
+\`\`\`java
+Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}
+\`\`\`
 `;
 export default () => {
   const [typewriter, setTypewriter] = useState(true);

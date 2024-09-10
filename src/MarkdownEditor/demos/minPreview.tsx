@@ -81,7 +81,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
   },
 ]
 
-
 `;
 export default () => {
   return (

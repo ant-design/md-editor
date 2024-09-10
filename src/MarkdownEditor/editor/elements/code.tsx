@@ -1,8 +1,14 @@
-import { CopyOutlined } from '@ant-design/icons';
+import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { createContext, useCallback, useContext, useMemo } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -13,6 +19,41 @@ import { DragHandle } from '../tools/DragHandle';
 import { Mermaid } from './CodeUI/Mermaid';
 
 export const CodeCtx = createContext({ lang: '', code: false });
+
+const Clipboard = (props: any) => {
+  const [copy, setCopy] = useState(false);
+  return (
+    <div
+      className="md-editor-code-header-actions-item"
+      onClick={(e) => {
+        e.stopPropagation();
+        try {
+          navigator.clipboard.writeText(
+            props.element.children?.map((c: any) => Node.string(c)).join('\n'),
+          );
+          setCopy(true);
+          setTimeout(() => {
+            setCopy(false);
+          }, 1000);
+          console.log('copied');
+        } catch (error) {
+          console.log(error);
+        }
+      }}
+    >
+      {copy ? (
+        <CheckOutlined
+          style={{
+            color: '#52c41a',
+          }}
+        />
+      ) : (
+        <CopyOutlined />
+      )}
+      <span>{copy ? '已复制' : '复制代码'}</span>
+    </div>
+  );
+};
 
 const langOptions = [
   'plain text',
@@ -66,46 +107,11 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
       >
         <div
           data-be={'code'}
-          style={{
-            borderRadius: 4,
-            fontFeatureSettings: 'normal',
-            fontVariationSettings: 'normal',
-            WebkitTextSizeAdjust: '100%',
-            WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-            textRendering: 'optimizeLegibility',
-            fontFamily:
-              '-apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
-            whiteSpace: 'pre-wrap',
-            overflowWrap: 'break-word',
-            direction: 'ltr',
-            position: 'relative',
-            marginBottom: '0',
-            tabSize: 2,
-            background: 'rgb(250, 250, 250)',
-          }}
           onDragStart={store.dragStart}
           className={`md-editor-code light drag-el num tab-${4}`}
         >
           {!props.element.frontmatter && <DragHandle />}
-          <div
-            className="md-editor-code-header"
-            contentEditable={false}
-            style={{
-              direction: 'ltr',
-              tabSize: 2,
-              WebkitUserModify: 'read-only',
-              boxSizing: 'border-box',
-              caretColor: 'rgba(0, 0, 0, 0.9)',
-              color: 'rgba(0, 0, 0, 0.8)',
-              zIndex: 10,
-              display: 'flex',
-              userSelect: 'none',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '4px 12px',
-              borderBottom: '1px solid #e5e7eb',
-            }}
-          >
+          <div className="md-editor-code-header" contentEditable={false}>
             <div>
               {!store.readonly && (
                 <Select
@@ -147,17 +153,8 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
                 </div>
               )}
             </div>
-            <div>
-              <CopyOutlined
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigator.clipboard.writeText(
-                    props.element.children
-                      ?.map((c) => Node.string(c))
-                      .join('\n'),
-                  );
-                }}
-              />
+            <div className="md-editor-code-header-actions">
+              <Clipboard {...props} />
             </div>
           </div>
           <div

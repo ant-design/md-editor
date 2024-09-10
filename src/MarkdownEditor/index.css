@@ -19,6 +19,54 @@
   outline: none !important;
 }
 
+.md-editor-code {
+  border-radius: 16px;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-rendering: optimizelegibility;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  direction: ltr;
+  position: relative;
+  margin-bottom: 0px;
+  tab-size: 2;
+  background: rgb(250, 250, 250);
+  padding: 12px;
+}
+
+.md-editor-code .md-editor-code-header {
+  direction: ltr;
+  tab-size: 2;
+  -webkit-user-modify: read-only;
+  box-sizing: border-box;
+  color: #666f8d;
+  z-index: 10;
+  display: flex;
+  user-select: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  padding-top: 0px;
+  border-bottom: 1px solid rgba(186, 192, 204, 0.25);
+}
+
+.md-editor-code .md-editor-code-header .md-editor-code-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.md-editor-code
+  .md-editor-code-header
+  .md-editor-code-header-actions
+  .md-editor-code-header-actions-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
 .markdown-editor-edit-area * {
   box-sizing: border-box;
   caret-color: #1677ff;
