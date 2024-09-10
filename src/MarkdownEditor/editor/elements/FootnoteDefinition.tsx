@@ -41,7 +41,7 @@ export const FootnoteDefinition = observer(
             <DragHandle />
             {element.identifier}.
             <a
-              href={'#md-editor-ref' + element.identifier || ''}
+              href={'#md-editor-ref' + (element.identifier || '')}
               style={{
                 color: '#1677ff',
                 textDecoration: 'none',

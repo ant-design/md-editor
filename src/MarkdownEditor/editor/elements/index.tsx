@@ -186,8 +186,8 @@ export const MLeaf = (props: RenderLeafProps) => {
         }}
         id={
           'md-editor-ref' +
-            //@ts-ignore
-            leaf.identifier || ''
+          //@ts-ignore
+          (leaf.identifier || '')
         }
       >
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}

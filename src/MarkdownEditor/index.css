@@ -24,7 +24,7 @@
   caret-color: #1677ff;
 }
 
-.typewriter span[data-slate-string] {
+.typewriter > *:last-child span[data-slate-string] {
   border-right: 0.15em solid #1677ff;
   animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
 }
