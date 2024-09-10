@@ -134,7 +134,7 @@ export const MLeaf = (props: RenderLeafProps) => {
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
-            if (e.metaKey || e.ctrlKey) {
+            if (e.metaKey || e.ctrlKey || store.readonly) {
               if (!leaf.url) return;
               window.open(leaf.url);
             } else if (e.detail === 2) {
@@ -148,6 +148,7 @@ export const MLeaf = (props: RenderLeafProps) => {
             ...style,
             textDecorationColor: '#1677ff',
             textUnderlineOffset: '4px',
+            color: '#1677ff',
             cursor: 'pointer',
           }}
           {...props.attributes}
