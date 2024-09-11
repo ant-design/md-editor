@@ -141,6 +141,10 @@ const parseTableOrChart = (
   const dataSource =
     table?.children?.slice(1).map((row) => {
       return row.children?.reduce((acc, cell, index) => {
+        // 如果数据列数超出表头列数，舍弃多余的数据
+        if (index >= columns.length) {
+          return acc;
+        }
         acc[columns[index].dataIndex] = myRemark
           .stringify({
             type: 'root',
