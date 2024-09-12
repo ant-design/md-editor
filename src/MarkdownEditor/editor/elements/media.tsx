@@ -6,6 +6,7 @@ import { useGetSetState } from 'react-use';
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
+import { AvatarList } from '../components/ContributorAvatar';
 import { DragHandle } from '../tools/DragHandle';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
@@ -181,7 +182,8 @@ export function Media({
       />
     );
   }, [state().type, state().url, store?.readonly, state().selected]);
-  const videoDom = useMemo(() => {
+
+  const mediaElement = useMemo(() => {
     if (state().type === 'video')
       return (
         <video
@@ -216,12 +218,14 @@ export function Media({
           style={{
             padding: 12,
             border: '1px solid #f0f0f0',
-            borderRadius: 4,
+            borderRadius: 16,
             width: '100%',
+            backgroundImage:
+              'linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%)',
             flex: 1,
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 12,
             color: '#262626',
             justifyContent: 'space-between',
           }}
@@ -230,9 +234,11 @@ export function Media({
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
+              gap: 12,
               color: '#262626',
               fontSize: 16,
+              flex: 1,
+              minWidth: 0,
             }}
           >
             <FileOutlined
@@ -240,20 +246,67 @@ export function Media({
                 fontSize: 16,
               }}
             />
-            <a
-              href={state().url}
+            <div
               style={{
-                overflow: 'ellipsis',
-                textOverflow: 'ellipsis',
-                textWrap: 'nowrap',
-                textDecoration: 'none',
-                display: 'block',
-                color: '#262626',
+                flex: 1,
+                minWidth: 0,
               }}
-              download={element.alt?.replace('attachment:', '') || 'attachment'}
             >
-              {element.alt?.replace('attachment:', '') || 'attachment'}
-            </a>
+              <a
+                href={state().url}
+                style={{
+                  overflow: 'ellipsis',
+                  textOverflow: 'ellipsis',
+                  textWrap: 'nowrap',
+                  textDecoration: 'none',
+                  display: 'block',
+                  color: '#262626',
+                }}
+                download={
+                  element.alt?.replace('attachment:', '') || 'attachment'
+                }
+              >
+                {element.alt?.replace('attachment:', '') || 'attachment'}
+              </a>
+              <div
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {element.otherProps?.collaborators ? (
+                  <div>
+                    <AvatarList
+                      displayList={
+                        element.otherProps?.collaborators
+                          ?.map((item: { [key: string]: number }) => {
+                            return {
+                              name: Object.keys(item)?.at(0) as string,
+                              collaboratorNumber:
+                                Object.values(item)?.at(0) || 0,
+                            };
+                          })
+                          .slice(0, 5) || []
+                      }
+                    />
+                  </div>
+                ) : (
+                  <div />
+                )}
+                {element.otherProps?.updateTime ? (
+                  <div
+                    style={{
+                      color: 'rgba(0,0,0,0.45)',
+                      fontSize: 12,
+                    }}
+                  >
+                    {element.otherProps.updateTime}
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
           <div className="editor-icon-box">
             <EyeOutlined
@@ -310,14 +363,14 @@ export function Media({
           style={{
             color: 'transparent',
             padding: 4,
-            width: videoDom ? '100%' : undefined,
+            width: mediaElement ? '100%' : undefined,
           }}
           ref={htmlRef}
           draggable={false}
           contentEditable={false}
           className="md-editor-media"
         >
-          {videoDom}
+          {mediaElement}
           {imageDom}
         </div>
         <span

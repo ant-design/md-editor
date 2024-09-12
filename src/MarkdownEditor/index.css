@@ -19,6 +19,17 @@
   outline: none !important;
 }
 
+.markdown-editor .avatar_list .avatar_list_item {
+  display: inline-block;
+  margin-right: -8px;
+  transition: all 0.3s;
+}
+
+.markdown-editor .avatar_list:hover .avatar_list_item {
+  display: inline-block;
+  margin-right: 0px;
+}
+
 .md-editor-code {
   border-radius: 16px;
   font-feature-settings: normal;
