@@ -1,4 +1,4 @@
-import { EyeOutlined, FileOutlined } from '@ant-design/icons';
+import { EyeOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
@@ -189,7 +189,6 @@ export function Media({
         <video
           controls
           style={{
-            maxWidth: 500,
             width: '100%',
             height: 'auto',
           }}
@@ -241,10 +240,9 @@ export function Media({
               minWidth: 0,
             }}
           >
-            <FileOutlined
-              style={{
-                fontSize: 16,
-              }}
+            <img
+              width={32}
+              src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
             />
             <div
               style={{
