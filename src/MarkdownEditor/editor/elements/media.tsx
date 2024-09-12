@@ -306,7 +306,12 @@ export function Media({
               </div>
             </div>
           </div>
-          <div className="editor-icon-box">
+          <div
+            className="editor-icon-box"
+            style={{
+              padding: '0 18px',
+            }}
+          >
             <EyeOutlined
               onClick={() => {
                 window.open(state().url);

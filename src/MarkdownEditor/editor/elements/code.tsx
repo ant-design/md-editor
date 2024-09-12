@@ -140,7 +140,11 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
                 />
               )}
               {store.readonly && (
-                <div>
+                <div
+                  style={{
+                    fontSize: 12,
+                  }}
+                >
                   {props.element.language ? (
                     <span>
                       {props.element.language === 'html' && props.element.render
