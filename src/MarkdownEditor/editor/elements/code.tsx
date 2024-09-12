@@ -25,6 +25,9 @@ const Clipboard = (props: any) => {
   return (
     <div
       className="md-editor-code-header-actions-item"
+      style={{
+        fontSize: 12,
+      }}
       onClick={(e) => {
         e.stopPropagation();
         try {
