@@ -19,7 +19,7 @@ import { ReactEditor, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
-import { ChartNode, MediaNode, TableCellNode } from '../el';
+import { ChartNode, Elements, MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
 import { parserMdToSchema } from './parser/parser';
 import { withMarkdown } from './plugins';
@@ -318,6 +318,59 @@ export class EditorStore {
   setContent(nodeList: Node[]) {
     this.editor.children = nodeList;
     this.editor.onChange();
+    this.editor.insertText('\n');
+  }
+
+  updateNodeList(nodeList: Node[]) {
+    const childrenList = this.editor.children;
+
+    const updateMap = new Map<number, Node>();
+
+    nodeList.forEach((node, index) => {
+      if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index)))
+        return;
+      updateMap.set(index, node);
+    });
+
+    const diffNode = (node: Node, preNode: Node, at: number[]) => {
+      if (
+        preNode?.type !== node?.type ||
+        (node as Elements).type === 'code' ||
+        (node as Elements).type === 'footnoteDefinition'
+      ) {
+        if (this.editor.hasPath(at)) {
+          Transforms.removeNodes(this.editor, { at });
+        }
+        Transforms.insertNodes(this.editor, [node], { at });
+        return;
+      }
+      Transforms.setNodes(this.editor, node, { at });
+      if (node.children) {
+        node.children.forEach((child: any, index: any) => {
+          if (preNode.children && preNode.children[index]) {
+            diffNode(child, preNode.children[index], [...at, index]);
+          } else {
+            Transforms.insertNodes(this.editor, [child], {
+              at: [...at, index],
+            });
+          }
+        });
+      } else {
+        if (preNode.children) {
+          Transforms.removeNodes(this.editor, { at });
+          Transforms.insertNodes(this.editor, [node], { at });
+        } else {
+          Transforms.setNodes(this.editor, node, { at });
+          if (node.text) {
+            Transforms.insertText(this.editor, node.text, { at });
+          }
+        }
+      }
+    };
+
+    updateMap.forEach((node, key) => {
+      diffNode(node, childrenList[key], [key]);
+    });
   }
 
   dragStart(e: React.DragEvent) {

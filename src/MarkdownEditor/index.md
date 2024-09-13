@@ -15,3 +15,5 @@
 <code src="./demos/minPreview.tsx" background="var(--main-bg-color)" title="自定义toolbar" iframe="540px"></code>
 
 <code src="./demos/min-render.tsx" background="var(--main-bg-color)" title="render 地址" iframe="540px"></code>
+
+<code src="./demos/rerender.tsx" background="var(--main-bg-color)" title="render 地址" iframe="540px"></code>

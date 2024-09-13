@@ -98,6 +98,10 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
     return <code>{props.children}</code>;
   }, [props.element, props.element.children, store.refreshHighlight]);
 
+  if (props.element.language === 'html' && props.element?.otherProps) {
+    return null;
+  }
+
   return (
     <CodeCtx.Provider value={{ lang: state().lang || '', code: true }}>
       <div

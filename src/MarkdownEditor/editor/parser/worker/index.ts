@@ -288,7 +288,7 @@ const parserBlock = (
           try {
             contextProps = JSON.parse(value);
           } catch (e) {
-            console.error('parse html error', e);
+            console.log('parse html error', e);
           }
         }
 
@@ -644,16 +644,18 @@ const parserBlock = (
     if (el) {
       if (Array.isArray(el)) {
         el = (el as Element[]).map((item) => {
-          item.contextProps = contextProps;
+          if (Object.keys(contextProps || {}).length) {
+            item.contextProps = contextProps;
+          }
           if (Object.keys(config || {}).length && !el.otherProps) {
             item.otherProps = config;
           }
           return item;
         }) as Element[];
       } else {
-        el.contextProps = contextProps;
-        el.originalNode = currentNode;
-
+        if (Object.keys(contextProps || {}).length) {
+          el.contextProps = contextProps;
+        }
         if (Object.keys(config || {}).length && !el.otherProps) {
           el.otherProps = config;
         }
