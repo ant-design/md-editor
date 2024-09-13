@@ -189,10 +189,14 @@ export class EditorStore {
   }
 
   isLatestNode(node: Node) {
-    return (
-      ReactEditor.findPath(this.editor, node).at(0) ===
-      ReactEditor.findPath(this.editor, this.editor.children.at(-1)).at(0)
-    );
+    try {
+      return (
+        ReactEditor.findPath(this.editor, node).at(0) ===
+        this.editor.children.length - 1
+      );
+    } catch (error) {
+      return false;
+    }
   }
 
   insertLink(filePath: string) {

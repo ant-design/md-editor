@@ -220,8 +220,18 @@ export default () => {
                 border: '1px solid #f0f0f0',
                 margin: '20px auto',
                 width: '100%',
+                position: 'relative',
               }}
             >
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 24,
+                  right: 24,
+                }}
+              >
+                {typewriter ? 'typewriter' : ''}
+              </div>
               <MarkdownEditor
                 toc={false}
                 key={index}

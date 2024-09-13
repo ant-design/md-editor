@@ -262,7 +262,6 @@ const parserBlock = (
 
   for (let i = 0; i < nodes.length; i++) {
     const currentNode = nodes[i];
-    console.log(preElement, currentNode);
     const config =
       preElement?.type === 'code' &&
       preElement?.language === 'html' &&
