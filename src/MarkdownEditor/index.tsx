@@ -14,7 +14,6 @@ import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
 import classNames from 'classnames';
-import { ReactEditor } from 'slate-react';
 import { ToolsKeyType } from './editor/tools/BaseBar';
 import { FloatBar } from './editor/tools/FloatBar';
 import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
@@ -283,9 +282,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ref={(dom) => {
             instance.store.setState((state) => (state.container = dom));
             setMount(true);
-          }}
-          onClick={() => {
-            ReactEditor.focus(instance.store.editor);
           }}
           key={instance.id}
         >

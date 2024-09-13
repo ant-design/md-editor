@@ -198,6 +198,7 @@ export default () => {
   useEffect(() => {
     let md = '';
     const list = defaultValue.split('');
+    const html = document.getElementById('container');
     const run = async () => {
       for await (const item of list) {
         md += item;
@@ -205,6 +206,7 @@ export default () => {
           setTimeout(() => {
             instance.current?.store.updateNodeList(parserMarkdown(md).schema);
             resolve(true);
+            html?.scrollTo({ top: 99999999999999 });
           }, 1);
         });
       }
@@ -214,14 +216,16 @@ export default () => {
 
   return (
     <div
+      id="container"
       style={{
         padding: 64,
+        paddingBottom: '20%',
         display: 'flex',
         flexDirection: 'column',
         gap: 24,
-        maxWidth: 600,
-        margin: '0 auto',
         backgroundColor: '#fff',
+        overflow: 'auto',
+        maxHeight: 'calc(100vh - 280px)',
       }}
     >
       <MarkdownEditor
