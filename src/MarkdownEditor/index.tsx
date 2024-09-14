@@ -258,13 +258,11 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               backgroundColor: '#fff',
             }}
           >
-            {
-              <ToolBar
-                hideTools={toolBar.hideTools}
-                extra={toolBar.extra}
-                min={toolBar.min}
-              />
-            }
+            <ToolBar
+              hideTools={toolBar.hideTools}
+              extra={toolBar.extra}
+              min={toolBar.min}
+            />
           </div>
         ) : readonly ? null : (
           <FloatBar />
