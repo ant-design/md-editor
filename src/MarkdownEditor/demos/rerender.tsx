@@ -206,7 +206,10 @@ export default () => {
           setTimeout(() => {
             instance.current?.store.updateNodeList(parserMarkdown(md).schema);
             resolve(true);
-            html?.scrollTo({ top: 99999999999999 });
+            html?.scrollTo({
+              top: 99999999999999,
+              behavior: 'smooth',
+            });
           }, 1);
         });
       }
