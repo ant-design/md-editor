@@ -387,20 +387,19 @@
   white-space: nowrap;
   border-spacing: 0;
 }
-.markdown-editor-content table.m-editor-description {
-  border: 1px solid rgb(209 213 219 / 0.8);
-}
+
 .markdown-editor-content table.m-editor-description th,
 .markdown-editor-content table.m-editor-description td {
-  border: 1px solid rgb(209 213 219 / 0.8);
   padding: 8px 16px;
   text-align: left;
   font-weight: 500;
 }
 
-.markdown-editor-content table.m-editor-description th {
-  background-color: rgb(229 231 235 / 0.5);
+.markdown-editor-content table.m-editor-description tr:first-child th,
+.markdown-editor-content table.m-editor-description tr:first-child td {
+  font-weight: 600;
 }
+
 .markdown-editor-content .m-table {
   padding: 3px 0;
   margin-bottom: 0.5em;
@@ -433,7 +432,7 @@
   line-height: 1;
 }
 
-.markdown-editor-content th {
+.markdown-editor-content .m-table table th {
   border-bottom: 1px solid rgb(209 213 219 / 0.8);
   border-collapse: collapse;
   white-space: nowrap;

@@ -213,7 +213,7 @@ const parseTableOrChart = (
       };
     }),
   };
-  if (!isChart && dataSource.length < 2 && columns.length > 8) {
+  if (!isChart && dataSource.length < 2 && columns.length > 4) {
     return parserTableToDescription(children);
   }
 

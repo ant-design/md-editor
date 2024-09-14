@@ -30,6 +30,8 @@ export const Description = observer((props: RenderElementProps) => {
         style={{
           maxWidth: '100%',
           overflow: 'auto',
+          border: '1px solid rgb(232, 232, 232)',
+          borderRadius: '16px',
         }}
       >
         <DragHandle />
