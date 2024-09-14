@@ -88,36 +88,13 @@ const defaultValue = `
 \`\`\`schema
 [
   {
-    valueType: "mindMap",
-    fieldProps: {
-      nodeData: {
-        id: "d451a556d866ba7b",
-        topic: "new topic",
-        root: true,
-        children: [
-          {
-            topic: "new node",
-            id: "d451a6f027c33b1f",
-            direction: 0,
-            children: [
-              {
-                topic: "new node",
-                id: "d451a724b7c10970",
-              },
-              {
-                topic: "new node",
-                id: "d451a77ca7348eae",
-              },
-              {
-                topic: "new node",
-                id: "d451a78e1ec7181c",
-              },
-            ],
-          },
-        ],
-      },
+    "title": "标题",
+    "dataIndex": "title",
+    "formItemProps": {
+      "rules": [{ "required": true, "message": "此项为必填项" }]
     },
-  },
+    "width": "md"
+  }
 ]
 \`\`\`
 `;

@@ -18,6 +18,7 @@ import {
   TableNode,
   TableRowNode,
 } from '../../../el';
+import partialJsonParse from './json-parse';
 import parser from './parser';
 
 const stringifyObj = remark().use(remarkGfm);
@@ -286,8 +287,11 @@ const parserBlock = (
 
         if (value) {
           try {
-            contextProps = JSON.parse(value);
+            contextProps = json5.parse(value);
           } catch (e) {
+            try {
+              contextProps = partialJsonParse(value);
+            } catch (error) {}
             console.log('parse html error', e);
           }
         }
@@ -548,7 +552,11 @@ const parserBlock = (
         try {
           json = json5.parse(currentNode.value || '[]');
         } catch (error) {
-          json = currentNode.value as any;
+          try {
+            json = partialJsonParse(currentNode.value || '[]');
+          } catch (error) {
+            json = currentNode.value as any;
+          }
         }
         const isSchema =
           currentNode.lang === 'schema' || currentNode.lang === 'apaasify';
