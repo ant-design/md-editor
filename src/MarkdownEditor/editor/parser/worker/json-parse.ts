@@ -168,12 +168,8 @@ const tokenize = function tokenize(input: string): {
 
   return tokens;
 };
-const strip = function strip(
-  tokens: {
-    type: string;
-    value: string;
-  }[],
-) {
+
+const strip = function strip(tokens: any[]) {
   if (tokens.length === 0) {
     return tokens;
   }
@@ -216,7 +212,8 @@ const strip = function strip(
 
   return tokens;
 };
-const unstrip = function unstrip(tokens: { type: any; value: any }[]) {
+
+const unStrip = function unStrip(tokens: any[]) {
   let tail: string[] = [];
 
   tokens.forEach((token: { type: string; value: string }) => {
@@ -254,6 +251,7 @@ const unstrip = function unstrip(tokens: { type: any; value: any }[]) {
 
   return tokens;
 };
+
 const generate = function generate(tokens: any[]) {
   let output = '';
 
@@ -271,7 +269,7 @@ const generate = function generate(tokens: any[]) {
   return output;
 };
 const partialParse = function partialParse(input: any) {
-  return json5.parse(generate(unstrip(strip(tokenize(input)))));
+  return json5.parse(generate(unStrip(strip(tokenize(input)))));
 };
 
 export default partialParse;
