@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PicLeftOutlined } from '@ant-design/icons';
 import { Input, InputRef, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
@@ -334,11 +334,11 @@ export const InsertLink = observer(() => {
               flex: 1,
             }}
           />
-          <Tooltip title={'移除链接'} mouseEnterDelay={0.5}>
+          <Tooltip title={'移除链接'}>
             <div
               style={{
                 cursor: 'pointer',
-                fontSize: 20,
+                fontSize: 18,
                 color: 'rgba(0,0,0,0.5)',
               }}
               onClick={() => {
@@ -346,6 +346,18 @@ export const InsertLink = observer(() => {
               }}
             >
               <DeleteOutlined />
+            </div>
+          </Tooltip>
+          <Tooltip title={'转化为card'}>
+            <div
+              style={{
+                cursor: 'pointer',
+                fontSize: 18,
+                color: 'rgba(0,0,0,0.5)',
+              }}
+              onClick={() => {}}
+            >
+              <PicLeftOutlined />
             </div>
           </Tooltip>
         </div>
