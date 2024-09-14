@@ -9,14 +9,17 @@ import React, {
 import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parser';
 import { EditorStore, EditorStoreContext } from './editor/store';
-import { Heading } from './editor/tools/Leading';
+import { TocHeading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
 import classNames from 'classnames';
 import { ToolsKeyType } from './editor/tools/BaseBar';
 import { FloatBar } from './editor/tools/FloatBar';
-import { InsertAutocomplete } from './editor/tools/InsertAutocomplete';
+import {
+  InsertAutocomplete,
+  InsertAutocompleteProps,
+} from './editor/tools/InsertAutocomplete';
 import { InsertLink } from './editor/tools/InsertLink';
 import { TableAttr } from './editor/tools/TableAttr';
 import { ToolBar } from './editor/tools/ToolBar';
@@ -127,6 +130,11 @@ export type MarkdownEditorProps = {
    * 是否开启打字机模式
    */
   typewriter?: boolean;
+
+  /**
+   * 插入自动补全的能力
+   */
+  insertAutocompleteProps?: InsertAutocompleteProps;
 };
 
 /**
@@ -188,6 +196,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       });
     });
   }, []);
+
   useEffect(() => {
     instance.editorProps = props;
     instance.store.editorProps = props;
@@ -288,7 +297,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           mount &&
           toc !== false &&
           instance.store?.container ? (
-            <Heading note={instance.current} />
+            <TocHeading note={instance.current} />
           ) : null}
         </div>
         {readonly ? (
@@ -297,7 +306,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           <>
             <InsertLink />
             <TableAttr />
-            <InsertAutocomplete />
+            <InsertAutocomplete {...props.insertAutocompleteProps} />
           </>
         )}
       </div>
