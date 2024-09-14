@@ -331,7 +331,7 @@ export function Media({
   return (
     <div {...attributes}>
       <div
-        className={'drag-el'}
+        className={'md-editor-drag-el'}
         data-be="media"
         style={{
           cursor: 'pointer',

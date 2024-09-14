@@ -549,7 +549,6 @@ export const TableAttr = observer(() => {
         content={
           <div>
             <div
-              className={'space-y-0.5'}
               onMouseEnter={() => setState({ enterScale: true })}
               onMouseLeave={() => setState({ enterScale: false })}
             >
@@ -583,7 +582,14 @@ export const TableAttr = observer(() => {
                 </div>
               ))}
             </div>
-            <div className={'mt-4 border-t border-gray-500 pt-2 text-center'}>
+            <div
+              style={{
+                marginTop: '1em',
+                borderTop: '1px solid #f0f0f0',
+                paddingTop: '0.5em',
+                textAlign: 'center',
+              }}
+            >
               {state().enterScale ? (
                 <span>
                   {state().selectCols} x {state().selectRows}

@@ -299,7 +299,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   return (
     <div
-      className={'drag-el'}
+      className={'md-editor-drag-el'}
       {...attributes}
       data-be={'chart'}
       onDragStart={store.dragStart}

@@ -34,7 +34,7 @@ export const FootnoteDefinition = observer(
             }}
             contentEditable={false}
             data-be={'footnoteDefinition'}
-            className={!str ? 'drag-el empty' : 'drag-el'}
+            className={!str ? 'md-editor-drag-el empty' : 'md-editor-drag-el'}
             onDragStart={store.dragStart}
             data-empty={!str && selected ? 'true' : undefined}
           >

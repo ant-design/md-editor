@@ -25,7 +25,7 @@ export function Head({
         ['data-title']: path?.[0] === 0,
         onDragStart: store.dragStart,
         ['data-empty']: !str && selected ? 'true' : undefined,
-        className: !str ? 'drag-el empty' : 'drag-el',
+        className: !str ? 'md-editor-drag-el empty' : 'md-editor-drag-el',
       },
       <>
         <DragHandle />

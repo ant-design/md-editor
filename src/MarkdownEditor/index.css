@@ -221,7 +221,7 @@
   height: 1.55em;
 }
 
-.markdown-editor-content.line-height-compact .drag-handle {
+.markdown-editor-content.line-height-compact .md-editor-drag-handle {
   top: calc(3px + 0.65em - 11px);
 }
 
@@ -233,11 +233,11 @@
   line-height: 1.2;
 }
 
-.markdown-editor-content.line-height-compact h1 .drag-handle,
-.markdown-editor-content.line-height-compact h2 .drag-handle,
-.markdown-editor-content.line-height-compact h3 .drag-handle,
-.markdown-editor-content.line-height-compact h4 .drag-handle,
-.markdown-editor-content.line-height-compact h5 .drag-handle {
+.markdown-editor-content.line-height-compact h1 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h2 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h3 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h4 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h5 .md-editor-drag-handle {
   top: calc(3px + 0.6em - 14px) !important;
 }
 
@@ -249,7 +249,7 @@
   height: 2.1em;
 }
 
-.markdown-editor-content.line-height-loose .drag-handle {
+.markdown-editor-content.line-height-loose .md-editor-drag-handle {
   top: calc(3px + 0.85em - 11px);
 }
 
@@ -261,11 +261,11 @@
   line-height: 1.4;
 }
 
-.markdown-editor-content.line-height-loose h1 .drag-handle,
-.markdown-editor-content.line-height-loose h2 .drag-handle,
-.markdown-editor-content.line-height-loose h3 .drag-handle,
-.markdown-editor-content.line-height-loose h4 .drag-handle,
-.markdown-editor-content.line-height-loose h5 .drag-handle {
+.markdown-editor-content.line-height-loose h1 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h2 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h3 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h4 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h5 .md-editor-drag-handle {
   top: calc(3px + 0.7em - 14px) !important;
 }
 
@@ -464,11 +464,11 @@
   margin-bottom: 3px;
 }
 
-.markdown-editor-content h1 .drag-handle,
-.markdown-editor-content h2 .drag-handle,
-.markdown-editor-content h3 .drag-handle,
-.markdown-editor-content h4 .drag-handle,
-.markdown-editor-content h5 .drag-handle {
+.markdown-editor-content h1 .md-editor-drag-handle,
+.markdown-editor-content h2 .md-editor-drag-handle,
+.markdown-editor-content h3 .md-editor-drag-handle,
+.markdown-editor-content h4 .md-editor-drag-handle,
+.markdown-editor-content h5 .md-editor-drag-handle {
   top: calc(3px + 0.65em - 14px) !important;
 }
 
@@ -583,13 +583,21 @@
   padding-left: 0;
 }
 
-.markdown-editor-content .m-list li:not(.task) > :first-child .drag-handle {
+.markdown-editor-content
+  .m-list
+  li:not(.task)
+  > :first-child
+  .md-editor-drag-handle {
   padding-left: 2px;
   padding-right: 18px;
   left: -44px !important;
 }
 
-.markdown-editor-content .m-list li.task > :nth-child(2) .drag-handle {
+.markdown-editor-content
+  .m-list
+  li.task
+  > :nth-child(2)
+  .md-editor-drag-handle {
   padding-left: 2px;
   padding-right: 10px;
   left: -50px !important;
@@ -886,7 +894,7 @@ samp {
   transition-duration: 200ms;
 }
 
-.drag-handle {
+.md-editor-drag-handle {
   position: absolute;
   display: flex;
   user-select: none;
@@ -899,7 +907,7 @@ samp {
   top: calc(3px + 0.75em - 14px);
 }
 
-.drag-icon {
+.md-editor-drag-icon {
   display: flex;
   align-items: center;
   border-radius: 18px;
@@ -909,11 +917,11 @@ samp {
   color: rgb(38, 38, 38);
 }
 
-.drag-icon:hover {
+.md-editor-drag-icon:hover {
   background-color: rgb(244, 245, 245);
 }
 
-.drag-el:hover > .drag-handle {
+.md-editor-drag-el:hover > .md-editor-drag-handle {
   opacity: 1;
 }
 
@@ -939,7 +947,7 @@ samp {
   margin-left: 2px;
 }
 
-.view .drag-handle {
+.view .md-editor-drag-handle {
   display: none;
 }
 
@@ -1055,7 +1063,7 @@ samp {
   cursor: pointer;
 }
 
-.float-bar {
+.m-editor-float-bar {
   position: absolute;
   z-index: 20;
   border: 1px solid rgb(229 231 235 / 0.8);
@@ -1069,7 +1077,7 @@ samp {
   padding: 4px 0;
 }
 
-.float-bar .float-bar-item {
+.m-editor-float-bar .m-editor-float-bar-item {
   display: flex;
   height: 100%;
   align-items: center;
@@ -1081,27 +1089,27 @@ samp {
   cursor: pointer;
 }
 
-.float-bar .float-bar-item-color {
+.m-editor-float-bar .m-editor-float-bar-item-color {
   width: 24px;
   height: 24px;
   cursor: pointer;
   border-radius: 18px;
 }
 
-.float-bar .float-bar-item-color:hover {
+.m-editor-float-bar .m-editor-float-bar-item-color:hover {
   outline: 2px solid rgb(59 130 246);
   outline-offset: 1px;
 }
 
-.float-bar .float-bar-item:hover {
+.m-editor-float-bar .m-editor-float-bar-item:hover {
   background-color: rgb(229 231 235 / 0.3);
 }
 
-.float-bar > * {
+.m-editor-float-bar > * {
   box-sizing: border-box;
 }
 
-.context-menu {
+.md-editor-context-menu {
   position: fixed;
 }
 

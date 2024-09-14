@@ -85,7 +85,7 @@ export const FloatBar = observer(() => {
     return () => window.removeEventListener('resize', change);
   }, []);
 
-  const baseClassName = `float-bar`;
+  const baseClassName = `m-editor-float-bar`;
   return (
     <div
       style={{

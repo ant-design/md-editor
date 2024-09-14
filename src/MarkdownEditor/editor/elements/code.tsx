@@ -115,7 +115,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
         <div
           data-be={'code'}
           onDragStart={store.dragStart}
-          className={`md-editor-code light drag-el num tab-${4}`}
+          className={`md-editor-code light md-editor-drag-el num tab-${4}`}
         >
           {!props.element.frontmatter && <DragHandle />}
           <div className="md-editor-code-header" contentEditable={false}>

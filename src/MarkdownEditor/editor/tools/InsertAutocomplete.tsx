@@ -105,7 +105,7 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           label: ['表格', 'Table'],
           key: 'table',
           task: 'insertTable',
-          icon: <TableOutlined className={'text-base'} />,
+          icon: <TableOutlined />,
         },
         {
           label: ['分栏', 'Column'],
@@ -123,7 +123,7 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           label: ['代码', 'Code'],
           key: 'code',
           task: 'insertCode',
-          icon: <CodeOutlined className={'text-base'} />,
+          icon: <CodeOutlined />,
         },
       ],
     },
@@ -149,21 +149,21 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           task: 'list',
           key: 'b-list',
           args: ['unordered'],
-          icon: <UnorderedListOutlined className={'text-base'} />,
+          icon: <UnorderedListOutlined />,
         },
         {
           label: ['有序列表', 'Numbered list'],
           task: 'list',
           key: 'n-list',
           args: ['ordered'],
-          icon: <OrderedListOutlined className={'text-base'} />,
+          icon: <OrderedListOutlined />,
         },
         {
           label: ['任务列表', 'Todo list'],
           task: 'list',
           key: 't-list',
           args: ['task'],
-          icon: <CheckSquareOutlined className={'text-base'} />,
+          icon: <CheckSquareOutlined />,
         },
       ],
     },
@@ -178,20 +178,20 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           task: 'head',
           key: 'head1',
           args: [1],
-          icon: <FontSizeOutlined className={'text-base'} />,
+          icon: <FontSizeOutlined />,
         },
         {
           label: ['段标题', 'Heading 2'],
           task: 'head',
           key: 'head2',
-          icon: <FontSizeOutlined className={'text-base'} />,
+          icon: <FontSizeOutlined />,
           args: [2],
         },
         {
           label: ['小标题', 'Heading 3'],
           task: 'head',
           key: 'head3',
-          icon: <FontSizeOutlined className={'text-base'} />,
+          icon: <FontSizeOutlined />,
           args: [3],
         },
       ],
@@ -603,7 +603,6 @@ export const InsertAutocomplete = observer(() => {
       )}
       {state.insertLink && (
         <div
-          className={'py-3 px-1'}
           style={{
             padding: 8,
           }}
@@ -636,8 +635,10 @@ export const InsertAutocomplete = observer(() => {
             block={true}
             loading={state.loading}
             type={'primary'}
-            className={'mt-4'}
             size={'small'}
+            style={{
+              marginTop: '1em',
+            }}
             onClick={insertMedia}
             disabled={!state.insertUrl}
           >
@@ -703,7 +704,9 @@ export const InsertAutocomplete = observer(() => {
                       block={true}
                       loading={state.loading}
                       type={'primary'}
-                      className={'mt-4'}
+                      style={{
+                        marginTop: '1em',
+                      }}
                       size={'small'}
                       onClick={insertAttachByLink}
                       disabled={!state.insertUrl}

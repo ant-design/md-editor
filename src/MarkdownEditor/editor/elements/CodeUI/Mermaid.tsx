@@ -49,15 +49,35 @@ export const Mermaid = observer(
         <div
           contentEditable={false}
           ref={divRef}
-          className={`w-full flex justify-center ${
-            state().code && !state().error ? '' : 'hidden'
-          }`}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+          }}
+          className={`${state().code && !state().error ? '' : 'hidden'}`}
         ></div>
         {state().error && (
-          <div className={'text-center text-red-500/80'}>{state().error}</div>
+          <div
+            style={{
+              textAlign: 'center',
+              color: 'red',
+            }}
+          >
+            {state().error}
+          </div>
         )}
         {!state().code && !state().error && (
-          <div className={'text-center text-gray-500'}>Empty</div>
+          <div
+            style={{
+              padding: '20px',
+              textAlign: 'center',
+              fontSize: '14px',
+              color: 'rgba(0,0,0,.4)',
+              background: 'rgba(0,0,0,.05)',
+            }}
+          >
+            Empty
+          </div>
         )}
       </div>
     );

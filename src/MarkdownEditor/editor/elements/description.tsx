@@ -23,7 +23,7 @@ export const Description = observer((props: RenderElementProps) => {
   return React.useMemo(() => {
     return (
       <div
-        className={'drag-el'}
+        className={'md-editor-drag-el'}
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}

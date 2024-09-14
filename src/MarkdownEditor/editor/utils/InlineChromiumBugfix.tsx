@@ -4,9 +4,8 @@ export function InlineChromiumBugfix() {
   return React.useMemo(
     () => (
       <span
-        className={'h-0 leading-none'}
         contentEditable={false}
-        style={{ fontSize: 0 }}
+        style={{ fontSize: 0, lineHeight: 0, display: 'inline-block' }}
       >
         {String.fromCodePoint(160)}
       </span>
