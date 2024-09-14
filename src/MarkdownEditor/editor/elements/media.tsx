@@ -242,7 +242,7 @@ export function Media({
             }}
           >
             <img
-              width={32}
+              width={56}
               src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
             />
             <div
