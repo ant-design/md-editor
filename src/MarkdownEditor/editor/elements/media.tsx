@@ -191,6 +191,7 @@ export function Media({
           style={{
             width: '100%',
             height: 'auto',
+            maxWidth: 600,
           }}
           src={state().url || ''}
         />

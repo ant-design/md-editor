@@ -462,6 +462,7 @@ const parserBlock = (
             .map((n: any) => (n as any).value || '')
             .join('');
           const attach = findAttachment(text);
+
           if (attach) {
             const name = text.match(/>(.*)<\/a>/);
             el = {
@@ -473,6 +474,26 @@ const parserBlock = (
             };
             break;
           }
+        }
+
+        if (
+          currentNode?.children?.at(0)?.type === 'link' &&
+          config.type === 'card'
+        ) {
+          const link = currentNode?.children?.at(0) as {
+            type: 'link';
+            url: string;
+            title: string;
+          };
+
+          el = {
+            ...config,
+            type: 'link-card',
+            url: decodeURIComponent(link.url),
+            children: [{ text: '' }],
+            name: link.title,
+          };
+          break;
         }
         el = [];
         let textNodes: any[] = [];

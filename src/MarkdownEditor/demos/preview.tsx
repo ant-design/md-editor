@@ -12,7 +12,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 <!-- {"MarkdownType": "section", "id": "16" } -->
 
-
 ## 表格
 
 
@@ -27,6 +26,14 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 | 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  | 42,208  | 44,844  | 47,244  | 48,701  | 48,635  | 52,048  | 52,435  |
 | 云           | 62,012   | 1,521   | 1,353   | 2,799   | 1,977   | 1,505   | 1,079   | 2,633   | 984     | 1,359   | 1,108   | 1,944   |
 
+
+## 链接
+
+<!-- {"type": "card","icon":"https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10","title":"《影之刃零》发售销量会破五百万吗？ - 知乎","description":"这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…" } -->
+[腾讯官网](https://www.zhihu.com/question/665438199/answer/3625311124 "腾讯官网")
+
+
+[腾讯官网](https://www.zhihu.com/question/665438199/answer/3625311124 "腾讯官网")
 
 ## Description
 

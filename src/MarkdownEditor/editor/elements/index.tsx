@@ -16,6 +16,7 @@ import { Description } from './description';
 import { FootnoteDefinition } from './FootnoteDefinition';
 import { FootnoteReference } from './FootnoteReference';
 import { Head } from './head';
+import { LinkCard } from './LinkCard';
 import { List, ListItem } from './list';
 import { Media } from './media';
 import { Paragraph } from './paragraph';
@@ -29,6 +30,8 @@ const dragStart = (e: React.DragEvent) => {
 
 export const MElement = (props: RenderElementProps) => {
   switch (props.element.type) {
+    case 'link-card':
+      return <LinkCard {...props} />;
     case 'blockquote':
       return <Blockquote {...props} />;
     case 'head':

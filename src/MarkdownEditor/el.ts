@@ -196,6 +196,18 @@ export type MediaNode<T = Record<string, any>> = {
   mediaType?: string;
 };
 
+export type LinkCardNode<T = Record<string, any>> = {
+  otherProps?: T;
+  contextProps?: T;
+  type: 'link-card';
+  url?: string;
+  icon?: string;
+  description?: string;
+  title?: string;
+  name?: string;
+  alt: string;
+};
+
 export type AttachNode<T = Record<string, any>> = {
   contextProps?: T;
   otherProps?: T;
@@ -246,7 +258,8 @@ export type Elements<T = Record<string, any>> =
   | MediaNode<T>
   | BreakNode<T>
   | ChartNode<T>
-  | AttachNode<T>;
+  | AttachNode<T>
+  | LinkCardNode<T>;
 
 export type CustomLeaf<T = Record<string, any>> = {
   contextProps?: T;
