@@ -62,7 +62,6 @@ export class EditorStore {
   openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();
   highlightCache = new Map<object, Range[]>();
-  private searchTimer = 0;
   refreshFloatBar = false;
   refreshTableAttr = false;
   openLangCompletion = false;
