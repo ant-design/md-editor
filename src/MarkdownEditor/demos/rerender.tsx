@@ -1,7 +1,7 @@
 ﻿/* eslint-disable @typescript-eslint/no-loop-func */
 import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
 import { useEffect, useRef } from 'react';
-import { parserMarkdown } from '../editor/parser/worker';
+import { parserMarkdown } from '../editor/parser/parserMarkdown';
 
 const defaultValue = `## 创始人
 

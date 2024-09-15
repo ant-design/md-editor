@@ -17,9 +17,9 @@ import {
   MediaNode,
   TableNode,
   TableRowNode,
-} from '../../../el';
+} from '../../el';
 import partialJsonParse from './json-parse';
-import parser from './parser';
+import parser from './remarkParse';
 
 const stringifyObj = remark().use(remarkGfm);
 

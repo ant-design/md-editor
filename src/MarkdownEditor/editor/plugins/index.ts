@@ -23,6 +23,62 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
     ) {
       return;
     }
+
+    if (
+      operation.type === 'split_node' &&
+      operation.properties?.type === 'link-card'
+    ) {
+      const node = Node.get(editor, operation.path);
+      if (node?.type === 'link-card') {
+        Transforms.insertNodes(
+          editor,
+          [
+            {
+              type: 'paragraph',
+              children: [{ text: '', p: 'true' }],
+            },
+          ],
+          {
+            at: Path.next(operation.path),
+          },
+        );
+      }
+      setTimeout(() => {
+        Transforms.setSelection(editor, {
+          anchor: { path: Path.next(operation.path), offset: 0 },
+          focus: { path: Path.next(operation.path), offset: 0 },
+        });
+      }, 100);
+      return;
+    }
+
+    if (
+      operation.type === 'split_node' &&
+      operation.properties?.type === 'schema'
+    ) {
+      const node = Node.get(editor, operation.path);
+      if (node?.type === 'schema') {
+        Transforms.insertNodes(
+          editor,
+          [
+            {
+              type: 'paragraph',
+              children: [{ text: '', p: 'true' }],
+            },
+          ],
+          {
+            at: Path.next(operation.path),
+          },
+        );
+      }
+      setTimeout(() => {
+        Transforms.setSelection(editor, {
+          anchor: { path: Path.next(operation.path), offset: 0 },
+          focus: { path: Path.next(operation.path), offset: 0 },
+        });
+      }, 100);
+      return;
+    }
     if (
       operation.type === 'split_node' ||
       operation.type === 'merge_node' ||

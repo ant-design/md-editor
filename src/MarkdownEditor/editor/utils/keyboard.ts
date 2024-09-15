@@ -8,7 +8,7 @@ import { ReactEditor } from 'slate-react';
 import { MarkdownEditorProps } from '../..';
 import { AttachNode, MediaNode, TableNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
-import { parserMdToSchema } from '../parser/parser';
+import { parserMdToSchema } from '../parser/parserMdToSchema';
 import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';
 

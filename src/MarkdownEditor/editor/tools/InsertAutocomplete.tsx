@@ -526,22 +526,24 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           const el = ReactEditor.toDOMNode(store.editor, node[0]);
           if (el) {
             let top = getOffsetTop(el, store.container!);
+            console.log(top - store.container!.scrollTop);
+
             if (
               top >
               store.container!.scrollTop +
-                store.container!.clientHeight -
+                store.container!.scrollHeight -
                 212 -
                 el.clientHeight
             ) {
               setState({
                 top: undefined,
-                bottom: -(top - store.container!.clientHeight),
+                bottom: -(top - store.container!.scrollTop),
                 left: getOffsetLeft(el, store.container!),
               });
             } else {
               setState({
                 left: getOffsetLeft(el, store.container!),
-                top: top + el.clientHeight,
+                top: top - store.container!.scrollTop,
                 bottom: undefined,
               });
             }
@@ -557,7 +559,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       }
     }, [store.openInsertCompletion]);
 
-    const baseClassName = 'insert-autocomplete';
+    const baseClassName = 'md-editor-insert-autocomplete';
 
     return (
       <div

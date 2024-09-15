@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { EditorFrame } from './editor/EditorFrame';
-import { parserMdToSchema } from './editor/parser/parser';
+import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { EditorStore, EditorStoreContext } from './editor/store';
 import { TocHeading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';

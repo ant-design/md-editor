@@ -360,7 +360,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       <div
                         key={index}
                         style={{
-                          maxWidth: 600,
                           margin: 'auto',
                           position: 'relative',
                           zIndex: 9,
@@ -620,7 +619,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         margin: 'auto',
                         overflow: 'auto',
                         minWidth: 300,
-                        maxWidth: 600,
                         flex: 1,
                       }}
                     >

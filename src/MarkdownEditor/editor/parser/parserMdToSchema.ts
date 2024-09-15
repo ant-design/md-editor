@@ -1,5 +1,5 @@
 import { CodeNode, Elements } from '../../el';
-import { parserMarkdown } from './worker';
+import { parserMarkdown } from './parserMarkdown';
 
 export type ParserResult = {
   schema: Elements[];

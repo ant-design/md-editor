@@ -1047,12 +1047,12 @@ samp {
   background-color: rgb(229 231 235 / 0.65);
 }
 
-.insert-autocomplete {
+.md-editor-insert-autocomplete {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.insert-autocomplete .insert-autocomplete-item {
+.md-editor-insert-autocomplete .md-editor-insert-autocomplete-item {
   display: flex;
   align-items: center;
   height: 24px;

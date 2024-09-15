@@ -1,5 +1,5 @@
 ﻿import { Editor, Transforms } from 'slate';
-import { parserMdToSchema } from '../parser/parser';
+import { parserMdToSchema } from '../parser/parserMdToSchema';
 
 /**
  * 转化 markdown 到 slate

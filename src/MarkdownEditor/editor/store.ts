@@ -21,7 +21,7 @@ import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
 import { ChartNode, Elements, MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
-import { parserMdToSchema } from './parser/parser';
+import { parserMdToSchema } from './parser/parserMdToSchema';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
 import { schemaToMarkdown } from './utils';

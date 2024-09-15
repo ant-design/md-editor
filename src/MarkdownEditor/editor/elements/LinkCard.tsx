@@ -24,7 +24,7 @@ export function LinkCard({
     <div {...attributes}>
       <div
         className={'md-editor-drag-el'}
-        data-be="media"
+        data-be="link-card"
         style={{
           cursor: 'pointer',
           position: 'relative',
@@ -41,7 +41,6 @@ export function LinkCard({
           if (!store.focus) {
             EditorUtils.focus(store.editor);
           }
-          EditorUtils.selectMedia(store, path);
         }}
       >
         <DragHandle />
@@ -51,6 +50,7 @@ export function LinkCard({
             padding: 12,
             border: '1px solid #f0f0f0',
             borderRadius: 16,
+            margin: '8px 0',
             width: '100%',
             backgroundImage:
               'linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%)',
