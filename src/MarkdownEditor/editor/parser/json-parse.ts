@@ -169,7 +169,7 @@ const tokenize = function tokenize(input: string): {
   return tokens;
 };
 
-const strip = function strip(tokens: any[]) {
+const strip = function strip(tokens: any[]): any[] {
   if (tokens.length === 0) {
     return tokens;
   }

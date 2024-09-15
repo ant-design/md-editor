@@ -1062,6 +1062,9 @@ samp {
   border-radius: 18px;
   cursor: pointer;
 }
+.md-editor-insert-autocomplete .md-editor-insert-autocomplete-item:hover {
+  background-color: rgb(229 231 235 / 0.65);
+}
 
 .m-editor-float-bar {
   position: absolute;

@@ -662,7 +662,9 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                         alignItems: 'center',
                         gap: 4,
                         backgroundColor:
-                          el.key === selectedKey ? 'rgba(0,0,0,0.1)' : '',
+                          el.key === selectedKey
+                            ? 'rgb(229 231 235 / 0.65)'
+                            : '',
                       }}
                     >
                       {el.icon}
