@@ -9,6 +9,30 @@ import { getMediaType } from './dom';
 const space = '  ';
 const inlineNode = new Set(['break']);
 
+/**
+ * Parses a node and its children into a Markdown string representation.
+ *
+ * @param node - The current node to parse.
+ * @param preString - A prefix string to prepend to the parsed content.
+ * @param parent - An array of parent nodes.
+ * @returns The Markdown string representation of the node and its children.
+ *
+ * The function handles various node types:
+ * - `paragraph`: Converts the children nodes to Markdown.
+ * - `head`: Converts the node to a Markdown header.
+ * - `code`: Converts the node to a Markdown code block.
+ * - `attach`: Converts the node to a downloadable link.
+ * - `blockquote`: Converts the children nodes to a blockquote.
+ * - `media`: Converts the node to an appropriate media tag (image, video, iframe).
+ * - `list`: Converts the children nodes to a list.
+ * - `list-item`: Converts the children nodes to a list item.
+ * - `table`, `chart`, `column-group`, `description`: Converts the node to a table.
+ * - `schema`: Converts the node to a schema code block.
+ * - `link-card`: Converts the node to a Markdown link.
+ * - `hr`: Converts the node to a horizontal rule.
+ * - `break`: Converts the node to a line break.
+ * - Default: Converts the node to text if it has a `text` property.
+ */
 const parserNode = (node: any, preString = '', parent: any[]) => {
   let str = '';
   const newParent = [...parent, node];
@@ -83,6 +107,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'table':
+      console.log(node);
       str += table(node, preString, newParent);
       break;
     case 'chart':
@@ -92,10 +117,38 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += table(node, preString, newParent);
       break;
     case 'description':
-      str += table(node, preString, newParent);
+      const header: any[] = [];
+      const rows: any[] = [];
+      node.children.forEach((n: any) => {
+        if (n.title) {
+          header.push(n);
+          return;
+        }
+        rows.push(n);
+      });
+      str += table(
+        {
+          ...node,
+          children: [
+            {
+              children: header,
+              type: 'table-row',
+            },
+            {
+              children: rows,
+              type: 'table-row',
+            },
+          ],
+        },
+        preString,
+        newParent,
+      );
       break;
     case 'schema':
       str += '```schema\n' + JSON.stringify(node.otherProps, null, 2) + '\n```';
+      break;
+    case 'link-card':
+      str += `[${node.name}](${node.url} "${node.name}")`;
       break;
     case 'hr':
       str += preString + '***';
@@ -110,6 +163,14 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
   return str;
 };
 
+/**
+ * Converts a schema tree to a Markdown string.
+ *
+ * @param tree - The schema tree to convert, represented as an array of nodes.
+ * @param preString - A prefix string to prepend to each line of the output.
+ * @param parent - An array representing the parent nodes, defaulting to a root node.
+ * @returns The generated Markdown string.
+ */
 export const schemaToMarkdown = (
   tree: any[],
   preString = '',
@@ -219,6 +280,21 @@ export const isMix = (t: Text) => {
     ).length > 1
   );
 };
+
+/**
+ * Converts a Text object to an HTML string with appropriate formatting.
+ *
+ * @param {Text} t - The Text object to be converted.
+ * @returns {string} - The formatted HTML string.
+ *
+ * The function applies the following HTML tags based on the properties of the Text object:
+ * - `<span style="color:{highColor}">` if `highColor` is defined.
+ * - `<code>` if `code` is true.
+ * - `<i>` if `italic` is true.
+ * - `<b>` if `bold` is true.
+ * - `<del>` if `strikethrough` is true.
+ * - `<a href="{url}">` if `url` is defined.
+ */
 const textHtml = (t: Text) => {
   let str = t.text || '';
   if (t.highColor) str = `<span style="color:${t.highColor}">${str}</span>`;
@@ -229,6 +305,21 @@ const textHtml = (t: Text) => {
   if (t.url) str = `<a href="${t.url}">${str}</a>`;
   return str;
 };
+
+/**
+ * Formats a given text object into a Markdown string with appropriate styles.
+ *
+ * @param t - The text object to be formatted.
+ * @returns The formatted Markdown string.
+ *
+ * The function applies the following Markdown styles based on the properties of the text object:
+ * - `code`: Wraps the text in backticks (`).
+ * - `italic`: Wraps the text in asterisks (*).
+ * - `bold`: Wraps the text in double asterisks (**).
+ * - `strikethrough`: Wraps the text in double tildes (~~).
+ *
+ * Additionally, it escapes backslashes and replaces newline characters with Markdown line breaks.
+ */
 const textStyle = (t: Text) => {
   if (!t.text) return '';
   let str = t.text.replace(/(?<!\\)\\/g, '\\').replace(/\n/g, '  \n');
@@ -245,6 +336,19 @@ const textStyle = (t: Text) => {
   if (t.strikethrough) str = `~~${str}~~`;
   return `${preStr}${str}${afterStr}`;
 };
+
+/**
+ * Composes a text string from a given Text node and its parent nodes.
+ *
+ * @param t - The Text node to compose the string from.
+ * @param parent - An array representing the parent nodes of the Text node.
+ * @returns The composed text string. If the Text node has no text, returns an empty string.
+ *
+ * The function handles different text styles and formats:
+ * - If the text has highColor or a combination of strikethrough with bold, italic, or code, it returns HTML formatted text.
+ * - If the text has a URL, it returns the text as a markdown link.
+ * - If the text is mixed and not at the end of a sentence, it ensures proper spacing between words.
+ */
 const composeText = (t: Text, parent: any[]) => {
   if (!t.text) return '';
   if (t.highColor || (t.strikethrough && (t.bold || t.italic || t.code)))
@@ -263,6 +367,15 @@ const composeText = (t: Text, parent: any[]) => {
   }
   return str;
 };
+
+/**
+ * Converts a table-like node structure into a Markdown table string.
+ *
+ * @param el - The table node which can be of type `TableNode`, `ColumnNode`, `DescriptionNode`, or `ChartNode`.
+ * @param preString - A prefix string to prepend to each line of the output Markdown table.
+ * @param parent - An array representing the parent nodes of the current node.
+ * @returns A string representing the Markdown table.
+ */
 const table = (
   el: TableNode | ColumnNode | DescriptionNode | ChartNode,
   preString = '',

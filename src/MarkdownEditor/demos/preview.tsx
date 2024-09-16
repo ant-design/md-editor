@@ -117,7 +117,7 @@ export default () => {
       reportMode
       initValue={defaultValue}
       onChange={(e, s) => {
-        console.log('onChange', s);
+        console.log('onChange', e, s);
       }}
     />
   );

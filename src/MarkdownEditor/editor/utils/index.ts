@@ -127,5 +127,5 @@ export * from './editorUtils';
 export * from './keyboard';
 export * from './media';
 export * from './path';
-export * from './toMarkdown';
+export * from './schemaToMarkdown';
 export * from './useLocalState';
