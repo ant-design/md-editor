@@ -186,6 +186,7 @@ export const schemaToMarkdown = (
       delete configProps['columns'];
       delete configProps['dataSource'];
       if (node.type === 'link-card') {
+        configProps.type = 'card';
         configProps.url = encodeURI(node.url);
         configProps.name = node.name || node.title || configProps.name;
         configProps.description = node.description || configProps.description;

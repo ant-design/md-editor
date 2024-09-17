@@ -39,7 +39,7 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
             },
           ],
           {
-            at: Path.next(operation.path),
+            at: Path.next([operation.path.at(0)!]),
           },
         );
       }
