@@ -185,6 +185,12 @@ export const schemaToMarkdown = (
       };
       delete configProps['columns'];
       delete configProps['dataSource'];
+      if (node.type === 'link-card') {
+        configProps.url = encodeURI(node.url);
+        configProps.name = node.name || node.title || configProps.name;
+        configProps.description = node.description || configProps.description;
+        configProps.icon = node.icon || configProps.icon;
+      }
       str += `<!--${JSON.stringify(configProps)}-->\n`;
     }
     const p = parent[parent.length - 1];
