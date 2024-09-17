@@ -52,6 +52,7 @@ export function LinkCard({
             borderRadius: 16,
             margin: '8px 0',
             width: '100%',
+            height: '120px',
             backgroundImage:
               'linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%)',
             flex: 1,
