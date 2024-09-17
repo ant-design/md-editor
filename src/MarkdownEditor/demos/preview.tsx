@@ -1,6 +1,7 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
-const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
+const defaultValue =
+  `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # 腾讯研究报告
 
@@ -108,7 +109,10 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ]
 \`\`\`
 
-`;
+
+
+` +
+  '<!-- {"MarkdownType": "report", "id": "113", "section_ids": " [244] "} -->\n# Chen Shuai\'s Report\n<!-- {"MarkdownType": "section", "id": "244", "section_id": "244", "report_id": "113", "order": "1" } -->\n## 参考文档\n\n<!--{"icon":"https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original","abstract":"这是文章的摘要，我还要想想怎么做","create_datetime":"Sun, 15 Sep 2024 15:40:38 GMT","folder_id":830,"id":863,"name":"如何得到一个好问题_.pdf","real_path":"/tmp/spaces/1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2/陈帅/如何得到一个好问题_.pdf","space_id":null,"tags":null,"user":{"create_datetime":"","email":"chenshuai@invret.co","id":33,"is_admin":true,"last_login":"2024-09-14 14:18:37","name":"Chen Shuai","oid":"1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2","space_id":6},"collaborators":[{"Chen Shuai":1}],"updateTime":"2024-09-15 23:40:38","type":"card","url":"http://localhost:3000/file/863","description":"这是文章的摘要，我还要想想怎么做"}-->\n[如何得到一个好问题_.pdf](http://localhost:3000/file/863 "如何得到一个好问题_.pdf")\n\n<!--{"icon":"https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original","abstract":"这是文章的摘要，我还要想想怎么做","create_datetime":"Sat, 14 Sep 2024 16:45:28 GMT","folder_id":830,"id":862,"name":"算法 第4版.2012.中文版.pdf","real_path":"/tmp/spaces/1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2/陈帅/算法 第4版.2012.中文版.pdf","space_id":null,"tags":null,"user":{"create_datetime":"","email":"chenshuai@invret.co","id":33,"is_admin":true,"last_login":"2024-09-14 14:18:37","name":"Chen Shuai","oid":"1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2","space_id":6},"collaborators":[{"Chen Shuai":1}],"updateTime":"2024-09-15 00:45:28","type":"card","url":"http://localhost:3000/file/862","description":"这是文章的摘要，我还要想想怎么做"}-->\n[算法 第4版.2012.中文版.pdf](http://localhost:3000/file/862 "算法 第4版.2012.中文版.pdf")\n';
 export default () => {
   return (
     <MarkdownEditor

@@ -62,6 +62,16 @@ export function LinkCard({
             justifyContent: 'space-between',
           }}
         >
+          <span
+            style={{
+              fontSize: (htmlRef.current?.clientHeight || 200) * 0.75,
+              width: '2px',
+              height: (htmlRef.current?.clientHeight || 200) * 0.75,
+              lineHeight: 1,
+            }}
+          >
+            {children}
+          </span>
           <div
             style={{
               display: 'flex',
@@ -72,6 +82,7 @@ export function LinkCard({
               flex: 1,
               minWidth: 0,
             }}
+            contentEditable={false}
           >
             {element.icon ? <img src={element.icon} width={56} /> : null}
             <div
@@ -90,11 +101,9 @@ export function LinkCard({
                   display: 'block',
                   color: '#262626',
                 }}
-                download={
-                  element.alt?.replace('attachment:', '') || 'attachment'
-                }
+                download={element.title || element.name || 'no title'}
               >
-                {element.title || element.name || 'Link'}
+                {element.title || element.name || 'no title'}
               </a>
               <div
                 style={{
