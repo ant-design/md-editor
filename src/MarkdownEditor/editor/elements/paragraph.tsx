@@ -9,13 +9,18 @@ import { DragHandle } from '../tools/DragHandle';
 
 export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
   const store = useEditorStore();
-  const [selected] = useSelStatus(props.element);
+  const [selected, path] = useSelStatus(props.element);
 
   const isLatest = useMemo(() => {
     if (store.editor.children.length === 0) return false;
     if (!store.editorProps.typewriter) return false;
+
     return store.isLatestNode(props.element);
-  }, [store.editor.children.length, store.editorProps.typewriter]);
+  }, [
+    store.editor.children.at?.(path.at(0)!),
+    store.editor.children.at?.(path.at(0)! + 1),
+    store.editorProps.typewriter,
+  ]);
 
   return React.useMemo(() => {
     const str = Node.string(props.element);

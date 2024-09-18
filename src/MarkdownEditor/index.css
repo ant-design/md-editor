@@ -91,7 +91,10 @@
   caret-color: #1677ff;
 }
 
-.typewriter > *:last-child span[data-slate-string] {
+.markdown-editor-edit-area
+  p.typewriter:last-of-type
+  > *:last-of-type
+  span[data-slate-string] {
   border-right: 0.15em solid #1677ff;
   animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
 }

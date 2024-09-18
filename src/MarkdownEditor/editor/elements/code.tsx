@@ -1,5 +1,6 @@
 import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
+import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, {
@@ -263,9 +264,20 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
 export const CodeLine = observer((props: ElementProps<CodeLineNode>) => {
   const ctx = useContext(CodeCtx);
   const store = useEditorStore();
+  const isLatest = useMemo(() => {
+    if (store.editor.children.length === 0) return false;
+    if (!store.editorProps.typewriter) return false;
+    return store.isLatestNode(props.element);
+  }, [store.editor.children]);
   return useMemo(() => {
     return (
-      <div className={`code-line`} data-be={'code-line'} {...props.attributes}>
+      <div
+        className={classNames(`code-line`, {
+          typewriter: isLatest && store.editorProps.typewriter,
+        })}
+        data-be={'code-line'}
+        {...props.attributes}
+      >
         {props.children}
       </div>
     );

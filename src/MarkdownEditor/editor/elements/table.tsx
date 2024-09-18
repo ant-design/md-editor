@@ -9,6 +9,12 @@ export function TableCell(props: RenderElementProps) {
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
     store.openTableMenus(e, head);
   }, []);
+  const isLatest = useMemo(() => {
+    if (store.editor.children.length === 0) return false;
+    if (!store.editorProps.typewriter) return false;
+
+    return store.isLatestNode(props.element);
+  }, []);
   return React.useMemo(() => {
     return props.element.title ? (
       <th

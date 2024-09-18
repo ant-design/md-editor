@@ -19,7 +19,7 @@ import { ReactEditor, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
-import { ChartNode, Elements, MediaNode, TableCellNode } from '../el';
+import { ChartNode, Elements, ListNode, MediaNode, TableCellNode } from '../el';
 import { openMenus } from './components/Menu';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { withMarkdown } from './plugins';
@@ -188,10 +188,31 @@ export class EditorStore {
   }
 
   isLatestNode(node: Node) {
+    const findLatest = (node: Elements, index: number[]) => {
+      if (Array.isArray((node as ListNode).children)) {
+        if (
+          (node as ListNode).children.length === 1 &&
+          ['table-cell', 'code-line', 'paragraph'].includes(
+            (node as ListNode).children[0].type,
+          )
+        ) {
+          return index;
+        }
+
+        return findLatest((node as ListNode).children.at(-1)!, [
+          ...index,
+          (node as ListNode).children.length - 1,
+        ]);
+      }
+      return index;
+    };
+
     try {
       return (
-        ReactEditor.findPath(this.editor, node).at(0) ===
-        this.editor.children.length - 1
+        ReactEditor.findPath(this.editor, node).join('-') ===
+        findLatest(this.editor.children.at(-1)!, [
+          this.editor.children.length - 1,
+        ]).join('-')
       );
     } catch (error) {
       return false;
