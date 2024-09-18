@@ -188,7 +188,7 @@ export class EditorStore {
   }
 
   isLatestNode(node: Node) {
-    const findLatest = (node: Elements, index: number[]) => {
+    const findLatest = (node: Elements, index: number[]): number[] => {
       if (Array.isArray((node as ListNode).children)) {
         if (
           (node as ListNode).children.length === 1 &&
