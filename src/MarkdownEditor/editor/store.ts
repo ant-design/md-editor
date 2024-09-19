@@ -33,6 +33,7 @@ export const useEditorStore = () => {
   return useContext(EditorStoreContext)!;
 };
 
+const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
 export class EditorStore {
   editor = withMarkdown(withReact(withHistory(createEditor())), this);
   search = {
@@ -186,34 +187,30 @@ export class EditorStore {
       },
     ]);
   }
-
-  isLatestNode(node: Node) {
-    const findLatest = (node: Elements, index: number[]): number[] => {
-      if (Array.isArray((node as ListNode).children)) {
-        if (
-          (node as ListNode).children.length === 1 &&
-          ['table-cell', 'code-line', 'paragraph'].includes(
-            (node as ListNode).children[0].type,
-          )
-        ) {
-          return index;
-        }
-
-        return findLatest((node as ListNode).children.at(-1)!, [
-          ...index,
-          (node as ListNode).children.length - 1,
-        ]);
+  findLatest(node: Elements, index: number[]): number[] {
+    if (Array.isArray((node as ListNode).children)) {
+      if (
+        (node as ListNode).children.length === 1 &&
+        (SUPPORT_TYPING_TAG.includes((node as ListNode).type) ||
+          !(node as ListNode).children[0].type)
+      ) {
+        return index;
       }
-      return index;
-    };
 
+      return this.findLatest((node as ListNode).children.at(-1)!, [
+        ...index,
+        (node as ListNode).children.length - 1,
+      ]);
+    }
+    return index;
+  }
+  isLatestNode(node: Node) {
     try {
-      return (
-        ReactEditor.findPath(this.editor, node).join('-') ===
-        findLatest(this.editor.children.at(-1)!, [
-          this.editor.children.length - 1,
-        ]).join('-')
-      );
+      return this.findLatest(this.editor.children.at(-1)!, [
+        this.editor.children.length - 1,
+      ])
+        .join('-')
+        .startsWith(ReactEditor.findPath(this.editor, node).join('-'));
     } catch (error) {
       return false;
     }
@@ -341,6 +338,45 @@ export class EditorStore {
     this.editor.insertText('\n');
   }
 
+  diffNode = (node: Node, preNode: Node, at: number[]) => {
+    if (
+      preNode?.type !== node?.type ||
+      (node as Elements).type === 'code' ||
+      (node as Elements).type === 'footnoteDefinition'
+    ) {
+      if (this.editor.hasPath(at)) {
+        Transforms.removeNodes(this.editor, { at });
+      }
+      if (this.editor.hasPath(Path.next(at))) {
+        Transforms.removeNodes(this.editor, { at: Path.next(at) });
+      }
+      Transforms.insertNodes(this.editor, [node], { at });
+      return;
+    }
+    Transforms.setNodes(this.editor, node, { at });
+    if (node.children) {
+      node.children.forEach((child: any, index: any) => {
+        if (preNode.children && preNode.children[index]) {
+          this.diffNode(child, preNode.children[index], [...at, index]);
+        } else {
+          Transforms.insertNodes(this.editor, [child], {
+            at: [...at, index],
+          });
+        }
+      });
+    } else {
+      if (preNode.children) {
+        Transforms.removeNodes(this.editor, { at });
+        Transforms.insertNodes(this.editor, [node], { at });
+      } else {
+        Transforms.setNodes(this.editor, node, { at });
+        if (node.text) {
+          Transforms.insertText(this.editor, node.text, { at });
+        }
+      }
+    }
+  };
+
   updateNodeList(nodeList: Node[]) {
     const childrenList = this.editor.children;
 
@@ -352,45 +388,16 @@ export class EditorStore {
       updateMap.set(index, node);
     });
 
-    const diffNode = (node: Node, preNode: Node, at: number[]) => {
-      if (
-        preNode?.type !== node?.type ||
-        (node as Elements).type === 'code' ||
-        (node as Elements).type === 'footnoteDefinition'
-      ) {
-        if (this.editor.hasPath(at)) {
-          Transforms.removeNodes(this.editor, { at });
-        }
-        Transforms.insertNodes(this.editor, [node], { at });
-        return;
-      }
-      Transforms.setNodes(this.editor, node, { at });
-      if (node.children) {
-        node.children.forEach((child: any, index: any) => {
-          if (preNode.children && preNode.children[index]) {
-            diffNode(child, preNode.children[index], [...at, index]);
-          } else {
-            Transforms.insertNodes(this.editor, [child], {
-              at: [...at, index],
-            });
-          }
-        });
-      } else {
-        if (preNode.children) {
-          Transforms.removeNodes(this.editor, { at });
-          Transforms.insertNodes(this.editor, [node], { at });
-        } else {
-          Transforms.setNodes(this.editor, node, { at });
-          if (node.text) {
-            Transforms.insertText(this.editor, node.text, { at });
-          }
-        }
-      }
-    };
-
     updateMap.forEach((node, key) => {
-      diffNode(node, childrenList[key], [key]);
+      this.diffNode(node, childrenList[key], [key]);
     });
+    const maxSize = childrenList.length - nodeList.length;
+    if (maxSize > 0) {
+      childrenList.forEach((node, index) => {
+        if (nodeList.at(index)) return;
+        Transforms.removeNodes(this.editor, { at: [index] });
+      });
+    }
   }
 
   dragStart(e: React.DragEvent) {
