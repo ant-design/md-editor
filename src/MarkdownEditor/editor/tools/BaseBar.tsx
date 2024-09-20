@@ -675,6 +675,14 @@ export const BaseToolBar = observer(
               }}
             >
               {props.extra?.map((item, index) => {
+                if (React.isValidElement(item)) {
+                  if (item.type === 'span') {
+                    <div className={`${baseClassName}-item`} key={index}>
+                      {item}
+                    </div>;
+                  }
+                  return item;
+                }
                 return (
                   <div className={`${baseClassName}-item`} key={index}>
                     {item}
