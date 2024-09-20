@@ -67,12 +67,14 @@ public class HelloWorld {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        backgroundColor: '#f0f2f5',
       }}
     >
       <div
         style={{
-          border: '1px solid #f0f0f0',
+          border: '1px solid #000',
           width: '40vw',
+          borderRadius: 16,
           margin: '20px auto',
         }}
       >

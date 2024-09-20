@@ -264,7 +264,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               position: 'sticky',
               zIndex: 1000,
               top: 0,
-              backgroundColor: '#fff',
             }}
           >
             <ToolBar

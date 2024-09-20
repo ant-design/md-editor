@@ -10,7 +10,7 @@ export const ToolBar = (props: {
   min?: boolean;
   hideTools?: ToolsKeyType[];
 }) => {
-  const baseClassName = `toolbar`;
+  const baseClassName = `md-editor-toolbar`;
   return (
     <div
       onMouseDown={(e) => {

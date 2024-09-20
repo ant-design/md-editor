@@ -12,7 +12,7 @@ import {
   MarkdownEditorProps,
 } from '../index';
 import { MElement, MLeaf } from './elements';
-import { insertParsedHtmlNodes } from './plugins/htmlParser';
+import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 import {
   clearAllCodeCache,

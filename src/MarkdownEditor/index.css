@@ -1010,7 +1010,9 @@ samp {
   border-radius: 20px;
 }
 
-.toolbar {
+.md-editor-toolbar {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   border-bottom: 1px solid rgb(229 231 235 / 0.8);
   overflow: hidden;
   height: 42px;
@@ -1021,7 +1023,7 @@ samp {
   padding: 6px 4px;
 }
 
-.toolbar .toolbar-item {
+.md-editor-toolbar .md-editor-toolbar-item {
   display: flex;
   height: 100%;
   font-size: 16px;
@@ -1035,18 +1037,19 @@ samp {
   cursor: pointer;
 }
 
-.toolbar .toolbar-item.toolbar-item-min-plus-icon {
+.md-editor-toolbar
+  .md-editor-toolbar-item.md-editor-toolbar-item-min-plus-icon {
   color: #1677ff;
 }
 
-.toolbar .toolbar-item-color {
+.md-editor-toolbar .md-editor-toolbar-item-color {
   width: 24px;
   height: 24px;
   cursor: pointer;
   border-radius: 18px;
 }
 
-.toolbar .toolbar-item:hover {
+.md-editor-toolbar .md-editor-toolbar-item:hover {
   background-color: rgb(229 231 235 / 0.65);
 }
 
