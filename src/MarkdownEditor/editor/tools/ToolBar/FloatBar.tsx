@@ -1,11 +1,14 @@
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
-import { IEditor } from '../../index';
-import { useEditorStore } from '../store';
-import { getSelRect } from '../utils/dom';
-import { useLocalState } from '../utils/useLocalState';
+import { IEditor } from '../../../index';
+import { useEditorStore } from '../../store';
+import { getSelRect } from '../../utils/dom';
+import { useLocalState } from '../../utils/useLocalState';
 import { BaseToolBar } from './BaseBar';
+import { useStyle } from './floatBarStyle';
 
 const fileMap = new Map<string, IEditor>();
 
@@ -85,8 +88,12 @@ export const FloatBar = observer(() => {
     return () => window.removeEventListener('resize', change);
   }, []);
 
-  const baseClassName = `m-editor-float-bar`;
-  return (
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context.getPrefixCls(`md-editor-float-bar`);
+
+  const { wrapSSR, hashId } = useStyle(baseClassName);
+
+  return wrapSSR(
     <div
       style={{
         left: state.left,
@@ -98,9 +105,9 @@ export const FloatBar = observer(() => {
         e.preventDefault();
         e.stopPropagation();
       }}
-      className={baseClassName}
+      className={classNames(baseClassName, hashId)}
     >
-      <BaseToolBar prefix={baseClassName} />
-    </div>
+      <BaseToolBar prefix={baseClassName} hashId={hashId} />
+    </div>,
   );
 });

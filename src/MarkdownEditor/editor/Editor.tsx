@@ -1,5 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { message } from 'antd';
+import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -54,6 +55,7 @@ export const MEditor = observer(
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
+    className?: string;
     reportMode?: MarkdownEditorProps['reportMode'];
   }) => {
     const store = useEditorStore();
@@ -458,7 +460,7 @@ export const MEditor = observer(
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
-          className={`markdown-editor-edit-area ${className}`.trim()}
+          className={classNames(className, props.className)}
           style={
             reportMode
               ? {

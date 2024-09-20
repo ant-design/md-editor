@@ -1,21 +1,21 @@
 import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
 import React, {
+  useContext,
   useEffect,
   useImperativeHandle,
   useMemo,
   useState,
 } from 'react';
-import { EditorFrame } from './editor/EditorFrame';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { EditorStore, EditorStoreContext } from './editor/store';
 import { TocHeading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
 import { useSystemKeyboard } from './editor/utils/keyboard';
 
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { ToolsKeyType } from './editor/tools/BaseBar';
-import { FloatBar } from './editor/tools/FloatBar';
+import { MEditor } from './editor/Editor';
 import {
   InsertAutocomplete,
   InsertAutocompleteProps,
@@ -23,9 +23,12 @@ import {
 import { InsertLink } from './editor/tools/InsertLink';
 import { TableAttr } from './editor/tools/TableAttr';
 import { ToolBar } from './editor/tools/ToolBar';
+import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
+import { FloatBar } from './editor/tools/ToolBar/FloatBar';
 import { codeReady } from './editor/utils/highlight';
 import { ElementProps, Elements } from './el';
 import './index.css';
+import { useStyle } from './style';
 
 export { EditorUtils, parserMdToSchema };
 
@@ -219,13 +222,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     instance.store.readonly = readonly || false;
     instance.store.editorProps = props;
   }, [readonly]);
-
-  return (
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context.getPrefixCls(`md-editor`);
+  const { wrapSSR, hashId } = useStyle(baseClassName);
+  return wrapSSR(
     <EditorStoreContext.Provider value={instance.store}>
       <div
-        className={classNames('markdown-editor', {
-          'markdown-editor-readonly': readonly,
-          'markdown-editor-report': props.reportMode,
+        className={classNames('markdown-editor', hashId, {
+          [baseClassName + '-readonly']: readonly,
+          [baseClassName + '-report']: props.reportMode,
         })}
         style={{
           width: width || '400px',
@@ -291,7 +296,12 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           }}
           key={instance.id}
         >
-          <EditorFrame readonly={readonly} {...rest} instance={instance} />
+          <MEditor
+            className="markdown-editor-content"
+            note={instance.current!}
+            {...rest}
+            instance={instance}
+          />
           {instance.current &&
           mount &&
           toc !== false &&
@@ -309,6 +319,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           </>
         )}
       </div>
-    </EditorStoreContext.Provider>
+    </EditorStoreContext.Provider>,
   );
 };
