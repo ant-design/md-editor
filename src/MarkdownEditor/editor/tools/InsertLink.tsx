@@ -8,13 +8,13 @@ import React, { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetSetState } from 'react-use';
 import { Node, Selection, Text, Transforms } from 'slate';
-import { IFileItem } from '../..';
+import { IEditor } from '../..';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { isLink, parsePath } from '../utils/path';
 
-type DocItem = IFileItem & { path: string; parentPath?: string };
+type DocItem = IEditor & { path: string; parentPath?: string };
 const width = 370;
 
 /**
@@ -26,7 +26,7 @@ export const InsertLink = observer(() => {
   const inputRef = useRef<InputRef>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const docMap = useRef(
-    new Map<string, IFileItem & { path: string; parentPath?: string }>(),
+    new Map<string, IEditor & { path: string; parentPath?: string }>(),
   );
   const [state, setState] = useGetSetState({
     open: false,

@@ -13,10 +13,16 @@ const linkReg =
   /(https?|ftp):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/gi;
 
 export const codeCache = new WeakMap<object, { path: Path; range: Range[] }>();
+
 export const cacheTextNode = new WeakMap<
   object,
   { path: Path; range: Range[] }
 >();
+/**
+ * 清除编辑器中所有代码块的缓存。
+ *
+ * @param editor - 编辑器实例。
+ */
 export const clearAllCodeCache = (editor: Editor) => {
   const codes = Array.from<any>(
     Editor.nodes(editor, {
@@ -27,16 +33,16 @@ export const clearAllCodeCache = (editor: Editor) => {
   codes.map((c) => codeCache.delete(c[0]));
 };
 
-export const clearInlineKatex = (editor: Editor) => {
-  const inlineMath = Array.from<any>(
-    Editor.nodes(editor, {
-      match: (n) => n.type === 'inline-katex',
-      at: [],
-    }),
-  );
-  inlineMath.map((c) => cacheTextNode.delete(c[0]));
-};
-
+/**
+ * @constant highlightNodes
+ * 一个包含需要高亮显示的节点类型的集合。
+ * 这些节点类型包括：
+ * - 'paragraph'：段落
+ * - 'table-cell'：表格单元格
+ * - 'code'：代码块
+ * - 'head'：标题
+ * - 'code-line'：代码行
+ */
 const highlightNodes = new Set([
   'paragraph',
   'table-cell',
@@ -44,13 +50,26 @@ const highlightNodes = new Set([
   'head',
   'code-line',
 ]);
+
 let clearTimer = 0;
 
+/**
+ * 清除代码缓存。
+ *
+ * @param node - 要删除缓存的节点。
+ */
 export const clearCodeCache = (node: any) => {
   codeCache.delete(node);
   clearTimeout(clearTimer);
 };
 
+/**
+ * 运行代码高亮功能。
+ *
+ * @param node - 节点条目，包含节点和路径。
+ * @param code - 需要高亮的代码字符串。
+ * @param lang - 代码语言。
+ */
 const run = (node: NodeEntry, code: string, lang: any) => {
   try {
     const el = node[0];
@@ -82,8 +101,31 @@ const run = (node: NodeEntry, code: string, lang: any) => {
     codeCache.set(el, { path: node[1], range: ranges });
   } catch (e) {}
 };
+
+/**
+ * 一个用于存储代码块的堆栈。
+ * 每个堆栈元素包含一个 `run` 方法和一个表示语言的字符串 `lang`。
+ *
+ * @type {Array<{ run: any; lang: string }>}
+ */
 let stack: { run: any; lang: string }[] = [];
 
+/**
+ * 使用高亮功能的钩子函数。
+ *
+ * @param {EditorStore} [store] - 可选的编辑器存储对象，用于缓存高亮信息。
+ * @returns {function} 返回一个回调函数，该函数接收一个节点条目并返回一个范围数组。
+ *
+ * 回调函数逻辑：
+ * - 如果节点是一个元素并且其类型在高亮节点集合中，则从缓存中获取高亮范围。
+ * - 如果节点类型是 'code'，则将代码缓存中的范围添加到结果中。
+ * - 如果节点类型是 'inline-katex'，则根据缓存或通过解析代码生成高亮范围。
+ * - 如果节点类型是 'paragraph' 或 'table-cell'，则处理其子节点的文本内容，生成高亮范围。
+ * - 特殊处理 'paragraph' 类型节点的代码块和表格行。
+ *
+ * @example
+ * const highlightRanges = useHighlight(store)([node, path]);
+ */
 export function useHighlight(store?: EditorStore) {
   return useCallback(
     ([node, path]: NodeEntry): Range[] => {
@@ -226,6 +268,23 @@ export function useHighlight(store?: EditorStore) {
   );
 }
 
+/**
+ * 观察者组件 SetNodeToDecorations，用于在 Slate 编辑器中设置代码节点的装饰。
+ *
+ * @returns null
+ *
+ * 该组件使用 `useSlate` 获取编辑器实例，使用 `useEditorStore` 获取编辑器存储。
+ *
+ * `parser` 函数通过遍历编辑器中的所有代码节点，检查并更新代码缓存。如果代码节点的语言未加载，
+ * 则将其添加到加载队列中。加载完成后，刷新代码高亮。
+ *
+ * `useMemo` 钩子在编辑器内容或暂停代码高亮状态变化时调用 `parser` 函数。
+ *
+ * 主要功能：
+ * - 遍历编辑器中的代码节点
+ * - 检查并更新代码缓存
+ * - 加载未加载的语言并刷新代码高亮
+ */
 export const SetNodeToDecorations = observer(() => {
   const editor = useSlate();
   const store = useEditorStore();

@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect } from 'react';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
-import { IFileItem } from '../../index';
+import { IEditor } from '../../index';
 import { useEditorStore } from '../store';
 import { getSelRect } from '../utils/dom';
 import { useLocalState } from '../utils/useLocalState';
 import { BaseToolBar } from './BaseBar';
 
-const fileMap = new Map<string, IFileItem>();
+const fileMap = new Map<string, IEditor>();
 
 /**
  * 浮动工具栏,用于设置文本样式

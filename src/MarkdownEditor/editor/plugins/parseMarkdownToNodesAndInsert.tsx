@@ -2,12 +2,16 @@
 import { parserMdToSchema } from '../parser/parserMdToSchema';
 
 /**
- * 转化 markdown 到 slate
- * @param editor
- * @param markdown
- * @returns
+ * 解析Markdown并插入节点
+ *
+ * @param editor - 编辑器实例
+ * @param markdown - 要解析的Markdown字符串
+ * @returns 如果插入成功则返回true
  */
-export const insertMarkdownNodes = (editor: Editor, markdown: string) => {
+export const parseMarkdownToNodesAndInsert = (
+  editor: Editor,
+  markdown: string,
+) => {
   const nodes = JSON.parse(JSON.stringify(parserMdToSchema(markdown).schema));
 
   nodes.push({ type: 'paragraph', children: [{ text: '' }] });

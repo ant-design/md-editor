@@ -1,19 +1,19 @@
 /* eslint-disable react/no-children-prop */
 import { message } from 'antd';
-import { action, runInAction } from 'mobx';
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, RenderElementProps, Slate } from 'slate-react';
 import {
   Elements,
-  IFileItem,
+  IEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../index';
 import { MElement, MLeaf } from './elements';
-import { insertHtmlNodes } from './plugins/htmlParser';
-import { insertMarkdownNodes } from './plugins/markdownParser';
+import { insertParsedHtmlNodes } from './plugins/htmlParser';
+import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 import {
   clearAllCodeCache,
   SetNodeToDecorations,
@@ -50,7 +50,7 @@ export const MEditor = observer(
     reportMode,
     ...props
   }: {
-    note: IFileItem;
+    note: IEditor;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
@@ -62,7 +62,7 @@ export const MEditor = observer(
     const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
     const saveTimer = useRef(0);
-    const nodeRef = useRef<IFileItem>();
+    const nodeRef = useRef<IEditor>();
     const elementRenderElement = useCallback((props: RenderElementProps) => {
       const defaultDom = <MElement {...props} children={props.children} />;
       if (!eleItemRender) return defaultDom;
@@ -129,11 +129,7 @@ export const MEditor = observer(
           // @ts-ignore
           note.sel = editor.selection;
         }
-        if (editor.operations[0]?.type === 'set_selection') {
-          try {
-            runInAction(() => (store.openLangCompletion = false));
-          } catch (e) {}
-        }
+
         if (!editor.operations?.every((o) => o.type === 'set_selection')) {
           if (!changedMark.current) {
             changedMark.current = true;
@@ -196,12 +192,6 @@ export const MEditor = observer(
         state.focus = false;
         state.tableCellNode = null;
         state.refreshTableAttr = !state.refreshTableAttr;
-        setTimeout(
-          action(() => {
-            store.openLangCompletion = false;
-          }),
-          30,
-        );
       });
     }, []);
 
@@ -244,7 +234,7 @@ export const MEditor = observer(
         }
 
         if (isMarkdown(text)) {
-          insertMarkdownNodes(editor, text);
+          parseMarkdownToNodesAndInsert(editor, text);
           e.stopPropagation();
           e.preventDefault();
           return;
@@ -351,7 +341,7 @@ export const MEditor = observer(
 
           let paste = await pasteItem?.text();
           if (paste) {
-            const success = insertHtmlNodes(editor, paste);
+            const success = insertParsedHtmlNodes(editor, paste);
             if (success) {
               e.preventDefault();
               e.stopPropagation();

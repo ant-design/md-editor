@@ -21,6 +21,15 @@ export const selChange$ = new Subject<{
 } | null>();
 const floatBarIgnoreNode = new Set(['code-line']);
 
+/**
+ * 用于处理编辑器内容变化的自定义钩子函数。
+ *
+ * @param editor - Slate 编辑器实例。
+ * @param store - 编辑器状态存储实例。
+ * @param onChange - 可选的回调函数，当编辑器内容变化时调用，传递 Markdown 格式的内容和元素数组。
+ *
+ * @returns 一个函数，用于处理编辑器内容变化。
+ */
 export function useOnchange(
   editor: Editor,
   store: EditorStore,

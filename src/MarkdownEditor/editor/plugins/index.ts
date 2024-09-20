@@ -5,6 +5,26 @@ export const inlineNode = new Set(['break']);
 
 const voidNode = new Set(['hr', 'break']);
 
+/**
+ * 为编辑器添加 Markdown 支持的插件。
+ *
+ * @param editor - 编辑器实例。
+ * @param store - 编辑器存储实例。
+ * @returns 修改后的编辑器实例。
+ *
+ * 该插件扩展了编辑器的以下功能：
+ * - `isInline`：判断元素是否为行内元素。
+ * - `isVoid`：判断元素是否为空元素。
+ * - `apply`：自定义操作应用逻辑，处理特定类型的节点操作。
+ *
+ * 特别处理的操作类型包括：
+ * - `merge_node`：合并节点操作，忽略 `table-cell` 类型的节点。
+ * - `split_node`：拆分节点操作，处理 `link-card`、`schema` 和 `column-cell` 类型的节点。
+ * - `remove_node`：删除节点操作，处理 `table-row` 和 `table-cell` 类型的节点。
+ * - `move_node`：移动节点操作，处理 `table-cell` 类型的节点。
+ *
+ * 该插件还根据 `store.manual` 的值决定是否手动处理某些操作。
+ */
 export const withMarkdown = (editor: Editor, store: EditorStore) => {
   const { isInline, isVoid, apply } = editor;
 

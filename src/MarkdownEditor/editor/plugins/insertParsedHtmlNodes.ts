@@ -260,7 +260,7 @@ const processFragment = (fragment: any[], parentType = '') => {
  * @param html
  * @returns
  */
-export const insertHtmlNodes = (editor: Editor, html: string) => {
+export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
   if (html.startsWith('<img')) {
     return false;
   }

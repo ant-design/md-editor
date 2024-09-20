@@ -6,7 +6,6 @@ import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { keyArrow } from './hotKeyCommands/arrow';
 import { BackspaceKey } from './hotKeyCommands/backspace';
-import { EnterKey } from './hotKeyCommands/enter';
 import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
@@ -14,7 +13,6 @@ export const useKeyboard = (store: EditorStore) => {
   return useMemo(() => {
     const tab = new TabKey(store.editor);
     const backspace = new BackspaceKey(store.editor);
-    const enter = new EnterKey(store, backspace);
     const match = new MatchKey(store.editor);
     return (e: React.KeyboardEvent) => {
       if (
@@ -54,23 +52,11 @@ export const useKeyboard = (store: EditorStore) => {
       match.run(e);
 
       if (e.key.toLowerCase().startsWith('arrow')) {
-        if (
-          store.openLangCompletion &&
-          ['ArrowUp', 'ArrowDown'].includes(e.key)
-        )
-          return;
+        if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;
         keyArrow(store, e);
       } else {
         if (e.key === 'Tab') tab.run(e);
-        if (e.key === 'Enter') {
-          if (store.openLangCompletion) {
-            setTimeout(() => {
-              runInAction(() => (store.openLangCompletion = false));
-            });
-          } else {
-            enter.run(e);
-          }
-        }
+
         const [node] = Editor.nodes<any>(store.editor, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',
@@ -109,7 +95,6 @@ export const useKeyboard = (store: EditorStore) => {
               let str = Node.string(node[0]) || '';
               const codeMatch = str.match(/^```([\w+\-#]+)$/i);
               if (codeMatch) {
-                runInAction(() => (store.openLangCompletion = true));
               } else {
                 const insertMatch = str.match(/^\/([^\n]+)?$/i);
                 if (
@@ -123,17 +108,8 @@ export const useKeyboard = (store: EditorStore) => {
                   setTimeout(() => {
                     store.insertCompletionText$.next(insertMatch[1]);
                   });
-                } else {
-                  if (store.openInsertCompletion || store.openLangCompletion) {
-                    runInAction(() => {
-                      store.openLangCompletion = false;
-                      store.openInsertCompletion = false;
-                    });
-                  }
                 }
               }
-            } else {
-              runInAction(() => (store.openLangCompletion = false));
             }
           });
         }

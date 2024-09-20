@@ -27,7 +27,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
           }
         }
         parent.draggable = true;
-        store.dragEl = parent;
+        store.draggedElement = parent;
       }}
     >
       <div className="md-editor-drag-icon">

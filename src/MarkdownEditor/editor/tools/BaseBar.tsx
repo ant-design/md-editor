@@ -146,9 +146,6 @@ export const BaseToolBar = observer(
         key: op.task,
         args: op.args,
       });
-      runInAction(() => {
-        store.openInsertCompletion = false;
-      });
     }, []);
 
     useEffect(() => {

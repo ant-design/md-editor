@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { IFileItem } from '../../index';
+import { IEditor } from '../../index';
 import { EditorStore } from '../store';
 import { getMediaType } from './dom';
 
@@ -29,7 +29,7 @@ export const getRemoteMediaType = async (url: string) => {
 };
 
 export const convertRemoteImages = async (
-  node: IFileItem,
+  node: IEditor,
   store: EditorStore,
 ) => {
   const schema = node.schema;

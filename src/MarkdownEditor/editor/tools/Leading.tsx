@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDebounce, useGetSetState } from 'react-use';
 import { Node } from 'slate';
-import { IFileItem } from '../../index';
+import { IEditor } from '../../index';
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
 
@@ -82,7 +82,7 @@ export const schemaToHeading = (schema: any) => {
 /**
  * 配置次级标题的锚点
  */
-export const TocHeading = observer(({ note }: { note: IFileItem }) => {
+export const TocHeading = observer(({ note }: { note: IEditor }) => {
   const store = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],

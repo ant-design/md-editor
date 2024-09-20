@@ -33,10 +33,10 @@ export * from './editor/elements';
 export * from './editor/utils';
 export * from './el';
 
-export type IFileItem = {
+export type IEditor = {
   cid: string;
   root?: boolean;
-  children?: IFileItem[];
+  children?: IEditor[];
   expand?: boolean;
   editName?: string;
   changed?: boolean;
@@ -53,7 +53,7 @@ export type IFileItem = {
  * MarkdownEditor 实例
  */
 export interface MarkdownEditorInstance {
-  get current(): IFileItem | undefined;
+  get current(): IEditor | undefined;
   index: number;
   range?: Range;
   store: EditorStore;

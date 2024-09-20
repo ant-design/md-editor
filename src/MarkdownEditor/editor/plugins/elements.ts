@@ -69,6 +69,7 @@ const matchText = (
     return true;
   };
 };
+
 export const MdElements: Record<string, MdNode> = {
   table: {
     reg: /^\s*\|((?:[^|\n]+\|?)+)\|\s*$/,
@@ -392,6 +393,7 @@ export const MdElements: Record<string, MdNode> = {
     }),
   },
 };
+
 export const BlockMathNodes = Object.entries(MdElements)
   .filter((c) => !c[1].matchKey)
   .map((c) => Object.assign(c[1], { type: c[0] }));
