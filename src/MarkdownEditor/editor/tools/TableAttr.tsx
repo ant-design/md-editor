@@ -5,10 +5,12 @@ import {
   AppstoreAddOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { Popconfirm, Popover, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useContext } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -16,6 +18,7 @@ import { TableCellNode, TableNode, TableRowNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
+import { useStyle } from './tableAttrStyle';
 
 /**
  * InsertRowAfterIcon component.
@@ -522,14 +525,16 @@ export const TableAttr = observer(() => {
 
   useSubject(store.tableTask$, runTask);
 
-  const baseClassName = 'table-attr-toolbar';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context.getPrefixCls(`table-attr-toolbar`)
 
+  const { wrapSSR, hashId } = useStyle(baseClassName);
   if (!store.container) return null;
   if (store.readonly) return null;
 
-  return (
+  return wrapSSR(
     <div
-      className={baseClassName}
+      className={classNames(baseClassName, hashId)}
       style={{
         left: state().left,
         top: state().top,
@@ -608,14 +613,14 @@ export const TableAttr = observer(() => {
           style={{
             display: 'none',
           }}
-          className={`${baseClassName}-item`}
+          className={classNames(`${baseClassName}-item`, hashId)}
         >
           <AppstoreAddOutlined />
         </div>
       </Popover>
       {(el?.[1]?.at?.(1) || 0) > 0 ? (
         <div
-          className={`${baseClassName}-item`}
+        className={classNames(`${baseClassName}-item`, hashId)}
           onClick={() => {
             runTask('insertRowBefore');
           }}
@@ -626,7 +631,7 @@ export const TableAttr = observer(() => {
       ) : null}
 
       <div
-        className={`${baseClassName}-item`}
+        className={classNames(`${baseClassName}-item`, hashId)}
         title="Insert Row After"
         onClick={() => {
           runTask('insertRowAfter');
@@ -635,7 +640,7 @@ export const TableAttr = observer(() => {
         <InsertRowAfterIcon />
       </div>
       <div
-        className={`${baseClassName}-item`}
+        className={classNames(`${baseClassName}-item`, hashId)}
         title="Insert Col Before"
         onClick={() => {
           runTask('insertColBefore');
@@ -644,7 +649,7 @@ export const TableAttr = observer(() => {
         <InsertColBeforeIcon />
       </div>
       <div
-        className={`${baseClassName}-item`}
+        className={classNames(`${baseClassName}-item`, hashId)}
         title="Insert Col After"
         onClick={() => {
           runTask('insertColAfter');
@@ -658,7 +663,7 @@ export const TableAttr = observer(() => {
           <Tooltip placement={'top'} title={'align left'}>
             <div
               onClick={() => setAligns('left')}
-              className={`${baseClassName}-item`}
+              className={classNames(`${baseClassName}-item`, hashId)}
               style={{
                 color: state().align === 'left' ? '#000' : undefined,
                 fontWeight: state().align === 'left' ? 'bold' : 'normal',
@@ -674,7 +679,7 @@ export const TableAttr = observer(() => {
                 color: state().align === 'center' ? '#000' : undefined,
                 fontWeight: state().align === 'center' ? 'bold' : 'normal',
               }}
-              className={`${baseClassName}-item`}
+              className={classNames(`${baseClassName}-item`, hashId)}
             >
               <AlignCenterOutlined />
             </div>
@@ -686,7 +691,7 @@ export const TableAttr = observer(() => {
                 color: state().align === 'right' ? '#000' : undefined,
                 fontWeight: state().align === 'right' ? 'bold' : 'normal',
               }}
-              className={`${baseClassName}-item`}
+              className={classNames(`${baseClassName}-item`, hashId)}
             >
               <AlignRightOutlined />
             </div>
@@ -694,7 +699,7 @@ export const TableAttr = observer(() => {
         </>
       ) : null}
       <Popconfirm onConfirm={remove} title="Confirm Remove this Table?">
-        <div className={`${baseClassName}-item`} title="Remove">
+        <div className={classNames(`${baseClassName}-item`, hashId)} title="Remove">
           <DeleteOutlined />
         </div>
       </Popconfirm>

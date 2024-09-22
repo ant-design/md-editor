@@ -7,11 +7,13 @@ import {
   TableOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { Button, Divider, Input, Tabs } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useContext } from 'react';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useSubject } from '../../hooks/subscribe';
@@ -22,6 +24,7 @@ import { EditorUtils } from '../utils/editorUtils';
 import { keyTask$ } from '../utils/keyboard';
 import { getRemoteMediaType } from '../utils/media';
 import { useLocalState } from '../utils/useLocalState';
+import { useStyle } from './insertAutocompleteStyle';
 
 const ImageIcon = () => {
   return (
@@ -559,12 +562,14 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       }
     }, [store.openInsertCompletion]);
 
-    const baseClassName = 'md-editor-insert-autocomplete';
+    const context = useContext(ConfigProvider.ConfigContext);
+    const baseClassName = context.getPrefixCls(`md-editor-insert-autocomplete`)
 
-    return (
+    const { wrapSSR, hashId } = useStyle(baseClassName);
+    return wrapSSR(
       <div
         ref={dom}
-        className={baseClassName}
+        className={classNames(baseClassName, hashId)}
         style={{
           position: 'absolute',
           zIndex: 50,
@@ -593,7 +598,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         {!state.insertLink && !state.insertAttachment && (
           <>
             <div
-              className={`${baseClassName}-title`}
+              className={classNames(`${baseClassName}-title`, hashId)}
               style={{
                 color: 'rgba(0,0,0,0.8)',
                 fontSize: 12,
@@ -627,7 +632,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                   })
                   .map((el) => (
                     <div
-                      className={`${baseClassName}-item`}
+                      className={classNames(`${baseClassName}-item`, hashId)}
                       key={el.key}
                       data-action={el.key}
                       onClick={(e) => {
