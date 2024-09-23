@@ -85,25 +85,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
-      '.ant-descriptions-view table,.ant-descriptions-view th,.ant-descriptions-view td':
-        {
-          border: 'none',
-        },
-      'table.column-group-table': {
-        width: '100%',
-        borderCollapse: 'collapse',
-        tableLayout: 'fixed',
-        border: '1px solid rgb(209 213 219 / 0.8)',
-        p: {
-          marginTop: '0',
-        },
-        'th,td': {
-          border: '1px solid rgb(209 213 219 / 0.8)',
-          padding: '8px 16px',
-          textAlign: 'left',
-          fontWeight: 500,
-        },
-      },
       '&:last-child': {
         marginBottom: 0,
       },
@@ -118,7 +99,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textWrap: 'nowrap',
           verticalAlign: 'top',
           padding: '12px 20px',
-          border: 'none',
           textAlign: 'left',
           lineHeight: 1,
         },
@@ -126,21 +106,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textWrap: 'nowrap',
           verticalAlign: 'top',
           padding: '7px 20px',
-          border: 'none',
           textAlign: 'left',
           lineHeight: 1,
-        },
-        'table.m-editor-description': {
-          'th,td': {
-            padding: '8px 16px',
-            textAlign: 'left',
-            fontWeight: 500,
-          },
-          'tr:first-child:': {
-            'th,td': {
-              fontWeight: 600,
-            },
-          },
         },
       },
       pre: {

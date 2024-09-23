@@ -1,12 +1,4 @@
-﻿.markdown-editor .editor-icon-box {
-  color: #6b7280;
-  cursor: pointer;
-}
-.markdown-editor .editor-icon-box:hover {
-  color: #1667ff;
-}
-
-.markdown-editor .avatar_list .avatar_list_item {
+﻿.markdown-editor .avatar_list .avatar_list_item {
   display: inline-block;
   margin-right: -8px;
   transition: all 0.3s;
