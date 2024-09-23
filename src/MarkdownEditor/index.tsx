@@ -138,6 +138,11 @@ export type MarkdownEditorProps = {
    * 插入自动补全的能力
    */
   insertAutocompleteProps?: InsertAutocompleteProps;
+
+  /**
+   * 标题 placeholder
+   */
+  titlePlaceholderContent?: string;
 };
 
 /**
