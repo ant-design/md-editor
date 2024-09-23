@@ -23,6 +23,7 @@ import {
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import { useEditorStore } from './store';
+import { useStyle } from './style';
 import { isMarkdown } from './utils';
 import { getMediaType } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
@@ -56,6 +57,7 @@ export const MEditor = observer(
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
     className?: string;
+    prefixCls?: string;
     reportMode?: MarkdownEditorProps['reportMode'];
   }) => {
     const store = useEditorStore();
@@ -447,12 +449,16 @@ export const MEditor = observer(
       );
     }, [editor.children]);
 
-    const className = useMemo(() => {
+    const readonlyCls = useMemo(() => {
       if (store.readonly) return 'readonly';
       return store.focus || !childrenIsEmpty ? 'focus' : '';
     }, [store.readonly, store.focus, !childrenIsEmpty]);
 
-    return (
+    const { wrapSSR, hashId } = useStyle(`${props.prefixCls}-content`);
+
+    const baseClassName = `${props.prefixCls}-content`;
+
+    return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <SetNodeToDecorations />
         <Editable
@@ -460,7 +466,15 @@ export const MEditor = observer(
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
-          className={classNames(className, props.className)}
+          className={classNames(
+            `${baseClassName}-${readonlyCls}`,
+            `${baseClassName}`,
+            props.className,
+            {
+              [`${baseClassName}-report`]: reportMode,
+            },
+            hashId,
+          )}
           style={
             reportMode
               ? {
@@ -482,7 +496,7 @@ export const MEditor = observer(
           onKeyDown={onKeyDown}
           renderLeaf={leafRender}
         />
-      </Slate>
+      </Slate>,
     );
   },
 );

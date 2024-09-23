@@ -1,7 +1,6 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
-const defaultValue =
-  `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
+const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # 腾讯研究报告
 
@@ -10,6 +9,28 @@ const defaultValue =
 ## 创始人
 
 腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。 以下是关于这些创始人的详细信息： 马化腾 马化腾，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市）八所港，广东汕头人，汉族，无党派人士。他毕业于深圳大学电子工程系计算机专业。马化腾是腾讯科技（深圳）有限公司的创始人、董事会主席、首席执行官，并曾是中华人民共和国第十二、十三届全国人民代表大会代表 。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市。 张志东 张志东，马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。
+
+
+## 部门
+
+- 腾讯科技（深圳）有限公司
+  - 腾讯学院 
+  - 腾讯云
+- 腾讯金融
+- 腾讯游戏
+- 腾讯广告
+- 腾讯社交网络
+  - 微信
+  - QQ
+    - QQ 音乐
+    - QQ 空间
+- 腾讯其他业务
+
+## 战略
+
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
 
 <!-- {"MarkdownType": "section", "id": "16" } -->
 
@@ -108,11 +129,7 @@ const defaultValue =
   }
 ]
 \`\`\`
-
-
-
-` +
-  '<!-- {"MarkdownType": "report", "id": "113", "section_ids": " [244] "} -->\n# Chen Shuai\'s Report\n<!-- {"MarkdownType": "section", "id": "244", "section_id": "244", "report_id": "113", "order": "1" } -->\n## 参考文档\n\n<!--{"icon":"https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original","abstract":"这是文章的摘要，我还要想想怎么做","create_datetime":"Sun, 15 Sep 2024 15:40:38 GMT","folder_id":830,"id":863,"name":"如何得到一个好问题_.pdf","real_path":"/tmp/spaces/1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2/陈帅/如何得到一个好问题_.pdf","space_id":null,"tags":null,"user":{"create_datetime":"","email":"chenshuai@invret.co","id":33,"is_admin":true,"last_login":"2024-09-14 14:18:37","name":"Chen Shuai","oid":"1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2","space_id":6},"collaborators":[{"Chen Shuai":1}],"updateTime":"2024-09-15 23:40:38","type":"card","url":"http://localhost:3000/file/863","description":"这是文章的摘要，我还要想想怎么做"}-->\n[如何得到一个好问题_.pdf](http://localhost:3000/file/863 "如何得到一个好问题_.pdf")\n\n<!--{"icon":"https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original","abstract":"这是文章的摘要，我还要想想怎么做","create_datetime":"Sat, 14 Sep 2024 16:45:28 GMT","folder_id":830,"id":862,"name":"算法 第4版.2012.中文版.pdf","real_path":"/tmp/spaces/1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2/陈帅/算法 第4版.2012.中文版.pdf","space_id":null,"tags":null,"user":{"create_datetime":"","email":"chenshuai@invret.co","id":33,"is_admin":true,"last_login":"2024-09-14 14:18:37","name":"Chen Shuai","oid":"1226eeb3-7dbe-4400-8cd8-d6a03f6e7fe2","space_id":6},"collaborators":[{"Chen Shuai":1}],"updateTime":"2024-09-15 00:45:28","type":"card","url":"http://localhost:3000/file/862","description":"这是文章的摘要，我还要想想怎么做"}-->\n[算法 第4版.2012.中文版.pdf](http://localhost:3000/file/862 "算法 第4版.2012.中文版.pdf")\n';
+`;
 export default () => {
   return (
     <MarkdownEditor

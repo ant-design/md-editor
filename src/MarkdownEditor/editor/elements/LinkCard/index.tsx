@@ -1,10 +1,13 @@
 ﻿import { EyeOutlined } from '@ant-design/icons';
-import React from 'react';
-import { ElementProps, LinkCardNode } from '../../el';
-import { useSelStatus } from '../../hooks/editor';
-import { AvatarList } from '../components/ContributorAvatar';
-import { DragHandle } from '../tools/DragHandle';
-import { EditorUtils } from '../utils/editorUtils';
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext } from 'react';
+import { ElementProps, LinkCardNode } from '../../../el';
+import { useSelStatus } from '../../../hooks/editor';
+import { AvatarList } from '../../components/ContributorAvatar';
+import { DragHandle } from '../../tools/DragHandle';
+import { EditorUtils } from '../../utils/editorUtils';
+import { useStyle } from './style';
 
 export function LinkCard({
   element,
@@ -19,18 +22,15 @@ export function LinkCard({
 >) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path, store] = useSelStatus(element);
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseCls = context.getPrefixCls('md-editor-link-card');
+  const { wrapSSR, hashId } = useStyle(baseCls);
   const htmlRef = React.useRef<HTMLDivElement>(null);
-  return (
+  return wrapSSR(
     <div {...attributes}>
       <div
-        className={'md-editor-drag-el'}
+        className={classNames(baseCls, 'md-editor-drag-el', hashId)}
         data-be="link-card"
-        style={{
-          cursor: 'pointer',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-        }}
         onDragStart={(e) => store.dragStart(e)}
         draggable={store.readonly ? false : true}
         onContextMenu={(e) => {
@@ -46,46 +46,22 @@ export function LinkCard({
         <DragHandle />
         <div
           ref={htmlRef}
-          style={{
-            padding: 12,
-            border: '1px solid #f0f0f0',
-            borderRadius: 16,
-            margin: '8px 0',
-            width: '100%',
-            height: '120px',
-            backgroundImage:
-              'linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%)',
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            color: '#262626',
-            justifyContent: 'space-between',
-          }}
+          className={classNames(`${baseCls}-container`, hashId)}
         >
-          <span
-            style={{
-              fontSize: (htmlRef.current?.clientHeight || 200) * 0.75,
-              width: '2px',
-              height: (htmlRef.current?.clientHeight || 200) * 0.75,
-              lineHeight: 1,
-            }}
-          >
-            {children}
-          </span>
           <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              color: '#262626',
-              fontSize: 16,
-              flex: 1,
-              minWidth: 0,
-            }}
+            className={classNames(`${baseCls}-container-content`, hashId)}
             contentEditable={false}
           >
-            {element.icon ? <img src={element.icon} width={56} /> : null}
+            {element.icon ? (
+              <img
+                className={classNames(
+                  `${baseCls}-container-content-icon`,
+                  hashId,
+                )}
+                src={element.icon}
+                width={56}
+              />
+            ) : null}
             <div
               style={{
                 flex: 1,
@@ -94,39 +70,32 @@ export function LinkCard({
             >
               <a
                 href={element.url}
-                style={{
-                  overflow: 'ellipsis',
-                  textOverflow: 'ellipsis',
-                  textWrap: 'nowrap',
-                  textDecoration: 'none',
-                  display: 'block',
-                  color: '#262626',
+                className={classNames(
+                  `${baseCls}-container-content-title`,
+                  hashId,
+                )}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  window.open(element.url);
                 }}
                 download={element.title || element.name || 'no title'}
               >
                 {element.title || element.name || 'no title'}
               </a>
               <div
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  marginTop: 4,
-                  lineHeight: '24px',
-                  display: 'flex',
-                  fontSize: 12,
-                  color: 'rgba(0,0,0,0.45)',
-                  justifyContent: 'space-between',
-                }}
+                className={classNames(
+                  `${baseCls}-container-content-description`,
+                  hashId,
+                )}
               >
                 {element.description ? element.description : element.url}
               </div>
               <div
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}
+                className={classNames(
+                  `${baseCls}-container-content-collaborators`,
+                  hashId,
+                )}
               >
                 {element.otherProps?.collaborators ? (
                   <div>
@@ -149,6 +118,10 @@ export function LinkCard({
                 )}
                 {element.otherProps?.updateTime ? (
                   <div
+                    className={classNames(
+                      `${baseCls}-container-content-updateTime`,
+                      hashId,
+                    )}
                     style={{
                       color: 'rgba(0,0,0,0.45)',
                       fontSize: 12,
@@ -161,10 +134,10 @@ export function LinkCard({
             </div>
           </div>
           <div
-            className="editor-icon-box"
-            style={{
-              padding: '0 18px',
-            }}
+            className={classNames(
+              `${baseCls}-container-editor-icon-box`,
+              hashId,
+            )}
           >
             <EyeOutlined
               onClick={() => {
@@ -188,6 +161,6 @@ export function LinkCard({
           {children}
         </span>
       </div>
-    </div>
+    </div>,
   );
 }

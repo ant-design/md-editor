@@ -617,7 +617,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             : '1px solid #eee',
                         borderRadius: 18,
                         margin: 'auto',
-                        overflow: 'auto',
                         minWidth: 300,
                         flex: 1,
                       }}

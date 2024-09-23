@@ -39,13 +39,15 @@ export type ChatTokenType = GlobalToken & {
 export const resetComponent: GenerateStyle<ChatTokenType> = (
   token: ChatTokenType,
 ) => ({
-  boxSizing: 'border-box',
-  margin: 0,
-  padding: 0,
-  color: token.colorText,
-  fontSize: token.fontSize,
-  lineHeight: token.lineHeight,
-  listStyle: 'none',
+  [`${token.componentCls}`]: {
+    boxSizing: 'border-box',
+    margin: 0,
+    padding: 0,
+    color: token.colorText,
+    fontSize: token.fontSize,
+    lineHeight: token.lineHeight,
+    listStyle: 'none',
+  },
 });
 
 /**
