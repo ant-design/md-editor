@@ -186,7 +186,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'pre,code,kbd,samp': {
         fontSize: '1em',
         fontFamily:
-          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,\n    monospace",
+          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,monospace",
       },
       '&-inline-code': {
         display: 'inline',
@@ -238,12 +238,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'h1[data-empty]::before': {
         cursor: 'text',
-        content: token.titlePlaceholderContent,
+        content: "'" + token.titlePlaceholderContent + "'",
         color: '#bec0bf',
       },
       'h2[data-empty]::before': {
         cursor: 'text',
-        content: "'Please enter a title'",
+        content: "'" + token.titlePlaceholderContent + "'",
         color: '#bec0bf',
       },
       'h3[data-empty]::before': {
