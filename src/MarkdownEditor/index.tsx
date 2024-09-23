@@ -228,7 +228,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   return wrapSSR(
     <EditorStoreContext.Provider value={instance.store}>
       <div
-        className={classNames('markdown-editor', hashId, {
+        className={classNames('markdown-editor', baseClassName, hashId, {
           [baseClassName + '-readonly']: readonly,
           [baseClassName + '-report']: props.reportMode,
         })}
@@ -297,7 +297,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           key={instance.id}
         >
           <MEditor
-            className="markdown-editor-content"
+            prefixCls={baseClassName}
             note={instance.current!}
             {...rest}
             instance={instance}

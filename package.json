@@ -27,7 +27,7 @@
   "lint-staged": {
     "*.{md,json}": [
       "prettier --write --no-error-on-unmatched-pattern"
-    ],
+    ]
   },
   "dependencies": {
     "@ant-design/charts": "^2.2.1",
