@@ -84,13 +84,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: 'rgb(101 163 13 /1)',
         },
       },
-      pre: {
-        margin: '0',
-        overflowX: 'auto',
-      },
-      '.high-text': {
-        borderRadius: '18px',
-      },
+
       '.ant-descriptions-view table,.ant-descriptions-view th,.ant-descriptions-view td':
         {
           border: 'none',
@@ -109,6 +103,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textAlign: 'left',
           fontWeight: 500,
         },
+      },
+      '&:last-child': {
+        marginBottom: 0,
       },
       table: {
         width: 'fit-content',
@@ -146,11 +143,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
       },
-      '&:last-child': {
-        marginBottom: 0,
-      },
-      '.markdown-editor-table': {
-        'margin-bottom': '1em',
+      pre: {
+        margin: '0',
+        overflowX: 'auto',
       },
       p: {
         marginBottom: '1em',
@@ -198,18 +193,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textDecoration: 'underline',
         },
       },
-      '.inline-code': {
-        display: 'inline',
-        backgroundColor: '#0000000f',
-        borderRadius: '4px',
-        border: '1px solid #e7e9e8',
-        fontFamily:
-          'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,\n    monospace, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue,\n    Helvetica, Arial, sans-serif, Segoe UI',
-        padding: '0 4px',
-        margin: '1px 3px',
-        lineHeight: 1.1,
-        wordBreak: 'break-all',
-      },
       blockquote: {
         display: 'block',
         paddingLeft: '10px',
@@ -218,12 +201,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: '#262626',
         opacity: 0.7,
         fontSize: '13px',
-        '&:not(:last-child)': {
-          marginBottom: '0.5em',
-        },
-        'p:not(:last-child)': {
-          marginBottom: '0.1em!important',
-        },
         '&:before': {
           content: "''",
           left: '0',
@@ -235,101 +212,42 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRadius: '18px',
           backgroundColor: 'rgb(107 114 128 / 1)',
         },
-        "[data-be='list']": {
-          marginBottom: '0.3em',
-          paddingTop: '5px',
-          paddingBottom: '5px',
-        },
-        '.m-list': {
-          listStyle: 'disc',
-          paddingLeft: '24px',
-          paddingTop: '3px',
-          paddingBottom: '3px',
-          marginBottom: '0',
-          'li::marker': {
-            color: 'rgb(107 114 128 /1)',
-          },
-          p: {
-            marginBottom: '0 !important',
-            marginTop: '0 !important',
-          },
-          'li:not(.task) > :first-child .md-editor-drag-handle': {
-            paddingLeft: '2px',
-            paddingRight: '18px',
-            left: '-44px !important',
-          },
-          'li.task > :nth-child(2) .md-editor-drag-handle': {
-            paddingLeft: '2px',
-            paddingRight: '10px',
-            left: '-50px !important',
-          },
-          '.m-list-item': {
-            position: 'relative',
-            wordBreak: 'break-all',
-            '&.task': {
-              paddingLeft: '24px',
-            },
-            "> [data-be='list']": {
-              marginBottom: '0',
-            },
-            '.check-item': {
-              display: 'flex',
-              alignItems: 'center',
-              position: 'absolute',
-              userSelect: 'none',
-              height: '1.87em',
-              left: '0',
-              top: '0',
-              zIndex: 10,
-            },
-          },
-        },
-        ol: {
-          '&.m-list': {
-            listStyle: 'decimal',
-            'ol.m-list': {
-              listStyle: 'lower-alpha',
-              'ol.m-list': {
-                listStyle: 'lower-roman',
-                'ol.m-list': {
-                  listStyle: 'decimal',
-                },
-              },
-            },
-          },
-        },
-        ul: {
-          '&.m-list': {
-            listStyle: 'decimal',
-            '& ul.m-list': {
-              listStyle: 'lower-alpha',
-              '& ul.m-list': {
-                listStyle: 'lower-roman',
-                '& ul.m-list': {
-                  listStyle: 'decimal',
-                },
-              },
-            },
-          },
-        },
-        '.m-list[data-task]': {
-          listStyle: 'none !important',
-          paddingLeft: '0',
-        },
-        "h2 + [data-be='list'] ul": {
-          marginTop: '0',
-        },
-        "h2 + [data-be='list'] ol": {
-          marginTop: '0',
-        },
-        'pre,code,kbd,samp': {
-          fontSize: '1em',
-          fontFamily:
-            "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,\n    monospace",
-        },
-        '[data-be]': {
-          position: 'relative',
-        },
+      },
+      '[data-be]': {
+        position: 'relative',
+      },
+      'pre,code,kbd,samp': {
+        fontSize: '1em',
+        fontFamily:
+          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,\n    monospace",
+      },
+      '&-inline-code': {
+        display: 'inline',
+        backgroundColor: '#0000000f',
+        borderRadius: '4px',
+        border: '1px solid #e7e9e8',
+        padding: '0 4px',
+        margin: '1px 3px',
+        lineHeight: 1.1,
+        wordBreak: 'break-all',
+      },
+      '&-high-text': {
+        borderRadius: '18px',
+      },
+      '&-m-html': {
+        color: 'rgba(0,0,0,0.45)',
+      },
+      '&:not(:last-child)': {
+        marginBottom: '0.5em',
+      },
+      'p:not(:last-child)': {
+        marginBottom: '0.1em!important',
+      },
+      "h2 + [data-be='list'] ul": {
+        marginTop: '0',
+      },
+      "h2 + [data-be='list'] ol": {
+        marginTop: '0',
       },
     },
 

@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd';
 import React, { CSSProperties, useContext, useMemo } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -91,19 +92,22 @@ export const MElement = (props: RenderElementProps) => {
 export const MLeaf = (props: RenderLeafProps) => {
   const code = useContext(CodeCtx);
   const store = useEditorStore();
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseCls = context.getPrefixCls('md-editor');
   return useMemo(() => {
     const leaf = props.leaf;
     const style: CSSProperties = {};
     let className = '';
     let children = <>{props.children}</>;
-    if (leaf.code) children = <code className={'inline-code'}>{children}</code>;
+    if (leaf.code)
+      children = <code className={baseCls + '-inline-code'}>{children}</code>;
     if (leaf.highColor) style.color = leaf.highColor;
     if (leaf.color) style.color = leaf.color;
     if (leaf.bold) children = <strong>{children}</strong>;
     if (leaf.strikethrough) children = <s>{children}</s>;
     if (leaf.italic) children = <i>{children}</i>;
-    if (leaf.highlight) className = 'high-text';
-    if (leaf.html) className += ' dark:text-gray-500 text-gray-400';
+    if (leaf.highlight) className = ' ' + baseCls + '-high-text';
+    if (leaf.html) className += ' ' + baseCls + '-m-html';
     if (leaf.current) {
       style.background = '#f59e0b';
     }
