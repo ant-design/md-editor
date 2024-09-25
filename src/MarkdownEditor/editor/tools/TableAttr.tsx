@@ -607,7 +607,7 @@ export const TableAttr = observer(() => {
       >
         <div
           style={{
-            display: 'none',
+            display: 'flex',
           }}
           className={classNames(`${baseClassName}-item`, hashId)}
         >
