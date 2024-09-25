@@ -5,6 +5,8 @@
   useEditorStyleRegister,
 } from '../editor/utils/useStyle';
 
+import './keyframes.css';
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
@@ -215,6 +217,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       "h2 + [data-be='list'] ol": {
         marginTop: '0',
+      },
+      '& .typewriter:last-of-type > *:last-of-type span[data-slate-string]': {
+        borderRight: '0.15em solid #1677ff',
+        animation:
+          'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
       },
     },
 
