@@ -1,12 +1,15 @@
+import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import { observer } from 'mobx-react-lite';
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { ChartNode } from '../../el';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
+import { useStyle } from './chartAttrStyle';
 
 /**
  * 图表设置器
@@ -34,11 +37,13 @@ export const ChartAttr: React.FC<{
     ReactEditor.focus(editor);
   }, [editor]);
 
-  const baseClassName = 'chart-attr-toolbar';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseClassName = context.getPrefixCls(`chart-attr-toolbar`)
 
-  return (
+  const { wrapSSR, hashId } = useStyle(baseClassName);
+  return wrapSSR(
     <div
-      className={baseClassName}
+    className={classNames(baseClassName, hashId)}
       style={{
         width: 'auto',
       }}
@@ -49,7 +54,7 @@ export const ChartAttr: React.FC<{
           return (
             <div
               key={index}
-              className={`${baseClassName}-item`}
+              className={classNames(`${baseClassName}-item`, hashId)}
               onClick={item.onClick}
               style={item.style}
             >
@@ -59,7 +64,7 @@ export const ChartAttr: React.FC<{
         }
         return (
           <Tooltip key={index} title={item.title}>
-            <div className={`${baseClassName}-item`} onClick={item.onClick}>
+            <div className={classNames(`${baseClassName}-item`, hashId)} onClick={item.onClick}>
               {item.icon}
             </div>
           </Tooltip>
@@ -67,7 +72,7 @@ export const ChartAttr: React.FC<{
       })}
       {store.readonly ? null : (
         <Tooltip title="删除">
-          <div className={`${baseClassName}-item`}>
+          <div className={classNames(`${baseClassName}-item`, hashId)}>
             <DeleteOutlined onClick={remove} />
           </div>
         </Tooltip>
