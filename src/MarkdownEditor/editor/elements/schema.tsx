@@ -18,7 +18,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
       }}
     >
       <div
-        className={'md-editor-drag-el'}
+        className={'ant-md-editor-drag-el'}
         data-be="link-card"
         style={{
           cursor: 'pointer',

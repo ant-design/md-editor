@@ -142,7 +142,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
           className={classNames(
             baseCls,
             `${baseCls}-light`,
-            `md-editor-drag-el`,
+            `ant-md-editor-drag-el`,
             `${baseCls}-num`,
             `${baseCls}-tab-${4}`,
             hashId,

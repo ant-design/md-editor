@@ -60,7 +60,7 @@ export const Table = observer((props: RenderElementProps) => {
   return useMemo(() => {
     return (
       <div
-        className={'md-editor-drag-el markdown-editor-table'}
+        className={'ant-md-editor-drag-el ant-md-editor-table'}
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}

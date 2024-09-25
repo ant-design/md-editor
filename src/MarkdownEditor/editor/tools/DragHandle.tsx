@@ -10,7 +10,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
   if (store.readonly === true) return null;
   return (
     <span
-      className={'md-editor-drag-handle'}
+      className={'ant-md-editor-drag-handle'}
       style={{ ...props.style }}
       contentEditable={false}
       ref={ref}
@@ -30,7 +30,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
         store.draggedElement = parent;
       }}
     >
-      <div className="md-editor-drag-icon">
+      <div className="ant-md-editor-drag-icon">
         <HolderOutlined />
       </div>
     </span>

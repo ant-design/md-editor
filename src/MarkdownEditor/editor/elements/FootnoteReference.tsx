@@ -17,7 +17,9 @@ export const FootnoteReference = observer(
         <p
           {...props.attributes}
           data-be={'paragraph'}
-          className={!str ? 'md-editor-drag-el empty' : 'md-editor-drag-el'}
+          className={
+            !str ? 'ant-md-editor-drag-el empty' : 'ant-md-editor-drag-el'
+          }
           onDragStart={store.dragStart}
           data-empty={!str && selected ? 'true' : undefined}
         >

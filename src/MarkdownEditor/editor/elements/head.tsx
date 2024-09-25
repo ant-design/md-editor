@@ -38,7 +38,7 @@ export function Head({
         ['data-title']: path?.[0] === 0,
         onDragStart: store.dragStart,
         ['data-empty']: !str && selected ? 'true' : undefined,
-        className: classNames('md-editor-drag-el', {
+        className: classNames('ant-md-editor-drag-el', {
           empty: !str,
           typewriter: isLatest && store.editorProps.typewriter,
         }),

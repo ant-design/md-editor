@@ -10,6 +10,40 @@ import { AvatarList } from '../components/ContributorAvatar';
 import { DragHandle } from '../tools/DragHandle';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
+import { useEditorStyleRegister } from '../utils/useStyle';
+
+export function useStyle(prefixCls?: string) {
+  return useEditorStyleRegister('editor-content-contributorAvatar', () => {
+    const componentCls = `.${prefixCls}`;
+
+    return [
+      {
+        [componentCls]: {
+          position: 'relative',
+          boxSizing: 'border-box',
+          '&-hide': { display: 'none' },
+          '&-handle': {
+            position: 'absolute',
+            padding: '0 3px 3px 0',
+            backgroundRepeat: 'no-repeat',
+            backgroundOrigin: 'content-box',
+            boxSizing: 'border-box',
+            cursor: 'se-resize',
+            zIndex: 9999,
+            width: '14px',
+            height: '14px',
+            border: '2px solid #fff',
+            backgroundColor: '#2f8ef4',
+            borderRadius: '10px',
+            bottom: '-7px',
+            right: '-7px',
+            pointerEvents: 'all',
+          },
+        },
+      },
+    ];
+  });
+}
 
 /**
  * 修复图片大小的问题
@@ -41,12 +75,14 @@ export const ResizeImage = (
     width: number | string;
     height: number | string;
   });
-  return (
+  const { wrapSSR, hashId } = useStyle('react-resizable');
+  return wrapSSR(
     <ResizableBox
       onResizeStart={props.onResizeStart}
       onResizeStop={(e) => {
         props.onResizeStop?.(e, size);
       }}
+      className={hashId}
       handle={!props.supportResize ? <div /> : undefined}
       width={size.width as number}
       height={size.height as number}
@@ -86,9 +122,10 @@ export const ResizeImage = (
         }}
         {...props}
       />
-    </ResizableBox>
+    </ResizableBox>,
   );
 };
+
 export function Media({
   element,
   attributes,
@@ -332,7 +369,7 @@ export function Media({
   return (
     <div {...attributes}>
       <div
-        className={'md-editor-drag-el'}
+        className={'ant-md-editor-drag-el'}
         data-be="media"
         style={{
           cursor: 'pointer',

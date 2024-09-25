@@ -15,6 +15,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
+      '::-webkit-scrollbar': { width: '8px', height: '8px' },
+      '::-webkit-scrollbar-thumb': {
+        backgroundColor: '#a1a1aa',
+        borderRadius: '20px',
+      },
       '[data-empty]:before': {
         display: 'none',
       },
@@ -126,7 +131,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: 1.3,
         padding: '3px 0',
         marginBottom: '3px',
-        '.md-editor-drag-handle': {
+        '.ant-md-editor-drag-handle': {
           top: 'calc(3px + 0.65em - 14px) !important',
         },
       },

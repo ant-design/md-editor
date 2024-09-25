@@ -1,5 +1,7 @@
-﻿import { Avatar, Tooltip } from 'antd';
+﻿import { Avatar, ConfigProvider, Tooltip } from 'antd';
+import classNames from 'classnames';
 import React from 'react';
+import { useStyle } from './style';
 
 type AvatarListItem = {
   name: string;
@@ -9,6 +11,7 @@ interface ContributorAvatarProps {
   loading?: boolean;
   item?: AvatarListItem;
   index?: number;
+  className: string;
 }
 
 const COLOR_LIST = [
@@ -24,7 +27,7 @@ export const ContributorAvatar: React.FC<ContributorAvatarProps> = (props) => {
   const { item: { name } = {}, index = 0 } = props;
   return (
     <Tooltip title={name}>
-      <div className="avatar_list_item">
+      <div className={props.className}>
         <Avatar
           size={14}
           alt={name}
@@ -44,26 +47,28 @@ export const AvatarList: React.FC<{
   displayList: AvatarListItem[];
   style?: React.CSSProperties;
 }> = ({ displayList, style }) => {
-  return (
+  const context = React.useContext(ConfigProvider.ConfigContext);
+  const baseCls = context.getPrefixCls('md-editor-contributor-avatar-list');
+  const { wrapSSR, hashId } = useStyle(baseCls);
+  return wrapSSR(
     <>
       <div
-        className="avatar_list"
+        className={classNames(hashId, baseCls)}
         style={{
-          display: 'flex',
-          boxSizing: 'border-box',
-          listStyle: 'none',
-          margin: 0,
-          padding: 0,
-          flexFlow: 'wrap',
           ...style,
         }}
       >
         {displayList.map((item, index) => {
           return (
-            <ContributorAvatar key={item.name} item={item} index={index} />
+            <ContributorAvatar
+              key={item.name}
+              className={classNames(`${baseCls}-item`, hashId)}
+              item={item}
+              index={index}
+            />
           );
         })}
       </div>
-    </>
+    </>,
   );
 };

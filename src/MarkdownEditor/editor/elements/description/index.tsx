@@ -33,7 +33,7 @@ export const Description = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
-        className={classNames(baseCls, 'md-editor-drag-el', hashId)}
+        className={classNames(baseCls, 'ant-md-editor-drag-el', hashId)}
       >
         <DragHandle />
         <table className={classNames(`${baseCls}-table`, hashId)}>

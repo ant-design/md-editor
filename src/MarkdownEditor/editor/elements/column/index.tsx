@@ -38,7 +38,7 @@ export const ColumnGroup = observer((props: RenderElementProps) => {
   return useMemo(() => {
     return wrapSSR(
       <div
-        className={'md-editor-drag-el'}
+        className={'ant-md-editor-drag-el'}
         {...props.attributes}
         data-be={'column-group'}
         onDragStart={store.dragStart}

@@ -1,24 +1,4 @@
-﻿.markdown-editor .avatar_list .avatar_list_item {
-  display: inline-block;
-  margin-right: -8px;
-  transition: all 0.3s;
-}
-
-.markdown-editor .avatar_list:hover .avatar_list_item {
-  display: inline-block;
-  margin-right: 0px;
-}
-
-.m-hr {
-  height: 1px;
-  background-color: rgb(229 231 235 / 1);
-}
-
-.m-hr {
-  margin: 2em 0;
-  border: none;
-}
-.md-editor-drag-handle {
+﻿.ant-md-editor-drag-handle {
   position: absolute;
   display: flex;
   user-select: none;
@@ -31,7 +11,7 @@
   top: calc(3px + 0.75em - 14px);
 }
 
-.md-editor-drag-icon {
+.ant-md-editor-drag-icon {
   display: flex;
   align-items: center;
   border-radius: 18px;
@@ -41,62 +21,10 @@
   color: rgb(38, 38, 38);
 }
 
-.md-editor-drag-icon:hover {
+.ant-md-editor-drag-icon:hover {
   background-color: rgb(244, 245, 245);
 }
 
-.md-editor-drag-el:hover > .md-editor-drag-handle {
+.ant-md-editor-drag-el:hover > .ant-md-editor-drag-handle {
   opacity: 1;
-}
-
-.view .md-editor-drag-handle {
-  display: none;
-}
-
-.view [data-be='link'] {
-  pointer-events: none;
-}
-
-.dark .win ::-webkit-scrollbar-thumb {
-  background-color: #52525b;
-}
-
-.win ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.win ::-webkit-scrollbar-thumb {
-  background-color: #a1a1aa;
-  border-radius: 20px;
-}
-
-.md-editor-context-menu {
-  position: fixed;
-}
-
-.react-resizable {
-  position: relative;
-  box-sizing: border-box;
-}
-
-.react-resizable-handle-hide {
-  display: none;
-}
-.react-resizable-handle {
-  position: absolute;
-  padding: 0 3px 3px 0;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-  box-sizing: border-box;
-  cursor: se-resize;
-  z-index: 9999;
-  width: 14px;
-  height: 14px;
-  border: 2px solid #fff;
-  background-color: #2f8ef4;
-  border-radius: 10px;
-  bottom: -7px;
-  right: -7px;
-  pointer-events: all;
 }

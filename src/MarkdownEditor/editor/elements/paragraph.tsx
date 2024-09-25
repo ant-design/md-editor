@@ -28,7 +28,7 @@ export const Paragraph = observer((props: ElementProps<ParagraphNode>) => {
       <p
         {...props.attributes}
         data-be={'paragraph'}
-        className={classNames('md-editor-drag-el', {
+        className={classNames('ant-md-editor-drag-el', {
           empty: !str,
           typewriter: isLatest && store.editorProps.typewriter,
         })}

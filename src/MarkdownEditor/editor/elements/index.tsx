@@ -46,7 +46,13 @@ export const MElement = (props: RenderElementProps) => {
         <div
           {...props.attributes}
           contentEditable={false}
-          className={'m-hr select-none'}
+          className={'select-none'}
+          style={{
+            height: '1px',
+            backgroundColor: 'rgb(229 231 235 / 1)',
+            margin: '2em 0',
+            border: 'none',
+          }}
         >
           {props.children}
         </div>
