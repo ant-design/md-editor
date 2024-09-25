@@ -21,7 +21,6 @@ import {
   InsertAutocompleteProps,
 } from './editor/tools/InsertAutocomplete';
 import { InsertLink } from './editor/tools/InsertLink';
-import { TableAttr } from './editor/tools/TableAttr';
 import { ToolBar } from './editor/tools/ToolBar';
 import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
 import { FloatBar } from './editor/tools/ToolBar/FloatBar';
@@ -314,7 +313,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         ) : (
           <>
             <InsertLink />
-            <TableAttr />
             <InsertAutocomplete {...props.insertAutocompleteProps} />
           </>
         )}

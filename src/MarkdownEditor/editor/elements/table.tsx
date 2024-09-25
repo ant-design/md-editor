@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
+import { TableAttr } from '../tools/TableAttr';
 
 export function TableCell(props: RenderElementProps) {
   const store = useEditorStore();
@@ -53,7 +54,7 @@ export const Table = observer((props: RenderElementProps) => {
         onDragStart={store.dragStart}
         style={{
           maxWidth: '100%',
-          overflow: 'auto',
+          overflow: 'visible',
           ...(store.editor.children.length === 1
             ? {}
             : {
@@ -62,6 +63,7 @@ export const Table = observer((props: RenderElementProps) => {
               }),
         }}
       >
+        <TableAttr />
         <DragHandle />
         <table>
           <tbody>{props.children}</tbody>
