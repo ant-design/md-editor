@@ -21,54 +21,6 @@
   margin-right: 0px;
 }
 
-.md-editor-code {
-  border-radius: 16px;
-  font-feature-settings: normal;
-  font-variation-settings: normal;
-  text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  text-rendering: optimizelegibility;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  direction: ltr;
-  position: relative;
-  margin-bottom: 0px;
-  tab-size: 2;
-  background: rgb(250, 250, 250);
-  padding: 12px;
-}
-
-.md-editor-code .md-editor-code-header {
-  direction: ltr;
-  tab-size: 2;
-  -webkit-user-modify: read-only;
-  box-sizing: border-box;
-  color: #666f8d;
-  z-index: 10;
-  display: flex;
-  user-select: none;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 12px;
-  padding-top: 0px;
-  border-bottom: 1px solid rgba(186, 192, 204, 0.25);
-}
-
-.md-editor-code .md-editor-code-header .md-editor-code-header-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.md-editor-code
-  .md-editor-code-header
-  .md-editor-code-header-actions
-  .md-editor-code-header-actions-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-}
-
 .markdown-editor-content * {
   box-sizing: border-box;
   caret-color: #1677ff;
@@ -690,7 +642,6 @@
 .code-highlight {
   border-width: 1px;
   border-color: rgb(0 0 0 / 0.1);
-
   color: rgb(107 114 128 /1);
 }
 
@@ -700,14 +651,6 @@
   position: relative;
   line-height: 1.62em;
   direction: ltr;
-}
-
-.code-highlight.tab-2 {
-  tab-size: 2;
-}
-
-.code-highlight.tab-4 {
-  tab-size: 4;
 }
 
 .code-highlight.frontmatter:before {
@@ -751,31 +694,6 @@
   padding-right: 16px;
 }
 
-.code-highlight.dark {
-  caret-color: rgba(255, 255, 255, 0.9);
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.code-highlight.dark .ant-select-selector {
-  color: #e5e7eb !important;
-  border-color: rgba(229, 231, 235, 0.3);
-}
-
-.code-highlight.dark .code-line-list {
-  color: rgb(255 255 255 / 0.7);
-}
-
-.code-highlight.dark.frontmatter:before {
-  border-bottom-width: 1px;
-  border-color: rgb(229 231 235 / 0.1);
-
-  color: rgb(156 163 175 /1);
-}
-
-.code-highlight.dark .code-line::before {
-  color: rgb(243 244 246 / 0.5);
-}
-
 .code-highlight.light {
   caret-color: rgba(0, 0, 0, 0.9);
   color: rgba(0, 0, 0, 0.8);
@@ -788,13 +706,6 @@
 
 .code-highlight.light .code-line-list {
   color: rgb(0 0 0 / 0.7);
-}
-
-.code-highlight.light.frontmatter:before {
-  border-bottom-width: 1px;
-  border-color: rgb(0 0 0 / 0.1);
-
-  color: rgb(107 114 128 /1);
 }
 
 .code-highlight.light .code-line::before {

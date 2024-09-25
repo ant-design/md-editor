@@ -51,7 +51,7 @@ export function TableCell(props: RenderElementProps) {
         {props.children}
       </td>
     );
-  }, [props.element, props.element.children, store.refreshHighlight]);
+  }, [props.element, isLatest, props.element.children, store.refreshHighlight]);
 }
 
 export const Table = observer((props: RenderElementProps) => {

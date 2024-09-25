@@ -1,5 +1,5 @@
-import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
-import { Select } from 'antd';
+import { CheckOutlined, CopyOutlined, RightOutlined } from '@ant-design/icons';
+import { ConfigProvider, Select } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
@@ -13,19 +13,37 @@ import React, {
 import { useGetSetState } from 'react-use';
 import { Editor, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { CodeLineNode, CodeNode, ElementProps } from '../../el';
-import { useMEditor } from '../../hooks/editor';
-import { useEditorStore } from '../store';
-import { DragHandle } from '../tools/DragHandle';
-import { Mermaid } from './CodeUI/Mermaid';
+import { CodeLineNode, CodeNode, ElementProps } from '../../../el';
+import { useMEditor } from '../../../hooks/editor';
+import { useEditorStore } from '../../store';
+import { DragHandle } from '../../tools/DragHandle';
+import { Mermaid } from '../CodeUI/Mermaid';
+import { useStyle } from './style';
 
 export const CodeCtx = createContext({ lang: '', code: false });
 
+/**
+ * Clipboard 组件用于复制代码片段到剪贴板。
+ *
+ * @param props - 组件的属性。
+ * @param props.className - 组件的 CSS 类名。
+ * @param props.element - 包含要复制的代码片段的元素。
+ *
+ * @returns 返回一个包含复制按钮的 div 元素。
+ *
+ * @example
+ * ```tsx
+ * <Clipboard className="copy-button" element={codeElement} />
+ * ```
+ *
+ * @remarks
+ * 点击按钮后，代码片段将被复制到剪贴板，并显示复制成功的提示。
+ */
 const Clipboard = (props: any) => {
   const [copy, setCopy] = useState(false);
   return (
     <div
-      className="md-editor-code-header-actions-item"
+      className={props.className}
       style={{
         fontSize: 12,
       }}
@@ -95,6 +113,11 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
     });
   }, [props.element, props.element.children, state().lang]);
 
+  const context = useContext(ConfigProvider.ConfigContext);
+  const [collapse, setCollapse] = useState(false);
+  const baseCls = context.getPrefixCls('md-editor-code');
+  const { wrapSSR, hashId } = useStyle(baseCls);
+
   const child = React.useMemo(() => {
     return <code>{props.children}</code>;
   }, [props.element, props.element.children, store.refreshHighlight]);
@@ -103,7 +126,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
     return null;
   }
 
-  return (
+  return wrapSSR(
     <CodeCtx.Provider value={{ lang: state().lang || '', code: true }}>
       <div
         className={`code-container ${'wrap'}`}
@@ -116,10 +139,20 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
         <div
           data-be={'code'}
           onDragStart={store.dragStart}
-          className={`md-editor-code light md-editor-drag-el num tab-${4}`}
+          className={classNames(
+            baseCls,
+            `${baseCls}-light`,
+            `md-editor-drag-el`,
+            `${baseCls}-num`,
+            `${baseCls}-tab-${4}`,
+            hashId,
+          )}
         >
           {!props.element.frontmatter && <DragHandle />}
-          <div className="md-editor-code-header" contentEditable={false}>
+          <div
+            className={classNames(`${baseCls}-header`, hashId)}
+            contentEditable={false}
+          >
             <div>
               {!store.readonly && (
                 <Select
@@ -144,7 +177,10 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
                     }
                   }}
                   onBlur={setLanguage}
-                  className={'lang-select'}
+                  className={classNames(
+                    `${baseCls}-header-lang-select`,
+                    hashId,
+                  )}
                 />
               )}
               {store.readonly && (
@@ -152,6 +188,7 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
                   style={{
                     fontSize: 12,
                   }}
+                  className={classNames(`${baseCls}-header-lang`, hashId)}
                 >
                   {props.element.language ? (
                     <span>
@@ -165,99 +202,104 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
                 </div>
               )}
             </div>
-            <div className="md-editor-code-header-actions">
-              <Clipboard {...props} />
+            <div className={classNames(`${baseCls}-header-actions`, hashId)}>
+              <Clipboard
+                {...props}
+                className={classNames(`${baseCls}-header-actions-item`, hashId)}
+              />
+              <div
+                className={classNames(`${baseCls}-header-actions-item`, hashId)}
+                style={{
+                  fontSize: 12,
+                }}
+                onClick={() => {
+                  setCollapse(!collapse);
+                }}
+              >
+                <RightOutlined
+                  style={{
+                    transform: `rotate(-${collapse ? 270 : 90}deg)`,
+                    transition: 'transform 0.3s',
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <div
-            className="md-editor-code-content code-highlight"
-            style={{
-              position: 'relative',
-              borderRadius: 4,
-              fontFeatureSettings: 'normal',
-              fontVariationSettings: 'normal',
-              WebkitTextSizeAdjust: '100%',
-              WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-              textRendering: 'optimizeLegibility',
-              fontFamily:
-                '-apple-system, system-ui, ui-sans-serif, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
-              whiteSpace: 'pre-wrap',
-              overflowWrap: 'break-word',
-              direction: 'ltr',
-              marginBottom: '0',
-              tabSize: 2,
-              caretColor: 'rgba(0, 0, 0, 0.9)',
-              color: 'rgba(0, 0, 0, 0.8)',
-              paddingLeft: '32px',
-              background: 'rgb(250, 250, 250)',
-            }}
-          >
-            <pre
-              className={`code-line-list select-none`}
-              contentEditable={false}
+          {collapse ? null : (
+            <div
+              className={classNames(
+                `${baseCls}-content`,
+                `${baseCls}-code-highlight`,
+                hashId,
+              )}
             >
-              {(props.children || [])
-                //@ts-ignore
-                .map((_, i) => (
-                  <div key={i} />
-                ))}
-            </pre>
-            <pre
-              style={{
-                textRendering: 'optimizeLegibility',
-                overflowWrap: 'break-word',
-                direction: 'ltr',
-                tabSize: 2,
-                borderWidth: '0',
-                borderStyle: 'solid',
-                borderColor: '#e5e7eb',
-                boxSizing: 'border-box',
-                fontFeatureSettings: 'normal',
-                fontVariationSettings: 'normal',
-                caretColor: 'rgba(0, 0, 0, 0.9)',
-                color: 'rgba(0, 0, 0, 0.8)',
-                fontFamily:
-                  "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
-                overflow: 'auto',
-                margin: '0',
-                overflowX: 'auto',
-                whiteSpace: 'pre',
-                padding: '10px 0',
-                position: 'relative',
-              }}
-              data-bl-type={'code'}
-              className={'code-content'}
-              data-bl-lang={state().lang}
-            >
-              {child}
-            </pre>
-          </div>
+              <pre
+                className={classNames(
+                  `${baseCls}-content-line-list`,
+                  'select-none',
+                  hashId,
+                )}
+                contentEditable={false}
+              >
+                {(props.children || [])
+                  //@ts-ignore
+                  .map((_, i) => (
+                    <div key={i} />
+                  ))}
+              </pre>
+              <pre
+                className={classNames(
+                  `${baseCls}-content-code-content`,
+                  hashId,
+                )}
+                data-bl-type={'code'}
+                data-bl-lang={state().lang}
+              >
+                {child}
+              </pre>
+            </div>
+          )}
         </div>
       </div>
-      {props.element.language === 'mermaid' && (
-        <Mermaid lines={props.element.children} el={props.element} />
+      {collapse ? null : (
+        <>
+          {props.element.language === 'mermaid' && (
+            <Mermaid lines={props.element.children} el={props.element} />
+          )}
+          {props.element.language === 'html' && !!props.element.render && (
+            <div
+              style={{
+                color: 'rgba(0,0,0,0.45)',
+                fontSize: 12,
+                display: 'flex',
+                gap: 12,
+                padding: '0 12px',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                overflow: 'auto',
+                fontWeight: 500,
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                Transforms.select(
+                  editor,
+                  Editor.start(
+                    editor,
+                    ReactEditor.findPath(editor, props.element),
+                  ),
+                );
+              }}
+              dangerouslySetInnerHTML={{
+                __html: props.element.children
+                  ?.map((c) => Node.string(c))
+                  .join('\n'),
+              }}
+              contentEditable={false}
+            />
+          )}
+        </>
       )}
-      {props.element.language === 'html' && !!props.element.render && (
-        <div
-          className={
-            'bg-gray-500/5 p-3 mb-3 whitespace-nowrap rounded leading-5 overflow-auto'
-          }
-          onClick={(e) => {
-            e.stopPropagation();
-            Transforms.select(
-              editor,
-              Editor.start(editor, ReactEditor.findPath(editor, props.element)),
-            );
-          }}
-          dangerouslySetInnerHTML={{
-            __html: props.element.children
-              ?.map((c) => Node.string(c))
-              .join('\n'),
-          }}
-          contentEditable={false}
-        />
-      )}
-    </CodeCtx.Provider>
+    </CodeCtx.Provider>,
   );
 });
 
@@ -268,11 +310,14 @@ export const CodeLine = observer((props: ElementProps<CodeLineNode>) => {
     if (store.editor.children.length === 0) return false;
     if (!store.editorProps.typewriter) return false;
     return store.isLatestNode(props.element);
-  }, [store.editor.children]);
+  }, [store.editor.children, store.editorProps.typewriter]);
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseCls = context.getPrefixCls('md-editor-code');
+
   return useMemo(() => {
     return (
       <div
-        className={classNames(`code-line`, {
+        className={classNames(`${baseCls}-content-code-line`, {
           typewriter: isLatest && store.editorProps.typewriter,
         })}
         data-be={'code-line'}
@@ -281,5 +326,11 @@ export const CodeLine = observer((props: ElementProps<CodeLineNode>) => {
         {props.children}
       </div>
     );
-  }, [props.element, props.element.children, ctx.lang, store.refreshHighlight]);
+  }, [
+    props.element,
+    isLatest,
+    props.element.children,
+    ctx.lang,
+    store.refreshHighlight,
+  ]);
 });
