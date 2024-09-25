@@ -147,9 +147,7 @@ export const TableAttr = observer(() => {
         try {
           const dom = ReactEditor.toDOMNode(editor, el[0]) as HTMLElement;
           let top = dom.offsetTop;
-          let left =
-            dom.getBoundingClientRect().left -
-            store.container!.getBoundingClientRect().left;
+          let left = dom.offsetLeft;
           setState({
             top: top - 24 + 3,
             left,
