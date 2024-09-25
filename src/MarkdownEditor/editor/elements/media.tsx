@@ -207,6 +207,9 @@ export function Media({
       <Image
         src={state().url}
         alt={'image'}
+        preview={{
+          getContainer: () => document.body,
+        }}
         referrerPolicy={'no-referrer'}
         crossOrigin={'anonymous'}
         draggable={false}
