@@ -19,17 +19,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginBottom: '0 !important',
         marginTop: '0 !important',
       },
-      [`li:not(${token.componentCls}-task) > :first-child .md-editor-drag-handle`]:
+      [`li:not(${token.componentCls}-task) > :first-child .ant-md-editor-drag-handle`]:
         {
           paddingLeft: '2px',
           paddingRight: '18px',
           left: '-44px !important',
         },
-      [`li${token.componentCls}-task > :nth-child(2) .md-editor-drag-handle`]: {
-        paddingLeft: '2px',
-        paddingRight: '10px',
-        left: '-50px !important',
-      },
+      [`li${token.componentCls}-task > :nth-child(2) .ant-md-editor-drag-handle`]:
+        {
+          paddingLeft: '2px',
+          paddingRight: '10px',
+          left: '-50px !important',
+        },
       '&-check-item': {
         display: 'flex',
         alignItems: 'center',

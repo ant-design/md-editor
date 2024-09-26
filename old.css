@@ -1,0 +1,937 @@
+﻿.markdown-editor-content {
+  outline: none !important;
+}
+
+.markdown-editor .editor-icon-box {
+  color: #6b7280;
+  cursor: pointer;
+}
+.markdown-editor .editor-icon-box:hover {
+  color: #1667ff;
+}
+
+.markdown-editor .avatar_list .avatar_list_item {
+  display: inline-block;
+  margin-right: -8px;
+  transition: all 0.3s;
+}
+
+.markdown-editor .avatar_list:hover .avatar_list_item {
+  display: inline-block;
+  margin-right: 0px;
+}
+
+.markdown-editor-content * {
+  box-sizing: border-box;
+  caret-color: #1677ff;
+}
+
+.markdown-editor-content
+  p.typewriter:last-of-type
+  > *:last-of-type
+  span[data-slate-string] {
+  border-right: 0.15em solid #1677ff;
+  animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #1677ff;
+  }
+}
+
+.markdown-editor-content.focus [data-empty]:before {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  display: block;
+  cursor: text;
+  color: #d8dad9;
+}
+
+.markdown-editor-content.focus [data-empty]:before {
+  content: "Press '/' for quick actions";
+}
+
+.markdown-editor-content.focus
+  [data-be='list-item']
+  > :first-child[data-empty]:before {
+  cursor: text;
+  content: 'Enter content';
+}
+
+.markdown-editor-content.focus
+  [data-be='list-item'].task
+  > :nth-child(2)[data-empty]:before {
+  cursor: text;
+  content: 'Enter content';
+}
+
+.markdown-editor-content.focus h1[data-empty]::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: #bec0bf;
+}
+
+.markdown-editor-content.focus h2[data-empty]::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: #bec0bf;
+}
+
+.markdown-editor-content.focus h3[data-empty]::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: #bec0bf;
+}
+
+.markdown-editor-content.focus h4[data-empty]::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: #bec0bf;
+}
+
+.markdown-editor-content.focus h5[data-empty]::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: #bec0bf;
+}
+
+.markdown-editor-content [data-empty]:before {
+  display: none;
+}
+
+.markdown-editor-content > h2.empty:first-child::before,
+.markdown-editor-content > h1.empty:first-child::before {
+  cursor: text;
+  content: 'Please enter a title';
+  color: #bec0bf;
+  font-weight: 500;
+}
+
+.markdown-editor-content > p.empty:nth-child(2)::before {
+  cursor: text;
+  content: 'Please enter content, press '/' for quick actions';
+  display: block;
+  color: #bec0bf;
+  position: absolute;
+  font-weight: 500;
+}
+
+.markdown-editor-content > :first-child {
+  margin-top: 0;
+}
+
+.markdown-editor-content > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-editor-content {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+}
+
+.markdown-editor-content .link {
+  text-decoration: underline;
+}
+
+.markdown-editor-content.line-height-compact {
+  line-height: 1.3;
+}
+
+.markdown-editor-content.line-height-compact .check-item {
+  height: 1.55em;
+}
+
+.markdown-editor-content.line-height-compact .md-editor-drag-handle {
+  top: calc(3px + 0.65em - 11px);
+}
+
+.markdown-editor-content.line-height-compact h1,
+.markdown-editor-content.line-height-compact h2,
+.markdown-editor-content.line-height-compact h3,
+.markdown-editor-content.line-height-compact h4,
+.markdown-editor-content.line-height-compact h5 {
+  line-height: 1.2;
+}
+
+.markdown-editor-content.line-height-compact h1 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h2 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h3 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h4 .md-editor-drag-handle,
+.markdown-editor-content.line-height-compact h5 .md-editor-drag-handle {
+  top: calc(3px + 0.6em - 14px) !important;
+}
+
+.markdown-editor-content.line-height-loose {
+  line-height: 1.7;
+}
+
+.markdown-editor-content.line-height-loose .check-item {
+  height: 2.1em;
+}
+
+.markdown-editor-content.line-height-loose .md-editor-drag-handle {
+  top: calc(3px + 0.85em - 11px);
+}
+
+.markdown-editor-content.line-height-loose h1,
+.markdown-editor-content.line-height-loose h2,
+.markdown-editor-content.line-height-loose h3,
+.markdown-editor-content.line-height-loose h4,
+.markdown-editor-content.line-height-loose h5 {
+  line-height: 1.4;
+}
+
+.markdown-editor-content.line-height-loose h1 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h2 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h3 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h4 .md-editor-drag-handle,
+.markdown-editor-content.line-height-loose h5 .md-editor-drag-handle {
+  top: calc(3px + 0.7em - 14px) !important;
+}
+
+.markdown-editor-content .attach {
+  padding: 3px 0;
+}
+
+.markdown-editor-content .attach:not(:last-child) {
+  margin-bottom: 0.3em;
+}
+
+.markdown-editor-content .attach .file {
+  border-radius: 18px;
+  border-width: 1px;
+  border-color: rgb(229 231 235 / 1);
+  background-color: rgb(249 250 251 / 1);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  transition-duration: 100ms;
+}
+
+.markdown-editor-content .attach .file.active {
+  border-color: rgb(0 0 0 / 0.5);
+}
+
+.markdown-editor-content .mermaid-container {
+  margin-bottom: 0.75rem;
+  display: flex;
+  cursor: default;
+  user-select: none;
+  justify-content: center;
+  border-radius: 18px;
+  background-color: rgb(107 114 128 / 0.05);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.markdown-editor-content [data-fnc='fnc'] {
+  font-size: 0.65em;
+  padding-left: 0.125rem;
+  padding-right: 0.125rem;
+  vertical-align: super;
+  cursor: pointer;
+  color: rgb(13 148 136 /1);
+  transition-duration: 200ms;
+}
+
+.markdown-editor-content [data-fnc='fnc']:hover {
+  color: rgb(20 184 166 /1);
+}
+
+.markdown-editor-content [data-fnd='fnd'] {
+  padding-left: 0.125rem;
+  padding-right: 0.125rem;
+
+  color: rgb(101 163 13 /1);
+  transition-duration: 200ms;
+}
+
+.markdown-editor-content [data-fnd='fnd']:hover {
+  color: rgb(132 204 22 /1);
+}
+
+.markdown-editor-content pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.markdown-editor-content .high-text {
+  border-radius: 18px;
+}
+
+.markdown-editor-content .ant-descriptions-view table,
+.markdown-editor-content .ant-descriptions-view th,
+.markdown-editor-content .ant-descriptions-view td {
+  border: none;
+}
+
+.markdown-editor-content table.column-group-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.markdown-editor-content table.column-group-table p {
+  margin-top: 0;
+}
+
+.markdown-editor-report .markdown-editor-content table th,
+.markdown-editor-report .markdown-editor-content table td {
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.markdown-editor-report .markdown-editor-content table th {
+  background-color: rgb(229 231 235 / 0.5);
+}
+
+.markdown-editor-content table.column-group-table {
+  border: 1px solid rgb(209 213 219 / 0.8);
+}
+
+.markdown-editor-content table.column-group-table th,
+.markdown-editor-content table.column-group-table td {
+  border: 1px solid rgb(209 213 219 / 0.8);
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.markdown-editor-content table {
+  width: fit-content;
+  min-width: 100%;
+  position: relative;
+  border-collapse: collapse;
+  white-space: nowrap;
+  border-spacing: 0;
+}
+
+.markdown-editor-content table.m-editor-description th,
+.markdown-editor-content table.m-editor-description td {
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.markdown-editor-content table.m-editor-description tr:first-child th,
+.markdown-editor-content table.m-editor-description tr:first-child td {
+  font-weight: 600;
+}
+
+.markdown-editor-content .m-table {
+  padding: 3px 0;
+  margin-bottom: 0.5em;
+  width: 100%;
+  overflow: auto;
+}
+.markdown-editor-content .m-table table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  border-spacing: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.markdown-editor-content th {
+  text-wrap: nowrap;
+  vertical-align: top;
+  padding: 12px 20px;
+  border: none;
+  text-align: left;
+  line-height: 1;
+}
+
+.markdown-editor-content td {
+  text-wrap: nowrap;
+  vertical-align: top;
+  padding: 7px 20px;
+  border: none;
+  text-align: left;
+  line-height: 1;
+}
+
+.markdown-editor-content .m-table table th {
+  border-bottom: 1px solid rgb(209 213 219 / 0.8);
+  border-collapse: collapse;
+  white-space: nowrap;
+  border-spacing: 0;
+}
+
+.markdown-editor-content:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-editor-content .markdown-editor-table {
+  margin-bottom: 1em;
+}
+
+.markdown-editor-content p {
+  margin-bottom: 1em;
+  line-height: 1.5;
+  padding: 3px 0;
+}
+
+.markdown-editor-content h1,
+.markdown-editor-content h2,
+.markdown-editor-content h3,
+.markdown-editor-content h4,
+.markdown-editor-content h5 {
+  position: relative;
+  line-height: 1.3;
+  padding: 3px 0;
+  margin-bottom: 3px;
+}
+
+.markdown-editor-content h1 .md-editor-drag-handle,
+.markdown-editor-content h2 .md-editor-drag-handle,
+.markdown-editor-content h3 .md-editor-drag-handle,
+.markdown-editor-content h4 .md-editor-drag-handle,
+.markdown-editor-content h5 .md-editor-drag-handle {
+  top: calc(3px + 0.65em - 14px) !important;
+}
+
+.markdown-editor-content h1 {
+  font-size: 1.875em;
+  margin-top: 1.2em;
+  font-weight: 700;
+}
+
+.markdown-editor-content h1:first-child {
+  margin-top: 0;
+}
+
+.markdown-editor-content h2 {
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.markdown-editor-content h3 {
+  font-weight: 600;
+  font-size: 1.4em;
+  margin-top: 0.8em;
+}
+
+.markdown-editor-content h4 {
+  font-weight: 500;
+  font-size: 1.3em;
+  margin-top: 0.7em;
+  line-height: 1.2;
+}
+
+.markdown-editor-content a {
+  font-weight: 500;
+}
+
+.markdown-editor-content .inline-code {
+  display: inline;
+  background-color: #0000000f;
+  border-radius: 4px;
+  border: 1px solid #e7e9e8;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue,
+    Helvetica, Arial, sans-serif, Segoe UI;
+  padding: 0 4px;
+  margin: 1px 3px;
+  line-height: 1.1;
+  word-break: break-all;
+}
+
+.markdown-editor-content blockquote {
+  display: block;
+  padding-left: 10px;
+  margin: 10px 0;
+  position: relative;
+  color: #262626;
+  opacity: 0.7;
+  font-size: 13x;
+}
+
+.markdown-editor-content blockquote:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+
+.markdown-editor-content blockquote p:not(:last-child) {
+  margin-bottom: 0.1em !important;
+}
+
+.markdown-editor-content blockquote:before {
+  content: '';
+  left: 0;
+  top: 5px;
+  height: calc(100% - 10px);
+  width: 4px;
+  position: absolute;
+  display: block;
+  border-radius: 18px;
+  background-color: rgb(107 114 128 / 1);
+}
+
+.markdown-editor-content [data-be='list'] {
+  margin-bottom: 0.3em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.markdown-editor-content .m-list {
+  list-style: disc;
+  padding-left: 24px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 0;
+}
+
+.markdown-editor-content .m-list li::marker {
+  color: rgb(107 114 128 /1);
+}
+
+.markdown-editor-content h2 + [data-be='list'] ul,
+.markdown-editor-content h2 + [data-be='list'] ol {
+  margin-top: 0;
+}
+
+.markdown-editor-content .m-list p {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.markdown-editor-content .m-list[data-task] {
+  list-style: none !important;
+  padding-left: 0;
+}
+
+.markdown-editor-content
+  .m-list
+  li:not(.task)
+  > :first-child
+  .md-editor-drag-handle {
+  padding-left: 2px;
+  padding-right: 18px;
+  left: -44px !important;
+}
+
+.markdown-editor-content
+  .m-list
+  li.task
+  > :nth-child(2)
+  .md-editor-drag-handle {
+  padding-left: 2px;
+  padding-right: 10px;
+  left: -50px !important;
+}
+
+.markdown-editor-content ol.m-list {
+  list-style: decimal;
+}
+
+.markdown-editor-content ol.m-list ol.m-list {
+  list-style: lower-alpha;
+}
+
+.markdown-editor-content ol.m-list ol.m-list ol.m-list {
+  list-style: upper-roman;
+}
+
+.markdown-editor-content ol.m-list ol.m-list ol.m-list ol.m-list {
+  list-style: decimal;
+}
+
+.markdown-editor-content ul.m-list {
+  list-style: disc;
+}
+
+.markdown-editor-content ul.m-list ul.m-list {
+  list-style: circle;
+}
+
+.markdown-editor-content ul.m-list ul.m-list ul.m-list {
+  list-style: revert;
+}
+
+.markdown-editor-content ul.m-list ul.m-list ul.m-list ul.m-list {
+  list-style: disc;
+}
+
+.markdown-editor-content .m-list-item {
+  position: relative;
+  word-break: break-all;
+}
+
+.markdown-editor-content .m-list-item.task {
+  padding-left: 24px;
+}
+
+.markdown-editor-content .m-list-item > [data-be='list'] {
+  margin-bottom: 0;
+}
+
+.markdown-editor-content .m-list-item .check-item {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  user-select: none;
+  height: 1.87em;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.m-hr {
+  height: 1px;
+  background-color: rgb(229 231 235 / 1);
+}
+
+.m-hr {
+  margin: 2em 0;
+  border: none;
+}
+
+.code-container {
+  padding: 4px 0;
+  margin-bottom: 0.5em;
+}
+
+.code-container:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+
+.code-container.wrap .code-highlight.num code .code-line::before {
+  display: block;
+}
+
+.code-container.wrap pre {
+  white-space: break-spaces;
+  overflow: visible;
+}
+
+.code-container.wrap pre .code-line {
+  height: auto;
+}
+
+.code-container.wrap pre code {
+  word-break: break-all;
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+.code-container.wrap pre code .code-line {
+  position: relative;
+}
+
+.code-highlight {
+  border-width: 1px;
+  border-color: rgb(0 0 0 / 0.1);
+  color: rgb(107 114 128 /1);
+}
+
+.code-highlight {
+  border-radius: 18px;
+  font-size: 0.85em;
+  position: relative;
+  line-height: 1.62em;
+  direction: ltr;
+}
+
+.code-highlight.frontmatter:before {
+  top: 0;
+  content: 'Front Matter';
+  width: 100%;
+  height: 22px;
+  line-height: 21px;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+.code-highlight.frontmatter .code-line-list {
+  top: 24px;
+  padding-top: 8px;
+  height: calc(100% - 24px);
+}
+
+.code-highlight.frontmatter pre {
+  padding-top: 32px;
+}
+
+.code-highlight pre {
+  white-space: pre;
+  padding: 10px 0;
+  position: relative;
+}
+
+.code-highlight code {
+  width: fit-content;
+  display: inline-block;
+  min-width: 100%;
+  word-wrap: normal;
+  word-spacing: normal;
+  word-break: normal;
+  hyphens: none;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.code-highlight.light {
+  caret-color: rgba(0, 0, 0, 0.9);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.code-highlight.light .ant-select-selector {
+  color: #4b5563 !important;
+  border-color: rgba(75, 85, 99, 0.3);
+}
+
+.code-highlight.light .code-line-list {
+  color: rgb(0 0 0 / 0.7);
+}
+
+.code-highlight.light .code-line::before {
+  color: rgb(0 0 0 / 0.5);
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-size: 1em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
+    monospace;
+}
+
+.code-highlight .code-line-list {
+  counter-reset: step;
+  counter-increment: step 0;
+  z-index: 10;
+  padding-top: 10px;
+  width: 32px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.code-highlight .code-line-list > div {
+  font-size: 0.93em;
+  left: 0;
+  top: 0;
+  height: 23px;
+  line-height: 23px;
+  width: 32px;
+  text-align: center;
+}
+
+.code-highlight .code-line-list > div:before {
+  content: counter(step);
+  counter-increment: step;
+}
+
+.code-highlight.num {
+  padding-left: 32px;
+}
+
+.code-highlight.num code {
+  padding-left: 5px;
+}
+
+.code-highlight .code-line {
+  position: relative;
+  height: 23px;
+  line-height: 23px;
+}
+
+.code-highlight .lang-select {
+  width: 100px;
+}
+
+.code-highlight .lang-select .ant-select-selector {
+  background: transparent;
+}
+
+.code-highlight .lang-select input {
+  text-align: center;
+}
+
+[data-be] {
+  position: relative;
+}
+
+.md-editor-drag-handle {
+  position: absolute;
+  display: flex;
+  user-select: none;
+  align-items: center;
+  padding: 2px;
+  border-radius: 2px;
+  opacity: 0;
+  left: -28px;
+  box-sizing: border-box;
+  top: calc(3px + 0.75em - 14px);
+}
+
+.md-editor-drag-icon {
+  display: flex;
+  align-items: center;
+  border-radius: 18px;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 16px;
+  color: rgb(38, 38, 38);
+}
+
+.md-editor-drag-icon:hover {
+  background-color: rgb(244, 245, 245);
+}
+
+.md-editor-drag-el:hover > .md-editor-drag-handle {
+  opacity: 1;
+}
+
+.view .md-editor-drag-handle {
+  display: none;
+}
+
+.view [data-be='link'] {
+  pointer-events: none;
+}
+
+.dark .win ::-webkit-scrollbar-thumb {
+  background-color: #52525b;
+}
+
+.win ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.win ::-webkit-scrollbar-thumb {
+  background-color: #a1a1aa;
+  border-radius: 20px;
+}
+
+.md-editor-insert-autocomplete {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.md-editor-insert-autocomplete .md-editor-insert-autocomplete-item {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  line-height: 24px;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 18px;
+  cursor: pointer;
+}
+.md-editor-insert-autocomplete .md-editor-insert-autocomplete-item:hover {
+  background-color: rgb(229 231 235 / 0.65);
+}
+
+.md-editor-context-menu {
+  position: fixed;
+}
+
+.table-attr-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  position: absolute;
+  align-items: center;
+  z-index: 10;
+  gap: 4px;
+  border-radius: 18px;
+}
+
+.table-attr-toolbar .table-attr-toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.table-attr-toolbar .table-attr-toolbar-item:hover {
+  background-color: rgb(209 213 219 / 0.4);
+}
+
+.chart-attr-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 6px 8px;
+  width: 100%;
+  border-bottom: 1px solid rgba(77, 77, 77, 0.03);
+  background-color: rgba(255, 255, 255, 1);
+  align-items: center;
+  z-index: 10;
+  gap: 4px;
+}
+
+.chart-attr-toolbar .chart-attr-toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+.chart-attr-toolbar .chart-attr-toolbar-item:hover {
+  background-color: rgb(209 213 219 / 0.4);
+}
+
+.react-resizable {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.react-resizable-handle-hide {
+  display: none;
+}
+.react-resizable-handle {
+  position: absolute;
+  padding: 0 3px 3px 0;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  cursor: se-resize;
+  z-index: 9999;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  background-color: #2f8ef4;
+  border-radius: 10px;
+  bottom: -7px;
+  right: -7px;
+  pointer-events: all;
+}

@@ -67,8 +67,12 @@ const Menu = observer(
     return (
       <div
         ref={ref}
-        style={{ left: state.x, top: state.y, zIndex: 99999 }}
-        className={`md-editor-context-menu`}
+        style={{
+          left: state.x,
+          top: state.y,
+          zIndex: 99999,
+          position: 'fixed',
+        }}
       >
         <MenuRender menus={props.menus} root={props.root} boxRef={ref} />
       </div>

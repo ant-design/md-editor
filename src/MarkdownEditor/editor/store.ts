@@ -411,17 +411,15 @@ export class EditorStore {
    *清空编辑器内容
    */
   clearContent() {
-    Transforms.removeNodes(this.editor, {
-      at: [],
-    });
+    Transforms.removeNodes(this.editor, {});
   }
 
   /**
    * 设置编辑器内容
    * @param md
    */
-  setMDContent(md: string) {
-    if (!md) return;
+  setMDContent(md?: string) {
+    if (md === undefined) return;
     if (md === schemaToMarkdown(this.editor.children)) return;
     const nodeList = parserMdToSchema(md).schema;
     this.setContent(nodeList);

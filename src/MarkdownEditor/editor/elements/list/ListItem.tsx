@@ -1,7 +1,7 @@
 ﻿import { Checkbox, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { ElementProps, ListItemNode } from '../../../el';
 import { useMEditor } from '../../../hooks/editor';
 import { useEditorStore } from '../../store';
@@ -31,7 +31,7 @@ export const ListItem = observer(
     const context = useContext(ConfigProvider.ConfigContext);
     const { hashId } = useContext(ListContext) || {};
     const baseCls = context.getPrefixCls('md-editor-list');
-    return useMemo(
+    return React.useMemo(
       () => (
         <li
           className={classNames(`${baseCls}-item`, hashId, {

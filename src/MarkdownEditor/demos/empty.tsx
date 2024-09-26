@@ -3,10 +3,10 @@ import { Button } from 'antd';
 import React, { useEffect } from 'react';
 
 export default () => {
-  const tabRef = React.useRef<MarkdownEditorInstance>();
+  const editorRef = React.useRef<MarkdownEditorInstance>();
   useEffect(() => {
     const insertMarkdown = () => {
-      tabRef.current?.store.setMDContent(
+      editorRef.current?.store.setMDContent(
         `
 <!-- {"elementType":"column"} -->       
 | column1                                                                         | column2 |
@@ -80,7 +80,7 @@ public class HelloWorld {
       >
         <MarkdownEditor
           toc={false}
-          editorRef={tabRef}
+          editorRef={editorRef}
           toolBar={{
             min: true,
             enable: true,
@@ -88,13 +88,32 @@ public class HelloWorld {
               <Button
                 key="插入"
                 onClick={() => {
-                  tabRef.current?.store.setMDContent(
+                  editorRef.current?.store.setMDContent(
                     `# 标题
 **粗体**`,
                   );
                 }}
               >
                 <span>插入一个markdown</span>
+              </Button>,
+              <Button
+                key="clear"
+                onClick={() => {
+                  editorRef.current?.store.setMDContent('');
+                  editorRef.current?.store.updateNodeList([
+                    {
+                      type: 'head',
+                      level: 2,
+                      children: [{ text: '' }],
+                    },
+                    {
+                      type: 'paragraph',
+                      children: [{ text: '' }],
+                    },
+                  ]);
+                }}
+              >
+                清空
               </Button>,
             ],
           }}
@@ -107,6 +126,7 @@ public class HelloWorld {
               });
             },
           }}
+          titlePlaceholderContent="请输入公司标题"
           onChange={(e, c) => console.log(e, c)}
           width={'60vw'}
           height={'500px'}
@@ -144,7 +164,7 @@ public class HelloWorld {
               <Button
                 key="插入"
                 onClick={() => {
-                  tabRef.current?.store.setMDContent(
+                  editorRef.current?.store.setMDContent(
                     `# 标题
 **粗体**`,
                   );

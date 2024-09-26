@@ -59,6 +59,7 @@ export const MEditor = observer(
     className?: string;
     prefixCls?: string;
     reportMode?: MarkdownEditorProps['reportMode'];
+    titlePlaceholderContent?: string;
   }) => {
     const store = useEditorStore();
 
@@ -362,9 +363,9 @@ export const MEditor = observer(
             const hideLoading = message.loading('Uploading...');
             try {
               const url =
-                (await props.instance.editorProps?.image?.upload?.(
-                  [new File([urlBlob], 'inline.png')] || [],
-                )) || [];
+                (await props.instance.editorProps?.image?.upload?.([
+                  new File([urlBlob], 'inline.png'),
+                ])) || [];
 
               if (store.editor.selection?.focus.path) {
                 Transforms.delete(store.editor, {
@@ -454,7 +455,9 @@ export const MEditor = observer(
       return store.focus || !childrenIsEmpty ? 'focus' : '';
     }, [store.readonly, store.focus, !childrenIsEmpty]);
 
-    const { wrapSSR, hashId } = useStyle(`${props.prefixCls}-content`);
+    const { wrapSSR, hashId } = useStyle(`${props.prefixCls}-content`, {
+      titlePlaceholderContent: props.titlePlaceholderContent,
+    });
 
     const baseClassName = `${props.prefixCls}-content`;
 

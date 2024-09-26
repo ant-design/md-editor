@@ -34,6 +34,8 @@ export type ChatTokenType = GlobalToken & {
    * 组件的 className
    */
   componentCls: string;
+
+  titlePlaceholderContent?: string;
 };
 
 export const resetComponent: GenerateStyle<ChatTokenType> = (
@@ -61,11 +63,18 @@ export function useEditorStyleRegister(
   styleFn: (token: ChatTokenType) => CSSInterpolation,
 ) {
   const { token, theme, hashId } = antdTheme.useToken();
-  const chatToken = { ...token, chatCls: '', antCls: '' };
+  const chatToken = {
+    ...token,
+    chatCls: '',
+    antCls: '',
+    titlePlaceholderContent: '"Please enter a title"',
+  };
   const { getPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
 
   chatToken.chatCls = `.${getPrefixCls('md-editor')}`;
   chatToken.antCls = `.${getPrefixCls()}`;
+
+  chatToken.titlePlaceholderContent = '"Please enter a title"';
 
   return {
     wrapSSR: useDefaultStyleRegister(

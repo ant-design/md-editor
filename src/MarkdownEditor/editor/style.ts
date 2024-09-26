@@ -5,6 +5,8 @@
   useEditorStyleRegister,
 } from '../editor/utils/useStyle';
 
+import './keyframes.css';
+
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
@@ -13,24 +15,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
+      '::-webkit-scrollbar': { width: '8px', height: '8px' },
+      '::-webkit-scrollbar-thumb': {
+        backgroundColor: '#a1a1aa',
+        borderRadius: '20px',
+      },
       '[data-empty]:before': {
         display: 'none',
       },
       'h2.empty:first-child::before': {
         cursor: 'text',
-        content: "'Please enter a title'",
+        content: "'" + token.titlePlaceholderContent + "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
       'h1.empty:first-child::before': {
         cursor: 'text',
-        content: "'Please enter a title'",
+        content: "'" + token.titlePlaceholderContent + "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
       '> p.empty:nth-child(2)::before': {
         cursor: 'text',
-        content: "'Please enter content, press '/' for quick actions'",
+        content: '\'Please enter content, press "/" for quick actions\'',
         display: 'block',
         color: '#bec0bf',
         position: 'absolute',
@@ -124,7 +131,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: 1.3,
         padding: '3px 0',
         marginBottom: '3px',
-        '.md-editor-drag-handle': {
+        '.ant-md-editor-drag-handle': {
           top: 'calc(3px + 0.65em - 14px) !important',
         },
       },
@@ -186,7 +193,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'pre,code,kbd,samp': {
         fontSize: '1em',
         fontFamily:
-          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,\n    monospace",
+          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,monospace",
       },
       '&-inline-code': {
         display: 'inline',
@@ -216,6 +223,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       "h2 + [data-be='list'] ol": {
         marginTop: '0',
       },
+      '& .typewriter:last-of-type > *:last-of-type span[data-slate-string]': {
+        borderRight: '0.15em solid #1677ff',
+        animation:
+          'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
+      },
     },
 
     [`${token.componentCls}${token.componentCls}-focus`]: {
@@ -238,12 +250,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'h1[data-empty]::before': {
         cursor: 'text',
-        content: "'Please enter a title'",
+        content: "'" + token.titlePlaceholderContent + "'",
         color: '#bec0bf',
       },
       'h2[data-empty]::before': {
         cursor: 'text',
-        content: "'Please enter a title'",
+        content: "'" + token.titlePlaceholderContent + "'",
         color: '#bec0bf',
       },
       'h3[data-empty]::before': {
@@ -282,10 +294,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @param prefixCls
  * @returns
  */
-export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('Editor-content', (token) => {
+export function useStyle(
+  prefixCls: string,
+  propsToken: Partial<ChatTokenType>,
+) {
+  return useEditorStyleRegister('editor-content', (token) => {
     const editorToken = {
       ...token,
+      ...propsToken,
       componentCls: `.${prefixCls}`,
     };
 
