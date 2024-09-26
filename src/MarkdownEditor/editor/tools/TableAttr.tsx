@@ -5,12 +5,11 @@ import {
   AppstoreAddOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Popconfirm, Popover, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { Popconfirm, Popover, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useRef, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -147,10 +146,8 @@ export const TableAttr = observer(() => {
       if (el.at(0) as TableCellNode) {
         try {
           const dom = ReactEditor.toDOMNode(editor, el[0]) as HTMLElement;
-          let top = store.offsetTop(dom);
-          let left =
-            dom.getBoundingClientRect().left -
-            store.container!.getBoundingClientRect().left;
+          let top = dom.offsetTop;
+          let left = dom.offsetLeft;
           setState({
             top: top - 24 + 3,
             left,
@@ -526,12 +523,11 @@ export const TableAttr = observer(() => {
   useSubject(store.tableTask$, runTask);
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context.getPrefixCls(`table-attr-toolbar`)
+  const baseClassName = context.getPrefixCls(`table-attr-toolbar`);
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
   if (!store.container) return null;
   if (store.readonly) return null;
-
   return wrapSSR(
     <div
       className={classNames(baseClassName, hashId)}
@@ -620,7 +616,7 @@ export const TableAttr = observer(() => {
       </Popover>
       {(el?.[1]?.at?.(1) || 0) > 0 ? (
         <div
-        className={classNames(`${baseClassName}-item`, hashId)}
+          className={classNames(`${baseClassName}-item`, hashId)}
           onClick={() => {
             runTask('insertRowBefore');
           }}
@@ -699,10 +695,13 @@ export const TableAttr = observer(() => {
         </>
       ) : null}
       <Popconfirm onConfirm={remove} title="Confirm Remove this Table?">
-        <div className={classNames(`${baseClassName}-item`, hashId)} title="Remove">
+        <div
+          className={classNames(`${baseClassName}-item`, hashId)}
+          title="Remove"
+        >
           <DeleteOutlined />
         </div>
       </Popconfirm>
-    </div>
+    </div>,
   );
 });
