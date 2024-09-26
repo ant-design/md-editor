@@ -46,10 +46,11 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
 
     if (
       operation.type === 'split_node' &&
-      operation.properties?.type === 'link-card'
+      (operation.properties?.type === 'link-card' ||
+        operation.properties?.type === 'media')
     ) {
       const node = Node.get(editor, operation.path);
-      if (node?.type === 'link-card') {
+      if (['link-card', 'media'].includes(node?.type)) {
         Transforms.insertNodes(
           editor,
           [
