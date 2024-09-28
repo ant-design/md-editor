@@ -16,7 +16,7 @@ export function ColumnCell(props: RenderElementProps) {
   const baseCls = context.getPrefixCls('md-editor-column-group-cell');
   return React.useMemo(() => {
     return (
-      <td
+      <div
         {...props.attributes}
         data-be={'column-group-cell'}
         className={baseCls}
@@ -25,7 +25,7 @@ export function ColumnCell(props: RenderElementProps) {
         }}
       >
         {props.children}
-      </td>
+      </div>
     );
   }, [props.element, props.element.children]);
 }
@@ -48,7 +48,7 @@ export const ColumnGroup = observer((props: RenderElementProps) => {
         }}
       >
         <DragHandle />
-        <table className={classNames(hashId, baseCls)}>{props.children}</table>
+        <div className={classNames(hashId, baseCls)}>{props.children}</div>
       </div>,
     );
   }, [props.element.children]);

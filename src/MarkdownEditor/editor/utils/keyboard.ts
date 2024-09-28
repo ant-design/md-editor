@@ -446,6 +446,54 @@ export class KeyboardTask {
       }
       Transforms.select(this.editor, Editor.start(this.editor, path));
     }
+
+    console.log(node);
+
+    if (node && ['column-cell'].includes(node[0].type)) {
+      Transforms.insertNodes(
+        this.editor,
+        {
+          type: 'table',
+          children: [
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', title: true, children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', title: true, children: [{ text: '' }] },
+              ],
+            },
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
+            },
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
+            },
+          ],
+        },
+        { at: [...node[1], 0] },
+      );
+    }
   }
 
   insertColumn() {

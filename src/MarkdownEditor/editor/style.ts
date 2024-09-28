@@ -287,7 +287,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         'th,td': {
           padding: '8px 16px',
           textAlign: 'left',
+          borderBottom: '1px solid rgb(209 213 219 / 0.8)',
+          borderRight: '1px solid rgb(209 213 219 / 0.8)',
           fontWeight: 500,
+        },
+        'th:last-child,td:last-child': {
+          borderRight: 'none',
         },
         th: {
           backgroundColor: 'rgb(229 231 235 / 0.5)',

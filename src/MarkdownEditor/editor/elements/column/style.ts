@@ -7,18 +7,17 @@
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      width: '100%',
-      borderCollapse: 'collapse',
-      tableLayout: 'fixed',
+      display: 'flex',
       border: '1px solid rgb(209 213 219 / 0.8)',
       p: {
         marginTop: '0',
       },
-      'th,td': {
-        border: '1px solid rgb(209 213 219 / 0.8)',
-        padding: '8px 16px',
+      '> div': {
+        borderRight: '1px solid rgb(209 213 219 / 0.8)',
+        padding: '16px 16px',
         textAlign: 'left',
         fontWeight: 500,
+        flex: 1,
       },
     },
   };

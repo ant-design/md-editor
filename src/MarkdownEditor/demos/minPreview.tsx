@@ -72,6 +72,7 @@ export default () => {
             </Button>,
           ],
         }}
+        reportMode
         image={{
           upload: async (fileList) => {
             return new Promise((resolve) => {
