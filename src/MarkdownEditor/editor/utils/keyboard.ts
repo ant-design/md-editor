@@ -222,6 +222,23 @@ export class KeyboardTask {
     input.remove();
   }
 
+  /**
+   * Asynchronously pastes Markdown code from the clipboard into the editor.
+   *
+   * This function reads Markdown text from the clipboard, parses it into a schema,
+   * and inserts it into the editor at the current selection. It handles different
+   * node types and ensures proper insertion based on the context of the current node.
+   *
+   * The function performs the following steps:
+   * 1. Reads Markdown text from the clipboard.
+   * 2. Parses the Markdown text into a schema.
+   * 3. Checks if the current node is a paragraph and empty, then deletes it and inserts the new schema.
+   * 4. If the schema's first node is a paragraph and the current node is a paragraph or table-cell, it inserts the first node's children.
+   * 5. Inserts the remaining schema nodes based on the type of the current node.
+   * 6. Refreshes the editor's highlight state after a short delay.
+   *
+   * @returns {Promise<void>} A promise that resolves when the paste operation is complete.
+   */
   async pasteMarkdownCode() {
     const markdownCode = await navigator.clipboard.readText();
     if (markdownCode) {

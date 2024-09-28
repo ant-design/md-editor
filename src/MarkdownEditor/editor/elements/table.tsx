@@ -65,22 +65,26 @@ export const Table = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
-        style={{
-          maxWidth: '100%',
-          overflow: 'visible',
-          ...(store.editor.children.length === 1
-            ? {}
-            : {
-                border: '1px solid #e8e8e8',
-                borderRadius: 16,
-              }),
-        }}
       >
         <TableAttr />
         <DragHandle />
-        <table>
-          <tbody>{props.children}</tbody>
-        </table>
+        <div
+          style={{
+            maxWidth: '100%',
+            overflow: 'auto',
+            position: 'relative',
+            ...(store.editor.children.length === 1
+              ? {}
+              : {
+                  border: '1px solid #e8e8e8',
+                  borderRadius: 16,
+                }),
+          }}
+        >
+          <table>
+            <tbody>{props.children}</tbody>
+          </table>
+        </div>
       </div>
     );
   }, [props.element.children]);

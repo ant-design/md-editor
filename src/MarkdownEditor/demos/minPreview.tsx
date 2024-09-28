@@ -72,6 +72,15 @@ export default () => {
             </Button>,
           ],
         }}
+        image={{
+          upload: async (fileList) => {
+            return new Promise((resolve) => {
+              const file = fileList[0];
+              const url = URL.createObjectURL(file);
+              resolve(url);
+            });
+          },
+        }}
         style={{
           width: '80%',
           margin: '0 auto',

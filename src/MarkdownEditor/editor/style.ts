@@ -25,13 +25,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'h2.empty:first-child::before': {
         cursor: 'text',
-        content: "'" + token.titlePlaceholderContent + "'",
+        content:
+          "'" + token.titlePlaceholderContent ||
+          `press "/" for quick actions` + "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
       'h1.empty:first-child::before': {
         cursor: 'text',
-        content: "'" + token.titlePlaceholderContent + "'",
+        content:
+          "'" + token.titlePlaceholderContent ||
+          `press "/" for quick actions` + "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
@@ -250,12 +254,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'h1[data-empty]::before': {
         cursor: 'text',
-        content: "'" + token.titlePlaceholderContent + "'",
+        content:
+          "'" + token.titlePlaceholderContent ||
+          `press "/" for quick actions` + "'",
         color: '#bec0bf',
       },
       'h2[data-empty]::before': {
         cursor: 'text',
-        content: "'" + token.titlePlaceholderContent + "'",
+        content:
+          "'" + token.titlePlaceholderContent ||
+          `press "/" for quick actions` + "'",
         color: '#bec0bf',
       },
       'h3[data-empty]::before': {
