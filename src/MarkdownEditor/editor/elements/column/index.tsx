@@ -44,7 +44,6 @@ export const ColumnGroup = observer((props: RenderElementProps) => {
         onDragStart={store.dragStart}
         style={{
           maxWidth: '100%',
-          overflow: 'auto',
         }}
       >
         <DragHandle />
