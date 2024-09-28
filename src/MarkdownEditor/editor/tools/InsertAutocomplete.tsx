@@ -637,6 +637,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                       data-action={el.key}
                       onClick={(e) => {
                         e.stopPropagation();
+                        e.preventDefault();
                         const task = state.options[state.index];
                         if (!task) {
                           const myInsertOptions = props?.insertOptions?.find?.(

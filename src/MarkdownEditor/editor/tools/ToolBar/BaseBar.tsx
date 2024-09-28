@@ -402,7 +402,9 @@ export const BaseToolBar = observer(
             key="link"
             role="button"
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               openLink();
             }}
             className={classnames(`${baseClassName}-item`, hashId)}
@@ -431,7 +433,9 @@ export const BaseToolBar = observer(
             <div
               role="button"
               className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 keyTask$.next({
                   key: 'redo',
                   args: [],
@@ -443,7 +447,9 @@ export const BaseToolBar = observer(
             <div
               role="button"
               className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 keyTask$.next({
                   key: 'undo',
                   args: [],
@@ -457,7 +463,9 @@ export const BaseToolBar = observer(
         <div
           role="button"
           className={classnames(`${baseClassName}-item`, hashId)}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             EditorUtils.clearMarks(store.editor, true);
             EditorUtils.highColor(store.editor);
           }}
@@ -557,7 +565,9 @@ export const BaseToolBar = observer(
                 }}
                 role="button"
                 onMouseEnter={(e) => e.stopPropagation()}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
                     EditorUtils.highColor(store.editor);
                   } else {
@@ -584,7 +594,9 @@ export const BaseToolBar = observer(
                   role="button"
                   key={tool.key}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     EditorUtils.toggleFormat(store.editor, tool.type);
                   }}
                   className={classnames(`${baseClassName}-item`, hashId)}

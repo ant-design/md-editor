@@ -167,6 +167,7 @@ export class KeyboardTask {
   uploadImage() {
     const input = document.createElement('input');
     const [node] = this.curNodes;
+    input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
     input.accept = 'image/*';
     const insertMedia = async (url: string) => {
@@ -218,6 +219,7 @@ export class KeyboardTask {
       }
     };
     input.click();
+    input.remove();
   }
 
   async pasteMarkdownCode() {
