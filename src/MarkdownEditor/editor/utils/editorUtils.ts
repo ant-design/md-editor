@@ -446,7 +446,6 @@ export function getPointStrOffset(editor: Editor, point: Point) {
     type: '',
     children: nodes,
   } as any);
-  console.log('insertCommentStyle str', str);
   return str.length;
 }
 

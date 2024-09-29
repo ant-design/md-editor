@@ -297,7 +297,7 @@ export const BaseToolBar = observer(
           />,
         );
       }
-      if (store.editorProps.comment?.enable) {
+      if (store.editorProps.comment?.enable && !props.showEditor) {
         list.push(
           <div
             role="button"
@@ -319,7 +319,6 @@ export const BaseToolBar = observer(
                   return;
                 }
               }
-              console.log('[addComment] selection', selection);
 
               let texts: string[] = [];
               let title = '';

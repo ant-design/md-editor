@@ -447,8 +447,6 @@ export class KeyboardTask {
       Transforms.select(this.editor, Editor.start(this.editor, path));
     }
 
-    console.log(node);
-
     if (node && ['column-cell'].includes(node[0].type)) {
       Transforms.insertNodes(
         this.editor,

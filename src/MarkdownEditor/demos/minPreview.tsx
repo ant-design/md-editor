@@ -72,6 +72,9 @@ export default () => {
             </Button>,
           ],
         }}
+        comment={{
+          enable: true,
+        }}
         reportMode
         image={{
           upload: async (fileList) => {

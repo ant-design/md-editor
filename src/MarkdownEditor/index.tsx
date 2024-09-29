@@ -312,6 +312,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               extra={toolBar.extra}
               min={toolBar.min}
             />
+            <FloatBar />
           </div>
         ) : readonly ? null : (
           <FloatBar />

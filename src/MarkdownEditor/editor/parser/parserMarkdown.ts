@@ -68,7 +68,12 @@ const findAttachment = (str: string) => {
   }
 };
 
-const parseText = (els: RootContent[], leaf: CustomLeaf = {}) => {
+const parseText = (
+  els: RootContent[],
+  leaf: CustomLeaf = {
+    data: {},
+  },
+) => {
   let leafs: CustomLeaf[] = [];
   for (let n of els) {
     if (n.type === 'strong')
