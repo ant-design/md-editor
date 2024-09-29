@@ -164,6 +164,7 @@ export type MarkdownEditorProps = {
     enable?: boolean;
     onSubmit?: (value: string) => void;
     commentList?: CommentDataType[];
+    deleteConfirmText?: string;
     editorRender?: (defaultDom: ReactNode) => ReactNode;
     previewRender?: (
       props: {

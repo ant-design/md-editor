@@ -446,19 +446,6 @@ export const MEditor = observer(
     });
 
     const baseClassName = `${editorProps.prefixCls}-content`;
-
-    const leafRender = useCallback(
-      (props: any) => (
-        <MLeaf
-          {...props}
-          comment={editorProps.comment}
-          children={props.children}
-          hashId={hashId}
-        />
-      ),
-      [],
-    );
-
     const commentMap = useMemo(() => {
       const map = new Map<string, CommentDataType[]>();
       editorProps.comment?.commentList?.forEach((c) => {
@@ -471,6 +458,21 @@ export const MEditor = observer(
       });
       return map;
     }, [editorProps.comment?.commentList]);
+
+    const renderMarkdownLeaf = useCallback(
+      (props: any) => {
+        return (
+          <MLeaf
+            {...props}
+            comment={editorProps.comment}
+            children={props.children}
+            hashId={hashId}
+          />
+        );
+      },
+      [commentMap],
+    );
+
     return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <SetNodeToDecorations />
@@ -522,6 +524,7 @@ export const MEditor = observer(
                   focus: { path: newFocusPath, offset: focus.offset },
                   data: commentMap.get(path.join(',')),
                   comment: true,
+                  updateTime: Date.now(),
                 } as Range);
               }
             }
@@ -575,7 +578,7 @@ export const MEditor = observer(
           onCompositionEnd={onCompositionEnd}
           renderElement={elementRenderElement}
           onKeyDown={onKeyDown}
-          renderLeaf={leafRender}
+          renderLeaf={renderMarkdownLeaf}
         />
       </Slate>,
     );

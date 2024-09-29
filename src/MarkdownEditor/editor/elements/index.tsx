@@ -231,7 +231,7 @@ export const MLeaf = (
         </span>
       </CommentView>
     );
-  }, [props.leaf, props.leaf.text, code.lang]);
+  }, [props.leaf, props.leaf.text, code.lang, props.leaf.comment]);
 };
 
 export {

@@ -143,7 +143,6 @@ export const BaseToolBar = observer(
       match: (n) => Element.isElement(n),
       mode: 'lowest',
     });
-    console.log(node?.[1]);
 
     /**
      * 插入操作，一般而言不需要作什么特殊设置
