@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Editor, Element, Node, Range, Transforms } from 'slate';
+import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
-import { DOMNode } from 'slate-react/dist/utils/dom';
 import {
+  CommentDataType,
   Elements,
   IEditor,
   MarkdownEditorInstance,
@@ -27,117 +27,30 @@ import { useEditorStore } from './store';
 import { useStyle } from './style';
 import { isMarkdown } from './utils';
 import { getMediaType } from './utils/dom';
-import { EditorUtils } from './utils/editorUtils';
+import {
+  calcPath,
+  EditorUtils,
+  getRelativePath,
+  getSelectionFromDomSelection,
+  hasEditableTarget,
+  isEventHandled,
+  isPath,
+} from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
-
-export const getDefaultView = (value: any): Window | null => {
-  return (
-    (value && value.ownerDocument && value.ownerDocument.defaultView) || null
-  );
-};
-
-export const isDOMNode = (value: any): value is DOMNode => {
-  const window = getDefaultView(value);
-  return !!window && value instanceof window.Node;
-};
-
-const isEventHandled = <
-  EventType extends React.SyntheticEvent<unknown, unknown>,
->(
-  event: EventType,
-  handler?: (event: EventType) => void,
-) => {
-  if (!handler) {
-    return false;
-  }
-  handler(event);
-  return event.isDefaultPrevented() || event.isPropagationStopped();
-};
-
-export const hasTarget = (
-  editor: ReactEditor,
-  target: EventTarget | null,
-): target is DOMNode => {
-  return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
-};
-
-function checkText(domPoint: any) {
-  if (!isDOMNode(domPoint)) {
-    return false;
-  }
-  let leafNode = domPoint?.parentElement?.closest('[data-slate-leaf]');
-  if (!leafNode) {
-    return false;
-  }
-  const textNode = leafNode.closest('[data-slate-node="text"]')!;
-  return !!textNode;
-}
-
-const isTargetInsideVoid = (
-  editor: ReactEditor,
-  target: EventTarget | null,
-): boolean => {
-  const slateNode =
-    hasTarget(editor, target) && ReactEditor.toSlateNode(editor, target);
-  // @ts-ignore
-  return Editor.isVoid(editor, slateNode);
-};
-
-function getSelectionFromDomSelection(
-  editor: ReactEditor,
-  domSelection: Selection,
-): Range | null {
-  const { anchorNode, focusNode } = domSelection;
-  const anchorNodeSelectable =
-    hasTarget(editor, anchorNode) || isTargetInsideVoid(editor, anchorNode);
-
-  const focusNodeSelectable =
-    hasTarget(editor, focusNode) || isTargetInsideVoid(editor, focusNode);
-  const check = checkText(anchorNode) && checkText(focusNode);
-  if (anchorNodeSelectable && focusNodeSelectable && check) {
-    try {
-      const range = ReactEditor.toSlateRange(editor, domSelection, {
-        exactMatch: true,
-        suppressThrow: false,
-      });
-      return range;
-    } catch (error) {
-      console.log('getSelectionFromDomSelection error', error);
-      return null;
-    }
-  }
-  return null;
-}
-
-/**
- * 检查目标是否为可编辑的 DOM 节点。
- *
- * @param editor - React 编辑器实例。
- * @param target - 事件目标，可能为 null。
- * @returns 如果目标是可编辑的 DOM 节点，则返回 true。
- */
-const hasEditableTarget = (
-  editor: ReactEditor,
-  target: EventTarget | null,
-): target is DOMNode => {
-  return (
-    isDOMNode(target) &&
-    ReactEditor.hasDOMNode(editor, target, { editable: true })
-  );
-};
 
 export const MEditor = observer(
   ({
     note,
     eleItemRender,
     reportMode,
-    ...props
+    ...editorProps
   }: {
     note: IEditor;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
     className?: string;
+    comment?: MarkdownEditorProps['comment'];
     prefixCls?: string;
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
@@ -154,12 +67,9 @@ export const MEditor = observer(
       if (!eleItemRender) return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
     }, []);
-    const leafRender = useCallback(
-      (props: any) => <MLeaf {...props} children={props.children} />,
-      [],
-    );
+
     const onKeyDown = useKeyboard(store);
-    const onChange = useOnchange(editor, store, props.onChange);
+    const onChange = useOnchange(editor, store, editorProps.onChange);
     const first = useRef(true);
     const highlight = useHighlight(store);
     const save = useCallback(async () => {}, [note]);
@@ -482,11 +392,11 @@ export const MEditor = observer(
           return;
         }
 
-        // Transforms.removeNodes(editor, {
-        //   at: editor.selection!,
-        //   match: (n) => n.type === 'media' || n.type === 'attach',
-        // });
-        // Transforms.insertText(editor, text);
+        Transforms.removeNodes(editor, {
+          at: editor.selection!,
+          match: (n) => n.type === 'media' || n.type === 'attach',
+        });
+        Transforms.insertText(editor, text);
       },
       [note],
     );
@@ -531,24 +441,99 @@ export const MEditor = observer(
       return store.focus || !childrenIsEmpty ? 'focus' : '';
     }, [store.readonly, store.focus, !childrenIsEmpty]);
 
-    const { wrapSSR, hashId } = useStyle(`${props.prefixCls}-content`, {
-      titlePlaceholderContent: props.titlePlaceholderContent,
+    const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
+      titlePlaceholderContent: editorProps.titlePlaceholderContent,
     });
 
-    const baseClassName = `${props.prefixCls}-content`;
+    const baseClassName = `${editorProps.prefixCls}-content`;
 
+    const leafRender = useCallback(
+      (props: any) => (
+        <MLeaf
+          {...props}
+          comment={editorProps.comment}
+          children={props.children}
+          hashId={hashId}
+        />
+      ),
+      [],
+    );
+
+    const commentMap = useMemo(() => {
+      const map = new Map<string, CommentDataType[]>();
+      editorProps.comment?.commentList?.forEach((c) => {
+        const path = c.path.join(',');
+        if (map.has(path)) {
+          map.set(path, [...(map.get(path) || []), c]);
+          return;
+        }
+        map.set(path, [c]);
+      });
+      return map;
+    }, [editorProps.comment?.commentList]);
     return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <SetNodeToDecorations />
         <Editable
-          decorate={highlight}
+          decorate={(e) => {
+            const decorateList = highlight(e);
+            if (!editorProps.comment) return decorateList;
+            if (!editorProps?.comment?.enable === false) return decorateList;
+            if (commentMap.size === 0) return decorateList;
+            const ranges: BaseRange[] = [];
+            const [, path] = e;
+            const item = commentMap.get(path.join(','))?.at(0);
+            if (!item) return decorateList;
+            let newPath = path;
+            if (Array.isArray(path) && path[path.length - 1] !== 0) {
+              newPath = [...path, 0];
+            }
+            const { anchor, focus } = item.selection || {};
+            if (!anchor || !focus) return decorateList;
+            const relativePath = getRelativePath(newPath, anchor.path);
+            const AnchorPath = calcPath(anchor.path, relativePath);
+            const FocusPath = calcPath(focus.path, relativePath);
+            if (
+              isPath(FocusPath) &&
+              isPath(AnchorPath) &&
+              Editor.hasPath(editor, AnchorPath) &&
+              Editor.hasPath(editor, FocusPath)
+            ) {
+              const newSelection = {
+                anchor: { ...anchor, path: AnchorPath },
+                focus: { ...focus, path: FocusPath },
+              };
+              const fragement = Editor.fragment(editor, newSelection);
+              const str = Node.string({ children: fragement });
+              const isStrEquals = str === item.refContent;
+              const relativePath = getRelativePath(newPath, anchor.path);
+              const newAnchorPath = calcPath(anchor.path, relativePath);
+              const newFocusPath = calcPath(focus.path, relativePath);
+
+              if (
+                isStrEquals &&
+                isPath(newFocusPath) &&
+                isPath(newAnchorPath) &&
+                Editor.hasPath(editor, newAnchorPath) &&
+                Editor.hasPath(editor, newFocusPath)
+              ) {
+                ranges.push({
+                  anchor: { path: newAnchorPath, offset: anchor.offset },
+                  focus: { path: newFocusPath, offset: focus.offset },
+                  data: commentMap.get(path.join(',')),
+                  comment: true,
+                } as Range);
+              }
+            }
+            return decorateList.concat(ranges);
+          }}
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
           className={classNames(
             `${baseClassName}-${readonlyCls}`,
             `${baseClassName}`,
-            props.className,
+            editorProps.className,
             {
               [`${baseClassName}-report`]: reportMode,
             },

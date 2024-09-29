@@ -74,6 +74,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '.attach .file.active': {
         borderColor: 'rgb(0 0 0 / 0.5)',
       },
+
       "[data-fnc='fnc']": {
         fontSize: '0.65em',
         paddingLeft: '0.125rem',
@@ -199,7 +200,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontFamily:
           "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,monospace",
       },
-      '&-inline-code': {
+      '& &-inline-code': {
         display: 'inline',
         backgroundColor: '#0000000f',
         borderRadius: '4px',
@@ -209,10 +210,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: 1.1,
         wordBreak: 'break-all',
       },
-      '&-high-text': {
+      '& &-comment': {
+        borderBottom: '2px solid rgba(250, 173, 20, 0.4)',
+        cursor: 'pointer',
+      },
+      '& &-high-text': {
         borderRadius: '18px',
       },
-      '&-m-html': {
+      '& &-m-html': {
         color: 'rgba(0,0,0,0.45)',
       },
       '&:not(:last-child)': {

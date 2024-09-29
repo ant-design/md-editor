@@ -136,6 +136,51 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
+      comment={{
+        commentList: [
+          {
+            id: 1,
+            selection: {
+              anchor: { path: [2, 0], offset: 343 },
+              focus: { path: [2, 0], offset: 398 },
+            },
+            path: [2, 0],
+            anchorOffset: 343,
+            focusOffset: 398,
+            user: {
+              name: '张志东',
+              avatar:
+                'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            },
+            time: 1629340800000,
+            content: '深圳大学是中国最好的大学之一,拥有很多优秀的学生。',
+            refContent:
+              '张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。',
+            commentType: 'comment',
+          },
+          {
+            id: 1,
+            selection: {
+              anchor: { path: [2, 0], offset: 343 },
+              focus: { path: [2, 0], offset: 398 },
+            },
+            path: [2, 0],
+            anchorOffset: 343,
+            focusOffset: 398,
+            user: {
+              name: '张志东',
+              avatar:
+                'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            },
+            time: 1629340800000,
+            content:
+              '张志东, 马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。',
+            refContent:
+              '张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。',
+            commentType: 'comment',
+          },
+        ],
+      }}
       initValue={defaultValue}
     />
   );

@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { nanoid } from 'nanoid';
 import React, {
+  ReactNode,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -15,6 +16,7 @@ import { useSystemKeyboard } from './editor/utils/keyboard';
 
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import { Selection } from 'slate';
 import { MEditor } from './editor/Editor';
 import {
   InsertAutocomplete,
@@ -28,12 +30,27 @@ import { codeReady } from './editor/utils/highlight';
 import { ElementProps, Elements } from './el';
 import './index.css';
 import { useStyle } from './style';
-
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
 export * from './editor/utils';
 export * from './el';
+
+export type CommentDataType = {
+  selection: Selection;
+  path: number[];
+  anchorOffset: number;
+  focusOffset: number;
+  refContent: string;
+  commentType: string;
+  content: string;
+  time: number;
+  id: string | number;
+  user: {
+    name: string;
+    avatar: string;
+  };
+};
 
 export type IEditor = {
   cid: string;
@@ -142,6 +159,20 @@ export type MarkdownEditorProps = {
    * 标题 placeholder
    */
   titlePlaceholderContent?: string;
+
+  comment?: {
+    enable?: boolean;
+    onSubmit?: (value: string) => void;
+    commentList?: CommentDataType[];
+    editorRender?: (defaultDom: ReactNode) => ReactNode;
+    previewRender?: (
+      props: {
+        comment: CommentDataType[];
+      },
+      defaultDom: ReactNode,
+    ) => React.ReactElement;
+    onDelete?: (id: string | number, item: CommentDataType) => void;
+  };
 };
 
 /**

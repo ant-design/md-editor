@@ -279,6 +279,8 @@ export type CustomLeaf<T = Record<string, any>> = {
   // footnote
   fnc?: boolean;
   fnd?: boolean;
+  comment?: boolean;
+  data: Record<string, any>;
 };
 
 export type NodeTypes<T extends Elements = Elements> = T['type'];
