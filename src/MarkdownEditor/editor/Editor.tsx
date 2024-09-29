@@ -5,7 +5,8 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, Node, Range, Transforms } from 'slate';
-import { Editable, RenderElementProps, Slate } from 'slate-react';
+import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
+import { DOMNode } from 'slate-react/dist/utils/dom';
 import {
   Elements,
   IEditor,
@@ -29,21 +30,101 @@ import { getMediaType } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
 
-async function pasteImage(): Promise<Blob | false> {
-  try {
-    const clipboardContents = await navigator.clipboard.read();
-    for (const item of clipboardContents) {
-      if (!item.types.includes('image/png')) {
-        return false;
-      }
-      const blob = await item.getType('image/png');
-      return blob;
-    }
-  } catch (error) {
-    console.log(error);
+export const getDefaultView = (value: any): Window | null => {
+  return (
+    (value && value.ownerDocument && value.ownerDocument.defaultView) || null
+  );
+};
+
+export const isDOMNode = (value: any): value is DOMNode => {
+  const window = getDefaultView(value);
+  return !!window && value instanceof window.Node;
+};
+
+const isEventHandled = <
+  EventType extends React.SyntheticEvent<unknown, unknown>,
+>(
+  event: EventType,
+  handler?: (event: EventType) => void,
+) => {
+  if (!handler) {
+    return false;
   }
-  return false;
+  handler(event);
+  return event.isDefaultPrevented() || event.isPropagationStopped();
+};
+
+export const hasTarget = (
+  editor: ReactEditor,
+  target: EventTarget | null,
+): target is DOMNode => {
+  return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
+};
+
+function checkText(domPoint: any) {
+  if (!isDOMNode(domPoint)) {
+    return false;
+  }
+  let leafNode = domPoint?.parentElement?.closest('[data-slate-leaf]');
+  if (!leafNode) {
+    return false;
+  }
+  const textNode = leafNode.closest('[data-slate-node="text"]')!;
+  return !!textNode;
 }
+
+const isTargetInsideVoid = (
+  editor: ReactEditor,
+  target: EventTarget | null,
+): boolean => {
+  const slateNode =
+    hasTarget(editor, target) && ReactEditor.toSlateNode(editor, target);
+  // @ts-ignore
+  return Editor.isVoid(editor, slateNode);
+};
+
+function getSelectionFromDomSelection(
+  editor: ReactEditor,
+  domSelection: Selection,
+): Range | null {
+  const { anchorNode, focusNode } = domSelection;
+  const anchorNodeSelectable =
+    hasTarget(editor, anchorNode) || isTargetInsideVoid(editor, anchorNode);
+
+  const focusNodeSelectable =
+    hasTarget(editor, focusNode) || isTargetInsideVoid(editor, focusNode);
+  const check = checkText(anchorNode) && checkText(focusNode);
+  if (anchorNodeSelectable && focusNodeSelectable && check) {
+    try {
+      const range = ReactEditor.toSlateRange(editor, domSelection, {
+        exactMatch: true,
+        suppressThrow: false,
+      });
+      return range;
+    } catch (error) {
+      console.log('getSelectionFromDomSelection error', error);
+      return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * 检查目标是否为可编辑的 DOM 节点。
+ *
+ * @param editor - React 编辑器实例。
+ * @param target - 事件目标，可能为 null。
+ * @returns 如果目标是可编辑的 DOM 节点，则返回 true。
+ */
+const hasEditableTarget = (
+  editor: ReactEditor,
+  target: EventTarget | null,
+): target is DOMNode => {
+  return (
+    isDOMNode(target) &&
+    ReactEditor.hasDOMNode(editor, target, { editable: true })
+  );
+};
 
 export const MEditor = observer(
   ({
@@ -206,9 +287,9 @@ export const MEditor = observer(
      * @param {React.ClipboardEvent<HTMLDivElement>} e
      */
     const onPaste = useCallback(
-      async (e: React.ClipboardEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        e.preventDefault();
+      async (event: React.ClipboardEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
 
         if (!Range.isCollapsed(store.editor.selection!)) {
           if (store.editor.selection && store.editor.selection.anchor) {
@@ -217,7 +298,7 @@ export const MEditor = observer(
         }
 
         const selection = store.editor.selection;
-        const text = await navigator.clipboard.readText();
+        const text = event.clipboardData.getData('text/plain');
 
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
@@ -240,8 +321,6 @@ export const MEditor = observer(
 
         if (isMarkdown(text)) {
           parseMarkdownToNodesAndInsert(editor, text);
-          e.stopPropagation();
-          e.preventDefault();
           return;
         }
 
@@ -285,7 +364,7 @@ export const MEditor = observer(
                 );
               }
               if (insert) {
-                e.preventDefault();
+                event.preventDefault();
                 const next = Editor.next(store.editor, { at: path });
                 if (
                   next &&
@@ -298,8 +377,8 @@ export const MEditor = observer(
             }
           }
           if (text.startsWith('http')) {
-            e.preventDefault();
-            e.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             if (['image', 'video', 'audio'].includes(getMediaType(text))) {
               if (text.startsWith('http')) {
                 const path = EditorUtils.findMediaInsertPath(store.editor);
@@ -335,21 +414,14 @@ export const MEditor = observer(
               };
             }),
           );
-          e.stopPropagation();
-          e.preventDefault();
           return;
         }
 
         try {
-          const clipboardItems = await navigator.clipboard.read();
-          const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
-
-          let paste = await pasteItem?.text();
+          const paste = await event.clipboardData.getData('text/html');
           if (paste) {
             const success = insertParsedHtmlNodes(editor, paste);
             if (success) {
-              e.preventDefault();
-              e.stopPropagation();
               return;
             }
           }
@@ -358,14 +430,14 @@ export const MEditor = observer(
         }
 
         try {
-          const urlBlob = await pasteImage();
-          if (urlBlob) {
+          const fileList = event.clipboardData.files;
+          if (fileList.length > 0) {
             const hideLoading = message.loading('Uploading...');
             try {
-              const url =
-                (await props.instance.editorProps?.image?.upload?.([
-                  new File([urlBlob], 'inline.png'),
-                ])) || [];
+              const url = [];
+              for (const file of fileList) {
+                url.push(file);
+              }
 
               if (store.editor.selection?.focus.path) {
                 Transforms.delete(store.editor, {
@@ -398,19 +470,23 @@ export const MEditor = observer(
               hideLoading();
             }
 
-            e.preventDefault();
-            e.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             return;
           }
         } catch (error) {
           console.log('error', error);
         }
+        if (hasEditableTarget(editor, event.target)) {
+          ReactEditor.insertData(editor, event.clipboardData);
+          return;
+        }
 
-        Transforms.removeNodes(editor, {
-          at: editor.selection!,
-          match: (n) => n.type === 'media' || n.type === 'attach',
-        });
-        Transforms.insertText(editor, text);
+        // Transforms.removeNodes(editor, {
+        //   at: editor.selection!,
+        //   match: (n) => n.type === 'media' || n.type === 'attach',
+        // });
+        // Transforms.insertText(editor, text);
       },
       [note],
     );
@@ -493,6 +569,23 @@ export const MEditor = observer(
           onFocus={onFocus}
           onBlur={onBlur}
           onPaste={onPaste}
+          onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
+            if (isEventHandled(event)) {
+              return;
+            }
+            if (!hasEditableTarget(editor, event.target)) {
+              const domSelection = window.getSelection();
+              editor.selection = getSelectionFromDomSelection(
+                editor,
+                domSelection!,
+              );
+              if (!editor.selection) {
+                return;
+              }
+            }
+            event.preventDefault();
+            ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
+          }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
           renderElement={elementRenderElement}

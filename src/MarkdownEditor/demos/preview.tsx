@@ -137,9 +137,6 @@ export default () => {
       height={'100vh'}
       reportMode
       initValue={defaultValue}
-      onChange={(e, s) => {
-        console.log('onChange', e, s);
-      }}
     />
   );
 };
