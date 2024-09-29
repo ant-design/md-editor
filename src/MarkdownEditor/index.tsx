@@ -46,7 +46,7 @@ export type CommentDataType = {
   content: string;
   time: number;
   id: string | number;
-  user: {
+  user?: {
     name: string;
     avatar: string;
   };
@@ -162,7 +162,7 @@ export type MarkdownEditorProps = {
 
   comment?: {
     enable?: boolean;
-    onSubmit?: (value: string) => void;
+    onSubmit?: (id: string, comment: CommentDataType) => void;
     commentList?: CommentDataType[];
     deleteConfirmText?: string;
     editorRender?: (defaultDom: ReactNode) => ReactNode;

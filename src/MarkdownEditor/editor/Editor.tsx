@@ -447,14 +447,28 @@ export const MEditor = observer(
 
     const baseClassName = `${editorProps.prefixCls}-content`;
     const commentMap = useMemo(() => {
-      const map = new Map<string, CommentDataType[]>();
+      const map = new Map<string, Map<string, CommentDataType[]>>();
       editorProps.comment?.commentList?.forEach((c) => {
         const path = c.path.join(',');
         if (map.has(path)) {
-          map.set(path, [...(map.get(path) || []), c]);
-          return;
+          const childrenMap = map.get(path);
+          const selection = JSON.stringify(c.selection);
+          if (childrenMap?.has(selection)) {
+            childrenMap.set(selection, [
+              ...(childrenMap.get(selection) || []),
+              c,
+            ]);
+            map.set(path, childrenMap);
+            return;
+          } else if (childrenMap) {
+            childrenMap?.set(selection, [c]);
+            map.set(path, childrenMap);
+            return;
+          }
         }
-        map.set(path, [c]);
+        const childrenMap = new Map<string, CommentDataType[]>();
+        childrenMap.set(JSON.stringify(c.selection), [c]);
+        map.set(path, childrenMap);
       });
       return map;
     }, [editorProps.comment?.commentList]);
@@ -480,54 +494,59 @@ export const MEditor = observer(
           decorate={(e) => {
             const decorateList = highlight(e);
             if (!editorProps.comment) return decorateList;
-            if (!editorProps?.comment?.enable === false) return decorateList;
+            if (editorProps?.comment?.enable === false) return decorateList;
             if (commentMap.size === 0) return decorateList;
             const ranges: BaseRange[] = [];
             const [, path] = e;
-            const item = commentMap.get(path.join(','))?.at(0);
-            if (!item) return decorateList;
+            const itemMap = commentMap.get(path.join(','));
+            if (!itemMap) return decorateList;
             let newPath = path;
             if (Array.isArray(path) && path[path.length - 1] !== 0) {
               newPath = [...path, 0];
             }
-            const { anchor, focus } = item.selection || {};
-            if (!anchor || !focus) return decorateList;
-            const relativePath = getRelativePath(newPath, anchor.path);
-            const AnchorPath = calcPath(anchor.path, relativePath);
-            const FocusPath = calcPath(focus.path, relativePath);
-            if (
-              isPath(FocusPath) &&
-              isPath(AnchorPath) &&
-              Editor.hasPath(editor, AnchorPath) &&
-              Editor.hasPath(editor, FocusPath)
-            ) {
-              const newSelection = {
-                anchor: { ...anchor, path: AnchorPath },
-                focus: { ...focus, path: FocusPath },
-              };
-              const fragement = Editor.fragment(editor, newSelection);
-              const str = Node.string({ children: fragement });
-              const isStrEquals = str === item.refContent;
+            itemMap.forEach((itemList) => {
+              const item = itemList[0];
+              const { anchor, focus } = item.selection || {};
+              if (!anchor || !focus) return decorateList;
               const relativePath = getRelativePath(newPath, anchor.path);
-              const newAnchorPath = calcPath(anchor.path, relativePath);
-              const newFocusPath = calcPath(focus.path, relativePath);
+              const AnchorPath = calcPath(anchor.path, relativePath);
+              const FocusPath = calcPath(focus.path, relativePath);
 
               if (
-                isStrEquals &&
-                isPath(newFocusPath) &&
-                isPath(newAnchorPath) &&
-                Editor.hasPath(editor, newAnchorPath) &&
-                Editor.hasPath(editor, newFocusPath)
+                isPath(FocusPath) &&
+                isPath(AnchorPath) &&
+                Editor.hasPath(editor, AnchorPath) &&
+                Editor.hasPath(editor, FocusPath)
               ) {
-                ranges.push({
-                  anchor: { path: newAnchorPath, offset: anchor.offset },
-                  focus: { path: newFocusPath, offset: focus.offset },
-                  data: commentMap.get(path.join(',')),
-                  comment: true,
-                  updateTime: Date.now(),
-                } as Range);
+                const newSelection = {
+                  anchor: { ...anchor, path: AnchorPath },
+                  focus: { ...focus, path: FocusPath },
+                };
+                const fragement = Editor.fragment(editor, newSelection);
+                const str = Node.string({ children: fragement });
+                const isStrEquals = str === item.refContent;
+                const relativePath = getRelativePath(newPath, anchor.path);
+                const newAnchorPath = calcPath(anchor.path, relativePath);
+                const newFocusPath = calcPath(focus.path, relativePath);
+
+                if (
+                  isStrEquals &&
+                  isPath(newFocusPath) &&
+                  isPath(newAnchorPath) &&
+                  Editor.hasPath(editor, newAnchorPath) &&
+                  Editor.hasPath(editor, newFocusPath)
+                ) {
+                  ranges.push({
+                    anchor: { path: newAnchorPath, offset: anchor.offset },
+                    focus: { path: newFocusPath, offset: focus.offset },
+                    data: itemList,
+                    comment: true,
+                    updateTime: Date.now(),
+                  } as Range);
+                }
               }
-            }
+            });
+
             return decorateList.concat(ranges);
           }}
           onError={onError}

@@ -186,6 +186,21 @@ export default () => {
         onDelete: async (id) => {
           setList(list.filter((i) => i.id !== id));
         },
+        onSubmit: async (id, data) => {
+          setList([
+            ...list,
+            {
+              ...data,
+              user: {
+                name: '张志东',
+                avatar:
+                  'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+              },
+              id: list.length + 1,
+              time: new Date().getTime(),
+            } as any,
+          ]);
+        },
       }}
       initValue={defaultValue}
     />

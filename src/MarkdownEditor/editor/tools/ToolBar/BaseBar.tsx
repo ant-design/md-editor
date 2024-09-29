@@ -9,13 +9,13 @@
   StrikethroughOutlined,
   UndoOutlined,
 } from '@ant-design/icons';
-import { ColorPicker, Divider, Dropdown } from 'antd';
+import { ColorPicker, Divider, Dropdown, Input, Modal } from 'antd';
 import classnames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Editor, Element, Node, NodeEntry, Point } from 'slate';
-import { keyTask$ } from '../../../index';
+import { Editor, Element, Node, NodeEntry, Point, Transforms } from 'slate';
+import { CommentDataType, keyTask$ } from '../../../index';
 import { useEditorStore } from '../../store';
 import {
   EditorUtils,
@@ -337,14 +337,54 @@ export const BaseToolBar = observer(
               const anchorOffset = getPointStrOffset(editor, start);
               const focusOffset = getPointStrOffset(editor, end);
 
-              const comment = {
+              const comment: CommentDataType = {
                 selection: { anchor: start, focus: end },
+                path: start.path,
+                time: Date.now(),
+                id: Date.now(),
+                content: '',
                 anchorOffset: anchorOffset,
                 focusOffset: focusOffset,
                 refContent: title,
                 commentType: 'comment',
               };
-              console.log('[addComment] comment', comment);
+              Modal.confirm({
+                title: '添加评论',
+                content: (
+                  <Input.TextArea
+                    style={{
+                      width: '100%',
+                      height: 100,
+                      resize: 'none',
+                    }}
+                    onChange={(e) => {
+                      comment.content = e.target.value;
+                    }}
+                  />
+                ),
+                icon: null,
+                onOk: async () => {
+                  if (comment.content.trim() === '') {
+                    return;
+                  }
+                  try {
+                    await store.editorProps?.comment?.onSubmit?.(
+                      comment.id + '',
+                      comment,
+                    );
+                    // 更新时间戳,触发一下dom的rerender，不然不给我更新
+                    Transforms.setNodes(
+                      editor,
+                      {
+                        updateTimestamp: Date.now(),
+                      },
+                      {
+                        at: comment.path,
+                      },
+                    );
+                  } catch (error) {}
+                },
+              });
             }}
           >
             <CommentOutlined />

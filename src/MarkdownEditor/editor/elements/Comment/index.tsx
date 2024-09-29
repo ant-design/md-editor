@@ -23,6 +23,7 @@ export const CommentView = (props: {
   if (!props.commentItem?.length) {
     return <>{props.children}</>;
   }
+
   return wrapSSR(
     <Popover
       align={{
