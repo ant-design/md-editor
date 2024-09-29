@@ -181,6 +181,7 @@ export default () => {
       height={'100vh'}
       reportMode
       comment={{
+        enable: true,
         commentList: list,
         onDelete: async (id) => {
           setList(list.filter((i) => i.id !== id));

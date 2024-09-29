@@ -297,58 +297,61 @@ export const BaseToolBar = observer(
           />,
         );
       }
-      list.push(
-        <div
-          role="button"
-          key="comment"
-          className={classnames(`${baseClassName}-item`, hashId)}
-          onClick={() => {
-            const domSelection = window.getSelection();
-            const editor = store.editor;
-            let selection = editor.selection;
-            if (!selection) {
-              if (store.readonly && domSelection) {
-                selection = getSelectionFromDomSelection(
-                  store.editor,
-                  domSelection!,
-                );
-              }
-
+      if (store.editorProps.comment?.enable) {
+        list.push(
+          <div
+            role="button"
+            key="comment"
+            className={classnames(`${baseClassName}-item`, hashId)}
+            onClick={() => {
+              const domSelection = window.getSelection();
+              const editor = store.editor;
+              let selection = editor.selection;
               if (!selection) {
-                return;
+                if (store.readonly && domSelection) {
+                  selection = getSelectionFromDomSelection(
+                    store.editor,
+                    domSelection!,
+                  );
+                }
+
+                if (!selection) {
+                  return;
+                }
               }
-            }
-            console.log('[addComment] selection', selection);
+              console.log('[addComment] selection', selection);
 
-            let texts: string[] = [];
-            let title = '';
-            const fragments = Node.fragment(editor, selection);
-            for (let i = 0; i < fragments.length; i++) {
-              texts.push(Node.string(fragments[i]));
-            }
-            for (const str of texts) {
-              title += str;
-            }
-            const { focus, anchor } = selection;
-            const [start, end] = Point.isAfter(focus, anchor)
-              ? [anchor, focus]
-              : [focus, anchor];
-            const anchorOffset = getPointStrOffset(editor, start);
-            const focusOffset = getPointStrOffset(editor, end);
+              let texts: string[] = [];
+              let title = '';
+              const fragments = Node.fragment(editor, selection);
+              for (let i = 0; i < fragments.length; i++) {
+                texts.push(Node.string(fragments[i]));
+              }
+              for (const str of texts) {
+                title += str;
+              }
+              const { focus, anchor } = selection;
+              const [start, end] = Point.isAfter(focus, anchor)
+                ? [anchor, focus]
+                : [focus, anchor];
+              const anchorOffset = getPointStrOffset(editor, start);
+              const focusOffset = getPointStrOffset(editor, end);
 
-            const comment = {
-              selection: { anchor: start, focus: end },
-              anchorOffset: anchorOffset,
-              focusOffset: focusOffset,
-              refContent: title,
-              commentType: 'comment',
-            };
-            console.log('[addComment] comment', comment);
-          }}
-        >
-          <CommentOutlined />
-        </div>,
-      );
+              const comment = {
+                selection: { anchor: start, focus: end },
+                anchorOffset: anchorOffset,
+                focusOffset: focusOffset,
+                refContent: title,
+                commentType: 'comment',
+              };
+              console.log('[addComment] comment', comment);
+            }}
+          >
+            <CommentOutlined />
+          </div>,
+        );
+      }
+
       list.push(
         <div
           key="color"
