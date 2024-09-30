@@ -10,9 +10,9 @@ import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
 import { useCallback, useContext, useEffect } from 'react';
-import { Editor, Path, Transforms } from 'slate';
+import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { TableCellNode, TableRowNode } from '../../el';
+import { TableCellNode, TableNode, TableRowNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -122,8 +122,8 @@ interface TableAttrState {
 interface TableAttrProps {
   state: TableAttrState;
   setState: React.Dispatch<React.SetStateAction<TableAttrState>>;
-  tableRef: React.MutableRefObject<any>;
-  tableCellRef: React.MutableRefObject<any>;
+  tableRef: React.MutableRefObject<NodeEntry<TableNode> | undefined>;
+  tableCellRef: React.MutableRefObject<NodeEntry<TableCellNode> | undefined>;
 }
 
 export const TableAttr = observer(
