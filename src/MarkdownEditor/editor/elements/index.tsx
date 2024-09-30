@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
 import React, { CSSProperties, useContext, useMemo } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -6,6 +7,7 @@ import {
   RenderElementProps,
   RenderLeafProps,
 } from 'slate-react/dist/components/editable';
+import { MarkdownEditorProps } from '../..';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
@@ -13,6 +15,7 @@ import { Blockquote } from './blockquote';
 import { Chart } from './chart';
 import { CodeCtx, CodeElement, CodeLine } from './code';
 import { ColumnCell, ColumnGroup } from './column';
+import { CommentView } from './Comment';
 import { Description } from './description';
 import { FootnoteDefinition } from './FootnoteDefinition';
 import { FootnoteReference } from './FootnoteReference';
@@ -95,28 +98,36 @@ export const MElement = (props: RenderElementProps) => {
   }
 };
 
-export const MLeaf = (props: RenderLeafProps) => {
+export const MLeaf = (
+  props: RenderLeafProps & {
+    hashId: string;
+    comment: MarkdownEditorProps['comment'];
+  },
+) => {
   const code = useContext(CodeCtx);
   const store = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseCls = context.getPrefixCls('md-editor');
+  const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
   return useMemo(() => {
     const leaf = props.leaf;
     const style: CSSProperties = {};
     let className = '';
     let children = <>{props.children}</>;
     if (leaf.code)
-      children = <code className={baseCls + '-inline-code'}>{children}</code>;
+      children = (
+        <code className={mdEditorBaseClass + '-inline-code'}>{children}</code>
+      );
     if (leaf.highColor) style.color = leaf.highColor;
     if (leaf.color) style.color = leaf.color;
     if (leaf.bold) children = <strong>{children}</strong>;
     if (leaf.strikethrough) children = <s>{children}</s>;
     if (leaf.italic) children = <i>{children}</i>;
-    if (leaf.highlight) className = ' ' + baseCls + '-high-text';
-    if (leaf.html) className += ' ' + baseCls + '-m-html';
+    if (leaf.highlight) className = ' ' + mdEditorBaseClass + '-high-text';
+    if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';
     if (leaf.current) {
       style.background = '#f59e0b';
     }
+
     const dirty =
       leaf.bold ||
       leaf.code ||
@@ -174,43 +185,53 @@ export const MLeaf = (props: RenderLeafProps) => {
     }
 
     return (
-      <span
-        {...props.attributes}
-        data-be={'text'}
-        draggable={false}
-        onDragStart={dragStart}
-        onClick={(e) => {
-          if (e.detail === 2) {
-            selectFormat();
-          }
-        }}
-        data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
-        data-fnd={leaf.fnd ? 'fnd' : undefined}
-        data-fnc-name={
-          leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
-        }
-        data-fnd-name={
-          leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
-        }
-        className={`${!!dirty ? 'mx-[1px]' : ''} ${className}`}
-        style={{
-          fontSize: leaf.fnc ? 10 : undefined,
-          ...style,
-        }}
-        id={
-          'md-editor-ref' +
-          //@ts-ignore
-          (leaf.identifier || '')
-        }
+      <CommentView
+        comment={props.comment}
+        commentItem={leaf?.comment ? (leaf.data as any) : null}
       >
-        {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
-        {leaf.fnc || leaf.identifier
-          ? leaf.text?.replaceAll('[^', '').replaceAll(']', '')
-          : children}
-        {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
-      </span>
+        <span
+          {...props.attributes}
+          data-be={'text'}
+          draggable={false}
+          onDragStart={dragStart}
+          onClick={(e) => {
+            if (e.detail === 2) {
+              selectFormat();
+            }
+          }}
+          data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
+          data-fnd={leaf.fnd ? 'fnd' : undefined}
+          data-comment={leaf.comment ? 'comment' : undefined}
+          data-fnc-name={
+            leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+          }
+          data-fnd-name={
+            leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+          }
+          className={classNames(className, props.hashId, {
+            [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
+            [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
+            [`${mdEditorBaseClass}-comment`]: leaf.comment,
+          })}
+          style={{
+            fontSize: leaf.fnc ? 10 : undefined,
+            ...style,
+          }}
+          id={
+            'md-editor-ref' +
+            //@ts-ignore
+            (leaf.identifier || '')
+          }
+        >
+          {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+          {leaf.fnc || leaf.identifier
+            ? leaf.text?.replaceAll('[^', '').replaceAll(']', '')
+            : children}
+          {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+        </span>
+      </CommentView>
     );
-  }, [props.leaf, props.leaf.text, code.lang]);
+  }, [props.leaf, props.leaf.text, code.lang, props.leaf.comment]);
 };
 
 export {

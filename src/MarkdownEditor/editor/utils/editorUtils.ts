@@ -11,6 +11,7 @@ import {
 } from 'slate';
 import { History } from 'slate-history';
 import { ReactEditor } from 'slate-react';
+import { DOMNode } from 'slate-react/dist/utils/dom';
 import { CustomLeaf } from '../../el';
 import { EditorStore } from '../store';
 import { getOffsetTop } from './dom';
@@ -338,4 +339,161 @@ export class EditorUtils {
       return Editor.start(editor, []).path;
     }
   }
+}
+
+export const getDefaultView = (value: any): Window | null => {
+  return (
+    (value && value.ownerDocument && value.ownerDocument.defaultView) || null
+  );
+};
+
+export const isDOMNode = (value: any): value is DOMNode => {
+  const window = getDefaultView(value);
+  return !!window && value instanceof window.Node;
+};
+
+export const isEventHandled = <
+  EventType extends React.SyntheticEvent<unknown, unknown>,
+>(
+  event: EventType,
+  handler?: (event: EventType) => void,
+) => {
+  if (!handler) {
+    return false;
+  }
+  handler(event);
+  return event.isDefaultPrevented() || event.isPropagationStopped();
+};
+
+export const hasTarget = (
+  editor: ReactEditor,
+  target: EventTarget | null,
+): target is DOMNode => {
+  return isDOMNode(target) && ReactEditor.hasDOMNode(editor, target);
+};
+
+function checkText(domPoint: any) {
+  if (!isDOMNode(domPoint)) {
+    return false;
+  }
+  let leafNode = domPoint?.parentElement?.closest('[data-slate-leaf]');
+  if (!leafNode) {
+    return false;
+  }
+  const textNode = leafNode.closest('[data-slate-node="text"]')!;
+  return !!textNode;
+}
+
+export const isTargetInsideVoid = (
+  editor: ReactEditor,
+  target: EventTarget | null,
+): boolean => {
+  const slateNode =
+    hasTarget(editor, target) && ReactEditor.toSlateNode(editor, target);
+  // @ts-ignore
+  return Editor.isVoid(editor, slateNode);
+};
+
+export function getSelectionFromDomSelection(
+  editor: ReactEditor,
+  domSelection: Selection,
+): Range | null {
+  const { anchorNode, focusNode } = domSelection;
+  const anchorNodeSelectable =
+    hasTarget(editor, anchorNode) || isTargetInsideVoid(editor, anchorNode);
+
+  const focusNodeSelectable =
+    hasTarget(editor, focusNode) || isTargetInsideVoid(editor, focusNode);
+  const check = checkText(anchorNode) && checkText(focusNode);
+  if (anchorNodeSelectable && focusNodeSelectable && check) {
+    try {
+      const range = ReactEditor.toSlateRange(editor, domSelection, {
+        exactMatch: true,
+        suppressThrow: false,
+      });
+      return range;
+    } catch (error) {
+      console.log('getSelectionFromDomSelection error', error);
+      return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * 检查目标是否为可编辑的 DOM 节点。
+ *
+ * @param editor - React 编辑器实例。
+ * @param target - 事件目标，可能为 null。
+ * @returns 如果目标是可编辑的 DOM 节点，则返回 true。
+ */
+export const hasEditableTarget = (
+  editor: ReactEditor,
+  target: EventTarget | null,
+): target is DOMNode => {
+  return (
+    isDOMNode(target) &&
+    ReactEditor.hasDOMNode(editor, target, { editable: true })
+  );
+};
+
+export function getPointStrOffset(editor: Editor, point: Point) {
+  const nodes = Node.fragment(editor, {
+    anchor: { path: Node.first(editor, point.path)[1], offset: 0 },
+    focus: point,
+  });
+  const str = Node.string({
+    type: '',
+    children: nodes,
+  } as any);
+  return str.length;
+}
+
+export function getRelativePath(path: string | any[], anther: string | any[]) {
+  const newPath = [...path];
+  const newAnther = [...anther];
+  const relativeLen = path.length - anther.length;
+  if (relativeLen > 0) {
+    newAnther.unshift(new Array(relativeLen).fill(0));
+  } else if (relativeLen < 0) {
+    return new Array(anther.length).fill(0);
+    newPath.unshift(new Array(-relativeLen).fill(0));
+  }
+
+  const relativePath = [];
+  for (let i = 0; i < newPath.length; i++) {
+    if (newPath[i] !== newAnther[i]) {
+      relativePath.push(newPath[i] - newAnther[i]);
+    } else {
+      relativePath.push(0);
+    }
+  }
+  return relativePath;
+}
+
+export function calcPath(path: string | any[], anther: string | any[]) {
+  const newPath = [...path];
+  const newAnther = [...anther];
+  const relativeLen = path.length - anther.length;
+  if (relativeLen > 0) {
+    newAnther.unshift(new Array(relativeLen).fill(0));
+  } else if (relativeLen < 0) {
+    newPath.unshift(new Array(-relativeLen).fill(0));
+  }
+
+  const relativePath = [];
+  for (let i = 0; i < newPath.length; i++) {
+    relativePath.push(newPath[i] + newAnther[i]);
+  }
+  return relativePath;
+}
+
+export function isPath(path: string | any[]) {
+  for (let i = 0; i < path.length; i++) {
+    const num = path[i];
+    if (!(isFinite(num) && num >= 0)) {
+      return false;
+    }
+  }
+  return true;
 }

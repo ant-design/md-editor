@@ -4,9 +4,10 @@ import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Editor, Element, Node, Range, Transforms } from 'slate';
-import { Editable, RenderElementProps, Slate } from 'slate-react';
+import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
+import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import {
+  CommentDataType,
   Elements,
   IEditor,
   MarkdownEditorInstance,
@@ -26,37 +27,30 @@ import { useEditorStore } from './store';
 import { useStyle } from './style';
 import { isMarkdown } from './utils';
 import { getMediaType } from './utils/dom';
-import { EditorUtils } from './utils/editorUtils';
+import {
+  calcPath,
+  EditorUtils,
+  getRelativePath,
+  getSelectionFromDomSelection,
+  hasEditableTarget,
+  isEventHandled,
+  isPath,
+} from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
-
-async function pasteImage(): Promise<Blob | false> {
-  try {
-    const clipboardContents = await navigator.clipboard.read();
-    for (const item of clipboardContents) {
-      if (!item.types.includes('image/png')) {
-        return false;
-      }
-      const blob = await item.getType('image/png');
-      return blob;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  return false;
-}
 
 export const MEditor = observer(
   ({
     note,
     eleItemRender,
     reportMode,
-    ...props
+    ...editorProps
   }: {
     note: IEditor;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
     className?: string;
+    comment?: MarkdownEditorProps['comment'];
     prefixCls?: string;
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
@@ -73,12 +67,9 @@ export const MEditor = observer(
       if (!eleItemRender) return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
     }, []);
-    const leafRender = useCallback(
-      (props: any) => <MLeaf {...props} children={props.children} />,
-      [],
-    );
+
     const onKeyDown = useKeyboard(store);
-    const onChange = useOnchange(editor, store, props.onChange);
+    const onChange = useOnchange(editor, store, editorProps.onChange);
     const first = useRef(true);
     const highlight = useHighlight(store);
     const save = useCallback(async () => {}, [note]);
@@ -206,9 +197,9 @@ export const MEditor = observer(
      * @param {React.ClipboardEvent<HTMLDivElement>} e
      */
     const onPaste = useCallback(
-      async (e: React.ClipboardEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        e.preventDefault();
+      async (event: React.ClipboardEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
 
         if (!Range.isCollapsed(store.editor.selection!)) {
           if (store.editor.selection && store.editor.selection.anchor) {
@@ -217,7 +208,7 @@ export const MEditor = observer(
         }
 
         const selection = store.editor.selection;
-        const text = await navigator.clipboard.readText();
+        const text = event.clipboardData.getData('text/plain');
 
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
@@ -240,8 +231,6 @@ export const MEditor = observer(
 
         if (isMarkdown(text)) {
           parseMarkdownToNodesAndInsert(editor, text);
-          e.stopPropagation();
-          e.preventDefault();
           return;
         }
 
@@ -285,7 +274,7 @@ export const MEditor = observer(
                 );
               }
               if (insert) {
-                e.preventDefault();
+                event.preventDefault();
                 const next = Editor.next(store.editor, { at: path });
                 if (
                   next &&
@@ -298,8 +287,8 @@ export const MEditor = observer(
             }
           }
           if (text.startsWith('http')) {
-            e.preventDefault();
-            e.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             if (['image', 'video', 'audio'].includes(getMediaType(text))) {
               if (text.startsWith('http')) {
                 const path = EditorUtils.findMediaInsertPath(store.editor);
@@ -335,21 +324,14 @@ export const MEditor = observer(
               };
             }),
           );
-          e.stopPropagation();
-          e.preventDefault();
           return;
         }
 
         try {
-          const clipboardItems = await navigator.clipboard.read();
-          const pasteItem = await clipboardItems.at(-1)?.getType('text/html');
-
-          let paste = await pasteItem?.text();
+          const paste = await event.clipboardData.getData('text/html');
           if (paste) {
             const success = insertParsedHtmlNodes(editor, paste);
             if (success) {
-              e.preventDefault();
-              e.stopPropagation();
               return;
             }
           }
@@ -358,14 +340,14 @@ export const MEditor = observer(
         }
 
         try {
-          const urlBlob = await pasteImage();
-          if (urlBlob) {
+          const fileList = event.clipboardData.files;
+          if (fileList.length > 0) {
             const hideLoading = message.loading('Uploading...');
             try {
-              const url =
-                (await props.instance.editorProps?.image?.upload?.([
-                  new File([urlBlob], 'inline.png'),
-                ])) || [];
+              const url = [];
+              for (const file of fileList) {
+                url.push(file);
+              }
 
               if (store.editor.selection?.focus.path) {
                 Transforms.delete(store.editor, {
@@ -398,12 +380,16 @@ export const MEditor = observer(
               hideLoading();
             }
 
-            e.preventDefault();
-            e.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
             return;
           }
         } catch (error) {
           console.log('error', error);
+        }
+        if (hasEditableTarget(editor, event.target)) {
+          ReactEditor.insertData(editor, event.clipboardData);
+          return;
         }
 
         Transforms.removeNodes(editor, {
@@ -455,24 +441,121 @@ export const MEditor = observer(
       return store.focus || !childrenIsEmpty ? 'focus' : '';
     }, [store.readonly, store.focus, !childrenIsEmpty]);
 
-    const { wrapSSR, hashId } = useStyle(`${props.prefixCls}-content`, {
-      titlePlaceholderContent: props.titlePlaceholderContent,
+    const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
+      titlePlaceholderContent: editorProps.titlePlaceholderContent,
     });
 
-    const baseClassName = `${props.prefixCls}-content`;
+    const baseClassName = `${editorProps.prefixCls}-content`;
+    const commentMap = useMemo(() => {
+      const map = new Map<string, Map<string, CommentDataType[]>>();
+      editorProps.comment?.commentList?.forEach((c) => {
+        const path = c.path.join(',');
+        if (map.has(path)) {
+          const childrenMap = map.get(path);
+          const selection = JSON.stringify(c.selection);
+          if (childrenMap?.has(selection)) {
+            childrenMap.set(selection, [
+              ...(childrenMap.get(selection) || []),
+              c,
+            ]);
+            map.set(path, childrenMap);
+            return;
+          } else if (childrenMap) {
+            childrenMap?.set(selection, [c]);
+            map.set(path, childrenMap);
+            return;
+          }
+        }
+        const childrenMap = new Map<string, CommentDataType[]>();
+        childrenMap.set(JSON.stringify(c.selection), [c]);
+        map.set(path, childrenMap);
+      });
+      return map;
+    }, [editorProps.comment?.commentList]);
+
+    const renderMarkdownLeaf = useCallback(
+      (props: any) => {
+        return (
+          <MLeaf
+            {...props}
+            comment={editorProps.comment}
+            children={props.children}
+            hashId={hashId}
+          />
+        );
+      },
+      [commentMap],
+    );
 
     return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <SetNodeToDecorations />
         <Editable
-          decorate={highlight}
+          decorate={(e) => {
+            const decorateList = highlight(e);
+            if (!editorProps.comment) return decorateList;
+            if (editorProps?.comment?.enable === false) return decorateList;
+            if (commentMap.size === 0) return decorateList;
+            const ranges: BaseRange[] = [];
+            const [, path] = e;
+            const itemMap = commentMap.get(path.join(','));
+            if (!itemMap) return decorateList;
+            let newPath = path;
+            if (Array.isArray(path) && path[path.length - 1] !== 0) {
+              newPath = [...path, 0];
+            }
+            itemMap.forEach((itemList) => {
+              const item = itemList[0];
+              const { anchor, focus } = item.selection || {};
+              if (!anchor || !focus) return decorateList;
+              const relativePath = getRelativePath(newPath, anchor.path);
+              const AnchorPath = calcPath(anchor.path, relativePath);
+              const FocusPath = calcPath(focus.path, relativePath);
+
+              if (
+                isPath(FocusPath) &&
+                isPath(AnchorPath) &&
+                Editor.hasPath(editor, AnchorPath) &&
+                Editor.hasPath(editor, FocusPath)
+              ) {
+                const newSelection = {
+                  anchor: { ...anchor, path: AnchorPath },
+                  focus: { ...focus, path: FocusPath },
+                };
+                const fragement = Editor.fragment(editor, newSelection);
+                const str = Node.string({ children: fragement });
+                const isStrEquals = str === item.refContent;
+                const relativePath = getRelativePath(newPath, anchor.path);
+                const newAnchorPath = calcPath(anchor.path, relativePath);
+                const newFocusPath = calcPath(focus.path, relativePath);
+
+                if (
+                  isStrEquals &&
+                  isPath(newFocusPath) &&
+                  isPath(newAnchorPath) &&
+                  Editor.hasPath(editor, newAnchorPath) &&
+                  Editor.hasPath(editor, newFocusPath)
+                ) {
+                  ranges.push({
+                    anchor: { path: newAnchorPath, offset: anchor.offset },
+                    focus: { path: newFocusPath, offset: focus.offset },
+                    data: itemList,
+                    comment: true,
+                    updateTime: Date.now(),
+                  } as Range);
+                }
+              }
+            });
+
+            return decorateList.concat(ranges);
+          }}
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
           className={classNames(
             `${baseClassName}-${readonlyCls}`,
             `${baseClassName}`,
-            props.className,
+            editorProps.className,
             {
               [`${baseClassName}-report`]: reportMode,
             },
@@ -493,11 +576,28 @@ export const MEditor = observer(
           onFocus={onFocus}
           onBlur={onBlur}
           onPaste={onPaste}
+          onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
+            if (isEventHandled(event)) {
+              return;
+            }
+            if (!hasEditableTarget(editor, event.target)) {
+              const domSelection = window.getSelection();
+              editor.selection = getSelectionFromDomSelection(
+                editor,
+                domSelection!,
+              );
+              if (!editor.selection) {
+                return;
+              }
+            }
+            event.preventDefault();
+            ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
+          }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
           renderElement={elementRenderElement}
           onKeyDown={onKeyDown}
-          renderLeaf={leafRender}
+          renderLeaf={renderMarkdownLeaf}
         />
       </Slate>,
     );

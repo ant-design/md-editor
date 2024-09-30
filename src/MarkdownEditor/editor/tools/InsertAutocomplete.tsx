@@ -7,13 +7,18 @@ import {
   TableOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-import { ConfigProvider } from 'antd';
+import { Button, ConfigProvider, Divider, Input, Tabs } from 'antd';
 import classNames from 'classnames';
-import { Button, Divider, Input, Tabs } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useMemo, useRef, useContext } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useSubject } from '../../hooks/subscribe';
@@ -563,7 +568,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
     }, [store.openInsertCompletion]);
 
     const context = useContext(ConfigProvider.ConfigContext);
-    const baseClassName = context.getPrefixCls(`md-editor-insert-autocomplete`)
+    const baseClassName = context.getPrefixCls(`md-editor-insert-autocomplete`);
 
     const { wrapSSR, hashId } = useStyle(baseClassName);
     return wrapSSR(
@@ -637,6 +642,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                       data-action={el.key}
                       onClick={(e) => {
                         e.stopPropagation();
+                        e.preventDefault();
                         const task = state.options[state.index];
                         if (!task) {
                           const myInsertOptions = props?.insertOptions?.find?.(
@@ -801,7 +807,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             />
           </div>
         )}
-      </div>
+      </div>,
     );
   },
 );

@@ -107,7 +107,6 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'table':
-      console.log(node);
       str += table(node, preString, newParent);
       break;
     case 'chart':

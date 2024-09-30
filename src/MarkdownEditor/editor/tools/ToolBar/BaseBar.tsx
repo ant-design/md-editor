@@ -1,6 +1,7 @@
 ﻿import {
   BoldOutlined,
   ClearOutlined,
+  CommentOutlined,
   ItalicOutlined,
   LinkOutlined,
   PlusCircleFilled,
@@ -8,15 +9,19 @@
   StrikethroughOutlined,
   UndoOutlined,
 } from '@ant-design/icons';
-import { ColorPicker, Divider, Dropdown } from 'antd';
+import { ColorPicker, Divider, Dropdown, Input, Modal } from 'antd';
 import classnames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Editor, Element, NodeEntry } from 'slate';
-import { keyTask$ } from '../../../index';
+import { Editor, Element, Node, NodeEntry, Point, Transforms } from 'slate';
+import { CommentDataType, keyTask$ } from '../../../index';
 import { useEditorStore } from '../../store';
-import { EditorUtils } from '../../utils/editorUtils';
+import {
+  EditorUtils,
+  getPointStrOffset,
+  getSelectionFromDomSelection,
+} from '../../utils/editorUtils';
 import { getInsertOptions } from '../InsertAutocomplete';
 
 const HeatTextMap = {
@@ -238,6 +243,7 @@ export const BaseToolBar = observer(
             <ClearOutlined />
           </div>,
         );
+
         if (['head', 'paragraph'].includes(node?.[0]?.type)) {
           list.push(
             <Dropdown
@@ -282,7 +288,6 @@ export const BaseToolBar = observer(
       if (list.length > 0) {
         list.push(
           <Divider
-            key="divider"
             type="vertical"
             style={{
               margin: '0 4px',
@@ -290,6 +295,99 @@ export const BaseToolBar = observer(
               borderColor: 'rgba(0,0,0,0.15)',
             }}
           />,
+        );
+      }
+      if (store.editorProps.comment?.enable && !props.showEditor) {
+        list.push(
+          <div
+            role="button"
+            key="comment"
+            className={classnames(`${baseClassName}-item`, hashId)}
+            onClick={() => {
+              const domSelection = window.getSelection();
+              const editor = store.editor;
+              let selection = editor.selection;
+              if (!selection) {
+                if (store.readonly && domSelection) {
+                  selection = getSelectionFromDomSelection(
+                    store.editor,
+                    domSelection!,
+                  );
+                }
+
+                if (!selection) {
+                  return;
+                }
+              }
+
+              let texts: string[] = [];
+              let title = '';
+              const fragments = Node.fragment(editor, selection);
+              for (let i = 0; i < fragments.length; i++) {
+                texts.push(Node.string(fragments[i]));
+              }
+              for (const str of texts) {
+                title += str;
+              }
+              const { focus, anchor } = selection;
+              const [start, end] = Point.isAfter(focus, anchor)
+                ? [anchor, focus]
+                : [focus, anchor];
+              const anchorOffset = getPointStrOffset(editor, start);
+              const focusOffset = getPointStrOffset(editor, end);
+
+              const comment: CommentDataType = {
+                selection: { anchor: start, focus: end },
+                path: start.path,
+                time: Date.now(),
+                id: Date.now(),
+                content: '',
+                anchorOffset: anchorOffset,
+                focusOffset: focusOffset,
+                refContent: title,
+                commentType: 'comment',
+              };
+              Modal.confirm({
+                title: '添加评论',
+                content: (
+                  <Input.TextArea
+                    style={{
+                      width: '100%',
+                      height: 100,
+                      resize: 'none',
+                    }}
+                    onChange={(e) => {
+                      comment.content = e.target.value;
+                    }}
+                  />
+                ),
+                icon: null,
+                onOk: async () => {
+                  if (comment.content.trim() === '') {
+                    return;
+                  }
+                  try {
+                    await store.editorProps?.comment?.onSubmit?.(
+                      comment.id + '',
+                      comment,
+                    );
+                    // 更新时间戳,触发一下dom的rerender，不然不给我更新
+                    Transforms.setNodes(
+                      editor,
+                      {
+                        updateTimestamp: Date.now(),
+                      },
+                      {
+                        at: comment.path,
+                      },
+                    );
+                  } catch (error) {}
+                },
+              });
+            }}
+          >
+            <CommentOutlined />
+          </div>,
         );
       }
 
@@ -402,7 +500,9 @@ export const BaseToolBar = observer(
             key="link"
             role="button"
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               openLink();
             }}
             className={classnames(`${baseClassName}-item`, hashId)}
@@ -431,7 +531,9 @@ export const BaseToolBar = observer(
             <div
               role="button"
               className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 keyTask$.next({
                   key: 'redo',
                   args: [],
@@ -443,7 +545,9 @@ export const BaseToolBar = observer(
             <div
               role="button"
               className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 keyTask$.next({
                   key: 'undo',
                   args: [],
@@ -457,7 +561,9 @@ export const BaseToolBar = observer(
         <div
           role="button"
           className={classnames(`${baseClassName}-item`, hashId)}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
             EditorUtils.clearMarks(store.editor, true);
             EditorUtils.highColor(store.editor);
           }}
@@ -557,7 +663,9 @@ export const BaseToolBar = observer(
                 }}
                 role="button"
                 onMouseEnter={(e) => e.stopPropagation()}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   if (EditorUtils.isFormatActive(store.editor, 'highColor')) {
                     EditorUtils.highColor(store.editor);
                   } else {
@@ -584,7 +692,9 @@ export const BaseToolBar = observer(
                   role="button"
                   key={tool.key}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     EditorUtils.toggleFormat(store.editor, tool.type);
                   }}
                   className={classnames(`${baseClassName}-item`, hashId)}

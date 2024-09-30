@@ -167,6 +167,7 @@ export class KeyboardTask {
   uploadImage() {
     const input = document.createElement('input');
     const [node] = this.curNodes;
+    input.id = 'uploadImage' + '_' + Math.random();
     input.type = 'file';
     input.accept = 'image/*';
     const insertMedia = async (url: string) => {
@@ -218,8 +219,26 @@ export class KeyboardTask {
       }
     };
     input.click();
+    input.remove();
   }
 
+  /**
+   * Asynchronously pastes Markdown code from the clipboard into the editor.
+   *
+   * This function reads Markdown text from the clipboard, parses it into a schema,
+   * and inserts it into the editor at the current selection. It handles different
+   * node types and ensures proper insertion based on the context of the current node.
+   *
+   * The function performs the following steps:
+   * 1. Reads Markdown text from the clipboard.
+   * 2. Parses the Markdown text into a schema.
+   * 3. Checks if the current node is a paragraph and empty, then deletes it and inserts the new schema.
+   * 4. If the schema's first node is a paragraph and the current node is a paragraph or table-cell, it inserts the first node's children.
+   * 5. Inserts the remaining schema nodes based on the type of the current node.
+   * 6. Refreshes the editor's highlight state after a short delay.
+   *
+   * @returns {Promise<void>} A promise that resolves when the paste operation is complete.
+   */
   async pasteMarkdownCode() {
     const markdownCode = await navigator.clipboard.readText();
     if (markdownCode) {
@@ -426,6 +445,52 @@ export class KeyboardTask {
         Transforms.delete(this.editor, { at: Path.next(path) });
       }
       Transforms.select(this.editor, Editor.start(this.editor, path));
+    }
+
+    if (node && ['column-cell'].includes(node[0].type)) {
+      Transforms.insertNodes(
+        this.editor,
+        {
+          type: 'table',
+          children: [
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', title: true, children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', title: true, children: [{ text: '' }] },
+              ],
+            },
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
+            },
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
+            },
+          ],
+        },
+        { at: [...node[1], 0] },
+      );
     }
   }
 

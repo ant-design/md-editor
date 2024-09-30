@@ -72,7 +72,6 @@ const Clipboard = (props: any) => {
       ) : (
         <CopyOutlined />
       )}
-      <span>{copy ? '已复制' : '复制代码'}</span>
     </div>
   );
 };

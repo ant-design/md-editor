@@ -21,10 +21,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: '4px 0',
       '&-item': {
         display: 'flex',
-        height: '100%',
+        height: '32px',
         alignItems: 'center',
         gap: '4px',
-        borderRadius: '18px',
+        borderRadius: '4px',
         lineHeight: '32px',
         justifyContent: 'center',
         padding: '0 4px',

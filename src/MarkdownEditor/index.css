@@ -28,3 +28,29 @@
 .ant-md-editor-drag-el:hover > .ant-md-editor-drag-handle {
   opacity: 1;
 }
+
+.react-resizable {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.react-resizable-handle-hide {
+  display: none;
+}
+.react-resizable-handle {
+  position: absolute;
+  padding: 0 3px 3px 0;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  cursor: se-resize;
+  z-index: 9999;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  background-color: #2f8ef4;
+  border-radius: 10px;
+  bottom: -7px;
+  right: -7px;
+  pointer-events: all;
+}
