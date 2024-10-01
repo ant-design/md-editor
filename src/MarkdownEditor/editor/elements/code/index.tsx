@@ -2,7 +2,6 @@ import { CheckOutlined, CopyOutlined, RightOutlined } from '@ant-design/icons';
 import { ConfigProvider, Select } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
 import React, {
   createContext,
   useCallback,
@@ -86,7 +85,7 @@ const langOptions = [
   'solidity',
 ].map((l) => ({ label: l, value: l.toLowerCase() }));
 
-export const CodeElement = observer((props: ElementProps<CodeNode>) => {
+export const CodeElement = (props: ElementProps<CodeNode>) => {
   const store = useEditorStore();
   const [editor, update] = useMEditor(props.element);
   const [state, setState] = useGetSetState({
@@ -300,9 +299,9 @@ export const CodeElement = observer((props: ElementProps<CodeNode>) => {
       )}
     </CodeCtx.Provider>,
   );
-});
+};
 
-export const CodeLine = observer((props: ElementProps<CodeLineNode>) => {
+export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   const ctx = useContext(CodeCtx);
   const store = useEditorStore();
   const isLatest = useMemo(() => {
@@ -332,4 +331,4 @@ export const CodeLine = observer((props: ElementProps<CodeLineNode>) => {
     ctx.lang,
     store.refreshHighlight,
   ]);
-});
+};

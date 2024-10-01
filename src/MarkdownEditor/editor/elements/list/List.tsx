@@ -1,6 +1,5 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import React, { createElement, useContext } from 'react';
 import { ElementProps, ListNode } from '../../../el';
 import { useEditorStore } from '../../store';
@@ -26,42 +25,44 @@ export const ListContext = React.createContext<{
  * <List element={element} attributes={attributes} children={children} />
  * ```
  */
-export const List = observer(
-  ({ element, attributes, children }: ElementProps<ListNode>) => {
-    const store = useEditorStore();
-    const context = useContext(ConfigProvider.ConfigContext);
-    const baseCls = context.getPrefixCls('md-editor-list');
-    const { wrapSSR, hashId } = useStyle(baseCls);
-    return React.useMemo(() => {
-      const tag = element.order ? 'ol' : 'ul';
-      return wrapSSR(
-        <ListContext.Provider
-          value={{
-            hashId,
-          }}
+export const List = ({
+  element,
+  attributes,
+  children,
+}: ElementProps<ListNode>) => {
+  const store = useEditorStore();
+  const context = useContext(ConfigProvider.ConfigContext);
+  const baseCls = context.getPrefixCls('md-editor-list');
+  const { wrapSSR, hashId } = useStyle(baseCls);
+  return React.useMemo(() => {
+    const tag = element.order ? 'ol' : 'ul';
+    return wrapSSR(
+      <ListContext.Provider
+        value={{
+          hashId,
+        }}
+      >
+        <div
+          className={'relative'}
+          data-be={'list'}
+          {...attributes}
+          onDragStart={store.dragStart}
         >
-          <div
-            className={'relative'}
-            data-be={'list'}
-            {...attributes}
-            onDragStart={store.dragStart}
-          >
-            {createElement(
-              tag,
-              {
-                className: classNames(
-                  baseCls,
-                  hashId,
-                  element.order ? 'ol' : 'ul',
-                ),
-                start: element.start,
-                ['data-task']: element.task ? 'true' : undefined,
-              },
-              children,
-            )}
-          </div>
-        </ListContext.Provider>,
-      );
-    }, [element.task, element.order, element.start, element.children]);
-  },
-);
+          {createElement(
+            tag,
+            {
+              className: classNames(
+                baseCls,
+                hashId,
+                element.order ? 'ol' : 'ul',
+              ),
+              start: element.start,
+              ['data-task']: element.task ? 'true' : undefined,
+            },
+            children,
+          )}
+        </div>
+      </ListContext.Provider>,
+    );
+  }, [element.task, element.order, element.start, element.children]);
+};

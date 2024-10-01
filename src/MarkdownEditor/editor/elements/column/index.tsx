@@ -1,6 +1,5 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { useEditorStore } from '../../store';
@@ -30,7 +29,7 @@ export function ColumnCell(props: RenderElementProps) {
   }, [props.element, props.element.children]);
 }
 
-export const ColumnGroup = observer((props: RenderElementProps) => {
+export const ColumnGroup = (props: RenderElementProps) => {
   const store = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-column-group');
@@ -51,4 +50,4 @@ export const ColumnGroup = observer((props: RenderElementProps) => {
       </div>,
     );
   }, [props.element.children]);
-});
+};

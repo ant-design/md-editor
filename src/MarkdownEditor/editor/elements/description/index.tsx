@@ -1,6 +1,5 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { useEditorStore } from '../../store';
@@ -18,7 +17,7 @@ function group(array: string | any[], subGroupLength: number) {
   return newArray;
 }
 
-export const Description = observer((props: RenderElementProps) => {
+export const Description = (props: RenderElementProps) => {
   const store = useEditorStore();
 
   const context = useContext(ConfigProvider.ConfigContext);
@@ -27,7 +26,6 @@ export const Description = observer((props: RenderElementProps) => {
   return React.useMemo(() => {
     const subGroupLength =
       Math.max(Math.floor((store.container?.clientWidth || 0) / 400), 1) * 2;
-
     return wrapSSR(
       <div
         {...props.attributes}
@@ -53,4 +51,4 @@ export const Description = observer((props: RenderElementProps) => {
       </div>,
     );
   }, [props.element.children]);
-});
+};

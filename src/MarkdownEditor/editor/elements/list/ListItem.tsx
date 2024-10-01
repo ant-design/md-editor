@@ -1,6 +1,5 @@
 ﻿import { Checkbox, ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { ElementProps, ListItemNode } from '../../../el';
 import { useMEditor } from '../../../hooks/editor';
@@ -23,39 +22,41 @@ import { ListContext } from './List';
  * - 列表项支持拖拽操作。
  * - 如果是任务列表项，会渲染一个不可编辑的复选框。
  */
-export const ListItem = observer(
-  ({ element, children, attributes }: ElementProps<ListItemNode>) => {
-    const [, update] = useMEditor(element);
-    const store = useEditorStore();
-    const isTask = typeof element.checked === 'boolean';
-    const context = useContext(ConfigProvider.ConfigContext);
-    const { hashId } = useContext(ListContext) || {};
-    const baseCls = context.getPrefixCls('md-editor-list');
-    return React.useMemo(
-      () => (
-        <li
-          className={classNames(`${baseCls}-item`, hashId, {
-            [`${baseCls}-task`]: isTask,
-          })}
-          data-be={'list-item'}
-          onDragStart={(e) => store.dragStart(e)}
-          {...attributes}
-        >
-          {isTask && (
-            <span
-              contentEditable={false}
-              className={classNames(`${baseCls}-check-item`, hashId)}
-            >
-              <Checkbox
-                checked={element.checked}
-                onChange={(e) => update({ checked: e.target.checked })}
-              />
-            </span>
-          )}
-          {children}
-        </li>
-      ),
-      [element, element.children, store.refreshHighlight],
-    );
-  },
-);
+export const ListItem = ({
+  element,
+  children,
+  attributes,
+}: ElementProps<ListItemNode>) => {
+  const [, update] = useMEditor(element);
+  const store = useEditorStore();
+  const isTask = typeof element.checked === 'boolean';
+  const context = useContext(ConfigProvider.ConfigContext);
+  const { hashId } = useContext(ListContext) || {};
+  const baseCls = context.getPrefixCls('md-editor-list');
+  return React.useMemo(
+    () => (
+      <li
+        className={classNames(`${baseCls}-item`, hashId, {
+          [`${baseCls}-task`]: isTask,
+        })}
+        data-be={'list-item'}
+        onDragStart={(e) => store.dragStart(e)}
+        {...attributes}
+      >
+        {isTask && (
+          <span
+            contentEditable={false}
+            className={classNames(`${baseCls}-check-item`, hashId)}
+          >
+            <Checkbox
+              checked={element.checked}
+              onChange={(e) => update({ checked: e.target.checked })}
+            />
+          </span>
+        )}
+        {children}
+      </li>
+    ),
+    [element, element.children],
+  );
+};

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo } from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { useSelStatus } from '../../hooks/editor';
@@ -55,7 +54,7 @@ export function TableCell(props: RenderElementProps) {
   }, [props.element, isLatest, props.element.children, store.refreshHighlight]);
 }
 
-export const Table = observer((props: RenderElementProps) => {
+export const Table = (props: RenderElementProps) => {
   const store = useEditorStore();
 
   return useMemo(() => {
@@ -88,4 +87,4 @@ export const Table = observer((props: RenderElementProps) => {
       </div>
     );
   }, [props.element.children]);
-});
+};
