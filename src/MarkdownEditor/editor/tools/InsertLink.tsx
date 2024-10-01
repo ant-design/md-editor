@@ -195,7 +195,7 @@ export const InsertLink = observer(() => {
         left = window.innerWidth - 4 - width;
       }
 
-      const url = EditorUtils.getUrl(store.editor);
+      const url = EditorUtils.getUrl(store?.editor);
       let path = url;
       if (url && !url.startsWith('#') && !isLink(url)) {
         path = url;
@@ -229,10 +229,10 @@ export const InsertLink = observer(() => {
   const close = useCallback((url?: string) => {
     store.container!.parentElement?.removeEventListener('wheel', prevent);
     setState({ open: false });
-    Transforms.select(store.editor, selRef.current!);
-    EditorUtils.focus(store.editor);
+    Transforms.select(store?.editor, selRef.current!);
+    EditorUtils.focus(store?.editor);
     Transforms.setNodes(
-      store.editor,
+      store?.editor,
       { url },
       { match: Text.isText, split: true },
     );

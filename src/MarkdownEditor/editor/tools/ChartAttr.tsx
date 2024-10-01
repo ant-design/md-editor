@@ -1,9 +1,8 @@
-import { ConfigProvider } from 'antd';
-import classNames from 'classnames';
 import { DeleteOutlined } from '@ant-design/icons';
-import { Tooltip } from 'antd';
+import { ConfigProvider, Tooltip } from 'antd';
+import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, { useRef, useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { ChartNode } from '../../el';
@@ -24,7 +23,7 @@ export const ChartAttr: React.FC<{
   node: NodeEntry<ChartNode>;
 }> = observer((props) => {
   const store = useEditorStore();
-  const editor = store.editor;
+  const editor = store?.editor;
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
 
@@ -38,12 +37,12 @@ export const ChartAttr: React.FC<{
   }, [editor]);
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context.getPrefixCls(`chart-attr-toolbar`)
+  const baseClassName = context.getPrefixCls(`chart-attr-toolbar`);
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
   return wrapSSR(
     <div
-    className={classNames(baseClassName, hashId)}
+      className={classNames(baseClassName, hashId)}
       style={{
         width: 'auto',
       }}
@@ -64,7 +63,10 @@ export const ChartAttr: React.FC<{
         }
         return (
           <Tooltip key={index} title={item.title}>
-            <div className={classNames(`${baseClassName}-item`, hashId)} onClick={item.onClick}>
+            <div
+              className={classNames(`${baseClassName}-item`, hashId)}
+              onClick={item.onClick}
+            >
               {item.icon}
             </div>
           </Tooltip>
@@ -77,6 +79,6 @@ export const ChartAttr: React.FC<{
           </div>
         </Tooltip>
       )}
-    </div>
+    </div>,
   );
 });

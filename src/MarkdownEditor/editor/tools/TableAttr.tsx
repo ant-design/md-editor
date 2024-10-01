@@ -108,7 +108,7 @@ const InsertColBeforeIcon = () => {
  */
 export const TableAttr = observer(() => {
   const store = useEditorStore();
-  const editor = store.editor;
+  const editor = store?.editor;
   const [state, setState] = useGetSetState({
     visible: false,
     top: 0,

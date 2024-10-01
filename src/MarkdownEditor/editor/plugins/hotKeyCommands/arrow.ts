@@ -9,7 +9,7 @@ export const keyArrow = (
   store: EditorStore,
   e: React.KeyboardEvent | KeyboardEvent,
 ) => {
-  const editor = store.editor;
+  const editor = store?.editor;
   const sel = editor.selection;
   if (sel && Range.isCollapsed(sel)) {
     if (isHotkey('mod+left', e)) {

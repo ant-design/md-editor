@@ -35,12 +35,12 @@ export class EditorUtils {
     }
   }
   static selectMedia(store: EditorStore, path: Path) {
-    Transforms.select(store.editor, path);
+    Transforms.select(store?.editor, path);
     try {
       const top = store.container!.scrollTop;
       const dom = ReactEditor.toDOMNode(
-        store.editor,
-        Node.get(store.editor, path),
+        store?.editor,
+        Node.get(store?.editor, path),
       );
       const offsetTop = getOffsetTop(dom, store.container!);
       if (top > offsetTop) {

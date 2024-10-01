@@ -289,7 +289,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         },
       ) => {
         if (params?.isCustom) {
-          Transforms.delete(store.editor, {
+          Transforms.delete(store?.editor, {
             at: ctx.current.path,
           });
           await props.runInsertTask?.(op, {
@@ -314,10 +314,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             setState({ insertAttachment: true });
           }
         } else if (op) {
-          Transforms.insertText(store.editor, '', {
+          Transforms.insertText(store?.editor, '', {
             at: {
-              anchor: Editor.start(store.editor, ctx.current.path),
-              focus: Editor.end(store.editor, ctx.current.path),
+              anchor: Editor.start(store?.editor, ctx.current.path),
+              focus: Editor.end(store?.editor, ctx.current.path),
             },
           });
           keyTask$.next({
@@ -350,10 +350,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             name = match[1];
           }
         }
-        Transforms.insertText(store.editor, '', {
+        Transforms.insertText(store?.editor, '', {
           at: {
-            anchor: Editor.start(store.editor, ctx.current.path),
-            focus: Editor.end(store.editor, ctx.current.path),
+            anchor: Editor.start(store?.editor, ctx.current.path),
+            focus: Editor.end(store?.editor, ctx.current.path),
           },
         });
         const node = {
@@ -363,17 +363,17 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           size,
           children: [{ text: '' }],
         };
-        Transforms.setNodes(store.editor, node, { at: ctx.current.path });
-        EditorUtils.focus(store.editor);
-        const next = Editor.next(store.editor, { at: ctx.current.path });
+        Transforms.setNodes(store?.editor, node, { at: ctx.current.path });
+        EditorUtils.focus(store?.editor);
+        const next = Editor.next(store?.editor, { at: ctx.current.path });
         if (next?.[0].type === 'paragraph' && !Node.string(next[0])) {
-          Transforms.delete(store.editor, { at: next[1] });
+          Transforms.delete(store?.editor, { at: next[1] });
         }
-        const [m] = Editor.nodes(store.editor, {
+        const [m] = Editor.nodes(store?.editor, {
           match: (n) => !!n.type,
           mode: 'lowest',
         });
-        selChange$.next({ node: m, sel: store.editor.selection });
+        selChange$.next({ node: m, sel: store?.editor.selection });
         close();
       } finally {
         setState({ loading: false });
@@ -427,7 +427,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         runInAction(() => {
           store.openInsertCompletion = false;
         });
-        EditorUtils.focus(store.editor);
+        EditorUtils.focus(store?.editor);
       }
     }, []);
 
@@ -452,21 +452,21 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         if (!type) {
           throw new Error();
         }
-        Transforms.insertText(store.editor, '', {
+        Transforms.insertText(store?.editor, '', {
           at: {
-            anchor: Editor.start(store.editor, ctx.current.path),
-            focus: Editor.end(store.editor, ctx.current.path),
+            anchor: Editor.start(store?.editor, ctx.current.path),
+            focus: Editor.end(store?.editor, ctx.current.path),
           },
         });
         const node = { type: 'media', url, children: [{ text: '' }] };
-        Transforms.setNodes(store.editor, node, { at: ctx.current.path });
-        EditorUtils.focus(store.editor);
-        const [n] = Editor.nodes(store.editor, {
+        Transforms.setNodes(store?.editor, node, { at: ctx.current.path });
+        EditorUtils.focus(store?.editor);
+        const [n] = Editor.nodes(store?.editor, {
           match: (n) => !!n.type,
           mode: 'lowest',
         });
         selChange$.next({
-          sel: store.editor.selection,
+          sel: store?.editor.selection,
           node: n,
         });
         close();
@@ -521,17 +521,17 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
 
     useEffect(() => {
       if (store.openInsertCompletion) {
-        const [node] = Editor.nodes<any>(store.editor, {
+        const [node] = Editor.nodes<any>(store?.editor, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',
         });
         ctx.current = {
           path: node[1],
-          isTop: EditorUtils.isTop(store.editor, node[1]),
+          isTop: EditorUtils.isTop(store?.editor, node[1]),
         };
         window.addEventListener('keydown', keydown);
         if (node[0].type === 'paragraph') {
-          const el = ReactEditor.toDOMNode(store.editor, node[0]);
+          const el = ReactEditor.toDOMNode(store?.editor, node[0]);
           if (el) {
             let top = getOffsetTop(el, store.container!);
             console.log(top - store.container!.scrollTop);
@@ -616,7 +616,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
               <React.Fragment key={l.key}>
                 {i !== 0 &&
                   l.children.filter((o) => {
-                    if (!store.editorProps?.image && o.task === 'uploadImage') {
+                    if (
+                      !store?.editorProps?.image &&
+                      o.task === 'uploadImage'
+                    ) {
                       return false;
                     }
                     return true;
@@ -630,7 +633,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                   )}
                 {l.children
                   .filter((o) => {
-                    if (!store.editorProps?.image && o.task === 'uploadImage') {
+                    if (
+                      !store?.editorProps?.image &&
+                      o.task === 'uploadImage'
+                    ) {
                       return false;
                     }
                     return true;
@@ -751,13 +757,16 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                         size={'small'}
                         type={'primary'}
                         onClick={() => {
-                          Transforms.insertText(store.editor, '', {
+                          Transforms.insertText(store?.editor, '', {
                             at: {
                               anchor: Editor.start(
-                                store.editor,
+                                store?.editor,
                                 ctx.current.path,
                               ),
-                              focus: Editor.end(store.editor, ctx.current.path),
+                              focus: Editor.end(
+                                store?.editor,
+                                ctx.current.path,
+                              ),
                             },
                           });
                           setState({ insertUrl: '' });

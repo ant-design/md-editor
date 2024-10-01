@@ -33,7 +33,7 @@ export class EnterKey {
     private readonly backspace: BackspaceKey,
   ) {}
   get editor() {
-    return this.store.editor;
+    return this.store?.editor;
   }
   run(e: React.KeyboardEvent) {
     let sel = this.editor.selection;

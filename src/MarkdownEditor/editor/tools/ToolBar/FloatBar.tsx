@@ -46,7 +46,7 @@ export const FloatBar = observer(() => {
   }, []);
 
   useEffect(() => {
-    if (store.domRect) {
+    if (store.domRect && store.editor) {
       resize(true);
       sel.current = store.editor.selection!;
     } else {
@@ -63,8 +63,8 @@ export const FloatBar = observer(() => {
           setState({ open: false });
           fileMap.clear();
           const end = Range.end(sel.current!).path;
-          if (Editor.hasPath(store.editor, end)) {
-            Transforms.select(store.editor, Editor.end(store.editor, end));
+          if (Editor.hasPath(store?.editor, end)) {
+            Transforms.select(store?.editor, Editor.end(store?.editor, end));
           }
         }
       };

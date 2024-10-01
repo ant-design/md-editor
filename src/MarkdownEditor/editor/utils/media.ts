@@ -43,11 +43,11 @@ export const convertRemoteImages = async (
           if (ext) {
             try {
               Transforms.setNodes(
-                store.editor,
+                store?.editor,
                 {
                   url: item.url,
                 },
-                { at: ReactEditor.findPath(store.editor, item) },
+                { at: ReactEditor.findPath(store?.editor, item) },
               );
             } catch (e) {
               console.error(e);
@@ -58,11 +58,11 @@ export const convertRemoteImages = async (
           if (m) {
             try {
               Transforms.setNodes(
-                store.editor,
+                store?.editor,
                 {
                   url: item.url,
                 },
-                { at: ReactEditor.findPath(store.editor, item) },
+                { at: ReactEditor.findPath(store?.editor, item) },
               );
             } catch (e) {}
           }

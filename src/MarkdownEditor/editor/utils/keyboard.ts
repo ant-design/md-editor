@@ -24,7 +24,7 @@ export class KeyboardTask {
 
   constructor(store: EditorStore, props: MarkdownEditorProps) {
     this.store = store;
-    this.editor = store.editor;
+    this.editor = store?.editor;
     this.props = props;
   }
 
@@ -686,13 +686,13 @@ export class KeyboardTask {
 
   undo() {
     try {
-      this.store.editor.undo();
+      this.store?.editor.undo();
     } catch (e) {}
   }
 
   redo() {
     try {
-      this.store.editor.redo();
+      this.store?.editor.redo();
     } catch (e) {}
   }
 }
@@ -747,7 +747,7 @@ export const useSystemKeyboard = (
       if (!store) return;
 
       if (isHotkey('mod+c', e) || isHotkey('mod+x', e)) {
-        const [node] = Editor.nodes<MediaNode | AttachNode>(store.editor, {
+        const [node] = Editor.nodes<MediaNode | AttachNode>(store?.editor, {
           mode: 'lowest',
           match: (m) =>
             Element.isElement(m) && (m.type === 'media' || m.type === 'attach'),
@@ -761,16 +761,16 @@ export const useSystemKeyboard = (
           }`;
           navigator.clipboard.writeText(url);
           if (isHotkey('mod+x', e)) {
-            Transforms.delete(store.editor, { at: node[1] });
-            ReactEditor.focus(store.editor);
+            Transforms.delete(store?.editor, { at: node[1] });
+            ReactEditor.focus(store?.editor);
           }
         }
         if (node[0].type === 'attach') {
           const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0].url}`;
           navigator.clipboard.writeText(url);
           if (isHotkey('mod+x', e)) {
-            Transforms.delete(store.editor, { at: node[1] });
-            ReactEditor.focus(store.editor);
+            Transforms.delete(store?.editor, { at: node[1] });
+            ReactEditor.focus(store?.editor);
           }
         }
       }
