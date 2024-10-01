@@ -1,5 +1,4 @@
 import { Editor, Node, Path, Transforms } from 'slate';
-import { EditorStore } from '../store';
 
 export const inlineNode = new Set(['break']);
 
@@ -25,7 +24,12 @@ const voidNode = new Set(['hr', 'break']);
  *
  * 该插件还根据 `store.manual` 的值决定是否手动处理某些操作。
  */
-export const withMarkdown = (editor: Editor, store: EditorStore) => {
+export const withMarkdown = (
+  editor: Editor,
+  props: {
+    manual: boolean;
+  },
+) => {
   const { isInline, isVoid, apply } = editor;
 
   editor.isInline = (element) => {
@@ -136,7 +140,7 @@ export const withMarkdown = (editor: Editor, store: EditorStore) => {
       }
     }
 
-    if (!store.manual) {
+    if (!props.manual) {
       if (operation.type === 'move_node') {
         const node = Node.get(editor, operation.path);
         if (node?.type === 'table-cell') return;

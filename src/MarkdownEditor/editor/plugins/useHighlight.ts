@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react';
 import { Editor, Element, Node, NodeEntry, Path, Range } from 'slate';
 import { useSlate } from 'slate-react';
 import { CodeNode } from '../../el';
-import { EditorStore, useEditorStore } from '../store';
+import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { highlighter, langSet, loadedLanguage } from '../utils/highlight';
 
@@ -126,146 +126,146 @@ let stack: { run: any; lang: string }[] = [];
  * @example
  * const highlightRanges = useHighlight(store)([node, path]);
  */
-export function useHighlight(store?: EditorStore) {
-  return useCallback(
-    ([node, path]: NodeEntry): Range[] => {
-      if (Element.isElement(node) && highlightNodes.has(node.type)) {
-        const ranges = store?.highlightCache.get(node) || [];
-        if (node.type === 'code') {
-          ranges.push(...(codeCache.get(node)?.range || []));
-        }
-        const cacheText = cacheTextNode.get(node);
-        if (node.type === 'inline-katex') {
-          if (cacheText && Path.equals(cacheText.path, path)) {
-            ranges.push(...cacheText.range);
-          } else {
-            const code = Node.string(node);
-            if (code) {
-              let textRanges: any[] = [];
-              const tokens = highlighter.codeToTokensBase(code, {
-                lang: 'tex',
-                theme: 'github-light',
-                includeExplanation: false,
-                tokenizeMaxLineLength: 5000,
+
+const highlightCache = new WeakMap<object, Range[]>();
+
+export function useHighlight() {
+  return useCallback(([node, path]: NodeEntry): Range[] => {
+    if (Element.isElement(node) && highlightNodes.has(node.type)) {
+      const ranges = highlightCache.get(node) || [];
+      if (node.type === 'code') {
+        ranges.push(...(codeCache.get(node)?.range || []));
+      }
+      const cacheText = cacheTextNode.get(node);
+      if (node.type === 'inline-katex') {
+        if (cacheText && Path.equals(cacheText.path, path)) {
+          ranges.push(...cacheText.range);
+        } else {
+          const code = Node.string(node);
+          if (code) {
+            let textRanges: any[] = [];
+            const tokens = highlighter.codeToTokensBase(code, {
+              lang: 'tex',
+              theme: 'github-light',
+              includeExplanation: false,
+              tokenizeMaxLineLength: 5000,
+            });
+            let start = 0;
+            const lineToken = tokens[0];
+            for (let t of lineToken) {
+              const length = t.content.length;
+              if (!length) {
+                continue;
+              }
+              const end = start + length;
+              textRanges.push({
+                anchor: { path, offset: start },
+                focus: { path, offset: end },
+                color: t.color,
               });
-              let start = 0;
-              const lineToken = tokens[0];
-              for (let t of lineToken) {
-                const length = t.content.length;
-                if (!length) {
-                  continue;
-                }
-                const end = start + length;
+              start = end;
+            }
+            cacheTextNode.set(node, { path, range: textRanges });
+            ranges.push(...textRanges);
+          }
+        }
+      }
+      // footnote
+      if (['paragraph', 'table-cell'].includes(node.type)) {
+        for (let i = 0; i < node.children.length; i++) {
+          const c = node.children[i];
+          if (c.text && !EditorUtils.isDirtLeaf(c)) {
+            if (cacheText && Path.equals(cacheText.path, path)) {
+              ranges.push(...cacheText.range);
+            } else {
+              let textRanges: any[] = [];
+              const matchHtml = c.text.matchAll(htmlReg);
+              for (let m of matchHtml) {
                 textRanges.push({
-                  anchor: { path, offset: start },
-                  focus: { path, offset: end },
-                  color: t.color,
+                  anchor: { path: [...path, i], offset: m.index },
+                  focus: {
+                    path: [...path, i],
+                    offset: m.index + m[0].length,
+                  },
+                  html: true,
                 });
-                start = end;
+              }
+              const match = c.text.matchAll(/\[\^.+?]:?/g);
+              for (let m of match) {
+                if (typeof m.index !== 'number') continue;
+                textRanges.push({
+                  anchor: { path: [...path, i], offset: m.index },
+                  focus: {
+                    path: [...path, i],
+                    offset: m.index + m[0].length,
+                  },
+                  fnc: !m[0].endsWith(':'),
+                  fnd: m[0].endsWith(':'),
+                });
               }
               cacheTextNode.set(node, { path, range: textRanges });
               ranges.push(...textRanges);
             }
           }
-        }
-        // footnote
-        if (['paragraph', 'table-cell'].includes(node.type)) {
-          for (let i = 0; i < node.children.length; i++) {
-            const c = node.children[i];
-            if (c.text && !EditorUtils.isDirtLeaf(c)) {
-              if (cacheText && Path.equals(cacheText.path, path)) {
-                ranges.push(...cacheText.range);
-              } else {
-                let textRanges: any[] = [];
-                const matchHtml = c.text.matchAll(htmlReg);
-                for (let m of matchHtml) {
-                  textRanges.push({
-                    anchor: { path: [...path, i], offset: m.index },
-                    focus: {
-                      path: [...path, i],
-                      offset: m.index + m[0].length,
-                    },
-                    html: true,
-                  });
-                }
-                const match = c.text.matchAll(/\[\^.+?]:?/g);
-                for (let m of match) {
-                  if (typeof m.index !== 'number') continue;
-                  textRanges.push({
-                    anchor: { path: [...path, i], offset: m.index },
-                    focus: {
-                      path: [...path, i],
-                      offset: m.index + m[0].length,
-                    },
-                    fnc: !m[0].endsWith(':'),
-                    fnd: m[0].endsWith(':'),
-                  });
-                }
-                cacheTextNode.set(node, { path, range: textRanges });
-                ranges.push(...textRanges);
-              }
+          if (c.text && !c.url && !c.docId && !c.hash) {
+            let textRanges: any[] = [];
+            const links = (c.text as string).matchAll(linkReg);
+            for (let m of links) {
+              textRanges.push({
+                anchor: { path: [...path, i], offset: m.index },
+                focus: {
+                  path: [...path, i],
+                  offset: m.index! + m[0].length,
+                },
+                link: m[0],
+              });
             }
-            if (c.text && !c.url && !c.docId && !c.hash) {
-              let textRanges: any[] = [];
-              const links = (c.text as string).matchAll(linkReg);
-              for (let m of links) {
-                textRanges.push({
-                  anchor: { path: [...path, i], offset: m.index },
-                  focus: {
-                    path: [...path, i],
-                    offset: m.index! + m[0].length,
-                  },
-                  link: m[0],
-                });
-              }
-              ranges.push(...textRanges);
-            }
+            ranges.push(...textRanges);
           }
         }
-        if (
-          node.type === 'paragraph' &&
-          node.children.length === 1 &&
-          !EditorUtils.isDirtLeaf(node.children[0])
-        ) {
-          if (cacheText && Path.equals(cacheText.path, path)) {
-            ranges.push(...cacheText.range);
-          } else {
-            const str = Node.string(node);
-            if (str.startsWith('```')) {
-              ranges.push({
-                anchor: {
-                  path: [...path, 0],
-                  offset: 0,
-                },
-                focus: {
-                  path: [...path, 0],
-                  offset: 3,
-                },
-                color: '#a3a3a3',
-              });
-              cacheTextNode.set(node, { path, range: ranges });
-            } else if (/^\|([^|]+\|)+$/.test(str)) {
-              ranges.push({
-                anchor: {
-                  path: [...path, 0],
-                  offset: 0,
-                },
-                focus: {
-                  path: [...path, 0],
-                  offset: str.length,
-                },
-                color: '#a3a3a3',
-              });
-              cacheTextNode.set(node, { path, range: ranges });
-            }
-          }
-        }
-        return ranges;
       }
-      return [];
-    },
-    [store?.refreshHighlight],
-  );
+      if (
+        node.type === 'paragraph' &&
+        node.children.length === 1 &&
+        !EditorUtils.isDirtLeaf(node.children[0])
+      ) {
+        if (cacheText && Path.equals(cacheText.path, path)) {
+          ranges.push(...cacheText.range);
+        } else {
+          const str = Node.string(node);
+          if (str.startsWith('```')) {
+            ranges.push({
+              anchor: {
+                path: [...path, 0],
+                offset: 0,
+              },
+              focus: {
+                path: [...path, 0],
+                offset: 3,
+              },
+              color: '#a3a3a3',
+            });
+            cacheTextNode.set(node, { path, range: ranges });
+          } else if (/^\|([^|]+\|)+$/.test(str)) {
+            ranges.push({
+              anchor: {
+                path: [...path, 0],
+                offset: 0,
+              },
+              focus: {
+                path: [...path, 0],
+                offset: str.length,
+              },
+              color: '#a3a3a3',
+            });
+            cacheTextNode.set(node, { path, range: ranges });
+          }
+        }
+      }
+      return ranges;
+    }
+    return [];
+  }, []);
 }
 
 /**

@@ -27,7 +27,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'text',
         content:
           "'" + token.titlePlaceholderContent ||
-          `press "/" for quick actions` + "'",
+          `press / for quick actions` + "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
@@ -35,7 +35,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'text',
         content:
           "'" + token.titlePlaceholderContent ||
-          `press "/" for quick actions` + "'",
+          `press / for quick actions` + "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
@@ -261,14 +261,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'text',
         content:
           "'" + token.titlePlaceholderContent ||
-          `press "/" for quick actions` + "'",
+          `press / for quick actions` + "'",
         color: '#bec0bf',
       },
       'h2[data-empty]::before': {
         cursor: 'text',
         content:
           "'" + token.titlePlaceholderContent ||
-          `press "/" for quick actions` + "'",
+          `press / for quick actions` + "'",
         color: '#bec0bf',
       },
       'h3[data-empty]::before': {
