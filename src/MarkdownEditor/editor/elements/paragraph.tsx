@@ -11,13 +11,13 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
   const [selected, path] = useSelStatus(props.element);
 
   const isLatest = useMemo(() => {
-    if (store?.editor.children.length === 0) return false;
+    if (store?.editor?.children.length === 0) return false;
     if (!store?.editorProps?.typewriter) return false;
 
     return store.isLatestNode(props.element);
   }, [
-    store?.editor.children.at?.(path.at(0)!),
-    store?.editor.children.at?.(path.at(0)! + 1),
+    store?.editor?.children.at?.(path.at(0)!),
+    store?.editor?.children.at?.(path.at(0)! + 1),
     store?.editorProps?.typewriter,
   ]);
 

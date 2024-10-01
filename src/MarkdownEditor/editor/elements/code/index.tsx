@@ -305,10 +305,10 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   const ctx = useContext(CodeCtx);
   const store = useEditorStore();
   const isLatest = useMemo(() => {
-    if (store?.editor.children.length === 0) return false;
+    if (store?.editor?.children.length === 0) return false;
     if (!store?.editorProps?.typewriter) return false;
     return store.isLatestNode(props.element);
-  }, [store?.editor.children, store?.editorProps?.typewriter]);
+  }, [store?.editor?.children, store?.editorProps?.typewriter]);
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-code');
 
