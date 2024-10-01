@@ -16,4 +16,6 @@
 
 <code src="./demos/min-render.tsx" background="var(--main-bg-color)" title="render 地址" iframe="540px"></code>
 
-<code src="./demos/rerender.tsx" background="var(--main-bg-color)" title="render 地址" iframe="540px"></code>
+<code src="./demos/rerender.tsx" background="var(--main-bg-color)" title="动态render" iframe="540px"></code>
+
+<code src="./demos/pure.tsx" background="var(--main-bg-color)" title="pure 地址" iframe="540px"></code>

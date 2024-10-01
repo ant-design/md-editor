@@ -56,7 +56,8 @@ export const useSubject = <T>(
   deps: any[] = [],
 ) => {
   useLayoutEffect(() => {
-    const cancel = subject.subscribe(fn);
-    return () => cancel.unsubscribe();
+    if (!subject) return;
+    const cancel = subject?.subscribe?.(fn);
+    return () => cancel?.unsubscribe?.();
   }, deps);
 };

@@ -145,7 +145,7 @@ export function Media({
   });
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
-      Transforms.setNodes(store.editor, attr, { at: path });
+      Transforms.setNodes(store?.editor, attr, { at: path });
     },
     [path],
   );
@@ -199,7 +199,7 @@ export function Media({
           setState({ selected: true });
         }}
         onResizeStop={(_, size) => {
-          Transforms.setNodes(store.editor, size, { at: path });
+          Transforms.setNodes(store?.editor, size, { at: path });
           setState({ selected: false });
         }}
       />
@@ -388,7 +388,7 @@ export function Media({
         onMouseDown={(e) => {
           e.stopPropagation();
           if (!store.focus) {
-            EditorUtils.focus(store.editor);
+            EditorUtils.focus(store?.editor);
           }
           EditorUtils.selectMedia(store, path);
         }}

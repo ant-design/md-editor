@@ -14,21 +14,21 @@ export function TableCell(props: RenderElementProps) {
     store.openTableMenus(e, head);
   }, []);
   const isLatest = useMemo(() => {
-    if (store.editor.children.length === 0) return false;
-    if (!store.editorProps.typewriter) return false;
+    if (store?.editor.children.length === 0) return false;
+    if (!store?.editorProps?.typewriter) return false;
 
     return store.isLatestNode(props.element);
   }, [
-    store.editor.children.at?.(path.at(0)!),
-    store.editor.children.at?.(path.at(0)! + 1),
-    store.editorProps.typewriter,
+    store?.editor.children.at?.(path.at(0)!),
+    store?.editor.children.at?.(path.at(0)! + 1),
+    store?.editorProps?.typewriter,
   ]);
   return React.useMemo(() => {
     return props.element.title ? (
       <th
         {...props.attributes}
         className={classNames({
-          typewriter: isLatest && store.editorProps.typewriter,
+          typewriter: isLatest && store?.editorProps?.typewriter,
         })}
         style={{ textAlign: props.element.align }}
         data-be={'th'}
@@ -42,7 +42,7 @@ export function TableCell(props: RenderElementProps) {
         style={{ textAlign: props.element.align }}
         data-be={'td'}
         className={classNames('group', {
-          typewriter: isLatest && store.editorProps.typewriter,
+          typewriter: isLatest && store?.editorProps?.typewriter,
         })}
         onContextMenu={(e) => {
           context(e);
@@ -72,7 +72,7 @@ export const Table = (props: RenderElementProps) => {
             maxWidth: '100%',
             overflow: 'auto',
             position: 'relative',
-            ...(store.editor.children.length === 1
+            ...(store?.editor.children.length === 1
               ? {}
               : {
                   border: '1px solid #e8e8e8',

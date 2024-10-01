@@ -89,16 +89,17 @@ export const useMEditor = (el: BaseElement) => {
  * ```
  */
 export const useSelStatus = (element: any) => {
+  const editor = useSlate();
   const store = useEditorStore();
   const [state, setState] = useGetSetState({
-    selected: !store.initializing && ReactEditor.isFocused(store.editor),
-    path: EditorUtils.findPath(store.editor, element),
+    selected: !store?.initializing && ReactEditor.isFocused(editor),
+    path: EditorUtils.findPath(editor, element),
   });
 
   useSubject(
     selChange$,
     (ctx) => {
-      const path = EditorUtils.findPath(store.editor, element);
+      const path = EditorUtils.findPath(store?.editor, element);
       if (!ctx) {
         return setState({
           selected: false,

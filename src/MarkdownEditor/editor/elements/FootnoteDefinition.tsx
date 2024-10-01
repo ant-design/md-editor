@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import { Node } from 'slate';
 import { ElementProps, FootnoteDefinitionNode } from '../../el';
-import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 
@@ -9,7 +8,6 @@ export const FootnoteDefinition = (
   props: ElementProps<FootnoteDefinitionNode>,
 ) => {
   const store = useEditorStore();
-  const [selected] = useSelStatus(props.element);
   const element = props.element;
   return React.useMemo(() => {
     const str = Node.string(props.element);
@@ -38,7 +36,6 @@ export const FootnoteDefinition = (
             !str ? 'ant-md-editor-drag-el empty' : 'ant-md-editor-drag-el'
           }
           onDragStart={store.dragStart}
-          data-empty={!str && selected ? 'true' : undefined}
         >
           <DragHandle />
           {element.identifier}.
@@ -56,5 +53,5 @@ export const FootnoteDefinition = (
         </div>
       </>
     );
-  }, [props.element.children, selected]);
+  }, [props.element.children]);
 };

@@ -3,8 +3,8 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ElementProps, LinkCardNode } from '../../../el';
-import { useSelStatus } from '../../../hooks/editor';
 import { AvatarList } from '../../components/ContributorAvatar';
+import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { EditorUtils } from '../../utils/editorUtils';
 import { useStyle } from './style';
@@ -20,8 +20,7 @@ export function LinkCard({
     updateTime: string;
   }>
 >) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, path, store] = useSelStatus(element);
+  const store = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-link-card');
   const { wrapSSR, hashId } = useStyle(baseCls);
@@ -39,7 +38,7 @@ export function LinkCard({
         onMouseDown={(e) => {
           e.stopPropagation();
           if (!store.focus) {
-            EditorUtils.focus(store.editor);
+            EditorUtils.focus(store?.editor);
           }
         }}
       >

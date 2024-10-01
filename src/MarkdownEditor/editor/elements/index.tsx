@@ -137,11 +137,11 @@ export const MLeaf = (
     const selectFormat = () => {
       try {
         if (EditorUtils.isDirtLeaf(props.leaf)) {
-          const path = ReactEditor.findPath(store.editor, props.text);
+          const path = ReactEditor.findPath(store?.editor, props.text);
           if (path) {
-            Transforms.select(store.editor, {
-              anchor: Editor.start(store.editor, path),
-              focus: Editor.end(store.editor, path),
+            Transforms.select(store?.editor, {
+              anchor: Editor.start(store?.editor, path),
+              focus: Editor.end(store?.editor, path),
             });
           }
         }

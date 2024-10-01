@@ -40,7 +40,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
         onMouseDown={(e) => {
           e.stopPropagation();
           if (!store.focus) {
-            EditorUtils.focus(store.editor);
+            EditorUtils.focus(store?.editor);
           }
         }}
       >

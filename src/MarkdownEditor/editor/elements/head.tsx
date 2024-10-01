@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { createElement, useMemo } from 'react';
 import { Node } from 'slate';
+import { useSlate } from 'slate-react';
 import { ElementProps, HeadNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
@@ -13,16 +14,17 @@ export function Head({
   children,
 }: ElementProps<HeadNode>) {
   const store = useEditorStore();
+  const editor = useSlate();
   const [selected, path] = useSelStatus(element);
   const isLatest = useMemo(() => {
-    if (store.editor.children.length === 0) return false;
-    if (!store.editorProps.typewriter) return false;
+    if (editor.children.length === 0) return false;
+    if (!store?.editorProps?.typewriter) return false;
 
     return store.isLatestNode(element);
   }, [
-    store.editor.children.at?.(path.at(0)!),
-    store.editor.children.at?.(path.at(0)! + 1),
-    store.editorProps.typewriter,
+    editor.children.at?.(path.at(0)!),
+    editor.children.at?.(path.at(0)! + 1),
+    store?.editorProps?.typewriter,
   ]);
 
   return React.useMemo(() => {
@@ -40,7 +42,7 @@ export function Head({
         ['data-empty']: !str && selected ? 'true' : undefined,
         className: classNames('ant-md-editor-drag-el', {
           empty: !str,
-          typewriter: isLatest && store.editorProps.typewriter,
+          typewriter: isLatest && store?.editorProps?.typewriter,
         }),
       },
       <>

@@ -5,7 +5,7 @@ import { ConfigProvider, Descriptions, Dropdown, Popover } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useMemo } from 'react';
 import { Transforms } from 'slate';
-import { RenderElementProps } from 'slate-react';
+import { RenderElementProps, useSlate } from 'slate-react';
 import { TableNode } from '../../el';
 import { useEditorStore } from '../store';
 import { ChartAttr } from '../tools/ChartAttr';
@@ -115,6 +115,7 @@ const ChartMap = {
 
 export const Chart: React.FC<RenderElementProps> = (props) => {
   const store = useEditorStore();
+  const editor = useSlate();
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {
     return (node.otherProps?.dataSource?.map((item: any) => {
@@ -143,7 +144,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                 key,
                 label: ChartMap[key as 'pie'].title,
                 onClick: () => {
-                  const path = EditorUtils.findPath(store.editor, node);
+                  const path = EditorUtils.findPath(editor, node);
                   const config = [
                     JSON.parse(JSON.stringify(node.otherProps?.config || [])),
                   ].flat(1);
@@ -153,7 +154,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                   };
 
                   Transforms.setNodes(
-                    store.editor,
+                    editor,
                     {
                       otherProps: {
                         ...node.otherProps,
@@ -211,7 +212,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               }
             }
             onFinish={(values) => {
-              const path = EditorUtils.findPath(store.editor, node);
+              const path = EditorUtils.findPath(editor, node);
               const config = JSON.parse(
                 JSON.stringify(node.otherProps?.config || []),
               );
@@ -222,7 +223,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               };
 
               Transforms.setNodes(
-                store.editor,
+                editor,
                 {
                   otherProps: {
                     ...node.otherProps,

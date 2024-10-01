@@ -15,7 +15,7 @@ import {
   Transforms,
 } from 'slate';
 import { withHistory } from 'slate-history';
-import { ReactEditor, withReact } from 'slate-react';
+import { ReactEditor, useSlate, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
@@ -30,7 +30,8 @@ import { EditorUtils } from './utils/editorUtils';
 
 export const EditorStoreContext = createContext<EditorStore | null>(null);
 export const useEditorStore = () => {
-  return useContext(EditorStoreContext)!;
+  const editor = useSlate();
+  return useContext(EditorStoreContext)! || { editor };
 };
 
 const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];

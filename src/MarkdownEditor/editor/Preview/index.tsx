@@ -9,22 +9,19 @@ import {
   MarkdownEditorProps,
   MElement,
   MLeaf,
+  parserMdToSchema,
 } from '../../index';
 import { withMarkdown } from '../plugins';
 import { SetNodeToDecorations, useHighlight } from '../plugins/useHighlight';
 import { useStyle } from '../style';
-import {
-  calcPath,
-  EditorUtils,
-  getRelativePath,
-  isPath,
-} from '../utils/editorUtils';
+import { calcPath, getRelativePath, isPath } from '../utils/editorUtils';
 
 export const Preview = ({
   reportMode,
   ...editorProps
 }: {
   className?: string;
+  initValue: string;
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
@@ -86,8 +83,12 @@ export const Preview = ({
     [commentMap],
   );
 
+  const schema = useMemo(() => {
+    return parserMdToSchema(editorProps.initValue)?.schema;
+  }, [editorProps.initValue]);
+
   return wrapSSR(
-    <Slate editor={editor} initialValue={[EditorUtils.p]}>
+    <Slate editor={editor} initialValue={schema}>
       <SetNodeToDecorations />
       <Editable
         decorate={(e) => {
