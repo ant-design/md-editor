@@ -30,7 +30,11 @@ import { EditorUtils } from './utils/editorUtils';
 
 export const EditorStoreContext = createContext<EditorStore | null>(null);
 export const useEditorStore = () => {
-  return useContext(EditorStoreContext)! || {};
+  return (
+    useContext(EditorStoreContext)! || {
+      readonly: true,
+    }
+  );
 };
 
 const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
