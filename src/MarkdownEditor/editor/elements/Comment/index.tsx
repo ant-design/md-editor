@@ -3,7 +3,7 @@ import {
   CommentDataType,
   MarkdownEditorProps,
 } from '@ant-design/md-editor/MarkdownEditor';
-import { ConfigProvider, Popconfirm, Popover } from 'antd';
+import { Avatar, ConfigProvider, Popconfirm, Popover } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React, { useContext } from 'react';
@@ -52,7 +52,14 @@ export const CommentView = (props: {
                           hashId,
                         )}
                       >
-                        <img src={item.user?.avatar} width={14} />
+                        <Avatar src={item.user?.avatar} size={14}>
+                          {item.user?.name
+                            ?.split(' ')
+                            ?.map((item) =>
+                              item?.split('').at(0)?.toUpperCase(),
+                            )
+                            ?.join('') || ''}
+                        </Avatar>
                         {item.user?.name}
                       </span>
                       <span

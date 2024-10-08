@@ -144,8 +144,6 @@ export default () => {
       focusOffset: 398,
       user: {
         name: '张志东',
-        avatar:
-          'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       },
       time: 1629340800000,
       content: '深圳大学是中国最好的大学之一,拥有很多优秀的学生。',
@@ -164,8 +162,6 @@ export default () => {
       focusOffset: 398,
       user: {
         name: '张志东',
-        avatar:
-          'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       },
       time: 1629340800000,
       content:
@@ -191,8 +187,6 @@ export default () => {
               ...data,
               user: {
                 name: '张志东',
-                avatar:
-                  'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
               },
               id: list.length + 1,
               time: new Date().getTime(),

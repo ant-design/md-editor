@@ -108,6 +108,7 @@ export const MLeaf = (
   const store = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
+
   return useMemo(() => {
     const leaf = props.leaf;
     const style: CSSProperties = {};
@@ -184,54 +185,59 @@ export const MLeaf = (
       );
     }
 
+    const dom = (
+      <span
+        {...props.attributes}
+        data-be={'text'}
+        draggable={false}
+        onDragStart={dragStart}
+        onClick={(e) => {
+          if (e.detail === 2) {
+            selectFormat();
+          }
+        }}
+        data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
+        data-fnd={leaf.fnd ? 'fnd' : undefined}
+        data-comment={leaf.comment ? 'comment' : undefined}
+        data-fnc-name={
+          leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+        }
+        data-fnd-name={
+          leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+        }
+        className={classNames(className, props.hashId, {
+          [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
+          [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
+          [`${mdEditorBaseClass}-comment`]: leaf.comment,
+        })}
+        style={{
+          fontSize: leaf.fnc ? 10 : undefined,
+          ...style,
+        }}
+        id={
+          'md-editor-ref' +
+          //@ts-ignore
+          (leaf.identifier || '')
+        }
+      >
+        {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+        {leaf.fnc || leaf.identifier
+          ? leaf.text?.replaceAll('[^', '').replaceAll(']', '')
+          : children}
+        {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+      </span>
+    );
+
+    if (!props.leaf.comment) return dom;
     return (
       <CommentView
         comment={props.comment}
         commentItem={leaf?.comment ? (leaf.data as any) : null}
       >
-        <span
-          {...props.attributes}
-          data-be={'text'}
-          draggable={false}
-          onDragStart={dragStart}
-          onClick={(e) => {
-            if (e.detail === 2) {
-              selectFormat();
-            }
-          }}
-          data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
-          data-fnd={leaf.fnd ? 'fnd' : undefined}
-          data-comment={leaf.comment ? 'comment' : undefined}
-          data-fnc-name={
-            leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
-          }
-          data-fnd-name={
-            leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
-          }
-          className={classNames(className, props.hashId, {
-            [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
-            [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
-            [`${mdEditorBaseClass}-comment`]: leaf.comment,
-          })}
-          style={{
-            fontSize: leaf.fnc ? 10 : undefined,
-            ...style,
-          }}
-          id={
-            'md-editor-ref' +
-            //@ts-ignore
-            (leaf.identifier || '')
-          }
-        >
-          {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
-          {leaf.fnc || leaf.identifier
-            ? leaf.text?.replaceAll('[^', '').replaceAll(']', '')
-            : children}
-          {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
-        </span>
+        <span>{dom}</span>
       </CommentView>
     );
-  }, [props.leaf, props.leaf.text, code.lang, props.leaf.comment]);
+  }, [JSON.stringify(props.leaf), code.lang || 'code']);
 };
 
 export {

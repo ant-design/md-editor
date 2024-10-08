@@ -63,10 +63,7 @@ export const MEditor = observer(
     const saveTimer = useRef(0);
     const nodeRef = useRef<IEditor>();
     const elementRenderElement = useCallback((props: RenderElementProps) => {
-      const ObserveMElement = observer(MElement);
-      const defaultDom = (
-        <ObserveMElement {...props} children={props.children} />
-      );
+      const defaultDom = <MElement {...props} children={props.children} />;
       if (!eleItemRender) return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
     }, []);
@@ -165,12 +162,6 @@ export const MEditor = observer(
       },
       [note],
     );
-
-    /**
-     * 处理拖拽事件
-     * @description drop event
-     */
-    const onDrop = useCallback(() => {}, [note]);
 
     /**
      * 处理焦点事件, 隐藏所有的range
@@ -452,6 +443,7 @@ export const MEditor = observer(
     const commentMap = useMemo(() => {
       const map = new Map<string, Map<string, CommentDataType[]>>();
       editorProps.comment?.commentList?.forEach((c) => {
+        c.updateTime = Date.now();
         const path = c.path.join(',');
         if (map.has(path)) {
           const childrenMap = map.get(path);
@@ -490,68 +482,75 @@ export const MEditor = observer(
       [commentMap],
     );
 
+    const decorateFn = useCallback(
+      (e: any) => {
+        const decorateList = highlight(e);
+        if (!editorProps.comment) return decorateList;
+        if (editorProps?.comment?.enable === false) return decorateList;
+        if (commentMap.size === 0) return decorateList;
+        const ranges: BaseRange[] = [];
+        const [, path] = e;
+        const itemMap = commentMap.get(path.join(','));
+        if (!itemMap) return decorateList;
+        let newPath = path;
+        if (Array.isArray(path) && path[path.length - 1] !== 0) {
+          newPath = [...path, 0];
+        }
+        itemMap.forEach((itemList) => {
+          const item = itemList[0];
+          const { anchor, focus } = item.selection || {};
+          if (!anchor || !focus) return decorateList;
+          const relativePath = getRelativePath(newPath, anchor.path);
+          const AnchorPath = calcPath(anchor.path, relativePath);
+          const FocusPath = calcPath(focus.path, relativePath);
+
+          if (
+            isPath(FocusPath) &&
+            isPath(AnchorPath) &&
+            Editor.hasPath(editor, AnchorPath) &&
+            Editor.hasPath(editor, FocusPath)
+          ) {
+            const newSelection = {
+              anchor: { ...anchor, path: AnchorPath },
+              focus: { ...focus, path: FocusPath },
+            };
+            const fragement = Editor.fragment(editor, newSelection);
+            const str = Node.string({ children: fragement });
+            const isStrEquals = str === item.refContent;
+            const relativePath = getRelativePath(newPath, anchor.path);
+            const newAnchorPath = calcPath(anchor.path, relativePath);
+            const newFocusPath = calcPath(focus.path, relativePath);
+
+            if (
+              isStrEquals &&
+              isPath(newFocusPath) &&
+              isPath(newAnchorPath) &&
+              Editor.hasPath(editor, newAnchorPath) &&
+              Editor.hasPath(editor, newFocusPath)
+            ) {
+              ranges.push({
+                anchor: { path: newAnchorPath, offset: anchor.offset },
+                focus: { path: newFocusPath, offset: focus.offset },
+                data: itemList,
+                comment: true,
+                updateTime: itemList
+                  .map((i) => i.updateTime)
+                  .sort()
+                  .join(','),
+              } as Range);
+            }
+          }
+        });
+
+        return decorateList.concat(ranges);
+      },
+      [commentMap, highlight],
+    );
     return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <SetNodeToDecorations />
         <Editable
-          decorate={(e) => {
-            const decorateList = highlight(e);
-            if (!editorProps.comment) return decorateList;
-            if (editorProps?.comment?.enable === false) return decorateList;
-            if (commentMap.size === 0) return decorateList;
-            const ranges: BaseRange[] = [];
-            const [, path] = e;
-            const itemMap = commentMap.get(path.join(','));
-            if (!itemMap) return decorateList;
-            let newPath = path;
-            if (Array.isArray(path) && path[path.length - 1] !== 0) {
-              newPath = [...path, 0];
-            }
-            itemMap.forEach((itemList) => {
-              const item = itemList[0];
-              const { anchor, focus } = item.selection || {};
-              if (!anchor || !focus) return decorateList;
-              const relativePath = getRelativePath(newPath, anchor.path);
-              const AnchorPath = calcPath(anchor.path, relativePath);
-              const FocusPath = calcPath(focus.path, relativePath);
-
-              if (
-                isPath(FocusPath) &&
-                isPath(AnchorPath) &&
-                Editor.hasPath(editor, AnchorPath) &&
-                Editor.hasPath(editor, FocusPath)
-              ) {
-                const newSelection = {
-                  anchor: { ...anchor, path: AnchorPath },
-                  focus: { ...focus, path: FocusPath },
-                };
-                const fragement = Editor.fragment(editor, newSelection);
-                const str = Node.string({ children: fragement });
-                const isStrEquals = str === item.refContent;
-                const relativePath = getRelativePath(newPath, anchor.path);
-                const newAnchorPath = calcPath(anchor.path, relativePath);
-                const newFocusPath = calcPath(focus.path, relativePath);
-
-                if (
-                  isStrEquals &&
-                  isPath(newFocusPath) &&
-                  isPath(newAnchorPath) &&
-                  Editor.hasPath(editor, newAnchorPath) &&
-                  Editor.hasPath(editor, newFocusPath)
-                ) {
-                  ranges.push({
-                    anchor: { path: newAnchorPath, offset: anchor.offset },
-                    focus: { path: newFocusPath, offset: focus.offset },
-                    data: itemList,
-                    comment: true,
-                    updateTime: Date.now(),
-                  } as Range);
-                }
-              }
-            });
-
-            return decorateList.concat(ranges);
-          }}
+          decorate={decorateFn}
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={store.readonly}
@@ -575,7 +574,6 @@ export const MEditor = observer(
           }
           autoFocus
           onMouseDown={checkEnd}
-          onDrop={onDrop}
           onFocus={onFocus}
           onBlur={onBlur}
           onPaste={onPaste}

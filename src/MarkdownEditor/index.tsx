@@ -36,9 +36,27 @@ export * from './editor/elements';
 export * from './editor/utils';
 export * from './el';
 
+/**
+ * @typedef CommentDataType
+ * @description 表示评论数据的类型。
+ *
+ * @property {Selection} selection - 用户选择的文本范围。
+ * @property {number[]} path - 文档中选择路径的数组。
+ * @property {number} anchorOffset - 选择范围的起始偏移量。
+ * @property {number} focusOffset - 选择范围的结束偏移量。
+ * @property {string} refContent - 参考内容。
+ * @property {string} commentType - 评论的类型。
+ * @property {string} content - 评论的内容。
+ * @property {number} time - 评论的时间戳。
+ * @property {string | number} id - 评论的唯一标识符。
+ * @property {Object} [user] - 用户信息（可选）。
+ * @property {string} user.name - 用户名。
+ * @property {string} [user.avatar] - 用户头像（可选）。
+ */
 export type CommentDataType = {
   selection: Selection;
   path: number[];
+  updateTime?: number;
   anchorOffset: number;
   focusOffset: number;
   refContent: string;
@@ -48,10 +66,30 @@ export type CommentDataType = {
   id: string | number;
   user?: {
     name: string;
-    avatar: string;
+    avatar?: string;
   };
 };
 
+/**
+ * 表示编辑器的类型。
+ *
+ * @typedef {Object} IEditor
+ * @property {string} cid - 编辑器的唯一标识符。
+ * @property {boolean} [root] - 是否为根节点。
+ * @property {IEditor[]} [children] - 子编辑器数组。
+ * @property {boolean} [expand] - 是否展开。
+ * @property {string} [editName] - 编辑器的名称。
+ * @property {boolean} [changed] - 是否已更改。
+ * @property {boolean} [refresh] - 是否需要刷新。
+ * @property {boolean} [ghost] - 是否为幽灵节点。
+ * @property {number} sort - 排序顺序。
+ * @property {any[]} [schema] - 编辑器的模式。
+ * @property {any} [history] - 编辑器的历史记录。
+ * @property {boolean} [hidden] - 是否隐藏。
+ * @property {Object[]} [links] - 链接数组。
+ * @property {number[]} links.path - 链接路径。
+ * @property {string} links.target - 链接目标。
+ */
 export type IEditor = {
   cid: string;
   root?: boolean;
