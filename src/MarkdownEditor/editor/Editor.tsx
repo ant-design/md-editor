@@ -56,7 +56,6 @@ export const MEditor = observer(
     titlePlaceholderContent?: string;
   }) => {
     const store = useEditorStore();
-
     const changedMark = useRef(false);
     const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
@@ -67,7 +66,6 @@ export const MEditor = observer(
       if (!eleItemRender) return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
     }, []);
-
     const onKeyDown = useKeyboard(store);
     const onChange = useOnchange(editor, store, editorProps.onChange);
     const first = useRef(true);
