@@ -26,16 +26,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'h2.empty:first-child::before': {
         cursor: 'text',
         content:
-          "'" + token.titlePlaceholderContent ||
-          `press / for quick actions` + "'",
+          "'" +
+          (token.titlePlaceholderContent ?? `press / for quick actions`) +
+          "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
       'h1.empty:first-child::before': {
         cursor: 'text',
         content:
-          "'" + token.titlePlaceholderContent ||
-          `press / for quick actions` + "'",
+          "'" +
+          (token.titlePlaceholderContent ?? `press / for quick actions`) +
+          "'",
         color: '#bec0bf',
         fontWeight: 500,
       },
@@ -247,28 +249,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'block',
         cursor: 'text',
         color: '#d8dad9',
-        content: "Press '/' for quick actions",
+        content: '"Press \'/\' for quick actions"',
       },
       "[data-be='list-item'] > :first-child[data-empty]:before": {
         cursor: 'text',
-        content: 'Enter content',
+        content: '"Enter content"',
       },
       "[data-be='list-item'].task > :nth-child(2)[data-empty]:before": {
         cursor: 'text',
-        content: 'Enter content',
+        content: '"Enter content"',
       },
       'h1[data-empty]::before': {
         cursor: 'text',
         content:
-          "'" + token.titlePlaceholderContent ||
-          `press / for quick actions` + "'",
+          "'" +
+          (token.titlePlaceholderContent ?? `press / for quick actions`) +
+          "'",
         color: '#bec0bf',
       },
       'h2[data-empty]::before': {
         cursor: 'text',
         content:
-          "'" + token.titlePlaceholderContent ||
-          `press / for quick actions` + "'",
+          "'" +
+          (token.titlePlaceholderContent ?? `press / for quick actions`) +
+          "'",
         color: '#bec0bf',
       },
       'h3[data-empty]::before': {

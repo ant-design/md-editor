@@ -50,27 +50,31 @@ export function useStyle(prefixCls?: string) {
  * @param props
  * @returns
  */
-export const ResizeImage = (
-  props: React.ImgHTMLAttributes<HTMLImageElement> & {
-    onResizeStart?: (e: React.SyntheticEvent) => void;
-    onResizeStop?: (
-      e: React.SyntheticEvent,
-      size: {
-        width: number | string;
-        height: number | string;
-      },
-    ) => void;
-    supportResize?: boolean;
-    defaultSize?: {
-      width?: number;
-      height?: number;
-    };
-  },
-) => {
+export const ResizeImage = ({
+  onResizeStart,
+  onResizeStop,
+  supportResize,
+  defaultSize,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement> & {
+  onResizeStart?: (e: React.SyntheticEvent) => void;
+  onResizeStop?: (
+    e: React.SyntheticEvent,
+    size: {
+      width: number | string;
+      height: number | string;
+    },
+  ) => void;
+  supportResize?: boolean;
+  defaultSize?: {
+    width?: number;
+    height?: number;
+  };
+}) => {
   const radio = useRef<number>(1);
   const [size, setSize] = React.useState({
-    width: props.defaultSize?.width || '100%',
-    height: props.defaultSize?.height || 'auto',
+    width: defaultSize?.width || 400,
+    height: defaultSize?.height || 0,
   } as {
     width: number | string;
     height: number | string;
@@ -78,12 +82,12 @@ export const ResizeImage = (
   const { wrapSSR, hashId } = useStyle('react-resizable');
   return wrapSSR(
     <ResizableBox
-      onResizeStart={props.onResizeStart}
+      onResizeStart={onResizeStart}
       onResizeStop={(e) => {
-        props.onResizeStop?.(e, size);
+        onResizeStop?.(e, size);
       }}
       className={hashId}
-      handle={!props.supportResize ? <div /> : undefined}
+      handle={!supportResize ? <div /> : undefined}
       width={size.width as number}
       height={size.height as number}
       onResize={(_, { size }) => {
