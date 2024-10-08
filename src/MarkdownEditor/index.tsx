@@ -270,7 +270,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         })}
         style={{
           width: width || '400px',
-          minWidth: readonly ? '200px' : '400px',
           height: height || 'auto',
           display: 'flex',
           flexDirection: 'column',
