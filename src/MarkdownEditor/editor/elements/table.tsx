@@ -23,15 +23,15 @@ export function TableCell(props: RenderElementProps) {
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
     store.openTableMenus(e, head);
   }, []);
-  const isLatest = useMemo(() => {
-    if (store.editor.children.length === 0) return false;
-    if (!store.editorProps.typewriter) return false;
 
+  const isLatest = useMemo(() => {
+    if (store.editor?.children?.length === 0) return false;
+    if (!store.editorProps?.typewriter) return false;
     return store.isLatestNode(props.element);
   }, [
-    store.editor.children.at?.(path.at(0)!),
-    store.editor.children.at?.(path.at(0)! + 1),
-    store.editorProps.typewriter,
+    store.editor?.children?.at?.(path.at(0)!),
+    store.editor?.children?.at?.(path.at(0)! + 1),
+    store.editorProps?.typewriter,
   ]);
   return React.useMemo(() => {
     return props.element.title ? (
@@ -165,7 +165,7 @@ export const Table = observer((props: RenderElementProps) => {
         style={{
           maxWidth: '100%',
           overflow: 'visible',
-          ...(store.editor.children.length === 1
+          ...(store.editor?.children?.length === 1
             ? {}
             : {
                 border: '1px solid #e8e8e8',

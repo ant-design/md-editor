@@ -149,6 +149,7 @@ export function Media({
   });
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
+      if (!store?.editor) return;
       Transforms.setNodes(store?.editor, attr, { at: path });
     },
     [path],

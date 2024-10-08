@@ -327,7 +327,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                   children: [{ text: '' }],
                 },
                 {
-                  at: [instance.store.editor.children.length],
+                  at: [instance.store.editor?.children?.length],
                 },
               );
             }
