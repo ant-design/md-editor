@@ -13,7 +13,6 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
   const isLatest = useMemo(() => {
     if (store?.editor?.children.length === 0) return false;
     if (!store?.editorProps?.typewriter) return false;
-
     return store.isLatestNode(props.element);
   }, [
     store?.editor?.children.at?.(path.at(0)!),
