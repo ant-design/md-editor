@@ -1,12 +1,6 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Editor, NodeEntry, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
@@ -103,20 +97,6 @@ export const Table = observer((props: RenderElementProps) => {
       } catch (e) {}
     }, 16);
   }, [setState, store.editor]);
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      const tableEl = tableRef.current
-        ? ReactEditor.toDOMNode(store.editor, tableRef.current[0])
-        : null;
-      if (tableEl && !tableEl.contains(event.target as Node)) {
-        setState((prev) => ({
-          ...prev,
-          visible: false,
-        }));
-      }
-    },
-    [store.editor],
-  );
 
   const handleClickTable = useCallback(() => {
     const el = store.tableCellNode;
@@ -147,13 +127,6 @@ export const Table = observer((props: RenderElementProps) => {
     }
   }, [store.tableCellNode, store.editor, setState]);
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [handleClickOutside]);
-
   return useMemo(() => {
     return (
       <div
@@ -161,7 +134,7 @@ export const Table = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
-        onClick={handleClickTable}
+        onMouseUp={handleClickTable}
         style={{
           maxWidth: '100%',
           overflow: 'visible',
