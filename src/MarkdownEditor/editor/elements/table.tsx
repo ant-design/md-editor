@@ -11,7 +11,7 @@ import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 
 export function TableCell(props: RenderElementProps) {
-  const store = useEditorStore();
+  const { typewriter, store } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path] = useSelStatus(props.element);
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
@@ -25,14 +25,14 @@ export function TableCell(props: RenderElementProps) {
   }, [
     store.editor?.children?.at?.(path.at(0)!),
     store.editor?.children?.at?.(path.at(0)! + 1),
-    store.editorProps?.typewriter,
+    typewriter,
   ]);
   return React.useMemo(() => {
     return props.element.title ? (
       <th
         {...props.attributes}
         className={classNames({
-          typewriter: isLatest && store.editorProps.typewriter,
+          typewriter: isLatest && typewriter,
         })}
         style={{ textAlign: props.element.align }}
         data-be={'th'}
@@ -46,7 +46,7 @@ export function TableCell(props: RenderElementProps) {
         style={{ textAlign: props.element.align }}
         data-be={'td'}
         className={classNames('group', {
-          typewriter: isLatest && store.editorProps.typewriter,
+          typewriter: isLatest && typewriter,
         })}
         onContextMenu={(e) => {
           context(e);
@@ -59,7 +59,7 @@ export function TableCell(props: RenderElementProps) {
 }
 
 export const Table = observer((props: RenderElementProps) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
 
   const [state, setState] = useState({
     visible: false,

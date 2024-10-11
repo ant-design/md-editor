@@ -83,7 +83,7 @@ export const schemaToHeading = (schema: any) => {
  * 配置次级标题的锚点
  */
 export const TocHeading = observer(({ note }: { note: IEditor }) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],
     active: '',

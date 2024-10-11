@@ -28,7 +28,7 @@ export const ListItem = ({
   attributes,
 }: ElementProps<ListItemNode>) => {
   const [, update] = useMEditor(element);
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const isTask = typeof element.checked === 'boolean';
   const context = useContext(ConfigProvider.ConfigContext);
   const { hashId } = useContext(ListContext) || {};

@@ -55,7 +55,7 @@ export const MEditor = observer(
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
   }) => {
-    const store = useEditorStore();
+    const { store } = useEditorStore();
     const changedMark = useRef(false);
     const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);

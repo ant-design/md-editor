@@ -21,7 +21,7 @@ const width = 370;
  * 链接的配置面板
  */
 export const InsertLink = observer(() => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
   const scrollRef = useRef<HTMLDivElement>(null);

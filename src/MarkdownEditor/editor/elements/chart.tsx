@@ -114,7 +114,7 @@ const ChartMap = {
 };
 
 export const Chart: React.FC<RenderElementProps> = (props) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const editor = useSlate();
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {

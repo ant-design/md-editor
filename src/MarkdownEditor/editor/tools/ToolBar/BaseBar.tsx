@@ -114,7 +114,7 @@ export const BaseToolBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const store = useEditorStore();
+    const { store } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
     const [highColor, setHighColor] = React.useState<string | null>(null);

@@ -128,7 +128,7 @@ interface TableAttrProps {
 
 export const TableAttr = observer(
   ({ state, setState, tableRef, tableCellRef }: TableAttrProps) => {
-    const store = useEditorStore();
+    const { store } = useEditorStore();
     const editor = store.editor;
 
     const el = store.tableCellNode;

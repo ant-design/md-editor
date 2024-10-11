@@ -238,7 +238,7 @@ export interface InsertAutocompleteProps {
 
 export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
   (props) => {
-    const store = useEditorStore();
+    const { store } = useEditorStore();
     const dom = useRef<HTMLDivElement>(null);
     const ctx = useRef<{
       path: number[];

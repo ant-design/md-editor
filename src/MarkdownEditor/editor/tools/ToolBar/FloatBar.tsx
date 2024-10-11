@@ -16,7 +16,7 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer(() => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,

@@ -7,7 +7,7 @@ import { DragHandle } from '../../tools/DragHandle';
 import { useStyle } from './style';
 
 export function ColumnCell(props: RenderElementProps) {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const contextFn = useCallback((e: React.MouseEvent, head?: boolean) => {
     store.openTableMenus(e, head);
   }, []);
@@ -30,7 +30,7 @@ export function ColumnCell(props: RenderElementProps) {
 }
 
 export const ColumnGroup = (props: RenderElementProps) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-column-group');
   const { wrapSSR, hashId } = useStyle(baseCls);

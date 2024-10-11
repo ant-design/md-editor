@@ -105,7 +105,7 @@ export const MLeaf = (
   },
 ) => {
   const code = useContext(CodeCtx);
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
 

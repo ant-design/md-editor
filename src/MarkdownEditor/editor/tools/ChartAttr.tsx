@@ -22,7 +22,7 @@ export const ChartAttr: React.FC<{
   }[];
   node: NodeEntry<ChartNode>;
 }> = observer((props) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const editor = store?.editor;
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();

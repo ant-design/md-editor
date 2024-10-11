@@ -20,7 +20,7 @@ export function LinkCard({
     updateTime: string;
   }>
 >) {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-link-card');
   const { wrapSSR, hashId } = useStyle(baseCls);

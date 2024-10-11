@@ -28,7 +28,11 @@ import { schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
-export const EditorStoreContext = createContext<EditorStore | null>(null);
+export const EditorStoreContext = createContext<{
+  store: EditorStore;
+  typewriter: boolean;
+  readonly: boolean;
+} | null>(null);
 
 export const useEditorStore = () => {
   return (

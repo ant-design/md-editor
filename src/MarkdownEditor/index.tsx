@@ -300,7 +300,13 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
   return wrapSSR(
-    <EditorStoreContext.Provider value={instance.store}>
+    <EditorStoreContext.Provider
+      value={{
+        store: instance.store,
+        typewriter: props.typewriter ?? false,
+        readonly: props.readonly ?? false,
+      }}
+    >
       <div
         className={classNames('markdown-editor', baseClassName, hashId, {
           [baseClassName + '-readonly']: readonly,
