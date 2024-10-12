@@ -20,7 +20,7 @@ export function LinkCard({
     updateTime: string;
   }>
 >) {
-  const { store } = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-link-card');
   const { wrapSSR, hashId } = useStyle(baseCls);
@@ -31,7 +31,7 @@ export function LinkCard({
         className={classNames(baseCls, 'ant-md-editor-drag-el', hashId)}
         data-be="link-card"
         onDragStart={(e) => store.dragStart(e)}
-        draggable={store.readonly ? false : true}
+        draggable={readonly ? false : true}
         onContextMenu={(e) => {
           e.stopPropagation();
         }}

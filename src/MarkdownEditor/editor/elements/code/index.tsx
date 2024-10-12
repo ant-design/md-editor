@@ -86,7 +86,7 @@ const langOptions = [
 ].map((l) => ({ label: l, value: l.toLowerCase() }));
 
 export const CodeElement = (props: ElementProps<CodeNode>) => {
-  const { store } = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const [editor, update] = useMEditor(props.element);
   const [state, setState] = useGetSetState({
     lang: props.element.language?.toLowerCase() || '',
@@ -152,7 +152,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
             contentEditable={false}
           >
             <div>
-              {!store.readonly && (
+              {!readonly && (
                 <Select
                   size={'small'}
                   value={state().lang}
@@ -181,7 +181,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
                   )}
                 />
               )}
-              {store.readonly && (
+              {readonly && (
                 <div
                   style={{
                     fontSize: 12,

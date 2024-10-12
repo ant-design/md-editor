@@ -114,7 +114,7 @@ export const BaseToolBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store } = useEditorStore();
+    const { store, readonly } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
     const [highColor, setHighColor] = React.useState<string | null>(null);
@@ -309,7 +309,7 @@ export const BaseToolBar = observer(
               const editor = store?.editor;
               let selection = editor.selection;
               if (!selection) {
-                if (store.readonly && domSelection) {
+                if (readonly && domSelection) {
                   selection = getSelectionFromDomSelection(
                     store?.editor,
                     domSelection!,

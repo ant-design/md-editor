@@ -55,7 +55,7 @@ export const MEditor = observer(
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
   }) => {
-    const { store } = useEditorStore();
+    const { store, readonly } = useEditorStore();
     const changedMark = useRef(false);
     const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
@@ -429,9 +429,9 @@ export const MEditor = observer(
     }, [editor.children]);
 
     const readonlyCls = useMemo(() => {
-      if (store.readonly) return 'readonly';
+      if (readonly) return 'readonly';
       return store.focus || !childrenIsEmpty ? 'focus' : '';
-    }, [store.readonly, store.focus, !childrenIsEmpty]);
+    }, [readonly, store.focus, !childrenIsEmpty]);
 
     const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
       titlePlaceholderContent: editorProps.titlePlaceholderContent,
@@ -551,7 +551,7 @@ export const MEditor = observer(
           decorate={decorateFn}
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
-          readOnly={store.readonly}
+          readOnly={readonly}
           className={classNames(
             `${baseClassName}-${readonlyCls}`,
             `${baseClassName}`,

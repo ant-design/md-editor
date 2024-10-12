@@ -112,7 +112,6 @@ export class EditorStore {
     'media',
     'attach',
   ]);
-  typewriter: boolean = false;
   draggedElement: null | HTMLElement = null;
   openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();

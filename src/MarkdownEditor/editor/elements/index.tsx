@@ -105,7 +105,7 @@ export const MLeaf = (
   },
 ) => {
   const code = useContext(CodeCtx);
-  const { store } = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
 
@@ -159,7 +159,7 @@ export const MLeaf = (
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
-            if (e.metaKey || e.ctrlKey || store.readonly) {
+            if (e.metaKey || e.ctrlKey || readonly) {
               if (!leaf.url) return;
               window.open(leaf.url);
             } else if (e.detail === 2) {
