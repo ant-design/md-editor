@@ -198,6 +198,15 @@ export default () => {
           ]);
         },
       }}
+      image={{
+        upload: async (fileList) => {
+          return new Promise((resolve) => {
+            const file = fileList[0];
+            const url = URL.createObjectURL(file);
+            resolve(url);
+          });
+        },
+      }}
       initValue={defaultValue}
     />
   );
