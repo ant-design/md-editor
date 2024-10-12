@@ -13,7 +13,7 @@ export function Head({
   attributes,
   children,
 }: ElementProps<HeadNode>) {
-  const { store, typewriter } = useEditorStore();
+  const { store = {} as Record<string, any>, typewriter } = useEditorStore();
   const editor = useSlate();
   const [selected, path] = useSelStatus(element);
 
@@ -53,7 +53,7 @@ export function Head({
     element.level,
     isLatest,
     element.children,
-    store.refreshHighlight,
+    store?.refreshHighlight,
     selected,
     path,
   ]);

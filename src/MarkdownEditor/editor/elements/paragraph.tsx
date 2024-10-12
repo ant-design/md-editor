@@ -20,8 +20,6 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
     typewriter,
   ]);
 
-  console.log('Paragraph', isLatest);
-
   return React.useMemo(() => {
     const str = Node.string(props.element);
     return (

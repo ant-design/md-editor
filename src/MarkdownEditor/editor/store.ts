@@ -37,6 +37,7 @@ export const EditorStoreContext = createContext<{
 export const useEditorStore = () => {
   return (
     useContext(EditorStoreContext)! || {
+      store: {} as Record<string, any>,
       readonly: true,
     }
   );
