@@ -8,7 +8,7 @@ import { DragHandle } from '../tools/DragHandle';
 export const FootnoteReference = (
   props: ElementProps<FootnoteDefinitionNode>,
 ) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const [selected] = useSelStatus(props.element);
   return React.useMemo(() => {
     const str = Node.string(props.element);

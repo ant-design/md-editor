@@ -287,7 +287,7 @@ export function useHighlight() {
  */
 export const SetNodeToDecorations = observer(() => {
   const editor = useSlate();
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const parser = useCallback(() => {
     const codes = Array.from(
       Editor.nodes<CodeNode>(editor, {

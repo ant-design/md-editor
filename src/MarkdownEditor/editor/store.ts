@@ -28,11 +28,16 @@ import { schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
-export const EditorStoreContext = createContext<EditorStore | null>(null);
+export const EditorStoreContext = createContext<{
+  store: EditorStore;
+  typewriter: boolean;
+  readonly: boolean;
+} | null>(null);
 
 export const useEditorStore = () => {
   return (
     useContext(EditorStoreContext)! || {
+      store: {} as Record<string, any>,
       readonly: true,
     }
   );
@@ -107,7 +112,6 @@ export class EditorStore {
     'media',
     'attach',
   ]);
-  typewriter: boolean = false;
   draggedElement: null | HTMLElement = null;
   openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();

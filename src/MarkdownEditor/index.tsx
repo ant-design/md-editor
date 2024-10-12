@@ -279,7 +279,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     instance.store.editorProps = props;
     instance.store.setState((state) => {
       state.editorProps = props;
-      state.typewriter = !!props.typewriter;
     });
   }, [props]);
 
@@ -300,7 +299,13 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
   return wrapSSR(
-    <EditorStoreContext.Provider value={instance.store}>
+    <EditorStoreContext.Provider
+      value={{
+        store: instance.store,
+        typewriter: props.typewriter ?? false,
+        readonly: props.readonly ?? false,
+      }}
+    >
       <div
         className={classNames('markdown-editor', baseClassName, hashId, {
           [baseClassName + '-readonly']: readonly,
@@ -313,25 +318,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           flexDirection: 'column',
           maxHeight: '100%',
           ...style,
-        }}
-        onClick={() => {
-          if (readonly) {
-            return;
-          }
-          const latest = instance.store.editor?.children?.at(-1);
-          if (latest) {
-            if (latest.type !== 'paragraph') {
-              instance.store.editor.insertNode(
-                {
-                  type: 'paragraph',
-                  children: [{ text: '' }],
-                },
-                {
-                  at: [instance.store.editor?.children?.length],
-                },
-              );
-            }
-          }
         }}
       >
         {!readonly && toolBar?.enable ? (

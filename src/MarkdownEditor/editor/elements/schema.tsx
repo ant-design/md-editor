@@ -1,13 +1,13 @@
 ﻿import { BetaSchemaForm, ProConfigProvider } from '@ant-design/pro-components';
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { useSelStatus } from '../../hooks/editor';
+import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils';
 
 export const Schema: React.FC<RenderElementProps> = (props) => {
   const { element: node } = props;
+  const { store, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, path, store] = useSelStatus(node);
   const htmlRef = React.useRef<HTMLDivElement>(null);
 
   return (
@@ -33,7 +33,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
         ref={htmlRef}
         contentEditable={false}
         onDragStart={(e) => store.dragStart(e)}
-        draggable={store.readonly ? false : true}
+        draggable={readonly ? false : true}
         onContextMenu={(e) => {
           e.stopPropagation();
         }}

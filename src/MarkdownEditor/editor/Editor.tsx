@@ -54,8 +54,8 @@ export const MEditor = observer(
     prefixCls?: string;
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
-  }) => {
-    const store = useEditorStore();
+  } & MarkdownEditorProps) => {
+    const { store, readonly } = useEditorStore();
     const changedMark = useRef(false);
     const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
@@ -192,7 +192,6 @@ export const MEditor = observer(
       async (event: React.ClipboardEvent<HTMLDivElement>) => {
         event.stopPropagation();
         event.preventDefault();
-
         if (!Range.isCollapsed(store.editor.selection!)) {
           if (store.editor.selection && store.editor.selection.anchor) {
             Transforms.delete(store.editor, { at: store.editor.selection! });
@@ -318,27 +317,15 @@ export const MEditor = observer(
           );
           return;
         }
-
-        try {
-          const paste = await event.clipboardData.getData('text/html');
-          if (paste) {
-            const success = insertParsedHtmlNodes(editor, paste);
-            if (success) {
-              return;
-            }
-          }
-        } catch (error) {
-          console.log('error', error);
-        }
-
         try {
           const fileList = event.clipboardData.files;
           if (fileList.length > 0) {
             const hideLoading = message.loading('Uploading...');
             try {
               const url = [];
-              for (const file of fileList) {
-                url.push(file);
+              for await (const file of fileList) {
+                const serverUrl = await editorProps.image?.upload?.([file]);
+                url.push(serverUrl);
               }
 
               if (store.editor.selection?.focus.path) {
@@ -379,6 +366,19 @@ export const MEditor = observer(
         } catch (error) {
           console.log('error', error);
         }
+        try {
+          const paste = await event.clipboardData.getData('text/html');
+
+          if (paste) {
+            const success = insertParsedHtmlNodes(editor, paste);
+            if (success) {
+              return;
+            }
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+
         if (hasEditableTarget(editor, event.target)) {
           ReactEditor.insertData(editor, event.clipboardData);
           return;
@@ -429,9 +429,9 @@ export const MEditor = observer(
     }, [editor.children]);
 
     const readonlyCls = useMemo(() => {
-      if (store.readonly) return 'readonly';
+      if (readonly) return 'readonly';
       return store.focus || !childrenIsEmpty ? 'focus' : '';
-    }, [store.readonly, store.focus, !childrenIsEmpty]);
+    }, [readonly, store.focus, !childrenIsEmpty]);
 
     const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
       titlePlaceholderContent: editorProps.titlePlaceholderContent,
@@ -551,7 +551,7 @@ export const MEditor = observer(
           decorate={decorateFn}
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
-          readOnly={store.readonly}
+          readOnly={readonly}
           className={classNames(
             `${baseClassName}-${readonlyCls}`,
             `${baseClassName}`,

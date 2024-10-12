@@ -16,7 +16,7 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer(() => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,
@@ -29,7 +29,7 @@ export const FloatBar = observer(() => {
   const resize = useCallback((force = false) => {
     if (store.domRect && !store.openLinkPanel) {
       let left = store.domRect.x;
-      left = left - (228 - store.domRect.width) / 2;
+      left = left - (178 - store.domRect.width) / 2;
       const container = store.container!;
       if (left < 4) left = 4;
       const barWidth = 232;

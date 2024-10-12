@@ -9,7 +9,7 @@ import { ConfigProvider, Popconfirm, Popover, Tooltip } from 'antd';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { TableCellNode, TableRowNode } from '../../el';
@@ -128,7 +128,7 @@ interface TableAttrProps {
 
 export const TableAttr = observer(
   ({ state, setState, tableRef, tableCellRef }: TableAttrProps) => {
-    const store = useEditorStore();
+    const { store, readonly } = useEditorStore();
     const editor = store.editor;
 
     const el = store.tableCellNode;
@@ -489,7 +489,7 @@ export const TableAttr = observer(
 
     const { wrapSSR, hashId } = useStyle(baseClassName);
     if (!store.container) return null;
-    if (store.readonly) return null;
+    if (readonly) return null;
     return wrapSSR(
       <div
         className={classNames(baseClassName, hashId)}

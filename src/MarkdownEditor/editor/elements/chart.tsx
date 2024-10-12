@@ -114,7 +114,7 @@ const ChartMap = {
 };
 
 export const Chart: React.FC<RenderElementProps> = (props) => {
-  const store = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const editor = useSlate();
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {
@@ -373,7 +373,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     return (
                       <div
                         key={index}
-                        contentEditable={store.readonly ? false : true}
+                        contentEditable={readonly ? false : true}
                         style={{
                           margin: 12,
                           borderRadius: 16,
@@ -385,7 +385,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                               : '1px solid #eee',
                         }}
                       >
-                        <table contentEditable={store.readonly ? false : true}>
+                        <table contentEditable={readonly ? false : true}>
                           <tbody>{children}</tbody>
                         </table>
                       </div>

@@ -90,7 +90,7 @@ export const useMEditor = (el: BaseElement) => {
  */
 export const useSelStatus = (element: any) => {
   const editor = useSlate();
-  const store = useEditorStore();
+  const { store } = useEditorStore();
   const [state, setState] = useGetSetState({
     selected: !store?.initializing && ReactEditor.isFocused(editor),
     path: EditorUtils.findPath(editor, element),
