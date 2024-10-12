@@ -18,6 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         margin: '8px 0',
         width: '100%',
         maxHeight: '120px',
+        minHeight: 72,
         backgroundImage:
           'linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%)',
         flex: 1,
