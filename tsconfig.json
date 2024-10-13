@@ -20,5 +20,5 @@
       "@ant-design/md-editor/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/**/*", "src/MarkDown/demos/.tsx", "tests/**/*"]
+  "include": [".dumirc.ts", "src/**/**/*", "src/MarkDown/demos/.tsx", "tests/**/*"],
 }

@@ -1,0 +1,22 @@
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import MinComponent from '../../src/MarkdownEditor/demos/min';
+
+const mockDefaultValue =
+  '## Section 1\nContent 1## Section 2\nContent 2## Section 3\nContent 3';
+
+describe('MarkdownEditor Component with Split Sections', () => {
+  it('renders multiple MarkdownEditor instances based on sections in defaultValue', () => {
+    vi.mock('./MinComponent', () => ({
+      defaultValue: mockDefaultValue,
+    }));
+
+    render(<MinComponent />);
+
+    const sections = mockDefaultValue.split('##').filter(Boolean);
+    sections.forEach((section) => {
+      const editor = screen.getByText(`## ${section.trim()}`);
+      expect(editor).toBeInTheDocument();
+    });
+  });
+});
