@@ -22,7 +22,7 @@ export const ChartAttr: React.FC<{
   }[];
   node: NodeEntry<ChartNode>;
 }> = observer((props) => {
-  const store = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const editor = store?.editor;
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
@@ -72,7 +72,7 @@ export const ChartAttr: React.FC<{
           </Tooltip>
         );
       })}
-      {store.readonly ? null : (
+      {readonly ? null : (
         <Tooltip title="删除">
           <div className={classNames(`${baseClassName}-item`, hashId)}>
             <DeleteOutlined onClick={remove} />

@@ -18,7 +18,7 @@ function group(array: string | any[], subGroupLength: number) {
 }
 
 export const Description = (props: RenderElementProps) => {
-  const store = useEditorStore();
+  const { store } = useEditorStore();
 
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-description');

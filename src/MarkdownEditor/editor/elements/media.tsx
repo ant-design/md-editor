@@ -7,6 +7,7 @@ import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { AvatarList } from '../components/ContributorAvatar';
+import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
@@ -136,8 +137,8 @@ export function Media({
   children,
 }: ElementProps<MediaNode>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, path, store] = useSelStatus(element);
-
+  const [_, path] = useSelStatus(element);
+  const { store, readonly } = useEditorStore();
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -192,7 +193,7 @@ export function Media({
   const imageDom = useMemo(() => {
     if (state().type !== 'image' && state().type !== 'other') return null;
 
-    return !store?.readonly ? (
+    return !readonly ? (
       <ResizeImage
         defaultSize={{
           width: element.width,
@@ -226,7 +227,7 @@ export function Media({
         height={element.height}
       />
     );
-  }, [state().type, state().url, store?.readonly, state().selected]);
+  }, [state().type, state().url, readonly, state().selected]);
 
   const mediaElement = useMemo(() => {
     if (state().type === 'video')

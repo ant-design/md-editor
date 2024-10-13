@@ -78,7 +78,7 @@ export const getMediaType = (name?: string, alt?: string) => {
     if (alt.startsWith('attachment:')) return 'attachment';
   }
   name = name || '';
-  if (name.startsWith('data:')) return 'image';
+  if (name?.startsWith('data:')) return 'image';
   name = name.split('?')[0];
   const ext = name.toLowerCase().match(/\.\w+$/)?.[0];
   if (!ext) return 'other';

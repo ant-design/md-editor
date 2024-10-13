@@ -13,18 +13,18 @@ export function Head({
   attributes,
   children,
 }: ElementProps<HeadNode>) {
-  const store = useEditorStore();
+  const { store = {} as Record<string, any>, typewriter } = useEditorStore();
   const editor = useSlate();
   const [selected, path] = useSelStatus(element);
+
   const isLatest = useMemo(() => {
     if (editor.children.length === 0) return false;
-    if (!store?.editorProps?.typewriter) return false;
-
+    if (!typewriter) return false;
     return store.isLatestNode(element);
   }, [
     editor.children.at?.(path.at(0)!),
     editor.children.at?.(path.at(0)! + 1),
-    store?.editorProps?.typewriter,
+    typewriter,
   ]);
 
   return React.useMemo(() => {
@@ -35,14 +35,13 @@ export function Head({
         ...attributes,
         id: slugify(str),
         ['data-be']: 'head',
-
         ['data-head']: slugify(Node.string(element) || ''),
         ['data-title']: path?.[0] === 0,
         onDragStart: store.dragStart,
         ['data-empty']: !str && selected ? 'true' : undefined,
         className: classNames('ant-md-editor-drag-el', {
           empty: !str,
-          typewriter: isLatest && store?.editorProps?.typewriter,
+          typewriter: isLatest && typewriter,
         }),
       },
       <>
@@ -54,7 +53,7 @@ export function Head({
     element.level,
     isLatest,
     element.children,
-    store.refreshHighlight,
+    store?.refreshHighlight,
     selected,
     path,
   ]);

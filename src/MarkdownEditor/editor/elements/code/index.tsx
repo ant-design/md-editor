@@ -86,7 +86,7 @@ const langOptions = [
 ].map((l) => ({ label: l, value: l.toLowerCase() }));
 
 export const CodeElement = (props: ElementProps<CodeNode>) => {
-  const store = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const [editor, update] = useMEditor(props.element);
   const [state, setState] = useGetSetState({
     lang: props.element.language?.toLowerCase() || '',
@@ -152,7 +152,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
             contentEditable={false}
           >
             <div>
-              {!store.readonly && (
+              {!readonly && (
                 <Select
                   size={'small'}
                   value={state().lang}
@@ -181,7 +181,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
                   )}
                 />
               )}
-              {store.readonly && (
+              {readonly && (
                 <div
                   style={{
                     fontSize: 12,
@@ -303,12 +303,12 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
 
 export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   const ctx = useContext(CodeCtx);
-  const store = useEditorStore();
+  const { store, typewriter } = useEditorStore();
   const isLatest = useMemo(() => {
     if (store?.editor?.children.length === 0) return false;
-    if (!store?.editorProps?.typewriter) return false;
+    if (!typewriter) return false;
     return store.isLatestNode(props.element);
-  }, [store?.editor?.children, store?.editorProps?.typewriter]);
+  }, [store?.editor?.children, typewriter]);
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-code');
 
@@ -316,7 +316,7 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
     return (
       <div
         className={classNames(`${baseCls}-content-code-line`, {
-          typewriter: isLatest && store?.editorProps?.typewriter,
+          typewriter: isLatest && typewriter,
         })}
         data-be={'code-line'}
         {...props.attributes}
