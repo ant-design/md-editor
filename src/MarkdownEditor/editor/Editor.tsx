@@ -317,6 +317,19 @@ export const MEditor = observer(
           );
           return;
         }
+
+        try {
+          const paste = await event.clipboardData.getData('text/html');
+          if (paste) {
+            const success = insertParsedHtmlNodes(editor, paste);
+            if (success) {
+              return;
+            }
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+
         try {
           const fileList = event.clipboardData.files;
           if (fileList.length > 0) {
@@ -362,18 +375,6 @@ export const MEditor = observer(
             event.preventDefault();
             event.stopPropagation();
             return;
-          }
-        } catch (error) {
-          console.log('error', error);
-        }
-        try {
-          const paste = await event.clipboardData.getData('text/html');
-
-          if (paste) {
-            const success = insertParsedHtmlNodes(editor, paste);
-            if (success) {
-              return;
-            }
           }
         } catch (error) {
           console.log('error', error);
