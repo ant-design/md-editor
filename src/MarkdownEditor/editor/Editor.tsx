@@ -559,6 +559,7 @@ export const MEditor = observer(
             editorProps.className,
             {
               [`${baseClassName}-report`]: reportMode,
+              [`${baseClassName}-edit`]: !readonly,
             },
             hashId,
           )}

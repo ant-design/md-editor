@@ -23,32 +23,35 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '[data-empty]:before': {
         display: 'none',
       },
-      'h2.empty:first-child::before': {
-        cursor: 'text',
-        content:
-          "'" +
-          (token.titlePlaceholderContent ?? `press / for quick actions`) +
-          "'",
-        color: '#bec0bf',
-        fontWeight: 500,
+      '&-edit': {
+        'h2.empty:first-child::before': {
+          cursor: 'text',
+          content:
+            "'" +
+            (token.titlePlaceholderContent ?? `press / for quick actions`) +
+            "'",
+          color: '#bec0bf',
+          fontWeight: 500,
+        },
+        'h1.empty:first-child::before': {
+          cursor: 'text',
+          content:
+            "'" +
+            (token.titlePlaceholderContent ?? `press / for quick actions`) +
+            "'",
+          color: '#bec0bf',
+          fontWeight: 500,
+        },
+        '> p.empty:nth-child(2)::before': {
+          cursor: 'text',
+          content: '\'Please enter content, press "/" for quick actions\'',
+          display: 'block',
+          color: '#bec0bf',
+          position: 'absolute',
+          fontWeight: 500,
+        },
       },
-      'h1.empty:first-child::before': {
-        cursor: 'text',
-        content:
-          "'" +
-          (token.titlePlaceholderContent ?? `press / for quick actions`) +
-          "'",
-        color: '#bec0bf',
-        fontWeight: 500,
-      },
-      '> p.empty:nth-child(2)::before': {
-        cursor: 'text',
-        content: '\'Please enter content, press "/" for quick actions\'',
-        display: 'block',
-        color: '#bec0bf',
-        position: 'absolute',
-        fontWeight: 500,
-      },
+
       '> *:first-child': {
         marginTop: 0,
       },
@@ -238,57 +241,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRight: '0.15em solid #1677ff',
         animation:
           'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
-      },
-    },
-
-    [`${token.componentCls}${token.componentCls}-focus`]: {
-      '[data-empty]:before': {
-        position: 'absolute',
-        left: '0',
-        top: '3px',
-        display: 'block',
-        cursor: 'text',
-        color: '#d8dad9',
-        content: '"Press \'/\' for quick actions"',
-      },
-      "[data-be='list-item'] > :first-child[data-empty]:before": {
-        cursor: 'text',
-        content: '"Enter content"',
-      },
-      "[data-be='list-item'].task > :nth-child(2)[data-empty]:before": {
-        cursor: 'text',
-        content: '"Enter content"',
-      },
-      'h1[data-empty]::before': {
-        cursor: 'text',
-        content:
-          "'" +
-          (token.titlePlaceholderContent ?? `press / for quick actions`) +
-          "'",
-        color: '#bec0bf',
-      },
-      'h2[data-empty]::before': {
-        cursor: 'text',
-        content:
-          "'" +
-          (token.titlePlaceholderContent ?? `press / for quick actions`) +
-          "'",
-        color: '#bec0bf',
-      },
-      'h3[data-empty]::before': {
-        cursor: 'text',
-        content: "'Please enter a title'",
-        color: '#bec0bf',
-      },
-      'h4[data-empty]::before': {
-        cursor: 'text',
-        content: "'Please enter a title'",
-        color: '#bec0bf',
-      },
-      'h5[data-empty]::before': {
-        cursor: 'text',
-        content: "'Please enter a title'",
-        color: '#bec0bf',
       },
     },
     [`${token.componentCls}-report`]: {

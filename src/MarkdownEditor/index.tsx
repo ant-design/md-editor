@@ -309,6 +309,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       <div
         className={classNames('markdown-editor', baseClassName, hashId, {
           [baseClassName + '-readonly']: readonly,
+          [baseClassName + '-edit']: !readonly,
           [baseClassName + '-report']: props.reportMode,
         })}
         style={{
