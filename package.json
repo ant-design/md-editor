@@ -4,8 +4,8 @@
   "description": "类语雀的编辑器，支持 markdown 渲染和编辑",
   "repository": "git@github.com:ant-design/md-editor.git",
   "license": "MIT",
+  "type": "module",
   "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -108,8 +108,7 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
     "stylelint": "^14.16.1",
-    "typescript": "^5.6.2",
-    "vite-plugin-dynamic-import": "^1.6.0"
+    "typescript": "^5.6.2"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

@@ -9,36 +9,47 @@ import { useEffect } from 'react';
 import { act } from 'react-dom/test-utils';
 import { describe, expect, test, vi } from 'vitest';
 
-type Options = {
-  skip?: boolean;
-};
+function demoTest(component: string, options?: { skip?: boolean }) {
 
-function demoTest(component: string, options?: Options) {
-  const files = glob.sync(`./src/MarkdownEditor/demos/${component}.tsx`);
+  const files = glob.sync(`./src/MarkdownEditor/demos/${component}.tsx`, {
+    ignore: ['./**/*.test.tsx', './**/node_modules/**'], // 排除测试文件和 node_modules
+    nodir: true, 
+  });
 
-  console.log('Matched files:', files);
+  if (!files.length) {
+    console.warn(`No files found for component: ${component}`);
+    return;
+  }
 
   const TestApp = (props: { children: any; onInit: () => void }) => {
     useEffect(() => {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         props.onInit?.();
       }, 1000);
+
+      return () => clearTimeout(timer);
     }, []);
+
     return <App>{props.children}</App>;
   };
 
   describe(`${component} demos`, () => {
     files.forEach((file: any) => {
-      let testMethod = options?.skip === true ? test.skip : test;
+      const testMethod = options?.skip ? test.skip : test;
 
       testMethod(`📸 renders ${file} correctly`, async () => {
         vi.useFakeTimers().setSystemTime(new Date('2016-11-22 15:22:44'));
 
-        const fn = vi.fn();
-        const Demo = (await import(file)).default;
+        const onInitFn = vi.fn();
+        
+        // 动态导入组件
+        const DemoModule = await import(file);
+        console.log('Imported Demo Module:', DemoModule);
+
+        const Demo = DemoModule.default;
 
         const wrapper = reactRender(
-          <TestApp onInit={fn}>
+          <TestApp onInit={onInitFn}>
             <Demo />
           </TestApp>,
         );
@@ -48,7 +59,7 @@ function demoTest(component: string, options?: Options) {
         });
 
         await waitFor(() => {
-          expect(fn).toBeCalled();
+          expect(onInitFn).toBeCalled();
         });
 
         await waitFor(() => {
@@ -56,8 +67,8 @@ function demoTest(component: string, options?: Options) {
         });
 
         wrapper.unmount();
-        vi.useRealTimers();
         cleanup();
+        vi.useRealTimers();
       });
     });
   });
