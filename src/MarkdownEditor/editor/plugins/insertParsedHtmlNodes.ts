@@ -261,7 +261,9 @@ const processFragment = (fragment: any[], parentType = '') => {
  * @returns
  */
 export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
-  if (html.startsWith('<img')) {
+  if (
+    html.startsWith('<html>\r\n<body>\r\n\x3C!--StartFragment--><img src="')
+  ) {
     return false;
   }
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
