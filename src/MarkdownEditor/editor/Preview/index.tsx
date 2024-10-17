@@ -26,9 +26,7 @@ export const Preview = ({
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
 }) => {
-  const editor = withMarkdown(withReact(withHistory(createEditor())), {
-    manual: true,
-  });
+  const editor = withMarkdown(withReact(withHistory(createEditor())));
   const elementRenderElement = useCallback((props: RenderElementProps) => {
     return <MElement {...props} children={props.children} />;
   }, []);
