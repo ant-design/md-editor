@@ -96,7 +96,7 @@ const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
  * @method dragStart - 拖动开始处理。
  */
 export class EditorStore {
-  editor = withMarkdown(withReact(withHistory(createEditor())), this);
+  editor = withMarkdown(withReact(withHistory(createEditor())));
   manual = false;
   initializing = false;
   sel: BaseSelection | undefined;

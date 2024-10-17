@@ -6,6 +6,7 @@ import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { keyArrow } from './hotKeyCommands/arrow';
 import { BackspaceKey } from './hotKeyCommands/backspace';
+import { EnterKey } from './hotKeyCommands/enter';
 import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
@@ -13,6 +14,7 @@ export const useKeyboard = (store: EditorStore) => {
   return useMemo(() => {
     const tab = new TabKey(store?.editor);
     const backspace = new BackspaceKey(store?.editor);
+    const enter = new EnterKey(store, backspace);
     const match = new MatchKey(store?.editor);
     return (e: React.KeyboardEvent) => {
       if (
@@ -56,7 +58,9 @@ export const useKeyboard = (store: EditorStore) => {
         keyArrow(store, e);
       } else {
         if (e.key === 'Tab') tab.run(e);
-
+        if (e.key === 'Enter') {
+          enter.run(e);
+        }
         const [node] = Editor.nodes<any>(store?.editor, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',

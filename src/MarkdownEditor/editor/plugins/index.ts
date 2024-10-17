@@ -24,12 +24,7 @@ const voidNode = new Set(['hr', 'break']);
  *
  * 该插件还根据 `store.manual` 的值决定是否手动处理某些操作。
  */
-export const withMarkdown = (
-  editor: Editor,
-  props: {
-    manual: boolean;
-  },
-) => {
+export const withMarkdown = (editor: Editor) => {
   const { isInline, isVoid, apply } = editor;
 
   editor.isInline = (element) => {
