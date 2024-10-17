@@ -17,6 +17,11 @@ Object.defineProperty(global, 'navigator', {
   },
 });
 
+vi.stubGlobal(
+  'requestIdleCallback',
+  vi.fn((cb) => cb()),
+);
+
 Object.defineProperty(globalThis, 'cancelAnimationFrame', {
   value: vi.fn(() => null),
   writable: true,

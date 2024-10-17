@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "typeRoots": [
-      "./src/utils"             // 添加你放置 index.d.ts 的目录
+      "./src/utils" // 添加你放置 index.d.ts 的目录
     ],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -23,5 +23,10 @@
       "@ant-design/md-editor/*": ["src/*", "*"]
     }
   },
-  "include": [".dumirc.ts", "src/**/**/*", "src/MarkDown/demos/.tsx", "tests/**/*"],
+  "include": [
+    ".dumirc.ts",
+    "src/**/**/*",
+    "src/MarkDown/demos/.tsx",
+    "tests/**/*"
+  ]
 }
