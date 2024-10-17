@@ -429,6 +429,12 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         });
         EditorUtils.focus(store?.editor);
       }
+      if (isHotkey('backspace', e)) {
+        runInAction(() => {
+          store.openInsertCompletion = false;
+        });
+        EditorUtils.focus(store?.editor);
+      }
     }, []);
 
     /**
@@ -534,18 +540,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           const el = ReactEditor.toDOMNode(store?.editor, node[0]);
           if (el) {
             let top = getOffsetTop(el, store.container!);
-            console.log(top - store.container!.scrollTop);
-
-            if (
-              top >
-              store.container!.scrollTop +
-                store.container!.scrollHeight -
-                212 -
-                el.clientHeight
-            ) {
+            if (top > 212 - el.clientHeight) {
               setState({
                 top: undefined,
-                bottom: -(top - store.container!.scrollTop),
+                bottom: -(top - store.container!.scrollHeight),
                 left: getOffsetLeft(el, store.container!),
               });
             } else {
