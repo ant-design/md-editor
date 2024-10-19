@@ -255,6 +255,10 @@ Class A {
   }
 }
 \`\`\`
+
+## 删除线
+~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~
+
 `;
 export default () => {
   const instance = useRef<MarkdownEditorInstance>();

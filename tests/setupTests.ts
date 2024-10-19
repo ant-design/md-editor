@@ -3,6 +3,9 @@ import React from 'react';
 import { vi } from 'vitest';
 globalThis.React = React;
 
+global.window.scrollTo = vi.fn();
+Element.prototype.scrollTo = vi.fn();
+
 vi.mock('lodash-es', () => {
   return {
     map: (arr: any[], fn: any) => arr.map(fn),
