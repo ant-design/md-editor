@@ -179,6 +179,20 @@ export default () => {
       comment={{
         enable: true,
         commentList: list,
+        loadMentions: async () => {
+          return [
+            {
+              name: '张志东',
+              avatar:
+                'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            },
+            {
+              name: '马化腾',
+              avatar:
+                'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            },
+          ];
+        },
         onDelete: async (id) => {
           setList(list.filter((i) => i.id !== id));
         },

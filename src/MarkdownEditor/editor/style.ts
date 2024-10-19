@@ -197,7 +197,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           backgroundColor: 'rgb(107 114 128 / 1)',
         },
       },
-      '[data-be]': {
+      '[data-be]:not(p)': {
         position: 'relative',
       },
       'pre,code,kbd,samp': {

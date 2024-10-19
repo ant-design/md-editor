@@ -203,6 +203,10 @@ export type MarkdownEditorProps = {
     onSubmit?: (id: string, comment: CommentDataType) => void;
     commentList?: CommentDataType[];
     deleteConfirmText?: string;
+    loadMentions?: (
+      keyword: string,
+    ) => Promise<{ name: string; avatar?: string }[]>;
+    mentionsPlaceholder?: string;
     editorRender?: (defaultDom: ReactNode) => ReactNode;
     previewRender?: (
       props: {

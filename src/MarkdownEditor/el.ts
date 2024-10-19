@@ -156,6 +156,10 @@ export type ListItemNode<T = Record<string, any>> = {
   type: 'list-item';
   children: BaseElement['children'];
   checked?: boolean;
+  mentions: {
+    id: string;
+    name: string;
+  }[];
 };
 
 export type HeadNode<T = Record<string, any>> = {

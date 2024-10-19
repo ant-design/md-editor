@@ -44,11 +44,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-item': {
         position: 'relative',
         wordBreak: 'break-all',
+        gap: '4px',
         "> [data-be='list']": {
           marginBottom: '0',
         },
         [`&${token.componentCls}-task`]: {
           paddingLeft: '24px',
+          display: 'flex',
+          alignItems: 'center',
         },
       },
 
