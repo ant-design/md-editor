@@ -66,7 +66,6 @@ const MentionsUser = (props: {
                 {u.avatar ? (
                   <img width={16} height={16} src={u.avatar} alt={u.name} />
                 ) : null}
-                <img width={16} height={16} src={u.avatar} alt={u.name} />
                 <span>{u.name}</span>
               </div>
             ))
