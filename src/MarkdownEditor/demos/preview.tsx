@@ -29,7 +29,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ## 战略
 
-- [x] Write the press release
+- [x] [张志东](https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png) Write the press release
 - [ ] Update the website
 - [ ] Contact the media
 

@@ -164,7 +164,6 @@ export const withMarkdown = (editor: Editor) => {
       }
     }
 
-    console.log(operation);
     apply(operation);
   };
 

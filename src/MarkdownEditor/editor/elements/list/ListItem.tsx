@@ -54,7 +54,6 @@ const MentionsUser = (props: {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 8,
                   backgroundColor: '#f5f5f5',
                   padding: '0 4px',
                   borderRadius: 4,
@@ -63,6 +62,7 @@ const MentionsUser = (props: {
                   color: '#1677ff',
                 }}
               >
+                @
                 <img width={16} height={16} src={u.avatar} alt={u.name} />
                 <span>{u.name}</span>
               </div>
@@ -130,7 +130,6 @@ const MentionsUser = (props: {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 8,
                       backgroundColor: '#f5f5f5',
                       padding: '0 4px',
                       borderRadius: 4,
@@ -139,6 +138,7 @@ const MentionsUser = (props: {
                       color: '#1677ff',
                     }}
                   >
+                    @
                     <img width={16} height={16} src={u.avatar} alt={u.name} />
                     <span>{u.name}</span>
                   </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-loop-func */
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-use-before-define */
@@ -197,6 +198,7 @@ export const schemaToMarkdown = (
     if (p.type === 'list-item') {
       const list = parent[parent.length - 2];
       let pre = preString + (list.order ? space + ' ' : space);
+
       // @ts-ignore
       let index = list.children.findIndex((c) => c === p);
       if (list.start) index += list.start - 1;
@@ -205,6 +207,11 @@ export const schemaToMarkdown = (
         str += list.order ? `${index + 1}. ` : '- ';
         if (typeof p.checked === 'boolean')
           str += `[${p.checked ? 'x' : ' '}] `;
+        if (p.mentions && p.mentions.length) {
+          p.mentions.forEach((mention: any) => {
+            str += `[${mention.name}](${mention.avatar})`;
+          });
+        }
         const nodeStr = parserNode(node, '', parent);
         const lines = nodeStr.split('\n');
         // 处理table多行组件问题

@@ -14,6 +14,7 @@ import {
   CustomLeaf,
   DescriptionNode,
   Elements,
+  LinkCardNode,
   MediaNode,
   TableNode,
   TableRowNode,
@@ -443,14 +444,37 @@ const parserBlock = (
         const children = currentNode.children?.length
           ? parserBlock(currentNode.children, false, currentNode)
           : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
+
+        let mentions = undefined;
+        // @ts-ignore
+        if (currentNode.children?.[0]?.children?.[0]?.type === 'link') {
+          const item = // @ts-ignore
+            children?.[0]?.children?.[0] as LinkCardNode;
+          // @ts-ignore
+          const label = item.text;
+          if (label) {
+            mentions = [
+              {
+                avatar: item.url,
+                name: label,
+              },
+            ];
+            delete children?.[0]?.children?.[0];
+            if (children?.[0]?.children) {
+              children[0].children = children?.[0]?.children?.filter(Boolean);
+            }
+          }
+        }
         if (children[0].type === 'paragraph' && children[0].children[0]?.text) {
           const text = children[0].children[0]?.text;
           const m = text.match(/^\[([x\s])]/);
+
           if (m) {
             el = {
               type: 'list-item',
               checked: m ? m[1] === 'x' : undefined,
               children: children,
+              mentions,
             };
             children[0].children[0].text = text.replace(/^\[([x\s])]/, '');
             break;
@@ -460,6 +484,7 @@ const parserBlock = (
           type: 'list-item',
           checked: currentNode.checked,
           children: children,
+          mentions,
         };
         break;
       case 'paragraph':
