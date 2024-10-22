@@ -34,7 +34,7 @@ const MentionsUser = (props: {
 
   useEffect(() => {
     onSearch('');
-  }, []);
+  }, [readonly]);
 
   useEffect(() => {
     props.onSelect(selectedUsers);
@@ -42,7 +42,6 @@ const MentionsUser = (props: {
 
   const mentionsPlaceholder =
     store.editorProps?.comment?.mentionsPlaceholder || '指派给';
-  console.log(mentionsPlaceholder, readonly);
   return useMemo(() => {
     if (readonly) {
       return (
