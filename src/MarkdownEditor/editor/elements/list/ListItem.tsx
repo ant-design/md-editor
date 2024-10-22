@@ -42,6 +42,7 @@ const MentionsUser = (props: {
 
   const mentionsPlaceholder =
     store.editorProps?.comment?.mentionsPlaceholder || '指派给';
+
   return useMemo(() => {
     if (readonly) {
       return (
@@ -159,6 +160,7 @@ const MentionsUser = (props: {
     store.editorProps?.comment?.mentionsPlaceholder,
     store.editorProps?.comment?.loadMentions,
     users,
+    loading,
     selectedUsers,
     readonly,
   ]);
