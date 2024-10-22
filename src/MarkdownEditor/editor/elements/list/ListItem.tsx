@@ -42,50 +42,37 @@ const MentionsUser = (props: {
 
   const mentionsPlaceholder =
     store.editorProps?.comment?.mentionsPlaceholder || '指派给';
-
+  console.log(mentionsPlaceholder, readonly);
   return useMemo(() => {
-    if (readonly)
+    if (readonly) {
       return (
         <Space>
-          {selectedUsers?.length ? (
-            selectedUsers?.map((u) => (
-              <div
-                key={u.name}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  backgroundColor: '#f5f5f5',
-                  padding: '0 4px',
-                  borderRadius: 4,
-                  fontSize: 14,
-                  lineHeight: '24px',
-                  color: '#1677ff',
-                }}
-              >
-                @
-                {u.avatar ? (
-                  <img width={16} height={16} src={u.avatar} alt={u.name} />
-                ) : null}
-                <span>{u.name}</span>
-              </div>
-            ))
-          ) : (
-            <span
-              style={{
-                backgroundColor: '#f5f5f5',
-                padding: '0 4px',
-                borderRadius: 4,
-                fontSize: 14,
-                display: 'inline-block',
-                lineHeight: '24px',
-                color: '#bfbfbf',
-              }}
-            >
-              {mentionsPlaceholder}
-            </span>
-          )}
+          {selectedUsers?.length
+            ? selectedUsers?.map((u) => (
+                <div
+                  key={u.name}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    backgroundColor: '#f5f5f5',
+                    padding: '0 4px',
+                    borderRadius: 4,
+                    fontSize: 14,
+                    lineHeight: '24px',
+                    color: '#1677ff',
+                  }}
+                >
+                  @
+                  {u.avatar ? (
+                    <img width={16} height={16} src={u.avatar} alt={u.name} />
+                  ) : null}
+                  <span>{u.name}</span>
+                </div>
+              ))
+            : null}
         </Space>
       );
+    }
     return (
       <div
         onClick={(e) => {
@@ -174,6 +161,7 @@ const MentionsUser = (props: {
     store.editorProps?.comment?.loadMentions,
     users,
     selectedUsers,
+    readonly,
   ]);
 };
 

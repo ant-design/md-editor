@@ -200,6 +200,7 @@ export default () => {
         onDelete: async (id) => {
           setList(list.filter((i) => i.id !== id));
         },
+
         onSubmit: async (id, data) => {
           setList([
             ...list,
