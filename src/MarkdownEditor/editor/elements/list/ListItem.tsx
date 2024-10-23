@@ -3,26 +3,29 @@ import { useMountMergeState } from '@ant-design/pro-components';
 import { Checkbox, ConfigProvider, Dropdown, Space } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo } from 'react';
+import { Transforms } from 'slate';
+import { v4 as uuidv4 } from 'uuid';
 import { ElementProps, ListItemNode } from '../../../el';
-import { useMEditor } from '../../../hooks/editor';
+import { useMEditor, useSelStatus } from '../../../hooks/editor';
 import { useEditorStore } from '../../store';
 import { ListContext } from './List';
 
+type Mentions = { name: string; avatar?: string; id: string };
+
 const MentionsUser = (props: {
-  onSelect: (mentions: { name: string; avatar?: string }[]) => void;
-  mentions?: { name: string; avatar?: string }[];
+  onSelect: (mentions: Mentions[]) => void;
+  mentions?: Mentions[];
 }) => {
   const [loading, setLoading] = React.useState(false);
-  const [users, setUsers] = React.useState<{ name: string; avatar?: string }[]>(
-    [],
-  );
+  const [users, setUsers] = React.useState<Mentions[]>([]);
 
-  const [selectedUsers, setSelectedUsers] = useMountMergeState<
-    { name: string; avatar?: string }[]
-  >(props.mentions || [], {
-    value: props.mentions,
-    onChange: props.onSelect,
-  });
+  const [selectedUsers, setSelectedUsers] = useMountMergeState<Mentions[]>(
+    props.mentions || [],
+    {
+      value: props.mentions,
+      onChange: props.onSelect,
+    },
+  );
   const { store, readonly } = useEditorStore();
   const onSearch = async (text: string) => {
     setLoading(true);
@@ -193,6 +196,18 @@ export const ListItem = ({
   const context = useContext(ConfigProvider.ConfigContext);
   const { hashId } = useContext(ListContext) || {};
   const baseCls = context.getPrefixCls('md-editor-list');
+  const [, path] = useSelStatus(element);
+
+  useEffect(() => {
+    if (element.id) return;
+    Transforms.setNodes(
+      store.editor,
+      {
+        id: uuidv4(),
+      },
+      { at: path },
+    );
+  }, [element]);
 
   return React.useMemo(
     () => (

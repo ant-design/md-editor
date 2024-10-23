@@ -160,6 +160,7 @@ export type ListItemNode<T = Record<string, any>> = {
     id: string;
     name: string;
   }[];
+  id: string;
 };
 
 export type HeadNode<T = Record<string, any>> = {
