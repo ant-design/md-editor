@@ -99,7 +99,7 @@ const MentionsUser = (props: {
                     gap: 8,
                   }}
                 >
-                  {u.avatar ? (
+                  {u.avatar?.startsWith('http') ? (
                     <img width={16} height={16} src={u.avatar} alt={u.name} />
                   ) : null}
                   <span>{u.name}</span>
@@ -133,7 +133,7 @@ const MentionsUser = (props: {
                     }}
                   >
                     @
-                    {u.avatar ? (
+                    {u.avatar?.startsWith('http') ? (
                       <img width={16} height={16} src={u.avatar} alt={u.name} />
                     ) : null}
                     <span>{u.name}</span>

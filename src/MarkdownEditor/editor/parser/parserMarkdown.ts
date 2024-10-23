@@ -455,7 +455,7 @@ const parserBlock = (
           if (label) {
             mentions = [
               {
-                avatar: item.url?.startsWith('http') ? item.url : undefined,
+                avatar: item.url,
                 name: label,
                 id:
                   new URLSearchParams(item.url?.split('?')[1]).get('id') ||
