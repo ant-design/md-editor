@@ -213,7 +213,7 @@ export const schemaToMarkdown = (
             const params = new URLSearchParams(url.split('?')[1]);
             params.set('id', mention.id);
             str += `[${mention.name}](${
-              (url.split('?')[0] || '') + params?.size > 1
+              (url.split('?')[0] || '') + params?.size > 0
                 ? '?' + params.toString()
                 : ''
             })`;

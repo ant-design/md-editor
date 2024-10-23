@@ -30,7 +30,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ## 战略
 
 - [x] [张志东](https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png?param=3&id=2) Write the press release
-- [ ] Update the website
+- [ ] Update the website 
 - [ ] Contact the media
 
 <!-- {"MarkdownType": "section", "id": "16" } -->
