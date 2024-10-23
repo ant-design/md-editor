@@ -210,7 +210,7 @@ export const schemaToMarkdown = (
         if (p.mentions && p.mentions.length) {
           p.mentions.forEach((mention: any) => {
             const url = mention.avatar;
-            const params = new URLSearchParams(url.split('?')[1]);
+            const params = new URLSearchParams('?' + url.split('?')[1]);
             params.set('id', mention.id);
             str += `[${mention.name}](${
               (url.split('?')[0] || '') + params?.size > 0

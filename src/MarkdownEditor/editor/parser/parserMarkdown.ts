@@ -458,8 +458,9 @@ const parserBlock = (
                 avatar: item.url,
                 name: label,
                 id:
-                  new URLSearchParams(item.url?.split('?')[1]).get('id') ||
-                  undefined,
+                  new URLSearchParams('?' + item.url?.split('?')[1]).get(
+                    'id',
+                  ) || undefined,
               },
             ];
             delete children?.[0]?.children?.[0];
