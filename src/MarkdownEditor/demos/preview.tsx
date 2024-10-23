@@ -29,7 +29,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ## 战略
 
-- [x] [张志东](https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png) Write the press release
+- [x] [张志东](https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png?param=3&id=2) Write the press release
 - [ ] Update the website
 - [ ] Contact the media
 
@@ -180,6 +180,9 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
+      onChange={(_, e) => {
+        console.log(_, e);
+      }}
       comment={{
         enable: true,
         commentList: list,
@@ -187,11 +190,13 @@ export default () => {
           return [
             {
               name: '张志东',
+              id: '1',
               avatar:
                 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             },
             {
               name: '马化腾',
+              id: '2',
               avatar:
                 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             },
