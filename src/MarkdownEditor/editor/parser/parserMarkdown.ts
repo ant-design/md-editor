@@ -455,9 +455,11 @@ const parserBlock = (
           if (label) {
             mentions = [
               {
-                avatar: item.url,
+                avatar: item.url?.startsWith('http') ? item.url : undefined,
                 name: label,
-                id: new URLSearchParams(item.url?.split('?')[1]).get('id'),
+                id:
+                  new URLSearchParams(item.url?.split('?')[1]).get('id') ||
+                  undefined,
               },
             ];
             delete children?.[0]?.children?.[0];
