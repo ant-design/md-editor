@@ -1,0 +1,33 @@
+name: Run Vitest and upload coverage to Codecov
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run tests and collect coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx vitest run --coverage
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
