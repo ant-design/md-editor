@@ -27,7 +27,7 @@ import { ToolBar } from './editor/tools/ToolBar';
 import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
 import { FloatBar } from './editor/tools/ToolBar/FloatBar';
 import { codeReady } from './editor/utils/highlight';
-import { ElementProps, Elements } from './el';
+import { ElementProps, Elements, ListItemNode } from './el';
 import './index.css';
 import { useStyle } from './style';
 export { EditorUtils, parserMdToSchema };
@@ -215,6 +215,14 @@ export type MarkdownEditorProps = {
       defaultDom: ReactNode,
     ) => React.ReactElement;
     onDelete?: (id: string | number, item: CommentDataType) => void;
+    listItemRender: (
+      doms: {
+        checkbox: React.ReactNode;
+        mentionsUser: React.ReactNode;
+        children: React.ReactNode;
+      },
+      props: ElementProps<ListItemNode>,
+    ) => React.ReactNode;
   };
 };
 

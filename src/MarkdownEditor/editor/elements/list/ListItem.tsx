@@ -194,6 +194,7 @@ export const ListItem = ({
   const { store } = useEditorStore();
   const isTask = typeof element.checked === 'boolean';
   const context = useContext(ConfigProvider.ConfigContext);
+  const listItemRender = store.editorProps.comment?.listItemRender;
   const { hashId } = useContext(ListContext) || {};
   const baseCls = context.getPrefixCls('md-editor-list');
   const [, path] = useSelStatus(element);
@@ -209,8 +210,58 @@ export const ListItem = ({
     );
   }, [element]);
 
-  return React.useMemo(
-    () => (
+  const checkbox = React.useMemo(() => {
+    if (!isTask) return null;
+    return (
+      <span
+        contentEditable={false}
+        className={classNames(`${baseCls}-check-item`, hashId)}
+      >
+        <Checkbox
+          checked={element.checked}
+          onChange={(e) => update({ checked: e.target.checked })}
+        />
+      </span>
+    );
+  }, [element.checked, isTask]);
+
+  const mentionsUser = React.useMemo(() => {
+    if (!isTask) return null;
+    return (
+      <MentionsUser
+        onSelect={(mentions) => {
+          update({
+            mentions,
+          });
+        }}
+        mentions={element.mentions}
+      />
+    );
+  }, [element.mentions]);
+
+  return React.useMemo(() => {
+    if (listItemRender) {
+      return (
+        <li
+          className={classNames(`${baseCls}-item`, hashId, {
+            [`${baseCls}-task`]: isTask,
+          })}
+          data-be={'list-item'}
+          onDragStart={(e) => store.dragStart(e)}
+          {...attributes}
+        >
+          {listItemRender(
+            {
+              checkbox,
+              mentionsUser,
+              children,
+            },
+            { element, children, attributes },
+          )}
+        </li>
+      );
+    }
+    return (
       <li
         className={classNames(`${baseCls}-item`, hashId, {
           [`${baseCls}-task`]: isTask,
@@ -219,30 +270,10 @@ export const ListItem = ({
         onDragStart={(e) => store.dragStart(e)}
         {...attributes}
       >
-        {isTask && (
-          <span
-            contentEditable={false}
-            className={classNames(`${baseCls}-check-item`, hashId)}
-          >
-            <Checkbox
-              checked={element.checked}
-              onChange={(e) => update({ checked: e.target.checked })}
-            />
-          </span>
-        )}
-        {isTask ? (
-          <MentionsUser
-            onSelect={(mentions) => {
-              update({
-                mentions,
-              });
-            }}
-            mentions={element.mentions}
-          />
-        ) : null}
+        {checkbox}
+        {mentionsUser}
         {children}
       </li>
-    ),
-    [element, element.children],
-  );
+    );
+  }, [checkbox, mentionsUser, attributes, element.children, listItemRender]);
 };
