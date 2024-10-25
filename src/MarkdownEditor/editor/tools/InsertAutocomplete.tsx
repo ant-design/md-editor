@@ -524,45 +524,103 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         filterOptions,
       });
     });
-
     useEffect(() => {
+      const calculatePosition = (
+        nodeEl: HTMLElement,
+        containerEl: HTMLElement,
+      ) => {
+        const top = getOffsetTop(nodeEl, containerEl);
+        const left = getOffsetLeft(nodeEl, containerEl);
+        const containerScrollTop = containerEl.scrollTop;
+        const containerHeight = containerEl.clientHeight;
+        const nodeHeight = nodeEl.clientHeight;
+
+        const nodeTopRelativeToContainer = top - containerScrollTop;
+
+        const nodeBottomRelativeToContainer =
+          nodeTopRelativeToContainer + nodeHeight;
+
+        const spaceAbove = nodeTopRelativeToContainer;
+        const spaceBelow = containerHeight - nodeBottomRelativeToContainer;
+
+        // 当节点上方空间不足，且下方空间不足时，触底显示
+        if (spaceBelow < 212 && spaceAbove < 212) {
+          return {
+            top: undefined,
+            bottom: 0,
+            left,
+          };
+        }
+
+        // 如果节点下方空间不足但上方有足够空间，显示在上方
+        if (spaceBelow < 212 && spaceAbove >= 212) {
+          return {
+            top: undefined,
+            bottom: containerHeight - nodeTopRelativeToContainer,
+            left,
+          };
+        }
+
+        // 默认逻辑，优先显示在下方
+        if (spaceBelow >= 212) {
+          return {
+            top: nodeBottomRelativeToContainer,
+            bottom: undefined,
+            left,
+          };
+        }
+
+        return undefined;
+      };
+
+      const setupEventListeners = () => {
+        window.addEventListener('keydown', keydown);
+        window.addEventListener('click', clickClose);
+      };
+
+      const removeEventListeners = () => {
+        window.removeEventListener('keydown', keydown);
+        window.removeEventListener('click', clickClose);
+      };
+
       if (store.openInsertCompletion) {
-        const [node] = Editor.nodes<any>(store?.editor, {
+        const [node] = Editor.nodes<any>(store.editor, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',
         });
-        ctx.current = {
-          path: node[1],
-          isTop: EditorUtils.isTop(store?.editor, node[1]),
-        };
-        window.addEventListener('keydown', keydown);
-        if (node[0].type === 'paragraph') {
-          const el = ReactEditor.toDOMNode(store?.editor, node[0]);
-          if (el) {
-            let top = getOffsetTop(el, store.container!);
-            if (top > 212 - el.clientHeight) {
-              setState({
-                top: undefined,
-                bottom: -(top - store.container!.scrollHeight),
-                left: getOffsetLeft(el, store.container!),
-              });
-            } else {
-              setState({
-                left: getOffsetLeft(el, store.container!),
-                top: top - store.container!.scrollTop,
-                bottom: undefined,
-              });
+
+        if (node) {
+          ctx.current = {
+            path: node[1],
+            isTop: EditorUtils.isTop(store.editor, node[1]),
+          };
+
+          if (node[0].type === 'paragraph') {
+            const el = ReactEditor.toDOMNode(store.editor, node[0]);
+            if (el) {
+              const position = calculatePosition(el, store.container!);
+              if (position) {
+                setState(position);
+              } else {
+                setState({ top: 0, left: 0, bottom: undefined });
+              }
             }
           }
+
+          setupEventListeners();
+
+          setTimeout(() => {
+            dom.current?.scroll({ top: 0 });
+          });
         }
-        setTimeout(() => {
-          dom.current?.scroll({ top: 0 });
-        });
-        window.addEventListener('click', clickClose);
       } else {
-        window.removeEventListener('keydown', keydown);
+        removeEventListeners();
         close();
       }
+
+      return () => {
+        removeEventListeners();
+      };
     }, [store.openInsertCompletion]);
 
     const context = useContext(ConfigProvider.ConfigContext);
