@@ -215,7 +215,7 @@ export type MarkdownEditorProps = {
       defaultDom: ReactNode,
     ) => React.ReactElement;
     onDelete?: (id: string | number, item: CommentDataType) => void;
-    listItemRender: (
+    listItemRender?: (
       doms: {
         checkbox: React.ReactNode;
         mentionsUser: React.ReactNode;

@@ -34,13 +34,14 @@ export const FloatBar = observer(() => {
       if (left < 4) left = 4;
       const barWidth = 232;
       if (left > container.clientWidth - barWidth)
-        left = container.clientWidth - barWidth;
-      let top = state.open && !force ? state.top : store.domRect.top - 42;
+        left = container.clientWidth - barWidth / 2;
+
+      let top = state.open && !force ? state.top : store.domRect.top;
 
       setState({
         open: true,
-        left: Math.max(left, 4),
-        top: Math.max(top, 4),
+        left: Math.max(left - container.getBoundingClientRect().left, 4),
+        top: Math.max(top - container.getBoundingClientRect().top, 4),
       });
     }
   }, []);
