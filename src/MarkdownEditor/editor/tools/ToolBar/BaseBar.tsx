@@ -298,7 +298,7 @@ export const BaseToolBar = observer(
           />,
         );
       }
-      if (store?.editorProps.comment?.enable && !props.showEditor) {
+      if (store?.editorProps?.comment?.enable && !props.showEditor) {
         list.push(
           <div
             role="button"

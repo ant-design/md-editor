@@ -194,7 +194,7 @@ export const ListItem = ({
   const { store } = useEditorStore();
   const isTask = typeof element.checked === 'boolean';
   const context = useContext(ConfigProvider.ConfigContext);
-  const listItemRender = store.editorProps.comment?.listItemRender;
+  const listItemRender = store.editorProps?.comment?.listItemRender;
   const { hashId } = useContext(ListContext) || {};
   const baseCls = context.getPrefixCls('md-editor-list');
   const [, path] = useSelStatus(element);

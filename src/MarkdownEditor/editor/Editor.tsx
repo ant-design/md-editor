@@ -441,7 +441,7 @@ export const MEditor = observer(
     const baseClassName = `${editorProps.prefixCls}-content`;
     const commentMap = useMemo(() => {
       const map = new Map<string, Map<string, CommentDataType[]>>();
-      editorProps.comment?.commentList?.forEach((c) => {
+      editorProps?.comment?.commentList?.forEach((c) => {
         c.updateTime = Date.now();
         const path = c.path.join(',');
         if (map.has(path)) {
@@ -465,14 +465,14 @@ export const MEditor = observer(
         map.set(path, childrenMap);
       });
       return map;
-    }, [editorProps.comment?.commentList]);
+    }, [editorProps?.comment?.commentList]);
 
     const renderMarkdownLeaf = useCallback(
       (props: any) => {
         return (
           <MLeaf
             {...props}
-            comment={editorProps.comment}
+            comment={editorProps?.comment}
             children={props.children}
             hashId={hashId}
           />
@@ -484,7 +484,7 @@ export const MEditor = observer(
     const decorateFn = useCallback(
       (e: any) => {
         const decorateList = highlight(e);
-        if (!editorProps.comment) return decorateList;
+        if (!editorProps?.comment) return decorateList;
         if (editorProps?.comment?.enable === false) return decorateList;
         if (commentMap.size === 0) return decorateList;
 
