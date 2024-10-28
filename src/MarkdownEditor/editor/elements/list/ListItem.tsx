@@ -3,10 +3,8 @@ import { useMountMergeState } from '@ant-design/pro-components';
 import { Checkbox, ConfigProvider, Dropdown, Space } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo } from 'react';
-import { Transforms } from 'slate';
-import { v4 as uuidv4 } from 'uuid';
 import { ElementProps, ListItemNode } from '../../../el';
-import { useMEditor, useSelStatus } from '../../../hooks/editor';
+import { useMEditor } from '../../../hooks/editor';
 import { useEditorStore } from '../../store';
 import { ListContext } from './List';
 
@@ -197,18 +195,6 @@ export const ListItem = ({
   const listItemRender = store.editorProps?.comment?.listItemRender;
   const { hashId } = useContext(ListContext) || {};
   const baseCls = context.getPrefixCls('md-editor-list');
-  const [, path] = useSelStatus(element);
-
-  useEffect(() => {
-    if (element.id) return;
-    Transforms.setNodes(
-      store.editor,
-      {
-        id: uuidv4(),
-      },
-      { at: path },
-    );
-  }, [element]);
 
   const checkbox = React.useMemo(() => {
     if (!isTask) return null;
