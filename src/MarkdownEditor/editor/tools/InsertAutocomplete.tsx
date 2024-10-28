@@ -529,14 +529,15 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         nodeEl: HTMLElement,
         containerEl: HTMLElement,
       ) => {
-        const top = getOffsetTop(nodeEl, containerEl);
+        const top =
+          getOffsetTop(nodeEl, containerEl) -
+          containerEl.getBoundingClientRect().top;
         const left = getOffsetLeft(nodeEl, containerEl);
         const containerScrollTop = containerEl.scrollTop;
         const containerHeight = containerEl.clientHeight;
         const nodeHeight = nodeEl.clientHeight;
 
         const nodeTopRelativeToContainer = top - containerScrollTop;
-
         const nodeBottomRelativeToContainer =
           nodeTopRelativeToContainer + nodeHeight;
 
