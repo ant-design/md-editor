@@ -684,9 +684,7 @@ const parserBlock = (
             if (currentNode.type === 'emphasis') leaf.italic = true;
             if (currentNode.type === 'delete') leaf.strikethrough = true;
             if (currentNode.type === 'link') {
-              leaf.url = decodeURIComponent(
-                currentNode?.url?.replaceAll(/%([^\d].)/, '%25$1'),
-              );
+              leaf.url = decodeURIComponent(currentNode?.url);
             }
             el = parseText(
               // @ts-ignore
