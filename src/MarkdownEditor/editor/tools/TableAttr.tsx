@@ -106,7 +106,6 @@ const InsertColBeforeIcon = () => {
  * @returns The TableAttr component.
  */
 interface TableAttrState {
-  visible: boolean;
   top: number;
   left: number;
   width: number;
@@ -490,6 +489,7 @@ export const TableAttr = observer(
     const { wrapSSR, hashId } = useStyle(baseClassName);
     if (!store.container) return null;
     if (readonly) return null;
+
     return wrapSSR(
       <div
         className={classNames(baseClassName, hashId)}
@@ -498,7 +498,7 @@ export const TableAttr = observer(
           top: state.top,
           width: 'auto',
           position: 'absolute',
-          display: state.visible ? 'flex' : 'none',
+          display: store.tableAttrVisible ? 'flex' : 'none',
         }}
         onMouseDown={(e) => e.preventDefault()}
       >

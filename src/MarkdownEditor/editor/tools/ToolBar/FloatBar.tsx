@@ -36,7 +36,7 @@ export const FloatBar = observer(() => {
       if (left > container.clientWidth - barWidth)
         left = container.clientWidth - barWidth / 2;
 
-      let top = state.open && !force ? state.top : store.domRect.top;
+      let top = state.open && !force ? state.top : store.domRect.top - 32;
 
       setState({
         open: true,
@@ -57,22 +57,24 @@ export const FloatBar = observer(() => {
   }, [store.domRect]);
 
   useEffect(() => {
-    if (state.open) {
-      const close = (e: KeyboardEvent) => {
-        if (e.key === 'Escape' && !store.openLinkPanel) {
-          e.preventDefault();
-          setState({ open: false });
-          fileMap.clear();
-          const end = Range.end(sel.current!).path;
-          if (Editor.hasPath(store?.editor, end)) {
-            Transforms.select(store?.editor, Editor.end(store?.editor, end));
-          }
+    store.setFloatBarOpen(state.open);
+    const close = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !store.openLinkPanel) {
+        e.preventDefault();
+        setState({ open: false });
+        fileMap.clear();
+        const end = Range.end(sel.current!).path;
+        if (Editor.hasPath(store?.editor, end)) {
+          Transforms.select(store?.editor, Editor.end(store?.editor, end));
         }
-      };
-      window.addEventListener('keydown', close);
-      return () => window.removeEventListener('keydown', close);
-    }
-    return () => {};
+        store.setFloatBarOpen(false);
+      }
+    };
+    window.addEventListener('keydown', close);
+    return () => {
+      window.removeEventListener('keydown', close);
+      store.setFloatBarOpen(false);
+    };
   }, [state.open]);
 
   useEffect(() => {
