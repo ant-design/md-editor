@@ -1,6 +1,12 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Editor, NodeEntry, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
@@ -62,7 +68,6 @@ export const Table = observer((props: RenderElementProps) => {
   const { store } = useEditorStore();
 
   const [state, setState] = useState({
-    visible: false,
     top: 0,
     left: 0,
     width: 0,
@@ -77,6 +82,22 @@ export const Table = observer((props: RenderElementProps) => {
 
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (store.tableAttrVisible && tableRef.current) {
+        const dom = ReactEditor.toDOMNode(store.editor, tableRef.current[0]);
+        if (dom && !dom.contains(event.target as Node)) {
+          store.setTableAttrVisible(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [store.tableAttrVisible, tableRef, store.editor]);
 
   const resize = useCallback(() => {
     const table = tableRef.current;
@@ -99,6 +120,7 @@ export const Table = observer((props: RenderElementProps) => {
   }, [setState, store.editor]);
 
   const handleClickTable = useCallback(() => {
+    if (store.floatBarOpen) return;
     const el = store.tableCellNode;
     if (el) {
       tableCellRef.current = el;
@@ -110,8 +132,8 @@ export const Table = observer((props: RenderElementProps) => {
           ...prev,
           top: top - 24 + 3,
           left,
-          visible: true,
         }));
+        store.setTableAttrVisible(true);
       } catch (error) {
         console.log(error);
       }
@@ -146,7 +168,7 @@ export const Table = observer((props: RenderElementProps) => {
               }),
         }}
       >
-        {state.visible && (
+        {store.tableAttrVisible && (
           <TableAttr
             state={state}
             setState={setState}
@@ -166,5 +188,6 @@ export const Table = observer((props: RenderElementProps) => {
     setState,
     store.dragStart,
     handleClickTable,
+    store.tableAttrVisible,
   ]);
 });

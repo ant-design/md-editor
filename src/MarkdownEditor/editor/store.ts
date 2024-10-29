@@ -143,7 +143,17 @@ export class EditorStore {
     | 'in'
     | 'insertTableCellBreak'
   >();
-
+  floatBarOpen: boolean = false;
+  tableAttrVisible: boolean = false;
+  setFloatBarOpen(open: boolean) {
+    this.floatBarOpen = open;
+    if (open) {
+      this.tableAttrVisible = false;
+    }
+  }
+  setTableAttrVisible(visible: boolean) {
+    this.tableAttrVisible = visible;
+  }
   get doc() {
     return this.container?.querySelector(
       '.markdown-editor-content',
