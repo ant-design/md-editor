@@ -123,7 +123,7 @@ const parseTableOrChart = (
           ?.replace(/\n/g, '')
           .trim(),
       )
-      .map((title) => title.replaceAll('\\', '') || ' ')
+      .map((title) => title?.replaceAll('\\', '') || ' ')
       .map((title, index) => {
         if (keyMap.has(title)) {
           keyMap.set(title, keyMap.get(title) + '_' + index);
@@ -685,7 +685,7 @@ const parserBlock = (
             if (currentNode.type === 'delete') leaf.strikethrough = true;
             if (currentNode.type === 'link') {
               leaf.url = decodeURIComponent(
-                currentNode.url.replaceAll(/%([^\d].)/, '%25$1'),
+                currentNode?.url?.replaceAll(/%([^\d].)/, '%25$1'),
               );
             }
             el = parseText(
