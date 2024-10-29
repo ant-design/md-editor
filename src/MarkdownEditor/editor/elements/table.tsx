@@ -159,12 +159,6 @@ export const Table = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
-        onMouseDown={() => {
-          setState((prev) => ({
-            ...prev,
-            visible: false,
-          }));
-        }}
         onMouseUp={handleClickTable}
         style={{
           maxWidth: '100%',
