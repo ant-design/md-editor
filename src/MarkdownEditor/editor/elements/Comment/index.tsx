@@ -32,6 +32,9 @@ export const CommentView = (props: {
         offset: [0, 8],
       }}
       trigger="click"
+      overlayInnerStyle={{
+        padding: 0,
+      }}
       content={() => {
         const dom = (
           <div className={classNames(hashId, baseCls)}>
