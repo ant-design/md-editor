@@ -202,11 +202,15 @@ export class KeyboardTask {
       );
     };
     input.onchange = async (e: any) => {
+      if (input.dataset.readonly) {
+        return;
+      }
+      input.dataset.readonly = 'true';
       const hideLoading = message.loading('Uploading...');
       try {
         const url =
           (await this.props?.image?.upload?.(
-            Array.from(e.target.files) || [],
+            (Array.from(e.target.files) as File[]) || [],
           )) || [];
         [url].flat().forEach((u: string) => {
           insertMedia(u);
