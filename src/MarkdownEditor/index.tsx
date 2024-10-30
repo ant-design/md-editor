@@ -129,7 +129,7 @@ export type MarkdownEditorProps = {
    * 配置图片数据
    */
   image?: {
-    upload?: (file: File[]) => Promise<string[] | string>;
+    upload?: (file: File[] | string[]) => Promise<string[] | string>;
   };
   initValue?: string;
   /**

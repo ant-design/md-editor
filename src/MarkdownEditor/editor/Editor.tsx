@@ -321,7 +321,11 @@ export const MEditor = observer(
         try {
           const paste = await event.clipboardData.getData('text/html');
           if (paste) {
-            const success = insertParsedHtmlNodes(editor, paste);
+            const success = await insertParsedHtmlNodes(
+              editor,
+              paste,
+              editorProps,
+            );
             if (success) {
               return;
             }

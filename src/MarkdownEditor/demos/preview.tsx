@@ -226,8 +226,18 @@ export default () => {
         upload: async (fileList) => {
           return new Promise((resolve) => {
             const file = fileList[0];
-            const url = URL.createObjectURL(file);
-            resolve(url);
+            if (typeof file === 'string') {
+              fetch(file)
+                .then((res) => res.blob())
+                .then((blob) => {
+                  console.log(blob);
+                  const url = URL.createObjectURL(blob);
+                  resolve(url);
+                });
+            } else {
+              const url = URL.createObjectURL(file);
+              resolve(url);
+            }
           });
         },
       }}

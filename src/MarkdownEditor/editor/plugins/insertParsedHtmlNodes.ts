@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { EditorUtils } from '../utils/editorUtils';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
 const findElementByNode = (node: ChildNode) => {
@@ -260,7 +259,11 @@ const processFragment = (fragment: any[], parentType = '') => {
  * @param html
  * @returns
  */
-export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
+export const insertParsedHtmlNodes = async (
+  editor: Editor,
+  html: string,
+  editorProps: any,
+) => {
   if (
     html.startsWith('<html>\r\n<body>\r\n\x3C!--StartFragment--><img src="')
   ) {
@@ -270,9 +273,19 @@ export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
 
-  let fragment = processFragment([deserialize(parsed)].flat(1));
+  let fragmentList = processFragment([deserialize(parsed)].flat(1));
 
-  if (!fragment?.length) return;
+  for await (let fragment of fragmentList) {
+    if (fragment.type === 'media') {
+      const serverUrl = [
+        await editorProps.image?.upload?.([fragment.url]),
+      ].flat(1);
+      fragment.url = serverUrl?.[0];
+      fragment.downloadUrl = serverUrl?.[0];
+    }
+  }
+
+  if (!fragmentList?.length) return;
   let [node] = Editor.nodes<Element>(editor, {
     match: (n) => Element.isElement(n),
   });
@@ -301,8 +314,8 @@ export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
     });
     if (n) node = n;
     if (node) {
-      if (node[0].type === 'list-item' && fragment[0].type === 'list') {
-        const children = fragment[0].children || [];
+      if (node[0].type === 'list-item' && fragmentList[0].type === 'list') {
+        const children = fragmentList[0].children || [];
         if (!children.length) return false;
         const [p] = Editor.nodes<Element>(editor, {
           match: (n) => Element.isElement(n) && n.type === 'paragraph',
@@ -346,8 +359,8 @@ export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
               ]),
             );
           }
-          if (fragment.length > 1) {
-            Transforms.insertNodes(editor, fragment.slice(1), {
+          if (fragmentList.length > 1) {
+            Transforms.insertNodes(editor, fragmentList.slice(1), {
               at: Path.next(Path.parent(n[1])),
             });
           }
@@ -355,12 +368,12 @@ export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
         }
       }
       if (node[0].type === 'table-cell') {
-        Transforms.insertFragment(editor, getTextsNode(fragment));
+        Transforms.insertFragment(editor, getTextsNode(fragmentList));
         return true;
       }
       if (node[0].type === 'head') {
-        if (fragment[0].type) {
-          if (fragment[0].type !== 'paragraph') {
+        if (fragmentList[0].type) {
+          if (fragmentList[0].type !== 'paragraph') {
             Transforms.insertNodes(
               editor,
               {
@@ -374,7 +387,7 @@ export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
             return false;
           }
         } else {
-          const texts = fragment.filter((c) => c.text);
+          const texts = fragmentList.filter((c) => c.text);
           if (texts.length) {
             Transforms.insertNodes(editor, texts);
             return true;
@@ -386,20 +399,7 @@ export const insertParsedHtmlNodes = (editor: Editor, html: string) => {
   }
   if (inner && !['code', 'code-line', 'table-cell'].includes(node?.[0].type))
     return false;
-  if (fragment[0].type === 'media') {
-    const path = EditorUtils.findMediaInsertPath(editor);
-    if (path) {
-      Transforms.insertFragment(editor, fragment, { at: path });
-      Transforms.select(
-        editor,
-        Editor.start(editor, [
-          ...path.slice(0, -1),
-          path[path.length - 1] + fragment.length - 1,
-        ]),
-      );
-    }
-  } else {
-    Transforms.insertFragment(editor, fragment);
-  }
+
+  Transforms.insertFragment(editor, fragmentList);
   return true;
 };

@@ -165,6 +165,7 @@ export function Media({
         : 'other',
     });
     let realUrl = element.url;
+
     setState({ url: realUrl });
     if (state().type === 'image' || state().type === 'other') {
       const img = document.createElement('img');
@@ -184,11 +185,8 @@ export function Media({
   }, [element]);
 
   useLayoutEffect(() => {
-    if (element.downloadUrl) {
-      return;
-    }
     initial();
-  }, [element.url, element.downloadUrl]);
+  }, [element.url]);
 
   const imageDom = useMemo(() => {
     if (state().type !== 'image' && state().type !== 'other') return null;
@@ -211,7 +209,7 @@ export function Media({
       />
     ) : (
       <Image
-        src={state().url}
+        src={state().url || element.url}
         alt={'image'}
         preview={{
           getContainer: () => document.body,
