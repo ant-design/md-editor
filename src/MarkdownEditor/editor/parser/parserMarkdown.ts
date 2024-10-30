@@ -310,9 +310,7 @@ const parserBlock = (
               align: img.align,
               alt: img.alt,
               height: img?.height,
-              url: decodeURIComponent(
-                img?.url?.replaceAll(/%([^\d].)/, '%25$1') || '',
-              ),
+              url: decodeURIComponent(img?.url || ''),
               children: [{ text: '' }],
             };
           } else {
@@ -411,9 +409,7 @@ const parserBlock = (
         el = {
           type: 'media',
           children: [{ text: '' }],
-          url: decodeURIComponent(
-            currentNode?.url?.replaceAll(/%([^\d].)/, '%25$1'),
-          ),
+          url: decodeURIComponent(currentNode?.url),
           alt: currentNode.alt,
         } as MediaNode;
         break;
@@ -509,9 +505,7 @@ const parserBlock = (
             const name = text.match(/>(.*)<\/a>/);
             el = {
               type: 'attach',
-              url: decodeURIComponent(
-                attach?.url?.replaceAll(/%([^\d].)/, '%25$1'),
-              ),
+              url: decodeURIComponent(attach?.url),
               size: attach.size,
               children: [{ text: '' }],
               name: name ? name[1] : attach.url,
@@ -533,9 +527,7 @@ const parserBlock = (
           el = {
             ...config,
             type: 'link-card',
-            url: decodeURIComponent(
-              link?.url?.replaceAll(/%([^\d].)/, '%25$1'),
-            ),
+            url: decodeURIComponent(link?.url),
             children: [{ text: '' }],
             name: link.title,
           };
@@ -555,7 +547,7 @@ const parserBlock = (
             el.push({
               type: 'media',
               children: [{ text: '' }],
-              url: decodeURIComponent(c.url?.replaceAll(/%([^\d].)/, '%25$1')),
+              url: decodeURIComponent(c.url),
               alt: c.alt,
             });
           } else if (c.type === 'html') {
@@ -565,9 +557,7 @@ const parserBlock = (
                 type: 'media',
                 align: img.align,
                 children: [{ text: '' }],
-                url: decodeURIComponent(
-                  img?.url?.replaceAll(/%([^\d].)/, '%25$1') || '',
-                ),
+                url: decodeURIComponent(img?.url || ''),
                 height: img.height,
                 alt: img.alt,
               });

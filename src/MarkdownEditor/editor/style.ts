@@ -255,6 +255,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         'th:last-child,td:last-child': {
           borderRight: 'none',
         },
+        'tr:last-child th,tr:last-child td': {
+          borderBottom: 'none',
+        },
         th: {
           backgroundColor: 'rgb(229 231 235 / 0.5)',
         },

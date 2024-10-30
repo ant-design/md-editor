@@ -19,12 +19,13 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
+import ReactDOM from 'react-dom';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { useSubject } from '../../hooks/subscribe';
 import { selChange$ } from '../plugins/useOnchange';
 import { useEditorStore } from '../store';
-import { getOffsetLeft, getOffsetTop } from '../utils/dom';
+import { getOffsetLeft } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { keyTask$ } from '../utils/keyboard';
 import { getRemoteMediaType } from '../utils/media';
@@ -234,11 +235,13 @@ export interface InsertAutocompleteProps {
       y: number;
     },
   ) => Promise<boolean>;
+  getContainer?: () => HTMLElement;
 }
 
 export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
   (props) => {
     const { store } = useEditorStore();
+
     const dom = useRef<HTMLDivElement>(null);
     const ctx = useRef<{
       path: number[];
@@ -257,6 +260,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       bottom: 0 as number | undefined,
       text: '',
     });
+    const insertAutocompleteProps = store.editorProps.insertAutocompleteProps;
     const selectedKey = useMemo(() => {
       return state.options[state.index]?.key;
     }, [state.index, state.options, state.text]);
@@ -529,12 +533,13 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         nodeEl: HTMLElement,
         containerEl: HTMLElement,
       ) => {
-        const top =
-          getOffsetTop(nodeEl, containerEl) -
-          containerEl.getBoundingClientRect().top;
-        const left = getOffsetLeft(nodeEl, containerEl);
+        const top = nodeEl.getBoundingClientRect().top;
+
+        const left = getOffsetLeft(nodeEl, containerEl) + 24;
+
         const containerScrollTop = containerEl.scrollTop;
         const containerHeight = containerEl.clientHeight;
+
         const nodeHeight = nodeEl.clientHeight;
 
         const nodeTopRelativeToContainer = top - containerScrollTop;
@@ -595,11 +600,13 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             path: node[1],
             isTop: EditorUtils.isTop(store.editor, node[1]),
           };
-
           if (node[0].type === 'paragraph') {
             const el = ReactEditor.toDOMNode(store.editor, node[0]);
             if (el) {
-              const position = calculatePosition(el, store.container!);
+              const position = calculatePosition(
+                el,
+                insertAutocompleteProps?.getContainer?.() || document.body,
+              );
               if (position) {
                 setState(position);
               } else {
@@ -607,7 +614,6 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
               }
             }
           }
-
           setupEventListeners();
 
           setTimeout(() => {
@@ -628,252 +634,246 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
     const baseClassName = context.getPrefixCls(`md-editor-insert-autocomplete`);
 
     const { wrapSSR, hashId } = useStyle(baseClassName);
-    return wrapSSR(
-      <div
-        ref={dom}
-        className={classNames(baseClassName, hashId)}
-        style={{
-          position: 'absolute',
-          zIndex: 50,
-          backdropFilter: 'blur(4px)',
-          display:
-            !store.openInsertCompletion || !state.filterOptions.length
-              ? 'none'
-              : 'flex',
-          width: state.insertLink || state.insertAttachment ? 320 : 160,
-          maxHeight: 212,
-          overflowY: 'auto',
-          padding: 4,
-          borderRadius: 4,
-          paddingTop: 2,
-          color: 'rgba(0,0,0,0.9)',
-          backgroundColor: 'rgba(255,255,255,0.9)',
-          border: '1px solid rgba(0,0,0,0.1)',
-          left: state.left,
-          top: state.top,
-          bottom: state.bottom,
-        }}
-        onMouseDown={(e) => {
-          e.preventDefault();
-        }}
-      >
-        {!state.insertLink && !state.insertAttachment && (
-          <>
-            <div
-              className={classNames(`${baseClassName}-title`, hashId)}
-              style={{
-                color: 'rgba(0,0,0,0.8)',
-                fontSize: 12,
-                marginBottom: 4,
-              }}
-            >
-              快速插入
-            </div>
-            {state.filterOptions.map((l, i) => (
-              <React.Fragment key={l.key}>
-                {i !== 0 &&
-                  l.children.filter((o) => {
-                    if (
-                      !store?.editorProps?.image &&
-                      o.task === 'uploadImage'
-                    ) {
-                      return false;
-                    }
-                    return true;
-                  }).length > 0 && (
-                    <Divider
-                      style={{
-                        margin: '4px 0',
-                        color: 'rgba(0,0,0,0.1)',
-                      }}
-                    />
-                  )}
-                {l.children
-                  .filter((o) => {
-                    if (
-                      !store?.editorProps?.image &&
-                      o.task === 'uploadImage'
-                    ) {
-                      return false;
-                    }
-                    return true;
-                  })
-                  .map((el) => (
-                    <div
-                      className={classNames(`${baseClassName}-item`, hashId)}
-                      key={el.key}
-                      data-action={el.key}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        const task = state.options[state.index];
-                        if (!task) {
-                          const myInsertOptions = props?.insertOptions?.find?.(
-                            (o) => o.key === el.key,
-                          );
-                          if (!myInsertOptions) return;
-                          runInsertTask(myInsertOptions, {
-                            isCustom: true,
-                          });
-                          return;
-                        }
-                        runInsertTask(task);
-                      }}
-                      onMouseEnter={() => {
-                        setState({
-                          index: state.options.findIndex(
-                            (op) => op.key === el.key,
-                          ),
-                        });
-                      }}
-                      style={{
-                        borderRadius: 4,
-                        padding: '4px 8px',
-                        color: 'rgba(0,0,0,0.8)',
-                        fontSize: 14,
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 4,
-                        backgroundColor:
-                          el.key === selectedKey
-                            ? 'rgb(229 231 235 / 0.65)'
-                            : '',
-                      }}
-                    >
-                      {el.icon}
-                      <span>{el.label[0]}</span>
-                    </div>
-                  ))}
-              </React.Fragment>
-            ))}
-          </>
-        )}
-        {state.insertLink && (
-          <div
-            style={{
-              padding: 8,
-            }}
-          >
-            <div
-              style={{
-                fontSize: 14,
-                color: 'rgba(0,0,0,0.8)',
-                marginBottom: 4,
-                display: 'flex',
-                alignContent: 'center',
-                gap: 4,
-              }}
-            >
-              <PlayCircleOutlined />
-              <span>Embed media links</span>
-            </div>
-            <Input
-              placeholder={'Paste media link'}
-              onMouseDown={(e) => e.stopPropagation()}
-              value={state.insertUrl}
-              onKeyDown={(e) => {
-                if (isHotkey('enter', e)) {
-                  insertMedia();
-                }
-              }}
-              onChange={(e) => setState({ insertUrl: e.target.value })}
-            />
-            <Button
-              block={true}
-              loading={state.loading}
-              type={'primary'}
-              size={'small'}
-              style={{
-                marginTop: '1em',
-              }}
-              onClick={insertMedia}
-              disabled={!state.insertUrl}
-            >
-              Embed
-            </Button>
-          </div>
-        )}
-        {state.insertAttachment && (
-          <div
-            style={{
-              width: 320,
-              padding: 8,
-            }}
-          >
-            <Tabs
-              size={'small'}
-              items={[
-                {
-                  label: 'Local',
-                  key: 'local',
-                  children: (
-                    <div>
-                      <Button
-                        block={true}
-                        size={'small'}
-                        type={'primary'}
-                        onClick={() => {
-                          Transforms.insertText(store?.editor, '', {
-                            at: {
-                              anchor: Editor.start(
-                                store?.editor,
-                                ctx.current.path,
-                              ),
-                              focus: Editor.end(
-                                store?.editor,
-                                ctx.current.path,
-                              ),
-                            },
-                          });
-                          setState({ insertUrl: '' });
-                          insertAttachByLink();
-                        }}
-                      >
-                        Choose a file
-                      </Button>
-                    </div>
-                  ),
-                },
-                {
-                  label: 'Embed Link',
-                  key: 'embed',
-                  children: (
-                    <div>
-                      <Input
-                        placeholder={'Paste attachment link'}
-                        onMouseDown={(e) => e.stopPropagation()}
-                        value={state.insertUrl}
-                        onKeyDown={(e) => {
-                          if (isHotkey('enter', e)) {
-                            insertAttachByLink();
-                          }
-                        }}
-                        onChange={(e) =>
-                          setState({ insertUrl: e.target.value })
-                        }
-                      />
-                      <Button
-                        block={true}
-                        loading={state.loading}
-                        type={'primary'}
+
+    return ReactDOM.createPortal(
+      wrapSSR(
+        <div
+          ref={dom}
+          className={classNames(baseClassName, hashId)}
+          style={{
+            position: 'absolute',
+            zIndex: 9999,
+            padding: 8,
+            backdropFilter: 'blur(4px)',
+            display:
+              !store.openInsertCompletion || !state.filterOptions.length
+                ? 'none'
+                : 'flex',
+            width: state.insertLink || state.insertAttachment ? 320 : 180,
+            maxHeight: 212,
+            overflowY: 'auto',
+            borderRadius: 4,
+            color: 'rgba(0,0,0,0.9)',
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            border: '1px solid rgba(0,0,0,0.1)',
+            left: state.left,
+            top: state.top,
+            bottom: state.bottom,
+          }}
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
+        >
+          {!state.insertLink && !state.insertAttachment && (
+            <>
+              {state.filterOptions.map((l, i) => (
+                <React.Fragment key={l.key}>
+                  {i !== 0 &&
+                    l.children.filter((o) => {
+                      if (
+                        !store?.editorProps?.image &&
+                        o.task === 'uploadImage'
+                      ) {
+                        return false;
+                      }
+                      return true;
+                    }).length > 0 && (
+                      <Divider
                         style={{
-                          marginTop: '1em',
+                          margin: '4px 0',
+                          color: 'rgba(0,0,0,0.1)',
                         }}
-                        size={'small'}
-                        onClick={insertAttachByLink}
-                        disabled={!state.insertUrl}
+                      />
+                    )}
+                  {l.children
+                    .filter((o) => {
+                      if (
+                        !store?.editorProps?.image &&
+                        o.task === 'uploadImage'
+                      ) {
+                        return false;
+                      }
+                      return true;
+                    })
+                    .map((el) => (
+                      <div
+                        className={classNames(`${baseClassName}-item`, hashId)}
+                        key={el.key}
+                        data-action={el.key}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          const task = state.options[state.index];
+                          if (!task) {
+                            const myInsertOptions =
+                              props?.insertOptions?.find?.(
+                                (o) => o.key === el.key,
+                              );
+                            if (!myInsertOptions) return;
+                            runInsertTask(myInsertOptions, {
+                              isCustom: true,
+                            });
+                            return;
+                          }
+                          runInsertTask(task);
+                        }}
+                        onMouseEnter={() => {
+                          setState({
+                            index: state.options.findIndex(
+                              (op) => op.key === el.key,
+                            ),
+                          });
+                        }}
+                        style={{
+                          borderRadius: 4,
+                          padding: '8px',
+                          color: 'rgba(0,0,0,0.8)',
+                          fontSize: 14,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 4,
+                          backgroundColor:
+                            el.key === selectedKey
+                              ? 'rgb(229 231 235 / 0.65)'
+                              : '',
+                        }}
                       >
-                        Embed
-                      </Button>
-                    </div>
-                  ),
-                },
-              ]}
-            />
-          </div>
-        )}
-      </div>,
+                        {el.icon}
+                        <span>{el.label[0]}</span>
+                      </div>
+                    ))}
+                </React.Fragment>
+              ))}
+            </>
+          )}
+          {state.insertLink && (
+            <div
+              style={{
+                padding: 8,
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 14,
+                  color: 'rgba(0,0,0,0.8)',
+                  marginBottom: 4,
+                  display: 'flex',
+                  alignContent: 'center',
+                  gap: 4,
+                }}
+              >
+                <PlayCircleOutlined />
+                <span>Embed media links</span>
+              </div>
+              <Input
+                placeholder={'Paste media link'}
+                onMouseDown={(e) => e.stopPropagation()}
+                value={state.insertUrl}
+                onKeyDown={(e) => {
+                  if (isHotkey('enter', e)) {
+                    insertMedia();
+                  }
+                }}
+                onChange={(e) => setState({ insertUrl: e.target.value })}
+              />
+              <Button
+                block={true}
+                loading={state.loading}
+                type={'primary'}
+                size={'small'}
+                style={{
+                  marginTop: '1em',
+                }}
+                onClick={insertMedia}
+                disabled={!state.insertUrl}
+              >
+                Embed
+              </Button>
+            </div>
+          )}
+          {state.insertAttachment && (
+            <div
+              style={{
+                width: 320,
+                padding: 8,
+              }}
+            >
+              <Tabs
+                size={'small'}
+                items={[
+                  {
+                    label: 'Local',
+                    key: 'local',
+                    children: (
+                      <div>
+                        <Button
+                          block={true}
+                          size={'small'}
+                          type={'primary'}
+                          onClick={() => {
+                            Transforms.insertText(store?.editor, '', {
+                              at: {
+                                anchor: Editor.start(
+                                  store?.editor,
+                                  ctx.current.path,
+                                ),
+                                focus: Editor.end(
+                                  store?.editor,
+                                  ctx.current.path,
+                                ),
+                              },
+                            });
+                            setState({ insertUrl: '' });
+                            insertAttachByLink();
+                          }}
+                        >
+                          Choose a file
+                        </Button>
+                      </div>
+                    ),
+                  },
+                  {
+                    label: 'Embed Link',
+                    key: 'embed',
+                    children: (
+                      <div>
+                        <Input
+                          placeholder={'Paste attachment link'}
+                          onMouseDown={(e) => e.stopPropagation()}
+                          value={state.insertUrl}
+                          onKeyDown={(e) => {
+                            if (isHotkey('enter', e)) {
+                              insertAttachByLink();
+                            }
+                          }}
+                          onChange={(e) =>
+                            setState({ insertUrl: e.target.value })
+                          }
+                        />
+                        <Button
+                          block={true}
+                          loading={state.loading}
+                          type={'primary'}
+                          style={{
+                            marginTop: '1em',
+                          }}
+                          size={'small'}
+                          onClick={insertAttachByLink}
+                          disabled={!state.insertUrl}
+                        >
+                          Embed
+                        </Button>
+                      </div>
+                    ),
+                  },
+                ]}
+              />
+            </div>
+          )}
+        </div>,
+      ),
+      insertAutocompleteProps?.getContainer?.() || document.body,
     );
   },
 );

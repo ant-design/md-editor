@@ -348,11 +348,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               extra={toolBar.extra}
               min={toolBar.min}
             />
-            <FloatBar />
           </div>
-        ) : readonly ? null : (
-          <FloatBar />
-        )}
+        ) : readonly ? null : null}
         <div
           style={{
             padding: props.readonly ? '8px' : '24px 24px',
@@ -375,6 +372,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             {...rest}
             instance={instance}
           />
+          <FloatBar />
           {instance.current &&
           mount &&
           toc !== false &&
