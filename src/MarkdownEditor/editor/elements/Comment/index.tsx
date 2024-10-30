@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import React, { useContext } from 'react';
 import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
+import { useEditorStore } from '../../store';
 import { useStyle } from './style';
 
 export const CommentView = (props: {
@@ -16,6 +17,7 @@ export const CommentView = (props: {
   comment: MarkdownEditorProps['comment'];
   commentItem: CommentDataType[];
 }) => {
+  const { readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const editor = useSlate();
   const baseCls = context.getPrefixCls('md-editor-comment-view');
@@ -71,53 +73,55 @@ export const CommentView = (props: {
                         {dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}
                       </span>
                     </div>
-                    <div
-                      className={classNames(
-                        `${baseCls}-item-header-action`,
-                        hashId,
-                      )}
-                    >
-                      <Popconfirm
-                        title={
-                          props.comment?.deleteConfirmText ||
-                          'Are you sure to delete this comment?'
-                        }
-                        onConfirm={async (e) => {
-                          e?.stopPropagation();
-                          e?.preventDefault();
-                          try {
-                            await props.comment?.onDelete?.(item.id, item);
-                            // 更新时间戳,触发一下dom的rerender，不然不给我更新
-                            Transforms.setNodes(
-                              editor,
-                              {
-                                updateTimestamp: Date.now(),
-                              },
-                              {
-                                at: item.path,
-                              },
-                            );
-                          } catch (error) {}
-                        }}
+                    {readonly ? null : (
+                      <div
+                        className={classNames(
+                          `${baseCls}-item-header-action`,
+                          hashId,
+                        )}
                       >
+                        <Popconfirm
+                          title={
+                            props.comment?.deleteConfirmText ||
+                            'Are you sure to delete this comment?'
+                          }
+                          onConfirm={async (e) => {
+                            e?.stopPropagation();
+                            e?.preventDefault();
+                            try {
+                              await props.comment?.onDelete?.(item.id, item);
+                              // 更新时间戳,触发一下dom的rerender，不然不给我更新
+                              Transforms.setNodes(
+                                editor,
+                                {
+                                  updateTimestamp: Date.now(),
+                                },
+                                {
+                                  at: item.path,
+                                },
+                              );
+                            } catch (error) {}
+                          }}
+                        >
+                          <span
+                            className={classNames(
+                              `${baseCls}-item-header-action-item`,
+                              hashId,
+                            )}
+                          >
+                            <DeleteFilled />
+                          </span>
+                        </Popconfirm>
                         <span
                           className={classNames(
                             `${baseCls}-item-header-action-item`,
                             hashId,
                           )}
                         >
-                          <DeleteFilled />
+                          <EditOutlined />
                         </span>
-                      </Popconfirm>
-                      <span
-                        className={classNames(
-                          `${baseCls}-item-header-action-item`,
-                          hashId,
-                        )}
-                      >
-                        <EditOutlined />
-                      </span>
-                    </div>
+                      </div>
+                    )}
                   </div>
                   <div
                     className={classNames(`${baseCls}-item-content`, hashId)}
