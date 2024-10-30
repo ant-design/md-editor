@@ -222,6 +222,9 @@ export class KeyboardTask {
         input.value = '';
       }
     };
+    if (input.dataset.readonly) {
+      return;
+    }
     input.click();
     input.remove();
   }
