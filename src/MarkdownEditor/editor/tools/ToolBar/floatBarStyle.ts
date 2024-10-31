@@ -21,13 +21,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: '4px 0',
       '&-item': {
         display: 'flex',
-        height: '32px',
+        height: '48px',
         alignItems: 'center',
-        gap: '4px',
+        gap: '8px',
         borderRadius: '4px',
         lineHeight: '32px',
+        fontSize: '16px',
         justifyContent: 'center',
-        padding: '0 4px',
+        padding: '0 8px',
         cursor: 'pointer',
         '&:hover': {
           backgroundColor: 'rgb(229 231 235 / 0.65)',

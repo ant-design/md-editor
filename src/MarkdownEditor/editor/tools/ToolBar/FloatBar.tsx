@@ -9,13 +9,14 @@ import { getSelRect } from '../../utils/dom';
 import { useLocalState } from '../../utils/useLocalState';
 import { BaseToolBar } from './BaseBar';
 import { useStyle } from './floatBarStyle';
+import { ReadonlyBaseBar } from './ReadonlyBaseBar';
 
 const fileMap = new Map<string, IEditor>();
 
 /**
  * 浮动工具栏,用于设置文本样式
  */
-export const FloatBar = observer(() => {
+export const FloatBar = observer((props: { readonly: boolean }) => {
   const { store } = useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
@@ -26,25 +27,32 @@ export const FloatBar = observer(() => {
 
   const sel = React.useRef<BaseRange>();
 
-  const resize = useCallback((force = false) => {
-    if (store.domRect && !store.openLinkPanel) {
-      let left = store.domRect.x;
-      left = left - (178 - store.domRect.width) / 2;
-      const container = store.container!;
-      if (left < 4) left = 4;
-      const barWidth = 232;
-      if (left > container.clientWidth - barWidth)
-        left = container.clientWidth - barWidth / 2;
+  const resize = useCallback(
+    (force = false) => {
+      if (store.domRect && !store.openLinkPanel) {
+        let left = store.domRect.x;
+        left = left - ((props.readonly ? 65 : 178) - store.domRect.width) / 2;
 
-      let top = state.open && !force ? state.top : store.domRect.top - 32;
+        console.log('store.domRect', store.domRect);
 
-      setState({
-        open: true,
-        left: Math.max(left - container.getBoundingClientRect().left, 4),
-        top: Math.max(top - container.getBoundingClientRect().top, 4),
-      });
-    }
-  }, []);
+        const container = store.container!;
+        if (left < 4) left = 4;
+        const barWidth = props.readonly ? 65 : 232;
+
+        if (left > container.clientWidth - barWidth)
+          left = container.clientWidth - barWidth / 2;
+
+        let top = state.open && !force ? state.top : store.domRect.top - 32;
+
+        setState({
+          open: true,
+          left: Math.max(left - container.getBoundingClientRect().left, 4),
+          top: Math.max(top - container.getBoundingClientRect().top, 4),
+        });
+      }
+    },
+    [props.readonly, state.open],
+  );
 
   useEffect(() => {
     if (store.domRect && store.editor) {
@@ -102,7 +110,6 @@ export const FloatBar = observer(() => {
         left: state.left,
         top: state.top,
         display: state.open ? undefined : 'none',
-        padding: 4,
       }}
       onMouseDown={(e) => {
         e.preventDefault();
@@ -110,7 +117,11 @@ export const FloatBar = observer(() => {
       }}
       className={classNames(baseClassName, hashId)}
     >
-      <BaseToolBar prefix={baseClassName} hashId={hashId} />
+      {props.readonly ? (
+        <ReadonlyBaseBar prefix={baseClassName} hashId={hashId} />
+      ) : (
+        <BaseToolBar prefix={baseClassName} hashId={hashId} />
+      )}
     </div>,
   );
 });
