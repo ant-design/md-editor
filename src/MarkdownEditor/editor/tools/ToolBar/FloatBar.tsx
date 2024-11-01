@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useContext, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
 import { IEditor } from '../../../index';
 import { useEditorStore } from '../../store';
@@ -32,8 +33,6 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
       if (store.domRect && !store.openLinkPanel) {
         let left = store.domRect.x;
         left = left - ((props.readonly ? 65 : 178) - store.domRect.width) / 2;
-
-        console.log('store.domRect', store.domRect);
 
         const container = store.container!;
         if (left < 4) left = 4;
@@ -104,24 +103,29 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
-  return wrapSSR(
-    <div
-      style={{
-        left: state.left,
-        top: state.top,
-        display: state.open ? undefined : 'none',
-      }}
-      onMouseDown={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      className={classNames(baseClassName, hashId)}
-    >
-      {props.readonly ? (
-        <ReadonlyBaseBar prefix={baseClassName} hashId={hashId} />
-      ) : (
-        <BaseToolBar prefix={baseClassName} hashId={hashId} />
-      )}
-    </div>,
+  if (!store.container) return null;
+
+  return ReactDOM.createPortal(
+    wrapSSR(
+      <div
+        style={{
+          left: state.left,
+          top: state.top,
+          display: state.open ? undefined : 'none',
+        }}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        className={classNames(baseClassName, hashId)}
+      >
+        {props.readonly ? (
+          <ReadonlyBaseBar prefix={baseClassName} hashId={hashId} />
+        ) : (
+          <BaseToolBar prefix={baseClassName} hashId={hashId} />
+        )}
+      </div>,
+    ),
+    document.body,
   );
 });

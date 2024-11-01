@@ -112,11 +112,18 @@ export const MLeaf = (
   return useMemo(() => {
     const leaf = props.leaf;
     const style: CSSProperties = {};
-    let className = '';
+    let className = props.hashId + ' ';
     let children = <>{props.children}</>;
     if (leaf.code)
       children = (
-        <code className={mdEditorBaseClass + '-inline-code'}>{children}</code>
+        <code
+          className={classNames(
+            mdEditorBaseClass + '-inline-code',
+            props.hashId,
+          )}
+        >
+          {children}
+        </code>
       );
     if (leaf.highColor) style.color = leaf.highColor;
     if (leaf.color) style.color = leaf.color;

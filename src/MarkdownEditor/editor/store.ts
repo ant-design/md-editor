@@ -126,6 +126,7 @@ export class EditorStore {
   refreshHighlight = false;
   pauseCodeHighlight = false;
   domRect: DOMRect | null = null;
+  domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
   inputComposition = false;
   editorProps: MarkdownEditorProps = {};

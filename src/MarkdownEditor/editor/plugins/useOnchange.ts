@@ -76,7 +76,9 @@ export function useOnchange(
         rangeContent.current = domRange?.toString() || '';
         const rect = domRange?.getBoundingClientRect();
         if (rect) {
-          store.setState((state) => (state.domRect = rect));
+          store.setState((state) => {
+            state.domRect = rect;
+          });
         }
       } else if (store.domRect) {
         rangeContent.current = '';
