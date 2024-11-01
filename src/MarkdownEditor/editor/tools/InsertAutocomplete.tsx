@@ -7,18 +7,12 @@ import {
   TableOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-import { Button, ConfigProvider, Divider, Input, Tabs } from 'antd';
+import { Button, ConfigProvider, Input, Menu, Tabs } from 'antd';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -34,7 +28,13 @@ import { useStyle } from './insertAutocompleteStyle';
 
 const ImageIcon = () => {
   return (
-    <svg viewBox="0 0 1024 1024" version="1.1" width="1em" height="1em">
+    <svg
+      className="ant-menu-item-icon"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      width="1em"
+      height="1em"
+    >
       <path
         fill="currentColor"
         d="M0 128l0 768 1024 0L1024 128 0 128zM944 816 80 816 80 208l864 0L944 816zM704 368c0 53.024 42.976 96 96 96 53.024 0 96-42.976 96-96 0-53.024-42.976-96-96-96C746.976 272 704 314.976 704 368M888 760l-192-288-128 96-240-304-192 496L888 760z"
@@ -45,7 +45,13 @@ const ImageIcon = () => {
 
 const Quote = () => {
   return (
-    <svg viewBox="0 0 1024 1024" version="1.1" width="1em" height="1em">
+    <svg
+      className="ant-menu-item-icon"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      width="1em"
+      height="1em"
+    >
       <path
         d="M128 472.896h341.344v341.344H128zM128 472.896L272.096 192h110.08l-144.128 280.896z"
         fill="currentColor"
@@ -60,7 +66,13 @@ const Quote = () => {
 
 const ColumnIcon = () => {
   return (
-    <svg viewBox="0 0 1024 1024" version="1.1" width="1em" height="1em">
+    <svg
+      className="ant-menu-item-icon"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      width="1em"
+      height="1em"
+    >
       <path
         fill="currentColor"
         d="M880 112c17.7 0 32 14.3 32 32v736c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32z m-404 72H184v656h292V184z m364 0H548v656h292V184z"
@@ -260,10 +272,6 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       bottom: 0 as number | undefined,
       text: '',
     });
-    const insertAutocompleteProps = store.editorProps.insertAutocompleteProps;
-    const selectedKey = useMemo(() => {
-      return state.options[state.index]?.key;
-    }, [state.index, state.options, state.text]);
 
     const clickClose = useCallback((e: Event) => {
       if (!dom.current?.contains(e.target as HTMLElement)) {
@@ -538,7 +546,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         const left = getOffsetLeft(nodeEl, containerEl) + 24;
 
         const containerScrollTop = containerEl.scrollTop;
-        const containerHeight = containerEl.clientHeight;
+        const containerHeight = document.documentElement.clientHeight;
 
         const nodeHeight = nodeEl.clientHeight;
 
@@ -603,10 +611,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           if (node[0].type === 'paragraph') {
             const el = ReactEditor.toDOMNode(store.editor, node[0]);
             if (el) {
-              const position = calculatePosition(
-                el,
-                insertAutocompleteProps?.getContainer?.() || document.body,
-              );
+              const position = calculatePosition(el, document.body);
               if (position) {
                 setState(position);
               } else {
@@ -643,19 +648,13 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           style={{
             position: 'absolute',
             zIndex: 9999,
-            padding: 8,
-            backdropFilter: 'blur(4px)',
             display:
               !store.openInsertCompletion || !state.filterOptions.length
                 ? 'none'
                 : 'flex',
-            width: state.insertLink || state.insertAttachment ? 320 : 180,
+            width: state.insertLink || state.insertAttachment ? 320 : undefined,
             maxHeight: 212,
             overflowY: 'auto',
-            borderRadius: 4,
-            color: 'rgba(0,0,0,0.9)',
-            backgroundColor: 'rgba(255,255,255,0.9)',
-            border: '1px solid rgba(0,0,0,0.1)',
             left: state.left,
             top: state.top,
             bottom: state.bottom,
@@ -666,85 +665,36 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         >
           {!state.insertLink && !state.insertAttachment && (
             <>
-              {state.filterOptions.map((l, i) => (
-                <React.Fragment key={l.key}>
-                  {i !== 0 &&
-                    l.children.filter((o) => {
-                      if (
-                        !store?.editorProps?.image &&
-                        o.task === 'uploadImage'
-                      ) {
-                        return false;
-                      }
-                      return true;
-                    }).length > 0 && (
-                      <Divider
-                        style={{
-                          margin: '4px 0',
-                          color: 'rgba(0,0,0,0.1)',
-                        }}
-                      />
-                    )}
-                  {l.children
-                    .filter((o) => {
-                      if (
-                        !store?.editorProps?.image &&
-                        o.task === 'uploadImage'
-                      ) {
-                        return false;
-                      }
-                      return true;
-                    })
-                    .map((el) => (
-                      <div
-                        className={classNames(`${baseClassName}-item`, hashId)}
-                        key={el.key}
-                        data-action={el.key}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          const task = state.options[state.index];
-                          if (!task) {
-                            const myInsertOptions =
-                              props?.insertOptions?.find?.(
-                                (o) => o.key === el.key,
-                              );
-                            if (!myInsertOptions) return;
-                            runInsertTask(myInsertOptions, {
-                              isCustom: true,
-                            });
-                            return;
-                          }
-                          runInsertTask(task);
-                        }}
-                        onMouseEnter={() => {
-                          setState({
-                            index: state.options.findIndex(
-                              (op) => op.key === el.key,
-                            ),
+              <Menu
+                items={state.filterOptions.map((l) => {
+                  return {
+                    label: l?.label?.[0],
+                    key: l?.key,
+                    icon: l.children?.[0]?.icon,
+                    children: l?.children?.map((el) => ({
+                      label: el.label[0],
+                      key: el.key,
+                      icon: el.icon,
+                      onClick: (_) => {
+                        _.domEvent.stopPropagation();
+                        _.domEvent.preventDefault();
+                        const task = state.options[state.index];
+                        if (!task) {
+                          const myInsertOptions = props?.insertOptions?.find?.(
+                            (o) => o.key === el.key,
+                          );
+                          if (!myInsertOptions) return;
+                          runInsertTask(myInsertOptions, {
+                            isCustom: true,
                           });
-                        }}
-                        style={{
-                          borderRadius: 4,
-                          padding: '8px',
-                          color: 'rgba(0,0,0,0.8)',
-                          fontSize: 14,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 4,
-                          backgroundColor:
-                            el.key === selectedKey
-                              ? 'rgb(229 231 235 / 0.65)'
-                              : '',
-                        }}
-                      >
-                        {el.icon}
-                        <span>{el.label[0]}</span>
-                      </div>
-                    ))}
-                </React.Fragment>
-              ))}
+                          return;
+                        }
+                        runInsertTask(task);
+                      },
+                    })),
+                  };
+                })}
+              />
             </>
           )}
           {state.insertLink && (
@@ -873,7 +823,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           )}
         </div>,
       ),
-      insertAutocompleteProps?.getContainer?.() || document.body,
+      document.body,
     );
   },
 );
