@@ -17,29 +17,17 @@ import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 
 export function TableCell(props: RenderElementProps) {
-  const { typewriter, store } = useEditorStore();
+  const { store } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path] = useSelStatus(props.element);
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
     store.openTableMenus(e, head);
   }, []);
 
-  const isLatest = useMemo(() => {
-    if (store.editor?.children?.length === 0) return false;
-    if (!store.editorProps?.typewriter) return false;
-    return store.isLatestNode(props.element);
-  }, [
-    store.editor?.children?.at?.(path.at(0)!),
-    store.editor?.children?.at?.(path.at(0)! + 1),
-    typewriter,
-  ]);
   return React.useMemo(() => {
     return props.element.title ? (
       <th
         {...props.attributes}
-        className={classNames({
-          typewriter: isLatest && typewriter,
-        })}
         style={{ textAlign: props.element.align }}
         data-be={'th'}
         onContextMenu={(e) => context(e, true)}
@@ -51,17 +39,22 @@ export function TableCell(props: RenderElementProps) {
         {...props.attributes}
         style={{ textAlign: props.element.align }}
         data-be={'td'}
-        className={classNames('group', {
-          typewriter: isLatest && typewriter,
-        })}
+        className={classNames('group')}
         onContextMenu={(e) => {
           context(e);
         }}
       >
-        {props.children}
+        <div
+          style={{
+            maxWidth: '200px',
+            textWrap: 'wrap',
+          }}
+        >
+          {props.children}
+        </div>
       </td>
     );
-  }, [props.element, isLatest, props.element.children, store.refreshHighlight]);
+  }, [props.element, props.element.children, store.refreshHighlight]);
 }
 
 export const Table = observer((props: RenderElementProps) => {
@@ -159,7 +152,6 @@ export const Table = observer((props: RenderElementProps) => {
         onMouseUp={handleClickTable}
         style={{
           maxWidth: '100%',
-          overflow: 'visible',
           ...(store.editor?.children?.length === 1
             ? {}
             : {
@@ -177,9 +169,20 @@ export const Table = observer((props: RenderElementProps) => {
           />
         )}
         <DragHandle />
-        <table>
-          <tbody>{props.children}</tbody>
-        </table>
+        <div
+          style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            tableLayout: 'fixed',
+            borderSpacing: 0,
+            maxWidth: '100%',
+            overflow: 'auto',
+          }}
+        >
+          <table>
+            <tbody>{props.children}</tbody>
+          </table>
+        </div>
       </div>
     );
   }, [
