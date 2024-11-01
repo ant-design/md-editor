@@ -193,7 +193,7 @@ export const ListItem = ({
   const isTask = typeof element.checked === 'boolean';
   const context = useContext(ConfigProvider.ConfigContext);
   const listItemRender = store.editorProps?.comment?.listItemRender;
-  const { hashId } = useContext(ListContext) || {};
+  const { hashId = '' } = useContext(ListContext) || {};
   const baseCls = context.getPrefixCls('md-editor-list');
 
   const checkbox = React.useMemo(() => {
@@ -242,7 +242,7 @@ export const ListItem = ({
               mentionsUser,
               children,
             },
-            { element, children, attributes },
+            { element, children, attributes, hashId },
           )}
         </li>
       );
