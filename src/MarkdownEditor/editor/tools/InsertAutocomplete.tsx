@@ -64,22 +64,22 @@ const Quote = () => {
   );
 };
 
-const ColumnIcon = () => {
-  return (
-    <svg
-      className="ant-menu-item-icon"
-      viewBox="0 0 1024 1024"
-      version="1.1"
-      width="1em"
-      height="1em"
-    >
-      <path
-        fill="currentColor"
-        d="M880 112c17.7 0 32 14.3 32 32v736c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32z m-404 72H184v656h292V184z m364 0H548v656h292V184z"
-      />
-    </svg>
-  );
-};
+// const ColumnIcon = () => {
+//   return (
+//     <svg
+//       className="ant-menu-item-icon"
+//       viewBox="0 0 1024 1024"
+//       version="1.1"
+//       width="1em"
+//       height="1em"
+//     >
+//       <path
+//         fill="currentColor"
+//         d="M880 112c17.7 0 32 14.3 32 32v736c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32z m-404 72H184v656h292V184z m364 0H548v656h292V184z"
+//       />
+//     </svg>
+//   );
+// };
 
 export type InsertAutocompleteItem = {
   label: string[];
@@ -130,12 +130,12 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
           task: 'insertTable',
           icon: <TableOutlined />,
         },
-        {
-          label: ['分栏', 'Column'],
-          key: 'column',
-          task: 'insertColumn',
-          icon: <ColumnIcon />,
-        },
+        // {
+        //   label: ['分栏', 'Column'],
+        //   key: 'column',
+        //   task: 'insertColumn',
+        //   icon: <ColumnIcon />,
+        // },
         {
           label: ['引用', 'Quote'],
           key: 'quote',
@@ -666,34 +666,47 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           {!state.insertLink && !state.insertAttachment && (
             <>
               <Menu
-                items={state.filterOptions.map((l) => {
-                  return {
-                    label: l?.label?.[0],
-                    key: l?.key,
-                    icon: l.children?.[0]?.icon,
-                    children: l?.children?.map((el) => ({
-                      label: el.label[0],
-                      key: el.key,
-                      icon: el.icon,
-                      onClick: (_) => {
-                        _.domEvent.stopPropagation();
-                        _.domEvent.preventDefault();
-                        const task = state.options[state.index];
-                        if (!task) {
-                          const myInsertOptions = props?.insertOptions?.find?.(
-                            (o) => o.key === el.key,
-                          );
-                          if (!myInsertOptions) return;
-                          runInsertTask(myInsertOptions, {
-                            isCustom: true,
-                          });
-                          return;
-                        }
-                        runInsertTask(task);
-                      },
-                    })),
-                  };
-                })}
+                items={state.filterOptions
+                  .map((l) => {
+                    return {
+                      label: l?.label?.[0],
+                      key: l?.key,
+                      icon: l.children?.[0]?.icon,
+                      children: l?.children?.map((el) => ({
+                        label: el.label[0],
+                        key: el.key,
+                        icon: el.icon,
+                        onClick: (_: any) => {
+                          _.domEvent.stopPropagation();
+                          _.domEvent.preventDefault();
+
+                          const task = state.filterOptions
+                            .map((o) => o.children)
+                            .flat(1)
+                            .find((o) => {
+                              return o.key === el.key;
+                            });
+                          if (!task) {
+                            const myInsertOptions =
+                              props?.insertOptions?.find?.(
+                                (o) => o.key === el.key,
+                              );
+                            if (!myInsertOptions) return;
+                            runInsertTask(myInsertOptions, {
+                              isCustom: true,
+                            });
+                            return;
+                          } else {
+                            runInsertTask(task);
+                          }
+                        },
+                      })),
+                    };
+                  })
+                  .map((l) => {
+                    return l.children;
+                  })
+                  .flat(1)}
               />
             </>
           )}
