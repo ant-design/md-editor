@@ -422,7 +422,6 @@ export const BaseToolBar = observer(
       }
       if (props.hideTools) {
         list = list.filter((l) => {
-          console.log(l.key);
           return !props?.hideTools?.includes(l.key as ToolsKeyType);
         });
       }

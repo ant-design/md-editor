@@ -242,7 +242,7 @@ export const ListItem = ({
               mentionsUser,
               children,
             },
-            { element, children, attributes, hashId },
+            { element, children, attributes },
           )}
         </li>
       );
