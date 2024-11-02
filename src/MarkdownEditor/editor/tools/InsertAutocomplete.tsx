@@ -12,7 +12,13 @@ import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import ReactDOM from 'react-dom';
 import { Editor, Element, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -449,6 +455,11 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       }
     }, []);
 
+    const insertOptions = useMemo(() => {
+      return getInsertOptions({
+        isTop: ctx.current.isTop,
+      });
+    }, []);
     /**
      * 插入媒体
      */
@@ -495,9 +506,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
 
     useSubject(store.insertCompletionText$, (text) => {
       let tempText = text || '';
-      const insertOptions = getInsertOptions({
-        isTop: ctx.current.isTop,
-      });
+
       let filterOptions: InsertOptions[] = [];
       let options: InsertOptions['children'] = [];
       if (tempText) {
@@ -680,23 +689,25 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                           _.domEvent.stopPropagation();
                           _.domEvent.preventDefault();
 
-                          const task = state.filterOptions
+                          const task = insertOptions
                             .map((o) => o.children)
                             .flat(1)
                             .find((o) => {
                               return o.key === el.key;
                             });
-                          if (!task) {
-                            const myInsertOptions =
-                              props?.insertOptions?.find?.(
-                                (o) => o.key === el.key,
-                              );
-                            if (!myInsertOptions) return;
+
+                          const myInsertOptions = props?.insertOptions?.find?.(
+                            (o) => o.key === el.key,
+                          );
+
+                          if (myInsertOptions) {
                             runInsertTask(myInsertOptions, {
                               isCustom: true,
                             });
                             return;
-                          } else {
+                          }
+
+                          if (task) {
                             runInsertTask(task);
                           }
                         },
