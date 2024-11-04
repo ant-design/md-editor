@@ -215,7 +215,7 @@ export class KeyboardTask {
             },
           ],
           {
-            at: [this.editor.children.length],
+            select: true,
           },
         );
       }
