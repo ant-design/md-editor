@@ -534,7 +534,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         filterOptions.unshift({
           label: ['快捷设置', 'My Quick'],
           key: 'quick',
-          children: props.insertOptions,
+          children: [...props.insertOptions],
         });
       }
       setState({
@@ -544,6 +544,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         filterOptions,
       });
     });
+
     useEffect(() => {
       const calculatePosition = (
         nodeEl: HTMLElement,

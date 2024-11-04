@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import isHotkey from 'is-hotkey';
 import { action, runInAction } from 'mobx';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -760,7 +760,10 @@ export const useSystemKeyboard = (
   store: EditorStore,
   props: MarkdownEditorProps,
 ) => {
-  const task = new KeyboardTask(store, props);
+  const task = useMemo(() => {
+    return new KeyboardTask(store, props);
+  }, [props.readonly]);
+
   useSubject(keyTask$, ({ key, args }) => {
     // @ts-ignore
     task[key](...(args || []));

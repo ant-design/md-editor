@@ -310,7 +310,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   const [mount, setMount] = useState(false);
 
-  // 初始化快捷键
   useSystemKeyboard(keyTask$, instance.store, props);
 
   // 导入外部 hooks
