@@ -674,7 +674,11 @@ const parserBlock = (
             if (currentNode.type === 'emphasis') leaf.italic = true;
             if (currentNode.type === 'delete') leaf.strikethrough = true;
             if (currentNode.type === 'link') {
-              leaf.url = decodeURIComponent(currentNode?.url);
+              try {
+                leaf.url = decodeURIComponent(currentNode?.url);
+              } catch (error) {
+                leaf.url = currentNode?.url;
+              }
             }
             el = parseText(
               // @ts-ignore
