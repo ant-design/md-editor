@@ -165,9 +165,6 @@ export class KeyboardTask {
    * 上传图片
    */
   uploadImage() {
-    if (this.props?.readonly) {
-      return;
-    }
     const input = document.createElement('input');
     const [node] = this.curNodes;
     input.id = 'uploadImage' + '_' + Math.random();
