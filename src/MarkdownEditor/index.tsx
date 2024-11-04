@@ -12,10 +12,15 @@ import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { EditorStore, EditorStoreContext } from './editor/store';
 import { TocHeading } from './editor/tools/Leading';
 import { EditorUtils } from './editor/utils/editorUtils';
-import { useSystemKeyboard } from './editor/utils/keyboard';
+import {
+  KeyboardTask,
+  Methods,
+  useSystemKeyboard,
+} from './editor/utils/keyboard';
 
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import { Subject } from 'rxjs';
 import { Selection } from 'slate';
 import { MEditor } from './editor/Editor';
 import {
@@ -244,6 +249,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     ...rest
   } = props;
 
+  const keyTask$ = useMemo(
+    () =>
+      new Subject<{
+        key: Methods<KeyboardTask>;
+        args?: any[];
+      }>(),
+    [],
+  );
+
   // 初始化实例
   const instance = useMemo(() => {
     const now = Date.now();
@@ -297,7 +311,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const [mount, setMount] = useState(false);
 
   // 初始化快捷键
-  useSystemKeyboard(instance.store, props);
+  useSystemKeyboard(keyTask$, instance.store, props);
 
   // 导入外部 hooks
   useImperativeHandle(editorRef, () => instance, [instance]);
@@ -313,6 +327,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   return wrapSSR(
     <EditorStoreContext.Provider
       value={{
+        keyTask$,
         store: instance.store,
         typewriter: props.typewriter ?? false,
         readonly: props.readonly ?? false,

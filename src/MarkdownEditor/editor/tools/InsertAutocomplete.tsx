@@ -27,7 +27,6 @@ import { selChange$ } from '../plugins/useOnchange';
 import { useEditorStore } from '../store';
 import { getOffsetLeft } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
-import { keyTask$ } from '../utils/keyboard';
 import { getRemoteMediaType } from '../utils/media';
 import { useLocalState } from '../utils/useLocalState';
 import { useStyle } from './insertAutocompleteStyle';
@@ -258,7 +257,7 @@ export interface InsertAutocompleteProps {
 
 export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
   (props) => {
-    const { store } = useEditorStore();
+    const { store, keyTask$ } = useEditorStore();
 
     const dom = useRef<HTMLDivElement>(null);
     const ctx = useRef<{

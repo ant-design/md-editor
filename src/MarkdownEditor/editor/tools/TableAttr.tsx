@@ -496,6 +496,7 @@ export const TableAttr = observer(
         style={{
           left: state.left,
           top: state.top,
+          zIndex: 99,
           width: 'auto',
           position: 'absolute',
           display: store.tableAttrVisible ? 'flex' : 'none',

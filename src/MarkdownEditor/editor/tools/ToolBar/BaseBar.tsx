@@ -14,7 +14,6 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, NodeEntry } from 'slate';
-import { keyTask$ } from '../../../index';
 import { useEditorStore } from '../../store';
 import { EditorUtils } from '../../utils/editorUtils';
 import { getInsertOptions } from '../InsertAutocomplete';
@@ -110,7 +109,7 @@ export const BaseToolBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store } = useEditorStore();
+    const { store, keyTask$ } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
     const [highColor, setHighColor] = React.useState<string | null>(null);

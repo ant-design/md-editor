@@ -723,11 +723,6 @@ export class KeyboardTask {
   }
 }
 
-export const keyTask$ = new Subject<{
-  key: Methods<KeyboardTask>;
-  args?: any[];
-}>();
-
 const keyMap: [string, Methods<KeyboardTask>, any[]?, boolean?][] = [
   ['mod+shift+l', 'selectLine'],
   ['mod+e', 'selectFormat'],
@@ -758,6 +753,10 @@ const keyMap: [string, Methods<KeyboardTask>, any[]?, boolean?][] = [
 ];
 
 export const useSystemKeyboard = (
+  keyTask$: Subject<{
+    key: Methods<KeyboardTask>;
+    args?: any[];
+  }>,
   store: EditorStore,
   props: MarkdownEditorProps,
 ) => {

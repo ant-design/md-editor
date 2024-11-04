@@ -24,7 +24,7 @@ import { openMenus } from './components/Menu';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
-import { schemaToMarkdown } from './utils';
+import { KeyboardTask, Methods, schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
@@ -32,6 +32,10 @@ export const EditorStoreContext = createContext<{
   store: EditorStore;
   typewriter: boolean;
   readonly: boolean;
+  keyTask$: Subject<{
+    key: Methods<KeyboardTask>;
+    args?: any[];
+  }>;
 } | null>(null);
 
 export const useEditorStore = () => {
