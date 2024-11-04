@@ -190,19 +190,35 @@ export class KeyboardTask {
         );
         return;
       }
-      Transforms.insertNodes(
-        this.editor,
-        [
+      if (node) {
+        Transforms.insertNodes(
+          this.editor,
+          [
+            {
+              type: 'media',
+              url: url,
+              children: [{ text: '' }],
+            },
+          ],
           {
-            type: 'media',
-            url: url,
-            children: [{ text: '' }],
+            at: Path.next(node[0]),
           },
-        ],
-        {
-          at: Path.next(node[1]),
-        },
-      );
+        );
+      } else {
+        Transforms.insertNodes(
+          this.editor,
+          [
+            {
+              type: 'media',
+              url: url,
+              children: [{ text: '' }],
+            },
+          ],
+          {
+            at: [this.editor.children.length],
+          },
+        );
+      }
     };
     input.onchange = async (e: any) => {
       if (input.dataset.readonly) {
