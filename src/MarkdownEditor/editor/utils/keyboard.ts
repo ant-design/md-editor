@@ -201,7 +201,7 @@ export class KeyboardTask {
             },
           ],
           {
-            at: Path.next(node[0]),
+            at: Path.next(node[1]),
           },
         );
       } else {

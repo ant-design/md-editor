@@ -342,6 +342,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               zIndex: 1000,
               top: 0,
             }}
+            className={classNames('md-editor-toolbar-container', {
+              [baseClassName + '-min-toolbar']: toolBar.min,
+            })}
           >
             <ToolBar
               hideTools={toolBar.hideTools}
