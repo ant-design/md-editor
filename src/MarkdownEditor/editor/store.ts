@@ -496,9 +496,13 @@ export class EditorStore {
         if (preNode.children && preNode.children[index]) {
           this.diffNode(child, preNode.children[index], [...at, index]);
         } else {
-          Transforms.insertNodes(this.editor, [child], {
-            at: [...at, index],
-          });
+          if (this.editor.hasPath([...at, index])) {
+            Transforms.insertNodes(this.editor, [child], {
+              at: [...at, index],
+            });
+          } else {
+            Transforms.insertNodes(this.editor, [child]);
+          }
         }
       });
     } else {
