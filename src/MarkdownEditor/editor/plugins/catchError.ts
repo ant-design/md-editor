@@ -6,7 +6,8 @@ const tryCatchCallback =
       return editorFunc(...editorFuncArgs);
     } catch (error) {
       console.error(error);
-      editor.undo();
+      console.log(editor.children);
+      // editor.undo();
     }
   };
 export const withErrorReporting = (editor: any): Editor => {
