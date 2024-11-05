@@ -491,17 +491,19 @@ export class EditorStore {
       return;
     }
     Transforms.setNodes(this.editor, node, { at });
+
     if (node.children) {
       node.children.forEach((child: any, index: any) => {
         if (preNode.children && preNode.children[index]) {
           this.diffNode(child, preNode.children[index], [...at, index]);
         } else {
-          if (this.editor.hasPath([...at, index])) {
+          if (preNode.children[index - 1]) {
             Transforms.insertNodes(this.editor, [child], {
               at: [...at, index],
             });
           } else {
-            Transforms.insertNodes(this.editor, [child]);
+            Transforms.removeNodes(this.editor, { at });
+            Transforms.insertNodes(this.editor, node, { at });
           }
         }
       });
