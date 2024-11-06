@@ -143,22 +143,12 @@ export const withMarkdown = (editor: Editor) => {
       const { node } = operation;
       if (['table-row', 'table-cell'].includes(node.type)) {
         if (node.type === 'table-cell') {
-          Transforms.insertFragment(editor, [{ text: '' }], {
-            at: {
-              anchor: Editor.start(editor, operation.path),
-              focus: Editor.end(editor, operation.path),
-            },
-          });
+          apply(operation);
+          return;
         }
         if (node.type === 'table-row') {
-          for (let i = 0; i < node.children?.length; i++) {
-            Transforms.insertFragment(editor, [{ text: '' }], {
-              at: {
-                anchor: Editor.start(editor, [...operation.path, i]),
-                focus: Editor.end(editor, [...operation.path, i]),
-              },
-            });
-          }
+          apply(operation);
+          return;
         }
         return;
       }

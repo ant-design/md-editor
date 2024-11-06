@@ -60,6 +60,8 @@
     "glob": "^11.0.0",
     "is-hotkey": "^0.2.0",
     "json5": "^2.2.3",
+    "lucide": "^0.454.0",
+    "lucide-react": "^0.454.0",
     "mobx": "^6.13.5",
     "mobx-react-lite": "^4.0.7",
     "nanoid": "^5.0.8",

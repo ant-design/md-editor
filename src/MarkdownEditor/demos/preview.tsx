@@ -180,9 +180,6 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
-      onChange={(_, e) => {
-        console.log(_, e);
-      }}
       comment={{
         enable: true,
         commentList: list,

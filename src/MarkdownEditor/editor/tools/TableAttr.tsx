@@ -3,13 +3,13 @@ import {
   AlignLeftOutlined,
   AlignRightOutlined,
   AppstoreAddOutlined,
-  DeleteOutlined,
 } from '@ant-design/icons';
 import { ConfigProvider, Popconfirm, Popover, Tooltip } from 'antd';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
+import { Grid2x2X } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { TableCellNode, TableRowNode } from '../../el';
@@ -247,6 +247,7 @@ export const TableAttr = observer(
 
     const remove = useCallback(() => {
       const table = tableRef.current!;
+
       Transforms.delete(editor, { at: table[1] });
       tableCellRef.current = undefined;
       tableRef.current = undefined;
@@ -318,7 +319,9 @@ export const TableAttr = observer(
             ]),
           );
         }
+
         Transforms.delete(editor, { at: path });
+
         if (path[path.length - 1] === 0) {
           Array.from(new Array(columns)).forEach((_, i) => {
             Transforms.setNodes(
@@ -485,6 +488,7 @@ export const TableAttr = observer(
 
     const context = useContext(ConfigProvider.ConfigContext);
     const baseClassName = context.getPrefixCls(`table-attr-toolbar`);
+    const htmlRef = useRef<HTMLDivElement>(null);
 
     const { wrapSSR, hashId } = useStyle(baseClassName);
     if (!store.container) return null;
@@ -501,6 +505,7 @@ export const TableAttr = observer(
           position: 'absolute',
           display: store.tableAttrVisible ? 'flex' : 'none',
         }}
+        ref={htmlRef}
         onMouseDown={(e) => e.preventDefault()}
       >
         <Popover
@@ -674,12 +679,75 @@ export const TableAttr = observer(
             </Tooltip>
           </>
         ) : null}
-        <Popconfirm onConfirm={remove} title="Confirm Remove this Table?">
+
+        <Popconfirm
+          onConfirm={() => {
+            runTask('removeRow');
+          }}
+          getPopupContainer={() => htmlRef.current || document.body}
+          title="Confirm Remove this row?"
+        >
+          <div
+            className={classNames(`${baseClassName}-item`, hashId)}
+            title="Remove Row"
+          >
+            <svg
+              className="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              id="mx_n_1730888889047"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width={'1em'}
+              height={'1em'}
+            >
+              <path
+                stroke="currentColor"
+                d="M836.32 836.32c1.952 1.92 3.136 4.608 3.136 7.552s-1.184 5.632-3.136 7.552l-45.216 45.216c-1.92 1.952-4.608 3.136-7.552 3.136s-5.632-1.184-7.552-3.136l-214.016-213.984H170.688A42.656 42.656 0 0 1 128.032 640v-256c0-23.552 19.104-42.656 42.656-42.656h49.952L127.328 248a10.688 10.688 0 0 1 0-15.104l45.28-45.152a10.688 10.688 0 0 1 12.864-1.728l-0.064-0.032 2.304 1.696 648.576 648.672z m-374.4-495.072l391.424 0.096c23.552 0 42.656 19.104 42.656 42.656v256c0 23.552-19.104 42.656-42.656 42.656h-50.048l-85.344-85.344H800a10.656 10.656 0 0 0 10.656-10.656v-149.344a10.656 10.656 0 0 0-10.656-10.656l-252.768-0.096-85.344-85.344z m-155.968 85.408H224a10.656 10.656 0 0 0-10.656 10.656v149.344c0 5.888 4.768 10.656 10.656 10.656h252.64l-170.656-170.656z"
+              />
+            </svg>
+          </div>
+        </Popconfirm>
+        <Popconfirm
+          onConfirm={() => {
+            runTask('removeCol');
+          }}
+          getPopupContainer={() => htmlRef.current || document.body}
+          title="Confirm Remove this col?"
+        >
+          <div
+            className={classNames(`${baseClassName}-item`, hashId)}
+            title="Remove Col"
+          >
+            <svg
+              className="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width={'1em'}
+              height={'1em'}
+            >
+              <path
+                stroke="currentColor"
+                d="M836.32 836.32c1.952 1.92 3.136 4.608 3.136 7.552s-1.184 5.632-3.136 7.552l-45.216 45.216c-1.92 1.952-4.608 3.136-7.552 3.136s-5.632-1.184-7.552-3.136l-93.312-93.312v50.016c0 23.552-19.104 42.656-42.656 42.656h-256a42.656 42.656 0 0 1-42.656-42.656V461.952L127.328 248.032c-1.952-1.92-3.136-4.608-3.136-7.552s1.184-5.632 3.136-7.552l45.312-45.184a10.688 10.688 0 0 1 12.864-1.728l-0.064-0.032 2.304 1.696 648.576 648.672z m-409.664-289.024V800c0 5.888 4.768 10.656 10.656 10.656h149.344a10.656 10.656 0 0 0 10.656-10.656v-82.048l-170.656-170.656zM640 128c23.552 0 42.656 19.104 42.656 42.656v391.296l-85.344-85.344V223.968a10.656 10.656 0 0 0-10.656-10.656h-149.344a10.656 10.656 0 0 0-10.656 10.656v82.016l-85.344-85.344V170.624c0-23.552 19.104-42.656 42.656-42.656h256z"
+              />
+            </svg>
+          </div>
+        </Popconfirm>
+        <Popconfirm
+          onConfirm={() => {
+            remove();
+            console.log('remove');
+          }}
+          getPopupContainer={() => htmlRef.current || document.body}
+          title="Confirm Remove this Table?"
+        >
           <div
             className={classNames(`${baseClassName}-item`, hashId)}
             title="Remove"
           >
-            <DeleteOutlined />
+            <Grid2x2X width={14} />
           </div>
         </Popconfirm>
       </div>,
