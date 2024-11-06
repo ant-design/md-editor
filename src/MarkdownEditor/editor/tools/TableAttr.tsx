@@ -7,7 +7,6 @@ import {
 import { ConfigProvider, Popconfirm, Popover, Tooltip } from 'antd';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
-import { Grid2x2X } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
@@ -747,7 +746,20 @@ export const TableAttr = observer(
             className={classNames(`${baseClassName}-item`, hashId)}
             title="Remove"
           >
-            <Grid2x2X width={14} />
+            <svg
+              className="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width={'1em'}
+              height={'1em'}
+            >
+              <path
+                stroke="currentColor"
+                d="M157.472 136.8L866.56 845.792c1.952 1.92 3.136 4.608 3.136 7.552s-1.184 5.632-3.136 7.552l-45.28 45.216c-1.92 1.952-4.608 3.136-7.552 3.136s-5.632-1.184-7.552-3.136l-52.832-52.768H170.656A42.656 42.656 0 0 1 128 810.688V227.936l-30.848-30.816a10.592 10.592 0 0 1 0-15.04l45.216-45.216c1.92-1.952 4.608-3.136 7.552-3.136s5.632 1.184 7.552 3.136zM668.032 768l-113.44-113.504 0.096 113.504h113.376z m-198.688-128h-256v117.344c0 5.024 3.488 9.216 8.16 10.368h0.064L224 768h245.344l-0.032-128z m384-512C876.896 128 896 147.104 896 170.656V753.92l-85.344-85.344V640h-28.64l-85.344-85.344h113.952v-128h-242.016l-99.424-99.424 0.096-113.92h-114.016L269.92 127.968h583.328zM454.688 554.656l-128-128H213.312v128h241.376z m-213.312-213.312l-28.032-28.064v28.064h28.032z m558.624-128h-245.344l-0.032 128h256.032V224A10.656 10.656 0 0 0 800 213.344z"
+              />
+            </svg>
           </div>
         </Popconfirm>
       </div>,
