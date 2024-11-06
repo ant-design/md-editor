@@ -255,6 +255,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         'th:last-child,td:last-child': {
           borderRight: 'none',
         },
+        'th:last-child': {
+          borderTopRightRadius: 16,
+        },
+        'th:first-child': {
+          borderTopLeftRadius: 16,
+        },
         'tr:last-child th,tr:last-child td': {
           borderBottom: 'none',
         },

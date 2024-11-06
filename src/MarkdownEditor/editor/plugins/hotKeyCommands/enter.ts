@@ -49,6 +49,25 @@ export class EnterKey {
     });
     if (node) {
       let [el, path] = node;
+
+      if (el.type === 'card-before') {
+        Transforms.insertNodes(this.editor, EditorUtils.p, {
+          at: Path.parent(path),
+          select: true,
+        });
+        e.preventDefault();
+        return;
+      }
+
+      if (el.type === 'card-after') {
+        console.log(Path.parent(path));
+        Transforms.insertNodes(this.editor, EditorUtils.p, {
+          at: Path.next(Path.parent(path)),
+          select: true,
+        });
+        e.preventDefault();
+        return;
+      }
       switch (el.type as NodeTypes) {
         case 'table-cell':
           e.preventDefault();

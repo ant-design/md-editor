@@ -93,6 +93,29 @@ export const MElement = (props: RenderElementProps) => {
       return <FootnoteDefinition {...props} />;
     case 'footnoteReference':
       return <FootnoteReference {...props} />;
+    case 'card-before':
+      return (
+        <span
+          style={{
+            minWidth: 2,
+          }}
+          {...props.attributes}
+        >
+          {props.children}
+        </span>
+      );
+    case 'card-after':
+      return (
+        <span
+          style={{
+            minWidth: 2,
+            alignSelf: 'end',
+          }}
+          {...props.attributes}
+        >
+          {props.children}
+        </span>
+      );
     default:
       return <Paragraph {...props} />;
   }

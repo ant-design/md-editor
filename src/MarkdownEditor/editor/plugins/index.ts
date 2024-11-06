@@ -1,8 +1,15 @@
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 export const inlineNode = new Set(['break']);
 
 const voidNode = new Set(['hr', 'break']);
+
+function hasRange(editor: Editor, range: { anchor: any; focus: any }): boolean {
+  const { anchor, focus } = range;
+  return (
+    Editor.hasPath(editor, anchor.path) && Editor.hasPath(editor, focus.path)
+  );
+}
 
 /**
  * 为编辑器添加 Markdown 支持的插件。
@@ -25,7 +32,7 @@ const voidNode = new Set(['hr', 'break']);
  * 该插件还根据 `store.manual` 的值决定是否手动处理某些操作。
  */
 export const withMarkdown = (editor: Editor) => {
-  const { isInline, isVoid, apply } = editor;
+  const { isInline, isVoid, apply, deleteBackward } = editor;
 
   editor.isInline = (element) => {
     return inlineNode.has(element.type) || isInline(element);
@@ -155,6 +162,24 @@ export const withMarkdown = (editor: Editor) => {
     }
 
     apply(operation);
+  };
+
+  editor.deleteBackward = (unit: any) => {
+    const { selection } = editor;
+
+    if (
+      selection &&
+      hasRange(editor, selection) &&
+      Range.isCollapsed(selection)
+    ) {
+      const node = Node.get(editor, Path.parent(selection.anchor.path));
+      if (node.type === 'card-before' || node.type === 'card-after') {
+        return;
+      }
+    }
+
+    console.log('deleteBackward', unit);
+    deleteBackward(unit);
   };
 
   return editor;

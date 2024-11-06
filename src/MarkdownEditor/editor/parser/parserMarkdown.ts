@@ -226,7 +226,17 @@ const parseTableOrChart = (
 
   const node: TableNode | ChartNode = {
     type: isChart ? 'chart' : 'table',
-    children,
+    children: [
+      {
+        type: 'card-before',
+        children: [{ text: '' }],
+      },
+      ...children,
+      {
+        type: 'card-after',
+        children: [{ text: '' }],
+      },
+    ],
     otherProps,
   };
   return node;

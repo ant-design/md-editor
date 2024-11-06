@@ -51,10 +51,20 @@ export type FootnoteDefinitionNode<T = Record<string, any>> = {
   h?: number;
 };
 
+export type CardBeforeNode = {
+  type: 'card-before';
+  children: BaseElement['children'];
+};
+
+export type CardAfterNode = {
+  type: 'card-after';
+  children: BaseElement['children'];
+};
+
 export type TableNode<T = Record<string, any>> = {
   contextProps?: T;
   type: 'table';
-  children: TableRowNode[];
+  children: (TableRowNode | CardBeforeNode | CardAfterNode)[];
   otherProps?: {
     showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];

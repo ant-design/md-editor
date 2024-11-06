@@ -54,3 +54,37 @@
   right: -7px;
   pointer-events: all;
 }
+
+.markdown-editor .overflow-shadow-container::before,
+.markdown-editor .overflow-shadow-container::after {
+  content: '';
+  position: absolute;
+  top: 13px;
+  bottom: 8px;
+  width: 10px;
+  opacity: 0;
+  transition: opacity 0.1s;
+  z-index: 100;
+  pointer-events: none;
+  user-select: none;
+  height: calc(100% - 32px);
+}
+
+.markdown-editor .overflow-shadow-container::after {
+  right: -4px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+}
+
+.markdown-editor
+  .overflow-shadow-container.is-overflowing:not(.is-scrolled-right)::after {
+  opacity: 1;
+}
+
+.markdown-editor
+  .overflow-shadow-container.is-overflowing:not(.is-scrolled-left)::before {
+  opacity: 1;
+}
+.markdown-editor .overflow-shadow-container::before {
+  left: 3px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+}

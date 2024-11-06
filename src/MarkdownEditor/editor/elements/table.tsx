@@ -74,6 +74,7 @@ export const Table = observer((props: RenderElementProps) => {
   });
 
   const tableRef = React.useRef<NodeEntry<TableNode>>();
+  const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
 
   useEffect(() => {
@@ -141,48 +142,115 @@ export const Table = observer((props: RenderElementProps) => {
       }
     }
   }, [store.tableCellNode, store.editor, setState]);
+  const tableTargetRef = useRef<HTMLTableElement>(null);
+  useEffect(() => {
+    if (!tableTargetRef.current) {
+      return;
+    }
+    const observerRoot = (tableTargetRef as any).current?.parentNode;
+    const observerTarget = (tableTargetRef as any).current;
+    const overflowShadowContainer = overflowShadowContainerRef.current!;
+    overflowShadowContainer.classList.add('overflow-shadow-container');
+    overflowShadowContainer.classList.add('card-table-wrap');
+    const options = {
+      root: observerRoot,
+      threshold: 1,
+    };
 
+    new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio !== 1) {
+        overflowShadowContainer.classList.add(
+          'is-overflowing',
+          'is-scrolled-left',
+        );
+      } else {
+        overflowShadowContainer.classList.remove('is-overflowing');
+      }
+    }, options).observe(observerTarget);
+
+    let handleScrollX = (e: any) => {
+      if (e.target.scrollLeft < 1) {
+        overflowShadowContainer.classList.add('is-scrolled-left');
+      } else {
+        overflowShadowContainer.classList.remove('is-scrolled-left');
+      }
+      if (
+        Math.abs(
+          e.target.scrollLeft +
+            e.target.offsetWidth -
+            observerTarget.offsetWidth,
+        ) <= 1
+      ) {
+        overflowShadowContainer.classList.add('is-scrolled-right');
+      } else {
+        overflowShadowContainer.classList.remove('is-scrolled-right');
+      }
+    };
+
+    observerRoot.addEventListener('scroll', handleScrollX);
+
+    return () => {
+      observerRoot.removeEventListener('scroll', handleScrollX);
+    };
+  }, []);
   return useMemo(() => {
+    const [pre, ...row] = props.children;
+    const after = row.pop();
+
     return (
       <div
-        className={'ant-md-editor-drag-el ant-md-editor-table'}
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
         onMouseUp={handleClickTable}
+        ref={overflowShadowContainerRef}
         style={{
-          maxWidth: '100%',
-          ...(store.editor?.children?.length === 1
-            ? {}
-            : {
-                border: '1px solid #e8e8e8',
-                borderRadius: 16,
-              }),
+          display: 'flex',
+          gap: 1,
         }}
       >
-        {store.tableAttrVisible && (
-          <TableAttr
-            state={state}
-            setState={setState}
-            tableRef={tableRef}
-            tableCellRef={tableCellRef}
-          />
-        )}
-        <DragHandle />
+        {pre}
         <div
+          className={'ant-md-editor-drag-el ant-md-editor-table'}
           style={{
-            width: '100%',
-            borderCollapse: 'collapse',
-            tableLayout: 'fixed',
-            borderSpacing: 0,
             maxWidth: '100%',
-            overflow: 'auto',
+            ...(store.editor?.children?.length === 1
+              ? {}
+              : {
+                  border: '1px solid #e8e8e8',
+                  borderRadius: 16,
+                }),
           }}
         >
-          <table>
-            <tbody>{props.children}</tbody>
-          </table>
+          {store.tableAttrVisible && (
+            <TableAttr
+              state={state}
+              setState={setState}
+              tableRef={tableRef}
+              tableCellRef={tableCellRef}
+            />
+          )}
+          <DragHandle />
+
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '100%',
+              overflow: 'auto',
+            }}
+          >
+            <table
+              style={{
+                borderCollapse: 'collapse',
+                borderSpacing: 0,
+              }}
+              ref={tableTargetRef}
+            >
+              <tbody>{row}</tbody>
+            </table>
+          </div>
         </div>
+        {after}
       </div>
     );
   }, [
