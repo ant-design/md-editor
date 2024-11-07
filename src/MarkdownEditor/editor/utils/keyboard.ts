@@ -427,6 +427,10 @@ export class KeyboardTask {
           type: 'table',
           children: [
             {
+              type: 'card-before',
+              children: [{ text: '' }],
+            },
+            {
               type: 'table-row',
               children: [
                 { type: 'table-cell', title: true, children: [{ text: '' }] },
@@ -459,6 +463,10 @@ export class KeyboardTask {
                 },
                 { type: 'table-cell', children: [{ text: '' }] },
               ],
+            },
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
             },
           ],
         },

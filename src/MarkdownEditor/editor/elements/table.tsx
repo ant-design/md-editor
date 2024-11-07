@@ -19,7 +19,7 @@ import { TableAttr } from '../tools/TableAttr';
 export function TableCell(props: RenderElementProps) {
   const { store } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, path] = useSelStatus(props.element);
+  const [_] = useSelStatus(props.element);
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
     store.openTableMenus(e, head);
   }, []);
@@ -60,6 +60,7 @@ export function TableCell(props: RenderElementProps) {
 export const Table = observer((props: RenderElementProps) => {
   const { store } = useEditorStore();
 
+  const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [state, setState] = useState({
     top: 0,
     left: 0,
@@ -78,11 +79,23 @@ export const Table = observer((props: RenderElementProps) => {
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
 
   useEffect(() => {
+    if (store.floatBarOpen) {
+      setTableAttrVisible(false);
+    }
+  }, [store.floatBarOpen]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (store.tableAttrVisible && tableRef.current) {
-        const dom = ReactEditor.toDOMNode(store.editor, tableRef.current[0]);
-        if (dom && !dom.contains(event.target as Node)) {
-          store.setTableAttrVisible(false);
+      if (!tableRef.current) return;
+      if (tableAttrVisible && tableRef.current) {
+        if (!store.editor.hasPath(tableRef.current[1])) return;
+        try {
+          const dom = ReactEditor.toDOMNode(store.editor, tableRef.current[0]);
+          if (dom && !dom.contains(event.target as Node)) {
+            setTableAttrVisible(false);
+          }
+        } catch (error) {
+          setTableAttrVisible(false);
         }
       }
     };
@@ -91,7 +104,7 @@ export const Table = observer((props: RenderElementProps) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [store.tableAttrVisible, tableRef, store.editor]);
+  }, [tableAttrVisible, tableRef, store.editor]);
 
   const resize = useCallback(() => {
     const table = tableRef.current;
@@ -127,7 +140,7 @@ export const Table = observer((props: RenderElementProps) => {
           top: top - 24 + 3,
           left,
         }));
-        store.setTableAttrVisible(true);
+        setTableAttrVisible(true);
       } catch (error) {
         console.log(error);
       }
@@ -197,6 +210,8 @@ export const Table = observer((props: RenderElementProps) => {
     const [pre, ...row] = props.children;
     const after = row.pop();
 
+    console.log(props.children);
+
     return (
       <div
         {...props.attributes}
@@ -214,6 +229,7 @@ export const Table = observer((props: RenderElementProps) => {
           className={'ant-md-editor-drag-el ant-md-editor-table'}
           style={{
             maxWidth: '100%',
+            width: '100%',
             ...(store.editor?.children?.length === 1
               ? {}
               : {
@@ -222,7 +238,7 @@ export const Table = observer((props: RenderElementProps) => {
                 }),
           }}
         >
-          {store.tableAttrVisible && (
+          {tableAttrVisible && (
             <TableAttr
               state={state}
               setState={setState}
@@ -237,6 +253,7 @@ export const Table = observer((props: RenderElementProps) => {
               width: '100%',
               maxWidth: '100%',
               overflow: 'auto',
+              flex: 1,
             }}
           >
             <table
@@ -259,6 +276,6 @@ export const Table = observer((props: RenderElementProps) => {
     setState,
     store.dragStart,
     handleClickTable,
-    store.tableAttrVisible,
+    tableAttrVisible,
   ]);
 });

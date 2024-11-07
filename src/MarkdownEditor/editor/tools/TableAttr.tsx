@@ -502,7 +502,7 @@ export const TableAttr = observer(
           zIndex: 99,
           width: 'auto',
           position: 'absolute',
-          display: store.tableAttrVisible ? 'flex' : 'none',
+          display: 'flex',
         }}
         ref={htmlRef}
         onMouseDown={(e) => e.preventDefault()}
