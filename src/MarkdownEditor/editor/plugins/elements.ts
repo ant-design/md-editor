@@ -188,7 +188,16 @@ export const MdElements: Record<string, MdNode> = {
           type: 'media',
           alt: match[1],
           url: match[2],
-          children: [{ text: '' }],
+          children: [
+            {
+              type: 'card-before',
+              children: [{ text: '' }],
+            },
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
+            },
+          ],
         },
       ]);
       return true;

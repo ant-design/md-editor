@@ -97,7 +97,8 @@ export const MElement = (props: RenderElementProps) => {
       return (
         <span
           style={{
-            minWidth: 2,
+            minWidth: 4,
+            height: '100%',
           }}
           {...props.attributes}
         >
@@ -108,7 +109,8 @@ export const MElement = (props: RenderElementProps) => {
       return (
         <span
           style={{
-            minWidth: 2,
+            minWidth: 4,
+            height: '100%',
             alignSelf: 'end',
           }}
           {...props.attributes}

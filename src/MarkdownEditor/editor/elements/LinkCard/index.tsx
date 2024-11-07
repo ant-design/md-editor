@@ -41,10 +41,28 @@ export function LinkCard({
             EditorUtils.focus(store?.editor);
           }
         }}
+        style={{
+          display: 'flex',
+        }}
       >
+        <div
+          style={{
+            display: 'flex',
+            height: '100%',
+            minWidth: '0',
+            fontSize: 60,
+            minHeight: '100px',
+            lineHeight: '100px',
+          }}
+        >
+          {children.at(0)}
+        </div>
         <DragHandle />
         <div
           ref={htmlRef}
+          style={{
+            flex: 1,
+          }}
           className={classNames(`${baseCls}-container`, hashId)}
         >
           <div
@@ -149,16 +167,18 @@ export function LinkCard({
             />
           </div>
         </div>
-        <span
+        <div
           style={{
-            fontSize: (htmlRef.current?.clientHeight || 200) * 0.75,
-            width: '2px',
-            height: (htmlRef.current?.clientHeight || 200) * 0.75,
-            lineHeight: 1,
+            display: 'flex',
+            height: '100%',
+            minWidth: '4px',
+            minHeight: '100px',
+            fontSize: 60,
+            lineHeight: '100px',
           }}
         >
-          {children}
-        </span>
+          {children.at(-1)}
+        </div>
       </div>
     </div>,
   );

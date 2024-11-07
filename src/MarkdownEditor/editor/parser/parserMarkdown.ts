@@ -321,7 +321,16 @@ const parserBlock = (
               alt: img.alt,
               height: img?.height,
               url: decodeURIComponent(img?.url || ''),
-              children: [{ text: '' }],
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
             };
           } else {
             if (currentNode.value === '<br/>') {
@@ -401,7 +410,16 @@ const parserBlock = (
                   alt: img.alt,
                   height: img?.height,
                   url: img?.url,
-                  children: [{ text: '' }],
+                  children: [
+                    {
+                      type: 'card-before',
+                      children: [{ text: '' }],
+                    },
+                    {
+                      type: 'card-after',
+                      children: [{ text: '' }],
+                    },
+                  ],
                 };
               } else {
                 el = { text: currentNode.value };
@@ -418,7 +436,16 @@ const parserBlock = (
       case 'image':
         el = {
           type: 'media',
-          children: [{ text: '' }],
+          children: [
+            {
+              type: 'card-before',
+              children: [{ text: '' }],
+            },
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
+            },
+          ],
           url: decodeURIComponent(currentNode?.url),
           alt: currentNode.alt,
         } as MediaNode;
@@ -517,7 +544,16 @@ const parserBlock = (
               type: 'attach',
               url: decodeURIComponent(attach?.url),
               size: attach.size,
-              children: [{ text: '' }],
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
               name: name ? name[1] : attach.url,
             };
             break;
@@ -538,7 +574,16 @@ const parserBlock = (
             ...config,
             type: 'link-card',
             url: decodeURIComponent(link?.url),
-            children: [{ text: '' }],
+            children: [
+              {
+                type: 'card-before',
+                children: [{ text: '' }],
+              },
+              {
+                type: 'card-after',
+                children: [{ text: '' }],
+              },
+            ],
             name: link.title,
           };
           break;
@@ -556,7 +601,16 @@ const parserBlock = (
             }
             el.push({
               type: 'media',
-              children: [{ text: '' }],
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
               url: decodeURIComponent(c.url),
               alt: c.alt,
             });
@@ -566,7 +620,16 @@ const parserBlock = (
               el.push({
                 type: 'media',
                 align: img.align,
-                children: [{ text: '' }],
+                children: [
+                  {
+                    type: 'card-before',
+                    children: [{ text: '' }],
+                  },
+                  {
+                    type: 'card-after',
+                    children: [{ text: '' }],
+                  },
+                ],
                 url: decodeURIComponent(img?.url || ''),
                 height: img.height,
                 alt: img.alt,

@@ -178,7 +178,16 @@ export class KeyboardTask {
             {
               type: 'media',
               url: url,
-              children: [{ text: '' }],
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
             },
           ],
           {
@@ -194,7 +203,16 @@ export class KeyboardTask {
             {
               type: 'media',
               url: url,
-              children: [{ text: '' }],
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
             },
           ],
           {
@@ -208,7 +226,16 @@ export class KeyboardTask {
             {
               type: 'media',
               url: url,
-              children: [{ text: '' }],
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
             },
           ],
           {

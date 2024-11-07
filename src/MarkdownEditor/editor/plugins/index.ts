@@ -159,6 +159,13 @@ export const withMarkdown = (editor: Editor) => {
         }
         return;
       }
+      const parentNode = Node.get(editor, Path.parent(operation.path));
+      if ('link-card' === parentNode.type) {
+        Transforms.removeNodes(editor, {
+          at: Path.parent(operation.path),
+        });
+        return;
+      }
     }
 
     apply(operation);
@@ -173,7 +180,13 @@ export const withMarkdown = (editor: Editor) => {
       Range.isCollapsed(selection)
     ) {
       const node = Node.get(editor, Path.parent(selection.anchor.path));
-      if (node.type === 'card-before' || node.type === 'card-after') {
+      if (node.type === 'card-before') {
+        return;
+      }
+      if (node.type === 'card-after') {
+        Transforms.removeNodes(editor, {
+          at: Path.parent(selection.anchor.path),
+        });
         return;
       }
     }
