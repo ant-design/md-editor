@@ -167,6 +167,37 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
+    if (operation.type === 'insert_text') {
+      const parentNode = Node.get(editor, Path.parent(operation.path));
+      if (
+        parentNode.type === 'card-before' ||
+        parentNode.type === 'card-after'
+      ) {
+        return;
+      }
+    }
+
+    if (operation.type === 'insert_node') {
+      const parentNode = Node.get(editor, Path.parent(operation.path));
+      if (
+        parentNode.type === 'card-before' ||
+        parentNode.type === 'card-after'
+      ) {
+        if (
+          Node.get(editor, Path.parent(Path.parent(operation.path))).type ===
+          'card'
+        ) {
+          Transforms.insertNodes(editor, operation.node, {
+            at: Path.parent(Path.parent(operation.path)),
+          });
+          return;
+        }
+        Transforms.insertNodes(editor, operation.node, {
+          at: Path.parent(operation.path),
+        });
+        return;
+      }
+    }
 
     apply(operation);
   };

@@ -24,31 +24,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
       '&-edit': {
-        'h2.empty:first-child::before': {
-          cursor: 'text',
-          content:
-            "'" +
-            (token.titlePlaceholderContent ?? `press / for quick actions`) +
-            "'",
-          color: '#bec0bf',
-          fontWeight: 500,
-        },
-        'h1.empty:first-child::before': {
-          cursor: 'text',
-          content:
-            "'" +
-            (token.titlePlaceholderContent ?? `press / for quick actions`) +
-            "'",
-          color: '#bec0bf',
-          fontWeight: 500,
-        },
-        '> p.empty:nth-child(2)::before': {
+        '> p.empty:nth-child(0)::before': {
           cursor: 'text',
           content: '\'Please enter content, press "/" for quick actions\'',
           display: 'block',
-          color: '#bec0bf',
           position: 'absolute',
-          fontWeight: 500,
         },
       },
 

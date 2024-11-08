@@ -451,44 +451,57 @@ export class KeyboardTask {
       Transforms.insertNodes(
         this.editor,
         {
-          type: 'table',
+          type: 'card',
           children: [
             {
               type: 'card-before',
               children: [{ text: '' }],
             },
             {
-              type: 'table-row',
+              type: 'table',
               children: [
-                { type: 'table-cell', title: true, children: [{ text: '' }] },
                 {
-                  type: 'table-cell',
-                  title: true,
-                  children: [{ text: '' }],
+                  type: 'table-row',
+                  children: [
+                    {
+                      type: 'table-cell',
+                      title: true,
+                      children: [{ text: '' }],
+                    },
+                    {
+                      type: 'table-cell',
+                      title: true,
+                      children: [{ text: '' }],
+                    },
+                    {
+                      type: 'table-cell',
+                      title: true,
+                      children: [{ text: '' }],
+                    },
+                  ],
                 },
-                { type: 'table-cell', title: true, children: [{ text: '' }] },
-              ],
-            },
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', children: [{ text: '' }] },
                 {
-                  type: 'table-cell',
-                  children: [{ text: '' }],
+                  type: 'table-row',
+                  children: [
+                    { type: 'table-cell', children: [{ text: '' }] },
+                    {
+                      type: 'table-cell',
+                      children: [{ text: '' }],
+                    },
+                    { type: 'table-cell', children: [{ text: '' }] },
+                  ],
                 },
-                { type: 'table-cell', children: [{ text: '' }] },
-              ],
-            },
-            {
-              type: 'table-row',
-              children: [
-                { type: 'table-cell', children: [{ text: '' }] },
                 {
-                  type: 'table-cell',
-                  children: [{ text: '' }],
+                  type: 'table-row',
+                  children: [
+                    { type: 'table-cell', children: [{ text: '' }] },
+                    {
+                      type: 'table-cell',
+                      children: [{ text: '' }],
+                    },
+                    { type: 'table-cell', children: [{ text: '' }] },
+                  ],
                 },
-                { type: 'table-cell', children: [{ text: '' }] },
               ],
             },
             {

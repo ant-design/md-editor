@@ -221,6 +221,7 @@ export const Table = observer((props: RenderElementProps) => {
         style={{
           display: 'flex',
           gap: 1,
+          minWidth: 600,
         }}
       >
         <div
@@ -273,6 +274,7 @@ export const Table = observer((props: RenderElementProps) => {
     state,
     setState,
     store.dragStart,
+    store.editor?.children?.length === 1,
     handleClickTable,
     tableAttrVisible,
   ]);
