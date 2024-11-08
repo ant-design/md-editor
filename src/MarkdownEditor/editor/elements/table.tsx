@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, NodeEntry, Path } from 'slate';
+import { Editor, Node, NodeEntry, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { TableCellNode, TableNode } from '../../el';
@@ -90,14 +90,17 @@ export const Table = observer((props: RenderElementProps) => {
       if (tableAttrVisible && tableRef.current) {
         if (!store.editor.hasPath(tableRef.current[1])) return;
         try {
-          const dom = ReactEditor.toDOMNode(store.editor, tableRef.current[0]);
+          console.log(tableRef.current[1]);
+          const dom = ReactEditor.toDOMNode(
+            store.editor,
+            Node.get(store.editor, tableRef.current[1]),
+          ) as HTMLElement;
           if (dom && !dom.contains(event.target as Node)) {
             setTableAttrVisible(false);
           }
         } catch (error) {
           console.log(tableRef.current[0]);
           console.log(error);
-          setTableAttrVisible(false);
         }
       }
     };
@@ -214,7 +217,6 @@ export const Table = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'table'}
         onDragStart={store.dragStart}
-        onMouseUp={handleClickTable}
         ref={overflowShadowContainerRef}
         style={{
           display: 'flex',
@@ -245,6 +247,7 @@ export const Table = observer((props: RenderElementProps) => {
           <DragHandle />
 
           <div
+            onMouseUp={handleClickTable}
             style={{
               width: '100%',
               maxWidth: '100%',
