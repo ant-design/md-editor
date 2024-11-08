@@ -12,6 +12,7 @@ import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
+import { WarpCard } from './card';
 import { Chart } from './chart';
 import { CodeCtx, CodeElement, CodeLine } from './code';
 import { ColumnCell, ColumnGroup } from './column';
@@ -93,6 +94,8 @@ export const MElement = (props: RenderElementProps) => {
       return <FootnoteDefinition {...props} />;
     case 'footnoteReference':
       return <FootnoteReference {...props} />;
+    case 'card':
+      return <WarpCard {...props} />;
     case 'card-before':
       return (
         <span

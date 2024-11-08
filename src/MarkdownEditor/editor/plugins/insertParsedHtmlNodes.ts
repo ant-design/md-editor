@@ -181,31 +181,41 @@ const processFragment = (fragment: any[], parentType = '') => {
   );
   for (let f of fragment) {
     if (f.type === 'table') {
-      f.children = (f.children as any[])
-        .filter((r) => {
-          if (r?.text) {
-            if (!f.text?.trim?.().replace(/^\n+|\n+$/g, '')) return false;
-          }
-          if (!r) return false;
-          return true;
-        })
-        .map((r: any, index) => {
-          if (index === 0) {
-            return {
-              type: 'table-row',
-              children: r?.children
-                ?.filter((c: any) => !!c?.children)
-                ?.map((c: any) => {
-                  return {
-                    type: 'table-cell',
-                    children: c.children,
-                    title: true,
-                  };
-                }),
-            };
-          }
-          return r;
-        });
+      f.children = [
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+        ...(f.children as any[])
+          .filter((r) => {
+            if (r?.text) {
+              if (!f.text?.trim?.().replace(/^\n+|\n+$/g, '')) return false;
+            }
+            if (!r) return false;
+            return true;
+          })
+          .map((r: any, index) => {
+            if (index === 0) {
+              return {
+                type: 'table-row',
+                children: r?.children
+                  ?.filter((c: any) => !!c?.children)
+                  ?.map((c: any) => {
+                    return {
+                      type: 'table-cell',
+                      children: c.children,
+                      title: true,
+                    };
+                  }),
+              };
+            }
+            return r;
+          }),
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ];
     }
     if (
       f.type === 'paragraph' &&
@@ -274,7 +284,6 @@ export const insertParsedHtmlNodes = async (
   const sel = editor.selection;
 
   let fragmentList = processFragment([deserialize(parsed)].flat(1));
-
   for await (let fragment of fragmentList) {
     if (fragment.type === 'media') {
       const serverUrl = [
@@ -284,6 +293,26 @@ export const insertParsedHtmlNodes = async (
       fragment.downloadUrl = serverUrl?.[0];
     }
   }
+
+  fragmentList = fragmentList.map((fragment) => {
+    if (fragment.type === 'table') {
+      return {
+        type: 'card',
+        children: [
+          {
+            type: 'card-before',
+            children: [{ text: '' }],
+          },
+          fragment,
+          {
+            type: 'card-after',
+            children: [{ text: '' }],
+          },
+        ],
+      };
+    }
+    return fragment;
+  });
 
   if (!fragmentList?.length) return;
   let [node] = Editor.nodes<Element>(editor, {

@@ -8,6 +8,7 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import { Element } from 'slate';
 import {
+  CardNode,
   ChartNode,
   ColumnCellNode,
   ColumnNode,
@@ -95,10 +96,7 @@ const parseText = (
   return leafs;
 };
 
-const parseTableOrChart = (
-  table: Table,
-  preNode: RootContent,
-): TableNode | ChartNode | DescriptionNode | ColumnNode => {
+const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
   const keyMap = new Map<string, string>();
 
   // @ts-ignore
@@ -188,7 +186,20 @@ const parseTableOrChart = (
       children,
       otherProps: config,
     };
-    return node;
+    return {
+      type: 'card',
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        node,
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    };
   }
 
   const children = table.children.map((r: { children: any[] }, l: number) => {
@@ -221,25 +232,41 @@ const parseTableOrChart = (
     }),
   };
   if (!isChart && dataSource.length < 2 && columns.length > 4) {
-    return parserTableToDescription(children);
+    return {
+      type: 'card',
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        parserTableToDescription(children),
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    };
   }
 
   const node: TableNode | ChartNode = {
     type: isChart ? 'chart' : 'table',
+    children: children,
+    otherProps,
+  };
+  return {
+    type: 'card',
     children: [
       {
         type: 'card-before',
         children: [{ text: '' }],
       },
-      ...children,
+      node,
       {
         type: 'card-after',
         children: [{ text: '' }],
       },
     ],
-    otherProps,
   };
-  return node;
 };
 
 const parserTableToDescription = (children: TableRowNode[]) => {

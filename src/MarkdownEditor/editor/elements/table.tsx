@@ -95,6 +95,8 @@ export const Table = observer((props: RenderElementProps) => {
             setTableAttrVisible(false);
           }
         } catch (error) {
+          console.log(tableRef.current[0]);
+          console.log(error);
           setTableAttrVisible(false);
         }
       }
@@ -207,11 +209,6 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
   return useMemo(() => {
-    const [pre, ...row] = props.children;
-    const after = row.pop();
-
-    console.log(props.children);
-
     return (
       <div
         {...props.attributes}
@@ -224,7 +221,6 @@ export const Table = observer((props: RenderElementProps) => {
           gap: 1,
         }}
       >
-        {pre}
         <div
           className={'ant-md-editor-drag-el ant-md-editor-table'}
           style={{
@@ -263,11 +259,10 @@ export const Table = observer((props: RenderElementProps) => {
               }}
               ref={tableTargetRef}
             >
-              <tbody>{row}</tbody>
+              <tbody>{props.children}</tbody>
             </table>
           </div>
         </div>
-        {after}
       </div>
     );
   }, [
