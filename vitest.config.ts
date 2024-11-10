@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   esbuild: {
-    jsxInject: "import React from 'react'",
+    //jsxInject: "import React from 'react'",
   },
   resolve: {},
   test: {
@@ -17,8 +17,8 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'text-summary', 'json', 'lcov'],
-      include: ['tests/demo/**', 'test/editor/**'],
-      exclude: [],
+      include: ['src/**'],
+      exclude: ['tests/**', 'test/**'],
     },
   },
 });
