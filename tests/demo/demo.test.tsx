@@ -13,21 +13,12 @@ function demoTest() {
     nodir: true,
   });
 
-  if (!files.length) {
-    console.warn('No demo files found.');
-    return;
-  }
-
   files.forEach((file) => {
     describe(`Rendering demo: ${file}`, () => {
       it(`renders ${file} correctly`, async () => {
         try {
           const DemoModule = await import(file);
-          const Demo = DemoModule.default;
-
-          const wrapper = render(<Demo />);
-
-          expect(wrapper.asFragment()).toMatchSnapshot();
+          expect(render(<DemoModule.default />).asFragment()).toMatchSnapshot();
         } catch (error) {
           console.error(`Error rendering ${file}:`, error);
         }
