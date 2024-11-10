@@ -350,7 +350,7 @@ export const MEditor = observer(
                   at: store.editor.selection.focus.path!,
                 });
               }
-              [url].flat(1).forEach((u) => {
+              [url].flat(2).forEach((u) => {
                 Transforms.insertNodes(
                   store.editor,
                   {
