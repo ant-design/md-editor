@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`schemaToMarkdown > should convert schema nodes back to the expected Markdown format 1`] = `
+"# Heading 1
+
+This is a paragraph with **bold** and *italic* text.
+
+- List item 1
+- List item 2"
+`;
+
+exports[`schemaToMarkdown > should correctly convert schema nodes for: Basic heading and paragraph with bold and italic 1`] = `
+"# Heading 1
+
+This is a paragraph with **bold** and *italic* text.
+
+- List item 1
+- List item 2"
+`;
+
+exports[`schemaToMarkdown > should correctly convert schema nodes for: Blockquote and nested list 1`] = `
+"> This is a blockquote.
+> 
+> - Nested list item
+> - Another nested item"
+`;
+
+exports[`schemaToMarkdown > should correctly convert schema nodes for: Code block with syntax highlighting 1`] = `
+"<!--{}-->
+\`\`\`javascript
+function hello() {
+  console.log('Hello, world!');
+}
+\`\`\`"
+`;
+
+exports[`schemaToMarkdown > should correctly convert schema nodes for: Table structure 1`] = `""`;
+
+exports[`schemaToMarkdown > should handle an empty schema 1`] = `""`;
