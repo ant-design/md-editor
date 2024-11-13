@@ -389,7 +389,13 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             {...rest}
             instance={instance}
           />
-          {readonly ? <FloatBar readonly /> : <FloatBar readonly={false} />}
+          {readonly ? (
+            props.reportMode ? (
+              <FloatBar readonly />
+            ) : null
+          ) : (
+            <FloatBar readonly={false} />
+          )}
           {instance.current &&
           mount &&
           toc !== false &&
