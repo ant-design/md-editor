@@ -508,10 +508,13 @@ const parserBlock = (
         const children = currentNode.children?.length
           ? parserBlock(currentNode.children, false, currentNode)
           : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
-
         let mentions = undefined;
-        // @ts-ignore
-        if (currentNode.children?.[0]?.children?.[0]?.type === 'link') {
+        if (
+          // @ts-ignore
+          currentNode.children?.[0]?.children?.[0]?.type === 'link' &&
+          // @ts-ignore
+          currentNode.children?.[0]?.children?.length > 1
+        ) {
           const item = // @ts-ignore
             children?.[0]?.children?.[0] as LinkCardNode;
           // @ts-ignore
