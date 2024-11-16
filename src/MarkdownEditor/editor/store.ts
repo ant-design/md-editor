@@ -539,9 +539,14 @@ export class EditorStore {
       updateMap.set(index, node);
     });
 
-    updateMap.forEach((node, key) => {
-      this.diffNode(node, childrenList[key], [key]);
-    });
+    try {
+      updateMap.forEach((node, key) => {
+        this.diffNode(node, childrenList[key], [key]);
+      });
+    } catch (error) {
+      this.editor.children = nodeList;
+    }
+
     const maxSize = childrenList.length - nodeList.length;
     if (maxSize > 0) {
       childrenList.forEach((node, index) => {
