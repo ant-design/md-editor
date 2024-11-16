@@ -238,10 +238,7 @@ export default () => {
           });
         },
       }}
-      onChange={(_, value) => {
-        console.log(value);
-      }}
-      initValue={`## test`}
+      initValue={defaultValue}
     />
   );
 };
