@@ -238,7 +238,10 @@ export default () => {
           });
         },
       }}
-      initValue={defaultValue}
+      onChange={(_, value) => {
+        console.log(value);
+      }}
+      initValue={`## test`}
     />
   );
 };

@@ -67,15 +67,10 @@ export const withMarkdown = (editor: Editor) => {
           ],
           {
             at: Path.next([operation.path.at(0)!]),
+            select: true,
           },
         );
       }
-      setTimeout(() => {
-        Transforms.setSelection(editor, {
-          anchor: { path: Path.next(operation.path), offset: 0 },
-          focus: { path: Path.next(operation.path), offset: 0 },
-        });
-      }, 100);
       return;
     }
 
@@ -146,8 +141,19 @@ export const withMarkdown = (editor: Editor) => {
       const node = Node.get(editor, operation.path);
       if (node?.type === 'table-cell') return;
     }
+
     if (operation.type === 'remove_node') {
       const { node } = operation;
+      if (node.type === 'card-after') {
+        Transforms.removeNodes(editor, {
+          at: Path.parent(operation.path),
+        });
+        return;
+      }
+      if (node.type === 'card-before') {
+        return;
+      }
+
       if (['table-row', 'table-cell'].includes(node.type)) {
         if (node.type === 'table-cell') {
           apply(operation);

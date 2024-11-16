@@ -228,15 +228,17 @@ export const MEditor = observer(
         try {
           if (text.startsWith('media://') || text.startsWith('attach://')) {
             const path = EditorUtils.findMediaInsertPath(store.editor);
-            let insert = false;
             const urlObject = new URL(text);
             let url = urlObject.searchParams.get('url');
-            if (url && !url.startsWith('http')) {
+            if (
+              url &&
+              !url.startsWith('http') &&
+              !url.startsWith('blob:http')
+            ) {
               url = toUnixPath(url);
             }
             if (path) {
               if (text.startsWith('media://')) {
-                insert = true;
                 Transforms.insertNodes(
                   store.editor,
                   {
@@ -245,26 +247,19 @@ export const MEditor = observer(
                       ? +urlObject.searchParams.get('height')!
                       : undefined,
                     url: url || undefined,
-                    children: [{ text: '' }],
+                    children: [
+                      {
+                        type: 'card-before',
+                        children: [{ text: '' }],
+                      },
+                      {
+                        type: 'card-after',
+                        children: [{ text: '' }],
+                      },
+                    ],
                   },
                   { select: true, at: path },
                 );
-              }
-              if (text.startsWith('attach://')) {
-                insert = true;
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'attach',
-                    name: urlObject.searchParams.get('name'),
-                    size: Number(urlObject.searchParams.get('size') || 0),
-                    url: url || undefined,
-                    children: [{ text: '' }],
-                  },
-                  { select: true, at: path },
-                );
-              }
-              if (insert) {
                 event.preventDefault();
                 const next = Editor.next(store.editor, { at: path });
                 if (
@@ -274,6 +269,39 @@ export const MEditor = observer(
                 ) {
                   Transforms.delete(store.editor, { at: next[1] });
                 }
+                return;
+              }
+              if (text.startsWith('attach://')) {
+                Transforms.insertNodes(
+                  store.editor,
+                  {
+                    type: 'attach',
+                    name: urlObject.searchParams.get('name'),
+                    size: Number(urlObject.searchParams.get('size') || 0),
+                    url: url || undefined,
+                    children: [
+                      {
+                        type: 'card-before',
+                        children: [{ text: '' }],
+                      },
+                      {
+                        type: 'card-after',
+                        children: [{ text: '' }],
+                      },
+                    ],
+                  },
+                  { select: true, at: path },
+                );
+                event.preventDefault();
+                const next = Editor.next(store.editor, { at: path });
+                if (
+                  next &&
+                  next[0].type === 'paragraph' &&
+                  !Node.string(next[0])
+                ) {
+                  Transforms.delete(store.editor, { at: next[1] });
+                }
+                return;
               }
             }
           }
@@ -289,7 +317,16 @@ export const MEditor = observer(
                   {
                     type: 'media',
                     url: text,
-                    children: [{ text: '' }],
+                    children: [
+                      {
+                        type: 'card-before',
+                        children: [{ text: '' }],
+                      },
+                      {
+                        type: 'card-after',
+                        children: [{ text: '' }],
+                      },
+                    ],
                   },
                   { select: true, at: path },
                 );
@@ -297,6 +334,7 @@ export const MEditor = observer(
             } else {
               store.insertLink(text);
             }
+            return;
           }
         } catch (e) {}
 
@@ -356,7 +394,16 @@ export const MEditor = observer(
                   {
                     type: 'media',
                     url: u,
-                    children: [{ text: '' }],
+                    children: [
+                      {
+                        type: 'card-before',
+                        children: [{ text: '' }],
+                      },
+                      {
+                        type: 'card-after',
+                        children: [{ text: '' }],
+                      },
+                    ],
                   },
                   {
                     select: true,

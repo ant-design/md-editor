@@ -382,7 +382,7 @@ export function Media({
           cursor: 'pointer',
           position: 'relative',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-end',
         }}
         onDragStart={(e) => store.dragStart(e)}
         draggable={!state().selected}
@@ -398,11 +398,23 @@ export function Media({
         }}
       >
         <DragHandle />
+        <span
+          style={{
+            width: '2px',
+            lineHeight: 1,
+            alignSelf: 'flex-start',
+          }}
+        >
+          {children?.at(0)}
+        </span>
         <div
           onClick={() => {
             setTimeout(() => {
               setState({ selected: true });
             }, 16);
+            try {
+              Transforms.select(store?.editor, [...path, 1]);
+            } catch (error) {}
           }}
           onBlur={() => {
             setState({ selected: false });
@@ -423,13 +435,11 @@ export function Media({
         </div>
         <span
           style={{
-            fontSize: (htmlRef.current?.clientHeight || 200) * 0.75,
             width: '2px',
-            height: (htmlRef.current?.clientHeight || 200) * 0.75,
             lineHeight: 1,
           }}
         >
-          {children}
+          {children?.at(1)}
         </span>
       </div>
     </div>

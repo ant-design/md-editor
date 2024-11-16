@@ -23,6 +23,16 @@ const ELEMENT_TAGS = {
       type: 'media',
       url: el.src,
       downloadUrl: el.src && /^https?:/.test(el.src) ? el.src : undefined,
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
     };
   },
   TR: () => ({ type: 'table-row' }),

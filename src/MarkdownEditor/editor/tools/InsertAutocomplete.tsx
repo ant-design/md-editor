@@ -486,7 +486,20 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             focus: Editor.end(store?.editor, ctx.current.path),
           },
         });
-        const node = { type: 'media', url, children: [{ text: '' }] };
+        const node = {
+          type: 'media',
+          url,
+          children: [
+            {
+              type: 'card-before',
+              children: [{ text: '' }],
+            },
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
+            },
+          ],
+        };
         Transforms.setNodes(store?.editor, node, { at: ctx.current.path });
         EditorUtils.focus(store?.editor);
         const [n] = Editor.nodes(store?.editor, {
