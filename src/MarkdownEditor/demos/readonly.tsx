@@ -48,6 +48,7 @@ export default () => {
         toc={false}
         width={'calc(99vw - 16px)'}
         initValue={defaultValue}
+        onChange={(_, e) => console.log(e)}
       />
 
       <MarkdownEditor

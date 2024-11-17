@@ -211,6 +211,7 @@ export const Table = observer((props: RenderElementProps) => {
       observerRoot.removeEventListener('scroll', handleScrollX);
     };
   }, []);
+
   return useMemo(() => {
     return (
       <div

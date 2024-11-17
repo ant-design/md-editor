@@ -102,6 +102,8 @@ export const MElement = (props: RenderElementProps) => {
           style={{
             minWidth: 4,
             height: '100%',
+            position: 'relative',
+            zIndex: 99,
           }}
           {...props.attributes}
         >
@@ -115,6 +117,8 @@ export const MElement = (props: RenderElementProps) => {
             minWidth: 4,
             height: '100%',
             alignSelf: 'end',
+            position: 'relative',
+            zIndex: 99,
           }}
           {...props.attributes}
         >

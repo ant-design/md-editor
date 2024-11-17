@@ -414,14 +414,12 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     },
                     axis: {
                       x: {
-                        title: x,
                         label: { autoHide: true },
                         labelFormatter: (value: number | string) => {
                           return stringFormatNumber(value);
                         },
                       },
                       y: {
-                        title: y,
                         label: { autoHide: true },
                         labelFormatter: (value: number | string) => {
                           return stringFormatNumber(value);
