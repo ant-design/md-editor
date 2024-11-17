@@ -19,3 +19,5 @@
 <code src="./demos/rerender.tsx" background="var(--main-bg-color)" title="动态render" iframe="540px"></code>
 
 <code src="./demos/pure.tsx" background="var(--main-bg-color)" title="pure 地址" iframe="540px"></code>
+
+<code src="./demos/bug.tsx" background="var(--main-bg-color)" title="bug" iframe="540px"></code>

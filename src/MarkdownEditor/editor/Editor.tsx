@@ -30,6 +30,7 @@ import { getMediaType } from './utils/dom';
 import {
   calcPath,
   EditorUtils,
+  findLeafPath,
   getRelativePath,
   getSelectionFromDomSelection,
   hasEditableTarget,
@@ -562,10 +563,12 @@ export const MEditor = observer(
               Editor.hasPath(editor, AnchorPath) &&
               Editor.hasPath(editor, FocusPath)
             ) {
+              console.log(findLeafPath(editor, AnchorPath));
               const newSelection = {
-                anchor: { ...anchor, path: AnchorPath },
-                focus: { ...focus, path: FocusPath },
+                anchor: { ...anchor, path: findLeafPath(editor, AnchorPath) },
+                focus: { ...focus, path: findLeafPath(editor, FocusPath) },
               };
+
               const fragement = Editor.fragment(editor, newSelection);
               if (fragement) {
                 const str = Node.string({ children: fragement });

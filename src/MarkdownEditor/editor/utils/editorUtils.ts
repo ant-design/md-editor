@@ -497,3 +497,11 @@ export function isPath(path: string | any[]) {
   }
   return true;
 }
+
+export function findLeafPath(editor: Editor, path: Path) {
+  const node = Editor.leaf(editor, path, {
+    edge: 'end',
+  });
+  if (!node) return path;
+  return node[1];
+}
