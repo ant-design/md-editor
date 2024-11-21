@@ -79,24 +79,37 @@ export const MdElements: Record<string, MdNode> = {
       Transforms.insertNodes(
         editor,
         {
-          type: 'table',
+          type: 'card',
           children: [
             {
-              type: 'table-row',
-              children: columns.map((c) => ({
-                type: 'table-cell',
-                title: true,
-                children: [{ text: c }],
-              })),
+              type: 'card-before',
+              children: [{ text: '' }],
             },
             {
-              type: 'table-row',
-              children: columns.map(() => ({
-                type: 'table-cell',
-                children: [{ text: '' }],
-              })),
+              type: 'table',
+              children: [
+                {
+                  type: 'table-row',
+                  children: columns.map((c) => ({
+                    type: 'table-cell',
+                    title: true,
+                    children: [{ text: c }],
+                  })),
+                },
+                {
+                  type: 'table-row',
+                  children: columns.map(() => ({
+                    type: 'table-cell',
+                    children: [{ text: '' }],
+                  })),
+                },
+              ] as TableRowNode[],
             },
-          ] as TableRowNode[],
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
+            },
+          ],
         },
         { at: path },
       );
