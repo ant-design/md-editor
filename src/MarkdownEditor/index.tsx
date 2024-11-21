@@ -67,7 +67,7 @@ export type CommentDataType = {
   refContent: string;
   commentType: string;
   content: string;
-  time: number;
+  time: number | string;
   id: string | number;
   user?: {
     name: string;

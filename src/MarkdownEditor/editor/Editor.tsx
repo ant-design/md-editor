@@ -28,10 +28,8 @@ import { useStyle } from './style';
 import { isMarkdown } from './utils';
 import { getMediaType } from './utils/dom';
 import {
-  calcPath,
   EditorUtils,
   findLeafPath,
-  getRelativePath,
   getSelectionFromDomSelection,
   hasEditableTarget,
   isEventHandled,
@@ -92,10 +90,10 @@ export const MEditor = observer(
         } catch (e) {
           EditorUtils.deleteAll(editor);
         }
-        requestIdleCallback(() => {
+        setTimeout(() => {
           store.initializing = false;
           store.setState((state) => (state.pauseCodeHighlight = false));
-        });
+        }, 10);
       } else {
         nodeRef.current = undefined;
       }
@@ -545,37 +543,30 @@ export const MEditor = observer(
           const [, path] = e;
           const itemMap = commentMap.get(path.join(','));
           if (!itemMap) return decorateList;
-          let newPath = path;
-          if (Array.isArray(path) && path[path.length - 1] !== 0) {
-            newPath = [...path, 0];
-          }
           itemMap.forEach((itemList) => {
             const item = itemList[0];
             const { anchor, focus } = item.selection || {};
             if (!anchor || !focus) return decorateList;
-            const relativePath = getRelativePath(newPath, anchor.path);
-            const AnchorPath = calcPath(anchor.path, relativePath);
-            const FocusPath = calcPath(focus.path, relativePath);
+            const AnchorPath = anchor.path;
+            const FocusPath = focus.path;
 
             if (
               isPath(FocusPath) &&
               isPath(AnchorPath) &&
-              Editor.hasPath(editor, AnchorPath) &&
-              Editor.hasPath(editor, FocusPath)
+              Editor.hasPath(editor, anchor.path) &&
+              Editor.hasPath(editor, focus.path)
             ) {
-              console.log(findLeafPath(editor, AnchorPath));
               const newSelection = {
                 anchor: { ...anchor, path: findLeafPath(editor, AnchorPath) },
                 focus: { ...focus, path: findLeafPath(editor, FocusPath) },
               };
 
-              const fragement = Editor.fragment(editor, newSelection);
-              if (fragement) {
-                const str = Node.string({ children: fragement });
+              const fragment = Editor.fragment(editor, newSelection);
+              if (fragment) {
+                const str = Node.string({ children: fragment });
                 const isStrEquals = str === item.refContent;
-                const relativePath = getRelativePath(newPath, anchor.path);
-                const newAnchorPath = calcPath(anchor.path, relativePath);
-                const newFocusPath = calcPath(focus.path, relativePath);
+                const newAnchorPath = anchor.path;
+                const newFocusPath = focus.path;
 
                 if (
                   isStrEquals &&
