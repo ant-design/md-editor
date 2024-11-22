@@ -19,9 +19,9 @@ import { EditorUtils } from '../../utils/editorUtils';
 import { getInsertOptions } from '../InsertAutocomplete';
 
 const HeatTextMap = {
-  1: '主标题',
-  2: '段标题',
-  3: '小标题',
+  1: 'Heading 1',
+  2: 'Heading 2',
+  3: 'Heading 3',
 };
 
 const LineCode = () => {
@@ -245,7 +245,7 @@ export const BaseToolBar = observer(
             <Dropdown
               key="head"
               menu={{
-                items: ['H1', 'H2', 'H3'].map((item, index) => {
+                items: ['H2', 'H3'].map((item, index) => {
                   return {
                     label: HeatTextMap[item.replace('H', '') as '1'] || item,
                     key: item,
