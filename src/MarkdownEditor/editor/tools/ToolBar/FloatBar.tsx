@@ -111,6 +111,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         style={{
           left: state.left,
           top: state.top,
+          position: 'fixed',
           display: state.open ? undefined : 'none',
         }}
         onMouseDown={(e) => {
