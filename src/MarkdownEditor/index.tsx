@@ -128,6 +128,7 @@ export interface MarkdownEditorInstance {
  * @param props
  */
 export type MarkdownEditorProps = {
+  className?: string;
   width?: string | number;
   height?: string | number;
   /**
@@ -333,11 +334,17 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       }}
     >
       <div
-        className={classNames('markdown-editor', baseClassName, hashId, {
-          [baseClassName + '-readonly']: readonly,
-          [baseClassName + '-edit']: !readonly,
-          [baseClassName + '-report']: props.reportMode,
-        })}
+        className={classNames(
+          'markdown-editor',
+          baseClassName,
+          hashId,
+          props.className,
+          {
+            [baseClassName + '-readonly']: readonly,
+            [baseClassName + '-edit']: !readonly,
+            [baseClassName + '-report']: props.reportMode,
+          },
+        )}
         style={{
           width: width || '400px',
           height: height || 'auto',
