@@ -192,43 +192,34 @@ const processFragment = (fragment: any[], parentType = '') => {
   for (let f of fragment) {
     if (f.type === 'table') {
       f = {
-        type: 'card',
-        children: [
-          {
-            type: 'card-after',
-            children: [{ text: '' }],
-          },
-          ...(f.children as any[])
-            .filter((r) => {
-              if (r?.text) {
-                if (!f.text?.trim?.().replace(/^\n+|\n+$/g, '')) return false;
-              }
-              if (!r) return false;
-              return true;
-            })
-            .map((r: any, index) => {
-              if (index === 0) {
-                return {
-                  type: 'table-row',
-                  children: r?.children
-                    ?.filter((c: any) => !!c?.children)
-                    ?.map((c: any) => {
-                      return {
-                        type: 'table-cell',
-                        children: c.children,
-                        title: true,
-                      };
-                    }),
-                };
-              }
-              return r;
-            }),
-          {
-            type: 'card-after',
-            children: [{ text: '' }],
-          },
-        ],
+        type: 'table',
+        children: (f.children as any[])
+          .filter((r) => {
+            if (r?.text) {
+              if (!f.text?.trim?.().replace(/^\n+|\n+$/g, '')) return false;
+            }
+            if (!r) return false;
+            return true;
+          })
+          .map((r: any, index) => {
+            if (index === 0) {
+              return {
+                type: 'table-row',
+                children: r?.children
+                  ?.filter((c: any) => !!c?.children)
+                  ?.map((c: any) => {
+                    return {
+                      type: 'table-cell',
+                      children: c.children,
+                      title: true,
+                    };
+                  }),
+              };
+            }
+            return r;
+          }),
       };
+      console.log(f);
     }
     if (
       f.type === 'paragraph' &&
