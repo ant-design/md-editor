@@ -555,8 +555,8 @@ export const TableAttr = observer(
                           resetGird(i + 1, j + 1);
                         }}
                         style={{
-                          width: '20px',
-                          height: '20px',
+                          width: '32px',
+                          height: '32px',
                           cursor: 'pointer',
                           border: '1px solid #f0f0f0',
                         }}
