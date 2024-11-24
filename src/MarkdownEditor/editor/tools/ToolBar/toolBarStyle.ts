@@ -52,6 +52,6 @@ export function useStyle(prefixCls?: string) {
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(editorToken), resetComponent(editorToken)];
+    return [resetComponent(editorToken), genStyle(editorToken)];
   });
 }
