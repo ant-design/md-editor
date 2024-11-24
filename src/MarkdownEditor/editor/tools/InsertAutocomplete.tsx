@@ -8,6 +8,7 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Button, ConfigProvider, Input, Menu, Tabs } from 'antd';
+import { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
@@ -253,6 +254,13 @@ export interface InsertAutocompleteProps {
     },
   ) => Promise<boolean>;
   getContainer?: () => HTMLElement;
+
+  /**
+   * 操作 InsertAutocomplete 的选项
+   * @param options
+   * @returns
+   */
+  optionsRender?: (options: ItemType[]) => ItemType[];
 }
 
 export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
@@ -688,49 +696,54 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           {!state.insertLink && !state.insertAttachment && (
             <>
               <Menu
-                items={state.filterOptions
-                  .map((l) => {
-                    return {
-                      label: l?.label?.[0],
-                      key: l?.key,
-                      icon: l.children?.[0]?.icon,
-                      children: l?.children?.map((el) => ({
-                        label: el.label[0],
-                        key: el.key,
-                        icon: el.icon,
-                        onClick: (_: any) => {
-                          _.domEvent.stopPropagation();
-                          _.domEvent.preventDefault();
+                items={
+                  props.optionsRender?.(
+                    state.filterOptions
+                      .map((l) => {
+                        return {
+                          label: l?.label?.[1],
+                          key: l?.key,
+                          icon: l.children?.[0]?.icon,
+                          children: l?.children?.map((el) => ({
+                            label: el.label?.[1],
+                            key: el.key,
+                            icon: el.icon,
+                            onClick: (_: any) => {
+                              _.domEvent.stopPropagation();
+                              _.domEvent.preventDefault();
 
-                          const task = insertOptions
-                            .map((o) => o.children)
-                            .flat(1)
-                            .find((o) => {
-                              return o.key === el.key;
-                            });
+                              const task = insertOptions
+                                .map((o) => o.children)
+                                .flat(1)
+                                .find((o) => {
+                                  return o.key === el.key;
+                                });
 
-                          const myInsertOptions = props?.insertOptions?.find?.(
-                            (o) => o.key === el.key,
-                          );
+                              const myInsertOptions =
+                                props?.insertOptions?.find?.(
+                                  (o) => o.key === el.key,
+                                );
 
-                          if (myInsertOptions) {
-                            runInsertTask(myInsertOptions, {
-                              isCustom: true,
-                            });
-                            return;
-                          }
+                              if (myInsertOptions) {
+                                runInsertTask(myInsertOptions, {
+                                  isCustom: true,
+                                });
+                                return;
+                              }
 
-                          if (task) {
-                            runInsertTask(task);
-                          }
-                        },
-                      })),
-                    };
-                  })
-                  .map((l) => {
-                    return l.children;
-                  })
-                  .flat(1)}
+                              if (task) {
+                                runInsertTask(task);
+                              }
+                            },
+                          })),
+                        };
+                      })
+                      .map((l) => {
+                        return l.children;
+                      })
+                      .flat(1) || [],
+                  ) as any[]
+                }
               />
             </>
           )}

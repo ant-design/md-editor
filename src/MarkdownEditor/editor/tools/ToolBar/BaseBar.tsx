@@ -88,6 +88,9 @@ export type ToolsKeyType =
   | 'strikethrough'
   | 'inline-code'
   | 'divider'
+  | 'H1'
+  | 'H2'
+  | 'H3'
   | 'link';
 
 /**
@@ -245,7 +248,13 @@ export const BaseToolBar = observer(
             <Dropdown
               key="head"
               menu={{
-                items: ['H2', 'H3'].map((item, index) => {
+                items: ['H1', 'H2', 'H3'].map((item, index) => {
+                  if (
+                    props.hideTools &&
+                    props.hideTools.includes(item as 'H1')
+                  ) {
+                    return null;
+                  }
                   return {
                     label: HeatTextMap[item.replace('H', '') as '1'] || item,
                     key: item,
@@ -486,6 +495,12 @@ export const BaseToolBar = observer(
             <Dropdown
               menu={{
                 items: ['H1', 'H2', 'H3'].map((item, index) => {
+                  if (
+                    props.hideTools &&
+                    props.hideTools.includes(item as 'H1')
+                  ) {
+                    return null;
+                  }
                   return {
                     label: HeatTextMap[item.replace('H', '') as '1'] || item,
                     key: item,

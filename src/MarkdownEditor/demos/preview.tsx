@@ -238,6 +238,16 @@ export default () => {
           });
         },
       }}
+      toolBar={{
+        hideTools: ['H1'],
+      }}
+      insertAutocompleteProps={{
+        optionsRender: (options) => {
+          return options.filter((item) => {
+            return item.key !== 'head1';
+          });
+        },
+      }}
       initValue={defaultValue}
     />
   );
