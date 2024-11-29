@@ -230,12 +230,8 @@ export const Table = observer((props: RenderElementProps) => {
           style={{
             maxWidth: '100%',
             width: '100%',
-            ...(store.editor?.children?.length === 1
-              ? {}
-              : {
-                  border: '1px solid #e8e8e8',
-                  borderRadius: 16,
-                }),
+            border: '1px solid #e8e8e8',
+            borderRadius: 16,
           }}
         >
           {tableAttrVisible && (

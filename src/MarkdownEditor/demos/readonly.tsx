@@ -37,6 +37,28 @@ const defaultValue = `
 | Berlin | Jul. | 37.4            |
 | Berlin | Aug. | 42.4            |
 
+
+## 表格
+
+| 城市   | 月份 | 月均降雨量 (mm) |
+|--------|------|-----------------|
+| London | Jan. | 18.9            |
+| London | Feb. | 28.8            |
+| London | Mar. | 39.3            |
+| London | Apr. | 81.4            |
+| London | May  | 47.0            |
+| London | Jun. | 20.3            |
+| London | Jul. | 24.0            |
+| London | Aug. | 35.6            |
+| Berlin | Jan. | 12.4            |
+| Berlin | Feb. | 23.2            |
+| Berlin | Mar. | 34.5            |
+| Berlin | Apr. | 99.7            |
+| Berlin | May  | 52.6            |
+| Berlin | Jun. | 35.5            |
+| Berlin | Jul. | 37.4            |
+| Berlin | Aug. | 42.4            |
+
 `;
 export default () => {
   return (

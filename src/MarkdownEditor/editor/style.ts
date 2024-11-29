@@ -106,6 +106,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textAlign: 'left',
           lineHeight: 1,
         },
+        'tr:first-child': {
+          borderBottom: '1px solid #e8e8e8',
+        },
       },
       pre: {
         margin: '0',
