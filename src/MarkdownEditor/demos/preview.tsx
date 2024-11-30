@@ -1,4 +1,5 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
+import { Tooltip } from 'antd';
 import { useState } from 'react';
 
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
@@ -180,6 +181,11 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
+      fncProps={{
+        render: (props, _) => {
+          return <Tooltip title={props.children}>{_}</Tooltip>;
+        },
+      }}
       comment={{
         enable: true,
         commentList: list,

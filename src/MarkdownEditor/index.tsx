@@ -160,6 +160,13 @@ export type MarkdownEditorProps = {
     extra?: React.ReactNode[];
     hideTools?: ToolsKeyType[];
   };
+
+  fncProps?: {
+    render: (
+      props: { children: string },
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode;
+  };
   /**
    * 用于外部获取实例
    */

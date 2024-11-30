@@ -134,6 +134,7 @@ export const MLeaf = (
   props: RenderLeafProps & {
     hashId: string;
     comment: MarkdownEditorProps['comment'];
+    fncProps: MarkdownEditorProps['fncProps'];
   },
 ) => {
   const code = useContext(CodeCtx);
@@ -224,7 +225,7 @@ export const MLeaf = (
       );
     }
 
-    const dom = (
+    let dom = (
       <span
         {...props.attributes}
         data-be={'text'}
@@ -266,6 +267,20 @@ export const MLeaf = (
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       </span>
     );
+
+    if (props.fncProps?.render) {
+      dom = (
+        <>
+          {props.fncProps.render?.(
+            {
+              children:
+                leaf.text?.replaceAll('[^', '').replaceAll(']', '') || '',
+            },
+            dom,
+          )}
+        </>
+      );
+    }
 
     if (!props.leaf.comment) return dom;
     return (

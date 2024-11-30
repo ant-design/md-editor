@@ -522,6 +522,7 @@ export const MEditor = observer(
         return (
           <MLeaf
             {...props}
+            fncProps={editorProps.fncProps}
             comment={editorProps?.comment}
             children={props.children}
             hashId={hashId}
