@@ -7,13 +7,7 @@ export default () => {
   useEffect(() => {
     const insertMarkdown = () => {
       editorRef.current?.store.setMDContent(
-        `
-<!-- {"elementType":"column"} -->       
-| column1                                                                         | column2 |
-| ------------------------------------------------------------------------------- | ------- |
-| ![](blob:http://localhost:8000/b3fb90af-d975-4954-8299-88b06c03673e) | xxxx    |
-  
-        
+        `        
 \`\`\`java
 public class HelloWorld {
     public static void main(String[] args) {
@@ -151,19 +145,25 @@ public class HelloWorld {
       >
         <MarkdownEditor
           toc={false}
-          initValue={`
-<!-- {"elementType":"column"} -->       
-| column1                                                                         | column2 |
-| ------------------------------------------------------------------------------- | ------- |
-| ![](blob:http://localhost:8000/b3fb90af-d975-4954-8299-88b06c03673e) | xxxx    |
-              
-                    
+          initValue={`             
 \`\`\`java
   public class HelloWorld {
      public static void main(String[] args) {
         System.out.println("Hello, World");
      }
 }
+\`\`\`
+
+
+\`\`\`json
+{
+  "name": "张三",
+  "age": 18
+}
+\`\`\`
+
+\`\`\`sql
+SELECT employees.name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id;
 \`\`\`
              `}
           readonly

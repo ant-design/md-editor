@@ -256,6 +256,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     height,
     ...rest
   } = props;
+  const [mount, setMount] = useState(false);
 
   const keyTask$ = useMemo(
     () =>
@@ -315,8 +316,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       state.editorProps = props;
     });
   }, [props]);
-
-  const [mount, setMount] = useState(false);
 
   useSystemKeyboard(keyTask$, instance.store, props);
 

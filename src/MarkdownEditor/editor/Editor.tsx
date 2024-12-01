@@ -60,11 +60,14 @@ export const MEditor = observer(
     const value = useRef<any[]>([EditorUtils.p]);
     const saveTimer = useRef(0);
     const nodeRef = useRef<IEditor>();
-    const elementRenderElement = useCallback((props: RenderElementProps) => {
-      const defaultDom = <MElement {...props} children={props.children} />;
-      if (!eleItemRender) return defaultDom;
-      return eleItemRender(props, defaultDom) as React.ReactElement;
-    }, []);
+    const elementRenderElement = useCallback(
+      (props: RenderElementProps) => {
+        const defaultDom = <MElement {...props} children={props.children} />;
+        if (!eleItemRender) return defaultDom;
+        return eleItemRender(props, defaultDom) as React.ReactElement;
+      },
+      [store.refreshHighlight],
+    );
     const onKeyDown = useKeyboard(store);
     const onChange = useOnchange(editor, store, editorProps.onChange);
     const first = useRef(true);

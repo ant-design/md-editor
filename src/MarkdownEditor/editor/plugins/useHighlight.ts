@@ -74,12 +74,13 @@ const run = (node: NodeEntry, code: string, lang: any) => {
   try {
     const el = node[0];
     const ranges: Range[] = [];
-    const tokens = highlighter.codeToTokensBase(code, {
+    const tokens = highlighter?.codeToTokensBase(code, {
       lang: lang,
       theme: 'github-light',
       includeExplanation: false,
       tokenizeMaxLineLength: 5000,
     });
+
     for (let i = 0; i < tokens.length; i++) {
       const lineToken = tokens[i];
       let start = 0;
@@ -99,7 +100,9 @@ const run = (node: NodeEntry, code: string, lang: any) => {
       }
     }
     codeCache.set(el, { path: node[1], range: ranges });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 /**
@@ -355,6 +358,6 @@ export const SetNodeToDecorations = observer(() => {
   useMemo(() => {
     if (store?.pauseCodeHighlight) return;
     parser();
-  }, [editor.children, store?.pauseCodeHighlight]);
+  }, [editor.children, store?.pauseCodeHighlight, store.refreshHighlight]);
   return null;
 });

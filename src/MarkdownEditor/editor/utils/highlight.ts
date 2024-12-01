@@ -1,19 +1,26 @@
-import {
-  bundledLanguages,
-  bundledThemes,
-  getSingletonHighlighter,
-  Highlighter,
-} from 'shiki';
+import { bundledThemes, getSingletonHighlighter, Highlighter } from 'shiki';
 
 export const codeThemes = new Set(Object.keys(bundledThemes));
-export const allLanguages = Object.keys(bundledLanguages);
-export const langSet = new Set(allLanguages);
 export let highlighter: Highlighter = {} as any;
-export const loadedLanguage = new Set<string>(['tex']);
+export const loadedLanguage = new Set<string>([
+  'java',
+  'json',
+  'sql',
+  'javascript',
+  'typescript',
+]);
 
-export const codeReady = async (allLanguage = false) => {
+export const langSet = new Set<string>([
+  'java',
+  'json',
+  'sql',
+  'javascript',
+  'typescript',
+]);
+
+export const codeReady = async () => {
   highlighter = await getSingletonHighlighter({
     themes: ['github-light'],
-    langs: allLanguage ? allLanguages : ['tex'],
+    langs: ['java', 'json', 'sql', 'javascript', 'typescript'],
   });
 };

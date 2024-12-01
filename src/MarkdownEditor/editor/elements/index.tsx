@@ -268,6 +268,8 @@ export const MLeaf = (
       </span>
     );
 
+    console.log(style);
+
     if (props.fncProps?.render && leaf.fnc) {
       dom = (
         <>
@@ -291,7 +293,7 @@ export const MLeaf = (
         <span>{dom}</span>
       </CommentView>
     );
-  }, [JSON.stringify(props.leaf), code.lang || 'code']);
+  }, [JSON.stringify(props.leaf), code.lang || 'code', Date.now()]);
 };
 
 export {

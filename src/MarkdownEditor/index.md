@@ -2,8 +2,6 @@
 
 自定义 render 可以把 table 修改为 antd 的 table，并进行样式上的修改
 
-<code src="./demos/empty.tsx" background="var(--main-bg-color)" title="空模式" iframe="540px" height="540px"></code>
-
 <code src="./demos/preview.tsx" background="var(--main-bg-color)" title="编辑器" iframe="540px"></code>
 
 <code src="./demos/min.tsx" background="var(--main-bg-color)" title="只读模式" iframe="540px"></code>
@@ -21,3 +19,5 @@
 <code src="./demos/pure.tsx" background="var(--main-bg-color)" title="pure 地址" iframe="540px"></code>
 
 <code src="./demos/bug.tsx" background="var(--main-bg-color)" title="bug" iframe="540px"></code>
+
+<code src="./demos/empty.tsx" background="var(--main-bg-color)" title="空模式" iframe="540px" height="540px"></code>

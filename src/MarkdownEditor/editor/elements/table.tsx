@@ -232,6 +232,8 @@ export const Table = observer((props: RenderElementProps) => {
             width: '100%',
             border: '1px solid #e8e8e8',
             borderRadius: 16,
+            display: 'flex',
+            minWidth: 0,
           }}
         >
           {tableAttrVisible && (
@@ -243,7 +245,6 @@ export const Table = observer((props: RenderElementProps) => {
             />
           )}
           <DragHandle />
-
           <div
             onMouseUp={handleClickTable}
             style={{
@@ -251,6 +252,7 @@ export const Table = observer((props: RenderElementProps) => {
               maxWidth: '100%',
               overflow: 'auto',
               flex: 1,
+              minWidth: 0,
             }}
           >
             <table
