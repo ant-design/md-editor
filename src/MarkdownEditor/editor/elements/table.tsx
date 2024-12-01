@@ -90,7 +90,6 @@ export const Table = observer((props: RenderElementProps) => {
       if (tableAttrVisible && tableRef.current) {
         if (!store.editor.hasPath(tableRef.current[1])) return;
         try {
-          console.log(tableRef.current[1]);
           const dom = ReactEditor.toDOMNode(
             store.editor,
             Node.get(store.editor, tableRef.current[1]),
@@ -98,10 +97,7 @@ export const Table = observer((props: RenderElementProps) => {
           if (dom && !dom.contains(event.target as Node)) {
             setTableAttrVisible(false);
           }
-        } catch (error) {
-          console.log(tableRef.current[0]);
-          console.log(error);
-        }
+        } catch (error) {}
       }
     };
 
@@ -212,6 +208,10 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
+  const isSel =
+    store?.preSel?.anchor?.path?.[0] === tableRef.current?.[1]?.[0] &&
+    tableRef.current?.[1]?.[0];
+
   return useMemo(() => {
     return (
       <div
@@ -237,7 +237,7 @@ export const Table = observer((props: RenderElementProps) => {
             display: 'flex',
             minWidth: 0,
             boxShadow:
-              tableAttrVisible && store?.editorProps?.reportMode
+              isSel && store?.editorProps?.reportMode
                 ? '0 0 0 1px #1890ff'
                 : 'none',
           }}

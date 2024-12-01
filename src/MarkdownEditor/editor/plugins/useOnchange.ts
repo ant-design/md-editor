@@ -53,7 +53,12 @@ export function useOnchange(
         });
       });
 
-      runInAction(() => (store.sel = sel));
+      runInAction(() => {
+        store.sel = sel;
+        if (sel) {
+          store.preSel = sel;
+        }
+      });
       if (!node) return;
       setTimeout(() => {
         selChange$.next({

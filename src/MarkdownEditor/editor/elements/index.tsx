@@ -268,8 +268,6 @@ export const MLeaf = (
       </span>
     );
 
-    console.log(style);
-
     if (props.fncProps?.render && leaf.fnc) {
       dom = (
         <>
