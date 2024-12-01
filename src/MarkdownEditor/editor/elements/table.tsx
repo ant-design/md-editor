@@ -58,7 +58,7 @@ export function TableCell(props: RenderElementProps) {
 }
 
 export const Table = observer((props: RenderElementProps) => {
-  const { store, readonly } = useEditorStore();
+  const { store } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [state, setState] = useState({
@@ -223,6 +223,7 @@ export const Table = observer((props: RenderElementProps) => {
           display: 'flex',
           gap: 1,
           minWidth: 600,
+          marginBottom: 12,
         }}
       >
         <div
@@ -235,7 +236,9 @@ export const Table = observer((props: RenderElementProps) => {
             display: 'flex',
             minWidth: 0,
             boxShadow:
-              tableAttrVisible && !readonly ? '0 0 0 1px #1890ff' : 'none',
+              tableAttrVisible && store?.editorProps?.reportMode
+                ? '0 0 0 1px #1890ff'
+                : 'none',
           }}
         >
           {tableAttrVisible && (
