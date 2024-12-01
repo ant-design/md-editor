@@ -38,7 +38,7 @@ export const CodeCtx = createContext({ lang: '', code: false });
  * @remarks
  * 点击按钮后，代码片段将被复制到剪贴板，并显示复制成功的提示。
  */
-const Clipboard = (props: any) => {
+export const Clipboard = (props: any) => {
   const [copy, setCopy] = useState(false);
   return (
     <div

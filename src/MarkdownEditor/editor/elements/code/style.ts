@@ -23,12 +23,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '> *': {
         boxSizing: 'border-box',
       },
-      '&-num': {
+      '&  &-num': {
         code: {
           paddingLeft: 5,
         },
       },
-      '&-header': {
+      '&  &-header': {
         direction: 'ltr',
         tabSize: 2,
         WebkitUserModify: 'read-only',
@@ -42,7 +42,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '12px 12px',
         paddingTop: '0px',
         borderBottom: '1px solid rgba(186, 192, 204, 0.25)',
-        '&-actions': {
+        '& &-actions': {
           display: 'flex',
           gap: '8px',
           '&-item': {
@@ -57,7 +57,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           fontSize: '12px',
         },
       },
-      '&-content': {
+      '& &-content': {
         position: 'relative',
         borderRadius: 4,
         fontFeatureSettings: 'normal',
@@ -134,7 +134,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             },
           },
         },
-        '&-code-content': {
+        '& &-code-content': {
           borderRadius: '18px',
           fontSize: '0.85em',
           boxSizing: 'border-box',
