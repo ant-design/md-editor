@@ -58,7 +58,7 @@ export function TableCell(props: RenderElementProps) {
 }
 
 export const Table = observer((props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, readonly } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [state, setState] = useState({
@@ -142,7 +142,7 @@ export const Table = observer((props: RenderElementProps) => {
         let left = dom.offsetLeft;
         setState((prev) => ({
           ...prev,
-          top: top - 24 + 3,
+          top: top - 48 + 3,
           left,
         }));
         setTableAttrVisible(true);
@@ -234,6 +234,8 @@ export const Table = observer((props: RenderElementProps) => {
             borderRadius: 16,
             display: 'flex',
             minWidth: 0,
+            boxShadow:
+              tableAttrVisible && !readonly ? '0 0 0 1px #1890ff' : 'none',
           }}
         >
           {tableAttrVisible && (
