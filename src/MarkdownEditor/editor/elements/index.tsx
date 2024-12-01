@@ -268,7 +268,7 @@ export const MLeaf = (
       </span>
     );
 
-    if (props.fncProps?.render) {
+    if (props.fncProps?.render && leaf.fnc) {
       dom = (
         <>
           {props.fncProps.render?.(
