@@ -60,6 +60,12 @@ export const MEditor = observer(
     const value = useRef<any[]>([EditorUtils.p]);
     const saveTimer = useRef(0);
     const nodeRef = useRef<IEditor>();
+
+    const onKeyDown = useKeyboard(store);
+    const onChange = useOnchange(editor, store, editorProps.onChange);
+    const first = useRef(true);
+    const highlight = useHighlight();
+    const save = useCallback(async () => {}, [note]);
     const elementRenderElement = useCallback(
       (props: RenderElementProps) => {
         const defaultDom = <MElement {...props} children={props.children} />;
@@ -68,12 +74,6 @@ export const MEditor = observer(
       },
       [store.refreshHighlight],
     );
-    const onKeyDown = useKeyboard(store);
-    const onChange = useOnchange(editor, store, editorProps.onChange);
-    const first = useRef(true);
-    const highlight = useHighlight();
-    const save = useCallback(async () => {}, [note]);
-
     const initialNote = useCallback(async () => {
       clearTimeout(saveTimer.current);
       if (note) {
@@ -532,7 +532,7 @@ export const MEditor = observer(
           />
         );
       },
-      [commentMap],
+      [commentMap, store.refreshHighlight],
     );
 
     const decorateFn = useCallback(
@@ -599,7 +599,7 @@ export const MEditor = observer(
           return decorateList;
         }
       },
-      [commentMap, highlight],
+      [commentMap, highlight, store.refreshHighlight],
     );
     return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
