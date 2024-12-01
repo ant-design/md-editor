@@ -20,6 +20,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       tabSize: 2,
       background: 'rgb(250, 250, 250)',
       padding: '12px',
+      '> *': {
+        boxSizing: 'border-box',
+      },
       '&-num': {
         code: {
           paddingLeft: 5,
@@ -47,6 +50,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             alignItems: 'center',
             gap: '4px',
             cursor: 'pointer',
+            boxSizing: 'border-box',
           },
         },
         '&-lang': {
@@ -64,6 +68,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflowWrap: 'break-word',
         direction: 'ltr',
         marginBottom: '0',
+        boxSizing: 'border-box',
         tabSize: 2,
         caretColor: 'rgba(0, 0, 0, 0.9)',
         color: 'rgba(0, 0, 0, 0.8)',
@@ -79,10 +84,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           whiteSpace: 'pre',
           padding: '10px 0',
           position: 'relative',
+          boxSizing: 'border-box',
+          background: 'rgb(250, 250, 250)',
         },
         '& code': {
           width: 'fit-content',
           display: 'inline-block',
+          boxSizing: 'border-box',
+          background: 'rgb(250, 250, 250)',
           wordWrap: 'normal',
           wordSpacing: 'normal',
           wordBreak: 'normal',
@@ -95,11 +104,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           position: 'relative',
           height: '23px',
           lineHeight: '23px',
+          boxSizing: 'border-box',
         },
         '& &-line-list': {
           counterReset: 'step',
           counterIncrement: 'step 0',
           zIndex: 10,
+          boxSizing: 'border-box',
           paddingTop: '10px',
           width: '32px',
           position: 'absolute',
@@ -115,8 +126,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             lineHeight: '23px',
             width: '32px',
             textAlign: 'center',
+            boxSizing: 'border-box',
             '&:before': {
               content: 'counter(step)',
+              boxSizing: 'border-box',
               counterIncrement: 'step',
             },
           },
@@ -124,11 +137,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-code-content': {
           borderRadius: '18px',
           fontSize: '0.85em',
+          boxSizing: 'border-box',
           lineHeight: '1.62em',
           overflowWrap: 'break-word',
           direction: 'ltr',
           tabSize: 2,
-          boxSizing: 'border-box',
           fontFeatureSettings: 'normal',
           fontVariationSettings: 'normal',
           caretColor: 'rgba(0, 0, 0, 0.9)',
