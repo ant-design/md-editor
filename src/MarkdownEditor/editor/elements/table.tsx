@@ -222,7 +222,8 @@ export const Table = observer((props: RenderElementProps) => {
         style={{
           display: 'flex',
           gap: 1,
-          minWidth: 600,
+          maxWidth: '100%',
+          minWidth: 0,
           marginBottom: 12,
         }}
       >
