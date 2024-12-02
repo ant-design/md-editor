@@ -74,7 +74,7 @@ const run = (node: NodeEntry, code: string, lang: any) => {
   try {
     const el = node[0];
     const ranges: Range[] = [];
-    const tokens = highlighter?.codeToTokensBase(code, {
+    const tokens = highlighter?.codeToTokensBase?.(code, {
       lang: lang,
       theme: 'github-light',
       includeExplanation: false,
@@ -101,7 +101,7 @@ const run = (node: NodeEntry, code: string, lang: any) => {
     }
     codeCache.set(el, { path: node[1], range: ranges });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 
@@ -147,7 +147,7 @@ export function useHighlight() {
           const code = Node.string(node);
           if (code) {
             let textRanges: any[] = [];
-            const tokens = highlighter.codeToTokensBase(code, {
+            const tokens = highlighter?.codeToTokensBase?.(code, {
               lang: 'tex',
               theme: 'github-light',
               includeExplanation: false,
