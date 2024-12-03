@@ -4,6 +4,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import json5 from 'json5';
 import type { Root, RootContent, Table } from 'mdast';
+//@ts-ignore
+import pangu from 'pangu';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import { Element } from 'slate';
@@ -871,7 +873,20 @@ export const parserMarkdown = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  const root = parser.parse(md || '');
+  let markdown = md;
+  try {
+    markdown = pangu.spacing(md);
+  } catch (error) {}
+  const root = parser.parse(
+    markdown
+      .replaceAll('）', ' )')
+      .replaceAll('】', ' 】')
+      .replaceAll('，', ' ，')
+      .replaceAll('。', ' 。')
+      .replaceAll('？', ' ？')
+      .replaceAll('！', ' ！') || '',
+  );
+
   const schema = parserBlock(root.children as any[], true) as Elements[];
   const links = findLinks(schema);
   return { schema, links };
