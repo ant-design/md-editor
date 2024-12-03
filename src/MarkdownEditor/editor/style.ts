@@ -183,6 +183,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '[data-be]:not(p)': {
         position: 'relative',
       },
+
       'pre,code,kbd,samp': {
         fontSize: '1em',
         fontFamily:
@@ -227,7 +228,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
     [`${token.componentCls}-report`]: {
-      table: {
+      '[data-be=="chart"]': {
+        width: '100%',
+      },
+      [`${token.componentCls}-table`]: {
         'th,td': {
           padding: '8px 16px',
           textAlign: 'left',

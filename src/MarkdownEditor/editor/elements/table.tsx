@@ -10,6 +10,7 @@ import React, {
 import { Editor, Node, NodeEntry, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
+import stringWidth from 'string-width';
 import { TableCellNode, TableNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
@@ -25,6 +26,10 @@ export function TableCell(props: RenderElementProps) {
   }, []);
 
   return React.useMemo(() => {
+    const minWidth = Math.min(
+      stringWidth(Node.string(props.element)) * 8 + 20,
+      200,
+    );
     return props.element.title ? (
       <th
         {...props.attributes}
@@ -32,7 +37,15 @@ export function TableCell(props: RenderElementProps) {
         data-be={'th'}
         onContextMenu={(e) => context(e, true)}
       >
-        {props.children}
+        <div
+          style={{
+            minWidth: minWidth,
+            textWrap: 'wrap',
+            maxWidth: '200px',
+          }}
+        >
+          {props.children}
+        </div>
       </th>
     ) : (
       <td
@@ -46,8 +59,9 @@ export function TableCell(props: RenderElementProps) {
       >
         <div
           style={{
-            maxWidth: '200px',
+            minWidth: minWidth,
             textWrap: 'wrap',
+            maxWidth: '200px',
           }}
         >
           {props.children}
@@ -228,7 +242,9 @@ export const Table = observer((props: RenderElementProps) => {
         }}
       >
         <div
-          className={'ant-md-editor-drag-el ant-md-editor-table'}
+          className={
+            'ant-md-editor-drag-el ant-md-editor-table ant-md-editor-content-table'
+          }
           style={{
             maxWidth: '100%',
             width: '100%',
