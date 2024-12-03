@@ -141,7 +141,6 @@ export const MLeaf = (
   const { store, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
-
   return useMemo(() => {
     const leaf = props.leaf;
     const style: CSSProperties = {};
@@ -175,6 +174,7 @@ export const MLeaf = (
       leaf.italic ||
       leaf.strikethrough ||
       leaf.highColor;
+
     const selectFormat = () => {
       try {
         if (EditorUtils.isDirtLeaf(props.leaf)) {
@@ -254,11 +254,6 @@ export const MLeaf = (
           fontSize: leaf.fnc ? 10 : undefined,
           ...style,
         }}
-        id={
-          'md-editor-ref' +
-          //@ts-ignore
-          (leaf.identifier || '')
-        }
       >
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
         {leaf.fnc || leaf.identifier
