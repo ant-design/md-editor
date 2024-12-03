@@ -66,14 +66,7 @@ export const MEditor = observer(
     const first = useRef(true);
     const highlight = useHighlight();
     const save = useCallback(async () => {}, [note]);
-    const elementRenderElement = useCallback(
-      (props: RenderElementProps) => {
-        const defaultDom = <MElement {...props} children={props.children} />;
-        if (!eleItemRender) return defaultDom;
-        return eleItemRender(props, defaultDom) as React.ReactElement;
-      },
-      [store.refreshHighlight],
-    );
+
     const initialNote = useCallback(async () => {
       clearTimeout(saveTimer.current);
       if (note) {
@@ -492,6 +485,7 @@ export const MEditor = observer(
     });
 
     const baseClassName = `${editorProps.prefixCls}-content`;
+
     const commentMap = useMemo(() => {
       const map = new Map<string, Map<string, CommentDataType[]>>();
       editorProps?.comment?.commentList?.forEach((c) => {
@@ -520,87 +514,87 @@ export const MEditor = observer(
       return map;
     }, [editorProps?.comment?.commentList]);
 
-    const renderMarkdownLeaf = useCallback(
-      (props: any) => {
-        return (
-          <MLeaf
-            {...props}
-            fncProps={editorProps.fncProps}
-            comment={editorProps?.comment}
-            children={props.children}
-            hashId={hashId}
-          />
-        );
-      },
-      [commentMap, store.refreshHighlight],
-    );
+    const elementRenderElement = (props: RenderElementProps) => {
+      const defaultDom = <MElement {...props} children={props.children} />;
+      if (!eleItemRender) return defaultDom;
+      return eleItemRender(props, defaultDom) as React.ReactElement;
+    };
 
-    const decorateFn = useCallback(
-      (e: any) => {
-        const decorateList = highlight(e);
-        if (!editorProps?.comment) return decorateList;
-        if (editorProps?.comment?.enable === false) return decorateList;
-        if (commentMap.size === 0) return decorateList;
+    const renderMarkdownLeaf = (props: any) => {
+      return (
+        <MLeaf
+          {...props}
+          fncProps={editorProps.fncProps}
+          comment={editorProps?.comment}
+          children={props.children}
+          hashId={hashId}
+        />
+      );
+    };
+    const decorateFn = (e: any) => {
+      const decorateList = highlight(e);
+      console.log(decorateList, e);
+      if (!editorProps?.comment) return decorateList;
+      if (editorProps?.comment?.enable === false) return decorateList;
+      if (commentMap.size === 0) return decorateList;
 
-        try {
-          const ranges: BaseRange[] = [];
-          const [, path] = e;
-          const itemMap = commentMap.get(path.join(','));
-          if (!itemMap) return decorateList;
-          itemMap.forEach((itemList) => {
-            const item = itemList[0];
-            const { anchor, focus } = item.selection || {};
-            if (!anchor || !focus) return decorateList;
-            const AnchorPath = anchor.path;
-            const FocusPath = focus.path;
+      try {
+        const ranges: BaseRange[] = [];
+        const [, path] = e;
+        const itemMap = commentMap.get(path.join(','));
+        if (!itemMap) return decorateList;
+        itemMap.forEach((itemList) => {
+          const item = itemList[0];
+          const { anchor, focus } = item.selection || {};
+          if (!anchor || !focus) return decorateList;
+          const AnchorPath = anchor.path;
+          const FocusPath = focus.path;
 
-            if (
-              isPath(FocusPath) &&
-              isPath(AnchorPath) &&
-              Editor.hasPath(editor, anchor.path) &&
-              Editor.hasPath(editor, focus.path)
-            ) {
-              const newSelection = {
-                anchor: { ...anchor, path: findLeafPath(editor, AnchorPath) },
-                focus: { ...focus, path: findLeafPath(editor, FocusPath) },
-              };
+          if (
+            isPath(FocusPath) &&
+            isPath(AnchorPath) &&
+            Editor.hasPath(editor, anchor.path) &&
+            Editor.hasPath(editor, focus.path)
+          ) {
+            const newSelection = {
+              anchor: { ...anchor, path: findLeafPath(editor, AnchorPath) },
+              focus: { ...focus, path: findLeafPath(editor, FocusPath) },
+            };
 
-              const fragment = Editor.fragment(editor, newSelection);
-              if (fragment) {
-                const str = Node.string({ children: fragment });
-                const isStrEquals = str === item.refContent;
-                const newAnchorPath = anchor.path;
-                const newFocusPath = focus.path;
+            const fragment = Editor.fragment(editor, newSelection);
+            if (fragment) {
+              const str = Node.string({ children: fragment });
+              const isStrEquals = str === item.refContent;
+              const newAnchorPath = anchor.path;
+              const newFocusPath = focus.path;
 
-                if (
-                  isStrEquals &&
-                  isPath(newFocusPath) &&
-                  isPath(newAnchorPath) &&
-                  Editor.hasPath(editor, newAnchorPath) &&
-                  Editor.hasPath(editor, newFocusPath)
-                ) {
-                  ranges.push({
-                    anchor: { path: newAnchorPath, offset: anchor.offset },
-                    focus: { path: newFocusPath, offset: focus.offset },
-                    data: itemList,
-                    comment: true,
-                    updateTime: itemList
-                      .map((i) => i.updateTime)
-                      .sort()
-                      .join(','),
-                  } as Range);
-                }
+              if (
+                isStrEquals &&
+                isPath(newFocusPath) &&
+                isPath(newAnchorPath) &&
+                Editor.hasPath(editor, newAnchorPath) &&
+                Editor.hasPath(editor, newFocusPath)
+              ) {
+                ranges.push({
+                  anchor: { path: newAnchorPath, offset: anchor.offset },
+                  focus: { path: newFocusPath, offset: focus.offset },
+                  data: itemList,
+                  comment: true,
+                  updateTime: itemList
+                    .map((i) => i.updateTime)
+                    .sort()
+                    .join(','),
+                } as Range);
               }
             }
-          });
-          return decorateList.concat(ranges);
-        } catch (error) {
-          console.log('error', error);
-          return decorateList;
-        }
-      },
-      [commentMap, highlight, store.refreshHighlight],
-    );
+          }
+        });
+        return decorateList.concat(ranges);
+      } catch (error) {
+        console.log('error', error);
+        return decorateList;
+      }
+    };
     return wrapSSR(
       <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
         <SetNodeToDecorations />

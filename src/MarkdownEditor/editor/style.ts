@@ -228,8 +228,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
     },
     [`${token.componentCls}-report`]: {
-      '[data-be=="chart"]': {
+      '[data-be="chart"]': {
         width: '100%',
+      },
+      '[data-be="code"]': {
+        marginBottom: '12px',
       },
       [`${token.componentCls}-table`]: {
         'th,td': {

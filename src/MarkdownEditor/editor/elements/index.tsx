@@ -141,6 +141,7 @@ export const MLeaf = (
   const { store, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
+
   return useMemo(() => {
     const leaf = props.leaf;
     const style: CSSProperties = {};
@@ -286,7 +287,7 @@ export const MLeaf = (
         <span>{dom}</span>
       </CommentView>
     );
-  }, [JSON.stringify(props.leaf), code.lang || 'code', Date.now()]);
+  }, [JSON.stringify(props.leaf), code.lang || 'code']);
 };
 
 export {

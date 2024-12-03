@@ -72,7 +72,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         tabSize: 2,
         caretColor: 'rgba(0, 0, 0, 0.9)',
         color: 'rgba(0, 0, 0, 0.8)',
-        paddingLeft: '32px',
+        // paddingLeft: '32px',
         background: 'rgb(250, 250, 250)',
         '&-tab-2': {
           tabSize: 2,
