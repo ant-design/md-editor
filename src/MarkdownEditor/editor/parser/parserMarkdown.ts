@@ -5,7 +5,6 @@
 import json5 from 'json5';
 import type { Root, RootContent, Table } from 'mdast';
 //@ts-ignore
-import pangu from 'pangu';
 import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import { Element } from 'slate';
@@ -875,17 +874,18 @@ export const parserMarkdown = (
 } => {
   let markdown = md;
   try {
-    markdown = pangu.spacing(md);
+    markdown =
+      md
+        .replaceAll(/([\u4e00-\u9fa5]+)([a-zA-Z])/g, '$1 $2')
+        .replaceAll(/([a-zA-Z])([\u4e00-\u9fa5]+)/g, '$1 $2')
+        .replaceAll('）', ' )')
+        .replaceAll('】', ' 】')
+        .replaceAll('，', ' ，')
+        .replaceAll('。', ' 。')
+        .replaceAll('？', ' ？')
+        .replaceAll('！', ' ！') || '';
   } catch (error) {}
-  const root = parser.parse(
-    markdown
-      .replaceAll('）', ' )')
-      .replaceAll('】', ' 】')
-      .replaceAll('，', ' ，')
-      .replaceAll('。', ' 。')
-      .replaceAll('？', ' ？')
-      .replaceAll('！', ' ！') || '',
-  );
+  const root = parser.parse(markdown);
 
   const schema = parserBlock(root.children as any[], true) as Elements[];
   const links = findLinks(schema);
