@@ -19,8 +19,10 @@ export const langSet = new Set<string>([
 ]);
 
 export const codeReady = async () => {
-  highlighter = await getSingletonHighlighter({
-    themes: ['github-light'],
-    langs: ['java', 'json', 'sql', 'javascript', 'typescript'],
-  });
+  try {
+    highlighter = await getSingletonHighlighter({
+      themes: ['github-light'],
+      langs: ['java', 'json', 'sql', 'javascript', 'typescript'],
+    });
+  } catch (error) {}
 };
