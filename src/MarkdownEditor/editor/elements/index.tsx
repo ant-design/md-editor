@@ -277,7 +277,6 @@ export const MLeaf = (
         </>
       );
     }
-
     if (!props.leaf.comment) return dom;
     return (
       <CommentView

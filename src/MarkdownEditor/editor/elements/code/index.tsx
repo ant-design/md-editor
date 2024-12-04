@@ -6,6 +6,7 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -102,7 +103,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
     setState({ editable: false });
     if (props.element.language?.toLowerCase() === state().lang) return;
     runInAction(() => (store.pauseCodeHighlight = true));
-    update({ language: state().lang });
+    update({ language: state().lang, date: Date.now() });
     setTimeout(() => {
       runInAction(() => {
         store.pauseCodeHighlight = false;
@@ -303,6 +304,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
 
 export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   const ctx = useContext(CodeCtx);
+  const [, update] = useMEditor(props.element);
   const { store, typewriter } = useEditorStore();
   const isLatest = useMemo(() => {
     if (store?.editor?.children.length === 0) return false;
@@ -310,6 +312,20 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
     return store.isLatestNode(props.element);
   }, [store?.editor?.children, typewriter]);
   const context = useContext(ConfigProvider.ConfigContext);
+
+  const setLanguage = useCallback(() => {
+    runInAction(() => (store.pauseCodeHighlight = true));
+    update({ date: Date.now() });
+    setTimeout(() => {
+      runInAction(() => {
+        store.pauseCodeHighlight = false;
+      });
+    });
+  }, [props.element, props.element.children]);
+
+  useEffect(() => {
+    setLanguage();
+  }, [store.refreshHighlight]);
   const baseCls = context.getPrefixCls('md-editor-code');
 
   return useMemo(() => {

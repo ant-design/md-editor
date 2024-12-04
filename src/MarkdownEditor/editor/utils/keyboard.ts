@@ -151,7 +151,7 @@ export class KeyboardTask {
         );
         setTimeout(() => {
           runInAction(() => {
-            this.store.refreshHighlight = !this.store.refreshHighlight;
+            this.store.refreshHighlight = Date.now();
           });
         }, 60);
       } else if (node[0].type === 'table-cell') {
@@ -333,9 +333,7 @@ export class KeyboardTask {
       }
     }
     setTimeout(() => {
-      runInAction(
-        () => (this.store!.refreshHighlight = !this.store!.refreshHighlight),
-      );
+      runInAction(() => (this.store!.refreshHighlight = Date.now()));
     }, 100);
   }
 
