@@ -126,7 +126,7 @@ export const BaseToolBar = observer(
       store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
       store.openInsertLink$.next(sel);
       runInAction(() => {
-        store.refreshHighlight = !store.refreshHighlight;
+        store.refreshHighlight = Date.now();
         store.openLinkPanel = true;
       });
     }, []);

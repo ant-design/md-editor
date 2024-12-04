@@ -74,6 +74,9 @@ const run = (node: NodeEntry, code: string, lang: any) => {
   try {
     const el = node[0];
     const ranges: Range[] = [];
+    if (!highlighter) {
+      return;
+    }
     const tokens = highlighter?.codeToTokensBase?.(code, {
       lang: lang,
       theme: 'github-light',
@@ -101,7 +104,7 @@ const run = (node: NodeEntry, code: string, lang: any) => {
     }
     codeCache.set(el, { path: node[1], range: ranges });
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 };
 
@@ -351,7 +354,7 @@ export const SetNodeToDecorations = observer(() => {
         stack.map((s) => loadedLanguage.add(s.lang));
         stack.forEach((s) => s.run());
         stack = [];
-        runInAction(() => (store.refreshHighlight = !store.refreshHighlight));
+        runInAction(() => (store.refreshHighlight = Date.now()));
       });
     }
   }, []);

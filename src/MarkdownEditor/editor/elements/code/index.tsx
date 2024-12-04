@@ -106,7 +106,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
     setTimeout(() => {
       runInAction(() => {
         store.pauseCodeHighlight = false;
-        store.refreshHighlight = !store.refreshHighlight;
+        store.refreshHighlight = Date.now();
       });
     });
   }, [props.element, props.element.children, state().lang]);

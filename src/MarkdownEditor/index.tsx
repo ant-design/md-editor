@@ -302,11 +302,11 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   useEffect(() => {
     instance.store.setState((value) => {
-      value.refreshHighlight = true;
+      value.refreshHighlight = Date.now();
     });
     codeReady().then(() => {
       instance.store.setState((value) => {
-        value.refreshHighlight = false;
+        value.refreshHighlight = Date.now();
       });
       setCodeReady(true);
     });
@@ -334,7 +334,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
-  if (isCodePrepared === false && readonly) {
+  if (isCodePrepared === false) {
     return null;
   }
 

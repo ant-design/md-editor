@@ -533,7 +533,6 @@ export const MEditor = observer(
     };
     const decorateFn = (e: any) => {
       const decorateList = highlight(e);
-      console.log(decorateList, e);
       if (!editorProps?.comment) return decorateList;
       if (editorProps?.comment?.enable === false) return decorateList;
       if (commentMap.size === 0) return decorateList;

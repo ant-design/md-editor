@@ -128,7 +128,7 @@ export class EditorStore {
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
   chartNode: null | NodeEntry<ChartNode> = null;
-  refreshHighlight = false;
+  refreshHighlight = Date.now();
   pauseCodeHighlight = false;
   domRect: DOMRect | null = null;
   domRange: HTMLElement | null = null;
@@ -368,7 +368,7 @@ export class EditorStore {
       setTimeout(() => {
         runInAction(() => {
           this.highlightCache.clear();
-          this.refreshHighlight = !this.refreshHighlight;
+          this.refreshHighlight = Date.now();
         });
       }, 60);
     }
@@ -403,7 +403,7 @@ export class EditorStore {
   doRefreshHighlight() {
     setTimeout(
       action(() => {
-        this.refreshHighlight = !this.refreshHighlight;
+        this.refreshHighlight = Date.now();
       }),
       60,
     );
