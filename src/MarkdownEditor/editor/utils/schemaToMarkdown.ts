@@ -38,6 +38,12 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
   let str = '';
   const newParent = [...parent, node];
   switch (node.type) {
+    case 'card-before':
+      break;
+    case 'card-after':
+      break;
+    case 'card':
+      str += preString + schemaToMarkdown(node.children, preString, newParent);
     case 'paragraph':
       str += preString + schemaToMarkdown(node.children, preString, newParent);
       break;

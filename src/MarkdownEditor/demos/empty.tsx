@@ -72,6 +72,7 @@ public class HelloWorld {
         }}
       >
         <MarkdownEditor
+          reportMode
           toc={false}
           initValue={`             
 \`\`\`java
@@ -170,7 +171,6 @@ public class HelloWorld {
 SELECT employees.name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id;
 \`\`\`
              `}
-          readonly
           toolBar={{
             min: true,
             enable: true,
