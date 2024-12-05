@@ -621,7 +621,6 @@ export const MEditor = observer(
                   fontSize: 14,
                 }
           }
-          autoFocus
           onMouseDown={checkEnd}
           onFocus={onFocus}
           onBlur={onBlur}
