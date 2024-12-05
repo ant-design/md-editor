@@ -39,7 +39,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                id="md-editor-ref"
               >
                 <span
                   data-slate-length="0"
@@ -92,7 +91,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                id="md-editor-ref"
               >
                 <span
                   data-slate-string="true"
@@ -166,7 +164,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
@@ -181,7 +178,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                         data-comment="comment"
                         data-slate-leaf="true"
                         draggable="false"
-                        id="md-editor-ref"
                       >
                         <span
                           data-slate-string="true"
@@ -247,12 +243,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        支持图片url上传
+                        支持图片 url 上传
                       </span>
                     </span>
                   </span>
@@ -313,7 +308,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
@@ -379,28 +373,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        shadcn 
-                      </span>
-                    </span>
-                    <span>
-                      <span
-                        class="css-dev-only-do-not-override-49qm  css-dev-only-do-not-override-49qm ant-md-editor-content-comment"
-                        data-be="text"
-                        data-comment="comment"
-                        data-slate-leaf="true"
-                        draggable="false"
-                        id="md-editor-ref"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                          换成蓝色theme
-                        </span>
+                        shadcn 换成蓝色 theme
                       </span>
                     </span>
                   </span>
@@ -461,12 +438,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        加watch 接口和 对外网开放、对全站登录用户开放开关
+                        加 watch 接口和 对外网开放、对全站登录用户开放开关
                       </span>
                     </span>
                   </span>
@@ -527,12 +503,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        share 加接口。
+                        share 加接口 。
                       </span>
                     </span>
                   </span>
@@ -593,12 +568,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        Ai向编辑框copy
+                        Ai 向编辑框 copy
                       </span>
                     </span>
                   </span>
@@ -659,12 +633,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        阅读态留言，留言底部展示。
+                        阅读态留言 ，留言底部展示 。
                       </span>
                     </span>
                   </span>
@@ -725,7 +698,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
@@ -871,12 +843,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        留言修改有问题。
+                        留言修改有问题 。
                       </span>
                     </span>
                   </span>
@@ -937,12 +908,11 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
                       >
-                        左边栏点logo, 点flow 不刷新，不跳转。
+                        左边栏点 logo, 点 flow 不刷新 ，不跳转 。
                       </span>
                     </span>
                   </span>
@@ -1003,7 +973,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
@@ -1069,7 +1038,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-string="true"
@@ -1095,7 +1063,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                id="md-editor-ref"
               >
                 <span
                   data-slate-length="0"
@@ -1131,7 +1098,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-length="0"
@@ -1211,7 +1177,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
-                      id="md-editor-ref"
                     >
                       <span
                         data-slate-length="0"
@@ -1300,7 +1265,6 @@ exports[`Rendering demo: src/MarkdownEditor/demos/rerender.tsx > renders src/Mar
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                id="md-editor-ref"
               >
                 <span
                   data-slate-length="0"

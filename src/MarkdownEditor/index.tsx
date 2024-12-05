@@ -258,8 +258,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   } = props;
   const [mount, setMount] = useState(false);
 
-  const [isCodePrepared, setCodeReady] = useState(false);
-
   const keyTask$ = useMemo(
     () =>
       new Subject<{
@@ -308,7 +306,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       instance.store.setState((value) => {
         value.refreshHighlight = Date.now();
       });
-      setCodeReady(true);
     });
   }, []);
 
@@ -333,10 +330,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
-
-  if (isCodePrepared === false) {
-    return null;
-  }
 
   return wrapSSR(
     <EditorStoreContext.Provider
