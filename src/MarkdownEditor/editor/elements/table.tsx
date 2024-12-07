@@ -147,11 +147,14 @@ export const Table = observer((props: RenderElementProps) => {
     }
   }, [store.floatBarOpen]);
 
+  const isSel = useMemo(() => {
+    if (selected) return true;
+    if (!store.selectTablePath.length) return false;
+    return store.selectTablePath.join('') === path.join('');
+  }, [store.editor, selected, store.selectTablePath, props.element]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      runInAction(() => {
-        store.selectTablePath = [];
-      });
       if (!tableRef.current) return;
       if (tableAttrVisible && tableRef.current) {
         if (!store.editor.hasPath(tableRef.current[1])) return;
@@ -274,12 +277,6 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
-  const isSel = useMemo(() => {
-    if (selected) return true;
-    if (!store.selectTablePath.length) return false;
-    return store.selectTablePath.join('') === path.join('');
-  }, [store.editor, selected, store.selectTablePath, props.element]);
-
   return useMemo(() => {
     return (
       <div
@@ -324,8 +321,11 @@ export const Table = observer((props: RenderElementProps) => {
           <div
             onMouseUp={handleClickTable}
             onClick={() => {
-              if (store.floatBarOpen) return;
               runInAction(() => {
+                if (isSel) {
+                  store.selectTablePath = [];
+                  return;
+                }
                 store.selectTablePath = path;
               });
             }}
