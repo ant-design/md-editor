@@ -136,7 +136,7 @@ export const Table = observer((props: RenderElementProps) => {
     selectCols: 0,
     selectRows: 0,
   });
-
+  const [selected, path] = useSelStatus(props.element);
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
@@ -271,7 +271,11 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
-  const isSel = store.selectTable === props.element;
+  const isSel = useMemo(() => {
+    if (selected) return true;
+    if (!store.selectTablePath.length) return false;
+    return store.selectTablePath.join('') === path.join('');
+  }, [store.editor, selected, store.selectTablePath, props.element]);
 
   return useMemo(() => {
     return (
@@ -319,7 +323,7 @@ export const Table = observer((props: RenderElementProps) => {
             onClick={() => {
               if (store.floatBarOpen) return;
               runInAction(() => {
-                store.selectTable = props.element;
+                store.selectTablePath = path;
               });
             }}
             style={{

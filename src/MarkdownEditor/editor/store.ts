@@ -104,7 +104,7 @@ export class EditorStore {
   manual = false;
   initializing = false;
   sel: BaseSelection | undefined;
-  selectTable = Element;
+  selectTablePath: Path = [];
   focus = false;
   readonly = false;
   private ableToEnter = new Set([
