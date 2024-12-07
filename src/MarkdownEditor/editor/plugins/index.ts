@@ -227,8 +227,6 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
-
-    console.log('deleteBackward', unit);
     deleteBackward(unit);
   };
 

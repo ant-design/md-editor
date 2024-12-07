@@ -60,7 +60,6 @@ export class EnterKey {
       }
 
       if (el.type === 'card-after') {
-        console.log(Path.parent(path));
         Transforms.insertNodes(this.editor, EditorUtils.p, {
           at: Path.next(Path.parent(path)),
           select: true,

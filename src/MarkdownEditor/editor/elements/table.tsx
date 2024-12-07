@@ -149,6 +149,9 @@ export const Table = observer((props: RenderElementProps) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      runInAction(() => {
+        store.selectTablePath = [];
+      });
       if (!tableRef.current) return;
       if (tableAttrVisible && tableRef.current) {
         if (!store.editor.hasPath(tableRef.current[1])) return;
@@ -355,5 +358,6 @@ export const Table = observer((props: RenderElementProps) => {
     store.editor?.children?.length === 1,
     handleClickTable,
     tableAttrVisible,
+    isSel,
   ]);
 });

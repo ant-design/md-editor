@@ -196,7 +196,6 @@ SELECT employees.name, departments.department_name FROM employees INNER JOIN dep
                   fetch(file)
                     .then((res) => res.blob())
                     .then((blob) => {
-                      console.log(blob);
                       const url = URL.createObjectURL(blob);
                       resolve(url);
                     });

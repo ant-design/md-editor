@@ -219,7 +219,6 @@ const processFragment = (fragment: any[], parentType = '') => {
             return r;
           }),
       };
-      console.log(f);
     }
     if (
       f.type === 'paragraph' &&
