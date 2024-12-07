@@ -104,7 +104,6 @@ export class EditorStore {
   manual = false;
   initializing = false;
   sel: BaseSelection | undefined;
-  preSel: BaseSelection | undefined;
   selectTable = Element;
   focus = false;
   readonly = false;
