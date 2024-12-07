@@ -105,6 +105,7 @@ export class EditorStore {
   initializing = false;
   sel: BaseSelection | undefined;
   preSel: BaseSelection | undefined;
+  selectTable = Element;
   focus = false;
   readonly = false;
   private ableToEnter = new Set([

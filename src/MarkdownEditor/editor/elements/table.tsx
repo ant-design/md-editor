@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, {
   useCallback,
@@ -17,6 +18,28 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 
+/**
+ * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
+ *
+ * @param {RenderElementProps} props - 传递给组件的属性。
+ * @returns {JSX.Element} 渲染的表格单元格。
+ *
+ * @example
+ * ```tsx
+ * <TableCell element={element} attributes={attributes} children={children} />
+ * ```
+ *
+ * @remarks
+ * - 使用 `useEditorStore` 获取编辑器的 store。
+ * - 使用 `useSelStatus` 获取选择状态。
+ * - 使用 `useCallback` 创建上下文菜单的回调函数。
+ * - 使用 `React.useMemo` 优化渲染性能。
+ *
+ * @internal
+ * - `minWidth` 根据元素内容的字符串宽度计算，最小值为 20，最大值为 200。
+ * - `textWrap` 设置为 'wrap'，`maxWidth` 设置为 '200px'。
+ * - `onContextMenu` 事件处理函数根据元素是否有 title 属性传递不同的参数。
+ */
 export function TableCell(props: RenderElementProps) {
   const { store } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -71,6 +94,32 @@ export function TableCell(props: RenderElementProps) {
   }, [props.element, props.element.children, store.refreshHighlight]);
 }
 
+/**
+ * 表格组件，使用 `observer` 包装以响应状态变化。
+ *
+ * @param {RenderElementProps} props - 渲染元素的属性。
+ *
+ * @returns {JSX.Element} 表格组件的 JSX 元素。
+ *
+ * @component
+ *
+ * @example
+ * ```tsx
+ * <Table {...props} />
+ * ```
+ *
+ * @remarks
+ * 该组件使用了多个 React 钩子函数，包括 `useState`、`useEffect`、`useCallback` 和 `useRef`。
+ *
+ * - `useState` 用于管理组件的状态。
+ * - `useEffect` 用于处理组件挂载和卸载时的副作用。
+ * - `useCallback` 用于优化回调函数的性能。
+ * - `useRef` 用于获取 DOM 元素的引用。
+ *
+ * 组件还使用了 `IntersectionObserver` 来检测表格是否溢出，并相应地添加或移除 CSS 类。
+ *
+ * @see https://reactjs.org/docs/hooks-intro.html React Hooks
+ */
 export const Table = observer((props: RenderElementProps) => {
   const { store } = useEditorStore();
 
@@ -222,9 +271,7 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
-  const isSel =
-    store?.preSel?.anchor?.path?.[0] === tableRef.current?.[1]?.[0] &&
-    tableRef.current?.[1]?.[0];
+  const isSel = store.selectTable === props.element;
 
   return useMemo(() => {
     return (
@@ -269,6 +316,12 @@ export const Table = observer((props: RenderElementProps) => {
           <DragHandle />
           <div
             onMouseUp={handleClickTable}
+            onClick={() => {
+              if (store.floatBarOpen) return;
+              runInAction(() => {
+                store.selectTable = props.element;
+              });
+            }}
             style={{
               width: '100%',
               maxWidth: '100%',
