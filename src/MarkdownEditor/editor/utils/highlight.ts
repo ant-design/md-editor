@@ -1,4 +1,8 @@
-import { bundledThemes, getSingletonHighlighter, Highlighter } from 'shiki';
+import {
+  bundledThemes,
+  getSingletonHighlighter,
+  Highlighter,
+} from 'shiki/bundle-web.mjs';
 
 export const codeThemes = new Set(Object.keys(bundledThemes));
 export let highlighter: Highlighter = {} as any;
