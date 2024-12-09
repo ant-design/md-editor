@@ -143,39 +143,39 @@ export function useHighlight() {
         ranges.push(...(codeCache.get(node)?.range || []));
       }
       const cacheText = cacheTextNode.get(node);
-      if (node.type === 'inline-katex') {
-        if (cacheText && Path.equals(cacheText.path, path)) {
-          ranges.push(...cacheText.range);
-        } else {
-          const code = Node.string(node);
-          if (code) {
-            let textRanges: any[] = [];
-            const tokens = highlighter?.codeToTokensBase?.(code, {
-              lang: 'tex',
-              theme: 'github-light',
-              includeExplanation: false,
-              tokenizeMaxLineLength: 5000,
-            });
-            let start = 0;
-            const lineToken = tokens[0];
-            for (let t of lineToken) {
-              const length = t.content.length;
-              if (!length) {
-                continue;
-              }
-              const end = start + length;
-              textRanges.push({
-                anchor: { path, offset: start },
-                focus: { path, offset: end },
-                color: t.color,
-              });
-              start = end;
-            }
-            cacheTextNode.set(node, { path, range: textRanges });
-            ranges.push(...textRanges);
-          }
-        }
-      }
+      // if (node.type === 'inline-katex') {
+      //   if (cacheText && Path.equals(cacheText.path, path)) {
+      //     ranges.push(...cacheText.range);
+      //   } else {
+      //     const code = Node.string(node);
+      //     if (code) {
+      //       let textRanges: any[] = [];
+      //       const tokens = highlighter?.codeToTokensBase?.(code, {
+      //         lang: 'text',
+      //         theme: 'github-light',
+      //         includeExplanation: false,
+      //         tokenizeMaxLineLength: 5000,
+      //       });
+      //       let start = 0;
+      //       const lineToken = tokens[0];
+      //       for (let t of lineToken) {
+      //         const length = t.content.length;
+      //         if (!length) {
+      //           continue;
+      //         }
+      //         const end = start + length;
+      //         textRanges.push({
+      //           anchor: { path, offset: start },
+      //           focus: { path, offset: end },
+      //           color: t.color,
+      //         });
+      //         start = end;
+      //       }
+      //       cacheTextNode.set(node, { path, range: textRanges });
+      //       ranges.push(...textRanges);
+      //     }
+      //   }
+      // }
       // footnote
       if (['paragraph', 'table-cell'].includes(node.type)) {
         for (let i = 0; i < node.children.length; i++) {
