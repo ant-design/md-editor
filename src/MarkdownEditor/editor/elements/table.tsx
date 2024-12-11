@@ -205,7 +205,7 @@ export const Table = observer((props: RenderElementProps) => {
         const dom = ReactEditor.toDOMNode(store.editor, el[0]) as HTMLElement;
         const overflowShadowContainer = overflowShadowContainerRef.current!;
         const tableTop = overflowShadowContainer.offsetTop;
-        let left = dom.offsetLeft;
+        let left = dom.getBoundingClientRect().left;
         setState((prev) => ({
           ...prev,
           top: tableTop - 48 + 3,
