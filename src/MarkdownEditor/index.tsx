@@ -280,7 +280,18 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
     const data = {
       cid: nanoid(),
-      schema,
+      schema: schema?.filter((item: any) => {
+        if (item.type === 'p' && item.children.length === 0) {
+          return false;
+        }
+        if (item.type === 'list' && item.children.length === 0) {
+          return false;
+        }
+        if (item.type === 'listItem' && item.children.length === 0) {
+          return false;
+        }
+        return true;
+      }),
       sort: 0,
       lastOpenTime: now,
     };

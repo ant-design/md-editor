@@ -84,7 +84,7 @@ const run = (node: NodeEntry, code: string, lang: any) => {
       tokenizeMaxLineLength: 5000,
     });
 
-    for (let i = 0; i < tokens.length; i++) {
+    for (let i = 0; i < (tokens?.length || 0); i++) {
       const lineToken = tokens[i];
       let start = 0;
       for (let t of lineToken) {
