@@ -534,11 +534,24 @@ export class EditorStore {
 
     const updateMap = new Map<number, Node>();
 
-    nodeList.forEach((node, index) => {
-      if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index)))
-        return;
-      updateMap.set(index, node);
-    });
+    nodeList
+      .filter((item: any) => {
+        if (item.type === 'p' && item.children.length === 0) {
+          return false;
+        }
+        if (item.type === 'list' && item.children.length === 0) {
+          return false;
+        }
+        if (item.type === 'listItem' && item.children.length === 0) {
+          return false;
+        }
+        return true;
+      })
+      .forEach((node, index) => {
+        if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index)))
+          return;
+        updateMap.set(index, node);
+      });
 
     try {
       updateMap.forEach((node, key) => {
