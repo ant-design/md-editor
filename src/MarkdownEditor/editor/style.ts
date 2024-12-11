@@ -233,11 +233,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       "h2 + [data-be='list'] ol": {
         marginTop: '0',
       },
-      '& .typewriter:last-of-type > *:last-of-type span[data-slate-string]': {
-        borderRight: '0.15em solid #1677ff',
-        animation:
-          'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
-      },
+      '& .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type  span[data-slate-string]':
+        {
+          borderRight: '0.15em solid #1677ff',
+          animation:
+            'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
+        },
     },
     [`${token.componentCls}-report`]: {
       '[data-be="chart"]': {
