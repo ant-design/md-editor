@@ -203,11 +203,12 @@ export const Table = observer((props: RenderElementProps) => {
       tableCellRef.current = el;
       try {
         const dom = ReactEditor.toDOMNode(store.editor, el[0]) as HTMLElement;
-        let top = dom.offsetTop;
+        const overflowShadowContainer = overflowShadowContainerRef.current!;
+        const tableTop = overflowShadowContainer.offsetTop;
         let left = dom.offsetLeft;
         setState((prev) => ({
           ...prev,
-          top: top - 48 + 3,
+          top: tableTop - 48 + 3,
           left,
         }));
         setTableAttrVisible(true);
