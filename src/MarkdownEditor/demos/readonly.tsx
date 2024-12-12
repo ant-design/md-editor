@@ -1,7 +1,7 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
 const defaultValue = `
-<!-- [{"chartType": "bar", "x": "sens_type", "y": "count"},{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"}] -->
+<!-- [{"chartType": "bar","title":"样本数据", "x": "sens_type", "y": "count"},{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"}] -->
 |    | sens_type        |   count |   percentage |
 |---:|:-----------------|--------:|-------------:|
 |  0 | 12312322         |       4 |       2.439  |
@@ -17,7 +17,7 @@ const defaultValue = `
 
 ## 图表
 
-<!-- [{"chartType": "bar", "x": "月份", "y": "月均降雨量 (mm)", "colorField": "城市","group": "true"}] -->
+<!-- [{"chartType": "bar", "x": "月份","title":"月均降雨量", "y": "月均降雨量 (mm)", "colorField": "城市","group": "true"}] -->
 | 城市   | 月份 | 月均降雨量 (mm) |
 |--------|------|-----------------|
 | London | Jan. | 18.9            |

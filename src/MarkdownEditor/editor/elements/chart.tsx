@@ -502,6 +502,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                               rowPadding: 5,
                             },
                           }}
+                          title=""
                         />
                       );
                     }
@@ -515,6 +516,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           {...defaultProps}
                           height={height || 400}
                           {...rest}
+                          title=""
                         />
                       );
                     }
@@ -529,6 +531,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           {...defaultProps}
                           height={height || 400}
                           {...rest}
+                          title=""
                         />
                       );
                     }
@@ -542,6 +545,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           {...defaultProps}
                           height={height || 400}
                           {...rest}
+                          title=""
                         />
                       );
                     }
@@ -561,6 +565,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           {...defaultProps}
                           height={height || 400}
                           {...rest}
+                          title=""
                         />
                       );
                     }
