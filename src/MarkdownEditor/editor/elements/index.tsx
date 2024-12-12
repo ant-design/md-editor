@@ -258,7 +258,7 @@ export const MLeaf = (
       >
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
         {leaf.fnc || leaf.identifier
-          ? leaf.text?.replaceAll('[^', '').replaceAll(']', '')
+          ? leaf.text?.replaceAll(']', '')?.replaceAll('[^DOC_', '')
           : children}
         {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       </span>
