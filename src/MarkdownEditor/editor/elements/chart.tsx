@@ -129,6 +129,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
   const columns = (node as TableNode).otherProps?.columns || [];
 
   const config = [node.otherProps?.config].flat(1);
+  const htmlRef = React.useRef<HTMLDivElement>(null);
 
   /**
    * 图表配置
@@ -307,6 +308,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         style={{
           flex: 1,
         }}
+        ref={htmlRef}
         onDragStart={store.dragStart}
       >
         <DragHandle />
@@ -357,6 +359,10 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
               >
                 {config
                   .map(({ chartType, x, y, ...rest }, index) => {
+                    const height = Math.min(
+                      400,
+                      htmlRef.current?.clientWidth || 400,
+                    );
                     if (
                       typeof window === 'undefined' ||
                       typeof document === 'undefined'
@@ -436,7 +442,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         radiusTopRight: 4,
                       },
                       label: false,
-                      height: 400,
+                      height: height || 400,
                       legend: {
                         color: {
                           title: false,
@@ -480,6 +486,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           key={index}
                           data={chartData}
                           {...defaultPieConfig}
+                          height={height || 400}
                           angleField={y || 'value'}
                           colorField={x || 'type'}
                           interaction={{
@@ -506,6 +513,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           key={index}
                           xField={x}
                           {...defaultProps}
+                          height={height || 400}
                           {...rest}
                         />
                       );
@@ -519,6 +527,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           yField={y}
                           xField={x}
                           {...defaultProps}
+                          height={height || 400}
                           {...rest}
                         />
                       );
@@ -531,6 +540,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           yField={y}
                           xField={x}
                           {...defaultProps}
+                          height={height || 400}
                           {...rest}
                         />
                       );
@@ -549,6 +559,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             },
                           }}
                           {...defaultProps}
+                          height={height || 400}
                           {...rest}
                         />
                       );
@@ -626,6 +637,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       >
                         <div contentEditable={false}>
                           <ChartAttr
+                            title={config.at(index)?.title || ''}
                             node={node}
                             options={[
                               {

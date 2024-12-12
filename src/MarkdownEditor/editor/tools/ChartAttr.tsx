@@ -17,10 +17,12 @@ export const ChartAttr: React.FC<{
   options?: {
     icon: React.ReactNode;
     title?: string;
+
     style?: React.CSSProperties;
     onClick?: () => void;
   }[];
   node: NodeEntry<ChartNode>;
+  title?: React.ReactNode;
 }> = observer((props) => {
   const { store, readonly } = useEditorStore();
   const editor = store?.editor;
@@ -48,6 +50,14 @@ export const ChartAttr: React.FC<{
       }}
       contentEditable={false}
     >
+      <div
+        style={{
+          flex: 1,
+          fontWeight: 'bold',
+        }}
+      >
+        {props.title}
+      </div>
       {props?.options?.map((item, index) => {
         if (!item.title) {
           return (
