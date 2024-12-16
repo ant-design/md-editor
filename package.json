@@ -46,7 +46,6 @@
     "@ant-design/charts": "^2.2.5",
     "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/icons": "^5.5.2",
-    "@ant-design/md-editor": "file:",
     "@ant-design/pro-components": "^2.8.2",
     "@babel/runtime": "^7.26.0",
     "@types/classnames": "^2.3.4",
