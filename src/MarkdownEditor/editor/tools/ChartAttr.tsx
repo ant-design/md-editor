@@ -49,11 +49,17 @@ export const ChartAttr: React.FC<{
         width: 'auto',
       }}
       contentEditable={false}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       <div
         style={{
           flex: 1,
           fontWeight: 'bold',
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
         }}
       >
         {props.title}

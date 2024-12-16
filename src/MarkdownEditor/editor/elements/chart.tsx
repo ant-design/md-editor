@@ -46,10 +46,29 @@ const numberString = (value: string) => {
     return value;
   }
 };
+
+/**
+ * 创建一个新的 `Intl.NumberFormat` 实例，用于将数字格式化为美国英语的十进制格式。
+ *
+ * @constant
+ * @type {Intl.NumberFormat}
+ * @default
+ * @example
+ * const formattedNumber = intl.format(1234567.89);
+ * console.log(formattedNumber); // 输出: "1,234,567.89"
+ */
 const intl = new Intl.NumberFormat('en-US', {
   style: 'decimal',
 });
 
+/**
+ * 将数字或字符串格式化为字符串。
+ *
+ * @param value - 要格式化的值，可以是字符串或数字。
+ * @returns 格式化后的字符串。如果输入值为字符串，则直接返回该字符串；
+ *          如果输入值为数字，则使用 `intl.format` 方法格式化后返回；
+ *          如果输入值为空或格式化过程中发生错误，则返回原始值。
+ */
 const stringFormatNumber = (value: string | number) => {
   if (!value) return value;
   try {
@@ -113,6 +132,311 @@ const ChartMap = {
   },
 };
 
+/**
+ * 生成图表配置属性的函数。
+ *
+ * @param config - 配置对象，包含以下属性：
+ *   @param config.x - x轴字段名称。
+ *   @param config.height - 图表高度。
+ *   @param config.y - y轴字段名称。
+ *   @param config.colorLegend - 颜色图例字段名称。
+ * @returns 默认的图表配置属性对象。
+ */
+const genConfigProps = (config: {
+  x: string;
+  height: number;
+  y: string;
+  colorLegend: string;
+}) => {
+  const defaultProps = {
+    tooltip: {
+      title: (d: any) => {
+        return d[config.x];
+      },
+      items: [
+        {
+          field: config.y,
+          valueFormatter: (value: string) => {
+            return stringFormatNumber(value);
+          },
+        },
+      ],
+    },
+    axis: {
+      x: {
+        label: { autoHide: true },
+        labelFormatter: (value: number | string) => {
+          return stringFormatNumber(value);
+        },
+      },
+      y: {
+        label: { autoHide: true },
+        labelFormatter: (value: number | string) => {
+          return stringFormatNumber(value);
+        },
+      },
+    },
+    style: {
+      maxWidth: 20, // 圆角样式
+      radiusTopLeft: 4,
+      radiusTopRight: 4,
+    },
+    label: false,
+    height: config.height || 400,
+    legend: {
+      color: {
+        title: false,
+        position: 'right',
+        rowPadding: 5,
+      },
+    },
+    color: [
+      '#1677ff',
+      '#15e7e4',
+      '#8954FC',
+      '#F45BB5',
+      '#00A6FF',
+      '#33E59B',
+      '#D666E4',
+      '#6151FF',
+      '#BF3C93',
+      '#005EE0',
+    ],
+    scale: {
+      color: {
+        type: 'ordinal',
+        range: [
+          '#1677ff',
+          '#15e7e4',
+          '#8954FC',
+          '#F45BB5',
+          '#00A6FF',
+          '#33E59B',
+          '#D666E4',
+          '#6151FF',
+          '#BF3C93',
+          '#005EE0',
+        ],
+      },
+    },
+    colorField: config?.colorLegend,
+  };
+  return defaultProps;
+};
+
+const groupByCategory = (data: any[], key: any) => {
+  return data.reduce((group, product) => {
+    const category = product[key];
+    group[category] = group[category] ?? [];
+    group[category].push(product);
+    return group;
+  }, {});
+};
+
+/**
+ * 生成图表组件的函数，根据图表类型和配置返回相应的图表组件。
+ *
+ * @param chartType - 图表类型，可以是 'pie'、'bar'、'line'、'column'、'area' 或 'descriptions'。
+ * @param chartData - 图表数据，记录数组。
+ * @param config - 图表配置对象，包括以下属性：
+ *   @param config.defaultProps - 默认属性。
+ *   @param config.height - 图表高度。
+ *   @param config.x - x 轴字段。
+ *   @param config.y - y 轴字段。
+ *   @param config.rest - 其他配置。
+ *   @param config.index - 可选，图表索引。
+ *   @param config.chartData - 可选，图表数据。
+ *   @param config.columns - 可选，列配置。
+ *
+ * @returns 返回相应的图表组件。
+ */
+const genChart = (
+  chartType: 'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions',
+  chartData: Record<string, any>[],
+  config: {
+    defaultProps: any;
+    height: any;
+    x: any;
+    y: any;
+    rest: any;
+    index?: any;
+    chartData?: any;
+    columns?: any;
+  },
+) => {
+  if (chartType === 'pie') {
+    return (
+      <Pie
+        key={config?.index}
+        data={chartData}
+        {...defaultPieConfig}
+        height={config?.height || 400}
+        angleField={config?.y || 'value'}
+        colorField={config?.x || 'type'}
+        interaction={{
+          elementHighlight: {
+            background: 'true',
+          },
+        }}
+        innerRadius={0.6}
+        legend={{
+          ['color']: {
+            position: 'right',
+            title: false,
+            rowPadding: 5,
+          },
+        }}
+        title=""
+      />
+    );
+  }
+  if (chartType === 'bar') {
+    return (
+      <Bar
+        data={chartData}
+        yField={config?.y}
+        key={config?.index}
+        xField={config?.x}
+        {...config?.defaultProps}
+        height={config?.height || 400}
+        {...config?.rest}
+        title=""
+      />
+    );
+  }
+
+  if (chartType === 'line') {
+    return (
+      <Line
+        key={config?.index}
+        data={chartData}
+        yField={config?.y}
+        xField={config?.x}
+        {...config?.defaultProps}
+        height={config?.height || 400}
+        {...config?.rest}
+        title=""
+      />
+    );
+  }
+  if (chartType === 'column') {
+    return (
+      <Column
+        key={config?.index}
+        data={chartData}
+        yField={config?.y}
+        xField={config?.x}
+        {...config?.defaultProps}
+        height={config?.height || 400}
+        {...config?.rest}
+        title=""
+      />
+    );
+  }
+  if (chartType === 'area') {
+    return (
+      <Area
+        key={config?.index}
+        data={chartData}
+        yField={config?.y}
+        xField={config?.x}
+        {...{
+          style: {
+            fill: 'rgb(23, 131, 255)',
+            opacity: 0.7,
+          },
+        }}
+        {...config?.defaultProps}
+        height={config?.height || 400}
+        {...config?.rest}
+        title=""
+      />
+    );
+  }
+  if (
+    chartType === 'descriptions' ||
+    (chartData.length < 2 && config?.columns.length > 8)
+  ) {
+    return (
+      <div
+        key={config?.index}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
+      >
+        {chartData.map((row: Record<string, any>) => {
+          return (
+            <Descriptions
+              bordered
+              key={config?.index}
+              column={{
+                xxl: 2,
+                xl: 2,
+                lg: 2,
+                md: 2,
+                sm: 1,
+                xs: 1,
+              }}
+              items={
+                config?.columns
+                  .map((column: { title: string; dataIndex: string }) => {
+                    if (!column.title || !column.dataIndex) return null;
+                    return {
+                      label: column.title || '',
+                      children: row[column.dataIndex],
+                    };
+                  })
+                  .filter((item: any) => !!item) as DescriptionsItemType[]
+              }
+            />
+          );
+        })}
+      </div>
+    );
+  }
+
+  return null;
+};
+
+/**
+ * Chart 组件用于渲染图表元素。
+ *
+ * @component
+ * @param {RenderElementProps} props - 组件的属性。
+ * @returns {JSX.Element} 渲染的图表组件。
+ *
+ * @example
+ * ```tsx
+ * <Chart element={element} attributes={attributes} children={children} />
+ * ```
+ *
+ * @description
+ * 该组件使用 `useEditorStore` 和 `useSlate` 获取编辑器的状态和实例。
+ * 使用 `useMemo` 计算图表数据，并根据 `node.otherProps?.dataSource` 生成列列表。
+ * 通过 `getChartPopover` 函数生成图表配置的下拉菜单和弹出框。
+ *
+ * @remarks
+ * - 支持多种图表类型：饼图、柱状图、折线图、面积图等。
+ * - 使用 `ErrorBoundary` 组件包裹图表，处理渲染错误。
+ * - 支持图表的拖拽和编辑功能。
+ *
+ * @param {number} index - 图表配置的索引。
+ * @returns {JSX.Element[]} 返回图表配置的下拉菜单和弹出框。
+ *
+ * @example
+ * ```tsx
+ * const toolBar = getChartPopover(index);
+ * ```
+ *
+ * @description
+ * 该函数生成图表配置的下拉菜单和弹出框，用于更改图表类型和配置图表属性。
+ *
+ * @remarks
+ * - 使用 `Dropdown` 和 `Popover` 组件生成菜单和弹出框。
+ * - 支持图表类型的切换和属性的更新。
+ */
 export const Chart: React.FC<RenderElementProps> = (props) => {
   const { store, readonly } = useEditorStore();
   const editor = useSlate();
@@ -356,6 +680,12 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                   flexWrap: 'wrap',
                   gap: 8,
                 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                }}
               >
                 {config
                   .map(({ chartType, x, y, ...rest }, index) => {
@@ -408,224 +738,93 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         [y]: numberString(item[y]),
                       };
                     });
-                    const defaultProps = {
-                      tooltip: {
-                        title: (d: any) => {
-                          return d[x];
-                        },
-                        items: [
-                          {
-                            field: y,
-                            valueFormatter: (value: string) => {
-                              return stringFormatNumber(value);
-                            },
-                          },
-                        ],
-                      },
-                      axis: {
-                        x: {
-                          label: { autoHide: true },
-                          labelFormatter: (value: number | string) => {
-                            return stringFormatNumber(value);
-                          },
-                        },
-                        y: {
-                          label: { autoHide: true },
-                          labelFormatter: (value: number | string) => {
-                            return stringFormatNumber(value);
-                          },
-                        },
-                      },
-                      style: {
-                        maxWidth: 20, // 圆角样式
-                        radiusTopLeft: 4,
-                        radiusTopRight: 4,
-                      },
-                      label: false,
-                      height: height || 400,
-                      legend: {
-                        color: {
-                          title: false,
-                          position: 'right',
-                          rowPadding: 5,
-                        },
-                      },
-                      color: [
-                        '#1677ff',
-                        '#15e7e4',
-                        '#8954FC',
-                        '#F45BB5',
-                        '#00A6FF',
-                        '#33E59B',
-                        '#D666E4',
-                        '#6151FF',
-                        '#BF3C93',
-                        '#005EE0',
-                      ],
-                      scale: {
-                        color: {
-                          type: 'ordinal',
-                          range: [
-                            '#1677ff',
-                            '#15e7e4',
-                            '#8954FC',
-                            '#F45BB5',
-                            '#00A6FF',
-                            '#33E59B',
-                            '#D666E4',
-                            '#6151FF',
-                            '#BF3C93',
-                            '#005EE0',
-                          ],
-                        },
-                      },
-                      colorField: rest?.colorLegend,
-                    };
 
-                    if (chartType === 'pie') {
-                      return (
-                        <Pie
-                          key={index}
-                          data={chartData}
-                          {...defaultPieConfig}
-                          height={height || 400}
-                          angleField={y || 'value'}
-                          colorField={x || 'type'}
-                          interaction={{
-                            elementHighlight: {
-                              background: 'true',
-                            },
-                          }}
-                          innerRadius={0.6}
-                          legend={{
-                            ['color']: {
-                              position: 'right',
-                              title: false,
-                              rowPadding: 5,
-                            },
-                          }}
-                          title=""
-                        />
-                      );
+                    const defaultProps = genConfigProps({
+                      x,
+                      y,
+                      height,
+                      colorLegend: rest?.colorLegend,
+                    });
+                    const groupBy = rest?.groupBy;
+                    if (groupBy) {
+                      const groupData = groupByCategory(chartData, groupBy);
+                      return Object.keys(groupData).map((key, subIndex) => {
+                        const group = groupData[key];
+                        if (!Array.isArray(group) || group.length < 1) {
+                          return null;
+                        }
+                        const dom = genChart(chartType, group, {
+                          defaultProps,
+                          height,
+                          x,
+                          y,
+                          columns,
+                          index: index * 10 + subIndex,
+                          rest,
+                        });
+                        if (!dom) return null;
+                        return {
+                          dom,
+                          title: key,
+                        };
+                      });
                     }
-                    if (chartType === 'bar') {
-                      return (
-                        <Bar
-                          data={chartData}
-                          yField={y}
-                          key={index}
-                          xField={x}
-                          {...defaultProps}
-                          height={height || 400}
-                          {...rest}
-                          title=""
-                        />
-                      );
-                    }
-
-                    if (chartType === 'line') {
-                      return (
-                        <Line
-                          key={index}
-                          data={chartData}
-                          yField={y}
-                          xField={x}
-                          {...defaultProps}
-                          height={height || 400}
-                          {...rest}
-                          title=""
-                        />
-                      );
-                    }
-                    if (chartType === 'column') {
-                      return (
-                        <Column
-                          key={index}
-                          data={chartData}
-                          yField={y}
-                          xField={x}
-                          {...defaultProps}
-                          height={height || 400}
-                          {...rest}
-                          title=""
-                        />
-                      );
-                    }
-                    if (chartType === 'area') {
-                      return (
-                        <Area
-                          key={index}
-                          data={chartData}
-                          yField={y}
-                          xField={x}
-                          {...{
-                            style: {
-                              fill: 'rgb(23, 131, 255)',
-                              opacity: 0.7,
-                            },
-                          }}
-                          {...defaultProps}
-                          height={height || 400}
-                          {...rest}
-                          title=""
-                        />
-                      );
-                    }
-                    if (
-                      chartType === 'descriptions' ||
-                      (chartData.length < 2 && columns.length > 8)
-                    ) {
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 8,
-                          }}
-                        >
-                          {chartData.map((row: Record<string, any>) => {
-                            return (
-                              <Descriptions
-                                bordered
-                                key={index}
-                                column={{
-                                  xxl: 2,
-                                  xl: 2,
-                                  lg: 2,
-                                  md: 2,
-                                  sm: 1,
-                                  xs: 1,
-                                }}
-                                items={
-                                  columns
-                                    .map(
-                                      (column: {
-                                        title: string;
-                                        dataIndex: string;
-                                      }) => {
-                                        if (!column.title || !column.dataIndex)
-                                          return null;
-                                        return {
-                                          label: column.title || '',
-                                          children: row[column.dataIndex],
-                                        };
-                                      },
-                                    )
-                                    .filter(
-                                      (item: any) => !!item,
-                                    ) as DescriptionsItemType[]
-                                }
-                              />
-                            );
-                          })}
-                        </div>
-                      );
-                    }
-                    return null;
+                    return (
+                      genChart(chartType, chartData, {
+                        defaultProps,
+                        height,
+                        x,
+                        y,
+                        columns,
+                        index: index,
+                        rest,
+                      }) || null
+                    );
                   })
-                  .map((item, index) => {
+                  .map((itemList, index) => {
                     const toolBar = getChartPopover(index);
+                    if (Array.isArray(itemList)) {
+                      return itemList?.map((item, subIndex) => {
+                        if (!item) return null;
+                        return (
+                          <div
+                            key={index + subIndex}
+                            style={{
+                              border:
+                                // 只有一个图表时不显示边框，用消息框自己的
+                                config.length < 2 &&
+                                store?.editor?.children?.length < 2
+                                  ? 'none'
+                                  : '1px solid #eee',
+                              borderRadius: 18,
+                              margin: 'auto',
+                              minWidth: 300,
+                              flex: 1,
+                            }}
+                          >
+                            <div contentEditable={false}>
+                              <ChartAttr
+                                title={
+                                  item.title || config.at(index)?.title || ''
+                                }
+                                node={node}
+                                options={[
+                                  {
+                                    style: { padding: 0 },
+                                    icon: toolBar.at(0),
+                                  },
+                                  {
+                                    style: { padding: 0 },
+                                    icon: toolBar.at(1),
+                                  },
+                                ]}
+                              />
+                            </div>
+                            {item.dom}
+                          </div>
+                        );
+                      });
+                    }
                     return (
                       <div
                         key={index}
@@ -641,8 +840,16 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           minWidth: 300,
                           flex: 1,
                         }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
                       >
-                        <div contentEditable={false}>
+                        <div
+                          contentEditable={false}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
                           <ChartAttr
                             title={config.at(index)?.title || ''}
                             node={node}
@@ -658,7 +865,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             ]}
                           />
                         </div>
-                        {item}
+                        {itemList}
                       </div>
                     );
                   })}
