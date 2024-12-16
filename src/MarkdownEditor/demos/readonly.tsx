@@ -17,7 +17,7 @@ const defaultValue = `
 
 ## 图表
 
-<!-- [{"chartType": "bar", "x": "月份","title":"月均降雨量", "y": "月均降雨量 (mm)", "colorField": "城市","group": "true"}] -->
+<!-- [{"chartType": "bar", "x": "月份","title":"月均降雨量", "y": "月均降雨量 (mm)", "colorLegend": "城市","group": "true"}] -->
 | 城市   | 月份 | 月均降雨量 (mm) |
 |--------|------|-----------------|
 | London | Jan. | 18.9            |

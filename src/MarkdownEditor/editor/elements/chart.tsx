@@ -479,7 +479,9 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           ],
                         },
                       },
+                      colorField: rest?.colorLegend,
                     };
+
                     if (chartType === 'pie') {
                       return (
                         <Pie
