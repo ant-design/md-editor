@@ -362,7 +362,7 @@ export const Table = observer((props: RenderElementProps) => {
     left: 0,
   });
   const handleTableCellsMouseMove = useCallback(
-    (e) => {
+    (e: React.MouseEvent<HTMLDivElement>) => {
       if (store.readonly || !store.editor) return;
 
       const cell = (e.target as HTMLBaseElement).closest('td');
@@ -428,7 +428,7 @@ export const Table = observer((props: RenderElementProps) => {
   }
 
   const handleMovingLineMouseMove = useCallback(
-    (e) => {
+    (e: PointerEvent) => {
       const editorDom = ReactEditor.toDOMNode(store.editor, store.editor);
       editorDom.setPointerCapture(e.pointerId);
 
@@ -558,7 +558,7 @@ export const Table = observer((props: RenderElementProps) => {
   );
 
   const handleMovingLineMouseUp = useCallback(
-    (e) => {
+    (e: PointerEvent) => {
       const editorDom = ReactEditor.toDOMNode(store.editor, store.editor);
       editorDom.releasePointerCapture(e.pointerId);
       if (startPositionY !== null && isDragging) {

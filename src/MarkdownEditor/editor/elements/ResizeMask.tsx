@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { Editor, Node, Path } from 'slate';
+import { Editor, Node, NodeEntry, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
+import { EditorStore } from '../store';
 
 function getParentPathByType(
   editor: Editor,
@@ -24,29 +25,38 @@ const tableMargin = { left: 0, top: 0 };
 const tdPaddingAndBorder = 4 + 1;
 
 function ResizeMask(props: {
-  SEL_CELLS: any;
-  RESIZING_ROW: any;
-  RESIZING_ROW_ORIGIN_HEIGHT: any;
-  RESIZING_ROW_MIN_HEIGHT: any;
-  RESIZING_COL: any;
-  RESIZING_COL_ORIGIN_WIDTH: any;
-  RESIZING_COL_MIN_WIDTH: any;
-  store: any;
-  tableRect: any;
-  setMaskRectSide: any;
-  tableResizeMaskRect: any;
-  curCell: any;
-  setStartPositionX: any;
-  setStartPositionY: any;
-  differenceY: any;
-  differenceX: any;
-  isDragging: any;
-  setIsDragging: any;
-  setRowMovingLine: any;
-  setColMovingLine: any;
-  rowMovingLine: any;
-  colMovingLine: any;
-  startKey: any;
+  SEL_CELLS: WeakMap<Editor, NodeEntry[]>;
+  RESIZING_ROW: WeakMap<Editor, NodeEntry[]>;
+  RESIZING_ROW_ORIGIN_HEIGHT: WeakMap<Editor, number>;
+  RESIZING_ROW_MIN_HEIGHT: WeakMap<Editor, number>;
+  RESIZING_COL: WeakMap<Editor, NodeEntry>;
+  RESIZING_COL_ORIGIN_WIDTH: WeakMap<Editor, number>;
+  RESIZING_COL_MIN_WIDTH: WeakMap<Editor, number>;
+  store: EditorStore;
+  tableRect: { height: number; width: number; top: number; left: number };
+  setMaskRectSide: React.Dispatch<
+    React.SetStateAction<'top' | 'right' | 'bottom' | 'left' | null>
+  >;
+  tableResizeMaskRect: {
+    height: number;
+    width: number;
+    top: number;
+    left: number;
+  };
+  curCell: Element | null;
+  setStartPositionX: React.Dispatch<React.SetStateAction<number | null>>;
+  setStartPositionY: React.Dispatch<React.SetStateAction<number | null>>;
+  differenceY: number | null;
+  differenceX: number | null;
+  isDragging: boolean;
+  setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
+  setRowMovingLine: React.Dispatch<
+    React.SetStateAction<{ top: number | null }>
+  >;
+  setColMovingLine: React.Dispatch<React.SetStateAction<{ left: number }>>;
+  rowMovingLine: { top: number | null; display?: string };
+  colMovingLine: { left: number | null; display?: string };
+  startKey: string;
 }) {
   const {
     SEL_CELLS,
