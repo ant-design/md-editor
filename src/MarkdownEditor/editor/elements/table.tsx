@@ -1,3 +1,4 @@
+import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
@@ -41,7 +42,7 @@ import { TableAttr } from '../tools/TableAttr';
  * - `onContextMenu` 事件处理函数根据元素是否有 title 属性传递不同的参数。
  */
 export function TableCell(props: RenderElementProps) {
-  const { store } = useEditorStore();
+  const { store, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_] = useSelStatus(props.element);
   const context = useCallback((e: React.MouseEvent, head?: boolean) => {
@@ -53,6 +54,7 @@ export function TableCell(props: RenderElementProps) {
       stringWidth(Node.string(props.element)) * 8 + 20,
       200,
     );
+    const text = Node.string(props.element);
     return props.element.title ? (
       <th
         {...props.attributes}
@@ -80,15 +82,50 @@ export function TableCell(props: RenderElementProps) {
           context(e);
         }}
       >
-        <div
-          style={{
-            minWidth: minWidth,
-            textWrap: 'wrap',
-            maxWidth: '200px',
-          }}
-        >
-          {props.children}
-        </div>
+        {readonly ? (
+          <Popover
+            title={
+              <div
+                style={{
+                  maxWidth: 400,
+                  maxHeight: 400,
+                  fontWeight: 400,
+                  fontSize: 14,
+                  overflow: 'auto',
+                }}
+              >
+                <Typography.Text copyable={{ text: text }}>
+                  {text}
+                </Typography.Text>
+              </div>
+            }
+          >
+            <div
+              style={{
+                minWidth: minWidth,
+                maxWidth: 200,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 2,
+                maxHeight: 40,
+              }}
+            >
+              {text}
+            </div>
+          </Popover>
+        ) : (
+          <div
+            style={{
+              minWidth: minWidth,
+              textWrap: 'wrap',
+              maxWidth: '200px',
+            }}
+          >
+            {props.children}
+          </div>
+        )}
       </td>
     );
   }, [props.element, props.element.children, store.refreshHighlight]);
