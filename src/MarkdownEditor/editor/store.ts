@@ -15,7 +15,12 @@ import {
   Transforms,
 } from 'slate';
 import { withHistory } from 'slate-history';
-import { ReactEditor, withReact } from 'slate-react';
+import {
+  NODE_TO_INDEX,
+  NODE_TO_PARENT,
+  ReactEditor,
+  withReact,
+} from 'slate-react';
 
 import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
@@ -281,6 +286,40 @@ export class EditorStore {
       ]);
     }
     return index;
+  }
+
+  /**
+   * 查找给定节点在编辑器中的路径。
+   *
+   * @param editor - ReactEditor 实例。
+   * @param node - 当前节点。
+   * @returns 节点的路径数组。
+   * @throws 如果无法找到节点路径，抛出错误。
+   */
+  findPath(editor: ReactEditor, node: Node): Path {
+    const path: Path = [];
+    let child = node;
+
+    while (true) {
+      const parent = NODE_TO_PARENT.get(child);
+
+      if (parent === null) {
+        if (Editor.isEditor(child)) {
+          return path;
+        } else {
+          break;
+        }
+      }
+
+      const i = NODE_TO_INDEX.get(child);
+      if (i === null || i === undefined) {
+        break;
+      }
+
+      path.unshift(i);
+      child = parent;
+    }
+    throw new Error(`Unable to find path for the given node.`);
   }
   /**
    * 检查给定节点是否是最新节点。用于展示 闪动光标
