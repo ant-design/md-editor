@@ -745,9 +745,9 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       height,
                       colorLegend: rest?.colorLegend,
                     });
-                    const groupBy = rest?.groupBy;
-                    if (groupBy) {
-                      const groupData = groupByCategory(chartData, groupBy);
+                    const subgraphBy = rest?.subgraphBy;
+                    if (subgraphBy) {
+                      const groupData = groupByCategory(chartData, subgraphBy);
                       return Object.keys(groupData).map((key, subIndex) => {
                         const group = groupData[key];
                         if (!Array.isArray(group) || group.length < 1) {
