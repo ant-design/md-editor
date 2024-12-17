@@ -1,224 +1,6227 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`schemaToMarkdown with incremental insertion in 200-character chunks > should correctly convert schema nodes for Markdown input in 200-character chunks 1`] = `
+exports[`should convert markdown to schema in 
+ chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  Bar 图表
+
+< chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "Bar 图表",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {
+            "chartType": "bar",
+            "x": "业务",
+            "y": "2021Q1",
+          },
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "chart",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "contextProps": {
+      "chartType": "bar",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "otherProps": {
+      "chartType": "bar",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  Line 图表
+
+ chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "Line 图表",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {
+            "chartType": "line",
+            "x": "业务",
+            "y": "2021Q1",
+          },
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "chart",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "contextProps": {
+      "chartType": "line",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "otherProps": {
+      "chartType": "line",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  代码
+
+\`\`\`ja chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "代码",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "Class A {",
+          },
+        ],
+        "type": "code-line",
+      },
+      {
+        "children": [
+          {
+            "text": "  main() {",
+          },
+        ],
+        "type": "code-line",
+      },
+      {
+        "children": [
+          {
+            "text": "    System.out.println("Hello World");",
+          },
+        ],
+        "type": "code-line",
+      },
+      {
+        "children": [
+          {
+            "text": "  }",
+          },
+        ],
+        "type": "code-line",
+      },
+      {
+        "children": [
+          {
+            "text": "}",
+          },
+        ],
+        "type": "code-line",
+      },
+    ],
+    "language": "java",
+    "otherProps": {},
+    "render": false,
+    "type": "code",
+    "value": "Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  列表
+
+腾讯六大事 chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "列表",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "text": "腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群",
+      },
+    ],
+    "type": "paragraph",
+  },
+  {
+    "children": [
+      {
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "text": "互动娱乐事业群",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
+      },
+      {
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "text": "企业服务事业群",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
+      },
+      {
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "bold": true,
+                "text": "微信",
+              },
+              {
+                "text": "事业群",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
+      },
+      {
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "text": "互联网平台事业群",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
+      },
+      {
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "text": "技术工程事业群",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
+      },
+    ],
+    "order": false,
+    "start": null,
+    "task": false,
+    "type": "list",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  创始人
+
+腾讯，全 chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "创始人",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "text": "腾讯 ，全称深圳市腾讯计算机系统有限公司 ，是由五位创始人共同创立的 ，他们是马化腾、张志东、许晨晔、陈一丹和曾李青 。 以下是关于这些创始人的详细信息： 马化腾 马化腾 ，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市 )八所港 ，广东汕头人 ，汉族 ，无党派人士 。他毕业于深圳大学电子工程系计算机专业 。马化腾是腾讯科技（深圳 )有限公司的创始人、董事会主席、首席执行官 ，并曾是中华人民共和国第十二、十三届全国人民代表大会代表  。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯 ，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市 。 张志东 张志东 ，马化腾的同学 ，被称为 QQ 之父 。他的计算机技术非常出色 ，曾是深圳大学最拔尖的学生之一 。张志东在腾讯担任 CTO ，并在 2014 年 9 月离职 ，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位  。",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  删除线
+~~腾讯六 chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "删除线",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "strikethrough": true,
+        "text": "腾讯六大事业群腾讯六大事业群腾讯六大事业群",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  图片
+
+![](h chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "图片",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "alt": "",
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "type": "media",
+    "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  图表 area
+
+ chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "图表 area",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {
+            "chartType": "area",
+            "x": "业务",
+            "y": "2021Q1",
+          },
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "chart",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "contextProps": {
+      "chartType": "area",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "otherProps": {
+      "chartType": "area",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  图表 column chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "图表 column",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {
+            "chartType": "column",
+            "x": "业务",
+            "y": "2021Q1",
+          },
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "chart",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "contextProps": {
+      "chartType": "column",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "otherProps": {
+      "chartType": "column",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  图表 pie
+
+< chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "图表 pie",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {
+            "chartType": "pie",
+            "x": "业务",
+            "y": "2021Q1",
+          },
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "chart",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "contextProps": {
+      "chartType": "pie",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "otherProps": {
+      "chartType": "pie",
+      "x": "业务",
+      "y": "2021Q1",
+    },
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  定义列表
+
+| 业 chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "定义列表",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "业务",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "收入",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "增值服务",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "135,303",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "网络游戏",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "138,259",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "社交网络收入",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "142,368",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "网络广告",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "144,188",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "其他",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "135,471",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "金融科技",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "134,034",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "云",
+              },
+            ],
+            "title": true,
+            "type": "table-cell",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "text": "140,093",
+              },
+            ],
+            "title": false,
+            "type": "table-cell",
+          },
+        ],
+        "type": "description",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  引用
+
+上上任的武 chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "引用",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "text": "上上任的武汉大学校长是李晓红 。[^1][^2]",
+      },
+    ],
+    "type": "paragraph",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {},
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "table",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "type": "card",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "数据来自 [^3]",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "blockquote",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  表单
+
+\`\`\`sc chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "表单",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "text": "",
+      },
+    ],
+    "language": "schema",
+    "otherProps": {},
+    "render": false,
+    "type": "schema",
+    "value": [
+      {
+        "dataIndex": "title",
+        "formItemProps": {
+          "rules": [
+            {
+              "message": "此项为必填项",
+              "required": true,
+            },
+          ],
+        },
+        "title": "标题",
+        "width": "md",
+      },
+      {
+        "dataIndex": "state",
+        "title": "状态",
+        "valueType": "select",
+        "width": "md",
+      },
+      {
+        "dataIndex": "labels",
+        "title": "标签",
+        "width": "md",
+      },
+      {
+        "dataIndex": "Switch",
+        "fieldProps": {
+          "style": {
+            "width": "200px",
+          },
+        },
+        "title": "开关",
+        "valueType": "switch",
+        "width": "md",
+      },
+      {
+        "dataIndex": "createName",
+        "key": "showTime",
+        "title": "创建时间",
+        "width": "md",
+      },
+      {
+        "dataIndex": "updateName",
+        "title": "更新时间",
+      },
+      {
+        "columns": [
+          {
+            "colProps": {
+              "xs": 12,
+            },
+            "dataIndex": "groupState",
+            "title": "状态",
+            "valueType": "select",
+            "width": "xs",
+          },
+          {
+            "colProps": {
+              "xs": 12,
+            },
+            "dataIndex": "groupTitle",
+            "formItemProps": {
+              "rules": [
+                {
+                  "message": "此项为必填项",
+                  "required": true,
+                },
+              ],
+            },
+            "title": "标题",
+            "width": "md",
+          },
+        ],
+        "title": "分组",
+        "valueType": "group",
+      },
+      {
+        "columns": [
+          {
+            "columns": [
+              {
+                "colProps": {
+                  "sm": 12,
+                  "xs": 24,
+                },
+                "dataIndex": "state",
+                "title": "状态",
+                "valueType": "select",
+                "width": "xs",
+              },
+              {
+                "colProps": {
+                  "sm": 12,
+                  "xs": 24,
+                },
+                "dataIndex": "title",
+                "formItemProps": {
+                  "rules": [
+                    {
+                      "message": "此项为必填项",
+                      "required": true,
+                    },
+                  ],
+                },
+                "title": "标题",
+                "width": "md",
+              },
+            ],
+            "valueType": "group",
+          },
+          {
+            "dataIndex": "currentTime",
+            "valueType": "dateTime",
+            "width": "md",
+          },
+        ],
+        "dataIndex": "list",
+        "title": "列表",
+        "valueType": "formList",
+      },
+      {
+        "dataIndex": "created_at",
+        "title": "创建时间",
+        "valueType": "dateRange",
+        "width": "md",
+      },
+    ],
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  表格
+
+
+| 业务 chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "表格",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2022Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2022Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2022Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2022Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2023Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2023Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2023Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2023Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,471",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "134,034",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "140,093",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,954",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "149,986",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "149,208",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "154,625",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "155,200",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,738",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,683",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,727",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "70,417",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "79,337",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "74,211",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,748",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "69,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,500",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "na",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "na",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "na",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,500",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "46,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "40,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,200",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "na",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "na",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "na",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,700",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,700",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,200",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "17,988",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "18,638",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "24,660",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "20,964",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "25,003",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "25,721",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,794",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,745",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,713",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "45,923",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "49,877",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "49,685",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "49,994",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "53,156",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "54,379",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,768",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,208",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,844",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,244",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "48,701",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "48,635",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "52,048",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "52,435",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "62,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,977",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,505",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,079",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2,633",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "984",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,359",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,108",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "1,944",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+            {
+              "dataIndex": "2022Q1",
+              "key": "2022Q1",
+              "title": "2022Q1",
+            },
+            {
+              "dataIndex": "2022Q2",
+              "key": "2022Q2",
+              "title": "2022Q2",
+            },
+            {
+              "dataIndex": "2022Q3",
+              "key": "2022Q3",
+              "title": "2022Q3",
+            },
+            {
+              "dataIndex": "2022Q4",
+              "key": "2022Q4",
+              "title": "2022Q4",
+            },
+            {
+              "dataIndex": "2023Q1",
+              "key": "2023Q1",
+              "title": "2023Q1",
+            },
+            {
+              "dataIndex": "2023Q2",
+              "key": "2023Q2",
+              "title": "2023Q2",
+            },
+            {
+              "dataIndex": "2023Q3",
+              "key": "2023Q3",
+              "title": "2023Q3",
+            },
+            {
+              "dataIndex": "2023Q4",
+              "key": "2023Q4",
+              "title": "2023Q4",
+            },
+          ],
+          "config": {},
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "2022Q1": "135,471",
+              "2022Q2": "134,034",
+              "2022Q3": "140,093",
+              "2022Q4": "144,954",
+              "2023Q1": "149,986",
+              "2023Q2": "149,208",
+              "2023Q3": "154,625",
+              "2023Q4": "155,200",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "2022Q1": "72,738",
+              "2022Q2": "71,683",
+              "2022Q3": "72,727",
+              "2022Q4": "70,417",
+              "2023Q1": "79,337",
+              "2023Q2": "74,211",
+              "2023Q3": "75,748",
+              "2023Q4": "69,100",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "2022Q1": "43,600",
+              "2022Q2": "42,500",
+              "2022Q3": "na",
+              "2022Q4": "na",
+              "2023Q1": "na",
+              "2023Q2": "44,500",
+              "2023Q3": "46,000",
+              "2023Q4": "40,900",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "2022Q1": "29,100",
+              "2022Q2": "29,200",
+              "2022Q3": "na",
+              "2022Q4": "na",
+              "2023Q1": "na",
+              "2023Q2": "29,700",
+              "2023Q3": "29,700",
+              "2023Q4": "28,200",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "2022Q1": "17,988",
+              "2022Q2": "18,638",
+              "2022Q3": "21,443",
+              "2022Q4": "24,660",
+              "2023Q1": "20,964",
+              "2023Q2": "25,003",
+              "2023Q3": "25,721",
+              "2023Q4": "29,794",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "2022Q1": "44,745",
+              "2022Q2": "43,713",
+              "2022Q3": "45,923",
+              "2022Q4": "49,877",
+              "2023Q1": "49,685",
+              "2023Q2": "49,994",
+              "2023Q3": "53,156",
+              "2023Q4": "54,379",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "2022Q1": "42,768",
+              "2022Q2": "42,208",
+              "2022Q3": "44,844",
+              "2022Q4": "47,244",
+              "2023Q1": "48,701",
+              "2023Q2": "48,635",
+              "2023Q3": "52,048",
+              "2023Q4": "52,435",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "62,012",
+              "2021Q2": "1,521",
+              "2021Q3": "1,353",
+              "2021Q4": "2,799",
+              "2022Q1": "1,977",
+              "2022Q2": "1,505",
+              "2022Q3": "1,079",
+              "2022Q4": "2,633",
+              "2023Q1": "984",
+              "2023Q2": "1,359",
+              "2023Q3": "1,108",
+              "2023Q4": "1,944",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "table",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "type": "card",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  视频
+
+![vid chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "视频",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "alt": "video:视频名",
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "type": "media",
+    "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+  },
+]
+`;
+
+exports[`should convert markdown to schema in  附件
+<!-- { chunk 1`] = `
+[
+  {
+    "children": [
+      {
+        "text": "附件",
+      },
+    ],
+    "level": 2,
+    "type": "head",
+  },
+  {
+    "alt": "attachment:测试附件.pdf",
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "contextProps": {
+      "collaborators": [
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "ivan.cseeing": 32,
+        },
+        {
+          "InvRet Sales Team": 34,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+      ],
+      "updateTime": "2014-07-29",
+    },
+    "otherProps": {
+      "collaborators": [
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "ivan.cseeing": 32,
+        },
+        {
+          "InvRet Sales Team": 34,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Rui Ma": 39,
+        },
+        {
+          "Chen Shuai": 33,
+        },
+      ],
+      "updateTime": "2014-07-29",
+    },
+    "type": "media",
+    "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+  },
+]
+`;
+
+exports[`should convert schema to markdown in 
+ chunk 1`] = `"## "`;
+
+exports[`should convert schema to markdown in  Bar 图表
+
+< chunk 1`] = `
+"## Bar 图表
+
+<!--{"chartType":"bar","x":"业务","y":"2021Q1"}-->
+
+
+<!--{"config":{"chartType":"bar","x":"业务","y":"2021Q1"}}-->
+| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
+| ------------ | ------- | ------- | ------- | ------- |
+| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
+| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
+| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
+| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
+| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
+| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
+| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
+| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
+
+"
+`;
+
+exports[`should convert schema to markdown in  Line 图表
+
+ chunk 1`] = `
+"## Line 图表
+
+<!--{"chartType":"line","x":"业务","y":"2021Q1"}-->
+
+
+<!--{"config":{"chartType":"line","x":"业务","y":"2021Q1"}}-->
+| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
+| ------------ | ------- | ------- | ------- | ------- |
+| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
+| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
+| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
+| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
+| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
+| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
+| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
+| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
+
+"
+`;
+
+exports[`should convert schema to markdown in  代码
+
+\`\`\`ja chunk 1`] = `
+"## 代码
+
+<!--{}-->
+\`\`\`java
+Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}
+\`\`\`"
+`;
+
+exports[`should convert schema to markdown in  列表
+
+腾讯六大事 chunk 1`] = `
+"## 列表
+
+腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群
+
+- 互动娱乐事业群
+- 企业服务事业群
+- **微信**事业群
+- 互联网平台事业群
+- 技术工程事业群"
+`;
+
+exports[`should convert schema to markdown in  创始人
+
+腾讯，全 chunk 1`] = `
 "## 创始人
 
-腾讯 ，全称深圳市腾讯计算机系统有限公司 ，是由五位创始人共同创立的 ，他们是马化腾、张志东、许晨晔、陈一丹和曾李青 。 以下是关于这些创始人的详细信息： 马化腾 马化腾 ，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市 )八所港 ，广东汕头人 ，汉族 ，无党派人士 。他毕业于深圳大学电子工程系计算机专业 。马化腾是腾讯科技（深圳 )有限公司的创始人、董事会主席、首席执行官 ，并曾是中华人民共和国第十二、十三届全国人民代表大会代表  。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯 ，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市 。 张志东 张志东 ，马化腾的同学 ，被称为 QQ 之父 。他的计算机技术非常出色 ，曾是深圳大学最拔尖的学生之一 。张志东在腾讯担任 CTO ，并在 2014 年 9 月离职 ，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位  。
+腾讯 ，全称深圳市腾讯计算机系统有限公司 ，是由五位创始人共同创立的 ，他们是马化腾、张志东、许晨晔、陈一丹和曾李青 。 以下是关于这些创始人的详细信息： 马化腾 马化腾 ，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市 )八所港 ，广东汕头人 ，汉族 ，无党派人士 。他毕业于深圳大学电子工程系计算机专业 。马化腾是腾讯科技（深圳 )有限公司的创始人、董事会主席、首席执行官 ，并曾是中华人民共和国第十二、十三届全国人民代表大会代表  。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯 ，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市 。 张志东 张志东 ，马化腾的同学 ，被称为 QQ 之父 。他的计算机技术非常出色 ，曾是深圳大学最拔尖的学生之一 。张志东在腾讯担任 CTO ，并在 2014 年 9 月离职 ，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位  。"
+`;
 
-<!--{"MarkdownType":"section","id":"16"}-->
+exports[`should convert schema to markdown in  删除线
+~~腾讯六 chunk 1`] = `
+"## 删除线
 
-<!-- {"MarkdownType": "section", "id": "16" } -->
+~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~"
+`;
 
+exports[`should convert schema to markdown in  图片
 
-<!--{"MarkdownType":"section","id":"16"}-->
-## 表格
+![](h chunk 1`] = `
+"## 图片
 
+<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>"
+`;
 
+exports[`should convert schema to markdown in  图表 area
 
-<!--{"config":{}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
-| ------------ | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  | 71,683  | 72,727  | 70,417  | 79,337  | 74,211  | 75,748  | 69,100  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  | 42,500  | na      | na      | na      | 44,500  | 46,000  | 40,900  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  | 29,200  | na      | na      | na      | 29,700  | 29,700  | 28,200  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  | 18,638  | 21,443  | 24,660  | 20,964  | 25,003  | 25,721  | 29,794  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  | 43,713  | 45,923  | 49,877  | 49,685  | 49,994  | 53,156  | 54,379  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  | 42,208  | 44,844  | 47,244  | 48,701  | 48,635  | 52,048  | 52,435  |
-| 云           | 62,012  | 1,521   | 1,353   | 2,799   | 1,977   | 1,505   | 1,079   | 2,633   | 984     | 1,359   | 1,108   | 1,944   |
-
-
-
-<!--{"config":{}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
-| ------------ | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  | 71,683  | 72,727  | 70,417  | 79,337  | 74,211  | 75,748  | 69,100  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  | 42,500  | na      | na      | na      | 44,500  | 46,000  | 40,900  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  | 29,200  | na      | na      | na      | 29,700  | 29,700  | 28,200  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  | 18,638  | 21,443  | 24,660  | 20,964  | 25,003  | 25,721  | 29,794  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  | 43,713  | 45,923  | 49,877  | 49,685  | 49,994  | 53,156  | 54,379  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  | 42,208  | 44,844  | 47,244  | 48,701  | 48,635  | 52,048  | 52,435  |
-| 云           | 62,012  | 1,521   | 1,353   | 2,799   | 1,977   | 1,505   | 1,079   | 2,633   | 984     | 1,359   | 1,108   | 1,944   |
-
-
-
-## 定义列表
-
-
-
-| 业务 | 增值服务 | 网络游戏 | 社交网络收入 | 网络广告 | 其他    | 金融科技 | 云      |
-| ---- | -------- | -------- | ------------ | -------- | ------- | -------- | ------- |
-| 收入 | 135,303  | 138,259  | 142,368      | 144,188  | 135,471 | 134,034  | 140,093 |
-
-
-
-| 业务 | 增值服务 | 网络游戏 | 社交网络收入 | 网络广告 | 其他    | 金融科技 | 云      |
-| ---- | -------- | -------- | ------------ | -------- | ------- | -------- | ------- |
-| 收入 | 135,303  | 138,259  | 142,368      | 144,188  | 135,471 | 134,034  | 140,093 |
-
-
-
-
-
-## Bar 图表
-
-<!--{"chartType":"bar","x":"业务","y":"2021Q1"}-->
-
-<!-- {"chartType": "bar", "x":"业务", "y":"2021Q1"} -->
-
-
-<!--{"chartType":"bar","x":"业务","y":"2021Q1"}-->
-
-
-<!--{"config":{"chartType":"bar","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-<!--{"config":{"chartType":"bar","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-## Line 图表
-
-<!--{"chartType":"line","x":"业务","y":"2021Q1"}-->
-
-<!-- {"chartType": "line", "x":"业务", "y":"2021Q1"} -->
-
-
-<!--{"chartType":"line","x":"业务","y":"2021Q1"}-->
-
-
-<!--{"config":{"chartType":"line","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-<!--{"config":{"chartType":"line","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-## 图表 column
-
-<!--{"chartType":"column","x":"业务","y":"2021Q1"}-->
-
-<!-- {"chartType": "column", "x":"业务", "y":"2021Q1"} -->
-
-
-<!--{"chartType":"column","x":"业务","y":"2021Q1"}-->
-
-
-<!--{"config":{"chartType":"column","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-<!--{"config":{"chartType":"column","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-## 图表 pie
-
-<!--{"chartType":"pie","x":"业务","y":"2021Q1"}-->
-
-<!-- {"chartType": "pie", "x":"业务", "y":"2021Q1"} -->
-
-
-<!--{"chartType":"pie","x":"业务","y":"2021Q1"}-->
-
-
-<!--{"config":{"chartType":"pie","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-<!--{"config":{"chartType":"pie","x":"业务","y":"2021Q1"}}-->
-| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
-| ------------ | ------- | ------- | ------- | ------- |
-| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
-| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
-| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
-| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-
-
-## 图表 area
-
-<!--{"chartType":"area","x":"业务","y":"2021Q1"}-->
-
-<!-- {"chartType": "area", "x":"业务", "y":"2021Q1"} -->
-
+ chunk 1`] = `
+"## 图表 area
 
 <!--{"chartType":"area","x":"业务","y":"2021Q1"}-->
 
@@ -235,9 +6238,16 @@ exports[`schemaToMarkdown with incremental insertion in 200-character chunks > s
 | 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
 | 云           | 162,012 | 111,521 | 111,353 | 112,799 |
 
+"
+`;
+
+exports[`should convert schema to markdown in  图表 column chunk 1`] = `
+"## 图表 column
+
+<!--{"chartType":"column","x":"业务","y":"2021Q1"}-->
 
 
-<!--{"config":{"chartType":"area","x":"业务","y":"2021Q1"}}-->
+<!--{"config":{"chartType":"column","x":"业务","y":"2021Q1"}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
@@ -249,27 +6259,50 @@ exports[`schemaToMarkdown with incremental insertion in 200-character chunks > s
 | 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
 | 云           | 162,012 | 111,521 | 111,353 | 112,799 |
 
+"
+`;
+
+exports[`should convert schema to markdown in  图表 pie
+
+< chunk 1`] = `
+"## 图表 pie
+
+<!--{"chartType":"pie","x":"业务","y":"2021Q1"}-->
 
 
-## 图片
+<!--{"config":{"chartType":"pie","x":"业务","y":"2021Q1"}}-->
+| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
+| ------------ | ------- | ------- | ------- | ------- |
+| 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
+| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  |
+| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
+| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  |
+| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  |
+| 其他         | 41,040  | 43,413  | 44,670  | 50,757  |
+| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
+| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
 
-<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>
+"
+`;
 
-## 视频
+exports[`should convert schema to markdown in  定义列表
 
-<video src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>
-
-## 附件
-
-<!--{"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]}-->
-
-<!-- {"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]} -->
+| 业 chunk 1`] = `
+"## 定义列表
 
 
-<!--{"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]}-->
-<iframe src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>
 
-## 引用
+| 业务 | 增值服务 | 网络游戏 | 社交网络收入 | 网络广告 | 其他    | 金融科技 | 云      |
+| ---- | -------- | -------- | ------------ | -------- | ------- | -------- | ------- |
+| 收入 | 135,303  | 138,259  | 142,368      | 144,188  | 135,471 | 134,034  | 140,093 |
+
+"
+`;
+
+exports[`should convert schema to markdown in  引用
+
+上上任的武 chunk 1`] = `
+"## 引用
 
 上上任的武汉大学校长是李晓红 。[^1][^2]
 
@@ -289,6 +6322,676 @@ exports[`schemaToMarkdown with incremental insertion in 200-character chunks > s
 
 
 
+> 数据来自 [^3]"
+`;
+
+exports[`should convert schema to markdown in  表单
+
+\`\`\`sc chunk 1`] = `
+"## 表单
+
+<!--{}-->
+\`\`\`schema
+{}
+\`\`\`"
+`;
+
+exports[`should convert schema to markdown in  表格
+
+
+| 业务 chunk 1`] = `
+"## 表格
+
+
+
+<!--{"config":{}}-->
+| 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
+| ------------ | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| 收入         | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |
+| 增值服务     | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  | 71,683  | 72,727  | 70,417  | 79,337  | 74,211  | 75,748  | 69,100  |
+| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  | 42,500  | na      | na      | na      | 44,500  | 46,000  | 40,900  |
+| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  | 29,200  | na      | na      | na      | 29,700  | 29,700  | 28,200  |
+| 网络广告     | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  | 18,638  | 21,443  | 24,660  | 20,964  | 25,003  | 25,721  | 29,794  |
+| 其他         | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  | 43,713  | 45,923  | 49,877  | 49,685  | 49,994  | 53,156  | 54,379  |
+| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  | 42,208  | 44,844  | 47,244  | 48,701  | 48,635  | 52,048  | 52,435  |
+| 云           | 62,012  | 1,521   | 1,353   | 2,799   | 1,977   | 1,505   | 1,079   | 2,633   | 984     | 1,359   | 1,108   | 1,944   |
+
+"
+`;
+
+exports[`should convert schema to markdown in  视频
+
+![vid chunk 1`] = `
+"## 视频
+
+<video src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>"
+`;
+
+exports[`should convert schema to markdown in  附件
+<!-- { chunk 1`] = `
+"## 附件
+
+<!--{"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]}-->
+<iframe src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>"
+`;
+
+exports[`忽略card，并且只生成一次 1`] = `
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+          ],
+          "config": {},
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "table",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
+      },
+    ],
+    "type": "card",
+  },
+]
+`;
+
+exports[`忽略card，并且只生成一次 2`] = `
+"
+
 <!--{"config":{}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
@@ -301,39 +7004,5 @@ exports[`schemaToMarkdown with incremental insertion in 200-character chunks > s
 | 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  |
 | 云           | 162,012 | 111,521 | 111,353 | 112,799 |
 
-
-
-> 数据来自 [^3]
-
-## 列表
-
-腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群
-
-- 互动娱乐事业群
-- 企业服务事业群
-- **微信**事业群
-- 互联网平台事业群
-- 技术工程事业群
-
-## 表单
-
-<!--{}-->
-\`\`\`schema
-{}
-\`\`\`
-
-## 代码
-
-<!--{}-->
-\`\`\`java
-Class A {
-  main() {
-    System.out.println("Hello World");
-  }
-}
-\`\`\`
-
-## 删除线
-
-~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~"
+"
 `;

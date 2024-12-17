@@ -1,10 +1,7 @@
-import { describe, expect, it } from 'vitest';
-import { parserMarkdown } from '../../../src/MarkdownEditor/editor/parser/parserMarkdown';
-import { schemaToMarkdown } from '../../../src/MarkdownEditor/editor/utils/schemaToMarkdown';
+import { parserMdToSchema, schemaToMarkdown } from '@ant-design/md-editor';
+import { expect, it } from 'vitest';
 
-describe('schemaToMarkdown with incremental insertion in 200-character chunks', () => {
-  it('should correctly convert schema nodes for Markdown input in 200-character chunks', () => {
-    const input = `
+const input = `
 ## 创始人
 
 腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。 以下是关于这些创始人的详细信息： 马化腾 马化腾，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市）八所港，广东汕头人，汉族，无党派人士。他毕业于深圳大学电子工程系计算机专业。马化腾是腾讯科技（深圳）有限公司的创始人、董事会主席、首席执行官，并曾是中华人民共和国第十二、十三届全国人民代表大会代表 。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市。 张志东 张志东，马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。
@@ -263,32 +260,40 @@ Class A {
 
 `;
 
-    let md = '';
-    const chunkSize = 200;
-    let markdownOutput = '';
-    let buffer = '';
-
-    for (let i = 0; i < input.length; i += chunkSize) {
-      const chunk = input.slice(i, i + chunkSize);
-      buffer += chunk;
-
-      const openBrackets = (buffer.match(/{/g) || []).length;
-      const closeBrackets = (buffer.match(/}/g) || []).length;
-      const openSquareBrackets = (buffer.match(/\[/g) || []).length;
-      const closeSquareBrackets = (buffer.match(/]/g) || []).length;
-
-      if (
-        openBrackets === closeBrackets &&
-        openSquareBrackets === closeSquareBrackets
-      ) {
-        md += buffer;
-        buffer = '';
-
-        const { schema } = parserMarkdown(md);
-        markdownOutput = schemaToMarkdown(schema);
-      }
-    }
-
-    expect(markdownOutput).toMatchSnapshot();
+input
+  ?.split('##')
+  .filter(Boolean)
+  .forEach((char) => {
+    it(`should convert schema to markdown in ${char.slice(
+      0,
+      10,
+    )} chunk`, () => {
+      const schema = parserMdToSchema('## ' + char).schema;
+      const markdown = schemaToMarkdown(schema);
+      expect(markdown).toMatchSnapshot();
+    });
+    it(`should convert markdown to schema in ${char.slice(
+      0,
+      10,
+    )} chunk`, () => {
+      const schema = parserMdToSchema('## ' + char).schema;
+      expect(schema).toMatchSnapshot();
+    });
   });
+
+it(`忽略card，并且只生成一次`, () => {
+  const schema = parserMdToSchema(`
+| 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
+| ------------- | ------- | ------- | ------- | ------- |
+| 收入          | 135,303 | 138,259 | 142,368 | 144,188 | 
+| 增值服务      | 72,443  | 72,013  | 75,203  | 71,913  |
+| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  |
+| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 
+| 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 
+| 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 
+| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 
+| 云           | 162,012   | 111,521   | 111,353   | 112,799   | `).schema;
+  expect(schema).toMatchSnapshot();
+  const markdown = schemaToMarkdown(schema);
+  expect(markdown).toMatchSnapshot();
 });
