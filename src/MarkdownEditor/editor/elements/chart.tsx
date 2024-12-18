@@ -679,7 +679,9 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                   display: 'flex',
                   flexWrap: 'wrap',
                   gap: 8,
+                  userSelect: 'none',
                 }}
+                contentEditable={false}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -717,12 +719,8 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           style={{
                             margin: 12,
                             borderRadius: 16,
-                            border:
-                              // 只有一个图表时不显示边框，用消息框自己的
-                              config.length < 2 &&
-                              store?.editor?.children?.length < 2
-                                ? 'none'
-                                : '1px solid #eee',
+                            overflow: 'auto',
+                            border: '1px solid #eee',
                           }}
                         >
                           <table contentEditable={readonly ? false : true}>
@@ -800,9 +798,16 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                               margin: 'auto',
                               minWidth: 300,
                               flex: 1,
+                              userSelect: 'none',
                             }}
+                            contentEditable={false}
                           >
-                            <div contentEditable={false}>
+                            <div
+                              style={{
+                                userSelect: 'none',
+                              }}
+                              contentEditable={false}
+                            >
                               <ChartAttr
                                 title={
                                   item.title || config.at(index)?.title || ''
@@ -828,7 +833,9 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     return (
                       <div
                         key={index}
+                        contentEditable={false}
                         style={{
+                          userSelect: 'none',
                           border:
                             // 只有一个图表时不显示边框，用消息框自己的
                             config.length < 2 &&
@@ -845,6 +852,9 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         }}
                       >
                         <div
+                          style={{
+                            userSelect: 'none',
+                          }}
                           contentEditable={false}
                           onClick={(e) => {
                             e.stopPropagation();
