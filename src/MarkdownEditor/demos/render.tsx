@@ -75,7 +75,9 @@ export default () => {
         if (
           props.element.type !== 'table-cell' &&
           props.element.type !== 'table-row' &&
-          props.element.type !== 'head'
+          props.element.type !== 'head' &&
+          props.element.type !== 'card-before' &&
+          props.element.type !== 'card-after'
         ) {
           return (
             <Card

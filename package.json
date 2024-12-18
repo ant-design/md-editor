@@ -92,6 +92,7 @@
     "@types/react": "^18.3.16",
     "@types/react-dom": "^18.3.5",
     "@types/react-resizable": "^3.0.8",
+    "@types/reveal.js": "^5.0.4",
     "@umijs/lint": "^4.3.36",
     "@vitejs/plugin-react": "^4.3.3",
     "dumi": "^2.4.13",
@@ -106,6 +107,7 @@
     "prettier-plugin-packagejson": "^2.5.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "reveal.js": "^5.1.0",
     "stylelint": "^14.16.1",
     "typescript": "^5.7.2",
     "vitest": "^2.1.5"

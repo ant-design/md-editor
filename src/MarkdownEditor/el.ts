@@ -280,7 +280,9 @@ export type Elements<T = Record<string, any>> =
   | ChartNode<T>
   | AttachNode<T>
   | LinkCardNode<T>
-  | CardNode;
+  | CardNode
+  | CardBeforeNode
+  | CardAfterNode;
 
 export type CustomLeaf<T = Record<string, any>> = {
   contextProps?: T;
