@@ -19,8 +19,8 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 import { ClickTable } from './ClickTable';
-// import ResizeMask from './ResizeMask';
-// import { useTableResize } from './useTableResize';
+import ResizeMask from './ResizeMask';
+import { useTableResize } from './useTableResize';
 
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
@@ -276,36 +276,36 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
-  // const colCount = props.element?.children[0]?.children?.length || 0;
-  // const initialColArr = Array(colCount).fill('60px');
-  // const [colArr, setColArr] = useState<string[]>(initialColArr);
+  const colCount = props.element?.children[0]?.children?.length || 0;
+  const initialColArr = Array(colCount).fill('60px');
+  const [colArr, setColArr] = useState<string[]>(initialColArr);
 
-  // const {
-  //   tableResizeMaskRect,
-  //   tableRect,
-  //   curCell,
-  //   handleTableCellsMouseMove,
+  const {
+    tableResizeMaskRect,
+    tableRect,
+    curCell,
+    handleTableCellsMouseMove,
 
-  //   setMaskRectSide,
-  //   rowMovingLine,
-  //   colMovingLine,
-  //   SEL_CELLS,
-  //   RESIZING_ROW,
-  //   RESIZING_ROW_ORIGIN_HEIGHT,
-  //   RESIZING_ROW_MIN_HEIGHT,
-  //   RESIZING_COL,
-  //   RESIZING_COL_ORIGIN_WIDTH,
-  //   RESIZING_COL_MIN_WIDTH,
-  //   setStartPositionX,
-  //   setStartPositionY,
-  //   differenceX,
-  //   differenceY,
-  //   isDragging,
-  //   setIsDragging,
-  //   setRowMovingLine,
-  //   setColMovingLine,
-  //   startKey,
-  // } = useTableResize(tableRef, tableTargetRef, setColArr, props.element);
+    setMaskRectSide,
+    rowMovingLine,
+    colMovingLine,
+    SEL_CELLS,
+    RESIZING_ROW,
+    RESIZING_ROW_ORIGIN_HEIGHT,
+    RESIZING_ROW_MIN_HEIGHT,
+    RESIZING_COL,
+    RESIZING_COL_ORIGIN_WIDTH,
+    RESIZING_COL_MIN_WIDTH,
+    setStartPositionX,
+    setStartPositionY,
+    differenceX,
+    differenceY,
+    isDragging,
+    setIsDragging,
+    setRowMovingLine,
+    setColMovingLine,
+    startKey,
+  } = useTableResize(tableRef, tableTargetRef, setColArr, props.element);
 
   return useMemo(() => {
     return (
@@ -321,7 +321,7 @@ export const Table = observer((props: RenderElementProps) => {
           minWidth: 0,
           marginBottom: 12,
         }}
-        // onMouseMove={handleTableCellsMouseMove}
+        onMouseMove={handleTableCellsMouseMove}
       >
         <div
           className={
@@ -375,29 +375,29 @@ export const Table = observer((props: RenderElementProps) => {
               }}
               ref={tableTargetRef}
             >
-              {/* <colgroup style={{ userSelect: 'none' }} contentEditable={false}>
+              <colgroup style={{ userSelect: 'none' }} contentEditable={false}>
                 {colArr.map((colWidth: string, index) => (
                   <col
                     key={index}
                     width={Number.parseInt(colWidth) || '40px'}
                   ></col>
                 ))}
-              </colgroup> */}
+              </colgroup>
               <tbody
-              // {...props.attributes}
-              // style={{ userSelect: 'auto' }}
-              // contentEditable={false}
-              // onDrag={(e) => {
-              //   e.preventDefault();
-              // }}
-              // onMouseDown={() => {}}
+                {...props.attributes}
+                style={{ userSelect: 'auto' }}
+                contentEditable={false}
+                onDrag={(e) => {
+                  e.preventDefault();
+                }}
+                onMouseDown={() => {}}
               >
                 {props.children}
               </tbody>
             </table>
           </div>
         </div>
-        {/* <ResizeMask
+        <ResizeMask
           SEL_CELLS={SEL_CELLS}
           RESIZING_ROW={RESIZING_ROW}
           RESIZING_ROW_ORIGIN_HEIGHT={RESIZING_ROW_ORIGIN_HEIGHT}
@@ -420,7 +420,7 @@ export const Table = observer((props: RenderElementProps) => {
           isDragging={isDragging}
           setIsDragging={setIsDragging}
           startKey={startKey}
-        /> */}
+        />
       </div>
     );
   }, [
