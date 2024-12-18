@@ -4,6 +4,21 @@ import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
 import './white.css';
 
+const splitMarkdown = (markdown: string) => {
+  if (markdown.includes('\n##')) {
+    return markdown.split('\n##').map((line, index) => {
+      if (!line?.startsWith('#') && index !== 0) {
+        return `##` + line;
+      }
+      return line;
+    });
+  }
+  if (markdown.length > 100) {
+    return markdown.split('\n\n');
+  }
+  return [markdown];
+};
+
 export function Slides(props: { initValue: string }) {
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
@@ -40,11 +55,7 @@ export function Slides(props: { initValue: string }) {
     >
       <div className="slides">
         {
-          props.initValue?.split('\n##').map((line, index) => {
-            let content = line;
-            if (!line?.startsWith('#') && index !== 0) {
-              content = `##` + content;
-            }
+          splitMarkdown(props.initValue)?.map((line, index) => {
             return (
               <section key={index}>
                 <MarkdownEditor
@@ -68,7 +79,7 @@ export function Slides(props: { initValue: string }) {
                     height: '100%',
                     overflow: 'hidden',
                   }}
-                  initValue={content}
+                  initValue={line}
                 />
               </section>
             );
