@@ -452,176 +452,214 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   const columns = (node as TableNode).otherProps?.columns || [];
 
+  const [columnLength, setColumnLength] = React.useState(2);
+
   const config = [node.otherProps?.config].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
 
   /**
    * 图表配置
    */
-  const getChartPopover = (index: number) => [
-    <Dropdown
-      key="dropdown"
-      menu={{
-        items:
-          ChartMap[config.at(index).chartType as 'pie']?.changeData?.map(
-            (key: string) => {
-              return {
-                key,
-                label: ChartMap[key as 'pie'].title,
-                onClick: () => {
-                  const path = EditorUtils.findPath(editor, node);
-                  const config = [
-                    JSON.parse(JSON.stringify(node.otherProps?.config || [])),
-                  ].flat(1);
-                  config[index] = {
-                    ...config?.at(index),
-                    chartType: key,
-                  };
+  const getChartPopover = (index: number, isChartList: boolean) =>
+    [
+      <Dropdown
+        key="dropdown"
+        menu={{
+          items:
+            ChartMap[config.at(index).chartType as 'pie']?.changeData?.map(
+              (key: string) => {
+                return {
+                  key,
+                  label: ChartMap[key as 'pie'].title,
+                  onClick: () => {
+                    const path = EditorUtils.findPath(editor, node);
+                    const config = [
+                      JSON.parse(JSON.stringify(node.otherProps?.config || [])),
+                    ].flat(1);
+                    config[index] = {
+                      ...config?.at(index),
+                      chartType: key,
+                    };
 
-                  Transforms.setNodes(
-                    editor,
-                    {
-                      otherProps: {
-                        ...node.otherProps,
-                        config: config,
+                    Transforms.setNodes(
+                      editor,
+                      {
+                        otherProps: {
+                          ...node.otherProps,
+                          config: config,
+                        },
                       },
-                    },
-                    {
-                      at: path,
-                    },
-                  );
-                },
-              };
-            },
-          ) || [],
-      }}
-    >
-      <span
-        style={{
-          fontSize: 12,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 4,
-          border: '1px solid #f0f0f0',
-          padding: '4px 12px',
-          borderRadius: 14,
+                      {
+                        at: path,
+                      },
+                    );
+                  },
+                };
+              },
+            ) || [],
         }}
       >
-        {ChartMap[(config.at(index)?.chartType as 'bar') || 'bar']?.title}
-        <DownOutlined
+        <span
           style={{
-            fontSize: 8,
+            fontSize: 12,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            border: '1px solid #f0f0f0',
+            padding: '4px 12px',
+            borderRadius: 14,
           }}
-        />
-      </span>
-    </Dropdown>,
-    <Popover
-      key="config"
-      title="配置图表"
-      trigger={'click'}
-      content={
-        <ConfigProvider componentSize="small">
-          <ProForm
-            submitter={{
-              searchConfig: {
-                submitText: '更新',
-              },
-            }}
+        >
+          {ChartMap[(config.at(index)?.chartType as 'bar') || 'bar']?.title}
+          <DownOutlined
             style={{
-              width: 300,
+              fontSize: 8,
             }}
-            initialValues={
-              config.at(index) || {
-                x: '',
-                y: '',
-              }
-            }
-            onFinish={(values) => {
-              const path = EditorUtils.findPath(editor, node);
-              const config = JSON.parse(
-                JSON.stringify(node.otherProps?.config || []),
-              );
-
-              config[index] = {
-                ...config.at(index),
-                ...values,
+          />
+        </span>
+      </Dropdown>,
+      isChartList ? (
+        <Dropdown
+          key="dropdown"
+          menu={{
+            items: new Array(3).fill(0).map((_, i) => {
+              return {
+                key: i + 1,
+                label: i + 1,
+                onClick: () => {
+                  setColumnLength(i + 1);
+                },
               };
-
-              Transforms.setNodes(
-                editor,
-                {
-                  otherProps: {
-                    ...node.otherProps,
-                    config: config,
-                  },
-                },
-                {
-                  at: path,
-                },
-              );
+            }),
+          }}
+        >
+          <span
+            style={{
+              fontSize: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              border: '1px solid #f0f0f0',
+              padding: '4px 12px',
+              borderRadius: 14,
             }}
           >
-            <div
+            {columnLength} 列
+            <DownOutlined
               style={{
-                maxHeight: '70vh',
-                overflow: 'auto',
+                fontSize: 8,
+              }}
+            />
+          </span>
+        </Dropdown>
+      ) : null,
+      <Popover
+        key="config"
+        title="配置图表"
+        trigger={'click'}
+        content={
+          <ConfigProvider componentSize="small">
+            <ProForm
+              submitter={{
+                searchConfig: {
+                  submitText: '更新',
+                },
+              }}
+              style={{
+                width: 300,
+              }}
+              initialValues={
+                config.at(index) || {
+                  x: '',
+                  y: '',
+                }
+              }
+              onFinish={(values) => {
+                const path = EditorUtils.findPath(editor, node);
+                const config = JSON.parse(
+                  JSON.stringify(node.otherProps?.config || []),
+                );
+
+                config[index] = {
+                  ...config.at(index),
+                  ...values,
+                };
+
+                Transforms.setNodes(
+                  editor,
+                  {
+                    otherProps: {
+                      ...node.otherProps,
+                      config: config,
+                    },
+                  },
+                  {
+                    at: path,
+                  },
+                );
               }}
             >
               <div
                 style={{
-                  display: 'flex',
-                  gap: 8,
+                  maxHeight: '70vh',
+                  overflow: 'auto',
                 }}
               >
-                <ProFormSelect
-                  label="X轴"
-                  name="x"
-                  fieldProps={{
-                    onClick: (e) => {
-                      e.stopPropagation();
-                    },
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 8,
                   }}
-                  options={columns
-                    ?.filter((item) => item.title)
-                    ?.map((item) => {
-                      return {
-                        label: item.title,
-                        value: item.dataIndex,
-                      };
-                    })}
-                />
-                <ProFormSelect
-                  name="y"
-                  label="Y轴"
-                  fieldProps={{
-                    onClick: (e) => {
-                      e.stopPropagation();
-                    },
-                  }}
-                  options={columns
-                    ?.filter((item) => item.title)
-                    ?.map((item) => {
-                      return {
-                        label: item.title,
-                        value: item.dataIndex,
-                      };
-                    })}
-                />
+                >
+                  <ProFormSelect
+                    label="X轴"
+                    name="x"
+                    fieldProps={{
+                      onClick: (e) => {
+                        e.stopPropagation();
+                      },
+                    }}
+                    options={columns
+                      ?.filter((item) => item.title)
+                      ?.map((item) => {
+                        return {
+                          label: item.title,
+                          value: item.dataIndex,
+                        };
+                      })}
+                  />
+                  <ProFormSelect
+                    name="y"
+                    label="Y轴"
+                    fieldProps={{
+                      onClick: (e) => {
+                        e.stopPropagation();
+                      },
+                    }}
+                    options={columns
+                      ?.filter((item) => item.title)
+                      ?.map((item) => {
+                        return {
+                          label: item.title,
+                          value: item.dataIndex,
+                        };
+                      })}
+                  />
+                </div>
               </div>
-            </div>
-          </ProForm>
-        </ConfigProvider>
-      }
-    >
-      <span
-        style={{
-          padding: '4px 8px',
-        }}
+            </ProForm>
+          </ConfigProvider>
+        }
       >
-        <SettingOutlined />
-      </span>
-    </Popover>,
-  ];
+        <span
+          style={{
+            padding: '4px 8px',
+          }}
+        >
+          <SettingOutlined />
+        </span>
+      </Popover>,
+    ].filter((item) => !!item) as JSX.Element[];
 
   return useMemo(
     () => (
@@ -780,7 +818,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                     );
                   })
                   .map((itemList, index) => {
-                    const toolBar = getChartPopover(index);
+                    const toolBar = getChartPopover(index, config.length > 1);
                     if (Array.isArray(itemList)) {
                       return itemList?.map((item, subIndex) => {
                         if (!item) return null;
@@ -788,15 +826,10 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           <div
                             key={index + subIndex}
                             style={{
-                              border:
-                                // 只有一个图表时不显示边框，用消息框自己的
-                                config.length < 2 &&
-                                store?.editor?.children?.length < 2
-                                  ? 'none'
-                                  : '1px solid #eee',
+                              border: '1px solid #eee',
                               borderRadius: 18,
                               margin: 'auto',
-                              minWidth: 300,
+                              minWidth: `calc(${100 / columnLength}% - 16px)`,
                               flex: 1,
                               userSelect: 'none',
                             }}
@@ -836,15 +869,10 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         contentEditable={false}
                         style={{
                           userSelect: 'none',
-                          border:
-                            // 只有一个图表时不显示边框，用消息框自己的
-                            config.length < 2 &&
-                            store?.editor?.children?.length < 2
-                              ? 'none'
-                              : '1px solid #eee',
+                          border: '1px solid #eee',
                           borderRadius: 18,
                           margin: 'auto',
-                          minWidth: 300,
+                          minWidth: `calc(${100 / columnLength}% - 16px)`,
                           flex: 1,
                         }}
                         onClick={(e) => {
@@ -889,6 +917,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
       attributes,
       JSON.stringify((node as TableNode).otherProps),
       editor,
+      columnLength,
       readonly,
     ],
   );
