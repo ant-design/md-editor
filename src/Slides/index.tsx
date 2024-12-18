@@ -40,6 +40,10 @@ export function Slides(props: { initValue: string }) {
     >
       <div className="slides">
         {props.initValue?.split('\n##').map((line, index) => {
+          let content = line;
+          if (!line?.startsWith('#') && index !== 0) {
+            content = `##` + content;
+          }
           return (
             <section key={index}>
               <MarkdownEditor
@@ -54,7 +58,7 @@ export function Slides(props: { initValue: string }) {
                   height: '100%',
                   overflow: 'hidden',
                 }}
-                initValue={line?.startsWith('#') ? line : `##` + line}
+                initValue={content}
               />
             </section>
           );
