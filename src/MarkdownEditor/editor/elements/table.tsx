@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, Node, NodeEntry, Path } from 'slate';
+import { Node, NodeEntry } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import stringWidth from 'string-width';
@@ -18,6 +18,9 @@ import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
+import { ClickTable } from './ClickTable';
+// import ResizeMask from './ResizeMask';
+// import { useTableResize } from './useTableResize';
 
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
@@ -50,8 +53,10 @@ export function TableCell(props: RenderElementProps) {
   }, []);
 
   return React.useMemo(() => {
-    const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
-    const minWidth = Math.min(domWidth, 200);
+    const minWidth = Math.min(
+      stringWidth(Node.string(props.element)) * 8 + 20,
+      200,
+    );
     const text = Node.string(props.element);
     return props.element.title ? (
       <th
@@ -80,7 +85,7 @@ export function TableCell(props: RenderElementProps) {
           context(e);
         }}
       >
-        {readonly && domWidth > 200 ? (
+        {readonly ? (
           <Popover
             title={
               <div
@@ -211,56 +216,14 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, [tableAttrVisible, tableRef, store.editor]);
 
-  const resize = useCallback(() => {
-    const table = tableRef.current;
-    if (!table) return;
-    setTimeout(() => {
-      try {
-        const dom = ReactEditor.toDOMNode(
-          store.editor,
-          table[0],
-        ) as HTMLElement;
-        if (dom) {
-          setState((prev) => ({
-            ...prev,
-            rows: table[0].children.length,
-            cols: table[0].children[0].children.length,
-          }));
-        }
-      } catch (e) {}
-    }, 16);
-  }, [setState, store.editor]);
+  const handleClickTable = ClickTable({
+    tableRef,
+    tableCellRef,
+    overflowShadowContainerRef,
+    setState,
+    setTableAttrVisible,
+  });
 
-  const handleClickTable = useCallback(() => {
-    if (store.floatBarOpen) return;
-    const el = store.tableCellNode;
-    if (el) {
-      tableCellRef.current = el;
-      try {
-        const dom = ReactEditor.toDOMNode(store.editor, el[0]) as HTMLElement;
-        const overflowShadowContainer = overflowShadowContainerRef.current!;
-        const tableTop = overflowShadowContainer.offsetTop;
-        let left = dom.getBoundingClientRect().left;
-        setState((prev) => ({
-          ...prev,
-          top: tableTop - 48 + 3,
-          left,
-        }));
-        setTableAttrVisible(true);
-      } catch (error) {
-        console.log(error);
-      }
-      setState((prev) => ({
-        ...prev,
-        align: el[0].align,
-      }));
-      const table = Editor.node(store.editor, Path.parent(Path.parent(el[1])));
-      if (table && table[0] !== tableRef.current?.[0]) {
-        tableRef.current = table;
-        resize();
-      }
-    }
-  }, [store.tableCellNode, store.editor, setState]);
   const tableTargetRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
     if (!tableTargetRef.current) {
@@ -313,6 +276,37 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
+  // const colCount = props.element?.children[0]?.children?.length || 0;
+  // const initialColArr = Array(colCount).fill('60px');
+  // const [colArr, setColArr] = useState<string[]>(initialColArr);
+
+  // const {
+  //   tableResizeMaskRect,
+  //   tableRect,
+  //   curCell,
+  //   handleTableCellsMouseMove,
+
+  //   setMaskRectSide,
+  //   rowMovingLine,
+  //   colMovingLine,
+  //   SEL_CELLS,
+  //   RESIZING_ROW,
+  //   RESIZING_ROW_ORIGIN_HEIGHT,
+  //   RESIZING_ROW_MIN_HEIGHT,
+  //   RESIZING_COL,
+  //   RESIZING_COL_ORIGIN_WIDTH,
+  //   RESIZING_COL_MIN_WIDTH,
+  //   setStartPositionX,
+  //   setStartPositionY,
+  //   differenceX,
+  //   differenceY,
+  //   isDragging,
+  //   setIsDragging,
+  //   setRowMovingLine,
+  //   setColMovingLine,
+  //   startKey,
+  // } = useTableResize(tableRef, tableTargetRef, setColArr, props.element);
+
   return useMemo(() => {
     return (
       <div
@@ -327,6 +321,7 @@ export const Table = observer((props: RenderElementProps) => {
           minWidth: 0,
           marginBottom: 12,
         }}
+        // onMouseMove={handleTableCellsMouseMove}
       >
         <div
           className={
@@ -380,10 +375,52 @@ export const Table = observer((props: RenderElementProps) => {
               }}
               ref={tableTargetRef}
             >
-              <tbody>{props.children}</tbody>
+              {/* <colgroup style={{ userSelect: 'none' }} contentEditable={false}>
+                {colArr.map((colWidth: string, index) => (
+                  <col
+                    key={index}
+                    width={Number.parseInt(colWidth) || '40px'}
+                  ></col>
+                ))}
+              </colgroup> */}
+              <tbody
+              // {...props.attributes}
+              // style={{ userSelect: 'auto' }}
+              // contentEditable={false}
+              // onDrag={(e) => {
+              //   e.preventDefault();
+              // }}
+              // onMouseDown={() => {}}
+              >
+                {props.children}
+              </tbody>
             </table>
           </div>
         </div>
+        {/* <ResizeMask
+          SEL_CELLS={SEL_CELLS}
+          RESIZING_ROW={RESIZING_ROW}
+          RESIZING_ROW_ORIGIN_HEIGHT={RESIZING_ROW_ORIGIN_HEIGHT}
+          RESIZING_ROW_MIN_HEIGHT={RESIZING_ROW_MIN_HEIGHT}
+          RESIZING_COL={RESIZING_COL}
+          RESIZING_COL_ORIGIN_WIDTH={RESIZING_COL_ORIGIN_WIDTH}
+          RESIZING_COL_MIN_WIDTH={RESIZING_COL_MIN_WIDTH}
+          tableRect={tableRect}
+          curCell={curCell}
+          setMaskRectSide={setMaskRectSide}
+          tableResizeMaskRect={tableResizeMaskRect}
+          setStartPositionX={setStartPositionX}
+          setStartPositionY={setStartPositionY}
+          differenceX={differenceX}
+          differenceY={differenceY}
+          setRowMovingLine={setRowMovingLine}
+          setColMovingLine={setColMovingLine}
+          rowMovingLine={rowMovingLine}
+          colMovingLine={colMovingLine}
+          isDragging={isDragging}
+          setIsDragging={setIsDragging}
+          startKey={startKey}
+        /> */}
       </div>
     );
   }, [
