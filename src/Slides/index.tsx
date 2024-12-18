@@ -57,6 +57,10 @@ export function Slides(props: { initValue: string }) {
                     margin: 0,
                     width: '100%',
                   }}
+                  editorStyle={{
+                    maxHeight: '80vh',
+                    overflow: 'auto',
+                  }}
                   contentStyle={{
                     width: '100%',
                     padding: 0,

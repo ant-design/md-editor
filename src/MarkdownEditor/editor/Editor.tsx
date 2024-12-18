@@ -616,9 +616,11 @@ export const MEditor = observer(
             reportMode
               ? {
                   fontSize: 16,
+                  ...editorProps.style,
                 }
               : {
                   fontSize: 14,
+                  ...editorProps.style,
                 }
           }
           onMouseDown={checkEnd}

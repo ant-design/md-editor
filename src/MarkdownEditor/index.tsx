@@ -147,6 +147,7 @@ export type MarkdownEditorProps = {
    */
   style?: React.CSSProperties;
   contentStyle?: React.CSSProperties;
+  editorStyle?: React.CSSProperties;
   /**
    * 是否显示目录
    */
@@ -258,6 +259,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     readonly,
     style,
     contentStyle,
+    editorStyle,
     height,
     ...rest
   } = props;
@@ -418,6 +420,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             prefixCls={baseClassName}
             note={instance.current!}
             {...rest}
+            style={editorStyle}
             instance={instance}
           />
           {readonly ? (
