@@ -105,6 +105,7 @@ export const MElement = (props: RenderElementProps) => {
             position: 'relative',
             zIndex: 99,
           }}
+          data-be={'card-before'}
           {...props.attributes}
         >
           {props.children}
@@ -120,6 +121,7 @@ export const MElement = (props: RenderElementProps) => {
             position: 'relative',
             zIndex: 99,
           }}
+          data-be={'card-after'}
           {...props.attributes}
         >
           {props.children}

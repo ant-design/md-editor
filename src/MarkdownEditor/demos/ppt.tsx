@@ -1,87 +1,8 @@
-﻿// App.tsx
-import { MarkdownEditor } from '@ant-design/md-editor';
-import { useEffect, useRef } from 'react';
-import Reveal from 'reveal.js';
-import 'reveal.js/dist/reveal.css';
-
-function PPtView(props: { markdown: string }) {
-  const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
-  const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
-
-  useEffect(() => {
-    // Prevents double initialization in strict mode
-    if (deckRef.current) return;
-    console.log('deckDivRef.current', deckDivRef.current);
-    deckRef.current = new Reveal(deckDivRef.current!, {
-      transition: 'slide',
-    });
-
-    deckRef.current
-      .initialize({
-        markdown: {
-          smartypants: true,
-          smartLists: true,
-          gfm: true,
-        },
-      })
-      .then(() => {
-        console.log('Reveal.js initialized.');
-      });
-
-    return () => {
-      try {
-        if (deckRef.current) {
-          deckRef.current.destroy();
-          deckRef.current = null;
-        }
-      } catch (e) {
-        console.warn('Reveal.js destroy call failed.');
-      }
-    };
-  }, []);
-
-  return (
-    <div
-      className="reveal"
-      ref={deckDivRef}
-      style={{
-        height: '100vh',
-      }}
-    >
-      <MarkdownEditor
-        width={'100vw'}
-        height={'100vh'}
-        toc={false}
-        className="slides"
-        initValue={props.markdown}
-        eleItemRender={(props, defaultDom) => {
-          if (
-            props.element.type !== 'table-cell' &&
-            props.element.type !== 'table-row' &&
-            props.element.type !== 'card-before' &&
-            props.element.type !== 'card-after' &&
-            props.element.type !== 'list-item'
-          ) {
-            return (
-              <section
-                style={{
-                  width: '100%',
-                }}
-              >
-                {defaultDom}
-              </section>
-            );
-          }
-          return defaultDom as React.ReactElement;
-        }}
-      />
-    </div>
-  );
-}
+﻿import { Slides } from '@ant-design/md-editor';
 
 export default () => {
   return (
-    <PPtView
+    <Slides
       markdown={`# 腾讯研究报告
 
 <!-- { "MarkdownType": "section", "id": "15" } -->
@@ -108,8 +29,8 @@ export default () => {
 ## 战略
 
 - [x][张志东](https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png?param=3&id=2) Write the press release
-- [] Update the website
-- [] Contact the media
+- [ ] Update the website
+- [ ] Contact the media
 
 
 ## 表格

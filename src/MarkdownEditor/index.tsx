@@ -197,6 +197,11 @@ export type MarkdownEditorProps = {
   reportMode?: boolean;
 
   /**
+   * ppt 模式
+   * @default false
+   */
+  slideMode?: boolean;
+  /**
    * 是否开启打字机模式
    */
   typewriter?: boolean;
@@ -361,6 +366,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             [baseClassName + '-readonly']: readonly,
             [baseClassName + '-edit']: !readonly,
             [baseClassName + '-report']: props.reportMode,
+            [baseClassName + '-slide']: props.slideMode,
           },
         )}
         style={{

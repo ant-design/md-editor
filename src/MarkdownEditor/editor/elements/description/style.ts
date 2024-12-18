@@ -10,21 +10,53 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       maxWidth: '100%',
       overflow: 'auto',
       borderRadius: '16px',
-      'th,td': {
-        padding: '8px 16px',
-        textAlign: 'left',
-        fontWeight: 500,
-        border: '1px solid rgb(232, 232, 232)',
-      },
-      '& tr:first-child:': {
-        'th,td': {
-          fontWeight: 600,
+      border: '1px solid rgb(232, 232, 232)',
+      table: {
+        '& th': {
+          padding: '12px 20px',
+          textAlign: 'left',
+          fontWeight: 500,
+          border: '1px solid rgb(232, 232, 232)',
+          borderRadius: 16,
         },
-      },
-      '& .ant-descriptions-view table,.ant-descriptions-view th,.ant-descriptions-view td':
-        {
-          border: 'none',
+        '& td': {
+          padding: '12px 20px',
+          textAlign: 'left',
+          border: '1px solid rgb(232, 232, 232)',
+          borderRadius: 16,
         },
+        '& tr': {
+          'td:first-child': {
+            borderLeft: 'none',
+          },
+          'td:last-child': {
+            borderRight: 'none',
+          },
+          'th:first-child': {
+            borderLeft: 'none',
+          },
+        },
+        '& tr:first-child': {
+          th: {
+            borderTop: 'none',
+          },
+          td: {
+            borderTop: 'none',
+          },
+        },
+        '& tr:last-child': {
+          th: {
+            borderBottom: 'none',
+          },
+          td: {
+            borderBottom: 'none',
+          },
+        },
+        '& .ant-descriptions-view table,.ant-descriptions-view th,.ant-descriptions-view td':
+          {
+            border: 'none',
+          },
+      },
     },
   };
 };
@@ -40,7 +72,6 @@ export function useStyle(prefixCls?: string) {
       ...token,
       componentCls: `.${prefixCls}`,
     };
-
     return [genStyle(editorToken)];
   });
 }

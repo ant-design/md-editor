@@ -4,7 +4,6 @@
   resetComponent,
   useEditorStyleRegister,
 } from '../editor/utils/useStyle';
-
 import './keyframes.css';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
@@ -240,6 +239,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
         },
     },
+  };
+};
+
+const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
+  return {
     [`${token.componentCls}-report`]: {
       '[data-be="chart"]': {
         width: '100%',
@@ -253,7 +257,28 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textAlign: 'left',
           borderBottom: '1px solid rgb(209 213 219 / 0.8)',
           borderRight: '1px solid rgb(209 213 219 / 0.8)',
-          fontWeight: 500,
+        },
+        'th:last-child,td:last-child': {
+          borderRight: 'none',
+        },
+        'th:last-child': {
+          borderTopRightRadius: 16,
+        },
+        'th:first-child': {
+          borderTopLeftRadius: 16,
+        },
+        'tr:last-child th,tr:last-child td': {
+          borderBottom: 'none',
+        },
+        th: { fontWeight: 500, backgroundColor: 'rgb(229 231 235 / 0.5)' },
+      },
+      [`${token.componentCls}-description-table`]: {
+        display: 'table',
+        'th,td': {
+          padding: '8px 16px',
+          textAlign: 'left',
+          borderBottom: '1px solid rgb(209 213 219 / 0.8)',
+          borderRight: '1px solid rgb(209 213 219 / 0.8)',
         },
         'th:last-child,td:last-child': {
           borderRight: 'none',
@@ -291,6 +316,10 @@ export function useStyle(
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(editorToken), resetComponent(editorToken)];
+    return [
+      genStyle(editorToken),
+      resetComponent(editorToken),
+      genSlideStyle(editorToken),
+    ];
   });
 }
