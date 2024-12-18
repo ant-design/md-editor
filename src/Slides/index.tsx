@@ -1,5 +1,5 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
 import './white.css';
@@ -39,30 +39,37 @@ export function Slides(props: { initValue: string }) {
       }}
     >
       <div className="slides">
-        {props.initValue?.split('\n##').map((line, index) => {
-          let content = line;
-          if (!line?.startsWith('#') && index !== 0) {
-            content = `##` + content;
-          }
-          return (
-            <section key={index}>
-              <MarkdownEditor
-                readonly
-                toc={false}
-                reportMode
-                style={{ height: '100%', padding: 0, margin: 0, width: '100%' }}
-                contentStyle={{
-                  width: '100%',
-                  padding: 0,
-                  margin: 0,
-                  height: '100%',
-                  overflow: 'hidden',
-                }}
-                initValue={content}
-              />
-            </section>
-          );
-        })}
+        {
+          props.initValue?.split('\n##').map((line, index) => {
+            let content = line;
+            if (!line?.startsWith('#') && index !== 0) {
+              content = `##` + content;
+            }
+            return (
+              <section key={index}>
+                <MarkdownEditor
+                  readonly
+                  toc={false}
+                  reportMode
+                  style={{
+                    height: '100%',
+                    padding: 0,
+                    margin: 0,
+                    width: '100%',
+                  }}
+                  contentStyle={{
+                    width: '100%',
+                    padding: 0,
+                    margin: 0,
+                    height: '100%',
+                    overflow: 'hidden',
+                  }}
+                  initValue={content}
+                />
+              </section>
+            );
+          }) as React.ReactNode[]
+        }
       </div>
     </div>
   );
