@@ -50,10 +50,8 @@ export function TableCell(props: RenderElementProps) {
   }, []);
 
   return React.useMemo(() => {
-    const minWidth = Math.min(
-      stringWidth(Node.string(props.element)) * 8 + 20,
-      200,
-    );
+    const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
+    const minWidth = Math.min(domWidth, 200);
     const text = Node.string(props.element);
     return props.element.title ? (
       <th
@@ -82,7 +80,7 @@ export function TableCell(props: RenderElementProps) {
           context(e);
         }}
       >
-        {readonly ? (
+        {readonly && domWidth > 200 ? (
           <Popover
             title={
               <div
