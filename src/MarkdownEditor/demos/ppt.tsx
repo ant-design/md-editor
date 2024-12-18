@@ -1,9 +1,8 @@
-﻿import { Slides } from '@ant-design/md-editor';
+﻿import { MarkdownEditor, Slides } from '@ant-design/md-editor';
+import { Segmented } from 'antd';
+import { useState } from 'react';
 
-export default () => {
-  return (
-    <Slides
-      markdown={`# 腾讯研究报告
+const markdown = `# 腾讯研究报告
 
 <!-- { "MarkdownType": "section", "id": "15" } -->
 
@@ -153,30 +152,6 @@ export default () => {
 | G+    | 免费提现 | 2024-12-08 | 7      |
 | G+    | 免费提现 | 2024-12-10| 5      |
 | G+    | 免费提现 | 2024-12-11| 77     |
-| F+    | 现金奖励 |2024-11-29| 1     |
-| F+      | 现金奖励 | 2024-11-30| 0      |
-| F+      | 现金奖励 | 2024-12-01 | 4      |
-| F+      | 现金奖励 | 2024-12-02 | 12    |
-| F+      | 现金奖励 | 2024-12-03 | 0      |
-| F+      | 现金奖励 | 2024-12-04 | 212    |
-| F+      | 现金奖励 | 2024-12-05 | 19      |
-| F+      | 现金奖励 | 2024-12-06 | 21      |
-| F+      | 现金奖励 | 2024-12-07 | 3      |
-| F+      | 现金奖励 | 2024-12-08 | 7      |
-| F+      | 现金奖励 | 2024-12-10| 5      |
-| F+      | 现金奖励 | 2024-12-11| 77     |
-| F+      | 免费提现 | 2024-11-29| 8     |
-| F+      | 免费提现 | 2024-11-30| 0      |
-| F+      | 免费提现 | 2024-12-01 | 4      |
-| F+      | 免费提现 | 2024-12-02 | 12    |
-| F+      | 免费提现 | 2024-12-03 | 54      |
-| F+      | 免费提现 | 2024-12-04 | 212    |
-| F+      | 免费提现 | 2024-12-05 | 192      |
-| F+     | 免费提现 | 2024-12-06 | 21      |
-| F+      | 免费提现 | 2024-12-07 | 3      |
-| F+      | 免费提现 | 2024-12-08 | 7      |
-| F+      | 免费提现 | 2024-12-10| 5      |
-| F+      | 免费提现 | 2024-12-11| 77     |
 
 
 ## 图片
@@ -225,7 +200,41 @@ export default () => {
 ## 删除线
 
 ~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~
-    `}
-    />
+    `;
+
+export default () => {
+  const [slideMode, setSlideMode] = useState(true);
+  return (
+    <>
+      <Segmented
+        options={[
+          {
+            label: '编辑模式',
+            value: 'edit',
+          },
+          {
+            label: '幻灯片模式',
+            value: 'slide',
+          },
+        ]}
+        onChange={(value) => {
+          setSlideMode(value === 'slide');
+        }}
+        style={{
+          position: 'fixed',
+          zIndex: 1000,
+          top: 0,
+        }}
+      />
+      {slideMode ? <Slides initValue={markdown} /> : null}
+      {!slideMode ? (
+        <MarkdownEditor
+          initValue={markdown}
+          style={{
+            width: '100vw',
+          }}
+        />
+      ) : null}
+    </>
   );
 };

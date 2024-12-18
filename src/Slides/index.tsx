@@ -4,7 +4,7 @@ import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
 import './white.css';
 
-export function Slides(props: { markdown: string }) {
+export function Slides(props: { initValue: string }) {
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
 
@@ -39,7 +39,7 @@ export function Slides(props: { markdown: string }) {
       }}
     >
       <div className="slides">
-        {props.markdown?.split('\n##').map((line, index) => {
+        {props.initValue?.split('\n##').map((line, index) => {
           return (
             <section key={index}>
               <MarkdownEditor
