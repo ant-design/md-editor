@@ -8,7 +8,7 @@ function demoTest() {
     Element.prototype.scrollTo = vi.fn();
   });
 
-  const files = glob.sync('./src/MarkdownEditor/demos/**/*.tsx', {
+  const files = glob.sync('./src/**/demos/**/*.tsx', {
     ignore: ['./**/*.test.tsx', './**/node_modules/**'],
     nodir: true,
   });
