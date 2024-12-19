@@ -1,7 +1,7 @@
 import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, {
   useCallback,
   useEffect,
@@ -264,6 +264,9 @@ export const Table = observer((props: RenderElementProps) => {
   const tableTargetRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
     if (!tableTargetRef.current) {
+      return;
+    }
+    if (typeof IntersectionObserver === 'undefined') {
       return;
     }
     const observerRoot = (tableTargetRef as any).current?.parentNode;

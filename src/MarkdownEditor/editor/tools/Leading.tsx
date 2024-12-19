@@ -1,5 +1,5 @@
 import { Anchor } from 'antd';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDebounce, useGetSetState } from 'react-use';

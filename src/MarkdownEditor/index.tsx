@@ -96,19 +96,10 @@ export type CommentDataType = {
  * @property {string} links.target - 链接目标。
  */
 export type IEditor = {
-  cid: string;
-  root?: boolean;
   children?: IEditor[];
   expand?: boolean;
-  editName?: string;
-  changed?: boolean;
-  refresh?: boolean;
-  ghost?: boolean;
-  sort: number;
   schema?: any[];
   history?: any;
-  hidden?: boolean;
-  links?: { path: number[]; target: string }[];
 };
 
 /**

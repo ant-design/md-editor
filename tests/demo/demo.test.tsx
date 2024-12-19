@@ -16,12 +16,8 @@ function demoTest() {
   files.forEach((file) => {
     describe(`Rendering demo: ${file}`, () => {
       it(`renders ${file} correctly`, async () => {
-        try {
-          const DemoModule = await import(file);
-          expect(render(<DemoModule.default />).asFragment()).toMatchSnapshot();
-        } catch (error) {
-          console.error(`Error rendering ${file}:`, error);
-        }
+        const DemoModule = await import(file);
+        expect(render(<DemoModule.default />).asFragment()).toMatchSnapshot();
       });
 
       afterEach(() => {

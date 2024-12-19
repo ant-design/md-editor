@@ -2,7 +2,7 @@
 import { message } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
@@ -123,9 +123,6 @@ export const MEditor = observer(
           if (!changedMark.current) {
             changedMark.current = true;
           }
-          runInAction(() => {
-            note.refresh = !note.refresh;
-          });
           clearTimeout(saveTimer.current);
           saveTimer.current = window.setTimeout(() => {
             save();
@@ -162,7 +159,6 @@ export const MEditor = observer(
      */
     const onFocus = useCallback(() => {
       store.setState((state) => (state.focus = true));
-      store.hideRanges();
     }, []);
 
     /**

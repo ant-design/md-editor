@@ -1,5 +1,5 @@
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import { useCallback, useMemo } from 'react';
 import { Editor, Element, Node, NodeEntry, Path, Range } from 'slate';
 import { useSlate } from 'slate-react';

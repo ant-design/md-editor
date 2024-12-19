@@ -1,7 +1,12 @@
 import '@testing-library/jest-dom';
+import { JSDOM } from 'jsdom';
 import React from 'react';
 import { vi } from 'vitest';
 globalThis.React = React;
+
+globalThis.window = new JSDOM().window;
+
+globalThis.document = window.document;
 
 global.window.scrollTo = vi.fn();
 Element.prototype.scrollTo = vi.fn();
@@ -30,19 +35,22 @@ Object.defineProperty(globalThis, 'cancelAnimationFrame', {
   writable: true,
 });
 
-vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true);
-
-if (!globalThis.matchMedia) {
-  Object.defineProperty(globalThis, 'matchMedia', {
-    writable: true,
-    configurable: true,
-    value: vi.fn(() => ({
-      matches: false,
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-    })),
-  });
+if (typeof globalThis !== 'undefined') {
+  // ref: https://github.com/ant-design/ant-design/issues/18774
+  if (!globalThis.matchMedia) {
+    Object.defineProperty(globalThis, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: vi.fn(() => ({
+        matches: false,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+      })),
+    });
+  }
 }
+
+vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true);
 
 const localStorageMock = (() => {
   let store: Record<string, string> = {};

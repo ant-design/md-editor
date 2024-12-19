@@ -1,5 +1,5 @@
 import { HolderOutlined } from '@ant-design/icons';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
 import { useEditorStore } from '../store';
 

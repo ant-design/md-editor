@@ -12,7 +12,7 @@ import { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, {
   useCallback,
   useContext,

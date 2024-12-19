@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { action, makeAutoObservable, runInAction } from 'mobx';
+import { action, makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
@@ -20,7 +20,6 @@ import { ReactEditor, withReact } from 'slate-react';
 import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
 import { ChartNode, Elements, ListNode, MediaNode, TableCellNode } from '../el';
-import { openMenus } from './components/Menu';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
@@ -180,83 +179,6 @@ export class EditorStore {
       initializing: false,
     });
   }
-  /**
-   * 打开表格菜单。
-   *
-   * @param e - 鼠标事件或 React 鼠标事件。
-   * @param head - 可选参数，表示是否为表头。
-   *
-   * 如果 `readonly` 为真，则不会执行任何操作。
-   * 阻止事件传播并默认行为。
-   * 调用 `openMenus` 函数，传递事件和菜单项数组。
-   * 菜单项包括添加行、添加列、在表格单元格内换行、移动行或列、删除行或列等操作。
-   */
-  openTableMenus(e: MouseEvent | React.MouseEvent, head?: boolean) {
-    if (this.readonly) {
-      return;
-    }
-    e.stopPropagation();
-    e.preventDefault();
-    openMenus(e, [
-      {
-        text: 'Add Row Above',
-        click: () => this.tableTask$.next('insertRowBefore'),
-      },
-      {
-        text: 'Add Row Below',
-        key: 'cmd+enter',
-        click: () => this.tableTask$.next('insertRowAfter'),
-      },
-      { hr: true },
-      {
-        text: 'Add Column Before',
-        click: () => this.tableTask$.next('insertColBefore'),
-      },
-      {
-        text: 'Add Column After',
-        click: () => this.tableTask$.next('insertColAfter'),
-      },
-      { hr: true },
-      {
-        text: 'Line break within table-cell',
-        key: 'cmd+shift+enter',
-        click: () => this.tableTask$.next('insertTableCellBreak'),
-      },
-      {
-        text: 'Move',
-        children: [
-          {
-            text: 'Move Up One Row',
-            disabled: head,
-            click: () => this.tableTask$.next('moveUpOneRow'),
-          },
-          {
-            text: 'Move Down One Row',
-            disabled: head,
-            click: () => this.tableTask$.next('moveDownOneRow'),
-          },
-          {
-            text: 'Move Left One Col',
-            click: () => this.tableTask$.next('moveLeftOneCol'),
-          },
-          {
-            text: 'Move Right One Col',
-            click: () => this.tableTask$.next('moveRightOneCol'),
-          },
-        ],
-      },
-      { hr: true },
-      {
-        text: 'Delete Col',
-        click: () => this.tableTask$.next('removeCol'),
-      },
-      {
-        text: 'Delete Row',
-        key: 'cmd+shift+backspace',
-        click: () => this.tableTask$.next('removeRow'),
-      },
-    ]);
-  }
 
   /**
    * 查找最新的节点索引。
@@ -355,23 +277,6 @@ export class EditorStore {
    */
   insertNodes(nodes: Node | Node[], options?: any) {
     Transforms.insertNodes(this.editor, nodes, options);
-  }
-
-  /**
-   * 隐藏高亮范围的方法。
-   *
-   * 如果 `highlightCache` 中有缓存，则在 60 毫秒后清空缓存并刷新高亮状态。
-   * 该方法使用 `setTimeout` 延迟执行，并在回调中使用 `runInAction` 确保状态更新。
-   */
-  hideRanges() {
-    if (this.highlightCache.size) {
-      setTimeout(() => {
-        runInAction(() => {
-          this.highlightCache.clear();
-          this.refreshHighlight = Date.now();
-        });
-      }, 60);
-    }
   }
 
   /**

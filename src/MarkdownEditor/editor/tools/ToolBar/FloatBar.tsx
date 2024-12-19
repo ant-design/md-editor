@@ -1,6 +1,6 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useCallback, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BaseRange, Editor, Range, Transforms } from 'slate';

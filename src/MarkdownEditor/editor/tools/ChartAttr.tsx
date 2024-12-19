@@ -1,7 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';

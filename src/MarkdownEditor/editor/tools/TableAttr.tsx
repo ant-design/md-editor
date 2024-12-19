@@ -7,7 +7,7 @@ import {
 import { ConfigProvider, Popconfirm, Popover, Tooltip } from 'antd';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';

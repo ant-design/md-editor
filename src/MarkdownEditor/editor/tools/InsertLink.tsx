@@ -3,7 +3,7 @@ import { DeleteOutlined, PicLeftOutlined } from '@ant-design/icons';
 import { Input, InputRef, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetSetState } from 'react-use';

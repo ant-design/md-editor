@@ -1,7 +1,7 @@
 ﻿import { CommentOutlined, CopyFilled } from '@ant-design/icons';
 import { Input, message, Modal } from 'antd';
 import classnames from 'classnames';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useEffect, useMemo } from 'react';
 import { Editor, Element, Node, Point, Transforms } from 'slate';
 import { CommentDataType } from '../../../index';

@@ -11,7 +11,7 @@
 import { ColorPicker, Divider, Dropdown } from 'antd';
 import classnames from 'classnames';
 import { runInAction } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, NodeEntry } from 'slate';
 import { useEditorStore } from '../../store';
@@ -126,7 +126,6 @@ export const BaseToolBar = observer(
       store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
       store.openInsertLink$.next(sel);
       runInAction(() => {
-        store.refreshHighlight = Date.now();
         store.openLinkPanel = true;
       });
     }, []);
