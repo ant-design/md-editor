@@ -184,7 +184,7 @@ export const Table = observer((props: RenderElementProps) => {
 
   const isSel = useMemo(() => {
     if (selected) return true;
-    if (!store.selectTablePath.length) return false;
+    if (!store.selectTablePath?.length) return false;
     return store.selectTablePath.join('') === path.join('');
   }, [store.editor, selected, store.selectTablePath, props.element]);
 
