@@ -102,11 +102,9 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
   const setLanguage = useCallback(() => {
     setState({ editable: false });
     if (props.element.language?.toLowerCase() === state().lang) return;
-    runInAction(() => (store.pauseCodeHighlight = true));
     update({ language: state().lang, date: Date.now() });
     setTimeout(() => {
       runInAction(() => {
-        store.pauseCodeHighlight = false;
         store.refreshHighlight = Date.now();
       });
     });
@@ -314,13 +312,7 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   const context = useContext(ConfigProvider.ConfigContext);
 
   const setLanguage = useCallback(() => {
-    runInAction(() => (store.pauseCodeHighlight = true));
     update({ date: Date.now() });
-    setTimeout(() => {
-      runInAction(() => {
-        store.pauseCodeHighlight = false;
-      });
-    });
   }, [props.element, props.element.children]);
 
   useEffect(() => {

@@ -95,19 +95,11 @@ export function useOnchange(
       if (node && node[0].type === 'table-cell') {
         store.setState((state) => {
           state.tableCellNode = node;
-          state.refreshTableAttr = !state.refreshTableAttr;
         });
       } else if (store.tableCellNode) {
         store.setState((state) => {
           state.tableCellNode = null;
-          state.refreshTableAttr = !state.refreshTableAttr;
         });
-      }
-
-      if (node && node[0].type === 'chart') {
-        store.chartNode = node;
-      } else if (store.chartNode) {
-        store.chartNode = null;
       }
     };
   }, [editor]);

@@ -359,8 +359,7 @@ export const SetNodeToDecorations = observer(() => {
     }
   }, []);
   useMemo(() => {
-    if (store?.pauseCodeHighlight) return;
     parser();
-  }, [editor.children, store?.pauseCodeHighlight, store.refreshHighlight]);
+  }, [editor.children, store.refreshHighlight]);
   return null;
 });

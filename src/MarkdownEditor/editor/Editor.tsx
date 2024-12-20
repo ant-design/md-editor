@@ -1,7 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { message } from 'antd';
 import classNames from 'classnames';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
@@ -71,9 +70,7 @@ export const MEditor = observer(
       clearTimeout(saveTimer.current);
       if (note) {
         nodeRef.current = note;
-        store.setState((state) => {
-          state.pauseCodeHighlight = true;
-        });
+
         first.current = true;
         store.initializing = true;
         try {
@@ -88,7 +85,6 @@ export const MEditor = observer(
         }
         setTimeout(() => {
           store.initializing = false;
-          store.setState((state) => (state.pauseCodeHighlight = false));
         }, 10);
       } else {
         nodeRef.current = undefined;
@@ -114,9 +110,6 @@ export const MEditor = observer(
         if (note) {
           note.schema = v;
           note.history = editor.history;
-
-          // @ts-ignore
-          note.sel = editor.selection;
         }
 
         if (!editor.operations?.every((o) => o.type === 'set_selection')) {
@@ -170,7 +163,6 @@ export const MEditor = observer(
       store.setState((state) => {
         state.focus = false;
         state.tableCellNode = null;
-        state.refreshTableAttr = !state.refreshTableAttr;
       });
     }, []);
 
@@ -441,7 +433,6 @@ export const MEditor = observer(
      */
     const onCompositionStart = useCallback((e: React.CompositionEvent) => {
       store.inputComposition = true;
-      runInAction(() => (store.pauseCodeHighlight = true));
       if (editor.selection && Range.isCollapsed(editor.selection)) {
         e.preventDefault();
       }
@@ -452,8 +443,6 @@ export const MEditor = observer(
      */
     const onCompositionEnd = useCallback(() => {
       store.inputComposition = false;
-      if (store.pauseCodeHighlight)
-        runInAction(() => (store.pauseCodeHighlight = false));
     }, []);
 
     const onError = useCallback((e: React.SyntheticEvent) => {

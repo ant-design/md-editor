@@ -30,7 +30,7 @@ export const ChartAttr: React.FC<{
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
 
   const remove = React.useCallback(() => {
-    const chart = props.node || store?.chartNode?.at(0);
+    const chart = props.node;
     if (!chart) return;
 
     Transforms.delete(editor, { at: EditorUtils.findPath(editor, chart!) });

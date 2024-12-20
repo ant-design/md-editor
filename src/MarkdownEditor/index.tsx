@@ -1,5 +1,4 @@
 import { observable } from 'mobx';
-import { nanoid } from 'nanoid';
 import React, {
   ReactNode,
   useContext,
@@ -76,24 +75,13 @@ export type CommentDataType = {
 };
 
 /**
- * 表示编辑器的类型。
+ * 编辑器接口定义
+ * @interface IEditor
  *
- * @typedef {Object} IEditor
- * @property {string} cid - 编辑器的唯一标识符。
- * @property {boolean} [root] - 是否为根节点。
- * @property {IEditor[]} [children] - 子编辑器数组。
- * @property {boolean} [expand] - 是否展开。
- * @property {string} [editName] - 编辑器的名称。
- * @property {boolean} [changed] - 是否已更改。
- * @property {boolean} [refresh] - 是否需要刷新。
- * @property {boolean} [ghost] - 是否为幽灵节点。
- * @property {number} sort - 排序顺序。
- * @property {any[]} [schema] - 编辑器的模式。
- * @property {any} [history] - 编辑器的历史记录。
- * @property {boolean} [hidden] - 是否隐藏。
- * @property {Object[]} [links] - 链接数组。
- * @property {number[]} links.path - 链接路径。
- * @property {string} links.target - 链接目标。
+ * @property {IEditor[]} [children] - 子编辑器列表
+ * @property {boolean} [expand] - 是否展开
+ * @property {any[]} [schema] - 编辑器模式配置
+ * @property {any} [history] - 编辑器历史记录
  */
 export type IEditor = {
   children?: IEditor[];
@@ -107,11 +95,9 @@ export type IEditor = {
  */
 export interface MarkdownEditorInstance {
   get current(): IEditor | undefined;
-  index: number;
   range?: Range;
   store: EditorStore;
   editorProps?: MarkdownEditorProps;
-  id: string;
 }
 
 /**
@@ -267,7 +253,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   // 初始化实例
   const instance = useMemo(() => {
-    const now = Date.now();
     const list = parserMdToSchema(initValue!)?.schema;
     if (!props.readonly) {
       list.push(EditorUtils.p);
@@ -277,7 +262,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
 
     const data = {
-      cid: nanoid(),
       schema: schema?.filter((item: any) => {
         if (item.type === 'p' && item.children.length === 0) {
           return false;
@@ -290,20 +274,16 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         }
         return true;
       }),
-      sort: 0,
-      lastOpenTime: now,
     };
     return observable(
       {
         get current() {
           return data;
         },
-        index: 0,
-        id: nanoid(),
         editorProps: props,
         store: new EditorStore(),
       } as MarkdownEditorInstance,
-      { range: false, id: false },
+      { range: false },
     );
   }, []);
 
@@ -405,7 +385,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             instance.store.setState((state) => (state.container = dom));
             setMount(true);
           }}
-          key={instance.id}
         >
           <MEditor
             prefixCls={baseClassName}

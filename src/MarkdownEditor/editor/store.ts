@@ -19,7 +19,7 @@ import { ReactEditor, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
 import { MarkdownEditorProps } from '..';
-import { ChartNode, Elements, ListNode, MediaNode, TableCellNode } from '../el';
+import { Elements, ListNode, MediaNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { withMarkdown } from './plugins';
 import { withErrorReporting } from './plugins/catchError';
@@ -49,54 +49,6 @@ export const useEditorStore = () => {
 const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
 /**
  * 编辑器存储类，用于管理Markdown编辑器的状态和操作。
- *
- * @class EditorStore
- * @property {Editor} editor - 编辑器实例，包含Markdown、React和历史功能。
- * @property {boolean} manual - 手动模式标志。
- * @property {boolean} initializing - 初始化标志。
- * @property {BaseSelection | undefined} sel - 当前选择。
- * @property {boolean} focus - 焦点标志。
- * @property {boolean} readonly - 只读标志。
- * @property {Set<string>} ableToEnter - 可进入的元素集合。
- * @property {boolean} typewriter - 打字机模式标志。
- * @property {HTMLElement | null} draggedElement - 拖动的元素。
- * @property {boolean} openInsertCompletion - 插入完成标志。
- * @property {Subject<string>} insertCompletionText$ - 插入完成文本流。
- * @property {Map<object, Range[]>} highlightCache - 高亮缓存。
- * @property {boolean} refreshFloatBar - 刷新浮动栏标志。
- * @property {boolean} refreshTableAttr - 刷新表格属性标志。
- * @property {Subject<NodeEntry<MediaNode> | null>} mediaNode$ - 媒体节点流。
- * @property {Subject<Selection>} openInsertLink$ - 打开插入链接流。
- * @property {boolean} openLinkPanel - 打开链接面板标志。
- * @property {NodeEntry<TableCellNode> | null} tableCellNode - 表格单元格节点。
- * @property {NodeEntry<ChartNode> | null} chartNode - 图表节点。
- * @property {boolean} refreshHighlight - 刷新高亮标志。
- * @property {boolean} pauseCodeHighlight - 暂停代码高亮标志。
- * @property {DOMRect | null} domRect - DOM矩形。
- * @property {HTMLDivElement | null} container - 容器元素。
- * @property {boolean} inputComposition - 输入组合标志。
- * @property {MarkdownEditorProps} editorProps - 编辑器属性。
- * @property {Subject<string>} tableTask$ - 表格任务流。
- *
- * @method get doc - 获取编辑器文档元素。
- * @method doManual - 启用手动模式。
- * @method openTableMenus - 打开表格菜单。
- * @method findLatest - 查找最新的节点索引。
- * @method isLatestNode - 判断是否为最新节点。
- * @method insertLink - 插入链接。
- * @method insertNodes - 插入节点。
- * @method hideRanges - 隐藏范围。
- * @method offsetTop - 获取元素的顶部偏移量。
- * @method offsetLeft - 获取元素的左侧偏移量。
- * @method doRefreshHighlight - 刷新高亮。
- * @method setState - 设置状态。
- * @method toPath - 将元素转换为路径。
- * @method clearContent - 清空编辑器内容。
- * @method setMDContent - 设置Markdown内容。
- * @method setContent - 设置编辑器内容。
- * @method diffNode - 比较节点并更新。
- * @method updateNodeList - 更新节点列表。
- * @method dragStart - 拖动开始处理。
  */
 export class EditorStore {
   editor = withMarkdown(withReact(withHistory(createEditor())));
@@ -121,14 +73,11 @@ export class EditorStore {
   insertCompletionText$ = new Subject<string>();
   highlightCache = new Map<object, Range[]>();
   refreshFloatBar = false;
-  refreshTableAttr = false;
   mediaNode$ = new Subject<NodeEntry<MediaNode> | null>();
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
-  chartNode: null | NodeEntry<ChartNode> = null;
   refreshHighlight = Date.now();
-  pauseCodeHighlight = false;
   domRect: DOMRect | null = null;
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
@@ -148,7 +97,9 @@ export class EditorStore {
     | 'in'
     | 'insertTableCellBreak'
   >();
+
   floatBarOpen: boolean = false;
+
   setFloatBarOpen(open: boolean) {
     this.floatBarOpen = open;
   }
