@@ -1,16 +1,12 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { useStyle } from './style';
 
 export function ColumnCell(props: RenderElementProps) {
-  const { store } = useEditorStore();
-  const contextFn = useCallback((e: React.MouseEvent, head?: boolean) => {
-    store.openTableMenus(e, head);
-  }, []);
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-column-group-cell');
   return React.useMemo(() => {
@@ -19,9 +15,6 @@ export function ColumnCell(props: RenderElementProps) {
         {...props.attributes}
         data-be={'column-group-cell'}
         className={baseCls}
-        onContextMenu={(e) => {
-          contextFn(e);
-        }}
       >
         {props.children}
       </div>

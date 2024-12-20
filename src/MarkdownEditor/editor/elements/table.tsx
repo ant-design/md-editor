@@ -45,9 +45,6 @@ export function TableCell(props: RenderElementProps) {
   const { store, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_] = useSelStatus(props.element);
-  const context = useCallback((e: React.MouseEvent, head?: boolean) => {
-    store.openTableMenus(e, head);
-  }, []);
 
   return React.useMemo(() => {
     const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
@@ -58,7 +55,6 @@ export function TableCell(props: RenderElementProps) {
         {...props.attributes}
         style={{ textAlign: props.element.align }}
         data-be={'th'}
-        onContextMenu={(e) => context(e, true)}
       >
         <div
           style={{
@@ -76,9 +72,6 @@ export function TableCell(props: RenderElementProps) {
         style={{ textAlign: props.element.align }}
         data-be={'td'}
         className={classNames('group')}
-        onContextMenu={(e) => {
-          context(e);
-        }}
       >
         {readonly && domWidth > 200 ? (
           <Popover

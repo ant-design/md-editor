@@ -127,9 +127,9 @@ export const TocHeading = observer(({ note }: { note: IEditor }) => {
     cache.clear();
     getHeading();
     setState({ active: '' });
-  }, [note]);
+  }, [store?.container, note]);
 
-  useDebounce(getHeading, 100, [note, note?.refresh]);
+  useDebounce(getHeading, 100, [note]);
 
   useEffect(() => {
     const div = box.current;
