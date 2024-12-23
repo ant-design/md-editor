@@ -146,7 +146,7 @@ const genConfigProps = (config: {
   x: string;
   height: number;
   y: string;
-  colorLegend: string;
+  colorLegend?: string | null;
 }) => {
   const defaultProps = {
     tooltip: {
@@ -219,7 +219,10 @@ const genConfigProps = (config: {
         ],
       },
     },
-    colorField: config?.colorLegend,
+    colorField:
+      config?.colorLegend && config?.colorLegend !== 'null'
+        ? config.colorLegend
+        : undefined,
   };
   return defaultProps;
 };
