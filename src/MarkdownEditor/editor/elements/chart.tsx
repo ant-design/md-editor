@@ -759,9 +759,13 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           contentEditable={readonly ? false : true}
                           style={{
                             margin: 12,
-                            borderRadius: 16,
                             overflow: 'auto',
                             border: '1px solid #eee',
+                            borderRadius: 18,
+                            minWidth: `calc(${100 / columnLength}% - 16px)`,
+                            flex: 1,
+                            maxWidth: '100%',
+                            userSelect: 'none',
                           }}
                         >
                           <table contentEditable={readonly ? false : true}>
