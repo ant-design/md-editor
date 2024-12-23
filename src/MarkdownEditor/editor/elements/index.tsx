@@ -33,7 +33,11 @@ const dragStart = (e: React.DragEvent) => {
   e.stopPropagation();
 };
 
-export const MElement = (props: RenderElementProps) => {
+export const MElement = (
+  props: RenderElementProps & {
+    readonly?: boolean;
+  },
+) => {
   switch (props.element.type) {
     case 'link-card':
       return <LinkCard {...props} />;
@@ -97,6 +101,7 @@ export const MElement = (props: RenderElementProps) => {
     case 'card':
       return <WarpCard {...props} />;
     case 'card-before':
+      if (props.readonly) return null;
       return (
         <span
           style={{
@@ -112,6 +117,7 @@ export const MElement = (props: RenderElementProps) => {
         </span>
       );
     case 'card-after':
+      if (props.readonly) return null;
       return (
         <span
           style={{

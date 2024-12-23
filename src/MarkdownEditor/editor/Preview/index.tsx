@@ -27,9 +27,6 @@ export const Preview = ({
   reportMode?: MarkdownEditorProps['reportMode'];
 }) => {
   const editor = withMarkdown(withReact(withHistory(createEditor())));
-  const elementRenderElement = useCallback((props: RenderElementProps) => {
-    return <MElement {...props} children={props.children} />;
-  }, []);
 
   const highlight = useHighlight();
 
@@ -67,6 +64,9 @@ export const Preview = ({
     return map;
   }, [editorProps?.comment?.commentList]);
 
+  const elementRenderElement = useCallback((props: RenderElementProps) => {
+    return <MElement {...props} children={props.children} readonly />;
+  }, []);
   const renderMarkdownLeaf = useCallback(
     (props: any) => {
       return (

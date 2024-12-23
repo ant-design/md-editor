@@ -500,7 +500,9 @@ export const MEditor = observer(
     }, [editorProps?.comment?.commentList]);
 
     const elementRenderElement = (props: RenderElementProps) => {
-      const defaultDom = <MElement {...props} children={props.children} />;
+      const defaultDom = (
+        <MElement {...props} children={props.children} readonly={readonly} />
+      );
       if (!eleItemRender) return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
     };
