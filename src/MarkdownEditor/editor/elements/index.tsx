@@ -101,7 +101,6 @@ export const MElement = (
     case 'card':
       return <WarpCard {...props} />;
     case 'card-before':
-      if (props.readonly) return null;
       return (
         <span
           style={{
@@ -109,6 +108,7 @@ export const MElement = (
             height: '100%',
             position: 'relative',
             zIndex: 99,
+            display: props.readonly ? 'none' : 'block',
           }}
           data-be={'card-before'}
           {...props.attributes}
@@ -117,7 +117,6 @@ export const MElement = (
         </span>
       );
     case 'card-after':
-      if (props.readonly) return null;
       return (
         <span
           style={{
@@ -126,6 +125,7 @@ export const MElement = (
             alignSelf: 'end',
             position: 'relative',
             zIndex: 99,
+            display: props.readonly ? 'none' : 'block',
           }}
           data-be={'card-after'}
           {...props.attributes}
