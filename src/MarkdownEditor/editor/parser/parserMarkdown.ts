@@ -884,6 +884,7 @@ export const parserMarkdown = (
         .replaceAll('。', ' 。')
         .replaceAll('？', ' ？')
         ?.replace(/ +\[/g, ' [')
+        ?.replace(/ +\\n/g, ' \n')
         .replaceAll('！', ' ！') || '';
   } catch (error) {}
   const root = parser.parse(markdown);

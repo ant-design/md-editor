@@ -7,7 +7,7 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 
 export const Paragraph = (props: ElementProps<ParagraphNode>) => {
-  const { store, typewriter } = useEditorStore();
+  const { store, typewriter, readonly } = useEditorStore();
   const [selected, path] = useSelStatus(props.element);
 
   const isLatest = useMemo(() => {
@@ -30,6 +30,9 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
           empty: !str,
           typewriter: isLatest && typewriter,
         })}
+        style={{
+          display: !str && readonly ? 'none' : undefined,
+        }}
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
       >
@@ -37,5 +40,5 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         {props.children}
       </p>
     );
-  }, [props.element.children, selected, isLatest, typewriter]);
+  }, [props.element.children, readonly, selected, isLatest, typewriter]);
 };

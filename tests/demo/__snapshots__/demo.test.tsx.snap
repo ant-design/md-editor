@@ -1054,6 +1054,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
+            style="display: none;"
           >
             <span
               data-slate-node="text"
@@ -23025,6 +23026,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/rerender.tsx > renders src/Mar
             class="ant-md-editor-drag-el empty typewriter"
             data-be="paragraph"
             data-slate-node="element"
+            style="display: none;"
           >
             <span
               data-slate-node="text"
