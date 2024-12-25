@@ -126,6 +126,8 @@ export const BaseToolBar = observer(
       store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
       store.openInsertLink$.next(sel);
       runInAction(() => {
+        if (typeof window === 'undefined') return;
+        if (typeof window.matchMedia === 'undefined') return;
         store.openLinkPanel = true;
       });
     }, []);

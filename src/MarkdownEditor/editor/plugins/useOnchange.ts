@@ -54,6 +54,8 @@ export function useOnchange(
       });
 
       runInAction(() => {
+        if (typeof window === 'undefined') return;
+        if (typeof window.matchMedia === 'undefined') return;
         store.sel = sel;
       });
       if (!node) return;

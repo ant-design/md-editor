@@ -322,6 +322,8 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             y: state.top || state.bottom || 0,
           });
           runInAction(() => {
+            if (typeof window === 'undefined') return;
+            if (typeof window.matchMedia === 'undefined') return;
             store.openInsertCompletion = false;
           });
           close();
@@ -350,6 +352,8 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             args: op.args,
           });
           runInAction(() => {
+            if (typeof window === 'undefined') return;
+            if (typeof window.matchMedia === 'undefined') return;
             store.openInsertCompletion = false;
           });
           close();

@@ -354,6 +354,8 @@ export const SetNodeToDecorations = observer(() => {
         stack.map((s) => loadedLanguage.add(s.lang));
         stack.forEach((s) => s.run());
         stack = [];
+        if (typeof window === 'undefined') return;
+        if (typeof window.matchMedia === 'undefined') return;
         runInAction(() => (store.refreshHighlight = Date.now()));
       });
     }

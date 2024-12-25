@@ -1089,7 +1089,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                 <span
                   data-be="card-before"
                   data-slate-node="element"
-                  style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+                  style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
                 >
                   <span
                     data-slate-node="text"
@@ -1169,7 +1169,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/bug.tsx > renders src/Markdown
                 <span
                   data-be="card-after"
                   data-slate-node="element"
-                  style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+                  style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
                 >
                   <span
                     data-slate-node="text"
@@ -1261,7 +1261,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -2447,7 +2447,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -2530,7 +2530,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -10586,7 +10586,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -10669,7 +10669,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -12133,7 +12133,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -12236,7 +12236,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -13394,7 +13394,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -13449,7 +13449,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -21477,7 +21477,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -21532,7 +21532,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -22968,7 +22968,7 @@ exports[`Rendering demo: src/MarkdownEditor/demos/readonly.tsx > renders src/Mar
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
             >
               <span
                 data-slate-node="text"

@@ -151,6 +151,8 @@ export class KeyboardTask {
         );
         setTimeout(() => {
           runInAction(() => {
+            if (typeof window === 'undefined') return;
+            if (typeof window.matchMedia === 'undefined') return;
             this.store.refreshHighlight = Date.now();
           });
         }, 60);
@@ -333,6 +335,8 @@ export class KeyboardTask {
       }
     }
     setTimeout(() => {
+      if (typeof window === 'undefined') return;
+      if (typeof window.matchMedia === 'undefined') return;
       runInAction(() => (this.store!.refreshHighlight = Date.now()));
     }, 100);
   }

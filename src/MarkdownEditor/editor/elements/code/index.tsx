@@ -316,6 +316,8 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   }, [props.element, props.element.children]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (typeof window.matchMedia === 'undefined') return;
     setLanguage();
   }, [store.refreshHighlight]);
   const baseCls = context.getPrefixCls('md-editor-code');

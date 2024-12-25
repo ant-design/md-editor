@@ -238,6 +238,8 @@ export const InsertLink = observer(() => {
     );
     window.removeEventListener('keydown', keydown);
     runInAction(() => {
+      if (typeof window === 'undefined') return;
+      if (typeof window.matchMedia === 'undefined') return;
       store.openLinkPanel = false;
     });
   }, []);
