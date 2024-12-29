@@ -327,48 +327,38 @@ export class EditorStore {
    * 如果 `node` 和 `preNode` 都没有子节点，则更新当前路径的节点，并插入文本（如果有）。
    */
   diffNode = (node: Node, preNode: Node, at: number[]) => {
-    if (
-      preNode?.type !== node?.type ||
-      (node as Elements).type === 'code' ||
-      (node as Elements).type === 'footnoteDefinition'
-    ) {
-      if (this.editor.hasPath(at)) {
-        Transforms.removeNodes(this.editor, { at });
-      }
-      if (this.editor.hasPath(Path.next(at))) {
-        Transforms.removeNodes(this.editor, { at: Path.next(at) });
-      }
-      Transforms.insertNodes(this.editor, [node], { at });
+    // 如果上个节点不存在，但是本次有，直接插入
+    if (node && !preNode) {
+      Transforms.insertNodes(this.editor, node, { at });
       return;
     }
-    Transforms.setNodes(this.editor, node, { at });
+
+    if (node.type !== preNode.type) {
+      Transforms.removeNodes(this.editor, {
+        at,
+      });
+      Transforms.insertNodes(this.editor, node, { at });
+      return;
+    }
+
+    if (node.type === preNode.type) {
+      Transforms.setNodes(this.editor, node, { at });
+      if (node.text) {
+        Transforms.insertText(this.editor, node.text, { at });
+      }
+    }
 
     if (node.children) {
       node.children.forEach((child: any, index: any) => {
-        if (preNode.children && preNode.children[index]) {
-          this.diffNode(child, preNode.children[index], [...at, index]);
-        } else {
-          if (preNode.children[index - 1]) {
-            Transforms.insertNodes(this.editor, [child], {
-              at: [...at, index],
-            });
-          } else {
-            Transforms.removeNodes(this.editor, { at });
-            Transforms.insertNodes(this.editor, node, { at });
-          }
+        if (!this.editor.hasPath(at)) {
+          Transforms.insertNodes(this.editor, child, { at });
+          return;
         }
+        this.diffNode(child, preNode.children[index], [...at, index]);
       });
-    } else {
-      if (preNode.children) {
-        Transforms.removeNodes(this.editor, { at });
-        Transforms.insertNodes(this.editor, [node], { at });
-      } else {
-        Transforms.setNodes(this.editor, node, { at });
-        if (node.text) {
-          Transforms.insertText(this.editor, node.text, { at });
-        }
-      }
+      return;
     }
+    return;
   };
 
   /**
@@ -404,8 +394,9 @@ export class EditorStore {
         return true;
       })
       .forEach((node, index) => {
-        if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index)))
+        if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index))) {
           return;
+        }
         updateMap.set(index, node);
       });
 
@@ -414,6 +405,7 @@ export class EditorStore {
         this.diffNode(node, childrenList[key], [key]);
       });
     } catch (error) {
+      console.log('run', error);
       this.editor.children = nodeList;
     }
 
@@ -421,7 +413,9 @@ export class EditorStore {
     if (maxSize > 0) {
       childrenList.forEach((node, index) => {
         if (nodeList.at(index)) return;
-        Transforms.removeNodes(this.editor, { at: [index] });
+        if (this.editor.hasPath([index])) {
+          Transforms.removeNodes(this.editor, { at: [index] });
+        }
       });
     }
   }

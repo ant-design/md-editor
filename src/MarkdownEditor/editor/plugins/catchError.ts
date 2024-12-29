@@ -6,6 +6,7 @@ const tryCatchCallback =
       return editorFunc(...editorFuncArgs);
     } catch (error) {
       console.error(error);
+      console.log(editorFuncArgs);
       // editor.undo();
     }
   };
