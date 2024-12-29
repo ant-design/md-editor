@@ -376,7 +376,14 @@ export const Table = observer((props: RenderElementProps) => {
               }}
               ref={tableTargetRef}
             >
-              <tbody>{props.children}</tbody>
+              <tbody
+                style={{
+                  userSelect: 'none',
+                }}
+                contentEditable={false}
+              >
+                {props.children}
+              </tbody>
             </table>
           </div>
         </div>
