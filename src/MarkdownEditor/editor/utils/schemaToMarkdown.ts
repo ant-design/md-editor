@@ -194,7 +194,7 @@ export const schemaToMarkdown = (
       delete configProps['dataSource'];
       if (node.type === 'link-card') {
         configProps.type = 'card';
-        configProps?.url = encodeURI(node?.url);
+        configProps.url = encodeURI(node?.url);
         configProps.name = node.name || node.title || configProps.name;
         configProps.description = node.description || configProps.description;
         configProps.icon = node.icon || configProps.icon;

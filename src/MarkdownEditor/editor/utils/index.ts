@@ -94,30 +94,11 @@ export const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 export const isWindows = /windows|win32/i.test(navigator.userAgent);
 
 export function isMarkdown(text: string) {
-  // 常见的 Markdown 语法特征
-  const markdownPatterns = [
-    /^#{1,6} /, // 标题 (#, ##, ###, ####, #####, ######)
-    /^\*{1,3}[^*]+?\*{1,3}/, // 斜体和粗体 (*italic*, **bold**, ***bolditalic***)
-    /^> /, // 引用 (>)
-    /^[-*+] /, // 无序列表 (-, *, +)
-    /^\d+\. /, // 有序列表 (1., 2., 3., ...)
-    /\[[^\]]+\]\([^)]+\)/, // 链接 [text](url)
-    /!\[[^\]]+\]\([^)]+\)/, // 图片 ![alt](url)
-    /`[^`]+`/, // 行内代码 (`code`)
-    /^```/, // 代码块 (``` code ```)
-    /^---$/, // 分隔线 (---)
-    /^\|\s/, // 表格 (| header | header |)
-    /^(\s{4}|\t)/, // 代码块缩进
-  ];
-
-  // 检查每一行是否匹配任何一个 Markdown 语法特征
-  const lines = text;
-  for (let line of lines) {
-    for (let pattern of markdownPatterns) {
-      if (pattern.test(line.trim())) {
-        return true;
-      }
-    }
+  if (text.includes('# ')) {
+    return true;
+  }
+  if (text.length > 50) {
+    return true;
   }
 
   return false;
