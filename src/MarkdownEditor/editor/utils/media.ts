@@ -38,14 +38,14 @@ export const convertRemoteImages = async (
     while (stack.length) {
       const item = stack.pop()!;
       if (item.type === 'media') {
-        if (item.url?.startsWith('http')) {
-          const ext = item.url.match(/[\w_-]+\.(png|webp|jpg|jpeg|gif|svg)/i);
+        if (item?.url?.startsWith('http')) {
+          const ext = item?.url.match(/[\w_-]+\.(png|webp|jpg|jpeg|gif|svg)/i);
           if (ext) {
             try {
               Transforms.setNodes(
                 store?.editor,
                 {
-                  url: item.url,
+                  url: item?.url,
                 },
                 { at: ReactEditor.findPath(store?.editor, item) },
               );
@@ -53,14 +53,14 @@ export const convertRemoteImages = async (
               console.error(e);
             }
           }
-        } else if (item.url?.startsWith('data:')) {
-          const m = item.url.match(/data:image\/(\w+);base64,(.*)/);
+        } else if (item?.url?.startsWith('data:')) {
+          const m = item?.url.match(/data:image\/(\w+);base64,(.*)/);
           if (m) {
             try {
               Transforms.setNodes(
                 store?.editor,
                 {
-                  url: item.url,
+                  url: item?.url,
                 },
                 { at: ReactEditor.findPath(store?.editor, item) },
               );

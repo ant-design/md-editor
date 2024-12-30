@@ -213,7 +213,7 @@ export function useHighlight() {
               ranges.push(...textRanges);
             }
           }
-          if (c.text && !c.url && !c.docId && !c.hash) {
+          if (c.text && !c?.url && !c.docId && !c.hash) {
             let textRanges: any[] = [];
             const links = (c.text as string).matchAll(linkReg);
             for (let m of links) {

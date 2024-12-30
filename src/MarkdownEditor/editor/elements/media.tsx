@@ -146,7 +146,7 @@ export function Media({
     loadSuccess: true,
     url: '',
     selected: false,
-    type: getMediaType(element.url, element.alt),
+    type: getMediaType(element?.url, element.alt),
   });
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
@@ -157,14 +157,14 @@ export function Media({
   );
 
   const initial = useCallback(async () => {
-    let type = getMediaType(element.url, element.alt);
+    let type = getMediaType(element?.url, element.alt);
     type = !type ? 'image' : type;
     setState({
       type: ['image', 'video', 'autio', 'attachment'].includes(type!)
         ? type!
         : 'other',
     });
-    let realUrl = element.url;
+    let realUrl = element?.url;
 
     setState({ url: realUrl });
     if (state().type === 'image' || state().type === 'other') {
@@ -186,7 +186,7 @@ export function Media({
 
   useLayoutEffect(() => {
     initial();
-  }, [element.url]);
+  }, [element?.url]);
 
   const imageDom = useMemo(() => {
     if (state().type !== 'image' && state().type !== 'other') return null;
@@ -198,7 +198,7 @@ export function Media({
           height: element.height,
         }}
         supportResize={state().selected}
-        src={state().url}
+        src={state()?.url}
         onResizeStart={() => {
           setState({ selected: true });
         }}
@@ -209,7 +209,7 @@ export function Media({
       />
     ) : (
       <Image
-        src={state().url || element.url}
+        src={state()?.url || element?.url}
         alt={'image'}
         preview={{
           getContainer: () => document.body,
@@ -225,7 +225,7 @@ export function Media({
         height={element.height}
       />
     );
-  }, [state().type, state().url, readonly, state().selected]);
+  }, [state().type, state()?.url, readonly, state().selected]);
 
   const mediaElement = useMemo(() => {
     if (state().type === 'video')
@@ -237,7 +237,7 @@ export function Media({
             height: 'auto',
             maxWidth: 600,
           }}
-          src={state().url || ''}
+          src={state()?.url || ''}
         />
       );
 
@@ -249,7 +249,7 @@ export function Media({
             width: '100%',
             height: 'auto',
           }}
-          src={state().url || ''}
+          src={state()?.url || ''}
         >
           Your browser does not support the
           <code>audio</code> element.
@@ -296,7 +296,7 @@ export function Media({
               }}
             >
               <a
-                href={state().url}
+                href={state()?.url}
                 style={{
                   overflow: 'ellipsis',
                   textOverflow: 'ellipsis',
@@ -359,7 +359,7 @@ export function Media({
           >
             <EyeOutlined
               onClick={() => {
-                window.open(state().url);
+                window.open(state()?.url);
               }}
               style={{
                 fontSize: 16,
@@ -371,7 +371,7 @@ export function Media({
       );
     }
     return null;
-  }, [state().type, state().url]);
+  }, [state().type, state()?.url]);
 
   return (
     <div {...attributes}>

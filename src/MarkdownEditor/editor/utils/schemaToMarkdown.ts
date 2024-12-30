@@ -72,7 +72,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }
       break;
     case 'attach':
-      str += `<a href="${encodeURI(node.url)}" download data-size="${
+      str += `<a href="${encodeURI(node?.url)}" download data-size="${
         node.size
       }">${node.name}</a>`;
       break;
@@ -80,7 +80,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += schemaToMarkdown(node.children, preString, newParent);
       break;
     case 'media':
-      let url = node.url;
+      let url = node?.url;
       let type = getMediaType(url, node?.alt);
       if (node.height) {
         if (type === 'video') {
@@ -155,7 +155,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += '```schema\n' + JSON.stringify(node.otherProps, null, 2) + '\n```';
       break;
     case 'link-card':
-      str += `[${node.name}](${node.url} "${node.name}")`;
+      str += `[${node.name}](${node?.url} "${node.name}")`;
       break;
     case 'hr':
       str += preString + '***';
@@ -194,7 +194,7 @@ export const schemaToMarkdown = (
       delete configProps['dataSource'];
       if (node.type === 'link-card') {
         configProps.type = 'card';
-        configProps.url = encodeURI(node.url);
+        configProps?.url = encodeURI(node?.url);
         configProps.name = node.name || node.title || configProps.name;
         configProps.description = node.description || configProps.description;
         configProps.icon = node.icon || configProps.icon;
@@ -329,7 +329,7 @@ const textHtml = (t: Text) => {
   if (t.italic) str = `<i>${str}</i>`;
   if (t.bold) str = `<b>${str}</b>`;
   if (t.strikethrough) str = `<del>${str}</del>`;
-  if (t.url) str = `<a href="${t.url}">${str}</a>`;
+  if (t?.url) str = `<a href="${t?.url}">${str}</a>`;
   return str;
 };
 
@@ -384,8 +384,8 @@ const composeText = (t: Text, parent: any[]) => {
   // @ts-ignore
   const index = siblings?.findIndex((n) => n === t);
   let str = textStyle(t)!;
-  if (t.url) {
-    str = `[${t.text}](${encodeURI(t.url)})`;
+  if (t?.url) {
+    str = `[${t.text}](${encodeURI(t?.url)})`;
   } else if (isMix(t) && index !== -1) {
     const next = siblings[index + 1];
     if (!str.endsWith(' ') && next && !Node.string(next).startsWith(' ')) {

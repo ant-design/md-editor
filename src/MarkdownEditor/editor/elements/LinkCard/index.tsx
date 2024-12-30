@@ -86,7 +86,7 @@ export function LinkCard({
               }}
             >
               <a
-                href={element.url}
+                href={element?.url}
                 className={classNames(
                   `${baseCls}-container-content-title`,
                   hashId,
@@ -94,7 +94,7 @@ export function LinkCard({
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
-                  window.open(element.url);
+                  window.open(element?.url);
                 }}
                 download={element.title || element.name || 'no title'}
               >
@@ -106,7 +106,7 @@ export function LinkCard({
                   hashId,
                 )}
               >
-                {element.description ? element.description : element.url}
+                {element.description ? element.description : element?.url}
               </div>
               <div
                 className={classNames(
@@ -158,7 +158,7 @@ export function LinkCard({
           >
             <EyeOutlined
               onClick={() => {
-                window.open(element.url);
+                window.open(element?.url);
               }}
               style={{
                 fontSize: 16,

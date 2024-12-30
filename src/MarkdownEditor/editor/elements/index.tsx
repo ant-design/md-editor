@@ -198,24 +198,24 @@ export const MLeaf = (
       } catch (e) {}
     };
 
-    if (leaf.url) {
+    if (leaf?.url) {
       return (
         <span
           data-be={'link'}
           draggable={false}
           onDragStart={dragStart}
-          data-url={leaf.url}
+          data-url={leaf?.url}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
             if (e.metaKey || e.ctrlKey || readonly) {
-              if (!leaf.url) return;
-              window.open(leaf.url);
+              if (!leaf?.url) return;
+              window.open(leaf?.url);
             } else if (e.detail === 2) {
               selectFormat();
             }
           }}
-          id={leaf.url}
+          id={leaf?.url}
           data-slate-inline={true}
           className={`${className}`}
           style={{

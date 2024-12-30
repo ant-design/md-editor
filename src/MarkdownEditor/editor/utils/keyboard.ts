@@ -828,7 +828,7 @@ export const useSystemKeyboard = (
             Element.isElement(m) && (m.type === 'media' || m.type === 'attach'),
         });
         if (!node) return;
-        let readlUrl = node[0].url as string;
+        let readlUrl = node[0]?.url as string;
 
         if (node[0].type === 'media') {
           const url = `media://file?url=${readlUrl}&height=${
@@ -841,7 +841,7 @@ export const useSystemKeyboard = (
           }
         }
         if (node[0].type === 'attach') {
-          const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0].url}`;
+          const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
           navigator.clipboard.writeText(url);
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store?.editor, { at: node[1] });

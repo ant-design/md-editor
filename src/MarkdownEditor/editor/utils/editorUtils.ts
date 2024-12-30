@@ -69,7 +69,7 @@ export class EditorUtils {
       leaf.code ||
       leaf.italic ||
       leaf.strikethrough ||
-      !!leaf.url ||
+      !!leaf?.url ||
       leaf.fnd ||
       leaf.fnc ||
       leaf.html ||
@@ -267,10 +267,10 @@ export class EditorUtils {
 
   static getUrl(editor: Editor) {
     const [match] = Editor.nodes<any>(editor, {
-      match: (n) => Text.isText(n) && !!n.url,
+      match: (n) => Text.isText(n) && !!n?.url,
       mode: 'lowest',
     });
-    return (match?.[0].url as string) || '';
+    return (match?.[0]?.url as string) || '';
   }
 
   static toggleFormat(editor: Editor, format: any) {

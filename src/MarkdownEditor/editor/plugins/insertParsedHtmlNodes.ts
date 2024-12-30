@@ -187,7 +187,7 @@ const processFragment = (fragment: any[], parentType = '') => {
   fragment = fragment.filter(
     (f) =>
       !(!f.type && !(f.text as string).trim()) ||
-      (f.type === 'media' && !f.url),
+      (f.type === 'media' && !f?.url),
   );
   for (let f of fragment) {
     if (f.type === 'table') {
@@ -290,9 +290,9 @@ export const insertParsedHtmlNodes = async (
   for await (let fragment of fragmentList) {
     if (fragment.type === 'media') {
       const serverUrl = [
-        await editorProps.image?.upload?.([fragment.url]),
+        await editorProps.image?.upload?.([fragment?.url]),
       ].flat(1);
-      fragment.url = serverUrl?.[0];
+      fragment?.url = serverUrl?.[0];
       fragment.downloadUrl = serverUrl?.[0];
     }
   }
