@@ -755,7 +755,7 @@ const parserBlock = (
               if (t.tag === 'del') el.strikethrough = true;
               if (t.tag === 'span' && t.color) el.highColor = t.color;
               if (t.tag === 'a' && t?.url) {
-                el?.url = t?.url;
+                el.url = t?.url;
               }
             }
           }
@@ -779,9 +779,9 @@ const parserBlock = (
             if (currentNode.type === 'delete') leaf.strikethrough = true;
             if (currentNode.type === 'link') {
               try {
-                leaf?.url = decodeURIComponent(currentNode?.url);
+                leaf.url = decodeURIComponent(currentNode?.url);
               } catch (error) {
-                leaf?.url = currentNode?.url;
+                leaf.url = currentNode?.url;
               }
             }
             el = parseText(

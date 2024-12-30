@@ -292,7 +292,7 @@ export const insertParsedHtmlNodes = async (
       const serverUrl = [
         await editorProps.image?.upload?.([fragment?.url]),
       ].flat(1);
-      fragment?.url = serverUrl?.[0];
+      fragment.url = serverUrl?.[0];
       fragment.downloadUrl = serverUrl?.[0];
     }
   }
