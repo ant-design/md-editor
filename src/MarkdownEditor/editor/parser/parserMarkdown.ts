@@ -697,11 +697,14 @@ const parserBlock = (
           }
         }
         const isSchema =
-          currentNode.lang === 'schema' || currentNode.lang === 'apaasify';
+          currentNode.lang === 'schema' ||
+          currentNode.lang === 'apaasify' ||
+          currentNode.meta === 'apassify';
 
         el = {
           type: isSchema ? currentNode.lang : 'code',
-          language: currentNode.lang,
+          language:
+            currentNode.lang === 'apassify' ? 'apaasify' : currentNode.lang,
           render: currentNode.meta === 'render',
           value: isSchema ? json : currentNode.value,
           otherProps: config,
