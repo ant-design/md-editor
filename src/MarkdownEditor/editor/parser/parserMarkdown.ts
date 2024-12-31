@@ -702,7 +702,11 @@ const parserBlock = (
           currentNode.meta === 'apassify';
 
         el = {
-          type: isSchema ? currentNode.lang : 'code',
+          type: isSchema
+            ? currentNode.lang === 'apassify'
+              ? 'apaasify'
+              : currentNode.lang
+            : 'code',
           language:
             currentNode.lang === 'apassify' ? 'apaasify' : currentNode.lang,
           render: currentNode.meta === 'render',
