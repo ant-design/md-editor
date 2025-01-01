@@ -203,11 +203,6 @@ export const MEditor = observer(
           }
         }
 
-        if (isMarkdown(text)) {
-          parseMarkdownToNodesAndInsert(editor, text);
-          return;
-        }
-
         try {
           if (text.startsWith('media://') || text.startsWith('attach://')) {
             const path = EditorUtils.findMediaInsertPath(store.editor);
@@ -412,6 +407,11 @@ export const MEditor = observer(
           }
         } catch (error) {
           console.log('error', error);
+        }
+
+        if (isMarkdown(text)) {
+          parseMarkdownToNodesAndInsert(editor, text);
+          return;
         }
 
         if (hasEditableTarget(editor, event.target)) {
