@@ -9,7 +9,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       background: '#D6EEFF',
       border: '0.4px solid #E6ECF4',
-      fontSize: '12px',
+      fontSize: '0.9em',
       fontWeight: 600,
       height: '14px',
       minWidth: '14px',

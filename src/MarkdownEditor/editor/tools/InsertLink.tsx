@@ -340,7 +340,7 @@ export const InsertLink = observer(() => {
             <div
               style={{
                 cursor: 'pointer',
-                fontSize: 18,
+                fontSize: '1.1rem',
                 color: 'rgba(0,0,0,0.5)',
               }}
               onClick={() => {
@@ -354,7 +354,7 @@ export const InsertLink = observer(() => {
             <div
               style={{
                 cursor: 'pointer',
-                fontSize: 18,
+                fontSize: '1.1rem',
                 color: 'rgba(0,0,0,0.5)',
               }}
               onClick={() => {}}

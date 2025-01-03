@@ -13,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderBottom: '1px solid rgb(229 231 235 / 0.8)',
       overflow: 'hidden',
       height: '42px',
-      fontSize: '16px',
+      fontSize: '1.05rem',
       color: 'rgb(107 114 128 / 80%)',
       backdropFilter: 'blur(8px)',
       boxSizing: 'border-box',
@@ -21,7 +21,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-item': {
         display: 'flex',
         height: '32px',
-        fontSize: '16px',
+        fontSize: '1.05rem',
         borderRadius: '4px',
         lineHeight: '32px',
         padding: '0 6px',

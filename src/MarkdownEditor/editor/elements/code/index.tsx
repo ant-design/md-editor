@@ -45,7 +45,7 @@ export const Clipboard = (props: any) => {
     <div
       className={props.className}
       style={{
-        fontSize: 12,
+        fontSize: '0.93em',
       }}
       onClick={(e) => {
         e.stopPropagation();
@@ -183,7 +183,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
               {readonly && (
                 <div
                   style={{
-                    fontSize: 12,
+                    fontSize: '0.93em',
                   }}
                   className={classNames(`${baseCls}-header-lang`, hashId)}
                 >
@@ -207,7 +207,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
               <div
                 className={classNames(`${baseCls}-header-actions-item`, hashId)}
                 style={{
-                  fontSize: 12,
+                  fontSize: '0.93em',
                 }}
                 onClick={() => {
                   setCollapse(!collapse);
@@ -267,7 +267,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
             <div
               style={{
                 color: 'rgba(0,0,0,0.45)',
-                fontSize: 12,
+                fontSize: '0.93em',
                 display: 'flex',
                 gap: 12,
                 padding: '0 12px',
