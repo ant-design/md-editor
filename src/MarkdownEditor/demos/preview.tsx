@@ -139,14 +139,28 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 export default () => {
   const [list, setList] = useState([
     {
-      id: 1,
       selection: {
-        anchor: { path: [2, 0], offset: 343 },
-        focus: { path: [2, 0], offset: 398 },
+        anchor: { path: [2, 0], offset: 283 },
+        focus: { path: [2, 0], offset: 292 },
       },
       path: [2, 0],
-      anchorOffset: 343,
-      focusOffset: 398,
+      time: 1735924079099,
+      id: 1735924079099,
+      content: '你好',
+      anchorOffset: 283,
+      focusOffset: 292,
+      refContent: '日带领腾讯在香港联',
+      commentType: 'comment',
+    },
+    {
+      id: 1,
+      selection: {
+        anchor: { path: [2, 0], offset: 283 },
+        focus: { path: [2, 0], offset: 292 },
+      },
+      path: [2, 0],
+      anchorOffset: 283,
+      focusOffset: 292,
       user: {
         name: '张志东',
       },
@@ -159,12 +173,12 @@ export default () => {
     {
       id: 2,
       selection: {
-        anchor: { path: [2, 0], offset: 343 },
-        focus: { path: [2, 0], offset: 398 },
+        anchor: { path: [2, 0], offset: 283 },
+        focus: { path: [2, 0], offset: 292 },
       },
       path: [2, 0],
-      anchorOffset: 343,
-      focusOffset: 398,
+      anchorOffset: 283,
+      focusOffset: 292,
       user: {
         name: '张志东',
       },
@@ -208,8 +222,8 @@ export default () => {
         onDelete: async (id) => {
           setList(list.filter((i) => i.id !== id));
         },
-
         onSubmit: async (id, data) => {
+          console.log(id, data);
           setList([
             ...list,
             {

@@ -35,6 +35,7 @@ export const CommentView = (props: {
       overlayInnerStyle={{
         padding: 0,
       }}
+      placement="right"
       content={() => {
         const dom = (
           <div className={classNames(hashId, baseCls)}>
