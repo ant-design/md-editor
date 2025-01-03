@@ -699,7 +699,7 @@ const parserBlock = (
         const isSchema =
           currentNode.lang === 'schema' ||
           currentNode.lang === 'apaasify' ||
-          currentNode.meta === 'apassify';
+          currentNode.lang === 'apassify';
 
         el = {
           type: isSchema
