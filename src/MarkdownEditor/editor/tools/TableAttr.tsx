@@ -149,10 +149,10 @@ export const TableAttr = observer(
           });
         }
 
-        const heads = (table.children[0].children as TableCellNode[]) || [];
+        const heads = (table.children?.[0]?.children as TableCellNode[]) || [];
         const lastIndex = heads.length;
         for (let i = 0; i < row; i++) {
-          const row = table.children[i];
+          const row = table?.children?.[i];
           if (!row) {
             const row: TableRowNode = {
               type: 'table-row',
@@ -227,7 +227,7 @@ export const TableAttr = observer(
         const table = tableRef.current!;
         if (cell) {
           const index = cell[1][cell[1].length - 1];
-          table[0].children.forEach((el: { children: any[] }) => {
+          table?.[0]?.children?.forEach((el: { children: any[] }) => {
             el.children?.forEach((cell, i) => {
               if (i === index) {
                 Transforms.setNodes(
@@ -355,11 +355,11 @@ export const TableAttr = observer(
           | 'insertTableCellBreak',
       ) => {
         if (!tableCellRef.current || !tableRef.current) return;
-        const columns = tableRef.current[0].children[0].children.length;
-        const rows = tableRef.current[0].children.length;
-        const path = tableCellRef.current[1];
-        const index = path[path.length - 1];
-        const row = path[path.length - 2];
+        const columns = tableRef.current[0]?.children?.[0]?.children?.length;
+        const rows = tableRef.current[0]?.children?.length;
+        const path = tableCellRef?.current?.[1];
+        const index = path?.[path?.length - 1];
+        const row = path?.[path?.length - 2];
         const rowPath = Path.parent(path);
         store.doManual();
         switch (task) {

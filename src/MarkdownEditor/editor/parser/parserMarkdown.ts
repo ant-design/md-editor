@@ -860,14 +860,16 @@ const findLinks = (
   prePath: number[] = [],
   links: { path: number[]; target: string }[] = [],
 ) => {
+  if (!schema) return links;
   for (let i = 0; i < schema.length; i++) {
     const n = schema[i];
-    const curPath = [...prePath, i];
+    if (!n) continue;
+    const curPath = [...(prePath || []), i];
     if (n?.url) {
-      links.push({ path: curPath, target: n?.url });
+      links?.push?.({ path: curPath, target: n?.url });
     }
-    if (n.children) {
-      findLinks(n.children, curPath, links);
+    if (n?.children) {
+      findLinks(n?.children, curPath, links);
     }
   }
   return links;

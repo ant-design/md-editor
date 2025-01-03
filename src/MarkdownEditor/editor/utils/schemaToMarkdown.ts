@@ -37,25 +37,26 @@ const inlineNode = new Set(['break']);
 const parserNode = (node: any, preString = '', parent: any[]) => {
   let str = '';
   const newParent = [...parent, node];
+  if (!node) return str;
   switch (node.type) {
     case 'card-before':
       break;
     case 'card-after':
       break;
     case 'card':
-      str += schemaToMarkdown(node.children, preString, newParent);
+      str += schemaToMarkdown(node?.children, preString, newParent);
       break;
     case 'paragraph':
-      str += preString + schemaToMarkdown(node.children, preString, newParent);
+      str += preString + schemaToMarkdown(node?.children, preString, newParent);
       break;
     case 'head':
       str +=
         '#'.repeat(node.level) +
         ' ' +
-        schemaToMarkdown(node.children, preString, newParent);
+        schemaToMarkdown(node?.children, preString, newParent);
       break;
     case 'code':
-      const code = node.children
+      const code = node?.children
         // @ts-ignore
         .map((c) => {
           return preString + c.children[0]?.text || '';
@@ -417,16 +418,19 @@ const table = (
     const row: string[] = [];
     for (let n of children) {
       if (n.type === 'column-cell') {
-        row.push(schemaToMarkdown(n.children, '', [...parent, n]) || 'xxx');
+        if (!n?.children) continue;
+        row.push(schemaToMarkdown(n?.children, '', [...parent, n]) || 'xxx');
       }
     }
     data.push(new Array(row.length).fill('x').map((_, i) => `column${i + 1}`));
     data.push(row);
   } else {
     for (let c of children) {
+      if (!c) continue;
       const row: string[] = [];
-      if (c.type === 'table-row') {
-        for (let n of c.children) {
+      if (c?.type === 'table-row') {
+        if (!c?.children) continue;
+        for (let n of c?.children || []) {
           if (n.type === 'table-cell') {
             row.push(schemaToMarkdown(n.children, '', [...parent, n]));
           }

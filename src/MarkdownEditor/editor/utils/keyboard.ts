@@ -298,9 +298,9 @@ export class KeyboardTask {
       const res = await parserMdToSchema(markdownCode);
 
       if (
-        node[0].type === 'paragraph' &&
+        node?.[0]?.type === 'paragraph' &&
         !Node.string(node[0]) &&
-        node[0].children.length === 1
+        node?.[0]?.children.length === 1
       ) {
         Transforms.delete(this.editor, { at: node[1] });
         Transforms.insertNodes(this.editor, res.schema, {

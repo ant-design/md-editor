@@ -707,7 +707,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                         return {
                           label: l?.label?.[1],
                           key: l?.key,
-                          icon: l.children?.[0]?.icon,
+                          icon: l?.children?.[0]?.icon,
                           children: l?.children?.map((el) => ({
                             label: el.label?.[1],
                             key: el.key,
@@ -717,7 +717,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                               _.domEvent.preventDefault();
 
                               const task = insertOptions
-                                .map((o) => o.children)
+                                .map((o) => o?.children)
                                 .flat(1)
                                 .find((o) => {
                                   return o.key === el.key;
@@ -743,7 +743,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                         };
                       })
                       .map((l) => {
-                        return l.children;
+                        return l?.children;
                       })
                       .flat(1) || [],
                   ) as any[]

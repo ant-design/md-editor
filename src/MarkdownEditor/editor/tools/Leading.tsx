@@ -28,15 +28,15 @@ function buildTree(data: any[]) {
     } else {
       let currentLevel = tree;
       for (let i = 2; i < item.level; i++) {
-        if (!currentLevel.children) {
+        if (!currentLevel?.children) {
           currentLevel.children = [];
         }
-        if (currentLevel.children[currentLevel.children.length - 1]) {
+        if (currentLevel.children?.[currentLevel.children.length - 1]) {
           currentLevel =
-            currentLevel.children[currentLevel.children.length - 1];
+            currentLevel.children?.[currentLevel.children.length - 1];
         }
       }
-      if (!currentLevel.children) {
+      if (!currentLevel?.children) {
         currentLevel.children = [];
       }
       currentLevel.children.push({ ...item, children: [] });

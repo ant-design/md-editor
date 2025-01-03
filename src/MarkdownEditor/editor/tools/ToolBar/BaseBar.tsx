@@ -168,7 +168,7 @@ export const BaseToolBar = observer(
           ? getInsertOptions({
               isTop: false,
             })
-              .map((o) => o.children)
+              .map((o) => o?.children)
               .flat(1)
               .filter((o) => {
                 if (!store?.editorProps?.image && o.task === 'uploadImage') {

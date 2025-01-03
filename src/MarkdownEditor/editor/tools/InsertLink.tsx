@@ -156,7 +156,9 @@ export const InsertLink = observer(() => {
         }
       }
     }
-    const target = scrollRef.current?.children[state().index] as HTMLDivElement;
+    const target = scrollRef.current?.children?.[
+      state()?.index
+    ] as HTMLDivElement;
     if (target) {
       const { scrollTop, clientHeight } = scrollRef.current!;
       if (target.offsetTop > scrollTop + clientHeight - 50) {
