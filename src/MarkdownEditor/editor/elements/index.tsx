@@ -78,6 +78,8 @@ export const MElement = (
       return <List {...props} />;
     case 'schema':
       return <Schema {...props} />;
+    case 'apaasify':
+      return <Schema {...props} />;
     case 'code':
       return <CodeElement {...props}>{props.children}</CodeElement>;
     case 'code-line':

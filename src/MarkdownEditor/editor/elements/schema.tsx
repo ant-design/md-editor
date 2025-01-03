@@ -1,5 +1,4 @@
-﻿import { BetaSchemaForm, ProConfigProvider } from '@ant-design/pro-components';
-import React, { useMemo } from 'react';
+﻿import React, { useMemo } from 'react';
 import { RenderElementProps } from 'slate-react';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils';
@@ -9,7 +8,6 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
   const { store, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const htmlRef = React.useRef<HTMLDivElement>(null);
-
   return useMemo(
     () => (
       <div
@@ -61,22 +59,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
             }}
             data-be={node?.type}
           >
-            <ProConfigProvider>
-              <BetaSchemaForm<Record<string, any>>
-                columns={Array.isArray(node.value) ? node.value : []}
-                autoFocusFirstInput={false}
-                submitter={{
-                  searchConfig: {
-                    submitText: node.otherProps?.submitText || 'Send',
-                  },
-                  resetButtonProps: {
-                    style: {
-                      display: 'none',
-                    },
-                  },
-                }}
-              />
-            </ProConfigProvider>
+            {JSON.stringify(node?.value, null, 2)}
           </div>
         </div>
         <span
