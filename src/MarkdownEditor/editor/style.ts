@@ -141,7 +141,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       h1: {
-        fontSize: '1.875em',
+        fontSize: '1.775em',
         marginTop: '1.2em',
         fontWeight: 700,
         '&:first-child': {
@@ -150,18 +150,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       h2: {
         fontWeight: 600,
-        fontSize: '1.5em',
+        fontSize: '1.4em',
         marginTop: '1em',
         marginBottom: '1em',
       },
       h3: {
         fontWeight: 600,
-        fontSize: '1.4em',
+        fontSize: '1.3em',
         marginTop: '0.8em',
       },
       h4: {
         fontWeight: 500,
-        fontSize: '1.3em',
+        fontSize: '1.2em',
         marginTop: '0.7em',
         lineHeight: 1.2,
       },
