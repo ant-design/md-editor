@@ -18,6 +18,7 @@ import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
+import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
@@ -152,6 +153,7 @@ export const Table = observer((props: RenderElementProps) => {
   const { store } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
+  const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
     top: 0,
     left: 0,
@@ -196,13 +198,24 @@ export const Table = observer((props: RenderElementProps) => {
           }
         } catch (error) {}
       }
+      const isInsideScrollbar = () => {
+        if (!overflowShadowContainerRef.current) return false;
+        return overflowShadowContainerRef.current.contains(
+          event.target as Node,
+        );
+      };
+
+      if (isInsideScrollbar()) {
+        return;
+      }
+      setIsShowBar(false);
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [tableAttrVisible, tableRef, store.editor]);
+  }, [tableAttrVisible, tableRef, store.editor, isShowBar]);
 
   const resize = useCallback(() => {
     const table = tableRef.current;
@@ -253,7 +266,8 @@ export const Table = observer((props: RenderElementProps) => {
         resize();
       }
     }
-  }, [store.tableCellNode, store.editor, setState]);
+    setIsShowBar(true);
+  }, [store.tableCellNode, store.editor, setState, isShowBar]);
   const tableTargetRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
     if (!tableTargetRef.current) {
@@ -309,6 +323,36 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
+  const getTableNode = useCallback(() => {
+    return ReactEditor.toSlateNode(
+      store.editor,
+      (tableTargetRef as any)?.current?.childNodes[0],
+    );
+  }, [store.editor, tableTargetRef]);
+
+  const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
+  useEffect(() => {
+    if (!store.editor) return;
+    const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
+
+    cachedSelCells?.forEach((cell) => {
+      const [cellNode] = cell;
+      const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
+      if (cellDom) {
+        cellDom.classList.remove('selected-cell-td');
+      }
+    });
+
+    selCells?.forEach((cell) => {
+      const [cellNode] = cell;
+      const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
+      if (cellDom) {
+        cellDom.classList.add('selected-cell-td');
+      }
+    });
+
+    store.CACHED_SEL_CELLS.set(store.editor, selCells);
+  }, [JSON.stringify(selCells)]);
   return useMemo(() => {
     return (
       <div
@@ -369,6 +413,30 @@ export const Table = observer((props: RenderElementProps) => {
               minWidth: 0,
             }}
           >
+            <div
+              style={{
+                height: isShowBar ? '16px' : '16px',
+                visibility: isShowBar ? 'visible' : 'hidden',
+              }}
+            >
+              <IntersectionPointDiv
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+              <RowSideDiv
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+              <ColSideDiv
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+            </div>
             <table
               style={{
                 borderCollapse: 'collapse',

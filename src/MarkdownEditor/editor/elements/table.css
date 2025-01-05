@@ -1,0 +1,53 @@
+.selected-cell-td {
+  background-color: rgba(168, 194, 255, 0.3);
+}
+.intersection-point {
+  height: 15px;
+  width: 15px;
+  border: 1px solid #dfdfdf;
+  border-right: 0px;
+  border-bottom: 0px;
+  z-index: 20;
+  position: absolute;
+  top: 10;
+  left: 10;
+  border-top-left-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+
+  cursor: pointer;
+  background-color: #f2f3f5;
+
+  &.active {
+    background-color: rgb(50, 100, 255);
+  }
+
+  &:hover:not(.active) {
+    background-color: #e2e4e6;
+  }
+}
+.table-side-div {
+  border-width: 1px 0 1px 1px;
+  border-bottom: 0px;
+  border-style: solid;
+  border-color: #dfdfdf;
+  z-index: 20;
+  cursor: pointer;
+  background-color: #f2f3f5;
+  transition: background-color 0.15s ease-in-out;
+
+  &.full-active {
+    background-color: rgb(50, 100, 255);
+  }
+
+  &.half-active {
+    background-color: #e8eaec;
+  }
+
+  &.delete-btn-hover {
+    background-color: rgba(245, 34, 45, 0.6);
+  }
+
+  &:hover:not(.full-active) {
+    background-color: #e2e4e6;
+  }
+}
