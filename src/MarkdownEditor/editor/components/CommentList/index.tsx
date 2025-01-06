@@ -2,7 +2,7 @@
 import { Avatar, ConfigProvider, Popconfirm } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Transforms } from 'slate';
 import {
   CommentDataType,
@@ -12,11 +12,11 @@ import {
 import { EditorStoreContext, useEditorStore } from '../../store';
 import { useStyle } from './style';
 
-export const CommentList = (props: {
+export const CommentList: React.FC<{
   commentList: CommentDataType[];
   comment: MarkdownEditorProps['comment'];
   instance: MarkdownEditorInstance;
-}) => {
+}> = (props) => {
   const { readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const { setShowComment } = useContext(EditorStoreContext) || {};
