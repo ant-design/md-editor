@@ -21,6 +21,7 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { Subject } from 'rxjs';
 import { Selection } from 'slate';
+import { CommentList } from './editor/components/CommentList';
 import { MEditor } from './editor/Editor';
 import {
   InsertAutocomplete,
@@ -320,10 +321,13 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
+  const [showCommentList, setShowComment] = useState<CommentDataType[]>([]);
+
   return wrapSSR(
     <EditorStoreContext.Provider
       value={{
         keyTask$,
+        setShowComment,
         store: instance.store,
         typewriter: props.typewriter ?? false,
         readonly: props.readonly ?? false,
@@ -404,7 +408,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           mount &&
           toc !== false &&
           instance.store?.container ? (
-            <TocHeading note={instance.current} />
+            showCommentList?.length ? (
+              <CommentList
+                instance={instance}
+                commentList={showCommentList}
+                comment={props.comment}
+              />
+            ) : (
+              <TocHeading note={instance.current} />
+            )
           ) : null}
         </div>
         {readonly ? (

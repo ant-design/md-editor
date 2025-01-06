@@ -18,7 +18,7 @@ import { withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 
 import { parse } from 'querystring';
-import { MarkdownEditorProps } from '..';
+import { CommentDataType, MarkdownEditorProps } from '..';
 import { Elements, ListNode, MediaNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { withMarkdown } from './plugins';
@@ -30,6 +30,7 @@ import { EditorUtils } from './utils/editorUtils';
 export const EditorStoreContext = createContext<{
   store: EditorStore;
   typewriter: boolean;
+  setShowComment: (list: CommentDataType[]) => void;
   readonly: boolean;
   keyTask$: Subject<{
     key: Methods<KeyboardTask>;
