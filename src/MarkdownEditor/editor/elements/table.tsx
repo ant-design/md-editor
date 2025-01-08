@@ -323,12 +323,9 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
-  const getTableNode = useCallback(() => {
-    return ReactEditor.toSlateNode(
-      store.editor,
-      (tableTargetRef as any)?.current?.childNodes[0],
-    );
-  }, [store.editor, tableTargetRef]);
+  const getTableNode = () => {
+    return props.element;
+  };
 
   const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
   useEffect(() => {
