@@ -519,7 +519,6 @@ export const MEditor = observer(
       );
     };
     const decorateFn = (e: any) => {
-      console.log('decorateFn', e);
       const decorateList = highlight(e);
       if (!editorProps?.comment) return decorateList;
       if (editorProps?.comment?.enable === false) return decorateList;
