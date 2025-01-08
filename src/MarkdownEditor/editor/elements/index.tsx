@@ -1,6 +1,6 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { CSSProperties, useContext, useMemo } from 'react';
+import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import {
@@ -147,156 +147,150 @@ export const MLeaf = (
     fncProps: MarkdownEditorProps['fncProps'];
   },
 ) => {
-  const code = useContext(CodeCtx);
   const { store, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
 
-  return useMemo(() => {
-    const leaf = props.leaf;
-    const style: CSSProperties = {};
-    let className = props.hashId + ' ';
-    let children = <>{props.children}</>;
-    if (leaf.code)
-      children = (
-        <code
-          className={classNames(
-            mdEditorBaseClass + '-inline-code',
-            props.hashId,
-          )}
-        >
-          {children}
-        </code>
-      );
-    if (leaf.highColor) style.color = leaf.highColor;
-    if (leaf.color) style.color = leaf.color;
-    if (leaf.bold) children = <strong>{children}</strong>;
-    if (leaf.strikethrough) children = <s>{children}</s>;
-    if (leaf.italic) children = <i>{children}</i>;
-    if (leaf.highlight) className = ' ' + mdEditorBaseClass + '-high-text';
-    if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';
-    if (leaf.current) {
-      style.background = '#f59e0b';
-    }
+  const leaf = props.leaf;
+  const style: CSSProperties = {};
+  let className = props.hashId + ' ';
+  let children = <>{props.children}</>;
+  if (leaf.code)
+    children = (
+      <code
+        className={classNames(mdEditorBaseClass + '-inline-code', props.hashId)}
+      >
+        {children}
+      </code>
+    );
+  if (leaf.highColor) style.color = leaf.highColor;
+  if (leaf.color) style.color = leaf.color;
+  if (leaf.bold) children = <strong>{children}</strong>;
+  if (leaf.strikethrough) children = <s>{children}</s>;
+  if (leaf.italic) children = <i>{children}</i>;
+  if (leaf.highlight) className = ' ' + mdEditorBaseClass + '-high-text';
+  if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';
+  if (leaf.current) {
+    style.background = '#f59e0b';
+  }
 
-    const dirty =
-      leaf.bold ||
-      leaf.code ||
-      leaf.italic ||
-      leaf.strikethrough ||
-      leaf.highColor;
+  const dirty =
+    leaf.bold ||
+    leaf.code ||
+    leaf.italic ||
+    leaf.strikethrough ||
+    leaf.highColor;
 
-    const selectFormat = () => {
-      try {
-        if (EditorUtils.isDirtLeaf(props.leaf)) {
-          const path = ReactEditor.findPath(store?.editor, props.text);
-          if (path) {
-            Transforms.select(store?.editor, {
-              anchor: Editor.start(store?.editor, path),
-              focus: Editor.end(store?.editor, path),
-            });
-          }
+  const selectFormat = () => {
+    try {
+      if (EditorUtils.isDirtLeaf(props.leaf)) {
+        const path = ReactEditor.findPath(store?.editor, props.text);
+        if (path) {
+          Transforms.select(store?.editor, {
+            anchor: Editor.start(store?.editor, path),
+            focus: Editor.end(store?.editor, path),
+          });
         }
-      } catch (e) {}
-    };
+      }
+    } catch (e) {}
+  };
 
-    if (leaf?.url) {
-      return (
-        <span
-          data-be={'link'}
-          draggable={false}
-          onDragStart={dragStart}
-          data-url={leaf?.url}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            if (e.metaKey || e.ctrlKey || readonly) {
-              if (!leaf?.url) return;
-              window.open(leaf?.url);
-            } else if (e.detail === 2) {
-              selectFormat();
-            }
-          }}
-          id={leaf?.url}
-          data-slate-inline={true}
-          className={`${className}`}
-          style={{
-            ...style,
-            textDecorationColor: '#1677ff',
-            textUnderlineOffset: '4px',
-            color: '#1677ff',
-            cursor: 'pointer',
-          }}
-          {...props.attributes}
-        >
-          {!!props.text?.text && <InlineChromiumBugfix />}
-          {children}
-          {!!props.text?.text && <InlineChromiumBugfix />}
-        </span>
-      );
-    }
-
-    let dom = (
+  if (leaf?.url) {
+    return (
       <span
-        {...props.attributes}
-        data-be={'text'}
+        data-be={'link'}
         draggable={false}
         onDragStart={dragStart}
+        data-url={leaf?.url}
         onClick={(e) => {
-          if (e.detail === 2) {
+          e.stopPropagation();
+          e.preventDefault();
+          if (e.metaKey || e.ctrlKey || readonly) {
+            if (!leaf?.url) return;
+            window.open(leaf?.url);
+          } else if (e.detail === 2) {
             selectFormat();
           }
         }}
-        data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
-        data-fnd={leaf.fnd ? 'fnd' : undefined}
-        data-comment={leaf.comment ? 'comment' : undefined}
-        data-fnc-name={
-          leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
-        }
-        data-fnd-name={
-          leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
-        }
-        className={classNames(className, props.hashId, {
-          [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
-          [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
-          [`${mdEditorBaseClass}-comment`]: leaf.comment,
-        })}
+        id={leaf?.url}
+        data-slate-inline={true}
+        className={`${className}`}
         style={{
-          fontSize: leaf.fnc ? 10 : undefined,
           ...style,
+          textDecorationColor: '#1677ff',
+          textUnderlineOffset: '4px',
+          color: '#1677ff',
+          cursor: 'pointer',
         }}
+        {...props.attributes}
       >
-        {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
-        {leaf.fnc || leaf.identifier
-          ? leaf.text?.replaceAll(']', '')?.replaceAll('[^DOC_', '')
-          : children}
-        {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+        {!!props.text?.text && <InlineChromiumBugfix />}
+        {children}
+        {!!props.text?.text && <InlineChromiumBugfix />}
       </span>
     );
+  }
 
-    if (props.fncProps?.render && leaf.fnc) {
-      dom = (
-        <>
-          {props.fncProps.render?.(
-            {
-              children:
-                leaf.text?.replaceAll('[^', '').replaceAll(']', '') || '',
-            },
-            dom,
-          )}
-        </>
-      );
-    }
-    if (!props.leaf.comment) return dom;
-    return (
-      <CommentView
-        comment={props.comment}
-        commentItem={leaf?.comment ? (leaf.data as any) : null}
-      >
-        <span>{dom}</span>
-      </CommentView>
+  let dom = (
+    <span
+      {...props.attributes}
+      data-be={'text'}
+      draggable={false}
+      onDragStart={dragStart}
+      onClick={(e) => {
+        if (e.detail === 2) {
+          selectFormat();
+        }
+      }}
+      data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
+      data-fnd={leaf.fnd ? 'fnd' : undefined}
+      data-comment={leaf.comment ? 'comment' : undefined}
+      data-fnc-name={
+        leaf.fnc ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+      }
+      data-fnd-name={
+        leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
+      }
+      className={classNames(className, props.hashId, {
+        [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
+        [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
+        [`${mdEditorBaseClass}-comment`]: leaf.comment,
+      })}
+      style={{
+        fontSize: leaf.fnc ? 10 : undefined,
+        ...style,
+      }}
+    >
+      {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+      {leaf.fnc || leaf.identifier
+        ? leaf.text?.replaceAll(']', '')?.replaceAll('[^DOC_', '')
+        : children}
+      {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
+    </span>
+  );
+
+  if (props.fncProps?.render && leaf.fnc) {
+    dom = (
+      <>
+        {props.fncProps.render?.(
+          {
+            children: leaf.text?.replaceAll('[^', '').replaceAll(']', '') || '',
+          },
+          dom,
+        )}
+      </>
     );
-  }, [JSON.stringify(props.leaf), code.lang || 'code']);
+  }
+  if (!props.leaf.comment) return dom;
+
+  return (
+    <CommentView
+      comment={props.comment}
+      commentItem={leaf?.comment ? (leaf.data as any) : null}
+    >
+      <span>{dom}</span>
+    </CommentView>
+  );
 };
 
 export {

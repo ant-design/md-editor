@@ -320,6 +320,7 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
     if (typeof window.matchMedia === 'undefined') return;
     setLanguage();
   }, [store.refreshHighlight]);
+
   const baseCls = context.getPrefixCls('md-editor-code');
 
   return useMemo(() => {
@@ -335,7 +336,7 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
       </div>
     );
   }, [
-    props.element,
+    Node.string(props.element),
     isLatest,
     props.element.children,
     ctx.lang,
