@@ -134,6 +134,7 @@ export function RowSideDiv(props: {
           zIndex: 100,
           width: '16px',
           marginTop: '16px',
+          marginLeft: '-16px',
         }}
         contentEditable={false}
         onMouseLeave={() => {}}
@@ -210,21 +211,26 @@ export function ColSideDiv(props: {
   }, [tableDom]);
 
   useEffect(() => {
-    const scrollContainer = tableRef?.current?.closest(
+    if (!tableRef.current) return;
+
+    const scrollContainer = tableRef.current.closest(
       '.ant-md-editor-table-content',
     );
-    if (!scrollContainer) return;
+    if (!scrollContainer) {
+      console.warn('Scroll container not found!');
+      return;
+    }
 
     const handleScroll = () => {
       setScrollOffset(scrollContainer.scrollLeft);
     };
 
     scrollContainer.addEventListener('scroll', handleScroll);
-
     return () => {
       scrollContainer.removeEventListener('scroll', handleScroll);
     };
   }, [tableRef]);
+
   return (
     <div
       ref={colDivBarInnerRef}
@@ -251,8 +257,8 @@ export function ColSideDiv(props: {
             type={'column'}
             divStyle={{
               position: 'absolute',
-              top: 0,
-              left: leftPosition - 40.3,
+              top: -1,
+              left: leftPosition - 50,
               width: colRect?.width || td?.clientWidth,
               height: '15px',
               zIndex: 101,

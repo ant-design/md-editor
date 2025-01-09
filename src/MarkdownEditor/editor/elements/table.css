@@ -2,15 +2,15 @@
   background-color: rgba(168, 194, 255, 0.3);
 }
 .intersection-point {
-  height: 15px;
-  width: 15px;
+  height: 14px;
+  width: 14px;
   border: 1px solid #dfdfdf;
   border-right: 0px;
   border-bottom: 0px;
   z-index: 20;
   position: absolute;
-  top: 10;
-  left: 10;
+  margin-top: 0px;
+  margin-left: -15.5px;
   border-top-left-radius: 50%;
   transition: background-color 0.2s ease-in-out;
 
