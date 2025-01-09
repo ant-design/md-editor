@@ -29,49 +29,46 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
   const tableSideDivRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <>
-      <div
-        ref={tableSideDivRef}
-        key={index}
-        data-ignore-slate
-        contentEditable={false}
-        suppressContentEditableWarning
-        className={`table-side-div ignore-toggle-readonly ${
-          activationArr[index] === 'full'
-            ? 'full-active'
-            : activationArr[index] === 'half'
-            ? 'half-active'
-            : 'none-active'
-        } `}
-        style={{
-          ...divStyle,
-        }}
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          const tableSlateNode = getTableNode();
+    <div
+      ref={tableSideDivRef}
+      key={index}
+      data-ignore-slate
+      data-slate-node="element"
+      contentEditable={false}
+      suppressContentEditableWarning
+      className={`table-side-div ignore-toggle-readonly ${
+        activationArr[index] === 'full'
+          ? 'full-active'
+          : activationArr[index] === 'half'
+          ? 'half-active'
+          : 'none-active'
+      } `}
+      style={{
+        ...divStyle,
+        userSelect: 'none',
+      }}
+      onMouseDown={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const tableSlateNode = getTableNode();
 
-          if (tableSlateNode && index !== -1) {
-            const tablePath = ReactEditor.findPath(
-              store.editor,
-              tableSlateNode,
-            );
+        if (tableSlateNode && index !== -1) {
+          const tablePath = ReactEditor.findPath(store.editor, tableSlateNode);
 
-            const tableEntry = Editor.node(store.editor, tablePath);
-            const len = isColumn
-              ? (tableSlateNode.children as Array<any>).length
-              : (tableSlateNode.children as Array<any>)[0].children.length;
-            const startPath = isColumn
-              ? [...tablePath, 0, index]
-              : [tablePath[0], 1, index, 0];
-            const endPath = isColumn
-              ? [...tablePath, len - 1, index]
-              : [tablePath[0], 1, index, len - 1];
-            addSelection(store, tableEntry, startPath, endPath, setSelCells);
-          }
-        }}
-      ></div>
-    </>
+          const tableEntry = Editor.node(store.editor, tablePath);
+          const len = isColumn
+            ? (tableSlateNode.children as Array<any>).length
+            : (tableSlateNode.children as Array<any>)[0].children.length;
+          const startPath = isColumn
+            ? [...tablePath, 0, index]
+            : [tablePath[0], 1, index, 0];
+          const endPath = isColumn
+            ? [...tablePath, len - 1, index]
+            : [tablePath[0], 1, index, len - 1];
+          addSelection(store, tableEntry, startPath, endPath, setSelCells);
+        }
+      }}
+    ></div>
   );
 }
 
@@ -123,41 +120,37 @@ export function RowSideDiv(props: {
   }, [tableDom]);
 
   return (
-    <>
-      <div
-        data-ignore-slate
-        className="row-div-bar-inner ignore-toggle-readonly"
-        style={{
-          position: 'absolute',
-          display: 'block',
-          borderBottom: '1px solid #DFDFDF',
-          zIndex: 100,
-          width: '16px',
-          marginTop: '16px',
-          marginLeft: '-16px',
-        }}
-        contentEditable={false}
-        onMouseLeave={() => {}}
-      >
-        {rowDomArr?.map((tr: any, index: number) => (
-          <AbstractSideDiv
-            key={index}
-            index={index}
-            type={'row'}
-            divStyle={{
-              position: 'relative',
-              width: '14px',
-              height:
-                tr?.getBoundingClientRect?.()?.height - 0.735 ||
-                tr?.clientHeight - 0.735,
-            }}
-            getTableNode={getTableNode}
-            activationArr={activationArr}
-            setSelCells={setSelCells}
-          />
-        ))}
-      </div>
-    </>
+    <div
+      className="row-div-bar-inner ignore-toggle-readonly"
+      style={{
+        position: 'absolute',
+        display: 'block',
+        borderBottom: '1px solid #DFDFDF',
+        zIndex: 100,
+        width: '16px',
+        marginTop: '16px',
+        marginLeft: '-16px',
+      }}
+      onMouseLeave={() => {}}
+    >
+      {rowDomArr?.map((tr: any, index: number) => (
+        <AbstractSideDiv
+          key={index}
+          index={index}
+          type={'row'}
+          divStyle={{
+            position: 'relative',
+            width: '14px',
+            height:
+              tr?.getBoundingClientRect?.()?.height - 0.735 ||
+              tr?.clientHeight - 0.735,
+          }}
+          getTableNode={getTableNode}
+          activationArr={activationArr}
+          setSelCells={setSelCells}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -213,9 +206,7 @@ export function ColSideDiv(props: {
   useEffect(() => {
     if (!tableRef.current) return;
 
-    const scrollContainer = tableRef.current.closest(
-      '.ant-md-editor-table-content',
-    );
+    const scrollContainer = tableRef.current.closest('.ant-md-editor-table');
     if (!scrollContainer) {
       console.warn('Scroll container not found!');
       return;
@@ -234,7 +225,6 @@ export function ColSideDiv(props: {
   return (
     <div
       ref={colDivBarInnerRef}
-      data-ignore-slate
       className="col-div-bar-inner ignore-toggle-readonly"
       style={{
         position: 'relative',
@@ -244,7 +234,6 @@ export function ColSideDiv(props: {
         zIndex: 100,
         transform: `translateX(${scrollOffset}px)`,
       }}
-      contentEditable={false}
     >
       {colDomArr?.map((td: any, index: number) => {
         const colRect = td?.getBoundingClientRect();
@@ -306,6 +295,7 @@ export function IntersectionPointDiv(props: {
       style={{
         display: 'flex',
         zIndex: 102,
+        userSelect: 'none',
       }}
       onMouseDown={(e) => {
         e.stopPropagation();
