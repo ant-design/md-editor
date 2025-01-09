@@ -19,7 +19,7 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
-
+import './table.css';
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
  *
@@ -392,6 +392,7 @@ export const Table = observer((props: RenderElementProps) => {
           )}
           <DragHandle />
           <div
+            className="ant-md-editor-table-content"
             onMouseUp={handleClickTable}
             onClick={() => {
               runInAction(() => {
@@ -408,11 +409,13 @@ export const Table = observer((props: RenderElementProps) => {
               overflow: 'auto',
               flex: 1,
               minWidth: 0,
+              marginLeft: 20,
+              marginTop: 4,
+              marginRight: 6,
             }}
           >
             <div
               style={{
-                height: isShowBar ? '16px' : '16px',
                 visibility: isShowBar ? 'visible' : 'hidden',
               }}
             >
