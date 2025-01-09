@@ -19,7 +19,7 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
-
+import './table.css';
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
  *
