@@ -33,7 +33,7 @@ export class TabKey {
           ['table-cell', 'paragraph', 'code-line'].includes(n.type),
         mode: 'lowest',
       });
-      if (sel) {
+      if (sel && Editor.hasPath(this.editor, sel.anchor.path)) {
         if (node) {
           const [el, path] = node;
           switch (node[0].type as NodeTypes) {

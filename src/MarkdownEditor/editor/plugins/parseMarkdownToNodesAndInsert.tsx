@@ -18,8 +18,12 @@ export const parseMarkdownToNodesAndInsert = (
 
   const fragment = nodes;
   const sel = editor.selection;
-  if (sel) {
+  if (sel && Editor.hasPath(editor, sel.anchor.path)) {
     Transforms.removeNodes(editor, { at: sel });
+    if (editor.children.length < 1) {
+      Transforms.insertNodes(editor, fragment);
+      return;
+    }
     Transforms.insertNodes(editor, fragment, { at: sel });
     return true;
   }

@@ -175,8 +175,12 @@ export const MEditor = observer(
       async (event: React.ClipboardEvent<HTMLDivElement>) => {
         event.stopPropagation();
         event.preventDefault();
-        if (!Range.isCollapsed(store.editor.selection!)) {
-          if (store.editor.selection && store.editor.selection.anchor) {
+        if (
+          store.editor.selection &&
+          store.editor.selection.anchor &&
+          Editor.hasPath(store.editor, store.editor.selection.anchor.path)
+        ) {
+          if (!Range.isCollapsed(store.editor.selection!)) {
             Transforms.delete(store.editor, { at: store.editor.selection! });
           }
         }
@@ -335,12 +339,17 @@ export const MEditor = observer(
         }
 
         try {
-          const paste = await event.clipboardData.getData('text/html');
-          if (paste) {
+          const html = await event.clipboardData.getData('text/html');
+
+          const rtf = await event.clipboardData.getData('text/rtf');
+
+          console.log('paste', html);
+          if (html) {
             const success = await insertParsedHtmlNodes(
               editor,
-              paste,
+              html,
               editorProps,
+              rtf,
             );
             if (success) {
               return;
