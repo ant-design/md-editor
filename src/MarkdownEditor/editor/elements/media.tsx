@@ -1,5 +1,5 @@
 import { EyeOutlined } from '@ant-design/icons';
-import { Image } from 'antd';
+import { Image, ImageProps } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
 import { useGetSetState } from 'react-use';
@@ -12,6 +12,39 @@ import { DragHandle } from '../tools/DragHandle';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { useEditorStyleRegister } from '../utils/useStyle';
+
+/**
+ * 图片组件，带有错误处理功能
+ * 如果图片加载失败，将显示可点击的链接
+ *
+ * @component
+ * @param props - 图片属性，继承自 ImageProps 接口
+ * @param props.src - 图片的源地址
+ * @returns 返回一个图片组件，如果加载失败则返回一个链接
+ *
+ * @example
+ * ```tsx
+ * <ImageAndError src="https://example.com/image.jpg" alt="示例图片" />
+ * ```
+ */
+const ImageAndError: React.FC<ImageProps> = (props) => {
+  const [error, setError] = React.useState(false);
+  if (error) {
+    return (
+      <a href={props.src} target="_blank" rel="noopener noreferrer">
+        {props.src}
+      </a>
+    );
+  }
+  return (
+    <Image
+      {...props}
+      onError={() => {
+        setError(true);
+      }}
+    />
+  );
+};
 
 export function useStyle(prefixCls?: string) {
   return useEditorStyleRegister('editor-content-contributorAvatar', () => {
@@ -208,7 +241,7 @@ export function Media({
         }}
       />
     ) : (
-      <Image
+      <ImageAndError
         src={state()?.url || element?.url}
         alt={'image'}
         preview={{
