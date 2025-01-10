@@ -109,6 +109,13 @@ export type MarkdownEditorProps = {
   className?: string;
   width?: string | number;
   height?: string | number;
+
+  /**
+   * 代码高亮配置
+   */
+  codeProps?: {
+    Languages?: string[];
+  };
   /**
    * 配置图片数据
    */
@@ -292,7 +299,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     instance.store.setState((value) => {
       value.refreshHighlight = Date.now();
     });
-    codeReady().then(() => {
+    codeReady({
+      langs: props?.codeProps?.Languages || [],
+    }).then(() => {
       instance.store.setState((value) => {
         value.refreshHighlight = Date.now();
       });
