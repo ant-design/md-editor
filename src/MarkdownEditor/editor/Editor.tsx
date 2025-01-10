@@ -13,6 +13,7 @@ import {
   MarkdownEditorProps,
 } from '../index';
 import { MElement, MLeaf } from './elements';
+import { copySelectedBlocks } from './plugins/copySelectedBlocks';
 import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 import {
@@ -185,254 +186,269 @@ export const MEditor = observer(
           }
         }
 
-        const selection = store.editor.selection;
-        const text = event.clipboardData.getData('text/plain');
-
-        // 如果是表格或者代码块，直接插入文本
-        if (selection?.focus) {
-          const rangeNodes = Editor.node(editor, [selection.focus.path.at(0)!]);
-          if (!rangeNodes) return;
-          const rangeNode = rangeNodes.at(0) as Elements;
-          if (
-            rangeNode.type === 'table-cell' ||
-            rangeNode.type === 'table-row' ||
-            rangeNode.type === 'table' ||
-            rangeNode.type === 'code' ||
-            rangeNode.type === 'schema' ||
-            rangeNode.type === 'apaasify' ||
-            rangeNode.type === 'description'
-          ) {
-            Transforms.insertText(editor, text);
-            return;
-          }
-        }
-
-        try {
-          if (text.startsWith('media://') || text.startsWith('attach://')) {
-            const path = EditorUtils.findMediaInsertPath(store.editor);
-            const urlObject = new URL(text);
-            let url = urlObject.searchParams.get('url');
-            if (
-              url &&
-              !url.startsWith('http') &&
-              !url.startsWith('blob:http')
-            ) {
-              url = toUnixPath(url);
-            }
-            if (path) {
-              if (text.startsWith('media://')) {
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'media',
-                    height: urlObject.searchParams.get('height')
-                      ? +urlObject.searchParams.get('height')!
-                      : undefined,
-                    url: url || undefined,
-                    children: [
-                      {
-                        type: 'card-before',
-                        children: [{ text: '' }],
-                      },
-                      {
-                        type: 'card-after',
-                        children: [{ text: '' }],
-                      },
-                    ],
-                  },
-                  { select: true, at: path },
-                );
-                event.preventDefault();
-                const next = Editor.next(store.editor, { at: path });
-                if (
-                  next &&
-                  next[0].type === 'paragraph' &&
-                  !Node.string(next[0])
-                ) {
-                  Transforms.delete(store.editor, { at: next[1] });
-                }
-                return;
-              }
-              if (text.startsWith('attach://')) {
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'attach',
-                    name: urlObject.searchParams.get('name'),
-                    size: Number(urlObject.searchParams.get('size') || 0),
-                    url: url || undefined,
-                    children: [
-                      {
-                        type: 'card-before',
-                        children: [{ text: '' }],
-                      },
-                      {
-                        type: 'card-after',
-                        children: [{ text: '' }],
-                      },
-                    ],
-                  },
-                  { select: true, at: path },
-                );
-                event.preventDefault();
-                const next = Editor.next(store.editor, { at: path });
-                if (
-                  next &&
-                  next[0].type === 'paragraph' &&
-                  !Node.string(next[0])
-                ) {
-                  Transforms.delete(store.editor, { at: next[1] });
-                }
-                return;
-              }
-            }
-          }
-          if (text.startsWith('http')) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (['image', 'video', 'audio'].includes(getMediaType(text))) {
-              if (text.startsWith('http')) {
-                const path = EditorUtils.findMediaInsertPath(store.editor);
-                if (!path) return;
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'media',
-                    url: text,
-                    children: [
-                      {
-                        type: 'card-before',
-                        children: [{ text: '' }],
-                      },
-                      {
-                        type: 'card-after',
-                        children: [{ text: '' }],
-                      },
-                    ],
-                  },
-                  { select: true, at: path },
-                );
-              }
-            } else {
-              store.insertLink(text);
-            }
-            return;
-          }
-        } catch (e) {}
-
-        const [node] = Editor.nodes<Elements>(editor, {
-          match: (n) => Element.isElement(n) && n.type === 'code',
-        });
-
-        if (node) {
-          Transforms.insertFragment(
-            editor,
-            //@ts-ignore
-            text.split('\n').map((c) => {
-              return {
-                type: 'code-line',
-                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
-              };
-            }),
+        const types = event.clipboardData.types;
+        console.log('types', types);
+        if (types.includes('application/x-slate-fragment')) {
+          const encoded = event.clipboardData.getData(
+            'application/x-slate-fragment',
           );
+          const decoded = decodeURIComponent(window.atob(encoded));
+          const fragment = JSON.parse(decoded);
+          Transforms.insertFragment(store.editor, fragment);
           return;
         }
 
-        try {
-          const html = await event.clipboardData.getData('text/html');
+        if (types.includes('text/html')) {
+          try {
+            const html = await event.clipboardData.getData('text/html');
 
-          const rtf = await event.clipboardData.getData('text/rtf');
+            const rtf = await event.clipboardData.getData('text/rtf');
 
-          console.log('paste', html);
-          if (html) {
-            const success = await insertParsedHtmlNodes(
-              editor,
-              html,
-              editorProps,
-              rtf,
-            );
-            if (success) {
+            console.log('paste', html);
+            if (html) {
+              const success = await insertParsedHtmlNodes(
+                editor,
+                html,
+                editorProps,
+                rtf,
+              );
+              if (success) {
+                return;
+              }
+            }
+          } catch (error) {
+            console.log('error', error);
+          }
+        }
+
+        if (types.includes('Files')) {
+          try {
+            const fileList = event.clipboardData.files;
+            if (fileList.length > 0) {
+              const hideLoading = message.loading('Uploading...');
+              try {
+                const url = [];
+                for await (const file of fileList) {
+                  const serverUrl = await editorProps.image?.upload?.([file]);
+                  url.push(serverUrl);
+                }
+
+                if (store.editor.selection?.focus.path) {
+                  Transforms.delete(store.editor, {
+                    at: store.editor.selection.focus.path!,
+                  });
+                }
+                [url].flat(2).forEach((u) => {
+                  Transforms.insertNodes(
+                    store.editor,
+                    {
+                      type: 'media',
+                      url: u,
+                      children: [
+                        {
+                          type: 'card-before',
+                          children: [{ text: '' }],
+                        },
+                        {
+                          type: 'card-after',
+                          children: [{ text: '' }],
+                        },
+                      ],
+                    },
+                    {
+                      select: true,
+                      at: store.editor.selection
+                        ? Editor.after(
+                            store.editor,
+                            store.editor.selection.focus.path,
+                          )!
+                        : Editor.end(store.editor, []),
+                    },
+                  );
+                });
+                message.success('Upload success');
+              } catch (error) {
+                console.log('error', error);
+              } finally {
+                hideLoading();
+              }
+
+              event.preventDefault();
+              event.stopPropagation();
+              return;
+            }
+          } catch (error) {
+            console.log('error', error);
+          }
+        }
+
+        if (types.includes('text/plain')) {
+          const text = event.clipboardData.getData('text/plain');
+          const selection = store.editor.selection;
+
+          // 如果是表格或者代码块，直接插入文本
+          if (selection?.focus) {
+            const rangeNodes = Editor.node(editor, [
+              selection.focus.path.at(0)!,
+            ]);
+            if (!rangeNodes) return;
+            const rangeNode = rangeNodes.at(0) as Elements;
+            if (
+              rangeNode.type === 'table-cell' ||
+              rangeNode.type === 'table-row' ||
+              rangeNode.type === 'table' ||
+              rangeNode.type === 'code' ||
+              rangeNode.type === 'schema' ||
+              rangeNode.type === 'apaasify' ||
+              rangeNode.type === 'description'
+            ) {
+              Transforms.insertText(editor, text);
               return;
             }
           }
-        } catch (error) {
-          console.log('error', error);
-        }
 
-        try {
-          const fileList = event.clipboardData.files;
-          if (fileList.length > 0) {
-            const hideLoading = message.loading('Uploading...');
-            try {
-              const url = [];
-              for await (const file of fileList) {
-                const serverUrl = await editorProps.image?.upload?.([file]);
-                url.push(serverUrl);
+          try {
+            if (text.startsWith('media://') || text.startsWith('attach://')) {
+              const path = EditorUtils.findMediaInsertPath(store.editor);
+              const urlObject = new URL(text);
+              let url = urlObject.searchParams.get('url');
+              if (
+                url &&
+                !url.startsWith('http') &&
+                !url.startsWith('blob:http')
+              ) {
+                url = toUnixPath(url);
               }
-
-              if (store.editor.selection?.focus.path) {
-                Transforms.delete(store.editor, {
-                  at: store.editor.selection.focus.path!,
-                });
+              if (path) {
+                if (text.startsWith('media://')) {
+                  Transforms.insertNodes(
+                    store.editor,
+                    {
+                      type: 'media',
+                      height: urlObject.searchParams.get('height')
+                        ? +urlObject.searchParams.get('height')!
+                        : undefined,
+                      url: url || undefined,
+                      children: [
+                        {
+                          type: 'card-before',
+                          children: [{ text: '' }],
+                        },
+                        {
+                          type: 'card-after',
+                          children: [{ text: '' }],
+                        },
+                      ],
+                    },
+                    { select: true, at: path },
+                  );
+                  event.preventDefault();
+                  const next = Editor.next(store.editor, { at: path });
+                  if (
+                    next &&
+                    next[0].type === 'paragraph' &&
+                    !Node.string(next[0])
+                  ) {
+                    Transforms.delete(store.editor, { at: next[1] });
+                  }
+                  return;
+                }
+                if (text.startsWith('attach://')) {
+                  Transforms.insertNodes(
+                    store.editor,
+                    {
+                      type: 'attach',
+                      name: urlObject.searchParams.get('name'),
+                      size: Number(urlObject.searchParams.get('size') || 0),
+                      url: url || undefined,
+                      children: [
+                        {
+                          type: 'card-before',
+                          children: [{ text: '' }],
+                        },
+                        {
+                          type: 'card-after',
+                          children: [{ text: '' }],
+                        },
+                      ],
+                    },
+                    { select: true, at: path },
+                  );
+                  event.preventDefault();
+                  const next = Editor.next(store.editor, { at: path });
+                  if (
+                    next &&
+                    next[0].type === 'paragraph' &&
+                    !Node.string(next[0])
+                  ) {
+                    Transforms.delete(store.editor, { at: next[1] });
+                  }
+                  return;
+                }
               }
-              [url].flat(2).forEach((u) => {
-                Transforms.insertNodes(
-                  store.editor,
-                  {
-                    type: 'media',
-                    url: u,
-                    children: [
-                      {
-                        type: 'card-before',
-                        children: [{ text: '' }],
-                      },
-                      {
-                        type: 'card-after',
-                        children: [{ text: '' }],
-                      },
-                    ],
-                  },
-                  {
-                    select: true,
-                    at: store.editor.selection
-                      ? Editor.after(
-                          store.editor,
-                          store.editor.selection.focus.path,
-                        )!
-                      : Editor.end(store.editor, []),
-                  },
-                );
-              });
-              message.success('Upload success');
-            } catch (error) {
-              console.log('error', error);
-            } finally {
-              hideLoading();
             }
+            if (text.startsWith('http')) {
+              event.preventDefault();
+              event.stopPropagation();
+              if (['image', 'video', 'audio'].includes(getMediaType(text))) {
+                if (text.startsWith('http')) {
+                  const path = EditorUtils.findMediaInsertPath(store.editor);
+                  if (!path) return;
+                  Transforms.insertNodes(
+                    store.editor,
+                    {
+                      type: 'media',
+                      url: text,
+                      children: [
+                        {
+                          type: 'card-before',
+                          children: [{ text: '' }],
+                        },
+                        {
+                          type: 'card-after',
+                          children: [{ text: '' }],
+                        },
+                      ],
+                    },
+                    { select: true, at: path },
+                  );
+                }
+              } else {
+                store.insertLink(text);
+              }
+              return;
+            }
+          } catch (e) {}
 
-            event.preventDefault();
-            event.stopPropagation();
+          const [node] = Editor.nodes<Elements>(editor, {
+            match: (n) => Element.isElement(n) && n.type === 'code',
+          });
+
+          if (node) {
+            Transforms.insertFragment(
+              editor,
+              //@ts-ignore
+              text.split('\n').map((c) => {
+                return {
+                  type: 'code-line',
+                  children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
+                };
+              }),
+            );
             return;
           }
-        } catch (error) {
-          console.log('error', error);
-        }
 
-        if (isMarkdown(text)) {
-          parseMarkdownToNodesAndInsert(editor, text);
-          return;
+          if (isMarkdown(text)) {
+            parseMarkdownToNodesAndInsert(editor, text);
+            return;
+          }
+          Transforms.insertText(editor, text);
         }
 
         if (hasEditableTarget(editor, event.target)) {
           ReactEditor.insertData(editor, event.clipboardData);
           return;
         }
-
-        Transforms.removeNodes(editor, {
-          at: editor.selection!,
-          match: (n) => n.type === 'media' || n.type === 'attach',
-        });
-        Transforms.insertText(editor, text);
       },
       [note],
     );
@@ -639,6 +655,7 @@ export const MEditor = observer(
             }
             event.preventDefault();
             ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
+            copySelectedBlocks(editor);
           }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
