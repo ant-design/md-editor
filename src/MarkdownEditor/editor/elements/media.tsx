@@ -32,7 +32,7 @@ const ImageAndError: React.FC<ImageProps> = (props) => {
   if (error) {
     return (
       <a href={props.src} target="_blank" rel="noopener noreferrer">
-        {props.src}
+        {props.alt || props.src}
       </a>
     );
   }
