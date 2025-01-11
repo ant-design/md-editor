@@ -445,9 +445,6 @@ export function Media({
             setTimeout(() => {
               setState({ selected: true });
             }, 16);
-            try {
-              Transforms.select(store?.editor, [...path, 1]);
-            } catch (error) {}
           }}
           onBlur={() => {
             setState({ selected: false });
