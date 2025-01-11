@@ -182,6 +182,38 @@ const getTextsNode = (nodes: any[]) => {
   return text;
 };
 
+const blobToFile = async (blobUrl: string, fileName: string) => {
+  const blob = await fetch(blobUrl).then((r) => r.blob());
+  const file = new File([blob], fileName);
+  return file;
+};
+
+const upLoadFile = async (fragmentList: any[], editorProps: any) => {
+  for await (let fragment of fragmentList) {
+    if (fragment.type === 'media') {
+      const url = fragment.url;
+      if (url?.startsWith('blob:')) {
+        const serverUrl = [
+          await editorProps.image?.upload?.([
+            blobToFile(fragment?.url, 'image.png'),
+          ]),
+        ].flat(1);
+        fragment.url = serverUrl?.[0];
+        fragment.downloadUrl = serverUrl?.[0];
+        return;
+      }
+      const serverUrl = [
+        await editorProps.image?.upload?.([fragment?.url]),
+      ].flat(1);
+      fragment.url = serverUrl?.[0];
+      fragment.downloadUrl = serverUrl?.[0];
+    }
+    if (fragment?.children) {
+      await upLoadFile(fragment.children, editorProps);
+    }
+  }
+};
+
 /**
  * 转化 html 到 slate
  * @param editor
@@ -205,15 +237,8 @@ export const insertParsedHtmlNodes = async (
   const sel = editor.selection;
 
   let fragmentList = docxDeserializer(rtl, html);
-  for await (let fragment of fragmentList) {
-    if (fragment.type === 'media') {
-      const serverUrl = [
-        await editorProps.image?.upload?.([fragment?.url]),
-      ].flat(1);
-      fragment.url = serverUrl?.[0];
-      fragment.downloadUrl = serverUrl?.[0];
-    }
-  }
+
+  await upLoadFile(fragmentList, editorProps);
 
   fragmentList = fragmentList.map((fragment) => {
     if (fragment.type === 'table') {
@@ -236,6 +261,7 @@ export const insertParsedHtmlNodes = async (
   });
 
   if (!fragmentList?.length) return false;
+
   let [node] = Editor.nodes<Element>(editor, {
     match: (n) => Element.isElement(n),
   });
