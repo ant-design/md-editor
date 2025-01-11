@@ -200,13 +200,13 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
         ].flat(1);
         fragment.url = serverUrl?.[0];
         fragment.downloadUrl = serverUrl?.[0];
-        return;
+      } else {
+        const serverUrl = [
+          await editorProps.image?.upload?.([fragment?.url]),
+        ].flat(1);
+        fragment.url = serverUrl?.[0];
+        fragment.downloadUrl = serverUrl?.[0];
       }
-      const serverUrl = [
-        await editorProps.image?.upload?.([fragment?.url]),
-      ].flat(1);
-      fragment.url = serverUrl?.[0];
-      fragment.downloadUrl = serverUrl?.[0];
     }
     if (fragment?.children) {
       await upLoadFile(fragment.children, editorProps);
