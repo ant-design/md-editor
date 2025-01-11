@@ -124,12 +124,13 @@ export const TocHeading = observer(({ note }: { note: IEditor }) => {
   }, [note]);
 
   useEffect(() => {
+    console.log('clear', note);
     cache.clear();
     getHeading();
     setState({ active: '' });
-  }, [store?.container, note]);
+  }, [store?.container, note.schema]);
 
-  useDebounce(getHeading, 100, [note]);
+  useDebounce(getHeading, 100, [note.schema]);
 
   useEffect(() => {
     const div = box.current;
