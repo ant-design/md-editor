@@ -8,9 +8,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       listStyle: 'disc',
-      paddingLeft: '24px',
-      paddingTop: '3px',
-      paddingBottom: '3px',
       marginBottom: '0',
       'li::marker': {
         color: 'rgb(107 114 128 /1)',
@@ -18,6 +15,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       p: {
         marginBottom: '0 !important',
         marginTop: '0 !important',
+        paddingTop: '0 !important',
+        paddingBottom: '0 !important',
       },
       [`li:not(${token.componentCls}-task) > :first-child .ant-md-editor-drag-handle`]:
         {
