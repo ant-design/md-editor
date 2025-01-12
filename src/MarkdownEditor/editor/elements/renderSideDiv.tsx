@@ -33,7 +33,6 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
       <div
         ref={tableSideDivRef}
         key={index}
-        data-ignore-slate
         contentEditable={false}
         suppressContentEditableWarning
         className={`table-side-div ignore-toggle-readonly ${
@@ -125,15 +124,14 @@ export function RowSideDiv(props: {
   return (
     <>
       <div
-        data-ignore-slate
         className="row-div-bar-inner ignore-toggle-readonly"
         style={{
           position: 'absolute',
           display: 'block',
           borderBottom: '1px solid #DFDFDF',
           zIndex: 100,
-          width: '16px',
-          marginTop: '16px',
+          width: '14px',
+          marginTop: '15.5px',
           marginLeft: '-16px',
         }}
         contentEditable={false}
@@ -148,8 +146,8 @@ export function RowSideDiv(props: {
               position: 'relative',
               width: '14px',
               height:
-                tr?.getBoundingClientRect?.()?.height - 0.735 ||
-                tr?.clientHeight - 0.735,
+                tr?.getBoundingClientRect?.()?.height - 1 ||
+                tr?.clientHeight - 1,
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
@@ -214,7 +212,7 @@ export function ColSideDiv(props: {
     if (!tableRef.current) return;
 
     const scrollContainer = tableRef.current.closest(
-      '.ant-md-editor-table-content',
+      '.ant-md-editor-content-table',
     );
     if (!scrollContainer) {
       console.warn('Scroll container not found!');
@@ -234,7 +232,6 @@ export function ColSideDiv(props: {
   return (
     <div
       ref={colDivBarInnerRef}
-      data-ignore-slate
       className="col-div-bar-inner ignore-toggle-readonly"
       style={{
         position: 'relative',
@@ -257,10 +254,10 @@ export function ColSideDiv(props: {
             type={'column'}
             divStyle={{
               position: 'absolute',
-              top: -1,
+              top: 0,
               left: leftPosition - 50,
               width: colRect?.width || td?.clientWidth,
-              height: '15px',
+              height: '14.5px',
               zIndex: 101,
             }}
             getTableNode={getTableNode}
@@ -297,7 +294,6 @@ export function IntersectionPointDiv(props: {
 
   return (
     <div
-      data-ignore-slate
       contentEditable={false}
       suppressContentEditableWarning
       className={`intersection-point ignore-toggle-readonly ${

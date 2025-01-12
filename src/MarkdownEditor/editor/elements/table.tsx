@@ -365,23 +365,7 @@ export const Table = observer((props: RenderElementProps) => {
           marginBottom: 12,
         }}
       >
-        <div
-          className={
-            'ant-md-editor-drag-el ant-md-editor-table ant-md-editor-content-table'
-          }
-          style={{
-            maxWidth: '100%',
-            width: '100%',
-            border: '1px solid #e8e8e8',
-            borderRadius: 16,
-            display: 'flex',
-            minWidth: 0,
-            boxShadow:
-              isSel && store?.editorProps?.reportMode
-                ? '0 0 0 1px #1890ff'
-                : 'none',
-          }}
-        >
+        <div className="ant-md-editor-drag-el">
           {tableAttrVisible && (
             <TableAttr
               state={state}
@@ -391,62 +375,63 @@ export const Table = observer((props: RenderElementProps) => {
             />
           )}
           <DragHandle />
+        </div>
+        <div
+          className="ant-md-editor-table ant-md-editor-content-table"
+          onMouseUp={handleClickTable}
+          onClick={() => {
+            runInAction(() => {
+              if (isSel) {
+                store.selectTablePath = [];
+                return;
+              }
+              store.selectTablePath = path;
+            });
+          }}
+          style={{
+            width: '100%',
+            maxWidth: '100%',
+            overflow: 'auto',
+            flex: 1,
+            minWidth: 0,
+            marginLeft: 20,
+            marginTop: 4,
+            marginRight: 6,
+          }}
+        >
           <div
-            className="ant-md-editor-table-content"
-            onMouseUp={handleClickTable}
-            onClick={() => {
-              runInAction(() => {
-                if (isSel) {
-                  store.selectTablePath = [];
-                  return;
-                }
-                store.selectTablePath = path;
-              });
-            }}
             style={{
-              width: '100%',
-              maxWidth: '100%',
-              overflow: 'auto',
-              flex: 1,
-              minWidth: 0,
-              marginLeft: 20,
-              marginTop: 4,
-              marginRight: 6,
+              visibility: isShowBar ? 'visible' : 'hidden',
             }}
+            data-slate-editor="false"
           >
-            <div
-              style={{
-                visibility: isShowBar ? 'visible' : 'hidden',
-              }}
-            >
-              <IntersectionPointDiv
-                getTableNode={getTableNode}
-                selCells={selCells}
-                setSelCells={setSelCells}
-              />
-              <RowSideDiv
-                tableRef={tableTargetRef}
-                getTableNode={getTableNode}
-                selCells={selCells}
-                setSelCells={setSelCells}
-              />
-              <ColSideDiv
-                tableRef={tableTargetRef}
-                getTableNode={getTableNode}
-                selCells={selCells}
-                setSelCells={setSelCells}
-              />
-            </div>
-            <table
-              style={{
-                borderCollapse: 'collapse',
-                borderSpacing: 0,
-              }}
-              ref={tableTargetRef}
-            >
-              <tbody data-slate-node="element">{props.children}</tbody>
-            </table>
+            <IntersectionPointDiv
+              getTableNode={getTableNode}
+              selCells={selCells}
+              setSelCells={setSelCells}
+            />
+            <RowSideDiv
+              tableRef={tableTargetRef}
+              getTableNode={getTableNode}
+              selCells={selCells}
+              setSelCells={setSelCells}
+            />
+            <ColSideDiv
+              tableRef={tableTargetRef}
+              getTableNode={getTableNode}
+              selCells={selCells}
+              setSelCells={setSelCells}
+            />
           </div>
+          <table
+            style={{
+              borderCollapse: 'collapse',
+              borderSpacing: 0,
+            }}
+            ref={tableTargetRef}
+          >
+            <tbody data-slate-node="element">{props.children}</tbody>
+          </table>
         </div>
       </div>
     );
