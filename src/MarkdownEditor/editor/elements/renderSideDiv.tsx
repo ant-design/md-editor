@@ -33,7 +33,6 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
       <div
         ref={tableSideDivRef}
         key={index}
-        data-ignore-slate
         contentEditable={false}
         suppressContentEditableWarning
         className={`table-side-div ignore-toggle-readonly ${
@@ -125,7 +124,6 @@ export function RowSideDiv(props: {
   return (
     <>
       <div
-        data-ignore-slate
         className="row-div-bar-inner ignore-toggle-readonly"
         style={{
           position: 'absolute',
@@ -234,7 +232,6 @@ export function ColSideDiv(props: {
   return (
     <div
       ref={colDivBarInnerRef}
-      data-ignore-slate
       className="col-div-bar-inner ignore-toggle-readonly"
       style={{
         position: 'relative',
@@ -297,7 +294,6 @@ export function IntersectionPointDiv(props: {
 
   return (
     <div
-      data-ignore-slate
       contentEditable={false}
       suppressContentEditableWarning
       className={`intersection-point ignore-toggle-readonly ${

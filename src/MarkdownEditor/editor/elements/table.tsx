@@ -403,6 +403,7 @@ export const Table = observer((props: RenderElementProps) => {
             style={{
               visibility: isShowBar ? 'visible' : 'hidden',
             }}
+            data-slate-editor="false"
           >
             <IntersectionPointDiv
               getTableNode={getTableNode}
