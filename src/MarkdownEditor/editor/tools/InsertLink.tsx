@@ -11,10 +11,12 @@ import { Node, Selection, Text, Transforms } from 'slate';
 import { IEditor } from '../..';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
+import { useGetSetState } from '../utils';
 import { EditorUtils } from '../utils/editorUtils';
 import { isLink, parsePath } from '../utils/path';
 
 type DocItem = IEditor & { path: string; parentPath?: string };
+
 const width = 370;
 
 /**
