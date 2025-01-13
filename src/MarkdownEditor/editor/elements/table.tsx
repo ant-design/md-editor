@@ -377,7 +377,9 @@ export const Table = observer((props: RenderElementProps) => {
           <DragHandle />
         </div>
         <div
-          className="ant-md-editor-table ant-md-editor-content-table"
+          className={`ant-md-editor-table ant-md-editor-content-table ${
+            isShowBar ? 'show-bar' : ''
+          }`}
           onMouseUp={handleClickTable}
           onClick={() => {
             runInAction(() => {
