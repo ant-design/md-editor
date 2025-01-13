@@ -248,6 +248,7 @@ const genChart = (
   if (chartType === 'pie') {
     return (
       <Pie
+        index={config?.index}
         key={config?.index}
         data={chartData}
         yField={config?.y || 'value'}
@@ -259,6 +260,7 @@ const genChart = (
     return (
       <Bar
         data={chartData}
+        index={config?.index}
         yField={config?.y}
         key={config?.index}
         xField={config?.x}
@@ -273,6 +275,7 @@ const genChart = (
     return (
       <Line
         key={config?.index}
+        index={config?.index}
         data={chartData}
         yField={config?.y}
         xField={config?.x}
@@ -287,6 +290,7 @@ const genChart = (
     return (
       <Column
         key={config?.index}
+        index={config?.index}
         data={chartData}
         yField={config?.y}
         xField={config?.x}
@@ -302,6 +306,7 @@ const genChart = (
       <Area
         key={config?.index}
         data={chartData}
+        index={config?.index}
         yField={config?.y}
         xField={config?.x}
         height={config?.height || 400}

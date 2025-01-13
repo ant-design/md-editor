@@ -9,6 +9,7 @@ export const Container: React.FC<{
   htmlRef: React.MutableRefObject<HTMLDivElement | null>;
   onShow: () => void;
   onHidden: () => void;
+  index: number;
 }> = (props) => {
   const { chartRef, htmlRef } = props;
   const sizeRef = useRef<{ width: number; height: number }>({
@@ -54,7 +55,7 @@ export const Container: React.FC<{
       onSize();
       setTimeout(() => {
         props.onShow?.();
-      }, 10);
+      }, 100 * props.index);
     } else {
       props.onHidden?.();
     }

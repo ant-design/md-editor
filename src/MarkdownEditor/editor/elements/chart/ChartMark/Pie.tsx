@@ -2,14 +2,9 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { defaultColorList } from '../const';
 import { Container } from './Container';
+import { ChartProps } from './useChart';
 
-export const Pie: React.FC<{
-  data: any[];
-  xField: string;
-  yField: string;
-  colorLegend?: string;
-  chartRef?: React.MutableRefObject<Chart | undefined>;
-}> = (props) => {
+export const Pie: React.FC<ChartProps> = (props) => {
   const chartRef = React.useRef<Chart>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
 
@@ -58,6 +53,7 @@ export const Pie: React.FC<{
   }, [props.data]);
   return (
     <Container
+      index={props.index}
       chartRef={chartRef}
       htmlRef={htmlRef}
       onShow={() => {

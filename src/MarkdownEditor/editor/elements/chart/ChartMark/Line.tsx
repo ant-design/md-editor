@@ -1,14 +1,9 @@
 ﻿import { Chart } from '@antv/g2';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { Container } from './Container';
+import { ChartProps } from './useChart';
 
-export const Line: React.FC<{
-  data: any[];
-  xField: string;
-  yField: string;
-  colorLegend?: string;
-  chartRef?: React.MutableRefObject<Chart | undefined>;
-}> = (props) => {
+export const Line: React.FC<ChartProps> = (props) => {
   const chartRef = React.useRef<Chart>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
 
@@ -55,6 +50,7 @@ export const Line: React.FC<{
   }, [props.data]);
   return (
     <Container
+      index={props.index}
       chartRef={chartRef}
       htmlRef={htmlRef}
       onShow={() => {

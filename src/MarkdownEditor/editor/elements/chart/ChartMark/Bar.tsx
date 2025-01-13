@@ -2,14 +2,9 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { stringFormatNumber } from '../utils';
 import { Container } from './Container';
+import { ChartProps } from './useChart';
 
-export const Bar: React.FC<{
-  data: any[];
-  xField: string;
-  yField: string;
-  colorLegend?: string;
-  chartRef?: React.MutableRefObject<Chart | undefined>;
-}> = (props) => {
+export const Bar: React.FC<ChartProps> = (props) => {
   const chartRef = React.useRef<Chart>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
 
@@ -67,6 +62,7 @@ export const Bar: React.FC<{
   }, [props.data]);
   return (
     <Container
+      index={props.index}
       chartRef={chartRef}
       htmlRef={htmlRef}
       onShow={() => {
