@@ -17,8 +17,9 @@ export const Bar: React.FC<{
     chartRef.current,
   ]);
 
-  useEffect(() => {
+  const initChart = () => {
     if (!htmlRef.current) return;
+    if (chartRef.current) return;
     const chart = new Chart({
       container: htmlRef.current!,
       autoFit: true,
@@ -56,13 +57,7 @@ export const Bar: React.FC<{
     }
     chartRef.current = chart;
     chart.render();
-
-    return () => {
-      if (!chart) return;
-      chart.clear();
-      chart.destroy();
-    };
-  }, [htmlRef.current]);
+  };
 
   useEffect(() => {
     const chart = chartRef.current;
@@ -71,13 +66,13 @@ export const Bar: React.FC<{
     chart.render();
   }, [props.data]);
   return (
-    <Container chartRef={chartRef} htmlRef={htmlRef}>
-      <div
-        ref={htmlRef}
-        style={{
-          maxHeight: htmlRef.current?.clientWidth || '400px',
-        }}
-      ></div>
-    </Container>
+    <Container
+      chartRef={chartRef}
+      htmlRef={htmlRef}
+      onShow={() => {
+        initChart();
+      }}
+      onHidden={() => {}}
+    />
   );
 };

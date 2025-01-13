@@ -63,6 +63,7 @@
     "json5": "^2.2.3",
     "mobx": "^6.13.5",
     "mobx-react": "^9.2.0",
+    "motion": "^11.17.0",
     "nanoid": "^5.0.9",
     "pangu": "^4.0.7",
     "partial-json-parser": "^1.2.2",

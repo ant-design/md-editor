@@ -1,4 +1,6 @@
-﻿/**
+﻿/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/ban-types */
+/**
  * 创建一个新的 `Intl.NumberFormat` 实例，用于将数字格式化为美国英语的十进制格式。
  *
  * @constant

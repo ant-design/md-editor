@@ -2,9 +2,9 @@ import { Anchor } from 'antd';
 import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 import React, { useCallback, useEffect, useRef } from 'react';
-import { useDebounce, useGetSetState } from 'react-use';
+
 import { Node } from 'slate';
-import { IEditor } from '../../index';
+import { IEditor, useDebounce, useGetSetState } from '../../index';
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
 

@@ -6,7 +6,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useGetSetState } from 'react-use';
+
 import { Node, Selection, Text, Transforms } from 'slate';
 import { IEditor } from '../..';
 import { useSubject } from '../../hooks/subscribe';
