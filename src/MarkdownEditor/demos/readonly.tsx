@@ -120,17 +120,15 @@ const defaultValue = `
 
 export default () => {
   return (
-    <div>
-      <MarkdownEditor
-        style={{
-          border: '1px solid #eee',
-        }}
-        toc={false}
-        width={'calc(99vw - 16px)'}
-        initValue={defaultValue}
-        onChange={(_, e) => console.log(e)}
-      />
-
+    <div
+      style={{
+        display: 'flex',
+        height: '100vh',
+        flexDirection: 'column',
+        gap: '16px',
+        overflow: 'auto',
+      }}
+    >
       <MarkdownEditor
         readonly
         style={{

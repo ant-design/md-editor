@@ -19,6 +19,7 @@ export const Area: React.FC<{
   const initChart = () => {
     if (!htmlRef.current) return;
     if (chartRef.current) return;
+
     const chart = new Chart({
       container: htmlRef.current!,
       autoFit: true,
@@ -36,6 +37,7 @@ export const Area: React.FC<{
 
     chart
       .line()
+      .data(props.data)
       .encode('x', props.xField)
       .encode('y', props.yField)
       .style('strokeWidth', 1)
@@ -47,6 +49,7 @@ export const Area: React.FC<{
     }
     chartRef.current = chart;
     chart.render();
+
     return () => {
       if (!chart) return;
       chart.clear();

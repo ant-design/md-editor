@@ -16,13 +16,45 @@ export const Container: React.FC<{
     height: 0,
   });
 
+  const rootRef = useRef<HTMLDivElement | null>(
+    (document.querySelector('.markdown-editor') as HTMLDivElement) ||
+      document.body,
+  );
+
   const inView = useInView(htmlRef, {
     margin: '0px 100px -50px 0px',
+    root: rootRef!,
   });
+
+  const onSize = debounce(() => {
+    if (!inView) return;
+    const chart = chartRef.current;
+    if (!chart) return;
+    const preSize = sizeRef.current;
+    const newSize = {
+      width: htmlRef.current?.clientWidth || 0,
+      height: Math.min(
+        htmlRef.current?.clientWidth || 400,
+        htmlRef.current?.clientHeight || 400,
+      ),
+    };
+
+    if (
+      Math.abs(preSize.width - newSize.width) > 20 ||
+      Math.abs(preSize.height - newSize.height) > 20
+    ) {
+      chart.changeSize(newSize.width, newSize.height);
+      sizeRef.current = newSize;
+      return;
+    }
+  }, 160);
 
   useEffect(() => {
     if (inView) {
-      props.onShow?.();
+      onSize();
+      setTimeout(() => {
+        props.onShow?.();
+      }, 10);
     } else {
       props.onHidden?.();
     }
@@ -43,31 +75,10 @@ export const Container: React.FC<{
   }
 
   return (
-    <ResizeObserver
-      onResize={debounce(() => {
-        if (!inView) return;
-        const chart = chartRef.current;
-        if (!chart) return;
-        const preSize = sizeRef.current;
-        const newSize = {
-          width: htmlRef.current?.clientWidth || 0,
-          height: Math.min(
-            htmlRef.current?.clientWidth || 400,
-            htmlRef.current?.clientHeight || 400,
-          ),
-        };
-        if (
-          Math.abs(preSize.width - newSize.width) > 20 ||
-          Math.abs(preSize.height - newSize.height) > 20
-        ) {
-          chart.changeSize(newSize.width, newSize.height);
-          sizeRef.current = newSize;
-          return;
-        }
-      }, 160)}
-    >
+    <ResizeObserver onResize={onSize}>
       <div
         ref={htmlRef}
+        onClick={onSize}
         style={{
           maxHeight: htmlRef.current?.clientWidth || '400px',
         }}
