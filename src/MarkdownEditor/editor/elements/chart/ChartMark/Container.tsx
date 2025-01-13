@@ -39,7 +39,7 @@ export const Container: React.FC<{
       sizeRef.current = newSize;
       return;
     }
-  }, 160);
+  }, 160 + props.index * 16);
 
   useEffect(() => {
     if (inView) {
