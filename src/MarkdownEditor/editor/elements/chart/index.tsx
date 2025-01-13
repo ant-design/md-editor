@@ -1,17 +1,10 @@
-﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
-import { ProForm, ProFormSelect } from '@ant-design/pro-components';
-import { ConfigProvider, Descriptions, Dropdown, Popover } from 'antd';
-import { DescriptionsItemType } from 'antd/es/descriptions';
-import React, { useMemo } from 'react';
-import { Transforms } from 'slate';
+﻿import React, { useMemo } from 'react';
 import { RenderElementProps, useSlate } from 'slate-react';
 import { TableNode } from '../../../el';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
-import { EditorUtils } from '../../utils/editorUtils';
 import { ErrorBoundary } from '../ErrorBoundary';
-import { ChartAttrToolBar } from './ChartAttrToolBar';
-import { Area, Bar, Column, Line, Pie } from './ChartMark';
+import { ChartRender } from './ChartRender';
 
 /**
  * 转化数字，将字符串转化为数字，即使非标准数字也可以转化
@@ -81,33 +74,6 @@ const stringFormatNumber = (value: string | number) => {
   } catch (error) {
     return value;
   }
-};
-
-const ChartMap = {
-  pie: {
-    title: '饼图',
-    changeData: ['table'],
-  },
-  bar: {
-    title: '条形图',
-    changeData: ['column', 'line', 'area', 'table'],
-  },
-  line: {
-    title: '折线图',
-    changeData: ['column', 'line', 'area', 'table'],
-  },
-  column: {
-    title: '柱状图',
-    changeData: ['column', 'line', 'area', 'table'],
-  },
-  area: {
-    title: '面积图',
-    changeData: ['column', 'line', 'area', 'table'],
-  },
-  table: {
-    title: '表格',
-    changeData: ['column', 'line', 'area', 'table', 'pie'],
-  },
 };
 
 /**
@@ -215,154 +181,6 @@ const groupByCategory = (data: any[], key: any) => {
 };
 
 /**
- * 生成图表组件的函数，根据图表类型和配置返回相应的图表组件。
- *
- * @param chartType - 图表类型，可以是 'pie'、'bar'、'line'、'column'、'area' 或 'descriptions'。
- * @param chartData - 图表数据，记录数组。
- * @param config - 图表配置对象，包括以下属性：
- *   @param config.defaultProps - 默认属性。
- *   @param config.height - 图表高度。
- *   @param config.x - x 轴字段。
- *   @param config.y - y 轴字段。
- *   @param config.rest - 其他配置。
- *   @param config.index - 可选，图表索引。
- *   @param config.chartData - 可选，图表数据。
- *   @param config.columns - 可选，列配置。
- *
- * @returns 返回相应的图表组件。
- */
-const genChart = (
-  chartType: 'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions',
-  chartData: Record<string, any>[],
-  config: {
-    defaultProps: any;
-    height: any;
-    x: any;
-    y: any;
-    rest: any;
-    index?: any;
-    chartData?: any;
-    columns?: any;
-  },
-) => {
-  if (chartType === 'pie') {
-    return (
-      <Pie
-        index={config?.index}
-        key={config?.index}
-        data={chartData}
-        yField={config?.y || 'value'}
-        xField={config?.x || 'type'}
-      />
-    );
-  }
-  if (chartType === 'bar') {
-    return (
-      <Bar
-        data={chartData}
-        index={config?.index}
-        yField={config?.y}
-        key={config?.index}
-        xField={config?.x}
-        height={config?.height || 400}
-        {...config?.rest}
-        title=""
-      />
-    );
-  }
-
-  if (chartType === 'line') {
-    return (
-      <Line
-        key={config?.index}
-        index={config?.index}
-        data={chartData}
-        yField={config?.y}
-        xField={config?.x}
-        {...config?.defaultProps}
-        height={config?.height || 400}
-        {...config?.rest}
-        title=""
-      />
-    );
-  }
-  if (chartType === 'column') {
-    return (
-      <Column
-        key={config?.index}
-        index={config?.index}
-        data={chartData}
-        yField={config?.y}
-        xField={config?.x}
-        {...config?.defaultProps}
-        height={config?.height || 400}
-        {...config?.rest}
-        title=""
-      />
-    );
-  }
-  if (chartType === 'area') {
-    return (
-      <Area
-        key={config?.index}
-        data={chartData}
-        index={config?.index}
-        yField={config?.y}
-        xField={config?.x}
-        height={config?.height || 400}
-        {...config?.rest}
-        title=""
-      />
-    );
-  }
-  if (
-    chartType === 'descriptions' ||
-    (chartData.length < 2 && config?.columns.length > 8)
-  ) {
-    return (
-      <div
-        key={config?.index}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 8,
-        }}
-      >
-        {chartData.map((row: Record<string, any>) => {
-          return (
-            <Descriptions
-              bordered
-              key={config?.index}
-              column={{
-                xxl: 2,
-                xl: 2,
-                lg: 2,
-                md: 2,
-                sm: 1,
-                xs: 1,
-              }}
-              items={
-                config?.columns
-                  .map((column: { title: string; dataIndex: string }) => {
-                    if (!column.title || !column.dataIndex) return null;
-                    return {
-                      label: column.title || '',
-                      children: row[column.dataIndex],
-                    };
-                  })
-                  .filter((item: any) => !!item) as DescriptionsItemType[]
-              }
-            />
-          );
-        })}
-      </div>
-    );
-  }
-
-  return null;
-};
-
-/**
  * Chart 组件用于渲染图表元素。
  *
  * @component
@@ -418,210 +236,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   const config = [node.otherProps?.config].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
-
-  /**
-   * 图表配置
-   */
-  const getChartPopover = (index: number, isChartList: boolean) =>
-    [
-      <Dropdown
-        key="dropdown"
-        menu={{
-          items:
-            ChartMap[config.at(index).chartType as 'pie']?.changeData?.map(
-              (key: string) => {
-                return {
-                  key,
-                  label: ChartMap[key as 'pie'].title,
-                  onClick: () => {
-                    const path = EditorUtils.findPath(editor, node);
-                    const config = [
-                      JSON.parse(JSON.stringify(node.otherProps?.config || [])),
-                    ].flat(1);
-                    config[index] = {
-                      ...config?.at(index),
-                      chartType: key,
-                    };
-
-                    Transforms.setNodes(
-                      editor,
-                      {
-                        otherProps: {
-                          ...node.otherProps,
-                          config: config,
-                        },
-                      },
-                      {
-                        at: path,
-                      },
-                    );
-                  },
-                };
-              },
-            ) || [],
-        }}
-      >
-        <span
-          style={{
-            fontSize: 12,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            border: '1px solid #f0f0f0',
-            padding: '4px 12px',
-            borderRadius: 14,
-          }}
-        >
-          {ChartMap[(config.at(index)?.chartType as 'bar') || 'bar']?.title}
-          <DownOutlined
-            style={{
-              fontSize: 8,
-            }}
-          />
-        </span>
-      </Dropdown>,
-      isChartList ? (
-        <Dropdown
-          key="dropdown"
-          menu={{
-            items: new Array(4).fill(0).map((_, i) => {
-              return {
-                key: i + 1,
-                label: i + 1,
-                onClick: () => {
-                  setColumnLength(i + 1);
-                },
-              };
-            }),
-          }}
-        >
-          <span
-            style={{
-              fontSize: 12,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              border: '1px solid #f0f0f0',
-              padding: '4px 12px',
-              borderRadius: 14,
-            }}
-          >
-            {columnLength} 列
-            <DownOutlined
-              style={{
-                fontSize: 8,
-              }}
-            />
-          </span>
-        </Dropdown>
-      ) : null,
-      <Popover
-        key="config"
-        title="配置图表"
-        trigger={'click'}
-        content={
-          <ConfigProvider componentSize="small">
-            <ProForm
-              submitter={{
-                searchConfig: {
-                  submitText: '更新',
-                },
-              }}
-              style={{
-                width: 300,
-              }}
-              initialValues={
-                config.at(index) || {
-                  x: '',
-                  y: '',
-                }
-              }
-              onFinish={(values) => {
-                const path = EditorUtils.findPath(editor, node);
-                const config = JSON.parse(
-                  JSON.stringify(node.otherProps?.config || []),
-                );
-
-                config[index] = {
-                  ...config.at(index),
-                  ...values,
-                };
-
-                Transforms.setNodes(
-                  editor,
-                  {
-                    otherProps: {
-                      ...node.otherProps,
-                      config: config,
-                    },
-                  },
-                  {
-                    at: path,
-                  },
-                );
-              }}
-            >
-              <div
-                style={{
-                  maxHeight: '70vh',
-                  overflow: 'auto',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 8,
-                  }}
-                >
-                  <ProFormSelect
-                    label="X轴"
-                    name="x"
-                    fieldProps={{
-                      onClick: (e) => {
-                        e.stopPropagation();
-                      },
-                    }}
-                    options={columns
-                      ?.filter((item) => item.title)
-                      ?.map((item) => {
-                        return {
-                          label: item.title,
-                          value: item.dataIndex,
-                        };
-                      })}
-                  />
-                  <ProFormSelect
-                    name="y"
-                    label="Y轴"
-                    fieldProps={{
-                      onClick: (e) => {
-                        e.stopPropagation();
-                      },
-                    }}
-                    options={columns
-                      ?.filter((item) => item.title)
-                      ?.map((item) => {
-                        return {
-                          label: item.title,
-                          value: item.dataIndex,
-                        };
-                      })}
-                  />
-                </div>
-              </div>
-            </ProForm>
-          </ConfigProvider>
-        }
-      >
-        <span
-          style={{
-            padding: '4px 8px',
-          }}
-        >
-          <SettingOutlined />
-        </span>
-      </Popover>,
-    ].filter((item) => !!item) as JSX.Element[];
 
   return useMemo(
     () => (
@@ -711,28 +325,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       );
                     }
 
-                    if (chartType === 'table') {
-                      return (
-                        <div
-                          key={index}
-                          contentEditable={readonly ? false : true}
-                          style={{
-                            margin: 12,
-                            overflow: 'auto',
-                            border: '1px solid #eee',
-                            borderRadius: 18,
-                            minWidth: `calc(${100 / columnLength}% - 16px)`,
-                            flex: 1,
-                            maxWidth: '100%',
-                            userSelect: 'none',
-                          }}
-                        >
-                          <table contentEditable={readonly ? false : true}>
-                            <tbody>{children}</tbody>
-                          </table>
-                        </div>
-                      );
-                    }
                     chartData = chartData.map((item: any) => {
                       return {
                         ...item,
@@ -755,36 +347,48 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         if (!Array.isArray(group) || group.length < 1) {
                           return null;
                         }
-                        const dom = genChart(chartType, group, {
+                        const dom = (
+                          <ChartRender
+                            chartType={chartType}
+                            chartData={group}
+                            columnLength={columnLength}
+                            onColumnLengthChange={setColumnLength}
+                            isChartList
+                            config={{
+                              defaultProps,
+                              height,
+                              x,
+                              y,
+                              columns,
+                              index: index * 10 + subIndex,
+                              rest,
+                            }}
+                            title={key}
+                          />
+                        );
+                        return dom;
+                      });
+                    }
+                    return (
+                      <ChartRender
+                        key={index}
+                        columnLength={columnLength}
+                        onColumnLengthChange={setColumnLength}
+                        chartType={chartType}
+                        chartData={chartData}
+                        config={{
                           defaultProps,
                           height,
                           x,
                           y,
                           columns,
-                          index: index * 10 + subIndex,
+                          index: index,
                           rest,
-                        });
-                        if (!dom) return null;
-                        return {
-                          dom,
-                          title: key,
-                        };
-                      });
-                    }
-                    return (
-                      genChart(chartType, chartData, {
-                        defaultProps,
-                        height,
-                        x,
-                        y,
-                        columns,
-                        index: index,
-                        rest,
-                      }) || null
+                        }}
+                      />
                     );
                   })
                   .map((itemList, index) => {
-                    const toolBar = getChartPopover(index, config.length > 1);
                     if (Array.isArray(itemList)) {
                       return itemList?.map((item, subIndex) => {
                         if (!item) return null;
@@ -801,34 +405,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             }}
                             contentEditable={false}
                           >
-                            <div
-                              style={{
-                                userSelect: 'none',
-                              }}
-                              contentEditable={false}
-                            >
-                              <ChartAttrToolBar
-                                title={
-                                  item.title || config.at(index)?.title || ''
-                                }
-                                node={node}
-                                options={[
-                                  {
-                                    style: { padding: 0 },
-                                    icon: toolBar.at(0),
-                                  },
-                                  {
-                                    style: { padding: 0 },
-                                    icon: toolBar.at(1),
-                                  },
-                                  {
-                                    style: { padding: 0 },
-                                    icon: toolBar.at(2),
-                                  },
-                                ]}
-                              />
-                            </div>
-                            {item.dom}
+                            {item}
                           </div>
                         );
                       });
@@ -849,30 +426,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                           e.stopPropagation();
                         }}
                       >
-                        <div
-                          style={{
-                            userSelect: 'none',
-                          }}
-                          contentEditable={false}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          <ChartAttrToolBar
-                            title={config.at(index)?.title || ''}
-                            node={node}
-                            options={[
-                              {
-                                style: { padding: 0 },
-                                icon: toolBar.at(0),
-                              },
-                              {
-                                style: { padding: 0 },
-                                icon: toolBar.at(1),
-                              },
-                            ]}
-                          />
-                        </div>
                         {itemList}
                       </div>
                     );

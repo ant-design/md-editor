@@ -58,6 +58,14 @@ export const Area: React.FC<ChartProps> = (props) => {
     chart.changeData(props.data);
     chart.render();
   }, [props.data]);
+
+  useEffect(() => {
+    if (!chartRef.current) return;
+    const chart = chartRef.current;
+    chart.clear();
+    chart.destroy();
+    initChart();
+  }, [props.xField, props.yField, props.colorLegend]);
   return (
     <Container
       index={props.index}
