@@ -1,7 +1,6 @@
 ﻿import { Chart } from '@antv/g2';
-import { useInView } from 'motion/react';
 import ResizeObserver from 'rc-resize-observer';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { debounce } from '../../../utils';
 
 export const Container: React.FC<{
@@ -17,15 +16,7 @@ export const Container: React.FC<{
     height: 0,
   });
 
-  const rootRef = useRef<HTMLDivElement | null>(
-    (document.querySelector('.markdown-editor') as HTMLDivElement) ||
-      document.body,
-  );
-
-  const inView = useInView(htmlRef, {
-    margin: '0px 100px -50px 0px',
-    root: rootRef!,
-  });
+  const [inView, setInView] = useState(false);
 
   const onSize = debounce(() => {
     if (!inView) return;
@@ -58,6 +49,7 @@ export const Container: React.FC<{
       }, 100 * props.index);
     } else {
       props.onHidden?.();
+      setInView(true);
     }
   }, [inView]);
 

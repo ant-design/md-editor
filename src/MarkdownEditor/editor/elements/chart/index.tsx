@@ -484,7 +484,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         <Dropdown
           key="dropdown"
           menu={{
-            items: new Array(3).fill(0).map((_, i) => {
+            items: new Array(4).fill(0).map((_, i) => {
               return {
                 key: i + 1,
                 label: i + 1,
@@ -820,6 +820,10 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                                   {
                                     style: { padding: 0 },
                                     icon: toolBar.at(1),
+                                  },
+                                  {
+                                    style: { padding: 0 },
+                                    icon: toolBar.at(2),
                                   },
                                 ]}
                               />

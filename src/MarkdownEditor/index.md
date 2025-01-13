@@ -18,6 +18,8 @@
 
 <code src="./demos/bug.tsx" background="var(--main-bg-color)" title="bug" iframe="540px"></code>
 
+<code src="./demos/max-chart.tsx" background="var(--main-bg-color)" title="bug" iframe="540px"></code>
+
 <code src="./demos/empty.tsx" background="var(--main-bg-color)" title="空模式" iframe="540px" height="540px"></code>
 
 <code src="./demos/ppt.tsx" background="var(--main-bg-color)" title="ppt 模式" iframe="540px" height="540px"></code>
