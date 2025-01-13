@@ -255,7 +255,7 @@ export function ColSideDiv(props: {
             divStyle={{
               position: 'absolute',
               top: 0,
-              left: leftPosition - 50,
+              left: leftPosition - 50.5,
               width: colRect?.width || td?.clientWidth,
               height: '14.5px',
               zIndex: 101,

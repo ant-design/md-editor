@@ -1,9 +1,9 @@
 .selected-cell-td {
-  background-color: rgba(168, 194, 255, 0.3);
+  background-color: rgba(168, 194, 255, 0.35);
 }
 .intersection-point {
-  height: 14.5px;
-  width: 14.5px;
+  height: 14.4px;
+  width: 14.4px;
   border: 1px solid #dfdfdf;
   border-right: 0px;
   border-bottom: 0px;
@@ -15,14 +15,16 @@
   transition: background-color 0.2s ease-in-out;
 
   cursor: pointer;
-  background-color: #f2f3f5;
+  background-color: #e1f0ff;
 
   &.active {
-    background-color: rgb(50, 100, 255);
+    background-color: #96bfff;
   }
-
+  &:hover {
+    background-color: #7ca9e6;
+  }
   &:hover:not(.active) {
-    background-color: #e2e4e6;
+    background-color: #b8d8ff;
   }
 }
 .table-side-div {
@@ -32,22 +34,29 @@
   border-color: #dfdfdf;
   z-index: 20;
   cursor: pointer;
-  background-color: #f2f3f5;
+  background-color: #e1f0ff;
   transition: background-color 0.15s ease-in-out;
 
   &.full-active {
-    background-color: rgb(50, 100, 255);
+    background-color: #96bfff;
   }
 
   &.half-active {
-    background-color: #e8eaec;
+    background-color: #c8e0ff;
   }
 
   &.delete-btn-hover {
     background-color: rgba(245, 34, 45, 0.6);
   }
-
-  &:hover:not(.full-active) {
-    background-color: #e2e4e6;
+  &:hover {
+    background-color: #7ca9e6;
   }
+  &:hover:not(.full-active) {
+    background-color: #d8ecff;
+  }
+}
+
+.ant-md-editor-content-table.show-bar th:first-child,
+.ant-md-editor-content-table.show-bar th:last-child {
+  border-radius: 0;
 }
