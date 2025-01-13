@@ -525,6 +525,8 @@ export const MEditor = observer(
         <MElement {...props} children={props.children} readonly={readonly} />
       );
       if (!eleItemRender) return defaultDom;
+      if (props.element.type === 'table-cell') return defaultDom;
+      if (props.element.type === 'table-row') return defaultDom;
       return eleItemRender(props, defaultDom) as React.ReactElement;
     };
 
