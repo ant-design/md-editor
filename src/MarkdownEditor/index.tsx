@@ -96,7 +96,6 @@ export type IEditor = {
 export interface MarkdownEditorInstance {
   range?: Range;
   store: EditorStore;
-  editorProps?: MarkdownEditorProps;
   history?: any;
 }
 
@@ -308,7 +307,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    instance.editorProps = props;
     instance.store.editorProps = props;
     instance.store.setState((state) => {
       state.editorProps = props;

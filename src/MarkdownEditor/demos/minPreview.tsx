@@ -13,7 +13,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 <!-- {"MarkdownType": "section", "id": "16" } -->
 
-
 ## 表格
 
 
