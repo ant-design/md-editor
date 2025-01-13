@@ -24,11 +24,11 @@ const MentionsUser = (props: {
       onChange: props.onSelect,
     },
   );
-  const { store, readonly } = useEditorStore();
+  const { editorProps, readonly } = useEditorStore();
   const onSearch = async (text: string) => {
     setLoading(true);
     const list =
-      (await store.editorProps?.comment?.loadMentions?.(text)) || ([] as any);
+      (await editorProps?.comment?.loadMentions?.(text)) || ([] as any);
     setUsers(list);
     setLoading(false);
   };
@@ -42,7 +42,7 @@ const MentionsUser = (props: {
   }, [selectedUsers]);
 
   const mentionsPlaceholder =
-    store.editorProps?.comment?.mentionsPlaceholder || '指派给';
+    editorProps?.comment?.mentionsPlaceholder || '指派给';
 
   return useMemo(() => {
     if (readonly) {
@@ -158,8 +158,8 @@ const MentionsUser = (props: {
       </div>
     );
   }, [
-    store.editorProps?.comment?.mentionsPlaceholder,
-    store.editorProps?.comment?.loadMentions,
+    editorProps?.comment?.mentionsPlaceholder,
+    editorProps?.comment?.loadMentions,
     users,
     loading,
     selectedUsers,
@@ -189,10 +189,10 @@ export const ListItem = ({
   attributes,
 }: ElementProps<ListItemNode>) => {
   const [, update] = useMEditor(element);
-  const { store } = useEditorStore();
+  const { store, editorProps } = useEditorStore();
   const isTask = typeof element.checked === 'boolean';
   const context = useContext(ConfigProvider.ConfigContext);
-  const listItemRender = store.editorProps?.comment?.listItemRender;
+  const listItemRender = editorProps?.comment?.listItemRender;
   const { hashId = '' } = useContext(ListContext) || {};
   const baseCls = context.getPrefixCls('md-editor-list');
 

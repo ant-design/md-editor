@@ -286,7 +286,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const instance = useMemo(() => {
     return observable(
       {
-        editorProps: props,
         store,
       } as MarkdownEditorInstance,
       { range: false },
@@ -306,13 +305,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     });
   }, []);
 
-  useEffect(() => {
-    instance.store.editorProps = props;
-    instance.store.setState((state) => {
-      state.editorProps = props;
-    });
-  }, [props]);
-
   useSystemKeyboard(keyTask$, instance.store, props);
 
   // 导入外部 hooks
@@ -320,8 +312,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   // 初始化 readonly
   useEffect(() => {
-    instance.store.readonly = readonly || false;
-    instance.store.editorProps = props;
+    instance.store.setState((state) => (state.readonly = !!readonly));
   }, [readonly]);
 
   const context = useContext(ConfigProvider.ConfigContext);
@@ -340,6 +331,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         store: instance.store,
         typewriter: props.typewriter ?? false,
         readonly: props.readonly ?? false,
+        editorProps: props || {},
       }}
     >
       <div
