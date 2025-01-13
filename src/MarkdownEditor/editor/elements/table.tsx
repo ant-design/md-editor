@@ -149,7 +149,7 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, editorProps } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [state, setState] = useState({
@@ -336,9 +336,7 @@ export const Table = observer((props: RenderElementProps) => {
             display: 'flex',
             minWidth: 0,
             boxShadow:
-              isSel && store?.editorProps?.reportMode
-                ? '0 0 0 1px #1890ff'
-                : 'none',
+              isSel && editorProps?.reportMode ? '0 0 0 1px #1890ff' : 'none',
           }}
         >
           {tableAttrVisible && (

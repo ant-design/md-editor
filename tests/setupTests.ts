@@ -4,6 +4,7 @@ import React from 'react';
 import { vi } from 'vitest';
 globalThis.React = React;
 
+//@ts-ignore
 globalThis.window = new JSDOM().window;
 
 globalThis.document = window.document;
@@ -39,6 +40,15 @@ if (typeof globalThis !== 'undefined') {
   // ref: https://github.com/ant-design/ant-design/issues/18774
   if (!globalThis.matchMedia) {
     Object.defineProperty(globalThis, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: vi.fn(() => ({
+        matches: false,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+      })),
+    });
+    Object.defineProperty(window, 'matchMedia', {
       writable: true,
       configurable: true,
       value: vi.fn(() => ({

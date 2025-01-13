@@ -87,7 +87,6 @@ export type CommentDataType = {
 export type IEditor = {
   children?: IEditor[];
   expand?: boolean;
-  schema?: any[];
   history?: any;
 };
 
@@ -95,10 +94,9 @@ export type IEditor = {
  * MarkdownEditor 实例
  */
 export interface MarkdownEditorInstance {
-  get current(): IEditor | undefined;
   range?: Range;
   store: EditorStore;
-  editorProps?: MarkdownEditorProps;
+  history?: any;
 }
 
 /**
@@ -259,8 +257,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     [],
   );
 
-  // 初始化实例
-  const instance = useMemo(() => {
+  const store = useMemo(() => new EditorStore(), []);
+
+  const initSchemaValue = useMemo(() => {
     const list = parserMdToSchema(initValue!)?.schema;
     if (!props.readonly) {
       list.push(EditorUtils.p);
@@ -269,27 +268,25 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       props.initSchemaValue ||
       (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
 
-    const data = {
-      schema: schema?.filter((item: any) => {
-        if (item.type === 'p' && item.children.length === 0) {
-          return false;
-        }
-        if (item.type === 'list' && item.children.length === 0) {
-          return false;
-        }
-        if (item.type === 'listItem' && item.children.length === 0) {
-          return false;
-        }
-        return true;
-      }),
-    };
+    return schema?.filter((item: any) => {
+      if (item.type === 'p' && item.children.length === 0) {
+        return false;
+      }
+      if (item.type === 'list' && item.children.length === 0) {
+        return false;
+      }
+      if (item.type === 'listItem' && item.children.length === 0) {
+        return false;
+      }
+      return true;
+    });
+  }, []);
+
+  // 初始化实例
+  const instance = useMemo(() => {
     return observable(
       {
-        get current() {
-          return data;
-        },
-        editorProps: props,
-        store: new EditorStore(),
+        store,
       } as MarkdownEditorInstance,
       { range: false },
     );
@@ -308,14 +305,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     });
   }, []);
 
-  useEffect(() => {
-    instance.editorProps = props;
-    instance.store.editorProps = props;
-    instance.store.setState((state) => {
-      state.editorProps = props;
-    });
-  }, [props]);
-
   useSystemKeyboard(keyTask$, instance.store, props);
 
   // 导入外部 hooks
@@ -323,14 +312,16 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   // 初始化 readonly
   useEffect(() => {
-    instance.store.readonly = readonly || false;
-    instance.store.editorProps = props;
+    instance.store.setState((state) => (state.readonly = !!readonly));
   }, [readonly]);
+
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const [showCommentList, setShowComment] = useState<CommentDataType[]>([]);
+
+  const [schema, setSchema] = useState<Elements[]>(initSchemaValue);
 
   return wrapSSR(
     <EditorStoreContext.Provider
@@ -340,6 +331,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         store: instance.store,
         typewriter: props.typewriter ?? false,
         readonly: props.readonly ?? false,
+        editorProps: props || {},
       }}
     >
       <div
@@ -401,8 +393,12 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         >
           <MEditor
             prefixCls={baseClassName}
-            note={instance.current!}
             {...rest}
+            onChange={(value, schema) => {
+              setSchema(schema);
+              rest?.onChange?.(value, schema);
+            }}
+            initSchemaValue={initSchemaValue}
             style={editorStyle}
             instance={instance}
           />
@@ -413,10 +409,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ) : (
             <FloatBar readonly={false} />
           )}
-          {instance.current &&
-          mount &&
-          toc !== false &&
-          instance.store?.container ? (
+          {mount && toc !== false && instance.store?.container ? (
             showCommentList?.length ? (
               <CommentList
                 instance={instance}
@@ -424,7 +417,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                 comment={props.comment}
               />
             ) : (
-              <TocHeading note={instance.current} />
+              <TocHeading schema={schema} />
             )
           ) : null}
         </div>

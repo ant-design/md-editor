@@ -2,13 +2,14 @@ import { EyeOutlined } from '@ant-design/icons';
 import { Image, ImageProps } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
-import { useGetSetState } from 'react-use';
+
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { AvatarList } from '../components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
+import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { useEditorStyleRegister } from '../utils/useStyle';

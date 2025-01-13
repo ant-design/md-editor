@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-param-reassign */
 import { HookAPI } from 'antd/es/modal/useModal';
 import { customAlphabet } from 'nanoid';
@@ -107,6 +109,153 @@ export function isMarkdown(text: string) {
 
   return false;
 }
+
+export function debounce(
+  func: { (): void; apply?: any },
+  delay: number | undefined,
+) {
+  let timer: any = null;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      //@ts-ignore
+      func.apply(this, arguments);
+    }, delay);
+  };
+}
+
+import { DependencyList, useCallback, useEffect, useRef } from 'react';
+
+export type UseTimeoutFnReturn = [() => boolean | null, () => void, () => void];
+
+/**
+ * 创建一个延时执行函数的Hook。
+ *
+ * @param fn - 需要延时执行的函数
+ * @param ms - 延时时间（毫秒），默认为0
+ * @returns 返回一个数组，包含三个元素：
+ * - isReady - 用于检查定时器是否已经触发的函数
+ * - clear - 用于清除定时器的函数
+ * - set - 用于重新设置定时器的函数
+ *
+ * @example
+ * ```ts
+ * const [isReady, clear, set] = useTimeoutFn(() => {
+ *   console.log('Timeout triggered');
+ * }, 1000);
+ * ```
+ *
+ * @remarks
+ * - 当组件挂载时，定时器会自动启动
+ * - 当传入的函数(fn)发生变化时，会自动更新回调函数
+ * - 当延时时间(ms)发生变化时，定时器会自动重置
+ * - 当组件卸载时，定时器会自动清除
+ */
+export function useTimeoutFn(fn: Function, ms: number = 0): UseTimeoutFnReturn {
+  const ready = useRef<boolean | null>(false);
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
+  const callback = useRef(fn);
+
+  const isReady = useCallback(() => ready.current, []);
+
+  const set = useCallback(() => {
+    ready.current = false;
+    timeout.current && clearTimeout(timeout.current);
+
+    timeout.current = setTimeout(() => {
+      ready.current = true;
+      callback.current();
+    }, ms);
+  }, [ms]);
+
+  const clear = useCallback(() => {
+    ready.current = null;
+    timeout.current && clearTimeout(timeout.current);
+  }, []);
+
+  // update ref when function changes
+  useEffect(() => {
+    callback.current = fn;
+  }, [fn]);
+
+  // set on mount, clear on unmount
+  useEffect(() => {
+    set();
+
+    return clear;
+  }, [ms]);
+
+  return [isReady, clear, set];
+}
+
+export type UseDebounceReturn = [() => boolean | null, () => void];
+
+/**
+ * 创建一个防抖函数的 Hook。
+ *
+ * @param fn - 需要进行防抖处理的函数
+ * @param ms - 防抖延迟时间(毫秒)。默认为0
+ * @param deps - 依赖数组，当依赖项改变时会重置防抖计时器。默认为空数组
+ * @returns 返回一个元组 [isReady, cancel]
+ *          - isReady: 一个函数，用于检查防抖是否已经准备好执行
+ *          - cancel: 一个函数，用于取消当前的防抖计时器
+ *
+ * @example
+ * ```typescript
+ * const [isReady, cancel] = useDebounce(() => {
+ *   // 执行一些操作
+ * }, 1000);
+ * ```
+ */
+export function useDebounce(
+  fn: Function,
+  ms: number = 0,
+  deps: DependencyList = [],
+): UseDebounceReturn {
+  const [isReady, cancel, reset] = useTimeoutFn(fn, ms);
+
+  useEffect(reset, deps);
+
+  return [isReady, cancel];
+}
+
+import { useReducer } from 'react';
+
+const updateReducer = (num: number): number => (num + 1) % 1_000_000;
+
+export default function useUpdate(): () => void {
+  const [, update] = useReducer(updateReducer, 0);
+
+  return update;
+}
+
+export const useGetSetState = <T extends object>(
+  initialState: T = {} as T,
+): [() => T, (patch: Partial<T>) => void] => {
+  if (process.env.NODE_ENV !== 'production') {
+    if (typeof initialState !== 'object') {
+      console.error('useGetSetState initial state must be an object.');
+    }
+  }
+
+  const update = useUpdate();
+  const state = useRef<T>({ ...(initialState as object) } as T);
+  const get = useCallback(() => state.current, []);
+  const set = useCallback((patch: Partial<T>) => {
+    if (!patch) {
+      return;
+    }
+    if (process.env.NODE_ENV !== 'production') {
+      if (typeof patch !== 'object') {
+        console.error('useGetSetState setter patch must be an object.');
+      }
+    }
+    Object.assign(state.current, patch);
+    update();
+  }, []);
+
+  return [get, set];
+};
 
 export * from './editorUtils';
 export * from './keyboard';
