@@ -1,10 +1,9 @@
 import { Anchor } from 'antd';
-import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
 import React, { useCallback, useEffect, useRef } from 'react';
-import { useDebounce, useGetSetState } from 'react-use';
+
 import { Node } from 'slate';
-import { IEditor } from '../../index';
+import { useDebounce, useGetSetState } from '../../index';
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
 
@@ -82,7 +81,7 @@ export const schemaToHeading = (schema: any) => {
 /**
  * 配置次级标题的锚点
  */
-export const TocHeading = observer(({ note }: { note: IEditor }) => {
+export const TocHeading = ({ schema }: { schema: any }) => {
   const { store } = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],
@@ -90,46 +89,41 @@ export const TocHeading = observer(({ note }: { note: IEditor }) => {
   });
   const box = useRef<HTMLElement>();
   const getHeading = useCallback(() => {
-    if (note) {
-      const schema = note.schema;
-      if (schema?.length) {
-        const headings: Leading[] = [];
-        for (let s of schema) {
-          if (s.type === 'head' && s.level <= 4) {
-            if (cache.get(s)) {
-              headings.push(cache.get(s)!);
-              continue;
-            }
-            const title = Node.string(s);
-            const id = slugify(title);
-            if (title) {
-              cache.set(s, {
-                title,
-                level: s.level,
-                id,
-                key: nanoid(),
-                schema: s,
-              });
-              headings.push(cache.get(s)!);
-            }
+    if (schema?.length) {
+      const headings: Leading[] = [];
+      for (let s of schema) {
+        if (s.type === 'head' && s.level <= 4) {
+          if (cache.get(s)) {
+            headings.push(cache.get(s)!);
+            continue;
+          }
+          const title = Node.string(s);
+          const id = slugify(title);
+          if (title) {
+            cache.set(s, {
+              title,
+              level: s.level,
+              id,
+              key: nanoid(),
+              schema: s,
+            });
+            headings.push(cache.get(s)!);
           }
         }
-        setState({ headings });
-      } else {
-        setState({ headings: [] });
       }
+      setState({ headings });
     } else {
       setState({ headings: [] });
     }
-  }, [note]);
+  }, [schema]);
 
   useEffect(() => {
     cache.clear();
     getHeading();
     setState({ active: '' });
-  }, [store?.container, note]);
+  }, [store?.container, store.editor.children]);
 
-  useDebounce(getHeading, 100, [note]);
+  useDebounce(getHeading, 100, [store.editor.children]);
 
   useEffect(() => {
     const div = box.current;
@@ -177,4 +171,4 @@ export const TocHeading = observer(({ note }: { note: IEditor }) => {
       }))}
     />
   );
-});
+};

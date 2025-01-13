@@ -36,6 +36,7 @@ export const EditorStoreContext = createContext<{
     key: Methods<KeyboardTask>;
     args?: any[];
   }>;
+  editorProps: MarkdownEditorProps;
 } | null>(null);
 
 export const useEditorStore = () => {
@@ -43,6 +44,8 @@ export const useEditorStore = () => {
     useContext(EditorStoreContext)! || {
       store: {} as Record<string, any>,
       readonly: true,
+      typewriter: false,
+      editorProps: {} as MarkdownEditorProps,
     }
   );
 };
@@ -85,7 +88,6 @@ export class EditorStore {
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
   inputComposition = false;
-  editorProps: MarkdownEditorProps = {};
   tableTask$ = new Subject<
     | 'insertRowBefore'
     | 'insertRowAfter'

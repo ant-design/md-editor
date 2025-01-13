@@ -12,6 +12,7 @@ export const loadedLanguage = new Set<string>([
   'sql',
   'javascript',
   'typescript',
+  'python',
 ]);
 
 export const langSet = new Set<string>([
@@ -20,13 +21,22 @@ export const langSet = new Set<string>([
   'sql',
   'javascript',
   'typescript',
+  'python',
 ]);
 
-export const codeReady = async () => {
+export const codeReady = async (props: { langs: string[] }) => {
   try {
     highlighter = await getSingletonHighlighter({
       themes: ['github-light'],
-      langs: ['java', 'json', 'sql', 'javascript', 'typescript'],
+      langs: [
+        'java',
+        'json',
+        'sql',
+        'javascript',
+        'typescript',
+        'python',
+        ...props.langs,
+      ],
     });
   } catch (error) {}
 };

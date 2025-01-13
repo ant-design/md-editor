@@ -5,7 +5,7 @@
 
 <code src="./demos/preview.tsx" background="var(--main-bg-color)" title="编辑器" iframe="540px"></code>
 
-<code src="./demos/min.tsx" background="var(--main-bg-color)" title="只读模式" iframe="540px"></code>
+<code src="./demos/min.tsx" background="var(--main-bg-color)" title="嵌入框模式" iframe="540px"></code>
 
 <code src="./demos/readonly.tsx" background="var(--main-bg-color)" title="只读模式" iframe="540px"></code>
 
@@ -20,6 +20,8 @@
 <code src="./demos/pure.tsx" background="var(--main-bg-color)" title="pure 地址" iframe="540px"></code>
 
 <code src="./demos/bug.tsx" background="var(--main-bg-color)" title="bug" iframe="540px"></code>
+
+<code src="./demos/max-chart.tsx" background="var(--main-bg-color)" title="bug" iframe="540px"></code>
 
 <code src="./demos/empty.tsx" background="var(--main-bg-color)" title="空模式" iframe="540px" height="540px"></code>
 

@@ -13,7 +13,7 @@ import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
-import { Chart } from './chart';
+import { Chart } from './chart/index';
 import { CodeCtx, CodeElement, CodeLine } from './code';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';

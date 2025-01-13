@@ -1,4 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
 import { glob } from 'glob';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
@@ -17,7 +18,17 @@ function demoTest() {
     describe(`Rendering demo: ${file}`, () => {
       it(`renders ${file} correctly`, async () => {
         const DemoModule = await import(file);
-        expect(render(<DemoModule.default />).asFragment()).toMatchSnapshot();
+        expect(
+          render(
+            <ConfigProvider
+              theme={{
+                hashed: false,
+              }}
+            >
+              <DemoModule.default />
+            </ConfigProvider>,
+          ).asFragment(),
+        ).toMatchSnapshot();
       });
 
       afterEach(() => {
