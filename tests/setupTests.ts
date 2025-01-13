@@ -47,6 +47,15 @@ if (typeof globalThis !== 'undefined') {
         removeListener: vi.fn(),
       })),
     });
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: vi.fn(() => ({
+        matches: false,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+      })),
+    });
   }
 }
 
