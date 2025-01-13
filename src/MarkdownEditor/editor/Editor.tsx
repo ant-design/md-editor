@@ -8,7 +8,6 @@ import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import {
   CommentDataType,
   Elements,
-  IEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../index';
@@ -39,12 +38,11 @@ import { toUnixPath } from './utils/path';
 
 export const MEditor = observer(
   ({
-    note,
     eleItemRender,
     reportMode,
+    instance,
     ...editorProps
   }: {
-    note: IEditor;
     eleItemRender?: MarkdownEditorProps['eleItemRender'];
     onChange?: MarkdownEditorProps['onChange'];
     instance: MarkdownEditorInstance;
@@ -58,27 +56,33 @@ export const MEditor = observer(
     const changedMark = useRef(false);
     const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
-    const saveTimer = useRef(0);
-    const nodeRef = useRef<IEditor>();
+    const nodeRef = useRef<MarkdownEditorInstance>();
 
     const onKeyDown = useKeyboard(store);
     const onChange = useOnchange(editor, store, editorProps.onChange);
     const first = useRef(true);
     const highlight = useHighlight();
-    const save = useCallback(async () => {}, [note]);
 
     const initialNote = useCallback(async () => {
-      clearTimeout(saveTimer.current);
-      if (note) {
-        nodeRef.current = note;
+      if (instance) {
+        nodeRef.current = instance;
 
         first.current = true;
         store.initializing = true;
         try {
+          console.log(
+            'reset',
+            editorProps.initSchemaValue?.length
+              ? editorProps.initSchemaValue
+              : undefined,
+            editorProps.initSchemaValue,
+          );
           EditorUtils.reset(
             editor,
-            note.schema?.length ? note.schema : undefined,
-            note.history || true,
+            editorProps.initSchemaValue?.length
+              ? editorProps.initSchemaValue
+              : undefined,
+            instance.history || true,
           );
           clearAllCodeCache(editor);
         } catch (e) {
@@ -90,13 +94,13 @@ export const MEditor = observer(
       } else {
         nodeRef.current = undefined;
       }
-    }, [note]);
+    }, [instance]);
 
     useEffect(() => {
-      if (nodeRef.current !== note) {
+      if (nodeRef.current !== instance) {
         initialNote();
       }
-    }, [note, editor]);
+    }, [instance, editor]);
 
     const change = useCallback(
       (v: any[]) => {
@@ -108,44 +112,36 @@ export const MEditor = observer(
         }
         value.current = v;
         onChange(v, editor.operations);
-        if (note) {
-          note.schema = v;
-          note.history = editor.history;
+        if (instance) {
+          instance.history = editor.history;
         }
 
         if (!editor.operations?.every((o) => o.type === 'set_selection')) {
           if (!changedMark.current) {
             changedMark.current = true;
           }
-          clearTimeout(saveTimer.current);
-          saveTimer.current = window.setTimeout(() => {
-            save();
-          }, 3000);
         }
       },
-      [note],
+      [instance],
     );
 
-    const checkEnd = useCallback(
-      (e: React.MouseEvent) => {
-        if (!store.focus) {
-          store.editor.selection = null;
-        }
-        const target = e.target as HTMLDivElement;
-        if (target.dataset.slateEditor) {
-          const top = (target.lastElementChild as HTMLElement)?.offsetTop;
-          if (
-            store.container &&
-            store.container.scrollTop + e.clientY - 60 > top
-          ) {
-            if (EditorUtils.checkEnd(editor)) {
-              e.preventDefault();
-            }
+    const checkEnd = useCallback((e: React.MouseEvent) => {
+      if (!store.focus) {
+        store.editor.selection = null;
+      }
+      const target = e.target as HTMLDivElement;
+      if (target.dataset.slateEditor) {
+        const top = (target.lastElementChild as HTMLElement)?.offsetTop;
+        if (
+          store.container &&
+          store.container.scrollTop + e.clientY - 60 > top
+        ) {
+          if (EditorUtils.checkEnd(editor)) {
+            e.preventDefault();
           }
         }
-      },
-      [note],
-    );
+      }
+    }, []);
 
     /**
      * 处理焦点事件, 隐藏所有的range
@@ -450,7 +446,7 @@ export const MEditor = observer(
           return;
         }
       },
-      [note],
+      [],
     );
 
     /**

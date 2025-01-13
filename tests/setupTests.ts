@@ -4,6 +4,7 @@ import React from 'react';
 import { vi } from 'vitest';
 globalThis.React = React;
 
+//@ts-ignore
 globalThis.window = new JSDOM().window;
 
 globalThis.document = window.document;

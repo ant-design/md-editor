@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Node, Selection, Text, Transforms } from 'slate';
+import { Selection, Text, Transforms } from 'slate';
 import { IEditor } from '../..';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
@@ -27,9 +27,7 @@ export const InsertLink = observer(() => {
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const docMap = useRef(
-    new Map<string, IEditor & { path: string; parentPath?: string }>(),
-  );
+
   const [state, setState] = useGetSetState({
     open: false,
     left: 0,
@@ -43,38 +41,6 @@ export const InsertLink = observer(() => {
     anchors: [] as { item: DocItem; value: string }[],
     filterAnchors: [] as { item: DocItem; value: string }[],
   });
-
-  const getAnchors = useCallback((item: DocItem) => {
-    return (item.schema || [])
-      .filter((e) => e.type === 'head')
-      .map((e) => {
-        let text = Node.string(e);
-        return { item, value: '#' + text };
-      });
-  }, []);
-
-  const setAnchors = useCallback(() => {
-    if (isLink(state().inputKeyword)) return setState({ anchors: [] });
-    const parse = parsePath(state().inputKeyword);
-    if (!parse.path) {
-      setState({ anchors: [], filterAnchors: [] });
-      return;
-    } else {
-      const item = docMap.current.get(parse.path);
-      if (item) {
-        const anchors = getAnchors(item);
-        setState({
-          anchors,
-          filterAnchors: parse.hash
-            ? anchors.filter((a) => a.value.includes('#' + parse.hash))
-            : anchors,
-        });
-        scrollRef.current?.scrollTo({ top: 0 });
-      } else {
-        setState({ anchors: [], filterAnchors: [] });
-      }
-    }
-  }, []);
 
   const prevent = useCallback((e: WheelEvent) => {
     e.preventDefault();
@@ -216,7 +182,6 @@ export const InsertLink = observer(() => {
         inputKeyword: path,
       });
       if (parse.hash) {
-        setAnchors();
       } else {
         setState({
           filterAnchors: [],
@@ -293,9 +258,6 @@ export const InsertLink = observer(() => {
             value={state().inputKeyword}
             spellCheck={false}
             onKeyDown={(e) => {
-              if (e.key === '#') {
-                setAnchors();
-              }
               if (
                 e.key.toLowerCase() === 'backspace' &&
                 state().anchors.length &&
