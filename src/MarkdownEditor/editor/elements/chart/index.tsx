@@ -1,17 +1,17 @@
-﻿import { Area, Bar, Column, Line, Pie } from '@ant-design/charts';
-import { DownOutlined, SettingOutlined } from '@ant-design/icons';
+﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { ConfigProvider, Descriptions, Dropdown, Popover } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useMemo } from 'react';
 import { Transforms } from 'slate';
 import { RenderElementProps, useSlate } from 'slate-react';
-import { TableNode } from '../../el';
-import { useEditorStore } from '../store';
-import { ChartAttr } from '../tools/ChartAttr';
-import { DragHandle } from '../tools/DragHandle';
-import { EditorUtils } from '../utils/editorUtils';
-import { ErrorBoundary } from './ErrorBoundary';
+import { TableNode } from '../../../el';
+import { useEditorStore } from '../../store';
+import { DragHandle } from '../../tools/DragHandle';
+import { EditorUtils } from '../../utils/editorUtils';
+import { ErrorBoundary } from '../ErrorBoundary';
+import { ChartAttrToolBar } from './ChartAttrToolBar';
+import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
 /**
  * 转化数字，将字符串转化为数字，即使非标准数字也可以转化
@@ -81,28 +81,6 @@ const stringFormatNumber = (value: string | number) => {
   } catch (error) {
     return value;
   }
-};
-
-const defaultPieConfig = {
-  color: '#1677ff',
-  height: 400,
-  scale: {
-    color: {
-      type: 'ordinal',
-      range: [
-        '#1677ff',
-        '#15e7e4',
-        '#8954FC',
-        '#F45BB5',
-        '#00A6FF',
-        '#33E59B',
-        '#D666E4',
-        '#6151FF',
-        '#BF3C93',
-        '#005EE0',
-      ],
-    },
-  },
 };
 
 const ChartMap = {
@@ -272,24 +250,8 @@ const genChart = (
       <Pie
         key={config?.index}
         data={chartData}
-        {...defaultPieConfig}
-        height={config?.height || 400}
-        angleField={config?.y || 'value'}
-        colorField={config?.x || 'type'}
-        interaction={{
-          elementHighlight: {
-            background: 'true',
-          },
-        }}
-        innerRadius={0.6}
-        legend={{
-          ['color']: {
-            position: 'right',
-            title: false,
-            rowPadding: 5,
-          },
-        }}
-        title=""
+        yField={config?.y || 'value'}
+        xField={config?.x || 'type'}
       />
     );
   }
@@ -300,7 +262,6 @@ const genChart = (
         yField={config?.y}
         key={config?.index}
         xField={config?.x}
-        {...config?.defaultProps}
         height={config?.height || 400}
         {...config?.rest}
         title=""
@@ -343,13 +304,6 @@ const genChart = (
         data={chartData}
         yField={config?.y}
         xField={config?.x}
-        {...{
-          style: {
-            fill: 'rgb(23, 131, 255)',
-            opacity: 0.7,
-          },
-        }}
-        {...config?.defaultProps}
         height={config?.height || 400}
         {...config?.rest}
         title=""
@@ -848,7 +802,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                               }}
                               contentEditable={false}
                             >
-                              <ChartAttr
+                              <ChartAttrToolBar
                                 title={
                                   item.title || config.at(index)?.title || ''
                                 }
@@ -895,7 +849,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             e.stopPropagation();
                           }}
                         >
-                          <ChartAttr
+                          <ChartAttrToolBar
                             title={config.at(index)?.title || ''}
                             node={node}
                             options={[

@@ -32,6 +32,9 @@ importers:
       '@ant-design/pro-components':
         specifier: ^2.8.2
         version: 2.8.2(antd@5.22.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@antv/g2':
+        specifier: ^5.2.10
+        version: 5.2.10
       '@babel/runtime':
         specifier: ^7.26.0
         version: 7.26.0
@@ -92,6 +95,9 @@ importers:
       querystring:
         specifier: ^0.2.1
         version: 0.2.1
+      rc-resize-observer:
+        specifier: ^1.4.3
+        version: 1.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-resizable:
         specifier: ^3.0.5
         version: 3.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -13783,7 +13789,7 @@ snapshots:
     dependencies:
       is-arguments: 1.2.0
       is-date-object: 1.1.0
-      is-regex: 1.1.4
+      is-regex: 1.2.1
       object-is: 1.1.6
       object-keys: 1.1.1
       regexp.prototype.flags: 1.5.3

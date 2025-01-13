@@ -1,23 +1,21 @@
 import { DeleteOutlined } from '@ant-design/icons';
+import { ChartNode, EditorUtils } from '@ant-design/md-editor';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { ChartNode } from '../../el';
-import { useEditorStore } from '../store';
-import { EditorUtils } from '../utils/editorUtils';
-import { useStyle } from './chartAttrStyle';
+import { useEditorStore } from '../../../store';
+import { useStyle } from './ChartAttrToolBarStyle';
 
 /**
  * 图表设置器
  */
-export const ChartAttr: React.FC<{
+export const ChartAttrToolBar: React.FC<{
   options?: {
     icon: React.ReactNode;
     title?: string;
-
     style?: React.CSSProperties;
     onClick?: () => void;
   }[];

@@ -1,7 +1,7 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 
 const defaultValue = `
-<!-- [{"chartType": "bar","title":"样本数据", "x": "sens_type", "y": "count"},{"chartType": "bar", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"}] -->
+<!-- [{"chartType": "bar","title":"样本数据", "x": "sens_type", "y": "count"},{"chartType": "column", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"}, {"chartType": "line", "x": "sens_type", "y": "percentage"},{"chartType": "area", "x": "sens_type", "y": "percentage"}] -->
 |    | sens_type        |   count |   percentage |
 |---:|:-----------------|--------:|-------------:|
 |  0 | 12312322         |       4 |       2.439  |

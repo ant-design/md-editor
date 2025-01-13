@@ -1,0 +1,65 @@
+﻿import { Chart } from '@antv/g2';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import { Container } from './Container';
+
+export const Line: React.FC<{
+  data: any[];
+  xField: string;
+  yField: string;
+  colorLegend?: string;
+  chartRef?: React.MutableRefObject<Chart | undefined>;
+}> = (props) => {
+  const chartRef = React.useRef<Chart>(undefined);
+  const htmlRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(props.chartRef, () => chartRef.current, [
+    chartRef.current,
+  ]);
+
+  useEffect(() => {
+    if (!htmlRef.current) return;
+    const chart = new Chart({
+      container: htmlRef.current!,
+      autoFit: true,
+      theme: 'agent',
+    });
+
+    const chartIn = chart
+      .line()
+      .data(props.data)
+      .encode('x', props.xField)
+      .encode('y', props.yField)
+      .axis('x', { title: false })
+      .axis('y', { title: false })
+      .style('fillOpacity', 0.3);
+
+    if (props.colorLegend) {
+      chartIn.encode('color', props.colorLegend).transform({ type: 'dodgeX' });
+    }
+    chartRef.current = chart;
+    chart.render();
+
+    return () => {
+      if (!chart) return;
+      chart.clear();
+      chart.destroy();
+    };
+  }, [htmlRef.current]);
+
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    chart.changeData(props.data);
+    chart.render();
+  }, [props.data]);
+  return (
+    <Container chartRef={chartRef} htmlRef={htmlRef}>
+      <div
+        ref={htmlRef}
+        style={{
+          maxHeight: htmlRef.current?.clientWidth || '400px',
+        }}
+      ></div>
+    </Container>
+  );
+};
