@@ -112,7 +112,7 @@ export const BaseToolBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store, keyTask$ } = useEditorStore();
+    const { store, keyTask$, editorProps } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
     const [highColor, setHighColor] = React.useState<string | null>(null);
@@ -171,13 +171,13 @@ export const BaseToolBar = observer(
               .map((o) => o?.children)
               .flat(1)
               .filter((o) => {
-                if (!store?.editorProps?.image && o.task === 'uploadImage') {
+                if (!editorProps?.image && o.task === 'uploadImage') {
                   return false;
                 }
                 return true;
               })
           : [],
-      [store?.editorProps],
+      [editorProps],
     );
 
     const listDom = useMemo(() => {

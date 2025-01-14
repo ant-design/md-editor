@@ -32,7 +32,7 @@ export const convertRemoteImages = async (
   node: IEditor,
   store: EditorStore,
 ) => {
-  const schema = node.schema;
+  const schema = store?.editor?.children || [];
   if (schema) {
     const stack = schema.slice();
     while (stack.length) {

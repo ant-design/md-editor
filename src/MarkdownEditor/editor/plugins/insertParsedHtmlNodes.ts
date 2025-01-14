@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
+import { docxDeserializer } from '../utils/docx/docxDeserializer';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
 const findElementByNode = (node: ChildNode) => {
@@ -10,7 +11,7 @@ const findElementByNode = (node: ChildNode) => {
 };
 const fragment = new Set(['body', 'figure', 'div']);
 
-const ELEMENT_TAGS = {
+export const ELEMENT_TAGS = {
   BLOCKQUOTE: () => ({ type: 'blockquote' }),
   H1: () => ({ type: 'head', level: 1 }),
   H2: () => ({ type: 'head', level: 2 }),
@@ -45,7 +46,7 @@ const ELEMENT_TAGS = {
   UL: () => ({ type: 'list' }),
 };
 
-const TEXT_TAGS = {
+export const TEXT_TAGS = {
   A: (el: HTMLElement) => ({ url: el.getAttribute('href') }),
   CODE: () => ({ code: true }),
   KBD: () => ({ code: true }),
@@ -181,89 +182,36 @@ const getTextsNode = (nodes: any[]) => {
   return text;
 };
 
-const processFragment = (fragment: any[], parentType = '') => {
-  let trans: any[] = [];
-  let container: null | any = null;
-  fragment = fragment.filter(
-    (f) =>
-      !(!f.type && !(f.text as string).trim()) ||
-      (f.type === 'media' && !f?.url),
-  );
-  for (let f of fragment) {
-    if (f.type === 'table') {
-      f = {
-        type: 'table',
-        children: (f.children as any[])
-          .filter((r) => {
-            if (r?.text) {
-              if (!f.text?.trim?.().replace(/^\n+|\n+$/g, '')) return false;
-            }
-            if (!r) return false;
-            return true;
-          })
-          .map((r: any, index) => {
-            if (index === 0) {
-              return {
-                type: 'table-row',
-                children: r?.children
-                  ?.filter((c: any) => !!c?.children)
-                  ?.map((c: any) => {
-                    return {
-                      type: 'table-cell',
-                      children: c.children,
-                      title: true,
-                    };
-                  }),
-              };
-            }
-            return r;
-          }),
-      };
-    }
-    if (
-      f.type === 'paragraph' &&
-      f.children?.every((s: any) => s.type === 'media')
-    ) {
-      trans.push(...f.children);
-      continue;
-    }
-    if (f.text) {
-      f.text = f.text?.trim?.().replace(/^\n+|\n+$/g, '');
-      if (!f.text) continue;
-    }
-    if (f.type === 'media') {
-      trans.push(f);
-      continue;
-    }
-    if (
-      (['link'].includes(f.type) || f.text) &&
-      !['paragraph', 'table-cell', 'head'].includes(parentType)
-    ) {
-      if (!container) {
-        f = { type: 'paragraph', children: [f] };
-        container = f;
-        trans.push(container);
+const blobToFile = async (blobUrl: string, fileName: string) => {
+  const blob = await fetch(blobUrl).then((r) => r.blob());
+  const file = new File([blob], fileName);
+  return file;
+};
+
+const upLoadFile = async (fragmentList: any[], editorProps: any) => {
+  for await (let fragment of fragmentList) {
+    if (fragment.type === 'media') {
+      const url = fragment.url;
+      if (url?.startsWith('blob:')) {
+        const serverUrl = [
+          await editorProps.image?.upload?.([
+            blobToFile(fragment?.url, 'image.png'),
+          ]),
+        ].flat(1);
+        fragment.url = serverUrl?.[0];
+        fragment.downloadUrl = serverUrl?.[0];
       } else {
-        container.children.push(f);
+        const serverUrl = [
+          await editorProps.image?.upload?.([fragment?.url]),
+        ].flat(1);
+        fragment.url = serverUrl?.[0];
+        fragment.downloadUrl = serverUrl?.[0];
       }
-      continue;
     }
-    if (f.type === 'list-item' && parentType !== 'list') {
-      if (!container) {
-        container = { type: 'list', children: [f] };
-        trans.push(container);
-      } else {
-        container.children.push(f);
-      }
-      continue;
+    if (fragment?.children) {
+      await upLoadFile(fragment.children, editorProps);
     }
-    if (f.children && f.type && f.type !== 'code') {
-      f.children = processFragment(f.children, f.type);
-      if (!f.children?.length) continue;
-    }
-    trans.push(f);
   }
-  return trans;
 };
 
 /**
@@ -276,26 +224,21 @@ export const insertParsedHtmlNodes = async (
   editor: Editor,
   html: string,
   editorProps: any,
+  rtl: string,
 ) => {
   if (
     html.startsWith('<html>\r\n<body>\r\n\x3C!--StartFragment--><img src="')
   ) {
     return false;
   }
+
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
 
-  let fragmentList = processFragment([deserialize(parsed)].flat(1));
-  for await (let fragment of fragmentList) {
-    if (fragment.type === 'media') {
-      const serverUrl = [
-        await editorProps.image?.upload?.([fragment?.url]),
-      ].flat(1);
-      fragment.url = serverUrl?.[0];
-      fragment.downloadUrl = serverUrl?.[0];
-    }
-  }
+  let fragmentList = docxDeserializer(rtl, html);
+
+  await upLoadFile(fragmentList, editorProps);
 
   fragmentList = fragmentList.map((fragment) => {
     if (fragment.type === 'table') {
@@ -317,12 +260,13 @@ export const insertParsedHtmlNodes = async (
     return fragment;
   });
 
-  if (!fragmentList?.length) return;
+  if (!fragmentList?.length) return false;
+
   let [node] = Editor.nodes<Element>(editor, {
     match: (n) => Element.isElement(n),
   });
 
-  if (sel) {
+  if (sel && Editor.hasPath(editor, sel.anchor.path)) {
     if (!Range.isCollapsed(sel)) {
       const back = new BackspaceKey(editor);
       back.range();

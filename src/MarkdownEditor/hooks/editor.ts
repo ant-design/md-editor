@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { useGetSetState } from 'react-use';
+
 import { BaseElement, Editor, Path, Transforms } from 'slate';
 import { ReactEditor, useSlate } from 'slate-react';
 import { selChange$ } from '../editor/plugins/useOnchange';
 import { EditorStore, useEditorStore } from '../editor/store';
+import { useGetSetState } from '../editor/utils';
 import { EditorUtils } from '../editor/utils/editorUtils';
 import { useSubject } from './subscribe';
 

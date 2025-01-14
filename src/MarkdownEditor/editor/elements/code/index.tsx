@@ -10,13 +10,14 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useGetSetState } from 'react-use';
+
 import { Editor, Node, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { CodeLineNode, CodeNode, ElementProps } from '../../../el';
 import { useMEditor } from '../../../hooks/editor';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
+import { useGetSetState } from '../../utils';
 import { Mermaid } from '../CodeUI/Mermaid';
 import { useStyle } from './style';
 

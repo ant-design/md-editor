@@ -21,7 +21,7 @@ export const ReadonlyBaseBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store } = useEditorStore();
+    const { store, editorProps } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
 
@@ -40,7 +40,7 @@ export const ReadonlyBaseBar = observer(
     const listDom = useMemo(() => {
       let list = [];
 
-      if (store?.editorProps?.comment?.onSubmit) {
+      if (editorProps?.comment?.onSubmit) {
         list.push(
           <div
             role="button"
@@ -110,7 +110,7 @@ export const ReadonlyBaseBar = observer(
                     return;
                   }
                   try {
-                    await store?.editorProps?.comment?.onSubmit?.(
+                    await editorProps?.comment?.onSubmit?.(
                       comment.id + '',
                       comment,
                     );

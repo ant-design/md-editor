@@ -98,12 +98,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginBottom: 0,
       },
       table: {
-        width: 'fit-content',
         minWidth: '100%',
         position: 'relative',
         borderCollapse: 'collapse',
         whiteSpace: 'nowrap',
         borderSpacing: '0',
+        display: 'block',
+        width: 'max-content',
+        maxWidth: '100%',
+        overflow: 'auto',
+        fontVariant: 'tabular-nums',
         th: {
           textWrap: 'nowrap',
           verticalAlign: 'top',
@@ -122,56 +126,59 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderBottom: '1px solid #e8e8e8',
         },
       },
-      pre: {
-        margin: '0',
-        overflowX: 'auto',
+      'pre,code,kbd,samp': {
+        marginTop: '0',
+        marginBottom: '0',
+        fontFamily:
+          'ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace',
+        fontSize: '0.9rem',
+        wordWrap: 'normal',
       },
       p: {
-        marginBottom: '1em',
-        lineHeight: 1.5,
-        padding: '3px 0',
+        paddingTop: '.25rem',
+        paddingBottom: '.25rem',
+        fontSize: '1rem',
+        lineHeight: '1.5rem',
+        marginTop: '0',
+        marginBottom: '0.8rem',
       },
       'h1,h2,h3,h4,h5,h6': {
-        position: 'relative',
-        lineHeight: 1.3,
-        padding: '3px 0',
-        marginBottom: '3px',
+        marginTop: '1.5rem',
+        marginBottom: '1rem',
+        fontWeight: 600,
+        lineHeight: 1.25,
         '.ant-md-editor-drag-handle': {
           top: 'calc(3px + 0.65em - 14px) !important',
         },
       },
       h1: {
-        fontSize: '1.775em',
-        marginTop: '1.2em',
-        fontWeight: 700,
-        '&:first-child': {
-          marginTop: 0,
-        },
+        margin: '.67em 0',
+        fontWeight: 600,
+        paddingBottom: '.3em',
+        fontSize: '2em',
+        borderBottom: '1px solid #d1d9e0b3',
       },
       h2: {
         fontWeight: 600,
-        fontSize: '1.4em',
-        marginTop: '1em',
-        marginBottom: '1em',
+        paddingBottom: '0.3em',
+        fontSize: '1.5em',
       },
-      h3: {
-        fontWeight: 600,
-        fontSize: '1.3em',
-        marginTop: '0.8em',
-      },
-      h4: {
-        fontWeight: 500,
-        fontSize: '1.2em',
-        marginTop: '0.7em',
-        lineHeight: 1.2,
-      },
+      h3: { fontWeight: 600, fontSize: '1.25em' },
+      h4: { fontWeight: 600, fontSize: '1em' },
+      h5: { fontWeight: 600, fontSize: '0.875em' },
+      h6: { fontWeight: 600, fontSize: '0.85em', color: '#59636e' },
+
       a: {
         color: '#1677ff',
+        backgroundColor: 'transparent',
         textDecoration: 'none',
         '&:hover': {
           textDecoration: 'underline',
         },
       },
+      'ul ul,ul ol,ol ol,ol ul': { marginTop: '0', marginBottom: '0' },
+      'li > p': { marginTop: '1rem' },
+      'li + li': { marginTop: '0.25em' },
       blockquote: {
         display: 'block',
         paddingLeft: '10px',
@@ -195,11 +202,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '[data-be]:not(p)': {
         position: 'relative',
       },
-
-      'pre,code,kbd,samp': {
-        fontSize: '1em',
-        fontFamily:
-          "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,monospace",
+      '[data-be="chart"]': {
+        marginTop: '0.5em',
+        marginBottom: '0.5em',
+      },
+      '[data-be="card"]': {
+        marginTop: '0.5em',
+        marginBottom: '0.5em',
       },
       '& &-inline-code': {
         display: 'inline',
@@ -223,9 +232,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&:not(:last-child)': {
         marginBottom: '0.5em',
-      },
-      'p:not(:last-child)': {
-        marginBottom: '0.1em!important',
       },
       "h2 + [data-be='list'] ul": {
         marginTop: '0',
