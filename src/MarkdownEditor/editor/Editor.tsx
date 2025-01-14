@@ -70,13 +70,6 @@ export const MEditor = observer(
         first.current = true;
         store.initializing = true;
         try {
-          console.log(
-            'reset',
-            editorProps.initSchemaValue?.length
-              ? editorProps.initSchemaValue
-              : undefined,
-            editorProps.initSchemaValue,
-          );
           EditorUtils.reset(
             editor,
             editorProps.initSchemaValue?.length

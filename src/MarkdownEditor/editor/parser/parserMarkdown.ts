@@ -489,7 +489,7 @@ const parserBlock = (
         break;
       case 'footnoteReference':
         el = {
-          text: `${currentNode.identifier}`,
+          text: `${currentNode.identifier?.toUpperCase()}`,
           identifier: currentNode.identifier,
           type: 'footnoteReference',
         };
