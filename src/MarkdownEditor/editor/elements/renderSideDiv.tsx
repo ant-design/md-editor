@@ -20,14 +20,12 @@ type AbstractSideDivProps = {
   scrollContainerRefDom?: HTMLElement;
   [key: string]: any;
 };
-
 export function AbstractSideDiv(props: AbstractSideDivProps) {
   const { index, type, divStyle, getTableNode, setSelCells, activationArr } =
     props;
   const isColumn = type === 'column';
   const { store } = useEditorStore();
   const tableSideDivRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <>
       <div
@@ -49,13 +47,11 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
           e.stopPropagation();
           e.preventDefault();
           const tableSlateNode = getTableNode();
-
           if (tableSlateNode && index !== -1) {
             const tablePath = ReactEditor.findPath(
               store.editor,
               tableSlateNode,
             );
-
             const tableEntry = Editor.node(store.editor, tablePath);
             const len = isColumn
               ? (tableSlateNode.children as Array<any>).length
@@ -73,7 +69,6 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     </>
   );
 }
-
 export function RowSideDiv(props: {
   tableRef: any;
   getTableNode: any;
@@ -86,12 +81,10 @@ export function RowSideDiv(props: {
   const [rowDomArr, setRowDomArr] = useState(
     Array.from(tableDom?.children || []),
   );
-
   useEffect(() => {
     const rowMap: { [key: number]: number } = {};
     const arr: SetStateAction<ActivationType[]> = [];
     const tableSlateNode = getTableNode();
-
     selCells.forEach((cellEntry: [any, any]) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, path] = cellEntry;
@@ -114,13 +107,11 @@ export function RowSideDiv(props: {
     }
     setActivationArr(arr);
   }, [JSON.stringify(selCells.map((cell: Path) => cell[1]))]);
-
   useEffect(() => {
     if (tableDom) {
       setRowDomArr(Array.from(tableDom.children || []));
     }
   }, [tableDom]);
-
   return (
     <>
       <div
@@ -158,7 +149,6 @@ export function RowSideDiv(props: {
     </>
   );
 }
-
 export function ColSideDiv(props: {
   tableRef: any;
   getTableNode: any;
@@ -166,7 +156,6 @@ export function ColSideDiv(props: {
   selCells: any;
 }) {
   const { tableRef, getTableNode, selCells, setSelCells } = props;
-
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
@@ -174,12 +163,10 @@ export function ColSideDiv(props: {
     tableDom ? Array.from(tableDom?.firstChild?.children || []) : [],
   );
   const [scrollOffset, setScrollOffset] = useState(0);
-
   useEffect(() => {
     const colMap: { [key: number]: number } = {};
     const arr: SetStateAction<ActivationType[]> = [];
     const tableSlateNode = getTableNode();
-
     selCells.forEach((cellEntry: [any, any]) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, path] = cellEntry;
@@ -207,28 +194,17 @@ export function ColSideDiv(props: {
       setColDomArr(Array.from(tableDom.firstChild.children || []));
     }
   }, [tableDom]);
-
   useEffect(() => {
     if (!tableRef.current) return;
-
-    const scrollContainer = tableRef.current.closest(
-      '.ant-md-editor-content-table',
-    );
-    if (!scrollContainer) {
-      console.warn('Scroll container not found!');
-      return;
-    }
-
+    const tableElement = tableRef.current;
     const handleScroll = () => {
-      setScrollOffset(scrollContainer.scrollLeft);
+      setScrollOffset(tableElement.scrollLeft);
     };
-
-    scrollContainer.addEventListener('scroll', handleScroll);
+    tableElement.addEventListener('scroll', handleScroll);
     return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
+      tableElement.removeEventListener('scroll', handleScroll);
     };
   }, [tableRef]);
-
   return (
     <div
       ref={colDivBarInnerRef}
@@ -237,16 +213,14 @@ export function ColSideDiv(props: {
         position: 'relative',
         display: 'flex',
         height: '16px',
-        borderRight: '1px solid #DFDFDF',
         zIndex: 100,
-        transform: `translateX(${scrollOffset}px)`,
+        transform: `translateX(${scrollOffset / 9999}px)`,
       }}
       contentEditable={false}
     >
       {colDomArr?.map((td: any, index: number) => {
         const colRect = td?.getBoundingClientRect();
         const leftPosition = colRect?.left || 0;
-
         return (
           <AbstractSideDiv
             key={index}
@@ -259,6 +233,9 @@ export function ColSideDiv(props: {
               width: colRect?.width || td?.clientWidth,
               height: '14.5px',
               zIndex: 101,
+              ...(index === colDomArr.length - 1 && {
+                borderTopRightRadius: '7.2px',
+              }),
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
@@ -269,7 +246,6 @@ export function ColSideDiv(props: {
     </div>
   );
 }
-
 export function IntersectionPointDiv(props: {
   getTableNode: any;
   setSelCells: any;
@@ -278,20 +254,17 @@ export function IntersectionPointDiv(props: {
   const { getTableNode, setSelCells, selCells } = props;
   const { store } = useEditorStore();
   const [active, setActive] = useState<boolean>(false);
-
   useEffect(() => {
     let act = false;
     const tableSlateNode = getTableNode();
     const total =
       tableSlateNode.children.length *
       tableSlateNode.children[0].children.length;
-
     if (selCells.length === total) {
       act = true;
     }
     setActive(act);
   }, [JSON.stringify(selCells.map((cell: Path) => cell[1]))]);
-
   return (
     <div
       contentEditable={false}
@@ -312,7 +285,6 @@ export function IntersectionPointDiv(props: {
           const colLen = (tableSlateNode.children as Array<any>).length;
           const rowLen = (tableSlateNode.children as Array<any>)[0].children
             .length;
-
           const startPath = [tablePath[0], 1, 0, 0];
           const endPath = [tablePath[0], 1, colLen - 1, rowLen - 1];
           addSelection(store, tableEntry, startPath, endPath, setSelCells);
