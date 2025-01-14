@@ -1,5 +1,6 @@
 .selected-cell-td {
-  background-color: rgba(168, 194, 255, 0.35);
+  background-color: rgba(209, 236, 249) !important;
+  transition: all 0.3 cubic-bezier(0.23, 1, 0.32, 1);
 }
 .intersection-point {
   height: 14.4px;
@@ -12,13 +13,13 @@
   margin-top: 0px;
   margin-left: -16px;
   border-top-left-radius: 50%;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.3 cubic-bezier(0.23, 1, 0.32, 1);
 
   cursor: pointer;
   background-color: #e1f0ff;
 
   &.active {
-    background-color: #96bfff;
+    background-color: #59a5f6;
   }
   &:hover {
     background-color: #7ca9e6;
@@ -35,10 +36,10 @@
   z-index: 20;
   cursor: pointer;
   background-color: #e1f0ff;
-  transition: background-color 0.15s ease-in-out;
+  transition: all 0.3 cubic-bezier(0.23, 1, 0.32, 1);
 
   &.full-active {
-    background-color: #96bfff;
+    background-color: #59a5f6;
   }
 
   &.half-active {
@@ -56,7 +57,9 @@
   }
 }
 
-.ant-md-editor-content-table.show-bar th:first-child,
+.ant-md-editor-content-table.show-bar th:first-child {
+  border-top-left-radius: 0;
+}
 .ant-md-editor-content-table.show-bar th:last-child {
-  border-radius: 0;
+  border-top-right-radius: 0;
 }

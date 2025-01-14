@@ -211,21 +211,14 @@ export function ColSideDiv(props: {
   useEffect(() => {
     if (!tableRef.current) return;
 
-    const scrollContainer = tableRef.current.closest(
-      '.ant-md-editor-content-table',
-    );
-    if (!scrollContainer) {
-      console.warn('Scroll container not found!');
-      return;
-    }
+    const tableElement = tableRef.current;
 
     const handleScroll = () => {
-      setScrollOffset(scrollContainer.scrollLeft);
+      setScrollOffset(tableElement.scrollLeft);
     };
-
-    scrollContainer.addEventListener('scroll', handleScroll);
+    tableElement.addEventListener('scroll', handleScroll);
     return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
+      tableElement.removeEventListener('scroll', handleScroll);
     };
   }, [tableRef]);
 
@@ -237,9 +230,8 @@ export function ColSideDiv(props: {
         position: 'relative',
         display: 'flex',
         height: '16px',
-        borderRight: '1px solid #DFDFDF',
         zIndex: 100,
-        transform: `translateX(${scrollOffset}px)`,
+        transform: `translateX(${scrollOffset / 9999}px)`,
       }}
       contentEditable={false}
     >
@@ -259,6 +251,9 @@ export function ColSideDiv(props: {
               width: colRect?.width || td?.clientWidth,
               height: '14.5px',
               zIndex: 101,
+              ...(index === colDomArr.length - 1 && {
+                borderTopRightRadius: '7.2px',
+              }),
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}

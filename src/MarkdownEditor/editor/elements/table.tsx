@@ -404,6 +404,7 @@ export const Table = observer((props: RenderElementProps) => {
           <div
             style={{
               visibility: isShowBar ? 'visible' : 'hidden',
+              overflow: 'hidden',
             }}
             data-slate-editor="false"
           >
