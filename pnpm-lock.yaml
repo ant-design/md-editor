@@ -408,8 +408,8 @@ packages:
   '@antv/g-plugin-html-renderer@2.1.19':
     resolution: {integrity: sha512-x/a/uuLcczoVfz6WqwxwIggtzM0JXSgIlJMV3etGRGerovsb3skh56b/E5XoVWPI8dfS8xAoDsssMA/9FalR1g==}
 
-  '@antv/g-plugin-image-loader@2.1.15':
-    resolution: {integrity: sha512-VYg98/tVh98O9o2iRFMGcHQ7pNFOuN1XNrUwXInjtKf8l9adV8QNNtJ4iPtv0kOi2n2idxnW7K+yKzJOv4Pt+g==}
+  '@antv/g-plugin-image-loader@2.1.16':
+    resolution: {integrity: sha512-0NoyILV3shPWlnQvVRJFfqZAFUkYOGZWnrhwPFLYqKylVlV44tsOlCB9jxvG9u9ieOtY4kOmfgU5a8xnYahwMQ==}
 
   '@antv/g-web-animations-api@2.1.18':
     resolution: {integrity: sha512-1Ewy0mMlVK2FtelPEq4V/uQdz2mUiaF6WVg98bcoGpUNbk02mHmTjUxbrJKLzwTzP7+tfKvHOE4upCtRMiLYgA==}
@@ -6286,9 +6286,6 @@ packages:
   mock-property@1.0.3:
     resolution: {integrity: sha512-2emPTb1reeLLYwHxyVx993iYyCHEiRRO+y8NFXFPL5kl5q14sgTK76cXyEKkeKCHeRw35SfdkUJ10Q1KfHuiIQ==}
     engines: {node: '>= 0.4'}
-
-  motion-dom@11.16.4:
-    resolution: {integrity: sha512-2wuCie206pCiP2K23uvwJeci4pMFfyQKpWI0Vy6HrCTDzDCer4TsYtT7IVnuGbDeoIV37UuZiUr6SZMHEc1Vww==}
 
   motion-dom@11.16.4:
     resolution: {integrity: sha512-2wuCie206pCiP2K23uvwJeci4pMFfyQKpWI0Vy6HrCTDzDCer4TsYtT7IVnuGbDeoIV37UuZiUr6SZMHEc1Vww==}
@@ -17139,10 +17136,6 @@ snapshots:
       has-property-descriptors: 1.0.2
       hasown: 2.0.2
       isarray: 2.0.5
-
-  motion-dom@11.16.4:
-    dependencies:
-      motion-utils: 11.16.0
 
   motion-dom@11.16.4:
     dependencies:
