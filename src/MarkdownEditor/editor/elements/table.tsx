@@ -150,7 +150,7 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store, editorProps } = useEditorStore();
+  const { store } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [isShowBar, setIsShowBar] = useState(false);
@@ -204,7 +204,6 @@ export const Table = observer((props: RenderElementProps) => {
           event.target as Node,
         );
       };
-
       if (isInsideScrollbar()) {
         return;
       }
@@ -326,12 +325,10 @@ export const Table = observer((props: RenderElementProps) => {
   const getTableNode = () => {
     return props.element;
   };
-
   const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
   useEffect(() => {
     if (!store.editor) return;
     const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
-
     cachedSelCells?.forEach((cell) => {
       const [cellNode] = cell;
       const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
@@ -339,7 +336,6 @@ export const Table = observer((props: RenderElementProps) => {
         cellDom.classList.remove('selected-cell-td');
       }
     });
-
     selCells?.forEach((cell) => {
       const [cellNode] = cell;
       const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
@@ -347,7 +343,6 @@ export const Table = observer((props: RenderElementProps) => {
         cellDom.classList.add('selected-cell-td');
       }
     });
-
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
   }, [JSON.stringify(selCells)]);
   return useMemo(() => {
@@ -404,6 +399,7 @@ export const Table = observer((props: RenderElementProps) => {
           <div
             style={{
               visibility: isShowBar ? 'visible' : 'hidden',
+              overflow: 'hidden',
             }}
             data-slate-editor="false"
           >
