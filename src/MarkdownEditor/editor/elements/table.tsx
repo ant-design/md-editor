@@ -150,7 +150,7 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, editorProps } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [isShowBar, setIsShowBar] = useState(false);

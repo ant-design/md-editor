@@ -269,12 +269,16 @@ export const MLeaf = (
     </span>
   );
 
-  if (props.fncProps?.render && leaf.fnc) {
+  if (props.fncProps?.render && (leaf.fnc || leaf.identifier)) {
     dom = (
       <>
         {props.fncProps.render?.(
           {
-            children: leaf.text?.replaceAll('[^', '').replaceAll(']', '') || '',
+            children:
+              leaf.text
+                ?.toLocaleUpperCase()
+                ?.replaceAll('[^', '')
+                .replaceAll(']', '') || '',
           },
           dom,
         )}

@@ -29,6 +29,7 @@ export const FootnoteDefinition = (
           style={{
             fontSize: '12px',
             margin: '5px 0',
+            display: 'none',
           }}
           contentEditable={false}
           data-be={'footnoteDefinition'}
