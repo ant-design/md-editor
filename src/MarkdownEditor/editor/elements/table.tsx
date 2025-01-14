@@ -18,8 +18,7 @@ import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
-import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
-import './table.css';
+
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
  *
@@ -150,10 +149,9 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, editorProps } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
-  const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
     top: 0,
     left: 0,
@@ -198,24 +196,13 @@ export const Table = observer((props: RenderElementProps) => {
           }
         } catch (error) {}
       }
-      const isInsideScrollbar = () => {
-        if (!overflowShadowContainerRef.current) return false;
-        return overflowShadowContainerRef.current.contains(
-          event.target as Node,
-        );
-      };
-
-      if (isInsideScrollbar()) {
-        return;
-      }
-      setIsShowBar(false);
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [tableAttrVisible, tableRef, store.editor, isShowBar]);
+  }, [tableAttrVisible, tableRef, store.editor]);
 
   const resize = useCallback(() => {
     const table = tableRef.current;
@@ -266,8 +253,7 @@ export const Table = observer((props: RenderElementProps) => {
         resize();
       }
     }
-    setIsShowBar(true);
-  }, [store.tableCellNode, store.editor, setState, isShowBar]);
+  }, [store.tableCellNode, store.editor, setState]);
   const tableTargetRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
     if (!tableTargetRef.current) {
@@ -323,33 +309,6 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
-  const getTableNode = () => {
-    return props.element;
-  };
-
-  const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
-  useEffect(() => {
-    if (!store.editor) return;
-    const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
-
-    cachedSelCells?.forEach((cell) => {
-      const [cellNode] = cell;
-      const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
-      if (cellDom) {
-        cellDom.classList.remove('selected-cell-td');
-      }
-    });
-
-    selCells?.forEach((cell) => {
-      const [cellNode] = cell;
-      const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
-      if (cellDom) {
-        cellDom.classList.add('selected-cell-td');
-      }
-    });
-
-    store.CACHED_SEL_CELLS.set(store.editor, selCells);
-  }, [JSON.stringify(selCells)]);
   return useMemo(() => {
     return (
       <div
@@ -365,7 +324,21 @@ export const Table = observer((props: RenderElementProps) => {
           marginBottom: 12,
         }}
       >
-        <div className="ant-md-editor-drag-el">
+        <div
+          className={
+            'ant-md-editor-drag-el ant-md-editor-table ant-md-editor-content-table'
+          }
+          style={{
+            maxWidth: '100%',
+            width: '100%',
+            border: '1px solid #e8e8e8',
+            borderRadius: 16,
+            display: 'flex',
+            minWidth: 0,
+            boxShadow:
+              isSel && editorProps?.reportMode ? '0 0 0 1px #1890ff' : 'none',
+          }}
+        >
           {tableAttrVisible && (
             <TableAttr
               state={state}
@@ -375,66 +348,35 @@ export const Table = observer((props: RenderElementProps) => {
             />
           )}
           <DragHandle />
-        </div>
-        <div
-          className={`ant-md-editor-table ant-md-editor-content-table ${
-            isShowBar ? 'show-bar' : ''
-          }`}
-          onMouseUp={handleClickTable}
-          onClick={() => {
-            runInAction(() => {
-              if (isSel) {
-                store.selectTablePath = [];
-                return;
-              }
-              store.selectTablePath = path;
-            });
-          }}
-          style={{
-            width: '100%',
-            maxWidth: '100%',
-            overflow: 'auto',
-            flex: 1,
-            minWidth: 0,
-            marginLeft: 20,
-            marginTop: 4,
-            marginRight: 6,
-          }}
-        >
           <div
-            style={{
-              visibility: isShowBar ? 'visible' : 'hidden',
-              overflow: 'hidden',
+            onMouseUp={handleClickTable}
+            onClick={() => {
+              runInAction(() => {
+                if (isSel) {
+                  store.selectTablePath = [];
+                  return;
+                }
+                store.selectTablePath = path;
+              });
             }}
-            data-slate-editor="false"
+            style={{
+              width: '100%',
+              maxWidth: '100%',
+              overflow: 'auto',
+              flex: 1,
+              minWidth: 0,
+            }}
           >
-            <IntersectionPointDiv
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
-            <RowSideDiv
-              tableRef={tableTargetRef}
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
-            <ColSideDiv
-              tableRef={tableTargetRef}
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
+            <table
+              style={{
+                borderCollapse: 'collapse',
+                borderSpacing: 0,
+              }}
+              ref={tableTargetRef}
+            >
+              <tbody data-slate-node="element">{props.children}</tbody>
+            </table>
           </div>
-          <table
-            style={{
-              borderCollapse: 'collapse',
-              borderSpacing: 0,
-            }}
-            ref={tableTargetRef}
-          >
-            <tbody data-slate-node="element">{props.children}</tbody>
-          </table>
         </div>
       </div>
     );
