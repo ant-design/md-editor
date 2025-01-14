@@ -70,11 +70,13 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         e.preventDefault();
         setState({ open: false });
         fileMap.clear();
-        const end = Range.end(sel.current!).path;
-        if (Editor.hasPath(store?.editor, end)) {
-          Transforms.select(store?.editor, Editor.end(store?.editor, end));
+        if (sel.current) {
+          const end = Range.end(sel.current!).path;
+          if (Editor.hasPath(store?.editor, end)) {
+            Transforms.select(store?.editor, Editor.end(store?.editor, end));
+          }
+          store.setFloatBarOpen(false);
         }
-        store.setFloatBarOpen(false);
       }
     };
     window.addEventListener('keydown', close);
