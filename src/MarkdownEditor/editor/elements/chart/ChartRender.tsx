@@ -1,8 +1,9 @@
 ﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
+import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ChartAttrToolBar } from './ChartAttrToolBar';
 import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
@@ -91,6 +92,8 @@ export const ChartRender = (props: {
     columnLength,
     title,
   } = props;
+
+  const chartRef = useRef<Chart>();
 
   const [config, setConfig] = useState(() => props.config);
   /**
@@ -282,6 +285,7 @@ export const ChartRender = (props: {
     if (chartType === 'pie') {
       return (
         <Pie
+          chartRef={chartRef}
           index={config?.index}
           key={config?.index}
           data={chartData}
@@ -293,6 +297,7 @@ export const ChartRender = (props: {
     if (chartType === 'bar') {
       return (
         <Bar
+          chartRef={chartRef}
           data={chartData}
           index={config?.index}
           yField={config?.y}
@@ -308,6 +313,7 @@ export const ChartRender = (props: {
     if (chartType === 'line') {
       return (
         <Line
+          chartRef={chartRef}
           key={config?.index}
           index={config?.index}
           data={chartData}
@@ -323,6 +329,7 @@ export const ChartRender = (props: {
     if (chartType === 'column') {
       return (
         <Column
+          chartRef={chartRef}
           key={config?.index}
           index={config?.index}
           data={chartData}
@@ -338,6 +345,7 @@ export const ChartRender = (props: {
     if (chartType === 'area') {
       return (
         <Area
+          chartRef={chartRef}
           key={config?.index}
           data={chartData}
           index={config?.index}
