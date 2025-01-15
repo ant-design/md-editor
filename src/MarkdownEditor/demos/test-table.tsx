@@ -1,5 +1,4 @@
 import { MarkdownEditor } from '@ant-design/md-editor';
-import { Tooltip } from 'antd';
 
 const defaultValue = `
 | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
@@ -17,40 +16,6 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
-      fncProps={{
-        render: (props, _) => {
-          return <Tooltip title={props.children}>{_}</Tooltip>;
-        },
-      }}
-      image={{
-        upload: async (fileList) => {
-          return new Promise((resolve) => {
-            const file = fileList[0];
-            if (typeof file === 'string') {
-              fetch(file)
-                .then((res) => res.blob())
-                .then((blob) => {
-                  console.log(blob);
-                  const url = URL.createObjectURL(blob);
-                  resolve(url);
-                });
-            } else {
-              const url = URL.createObjectURL(file);
-              resolve(url);
-            }
-          });
-        },
-      }}
-      toolBar={{
-        hideTools: ['H1'],
-      }}
-      insertAutocompleteProps={{
-        optionsRender: (options) => {
-          return options.filter((item) => {
-            return item.key !== 'head1';
-          });
-        },
-      }}
       initValue={defaultValue}
     />
   );
