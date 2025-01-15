@@ -2,6 +2,7 @@
 import { Avatar, ConfigProvider, Popconfirm } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { Transforms } from 'slate';
 import {
@@ -28,12 +29,14 @@ export const CommentList: React.FC<{
         style={{
           width: '300px',
         }}
-      ></div>
-      <div className={classNames(hashId, baseCls)}>
+      />
+      <motion.div
+        className={classNames(hashId, baseCls)}
+        initial={{ transform: 'translateX(100%)', opacity: 0 }}
+        animate={{ transform: 'translateX(0)', opacity: 1 }}
+        exit={{ transform: 'translateX(100%)', opacity: 0 }}
+      >
         <div
-          onClick={() => {
-            setShowComment?.([]);
-          }}
           style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -41,8 +44,12 @@ export const CommentList: React.FC<{
             cursor: 'pointer',
           }}
         >
-          划词评论({props.commentList?.length})
-          <CloseOutlined />
+          划词评论 ({props.commentList?.length})
+          <CloseOutlined
+            onClick={() => {
+              setShowComment?.([]);
+            }}
+          />
         </div>
         {props.commentList?.map((item, index) => {
           return (
@@ -130,7 +137,7 @@ export const CommentList: React.FC<{
             </div>
           );
         })}
-      </div>
+      </motion.div>
     </>,
   );
 };

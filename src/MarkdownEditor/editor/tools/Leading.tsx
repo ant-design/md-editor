@@ -153,7 +153,7 @@ export const TocHeading = ({ schema }: { schema: any }) => {
   return (
     <Anchor
       style={{
-        minWidth: 120,
+        minWidth: 200,
       }}
       offsetTop={64}
       items={buildTree(state().headings).children?.map((h: any) => ({

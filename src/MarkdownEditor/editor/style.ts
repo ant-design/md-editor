@@ -148,6 +148,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginBottom: '0.8rem',
       },
       'h1,h2,h3,h4,h5,h6': {
+        position: 'relative',
         marginTop: '1.5rem',
         marginBottom: '1rem',
         fontWeight: 600,
@@ -160,7 +161,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 600,
         paddingBottom: '.3em',
         fontSize: '2em',
-        borderBottom: '1px solid #d1d9e0b3',
       },
       h2: {
         fontWeight: 600,
@@ -180,7 +180,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textDecoration: 'underline',
         },
       },
-      'ul ul,ul ol,ol ol,ol ul': { marginTop: '0', marginBottom: '0' },
+      'ul ul,ul ol,ol ol,ol ul': {
+        marginTop: '0',
+        marginBottom: '0',
+        position: 'relative',
+      },
       'li > p': { marginTop: '1rem' },
       'li + li': { marginTop: '0.25em' },
       blockquote: {
@@ -256,9 +260,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}-report`]: {
-      '>*': {
-        maxWidth: '100%',
-      },
       '[data-be="chart"]': {
         width: '100%',
       },
