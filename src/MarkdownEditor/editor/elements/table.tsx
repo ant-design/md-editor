@@ -81,7 +81,7 @@ export function TableCell(props: RenderElementProps) {
                   maxWidth: 400,
                   maxHeight: 400,
                   fontWeight: 400,
-                  fontSize: '1rem',
+                  fontSize: '1em',
                   overflow: 'auto',
                 }}
               >

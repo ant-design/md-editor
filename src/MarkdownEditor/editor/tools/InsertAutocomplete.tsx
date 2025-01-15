@@ -759,7 +759,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             >
               <div
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '1em',
                   color: 'rgba(0,0,0,0.8)',
                   marginBottom: 4,
                   display: 'flex',

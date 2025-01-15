@@ -58,7 +58,7 @@ const MentionsUser = (props: {
                     backgroundColor: '#f5f5f5',
                     padding: '0 4px',
                     borderRadius: 4,
-                    fontSize: '1rem',
+                    fontSize: '1em',
                     lineHeight: '24px',
                     color: '#1677ff',
                   }}
@@ -125,7 +125,7 @@ const MentionsUser = (props: {
                       backgroundColor: '#f5f5f5',
                       padding: '0 4px',
                       borderRadius: 4,
-                      fontSize: '1rem',
+                      fontSize: '1em',
                       lineHeight: '24px',
                       color: '#1677ff',
                     }}
@@ -143,7 +143,7 @@ const MentionsUser = (props: {
                     backgroundColor: '#f5f5f5',
                     padding: '0 4px',
                     borderRadius: 4,
-                    fontSize: '1rem',
+                    fontSize: '1em',
                     display: 'inline-block',
                     lineHeight: '24px',
                     color: '#bfbfbf',
