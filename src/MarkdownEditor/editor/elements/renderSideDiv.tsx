@@ -122,7 +122,7 @@ export function RowSideDiv(props: {
           borderBottom: '1px solid #DFDFDF',
           zIndex: 100,
           width: '14px',
-          marginTop: '15.5px',
+          marginTop: '16px',
           marginLeft: '-16px',
         }}
         contentEditable={false}
@@ -137,8 +137,8 @@ export function RowSideDiv(props: {
               position: 'relative',
               width: '14px',
               height:
-                tr?.getBoundingClientRect?.()?.height - 1 ||
-                tr?.clientHeight - 1,
+                tr?.getBoundingClientRect?.()?.height - 0.76 ||
+                tr?.clientHeight - 0.76,
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
