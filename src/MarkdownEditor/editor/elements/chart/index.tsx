@@ -1,4 +1,4 @@
-﻿import React, { useMemo } from 'react';
+﻿import React, { useEffect, useMemo } from 'react';
 import { RenderElementProps, useSlate } from 'slate-react';
 import { TableNode } from '../../../el';
 import { useEditorStore } from '../../store';
@@ -218,7 +218,7 @@ const groupByCategory = (data: any[], key: any) => {
  * - 支持图表类型的切换和属性的更新。
  */
 export const Chart: React.FC<RenderElementProps> = (props) => {
-  const { store, readonly } = useEditorStore();
+  const { store, readonly, rootContainer } = useEditorStore();
   const editor = useSlate();
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {
@@ -236,6 +236,18 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   const config = [node.otherProps?.config].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
+  const [minWidth, setMinWidth] = React.useState(290);
+
+  useEffect(() => {
+    if (htmlRef.current) {
+      const width = Math.max(
+        rootContainer?.current?.clientWidth || htmlRef.current?.clientWidth,
+        290,
+      );
+      setMinWidth(290);
+      setColumnLength(width & 200);
+    }
+  }, []);
 
   return useMemo(
     () => (
@@ -245,6 +257,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         data-be={'chart'}
         style={{
           flex: 1,
+          minWidth,
         }}
         ref={htmlRef}
         onDragStart={store.dragStart}
