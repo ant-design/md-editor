@@ -180,6 +180,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textDecoration: 'underline',
         },
       },
+      'ol,ul': {
+        paddingLeft: '1.4em',
+      },
       'ul ul,ul ol,ol ol,ol ul': {
         marginTop: '0',
         marginBottom: '0',
