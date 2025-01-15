@@ -247,7 +247,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
       290,
     );
     setMinWidth(290);
-    setColumnLength(width % 200);
+    setColumnLength(Math.floor(width / 200));
   }, []);
 
   return useMemo(
