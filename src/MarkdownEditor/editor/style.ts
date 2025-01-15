@@ -14,6 +14,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
+      margin: '0 auto',
       '::-webkit-scrollbar': { width: '8px', height: '8px' },
       '::-webkit-scrollbar-thumb': {
         backgroundColor: '#a1a1aa',
@@ -23,6 +24,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
       '&-edit': {
+        '>*': {
+          maxWidth: 850,
+        },
         '> p.empty:nth-child(0)::before': {
           cursor: 'text',
           content: '\'Please enter content, press "/" for quick actions\'',
@@ -135,6 +139,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         wordWrap: 'normal',
       },
       p: {
+        position: 'relative',
         paddingTop: '.25rem',
         paddingBottom: '.25rem',
         fontSize: '1rem',
@@ -148,11 +153,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontWeight: 600,
         lineHeight: 1.25,
         '.ant-md-editor-drag-handle': {
-          top: 'calc(3px + 0.65em - 14px) !important',
+          top: 'calc(3px + 0.05em) !important',
         },
       },
       h1: {
-        margin: '.67em 0',
         fontWeight: 600,
         paddingBottom: '.3em',
         fontSize: '2em',
@@ -252,6 +256,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}-report`]: {
+      '>*': {
+        maxWidth: '100%',
+      },
       '[data-be="chart"]': {
         width: '100%',
       },

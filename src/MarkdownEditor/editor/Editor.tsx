@@ -193,7 +193,6 @@ export const MEditor = observer(
 
             const rtf = await event.clipboardData.getData('text/rtf');
 
-            console.log('paste', html);
             if (html) {
               const success = await insertParsedHtmlNodes(
                 editor,

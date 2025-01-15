@@ -379,6 +379,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         <div
           style={{
             padding: props.readonly ? '8px' : '24px 24px',
+            paddingLeft: props.readonly ? undefined : 32,
             overflow: 'auto',
             display: 'flex',
             height: !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
