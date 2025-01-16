@@ -139,9 +139,9 @@ export function RowSideDiv(props: {
               height:
                 index === 0
                   ? (tr?.getBoundingClientRect?.()?.height ||
-                      tr?.clientHeight) - 1.8
+                      tr?.clientHeight) - 2
                   : (tr?.getBoundingClientRect?.()?.height ||
-                      tr?.clientHeight) - 0.8,
+                      tr?.clientHeight) - 1,
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
