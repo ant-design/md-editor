@@ -1,7 +1,7 @@
 ﻿import { CodeFilled } from '@ant-design/icons';
 import { MarkdownEditor } from '@ant-design/md-editor';
 import { Modal } from 'antd';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const defaultValue = `## 创始人
 

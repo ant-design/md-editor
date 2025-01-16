@@ -3,7 +3,7 @@ import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { ChartAttrToolBar } from './ChartAttrToolBar';
 import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
@@ -55,7 +55,7 @@ const ChartMap = {
  *
  * @returns 返回相应的图表组件。
  */
-export const ChartRender = (props: {
+export const ChartRender: React.FC<{
   chartType:
     | 'pie'
     | 'bar'
@@ -80,7 +80,7 @@ export const ChartRender = (props: {
   isChartList?: boolean;
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
-}) => {
+}> = (props) => {
   const [chartType, setChartType] = useState<
     'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions' | 'table'
   >(() => props.chartType);

@@ -1,5 +1,5 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
-
+import React from 'react';
 const defaultValue = `
 <!-- [{"chartType": "bar","title":"样本数据", "x": "sens_type", "y": "count"},{"chartType": "column", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"}, {"chartType": "line", "x": "sens_type", "y": "percentage"},{"chartType": "area", "x": "sens_type", "y": "percentage"}] -->
 |    | sens_type        |   count |   percentage |
