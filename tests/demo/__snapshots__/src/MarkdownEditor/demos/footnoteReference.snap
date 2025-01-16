@@ -1,0 +1,510 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      class="markdown-editor ant-md-editor ant-md-editor-edit ant-md-editor-report"
+      style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
+    >
+      <div
+        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+      >
+        <div
+          aria-multiline="true"
+          autocapitalize="false"
+          autocorrect="false"
+          class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-report ant-md-editor-content-edit"
+          contenteditable="true"
+          data-slate-editor="true"
+          data-slate-node="value"
+          role="textbox"
+          spellcheck="false"
+          style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
+          zindex="-1"
+        >
+          <p
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              class="ant-md-editor-drag-handle"
+              contenteditable="false"
+            />
+          </p>
+          <div
+            class="ant-md-editor-drag-icon"
+          >
+            <span
+              aria-label="holder"
+              class="anticon anticon-holder"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="holder"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-string="true"
+              >
+                《将近酒》这首诗的参考文献如下：
+              </span>
+            </span>
+          </span>
+          <p />
+          <div
+            class="relative"
+            data-be="list"
+            data-slate-node="element"
+          >
+            <ul
+              class="ant-md-editor-list ul"
+            >
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <p
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    class="ant-md-editor-drag-handle"
+                    contenteditable="false"
+                  />
+                </p>
+                <div
+                  class="ant-md-editor-drag-icon"
+                >
+                  <span
+                    aria-label="holder"
+                    class="anticon anticon-holder"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="holder"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      李白. 将进酒 
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-fnc="fnc"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    DOC_0
+                  </span>
+                </span>
+                <p />
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <p
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    class="ant-md-editor-drag-handle"
+                    contenteditable="false"
+                  />
+                </p>
+                <div
+                  class="ant-md-editor-drag-icon"
+                >
+                  <span
+                    aria-label="holder"
+                    class="anticon anticon-holder"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="holder"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      李白. 将进酒 
+                    </span>
+                  </span>
+                </span>
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-fnc="fnc"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    DOC_1
+                  </span>
+                </span>
+                <p />
+              </li>
+            </ul>
+          </div>
+          <p
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              class="ant-md-editor-drag-handle"
+              contenteditable="false"
+            />
+          </p>
+          <div
+            class="ant-md-editor-drag-icon"
+          >
+            <span
+              aria-label="holder"
+              class="anticon anticon-holder"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="holder"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-string="true"
+              >
+                君不见 ，黄河之水天上来 ，奔流到海不复回 。
+君不见 ，高堂明镜悲白发 ，朝如青丝暮成雪 。
+人生得意须尽欢 ，莫使金樽空对月 。
+天生我材必有用 ，千金散尽还复来 。
+烹羊宰牛且为乐 ，会须一饮三百杯 。
+岑夫子 ，丹丘生 ，将进酒 ，杯莫停 。
+              </span>
+            </span>
+          </span>
+          <p />
+          <p
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              class="ant-md-editor-drag-handle"
+              contenteditable="false"
+            />
+          </p>
+          <div
+            class="ant-md-editor-drag-icon"
+          >
+            <span
+              aria-label="holder"
+              class="anticon anticon-holder"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="holder"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-string="true"
+              >
+                与君歌一曲 ，请君为我倾耳听 。
+钟鼓馔玉不足贵 ，但愿长醉不复醒 。
+古来圣贤皆寂寞 ，惟有饮者留其名 。
+陈王昔时宴平乐 ，斗酒十千恣欢谑 。
+主人何为言少钱 ，径须沽取对君酌 。
+五花马 ，千金裘 ，呼儿将出换美酒 ，与尔同销万古愁 。
+              </span>
+            </span>
+          </span>
+          <p />
+          <div
+            class="ant-md-editor-drag-el"
+            contenteditable="false"
+            data-be="footnoteDefinition"
+            data-slate-node="element"
+            style="font-size: 12px; margin: 5px 0px; display: none;"
+          >
+            <span
+              class="ant-md-editor-drag-handle"
+              contenteditable="false"
+            >
+              <div
+                class="ant-md-editor-drag-icon"
+              >
+                <span
+                  aria-label="holder"
+                  class="anticon anticon-holder"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="holder"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </span>
+            doc_0.
+            <a
+              href="#md-editor-refdoc_0"
+              style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            contenteditable="false"
+            data-be="footnoteDefinition"
+            data-slate-node="element"
+            style="font-size: 12px; margin: 5px 0px; display: none;"
+          >
+            <span
+              class="ant-md-editor-drag-handle"
+              contenteditable="false"
+            >
+              <div
+                class="ant-md-editor-drag-icon"
+              >
+                <span
+                  aria-label="holder"
+                  class="anticon anticon-holder"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="holder"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </span>
+            doc_1.
+            <a
+              href="#md-editor-refdoc_1"
+              style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+          <p
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              class="ant-md-editor-drag-handle"
+              contenteditable="false"
+            />
+          </p>
+          <div
+            class="ant-md-editor-drag-icon"
+          >
+            <span
+              aria-label="holder"
+              class="anticon anticon-holder"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="holder"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-length="0"
+                data-slate-zero-width="n"
+              >
+                ﻿
+                <br />
+              </span>
+            </span>
+          </span>
+          <p />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

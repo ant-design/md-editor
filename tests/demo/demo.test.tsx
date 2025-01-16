@@ -55,7 +55,9 @@ function demoTest() {
           expect(fn).toHaveBeenCalled();
         });
 
-        expect(wrapper.asFragment()).toMatchSnapshot();
+        expect(wrapper.asFragment()).toMatchFileSnapshot(
+          './__snapshots__/' + file.replace(/\.tsx$/, '.snap'),
+        );
       });
 
       afterEach(() => {
