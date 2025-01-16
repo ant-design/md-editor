@@ -239,7 +239,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
   const [minWidth, setMinWidth] = React.useState(290);
 
   useEffect(() => {
-    console.log('rootContainer', rootContainer);
     const width = Math.max(
       rootContainer?.current?.clientWidth ||
         htmlRef.current?.clientWidth ||
@@ -247,7 +246,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
       290,
     );
     setMinWidth(290);
-    setColumnLength(Math.floor(width / 200));
+    setColumnLength(Math.min(Math.floor(width / 200), config.length));
   }, []);
 
   return useMemo(
