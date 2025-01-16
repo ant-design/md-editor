@@ -268,7 +268,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            borderRadius: '1.2em',
+            borderRadius: '0.5em',
             overflow: 'auto',
           }}
         >
@@ -411,7 +411,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             key={index + subIndex}
                             style={{
                               border: '1px solid #eee',
-                              borderRadius: '1.2em',
+                              borderRadius: '0.5em',
                               margin: 'auto',
                               minWidth: `calc(${100 / columnLength}% - 16px)`,
                               flex: 1,
@@ -431,7 +431,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         style={{
                           userSelect: 'none',
                           border: '1px solid #eee',
-                          borderRadius: '1.2em',
+                          borderRadius: '0.5em',
                           margin: 'auto',
                           minWidth: `calc(${100 / columnLength}% - 16px)`,
                           flex: 1,

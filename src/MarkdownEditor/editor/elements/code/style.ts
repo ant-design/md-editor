@@ -135,7 +135,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
         '& &-code-content': {
-          borderRadius: '1.2px',
+          borderRadius: '0.5em',
           fontSize: '0.85em',
           boxSizing: 'border-box',
           lineHeight: '1.62em',

@@ -267,7 +267,7 @@ export const ChartRender: React.FC<{
             margin: 12,
             overflow: 'auto',
             border: '1px solid #eee',
-            borderRadius: '1.2em',
+            borderRadius: '0.5em',
             flex: 1,
             maxWidth: 'calc(100% - 32px)',
             maxHeight: 400,

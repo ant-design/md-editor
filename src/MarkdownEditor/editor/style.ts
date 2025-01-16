@@ -280,10 +280,10 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRight: 'none',
         },
         'th:last-child': {
-          borderTopRightRadius: 16,
+          borderTopRightRadius: '0.5em',
         },
         'th:first-child': {
-          borderTopLeftRadius: 16,
+          borderTopLeftRadius: '0.5em',
         },
         'tr:last-child th,tr:last-child td': {
           borderBottom: 'none',

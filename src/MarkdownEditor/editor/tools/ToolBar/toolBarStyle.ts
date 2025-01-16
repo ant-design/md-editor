@@ -8,8 +8,8 @@
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      borderTopLeftRadius: '16px',
-      borderTopRightRadius: '16px',
+      borderTopLeftRadius: '0.5em',
+      borderTopRightRadius: '0.5em',
       borderBottom: '1px solid rgb(229 231 235 / 0.8)',
       overflow: 'hidden',
       height: '42px',

@@ -19,6 +19,8 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';
 
+const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
+
 /**
  * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
  *
@@ -101,6 +103,9 @@ export function TableCell(props: RenderElementProps) {
                 WebkitBoxOrient: 'vertical',
                 WebkitLineClamp: 2,
                 maxHeight: 40,
+                textAlign: numberValidationRegex.test(text?.replaceAll(',', ''))
+                  ? 'right'
+                  : undefined,
               }}
             >
               {text}
@@ -112,6 +117,12 @@ export function TableCell(props: RenderElementProps) {
               minWidth: minWidth,
               textWrap: 'wrap',
               maxWidth: '200px',
+              display: 'flex',
+              justifyContent: numberValidationRegex.test(
+                text?.replaceAll(',', ''),
+              )
+                ? 'end'
+                : 'start',
             }}
           >
             {props.children}
@@ -332,7 +343,7 @@ export const Table = observer((props: RenderElementProps) => {
             maxWidth: '100%',
             width: '100%',
             border: '1px solid #e8e8e8',
-            borderRadius: '1.2px',
+            borderRadius: '0.5em',
             display: 'flex',
             minWidth: 0,
             boxShadow:
