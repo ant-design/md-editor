@@ -3,7 +3,6 @@
   GenerateStyle,
   useEditorStyleRegister,
 } from '../../utils/useStyle';
-
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
@@ -14,6 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       top: 0,
       width: 300,
       padding: 16,
+      paddingRight: 24,
       boxSizing: 'border-box',
       gap: 8,
       borderLeft: '1px solid rgba(0,0,0,0.04)',

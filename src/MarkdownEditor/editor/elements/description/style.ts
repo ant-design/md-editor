@@ -9,21 +9,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       maxWidth: '100%',
       overflow: 'auto',
-      borderRadius: '16px',
+      borderRadius: '0.5em',
       border: '1px solid rgb(232, 232, 232)',
       table: {
         '& th': {
-          padding: '12px 20px',
+          padding: '0.8em 1.2em',
           textAlign: 'left',
           fontWeight: 500,
+          backgroundColor: 'rgb(229 231 235 / 0.5)',
           border: '1px solid rgb(232, 232, 232)',
-          borderRadius: 16,
         },
         '& td': {
           padding: '12px 20px',
           textAlign: 'left',
           border: '1px solid rgb(232, 232, 232)',
-          borderRadius: 16,
+          borderRadius: '0.5em',
         },
         '& tr': {
           'td:first-child': {

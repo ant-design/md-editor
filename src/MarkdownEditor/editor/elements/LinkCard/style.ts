@@ -14,7 +14,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-container': {
         padding: 12,
         border: '1px solid #f0f0f0',
-        borderRadius: 16,
+        borderRadius: '0.5em',
         margin: '8px 0',
         width: '100%',
         maxHeight: '120px',

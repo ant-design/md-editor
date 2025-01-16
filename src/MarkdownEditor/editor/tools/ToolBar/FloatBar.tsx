@@ -70,12 +70,10 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         e.preventDefault();
         setState({ open: false });
         fileMap.clear();
-        if (sel.current) {
-          const end = Range.end(sel.current!).path;
-          if (Editor.hasPath(store?.editor, end)) {
-            Transforms.select(store?.editor, Editor.end(store?.editor, end));
-          }
-          store.setFloatBarOpen(false);
+        if (!sel.current) return;
+        const end = Range.end(sel.current!).path;
+        if (Editor.hasPath(store?.editor, end)) {
+          Transforms.select(store?.editor, Editor.end(store?.editor, end));
         }
       }
     };

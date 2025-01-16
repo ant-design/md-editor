@@ -38,6 +38,7 @@ export const Column: React.FC<ChartProps> = (props) => {
           return stringFormatNumber(value);
         },
         tickLineWidth: 0,
+        tickCount: 5,
       })
       .style({
         maxWidth: 10, // 圆角样式
