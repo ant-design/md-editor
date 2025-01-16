@@ -183,7 +183,6 @@ export const MEditor = observer(
         }
 
         const types = event.clipboardData.types;
-        console.log('types', types);
         if (types.includes('application/x-slate-fragment')) {
           const encoded = event.clipboardData.getData(
             'application/x-slate-fragment',
@@ -200,7 +199,6 @@ export const MEditor = observer(
 
             const rtf = await event.clipboardData.getData('text/rtf');
 
-            console.log('paste', html);
             if (html) {
               const success = await insertParsedHtmlNodes(
                 editor,

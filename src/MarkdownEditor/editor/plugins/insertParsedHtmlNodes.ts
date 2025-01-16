@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-param-reassign */
+import { message } from 'antd';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
 import { docxDeserializer } from '../utils/docx/docxDeserializer';
@@ -193,11 +194,8 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
     if (fragment.type === 'media') {
       const url = fragment.url;
       if (url?.startsWith('blob:')) {
-        const serverUrl = [
-          await editorProps.image?.upload?.([
-            blobToFile(fragment?.url, 'image.png'),
-          ]),
-        ].flat(1);
+        const file = await blobToFile(fragment?.url, 'image.png');
+        const serverUrl = [await editorProps.image?.upload?.([file])].flat(1);
         fragment.url = serverUrl?.[0];
         fragment.downloadUrl = serverUrl?.[0];
       } else {
@@ -232,6 +230,7 @@ export const insertParsedHtmlNodes = async (
     return false;
   }
 
+  const hideLoading = message.loading('parsing...', 0);
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
@@ -259,6 +258,8 @@ export const insertParsedHtmlNodes = async (
     }
     return fragment;
   });
+
+  hideLoading();
 
   if (!fragmentList?.length) return false;
 

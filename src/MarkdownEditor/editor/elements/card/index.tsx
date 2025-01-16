@@ -11,6 +11,7 @@ export const WarpCard = observer((props: RenderElementProps) => {
         style={{
           display: 'flex',
           gap: 1,
+          maxWidth: '100%',
         }}
       >
         {props.children}

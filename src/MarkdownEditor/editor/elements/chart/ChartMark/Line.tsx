@@ -1,5 +1,6 @@
 ﻿import { Chart } from '@antv/g2';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import { stringFormatNumber } from '../utils';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
@@ -19,14 +20,27 @@ export const Line: React.FC<ChartProps> = (props) => {
       autoFit: true,
       theme: 'agent',
     });
-
     const chartIn = chart
       .line()
       .data(props.data)
       .encode('x', props.xField)
       .encode('y', props.yField)
-      .axis('x', { title: false })
-      .axis('y', { title: false })
+      .axis('x', {
+        label: { autoHide: false },
+        labelFormatter: (value: number | string) => {
+          return stringFormatNumber(value);
+        },
+        title: false,
+        tick: false,
+        labelAutoRotate: true,
+        labelAutoEllipsis: true,
+      })
+      .axis('y', {
+        label: { autoHide: true },
+        labelFormatter: (value: number | string) => {
+          return stringFormatNumber(value);
+        },
+      })
       .style('fillOpacity', 0.3);
 
     if (props.colorLegend) {

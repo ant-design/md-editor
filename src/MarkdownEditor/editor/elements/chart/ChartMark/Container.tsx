@@ -18,28 +18,31 @@ export const Container: React.FC<{
 
   const [inView, setInView] = useState(false);
 
-  const onSize = debounce(() => {
-    if (!inView) return;
-    const chart = chartRef.current;
-    if (!chart) return;
-    const preSize = sizeRef.current;
-    const newSize = {
-      width: htmlRef.current?.clientWidth || 0,
-      height: Math.min(
-        htmlRef.current?.clientWidth || 400,
-        htmlRef.current?.clientHeight || 400,
-      ),
-    };
+  const onSize = debounce(
+    () => {
+      if (!inView) return;
+      const chart = chartRef.current;
+      if (!chart) return;
+      const preSize = sizeRef.current;
+      const newSize = {
+        width: htmlRef.current?.clientWidth || 0,
+        height: Math.min(
+          htmlRef.current?.clientWidth || 400,
+          htmlRef.current?.clientHeight || 400,
+        ),
+      };
 
-    if (
-      Math.abs(preSize.width - newSize.width) > 20 ||
-      Math.abs(preSize.height - newSize.height) > 20
-    ) {
-      chart.changeSize(newSize.width, newSize.height);
-      sizeRef.current = newSize;
-      return;
-    }
-  }, 160 + props.index * 16);
+      if (
+        Math.abs(preSize.width - newSize.width) > 20 ||
+        Math.abs(preSize.height - newSize.height) > 20
+      ) {
+        chart.changeSize(newSize.width, newSize.height);
+        sizeRef.current = newSize;
+        return;
+      }
+    },
+    160 + props.index * 16,
+  );
 
   useEffect(() => {
     if (inView) {

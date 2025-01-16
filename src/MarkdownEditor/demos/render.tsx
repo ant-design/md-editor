@@ -1,6 +1,6 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 import { Card } from 'antd';
-
+import React from 'react';
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # 腾讯研究报告

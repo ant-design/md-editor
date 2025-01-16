@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       borderRadius: '18px',
       '&-item': {
         display: 'flex',
-        fontSize: '1.1rem',
+        fontSize: '1.1em',
         alignItems: 'center',
         gap: '4px',
         padding: '4px',

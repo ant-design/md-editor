@@ -30,6 +30,7 @@ import { EditorUtils } from './utils/editorUtils';
 export const EditorStoreContext = createContext<{
   store: EditorStore;
   typewriter: boolean;
+  rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
   setShowComment: (list: CommentDataType[]) => void;
   readonly: boolean;
   keyTask$: Subject<{

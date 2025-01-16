@@ -14,6 +14,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
+      margin: '0 auto',
       '::-webkit-scrollbar': { width: '8px', height: '8px' },
       '::-webkit-scrollbar-thumb': {
         backgroundColor: '#a1a1aa',
@@ -23,6 +24,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
       '&-edit': {
+        '>*': {
+          maxWidth: 850,
+        },
         '> p.empty:nth-child(0)::before': {
           cursor: 'text',
           content: '\'Please enter content, press "/" for quick actions\'',
@@ -49,10 +53,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderWidth: '1px',
         borderColor: 'rgb(229 231 235 / 1)',
         backgroundColor: 'rgb(249 250 251 / 1)',
-        paddingTop: '0.5rem',
-        paddingBottom: '0.5rem',
-        paddingLeft: '0.75rem',
-        paddingRight: '0.75rem',
+        paddingTop: '0.5em',
+        paddingBottom: '0.5em',
+        paddingLeft: '0.75em',
+        paddingRight: '0.75em',
         transitionDuration: '100ms',
       },
       '.attach .file.active': {
@@ -85,8 +89,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       "[data-fnd='fnd']": {
-        paddingLeft: '0.125rem',
-        paddingRight: '0.125rem',
+        paddingLeft: '0.125em',
+        paddingRight: '0.125em',
         color: 'rgb(101 163 13 /1)',
         transitionDuration: '200ms',
         '&:hover': {
@@ -131,32 +135,32 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginBottom: '0',
         fontFamily:
           'ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace',
-        fontSize: '0.9rem',
+        fontSize: '0.9em',
         wordWrap: 'normal',
       },
       p: {
-        paddingTop: '.25rem',
-        paddingBottom: '.25rem',
-        fontSize: '1rem',
-        lineHeight: '1.5rem',
+        position: 'relative',
+        paddingTop: '.25em',
+        paddingBottom: '.25em',
+        fontSize: '1em',
+        lineHeight: '1.5em',
         marginTop: '0',
-        marginBottom: '0.8rem',
+        marginBottom: '0.8em',
       },
       'h1,h2,h3,h4,h5,h6': {
-        marginTop: '1.5rem',
-        marginBottom: '1rem',
+        position: 'relative',
+        marginTop: '1.5em',
+        marginBottom: '1em',
         fontWeight: 600,
         lineHeight: 1.25,
         '.ant-md-editor-drag-handle': {
-          top: 'calc(3px + 0.65em - 14px) !important',
+          top: 'calc(3px + 0.05em) !important',
         },
       },
       h1: {
-        margin: '.67em 0',
         fontWeight: 600,
         paddingBottom: '.3em',
         fontSize: '2em',
-        borderBottom: '1px solid #d1d9e0b3',
       },
       h2: {
         fontWeight: 600,
@@ -176,8 +180,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textDecoration: 'underline',
         },
       },
-      'ul ul,ul ol,ol ol,ol ul': { marginTop: '0', marginBottom: '0' },
-      'li > p': { marginTop: '1rem' },
+      'ol,ul': {
+        paddingLeft: '1.4em',
+      },
+      'ul ul,ul ol,ol ol,ol ul': {
+        marginTop: '0',
+        marginBottom: '0',
+        position: 'relative',
+      },
+      'li > p': { marginTop: '1em' },
       'li + li': { marginTop: '0.25em' },
       blockquote: {
         display: 'block',
@@ -269,10 +280,10 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRight: 'none',
         },
         'th:last-child': {
-          borderTopRightRadius: 16,
+          borderTopRightRadius: '0.5em',
         },
         'th:first-child': {
-          borderTopLeftRadius: 16,
+          borderTopLeftRadius: '0.5em',
         },
         'tr:last-child th,tr:last-child td': {
           borderBottom: 'none',

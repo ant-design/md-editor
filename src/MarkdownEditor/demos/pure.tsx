@@ -1,6 +1,5 @@
 ﻿import { Preview } from '@ant-design/md-editor';
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # 腾讯研究报告

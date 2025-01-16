@@ -1,6 +1,6 @@
 ﻿import { MarkdownEditor, Slides } from '@ant-design/md-editor';
 import { Segmented } from 'antd';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const markdown = `# 腾讯研究报告
 

@@ -1,8 +1,9 @@
 ﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
+import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { ChartAttrToolBar } from './ChartAttrToolBar';
 import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
@@ -17,19 +18,19 @@ const ChartMap = {
   },
   line: {
     title: '折线图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['column', 'bar', 'area', 'table'],
   },
   column: {
     title: '柱状图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['bar', 'line', 'area', 'table'],
   },
   area: {
     title: '面积图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['column', 'bar', 'line', 'table'],
   },
   table: {
     title: '表格',
-    changeData: ['column', 'line', 'area', 'table', 'pie'],
+    changeData: ['column', 'line', 'area', 'pie'],
   },
   descriptions: {
     title: '定义列表',
@@ -43,7 +44,6 @@ const ChartMap = {
  * @param chartType - 图表类型，可以是 'pie'、'bar'、'line'、'column'、'area' 或 'descriptions'。
  * @param chartData - 图表数据，记录数组。
  * @param config - 图表配置对象，包括以下属性：
- *   @param config.defaultProps - 默认属性。
  *   @param config.height - 图表高度。
  *   @param config.x - x 轴字段。
  *   @param config.y - y 轴字段。
@@ -54,7 +54,7 @@ const ChartMap = {
  *
  * @returns 返回相应的图表组件。
  */
-export const ChartRender = (props: {
+export const ChartRender: React.FC<{
   chartType:
     | 'pie'
     | 'bar'
@@ -65,7 +65,6 @@ export const ChartRender = (props: {
     | 'table';
   chartData: Record<string, any>[];
   config: {
-    defaultProps: any;
     height: any;
     x: any;
     y: any;
@@ -79,7 +78,7 @@ export const ChartRender = (props: {
   isChartList?: boolean;
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
-}) => {
+}> = (props) => {
   const [chartType, setChartType] = useState<
     'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions' | 'table'
   >(() => props.chartType);
@@ -91,6 +90,8 @@ export const ChartRender = (props: {
     columnLength,
     title,
   } = props;
+
+  const chartRef = useRef<Chart>();
 
   const [config, setConfig] = useState(() => props.config);
   /**
@@ -121,7 +122,7 @@ export const ChartRender = (props: {
             gap: 4,
             border: '1px solid #f0f0f0',
             padding: '4px 12px',
-            borderRadius: 14,
+            borderRadius: '1em',
           }}
         >
           {ChartMap[chartType]?.title}
@@ -155,7 +156,7 @@ export const ChartRender = (props: {
               gap: 4,
               border: '1px solid #f0f0f0',
               padding: '4px 12px',
-              borderRadius: 14,
+              borderRadius: '1em',
             }}
           >
             {columnLength} 列
@@ -253,6 +254,8 @@ export const ChartRender = (props: {
     ].filter((item) => !!item) as JSX.Element[];
 
   const chartDom = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    if (process.env.NODE_ENV === 'test') return null;
     if (chartType === 'table') {
       return (
         <div
@@ -262,7 +265,7 @@ export const ChartRender = (props: {
             margin: 12,
             overflow: 'auto',
             border: '1px solid #eee',
-            borderRadius: 18,
+            borderRadius: '0.5em',
             flex: 1,
             maxWidth: 'calc(100% - 32px)',
             maxHeight: 400,
@@ -282,6 +285,7 @@ export const ChartRender = (props: {
     if (chartType === 'pie') {
       return (
         <Pie
+          chartRef={chartRef}
           index={config?.index}
           key={config?.index}
           data={chartData}
@@ -293,6 +297,7 @@ export const ChartRender = (props: {
     if (chartType === 'bar') {
       return (
         <Bar
+          chartRef={chartRef}
           data={chartData}
           index={config?.index}
           yField={config?.y}
@@ -308,12 +313,12 @@ export const ChartRender = (props: {
     if (chartType === 'line') {
       return (
         <Line
+          chartRef={chartRef}
           key={config?.index}
           index={config?.index}
           data={chartData}
           yField={config?.y}
           xField={config?.x}
-          {...config?.defaultProps}
           height={config?.height || 400}
           {...config?.rest}
           title=""
@@ -323,12 +328,12 @@ export const ChartRender = (props: {
     if (chartType === 'column') {
       return (
         <Column
+          chartRef={chartRef}
           key={config?.index}
           index={config?.index}
           data={chartData}
           yField={config?.y}
           xField={config?.x}
-          {...config?.defaultProps}
           height={config?.height || 400}
           {...config?.rest}
           title=""
@@ -338,6 +343,7 @@ export const ChartRender = (props: {
     if (chartType === 'area') {
       return (
         <Area
+          chartRef={chartRef}
           key={config?.index}
           data={chartData}
           index={config?.index}

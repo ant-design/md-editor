@@ -7,7 +7,7 @@
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
-      borderRadius: '16px',
+      borderRadius: '1.15px',
       fontFeatureSettings: 'normal',
       fontVariationSettings: 'normal',
       textSizeAdjust: '100%',
@@ -135,7 +135,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
         '& &-code-content': {
-          borderRadius: '18px',
+          borderRadius: '0.5em',
           fontSize: '0.85em',
           boxSizing: 'border-box',
           lineHeight: '1.62em',

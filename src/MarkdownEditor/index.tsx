@@ -145,6 +145,12 @@ export type MarkdownEditorProps = {
     hideTools?: ToolsKeyType[];
   };
 
+  /**
+   * markdown 编辑器的根容器，用于外部获取实例
+   * @default document.body
+   */
+  rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
+
   fncProps?: {
     render: (
       props: { children: string },
@@ -327,6 +333,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     <EditorStoreContext.Provider
       value={{
         keyTask$,
+        rootContainer: props.rootContainer,
         setShowComment,
         store: instance.store,
         typewriter: props.typewriter ?? false,
@@ -379,6 +386,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         <div
           style={{
             padding: props.readonly ? '8px' : '24px 24px',
+            paddingLeft: props.readonly ? undefined : 32,
             overflow: 'auto',
             display: 'flex',
             height: !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
