@@ -136,7 +136,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
   useEffect(() => {
     const width = Math.max(
       rootContainer?.current?.clientWidth ||
-        htmlRef.current?.clientWidth ||
+        htmlRef.current?.parentElement?.clientWidth ||
         256,
       256,
     );
@@ -152,19 +152,19 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         data-be={'chart'}
         style={{
           flex: 1,
-          minWidth,
+          minWidth: Math.min(minWidth, 856),
+          maxWidth: '100%',
         }}
         ref={htmlRef}
         onDragStart={store.dragStart}
       >
         <DragHandle />
         <div
-          className="chart-box"
+          className="ant-md-editor-chart-box"
           style={{
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '0.5em',
-            overflow: 'auto',
           }}
         >
           <ErrorBoundary
