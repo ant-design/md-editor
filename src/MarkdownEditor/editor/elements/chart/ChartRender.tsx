@@ -18,19 +18,19 @@ const ChartMap = {
   },
   line: {
     title: '折线图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['column', 'bar', 'area', 'table'],
   },
   column: {
     title: '柱状图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['bar', 'line', 'area', 'table'],
   },
   area: {
     title: '面积图',
-    changeData: ['column', 'line', 'area', 'table'],
+    changeData: ['column', 'bar', 'line', 'table'],
   },
   table: {
     title: '表格',
-    changeData: ['column', 'line', 'area', 'table', 'pie'],
+    changeData: ['column', 'line', 'area', 'pie'],
   },
   descriptions: {
     title: '定义列表',
