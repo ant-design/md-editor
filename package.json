@@ -19,7 +19,7 @@
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
     "linçt": "npm run lint:es && npm run lint:css",
     "prepare": "husky install && dumi setup",
-    "prepublishOnly": "father doctor && npm run build",
+    "prepublishOnly": "father doctor && npm run test && npm run build",
     "prettier": "prettier --write \"{src,test}/**/*.{js,jsx,ts,tsx,css,less,json,md}\"",
     "start": "npm run dev",
     "test": "vitest --run",
