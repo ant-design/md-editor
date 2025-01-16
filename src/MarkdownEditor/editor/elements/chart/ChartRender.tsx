@@ -44,7 +44,6 @@ const ChartMap = {
  * @param chartType - 图表类型，可以是 'pie'、'bar'、'line'、'column'、'area' 或 'descriptions'。
  * @param chartData - 图表数据，记录数组。
  * @param config - 图表配置对象，包括以下属性：
- *   @param config.defaultProps - 默认属性。
  *   @param config.height - 图表高度。
  *   @param config.x - x 轴字段。
  *   @param config.y - y 轴字段。
@@ -66,7 +65,6 @@ export const ChartRender: React.FC<{
     | 'table';
   chartData: Record<string, any>[];
   config: {
-    defaultProps: any;
     height: any;
     x: any;
     y: any;
@@ -321,7 +319,6 @@ export const ChartRender: React.FC<{
           data={chartData}
           yField={config?.y}
           xField={config?.x}
-          {...config?.defaultProps}
           height={config?.height || 400}
           {...config?.rest}
           title=""
@@ -337,7 +334,6 @@ export const ChartRender: React.FC<{
           data={chartData}
           yField={config?.y}
           xField={config?.x}
-          {...config?.defaultProps}
           height={config?.height || 400}
           {...config?.rest}
           title=""

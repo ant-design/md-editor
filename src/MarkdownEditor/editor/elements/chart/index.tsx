@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useMemo } from 'react';
+﻿import dayjs from 'dayjs';
+import React, { useEffect, useMemo } from 'react';
 import { RenderElementProps, useSlate } from 'slate-react';
 import { TableNode } from '../../../el';
 import { useEditorStore } from '../../store';
@@ -20,6 +21,31 @@ function reverseFormatNumber(val: string, locale: any) {
   return Number.isNaN(reversedVal) ? NaN : Number(reversedVal);
 }
 
+function isValidDate(dateString: string) {
+  const defaultDateFormats = [
+    'YYYY-MM-DD',
+    'YYYY-MM-DD HH:mm:ss',
+    'YYYY/MM/DD',
+    'YYYY/MM/DD HH:mm:ss',
+    'DD/MM/YYYY',
+    'DD/MM/YYYY HH:mm:ss',
+    'MMMM D, YYYY',
+    'MMMM D, YYYY h:mm A',
+    'MMM D, YYYY',
+    'MMM D, YYYY h:mm A',
+    'ddd, MMM D, YYYY h:mm A',
+  ];
+  for (let i = 0; i < defaultDateFormats.length; i++) {
+    if (dayjs(dateString, defaultDateFormats[i]).isValid()) {
+      return dayjs(dateString).format(defaultDateFormats[i]);
+    }
+  }
+  if (dayjs(dateString).isValid()) {
+    return dayjs(dateString).format('YYYY-MM-DD');
+  }
+  return dateString;
+}
+
 /**
  * 转化数字，转化不成功继续用string
  * @param value
@@ -29,146 +55,15 @@ const numberString = (value: string) => {
   if (!value) return value;
   try {
     if (typeof value === 'number') return value;
-
     if (typeof value === 'string') {
       const formattedValue = reverseFormatNumber(value, 'en-US');
       if (!isNaN(formattedValue)) return formattedValue;
+      return isValidDate(value);
     }
     return value;
   } catch (error) {
     return value;
   }
-};
-
-/**
- * 创建一个新的 `Intl.NumberFormat` 实例，用于将数字格式化为美国英语的十进制格式。
- *
- * @constant
- * @type {Intl.NumberFormat}
- * @default
- * @example
- * const formattedNumber = intl.format(1234567.89);
- * console.log(formattedNumber); // 输出: "1,234,567.89"
- */
-const intl = new Intl.NumberFormat('en-US', {
-  style: 'decimal',
-});
-
-/**
- * 将数字或字符串格式化为字符串。
- *
- * @param value - 要格式化的值，可以是字符串或数字。
- * @returns 格式化后的字符串。如果输入值为字符串，则直接返回该字符串；
- *          如果输入值为数字，则使用 `intl.format` 方法格式化后返回；
- *          如果输入值为空或格式化过程中发生错误，则返回原始值。
- */
-const stringFormatNumber = (value: string | number) => {
-  if (!value) return value;
-  try {
-    if (typeof value === 'string') return value;
-
-    if (typeof value === 'number') {
-      return intl.format(Number(value));
-    }
-    return value;
-  } catch (error) {
-    return value;
-  }
-};
-
-/**
- * 生成图表配置属性的函数。
- *
- * @param config - 配置对象，包含以下属性：
- *   @param config.x - x轴字段名称。
- *   @param config.height - 图表高度。
- *   @param config.y - y轴字段名称。
- *   @param config.colorLegend - 颜色图例字段名称。
- * @returns 默认的图表配置属性对象。
- */
-const genConfigProps = (config: {
-  x: string;
-  height: number;
-  y: string;
-  colorLegend?: string | null;
-}) => {
-  const defaultProps = {
-    tooltip: {
-      title: (d: any) => {
-        return d[config.x];
-      },
-      items: [
-        {
-          field: config.y,
-          valueFormatter: (value: string) => {
-            return stringFormatNumber(value);
-          },
-        },
-      ],
-    },
-    axis: {
-      x: {
-        label: { autoHide: true },
-        labelFormatter: (value: number | string) => {
-          return stringFormatNumber(value);
-        },
-      },
-      y: {
-        label: { autoHide: true },
-        labelFormatter: (value: number | string) => {
-          return stringFormatNumber(value);
-        },
-      },
-    },
-    style: {
-      maxWidth: 20, // 圆角样式
-      radiusTopLeft: 4,
-      radiusTopRight: 4,
-    },
-    label: false,
-    height: config.height || 400,
-    legend: {
-      color: {
-        title: false,
-        position: 'right',
-        rowPadding: 5,
-      },
-    },
-    color: [
-      '#1677ff',
-      '#15e7e4',
-      '#8954FC',
-      '#F45BB5',
-      '#00A6FF',
-      '#33E59B',
-      '#D666E4',
-      '#6151FF',
-      '#BF3C93',
-      '#005EE0',
-    ],
-    scale: {
-      color: {
-        type: 'ordinal',
-        range: [
-          '#1677ff',
-          '#15e7e4',
-          '#8954FC',
-          '#F45BB5',
-          '#00A6FF',
-          '#33E59B',
-          '#D666E4',
-          '#6151FF',
-          '#BF3C93',
-          '#005EE0',
-        ],
-      },
-    },
-    colorField:
-      config?.colorLegend && config?.colorLegend !== 'null'
-        ? config.colorLegend
-        : undefined,
-  };
-  return defaultProps;
 };
 
 const groupByCategory = (data: any[], key: any) => {
@@ -245,7 +140,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
         256,
       256,
     );
-    setMinWidth(256);
+    setMinWidth(width || 256);
     setColumnLength(Math.min(Math.floor(width / 256), config.length));
   }, []);
 
@@ -339,21 +234,23 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                       );
                     }
 
-                    chartData = chartData.map((item: any) => {
-                      return {
-                        ...item,
-                        [x]: numberString(item[x]),
-                        [y]: numberString(item[y]),
-                      };
-                    });
+                    chartData = chartData
+                      .map((item: any) => {
+                        return {
+                          ...item,
+                          [x]: numberString(item[x]),
+                          [y]: numberString(item[y]),
+                        };
+                      })
+                      .sort((a, b) => {
+                        if (dayjs(a[x]).isValid() && dayjs(b[x]).isValid()) {
+                          return dayjs(a[x]).valueOf() - dayjs(b[x]).valueOf();
+                        }
+                        return 0;
+                      });
 
-                    const defaultProps = genConfigProps({
-                      x,
-                      y,
-                      height,
-                      colorLegend: rest?.colorLegend,
-                    });
                     const subgraphBy = rest?.subgraphBy;
+
                     if (subgraphBy) {
                       const groupData = groupByCategory(chartData, subgraphBy);
                       return Object.keys(groupData).map((key, subIndex) => {
@@ -369,7 +266,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                             onColumnLengthChange={setColumnLength}
                             isChartList
                             config={{
-                              defaultProps,
                               height,
                               x,
                               y,
@@ -391,7 +287,6 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
                         chartType={chartType}
                         chartData={chartData}
                         config={{
-                          defaultProps,
                           height,
                           x,
                           y,
@@ -456,6 +351,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
       editor,
       columnLength,
       readonly,
+      minWidth,
     ],
   );
 };
