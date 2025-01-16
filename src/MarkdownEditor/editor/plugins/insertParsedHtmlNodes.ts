@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-param-reassign */
+import { message } from 'antd';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
 import { docxDeserializer } from '../utils/docx/docxDeserializer';
@@ -229,6 +230,7 @@ export const insertParsedHtmlNodes = async (
     return false;
   }
 
+  const hideLoading = message.loading('parsing...', 0);
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
@@ -256,6 +258,8 @@ export const insertParsedHtmlNodes = async (
     }
     return fragment;
   });
+
+  hideLoading();
 
   if (!fragmentList?.length) return false;
 
