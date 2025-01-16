@@ -236,17 +236,17 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   const config = [node.otherProps?.config].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
-  const [minWidth, setMinWidth] = React.useState(290);
+  const [minWidth, setMinWidth] = React.useState(256);
 
   useEffect(() => {
     const width = Math.max(
       rootContainer?.current?.clientWidth ||
         htmlRef.current?.clientWidth ||
-        290,
-      290,
+        256,
+      256,
     );
-    setMinWidth(290);
-    setColumnLength(Math.min(Math.floor(width / 200), config.length));
+    setMinWidth(256);
+    setColumnLength(Math.min(Math.floor(width / 256), config.length));
   }, []);
 
   return useMemo(
