@@ -4,6 +4,11 @@ import { glob } from 'glob';
 import React, { useEffect } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
+const waitTime = (time: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+
 const TestApp = (props: { children: any; onInit: () => void }) => {
   useEffect(() => {
     setTimeout(() => {
@@ -35,6 +40,7 @@ function demoTest() {
       it(`renders ${file} correctly`, async () => {
         const fn = vi.fn();
         Math.random = () => 0.8404419276253765;
+
         const DemoModule = await import(file);
         const wrapper = render(
           <ConfigProvider
@@ -47,6 +53,8 @@ function demoTest() {
             </TestApp>
           </ConfigProvider>,
         );
+
+        await waitTime(1000);
         await waitFor(() => {
           return wrapper.findAllByText('test');
         });
