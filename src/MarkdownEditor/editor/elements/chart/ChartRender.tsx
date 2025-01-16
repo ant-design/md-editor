@@ -124,7 +124,7 @@ export const ChartRender: React.FC<{
             gap: 4,
             border: '1px solid #f0f0f0',
             padding: '4px 12px',
-            borderRadius: 14,
+            borderRadius: '1em',
           }}
         >
           {ChartMap[chartType]?.title}
@@ -158,7 +158,7 @@ export const ChartRender: React.FC<{
               gap: 4,
               border: '1px solid #f0f0f0',
               padding: '4px 12px',
-              borderRadius: 14,
+              borderRadius: '1em',
             }}
           >
             {columnLength} 列
@@ -267,7 +267,7 @@ export const ChartRender: React.FC<{
             margin: 12,
             overflow: 'auto',
             border: '1px solid #eee',
-            borderRadius: 18,
+            borderRadius: '1.2em',
             flex: 1,
             maxWidth: 'calc(100% - 32px)',
             maxHeight: 400,

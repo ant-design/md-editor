@@ -296,7 +296,7 @@ export function Media({
           style={{
             padding: 12,
             border: '1px solid #f0f0f0',
-            borderRadius: 16,
+            borderRadius: '1.2px',
             width: '100%',
             backgroundImage:
               'linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%)',

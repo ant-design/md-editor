@@ -332,7 +332,7 @@ export const Table = observer((props: RenderElementProps) => {
             maxWidth: '100%',
             width: '100%',
             border: '1px solid #e8e8e8',
-            borderRadius: 16,
+            borderRadius: '1.2px',
             display: 'flex',
             minWidth: 0,
             boxShadow:
