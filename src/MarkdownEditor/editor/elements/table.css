@@ -3,8 +3,8 @@
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .intersection-point {
-  height: 14.4px;
-  width: 14.4px;
+  height: 0.9rem;
+  width: 0.9rem;
   border: 1px solid #dfdfdf;
   border-right: 0px;
   border-bottom: 0px;
