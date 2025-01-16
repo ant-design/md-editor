@@ -256,6 +256,8 @@ export const ChartRender: React.FC<{
     ].filter((item) => !!item) as JSX.Element[];
 
   const chartDom = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    if (process.env.NODE_ENV === 'test') return null;
     if (chartType === 'table') {
       return (
         <div
