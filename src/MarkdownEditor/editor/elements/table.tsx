@@ -423,7 +423,7 @@ export const Table = observer((props: RenderElementProps) => {
           </div>
           <table
             style={{
-              borderCollapse: 'collapse',
+              borderCollapse: 'separate',
               borderSpacing: 0,
             }}
             ref={tableTargetRef}

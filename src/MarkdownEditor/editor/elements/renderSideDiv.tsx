@@ -137,8 +137,11 @@ export function RowSideDiv(props: {
               position: 'relative',
               width: '14px',
               height:
-                tr?.getBoundingClientRect?.()?.height - 0.76 ||
-                tr?.clientHeight - 0.76,
+                index === 0
+                  ? (tr?.getBoundingClientRect?.()?.height ||
+                      tr?.clientHeight) - 1.8
+                  : (tr?.getBoundingClientRect?.()?.height ||
+                      tr?.clientHeight) - 0.8,
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
@@ -197,6 +200,7 @@ export function ColSideDiv(props: {
   useEffect(() => {
     if (!tableRef.current) return;
     const tableElement = tableRef.current;
+    console.log('tableElement', tableElement.scrollLeft);
     const handleScroll = () => {
       setScrollOffset(tableElement.scrollLeft);
     };
