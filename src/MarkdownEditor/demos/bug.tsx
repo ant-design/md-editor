@@ -3504,7 +3504,7 @@ const Rerender = () => {
     const run = async () => {
       if (process.env.NODE_ENV === 'test') {
         instance.current?.store.updateNodeList(
-          parserMarkdown(mdList.at(-1)?.data?.content||'').schema,
+          parserMarkdown(mdList.at(-1)?.data?.content || '').schema,
         );
         return;
       }

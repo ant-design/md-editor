@@ -308,11 +308,12 @@ export type CustomLeaf<T = Record<string, any>> = {
 
 export type NodeTypes<T extends Elements = Elements> = T['type'];
 
-export type MapValue<T> = T extends Map<any, infer I>
-  ? I
-  : T extends WeakMap<any, infer I>
-  ? I
-  : unknown;
+export type MapValue<T> =
+  T extends Map<any, infer I>
+    ? I
+    : T extends WeakMap<any, infer I>
+      ? I
+      : unknown;
 
 declare module 'slate' {
   interface BaseElement {
