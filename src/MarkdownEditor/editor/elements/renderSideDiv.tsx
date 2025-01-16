@@ -120,7 +120,7 @@ export function RowSideDiv(props: {
           position: 'absolute',
           display: 'block',
           zIndex: 100,
-          width: '0.9rem',
+          width: '0.9em',
           marginTop: '16px',
           marginLeft: '-16px',
         }}
@@ -142,7 +142,7 @@ export function RowSideDiv(props: {
                   : tr?.getBoundingClientRect?.()?.height - 0.66 ||
                     tr?.clientHeight - 1,
               ...(index === rowDomArr.length - 1 && {
-                borderBottomLeftRadius: '7.2px',
+                borderBottomLeftRadius: '0.5em',
               }),
             }}
             getTableNode={getTableNode}
@@ -236,10 +236,10 @@ export function ColSideDiv(props: {
               top: 0,
               left: leftPosition - 50.5,
               width: colRect?.width || td?.clientWidth,
-              height: '0.9rem',
+              height: '0.9em',
               zIndex: 101,
               ...(index === colDomArr.length - 1 && {
-                borderTopRightRadius: '0.45rem',
+                borderTopRightRadius: '0.5em',
               }),
             }}
             getTableNode={getTableNode}

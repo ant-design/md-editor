@@ -422,6 +422,7 @@ export const Table = observer((props: RenderElementProps) => {
             />
           </div>
           <table
+            className="md-editor-table"
             style={{
               borderCollapse: 'separate',
               borderSpacing: 0,
