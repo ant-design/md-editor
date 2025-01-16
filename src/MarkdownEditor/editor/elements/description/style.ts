@@ -13,11 +13,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       border: '1px solid rgb(232, 232, 232)',
       table: {
         '& th': {
-          padding: '12px 20px',
+          padding: '0.8em 1.2em',
           textAlign: 'left',
           fontWeight: 500,
+          backgroundColor: 'rgb(229 231 235 / 0.5)',
           border: '1px solid rgb(232, 232, 232)',
-          borderRadius: '0.5em',
         },
         '& td': {
           padding: '12px 20px',
