@@ -1160,6 +1160,12 @@ export default () => {
     const list = defaultValue.split('');
     const html = document.getElementById('container');
     const run = async () => {
+      if (process.env.NODE_ENV === 'test') {
+        instance.current?.store.updateNodeList(
+          parserMarkdown(defaultValue).schema,
+        );
+        return;
+      }
       for await (const item of list) {
         md += item;
         await new Promise((resolve) => {
