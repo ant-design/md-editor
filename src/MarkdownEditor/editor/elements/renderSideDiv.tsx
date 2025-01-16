@@ -200,7 +200,6 @@ export function ColSideDiv(props: {
   useEffect(() => {
     if (!tableRef.current) return;
     const tableElement = tableRef.current;
-    console.log('tableElement', tableElement.scrollLeft);
     const handleScroll = () => {
       setScrollOffset(tableElement.scrollLeft);
     };
