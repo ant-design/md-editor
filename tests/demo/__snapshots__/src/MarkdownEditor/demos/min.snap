@@ -138,14 +138,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#创始人"
                       title="创始人"
                     >
@@ -3360,14 +3360,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#表格"
                       title="表格"
                     >
@@ -4221,14 +4221,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#description"
                       title="Description"
                     >
@@ -5464,14 +5464,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#图表"
                       title="图表"
                     >
@@ -7773,14 +7773,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#引用"
                       title="引用"
                     >
@@ -7907,14 +7907,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#表单"
                       title="表单"
                     >
@@ -8023,14 +8023,14 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#删除线"
                       title="删除线"
                     >

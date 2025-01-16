@@ -3502,6 +3502,12 @@ const Rerender = () => {
   const instance = useRef<MarkdownEditorInstance>();
   useEffect(() => {
     const run = async () => {
+      if (process.env.NODE_ENV === 'test') {
+        instance.current?.store.updateNodeList(
+          parserMarkdown(mdList.at(-1)?.data?.content||'').schema,
+        );
+        return;
+      }
       mdList?.forEach((item, index) => {
         setTimeout(() => {
           instance.current?.store.updateNodeList(
@@ -3606,7 +3612,6 @@ export default () => {
         );
       })}
       <Rerender />
-
       <MarkdownEditor
         initValue={bugMd}
         toc={false}

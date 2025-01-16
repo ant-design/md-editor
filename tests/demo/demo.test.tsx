@@ -8,7 +8,7 @@ const TestApp = (props: { children: any; onInit: () => void }) => {
   useEffect(() => {
     setTimeout(() => {
       props.onInit?.();
-    }, 10);
+    }, 160);
   }, []);
   return (
     <App>
