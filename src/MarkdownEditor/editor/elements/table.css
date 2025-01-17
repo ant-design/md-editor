@@ -1,6 +1,6 @@
 .selected-cell-td {
   background-color: rgba(209, 236, 249) !important;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .intersection-point {
   height: 0.9em;
@@ -13,7 +13,7 @@
   margin-top: 0px;
   margin-left: -16px;
   border-top-left-radius: 0.5em;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   background-color: #e1f0ff;
   &.active {
@@ -34,7 +34,7 @@
   z-index: 20;
   cursor: pointer;
   background-color: #e1f0ff;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   &.full-active {
     background-color: #59a5f6;
   }

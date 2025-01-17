@@ -1,4 +1,4 @@
-import {
+import React, {
   CSSProperties,
   SetStateAction,
   useEffect,
@@ -234,7 +234,7 @@ export function ColSideDiv(props: {
             divStyle={{
               position: 'absolute',
               top: 0,
-              left: leftPosition - 50.5,
+              left: leftPosition - 59,
               width: colRect?.width || td?.clientWidth,
               height: '0.9em',
               zIndex: 101,
