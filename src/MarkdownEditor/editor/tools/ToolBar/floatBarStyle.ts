@@ -13,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       border: '1px solid rgb(229 231 235 / 0.8)',
       overflow: 'hidden',
       height: '28px',
-      borderRadius: '18px',
+      borderRadius: '12px',
       backgroundColor: 'rgb(255 255 255)',
       fontSize: '1.05em',
       color: 'rgb(107 114 128 / 80%)',

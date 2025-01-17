@@ -18,7 +18,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '24px',
         gap: '4px',
         padding: '4px',
-        borderRadius: '18px',
+        borderRadius: '12px',
         cursor: 'pointer',
         '&:hover': {
           backgroundColor: 'rgb(209 213 219 / 0.4)',
