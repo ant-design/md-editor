@@ -49,7 +49,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginBottom: '0.3em',
       },
       '.attach .file': {
-        borderRadius: '18px',
+        borderRadius: '12px',
         borderWidth: '1px',
         borderColor: 'rgb(229 231 235 / 1)',
         backgroundColor: 'rgb(249 250 251 / 1)',
@@ -206,7 +206,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           width: '4px',
           position: 'absolute',
           display: 'block',
-          borderRadius: '18px',
+          borderRadius: '12px',
           backgroundColor: 'rgb(107 114 128 / 1)',
         },
       },
@@ -236,7 +236,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'pointer',
       },
       '& &-high-text': {
-        borderRadius: '18px',
+        borderRadius: '12px',
       },
       '& &-m-html': {
         color: 'rgba(0,0,0,0.45)',
