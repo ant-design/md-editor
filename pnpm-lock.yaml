@@ -27,7 +27,7 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ant-design/pro-components':
-        specifier: ^2.8.2
+        specifier: ^2.8.3
         version: 2.8.3(antd@5.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@antv/g2':
         specifier: ^5.2.10
@@ -42,7 +42,7 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       antd:
-        specifier: ^5.22.7
+        specifier: ^5.23.1
         version: 5.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       blob-util:
         specifier: ^2.0.2
@@ -63,10 +63,10 @@ importers:
         specifier: ^0.31.1
         version: 0.31.1(@types/react@18.3.18)(dumi@2.4.17(@babel/core@7.26.0)(@swc/helpers@0.5.1)(@types/node@22.10.7)(@types/react@18.3.18)(eslint@8.57.1)(lightningcss@1.22.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.5)(stylelint@14.16.1)(terser@5.37.0)(type-fest@1.4.0)(typescript@5.7.3)(webpack@5.97.1))(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       framer-motion:
-        specifier: ^11.15.0
+        specifier: ^11.18.0
         version: 11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       glob:
-        specifier: ^11.0.0
+        specifier: ^11.0.1
         version: 11.0.1
       is-hotkey:
         specifier: ^0.2.0
@@ -81,7 +81,7 @@ importers:
         specifier: ^9.2.0
         version: 9.2.0(mobx@6.13.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       motion:
-        specifier: ^11.17.0
+        specifier: ^11.18.0
         version: 11.18.0(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       nanoid:
         specifier: ^5.0.9
@@ -123,7 +123,7 @@ importers:
         specifier: ^7.8.1
         version: 7.8.1
       shiki:
-        specifier: ^1.24.4
+        specifier: ^1.27.2
         version: 1.27.2
       slash2:
         specifier: ^2.0.0
@@ -154,7 +154,7 @@ importers:
         specifier: ^6.6.3
         version: 6.6.3
       '@testing-library/react':
-        specifier: ^16.1.0
+        specifier: ^16.2.0
         version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/diacritics':
         specifier: ^1.3.3
@@ -181,7 +181,7 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
       '@umijs/lint':
-        specifier: ^4.4.2
+        specifier: ^4.4.4
         version: 4.4.4(eslint@8.57.1)(stylelint@14.16.1)(typescript@5.7.3)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
@@ -214,13 +214,13 @@ importers:
         specifier: 2.2.13
         version: 2.2.13
       prettier:
-        specifier: ^3.0.0
+        specifier: ^3.4.2
         version: 3.4.2
       prettier-plugin-organize-imports:
         specifier: ^4.1.0
         version: 4.1.0(prettier@3.4.2)(typescript@5.7.3)
       prettier-plugin-packagejson:
-        specifier: ^2.5.6
+        specifier: ^2.5.7
         version: 2.5.7(prettier@3.4.2)
       react:
         specifier: ^18.3.1
@@ -232,7 +232,7 @@ importers:
         specifier: ^14.16.1
         version: 14.16.1
       typescript:
-        specifier: ^5.7.2
+        specifier: ^5.7.3
         version: 5.7.3
       vitest:
         specifier: ^2.1.8
