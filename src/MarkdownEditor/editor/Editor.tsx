@@ -63,6 +63,9 @@ export const MEditor = observer(
     const first = useRef(true);
     const highlight = useHighlight();
 
+    /**
+     * 初始化编辑器
+     */
     const initialNote = useCallback(async () => {
       if (instance) {
         nodeRef.current = instance;
@@ -624,6 +627,34 @@ export const MEditor = observer(
                   ...editorProps.style,
                 }
           }
+          onSelect={() => {
+            if (store.focus) {
+              store.editor.selection = getSelectionFromDomSelection(
+                store.editor,
+                window.getSelection()!,
+              );
+              store.setState((state) => {
+                state.preSelection = store.editor.selection;
+              });
+            }
+          }}
+          onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
+            if (isEventHandled(event)) {
+              return;
+            }
+            if (!hasEditableTarget(editor, event.target)) {
+              const domSelection = window.getSelection();
+              editor.selection = getSelectionFromDomSelection(
+                editor,
+                domSelection!,
+              );
+              if (editor.selection) {
+                Transforms.delete(editor, { at: editor.selection! });
+                return;
+              }
+            }
+            event.preventDefault();
+          }}
           onMouseDown={checkEnd}
           onFocus={onFocus}
           onBlur={onBlur}

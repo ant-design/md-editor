@@ -86,6 +86,7 @@ export class EditorStore {
   domRect: DOMRect | null = null;
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
+  preSelection: null | Selection = null;
   inputComposition = false;
   tableTask$ = new Subject<
     | 'insertRowBefore'

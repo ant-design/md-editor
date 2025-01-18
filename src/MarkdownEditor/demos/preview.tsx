@@ -1,6 +1,6 @@
 ﻿import { MarkdownEditor } from '@ant-design/md-editor';
 import { Tooltip } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # 腾讯研究报告
@@ -137,6 +137,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 `;
 export default () => {
+  const editorRef = React.useRef<any>();
   const [list, setList] = useState([
     {
       selection: {
@@ -190,8 +191,13 @@ export default () => {
       commentType: 'comment',
     },
   ]);
+  useEffect(() => {
+    // @ts-ignore
+    window.editorRef = editorRef;
+  }, []);
   return (
     <MarkdownEditor
+      editorRef={editorRef}
       width={'100vw'}
       height={'100vh'}
       reportMode
