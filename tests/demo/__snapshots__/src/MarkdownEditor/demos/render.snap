@@ -4942,7 +4942,6 @@
                                 <th
                                   data-be="th"
                                   data-slate-node="element"
-                                  style="text-align: right;"
                                 >
                                   <div
                                     style="min-width: 20px; text-wrap: wrap; max-width: 200px;"
@@ -4970,7 +4969,6 @@
                                 <th
                                   data-be="th"
                                   data-slate-node="element"
-                                  style="text-align: right;"
                                 >
                                   <div
                                     style="min-width: 164px; text-wrap: wrap; max-width: 200px;"
@@ -5001,7 +4999,6 @@
                                   class="group"
                                   data-be="td"
                                   data-slate-node="element"
-                                  style="text-align: right;"
                                 >
                                   <div
                                     style="min-width: 28px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -5028,7 +5025,6 @@
                                   class="group"
                                   data-be="td"
                                   data-slate-node="element"
-                                  style="text-align: right;"
                                 >
                                   <div
                                     style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
