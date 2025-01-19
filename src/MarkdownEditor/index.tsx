@@ -265,6 +265,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   const store = useMemo(() => new EditorStore(), []);
 
+  /**
+   * 初始化 schema
+   */
   const initSchemaValue = useMemo(() => {
     const list = parserMdToSchema(initValue!)?.schema;
     if (!props.readonly) {
@@ -298,6 +301,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     );
   }, []);
 
+  /**
+   * 初始化代码高亮
+   */
   useEffect(() => {
     instance.store.setState((value) => {
       value.refreshHighlight = Date.now();

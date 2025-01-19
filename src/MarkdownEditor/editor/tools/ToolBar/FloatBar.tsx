@@ -75,6 +75,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         if (Editor.hasPath(store?.editor, end)) {
           Transforms.select(store?.editor, Editor.end(store?.editor, end));
         }
+        store.setFloatBarOpen(false);
       }
     };
     window.addEventListener('keydown', close);

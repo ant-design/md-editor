@@ -21,7 +21,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`li:not(${token.componentCls}-task) > :first-child .ant-md-editor-drag-handle`]:
         {
           paddingLeft: '2px',
-          paddingRight: '18px',
+          paddingRight: '12px',
           left: '-44px !important',
         },
       [`li${token.componentCls}-task > :nth-child(2) .ant-md-editor-drag-handle`]:

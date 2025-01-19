@@ -1,4 +1,4 @@
-import {
+import React, {
   CSSProperties,
   SetStateAction,
   useEffect,
@@ -119,10 +119,9 @@ export function RowSideDiv(props: {
         style={{
           position: 'absolute',
           display: 'block',
-          borderBottom: '1px solid #DFDFDF',
           zIndex: 100,
-          width: '14px',
-          marginTop: '15.5px',
+          width: '0.9em',
+          marginTop: '16px',
           marginLeft: '-16px',
         }}
         contentEditable={false}
@@ -137,8 +136,14 @@ export function RowSideDiv(props: {
               position: 'relative',
               width: '14px',
               height:
-                tr?.getBoundingClientRect?.()?.height - 1 ||
-                tr?.clientHeight - 1,
+                index === 0
+                  ? tr?.getBoundingClientRect?.()?.height - 1.66 ||
+                    tr?.clientHeight - 2
+                  : tr?.getBoundingClientRect?.()?.height - 0.66 ||
+                    tr?.clientHeight - 1,
+              ...(index === rowDomArr.length - 1 && {
+                borderBottomLeftRadius: '0.5em',
+              }),
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
@@ -212,7 +217,7 @@ export function ColSideDiv(props: {
       style={{
         position: 'relative',
         display: 'flex',
-        height: '16px',
+        height: '1rem',
         zIndex: 100,
         transform: `translateX(${scrollOffset / 9999}px)`,
       }}
@@ -229,12 +234,12 @@ export function ColSideDiv(props: {
             divStyle={{
               position: 'absolute',
               top: 0,
-              left: leftPosition - 50.5,
+              left: leftPosition - 59,
               width: colRect?.width || td?.clientWidth,
-              height: '14.5px',
+              height: '0.9em',
               zIndex: 101,
               ...(index === colDomArr.length - 1 && {
-                borderTopRightRadius: '7.2px',
+                borderTopRightRadius: '0.5em',
               }),
             }}
             getTableNode={getTableNode}
