@@ -54,11 +54,7 @@ export function TableCell(props: RenderElementProps) {
     const minWidth = Math.min(domWidth, 200);
     const text = Node.string(props.element);
     return props.element.title ? (
-      <th
-        {...props.attributes}
-        style={{ textAlign: props.element.align }}
-        data-be={'th'}
-      >
+      <th {...props.attributes} data-be={'th'}>
         <div
           style={{
             minWidth: minWidth,
@@ -70,12 +66,7 @@ export function TableCell(props: RenderElementProps) {
         </div>
       </th>
     ) : (
-      <td
-        {...props.attributes}
-        style={{ textAlign: props.element.align }}
-        data-be={'td'}
-        className={classNames('group')}
-      >
+      <td {...props.attributes} data-be={'td'} className={classNames('group')}>
         {readonly && domWidth > 200 ? (
           <Popover
             title={
@@ -104,9 +95,6 @@ export function TableCell(props: RenderElementProps) {
                 WebkitBoxOrient: 'vertical',
                 WebkitLineClamp: 2,
                 maxHeight: 40,
-                textAlign: numberValidationRegex.test(text?.replaceAll(',', ''))
-                  ? 'right'
-                  : undefined,
               }}
             >
               {text}
