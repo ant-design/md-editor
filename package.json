@@ -83,6 +83,7 @@
     "shiki": "^1.24.4",
     "slash2": "^2.0.0",
     "slate": "0.112.0",
+    "slate-dom": "^0.111.0",
     "slate-history": "0.110.3",
     "slate-hyperscript": "0.100.0",
     "string-width": "^7.2.0",
@@ -119,7 +120,6 @@
     "prettier-plugin-packagejson": "^2.5.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "slate-dom": "^0.111.0",
     "stylelint": "^14.16.1",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
