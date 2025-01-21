@@ -4,11 +4,11 @@ import { action, runInAction } from 'mobx';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
 import { MarkdownEditorProps } from '../..';
 import { AttachNode, MediaNode, TableNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { parserMdToSchema } from '../parser/parserMdToSchema';
+import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';
 

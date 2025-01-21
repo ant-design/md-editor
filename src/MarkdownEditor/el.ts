@@ -1,7 +1,6 @@
 import { BaseEditor, BaseElement } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { ReactEditor } from 'slate-react';
-import { RenderElementProps } from 'slate-react/dist/components/editable';
+import { ReactEditor, RenderElementProps } from './editor/slate-react';
 
 type Align = 'left' | 'center' | 'right';
 

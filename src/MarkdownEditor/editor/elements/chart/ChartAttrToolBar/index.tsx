@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { ReactEditor } from '../../../slate-react';
 import { useEditorStore } from '../../../store';
 import { useStyle } from './ChartAttrToolBarStyle';
 

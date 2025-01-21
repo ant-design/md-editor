@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
 import { BaseElement, Editor, Path, Transforms } from 'slate';
-import { ReactEditor, useSlate } from 'slate-react';
 import { selChange$ } from '../editor/plugins/useOnchange';
+import { ReactEditor, useSlate } from '../editor/slate-react';
 import { EditorStore, useEditorStore } from '../editor/store';
 import { useGetSetState } from '../editor/utils';
 import { EditorUtils } from '../editor/utils/editorUtils';

@@ -10,11 +10,10 @@ import React, {
   useState,
 } from 'react';
 import { Editor, Node, NodeEntry, Path } from 'slate';
-import { ReactEditor } from 'slate-react';
-import { RenderElementProps } from 'slate-react/dist/components/editable';
 import stringWidth from 'string-width';
 import { TableCellNode, TableNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
+import { ReactEditor, RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { TableAttr } from '../tools/TableAttr';

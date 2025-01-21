@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
-import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import {
   CommentDataType,
   Elements,
@@ -22,6 +21,12 @@ import {
 } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
+import {
+  Editable,
+  ReactEditor,
+  RenderElementProps,
+  Slate,
+} from './slate-react';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
 import { isMarkdown } from './utils';
@@ -592,7 +597,7 @@ export const MEditor = observer(
             }
           }
         });
-        return decorateList.concat(ranges);
+        return decorateList.concat(ranges as any[]);
       } catch (error) {
         console.log('error', error);
         return decorateList;

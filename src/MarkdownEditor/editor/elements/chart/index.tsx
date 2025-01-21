@@ -1,7 +1,7 @@
 ﻿import dayjs from 'dayjs';
 import React, { useEffect, useMemo } from 'react';
-import { RenderElementProps, useSlate } from 'slate-react';
 import { TableNode } from '../../../el';
+import { RenderElementProps, useSlate } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { ErrorBoundary } from '../ErrorBoundary';

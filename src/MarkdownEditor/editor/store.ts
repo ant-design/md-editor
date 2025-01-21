@@ -15,7 +15,7 @@ import {
   Transforms,
 } from 'slate';
 import { withHistory } from 'slate-history';
-import { ReactEditor, withReact } from 'slate-react';
+import { ReactEditor, withReact } from './slate-react';
 
 import { parse } from 'querystring';
 import { CommentDataType, MarkdownEditorProps } from '..';
