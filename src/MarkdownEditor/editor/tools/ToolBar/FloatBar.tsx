@@ -71,6 +71,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         setState({ open: false });
         fileMap.clear();
         if (!sel.current) return;
+        //@ts-ignore
         const end = Range.end(sel.current!).path;
         if (Editor.hasPath(store?.editor, end)) {
           Transforms.select(store?.editor, Editor.end(store?.editor, end));

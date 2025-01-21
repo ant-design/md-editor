@@ -1,31 +1,32 @@
-import React, { forwardRef, memo, useRef, useState } from 'react'
-import { Editor, Text, Path, Element, Node } from 'slate'
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import React, { forwardRef, memo, useRef, useState } from 'react';
+import { Editor, Element, Node, Path, Text } from 'slate';
 
-import { ReactEditor, useSlateStatic } from '..'
-import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect'
-import { IS_ANDROID, IS_IOS } from 'slate-dom'
-import { MARK_PLACEHOLDER_SYMBOL } from 'slate-dom'
+import { IS_ANDROID, IS_IOS, MARK_PLACEHOLDER_SYMBOL } from 'slate-dom';
+import { ReactEditor, useSlateStatic } from '..';
+import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect';
 
 /**
  * Leaf content strings.
  */
 
 const String = (props: {
-  isLast: boolean
-  leaf: Text
-  parent: Element
-  text: Text
+  isLast: boolean;
+  leaf: Text;
+  parent: Element;
+  text: Text;
 }) => {
-  const { isLast, leaf, parent, text } = props
-  const editor = useSlateStatic()
-  const path = ReactEditor.findPath(editor, text)
-  const parentPath = Path.parent(path)
-  const isMarkPlaceholder = Boolean(leaf[MARK_PLACEHOLDER_SYMBOL])
+  const { isLast, leaf, parent, text } = props;
+  const editor = useSlateStatic();
+  const path = ReactEditor.findPath(editor, text);
+  const parentPath = Path.parent(path);
+  //@ts-ignore
+  const isMarkPlaceholder = Boolean(leaf[MARK_PLACEHOLDER_SYMBOL]);
 
   // COMPAT: Render text inside void nodes with a zero-width space.
   // So the node can contain selection but the text is not visible.
   if (editor.isVoid(parent)) {
-    return <ZeroWidthString length={Node.string(parent).length} />
+    return <ZeroWidthString length={Node.string(parent).length} />;
   }
 
   // COMPAT: If this is the last text node in an empty block, render a zero-
@@ -37,35 +38,37 @@ const String = (props: {
     !editor.isInline(parent) &&
     Editor.string(editor, parentPath) === ''
   ) {
-    return <ZeroWidthString isLineBreak isMarkPlaceholder={isMarkPlaceholder} />
+    return (
+      <ZeroWidthString isLineBreak isMarkPlaceholder={isMarkPlaceholder} />
+    );
   }
 
   // COMPAT: If the text is empty, it's because it's on the edge of an inline
   // node, so we render a zero-width space so that the selection can be
   // inserted next to it still.
   if (leaf.text === '') {
-    return <ZeroWidthString isMarkPlaceholder={isMarkPlaceholder} />
+    return <ZeroWidthString isMarkPlaceholder={isMarkPlaceholder} />;
   }
 
   // COMPAT: Browsers will collapse trailing new lines at the end of blocks,
   // so we need to add an extra trailing new lines to prevent that.
-  if (isLast && leaf.text.slice(-1) === '\n') {
-    return <TextString isTrailing text={leaf.text} />
+  if (isLast && leaf.text?.slice(-1) === '\n') {
+    return <TextString isTrailing text={leaf.text} />;
   }
 
-  return <TextString text={leaf.text} />
-}
+  return <TextString text={leaf.text!} />;
+};
 
 /**
  * Leaf strings with text in them.
  */
 const TextString = (props: { text: string; isTrailing?: boolean }) => {
-  const { text, isTrailing = false } = props
-  const ref = useRef<HTMLSpanElement>(null)
+  const { text, isTrailing = false } = props;
+  const ref = useRef<HTMLSpanElement>(null);
   const getTextContent = () => {
-    return `${text ?? ''}${isTrailing ? '\n' : ''}`
-  }
-  const [initialText] = useState(getTextContent)
+    return `${text ?? ''}${isTrailing ? '\n' : ''}`;
+  };
+  const [initialText] = useState(getTextContent);
 
   // This is the actual text rendering boundary where we interface with the DOM
   // The text is not rendered as part of the virtual DOM, as since we handle basic character insertions natively,
@@ -78,20 +81,20 @@ const TextString = (props: { text: string; isTrailing?: boolean }) => {
   // useLayoutEffect: updating our span before browser paint
   useIsomorphicLayoutEffect(() => {
     // null coalescing text to make sure we're not outputing "null" as a string in the extreme case it is nullish at runtime
-    const textWithTrailing = getTextContent()
+    const textWithTrailing = getTextContent();
 
     if (ref.current && ref.current.textContent !== textWithTrailing) {
-      ref.current.textContent = textWithTrailing
+      ref.current.textContent = textWithTrailing;
     }
 
     // intentionally not specifying dependencies, so that this effect runs on every render
     // as this effectively replaces "specifying the text in the virtual DOM under the <span> below" on each render
-  })
+  });
 
   // We intentionally render a memoized <span> that only receives the initial text content when the component is mounted.
   // We defer to the layout effect above to update the `textContent` of the span element when needed.
-  return <MemoizedText ref={ref}>{initialText}</MemoizedText>
-}
+  return <MemoizedText ref={ref}>{initialText}</MemoizedText>;
+};
 
 const MemoizedText = memo(
   forwardRef<HTMLSpanElement, { children: string }>((props, ref) => {
@@ -99,32 +102,32 @@ const MemoizedText = memo(
       <span data-slate-string ref={ref}>
         {props.children}
       </span>
-    )
-  })
-)
+    );
+  }),
+);
 
 /**
  * Leaf strings without text, render as zero-width strings.
  */
 
 export const ZeroWidthString = (props: {
-  length?: number
-  isLineBreak?: boolean
-  isMarkPlaceholder?: boolean
+  length?: number;
+  isLineBreak?: boolean;
+  isMarkPlaceholder?: boolean;
 }) => {
-  const { length = 0, isLineBreak = false, isMarkPlaceholder = false } = props
+  const { length = 0, isLineBreak = false, isMarkPlaceholder = false } = props;
 
   const attributes: {
-    'data-slate-zero-width': string
-    'data-slate-length': number
-    'data-slate-mark-placeholder'?: boolean
+    'data-slate-zero-width': string;
+    'data-slate-length': number;
+    'data-slate-mark-placeholder'?: boolean;
   } = {
     'data-slate-zero-width': isLineBreak ? 'n' : 'z',
     'data-slate-length': length,
-  }
+  };
 
   if (isMarkPlaceholder) {
-    attributes['data-slate-mark-placeholder'] = true
+    attributes['data-slate-mark-placeholder'] = true;
   }
 
   return (
@@ -132,7 +135,7 @@ export const ZeroWidthString = (props: {
       {!(IS_ANDROID || IS_IOS) || !isLineBreak ? '\uFEFF' : null}
       {isLineBreak ? <br /> : null}
     </span>
-  )
-}
+  );
+};
 
-export default String
+export default String;

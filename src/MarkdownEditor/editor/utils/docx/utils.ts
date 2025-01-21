@@ -140,7 +140,7 @@ const convertBytesToBase64 = (bytesArray: string | any[]) => {
     array4[3] = array3[2] & 0x3f;
 
     for (let j = 0; j < 4; j++) {
-      // Example: if array3length == 1, then we need to add 2 equal signs at the end of base64.
+      // Example: if array3length === 1, then we need to add 2 equal signs at the end of base64.
       // array3[ 0 ] is used to calculate array4[ 0 ] and array4[ 1 ], so there will be regular values,
       // next two ones have to be replaced with `=`, because array3[ 1 ] and array3[ 2 ] wasn't present in the input string.
       if (j <= array3length) {

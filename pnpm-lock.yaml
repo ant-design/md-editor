@@ -137,6 +137,9 @@ importers:
       slate:
         specifier: 0.112.0
         version: 0.112.0
+      slate-dom:
+        specifier: ^0.111.0
+        version: 0.111.0(slate@0.112.0)
       slate-history:
         specifier: 0.110.3
         version: 0.110.3(slate@0.112.0)
@@ -240,9 +243,6 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      slate-dom:
-        specifier: ^0.111.0
-        version: 0.111.0(slate@0.112.0)
       stylelint:
         specifier: ^14.16.1
         version: 14.16.1

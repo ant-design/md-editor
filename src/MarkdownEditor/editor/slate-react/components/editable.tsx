@@ -926,7 +926,7 @@ export const Editable = forwardRef(
         onPlaceholderResize: placeHolderResizeHandler,
         anchor: start,
         focus: start,
-      });
+      } as any);
     }
 
     const { marks } = editor;
