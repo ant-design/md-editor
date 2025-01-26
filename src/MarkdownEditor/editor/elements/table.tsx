@@ -9,14 +9,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, Node, NodeEntry, Path } from 'slate';
+import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
 import stringWidth from 'string-width';
-import { TableCellNode, TableNode } from '../../el';
+import { TableCellNode, TableNode, TableRowNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
-import { TableAttr } from '../tools/TableAttr';
+import { EditorUtils } from '../utils';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import './table.css';
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
@@ -150,7 +150,6 @@ export function TableCell(props: RenderElementProps) {
 export const Table = observer((props: RenderElementProps) => {
   const { store } = useEditorStore();
 
-  const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
     top: 0,
@@ -164,58 +163,14 @@ export const Table = observer((props: RenderElementProps) => {
     selectCols: 0,
     selectRows: 0,
   });
-  const [selected, path] = useSelStatus(props.element);
+  const [selectedTable, tablePath] = useSelStatus(props.element);
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
   const [activeDeleteBtn, setActiveDeleteBtn] = useState<string | null>(null);
+  const editor = store.editor;
 
-  useEffect(() => {
-    if (store.floatBarOpen) {
-      setTableAttrVisible(false);
-    }
-  }, [store.floatBarOpen]);
-
-  const isSel = useMemo(() => {
-    if (selected) return true;
-    if (!store.selectTablePath?.length) return false;
-    return store.selectTablePath.join('') === path.join('');
-  }, [store.editor, selected, store.selectTablePath, props.element]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!tableRef.current) return;
-      if (tableAttrVisible && tableRef.current) {
-        if (!store.editor.hasPath(tableRef.current[1])) return;
-        try {
-          const dom = ReactEditor.toDOMNode(
-            store.editor,
-            Node.get(store.editor, tableRef.current[1]),
-          ) as HTMLElement;
-          if (dom && !dom.contains(event.target as Node)) {
-            setTableAttrVisible(false);
-          }
-        } catch (error) {}
-      }
-      const isInsideScrollbar = () => {
-        if (!overflowShadowContainerRef.current) return false;
-        return overflowShadowContainerRef.current.contains(
-          event.target as Node,
-        );
-      };
-      if (isInsideScrollbar()) {
-        return;
-      }
-      setIsShowBar(false);
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [tableAttrVisible, tableRef, store.editor, isShowBar]);
-
-  const resize = useCallback(() => {
+  const updateTableDimensions = () => {
     const table = tableRef.current;
     if (!table) return;
     setTimeout(() => {
@@ -233,40 +188,389 @@ export const Table = observer((props: RenderElementProps) => {
         }
       } catch (e) {}
     }, 16);
-  }, [setState, store.editor]);
+  };
 
-  const handleClickTable = useCallback(() => {
-    if (store.floatBarOpen) return;
-    const el = store.tableCellNode;
-    if (el) {
-      tableCellRef.current = el;
-      try {
-        const dom = ReactEditor.toDOMNode(store.editor, el[0]) as HTMLElement;
-        const overflowShadowContainer = overflowShadowContainerRef.current!;
-        const tableTop = overflowShadowContainer.offsetTop;
-        let left = dom.getBoundingClientRect().left;
-        setState((prev) => ({
-          ...prev,
-          top: tableTop - 48 + 3,
-          left,
-        }));
-        setTableAttrVisible(true);
-      } catch (error) {
-        console.log(error);
-      }
-      setState((prev) => ({
-        ...prev,
-        align: el[0].align,
+  const resetGird = useCallback(
+    (row: number, col: number) => {
+      store.doManual();
+      setState((prevState) => ({
+        ...prevState,
+        scaleOpen: false,
       }));
-      const table = Editor.node(store.editor, Path.parent(Path.parent(el[1])));
-      if (table && table[0] !== tableRef.current?.[0]) {
-        tableRef.current = table;
-        resize();
+      const [table, path] = tableRef.current!;
+      if (state.rows > row) {
+        Transforms.removeNodes(editor, {
+          at: {
+            anchor: { path: [...path, row], offset: 0 },
+            focus: { path: [...path, state.rows], offset: 0 },
+          },
+          match: (node) => node.type === 'table-row',
+        });
+      }
+
+      const heads = (table.children?.[0]?.children as TableCellNode[]) || [];
+      const lastIndex = heads.length;
+      for (let i = 0; i < row; i++) {
+        const row = table?.children?.[i];
+        if (!row) {
+          const row: TableRowNode = {
+            type: 'table-row',
+            children: Array.from(new Array(col)).map((_, j) => {
+              return {
+                type: 'table-cell',
+                children: [],
+                align: heads[j]?.align,
+              } as TableCellNode;
+            }),
+          };
+          Transforms.insertNodes(editor, row, {
+            at: [...path, i],
+          });
+        } else {
+          if (state.cols > col) {
+            Transforms.removeNodes(editor, {
+              at: {
+                anchor: { path: [...path, i, col], offset: 0 },
+                focus: { path: [...path, i, state.cols], offset: 0 },
+              },
+              match: (node) => node.type === 'table-cell',
+            });
+          } else {
+            Array.from(new Array(col - state.cols)).forEach((_, j) => {
+              Transforms.insertNodes(
+                editor,
+                {
+                  type: 'table-cell',
+                  children: [],
+                  title: i === 0,
+                  align: heads[j + state.cols]?.align,
+                } as TableCellNode,
+                { at: [...(path || []), i, lastIndex + j] },
+              );
+            });
+          }
+        }
+      }
+      if (
+        tableCellRef.current &&
+        !Editor.hasPath(editor, tableCellRef.current[1]) &&
+        path
+      ) {
+        Transforms.select(editor, Editor.start(editor, path));
+      }
+      ReactEditor.focus(editor);
+    },
+    [editor],
+  );
+
+  const getScaleGirdClass = useCallback((row: number, col: number) => {
+    if (row === 1) {
+      if (state.enterScale) {
+        return col <= state.selectCols ? 'bg-gray-600' : 'bg-white';
+      } else {
+        return col <= state.cols ? 'bg-gray-600' : 'bg-white';
+      }
+    } else {
+      if (state.enterScale) {
+        return row <= state.selectRows && col <= state.selectCols
+          ? 'bg-gray-400'
+          : '';
+      } else {
+        return row <= state.rows && col <= state.cols ? 'bg-gray-400' : '';
       }
     }
-    setIsShowBar(true);
-  }, [store.tableCellNode, store.editor, setState, isShowBar]);
+  }, []);
+
+  const setAligns = useCallback(
+    (type: 'left' | 'center' | 'right') => {
+      const cell = tableCellRef.current!;
+      const table = tableRef.current!;
+      if (cell) {
+        const index = cell[1][cell[1].length - 1];
+        table?.[0]?.children?.forEach((el: { children: any[] }) => {
+          el.children?.forEach((cell, i) => {
+            if (i === index) {
+              Transforms.setNodes(
+                editor,
+                { align: type },
+                { at: EditorUtils.findPath(editor, cell) },
+              );
+            }
+          });
+        });
+      }
+      ReactEditor.focus(editor);
+    },
+    [editor],
+  );
+
+  const remove = useCallback(() => {
+    const table = tableRef.current!;
+
+    Transforms.delete(editor, { at: table[1] });
+    tableCellRef.current = undefined;
+    tableRef.current = undefined;
+    Transforms.insertNodes(
+      editor,
+      { type: 'paragraph', children: [{ text: '' }] },
+      { at: table[1], select: true },
+    );
+    ReactEditor.focus(editor);
+  }, [editor]);
+
+  const insertRow = useCallback((path: Path, columns: number) => {
+    Transforms.insertNodes(
+      editor,
+      {
+        type: 'table-row',
+        children: Array.from(new Array(columns)).map(() => {
+          return {
+            type: 'table-cell',
+            children: [{ text: '' }],
+          } as TableCellNode;
+        }),
+      },
+      {
+        at: path,
+      },
+    );
+    Transforms.select(editor, Editor.start(editor, path));
+  }, []);
+
+  const insertCol = useCallback(
+    (tablePath: Path, rows: number, index: number) => {
+      Array.from(new Array(rows)).forEach((_, i) => {
+        Transforms.insertNodes(
+          editor,
+          {
+            type: 'table-cell',
+            children: [{ text: '' }],
+            title: i === 0,
+          },
+          {
+            at: [...tablePath, i, index],
+          },
+        );
+      });
+      Transforms.select(editor, [...tablePath, 0, index, 0]);
+    },
+    [],
+  );
+
+  const removeRow = useCallback(
+    (path: Path, index: number, columns: number) => {
+      if (Path.hasPrevious(path)) {
+        Transforms.select(
+          editor,
+          Editor.end(editor, [
+            ...tableRef.current![1],
+            path[path.length - 1] - 1,
+            index,
+          ]),
+        );
+      } else {
+        Transforms.select(
+          editor,
+          Editor.end(editor, [
+            ...tableRef.current![1],
+            path[path.length - 1],
+            index,
+          ]),
+        );
+      }
+
+      Transforms.delete(editor, { at: path });
+
+      if (path[path.length - 1] === 0) {
+        Array.from(new Array(columns)).forEach((_, i) => {
+          Transforms.setNodes(
+            editor,
+            {
+              title: true,
+            },
+            {
+              at: [...path, i],
+            },
+          );
+        });
+      }
+    },
+    [editor],
+  );
+
+  const runTask = useCallback(
+    (
+      task:
+        | 'insertRowBefore'
+        | 'insertRowAfter'
+        | 'insertColBefore'
+        | 'insertColAfter'
+        | 'moveUpOneRow'
+        | 'moveDownOneRow'
+        | 'moveLeftOneCol'
+        | 'moveRightOneCol'
+        | 'removeCol'
+        | 'removeRow'
+        | 'setAligns'
+        | 'in'
+        | 'insertTableCellBreak',
+      ...rest: any[]
+    ) => {
+      if (!tableCellRef.current || !tableRef.current) return;
+      const columns = tableRef.current[0]?.children?.[0]?.children?.length;
+      const rows = tableRef.current[0]?.children?.length;
+      const path = tableCellRef?.current?.[1];
+      const index = path?.[path?.length - 1];
+      const row = path?.[path?.length - 2];
+      const rowPath = Path.parent(path);
+
+      switch (task) {
+        case 'insertRowBefore':
+          insertRow(
+            row === 0 ? Path.next(Path.parent(path)) : Path.parent(path),
+            columns,
+          );
+          break;
+        case 'insertRowAfter':
+          insertRow(Path.next(Path.parent(path)), columns);
+          break;
+        case 'insertColBefore':
+          insertCol(tableRef.current[1], rows, index);
+          break;
+        case 'insertColAfter':
+          insertCol(tableRef.current[1], rows, index + 1);
+          break;
+        case 'insertTableCellBreak':
+          Transforms.insertNodes(
+            editor,
+            [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
+            { select: true },
+          );
+          break;
+        case 'moveUpOneRow':
+          if (row > 1) {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: Path.previous(rowPath),
+            });
+          } else {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: [...tableRef.current[1], rows - 1],
+            });
+          }
+          break;
+        case 'moveDownOneRow':
+          if (row < rows - 1) {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: Path.next(rowPath),
+            });
+          } else {
+            Transforms.moveNodes(editor, {
+              at: rowPath,
+              to: [...tableRef.current[1], 1],
+            });
+          }
+          break;
+        case 'moveLeftOneCol':
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.moveNodes(editor, {
+              at: [...tableRef.current![1], i, index],
+              to: [
+                ...tableRef.current![1],
+                i,
+                index > 0 ? index - 1 : columns - 1,
+              ],
+            });
+          });
+          break;
+        case 'moveRightOneCol':
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.moveNodes(editor, {
+              at: [...tableRef.current![1], i, index],
+              to: [
+                ...tableRef.current![1],
+                i,
+                index === columns - 1 ? 0 : index + 1,
+              ],
+            });
+          });
+          break;
+        case 'removeCol':
+          if (columns < 2) {
+            remove();
+            return;
+          }
+          if (index < columns - 1) {
+            Transforms.select(
+              editor,
+              Editor.start(editor, [...tableRef.current[1], row, index + 1]),
+            );
+          } else {
+            Transforms.select(
+              editor,
+              Editor.start(editor, [...tableRef.current[1], row, index - 1]),
+            );
+          }
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.delete(editor, {
+              at: [...tableRef.current![1], rows - i - 1, index],
+            });
+          });
+          break;
+        case 'removeRow':
+          if (rows < 2) {
+            remove();
+          } else {
+            removeRow(Path.parent(path), index, columns);
+          }
+          break;
+
+        case 'setAligns':
+          setAligns(rest?.at(0));
+          break;
+      }
+      updateTableDimensions();
+      ReactEditor.focus(editor);
+    },
+    [],
+  );
+
+  const isSel = useMemo(() => {
+    if (selectedTable) return true;
+    if (!store.selectTablePath?.length) return false;
+    return store.selectTablePath.join('') === tablePath.join('');
+  }, [store.editor, selectedTable, store.selectTablePath, props.element]);
+
+  const handleClickTable = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const el = store.tableCellNode;
+      if (el) {
+        tableCellRef.current = el;
+        setState((prev) => ({
+          ...prev,
+          align: el[0].align,
+        }));
+        const table = Editor.node(
+          store.editor,
+          Path.parent(Path.parent(el[1])),
+        );
+
+        if (table && table[0] !== tableRef.current?.[0]) {
+          tableRef.current = table;
+          updateTableDimensions();
+        }
+      }
+      setIsShowBar(true);
+    },
+    [store.tableCellNode, store.editor, setState, isShowBar],
+  );
+
   const tableTargetRef = useRef<HTMLTableElement>(null);
+
   useEffect(() => {
     if (!tableTargetRef.current) {
       return;
@@ -321,6 +625,8 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
+  useEffect(() => {}, [props.element]);
+
   const getTableNode = () => {
     return props.element;
   };
@@ -330,16 +636,24 @@ export const Table = observer((props: RenderElementProps) => {
     const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
     cachedSelCells?.forEach((cell) => {
       const [cellNode] = cell;
-      const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
-      if (cellDom) {
-        cellDom.classList.remove('selected-cell-td');
+      try {
+        const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
+        if (cellDom) {
+          cellDom.classList.remove('selected-cell-td');
+        }
+      } catch (error) {
+        console.log(error, cellNode);
       }
     });
     selCells?.forEach((cell) => {
       const [cellNode] = cell;
-      const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
-      if (cellDom) {
-        cellDom.classList.add('selected-cell-td');
+      try {
+        const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
+        if (cellDom) {
+          cellDom.classList.add('selected-cell-td');
+        }
+      } catch (error) {
+        console.log(error, cellNode);
       }
     });
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
@@ -358,30 +672,22 @@ export const Table = observer((props: RenderElementProps) => {
           minWidth: 0,
           marginBottom: 12,
         }}
+        onMouseUp={handleClickTable}
       >
         <div className="ant-md-editor-drag-el">
-          {tableAttrVisible && (
-            <TableAttr
-              state={state}
-              setState={setState}
-              tableRef={tableRef}
-              tableCellRef={tableCellRef}
-            />
-          )}
           <DragHandle />
         </div>
         <div
           className={`ant-md-editor-table ant-md-editor-content-table ${
             isShowBar ? 'show-bar' : ''
           }`}
-          onMouseUp={handleClickTable}
           onClick={() => {
             runInAction(() => {
               if (isSel) {
                 store.selectTablePath = [];
                 return;
               }
-              store.selectTablePath = path;
+              store.selectTablePath = tablePath;
             });
           }}
           style={{
@@ -414,8 +720,14 @@ export const Table = observer((props: RenderElementProps) => {
               getTableNode={getTableNode}
               selCells={selCells}
               setSelCells={setSelCells}
+              onDelete={() => {
+                runTask('removeRow');
+              }}
             />
             <ColSideDiv
+              onDelete={() => {
+                runTask('removeCol');
+              }}
               activeDeleteBtn={activeDeleteBtn}
               setActiveDeleteBtn={setActiveDeleteBtn}
               tableRef={tableTargetRef}
@@ -444,8 +756,6 @@ export const Table = observer((props: RenderElementProps) => {
     setState,
     store.dragStart,
     store.editor?.children?.length === 1,
-    handleClickTable,
-    tableAttrVisible,
     isSel,
   ]);
 });

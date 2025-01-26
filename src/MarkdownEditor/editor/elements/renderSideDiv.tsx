@@ -1,5 +1,5 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Popconfirm } from 'antd';
 import React, {
   CSSProperties,
   SetStateAction,
@@ -12,6 +12,22 @@ import { addSelection } from '../plugins/selection';
 import { ReactEditor } from '../slate-react';
 import { useEditorStore } from '../store';
 type ActivationType = 'none' | 'half' | 'full';
+
+/**
+ * 抽象侧边栏 Div 组件的属性接口
+ * @interface AbstractSideDivProps
+ * @property {number} index - 当前项的索引
+ * @property {'column' | 'row'} type - 侧边栏类型，可以是列('column')或行('row')
+ * @property {CSSProperties} divStyle - Div 的 CSS 样式属性
+ * @property {ActivationType[]} activationArr - 激活状态数组
+ * @property {any} getTableNode - 获取表格节点的函数
+ * @property {any} setSelCells - 设置选中单元格的函数
+ * @property {HTMLElement} [scrollContainerRefDom] - 可选的滚动容器 DOM 引用
+ * @property {any} tableDom - 表格 DOM 元素
+ * @property {string | null} activeDeleteBtn - 当前激活的删除按钮标识
+ * @property {any} setActiveDeleteBtn - 设置激活删除按钮的函数
+ * @property {() => void} [onDelete] - 可选的删除回调函数
+ */
 type AbstractSideDivProps = {
   index: number;
   type: 'column' | 'row';
@@ -24,7 +40,46 @@ type AbstractSideDivProps = {
   tableDom: any;
   activeDeleteBtn: string | null;
   setActiveDeleteBtn: any;
+  onDelete?: () => void;
 };
+
+/**
+ * 表格侧边栏的抽象组件，用于渲染行或列的控制按钮
+ *
+ * @param props - 组件属性
+ * @param props.index - 当前行或列的索引
+ * @param props.type - 侧边栏类型，可以是 'row' 或 'column'
+ * @param props.divStyle - div 的样式对象
+ * @param props.getTableNode - 获取表格节点的函数
+ * @param props.setSelCells - 设置选中单元格的函数
+ * @param props.activationArr - 激活状态数组，控制侧边栏的激活状态
+ * @param props.tableDom - 表格 DOM 元素
+ * @param props.activeDeleteBtn - 当前激活的删除按钮
+ * @param props.setActiveDeleteBtn - 设置激活删除按钮的函数
+ *
+ * @remarks
+ * 该组件包含以下功能：
+ * - 显示添加行/列的按钮
+ * - 显示删除行/列的按钮
+ * - 处理单元格的选择
+ * - 根据鼠标位置动态调整按钮位置
+ * - 响应鼠标悬停事件
+ *
+ * @example
+ * ```tsx
+ * <AbstractSideDiv
+ *   index={0}
+ *   type="row"
+ *   divStyle={{width: '20px'}}
+ *   getTableNode={() => tableNode}
+ *   setSelCells={setCells}
+ *   activationArr={['full', 'none']}
+ *   tableDom={document.querySelector('.table')}
+ *   activeDeleteBtn={null}
+ *   setActiveDeleteBtn={setActiveBtn}
+ * />
+ * ```
+ */
 export function AbstractSideDiv(props: AbstractSideDivProps) {
   const {
     index,
@@ -43,6 +98,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
   const tableSideDivRef = useRef<HTMLDivElement | null>(null);
   const [deleteBtnHover, setDeleteBtnHover] = useState(false);
   const [addBtnHover, setAddBtnHover] = useState(false);
+
   const [overlayPos, setOverlayPos] = useState({
     left: -999999999,
     top: -999999999,
@@ -112,26 +168,10 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     };
 
     document.addEventListener('mousemove', handleMouseMove);
-
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, [tableSideDivRef, isColumn, type, setAddBtnPos]);
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      tableSideDivRef.current &&
-      !tableSideDivRef.current.contains(event.target as Node)
-    ) {
-      setActiveDeleteBtn(null);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   return (
     <>
@@ -179,6 +219,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
       {activeDeleteBtn === `${type}-${index}` && (
         <Button
           className="table-delete-btn"
+          id="delete-btn"
           onMouseEnter={() => setDeleteBtnHover(true)}
           onMouseLeave={() => setDeleteBtnHover(false)}
           style={{
@@ -189,7 +230,15 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             top: overlayPos.top,
           }}
         >
-          <DeleteOutlined />
+          <Popconfirm
+            title="Confirm to delete?"
+            onConfirm={() => {
+              props.onDelete?.();
+              setActiveDeleteBtn(null);
+            }}
+          >
+            <DeleteOutlined />
+          </Popconfirm>
         </Button>
       )}
       {addBtnHover && (
@@ -217,6 +266,7 @@ export function RowSideDiv(props: {
   selCells: any;
   activeDeleteBtn: string | null;
   setActiveDeleteBtn: any;
+  onDelete: () => void;
 }) {
   const {
     tableRef,
@@ -225,6 +275,7 @@ export function RowSideDiv(props: {
     setSelCells,
     activeDeleteBtn,
     setActiveDeleteBtn,
+    onDelete,
   } = props;
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
@@ -300,25 +351,63 @@ export function RowSideDiv(props: {
           setSelCells={setSelCells}
           activeDeleteBtn={activeDeleteBtn}
           setActiveDeleteBtn={setActiveDeleteBtn}
+          onDelete={onDelete}
         />
       ))}
     </div>
   );
 }
-export function ColSideDiv(props: {
+interface ColSideDivProps {
   activeDeleteBtn: string | null;
   setActiveDeleteBtn: any;
   tableRef: any;
   getTableNode: any;
   setSelCells: any;
   selCells: any;
-}) {
+  onDelete: () => void;
+}
+
+/**
+ * 表格列选择控制组件
+ *
+ * @component ColSideDiv
+ * @param {Object} props
+ * @param {React.RefObject<HTMLDivElement>} props.tableRef - 表格DOM引用
+ * @param {Function} props.getTableNode - 获取表格节点的函数
+ * @param {Array<[any, Path]>} props.selCells - 已选中的单元格数组
+ * @param {Function} props.setSelCells - 设置选中单元格的函数
+ * @param {boolean} props.activeDeleteBtn - 删除按钮激活状态
+ * @param {Function} props.onDelete - 删除操作处理函数
+ * @param {Function} props.setActiveDeleteBtn - 设置删除按钮激活状态的函数
+ *
+ * @description
+ * 该组件用于渲染表格列选择的侧边控制栏，提供以下功能：
+ * - 显示列选择状态（全选/部分选择/未选择）
+ * - 支持列选择操作
+ * - 跟随表格水平滚动
+ * - 提供列删除功能
+ *
+ * @example
+ * ```tsx
+ * <ColSideDiv
+ *   tableRef={tableRef}
+ *   getTableNode={getTableNode}
+ *   selCells={selectedCells}
+ *   setSelCells={setSelectedCells}
+ *   activeDeleteBtn={isDeleteActive}
+ *   onDelete={handleDelete}
+ *   setActiveDeleteBtn={setIsDeleteActive}
+ * />
+ * ```
+ */
+export function ColSideDiv(props: ColSideDivProps) {
   const {
     tableRef,
     getTableNode,
     selCells,
     setSelCells,
     activeDeleteBtn,
+    onDelete,
     setActiveDeleteBtn,
   } = props;
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
@@ -408,12 +497,14 @@ export function ColSideDiv(props: {
             setSelCells={setSelCells}
             activeDeleteBtn={activeDeleteBtn}
             setActiveDeleteBtn={setActiveDeleteBtn}
+            onDelete={onDelete}
           />
         );
       })}
     </div>
   );
 }
+
 export function IntersectionPointDiv(props: {
   getTableNode: any;
   setSelCells: any;
