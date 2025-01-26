@@ -1,10 +1,10 @@
 .ant-md-editor-content-table .md-editor-table .selected-cell-td {
   background-color: rgba(209, 236, 249);
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .delete-btn-hover {
   background-color: rgba(255, 168, 177, 0.3) !important;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .intersection-point {
   height: 0.9em;
@@ -17,7 +17,7 @@
   margin-top: 0px;
   margin-left: -16px;
   border-top-left-radius: 0.5em;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   background-color: #e1f0ff;
   &.active {
@@ -38,7 +38,7 @@
   z-index: 20;
   cursor: pointer;
   background-color: #e1f0ff;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   &.full-active {
     background-color: #59a5f6;
   }

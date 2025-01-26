@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { Editor, Node, Transforms } from 'slate';
-import { ReactEditor, useSlateStatic } from 'slate-react';
 import { CodeLineNode, CodeNode } from '../../../el';
+import { ReactEditor, useSlateStatic } from '../../slate-react';
 import { useGetSetState } from '../../utils';
 
 export const Mermaid = (props: { lines: CodeLineNode[]; el: CodeNode }) => {

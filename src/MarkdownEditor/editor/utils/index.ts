@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-param-reassign */
@@ -115,13 +116,22 @@ export function debounce(
   delay: number | undefined,
 ) {
   let timer: any = null;
-  return function () {
+  const fn = function () {
     clearTimeout(timer);
     timer = setTimeout(() => {
       //@ts-ignore
       func.apply(this, arguments);
     }, delay);
   };
+  fn.flush = function () {
+    clearTimeout(timer);
+    //@ts-ignore
+    func.apply(this, arguments);
+  };
+  fn.cancel = function () {
+    clearTimeout(timer);
+  };
+  return fn;
 }
 
 import { DependencyList, useCallback, useEffect, useRef } from 'react';
@@ -256,6 +266,32 @@ export const useGetSetState = <T extends object>(
 
   return [get, set];
 };
+
+// 时间戳方案
+export function throttle(fn: any, wait: number) {
+  let pre = Date.now();
+  const runFn = function () {
+    //@ts-ignore
+    let context = this;
+    let args = arguments;
+    let now = Date.now();
+    if (now - pre >= wait) {
+      fn.apply(context, args);
+      pre = Date.now();
+    }
+  };
+  runFn.flush = function () {
+    {
+      pre = Date.now();
+      //@ts-ignore
+      fn.apply(this, arguments);
+    }
+  };
+  runFn.cancel = function () {
+    pre = Date.now();
+  };
+  return runFn;
+}
 
 export * from './editorUtils';
 export * from './keyboard';

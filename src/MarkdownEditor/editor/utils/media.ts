@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
 import { IEditor } from '../../index';
+import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { getMediaType } from './dom';
 

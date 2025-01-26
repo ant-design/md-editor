@@ -1,6 +1,6 @@
 ﻿import { observer } from 'mobx-react';
 import React from 'react';
-import { RenderElementProps } from 'slate-react/dist/components/editable';
+import { RenderElementProps } from '../../slate-react';
 
 export const WarpCard = observer((props: RenderElementProps) => {
   return React.useMemo(() => {

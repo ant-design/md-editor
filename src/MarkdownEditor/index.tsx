@@ -276,7 +276,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     const schema =
       props.initSchemaValue ||
       (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
-
+    console.log(schema);
     return schema?.filter((item: any) => {
       if (item.type === 'p' && item.children.length === 0) {
         return false;

@@ -12,9 +12,9 @@ import React, {
 } from 'react';
 
 import { Editor, Node, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
 import { CodeLineNode, CodeNode, ElementProps } from '../../../el';
 import { useMEditor } from '../../../hooks/editor';
+import { ReactEditor } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { useGetSetState } from '../../utils';

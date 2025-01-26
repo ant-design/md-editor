@@ -31,7 +31,10 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
           typewriter: isLatest && typewriter,
         })}
         style={{
-          display: !str && readonly ? 'none' : undefined,
+          display:
+            !str && readonly && !props.element.children?.at(0)?.type
+              ? 'none'
+              : undefined,
         }}
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}

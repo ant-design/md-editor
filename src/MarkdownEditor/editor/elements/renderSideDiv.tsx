@@ -8,8 +8,8 @@ import React, {
   useState,
 } from 'react';
 import { Editor, Path } from 'slate';
-import { ReactEditor } from 'slate-react';
 import { addSelection } from '../plugins/selection';
+import { ReactEditor } from '../slate-react';
 import { useEditorStore } from '../store';
 type ActivationType = 'none' | 'half' | 'full';
 type AbstractSideDivProps = {
@@ -144,8 +144,8 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
           activationArr[index] === 'full'
             ? 'full-active'
             : activationArr[index] === 'half'
-            ? 'half-active'
-            : 'none-active'
+              ? 'half-active'
+              : 'none-active'
         } ${deleteBtnHover ? 'delete-btn-hover' : ''} `}
         style={{
           ...divStyle,
@@ -252,8 +252,8 @@ export function RowSideDiv(props: {
           rowMap[i] === tableSlateNode.children[0].children.length
             ? 'full'
             : rowMap[i] === 0
-            ? 'none'
-            : 'half';
+              ? 'none'
+              : 'half';
       }
     }
     setActivationArr(arr);
@@ -348,8 +348,8 @@ export function ColSideDiv(props: {
           colMap[i] === tableSlateNode.children.length
             ? 'full'
             : colMap[i] === 0
-            ? 'none'
-            : 'half';
+              ? 'none'
+              : 'half';
       }
     }
     setActivationArr(arr);
