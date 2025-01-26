@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
 import stringWidth from 'string-width';
-import { TableCellNode, TableNode, TableRowNode } from '../../el';
+import { TableCellNode, TableNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
@@ -164,6 +164,7 @@ export const Table = observer((props: RenderElementProps) => {
     selectRows: 0,
   });
   const [selectedTable, tablePath] = useSelStatus(props.element);
+  const tableNodeEntry = Editor.node(store.editor, tablePath);
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
@@ -171,7 +172,7 @@ export const Table = observer((props: RenderElementProps) => {
   const editor = store.editor;
 
   const updateTableDimensions = () => {
-    const table = tableRef.current;
+    const table = tableNodeEntry;
     if (!table) return;
     setTimeout(() => {
       try {
@@ -190,101 +191,10 @@ export const Table = observer((props: RenderElementProps) => {
     }, 16);
   };
 
-  const resetGird = useCallback(
-    (row: number, col: number) => {
-      store.doManual();
-      setState((prevState) => ({
-        ...prevState,
-        scaleOpen: false,
-      }));
-      const [table, path] = tableRef.current!;
-      if (state.rows > row) {
-        Transforms.removeNodes(editor, {
-          at: {
-            anchor: { path: [...path, row], offset: 0 },
-            focus: { path: [...path, state.rows], offset: 0 },
-          },
-          match: (node) => node.type === 'table-row',
-        });
-      }
-
-      const heads = (table.children?.[0]?.children as TableCellNode[]) || [];
-      const lastIndex = heads.length;
-      for (let i = 0; i < row; i++) {
-        const row = table?.children?.[i];
-        if (!row) {
-          const row: TableRowNode = {
-            type: 'table-row',
-            children: Array.from(new Array(col)).map((_, j) => {
-              return {
-                type: 'table-cell',
-                children: [],
-                align: heads[j]?.align,
-              } as TableCellNode;
-            }),
-          };
-          Transforms.insertNodes(editor, row, {
-            at: [...path, i],
-          });
-        } else {
-          if (state.cols > col) {
-            Transforms.removeNodes(editor, {
-              at: {
-                anchor: { path: [...path, i, col], offset: 0 },
-                focus: { path: [...path, i, state.cols], offset: 0 },
-              },
-              match: (node) => node.type === 'table-cell',
-            });
-          } else {
-            Array.from(new Array(col - state.cols)).forEach((_, j) => {
-              Transforms.insertNodes(
-                editor,
-                {
-                  type: 'table-cell',
-                  children: [],
-                  title: i === 0,
-                  align: heads[j + state.cols]?.align,
-                } as TableCellNode,
-                { at: [...(path || []), i, lastIndex + j] },
-              );
-            });
-          }
-        }
-      }
-      if (
-        tableCellRef.current &&
-        !Editor.hasPath(editor, tableCellRef.current[1]) &&
-        path
-      ) {
-        Transforms.select(editor, Editor.start(editor, path));
-      }
-      ReactEditor.focus(editor);
-    },
-    [editor],
-  );
-
-  const getScaleGirdClass = useCallback((row: number, col: number) => {
-    if (row === 1) {
-      if (state.enterScale) {
-        return col <= state.selectCols ? 'bg-gray-600' : 'bg-white';
-      } else {
-        return col <= state.cols ? 'bg-gray-600' : 'bg-white';
-      }
-    } else {
-      if (state.enterScale) {
-        return row <= state.selectRows && col <= state.selectCols
-          ? 'bg-gray-400'
-          : '';
-      } else {
-        return row <= state.rows && col <= state.cols ? 'bg-gray-400' : '';
-      }
-    }
-  }, []);
-
   const setAligns = useCallback(
     (type: 'left' | 'center' | 'right') => {
       const cell = tableCellRef.current!;
-      const table = tableRef.current!;
+      const table = tableNodeEntry!;
       if (cell) {
         const index = cell[1][cell[1].length - 1];
         table?.[0]?.children?.forEach((el: { children: any[] }) => {
@@ -301,11 +211,11 @@ export const Table = observer((props: RenderElementProps) => {
       }
       ReactEditor.focus(editor);
     },
-    [editor],
+    [tableNodeEntry],
   );
 
   const remove = useCallback(() => {
-    const table = tableRef.current!;
+    const table = tableNodeEntry!;
 
     Transforms.delete(editor, { at: table[1] });
     tableCellRef.current = undefined;
@@ -363,7 +273,7 @@ export const Table = observer((props: RenderElementProps) => {
         Transforms.select(
           editor,
           Editor.end(editor, [
-            ...tableRef.current![1],
+            ...tableNodeEntry?.at(1),
             path[path.length - 1] - 1,
             index,
           ]),
@@ -372,7 +282,7 @@ export const Table = observer((props: RenderElementProps) => {
         Transforms.select(
           editor,
           Editor.end(editor, [
-            ...tableRef.current![1],
+            ...tableNodeEntry?.at(1),
             path[path.length - 1],
             index,
           ]),
@@ -416,9 +326,9 @@ export const Table = observer((props: RenderElementProps) => {
         | 'insertTableCellBreak',
       ...rest: any[]
     ) => {
-      if (!tableCellRef.current || !tableRef.current) return;
-      const columns = tableRef.current[0]?.children?.[0]?.children?.length;
-      const rows = tableRef.current[0]?.children?.length;
+      if (!tableCellRef.current || !tableNodeEntry) return;
+      const columns = tableNodeEntry?.at(0)?.children?.[0]?.children?.length;
+      const rows = tableNodeEntry?.at(0)?.children?.length;
       const path = tableCellRef?.current?.[1];
       const index = path?.[path?.length - 1];
       const row = path?.[path?.length - 2];
@@ -435,10 +345,10 @@ export const Table = observer((props: RenderElementProps) => {
           insertRow(Path.next(Path.parent(path)), columns);
           break;
         case 'insertColBefore':
-          insertCol(tableRef.current[1], rows, index);
+          insertCol(tableNodeEntry?.at(1), rows, index);
           break;
         case 'insertColAfter':
-          insertCol(tableRef.current[1], rows, index + 1);
+          insertCol(tableNodeEntry?.at(1), rows, index + 1);
           break;
         case 'insertTableCellBreak':
           Transforms.insertNodes(
@@ -456,7 +366,7 @@ export const Table = observer((props: RenderElementProps) => {
           } else {
             Transforms.moveNodes(editor, {
               at: rowPath,
-              to: [...tableRef.current[1], rows - 1],
+              to: [...tableNodeEntry?.at(1), rows - 1],
             });
           }
           break;
@@ -469,16 +379,16 @@ export const Table = observer((props: RenderElementProps) => {
           } else {
             Transforms.moveNodes(editor, {
               at: rowPath,
-              to: [...tableRef.current[1], 1],
+              to: [...tableNodeEntry?.at(1), 1],
             });
           }
           break;
         case 'moveLeftOneCol':
           Array.from(new Array(rows)).forEach((_, i) => {
             Transforms.moveNodes(editor, {
-              at: [...tableRef.current![1], i, index],
+              at: [...tableNodeEntry?.at(1), i, index],
               to: [
-                ...tableRef.current![1],
+                ...tableNodeEntry?.at(1),
                 i,
                 index > 0 ? index - 1 : columns - 1,
               ],
@@ -488,9 +398,9 @@ export const Table = observer((props: RenderElementProps) => {
         case 'moveRightOneCol':
           Array.from(new Array(rows)).forEach((_, i) => {
             Transforms.moveNodes(editor, {
-              at: [...tableRef.current![1], i, index],
+              at: [...tableNodeEntry?.at(1), i, index],
               to: [
-                ...tableRef.current![1],
+                ...tableNodeEntry?.at(1),
                 i,
                 index === columns - 1 ? 0 : index + 1,
               ],
@@ -505,17 +415,17 @@ export const Table = observer((props: RenderElementProps) => {
           if (index < columns - 1) {
             Transforms.select(
               editor,
-              Editor.start(editor, [...tableRef.current[1], row, index + 1]),
+              Editor.start(editor, [...tableNodeEntry?.at(1), row, index + 1]),
             );
           } else {
             Transforms.select(
               editor,
-              Editor.start(editor, [...tableRef.current[1], row, index - 1]),
+              Editor.start(editor, [...tableNodeEntry?.at(1), row, index - 1]),
             );
           }
           Array.from(new Array(rows)).forEach((_, i) => {
             Transforms.delete(editor, {
-              at: [...tableRef.current![1], rows - i - 1, index],
+              at: [...tableNodeEntry?.at(1), rows - i - 1, index],
             });
           });
           break;
@@ -554,15 +464,6 @@ export const Table = observer((props: RenderElementProps) => {
           ...prev,
           align: el[0].align,
         }));
-        const table = Editor.node(
-          store.editor,
-          Path.parent(Path.parent(el[1])),
-        );
-
-        if (table && table[0] !== tableRef.current?.[0]) {
-          tableRef.current = table;
-          updateTableDimensions();
-        }
       }
       setIsShowBar(true);
     },
@@ -623,13 +524,18 @@ export const Table = observer((props: RenderElementProps) => {
     return () => {
       observerRoot.removeEventListener('scroll', handleScrollX);
     };
-  }, []);
+  }, [props.element]);
 
-  useEffect(() => {}, [props.element]);
+  useEffect(() => {
+    if (!props.element) return;
+    tableRef.current = tableNodeEntry;
+    updateTableDimensions();
+  }, [tableNodeEntry]);
 
   const getTableNode = () => {
     return props.element;
   };
+
   const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
   useEffect(() => {
     if (!store.editor) return;
@@ -658,6 +564,7 @@ export const Table = observer((props: RenderElementProps) => {
     });
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
   }, [JSON.stringify(selCells)]);
+
   return useMemo(() => {
     return (
       <div
@@ -757,5 +664,7 @@ export const Table = observer((props: RenderElementProps) => {
     store.dragStart,
     store.editor?.children?.length === 1,
     isSel,
+    JSON.stringify(selCells),
+    tableNodeEntry,
   ]);
 });
