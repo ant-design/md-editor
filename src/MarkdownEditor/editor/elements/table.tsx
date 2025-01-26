@@ -169,6 +169,7 @@ export const Table = observer((props: RenderElementProps) => {
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
+  const [activeDeleteBtn, setActiveDeleteBtn] = useState<string | null>(null);
 
   useEffect(() => {
     if (store.floatBarOpen) {
@@ -408,12 +409,16 @@ export const Table = observer((props: RenderElementProps) => {
               setSelCells={setSelCells}
             />
             <RowSideDiv
+              activeDeleteBtn={activeDeleteBtn}
+              setActiveDeleteBtn={setActiveDeleteBtn}
               tableRef={tableTargetRef}
               getTableNode={getTableNode}
               selCells={selCells}
               setSelCells={setSelCells}
             />
             <ColSideDiv
+              activeDeleteBtn={activeDeleteBtn}
+              setActiveDeleteBtn={setActiveDeleteBtn}
               tableRef={tableTargetRef}
               getTableNode={getTableNode}
               selCells={selCells}
@@ -423,6 +428,7 @@ export const Table = observer((props: RenderElementProps) => {
           <table
             className="md-editor-table"
             style={{
+              marginTop: '1em',
               borderCollapse: 'separate',
               borderSpacing: 0,
             }}

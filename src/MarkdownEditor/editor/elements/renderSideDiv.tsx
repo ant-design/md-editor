@@ -1,3 +1,5 @@
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import React, {
   CSSProperties,
   SetStateAction,
@@ -19,13 +21,118 @@ type AbstractSideDivProps = {
   setSelCells: any;
   scrollContainerRefDom?: HTMLElement;
   [key: string]: any;
+  tableDom: any;
+  activeDeleteBtn: string | null;
+  setActiveDeleteBtn: any;
 };
 export function AbstractSideDiv(props: AbstractSideDivProps) {
-  const { index, type, divStyle, getTableNode, setSelCells, activationArr } =
-    props;
+  const {
+    index,
+    type,
+    divStyle,
+    getTableNode,
+    setSelCells,
+    activationArr,
+    tableDom,
+    activeDeleteBtn,
+    setActiveDeleteBtn,
+  } = props;
+
   const isColumn = type === 'column';
   const { store } = useEditorStore();
   const tableSideDivRef = useRef<HTMLDivElement | null>(null);
+  const [deleteBtnHover, setDeleteBtnHover] = useState(false);
+  const [addBtnHover, setAddBtnHover] = useState(false);
+  const [overlayPos, setOverlayPos] = useState({
+    left: -999999999,
+    top: -999999999,
+  });
+  const [addBtnPos, setAddBtnPos] = useState({
+    left: -999999999,
+    top: -999999999,
+  });
+
+  useEffect(() => {
+    if (!store.editor) return;
+    const selectedCells = tableDom.querySelectorAll('.selected-cell-td');
+    if (deleteBtnHover) {
+      selectedCells.forEach(
+        (cell: { classList: { add: (arg0: string) => void } }) => {
+          cell.classList.add('delete-btn-hover');
+        },
+      );
+    } else {
+      selectedCells.forEach(
+        (cell: { classList: { remove: (arg0: string) => void } }) => {
+          cell.classList.remove('delete-btn-hover');
+        },
+      );
+    }
+  }, [deleteBtnHover]);
+
+  useEffect(() => {
+    if (!tableSideDivRef?.current || !activeDeleteBtn) return;
+
+    const { left, top, right } =
+      tableSideDivRef.current.getBoundingClientRect();
+
+    const domPos = isColumn
+      ? { left: (right + left) / 2 - 74, top: top - 64 }
+      : { left: right - 36, top: top - 70 };
+
+    setOverlayPos(domPos);
+  }, [deleteBtnHover, activeDeleteBtn]);
+
+  useEffect(() => {
+    if (!tableSideDivRef?.current) return;
+
+    const { left, top, right, bottom } =
+      tableSideDivRef.current.getBoundingClientRect();
+
+    const handleMouseMove = (e: MouseEvent) => {
+      let newAddPos: { left: number; top: number } | undefined;
+
+      if (isColumn) {
+        const middle = left + (right - left) / 2;
+        const isLeftZone = e.clientX < middle;
+        newAddPos = isLeftZone
+          ? { left: (right + left) / 2 - 118, top: top - 64 } // 左
+          : { left: (right + left) / 2 - 30, top: top - 64 }; // 右
+      } else if (type === 'row') {
+        const middle = top + (bottom - top) / 2;
+        const isTopZone = e.clientY < middle;
+        newAddPos = isTopZone
+          ? { left: right - 90, top: top - 64 } // 上
+          : { left: right - 90, top: top - 34 }; // 下
+      }
+
+      if (newAddPos) {
+        setAddBtnPos(newAddPos);
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [tableSideDivRef, isColumn, type, setAddBtnPos]);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      tableSideDivRef.current &&
+      !tableSideDivRef.current.contains(event.target as Node)
+    ) {
+      setActiveDeleteBtn(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -39,13 +146,14 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             : activationArr[index] === 'half'
             ? 'half-active'
             : 'none-active'
-        } `}
+        } ${deleteBtnHover ? 'delete-btn-hover' : ''} `}
         style={{
           ...divStyle,
         }}
         onMouseDown={(e) => {
           e.stopPropagation();
           e.preventDefault();
+          setActiveDeleteBtn(`${type}-${index}`);
           const tableSlateNode = getTableNode();
           if (tableSlateNode && index !== -1) {
             const tablePath = ReactEditor.findPath(
@@ -65,7 +173,40 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             addSelection(store, tableEntry, startPath, endPath, setSelCells);
           }
         }}
+        onMouseEnter={() => setAddBtnHover(true)}
+        onMouseLeave={() => setAddBtnHover(false)}
       ></div>
+      {activeDeleteBtn === `${type}-${index}` && (
+        <Button
+          className="table-delete-btn"
+          onMouseEnter={() => setDeleteBtnHover(true)}
+          onMouseLeave={() => setDeleteBtnHover(false)}
+          style={{
+            position: 'absolute',
+            height: '2em',
+            width: '2em',
+            left: overlayPos.left,
+            top: overlayPos.top,
+          }}
+        >
+          <DeleteOutlined />
+        </Button>
+      )}
+      {addBtnHover && (
+        <Button
+          className="table-add-row-btn"
+          style={{
+            position: 'absolute',
+            zIndex: 101,
+            height: '2em',
+            width: '2em',
+            left: addBtnPos.left,
+            top: addBtnPos.top,
+          }}
+        >
+          <PlusOutlined />
+        </Button>
+      )}
     </>
   );
 }
@@ -74,13 +215,23 @@ export function RowSideDiv(props: {
   getTableNode: any;
   setSelCells: any;
   selCells: any;
+  activeDeleteBtn: string | null;
+  setActiveDeleteBtn: any;
 }) {
-  const { tableRef, getTableNode, selCells, setSelCells } = props;
+  const {
+    tableRef,
+    getTableNode,
+    selCells,
+    setSelCells,
+    activeDeleteBtn,
+    setActiveDeleteBtn,
+  } = props;
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
   const [rowDomArr, setRowDomArr] = useState(
     Array.from(tableDom?.children || []),
   );
+
   useEffect(() => {
     const rowMap: { [key: number]: number } = {};
     const arr: SetStateAction<ActivationType[]> = [];
@@ -113,54 +264,63 @@ export function RowSideDiv(props: {
     }
   }, [tableDom]);
   return (
-    <>
-      <div
-        className="row-div-bar-inner ignore-toggle-readonly"
-        style={{
-          position: 'absolute',
-          display: 'block',
-          zIndex: 100,
-          width: '0.9em',
-          marginTop: '16px',
-          marginLeft: '-16px',
-        }}
-        contentEditable={false}
-        onMouseLeave={() => {}}
-      >
-        {rowDomArr?.map((tr: any, index: number) => (
-          <AbstractSideDiv
-            key={index}
-            index={index}
-            type={'row'}
-            divStyle={{
-              position: 'relative',
-              width: '14px',
-              height:
-                index === 0
-                  ? tr?.getBoundingClientRect?.()?.height - 1.66 ||
-                    tr?.clientHeight - 2
-                  : tr?.getBoundingClientRect?.()?.height - 0.66 ||
-                    tr?.clientHeight - 1,
-              ...(index === rowDomArr.length - 1 && {
-                borderBottomLeftRadius: '0.5em',
-              }),
-            }}
-            getTableNode={getTableNode}
-            activationArr={activationArr}
-            setSelCells={setSelCells}
-          />
-        ))}
-      </div>
-    </>
+    <div
+      className="row-div-bar-inner ignore-toggle-readonly"
+      style={{
+        position: 'absolute',
+        display: 'block',
+        zIndex: 200,
+        width: '0.9em',
+        marginTop: '16px',
+        marginLeft: '-16px',
+      }}
+      contentEditable={false}
+    >
+      {rowDomArr?.map((tr: any, index: number) => (
+        <AbstractSideDiv
+          tableDom={tableDom}
+          key={index}
+          index={index}
+          type={'row'}
+          divStyle={{
+            position: 'relative',
+            width: '14px',
+            height:
+              index === 0
+                ? tr?.getBoundingClientRect?.()?.height - 1.66 ||
+                  tr?.clientHeight - 2
+                : tr?.getBoundingClientRect?.()?.height - 0.66 ||
+                  tr?.clientHeight - 1,
+            ...(index === rowDomArr.length - 1 && {
+              borderBottomLeftRadius: '0.5em',
+            }),
+          }}
+          getTableNode={getTableNode}
+          activationArr={activationArr}
+          setSelCells={setSelCells}
+          activeDeleteBtn={activeDeleteBtn}
+          setActiveDeleteBtn={setActiveDeleteBtn}
+        />
+      ))}
+    </div>
   );
 }
 export function ColSideDiv(props: {
+  activeDeleteBtn: string | null;
+  setActiveDeleteBtn: any;
   tableRef: any;
   getTableNode: any;
   setSelCells: any;
   selCells: any;
 }) {
-  const { tableRef, getTableNode, selCells, setSelCells } = props;
+  const {
+    tableRef,
+    getTableNode,
+    selCells,
+    setSelCells,
+    activeDeleteBtn,
+    setActiveDeleteBtn,
+  } = props;
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
@@ -215,7 +375,7 @@ export function ColSideDiv(props: {
       ref={colDivBarInnerRef}
       className="col-div-bar-inner ignore-toggle-readonly"
       style={{
-        position: 'relative',
+        position: 'absolute',
         display: 'flex',
         height: '1rem',
         zIndex: 100,
@@ -228,6 +388,7 @@ export function ColSideDiv(props: {
         const leftPosition = colRect?.left || 0;
         return (
           <AbstractSideDiv
+            tableDom={tableDom}
             key={index}
             index={index}
             type={'column'}
@@ -245,6 +406,8 @@ export function ColSideDiv(props: {
             getTableNode={getTableNode}
             activationArr={activationArr}
             setSelCells={setSelCells}
+            activeDeleteBtn={activeDeleteBtn}
+            setActiveDeleteBtn={setActiveDeleteBtn}
           />
         );
       })}
