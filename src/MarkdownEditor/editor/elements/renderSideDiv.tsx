@@ -53,7 +53,6 @@ type AbstractSideDivProps = {
  * @param props.getTableNode - 获取表格节点的函数
  * @param props.setSelCells - 设置选中单元格的函数
  * @param props.activationArr - 激活状态数组，控制侧边栏的激活状态
- * @param props.activationArr - 设置激活状态数组，控制侧边栏的激活状态的函数
  * @param props.tableDom - 表格 DOM 元素
  * @param props.activeDeleteBtn - 当前激活的删除按钮
  * @param props.setActiveDeleteBtn - 设置激活删除按钮的函数
@@ -89,7 +88,6 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     getTableNode,
     setSelCells,
     activationArr,
-    setActivationArr,
     tableDom,
     activeDeleteBtn,
     setActiveDeleteBtn,
@@ -238,9 +236,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
               props.onDelete?.();
               setActiveDeleteBtn(null);
               setDeleteBtnHover(false);
-              setActivationArr((prev: string | any[]) =>
-                new Array(prev.length).fill('none-active'),
-              );
+              setSelCells([]);
             }}
           >
             <DeleteOutlined />
@@ -370,7 +366,6 @@ export function RowSideDiv(props: {
           }}
           getTableNode={getTableNode}
           activationArr={activationArr}
-          setActivationArr={setActivationArr}
           setSelCells={setSelCells}
           activeDeleteBtn={activeDeleteBtn}
           setActiveDeleteBtn={setActiveDeleteBtn}
@@ -534,7 +529,6 @@ export function ColSideDiv(props: ColSideDivProps) {
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
-            setActivationArr={setActivationArr}
             setSelCells={setSelCells}
             activeDeleteBtn={activeDeleteBtn}
             setActiveDeleteBtn={setActiveDeleteBtn}
