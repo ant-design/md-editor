@@ -176,22 +176,7 @@ export class KeyboardTask {
       if (node && ['column-cell'].includes(node[0].type)) {
         Transforms.insertNodes(
           this.editor,
-          [
-            {
-              type: 'media',
-              url: url,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-          ],
+          [EditorUtils.createMediaNode(url, 'image', {})],
           {
             at: [...node[1], 0],
           },
@@ -201,22 +186,7 @@ export class KeyboardTask {
       if (node) {
         Transforms.insertNodes(
           this.editor,
-          [
-            {
-              type: 'media',
-              url: url,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-          ],
+          [EditorUtils.createMediaNode(url, 'image', {})],
           {
             at: Path.next(node[1]),
           },
@@ -224,22 +194,7 @@ export class KeyboardTask {
       } else {
         Transforms.insertNodes(
           this.editor,
-          [
-            {
-              type: 'media',
-              url: url,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-          ],
+          [EditorUtils.createMediaNode(url, 'image', {})],
           {
             select: true,
           },

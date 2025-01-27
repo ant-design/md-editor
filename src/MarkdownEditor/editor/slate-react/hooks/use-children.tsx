@@ -56,6 +56,9 @@ const useChildren = (props: {
     const n = node.children[i] as Descendant
     const key = ReactEditor.findKey(editor, n)
     const range = Editor.range(editor, p)
+    if (!range.focus) {
+      continue
+    }
     const sel = selection && Range.intersection(range, selection)
     const ds = decorate([n, p])
 

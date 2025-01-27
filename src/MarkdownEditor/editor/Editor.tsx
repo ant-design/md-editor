@@ -2,7 +2,7 @@
 import { message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
 import {
   CommentDataType,
@@ -71,7 +71,7 @@ export const MEditor = observer(
     /**
      * 初始化编辑器
      */
-    const initialNote = useCallback(async () => {
+    const initialNote = async () => {
       if (instance) {
         nodeRef.current = instance;
 
@@ -95,7 +95,7 @@ export const MEditor = observer(
       } else {
         nodeRef.current = undefined;
       }
-    }, [instance]);
+    };
 
     useEffect(() => {
       if (nodeRef.current !== instance) {
@@ -103,30 +103,27 @@ export const MEditor = observer(
       }
     }, [instance, editor]);
 
-    const change = useCallback(
-      (v: any[]) => {
-        if (first.current) {
-          setTimeout(() => {
-            first.current = false;
-          }, 100);
-          return;
-        }
-        value.current = v;
-        onChange(v, editor.operations);
-        if (instance) {
-          instance.history = editor.history;
-        }
+    const change = (v: any[]) => {
+      if (first.current) {
+        setTimeout(() => {
+          first.current = false;
+        }, 100);
+        return;
+      }
+      value.current = v;
+      onChange(v, editor.operations);
+      if (instance) {
+        instance.history = editor.history;
+      }
 
-        if (!editor.operations?.every((o) => o.type === 'set_selection')) {
-          if (!changedMark.current) {
-            changedMark.current = true;
-          }
+      if (!editor.operations?.every((o) => o.type === 'set_selection')) {
+        if (!changedMark.current) {
+          changedMark.current = true;
         }
-      },
-      [instance],
-    );
+      }
+    };
 
-    const checkEnd = useCallback((e: React.MouseEvent) => {
+    const checkEnd = (e: React.MouseEvent) => {
       if (!store.focus) {
         store.editor.selection = null;
       }
@@ -142,332 +139,277 @@ export const MEditor = observer(
           }
         }
       }
-    }, []);
+    };
 
     /**
      * 处理焦点事件, 隐藏所有的range
      * @description focus event
      */
-    const onFocus = useCallback(() => {
+    const onFocus = () => {
       store.setState((state) => (state.focus = true));
-    }, []);
+    };
 
     /**
      * 处理失去焦点事件,关掉所有的浮层
      * @description blur event
      * @param {React.FocusEvent<HTMLDivElement>} e
      */
-    const onBlur = useCallback(() => {
+    const onBlur = () => {
       store.setState((state) => {
         state.focus = false;
         state.tableCellNode = null;
       });
-    }, []);
+    };
 
     /**
      * 处理粘贴事件，会把粘贴的内容转换为对应的节点
      * @description paste event
      * @param {React.ClipboardEvent<HTMLDivElement>} e
      */
-    const onPaste = useCallback(
-      async (event: React.ClipboardEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-        event.preventDefault();
-        if (
-          store.editor.selection &&
-          store.editor.selection.anchor &&
-          Editor.hasPath(store.editor, store.editor.selection.anchor.path)
-        ) {
-          if (!Range.isCollapsed(store.editor.selection!)) {
-            Transforms.delete(store.editor, { at: store.editor.selection! });
+    const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
+      event.stopPropagation();
+      event.preventDefault();
+      const currentTextSelection = store.editor.selection;
+      if (
+        currentTextSelection &&
+        currentTextSelection.anchor &&
+        Editor.hasPath(store.editor, currentTextSelection.anchor.path)
+      ) {
+        if (!Range.isCollapsed(currentTextSelection)) {
+          Transforms.delete(store.editor, {
+            at: currentTextSelection!,
+            reverse: true,
+          });
+        }
+      }
+
+      const types = event.clipboardData.types;
+      console.log('types', types);
+      if (types.includes('application/x-slate-fragment')) {
+        const encoded = event.clipboardData.getData(
+          'application/x-slate-fragment',
+        );
+        const decoded = decodeURIComponent(window.atob(encoded));
+        const fragment = JSON.parse(decoded);
+        Transforms.insertFragment(store.editor, fragment);
+        return;
+      }
+
+      if (types.includes('text/html')) {
+        try {
+          const html = await event.clipboardData.getData('text/html');
+
+          const rtf = await event.clipboardData.getData('text/rtf');
+
+          if (html) {
+            const success = await insertParsedHtmlNodes(
+              editor,
+              html,
+              editorProps,
+              rtf,
+            );
+            if (success) {
+              return;
+            }
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      }
+
+      if (types.includes('Files')) {
+        try {
+          const fileList = event.clipboardData.files;
+          if (fileList.length > 0) {
+            const hideLoading = message.loading('Uploading...');
+            try {
+              const url = [];
+              for await (const file of fileList) {
+                const serverUrl = await editorProps.image?.upload?.([file]);
+                url.push(serverUrl);
+              }
+              const selection = store?.editor?.selection?.focus?.path;
+              const at = selection
+                ? EditorUtils.findNext(store.editor, selection)!
+                : undefined;
+
+              [url].flat(2).forEach((u) => {
+                if (!u) return null;
+                console.log('---->', at);
+                Transforms.insertNodes(
+                  store.editor,
+                  EditorUtils.createMediaNode(u, 'image'),
+                  {
+                    at: [at ? at[0] : store.editor.children.length - 1],
+                  },
+                );
+              });
+              message.success('Upload success');
+            } catch (error) {
+              console.log('error', error);
+            } finally {
+              hideLoading();
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+        return;
+      }
+
+      if (types.includes('text/plain')) {
+        const text = event.clipboardData.getData('text/plain');
+        const selection = store.editor.selection;
+
+        // 如果是表格或者代码块，直接插入文本
+        if (selection?.focus) {
+          const rangeNodes = Editor.node(editor, [selection.focus.path.at(0)!]);
+          if (!rangeNodes) return;
+          const rangeNode = rangeNodes.at(0) as Elements;
+          if (
+            rangeNode.type === 'table-cell' ||
+            rangeNode.type === 'table-row' ||
+            rangeNode.type === 'table' ||
+            rangeNode.type === 'code' ||
+            rangeNode.type === 'schema' ||
+            rangeNode.type === 'apaasify' ||
+            rangeNode.type === 'description'
+          ) {
+            Transforms.insertText(editor, text);
+            return;
           }
         }
 
-        const types = event.clipboardData.types;
-        if (types.includes('application/x-slate-fragment')) {
-          const encoded = event.clipboardData.getData(
-            'application/x-slate-fragment',
-          );
-          const decoded = decodeURIComponent(window.atob(encoded));
-          const fragment = JSON.parse(decoded);
-          Transforms.insertFragment(store.editor, fragment);
-          return;
-        }
-
-        if (types.includes('text/html')) {
-          try {
-            const html = await event.clipboardData.getData('text/html');
-
-            const rtf = await event.clipboardData.getData('text/rtf');
-
-            if (html) {
-              const success = await insertParsedHtmlNodes(
-                editor,
-                html,
-                editorProps,
-                rtf,
-              );
-              if (success) {
+        try {
+          if (text.startsWith('media://') || text.startsWith('attach://')) {
+            const path = EditorUtils.findMediaInsertPath(store.editor);
+            const urlObject = new URL(text);
+            let url = urlObject.searchParams.get('url');
+            if (
+              url &&
+              !url.startsWith('http') &&
+              !url.startsWith('blob:http')
+            ) {
+              url = toUnixPath(url);
+            }
+            if (path && url) {
+              if (text.startsWith('media://')) {
+                Transforms.insertNodes(
+                  store.editor,
+                  EditorUtils.createMediaNode(url!, 'image'),
+                  { select: true, at: path },
+                );
+                event.preventDefault();
+                const next = Editor.next(store.editor, { at: path });
+                if (
+                  next &&
+                  next[0].type === 'paragraph' &&
+                  !Node.string(next[0])
+                ) {
+                  Transforms.delete(store.editor, { at: next[1] });
+                }
+                return;
+              }
+              if (text.startsWith('attach://')) {
+                Transforms.insertNodes(
+                  store.editor,
+                  {
+                    type: 'attach',
+                    name: urlObject.searchParams.get('name'),
+                    size: Number(urlObject.searchParams.get('size') || 0),
+                    url: url || undefined,
+                  },
+                  { select: true, at: path },
+                );
+                event.preventDefault();
+                const next = Editor.next(store.editor, { at: path });
+                if (
+                  next &&
+                  next[0].type === 'paragraph' &&
+                  !Node.string(next[0])
+                ) {
+                  Transforms.delete(store.editor, { at: next[1] });
+                }
                 return;
               }
             }
-          } catch (error) {
-            console.log('error', error);
           }
-        }
-
-        if (types.includes('Files')) {
-          try {
-            const fileList = event.clipboardData.files;
-            if (fileList.length > 0) {
-              const hideLoading = message.loading('Uploading...');
-              try {
-                const url = [];
-                for await (const file of fileList) {
-                  const serverUrl = await editorProps.image?.upload?.([file]);
-                  url.push(serverUrl);
-                }
-
-                if (store.editor.selection?.focus.path) {
-                  Transforms.delete(store.editor, {
-                    at: store.editor.selection.focus.path!,
-                  });
-                }
-                [url].flat(2).forEach((u) => {
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'media',
-                      url: u,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    {
-                      select: true,
-                      at: store.editor.selection
-                        ? Editor.after(
-                            store.editor,
-                            store.editor.selection.focus.path,
-                          )!
-                        : Editor.end(store.editor, []),
-                    },
-                  );
-                });
-                message.success('Upload success');
-              } catch (error) {
-                console.log('error', error);
-              } finally {
-                hideLoading();
+          if (text.startsWith('http')) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (['image', 'video', 'audio'].includes(getMediaType(text))) {
+              if (text.startsWith('http')) {
+                const path = EditorUtils.findMediaInsertPath(store.editor);
+                if (!path) return;
+                Transforms.insertNodes(
+                  store.editor,
+                  EditorUtils.createMediaNode(text, 'image'),
+                  { select: true, at: path },
+                );
               }
-
-              event.preventDefault();
-              event.stopPropagation();
-              return;
+            } else {
+              store.insertLink(text);
             }
-          } catch (error) {
-            console.log('error', error);
-          }
-        }
-
-        if (types.includes('text/plain')) {
-          const text = event.clipboardData.getData('text/plain');
-          const selection = store.editor.selection;
-
-          // 如果是表格或者代码块，直接插入文本
-          if (selection?.focus) {
-            const rangeNodes = Editor.node(editor, [
-              selection.focus.path.at(0)!,
-            ]);
-            if (!rangeNodes) return;
-            const rangeNode = rangeNodes.at(0) as Elements;
-            if (
-              rangeNode.type === 'table-cell' ||
-              rangeNode.type === 'table-row' ||
-              rangeNode.type === 'table' ||
-              rangeNode.type === 'code' ||
-              rangeNode.type === 'schema' ||
-              rangeNode.type === 'apaasify' ||
-              rangeNode.type === 'description'
-            ) {
-              Transforms.insertText(editor, text);
-              return;
-            }
-          }
-
-          try {
-            if (text.startsWith('media://') || text.startsWith('attach://')) {
-              const path = EditorUtils.findMediaInsertPath(store.editor);
-              const urlObject = new URL(text);
-              let url = urlObject.searchParams.get('url');
-              if (
-                url &&
-                !url.startsWith('http') &&
-                !url.startsWith('blob:http')
-              ) {
-                url = toUnixPath(url);
-              }
-              if (path) {
-                if (text.startsWith('media://')) {
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'media',
-                      height: urlObject.searchParams.get('height')
-                        ? +urlObject.searchParams.get('height')!
-                        : undefined,
-                      url: url || undefined,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    { select: true, at: path },
-                  );
-                  event.preventDefault();
-                  const next = Editor.next(store.editor, { at: path });
-                  if (
-                    next &&
-                    next[0].type === 'paragraph' &&
-                    !Node.string(next[0])
-                  ) {
-                    Transforms.delete(store.editor, { at: next[1] });
-                  }
-                  return;
-                }
-                if (text.startsWith('attach://')) {
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'attach',
-                      name: urlObject.searchParams.get('name'),
-                      size: Number(urlObject.searchParams.get('size') || 0),
-                      url: url || undefined,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    { select: true, at: path },
-                  );
-                  event.preventDefault();
-                  const next = Editor.next(store.editor, { at: path });
-                  if (
-                    next &&
-                    next[0].type === 'paragraph' &&
-                    !Node.string(next[0])
-                  ) {
-                    Transforms.delete(store.editor, { at: next[1] });
-                  }
-                  return;
-                }
-              }
-            }
-            if (text.startsWith('http')) {
-              event.preventDefault();
-              event.stopPropagation();
-              if (['image', 'video', 'audio'].includes(getMediaType(text))) {
-                if (text.startsWith('http')) {
-                  const path = EditorUtils.findMediaInsertPath(store.editor);
-                  if (!path) return;
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'media',
-                      url: text,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    { select: true, at: path },
-                  );
-                }
-              } else {
-                store.insertLink(text);
-              }
-              return;
-            }
-          } catch (e) {}
-
-          const [node] = Editor.nodes<Elements>(editor, {
-            match: (n) => Element.isElement(n) && n.type === 'code',
-          });
-
-          if (node) {
-            Transforms.insertFragment(
-              editor,
-              //@ts-ignore
-              text.split('\n').map((c) => {
-                return {
-                  type: 'code-line',
-                  children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
-                };
-              }),
-            );
             return;
           }
+        } catch (e) {}
 
-          if (isMarkdown(text)) {
-            parseMarkdownToNodesAndInsert(editor, text);
-            return;
-          }
-          Transforms.insertText(editor, text);
-        }
+        const [node] = Editor.nodes<Elements>(editor, {
+          match: (n) => Element.isElement(n) && n.type === 'code',
+        });
 
-        if (hasEditableTarget(editor, event.target)) {
-          ReactEditor.insertData(editor, event.clipboardData);
+        if (node) {
+          Transforms.insertFragment(
+            editor,
+            //@ts-ignore
+            text.split('\n').map((c) => {
+              return {
+                type: 'code-line',
+                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
+              };
+            }),
+          );
           return;
         }
-      },
-      [],
-    );
+
+        if (isMarkdown(text)) {
+          parseMarkdownToNodesAndInsert(editor, text);
+          return;
+        }
+        Transforms.insertText(editor, text);
+      }
+
+      if (hasEditableTarget(editor, event.target)) {
+        ReactEditor.insertData(editor, event.clipboardData);
+        return;
+      }
+      return;
+    };
 
     /**
      * 处理输入法开始事件
      */
-    const onCompositionStart = useCallback((e: React.CompositionEvent) => {
+    const onCompositionStart = (e: React.CompositionEvent) => {
       store.inputComposition = true;
       if (editor.selection && Range.isCollapsed(editor.selection)) {
         e.preventDefault();
       }
-    }, []);
+    };
 
     /**
      * 处理输入法结束事件
      */
-    const onCompositionEnd = useCallback(() => {
+    const onCompositionEnd = () => {
       store.inputComposition = false;
-    }, []);
+    };
 
-    const onError = useCallback((e: React.SyntheticEvent) => {
+    const onError = (e: React.SyntheticEvent) => {
       console.log('Editor error', e);
-    }, []);
+    };
 
     const childrenIsEmpty = useMemo(() => {
       if (!editor.children) return false;

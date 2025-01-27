@@ -11,7 +11,7 @@ import {
 } from 'slate';
 import { DOMNode } from 'slate-dom';
 import { History } from 'slate-history';
-import { CustomLeaf } from '../../el';
+import { CardNode, CustomLeaf } from '../../el';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { getOffsetTop } from './dom';
@@ -19,6 +19,10 @@ import { getOffsetTop } from './dom';
 export class EditorUtils {
   static get p() {
     return { type: 'paragraph', children: [{ text: '' }] } as const;
+  }
+
+  static hasPath(editor: Editor, path: Path) {
+    return Editor.hasPath(editor, path);
   }
   static focus(editor: Editor) {
     try {
@@ -128,7 +132,7 @@ export class EditorUtils {
         path = Path.parent(path);
       }
     }
-    return [];
+    return undefined;
   }
   static moveNodes(editor: Editor, from: Path, to: Path, index = 1) {
     let count = 0;
@@ -339,6 +343,36 @@ export class EditorUtils {
       console.error('find path error', e);
       return Editor.start(editor, []).path;
     }
+  }
+
+  static createMediaNode(
+    src: string | undefined,
+    type: string,
+    extraPros?: Record<string, any>,
+  ) {
+    if (!src) {
+      return { text: '' };
+    }
+    return {
+      type: 'card',
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        {
+          ...(extraPros || {}),
+          type: 'media',
+          url: src,
+          children: [{ text: '' }],
+          mediaType: type,
+        },
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    } as CardNode;
   }
 }
 

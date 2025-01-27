@@ -23,25 +23,19 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
   return React.useMemo(() => {
     const str = Node.string(props.element);
     return (
-      <p
+      <div
         {...props.attributes}
         data-be={'paragraph'}
         className={classNames('ant-md-editor-drag-el', {
           empty: !str,
           typewriter: isLatest && typewriter,
         })}
-        style={{
-          display:
-            !str && readonly && !props.element.children?.at(0)?.type
-              ? 'none'
-              : undefined,
-        }}
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
       >
         <DragHandle />
         {props.children}
-      </p>
+      </div>
     );
   }, [props.element.children, readonly, selected, isLatest, typewriter]);
 };

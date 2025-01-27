@@ -432,15 +432,6 @@ export function Media({
         }}
       >
         <DragHandle />
-        <span
-          style={{
-            width: '2px',
-            lineHeight: 1,
-            alignSelf: 'flex-start',
-          }}
-        >
-          {children?.at(0)}
-        </span>
         <div
           onClick={() => {
             setTimeout(() => {
@@ -454,6 +445,9 @@ export function Media({
           style={{
             color: 'transparent',
             padding: 4,
+            userSelect: 'none',
+            display: 'flex',
+            flexDirection: 'column',
             width: mediaElement ? '100%' : undefined,
           }}
           ref={htmlRef}
@@ -463,15 +457,8 @@ export function Media({
         >
           {mediaElement}
           {imageDom}
+          {children}
         </div>
-        <span
-          style={{
-            width: '2px',
-            lineHeight: 1,
-          }}
-        >
-          {children?.at(1)}
-        </span>
       </div>
     </div>
   );

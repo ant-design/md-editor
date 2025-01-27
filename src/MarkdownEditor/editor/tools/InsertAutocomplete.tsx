@@ -22,6 +22,7 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import { Editor, Element, Node, Transforms } from 'slate';
+import { CardNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { selChange$ } from '../plugins/useOnchange';
 import { ReactEditor } from '../slate-react';
@@ -498,20 +499,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             focus: Editor.end(store?.editor, ctx.current.path),
           },
         });
-        const node = {
-          type: 'media',
-          url,
-          children: [
-            {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            {
-              type: 'card-after',
-              children: [{ text: '' }],
-            },
-          ],
-        };
+        const node = EditorUtils.createMediaNode(url, 'image', {}) as CardNode;
         Transforms.setNodes(store?.editor, node, { at: ctx.current.path });
         EditorUtils.focus(store?.editor);
         const [n] = Editor.nodes(store?.editor, {

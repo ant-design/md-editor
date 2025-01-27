@@ -138,7 +138,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '0.9em',
         wordWrap: 'normal',
       },
-      p: {
+      'div[data-be="paragraph"]': {
         position: 'relative',
         paddingTop: '.25em',
         paddingBottom: '.25em',
