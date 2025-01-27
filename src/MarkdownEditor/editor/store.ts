@@ -134,6 +134,7 @@ export class EditorStore {
     this._editor = _editor;
     makeAutoObservable(this, {
       _editor: false,
+      editor: false,
       tableCellNode: false,
       inputComposition: false,
       container: false,

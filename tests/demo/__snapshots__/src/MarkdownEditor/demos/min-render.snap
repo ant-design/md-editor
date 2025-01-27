@@ -83,7 +83,7 @@
                 </span>
               </h2>
               <div
-                class="ant-md-editor-drag-el"
+                class="ant-md-editor-drag-el typewriter"
                 data-be="paragraph"
                 data-slate-node="element"
               >
@@ -11908,7 +11908,7 @@
                           </span>
                         </div>
                         <div
-                          class="ant-md-editor-code-content-code-line"
+                          class="ant-md-editor-code-content-code-line typewriter"
                           data-be="code-line"
                           data-slate-node="element"
                         >
@@ -12014,7 +12014,7 @@
                 </span>
               </h2>
               <div
-                class="ant-md-editor-drag-el"
+                class="ant-md-editor-drag-el typewriter"
                 data-be="paragraph"
                 data-slate-node="element"
               >
