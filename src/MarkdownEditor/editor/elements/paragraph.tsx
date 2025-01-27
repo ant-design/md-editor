@@ -31,6 +31,9 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         })}
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
+        style={{
+          display: str || props.children?.at(0).type ? 'block' : 'none',
+        }}
       >
         <DragHandle />
         {props.children}
