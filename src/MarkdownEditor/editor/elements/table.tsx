@@ -147,7 +147,7 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store, editorProps } = useEditorStore();
+  const { store, markdownEditorRef, editorProps } = useEditorStore();
 
   const [tableAttrVisible, setTableAttrVisible] = useState(false);
   const [state, setState] = useState({
@@ -177,17 +177,22 @@ export const Table = observer((props: RenderElementProps) => {
     if (selected) return true;
     if (!store.selectTablePath?.length) return false;
     return store.selectTablePath.join('') === path.join('');
-  }, [store.editor, selected, store.selectTablePath, props.element]);
+  }, [
+    markdownEditorRef.current,
+    selected,
+    store.selectTablePath,
+    props.element,
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (!tableRef.current) return;
       if (tableAttrVisible && tableRef.current) {
-        if (!store.editor.hasPath(tableRef.current[1])) return;
+        if (!markdownEditorRef.current.hasPath(tableRef.current[1])) return;
         try {
           const dom = ReactEditor.toDOMNode(
-            store.editor,
-            Node.get(store.editor, tableRef.current[1]),
+            markdownEditorRef.current,
+            Node.get(markdownEditorRef.current, tableRef.current[1]),
           ) as HTMLElement;
           if (dom && !dom.contains(event.target as Node)) {
             setTableAttrVisible(false);
@@ -200,7 +205,7 @@ export const Table = observer((props: RenderElementProps) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [tableAttrVisible, tableRef, store.editor]);
+  }, [tableAttrVisible, tableRef, markdownEditorRef.current]);
 
   const resize = useCallback(() => {
     const table = tableRef.current;
@@ -208,7 +213,7 @@ export const Table = observer((props: RenderElementProps) => {
     setTimeout(() => {
       try {
         const dom = ReactEditor.toDOMNode(
-          store.editor,
+          markdownEditorRef.current,
           table[0],
         ) as HTMLElement;
         if (dom) {
@@ -220,7 +225,7 @@ export const Table = observer((props: RenderElementProps) => {
         }
       } catch (e) {}
     }, 16);
-  }, [setState, store.editor]);
+  }, [setState, markdownEditorRef.current]);
 
   const handleClickTable = useCallback(() => {
     if (store.floatBarOpen) return;
@@ -228,7 +233,10 @@ export const Table = observer((props: RenderElementProps) => {
     if (el) {
       tableCellRef.current = el;
       try {
-        const dom = ReactEditor.toDOMNode(store.editor, el[0]) as HTMLElement;
+        const dom = ReactEditor.toDOMNode(
+          markdownEditorRef.current,
+          el[0],
+        ) as HTMLElement;
         const overflowShadowContainer = overflowShadowContainerRef.current!;
         const tableTop = overflowShadowContainer.offsetTop;
         let left = dom.getBoundingClientRect().left;
@@ -245,13 +253,16 @@ export const Table = observer((props: RenderElementProps) => {
         ...prev,
         align: el[0].align,
       }));
-      const table = Editor.node(store.editor, Path.parent(Path.parent(el[1])));
+      const table = Editor.node(
+        markdownEditorRef.current,
+        Path.parent(Path.parent(el[1])),
+      );
       if (table && table[0] !== tableRef.current?.[0]) {
         tableRef.current = table;
         resize();
       }
     }
-  }, [store.tableCellNode, store.editor, setState]);
+  }, [store.tableCellNode, markdownEditorRef.current, setState]);
   const tableTargetRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
     if (!tableTargetRef.current) {
@@ -383,7 +394,7 @@ export const Table = observer((props: RenderElementProps) => {
     state,
     setState,
     store.dragStart,
-    store.editor?.children?.length === 1,
+    markdownEditorRef.current?.children?.length === 1,
     handleClickTable,
     tableAttrVisible,
     isSel,

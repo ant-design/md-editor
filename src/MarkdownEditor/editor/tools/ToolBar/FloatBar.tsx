@@ -18,7 +18,7 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer((props: { readonly: boolean }) => {
-  const { store } = useEditorStore();
+  const { store, markdownEditorRef } = useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,
@@ -54,9 +54,9 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
   );
 
   useEffect(() => {
-    if (store.domRect && store.editor) {
+    if (store.domRect && markdownEditorRef.current) {
       resize(true);
-      sel.current = store.editor.selection!;
+      sel.current = markdownEditorRef.current.selection!;
     } else {
       setState({ open: false });
       fileMap.clear();
@@ -73,8 +73,11 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         if (!sel.current) return;
         //@ts-ignore
         const end = Range.end(sel.current!).path;
-        if (Editor.hasPath(store?.editor, end)) {
-          Transforms.select(store?.editor, Editor.end(store?.editor, end));
+        if (Editor.hasPath(markdownEditorRef.current, end)) {
+          Transforms.select(
+            markdownEditorRef.current,
+            Editor.end(markdownEditorRef.current, end),
+          );
         }
         store.setFloatBarOpen(false);
       }

@@ -266,7 +266,7 @@ export interface InsertAutocompleteProps {
 
 export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
   (props) => {
-    const { store, keyTask$ } = useEditorStore();
+    const { store, markdownEditorRef, keyTask$ } = useEditorStore();
 
     const dom = useRef<HTMLDivElement>(null);
     const ctx = useRef<{
@@ -315,7 +315,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         },
       ) => {
         if (params?.isCustom) {
-          Transforms.delete(store?.editor, {
+          Transforms.delete(markdownEditorRef.current, {
             at: ctx.current.path,
           });
           await props.runInsertTask?.(op, {
@@ -342,10 +342,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             setState({ insertAttachment: true });
           }
         } else if (op) {
-          Transforms.insertText(store?.editor, '', {
+          Transforms.insertText(markdownEditorRef.current, '', {
             at: {
-              anchor: Editor.start(store?.editor, ctx.current.path),
-              focus: Editor.end(store?.editor, ctx.current.path),
+              anchor: Editor.start(markdownEditorRef.current, ctx.current.path),
+              focus: Editor.end(markdownEditorRef.current, ctx.current.path),
             },
           });
           keyTask$.next({
@@ -380,10 +380,10 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             name = match[1];
           }
         }
-        Transforms.insertText(store?.editor, '', {
+        Transforms.insertText(markdownEditorRef.current, '', {
           at: {
-            anchor: Editor.start(store?.editor, ctx.current.path),
-            focus: Editor.end(store?.editor, ctx.current.path),
+            anchor: Editor.start(markdownEditorRef.current, ctx.current.path),
+            focus: Editor.end(markdownEditorRef.current, ctx.current.path),
           },
         });
         const node = {
@@ -393,17 +393,21 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           size,
           children: [{ text: '' }],
         };
-        Transforms.setNodes(store?.editor, node, { at: ctx.current.path });
-        EditorUtils.focus(store?.editor);
-        const next = Editor.next(store?.editor, { at: ctx.current.path });
+        Transforms.setNodes(markdownEditorRef.current, node, {
+          at: ctx.current.path,
+        });
+        EditorUtils.focus(markdownEditorRef.current);
+        const next = Editor.next(markdownEditorRef.current, {
+          at: ctx.current.path,
+        });
         if (next?.[0].type === 'paragraph' && !Node.string(next[0])) {
-          Transforms.delete(store?.editor, { at: next[1] });
+          Transforms.delete(markdownEditorRef.current, { at: next[1] });
         }
-        const [m] = Editor.nodes(store?.editor, {
+        const [m] = Editor.nodes(markdownEditorRef.current, {
           match: (n) => !!n.type,
           mode: 'lowest',
         });
-        selChange$.next({ node: m, sel: store?.editor.selection });
+        selChange$.next({ node: m, sel: markdownEditorRef.current.selection });
         close();
       } finally {
         setState({ loading: false });
@@ -457,13 +461,13 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         runInAction(() => {
           store.openInsertCompletion = false;
         });
-        EditorUtils.focus(store?.editor);
+        EditorUtils.focus(markdownEditorRef.current);
       }
       if (isHotkey('backspace', e)) {
         runInAction(() => {
           store.openInsertCompletion = false;
         });
-        EditorUtils.focus(store?.editor);
+        EditorUtils.focus(markdownEditorRef.current);
       }
     }, []);
 
@@ -493,21 +497,23 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         if (!type) {
           throw new Error();
         }
-        Transforms.insertText(store?.editor, '', {
+        Transforms.insertText(markdownEditorRef.current, '', {
           at: {
-            anchor: Editor.start(store?.editor, ctx.current.path),
-            focus: Editor.end(store?.editor, ctx.current.path),
+            anchor: Editor.start(markdownEditorRef.current, ctx.current.path),
+            focus: Editor.end(markdownEditorRef.current, ctx.current.path),
           },
         });
         const node = EditorUtils.createMediaNode(url, 'image', {}) as CardNode;
-        Transforms.setNodes(store?.editor, node, { at: ctx.current.path });
-        EditorUtils.focus(store?.editor);
-        const [n] = Editor.nodes(store?.editor, {
+        Transforms.setNodes(markdownEditorRef.current, node, {
+          at: ctx.current.path,
+        });
+        EditorUtils.focus(markdownEditorRef.current);
+        const [n] = Editor.nodes(markdownEditorRef.current, {
           match: (n) => !!n.type,
           mode: 'lowest',
         });
         selChange$.next({
-          sel: store?.editor.selection,
+          sel: markdownEditorRef.current.selection,
           node: n,
         });
         close();
@@ -620,7 +626,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       };
 
       if (store.openInsertCompletion) {
-        const [node] = Editor.nodes<any>(store.editor, {
+        const [node] = Editor.nodes<any>(markdownEditorRef.current, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',
         });
@@ -628,10 +634,13 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         if (node) {
           ctx.current = {
             path: node[1],
-            isTop: EditorUtils.isTop(store.editor, node[1]),
+            isTop: EditorUtils.isTop(markdownEditorRef.current, node[1]),
           };
           if (node[0].type === 'paragraph') {
-            const el = ReactEditor.toDOMNode(store.editor, node[0]);
+            const el = ReactEditor.toDOMNode(
+              markdownEditorRef.current,
+              node[0],
+            );
             if (el) {
               const position = calculatePosition(el, document.body);
               if (position) {
@@ -804,18 +813,22 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
                           size={'small'}
                           type={'primary'}
                           onClick={() => {
-                            Transforms.insertText(store?.editor, '', {
-                              at: {
-                                anchor: Editor.start(
-                                  store?.editor,
-                                  ctx.current.path,
-                                ),
-                                focus: Editor.end(
-                                  store?.editor,
-                                  ctx.current.path,
-                                ),
+                            Transforms.insertText(
+                              markdownEditorRef.current,
+                              '',
+                              {
+                                at: {
+                                  anchor: Editor.start(
+                                    markdownEditorRef.current,
+                                    ctx.current.path,
+                                  ),
+                                  focus: Editor.end(
+                                    markdownEditorRef.current,
+                                    ctx.current.path,
+                                  ),
+                                },
                               },
-                            });
+                            );
                             setState({ insertUrl: '' });
                             insertAttachByLink();
                           }}

@@ -148,7 +148,7 @@ export const MLeaf = (
     fncProps: MarkdownEditorProps['fncProps'];
   },
 ) => {
-  const { store, readonly } = useEditorStore();
+  const { markdownEditorRef, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
 
@@ -185,11 +185,14 @@ export const MLeaf = (
   const selectFormat = () => {
     try {
       if (EditorUtils.isDirtLeaf(props.leaf)) {
-        const path = ReactEditor.findPath(store?.editor, props.text);
+        const path = ReactEditor.findPath(
+          markdownEditorRef.current,
+          props.text,
+        );
         if (path) {
-          Transforms.select(store?.editor, {
-            anchor: Editor.start(store?.editor, path),
-            focus: Editor.end(store?.editor, path),
+          Transforms.select(markdownEditorRef.current, {
+            anchor: Editor.start(markdownEditorRef.current, path),
+            focus: Editor.end(markdownEditorRef.current, path),
           });
         }
       }

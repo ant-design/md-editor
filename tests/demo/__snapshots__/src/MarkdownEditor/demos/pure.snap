@@ -66,7 +66,7 @@
           </span>
         </span>
       </h2>
-      <p
+      <div
         class="ant-md-editor-drag-el"
         data-be="paragraph"
         data-slate-node="element"
@@ -87,7 +87,7 @@
             </span>
           </span>
         </span>
-      </p>
+      </div>
       <h2
         class="ant-md-editor-drag-el"
         data-be="head"
@@ -126,7 +126,7 @@
             data-be="list-item"
             data-slate-node="element"
           >
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -147,7 +147,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
             <div
               class="relative"
               data-be="list"
@@ -161,7 +161,7 @@
                   data-be="list-item"
                   data-slate-node="element"
                 >
-                  <p
+                  <div
                     class="ant-md-editor-drag-el"
                     data-be="paragraph"
                     data-slate-node="element"
@@ -182,14 +182,14 @@
                         </span>
                       </span>
                     </span>
-                  </p>
+                  </div>
                 </li>
                 <li
                   class="ant-md-editor-list-item"
                   data-be="list-item"
                   data-slate-node="element"
                 >
-                  <p
+                  <div
                     class="ant-md-editor-drag-el"
                     data-be="paragraph"
                     data-slate-node="element"
@@ -210,7 +210,7 @@
                         </span>
                       </span>
                     </span>
-                  </p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -220,7 +220,7 @@
             data-be="list-item"
             data-slate-node="element"
           >
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -241,14 +241,14 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
           <li
             class="ant-md-editor-list-item"
             data-be="list-item"
             data-slate-node="element"
           >
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -269,14 +269,14 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
           <li
             class="ant-md-editor-list-item"
             data-be="list-item"
             data-slate-node="element"
           >
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -297,14 +297,14 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
           <li
             class="ant-md-editor-list-item"
             data-be="list-item"
             data-slate-node="element"
           >
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -325,7 +325,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
             <div
               class="relative"
               data-be="list"
@@ -339,7 +339,7 @@
                   data-be="list-item"
                   data-slate-node="element"
                 >
-                  <p
+                  <div
                     class="ant-md-editor-drag-el"
                     data-be="paragraph"
                     data-slate-node="element"
@@ -360,14 +360,14 @@
                         </span>
                       </span>
                     </span>
-                  </p>
+                  </div>
                 </li>
                 <li
                   class="ant-md-editor-list-item"
                   data-be="list-item"
                   data-slate-node="element"
                 >
-                  <p
+                  <div
                     class="ant-md-editor-drag-el"
                     data-be="paragraph"
                     data-slate-node="element"
@@ -388,7 +388,7 @@
                         </span>
                       </span>
                     </span>
-                  </p>
+                  </div>
                   <div
                     class="relative"
                     data-be="list"
@@ -402,7 +402,7 @@
                         data-be="list-item"
                         data-slate-node="element"
                       >
-                        <p
+                        <div
                           class="ant-md-editor-drag-el"
                           data-be="paragraph"
                           data-slate-node="element"
@@ -423,14 +423,14 @@
                               </span>
                             </span>
                           </span>
-                        </p>
+                        </div>
                       </li>
                       <li
                         class="ant-md-editor-list-item"
                         data-be="list-item"
                         data-slate-node="element"
                       >
-                        <p
+                        <div
                           class="ant-md-editor-drag-el"
                           data-be="paragraph"
                           data-slate-node="element"
@@ -451,7 +451,7 @@
                               </span>
                             </span>
                           </span>
-                        </p>
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -464,7 +464,7 @@
             data-be="list-item"
             data-slate-node="element"
           >
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -485,7 +485,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
         </ul>
       </div>
@@ -549,7 +549,7 @@
                 </span>
               </label>
             </span>
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -570,7 +570,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
           <li
             class="ant-md-editor-list-item ant-md-editor-list-task"
@@ -597,7 +597,7 @@
                 </span>
               </label>
             </span>
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -618,7 +618,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
           <li
             class="ant-md-editor-list-item ant-md-editor-list-task"
@@ -645,7 +645,7 @@
                 </span>
               </label>
             </span>
-            <p
+            <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
               data-slate-node="element"
@@ -666,7 +666,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </div>
           </li>
         </ul>
       </div>
@@ -3990,7 +3990,7 @@
           </div>
         </div>
       </div>
-      <p
+      <div
         class="ant-md-editor-drag-el"
         data-be="paragraph"
         data-slate-node="element"
@@ -4027,7 +4027,7 @@
             </span>
           </span>
         </span>
-      </p>
+      </div>
       <h2
         class="ant-md-editor-drag-el"
         data-be="head"
@@ -6048,102 +6048,94 @@
         </span>
       </h2>
       <div
+        data-be="card"
         data-slate-node="element"
+        style="display: flex; gap: 1px; max-width: 100%;"
       >
-        <div
-          class="ant-md-editor-drag-el"
-          data-be="media"
-          draggable="true"
-          style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+        <span
+          data-be="card-before"
+          data-slate-node="element"
+          style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
         >
           <span
-            style="width: 2px; line-height: 1; align-self: flex-start;"
+            data-slate-node="text"
           >
             <span
-              data-be="card-before"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
             >
               <span
-                data-slate-node="text"
+                data-slate-length="0"
+                data-slate-zero-width="n"
               >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
-                  >
-                    ﻿
-                    <br />
-                  </span>
-                </span>
+                ﻿
+                <br />
               </span>
             </span>
           </span>
+        </span>
+        <div
+          data-slate-node="element"
+        >
           <div
-            class="md-editor-media"
-            contenteditable="false"
-            draggable="false"
-            style="color: transparent; padding: 4px;"
-            tabindex="-1"
+            class="ant-md-editor-drag-el"
+            data-be="media"
+            draggable="true"
+            style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
           >
             <div
-              class="ant-image"
-              crossorigin="anonymous"
+              class="md-editor-media"
+              contenteditable="false"
               draggable="false"
-              referrerpolicy="no-referrer"
+              style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column;"
+              tabindex="-1"
             >
-              <img
-                alt="image"
-                class="ant-image-img"
+              <div
+                class="ant-image"
                 crossorigin="anonymous"
                 draggable="false"
                 referrerpolicy="no-referrer"
-                src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
-                style="max-width: 800px; margin-bottom: 12px;"
-              />
-              <div
-                class="ant-image-mask"
               >
+                <img
+                  alt="image"
+                  class="ant-image-img"
+                  crossorigin="anonymous"
+                  draggable="false"
+                  referrerpolicy="no-referrer"
+                  src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
+                  style="max-width: 800px; margin-bottom: 12px;"
+                />
                 <div
-                  class="ant-image-mask-info"
+                  class="ant-image-mask"
                 >
-                  <span
-                    aria-label="eye"
-                    class="anticon anticon-eye"
-                    role="img"
+                  <div
+                    class="ant-image-mask-info"
                   >
-                    <svg
-                      aria-hidden="true"
-                      data-icon="eye"
-                      fill="currentColor"
-                      focusable="false"
-                      height="1em"
-                      viewBox="64 64 896 896"
-                      width="1em"
+                    <span
+                      aria-label="eye"
+                      class="anticon anticon-eye"
+                      role="img"
                     >
-                      <path
-                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                      />
-                    </svg>
-                  </span>
-                  Preview
+                      <svg
+                        aria-hidden="true"
+                        data-icon="eye"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                        />
+                      </svg>
+                    </span>
+                    Preview
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <span
-            style="width: 2px; line-height: 1;"
-          >
-            <span
-              data-be="card-after"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
-            >
               <span
                 data-slate-node="text"
               >
@@ -6162,9 +6154,33 @@
                   </span>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+        <span
+          data-be="card-after"
+          data-slate-node="element"
+          style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+        >
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-length="0"
+                data-slate-zero-width="n"
+              >
+                ﻿
+                <br />
+              </span>
             </span>
           </span>
-        </div>
+        </span>
       </div>
       <h2
         class="ant-md-editor-drag-el"
@@ -6192,63 +6208,55 @@
         </span>
       </h2>
       <div
+        data-be="card"
         data-slate-node="element"
+        style="display: flex; gap: 1px; max-width: 100%;"
       >
-        <div
-          class="ant-md-editor-drag-el"
-          data-be="media"
-          draggable="true"
-          style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+        <span
+          data-be="card-before"
+          data-slate-node="element"
+          style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
         >
           <span
-            style="width: 2px; line-height: 1; align-self: flex-start;"
+            data-slate-node="text"
           >
             <span
-              data-be="card-before"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
             >
               <span
-                data-slate-node="text"
+                data-slate-length="0"
+                data-slate-zero-width="n"
               >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
-                  >
-                    ﻿
-                    <br />
-                  </span>
-                </span>
+                ﻿
+                <br />
               </span>
             </span>
           </span>
+        </span>
+        <div
+          data-slate-node="element"
+        >
           <div
-            class="md-editor-media"
-            contenteditable="false"
-            draggable="false"
-            style="color: transparent; padding: 4px; width: 100%;"
-            tabindex="-1"
+            class="ant-md-editor-drag-el"
+            data-be="media"
+            draggable="true"
+            style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
           >
-            <video
-              controls=""
-              src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
-              style="width: 100%; height: auto; max-width: 600px;"
-            />
-          </div>
-          <span
-            style="width: 2px; line-height: 1;"
-          >
-            <span
-              data-be="card-after"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+            <div
+              class="md-editor-media"
+              contenteditable="false"
+              draggable="false"
+              style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+              tabindex="-1"
             >
+              <video
+                controls=""
+                src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
+                style="width: 100%; height: auto; max-width: 600px;"
+              />
               <span
                 data-slate-node="text"
               >
@@ -6267,9 +6275,33 @@
                   </span>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+        <span
+          data-be="card-after"
+          data-slate-node="element"
+          style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+        >
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-length="0"
+                data-slate-zero-width="n"
+              >
+                ﻿
+                <br />
+              </span>
             </span>
           </span>
-        </div>
+        </span>
       </div>
       <h2
         class="ant-md-editor-drag-el"
@@ -6297,112 +6329,104 @@
         </span>
       </h2>
       <div
+        data-be="card"
         data-slate-node="element"
+        style="display: flex; gap: 1px; max-width: 100%;"
       >
-        <div
-          class="ant-md-editor-drag-el"
-          data-be="media"
-          draggable="true"
-          style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+        <span
+          data-be="card-before"
+          data-slate-node="element"
+          style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
         >
           <span
-            style="width: 2px; line-height: 1; align-self: flex-start;"
+            data-slate-node="text"
           >
             <span
-              data-be="card-before"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
             >
               <span
-                data-slate-node="text"
+                data-slate-length="0"
+                data-slate-zero-width="n"
               >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
-                  >
-                    ﻿
-                    <br />
-                  </span>
-                </span>
+                ﻿
+                <br />
               </span>
             </span>
           </span>
+        </span>
+        <div
+          data-slate-node="element"
+        >
           <div
-            class="md-editor-media"
-            contenteditable="false"
-            draggable="false"
-            style="color: transparent; padding: 4px; width: 100%;"
-            tabindex="-1"
+            class="ant-md-editor-drag-el"
+            data-be="media"
+            draggable="true"
+            style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
           >
             <div
-              style="padding: 12px; border: 1px solid #f0f0f0; border-radius: 0.5em; width: 100%; flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
+              class="md-editor-media"
+              contenteditable="false"
+              draggable="false"
+              style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+              tabindex="-1"
             >
               <div
-                style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
+                style="padding: 12px; border: 1px solid #f0f0f0; border-radius: 0.5em; width: 100%; flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
               >
-                <img
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
-                  width="56"
-                />
                 <div
-                  style="flex: 1; min-width: 0;"
+                  style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
                 >
-                  <a
-                    download="测试附件.pdf"
-                    href="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
-                    style="overflow: ellipsis; text-overflow: ellipsis; text-wrap: nowrap; text-decoration: none; display: block; color: rgb(38, 38, 38);"
-                  >
-                    测试附件.pdf
-                  </a>
+                  <img
+                    src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
+                    width="56"
+                  />
                   <div
-                    style="flex: 1; min-width: 0; display: flex; justify-content: space-between;"
+                    style="flex: 1; min-width: 0;"
                   >
-                    <div />
+                    <a
+                      download="测试附件.pdf"
+                      href="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
+                      style="overflow: ellipsis; text-overflow: ellipsis; text-wrap: nowrap; text-decoration: none; display: block; color: rgb(38, 38, 38);"
+                    >
+                      测试附件.pdf
+                    </a>
+                    <div
+                      style="flex: 1; min-width: 0; display: flex; justify-content: space-between;"
+                    >
+                      <div />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="editor-icon-box"
-                style="padding: 0px 18px;"
-              >
-                <span
-                  aria-label="eye"
-                  class="anticon anticon-eye"
-                  role="img"
-                  style="font-size: 16px; cursor: pointer;"
-                  tabindex="-1"
+                <div
+                  class="editor-icon-box"
+                  style="padding: 0px 18px;"
                 >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="eye"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
+                  <span
+                    aria-label="eye"
+                    class="anticon anticon-eye"
+                    role="img"
+                    style="font-size: 16px; cursor: pointer;"
+                    tabindex="-1"
                   >
-                    <path
-                      d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                    />
-                  </svg>
-                </span>
+                    <svg
+                      aria-hidden="true"
+                      data-icon="eye"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
-            </div>
-          </div>
-          <span
-            style="width: 2px; line-height: 1;"
-          >
-            <span
-              data-be="card-after"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
-            >
               <span
                 data-slate-node="text"
               >
@@ -6421,9 +6445,33 @@
                   </span>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+        <span
+          data-be="card-after"
+          data-slate-node="element"
+          style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+        >
+          <span
+            data-slate-node="text"
+          >
+            <span
+              class=" "
+              data-be="text"
+              data-slate-leaf="true"
+              draggable="false"
+            >
+              <span
+                data-slate-length="0"
+                data-slate-zero-width="n"
+              >
+                ﻿
+                <br />
+              </span>
             </span>
           </span>
-        </div>
+        </span>
       </div>
       <h2
         class="ant-md-editor-drag-el"
@@ -6450,7 +6498,7 @@
           </span>
         </span>
       </h2>
-      <p
+      <div
         class="ant-md-editor-drag-el"
         data-be="paragraph"
         data-slate-node="element"
@@ -6497,7 +6545,7 @@
             2
           </span>
         </span>
-      </p>
+      </div>
       <div
         data-be="card"
         data-slate-node="element"
@@ -8013,7 +8061,7 @@
         data-be="blockquote"
         data-slate-node="element"
       >
-        <p
+        <div
           class="ant-md-editor-drag-el"
           data-be="paragraph"
           data-slate-node="element"
@@ -8045,7 +8093,7 @@
               [^3
             </span>
           </span>
-        </p>
+        </div>
       </blockquote>
       <h2
         class="ant-md-editor-drag-el"
@@ -8151,7 +8199,7 @@
           </span>
         </span>
       </h2>
-      <p
+      <div
         class="ant-md-editor-drag-el"
         data-be="paragraph"
         data-slate-node="element"
@@ -8186,7 +8234,7 @@
             </span>
           </span>
         </span>
-      </p>
+      </div>
       <div
         contenteditable="false"
         style="border-bottom: 1px solid #e8e8e8; padding: 4px 0px; margin: 12px 0px; font-size: 14px;"

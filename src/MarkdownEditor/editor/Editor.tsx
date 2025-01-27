@@ -57,14 +57,17 @@ export const MEditor = observer(
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
   } & MarkdownEditorProps) => {
-    const { store, readonly } = useEditorStore();
+    const { store, markdownEditorRef, readonly } = useEditorStore();
     const changedMark = useRef(false);
-    const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
 
-    const onKeyDown = useKeyboard(store);
-    const onChange = useOnchange(editor, store, editorProps.onChange);
+    const onKeyDown = useKeyboard(store, markdownEditorRef);
+    const onChange = useOnchange(
+      markdownEditorRef.current,
+      store,
+      editorProps.onChange,
+    );
     const first = useRef(true);
     const highlight = useHighlight();
 
@@ -79,15 +82,15 @@ export const MEditor = observer(
         store.initializing = true;
         try {
           EditorUtils.reset(
-            editor,
+            markdownEditorRef.current,
             editorProps.initSchemaValue?.length
               ? editorProps.initSchemaValue
               : undefined,
             instance.history || true,
           );
-          clearAllCodeCache(editor);
+          clearAllCodeCache(markdownEditorRef.current);
         } catch (e) {
-          EditorUtils.deleteAll(editor);
+          EditorUtils.deleteAll(markdownEditorRef.current);
         }
         setTimeout(() => {
           store.initializing = false;
@@ -101,7 +104,7 @@ export const MEditor = observer(
       if (nodeRef.current !== instance) {
         initialNote();
       }
-    }, [instance, editor]);
+    }, [instance, markdownEditorRef.current]);
 
     const change = (v: any[]) => {
       if (first.current) {
@@ -111,12 +114,16 @@ export const MEditor = observer(
         return;
       }
       value.current = v;
-      onChange(v, editor.operations);
+      onChange(v, markdownEditorRef.current.operations);
       if (instance) {
-        instance.history = editor.history;
+        instance.history = markdownEditorRef.current.history;
       }
 
-      if (!editor.operations?.every((o) => o.type === 'set_selection')) {
+      if (
+        !markdownEditorRef.current.operations?.every(
+          (o) => o.type === 'set_selection',
+        )
+      ) {
         if (!changedMark.current) {
           changedMark.current = true;
         }
@@ -125,7 +132,7 @@ export const MEditor = observer(
 
     const checkEnd = (e: React.MouseEvent) => {
       if (!store.focus) {
-        store.editor.selection = null;
+        markdownEditorRef.current.selection = null;
       }
       const target = e.target as HTMLDivElement;
       if (target.dataset.slateEditor) {
@@ -134,7 +141,7 @@ export const MEditor = observer(
           store.container &&
           store.container.scrollTop + e.clientY - 60 > top
         ) {
-          if (EditorUtils.checkEnd(editor)) {
+          if (EditorUtils.checkEnd(markdownEditorRef.current)) {
             e.preventDefault();
           }
         }
@@ -169,14 +176,17 @@ export const MEditor = observer(
     const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
       event.stopPropagation();
       event.preventDefault();
-      const currentTextSelection = store.editor.selection;
+      const currentTextSelection = markdownEditorRef.current.selection;
       if (
         currentTextSelection &&
         currentTextSelection.anchor &&
-        Editor.hasPath(store.editor, currentTextSelection.anchor.path)
+        Editor.hasPath(
+          markdownEditorRef.current,
+          currentTextSelection.anchor.path,
+        )
       ) {
         if (!Range.isCollapsed(currentTextSelection)) {
-          Transforms.delete(store.editor, {
+          Transforms.delete(markdownEditorRef.current, {
             at: currentTextSelection!,
             reverse: true,
           });
@@ -191,7 +201,7 @@ export const MEditor = observer(
         );
         const decoded = decodeURIComponent(window.atob(encoded));
         const fragment = JSON.parse(decoded);
-        Transforms.insertFragment(store.editor, fragment);
+        Transforms.insertFragment(markdownEditorRef.current, fragment);
         return;
       }
 
@@ -203,7 +213,7 @@ export const MEditor = observer(
 
           if (html) {
             const success = await insertParsedHtmlNodes(
-              editor,
+              markdownEditorRef.current,
               html,
               editorProps,
               rtf,
@@ -228,19 +238,24 @@ export const MEditor = observer(
                 const serverUrl = await editorProps.image?.upload?.([file]);
                 url.push(serverUrl);
               }
-              const selection = store?.editor?.selection?.focus?.path;
+              const selection =
+                markdownEditorRef.current?.selection?.focus?.path;
               const at = selection
-                ? EditorUtils.findNext(store.editor, selection)!
+                ? EditorUtils.findNext(markdownEditorRef.current, selection)!
                 : undefined;
 
               [url].flat(2).forEach((u) => {
                 if (!u) return null;
                 console.log('---->', at);
                 Transforms.insertNodes(
-                  store.editor,
+                  markdownEditorRef.current,
                   EditorUtils.createMediaNode(u, 'image'),
                   {
-                    at: [at ? at[0] : store.editor.children.length - 1],
+                    at: [
+                      at
+                        ? at[0]
+                        : markdownEditorRef.current.children.length - 1,
+                    ],
                   },
                 );
               });
@@ -263,11 +278,13 @@ export const MEditor = observer(
 
       if (types.includes('text/plain')) {
         const text = event.clipboardData.getData('text/plain');
-        const selection = store.editor.selection;
+        const selection = markdownEditorRef.current.selection;
 
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
-          const rangeNodes = Editor.node(editor, [selection.focus.path.at(0)!]);
+          const rangeNodes = Editor.node(markdownEditorRef.current, [
+            selection.focus.path.at(0)!,
+          ]);
           if (!rangeNodes) return;
           const rangeNode = rangeNodes.at(0) as Elements;
           if (
@@ -279,14 +296,16 @@ export const MEditor = observer(
             rangeNode.type === 'apaasify' ||
             rangeNode.type === 'description'
           ) {
-            Transforms.insertText(editor, text);
+            Transforms.insertText(markdownEditorRef.current, text);
             return;
           }
         }
 
         try {
           if (text.startsWith('media://') || text.startsWith('attach://')) {
-            const path = EditorUtils.findMediaInsertPath(store.editor);
+            const path = EditorUtils.findMediaInsertPath(
+              markdownEditorRef.current,
+            );
             const urlObject = new URL(text);
             let url = urlObject.searchParams.get('url');
             if (
@@ -299,24 +318,28 @@ export const MEditor = observer(
             if (path && url) {
               if (text.startsWith('media://')) {
                 Transforms.insertNodes(
-                  store.editor,
+                  markdownEditorRef.current,
                   EditorUtils.createMediaNode(url!, 'image'),
                   { select: true, at: path },
                 );
                 event.preventDefault();
-                const next = Editor.next(store.editor, { at: path });
+                const next = Editor.next(markdownEditorRef.current, {
+                  at: path,
+                });
                 if (
                   next &&
                   next[0].type === 'paragraph' &&
                   !Node.string(next[0])
                 ) {
-                  Transforms.delete(store.editor, { at: next[1] });
+                  Transforms.delete(markdownEditorRef.current, {
+                    at: next[1],
+                  });
                 }
                 return;
               }
               if (text.startsWith('attach://')) {
                 Transforms.insertNodes(
-                  store.editor,
+                  markdownEditorRef.current,
                   {
                     type: 'attach',
                     name: urlObject.searchParams.get('name'),
@@ -326,13 +349,17 @@ export const MEditor = observer(
                   { select: true, at: path },
                 );
                 event.preventDefault();
-                const next = Editor.next(store.editor, { at: path });
+                const next = Editor.next(markdownEditorRef.current, {
+                  at: path,
+                });
                 if (
                   next &&
                   next[0].type === 'paragraph' &&
                   !Node.string(next[0])
                 ) {
-                  Transforms.delete(store.editor, { at: next[1] });
+                  Transforms.delete(markdownEditorRef.current, {
+                    at: next[1],
+                  });
                 }
                 return;
               }
@@ -343,10 +370,12 @@ export const MEditor = observer(
             event.stopPropagation();
             if (['image', 'video', 'audio'].includes(getMediaType(text))) {
               if (text.startsWith('http')) {
-                const path = EditorUtils.findMediaInsertPath(store.editor);
+                const path = EditorUtils.findMediaInsertPath(
+                  markdownEditorRef.current,
+                );
                 if (!path) return;
                 Transforms.insertNodes(
-                  store.editor,
+                  markdownEditorRef.current,
                   EditorUtils.createMediaNode(text, 'image'),
                   { select: true, at: path },
                 );
@@ -358,13 +387,13 @@ export const MEditor = observer(
           }
         } catch (e) {}
 
-        const [node] = Editor.nodes<Elements>(editor, {
+        const [node] = Editor.nodes<Elements>(markdownEditorRef.current, {
           match: (n) => Element.isElement(n) && n.type === 'code',
         });
 
         if (node) {
           Transforms.insertFragment(
-            editor,
+            markdownEditorRef.current,
             //@ts-ignore
             text.split('\n').map((c) => {
               return {
@@ -377,14 +406,14 @@ export const MEditor = observer(
         }
 
         if (isMarkdown(text)) {
-          parseMarkdownToNodesAndInsert(editor, text);
+          parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);
           return;
         }
-        Transforms.insertText(editor, text);
+        Transforms.insertText(markdownEditorRef.current, text);
       }
 
-      if (hasEditableTarget(editor, event.target)) {
-        ReactEditor.insertData(editor, event.clipboardData);
+      if (hasEditableTarget(markdownEditorRef.current, event.target)) {
+        ReactEditor.insertData(markdownEditorRef.current, event.clipboardData);
         return;
       }
       return;
@@ -395,7 +424,10 @@ export const MEditor = observer(
      */
     const onCompositionStart = (e: React.CompositionEvent) => {
       store.inputComposition = true;
-      if (editor.selection && Range.isCollapsed(editor.selection)) {
+      if (
+        markdownEditorRef.current.selection &&
+        Range.isCollapsed(markdownEditorRef.current.selection)
+      ) {
         e.preventDefault();
       }
     };
@@ -412,15 +444,15 @@ export const MEditor = observer(
     };
 
     const childrenIsEmpty = useMemo(() => {
-      if (!editor.children) return false;
-      if (!Array.isArray(editor.children)) return;
-      if (editor.children.length === 0) return false;
+      if (!markdownEditorRef.current.children) return false;
+      if (!Array.isArray(markdownEditorRef.current.children)) return;
+      if (markdownEditorRef.current.children.length === 0) return false;
       return (
         value.current.filter(
           (v) => v.type === 'paragraph' && v.children?.at?.(0)?.text === '',
         ).length < 1
       );
-    }, [editor.children]);
+    }, [markdownEditorRef.current.children]);
 
     const readonlyCls = useMemo(() => {
       if (readonly) return 'readonly';
@@ -503,15 +535,24 @@ export const MEditor = observer(
           if (
             isPath(FocusPath) &&
             isPath(AnchorPath) &&
-            Editor.hasPath(editor, anchor.path) &&
-            Editor.hasPath(editor, focus.path)
+            Editor.hasPath(markdownEditorRef.current, anchor.path) &&
+            Editor.hasPath(markdownEditorRef.current, focus.path)
           ) {
             const newSelection = {
-              anchor: { ...anchor, path: findLeafPath(editor, AnchorPath) },
-              focus: { ...focus, path: findLeafPath(editor, FocusPath) },
+              anchor: {
+                ...anchor,
+                path: findLeafPath(markdownEditorRef.current, AnchorPath),
+              },
+              focus: {
+                ...focus,
+                path: findLeafPath(markdownEditorRef.current, FocusPath),
+              },
             };
 
-            const fragment = Editor.fragment(editor, newSelection);
+            const fragment = Editor.fragment(
+              markdownEditorRef.current,
+              newSelection,
+            );
             if (fragment) {
               const str = Node.string({ children: fragment });
               const isStrEquals = str === item.refContent;
@@ -522,8 +563,8 @@ export const MEditor = observer(
                 isStrEquals &&
                 isPath(newFocusPath) &&
                 isPath(newAnchorPath) &&
-                Editor.hasPath(editor, newAnchorPath) &&
-                Editor.hasPath(editor, newFocusPath)
+                Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
+                Editor.hasPath(markdownEditorRef.current, newFocusPath)
               ) {
                 ranges.push({
                   anchor: { path: newAnchorPath, offset: anchor.offset },
@@ -546,7 +587,11 @@ export const MEditor = observer(
       }
     };
     return wrapSSR(
-      <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
+      <Slate
+        editor={markdownEditorRef.current}
+        initialValue={[EditorUtils.p]}
+        onChange={change}
+      >
         <SetNodeToDecorations />
         <Editable
           decorate={decorateFn}
@@ -576,12 +621,13 @@ export const MEditor = observer(
           }
           onSelect={() => {
             if (store.focus) {
-              store.editor.selection = getSelectionFromDomSelection(
-                store.editor,
-                window.getSelection()!,
-              );
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  window.getSelection()!,
+                );
               store.setState((state) => {
-                state.preSelection = store.editor.selection;
+                state.preSelection = markdownEditorRef.current.selection;
               });
             }
           }}
@@ -589,14 +635,17 @@ export const MEditor = observer(
             if (isEventHandled(event)) {
               return;
             }
-            if (!hasEditableTarget(editor, event.target)) {
+            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
               const domSelection = window.getSelection();
-              editor.selection = getSelectionFromDomSelection(
-                editor,
-                domSelection!,
-              );
-              if (editor.selection) {
-                Transforms.delete(editor, { at: editor.selection! });
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  domSelection!,
+                );
+              if (markdownEditorRef.current.selection) {
+                Transforms.delete(markdownEditorRef.current, {
+                  at: markdownEditorRef.current.selection!,
+                });
                 return;
               }
             }
@@ -610,19 +659,24 @@ export const MEditor = observer(
             if (isEventHandled(event)) {
               return;
             }
-            if (!hasEditableTarget(editor, event.target)) {
+            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
               const domSelection = window.getSelection();
-              editor.selection = getSelectionFromDomSelection(
-                editor,
-                domSelection!,
-              );
-              if (!editor.selection) {
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  domSelection!,
+                );
+              if (!markdownEditorRef.current.selection) {
                 return;
               }
             }
             event.preventDefault();
-            ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
-            copySelectedBlocks(editor);
+            ReactEditor.setFragmentData(
+              markdownEditorRef.current,
+              event.clipboardData,
+              'copy',
+            );
+            copySelectedBlocks(markdownEditorRef.current);
           }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}

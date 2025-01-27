@@ -5,7 +5,7 @@ import { useEditorStore } from '../store';
 
 export const DragHandle = observer((props: { style?: CSSProperties }) => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const { store, readonly } = useEditorStore();
+  const { store, markdownEditorRef, readonly } = useEditorStore();
   if (!store) return null;
   if (readonly === true) return null;
 

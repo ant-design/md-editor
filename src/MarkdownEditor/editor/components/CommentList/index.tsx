@@ -5,11 +5,7 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { Transforms } from 'slate';
-import {
-  CommentDataType,
-  MarkdownEditorInstance,
-  MarkdownEditorProps,
-} from '../../../index';
+import { CommentDataType, MarkdownEditorProps } from '../../../index';
 
 import { EditorStoreContext, useEditorStore } from '../../store';
 import { useStyle } from './style';
@@ -42,9 +38,8 @@ const itemVariants = {
 export const CommentList: React.FC<{
   commentList: CommentDataType[];
   comment: MarkdownEditorProps['comment'];
-  instance: MarkdownEditorInstance;
 }> = (props) => {
-  const { readonly } = useEditorStore();
+  const { readonly, markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const { setShowComment } = useContext(EditorStoreContext) || {};
   const baseCls = context.getPrefixCls('md-editor-comment-view');
@@ -145,7 +140,7 @@ export const CommentList: React.FC<{
                             await props.comment?.onDelete?.(item.id, item);
                             // 更新时间戳,触发一下dom的rerender，不然不给我更新
                             Transforms.setNodes(
-                              props.instance.store?.editor,
+                              markdownEditorRef.current,
                               {
                                 updateTimestamp: Date.now(),
                               },

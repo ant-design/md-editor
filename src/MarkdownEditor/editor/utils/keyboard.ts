@@ -830,12 +830,12 @@ export const useSystemKeyboard = (
                 EditorUtils.findPrev(task.editor, node[1]),
               ),
             );
-          } else {
+          } else if (EditorUtils.findNext(task.editor, node[1])) {
             Transforms.select(
               task.editor,
               Editor.start(
                 task.editor,
-                EditorUtils.findNext(task.editor, node[1]),
+                EditorUtils.findNext(task.editor, node[1])!,
               ),
             );
           }

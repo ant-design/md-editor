@@ -7,16 +7,15 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 
 export const Paragraph = (props: ElementProps<ParagraphNode>) => {
-  const { store, typewriter, readonly } = useEditorStore();
+  const { store, markdownEditorRef, typewriter, readonly } = useEditorStore();
   const [selected, path] = useSelStatus(props.element);
-
   const isLatest = useMemo(() => {
-    if (store?.editor?.children.length === 0) return false;
+    if (markdownEditorRef.current?.children.length === 0) return false;
     if (!typewriter) return false;
     return store.isLatestNode(props.element);
   }, [
-    store?.editor?.children.at?.(path.at(0)!),
-    store?.editor?.children.at?.(path.at(0)! + 1),
+    markdownEditorRef.current?.children.at?.(path.at(0)!),
+    markdownEditorRef.current?.children.at?.(path.at(0)! + 1),
     typewriter,
   ]);
 

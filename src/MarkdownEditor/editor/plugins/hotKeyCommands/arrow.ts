@@ -173,7 +173,8 @@ export const keyArrow = (
         mode: 'lowest',
       });
       const [el, path] = node;
-      const next = Editor.node(editor, EditorUtils.findNext(editor, path));
+      if (!EditorUtils.findNext(editor, path)) return;
+      const next = Editor.node(editor, EditorUtils.findNext(editor, path)!);
       if (next?.[0].type === 'media' || next?.[0].type === 'attach') {
         e.preventDefault();
         e.stopPropagation();
@@ -215,7 +216,9 @@ export const keyArrow = (
       if (el.type === 'media' || el.type === 'attach') {
         const next = EditorUtils.findNext(editor, path);
         e.preventDefault();
-        Transforms.select(editor, Editor.start(editor, next));
+        if (next) {
+          Transforms.select(editor, Editor.start(editor, next));
+        }
       }
       if (el.type === 'paragraph') {
         if (

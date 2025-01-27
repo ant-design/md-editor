@@ -3,8 +3,8 @@ import { action, makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
+  BaseEditor,
   BaseSelection,
-  createEditor,
   Editor,
   Element,
   Node,
@@ -14,15 +14,13 @@ import {
   Selection,
   Transforms,
 } from 'slate';
-import { withHistory } from 'slate-history';
-import { ReactEditor, withReact } from './slate-react';
+import { ReactEditor } from './slate-react';
 
 import { parse } from 'querystring';
+import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '..';
 import { Elements, ListNode, MediaNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
-import { withMarkdown } from './plugins';
-import { withErrorReporting } from './plugins/catchError';
 import { KeyboardTask, Methods, schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
@@ -38,6 +36,9 @@ export const EditorStoreContext = createContext<{
     args?: any[];
   }>;
   editorProps: MarkdownEditorProps;
+  markdownEditorRef: React.MutableRefObject<
+    BaseEditor & ReactEditor & HistoryEditor
+  >;
 } | null>(null);
 
 export const useEditorStore = () => {
@@ -47,6 +48,7 @@ export const useEditorStore = () => {
       readonly: true,
       typewriter: false,
       editorProps: {} as MarkdownEditorProps,
+      markdownEditorRef: {} as React.MutableRefObject<any>,
     }
   );
 };
@@ -56,7 +58,6 @@ const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
  * 编辑器存储类，用于管理Markdown编辑器的状态和操作。
  */
 export class EditorStore {
-  editor = withMarkdown(withReact(withHistory(createEditor())));
   manual = false;
   initializing = false;
   sel: BaseSelection | undefined;
@@ -120,11 +121,18 @@ export class EditorStore {
     setTimeout(() => (this.manual = false), 30);
   }
 
-  constructor() {
+  _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
+
+  get editor() {
+    return this._editor.current;
+  }
+
+  constructor(
+    _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>,
+  ) {
     this.dragStart = this.dragStart.bind(this);
-    withErrorReporting(this.editor);
+    this._editor = _editor;
     makeAutoObservable(this, {
-      editor: false,
       tableCellNode: false,
       inputComposition: false,
       container: false,
