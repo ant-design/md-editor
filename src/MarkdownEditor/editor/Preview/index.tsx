@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import { BaseRange, createEditor, Editor, Node, Range } from 'slate';
 import { withHistory } from 'slate-history';
-import { Editable, RenderElementProps, Slate, withReact } from 'slate-react';
 import {
   CommentDataType,
   MarkdownEditorProps,
@@ -13,6 +12,7 @@ import {
 } from '../../index';
 import { withMarkdown } from '../plugins';
 import { SetNodeToDecorations, useHighlight } from '../plugins/useHighlight';
+import { Editable, RenderElementProps, Slate, withReact } from '../slate-react';
 import { useStyle } from '../style';
 import { calcPath, getRelativePath, isPath } from '../utils/editorUtils';
 
@@ -145,7 +145,7 @@ export const Preview = ({
             }
           });
 
-          return decorateList.concat(ranges);
+          return decorateList.concat(ranges as any[]);
         }}
         onError={onError}
         readOnly

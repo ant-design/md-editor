@@ -2,12 +2,13 @@ import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
+
+import { MarkdownEditorProps } from '../..';
 import {
+  ReactEditor,
   RenderElementProps,
   RenderLeafProps,
-} from 'slate-react/dist/components/editable';
-import { MarkdownEditorProps } from '../..';
+} from '../slate-react';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';

@@ -3620,6 +3620,102 @@ export default () => {
         height={'auto'}
         readonly
       />
+      <MarkdownEditor
+        readonly
+        initSchemaValue={[
+          { children: [{ text: '测试1' }], type: 'paragraph' },
+          { children: [{ text: '测试2' }], type: 'paragraph' },
+          { children: [{ text: '图片' }], type: 'paragraph' },
+          {
+            children: [
+              {
+                children: [{ text: '' }],
+                downloadUrl:
+                  'https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png',
+                mediaType: 'image',
+                type: 'media',
+                url: 'https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png',
+              },
+            ],
+            type: 'paragraph',
+          },
+          { children: [{ text: '' }], type: 'paragraph' },
+          {
+            children: [
+              { children: [{ text: '' }], type: 'card-before' },
+              {
+                children: [
+                  {
+                    children: [
+                      {
+                        children: [
+                          { children: [{ text: '1' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                      {
+                        children: [
+                          { children: [{ text: '2' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                      {
+                        children: [
+                          { children: [{ text: '3' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                      {
+                        children: [
+                          { children: [{ text: '4' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                    ],
+                    type: 'table-row',
+                  },
+                  {
+                    children: [
+                      {
+                        children: [
+                          {
+                            children: [{ text: 'Ewqrqew' }],
+                            type: 'paragraph',
+                          },
+                        ],
+                        type: 'table-cell',
+                      },
+                      {
+                        children: [
+                          { children: [{ text: 'qewr' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                      {
+                        children: [
+                          { children: [{ text: 'qewr' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                      {
+                        children: [
+                          { children: [{ text: '' }], type: 'paragraph' },
+                        ],
+                        type: 'table-cell',
+                      },
+                    ],
+                    type: 'table-row',
+                  },
+                ],
+                type: 'table',
+              },
+              { children: [{ text: '' }], type: 'card-after' },
+            ],
+            type: 'card',
+          },
+          { children: [{ text: '' }], type: 'paragraph' },
+        ]}
+      />
     </>
   );
 };

@@ -25,6 +25,7 @@
     ".dumirc.ts",
     "src/**/**/*",
     "src/MarkDown/demos/.tsx",
-    "tests/**/*"
+    "tests/**/*",
+    "docs/pure.tsx"
   ]
 }

@@ -9,10 +9,10 @@ import {
   Text,
   Transforms,
 } from 'slate';
+import { DOMNode } from 'slate-dom';
 import { History } from 'slate-history';
-import { ReactEditor } from 'slate-react';
-import { DOMNode } from 'slate-react/dist/utils/dom';
 import { CustomLeaf } from '../../el';
+import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { getOffsetTop } from './dom';
 
