@@ -235,6 +235,8 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             onConfirm={() => {
               props.onDelete?.();
               setActiveDeleteBtn(null);
+              setDeleteBtnHover(false);
+              setSelCells([]);
             }}
           >
             <DeleteOutlined />
@@ -314,6 +316,22 @@ export function RowSideDiv(props: {
       setRowDomArr(Array.from(tableDom.children || []));
     }
   }, [tableDom]);
+  useEffect(() => {
+    if (tableDom) {
+      const observer = new MutationObserver(() => {
+        setRowDomArr(Array.from(tableDom.children || []));
+      });
+
+      observer.observe(tableDom, { childList: true });
+
+      setRowDomArr(Array.from(tableDom.children || []));
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [tableDom]);
+
   return (
     <div
       className="row-div-bar-inner ignore-toggle-readonly"
@@ -459,6 +477,23 @@ export function ColSideDiv(props: ColSideDivProps) {
       tableElement.removeEventListener('scroll', handleScroll);
     };
   }, [tableRef]);
+
+  useEffect(() => {
+    if (tableDom) {
+      const observer = new MutationObserver(() => {
+        setColDomArr(Array.from(tableDom.firstChild?.children || []));
+      });
+
+      observer.observe(tableDom.firstChild, { childList: true });
+
+      setColDomArr(Array.from(tableDom.firstChild?.children || []));
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [tableDom]);
+
   return (
     <div
       ref={colDivBarInnerRef}
