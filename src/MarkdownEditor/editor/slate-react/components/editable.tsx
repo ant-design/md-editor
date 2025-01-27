@@ -1147,25 +1147,28 @@ export const Editable = forwardRef(
                       isDOMNode(relatedTarget) &&
                       ReactEditor.hasDOMNode(editor, relatedTarget)
                     ) {
-                      const node = ReactEditor.toSlateNode(
-                        editor,
-                        relatedTarget,
-                      );
+                      try {
+                        const node = ReactEditor.toSlateNode(
+                          editor,
+                          relatedTarget,
+                        );
 
-                      if (Element.isElement(node) && !editor.isVoid(node)) {
-                        return;
+                        if (Element.isElement(node) && !editor.isVoid(node)) {
+                          return;
+                        }
+                        // COMPAT: Safari doesn't always remove the selection even if the content-
+                        // editable element no longer has focus. Refer to:
+                        // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
+                        if (IS_WEBKIT) {
+                          const domSelection = getSelection(root);
+                          domSelection?.removeAllRanges();
+                        }
+                        IS_FOCUSED.delete(editor);
+                      } catch (error) {
+                        console.error(error);
+                        console.log('relatedTarget', relatedTarget);
                       }
                     }
-
-                    // COMPAT: Safari doesn't always remove the selection even if the content-
-                    // editable element no longer has focus. Refer to:
-                    // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
-                    if (IS_WEBKIT) {
-                      const domSelection = getSelection(root);
-                      domSelection?.removeAllRanges();
-                    }
-
-                    IS_FOCUSED.delete(editor);
                   },
                   [
                     readOnly,
@@ -1182,61 +1185,67 @@ export const Editable = forwardRef(
                       !isEventHandled(event, attributes.onClick) &&
                       isDOMNode(event.target)
                     ) {
-                      const node = ReactEditor.toSlateNode(
-                        editor,
-                        event.target,
-                      );
-                      const path = ReactEditor.findPath(editor, node);
+                      try {
+                        const node = ReactEditor.toSlateNode(
+                          editor,
+                          event.target,
+                        );
+                        const path = ReactEditor.findPath(editor, node);
 
-                      // At this time, the Slate document may be arbitrarily different,
-                      // because onClick handlers can change the document before we get here.
-                      // Therefore we must check that this path actually exists,
-                      // and that it still refers to the same node.
-                      if (
-                        !Editor.hasPath(editor, path) ||
-                        Node.get(editor, path) !== node
-                      ) {
-                        return;
-                      }
-
-                      if (event.detail === TRIPLE_CLICK && path.length >= 1) {
-                        let blockPath = path;
+                        // At this time, the Slate document may be arbitrarily different,
+                        // because onClick handlers can change the document before we get here.
+                        // Therefore we must check that this path actually exists,
+                        // and that it still refers to the same node.
                         if (
-                          !(
-                            Element.isElement(node) &&
-                            Editor.isBlock(editor, node)
-                          )
+                          !Editor.hasPath(editor, path) ||
+                          Node.get(editor, path) !== node
                         ) {
-                          const block = Editor.above(editor, {
-                            match: (n) =>
-                              Element.isElement(n) && Editor.isBlock(editor, n),
-                            at: path,
-                          });
-
-                          blockPath = block?.[1] ?? path.slice(0, 1);
+                          return;
                         }
 
-                        const range = Editor.range(editor, blockPath);
-                        Transforms.select(editor, range);
-                        return;
-                      }
+                        if (event.detail === TRIPLE_CLICK && path.length >= 1) {
+                          let blockPath = path;
+                          if (
+                            !(
+                              Element.isElement(node) &&
+                              Editor.isBlock(editor, node)
+                            )
+                          ) {
+                            const block = Editor.above(editor, {
+                              match: (n) =>
+                                Element.isElement(n) &&
+                                Editor.isBlock(editor, n),
+                              at: path,
+                            });
 
-                      if (readOnly) {
-                        return;
-                      }
+                            blockPath = block?.[1] ?? path.slice(0, 1);
+                          }
 
-                      const start = Editor.start(editor, path);
-                      const end = Editor.end(editor, path);
-                      const startVoid = Editor.void(editor, { at: start });
-                      const endVoid = Editor.void(editor, { at: end });
+                          const range = Editor.range(editor, blockPath);
+                          Transforms.select(editor, range);
+                          return;
+                        }
 
-                      if (
-                        startVoid &&
-                        endVoid &&
-                        Path.equals(startVoid[1], endVoid[1])
-                      ) {
-                        const range = Editor.range(editor, start);
-                        Transforms.select(editor, range);
+                        if (readOnly) {
+                          return;
+                        }
+
+                        const start = Editor.start(editor, path);
+                        const end = Editor.end(editor, path);
+                        const startVoid = Editor.void(editor, { at: start });
+                        const endVoid = Editor.void(editor, { at: end });
+
+                        if (
+                          startVoid &&
+                          endVoid &&
+                          Path.equals(startVoid[1], endVoid[1])
+                        ) {
+                          const range = Editor.range(editor, start);
+                          Transforms.select(editor, range);
+                        }
+                      } catch (error) {
+                        console.error(error);
+                        console.log('event.target', event.target);
                       }
                     }
                   },
