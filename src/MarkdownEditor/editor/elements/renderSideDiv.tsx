@@ -34,13 +34,14 @@ type AbstractSideDivProps = {
   divStyle: CSSProperties;
   activationArr: ActivationType[];
   getTableNode: any;
+  selCells: any;
   setSelCells: any;
   scrollContainerRefDom?: HTMLElement;
   [key: string]: any;
   tableDom: any;
   activeDeleteBtn: string | null;
   setActiveDeleteBtn: any;
-  onDelete?: () => void;
+  onDelete: (index: number) => void;
 };
 
 /**
@@ -86,11 +87,13 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     type,
     divStyle,
     getTableNode,
+    selCells,
     setSelCells,
     activationArr,
     tableDom,
     activeDeleteBtn,
     setActiveDeleteBtn,
+    onDelete,
   } = props;
 
   const isColumn = type === 'column';
@@ -173,6 +176,13 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     };
   }, [tableSideDivRef, isColumn, type, setAddBtnPos]);
 
+  function getIndexFromSelectedCells(selCells: any[]) {
+    if (!selCells?.length || !selCells[0]?.[1]) return -1;
+    const [, path] = selCells[0];
+    console.log(isColumn ? path[3] : path[2]);
+    return isColumn ? path[3] : path[2];
+  }
+
   return (
     <>
       <div
@@ -233,7 +243,8 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
           <Popconfirm
             title="Confirm to delete?"
             onConfirm={() => {
-              props.onDelete?.();
+              const index = getIndexFromSelectedCells(selCells);
+              onDelete?.(index);
               setActiveDeleteBtn(null);
               setDeleteBtnHover(false);
               setSelCells([]);
@@ -268,7 +279,7 @@ export function RowSideDiv(props: {
   selCells: any;
   activeDeleteBtn: string | null;
   setActiveDeleteBtn: any;
-  onDelete: () => void;
+  onDelete?: (index: number) => void;
 }) {
   const {
     tableRef,
@@ -366,10 +377,13 @@ export function RowSideDiv(props: {
           }}
           getTableNode={getTableNode}
           activationArr={activationArr}
+          selCells={selCells}
           setSelCells={setSelCells}
           activeDeleteBtn={activeDeleteBtn}
           setActiveDeleteBtn={setActiveDeleteBtn}
-          onDelete={onDelete}
+          onDelete={(index) => {
+            onDelete?.(index);
+          }}
         />
       ))}
     </div>
@@ -382,7 +396,7 @@ interface ColSideDivProps {
   getTableNode: any;
   setSelCells: any;
   selCells: any;
-  onDelete: () => void;
+  onDelete?: (index: number) => void;
 }
 
 /**
@@ -529,10 +543,13 @@ export function ColSideDiv(props: ColSideDivProps) {
             }}
             getTableNode={getTableNode}
             activationArr={activationArr}
+            selCells={selCells}
             setSelCells={setSelCells}
             activeDeleteBtn={activeDeleteBtn}
             setActiveDeleteBtn={setActiveDeleteBtn}
-            onDelete={onDelete}
+            onDelete={(index) => {
+              onDelete?.(index);
+            }}
           />
         );
       })}

@@ -333,7 +333,6 @@ export const Table = observer((props: RenderElementProps) => {
       const index = path?.[path?.length - 1];
       const row = path?.[path?.length - 2];
       const rowPath = Path.parent(path);
-
       switch (task) {
         case 'insertRowBefore':
           insertRow(
@@ -537,6 +536,7 @@ export const Table = observer((props: RenderElementProps) => {
   };
 
   const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
+
   useEffect(() => {
     if (!store.editor) return;
     const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
@@ -627,12 +627,14 @@ export const Table = observer((props: RenderElementProps) => {
               getTableNode={getTableNode}
               selCells={selCells}
               setSelCells={setSelCells}
-              onDelete={() => {
+              onDelete={(index) => {
+                console.log('将要删除的行号为：', index);
                 runTask('removeRow');
               }}
             />
             <ColSideDiv
-              onDelete={() => {
+              onDelete={(index) => {
+                console.log('将要删除的列号为：', index);
                 runTask('removeCol');
               }}
               activeDeleteBtn={activeDeleteBtn}
