@@ -176,6 +176,13 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     };
   }, [tableSideDivRef, isColumn, type, setAddBtnPos]);
 
+  function getIndexFromSelectedCells(selCells: any[]) {
+    if (!selCells?.length || !selCells[0]?.[1]) return -1;
+    const [, path] = selCells[0];
+    console.log(isColumn ? path[3] : path[2]);
+    return isColumn ? path[3] : path[2];
+  }
+
   return (
     <>
       <div
@@ -236,9 +243,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
           <Popconfirm
             title="Confirm to delete?"
             onConfirm={() => {
-              const index = isColumn
-                ? selCells[0]?.[1]?.[3]
-                : selCells[0]?.[1]?.[2];
+              const index = getIndexFromSelectedCells(selCells);
               onDelete?.(index);
               setActiveDeleteBtn(null);
               setDeleteBtnHover(false);
