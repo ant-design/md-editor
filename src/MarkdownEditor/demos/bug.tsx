@@ -1,4 +1,4 @@
-﻿import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import { EditorUtils, MarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
 const defaultValue = `
 <!--{"MarkdownType":"section","id":"51212","order":"3","report_id":"126","section_id":"51212"}-->
@@ -3628,14 +3628,14 @@ export default () => {
           { children: [{ text: '图片' }], type: 'paragraph' },
           {
             children: [
-              {
-                children: [{ text: '' }],
-                downloadUrl:
-                  'https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png',
-                mediaType: 'image',
-                type: 'media',
-                url: 'https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png',
-              },
+              EditorUtils.createMediaNode(
+                'https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png',
+                'image',
+                {
+                  downloadUrl:
+                    'https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png',
+                },
+              ),
             ],
             type: 'paragraph',
           },

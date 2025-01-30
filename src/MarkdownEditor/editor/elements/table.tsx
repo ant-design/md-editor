@@ -148,7 +148,7 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, markdownEditorRef } = useEditorStore();
 
   const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
@@ -177,7 +177,7 @@ export const Table = observer((props: RenderElementProps) => {
     setTimeout(() => {
       try {
         const dom = ReactEditor.toDOMNode(
-          store.editor,
+          markdownEditorRef.current,
           table[0],
         ) as HTMLElement;
         if (dom) {

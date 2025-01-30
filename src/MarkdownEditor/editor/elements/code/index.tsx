@@ -304,12 +304,12 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
 export const CodeLine = (props: ElementProps<CodeLineNode>) => {
   const ctx = useContext(CodeCtx);
   const [, update] = useMEditor(props.element);
-  const { store, typewriter } = useEditorStore();
+  const { store, markdownEditorRef, typewriter } = useEditorStore();
   const isLatest = useMemo(() => {
-    if (store?.editor?.children.length === 0) return false;
+    if (markdownEditorRef.current?.children.length === 0) return false;
     if (!typewriter) return false;
     return store.isLatestNode(props.element);
-  }, [store?.editor?.children, typewriter]);
+  }, [markdownEditorRef.current?.children, typewriter]);
   const context = useContext(ConfigProvider.ConfigContext);
 
   const setLanguage = useCallback(() => {

@@ -1147,25 +1147,28 @@ export const Editable = forwardRef(
                       isDOMNode(relatedTarget) &&
                       ReactEditor.hasDOMNode(editor, relatedTarget)
                     ) {
-                      const node = ReactEditor.toSlateNode(
-                        editor,
-                        relatedTarget,
-                      );
+                      try {
+                        const node = ReactEditor.toSlateNode(
+                          editor,
+                          relatedTarget,
+                        );
 
-                      if (Element.isElement(node) && !editor.isVoid(node)) {
-                        return;
+                        if (Element.isElement(node) && !editor.isVoid(node)) {
+                          return;
+                        }
+                        // COMPAT: Safari doesn't always remove the selection even if the content-
+                        // editable element no longer has focus. Refer to:
+                        // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
+                        if (IS_WEBKIT) {
+                          const domSelection = getSelection(root);
+                          domSelection?.removeAllRanges();
+                        }
+                        IS_FOCUSED.delete(editor);
+                      } catch (error) {
+                        console.error(error);
+                        console.log('relatedTarget', relatedTarget);
                       }
                     }
-
-                    // COMPAT: Safari doesn't always remove the selection even if the content-
-                    // editable element no longer has focus. Refer to:
-                    // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
-                    if (IS_WEBKIT) {
-                      const domSelection = getSelection(root);
-                      domSelection?.removeAllRanges();
-                    }
-
-                    IS_FOCUSED.delete(editor);
                   },
                   [
                     readOnly,
@@ -1242,11 +1245,6 @@ export const Editable = forwardRef(
                         }
                       } catch (error) {
                         console.error(error);
-                        console.log(
-                          'click error',
-                          event.target,
-                          event.target.parentElement,
-                        );
                       }
                     }
                   },

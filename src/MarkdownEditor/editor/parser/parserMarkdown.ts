@@ -17,10 +17,10 @@ import {
   DescriptionNode,
   Elements,
   LinkCardNode,
-  MediaNode,
   TableNode,
   TableRowNode,
 } from '../../el';
+import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import parser from './remarkParse';
 
@@ -306,7 +306,7 @@ const parserBlock = (
   let contextProps = {};
 
   for (let i = 0; i < nodes.length; i++) {
-    const currentNode = nodes[i];
+    const currentElement = nodes[i];
     const config =
       preElement?.type === 'code' &&
       preElement?.language === 'html' &&
@@ -314,20 +314,22 @@ const parserBlock = (
         ? preElement?.otherProps
         : {};
 
-    switch (currentNode.type) {
+    switch (currentElement.type) {
       case 'heading':
         el = {
           type: 'head',
-          level: currentNode.depth,
-          children: currentNode.children?.length
-            ? parserBlock(currentNode.children, false, currentNode)
+          level: currentElement.depth,
+          children: currentElement.children?.length
+            ? parserBlock(currentElement.children, false, currentElement)
             : [{ text: '' }],
         };
         break;
       case 'html':
         const value =
-          currentNode?.value?.replace('<!--', '').replace('-->', '').trim() ||
-          '{}';
+          currentElement?.value
+            ?.replace('<!--', '')
+            .replace('-->', '')
+            .trim() || '{}';
 
         if (value) {
           try {
@@ -341,34 +343,22 @@ const parserBlock = (
         }
 
         if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
-          const img = findImageElement(currentNode.value);
+          const img = findImageElement(currentElement.value);
           if (img) {
-            el = {
-              type: 'media',
-              align: img.align,
-              alt: img.alt,
-              height: img?.height,
-              url: decodeURIComponent(img?.url || ''),
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            };
+            el = EditorUtils.createMediaNode(
+              decodeURIComponent(img?.url || '')!,
+              'image',
+              { align: img.align, alt: img.alt, height: img?.height },
+            );
           } else {
-            if (currentNode.value === '<br/>') {
+            if (currentElement.value === '<br/>') {
               el = { type: 'paragraph', children: [{ text: '' }] };
             } else {
               el = {
                 type: 'code',
                 language: 'html',
                 render: true,
-                children: currentNode.value.split('\n').map((s: any) => {
+                children: currentElement.value.split('\n').map((s: any) => {
                   return {
                     type: 'code-line',
                     children: [{ text: s }],
@@ -378,11 +368,11 @@ const parserBlock = (
             }
           }
         } else {
-          const breakMatch = currentNode.value.match(/<br\/?>/);
+          const breakMatch = currentElement.value.match(/<br\/?>/);
           if (breakMatch) {
             el = { type: 'break', children: [{ text: '' }] };
           } else {
-            const htmlMatch = currentNode.value.match(
+            const htmlMatch = currentElement.value.match(
               /<\/?(b|i|del|code|span|a)[^\n>]*?>/,
             );
             if (htmlMatch) {
@@ -415,7 +405,7 @@ const parserBlock = (
                       }
                     }
                   } catch (e) {
-                    el = { text: currentNode.value };
+                    el = { text: currentElement.value };
                   }
                 } else if (tag === 'a') {
                   const url = str.match(/href="([\w:./_\-#\\]+)"/);
@@ -430,27 +420,11 @@ const parserBlock = (
                 }
               }
             } else {
-              const img = findImageElement(currentNode.value);
+              const img = findImageElement(currentElement.value);
               if (img) {
-                el = {
-                  type: 'media',
-                  align: img.align,
-                  alt: img.alt,
-                  height: img?.height,
-                  url: img?.url,
-                  children: [
-                    {
-                      type: 'card-before',
-                      children: [{ text: '' }],
-                    },
-                    {
-                      type: 'card-after',
-                      children: [{ text: '' }],
-                    },
-                  ],
-                };
+                el = EditorUtils.createMediaNode(img?.url, 'image', img);
               } else {
-                el = { text: currentNode.value };
+                el = { text: currentElement.value };
               }
             }
           }
@@ -462,59 +436,57 @@ const parserBlock = (
 
         break;
       case 'image':
-        el = {
-          type: 'media',
-          children: [
-            {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            {
-              type: 'card-after',
-              children: [{ text: '' }],
-            },
-          ],
-          url: decodeURIComponent(currentNode?.url),
-          alt: currentNode.alt,
-        } as MediaNode;
+        el = EditorUtils.createMediaNode(
+          decodeURIComponent(currentElement?.url),
+          'image',
+          {
+            alt: currentElement.alt,
+          },
+        );
+
         break;
       case 'list':
         el = {
           type: 'list',
-          order: currentNode.ordered,
-          start: currentNode.start,
-          children: parserBlock(currentNode.children, false, currentNode),
+          order: currentElement.ordered,
+          start: currentElement.start,
+          children: parserBlock(currentElement.children, false, currentElement),
         };
         el.task = el.children?.some((s: any) => typeof s.checked === 'boolean');
         break;
       case 'footnoteReference':
         el = {
-          text: `${currentNode.identifier?.toUpperCase()}`,
-          identifier: currentNode.identifier,
+          text: `${currentElement.identifier?.toUpperCase()}`,
+          identifier: currentElement.identifier,
           type: 'footnoteReference',
         };
         break;
       case 'footnoteDefinition':
         el = {
           type: 'footnoteDefinition',
-          identifier: currentNode.identifier,
+          identifier: currentElement.identifier,
           children: [
-            { text: `[^${currentNode.identifier}]:` },
-            ...(parserBlock(currentNode.children, false, currentNode)[0] as any)
-              ?.children,
+            { text: `[^${currentElement.identifier}]:` },
+            ...(
+              parserBlock(
+                currentElement.children,
+                false,
+                currentElement,
+              )[0] as any
+            )?.children,
           ],
         };
         break;
       case 'listItem':
-        const children = currentNode.children?.length
-          ? parserBlock(currentNode.children, false, currentNode)
+        const children = currentElement.children?.length
+          ? parserBlock(currentElement.children, false, currentElement)
           : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
         let mentions = undefined;
         if (
           // @ts-ignore
-          currentNode.children?.[0]?.children?.[0]?.type === 'link' &&
+          currentElement.children?.[0]?.children?.[0]?.type === 'link' &&
           // @ts-ignore
-          currentNode.children?.[0]?.children?.length > 1
+          currentElement.children?.[0]?.children?.length > 1
         ) {
           const item = // @ts-ignore
             children?.[0]?.children?.[0] as LinkCardNode;
@@ -554,17 +526,17 @@ const parserBlock = (
         }
         el = {
           type: 'list-item',
-          checked: currentNode.checked,
+          checked: currentElement.checked,
           children: children,
           mentions,
         };
         break;
       case 'paragraph':
         if (
-          currentNode.children?.[0].type === 'html' &&
-          currentNode.children[0].value.startsWith('<a')
+          currentElement.children?.[0].type === 'html' &&
+          currentElement.children[0].value.startsWith('<a')
         ) {
-          const text = currentNode.children
+          const text = currentElement.children
             .map((n: any) => (n as any).value || '')
             .join('');
           const attach = findAttachment(text);
@@ -592,10 +564,10 @@ const parserBlock = (
         }
 
         if (
-          currentNode?.children?.at(0)?.type === 'link' &&
+          currentElement?.children?.at(0)?.type === 'link' &&
           config.type === 'card'
         ) {
-          const link = currentNode?.children?.at(0) as {
+          const link = currentElement?.children?.at(0) as {
             type: 'link';
             url: string;
             title: string;
@@ -621,66 +593,53 @@ const parserBlock = (
         }
         el = [];
         let textNodes: any[] = [];
-        for (let c of currentNode.children || []) {
-          if (c.type === 'image') {
+        for (let currentChild of currentElement.children || []) {
+          if (currentChild.type === 'image') {
             if (textNodes.length) {
               el.push({
                 type: 'paragraph',
-                children: parserBlock(textNodes, false, currentNode),
+                children: parserBlock(textNodes, false, currentElement),
               });
               textNodes = [];
             }
-            el.push({
-              type: 'media',
-              children: [
+            el.push(
+              EditorUtils.createMediaNode(
+                decodeURIComponent(currentChild?.url),
+                'image',
                 {
-                  type: 'card-before',
-                  children: [{ text: '' }],
+                  alt: currentChild.alt,
                 },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-              url: decodeURIComponent(c?.url),
-              alt: c.alt,
-            });
-          } else if (c.type === 'html') {
-            const img = findImageElement(c.value);
+              ),
+            );
+          } else if (currentChild.type === 'html') {
+            const img = findImageElement(currentChild.value);
             if (img) {
-              el.push({
-                type: 'media',
-                align: img.align,
-                children: [
+              el.push(
+                EditorUtils.createMediaNode(
+                  decodeURIComponent(img?.url || ''),
+                  'image',
                   {
-                    type: 'card-before',
-                    children: [{ text: '' }],
+                    alt: img.alt,
+                    height: img.height,
                   },
-                  {
-                    type: 'card-after',
-                    children: [{ text: '' }],
-                  },
-                ],
-                url: decodeURIComponent(img?.url || ''),
-                height: img.height,
-                alt: img.alt,
-              });
+                ),
+              );
             } else {
-              textNodes.push({ type: 'html', value: c.value });
+              textNodes.push({ type: 'html', value: currentChild.value });
             }
           } else {
-            textNodes.push(c);
+            textNodes.push(currentChild);
           }
         }
         if (textNodes.length) {
           el.push({
             type: 'paragraph',
-            children: parserBlock(textNodes, false, currentNode),
+            children: parserBlock(textNodes, false, currentElement),
           });
         }
         break;
       case 'inlineCode':
-        el = { text: currentNode.value, code: true };
+        el = { text: currentElement.value, code: true };
         break;
       case 'thematicBreak':
         el = { type: 'hr', children: [{ text: '' }] };
@@ -688,29 +647,31 @@ const parserBlock = (
       case 'code':
         let json = [];
         try {
-          json = json5.parse(currentNode.value || '[]');
+          json = json5.parse(currentElement.value || '[]');
         } catch (error) {
           try {
-            json = partialJsonParse(currentNode.value || '[]');
+            json = partialJsonParse(currentElement.value || '[]');
           } catch (error) {
-            json = currentNode.value as any;
+            json = currentElement.value as any;
           }
         }
         const isSchema =
-          currentNode.lang === 'schema' ||
-          currentNode.lang === 'apaasify' ||
-          currentNode.lang === 'apassify';
+          currentElement.lang === 'schema' ||
+          currentElement.lang === 'apaasify' ||
+          currentElement.lang === 'apassify';
 
         el = {
           type: isSchema
-            ? currentNode.lang === 'apassify'
+            ? currentElement.lang === 'apassify'
               ? 'apaasify'
-              : currentNode.lang
+              : currentElement.lang
             : 'code',
           language:
-            currentNode.lang === 'apassify' ? 'apaasify' : currentNode.lang,
-          render: currentNode.meta === 'render',
-          value: isSchema ? json : currentNode.value,
+            currentElement.lang === 'apassify'
+              ? 'apaasify'
+              : currentElement.lang,
+          render: currentElement.meta === 'render',
+          value: isSchema ? json : currentElement.value,
           otherProps: config,
           children: isSchema
             ? [
@@ -718,7 +679,7 @@ const parserBlock = (
                   text: '',
                 },
               ]
-            : currentNode.value.split('\n').map((s: any) => {
+            : currentElement.value.split('\n').map((s: any) => {
                 return {
                   type: 'code-line',
                   children: [{ text: s }],
@@ -730,9 +691,9 @@ const parserBlock = (
         el = {
           type: 'code',
           language: 'yaml',
-          value: currentNode.value,
+          value: currentElement.value,
           frontmatter: true,
-          children: currentNode.value.split('\n').map((s: any) => {
+          children: currentElement.value.split('\n').map((s: any) => {
             return {
               type: 'code-line',
               children: [{ text: s }],
@@ -743,18 +704,18 @@ const parserBlock = (
       case 'blockquote':
         el = {
           type: 'blockquote',
-          children: currentNode.children?.length
-            ? parserBlock(currentNode.children, false, currentNode)
+          children: currentElement.children?.length
+            ? parserBlock(currentElement.children, false, currentElement)
             : [{ type: 'paragraph', children: [{ text: '' }] }],
         };
         break;
       case 'table':
-        el = parseTableOrChart(currentNode, preElement);
+        el = parseTableOrChart(currentElement, preElement);
         break;
       default:
-        if (currentNode.type === 'text' && htmlTag.length) {
-          el = { text: currentNode.value };
-          if (currentNode.value) {
+        if (currentElement.type === 'text' && htmlTag.length) {
+          el = { text: currentElement.value };
+          if (currentElement.value) {
             for (let t of htmlTag) {
               if (t.tag === 'code') el.code = true;
               if (t.tag === 'i') el.italic = true;
@@ -775,32 +736,32 @@ const parserBlock = (
             'emphasis',
             'delete',
             'inlineCode',
-          ].includes(currentNode.type)
+          ].includes(currentElement.type)
         ) {
-          if (currentNode.type === 'text') {
-            el = { text: currentNode.value };
+          if (currentElement.type === 'text') {
+            el = { text: currentElement.value };
           } else {
             const leaf: CustomLeaf = {};
-            if (currentNode.type === 'strong') leaf.bold = true;
-            if (currentNode.type === 'emphasis') leaf.italic = true;
-            if (currentNode.type === 'delete') leaf.strikethrough = true;
-            if (currentNode.type === 'link') {
+            if (currentElement.type === 'strong') leaf.bold = true;
+            if (currentElement.type === 'emphasis') leaf.italic = true;
+            if (currentElement.type === 'delete') leaf.strikethrough = true;
+            if (currentElement.type === 'link') {
               try {
-                leaf.url = decodeURIComponent(currentNode?.url);
+                leaf.url = decodeURIComponent(currentElement?.url);
               } catch (error) {
-                leaf.url = currentNode?.url;
+                leaf.url = currentElement?.url;
               }
             }
             el = parseText(
               // @ts-ignore
-              currentNode.children?.length
+              currentElement.children?.length
                 ? // @ts-ignore
-                  currentNode.children
+                  currentElement.children
                 : [{ value: leaf?.url || '' }],
               leaf,
             );
           }
-        } else if (currentNode.type === 'break') {
+        } else if (currentElement.type === 'break') {
           el = { text: '\n' };
         } else {
           el = { text: '' };
@@ -809,7 +770,7 @@ const parserBlock = (
 
     if (preNode && top) {
       const distance =
-        (currentNode.position?.start.line || 0) -
+        (currentElement.position?.start.line || 0) -
         (preNode.position?.end.line || 0);
       if (distance >= 4) {
         const lines = Math.floor((distance - 2) / 2);
@@ -842,7 +803,7 @@ const parserBlock = (
       Array.isArray(el) ? els.push(...el) : els.push(el);
     }
 
-    preNode = currentNode;
+    preNode = currentElement;
 
     preElement = el;
 

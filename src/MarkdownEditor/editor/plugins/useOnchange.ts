@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useDebounceFn } from '@ant-design/pro-components';
 import { runInAction } from 'mobx';
 import React, { useRef } from 'react';
 import { Subject } from 'rxjs';
@@ -36,35 +37,47 @@ export function useOnchange(
   onChange?: (value: string, schema: Elements[]) => void,
 ) {
   const rangeContent = useRef('');
+  const onChangeDebounce = useDebounceFn(async () => {
+    if (!onChange) return;
+    onChange?.(schemaToMarkdown(editor.children), editor.children);
+  }, 300);
+
+  const setSelDebounce = useDebounceFn(async () => {
+    runInAction(() => {
+      if (typeof window === 'undefined') return;
+      if (typeof window.matchMedia === 'undefined') return;
+      store.sel = editor.selection;
+    });
+  }, 300);
+  const selChange = useDebounceFn(
+    async (changeSel: { sel: BaseSelection; node: NodeEntry<any> }) => {
+      selChange$.next(changeSel);
+    },
+    160,
+  );
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
-      if (onChange) {
-        onChange(schemaToMarkdown(_value), _value);
+      if (onChangeDebounce) {
+        onChangeDebounce.cancel();
+        onChangeDebounce?.run(schemaToMarkdown(_value), _value);
       }
       const sel = editor.selection;
       const [node] = Editor.nodes<Element>(editor, {
         match: (n) => Element.isElement(n),
         mode: 'lowest',
       });
-      setTimeout(() => {
-        selChange$.next({
-          sel,
-          node,
-        });
-      });
 
-      runInAction(() => {
-        if (typeof window === 'undefined') return;
-        if (typeof window.matchMedia === 'undefined') return;
-        store.sel = sel;
+      // 选区变化
+      selChange.cancel();
+      selChange.run({
+        sel,
+        node,
       });
+      setSelDebounce.cancel();
+      setSelDebounce.run();
+      // ------选区变化end----------
+
       if (!node) return;
-      setTimeout(() => {
-        selChange$.next({
-          sel,
-          node,
-        });
-      });
 
       if (
         sel &&
@@ -89,11 +102,6 @@ export function useOnchange(
         store.setState((state) => (state.domRect = null));
       }
 
-      if (node && node[0].type === 'media') {
-        store.mediaNode$.next(node);
-      } else {
-        store.mediaNode$.next(null);
-      }
       if (node && node[0].type === 'table-cell') {
         store.setState((state) => {
           state.tableCellNode = node;

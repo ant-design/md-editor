@@ -3,6 +3,7 @@
 import { message } from 'antd';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
+import { EditorUtils } from '../utils';
 import { docxDeserializer } from '../utils/docx/docxDeserializer';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
@@ -21,21 +22,10 @@ export const ELEMENT_TAGS = {
   H5: () => ({ type: 'head', level: 5 }),
   TABLE: () => ({ type: 'table' }),
   IMG: (el: HTMLImageElement) => {
-    return {
-      type: 'media',
-      url: el.src,
+    return EditorUtils.createMediaNode(el.src, 'image', {
+      alt: el.alt,
       downloadUrl: el.src && /^https?:/.test(el.src) ? el.src : undefined,
-      children: [
-        {
-          type: 'card-before',
-          children: [{ text: '' }],
-        },
-        {
-          type: 'card-after',
-          children: [{ text: '' }],
-        },
-      ],
-    };
+    });
   },
   TR: () => ({ type: 'table-row' }),
   TH: () => ({ type: 'table-cell', title: true }),
@@ -235,29 +225,42 @@ export const insertParsedHtmlNodes = async (
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
 
-  let fragmentList = docxDeserializer(rtl, html);
+  let fragmentList = docxDeserializer(rtl, html.trim());
 
   await upLoadFile(fragmentList, editorProps);
 
-  fragmentList = fragmentList.map((fragment) => {
-    if (fragment.type === 'table') {
-      return {
-        type: 'card',
-        children: [
-          {
-            type: 'card-before',
-            children: [{ text: '' }],
-          },
-          fragment,
-          {
-            type: 'card-after',
-            children: [{ text: '' }],
-          },
-        ],
-      };
-    }
-    return fragment;
-  });
+  fragmentList = fragmentList
+    .filter((item) => {
+      if (item.type === 'p' && !Node.string(item).trim()) {
+        return false;
+      }
+      return true;
+    })
+    .map((fragment) => {
+      if (fragment.type === 'table') {
+        return {
+          type: 'card',
+          children: [
+            {
+              type: 'card-before',
+              children: [{ text: '' }],
+            },
+            fragment,
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
+            },
+          ],
+        };
+      }
+      if (fragment.type === 'p' && fragment.children.length === 1) {
+        return {
+          type: 'paragraph',
+          children: fragment.children,
+        };
+      }
+      return fragment;
+    });
 
   hideLoading();
 

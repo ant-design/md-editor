@@ -82,7 +82,7 @@ export const schemaToHeading = (schema: any) => {
  * 配置次级标题的锚点
  */
 export const TocHeading = ({ schema }: { schema: any }) => {
-  const { store } = useEditorStore();
+  const { store, markdownEditorRef } = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],
     active: '',
@@ -121,9 +121,9 @@ export const TocHeading = ({ schema }: { schema: any }) => {
     cache.clear();
     getHeading();
     setState({ active: '' });
-  }, [store?.container, store.editor.children]);
+  }, [store?.container, markdownEditorRef.current.children]);
 
-  useDebounce(getHeading, 100, [store.editor.children]);
+  useDebounce(getHeading, 100, [markdownEditorRef.current.children]);
 
   useEffect(() => {
     const div = box.current;

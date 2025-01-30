@@ -2,7 +2,7 @@
 import { message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
 import {
   CommentDataType,
@@ -57,21 +57,24 @@ export const MEditor = observer(
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
   } & MarkdownEditorProps) => {
-    const { store, readonly } = useEditorStore();
+    const { store, markdownEditorRef, readonly } = useEditorStore();
     const changedMark = useRef(false);
-    const editor = store.editor;
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
 
-    const onKeyDown = useKeyboard(store);
-    const onChange = useOnchange(editor, store, editorProps.onChange);
+    const onKeyDown = useKeyboard(store, markdownEditorRef);
+    const onChange = useOnchange(
+      markdownEditorRef.current,
+      store,
+      editorProps.onChange,
+    );
     const first = useRef(true);
     const highlight = useHighlight();
 
     /**
      * 初始化编辑器
      */
-    const initialNote = useCallback(async () => {
+    const initialNote = async () => {
       if (instance) {
         nodeRef.current = instance;
 
@@ -86,15 +89,14 @@ export const MEditor = observer(
             editorProps.initSchemaValue,
           );
           EditorUtils.reset(
-            editor,
+            markdownEditorRef.current,
             editorProps.initSchemaValue?.length
               ? editorProps.initSchemaValue
               : undefined,
-            instance.history || true,
           );
-          clearAllCodeCache(editor);
+          clearAllCodeCache(markdownEditorRef.current);
         } catch (e) {
-          EditorUtils.deleteAll(editor);
+          EditorUtils.deleteAll(markdownEditorRef.current);
         }
         setTimeout(() => {
           store.initializing = false;
@@ -102,40 +104,38 @@ export const MEditor = observer(
       } else {
         nodeRef.current = undefined;
       }
-    }, [instance]);
+    };
 
     useEffect(() => {
       if (nodeRef.current !== instance) {
         initialNote();
       }
-    }, [instance, editor]);
+    }, [instance, markdownEditorRef.current]);
 
-    const change = useCallback(
-      (v: any[]) => {
-        if (first.current) {
-          setTimeout(() => {
-            first.current = false;
-          }, 100);
-          return;
-        }
-        value.current = v;
-        onChange(v, editor.operations);
-        if (instance) {
-          instance.history = editor.history;
-        }
+    const change = (v: any[]) => {
+      if (first.current) {
+        setTimeout(() => {
+          first.current = false;
+        }, 100);
+        return;
+      }
+      value.current = v;
+      onChange(v, markdownEditorRef.current.operations);
 
-        if (!editor.operations?.every((o) => o.type === 'set_selection')) {
-          if (!changedMark.current) {
-            changedMark.current = true;
-          }
+      if (
+        !markdownEditorRef.current.operations?.every(
+          (o) => o.type === 'set_selection',
+        )
+      ) {
+        if (!changedMark.current) {
+          changedMark.current = true;
         }
-      },
-      [instance],
-    );
+      }
+    };
 
-    const checkEnd = useCallback((e: React.MouseEvent) => {
+    const checkEnd = (e: React.MouseEvent) => {
       if (!store.focus) {
-        store.editor.selection = null;
+        markdownEditorRef.current.selection = null;
       }
       const target = e.target as HTMLDivElement;
       if (target.dataset.slateEditor) {
@@ -144,348 +144,317 @@ export const MEditor = observer(
           store.container &&
           store.container.scrollTop + e.clientY - 60 > top
         ) {
-          if (EditorUtils.checkEnd(editor)) {
+          if (EditorUtils.checkEnd(markdownEditorRef.current)) {
             e.preventDefault();
           }
         }
       }
-    }, []);
+    };
 
     /**
      * 处理焦点事件, 隐藏所有的range
      * @description focus event
      */
-    const onFocus = useCallback(() => {
+    const onFocus = () => {
       store.setState((state) => (state.focus = true));
-    }, []);
+    };
 
     /**
      * 处理失去焦点事件,关掉所有的浮层
      * @description blur event
      * @param {React.FocusEvent<HTMLDivElement>} e
      */
-    const onBlur = useCallback(() => {
+    const onBlur = () => {
       store.setState((state) => {
         state.focus = false;
         state.tableCellNode = null;
       });
-    }, []);
+    };
 
     /**
      * 处理粘贴事件，会把粘贴的内容转换为对应的节点
      * @description paste event
      * @param {React.ClipboardEvent<HTMLDivElement>} e
      */
-    const onPaste = useCallback(
-      async (event: React.ClipboardEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-        event.preventDefault();
-        if (
-          store.editor.selection &&
-          store.editor.selection.anchor &&
-          Editor.hasPath(store.editor, store.editor.selection.anchor.path)
-        ) {
-          if (!Range.isCollapsed(store.editor.selection!)) {
-            Transforms.delete(store.editor, { at: store.editor.selection! });
+    const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
+      event.stopPropagation();
+      event.preventDefault();
+      const currentTextSelection = markdownEditorRef.current.selection;
+      if (
+        currentTextSelection &&
+        currentTextSelection.anchor &&
+        Editor.hasPath(
+          markdownEditorRef.current,
+          currentTextSelection.anchor.path,
+        )
+      ) {
+        if (!Range.isCollapsed(currentTextSelection)) {
+          Transforms.delete(markdownEditorRef.current, {
+            at: currentTextSelection!,
+            reverse: true,
+          });
+        }
+      }
+
+      const types = event.clipboardData.types;
+      if (types.includes('application/x-slate-fragment')) {
+        const encoded = event.clipboardData.getData(
+          'application/x-slate-fragment',
+        );
+        const decoded = decodeURIComponent(window.atob(encoded));
+        const fragment = JSON.parse(decoded);
+        Transforms.insertFragment(markdownEditorRef.current, fragment);
+        return;
+      }
+
+      if (types.includes('text/html')) {
+        try {
+          const html = await event.clipboardData.getData('text/html');
+
+          const rtf = await event.clipboardData.getData('text/rtf');
+
+          if (html) {
+            const success = await insertParsedHtmlNodes(
+              markdownEditorRef.current,
+              html,
+              editorProps,
+              rtf,
+            );
+            if (success) {
+              return;
+            }
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      }
+
+      if (types.includes('Files')) {
+        try {
+          const fileList = event.clipboardData.files;
+          if (fileList.length > 0) {
+            const hideLoading = message.loading('Uploading...');
+            try {
+              const url = [];
+              for await (const file of fileList) {
+                const serverUrl = await editorProps.image?.upload?.([file]);
+                url.push(serverUrl);
+              }
+              const selection =
+                markdownEditorRef.current?.selection?.focus?.path;
+              const at = selection
+                ? EditorUtils.findNext(markdownEditorRef.current, selection)!
+                : undefined;
+
+              [url].flat(2).forEach((u) => {
+                if (!u) return null;
+                console.log('---->', at);
+                Transforms.insertNodes(
+                  markdownEditorRef.current,
+                  EditorUtils.createMediaNode(u, 'image'),
+                  {
+                    at: [
+                      at
+                        ? at[0]
+                        : markdownEditorRef.current.children.length - 1,
+                    ],
+                  },
+                );
+              });
+              message.success('Upload success');
+            } catch (error) {
+              console.log('error', error);
+            } finally {
+              hideLoading();
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+        return;
+      }
+
+      if (types.includes('text/plain')) {
+        const text = event.clipboardData.getData('text/plain');
+        const selection = markdownEditorRef.current.selection;
+
+        // 如果是表格或者代码块，直接插入文本
+        if (selection?.focus) {
+          const rangeNodes = Editor.node(markdownEditorRef.current, [
+            selection.focus.path.at(0)!,
+          ]);
+          if (!rangeNodes) return;
+          const rangeNode = rangeNodes.at(0) as Elements;
+          if (
+            rangeNode.type === 'table-cell' ||
+            rangeNode.type === 'table-row' ||
+            rangeNode.type === 'table' ||
+            rangeNode.type === 'code' ||
+            rangeNode.type === 'schema' ||
+            rangeNode.type === 'apaasify' ||
+            rangeNode.type === 'description'
+          ) {
+            Transforms.insertText(markdownEditorRef.current, text);
+            return;
           }
         }
 
-        const types = event.clipboardData.types;
-        if (types.includes('application/x-slate-fragment')) {
-          const encoded = event.clipboardData.getData(
-            'application/x-slate-fragment',
-          );
-          const decoded = decodeURIComponent(window.atob(encoded));
-          const fragment = JSON.parse(decoded);
-          Transforms.insertFragment(store.editor, fragment);
-          return;
-        }
-
-        if (types.includes('text/html')) {
-          try {
-            const html = await event.clipboardData.getData('text/html');
-
-            const rtf = await event.clipboardData.getData('text/rtf');
-
-            if (html) {
-              const success = await insertParsedHtmlNodes(
-                editor,
-                html,
-                editorProps,
-                rtf,
-              );
-              if (success) {
+        try {
+          if (text.startsWith('media://') || text.startsWith('attach://')) {
+            const path = EditorUtils.findMediaInsertPath(
+              markdownEditorRef.current,
+            );
+            const urlObject = new URL(text);
+            let url = urlObject.searchParams.get('url');
+            if (
+              url &&
+              !url.startsWith('http') &&
+              !url.startsWith('blob:http')
+            ) {
+              url = toUnixPath(url);
+            }
+            if (path && url) {
+              if (text.startsWith('media://')) {
+                Transforms.insertNodes(
+                  markdownEditorRef.current,
+                  EditorUtils.createMediaNode(url!, 'image'),
+                  { select: true, at: path },
+                );
+                event.preventDefault();
+                const next = Editor.next(markdownEditorRef.current, {
+                  at: path,
+                });
+                if (
+                  next &&
+                  next[0].type === 'paragraph' &&
+                  !Node.string(next[0])
+                ) {
+                  Transforms.delete(markdownEditorRef.current, {
+                    at: next[1],
+                  });
+                }
+                return;
+              }
+              if (text.startsWith('attach://')) {
+                Transforms.insertNodes(
+                  markdownEditorRef.current,
+                  {
+                    type: 'attach',
+                    name: urlObject.searchParams.get('name'),
+                    size: Number(urlObject.searchParams.get('size') || 0),
+                    url: url || undefined,
+                  },
+                  { select: true, at: path },
+                );
+                event.preventDefault();
+                const next = Editor.next(markdownEditorRef.current, {
+                  at: path,
+                });
+                if (
+                  next &&
+                  next[0].type === 'paragraph' &&
+                  !Node.string(next[0])
+                ) {
+                  Transforms.delete(markdownEditorRef.current, {
+                    at: next[1],
+                  });
+                }
                 return;
               }
             }
-          } catch (error) {
-            console.log('error', error);
           }
-        }
-
-        if (types.includes('Files')) {
-          try {
-            const fileList = event.clipboardData.files;
-            if (fileList.length > 0) {
-              const hideLoading = message.loading('Uploading...');
-              try {
-                const url = [];
-                for await (const file of fileList) {
-                  const serverUrl = await editorProps.image?.upload?.([file]);
-                  url.push(serverUrl);
-                }
-
-                if (store.editor.selection?.focus.path) {
-                  Transforms.delete(store.editor, {
-                    at: store.editor.selection.focus.path!,
-                  });
-                }
-                [url].flat(2).forEach((u) => {
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'media',
-                      url: u,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    {
-                      select: true,
-                      at: store.editor.selection
-                        ? Editor.after(
-                            store.editor,
-                            store.editor.selection.focus.path,
-                          )!
-                        : Editor.end(store.editor, []),
-                    },
-                  );
-                });
-                message.success('Upload success');
-              } catch (error) {
-                console.log('error', error);
-              } finally {
-                hideLoading();
+          if (text.startsWith('http')) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (['image', 'video', 'audio'].includes(getMediaType(text))) {
+              if (text.startsWith('http')) {
+                const path = EditorUtils.findMediaInsertPath(
+                  markdownEditorRef.current,
+                );
+                if (!path) return;
+                Transforms.insertNodes(
+                  markdownEditorRef.current,
+                  EditorUtils.createMediaNode(text, 'image'),
+                  { select: true, at: path },
+                );
               }
-
-              event.preventDefault();
-              event.stopPropagation();
-              return;
+            } else {
+              store.insertLink(text);
             }
-          } catch (error) {
-            console.log('error', error);
-          }
-        }
-
-        if (types.includes('text/plain')) {
-          const text = event.clipboardData.getData('text/plain');
-          const selection = store.editor.selection;
-
-          // 如果是表格或者代码块，直接插入文本
-          if (selection?.focus) {
-            const rangeNodes = Editor.node(editor, [
-              selection.focus.path.at(0)!,
-            ]);
-            if (!rangeNodes) return;
-            const rangeNode = rangeNodes.at(0) as Elements;
-            if (
-              rangeNode.type === 'table-cell' ||
-              rangeNode.type === 'table-row' ||
-              rangeNode.type === 'table' ||
-              rangeNode.type === 'code' ||
-              rangeNode.type === 'schema' ||
-              rangeNode.type === 'apaasify' ||
-              rangeNode.type === 'description'
-            ) {
-              Transforms.insertText(editor, text);
-              return;
-            }
-          }
-
-          try {
-            if (text.startsWith('media://') || text.startsWith('attach://')) {
-              const path = EditorUtils.findMediaInsertPath(store.editor);
-              const urlObject = new URL(text);
-              let url = urlObject.searchParams.get('url');
-              if (
-                url &&
-                !url.startsWith('http') &&
-                !url.startsWith('blob:http')
-              ) {
-                url = toUnixPath(url);
-              }
-              if (path) {
-                if (text.startsWith('media://')) {
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'media',
-                      height: urlObject.searchParams.get('height')
-                        ? +urlObject.searchParams.get('height')!
-                        : undefined,
-                      url: url || undefined,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    { select: true, at: path },
-                  );
-                  event.preventDefault();
-                  const next = Editor.next(store.editor, { at: path });
-                  if (
-                    next &&
-                    next[0].type === 'paragraph' &&
-                    !Node.string(next[0])
-                  ) {
-                    Transforms.delete(store.editor, { at: next[1] });
-                  }
-                  return;
-                }
-                if (text.startsWith('attach://')) {
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'attach',
-                      name: urlObject.searchParams.get('name'),
-                      size: Number(urlObject.searchParams.get('size') || 0),
-                      url: url || undefined,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    { select: true, at: path },
-                  );
-                  event.preventDefault();
-                  const next = Editor.next(store.editor, { at: path });
-                  if (
-                    next &&
-                    next[0].type === 'paragraph' &&
-                    !Node.string(next[0])
-                  ) {
-                    Transforms.delete(store.editor, { at: next[1] });
-                  }
-                  return;
-                }
-              }
-            }
-            if (text.startsWith('http')) {
-              event.preventDefault();
-              event.stopPropagation();
-              if (['image', 'video', 'audio'].includes(getMediaType(text))) {
-                if (text.startsWith('http')) {
-                  const path = EditorUtils.findMediaInsertPath(store.editor);
-                  if (!path) return;
-                  Transforms.insertNodes(
-                    store.editor,
-                    {
-                      type: 'media',
-                      url: text,
-                      children: [
-                        {
-                          type: 'card-before',
-                          children: [{ text: '' }],
-                        },
-                        {
-                          type: 'card-after',
-                          children: [{ text: '' }],
-                        },
-                      ],
-                    },
-                    { select: true, at: path },
-                  );
-                }
-              } else {
-                store.insertLink(text);
-              }
-              return;
-            }
-          } catch (e) {}
-
-          const [node] = Editor.nodes<Elements>(editor, {
-            match: (n) => Element.isElement(n) && n.type === 'code',
-          });
-
-          if (node) {
-            Transforms.insertFragment(
-              editor,
-              //@ts-ignore
-              text.split('\n').map((c) => {
-                return {
-                  type: 'code-line',
-                  children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
-                };
-              }),
-            );
             return;
           }
+        } catch (e) {}
 
-          if (isMarkdown(text)) {
-            parseMarkdownToNodesAndInsert(editor, text);
-            return;
-          }
-          Transforms.insertText(editor, text);
-        }
+        const [node] = Editor.nodes<Elements>(markdownEditorRef.current, {
+          match: (n) => Element.isElement(n) && n.type === 'code',
+        });
 
-        if (hasEditableTarget(editor, event.target)) {
-          ReactEditor.insertData(editor, event.clipboardData);
+        if (node) {
+          Transforms.insertFragment(
+            markdownEditorRef.current,
+            //@ts-ignore
+            text.split('\n').map((c) => {
+              return {
+                type: 'code-line',
+                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
+              };
+            }),
+          );
           return;
         }
-      },
-      [],
-    );
+
+        if (isMarkdown(text)) {
+          parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);
+          return;
+        }
+        Transforms.insertText(markdownEditorRef.current, text);
+      }
+
+      if (hasEditableTarget(markdownEditorRef.current, event.target)) {
+        ReactEditor.insertData(markdownEditorRef.current, event.clipboardData);
+        return;
+      }
+      return;
+    };
 
     /**
      * 处理输入法开始事件
      */
-    const onCompositionStart = useCallback((e: React.CompositionEvent) => {
+    const onCompositionStart = (e: React.CompositionEvent) => {
       store.inputComposition = true;
-      if (editor.selection && Range.isCollapsed(editor.selection)) {
+      if (
+        markdownEditorRef.current.selection &&
+        Range.isCollapsed(markdownEditorRef.current.selection)
+      ) {
         e.preventDefault();
       }
-    }, []);
+    };
 
     /**
      * 处理输入法结束事件
      */
-    const onCompositionEnd = useCallback(() => {
+    const onCompositionEnd = () => {
       store.inputComposition = false;
-    }, []);
+    };
 
-    const onError = useCallback((e: React.SyntheticEvent) => {
+    const onError = (e: React.SyntheticEvent) => {
       console.log('Editor error', e);
-    }, []);
+    };
 
     const childrenIsEmpty = useMemo(() => {
-      if (!editor.children) return false;
-      if (!Array.isArray(editor.children)) return;
-      if (editor.children.length === 0) return false;
+      if (!markdownEditorRef.current.children) return false;
+      if (!Array.isArray(markdownEditorRef.current.children)) return;
+      if (markdownEditorRef.current.children.length === 0) return false;
       return (
         value.current.filter(
           (v) => v.type === 'paragraph' && v.children?.at?.(0)?.text === '',
         ).length < 1
       );
-    }, [editor.children]);
+    }, [markdownEditorRef.current.children]);
 
     const readonlyCls = useMemo(() => {
       if (readonly) return 'readonly';
@@ -568,15 +537,24 @@ export const MEditor = observer(
           if (
             isPath(FocusPath) &&
             isPath(AnchorPath) &&
-            Editor.hasPath(editor, anchor.path) &&
-            Editor.hasPath(editor, focus.path)
+            Editor.hasPath(markdownEditorRef.current, anchor.path) &&
+            Editor.hasPath(markdownEditorRef.current, focus.path)
           ) {
             const newSelection = {
-              anchor: { ...anchor, path: findLeafPath(editor, AnchorPath) },
-              focus: { ...focus, path: findLeafPath(editor, FocusPath) },
+              anchor: {
+                ...anchor,
+                path: findLeafPath(markdownEditorRef.current, AnchorPath),
+              },
+              focus: {
+                ...focus,
+                path: findLeafPath(markdownEditorRef.current, FocusPath),
+              },
             };
 
-            const fragment = Editor.fragment(editor, newSelection);
+            const fragment = Editor.fragment(
+              markdownEditorRef.current,
+              newSelection,
+            );
             if (fragment) {
               const str = Node.string({ children: fragment });
               const isStrEquals = str === item.refContent;
@@ -587,8 +565,8 @@ export const MEditor = observer(
                 isStrEquals &&
                 isPath(newFocusPath) &&
                 isPath(newAnchorPath) &&
-                Editor.hasPath(editor, newAnchorPath) &&
-                Editor.hasPath(editor, newFocusPath)
+                Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
+                Editor.hasPath(markdownEditorRef.current, newFocusPath)
               ) {
                 ranges.push({
                   anchor: { path: newAnchorPath, offset: anchor.offset },
@@ -611,7 +589,11 @@ export const MEditor = observer(
       }
     };
     return wrapSSR(
-      <Slate editor={editor} initialValue={[EditorUtils.p]} onChange={change}>
+      <Slate
+        editor={markdownEditorRef.current}
+        initialValue={[EditorUtils.p]}
+        onChange={change}
+      >
         <SetNodeToDecorations />
         <Editable
           decorate={decorateFn}
@@ -641,12 +623,13 @@ export const MEditor = observer(
           }
           onSelect={() => {
             if (store.focus) {
-              store.editor.selection = getSelectionFromDomSelection(
-                store.editor,
-                window.getSelection()!,
-              );
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  window.getSelection()!,
+                );
               store.setState((state) => {
-                state.preSelection = store.editor.selection;
+                state.preSelection = markdownEditorRef.current.selection;
               });
             }
           }}
@@ -654,14 +637,17 @@ export const MEditor = observer(
             if (isEventHandled(event)) {
               return;
             }
-            if (!hasEditableTarget(editor, event.target)) {
+            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
               const domSelection = window.getSelection();
-              editor.selection = getSelectionFromDomSelection(
-                editor,
-                domSelection!,
-              );
-              if (editor.selection) {
-                Transforms.delete(editor, { at: editor.selection! });
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  domSelection!,
+                );
+              if (markdownEditorRef.current.selection) {
+                Transforms.delete(markdownEditorRef.current, {
+                  at: markdownEditorRef.current.selection!,
+                });
                 return;
               }
             }
@@ -675,19 +661,24 @@ export const MEditor = observer(
             if (isEventHandled(event)) {
               return;
             }
-            if (!hasEditableTarget(editor, event.target)) {
+            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
               const domSelection = window.getSelection();
-              editor.selection = getSelectionFromDomSelection(
-                editor,
-                domSelection!,
-              );
-              if (!editor.selection) {
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  domSelection!,
+                );
+              if (!markdownEditorRef.current.selection) {
                 return;
               }
             }
             event.preventDefault();
-            ReactEditor.setFragmentData(editor, event.clipboardData, 'copy');
-            copySelectedBlocks(editor);
+            ReactEditor.setFragmentData(
+              markdownEditorRef.current,
+              event.clipboardData,
+              'copy',
+            );
+            copySelectedBlocks(markdownEditorRef.current);
           }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}

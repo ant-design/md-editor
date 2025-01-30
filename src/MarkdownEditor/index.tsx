@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
@@ -20,9 +21,13 @@ import {
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { Subject } from 'rxjs';
-import { Selection } from 'slate';
+import { createEditor, Selection } from 'slate';
+import { withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
 import { MEditor } from './editor/Editor';
+import { withMarkdown } from './editor/plugins';
+import { withErrorReporting } from './editor/plugins/catchError';
+import { withReact } from './editor/slate-react';
 import {
   InsertAutocomplete,
   InsertAutocompleteProps,
@@ -87,7 +92,6 @@ export type CommentDataType = {
 export type IEditor = {
   children?: IEditor[];
   expand?: boolean;
-  history?: any;
 };
 
 /**
@@ -96,7 +100,6 @@ export type IEditor = {
 export interface MarkdownEditorInstance {
   range?: Range;
   store: EditorStore;
-  history?: any;
 }
 
 /**
@@ -263,7 +266,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     [],
   );
 
-  const store = useMemo(() => new EditorStore(), []);
+  const markdownEditorRef = useRef(
+    withMarkdown(withReact(withHistory(createEditor()))),
+  );
+
+  useEffect(() => {
+    withErrorReporting(markdownEditorRef.current);
+  }, []);
+
+  const store = useMemo(() => new EditorStore(markdownEditorRef), []);
 
   /**
    * 初始化 schema
@@ -276,7 +287,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     const schema =
       props.initSchemaValue ||
       (initValue ? list : JSON.parse(JSON.stringify([EditorUtils.p])));
-    console.log(schema);
+
     return schema?.filter((item: any) => {
       if (item.type === 'p' && item.children.length === 0) {
         return false;
@@ -345,6 +356,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         typewriter: props.typewriter ?? false,
         readonly: props.readonly ?? false,
         editorProps: props || {},
+        markdownEditorRef,
       }}
     >
       <div
@@ -426,7 +438,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           {mount && toc !== false && instance.store?.container ? (
             showCommentList?.length ? (
               <CommentList
-                instance={instance}
                 commentList={showCommentList}
                 comment={props.comment}
               />

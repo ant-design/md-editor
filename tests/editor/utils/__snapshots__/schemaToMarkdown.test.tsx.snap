@@ -1535,7 +1535,6 @@ exports[`should convert markdown to schema in  图片
     "type": "head",
   },
   {
-    "alt": "",
     "children": [
       {
         "children": [
@@ -1546,6 +1545,17 @@ exports[`should convert markdown to schema in  图片
         "type": "card-before",
       },
       {
+        "alt": "",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "mediaType": "image",
+        "type": "media",
+        "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
+      },
+      {
         "children": [
           {
             "text": "",
@@ -1554,8 +1564,7 @@ exports[`should convert markdown to schema in  图片
         "type": "card-after",
       },
     ],
-    "type": "media",
-    "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
+    "type": "card",
   },
 ]
 `;
@@ -5942,7 +5951,6 @@ exports[`should convert markdown to schema in  视频
     "type": "head",
   },
   {
-    "alt": "video:视频名",
     "children": [
       {
         "children": [
@@ -5953,6 +5961,17 @@ exports[`should convert markdown to schema in  视频
         "type": "card-before",
       },
       {
+        "alt": "video:视频名",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "mediaType": "image",
+        "type": "media",
+        "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+      },
+      {
         "children": [
           {
             "text": "",
@@ -5961,8 +5980,7 @@ exports[`should convert markdown to schema in  视频
         "type": "card-after",
       },
     ],
-    "type": "media",
-    "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+    "type": "card",
   },
 ]
 `;
@@ -5980,7 +5998,6 @@ exports[`should convert markdown to schema in  附件
     "type": "head",
   },
   {
-    "alt": "attachment:测试附件.pdf",
     "children": [
       {
         "children": [
@@ -5989,6 +6006,17 @@ exports[`should convert markdown to schema in  附件
           },
         ],
         "type": "card-before",
+      },
+      {
+        "alt": "attachment:测试附件.pdf",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "mediaType": "image",
+        "type": "media",
+        "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
       },
       {
         "children": [
@@ -6111,8 +6139,7 @@ exports[`should convert markdown to schema in  附件
       ],
       "updateTime": "2014-07-29",
     },
-    "type": "media",
-    "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+    "type": "card",
   },
 ]
 `;
@@ -6215,7 +6242,11 @@ exports[`should convert schema to markdown in  图片
 ![](h chunk 1`] = `
 "## 图片
 
-<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>"
+
+
+<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>
+
+"
 `;
 
 exports[`should convert schema to markdown in  图表 area
@@ -6364,7 +6395,11 @@ exports[`should convert schema to markdown in  视频
 ![vid chunk 1`] = `
 "## 视频
 
-<video src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>"
+
+
+<video src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>
+
+"
 `;
 
 exports[`should convert schema to markdown in  附件
@@ -6372,7 +6407,11 @@ exports[`should convert schema to markdown in  附件
 "## 附件
 
 <!--{"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]}-->
-<iframe src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>"
+
+
+<iframe src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>
+
+"
 `;
 
 exports[`多个空格转为一个 1`] = `
