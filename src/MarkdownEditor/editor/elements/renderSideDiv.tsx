@@ -210,7 +210,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
               store.editor,
               tableSlateNode,
             );
-            const tableEntry = Editor.node(store.editor, tablePath);
+            const tableEntry = Editor?.node(store.editor, tablePath);
             const len = isColumn
               ? (tableSlateNode.children as Array<any>).length
               : (tableSlateNode.children as Array<any>)[0].children.length;
@@ -592,7 +592,7 @@ export function IntersectionPointDiv(props: {
         const tableSlateNode = getTableNode();
         if (tableSlateNode) {
           const tablePath = ReactEditor.findPath(store.editor, tableSlateNode);
-          const tableEntry = Editor.node(store.editor, tablePath);
+          const tableEntry = Editor?.node(store.editor, tablePath);
           const colLen = (tableSlateNode.children as Array<any>).length;
           const rowLen = (tableSlateNode.children as Array<any>)[0].children
             .length;

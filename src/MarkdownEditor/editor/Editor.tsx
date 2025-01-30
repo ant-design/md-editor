@@ -284,7 +284,7 @@ export const MEditor = observer(
 
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
-          const rangeNodes = Editor.node(markdownEditorRef.current, [
+          const rangeNodes = Editor?.node(markdownEditorRef.current, [
             selection.focus.path.at(0)!,
           ]);
           if (!rangeNodes) return;

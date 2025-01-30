@@ -152,50 +152,50 @@
                     <div
                       class="row-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: absolute; display: block; z-index: 100; width: 0.9em; margin-top: 16px; margin-left: -16px;"
+                      style="position: absolute; display: block; z-index: 200; width: 0.9em; margin-top: 16px; margin-left: -16px;"
                     >
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -1.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
                       />
@@ -203,70 +203,70 @@
                     <div
                       class="col-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: relative; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
+                      style="position: absolute; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
                     >
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
                       />
@@ -274,7 +274,7 @@
                   </div>
                   <table
                     class="md-editor-table"
-                    style="border-collapse: separate; border-spacing: 0;"
+                    style="margin-top: 1em; border-collapse: separate; border-spacing: 0;"
                   >
                     <tbody
                       data-slate-node="element"
@@ -9541,50 +9541,50 @@
                     <div
                       class="row-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: absolute; display: block; z-index: 100; width: 0.9em; margin-top: 16px; margin-left: -16px;"
+                      style="position: absolute; display: block; z-index: 200; width: 0.9em; margin-top: 16px; margin-left: -16px;"
                     >
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -1.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
                       />
@@ -9592,30 +9592,30 @@
                     <div
                       class="col-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: relative; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
+                      style="position: absolute; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
                     >
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                       />
                       <div
-                        class="table-side-div ignore-toggle-readonly none-active "
+                        class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
                       />
@@ -9623,7 +9623,7 @@
                   </div>
                   <table
                     class="md-editor-table"
-                    style="border-collapse: separate; border-spacing: 0;"
+                    style="margin-top: 1em; border-collapse: separate; border-spacing: 0;"
                   >
                     <tbody
                       data-slate-node="element"

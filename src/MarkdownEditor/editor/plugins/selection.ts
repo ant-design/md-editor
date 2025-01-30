@@ -14,7 +14,7 @@ export function findPointLeftTop(entry: NodeEntry, editor: Editor) {
       typeof tmpNode.colspan === 'number' &&
       tmpNode.colspan === 0
     ) {
-      [tmpNode, tmpPath] = Editor.node(editor, [
+      [tmpNode, tmpPath] = Editor?.node(editor, [
         ...tmpPath.slice(0, -1),
         tmpPath[tmpPath.length - 1] - 1,
       ]);
@@ -27,7 +27,7 @@ export function findPointLeftTop(entry: NodeEntry, editor: Editor) {
       typeof tmpNode.rowspan === 'number' &&
       tmpNode.rowspan === 0
     ) {
-      [tmpNode, tmpPath] = Editor.node(editor, [
+      [tmpNode, tmpPath] = Editor?.node(editor, [
         ...tmpPath.slice(0, -2),
         tmpPath[tmpPath.length - 2] - 1,
         tmpPath[tmpPath.length - 1],
@@ -41,7 +41,7 @@ export function findPointLeftTop(entry: NodeEntry, editor: Editor) {
       typeof tmpNode.colspan === 'number' &&
       tmpNode.colspan === 0
     ) {
-      [tmpNode, tmpPath] = Editor.node(editor, [
+      [tmpNode, tmpPath] = Editor?.node(editor, [
         ...tmpPath.slice(0, -1),
         tmpPath[tmpPath.length - 1] - 1,
       ]);
@@ -51,7 +51,7 @@ export function findPointLeftTop(entry: NodeEntry, editor: Editor) {
       typeof tmpNode.rowspan === 'number' &&
       tmpNode.rowspan === 0
     ) {
-      [tmpNode, tmpPath] = Editor.node(editor, [
+      [tmpNode, tmpPath] = Editor?.node(editor, [
         ...tmpPath.slice(0, -2),
         tmpPath[tmpPath.length - 2] - 1,
         tmpPath[tmpPath.length - 1],
@@ -72,8 +72,8 @@ const calcCoveredCells = (store, table, startPath, endPath): any[] => {
     totalCells.push([n, p]);
   }
 
-  const [startNode]: any = Editor.node(store.editor, startPath);
-  const [endNode]: any = Editor.node(store.editor, endPath);
+  const [startNode]: any = Editor?.node(store.editor, startPath);
+  const [endNode]: any = Editor?.node(store.editor, endPath);
   let rowMin = Math.min(startPath[2], endPath[2]);
   let rowMax = Math.max(startPath[2], endPath[2]);
   let colMin = Math.min(startPath[3], endPath[3]);

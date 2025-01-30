@@ -405,50 +405,50 @@
                           <div
                             class="row-div-bar-inner ignore-toggle-readonly"
                             contenteditable="false"
-                            style="position: absolute; display: block; z-index: 100; width: 0.9em; margin-top: 16px; margin-left: -16px;"
+                            style="position: absolute; display: block; z-index: 200; width: 0.9em; margin-top: 16px; margin-left: -16px;"
                           >
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -1.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
                             />
@@ -456,70 +456,70 @@
                           <div
                             class="col-div-bar-inner ignore-toggle-readonly"
                             contenteditable="false"
-                            style="position: relative; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
+                            style="position: absolute; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
                           >
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
                             />
                             <div
-                              class="table-side-div ignore-toggle-readonly none-active "
+                              class="table-side-div ignore-toggle-readonly none-active  "
                               contenteditable="false"
                               style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
                             />
@@ -527,7 +527,7 @@
                         </div>
                         <table
                           class="md-editor-table"
-                          style="border-collapse: separate; border-spacing: 0;"
+                          style="margin-top: 1em; border-collapse: separate; border-spacing: 0;"
                         >
                           <tbody
                             data-slate-node="element"
@@ -5068,127 +5068,165 @@
                           data-slate-editor="false"
                           style="visibility: hidden; overflow: hidden;"
                         >
-                          <table
-                            style="border-collapse: collapse; border-spacing: 0;"
+                          <div
+                            class="intersection-point ignore-toggle-readonly "
+                            contenteditable="false"
+                            style="display: flex; z-index: 102;"
+                          />
+                          <div
+                            class="row-div-bar-inner ignore-toggle-readonly"
+                            contenteditable="false"
+                            style="position: absolute; display: block; z-index: 200; width: 0.9em; margin-top: 16px; margin-left: -16px;"
                           >
-                            <tbody
+                            <div
+                              class="table-side-div ignore-toggle-readonly none-active  "
+                              contenteditable="false"
+                              style="position: relative; width: 14px; height: -1.66px;"
+                            />
+                            <div
+                              class="table-side-div ignore-toggle-readonly none-active  "
+                              contenteditable="false"
+                              style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
+                            />
+                          </div>
+                          <div
+                            class="col-div-bar-inner ignore-toggle-readonly"
+                            contenteditable="false"
+                            style="position: absolute; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
+                          >
+                            <div
+                              class="table-side-div ignore-toggle-readonly none-active  "
+                              contenteditable="false"
+                              style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            />
+                            <div
+                              class="table-side-div ignore-toggle-readonly none-active  "
+                              contenteditable="false"
+                              style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
+                            />
+                          </div>
+                        </div>
+                        <table
+                          class="md-editor-table"
+                          style="margin-top: 1em; border-collapse: separate; border-spacing: 0;"
+                        >
+                          <tbody
+                            data-slate-node="element"
+                          >
+                            <tr
                               data-slate-node="element"
                             >
-                              <tr
+                              <th
+                                data-be="th"
                                 data-slate-node="element"
                               >
-                                <th
-                                  data-be="th"
-                                  data-slate-node="element"
+                                <div
+                                  style="min-width: 20px; text-wrap: wrap; max-width: 200px;"
                                 >
-                                  <div
-                                    style="min-width: 20px; text-wrap: wrap; max-width: 200px;"
+                                  <span
+                                    data-slate-node="text"
                                   >
                                     <span
-                                      data-slate-node="text"
+                                      class=" "
+                                      data-be="text"
+                                      data-slate-leaf="true"
+                                      draggable="false"
                                     >
                                       <span
-                                        class=" "
-                                        data-be="text"
-                                        data-slate-leaf="true"
-                                        draggable="false"
+                                        data-slate-length="0"
+                                        data-slate-zero-width="n"
                                       >
-                                        <span
-                                          data-slate-length="0"
-                                          data-slate-zero-width="n"
-                                        >
-                                          ﻿
-                                          <br />
-                                        </span>
+                                        ﻿
+                                        <br />
                                       </span>
                                     </span>
-                                  </div>
-                                </th>
-                                <th
-                                  data-be="th"
-                                  data-slate-node="element"
-                                >
-                                  <div
-                                    style="min-width: 164px; text-wrap: wrap; max-width: 200px;"
-                                  >
-                                    <span
-                                      data-slate-node="text"
-                                    >
-                                      <span
-                                        class=" "
-                                        data-be="text"
-                                        data-slate-leaf="true"
-                                        draggable="false"
-                                      >
-                                        <span
-                                          data-slate-string="true"
-                                        >
-                                          num_of_data_levels
-                                        </span>
-                                      </span>
-                                    </span>
-                                  </div>
-                                </th>
-                              </tr>
-                              <tr
+                                  </span>
+                                </div>
+                              </th>
+                              <th
+                                data-be="th"
                                 data-slate-node="element"
                               >
-                                <td
-                                  class="group"
-                                  data-be="td"
-                                  data-slate-node="element"
+                                <div
+                                  style="min-width: 164px; text-wrap: wrap; max-width: 200px;"
                                 >
-                                  <div
-                                    style="min-width: 28px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
+                                  <span
+                                    data-slate-node="text"
                                   >
                                     <span
-                                      data-slate-node="text"
+                                      class=" "
+                                      data-be="text"
+                                      data-slate-leaf="true"
+                                      draggable="false"
                                     >
                                       <span
-                                        class=" "
-                                        data-be="text"
-                                        data-slate-leaf="true"
-                                        draggable="false"
+                                        data-slate-string="true"
                                       >
-                                        <span
-                                          data-slate-string="true"
-                                        >
-                                          0
-                                        </span>
+                                        num_of_data_levels
                                       </span>
                                     </span>
-                                  </div>
-                                </td>
-                                <td
-                                  class="group"
-                                  data-be="td"
-                                  data-slate-node="element"
+                                  </span>
+                                </div>
+                              </th>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                class="group"
+                                data-be="td"
+                                data-slate-node="element"
+                              >
+                                <div
+                                  style="min-width: 28px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                                 >
-                                  <div
-                                    style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
+                                  <span
+                                    data-slate-node="text"
                                   >
                                     <span
-                                      data-slate-node="text"
+                                      class=" "
+                                      data-be="text"
+                                      data-slate-leaf="true"
+                                      draggable="false"
                                     >
                                       <span
-                                        class=" "
-                                        data-be="text"
-                                        data-slate-leaf="true"
-                                        draggable="false"
+                                        data-slate-string="true"
                                       >
-                                        <span
-                                          data-slate-string="true"
-                                        >
-                                          24
-                                        </span>
+                                        0
                                       </span>
                                     </span>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                                  </span>
+                                </div>
+                              </td>
+                              <td
+                                class="group"
+                                data-be="td"
+                                data-slate-node="element"
+                              >
+                                <div
+                                  style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
+                                >
+                                  <span
+                                    data-slate-node="text"
+                                  >
+                                    <span
+                                      class=" "
+                                      data-be="text"
+                                      data-slate-leaf="true"
+                                      draggable="false"
+                                    >
+                                      <span
+                                        data-slate-string="true"
+                                      >
+                                        24
+                                      </span>
+                                    </span>
+                                  </span>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
