@@ -190,7 +190,6 @@ export const MEditor = observer(
       }
 
       const types = event.clipboardData.types;
-      console.log('types', types);
       if (types.includes('application/x-slate-fragment')) {
         const encoded = event.clipboardData.getData(
           'application/x-slate-fragment',

@@ -95,7 +95,7 @@ export const makeDeserializer = (jsx: any) => {
       .flat();
 
     if (el.nodeName === 'BODY') {
-      const filler = jsx('element', { type: 'p', className: 'P' }, [
+      const filler = jsx('element', { type: 'paragraph', className: 'P' }, [
         { text: ' ' },
       ]);
       children.unshift(filler);
@@ -117,7 +117,11 @@ export const makeDeserializer = (jsx: any) => {
       if (nodeName === 'H3' || nodeName === 'H2' || nodeName === 'H1') {
         return jsx(
           'element',
-          { type: nodeName, className: nodeName },
+          {
+            type: 'head',
+            className: nodeName,
+            level: nodeName?.replace('H', ''),
+          },
           children,
         );
       }

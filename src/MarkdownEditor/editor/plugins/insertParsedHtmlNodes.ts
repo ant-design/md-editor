@@ -253,9 +253,15 @@ export const insertParsedHtmlNodes = async (
           ],
         };
       }
+      if (fragment.type === 'p' && fragment.children.length === 1) {
+        return {
+          type: 'paragraph',
+          children: fragment.children,
+        };
+      }
       return fragment;
     });
-  console.log(fragmentList);
+
   hideLoading();
 
   if (!fragmentList?.length) return false;
