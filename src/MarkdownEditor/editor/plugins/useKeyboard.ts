@@ -32,6 +32,7 @@ export const useKeyboard = (
     const enter = new EnterKey(store, backspace);
     const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
+      console.log('keyword----->', e);
       if (
         store.openInsertCompletion &&
         (isHotkey('up', e) || isHotkey('down', e))
