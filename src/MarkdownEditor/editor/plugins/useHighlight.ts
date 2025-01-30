@@ -356,7 +356,7 @@ export const SetNodeToDecorations = observer(() => {
         stack = [];
         if (typeof window === 'undefined') return;
         if (typeof window.matchMedia === 'undefined') return;
-        runInAction(() => (store.refreshHighlight = Date.now()));
+        runInAction(() => (store.refreshHighlight = !!Date.now()));
       });
     }
   }, []);

@@ -82,7 +82,7 @@ export class EditorStore {
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
-  refreshHighlight = Date.now();
+  refreshHighlight: number | boolean = Date.now();
   domRect: DOMRect | null = null;
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
@@ -272,15 +272,6 @@ export class EditorStore {
       node = node.offsetParent as HTMLElement;
     }
     return left;
-  }
-
-  doRefreshHighlight() {
-    setTimeout(
-      action(() => {
-        this.refreshHighlight = Date.now();
-      }),
-      60,
-    );
   }
 
   setState(value: (state: EditorStore) => void) {
