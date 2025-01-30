@@ -19,7 +19,7 @@ import { ReactEditor } from './slate-react';
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '..';
-import { Elements, ListNode, MediaNode, TableCellNode } from '../el';
+import { Elements, ListNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
@@ -79,7 +79,6 @@ export class EditorStore {
   insertCompletionText$ = new Subject<string>();
   highlightCache = new Map<object, Range[]>();
   refreshFloatBar = false;
-  mediaNode$ = new Subject<NodeEntry<MediaNode> | null>();
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
@@ -134,10 +133,14 @@ export class EditorStore {
     this._editor = _editor;
     makeAutoObservable(this, {
       _editor: false,
-      editor: false,
-      tableCellNode: false,
-      inputComposition: false,
+      sel: false,
+      preSelection: false,
       container: false,
+      domRect: false,
+      domRange: false,
+      tableCellNode: false,
+      editor: false,
+      inputComposition: false,
       highlightCache: false,
       draggedElement: false,
       manual: false,

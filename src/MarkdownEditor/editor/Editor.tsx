@@ -86,7 +86,6 @@ export const MEditor = observer(
             editorProps.initSchemaValue?.length
               ? editorProps.initSchemaValue
               : undefined,
-            instance.history || true,
           );
           clearAllCodeCache(markdownEditorRef.current);
         } catch (e) {
@@ -115,9 +114,6 @@ export const MEditor = observer(
       }
       value.current = v;
       onChange(v, markdownEditorRef.current.operations);
-      if (instance) {
-        instance.history = markdownEditorRef.current.history;
-      }
 
       if (
         !markdownEditorRef.current.operations?.every(

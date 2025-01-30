@@ -92,7 +92,6 @@ export type CommentDataType = {
 export type IEditor = {
   children?: IEditor[];
   expand?: boolean;
-  history?: any;
 };
 
 /**
@@ -101,7 +100,6 @@ export type IEditor = {
 export interface MarkdownEditorInstance {
   range?: Range;
   store: EditorStore;
-  history?: any;
 }
 
 /**
