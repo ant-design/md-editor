@@ -141,7 +141,7 @@ export const makeDeserializer = (jsx: any) => {
 
   function deserializeListItem(el: any, imageTags: any) {
     const level = el.getAttribute('style');
-    const content = getTextfromList(el)
+    const content = extractTextFromNodes(el)
       .map((c) => {
         return deserializeElement(c as any, imageTags);
       })
@@ -211,7 +211,7 @@ function isList(el: {
 // receives a list item and returns the text inside it
 // sometimes the text will be inside a text tag or inside a span tag.
 // when it is inside a text tag, the span is irrelevant, but it contains empty text inside
-function getTextfromList(el: {
+function extractTextFromNodes(el: {
   childNodes: Iterable<unknown> | ArrayLike<unknown>;
 }) {
   const children = Array.from(el.childNodes);
