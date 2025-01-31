@@ -1413,7 +1413,7 @@
             <div
               data-be="table"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%; min-width: 0; margin-bottom: 12px;"
+              style="display: flex; gap: 1px; max-width: 100%; min-width: 0; width: 100%; overflow: hidden; position: relative; margin-bottom: 12px;"
             >
               <div
                 class="ant-md-editor-drag-el"
@@ -1449,7 +1449,7 @@
               </div>
               <div
                 class="ant-md-editor-table ant-md-editor-content-table "
-                style="width: 100%; max-width: 100%; overflow: auto; flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+                style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
               >
                 <div
                   data-slate-editor="false"
@@ -7816,7 +7816,7 @@
             <div
               data-be="table"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%; min-width: 0; margin-bottom: 12px;"
+              style="display: flex; gap: 1px; max-width: 100%; min-width: 0; width: 100%; overflow: hidden; position: relative; margin-bottom: 12px;"
             >
               <div
                 class="ant-md-editor-drag-el"
@@ -7852,7 +7852,7 @@
               </div>
               <div
                 class="ant-md-editor-table ant-md-editor-content-table "
-                style="width: 100%; max-width: 100%; overflow: auto; flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+                style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
               >
                 <div
                   data-slate-editor="false"

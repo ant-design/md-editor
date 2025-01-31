@@ -1,5 +1,5 @@
 import { useDebounceFn } from '@ant-design/pro-components';
-import { Popover, Typography } from 'antd';
+import { ConfigProvider, Popover, Typography } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
@@ -20,6 +20,7 @@ import { DragHandle } from '../tools/DragHandle';
 import { EditorUtils } from '../utils';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import './table.css';
+
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
 /**
@@ -492,60 +493,6 @@ export const Table = observer((props: RenderElementProps) => {
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   useEffect(() => {
-    if (!tableTargetRef.current) {
-      return;
-    }
-    if (typeof IntersectionObserver === 'undefined') {
-      return;
-    }
-    const observerRoot = (tableTargetRef as any).current?.parentNode;
-    const observerTarget = (tableTargetRef as any).current;
-    const overflowShadowContainer = overflowShadowContainerRef.current!;
-    overflowShadowContainer.classList.add('overflow-shadow-container');
-    overflowShadowContainer.classList.add('card-table-wrap');
-    const options = {
-      root: observerRoot,
-      threshold: 1,
-    };
-
-    new IntersectionObserver(([entry]) => {
-      if (entry.intersectionRatio !== 1) {
-        overflowShadowContainer.classList.add(
-          'is-overflowing',
-          'is-scrolled-left',
-        );
-      } else {
-        overflowShadowContainer.classList.remove('is-overflowing');
-      }
-    }, options).observe(observerTarget);
-
-    let handleScrollX = (e: any) => {
-      if (e.target.scrollLeft < 1) {
-        overflowShadowContainer.classList.add('is-scrolled-left');
-      } else {
-        overflowShadowContainer.classList.remove('is-scrolled-left');
-      }
-      if (
-        Math.abs(
-          e.target.scrollLeft +
-            e.target.offsetWidth -
-            observerTarget.offsetWidth,
-        ) <= 1
-      ) {
-        overflowShadowContainer.classList.add('is-scrolled-right');
-      } else {
-        overflowShadowContainer.classList.remove('is-scrolled-right');
-      }
-    };
-
-    observerRoot.addEventListener('scroll', handleScrollX);
-
-    return () => {
-      observerRoot.removeEventListener('scroll', handleScrollX);
-    };
-  }, [props.element]);
-
-  useEffect(() => {
     if (!props.element) return;
     tableRef.current = tableNodeEntry;
     updateTableDimensions.cancel();
@@ -588,97 +535,103 @@ export const Table = observer((props: RenderElementProps) => {
 
   return useMemo(() => {
     return (
-      <div
-        {...props.attributes}
-        data-be={'table'}
-        onDragStart={store.dragStart}
-        ref={overflowShadowContainerRef}
-        style={{
-          display: 'flex',
-          gap: 1,
-          maxWidth: '100%',
-          minWidth: 0,
-          marginBottom: 12,
-        }}
-        onMouseUp={handleClickTable}
+      <ConfigProvider
+        getPopupContainer={() =>
+          overflowShadowContainerRef?.current?.parentElement || document.body
+        }
       >
-        <div className="ant-md-editor-drag-el">
-          <DragHandle />
-        </div>
         <div
-          className={`ant-md-editor-table ant-md-editor-content-table ${
-            isShowBar ? 'show-bar' : ''
-          }`}
-          onClick={() => {
-            runInAction(() => {
-              if (isSel) {
-                store.selectTablePath = [];
-                return;
-              }
-              store.selectTablePath = tablePath;
-            });
-          }}
+          {...props.attributes}
+          data-be={'table'}
+          onDragStart={store.dragStart}
+          ref={overflowShadowContainerRef}
           style={{
-            width: '100%',
+            display: 'flex',
+            gap: 1,
             maxWidth: '100%',
-            overflow: 'auto',
-            flex: 1,
             minWidth: 0,
-            marginLeft: 20,
-            marginTop: 4,
-            marginRight: 6,
+            width: '100%',
+            overflow: 'hidden',
+            position: 'relative',
+            marginBottom: 12,
           }}
+          onMouseUp={handleClickTable}
         >
-          <div
-            style={{
-              visibility: isShowBar ? 'visible' : 'hidden',
-              overflow: 'hidden',
-            }}
-            data-slate-editor="false"
-          >
-            <IntersectionPointDiv
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
-            <RowSideDiv
-              activeDeleteBtn={activeDeleteBtn}
-              setActiveDeleteBtn={setActiveDeleteBtn}
-              tableRef={tableTargetRef}
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-              onDelete={(index) => {
-                console.log('将要删除的行号为：', index);
-                runTask('removeRow');
-              }}
-            />
-            <ColSideDiv
-              onDelete={(index) => {
-                console.log('将要删除的列号为：', index);
-                runTask('removeCol');
-              }}
-              activeDeleteBtn={activeDeleteBtn}
-              setActiveDeleteBtn={setActiveDeleteBtn}
-              tableRef={tableTargetRef}
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
+          <div className="ant-md-editor-drag-el">
+            <DragHandle />
           </div>
-          <table
-            className="md-editor-table"
-            style={{
-              marginTop: '1em',
-              borderCollapse: 'separate',
-              borderSpacing: 0,
+          <div
+            className={`ant-md-editor-table ant-md-editor-content-table ${
+              isShowBar ? 'show-bar' : ''
+            }`}
+            onClick={() => {
+              runInAction(() => {
+                if (isSel) {
+                  store.selectTablePath = [];
+                  return;
+                }
+                store.selectTablePath = tablePath;
+              });
             }}
-            ref={tableTargetRef}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              marginLeft: 20,
+              marginTop: 4,
+              marginRight: 6,
+            }}
           >
-            <tbody data-slate-node="element">{props.children}</tbody>
-          </table>
+            <div
+              style={{
+                visibility: isShowBar ? 'visible' : 'hidden',
+                overflow: 'hidden',
+              }}
+              data-slate-editor="false"
+            >
+              <IntersectionPointDiv
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+              <RowSideDiv
+                activeDeleteBtn={activeDeleteBtn}
+                setActiveDeleteBtn={setActiveDeleteBtn}
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+                onDelete={(index) => {
+                  console.log('将要删除的行号为：', index);
+                  runTask('removeRow');
+                }}
+              />
+              <ColSideDiv
+                onDelete={(index) => {
+                  console.log('将要删除的列号为：', index);
+                  runTask('removeCol');
+                }}
+                activeDeleteBtn={activeDeleteBtn}
+                setActiveDeleteBtn={setActiveDeleteBtn}
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+            </div>
+            <table
+              className="md-editor-table"
+              style={{
+                marginTop: '1em',
+                borderCollapse: 'separate',
+                borderSpacing: 0,
+              }}
+              ref={tableTargetRef}
+            >
+              <tbody data-slate-node="element">{props.children}</tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      </ConfigProvider>
     );
   }, [
     props.element.children,
