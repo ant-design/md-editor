@@ -136,8 +136,6 @@ export class EditorStore {
       sel: false,
       preSelection: false,
       container: false,
-      domRect: false,
-      domRange: false,
       tableCellNode: false,
       editor: false,
       inputComposition: false,
