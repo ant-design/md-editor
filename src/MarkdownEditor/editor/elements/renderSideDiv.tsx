@@ -136,14 +136,15 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
 
   useEffect(() => {
     if (!tableSideDivRef?.current || !activeDeleteBtn) return;
-
+    if (activeDeleteBtn !== `${type}-${index}`) return;
+    const container = getPopupContainer?.(document.body) || document.body;
     const { left, top, right } =
       tableSideDivRef.current.getBoundingClientRect();
+    const { top: containerTop } = container.getBoundingClientRect();
 
     const domPos = isColumn
-      ? { left: (right + left) / 2 - 74, top: top - 64 }
+      ? { left: (right + left) / 2 - 74, top: top - containerTop - 36 }
       : { left: right - 36, top: top - 70 };
-
     setOverlayPos(domPos);
   }, [deleteBtnHover, activeDeleteBtn]);
 
@@ -209,7 +210,9 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
           >
             <div
               id="delete-btn"
-              className={classNames(`${baseCls}-item`, hashId)}
+              className={classNames(`${baseCls}-item`, hashId, {
+                [`${baseCls}-item-delete`]: true,
+              })}
               onMouseEnter={() => setDeleteBtnHover(true)}
               onMouseLeave={() => setDeleteBtnHover(false)}
             >

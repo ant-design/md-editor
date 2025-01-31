@@ -12,13 +12,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '4px 8px',
-      borderBottom: '1px solid #e5e7eb',
-      backgroundColor: 'rgba(255, 255, 255, 1)',
-      border: '1px solid #f0f0f0',
+      backgroundColor: token.colorBgElevated,
+      border: '1px solid ' + token.colorSplit,
       boxShadow: '0 1px 2px 0 rgb(0 0 0 / 5%)',
       position: 'absolute',
       zIndex: 10,
       gap: '4px',
+      color: token.colorText,
       borderRadius: '12px',
       '&-item': {
         display: 'flex',
@@ -29,7 +29,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '8px',
         cursor: 'pointer',
         '&:hover': {
-          backgroundColor: 'rgb(209 213 219 / 0.4)',
+          backgroundColor: token.colorBgTextHover,
+        },
+        '&&-delete': {
+          color: token?.colorError,
+          '&:hover': {
+            color: token?.colorErrorActive,
+          },
         },
       },
     },
