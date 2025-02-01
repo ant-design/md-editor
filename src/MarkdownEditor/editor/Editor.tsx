@@ -3,7 +3,15 @@ import { message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { BaseRange, Editor, Element, Node, Range, Transforms } from 'slate';
+import {
+  BaseRange,
+  BaseSelection,
+  Editor,
+  Element,
+  Node,
+  Range,
+  Transforms,
+} from 'slate';
 import {
   CommentDataType,
   Elements,
@@ -29,7 +37,7 @@ import {
 } from './slate-react';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
-import { isMarkdown } from './utils';
+import { isMarkdown, MARKDOWN_EDITOR_EVENTS } from './utils';
 import { getMediaType } from './utils/dom';
 import {
   EditorUtils,
@@ -57,7 +65,8 @@ export const MEditor = observer(
     reportMode?: MarkdownEditorProps['reportMode'];
     titlePlaceholderContent?: string;
   } & MarkdownEditorProps) => {
-    const { store, markdownEditorRef, readonly } = useEditorStore();
+    const { store, markdownEditorRef, markdownContainerRef, readonly } =
+      useEditorStore();
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
@@ -616,6 +625,14 @@ export const MEditor = observer(
           }
           onSelect={() => {
             if (store.focus) {
+              // 选中时，更新选区,并且触发选区变化事件
+              const event = new CustomEvent<BaseSelection>(
+                MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+                {
+                  detail: markdownEditorRef.current.selection,
+                },
+              );
+              markdownContainerRef?.current?.dispatchEvent(event);
               markdownEditorRef.current.selection =
                 getSelectionFromDomSelection(
                   markdownEditorRef.current,
