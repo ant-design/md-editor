@@ -1,4 +1,4 @@
-import { observable, toJS } from 'mobx';
+import { observable } from 'mobx';
 import React, {
   ReactNode,
   useContext,
@@ -360,7 +360,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // 导入外部 hooks
   useImperativeHandle(editorRef, () => {
     return {
-      ...toJS(instance),
+      store: instance.store,
       markdownContainerRef,
       markdownEditorRef,
     };
