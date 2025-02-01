@@ -3,7 +3,7 @@
 import { message } from 'antd';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { EditorUtils } from '../utils';
+import { debugLog, EditorUtils } from '../utils';
 import { docxDeserializer } from '../utils/docx/docxDeserializer';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
@@ -231,7 +231,7 @@ export const insertParsedHtmlNodes = async (
 
   fragmentList = fragmentList
     .filter((item) => {
-      if (item.type === 'p' && !Node.string(item).trim()) {
+      if (item.type === '"paragraph"' && !Node.string(item).trim()) {
         return false;
       }
       return true;
@@ -253,7 +253,7 @@ export const insertParsedHtmlNodes = async (
           ],
         };
       }
-      if (fragment.type === 'p' && fragment.children.length === 1) {
+      if (fragment.type === '"paragraph"' && fragment.children.length === 1) {
         return {
           type: 'paragraph',
           children: fragment.children,
@@ -261,6 +261,8 @@ export const insertParsedHtmlNodes = async (
       }
       return fragment;
     });
+
+  debugLog('wordFragmentList', fragmentList);
 
   hideLoading();
 

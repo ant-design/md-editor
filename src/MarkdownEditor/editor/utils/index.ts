@@ -293,6 +293,14 @@ export function throttle(fn: any, wait: number) {
   return runFn;
 }
 
+export const debugLog = (path: string, ...msg: any[]) => {
+  if (typeof window === 'undefined') return;
+  //@ts-expect-error
+  if (window?.debug) {
+    console.log(`debug「${path}」--->`, ...msg);
+  }
+};
+
 export * from './editorUtils';
 export * from './keyboard';
 export * from './media';
