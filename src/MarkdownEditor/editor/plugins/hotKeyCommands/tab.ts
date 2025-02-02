@@ -220,9 +220,9 @@ export class TabKey {
 
   private listItem(node: NodeEntry<ParagraphNode>, e: React.KeyboardEvent) {
     if (e.shiftKey) {
-      const li = Editor.node(this.editor, Path.parent(node[1]));
-      const ul = Editor.node(this.editor, Path.parent(li[1]));
-      const container = Editor.node(this.editor, Path.parent(ul[1]));
+      const li = Editor?.node(this.editor, Path.parent(node[1]));
+      const ul = Editor?.node(this.editor, Path.parent(li[1]));
+      const container = Editor?.node(this.editor, Path.parent(ul[1]));
       if (
         !Path.hasPrevious(ul[1]) &&
         Node.parent(this.editor, ul[1]).type === 'list-item'

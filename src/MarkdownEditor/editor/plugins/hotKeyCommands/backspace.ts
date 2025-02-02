@@ -228,7 +228,7 @@ export class BackspaceKey {
           if (
             Editor.isEditor(parent[0]) &&
             next &&
-            Editor.node(this.editor, Path.next(path))[0].type !== 'hr'
+            Editor?.node(this.editor, Path.next(path))[0].type !== 'hr'
           ) {
             Transforms.delete(this.editor, { at: path });
             return true;

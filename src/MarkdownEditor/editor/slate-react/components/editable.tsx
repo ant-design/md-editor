@@ -1245,7 +1245,6 @@ export const Editable = forwardRef(
                         }
                       } catch (error) {
                         console.error(error);
-                        console.log('event.target', event.target);
                       }
                     }
                   },

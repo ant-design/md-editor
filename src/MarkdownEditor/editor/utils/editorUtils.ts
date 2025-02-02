@@ -308,13 +308,13 @@ export class EditorUtils {
 
   static checkSelEnd(editor: Editor, path: Path) {
     let end = true;
-    let cur = Editor.node(editor, path);
+    let cur = Editor?.node(editor, path);
     while (!Editor.isEditor(cur[0])) {
       if (Editor.hasPath(editor, Path.next(cur[1]))) {
         end = false;
         break;
       } else {
-        cur = Editor.node(editor, Path.parent(cur[1]));
+        cur = Editor?.node(editor, Path.parent(cur[1]));
       }
     }
     return end;

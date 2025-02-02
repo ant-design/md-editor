@@ -150,7 +150,7 @@ export const keyArrow = (
         mode: 'lowest',
       });
       const [el, path] = node;
-      const pre = Editor.node(editor, EditorUtils.findPrev(editor, path));
+      const pre = Editor?.node(editor, EditorUtils.findPrev(editor, path));
       if (pre?.[0].type === 'media' || pre?.[0].type === 'attach') {
         e.preventDefault();
         e.stopPropagation();
@@ -198,7 +198,7 @@ export const keyArrow = (
       });
       const [el, path] = node;
       if (!EditorUtils.findNext(editor, path)) return;
-      const next = Editor.node(editor, EditorUtils.findNext(editor, path)!);
+      const next = Editor?.node(editor, EditorUtils.findNext(editor, path)!);
       if (next?.[0].type === 'media' || next?.[0].type === 'attach') {
         e.preventDefault();
         e.stopPropagation();
@@ -251,7 +251,7 @@ export const keyArrow = (
           Editor.isEditor(Node.get(editor, Path.parent(path))) &&
           Editor.hasPath(editor, Path.next(path))
         ) {
-          const next = Editor.node(editor, Path.next(path));
+          const next = Editor?.node(editor, Path.next(path));
           if (['table', 'code', 'blockquote'].includes(next[0].type)) {
             e.preventDefault();
             Transforms.select(editor, Editor.start(editor, Path.next(path)));

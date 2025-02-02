@@ -287,7 +287,7 @@ export const insertParsedHtmlNodes = async (
       back.range();
       Transforms.select(editor, Range.start(sel));
       setTimeout(() => {
-        const node = Editor.node(editor, [0]);
+        const node = Editor?.node(editor, [0]);
         if (
           editor.children.length > 1 &&
           node[0].type === 'paragraph' &&
