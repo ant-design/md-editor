@@ -18,7 +18,7 @@ import {
   useSystemKeyboard,
 } from './editor/utils/keyboard';
 
-import { ConfigProvider } from 'antd';
+import { AnchorProps, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { Subject } from 'rxjs';
 import { BaseEditor, createEditor, Selection } from 'slate';
@@ -121,6 +121,8 @@ export type MarkdownEditorProps = {
   codeProps?: {
     Languages?: string[];
   };
+
+  anchorProps?: AnchorProps;
   /**
    * 配置图片数据
    */
@@ -481,7 +483,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                 comment={props.comment}
               />
             ) : (
-              <TocHeading schema={schema} />
+              <TocHeading schema={schema} anchorProps={props.anchorProps} />
             )
           ) : null}
         </div>
