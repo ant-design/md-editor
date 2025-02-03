@@ -35,17 +35,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
 
-      '> *:first-child': {
+      '&> *:first-child': {
         marginTop: 0,
       },
-      '> *:last-child': {
+      '&> *:last-child': {
         marginBottom: 0,
       },
-      '.link': { textDecoration: 'underline' },
-      '.attach': {
+      '& > .link': { textDecoration: 'underline' },
+      '& > .attach': {
         padding: '3px 0',
       },
-      '.attach:not(:last-child)': {
+      '& >.attach:not(:last-child)': {
         marginBottom: '0.3em',
       },
       '.attach .file': {
