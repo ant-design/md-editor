@@ -1229,6 +1229,7 @@ export const Editable = forwardRef(
                         if (readOnly) {
                           return;
                         }
+                        if (path?.length < 1) return null;
 
                         const start = Editor.start(editor, path);
                         const end = Editor.end(editor, path);
@@ -1565,6 +1566,7 @@ export const Editable = forwardRef(
                         editor.children[
                           selection !== null ? selection.focus.path[0] : 0
                         ];
+                      if (!element) return;
                       const isRTL =
                         getDirection(Node.string(element)) === 'rtl';
 

@@ -1,4 +1,13 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  InsertRowAboveOutlined,
+  InsertRowBelowOutlined,
+  InsertRowLeftOutlined,
+  InsertRowRightOutlined,
+  PicCenterOutlined,
+  PicLeftOutlined,
+  PicRightOutlined,
+} from '@ant-design/icons';
 import { ConfigProvider, Popconfirm } from 'antd';
 import classNames from 'classnames';
 import React, {
@@ -229,14 +238,70 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <DeleteOutlined />
               </Popconfirm>
             </div>
-            <div
-              className={classNames(`${baseCls}-item`, hashId)}
-              style={{
-                zIndex: 101,
-              }}
-            >
-              <PlusOutlined />
-            </div>
+            {isColumn ? (
+              <>
+                {' '}
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <PicRightOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <PicCenterOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <PicLeftOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <InsertRowLeftOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <InsertRowRightOutlined />
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <InsertRowAboveOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                >
+                  <InsertRowBelowOutlined />
+                </div>
+              </>
+            )}
           </div>
         ) : null,
         getPopupContainer?.(document.body) || document.body,
