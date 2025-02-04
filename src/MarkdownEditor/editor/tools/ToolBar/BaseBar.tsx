@@ -724,6 +724,8 @@ export const BaseToolBar = observer(
           display: 'flex',
           height: '100%',
           gap: '1px',
+          maxWidth: 880,
+          margin: '0 auto',
           alignItems: 'center',
         }}
       >
