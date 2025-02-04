@@ -600,15 +600,35 @@ export const Table = observer((props: RenderElementProps) => {
                 getTableNode={getTableNode}
                 selCells={selCells}
                 setSelCells={setSelCells}
-                onDelete={(index) => {
-                  console.log('将要删除的行号为：', index);
+                onDeleteRow={() => {
                   runTask('removeRow');
+                }}
+                onAlignChange={(index, align) => {
+                  runTask('setAligns', align);
+                }}
+                onCreateRow={(index, direction) => {
+                  if (direction === 'after') {
+                    runTask('insertRowAfter');
+                  }
+                  if (direction === 'before') {
+                    runTask('insertRowBefore');
+                  }
                 }}
               />
               <ColSideDiv
-                onDelete={(index) => {
-                  console.log('将要删除的列号为：', index);
+                onDeleteColumn={() => {
                   runTask('removeCol');
+                }}
+                onAlignChange={(index, align) => {
+                  runTask('setAligns', align);
+                }}
+                onCreateColumn={(index, direction) => {
+                  if (direction === 'after') {
+                    runTask('insertColAfter');
+                  }
+                  if (direction === 'before') {
+                    runTask('insertColAfter');
+                  }
                 }}
                 activeDeleteBtn={activeDeleteBtn}
                 setActiveDeleteBtn={setActiveDeleteBtn}
