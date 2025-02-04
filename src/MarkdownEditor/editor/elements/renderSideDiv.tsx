@@ -599,7 +599,7 @@ export function ColSideDiv(props: ColSideDivProps) {
   useEffect(() => {
     const target = tableRef.current;
     if (!target) return;
-
+    if (typeof ResizeObserver === 'undefined') return;
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
       if (entry) {

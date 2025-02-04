@@ -49,7 +49,6 @@ export function TableCell(props: RenderElementProps) {
   const { store, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_] = useSelStatus(props.element);
-  console.log('TableCell', props.element?.align);
 
   return React.useMemo(() => {
     const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;

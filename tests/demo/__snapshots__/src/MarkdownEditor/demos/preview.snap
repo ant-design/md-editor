@@ -1514,7 +1514,7 @@
                   <div
                     class="col-div-bar-inner ignore-toggle-readonly"
                     contenteditable="false"
-                    style="position: absolute; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
+                    style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 1rem; z-index: 100; transform: translateX(0px);"
                   >
                     <div
                       class="table-side-div ignore-toggle-readonly none-active  "
@@ -1598,7 +1598,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 52px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1623,7 +1623,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1648,7 +1648,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1673,7 +1673,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1698,7 +1698,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1723,7 +1723,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1748,7 +1748,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1773,7 +1773,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1798,7 +1798,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1823,7 +1823,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1848,7 +1848,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1873,7 +1873,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -1898,7 +1898,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -5086,7 +5086,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 52px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5141,7 +5141,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5196,7 +5196,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5251,7 +5251,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5306,7 +5306,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5361,7 +5361,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5416,7 +5416,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5471,7 +5471,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5526,7 +5526,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5581,7 +5581,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5636,7 +5636,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5691,7 +5691,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5746,7 +5746,7 @@
                       data-slate-node="element"
                     >
                       <div
-                        style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                        style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                       >
                         <span
                           data-slate-node="text"
@@ -5948,7 +5948,7 @@
                     style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 1; width: 100%; opacity: 0; height: 100%; overflow: hidden; pointer-events: none;"
                   >
                     <div
-                      style="min-width: 52px; text-wrap: wrap; max-width: 200px;"
+                      style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                     >
                       <span
                         data-slate-node="text"
@@ -5968,7 +5968,7 @@
                       </span>
                     </div>
                     <div
-                      style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                      style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                     >
                       <span
                         data-slate-node="text"
@@ -5988,7 +5988,7 @@
                       </span>
                     </div>
                     <div
-                      style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                      style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                     >
                       <span
                         data-slate-node="text"
@@ -6008,7 +6008,7 @@
                       </span>
                     </div>
                     <div
-                      style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                      style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                     >
                       <span
                         data-slate-node="text"
@@ -6028,7 +6028,7 @@
                       </span>
                     </div>
                     <div
-                      style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                      style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                     >
                       <span
                         data-slate-node="text"
@@ -6048,7 +6048,7 @@
                       </span>
                     </div>
                     <div
-                      style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                      style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                     >
                       <span
                         data-slate-node="text"
@@ -7917,7 +7917,7 @@
                   <div
                     class="col-div-bar-inner ignore-toggle-readonly"
                     contenteditable="false"
-                    style="position: absolute; display: flex; height: 1rem; z-index: 100; transform: translateX(0px);"
+                    style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 1rem; z-index: 100; transform: translateX(0px);"
                   >
                     <div
                       class="table-side-div ignore-toggle-readonly none-active  "
@@ -7966,7 +7966,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 52px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -7991,7 +7991,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -8016,7 +8016,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -8041,7 +8041,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -8066,7 +8066,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
@@ -8091,7 +8091,7 @@
                         data-slate-node="element"
                       >
                         <div
-                          style="min-width: 68px; text-wrap: wrap; max-width: 200px;"
+                          style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                         >
                           <span
                             data-slate-node="text"
