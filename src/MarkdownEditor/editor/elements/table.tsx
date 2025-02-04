@@ -49,11 +49,22 @@ export function TableCell(props: RenderElementProps) {
   const { store, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_] = useSelStatus(props.element);
+  console.log('TableCell', props.element?.align);
 
   return React.useMemo(() => {
     const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
     const minWidth = Math.min(domWidth, 200);
     const text = Node.string(props.element);
+    const align = props.element?.align;
+    const getTextAlign = (align: string | undefined) => {
+      if (align === 'left') {
+        return 'start';
+      } else if (align === 'center') {
+        return 'center';
+      } else if (align === 'right') {
+        return 'end';
+      }
+    };
     return props.element.title ? (
       <th {...props.attributes} data-be={'th'}>
         <div
@@ -61,6 +72,12 @@ export function TableCell(props: RenderElementProps) {
             minWidth: minWidth,
             textWrap: 'wrap',
             maxWidth: '200px',
+            display: 'flex',
+            justifyContent: align
+              ? getTextAlign(align)
+              : numberValidationRegex.test(text?.replaceAll(',', ''))
+                ? 'end'
+                : 'start',
           }}
         >
           {props.children}
@@ -108,11 +125,11 @@ export function TableCell(props: RenderElementProps) {
               textWrap: 'wrap',
               maxWidth: '200px',
               display: 'flex',
-              justifyContent: numberValidationRegex.test(
-                text?.replaceAll(',', ''),
-              )
-                ? 'end'
-                : 'start',
+              justifyContent: align
+                ? getTextAlign(align)
+                : numberValidationRegex.test(text?.replaceAll(',', ''))
+                  ? 'end'
+                  : 'start',
             }}
           >
             {props.children}
@@ -627,7 +644,7 @@ export const Table = observer((props: RenderElementProps) => {
                     runTask('insertColAfter', index);
                   }
                   if (direction === 'before') {
-                    runTask('insertColAfter', index);
+                    runTask('insertColBefore', index);
                   }
                 }}
                 activeDeleteBtn={activeDeleteBtn}

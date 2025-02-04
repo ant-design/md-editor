@@ -251,7 +251,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
-                    props.onAlignChange?.(index, 'right');
+                    props.onAlignChange?.(index, 'left');
                     setActiveDeleteBtn(null);
                     setDeleteBtnHover(false);
                     setSelCells([]);
@@ -281,7 +281,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
-                    props.onAlignChange?.(index, 'left');
+                    props.onAlignChange?.(index, 'right');
                     setActiveDeleteBtn(null);
                     setDeleteBtnHover(false);
                     setSelCells([]);
