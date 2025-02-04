@@ -336,13 +336,13 @@ export const Table = observer((props: RenderElementProps) => {
         | 'setAligns'
         | 'in'
         | 'insertTableCellBreak',
+      index: number,
       ...rest: any[]
     ) => {
       if (!tableCellRef.current || !tableNodeEntry) return;
       const columns = tableNodeEntry?.at(0)?.children?.[0]?.children?.length;
       const rows = tableNodeEntry?.at(0)?.children?.length;
       const path = tableCellRef?.current?.[1];
-      const index = path?.[path?.length - 1];
       const row = path?.[path?.length - 2];
       const rowPath = Path.parent(path);
       switch (task) {
@@ -600,34 +600,34 @@ export const Table = observer((props: RenderElementProps) => {
                 getTableNode={getTableNode}
                 selCells={selCells}
                 setSelCells={setSelCells}
-                onDeleteRow={() => {
-                  runTask('removeRow');
+                onDeleteRow={(index) => {
+                  runTask('removeRow', index);
                 }}
                 onAlignChange={(index, align) => {
-                  runTask('setAligns', align);
+                  runTask('setAligns', index, align);
                 }}
                 onCreateRow={(index, direction) => {
                   if (direction === 'after') {
-                    runTask('insertRowAfter');
+                    runTask('insertRowAfter', index);
                   }
                   if (direction === 'before') {
-                    runTask('insertRowBefore');
+                    runTask('insertRowBefore', index);
                   }
                 }}
               />
               <ColSideDiv
-                onDeleteColumn={() => {
-                  runTask('removeCol');
+                onDeleteColumn={(index) => {
+                  runTask('removeCol', index);
                 }}
                 onAlignChange={(index, align) => {
-                  runTask('setAligns', align);
+                  runTask('setAligns', index, align);
                 }}
                 onCreateColumn={(index, direction) => {
                   if (direction === 'after') {
-                    runTask('insertColAfter');
+                    runTask('insertColAfter', index);
                   }
                   if (direction === 'before') {
-                    runTask('insertColAfter');
+                    runTask('insertColAfter', index);
                   }
                 }}
                 activeDeleteBtn={activeDeleteBtn}
