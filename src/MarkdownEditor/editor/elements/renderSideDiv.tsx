@@ -594,6 +594,23 @@ export function ColSideDiv(props: ColSideDivProps) {
       };
     }
   }, [tableDom]);
+  const [tableWidth, setTableWidth] = useState(0);
+
+  useEffect(() => {
+    const target = tableRef.current;
+    if (!target) return;
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry) {
+        const newWidth = entry.contentRect.width;
+        setTableWidth(newWidth);
+      }
+    });
+
+    observer.observe(target);
+    return () => observer.unobserve(target);
+  }, [tableRef]);
 
   return (
     <div
@@ -602,6 +619,8 @@ export function ColSideDiv(props: ColSideDivProps) {
       style={{
         position: 'absolute',
         display: 'flex',
+        width: tableWidth + 0.5,
+        overflow: 'hidden',
         height: '1rem',
         zIndex: 100,
         transform: `translateX(${scrollOffset / 9999}px)`,
