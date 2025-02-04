@@ -63,6 +63,7 @@ export function TableCell(props: RenderElementProps) {
       } else if (align === 'right') {
         return 'end';
       }
+      return undefined;
     };
     return props.element.title ? (
       <th {...props.attributes} data-be={'th'}>
