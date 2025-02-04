@@ -50,9 +50,9 @@ export type FootnoteDefinitionNode<T = Record<string, any>> = {
   h?: number;
 };
 
-export type CardNode = {
+export type CardNode<T = any> = {
   type: 'card';
-  children: (CardBeforeNode | CardAfterNode | Elements)[];
+  children: (CardBeforeNode | CardAfterNode | T)[];
 };
 
 export type CardBeforeNode = {

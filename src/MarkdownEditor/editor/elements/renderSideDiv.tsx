@@ -1,16 +1,30 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Popconfirm } from 'antd';
+import {
+  DeleteOutlined,
+  InsertRowAboveOutlined,
+  InsertRowBelowOutlined,
+  InsertRowLeftOutlined,
+  InsertRowRightOutlined,
+  PicCenterOutlined,
+  PicLeftOutlined,
+  PicRightOutlined,
+} from '@ant-design/icons';
+import { ConfigProvider, Popconfirm } from 'antd';
+import classNames from 'classnames';
 import React, {
   CSSProperties,
   SetStateAction,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import ReactDOM from 'react-dom';
 import { Editor, Path } from 'slate';
 import { addSelection } from '../plugins/selection';
 import { ReactEditor } from '../slate-react';
 import { useEditorStore } from '../store';
+import { useStyle } from './tableAttrStyle';
+
 type ActivationType = 'none' | 'half' | 'full';
 
 /**
@@ -41,7 +55,11 @@ type AbstractSideDivProps = {
   tableDom: any;
   activeDeleteBtn: string | null;
   setActiveDeleteBtn: any;
-  onDelete: (index: number) => void;
+  onDeleteRow?: (index: number) => void;
+  onDeleteColumn?: (index: number) => void;
+  onCreateRow?: (index: number, direction: 'after' | 'before') => void;
+  onCreateColumn?: (index: number, direction: 'after' | 'before') => void;
+  onAlignChange?: (index: number, align: string) => void;
 };
 
 /**
@@ -93,20 +111,20 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     tableDom,
     activeDeleteBtn,
     setActiveDeleteBtn,
-    onDelete,
+    onDeleteColumn,
   } = props;
 
   const isColumn = type === 'column';
+  const { getPopupContainer, getPrefixCls } = useContext(
+    ConfigProvider.ConfigContext,
+  );
+  const baseCls = getPrefixCls('md-editor-toolbar-attributions');
+  const { wrapSSR, hashId } = useStyle(baseCls);
   const { store } = useEditorStore();
   const tableSideDivRef = useRef<HTMLDivElement | null>(null);
   const [deleteBtnHover, setDeleteBtnHover] = useState(false);
-  const [addBtnHover, setAddBtnHover] = useState(false);
 
   const [overlayPos, setOverlayPos] = useState({
-    left: -999999999,
-    top: -999999999,
-  });
-  const [addBtnPos, setAddBtnPos] = useState({
     left: -999999999,
     top: -999999999,
   });
@@ -131,59 +149,25 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
 
   useEffect(() => {
     if (!tableSideDivRef?.current || !activeDeleteBtn) return;
-
+    if (activeDeleteBtn !== `${type}-${index}`) return;
+    const container = getPopupContainer?.(document.body) || document.body;
     const { left, top, right } =
       tableSideDivRef.current.getBoundingClientRect();
+    const { top: containerTop } = container.getBoundingClientRect();
 
     const domPos = isColumn
-      ? { left: (right + left) / 2 - 74, top: top - 64 }
+      ? { left: (right + left) / 2 - 74, top: top - containerTop - 36 }
       : { left: right - 36, top: top - 70 };
-
     setOverlayPos(domPos);
   }, [deleteBtnHover, activeDeleteBtn]);
-
-  useEffect(() => {
-    if (!tableSideDivRef?.current) return;
-
-    const { left, top, right, bottom } =
-      tableSideDivRef.current.getBoundingClientRect();
-
-    const handleMouseMove = (e: MouseEvent) => {
-      let newAddPos: { left: number; top: number } | undefined;
-
-      if (isColumn) {
-        const middle = left + (right - left) / 2;
-        const isLeftZone = e.clientX < middle;
-        newAddPos = isLeftZone
-          ? { left: (right + left) / 2 - 118, top: top - 64 } // 左
-          : { left: (right + left) / 2 - 30, top: top - 64 }; // 右
-      } else if (type === 'row') {
-        const middle = top + (bottom - top) / 2;
-        const isTopZone = e.clientY < middle;
-        newAddPos = isTopZone
-          ? { left: right - 90, top: top - 64 } // 上
-          : { left: right - 90, top: top - 34 }; // 下
-      }
-
-      if (newAddPos) {
-        setAddBtnPos(newAddPos);
-      }
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [tableSideDivRef, isColumn, type, setAddBtnPos]);
 
   function getIndexFromSelectedCells(selCells: any[]) {
     if (!selCells?.length || !selCells[0]?.[1]) return -1;
     const [, path] = selCells[0];
-    console.log(isColumn ? path[3] : path[2]);
-    return isColumn ? path[3] : path[2];
+    return isColumn ? path?.[3] : path?.[2];
   }
 
-  return (
+  return wrapSSR(
     <>
       <div
         ref={tableSideDivRef}
@@ -210,7 +194,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
               store.editor,
               tableSlateNode,
             );
-            const tableEntry = Editor.node(store.editor, tablePath);
+            const tableEntry = Editor?.node(store.editor, tablePath);
             const len = isColumn
               ? (tableSlateNode.children as Array<any>).length
               : (tableSlateNode.children as Array<any>)[0].children.length;
@@ -223,64 +207,170 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             addSelection(store, tableEntry, startPath, endPath, setSelCells);
           }
         }}
-        onMouseEnter={() => setAddBtnHover(true)}
-        onMouseLeave={() => setAddBtnHover(false)}
-      ></div>
-      {activeDeleteBtn === `${type}-${index}` && (
-        <Button
-          className="table-delete-btn"
-          id="delete-btn"
-          onMouseEnter={() => setDeleteBtnHover(true)}
-          onMouseLeave={() => setDeleteBtnHover(false)}
-          style={{
-            position: 'absolute',
-            height: '2em',
-            width: '2em',
-            left: overlayPos.left,
-            top: overlayPos.top,
-          }}
-        >
-          <Popconfirm
-            title="Confirm to delete?"
-            onConfirm={() => {
-              const index = getIndexFromSelectedCells(selCells);
-              onDelete?.(index);
-              setActiveDeleteBtn(null);
-              setDeleteBtnHover(false);
-              setSelCells([]);
+      />
+      {ReactDOM.createPortal(
+        activeDeleteBtn === `${type}-${index}` ? (
+          <div
+            style={{
+              position: 'absolute',
+              left: overlayPos.left,
+              top: overlayPos.top,
+              display: 'flex',
+              gap: '0.2em',
+              zIndex: 101,
             }}
+            className={classNames(baseCls, hashId)}
           >
-            <DeleteOutlined />
-          </Popconfirm>
-        </Button>
+            <div
+              id="delete-btn"
+              className={classNames(`${baseCls}-item`, hashId, {
+                [`${baseCls}-item-delete`]: true,
+              })}
+              onMouseEnter={() => setDeleteBtnHover(true)}
+              onMouseLeave={() => setDeleteBtnHover(false)}
+            >
+              <Popconfirm
+                title="Confirm to delete?"
+                onConfirm={() => {
+                  const index = getIndexFromSelectedCells(selCells);
+                  onDeleteColumn?.(index);
+                  setActiveDeleteBtn(null);
+                  setDeleteBtnHover(false);
+                  setSelCells([]);
+                }}
+              >
+                <DeleteOutlined />
+              </Popconfirm>
+            </div>
+            {isColumn ? (
+              <>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onAlignChange?.(index, 'right');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <PicRightOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onAlignChange?.(index, 'center');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <PicCenterOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onAlignChange?.(index, 'left');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <PicLeftOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onCreateColumn?.(index, 'before');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <InsertRowLeftOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onCreateColumn?.(index, 'after');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <InsertRowRightOutlined />
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onCreateRow?.(index, 'before');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <InsertRowAboveOutlined />
+                </div>
+                <div
+                  className={classNames(`${baseCls}-item`, hashId)}
+                  style={{
+                    zIndex: 101,
+                  }}
+                  onClick={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    props.onCreateRow?.(index, 'after');
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <InsertRowBelowOutlined />
+                </div>
+              </>
+            )}
+          </div>
+        ) : null,
+        getPopupContainer?.(document.body) || document.body,
       )}
-      {addBtnHover && (
-        <Button
-          className="table-add-row-btn"
-          style={{
-            position: 'absolute',
-            zIndex: 101,
-            height: '2em',
-            width: '2em',
-            left: addBtnPos.left,
-            top: addBtnPos.top,
-          }}
-        >
-          <PlusOutlined />
-        </Button>
-      )}
-    </>
+    </>,
   );
 }
-export function RowSideDiv(props: {
-  tableRef: any;
-  getTableNode: any;
-  setSelCells: any;
-  selCells: any;
-  activeDeleteBtn: string | null;
-  setActiveDeleteBtn: any;
-  onDelete?: (index: number) => void;
-}) {
+export function RowSideDiv(
+  props: {
+    tableRef: any;
+    getTableNode: any;
+    setSelCells: any;
+    selCells: any;
+    activeDeleteBtn: string | null;
+    setActiveDeleteBtn: any;
+  } & ColSideDivProps,
+) {
   const {
     tableRef,
     getTableNode,
@@ -288,7 +378,6 @@ export function RowSideDiv(props: {
     setSelCells,
     activeDeleteBtn,
     setActiveDeleteBtn,
-    onDelete,
   } = props;
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
@@ -303,7 +392,7 @@ export function RowSideDiv(props: {
     selCells.forEach((cellEntry: [any, any]) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, path] = cellEntry;
-      const rowIndex = path[2];
+      const rowIndex = path?.[2];
       if (rowMap[rowIndex]) {
         rowMap[rowIndex]++;
       } else {
@@ -358,6 +447,7 @@ export function RowSideDiv(props: {
     >
       {rowDomArr?.map((tr: any, index: number) => (
         <AbstractSideDiv
+          {...props}
           tableDom={tableDom}
           key={index}
           index={index}
@@ -381,9 +471,6 @@ export function RowSideDiv(props: {
           setSelCells={setSelCells}
           activeDeleteBtn={activeDeleteBtn}
           setActiveDeleteBtn={setActiveDeleteBtn}
-          onDelete={(index) => {
-            onDelete?.(index);
-          }}
         />
       ))}
     </div>
@@ -396,7 +483,11 @@ interface ColSideDivProps {
   getTableNode: any;
   setSelCells: any;
   selCells: any;
-  onDelete?: (index: number) => void;
+  onDeleteColumn?: AbstractSideDivProps['onDeleteColumn'];
+  onDeleteRow?: AbstractSideDivProps['onDeleteRow'];
+  onCreateRow?: AbstractSideDivProps['onCreateRow'];
+  onCreateColumn?: AbstractSideDivProps['onCreateColumn'];
+  onAlignChange?: AbstractSideDivProps['onAlignChange'];
 }
 
 /**
@@ -439,7 +530,6 @@ export function ColSideDiv(props: ColSideDivProps) {
     selCells,
     setSelCells,
     activeDeleteBtn,
-    onDelete,
     setActiveDeleteBtn,
   } = props;
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
@@ -456,7 +546,7 @@ export function ColSideDiv(props: ColSideDivProps) {
     selCells.forEach((cellEntry: [any, any]) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, path] = cellEntry;
-      const colIndex = path[3];
+      const colIndex = path?.[3];
       if (colMap[colIndex]) {
         colMap[colIndex]++;
       } else {
@@ -497,11 +587,8 @@ export function ColSideDiv(props: ColSideDivProps) {
       const observer = new MutationObserver(() => {
         setColDomArr(Array.from(tableDom.firstChild?.children || []));
       });
-
       observer.observe(tableDom.firstChild, { childList: true });
-
       setColDomArr(Array.from(tableDom.firstChild?.children || []));
-
       return () => {
         observer.disconnect();
       };
@@ -526,6 +613,7 @@ export function ColSideDiv(props: ColSideDivProps) {
         const leftPosition = colRect?.left || 0;
         return (
           <AbstractSideDiv
+            {...props}
             tableDom={tableDom}
             key={index}
             index={index}
@@ -547,9 +635,6 @@ export function ColSideDiv(props: ColSideDivProps) {
             setSelCells={setSelCells}
             activeDeleteBtn={activeDeleteBtn}
             setActiveDeleteBtn={setActiveDeleteBtn}
-            onDelete={(index) => {
-              onDelete?.(index);
-            }}
           />
         );
       })}
@@ -592,7 +677,7 @@ export function IntersectionPointDiv(props: {
         const tableSlateNode = getTableNode();
         if (tableSlateNode) {
           const tablePath = ReactEditor.findPath(store.editor, tableSlateNode);
-          const tableEntry = Editor.node(store.editor, tablePath);
+          const tableEntry = Editor?.node(store.editor, tablePath);
           const colLen = (tableSlateNode.children as Array<any>).length;
           const rowLen = (tableSlateNode.children as Array<any>)[0].children
             .length;

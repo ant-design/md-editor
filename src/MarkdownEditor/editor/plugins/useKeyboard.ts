@@ -1,7 +1,17 @@
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import React, { useMemo } from 'react';
-import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
+import {
+  BaseEditor,
+  Editor,
+  Element,
+  Node,
+  Path,
+  Range,
+  Transforms,
+} from 'slate';
+import { HistoryEditor } from 'slate-history';
+import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { keyArrow } from './hotKeyCommands/arrow';
@@ -10,12 +20,17 @@ import { EnterKey } from './hotKeyCommands/enter';
 import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
-export const useKeyboard = (store: EditorStore) => {
+export const useKeyboard = (
+  store: EditorStore,
+  markdownEditorRef: React.MutableRefObject<
+    BaseEditor & ReactEditor & HistoryEditor
+  >,
+) => {
   return useMemo(() => {
-    const tab = new TabKey(store?.editor);
-    const backspace = new BackspaceKey(store?.editor);
+    const tab = new TabKey(markdownEditorRef.current);
+    const backspace = new BackspaceKey(markdownEditorRef.current);
     const enter = new EnterKey(store, backspace);
-    const match = new MatchKey(store?.editor);
+    const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
       if (
         store.openInsertCompletion &&
@@ -29,14 +44,20 @@ export const useKeyboard = (store: EditorStore) => {
       }
       if (isHotkey('mod+ArrowDown', e)) {
         e.preventDefault();
-        Transforms.select(store?.editor, Editor.end(store?.editor, []));
+        Transforms.select(
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, []),
+        );
       }
       if (isHotkey('mod+ArrowUp', e)) {
         e.preventDefault();
-        Transforms.select(store?.editor, Editor.start(store?.editor, []));
+        Transforms.select(
+          markdownEditorRef.current,
+          Editor.start(markdownEditorRef.current, []),
+        );
       }
-      if (isHotkey('backspace', e) && store?.editor.selection) {
-        if (Range.isCollapsed(store?.editor.selection)) {
+      if (isHotkey('backspace', e) && markdownEditorRef.current.selection) {
+        if (Range.isCollapsed(markdownEditorRef.current.selection)) {
           if (backspace.run()) {
             e.stopPropagation();
             e.preventDefault();
@@ -61,7 +82,7 @@ export const useKeyboard = (store: EditorStore) => {
         if (e.key === 'Enter') {
           enter.run(e);
         }
-        const [node] = Editor.nodes<any>(store?.editor, {
+        const [node] = Editor.nodes<any>(markdownEditorRef.current, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',
         });
@@ -69,9 +90,9 @@ export const useKeyboard = (store: EditorStore) => {
         let str = Node.string(node[0]) || '';
         if (node[0].type === 'paragraph') {
           if (e.key === 'Enter' && /^<[a-z]+[\s"'=:;()\w\-[\]]*>/.test(str)) {
-            Transforms.delete(store?.editor, { at: node[1] });
+            Transforms.delete(markdownEditorRef.current, { at: node[1] });
             Transforms.insertNodes(
-              store?.editor,
+              markdownEditorRef.current,
               {
                 type: 'code',
                 language: 'html',
@@ -86,7 +107,7 @@ export const useKeyboard = (store: EditorStore) => {
             return;
           }
           setTimeout(() => {
-            const [node] = Editor.nodes<any>(store?.editor, {
+            const [node] = Editor.nodes<any>(markdownEditorRef.current, {
               match: (n) => Element.isElement(n) && n.type === 'paragraph',
               mode: 'lowest',
             });
@@ -105,7 +126,8 @@ export const useKeyboard = (store: EditorStore) => {
                   insertMatch &&
                   !(
                     !Path.hasPrevious(node[1]) &&
-                    Node.parent(store?.editor, node[1]).type === 'list-item'
+                    Node.parent(markdownEditorRef.current, node[1]).type ===
+                      'list-item'
                   )
                 ) {
                   runInAction(() => (store.openInsertCompletion = true));
@@ -119,5 +141,5 @@ export const useKeyboard = (store: EditorStore) => {
         }
       }
     };
-  }, [store?.editor]);
+  }, [markdownEditorRef.current]);
 };

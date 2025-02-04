@@ -172,7 +172,7 @@ export function Media({
 }: ElementProps<MediaNode>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path] = useSelStatus(element);
-  const { store, readonly } = useEditorStore();
+  const { store, markdownEditorRef, readonly } = useEditorStore();
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -184,8 +184,8 @@ export function Media({
   });
   const updateElement = useCallback(
     (attr: Record<string, any>) => {
-      if (!store?.editor) return;
-      Transforms.setNodes(store?.editor, attr, { at: path });
+      if (!markdownEditorRef.current) return;
+      Transforms.setNodes(markdownEditorRef.current, attr, { at: path });
     },
     [path],
   );
@@ -237,7 +237,7 @@ export function Media({
           setState({ selected: true });
         }}
         onResizeStop={(_, size) => {
-          Transforms.setNodes(store?.editor, size, { at: path });
+          Transforms.setNodes(markdownEditorRef.current, size, { at: path });
           setState({ selected: false });
         }}
       />
@@ -426,21 +426,11 @@ export function Media({
         onMouseDown={(e) => {
           e.stopPropagation();
           if (!store.focus) {
-            EditorUtils.focus(store?.editor);
+            EditorUtils.focus(markdownEditorRef.current);
           }
-          EditorUtils.selectMedia(store, path);
         }}
       >
         <DragHandle />
-        <span
-          style={{
-            width: '2px',
-            lineHeight: 1,
-            alignSelf: 'flex-start',
-          }}
-        >
-          {children?.at(0)}
-        </span>
         <div
           onClick={() => {
             setTimeout(() => {
@@ -454,6 +444,9 @@ export function Media({
           style={{
             color: 'transparent',
             padding: 4,
+            userSelect: 'none',
+            display: 'flex',
+            flexDirection: 'column',
             width: mediaElement ? '100%' : undefined,
           }}
           ref={htmlRef}
@@ -463,15 +456,8 @@ export function Media({
         >
           {mediaElement}
           {imageDom}
+          {children}
         </div>
-        <span
-          style={{
-            width: '2px',
-            lineHeight: 1,
-          }}
-        >
-          {children?.at(1)}
-        </span>
       </div>
     </div>
   );

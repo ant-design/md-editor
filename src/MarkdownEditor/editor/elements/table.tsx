@@ -1,4 +1,5 @@
-import { Popover, Typography } from 'antd';
+import { useDebounceFn } from '@ant-design/pro-components';
+import { ConfigProvider, Popover, Typography } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
@@ -19,6 +20,7 @@ import { DragHandle } from '../tools/DragHandle';
 import { EditorUtils } from '../utils';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import './table.css';
+
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
 /**
@@ -148,7 +150,7 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, markdownEditorRef } = useEditorStore();
 
   const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
@@ -164,32 +166,39 @@ export const Table = observer((props: RenderElementProps) => {
     selectRows: 0,
   });
   const [selectedTable, tablePath] = useSelStatus(props.element);
-  const tableNodeEntry = Editor.node(store.editor, tablePath);
+
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
   const [activeDeleteBtn, setActiveDeleteBtn] = useState<string | null>(null);
-  const editor = store.editor;
 
-  const updateTableDimensions = () => {
+  const tableNodeEntry = useMemo(() => {
+    if (!Editor) return;
+    if (!tablePath || tablePath?.length === 0) return;
+    if (!markdownEditorRef.current) return;
+    if (!markdownEditorRef.current.children) return;
+    if (markdownEditorRef.current.children?.length === 0) return;
+    return Editor.node(markdownEditorRef.current, tablePath);
+  }, [tablePath]);
+
+  // 更新表格的行列数
+  const updateTableDimensions = useDebounceFn(async () => {
     const table = tableNodeEntry;
     if (!table) return;
-    setTimeout(() => {
-      try {
-        const dom = ReactEditor.toDOMNode(
-          store.editor,
-          table[0],
-        ) as HTMLElement;
-        if (dom) {
-          setState((prev) => ({
-            ...prev,
-            rows: table[0].children.length,
-            cols: table[0].children[0].children.length,
-          }));
-        }
-      } catch (e) {}
-    }, 16);
-  };
+    try {
+      const dom = ReactEditor.toDOMNode(
+        markdownEditorRef.current,
+        table[0],
+      ) as HTMLElement;
+      if (dom) {
+        setState((prev) => ({
+          ...prev,
+          rows: table[0].children.length,
+          cols: table[0].children[0].children.length,
+        }));
+      }
+    } catch (e) {}
+  }, 160);
 
   const setAligns = useCallback(
     (type: 'left' | 'center' | 'right') => {
@@ -201,15 +210,15 @@ export const Table = observer((props: RenderElementProps) => {
           el.children?.forEach((cell, i) => {
             if (i === index) {
               Transforms.setNodes(
-                editor,
+                markdownEditorRef.current,
                 { align: type },
-                { at: EditorUtils.findPath(editor, cell) },
+                { at: EditorUtils.findPath(markdownEditorRef.current, cell) },
               );
             }
           });
         });
       }
-      ReactEditor.focus(editor);
+      ReactEditor.focus(markdownEditorRef.current);
     },
     [tableNodeEntry],
   );
@@ -217,20 +226,20 @@ export const Table = observer((props: RenderElementProps) => {
   const remove = useCallback(() => {
     const table = tableNodeEntry!;
 
-    Transforms.delete(editor, { at: table[1] });
+    Transforms.delete(markdownEditorRef.current, { at: table[1] });
     tableCellRef.current = undefined;
     tableRef.current = undefined;
     Transforms.insertNodes(
-      editor,
+      markdownEditorRef.current,
       { type: 'paragraph', children: [{ text: '' }] },
       { at: table[1], select: true },
     );
-    ReactEditor.focus(editor);
-  }, [editor]);
+    ReactEditor.focus(markdownEditorRef.current);
+  }, [markdownEditorRef.current]);
 
   const insertRow = useCallback((path: Path, columns: number) => {
     Transforms.insertNodes(
-      editor,
+      markdownEditorRef.current,
       {
         type: 'table-row',
         children: Array.from(new Array(columns)).map(() => {
@@ -244,14 +253,17 @@ export const Table = observer((props: RenderElementProps) => {
         at: path,
       },
     );
-    Transforms.select(editor, Editor.start(editor, path));
+    Transforms.select(
+      markdownEditorRef.current,
+      Editor.start(markdownEditorRef.current, path),
+    );
   }, []);
 
   const insertCol = useCallback(
     (tablePath: Path, rows: number, index: number) => {
       Array.from(new Array(rows)).forEach((_, i) => {
         Transforms.insertNodes(
-          editor,
+          markdownEditorRef.current,
           {
             type: 'table-cell',
             children: [{ text: '' }],
@@ -262,7 +274,7 @@ export const Table = observer((props: RenderElementProps) => {
           },
         );
       });
-      Transforms.select(editor, [...tablePath, 0, index, 0]);
+      Transforms.select(markdownEditorRef.current, [...tablePath, 0, index, 0]);
     },
     [],
   );
@@ -271,8 +283,8 @@ export const Table = observer((props: RenderElementProps) => {
     (path: Path, index: number, columns: number) => {
       if (Path.hasPrevious(path)) {
         Transforms.select(
-          editor,
-          Editor.end(editor, [
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, [
             ...tableNodeEntry?.at(1),
             path[path.length - 1] - 1,
             index,
@@ -280,8 +292,8 @@ export const Table = observer((props: RenderElementProps) => {
         );
       } else {
         Transforms.select(
-          editor,
-          Editor.end(editor, [
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, [
             ...tableNodeEntry?.at(1),
             path[path.length - 1],
             index,
@@ -289,12 +301,12 @@ export const Table = observer((props: RenderElementProps) => {
         );
       }
 
-      Transforms.delete(editor, { at: path });
+      Transforms.delete(markdownEditorRef.current, { at: path });
 
       if (path[path.length - 1] === 0) {
         Array.from(new Array(columns)).forEach((_, i) => {
           Transforms.setNodes(
-            editor,
+            markdownEditorRef.current,
             {
               title: true,
             },
@@ -305,7 +317,7 @@ export const Table = observer((props: RenderElementProps) => {
         });
       }
     },
-    [editor],
+    [markdownEditorRef.current],
   );
 
   const runTask = useCallback(
@@ -351,19 +363,19 @@ export const Table = observer((props: RenderElementProps) => {
           break;
         case 'insertTableCellBreak':
           Transforms.insertNodes(
-            editor,
+            markdownEditorRef.current,
             [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
             { select: true },
           );
           break;
         case 'moveUpOneRow':
           if (row > 1) {
-            Transforms.moveNodes(editor, {
+            Transforms.moveNodes(markdownEditorRef.current, {
               at: rowPath,
               to: Path.previous(rowPath),
             });
           } else {
-            Transforms.moveNodes(editor, {
+            Transforms.moveNodes(markdownEditorRef.current, {
               at: rowPath,
               to: [...tableNodeEntry?.at(1), rows - 1],
             });
@@ -371,12 +383,12 @@ export const Table = observer((props: RenderElementProps) => {
           break;
         case 'moveDownOneRow':
           if (row < rows - 1) {
-            Transforms.moveNodes(editor, {
+            Transforms.moveNodes(markdownEditorRef.current, {
               at: rowPath,
               to: Path.next(rowPath),
             });
           } else {
-            Transforms.moveNodes(editor, {
+            Transforms.moveNodes(markdownEditorRef.current, {
               at: rowPath,
               to: [...tableNodeEntry?.at(1), 1],
             });
@@ -384,7 +396,7 @@ export const Table = observer((props: RenderElementProps) => {
           break;
         case 'moveLeftOneCol':
           Array.from(new Array(rows)).forEach((_, i) => {
-            Transforms.moveNodes(editor, {
+            Transforms.moveNodes(markdownEditorRef.current, {
               at: [...tableNodeEntry?.at(1), i, index],
               to: [
                 ...tableNodeEntry?.at(1),
@@ -396,7 +408,7 @@ export const Table = observer((props: RenderElementProps) => {
           break;
         case 'moveRightOneCol':
           Array.from(new Array(rows)).forEach((_, i) => {
-            Transforms.moveNodes(editor, {
+            Transforms.moveNodes(markdownEditorRef.current, {
               at: [...tableNodeEntry?.at(1), i, index],
               to: [
                 ...tableNodeEntry?.at(1),
@@ -413,17 +425,25 @@ export const Table = observer((props: RenderElementProps) => {
           }
           if (index < columns - 1) {
             Transforms.select(
-              editor,
-              Editor.start(editor, [...tableNodeEntry?.at(1), row, index + 1]),
+              markdownEditorRef.current,
+              Editor.start(markdownEditorRef.current, [
+                ...tableNodeEntry?.at(1),
+                row,
+                index + 1,
+              ]),
             );
           } else {
             Transforms.select(
-              editor,
-              Editor.start(editor, [...tableNodeEntry?.at(1), row, index - 1]),
+              markdownEditorRef.current,
+              Editor.start(markdownEditorRef.current, [
+                ...tableNodeEntry?.at(1),
+                row,
+                index - 1,
+              ]),
             );
           }
           Array.from(new Array(rows)).forEach((_, i) => {
-            Transforms.delete(editor, {
+            Transforms.delete(markdownEditorRef.current, {
               at: [...tableNodeEntry?.at(1), rows - i - 1, index],
             });
           });
@@ -440,8 +460,9 @@ export const Table = observer((props: RenderElementProps) => {
           setAligns(rest?.at(0));
           break;
       }
-      updateTableDimensions();
-      ReactEditor.focus(editor);
+      updateTableDimensions.cancel();
+      updateTableDimensions.run();
+      ReactEditor.focus(markdownEditorRef.current);
     },
     [],
   );
@@ -472,63 +493,10 @@ export const Table = observer((props: RenderElementProps) => {
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   useEffect(() => {
-    if (!tableTargetRef.current) {
-      return;
-    }
-    if (typeof IntersectionObserver === 'undefined') {
-      return;
-    }
-    const observerRoot = (tableTargetRef as any).current?.parentNode;
-    const observerTarget = (tableTargetRef as any).current;
-    const overflowShadowContainer = overflowShadowContainerRef.current!;
-    overflowShadowContainer.classList.add('overflow-shadow-container');
-    overflowShadowContainer.classList.add('card-table-wrap');
-    const options = {
-      root: observerRoot,
-      threshold: 1,
-    };
-
-    new IntersectionObserver(([entry]) => {
-      if (entry.intersectionRatio !== 1) {
-        overflowShadowContainer.classList.add(
-          'is-overflowing',
-          'is-scrolled-left',
-        );
-      } else {
-        overflowShadowContainer.classList.remove('is-overflowing');
-      }
-    }, options).observe(observerTarget);
-
-    let handleScrollX = (e: any) => {
-      if (e.target.scrollLeft < 1) {
-        overflowShadowContainer.classList.add('is-scrolled-left');
-      } else {
-        overflowShadowContainer.classList.remove('is-scrolled-left');
-      }
-      if (
-        Math.abs(
-          e.target.scrollLeft +
-            e.target.offsetWidth -
-            observerTarget.offsetWidth,
-        ) <= 1
-      ) {
-        overflowShadowContainer.classList.add('is-scrolled-right');
-      } else {
-        overflowShadowContainer.classList.remove('is-scrolled-right');
-      }
-    };
-
-    observerRoot.addEventListener('scroll', handleScrollX);
-
-    return () => {
-      observerRoot.removeEventListener('scroll', handleScrollX);
-    };
-  }, [props.element]);
-
-  useEffect(() => {
     if (!props.element) return;
     tableRef.current = tableNodeEntry;
-    updateTableDimensions();
+    updateTableDimensions.cancel();
+    updateTableDimensions.run();
   }, [tableNodeEntry]);
 
   const getTableNode = () => {
@@ -567,97 +535,123 @@ export const Table = observer((props: RenderElementProps) => {
 
   return useMemo(() => {
     return (
-      <div
-        {...props.attributes}
-        data-be={'table'}
-        onDragStart={store.dragStart}
-        ref={overflowShadowContainerRef}
-        style={{
-          display: 'flex',
-          gap: 1,
-          maxWidth: '100%',
-          minWidth: 0,
-          marginBottom: 12,
-        }}
-        onMouseUp={handleClickTable}
+      <ConfigProvider
+        getPopupContainer={() =>
+          overflowShadowContainerRef?.current?.parentElement || document.body
+        }
       >
-        <div className="ant-md-editor-drag-el">
-          <DragHandle />
-        </div>
         <div
-          className={`ant-md-editor-table ant-md-editor-content-table ${
-            isShowBar ? 'show-bar' : ''
-          }`}
-          onClick={() => {
-            runInAction(() => {
-              if (isSel) {
-                store.selectTablePath = [];
-                return;
-              }
-              store.selectTablePath = tablePath;
-            });
-          }}
+          {...props.attributes}
+          data-be={'table'}
+          onDragStart={store.dragStart}
+          ref={overflowShadowContainerRef}
           style={{
-            width: '100%',
+            display: 'flex',
+            gap: 1,
             maxWidth: '100%',
-            overflow: 'auto',
-            flex: 1,
             minWidth: 0,
-            marginLeft: 20,
-            marginTop: 4,
-            marginRight: 6,
+            width: '100%',
+            overflow: 'hidden',
+            position: 'relative',
+            marginBottom: 12,
           }}
+          onMouseUp={handleClickTable}
         >
-          <div
-            style={{
-              visibility: isShowBar ? 'visible' : 'hidden',
-              overflow: 'hidden',
-            }}
-            data-slate-editor="false"
-          >
-            <IntersectionPointDiv
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
-            <RowSideDiv
-              activeDeleteBtn={activeDeleteBtn}
-              setActiveDeleteBtn={setActiveDeleteBtn}
-              tableRef={tableTargetRef}
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-              onDelete={(index) => {
-                console.log('将要删除的行号为：', index);
-                runTask('removeRow');
-              }}
-            />
-            <ColSideDiv
-              onDelete={(index) => {
-                console.log('将要删除的列号为：', index);
-                runTask('removeCol');
-              }}
-              activeDeleteBtn={activeDeleteBtn}
-              setActiveDeleteBtn={setActiveDeleteBtn}
-              tableRef={tableTargetRef}
-              getTableNode={getTableNode}
-              selCells={selCells}
-              setSelCells={setSelCells}
-            />
+          <div className="ant-md-editor-drag-el">
+            <DragHandle />
           </div>
-          <table
-            className="md-editor-table"
-            style={{
-              marginTop: '1em',
-              borderCollapse: 'separate',
-              borderSpacing: 0,
+          <div
+            className={`ant-md-editor-table ant-md-editor-content-table ${
+              isShowBar ? 'show-bar' : ''
+            }`}
+            onClick={() => {
+              runInAction(() => {
+                if (isSel) {
+                  store.selectTablePath = [];
+                  return;
+                }
+                store.selectTablePath = tablePath;
+              });
             }}
-            ref={tableTargetRef}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              marginLeft: 20,
+              marginTop: 4,
+              marginRight: 6,
+            }}
           >
-            <tbody data-slate-node="element">{props.children}</tbody>
-          </table>
+            <div
+              style={{
+                visibility: isShowBar ? 'visible' : 'hidden',
+                overflow: 'hidden',
+              }}
+              data-slate-editor="false"
+            >
+              <IntersectionPointDiv
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+              <RowSideDiv
+                activeDeleteBtn={activeDeleteBtn}
+                setActiveDeleteBtn={setActiveDeleteBtn}
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+                onDeleteRow={() => {
+                  runTask('removeRow');
+                }}
+                onAlignChange={(index, align) => {
+                  runTask('setAligns', align);
+                }}
+                onCreateRow={(index, direction) => {
+                  if (direction === 'after') {
+                    runTask('insertRowAfter');
+                  }
+                  if (direction === 'before') {
+                    runTask('insertRowBefore');
+                  }
+                }}
+              />
+              <ColSideDiv
+                onDeleteColumn={() => {
+                  runTask('removeCol');
+                }}
+                onAlignChange={(index, align) => {
+                  runTask('setAligns', align);
+                }}
+                onCreateColumn={(index, direction) => {
+                  if (direction === 'after') {
+                    runTask('insertColAfter');
+                  }
+                  if (direction === 'before') {
+                    runTask('insertColAfter');
+                  }
+                }}
+                activeDeleteBtn={activeDeleteBtn}
+                setActiveDeleteBtn={setActiveDeleteBtn}
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+            </div>
+            <table
+              className="md-editor-table"
+              style={{
+                marginTop: '1em',
+                borderCollapse: 'separate',
+                borderSpacing: 0,
+              }}
+              ref={tableTargetRef}
+            >
+              <tbody data-slate-node="element">{props.children}</tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      </ConfigProvider>
     );
   }, [
     props.element.children,

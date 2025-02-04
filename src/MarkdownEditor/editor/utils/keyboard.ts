@@ -176,22 +176,7 @@ export class KeyboardTask {
       if (node && ['column-cell'].includes(node[0].type)) {
         Transforms.insertNodes(
           this.editor,
-          [
-            {
-              type: 'media',
-              url: url,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-          ],
+          [EditorUtils.createMediaNode(url, 'image', {})],
           {
             at: [...node[1], 0],
           },
@@ -201,22 +186,7 @@ export class KeyboardTask {
       if (node) {
         Transforms.insertNodes(
           this.editor,
-          [
-            {
-              type: 'media',
-              url: url,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-          ],
+          [EditorUtils.createMediaNode(url, 'image', {})],
           {
             at: Path.next(node[1]),
           },
@@ -224,22 +194,7 @@ export class KeyboardTask {
       } else {
         Transforms.insertNodes(
           this.editor,
-          [
-            {
-              type: 'media',
-              url: url,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            },
-          ],
+          [EditorUtils.createMediaNode(url, 'image', {})],
           {
             select: true,
           },
@@ -875,12 +830,12 @@ export const useSystemKeyboard = (
                 EditorUtils.findPrev(task.editor, node[1]),
               ),
             );
-          } else {
+          } else if (EditorUtils.findNext(task.editor, node[1])) {
             Transforms.select(
               task.editor,
               Editor.start(
                 task.editor,
-                EditorUtils.findNext(task.editor, node[1]),
+                EditorUtils.findNext(task.editor, node[1])!,
               ),
             );
           }

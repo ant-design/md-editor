@@ -197,21 +197,13 @@ export const MdElements: Record<string, MdNode> = {
         },
       });
       Transforms.insertNodes(editor, [
-        {
-          type: 'media',
-          alt: match[1],
-          url: match[2],
-          children: [
-            {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            {
-              type: 'card-after',
-              children: [{ text: '' }],
-            },
-          ],
-        },
+        EditorUtils.createMediaNode(
+          decodeURIComponent(match[2] || ''),
+          'image',
+          {
+            alt: match[1],
+          },
+        ),
       ]);
       return true;
     },

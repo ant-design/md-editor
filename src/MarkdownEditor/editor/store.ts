@@ -3,8 +3,8 @@ import { action, makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
+  BaseEditor,
   BaseSelection,
-  createEditor,
   Editor,
   Element,
   Node,
@@ -14,15 +14,13 @@ import {
   Selection,
   Transforms,
 } from 'slate';
-import { withHistory } from 'slate-history';
-import { ReactEditor, withReact } from './slate-react';
+import { ReactEditor } from './slate-react';
 
 import { parse } from 'querystring';
+import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '..';
-import { Elements, ListNode, MediaNode, TableCellNode } from '../el';
+import { Elements, ListNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
-import { withMarkdown } from './plugins';
-import { withErrorReporting } from './plugins/catchError';
 import { KeyboardTask, Methods, schemaToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
@@ -38,6 +36,9 @@ export const EditorStoreContext = createContext<{
     args?: any[];
   }>;
   editorProps: MarkdownEditorProps;
+  markdownEditorRef: React.MutableRefObject<
+    BaseEditor & ReactEditor & HistoryEditor
+  >;
 } | null>(null);
 
 export const useEditorStore = () => {
@@ -47,6 +48,7 @@ export const useEditorStore = () => {
       readonly: true,
       typewriter: false,
       editorProps: {} as MarkdownEditorProps,
+      markdownEditorRef: {} as React.MutableRefObject<any>,
     }
   );
 };
@@ -56,7 +58,6 @@ const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
  * 编辑器存储类，用于管理Markdown编辑器的状态和操作。
  */
 export class EditorStore {
-  editor = withMarkdown(withReact(withHistory(createEditor())));
   manual = false;
   initializing = false;
   sel: BaseSelection | undefined;
@@ -80,11 +81,10 @@ export class EditorStore {
   insertCompletionText$ = new Subject<string>();
   highlightCache = new Map<object, Range[]>();
   refreshFloatBar = false;
-  mediaNode$ = new Subject<NodeEntry<MediaNode> | null>();
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
-  refreshHighlight = Date.now();
+  refreshHighlight: number | boolean = Date.now();
   domRect: DOMRect | null = null;
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
@@ -122,14 +122,27 @@ export class EditorStore {
     setTimeout(() => (this.manual = false), 30);
   }
 
-  constructor() {
+  _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
+
+  get editor() {
+    return this._editor.current;
+  }
+
+  constructor(
+    _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>,
+  ) {
     this.dragStart = this.dragStart.bind(this);
-    withErrorReporting(this.editor);
+    this._editor = _editor;
     makeAutoObservable(this, {
-      editor: false,
-      tableCellNode: false,
-      inputComposition: false,
+      _editor: false,
+      sel: false,
+      CACHED_SEL_CELLS: false,
+      SEL_CELLS: false,
+      preSelection: false,
       container: false,
+      tableCellNode: false,
+      editor: false,
+      inputComposition: false,
       highlightCache: false,
       draggedElement: false,
       manual: false,
@@ -170,11 +183,11 @@ export class EditorStore {
    */
   isLatestNode(node: Node) {
     try {
-      return this.findLatest(this.editor.children.at(-1)!, [
-        this.editor.children.length - 1,
+      return this.findLatest(this._editor.current.children.at(-1)!, [
+        this._editor.current.children.length - 1,
       ])
         .join('-')
-        .startsWith(ReactEditor.findPath(this.editor, node).join('-'));
+        .startsWith(ReactEditor.findPath(this._editor.current, node).join('-'));
     } catch (error) {
       return false;
     }
@@ -201,23 +214,23 @@ export class EditorStore {
       text: filePath.startsWith('http') ? filePath : p.name,
       url: insertPath,
     };
-    const sel = this.editor.selection;
+    const sel = this._editor.current.selection;
     if (!sel || !Range.isCollapsed(sel)) return;
     // @ts-ignore
-    const [cur] = Editor.nodes<any>(this.editor, {
+    const [cur] = Editor.nodes<any>(this._editor.current, {
       match: (n) => Element.isElement(n),
       mode: 'lowest',
     });
     if (node.text && ['table-cell', 'paragraph'].includes(cur[0].type)) {
-      Transforms.insertNodes(this.editor, node, { select: true });
+      Transforms.insertNodes(this._editor.current, node, { select: true });
     } else {
       // @ts-ignore
-      const [par] = Editor.nodes<any>(this.editor, {
+      const [par] = Editor.nodes<any>(this._editor.current, {
         match: (n) =>
           Element.isElement(n) && ['table', 'code', 'head'].includes(n.type),
       });
       Transforms.insertNodes(
-        this.editor,
+        this._editor.current,
         {
           type: 'paragraph',
           children: [node],
@@ -234,7 +247,7 @@ export class EditorStore {
    * @param options - 可选参数，用于指定插入节点的选项。
    */
   insertNodes(nodes: Node | Node[], options?: any) {
-    Transforms.insertNodes(this.editor, nodes, options);
+    Transforms.insertNodes(this._editor.current, nodes, options);
   }
 
   /**
@@ -263,15 +276,6 @@ export class EditorStore {
     return left;
   }
 
-  doRefreshHighlight() {
-    setTimeout(
-      action(() => {
-        this.refreshHighlight = Date.now();
-      }),
-      60,
-    );
-  }
-
   setState(value: (state: EditorStore) => void) {
     if (value instanceof Function) {
       value(this);
@@ -284,8 +288,8 @@ export class EditorStore {
   }
 
   private toPath(el: HTMLElement) {
-    const node = ReactEditor.toSlateNode(this.editor, el);
-    const path = ReactEditor.findPath(this.editor, node);
+    const node = ReactEditor.toSlateNode(this._editor.current, el);
+    const path = ReactEditor.findPath(this._editor.current, node);
     return [path, node] as [Path, Node];
   }
 
@@ -293,7 +297,7 @@ export class EditorStore {
    *清空编辑器内容
    */
   clearContent() {
-    Transforms.removeNodes(this.editor, {});
+    Transforms.removeNodes(this._editor.current, {});
   }
 
   /**
@@ -302,7 +306,7 @@ export class EditorStore {
    */
   setMDContent(md?: string) {
     if (md === undefined) return;
-    if (md === schemaToMarkdown(this.editor.children)) return;
+    if (md === schemaToMarkdown(this._editor.current.children)) return;
     const nodeList = parserMdToSchema(md).schema;
     this.setContent(nodeList);
   }
@@ -312,9 +316,9 @@ export class EditorStore {
    * @param nodeList
    */
   setContent(nodeList: Node[]) {
-    this.editor.children = nodeList;
-    this.editor.onChange();
-    this.editor.insertText('\n');
+    this._editor.current.children = nodeList;
+    this._editor.current.onChange();
+    this._editor.current.insertText('\n');
   }
 
   /**
@@ -336,29 +340,29 @@ export class EditorStore {
   diffNode = (node: Node, preNode: Node, at: number[]) => {
     // 如果上个节点不存在，但是本次有，直接插入
     if (node && !preNode) {
-      Transforms.insertNodes(this.editor, node, { at });
+      Transforms.insertNodes(this._editor.current, node, { at });
       return;
     }
 
     if (node.type !== preNode.type) {
-      Transforms.removeNodes(this.editor, {
+      Transforms.removeNodes(this._editor.current, {
         at,
       });
-      Transforms.insertNodes(this.editor, node, { at });
+      Transforms.insertNodes(this._editor.current, node, { at });
       return;
     }
 
     if (node.type === preNode.type) {
-      Transforms.setNodes(this.editor, node, { at });
+      Transforms.setNodes(this._editor.current, node, { at });
       if (node.text) {
-        Transforms.insertText(this.editor, node.text, { at });
+        Transforms.insertText(this._editor.current, node.text, { at });
       }
     }
 
     if (node.children) {
       node.children.forEach((child: any, index: any) => {
-        if (!this.editor.hasPath(at)) {
-          Transforms.insertNodes(this.editor, child, { at });
+        if (!this._editor.current.hasPath(at)) {
+          Transforms.insertNodes(this._editor.current, child, { at });
           return;
         }
         this.diffNode(child, preNode.children[index], [...at, index]);
@@ -383,8 +387,7 @@ export class EditorStore {
    * 它会移除多余的节点。
    */
   updateNodeList(nodeList: Node[]) {
-    const childrenList = this.editor.children;
-
+    const childrenList = this._editor.current.children;
     const updateMap = new Map<number, Node>();
 
     nodeList
@@ -413,15 +416,15 @@ export class EditorStore {
       });
     } catch (error) {
       console.log('run', error);
-      this.editor.children = nodeList;
+      this._editor.current.children = nodeList;
     }
 
     const maxSize = childrenList.length - nodeList.length;
     if (maxSize > 0) {
       childrenList.forEach((node, index) => {
         if (nodeList.at(index)) return;
-        if (this.editor.hasPath([index])) {
-          Transforms.removeNodes(this.editor, { at: [index] });
+        if (this._editor.current.hasPath([index])) {
+          Transforms.removeNodes(this._editor.current, { at: [index] });
         }
       });
     }
@@ -548,7 +551,7 @@ export class EditorStore {
             let toPath =
               last.direction === 'top' ? targetPath : Path.next(targetPath);
             if (!Path.equals(targetPath, dragPath)) {
-              const parent = Node.parent(this.editor, dragPath);
+              const parent = Node.parent(this._editor.current, dragPath);
               if (
                 Path.equals(Path.parent(targetPath), Path.parent(dragPath)) &&
                 Path.compare(dragPath, targetPath) === -1
@@ -556,12 +559,12 @@ export class EditorStore {
                 toPath = Path.previous(toPath);
               }
               let delPath = Path.parent(dragPath);
-              const targetNode = Node.get(this.editor, targetPath);
+              const targetNode = Node.get(this._editor.current, targetPath);
               if (dragNode.type === 'list-item') {
                 if (targetNode.type !== 'list-item') {
-                  Transforms.delete(this.editor, { at: dragPath });
+                  Transforms.delete(this._editor.current, { at: dragPath });
                   Transforms.insertNodes(
-                    this.editor,
+                    this._editor.current,
                     {
                       ...parent,
                       children: [EditorUtils.copy(dragNode)],
@@ -578,13 +581,13 @@ export class EditorStore {
                     }
                   }
                 } else {
-                  Transforms.moveNodes(this.editor, {
+                  Transforms.moveNodes(this._editor.current, {
                     at: dragPath,
                     to: toPath,
                   });
                 }
               } else {
-                Transforms.moveNodes(this.editor, {
+                Transforms.moveNodes(this._editor.current, {
                   at: dragPath,
                   to: toPath,
                 });
@@ -596,7 +599,7 @@ export class EditorStore {
                 ) {
                   delPath = Path.next(delPath);
                 }
-                Transforms.delete(this.editor, { at: delPath });
+                Transforms.delete(this._editor.current, { at: delPath });
               }
             }
             if (dragNode?.type !== 'media')

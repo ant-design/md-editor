@@ -11,14 +11,16 @@ import {
 } from 'slate';
 import { DOMNode } from 'slate-dom';
 import { History } from 'slate-history';
-import { CustomLeaf } from '../../el';
+import { CardNode, CustomLeaf } from '../../el';
 import { ReactEditor } from '../slate-react';
-import { EditorStore } from '../store';
-import { getOffsetTop } from './dom';
 
 export class EditorUtils {
   static get p() {
     return { type: 'paragraph', children: [{ text: '' }] } as const;
+  }
+
+  static hasPath(editor: Editor, path: Path) {
+    return Editor.hasPath(editor, path);
   }
   static focus(editor: Editor) {
     try {
@@ -34,22 +36,7 @@ export class EditorUtils {
       console.error(e);
     }
   }
-  static selectMedia(store: EditorStore, path: Path) {
-    Transforms.select(store?.editor, path);
-    try {
-      const top = store.container!.scrollTop;
-      const dom = ReactEditor.toDOMNode(
-        store?.editor,
-        Node.get(store?.editor, path),
-      );
-      const offsetTop = getOffsetTop(dom, store.container!);
-      if (top > offsetTop) {
-        store.container!.scroll({
-          top: offsetTop - 10,
-        });
-      }
-    } catch (e) {}
-  }
+
   static isPrevious(firstPath: Path, nextPath: Path) {
     return (
       Path.equals(Path.parent(firstPath), Path.parent(nextPath)) &&
@@ -128,7 +115,7 @@ export class EditorUtils {
         path = Path.parent(path);
       }
     }
-    return [];
+    return undefined;
   }
   static moveNodes(editor: Editor, from: Path, to: Path, index = 1) {
     let count = 0;
@@ -321,13 +308,13 @@ export class EditorUtils {
 
   static checkSelEnd(editor: Editor, path: Path) {
     let end = true;
-    let cur = Editor.node(editor, path);
+    let cur = Editor?.node(editor, path);
     while (!Editor.isEditor(cur[0])) {
       if (Editor.hasPath(editor, Path.next(cur[1]))) {
         end = false;
         break;
       } else {
-        cur = Editor.node(editor, Path.parent(cur[1]));
+        cur = Editor?.node(editor, Path.parent(cur[1]));
       }
     }
     return end;
@@ -339,6 +326,36 @@ export class EditorUtils {
       console.error('find path error', e);
       return Editor.start(editor, []).path;
     }
+  }
+
+  static createMediaNode(
+    src: string | undefined,
+    type: string,
+    extraPros?: Record<string, any>,
+  ) {
+    if (!src) {
+      return { text: '' };
+    }
+    return {
+      type: 'card',
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        {
+          ...(extraPros || {}),
+          type: 'media',
+          url: src,
+          children: [{ text: '' }],
+          mediaType: type,
+        },
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    } as CardNode;
   }
 }
 

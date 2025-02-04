@@ -23,7 +23,7 @@ const width = 370;
  * 链接的配置面板
  */
 export const InsertLink = observer(() => {
-  const { store } = useEditorStore();
+  const { store, markdownEditorRef } = useEditorStore();
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -165,7 +165,7 @@ export const InsertLink = observer(() => {
         left = window.innerWidth - 4 - width;
       }
 
-      const url = EditorUtils.getUrl(store?.editor);
+      const url = EditorUtils.getUrl(markdownEditorRef.current);
       let path = url;
       if (url && !url.startsWith('#') && !isLink(url)) {
         path = url;
@@ -198,10 +198,10 @@ export const InsertLink = observer(() => {
   const close = useCallback((url?: string) => {
     store.container!.parentElement?.removeEventListener('wheel', prevent);
     setState({ open: false });
-    Transforms.select(store?.editor, selRef.current!);
-    EditorUtils.focus(store?.editor);
+    Transforms.select(markdownEditorRef.current, selRef.current!);
+    EditorUtils.focus(markdownEditorRef.current);
     Transforms.setNodes(
-      store?.editor,
+      markdownEditorRef.current,
       { url },
       { match: Text.isText, split: true },
     );

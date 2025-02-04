@@ -21,7 +21,7 @@ export const ReadonlyBaseBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store, editorProps } = useEditorStore();
+    const { store, markdownEditorRef, editorProps } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
 
@@ -32,7 +32,7 @@ export const ReadonlyBaseBar = observer(
     /**
      * 获取当前节点
      */
-    const [node] = Editor.nodes<any>(store?.editor, {
+    const [node] = Editor.nodes<any>(markdownEditorRef.current, {
       match: (n) => Element.isElement(n),
       mode: 'lowest',
     });
@@ -48,12 +48,12 @@ export const ReadonlyBaseBar = observer(
             className={classnames(`${baseClassName}-item`, hashId)}
             onClick={() => {
               const domSelection = window.getSelection();
-              const editor = store?.editor;
+              const editor = markdownEditorRef.current;
               let selection = editor.selection;
               if (!selection) {
                 if (domSelection) {
                   selection = getSelectionFromDomSelection(
-                    store?.editor,
+                    markdownEditorRef.current,
                     domSelection!,
                   );
                 }
@@ -141,12 +141,12 @@ export const ReadonlyBaseBar = observer(
           className={classnames(`${baseClassName}-item`, hashId)}
           onClick={() => {
             const domSelection = window.getSelection();
-            const editor = store?.editor;
+            const editor = markdownEditorRef.current;
             let selection = editor.selection;
             if (!selection) {
               if (domSelection) {
                 selection = getSelectionFromDomSelection(
-                  store?.editor,
+                  markdownEditorRef.current,
                   domSelection!,
                 );
               }

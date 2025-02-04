@@ -112,7 +112,8 @@ export const BaseToolBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store, keyTask$, editorProps } = useEditorStore();
+    const { store, markdownEditorRef, keyTask$, editorProps } =
+      useEditorStore();
 
     const [, setRefresh] = React.useState(false);
     const [highColor, setHighColor] = React.useState<string | null>(null);
@@ -120,9 +121,9 @@ export const BaseToolBar = observer(
     const el = useRef<NodeEntry<any>>();
 
     const openLink = useCallback(() => {
-      const sel = store?.editor?.selection;
+      const sel = markdownEditorRef.current?.selection;
       if (!sel) return;
-      el.current = Editor.parent(store?.editor, sel.focus.path);
+      el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
       store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
       store.openInsertLink$.next(sel);
       runInAction(() => {
@@ -139,7 +140,7 @@ export const BaseToolBar = observer(
     /**
      * 获取当前节点
      */
-    const [node] = Editor.nodes<any>(store?.editor, {
+    const [node] = Editor.nodes<any>(markdownEditorRef.current, {
       match: (n) => Element.isElement(n),
       mode: 'lowest',
     });
@@ -160,7 +161,7 @@ export const BaseToolBar = observer(
     useEffect(() => {
       if (typeof localStorage === 'undefined') return undefined;
       setHighColor(localStorage.getItem('high-color'));
-    }, [EditorUtils.isFormatActive(store?.editor, 'highColor')]);
+    }, [EditorUtils.isFormatActive(markdownEditorRef.current, 'highColor')]);
 
     const insertOptions = useMemo(
       () =>
@@ -236,8 +237,8 @@ export const BaseToolBar = observer(
             key="clear"
             className={classnames(`${baseClassName}-item`, hashId)}
             onClick={() => {
-              EditorUtils.clearMarks(store?.editor, true);
-              EditorUtils.highColor(store?.editor);
+              EditorUtils.clearMarks(markdownEditorRef.current, true);
+              EditorUtils.highColor(markdownEditorRef.current);
             }}
           >
             <ClearOutlined />
@@ -330,7 +331,7 @@ export const BaseToolBar = observer(
             ]}
             onChange={(e) => {
               localStorage.setItem('high-color', e.toHexString());
-              EditorUtils.highColor(store?.editor, e.toHexString());
+              EditorUtils.highColor(markdownEditorRef.current, e.toHexString());
               setHighColor(e.toHexString());
               setRefresh((r) => !r);
             }}
@@ -340,7 +341,10 @@ export const BaseToolBar = observer(
               display: 'flex',
               height: '100%',
               alignItems: 'center',
-              fontWeight: EditorUtils.isFormatActive(store?.editor, 'highColor')
+              fontWeight: EditorUtils.isFormatActive(
+                markdownEditorRef.current,
+                'highColor',
+              )
                 ? 'bold'
                 : undefined,
               textDecoration: 'underline solid ' + highColor,
@@ -351,10 +355,18 @@ export const BaseToolBar = observer(
             role="button"
             onMouseEnter={(e) => e.stopPropagation()}
             onClick={() => {
-              if (EditorUtils.isFormatActive(store?.editor, 'highColor')) {
-                EditorUtils.highColor(store?.editor);
+              if (
+                EditorUtils.isFormatActive(
+                  markdownEditorRef.current,
+                  'highColor',
+                )
+              ) {
+                EditorUtils.highColor(markdownEditorRef.current);
               } else {
-                EditorUtils.highColor(store?.editor, highColor || '#10b981');
+                EditorUtils.highColor(
+                  markdownEditorRef.current,
+                  highColor || '#10b981',
+                );
               }
             }}
           >
@@ -382,11 +394,14 @@ export const BaseToolBar = observer(
             key={tool.key}
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => {
-              EditorUtils.toggleFormat(store?.editor, tool.type);
+              EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
             }}
             className={classnames(`${baseClassName}-item`, hashId)}
             style={{
-              color: EditorUtils.isFormatActive(store?.editor, tool.type)
+              color: EditorUtils.isFormatActive(
+                markdownEditorRef.current,
+                tool.type,
+              )
                 ? '#1677ff'
                 : undefined,
             }}
@@ -420,7 +435,10 @@ export const BaseToolBar = observer(
             }}
             className={classnames(`${baseClassName}-item`, hashId)}
             style={{
-              color: EditorUtils.isFormatActive(store?.editor, 'url')
+              color: EditorUtils.isFormatActive(
+                markdownEditorRef.current,
+                'url',
+              )
                 ? '#1677ff'
                 : undefined,
             }}
@@ -477,8 +495,8 @@ export const BaseToolBar = observer(
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            EditorUtils.clearMarks(store?.editor, true);
-            EditorUtils.highColor(store?.editor);
+            EditorUtils.clearMarks(markdownEditorRef.current, true);
+            EditorUtils.highColor(markdownEditorRef.current);
           }}
         >
           <ClearOutlined />
@@ -559,7 +577,10 @@ export const BaseToolBar = observer(
                 ]}
                 onChange={(e) => {
                   localStorage.setItem('high-color', e.toHexString());
-                  EditorUtils.highColor(store?.editor, e.toHexString());
+                  EditorUtils.highColor(
+                    markdownEditorRef.current,
+                    e.toHexString(),
+                  );
                   setHighColor(e.toHexString());
                   setRefresh((r) => !r);
                 }}
@@ -570,7 +591,7 @@ export const BaseToolBar = observer(
                   height: '100%',
                   alignItems: 'center',
                   fontWeight: EditorUtils.isFormatActive(
-                    store?.editor,
+                    markdownEditorRef.current,
                     'highColor',
                   )
                     ? 'bold'
@@ -585,11 +606,16 @@ export const BaseToolBar = observer(
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  if (EditorUtils.isFormatActive(store?.editor, 'highColor')) {
-                    EditorUtils.highColor(store?.editor);
+                  if (
+                    EditorUtils.isFormatActive(
+                      markdownEditorRef.current,
+                      'highColor',
+                    )
+                  ) {
+                    EditorUtils.highColor(markdownEditorRef.current);
                   } else {
                     EditorUtils.highColor(
-                      store?.editor,
+                      markdownEditorRef.current,
                       highColor || '#10b981',
                     );
                   }
@@ -617,11 +643,17 @@ export const BaseToolBar = observer(
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    EditorUtils.toggleFormat(store?.editor, tool.type);
+                    EditorUtils.toggleFormat(
+                      markdownEditorRef.current,
+                      tool.type,
+                    );
                   }}
                   className={classnames(`${baseClassName}-item`, hashId)}
                   style={{
-                    color: EditorUtils.isFormatActive(store?.editor, tool.type)
+                    color: EditorUtils.isFormatActive(
+                      markdownEditorRef.current,
+                      tool.type,
+                    )
                       ? '#1677ff'
                       : undefined,
                   }}
@@ -692,6 +724,8 @@ export const BaseToolBar = observer(
           display: 'flex',
           height: '100%',
           gap: '1px',
+          maxWidth: 880,
+          margin: '0 auto',
           alignItems: 'center',
         }}
       >

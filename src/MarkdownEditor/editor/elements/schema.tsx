@@ -5,7 +5,7 @@ import { EditorUtils } from '../utils';
 
 export const Schema: React.FC<RenderElementProps> = (props) => {
   const { element: node } = props;
-  const { store, readonly } = useEditorStore();
+  const { store, markdownEditorRef, readonly } = useEditorStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const htmlRef = React.useRef<HTMLDivElement>(null);
   return useMemo(
@@ -39,7 +39,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
           onMouseDown={(e) => {
             e.stopPropagation();
             if (!store.focus) {
-              EditorUtils.focus(store?.editor);
+              EditorUtils.focus(markdownEditorRef.current);
             }
           }}
         >

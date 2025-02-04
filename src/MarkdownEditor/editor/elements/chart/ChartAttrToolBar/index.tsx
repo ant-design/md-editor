@@ -22,8 +22,7 @@ export const ChartAttrToolBar: React.FC<{
   node: NodeEntry<ChartNode>;
   title?: React.ReactNode;
 }> = observer((props) => {
-  const { store, readonly } = useEditorStore();
-  const editor = store?.editor;
+  const { markdownEditorRef, readonly } = useEditorStore();
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
 
@@ -31,10 +30,12 @@ export const ChartAttrToolBar: React.FC<{
     const chart = props.node;
     if (!chart) return;
 
-    Transforms.delete(editor, { at: EditorUtils.findPath(editor, chart!) });
+    Transforms.delete(markdownEditorRef.current, {
+      at: EditorUtils.findPath(markdownEditorRef.current, chart!),
+    });
     chartNodeRef.current = undefined;
-    ReactEditor.focus(editor);
-  }, [editor]);
+    ReactEditor.focus(markdownEditorRef.current);
+  }, [markdownEditorRef.current]);
 
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context.getPrefixCls(`chart-attr-toolbar`);

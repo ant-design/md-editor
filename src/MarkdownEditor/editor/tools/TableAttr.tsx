@@ -126,8 +126,7 @@ interface TableAttrProps {
 
 export const TableAttr = observer(
   ({ state, setState, tableRef, tableCellRef }: TableAttrProps) => {
-    const { store, readonly } = useEditorStore();
-    const editor = store.editor;
+    const { store, markdownEditorRef, readonly } = useEditorStore();
 
     const el = store.tableCellNode;
 
@@ -140,7 +139,7 @@ export const TableAttr = observer(
         }));
         const [table, path] = tableRef.current!;
         if (state.rows > row) {
-          Transforms.removeNodes(editor, {
+          Transforms.removeNodes(markdownEditorRef.current, {
             at: {
               anchor: { path: [...path, row], offset: 0 },
               focus: { path: [...path, state.rows], offset: 0 },
@@ -164,12 +163,12 @@ export const TableAttr = observer(
                 } as TableCellNode;
               }),
             };
-            Transforms.insertNodes(editor, row, {
+            Transforms.insertNodes(markdownEditorRef.current, row, {
               at: [...path, i],
             });
           } else {
             if (state.cols > col) {
-              Transforms.removeNodes(editor, {
+              Transforms.removeNodes(markdownEditorRef.current, {
                 at: {
                   anchor: { path: [...path, i, col], offset: 0 },
                   focus: { path: [...path, i, state.cols], offset: 0 },
@@ -179,7 +178,7 @@ export const TableAttr = observer(
             } else {
               Array.from(new Array(col - state.cols)).forEach((_, j) => {
                 Transforms.insertNodes(
-                  editor,
+                  markdownEditorRef.current,
                   {
                     type: 'table-cell',
                     children: [],
@@ -194,13 +193,16 @@ export const TableAttr = observer(
         }
         if (
           tableCellRef.current &&
-          !Editor.hasPath(editor, tableCellRef.current[1])
+          !Editor.hasPath(markdownEditorRef.current, tableCellRef.current[1])
         ) {
-          Transforms.select(editor, Editor.start(editor, path));
+          Transforms.select(
+            markdownEditorRef.current,
+            Editor.start(markdownEditorRef.current, path),
+          );
         }
-        ReactEditor.focus(editor);
+        ReactEditor.focus(markdownEditorRef.current);
       },
-      [editor],
+      [markdownEditorRef.current],
     );
 
     const getScaleGirdClass = useCallback((row: number, col: number) => {
@@ -231,36 +233,38 @@ export const TableAttr = observer(
             el.children?.forEach((cell, i) => {
               if (i === index) {
                 Transforms.setNodes(
-                  editor,
+                  markdownEditorRef.current,
                   { align: type },
-                  { at: EditorUtils.findPath(editor, cell) },
+                  {
+                    at: EditorUtils.findPath(markdownEditorRef.current, cell),
+                  },
                 );
               }
             });
           });
         }
-        ReactEditor.focus(editor);
+        ReactEditor.focus(markdownEditorRef.current);
       },
-      [editor],
+      [markdownEditorRef.current],
     );
 
     const remove = useCallback(() => {
       const table = tableRef.current!;
 
-      Transforms.delete(editor, { at: table[1] });
+      Transforms.delete(markdownEditorRef.current, { at: table[1] });
       tableCellRef.current = undefined;
       tableRef.current = undefined;
       Transforms.insertNodes(
-        editor,
+        markdownEditorRef.current,
         { type: 'paragraph', children: [{ text: '' }] },
         { at: table[1], select: true },
       );
-      ReactEditor.focus(editor);
-    }, [editor]);
+      ReactEditor.focus(markdownEditorRef.current);
+    }, [markdownEditorRef.current]);
 
     const insertRow = useCallback((path: Path, columns: number) => {
       Transforms.insertNodes(
-        editor,
+        markdownEditorRef.current,
         {
           type: 'table-row',
           children: Array.from(new Array(columns)).map(() => {
@@ -274,14 +278,17 @@ export const TableAttr = observer(
           at: path,
         },
       );
-      Transforms.select(editor, Editor.start(editor, path));
+      Transforms.select(
+        markdownEditorRef.current,
+        Editor.start(markdownEditorRef.current, path),
+      );
     }, []);
 
     const insertCol = useCallback(
       (tablePath: Path, rows: number, index: number) => {
         Array.from(new Array(rows)).forEach((_, i) => {
           Transforms.insertNodes(
-            editor,
+            markdownEditorRef.current,
             {
               type: 'table-cell',
               children: [{ text: '' }],
@@ -292,7 +299,12 @@ export const TableAttr = observer(
             },
           );
         });
-        Transforms.select(editor, [...tablePath, 0, index, 0]);
+        Transforms.select(markdownEditorRef.current, [
+          ...tablePath,
+          0,
+          index,
+          0,
+        ]);
       },
       [],
     );
@@ -301,8 +313,8 @@ export const TableAttr = observer(
       (path: Path, index: number, columns: number) => {
         if (Path.hasPrevious(path)) {
           Transforms.select(
-            editor,
-            Editor.end(editor, [
+            markdownEditorRef.current,
+            Editor.end(markdownEditorRef.current, [
               ...tableRef.current![1],
               path[path.length - 1] - 1,
               index,
@@ -310,8 +322,8 @@ export const TableAttr = observer(
           );
         } else {
           Transforms.select(
-            editor,
-            Editor.end(editor, [
+            markdownEditorRef.current,
+            Editor.end(markdownEditorRef.current, [
               ...tableRef.current![1],
               path[path.length - 1],
               index,
@@ -319,12 +331,12 @@ export const TableAttr = observer(
           );
         }
 
-        Transforms.delete(editor, { at: path });
+        Transforms.delete(markdownEditorRef.current, { at: path });
 
         if (path[path.length - 1] === 0) {
           Array.from(new Array(columns)).forEach((_, i) => {
             Transforms.setNodes(
-              editor,
+              markdownEditorRef.current,
               {
                 title: true,
               },
@@ -335,7 +347,7 @@ export const TableAttr = observer(
           });
         }
       },
-      [editor],
+      [markdownEditorRef.current],
     );
 
     const runTask = useCallback(
@@ -380,19 +392,19 @@ export const TableAttr = observer(
             break;
           case 'insertTableCellBreak':
             Transforms.insertNodes(
-              editor,
+              markdownEditorRef.current,
               [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
               { select: true },
             );
             break;
           case 'moveUpOneRow':
             if (row > 1) {
-              Transforms.moveNodes(editor, {
+              Transforms.moveNodes(markdownEditorRef.current, {
                 at: rowPath,
                 to: Path.previous(rowPath),
               });
             } else {
-              Transforms.moveNodes(editor, {
+              Transforms.moveNodes(markdownEditorRef.current, {
                 at: rowPath,
                 to: [...tableRef.current[1], rows - 1],
               });
@@ -400,12 +412,12 @@ export const TableAttr = observer(
             break;
           case 'moveDownOneRow':
             if (row < rows - 1) {
-              Transforms.moveNodes(editor, {
+              Transforms.moveNodes(markdownEditorRef.current, {
                 at: rowPath,
                 to: Path.next(rowPath),
               });
             } else {
-              Transforms.moveNodes(editor, {
+              Transforms.moveNodes(markdownEditorRef.current, {
                 at: rowPath,
                 to: [...tableRef.current[1], 1],
               });
@@ -413,7 +425,7 @@ export const TableAttr = observer(
             break;
           case 'moveLeftOneCol':
             Array.from(new Array(rows)).forEach((_, i) => {
-              Transforms.moveNodes(editor, {
+              Transforms.moveNodes(markdownEditorRef.current, {
                 at: [...tableRef.current![1], i, index],
                 to: [
                   ...tableRef.current![1],
@@ -425,7 +437,7 @@ export const TableAttr = observer(
             break;
           case 'moveRightOneCol':
             Array.from(new Array(rows)).forEach((_, i) => {
-              Transforms.moveNodes(editor, {
+              Transforms.moveNodes(markdownEditorRef.current, {
                 at: [...tableRef.current![1], i, index],
                 to: [
                   ...tableRef.current![1],
@@ -442,17 +454,25 @@ export const TableAttr = observer(
             }
             if (index < columns - 1) {
               Transforms.select(
-                editor,
-                Editor.start(editor, [...tableRef.current[1], row, index + 1]),
+                markdownEditorRef.current,
+                Editor.start(markdownEditorRef.current, [
+                  ...tableRef.current[1],
+                  row,
+                  index + 1,
+                ]),
               );
             } else {
               Transforms.select(
-                editor,
-                Editor.start(editor, [...tableRef.current[1], row, index - 1]),
+                markdownEditorRef.current,
+                Editor.start(markdownEditorRef.current, [
+                  ...tableRef.current[1],
+                  row,
+                  index - 1,
+                ]),
               );
             }
             Array.from(new Array(rows)).forEach((_, i) => {
-              Transforms.delete(editor, {
+              Transforms.delete(markdownEditorRef.current, {
                 at: [...tableRef.current![1], rows - i - 1, index],
               });
             });
@@ -465,7 +485,7 @@ export const TableAttr = observer(
             }
             break;
         }
-        ReactEditor.focus(editor);
+        ReactEditor.focus(markdownEditorRef.current);
       },
       [],
     );
