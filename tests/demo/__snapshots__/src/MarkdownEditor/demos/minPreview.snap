@@ -3412,7 +3412,7 @@
             class="ant-md-editor-toolbar"
           >
             <div
-              style="display: flex; height: 100%; gap: 1px; align-items: center;"
+              style="display: flex; height: 100%; gap: 1px; max-width: 880px; margin: 0px auto; align-items: center;"
             >
               <div
                 class="ant-md-editor-toolbar-item"
