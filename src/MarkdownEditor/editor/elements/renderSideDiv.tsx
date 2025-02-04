@@ -15,7 +15,6 @@ import React, {
   SetStateAction,
   useContext,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -597,7 +596,7 @@ export function ColSideDiv(props: ColSideDivProps) {
   }, [tableDom]);
   const [tableWidth, setTableWidth] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const target = tableRef.current;
     if (!target) return;
 
@@ -611,8 +610,8 @@ export function ColSideDiv(props: ColSideDivProps) {
 
     observer.observe(target);
     return () => observer.unobserve(target);
-  }, []);
-  console.log('tableWidth', tableWidth);
+  }, [tableRef]);
+
   return (
     <div
       ref={colDivBarInnerRef}
