@@ -75,6 +75,8 @@ export class EditorStore {
     'media',
     'attach',
   ]);
+  SEL_CELLS: WeakMap<Editor, NodeEntry[]> = new WeakMap();
+  CACHED_SEL_CELLS: WeakMap<Editor, NodeEntry[]> = new WeakMap();
   draggedElement: null | HTMLElement = null;
   openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();
@@ -135,6 +137,8 @@ export class EditorStore {
     makeAutoObservable(this, {
       _editor: false,
       sel: false,
+      CACHED_SEL_CELLS: false,
+      SEL_CELLS: false,
       preSelection: false,
       container: false,
       tableCellNode: false,

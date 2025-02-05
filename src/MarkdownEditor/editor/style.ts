@@ -26,6 +26,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-edit': {
         '>*': {
           maxWidth: 850,
+          margin: '0 auto',
         },
         '> p.empty:nth-child(0)::before': {
           cursor: 'text',

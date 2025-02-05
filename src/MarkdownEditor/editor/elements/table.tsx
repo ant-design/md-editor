@@ -1,4 +1,5 @@
-import { Popover, Typography } from 'antd';
+import { useDebounceFn } from '@ant-design/pro-components';
+import { ConfigProvider, Popover, Typography } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
@@ -9,14 +10,16 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, Node, NodeEntry, Path } from 'slate';
+import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableCellNode, TableNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
-import { TableAttr } from '../tools/TableAttr';
+import { EditorUtils } from '../utils';
+import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
+import './table.css';
 
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
@@ -51,6 +54,17 @@ export function TableCell(props: RenderElementProps) {
     const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
     const minWidth = Math.min(domWidth, 200);
     const text = Node.string(props.element);
+    const align = props.element?.align;
+    const getTextAlign = (align: string | undefined) => {
+      if (align === 'left') {
+        return 'start';
+      } else if (align === 'center') {
+        return 'center';
+      } else if (align === 'right') {
+        return 'end';
+      }
+      return undefined;
+    };
     return props.element.title ? (
       <th {...props.attributes} data-be={'th'}>
         <div
@@ -58,6 +72,12 @@ export function TableCell(props: RenderElementProps) {
             minWidth: minWidth,
             textWrap: 'wrap',
             maxWidth: '200px',
+            display: 'flex',
+            justifyContent: align
+              ? getTextAlign(align)
+              : numberValidationRegex.test(text?.replaceAll(',', ''))
+                ? 'end'
+                : 'start',
           }}
         >
           {props.children}
@@ -105,11 +125,11 @@ export function TableCell(props: RenderElementProps) {
               textWrap: 'wrap',
               maxWidth: '200px',
               display: 'flex',
-              justifyContent: numberValidationRegex.test(
-                text?.replaceAll(',', ''),
-              )
-                ? 'end'
-                : 'start',
+              justifyContent: align
+                ? getTextAlign(align)
+                : numberValidationRegex.test(text?.replaceAll(',', ''))
+                  ? 'end'
+                  : 'start',
             }}
           >
             {props.children}
@@ -147,9 +167,9 @@ export function TableCell(props: RenderElementProps) {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store, markdownEditorRef, editorProps } = useEditorStore();
+  const { store, markdownEditorRef } = useEditorStore();
 
-  const [tableAttrVisible, setTableAttrVisible] = useState(false);
+  const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
     top: 0,
     left: 0,
@@ -162,223 +182,484 @@ export const Table = observer((props: RenderElementProps) => {
     selectCols: 0,
     selectRows: 0,
   });
-  const [selected, path] = useSelStatus(props.element);
+  const [selectedTable, tablePath] = useSelStatus(props.element);
+
   const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
   const tableCellRef = useRef<NodeEntry<TableCellNode>>();
+  const [activeDeleteBtn, setActiveDeleteBtn] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (store.floatBarOpen) {
-      setTableAttrVisible(false);
-    }
-  }, [store.floatBarOpen]);
+  const tableNodeEntry = useMemo(() => {
+    if (!Editor) return;
+    if (!tablePath || tablePath?.length === 0) return;
+    if (!markdownEditorRef.current) return;
+    if (!markdownEditorRef.current.children) return;
+    if (markdownEditorRef.current.children?.length === 0) return;
+    return Editor.node(markdownEditorRef.current, tablePath);
+  }, [tablePath]);
 
-  const isSel = useMemo(() => {
-    if (selected) return true;
-    if (!store.selectTablePath?.length) return false;
-    return store.selectTablePath.join('') === path.join('');
-  }, [
-    markdownEditorRef.current,
-    selected,
-    store.selectTablePath,
-    props.element,
-  ]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!tableRef.current) return;
-      if (tableAttrVisible && tableRef.current) {
-        if (!markdownEditorRef.current.hasPath(tableRef.current[1])) return;
-        try {
-          const dom = ReactEditor.toDOMNode(
-            markdownEditorRef.current,
-            Node.get(markdownEditorRef.current, tableRef.current[1]),
-          ) as HTMLElement;
-          if (dom && !dom.contains(event.target as Node)) {
-            setTableAttrVisible(false);
-          }
-        } catch (error) {}
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [tableAttrVisible, tableRef, markdownEditorRef.current]);
-
-  const resize = useCallback(() => {
-    const table = tableRef.current;
+  // 更新表格的行列数
+  const updateTableDimensions = useDebounceFn(async () => {
+    const table = tableNodeEntry;
     if (!table) return;
-    setTimeout(() => {
-      try {
-        const dom = ReactEditor.toDOMNode(
-          markdownEditorRef.current,
-          table[0],
-        ) as HTMLElement;
-        if (dom) {
-          setState((prev) => ({
-            ...prev,
-            rows: table[0].children.length,
-            cols: table[0].children[0].children.length,
-          }));
-        }
-      } catch (e) {}
-    }, 16);
-  }, [setState, markdownEditorRef.current]);
-
-  const handleClickTable = useCallback(() => {
-    if (store.floatBarOpen) return;
-    const el = store.tableCellNode;
-    if (el) {
-      tableCellRef.current = el;
-      try {
-        const dom = ReactEditor.toDOMNode(
-          markdownEditorRef.current,
-          el[0],
-        ) as HTMLElement;
-        const overflowShadowContainer = overflowShadowContainerRef.current!;
-        const tableTop = overflowShadowContainer.offsetTop;
-        let left = dom.getBoundingClientRect().left;
+    try {
+      const dom = ReactEditor.toDOMNode(
+        markdownEditorRef.current,
+        table[0],
+      ) as HTMLElement;
+      if (dom) {
         setState((prev) => ({
           ...prev,
-          top: tableTop - 48 + 3,
-          left,
+          rows: table[0].children.length,
+          cols: table[0].children[0].children.length,
         }));
-        setTableAttrVisible(true);
-      } catch (error) {
-        console.log(error);
       }
-      setState((prev) => ({
-        ...prev,
-        align: el[0].align,
-      }));
-      const table = Editor.node(
-        markdownEditorRef.current,
-        Path.parent(Path.parent(el[1])),
-      );
-      if (table && table[0] !== tableRef.current?.[0]) {
-        tableRef.current = table;
-        resize();
-      }
-    }
-  }, [store.tableCellNode, markdownEditorRef.current, setState]);
-  const tableTargetRef = useRef<HTMLTableElement>(null);
-  useEffect(() => {
-    if (!tableTargetRef.current) {
-      return;
-    }
-    if (typeof IntersectionObserver === 'undefined') {
-      return;
-    }
-    const observerRoot = (tableTargetRef as any).current?.parentNode;
-    const observerTarget = (tableTargetRef as any).current;
-    const overflowShadowContainer = overflowShadowContainerRef.current!;
-    overflowShadowContainer.classList.add('overflow-shadow-container');
-    overflowShadowContainer.classList.add('card-table-wrap');
-    const options = {
-      root: observerRoot,
-      threshold: 1,
-    };
+    } catch (e) {}
+  }, 160);
 
-    new IntersectionObserver(([entry]) => {
-      if (entry.intersectionRatio !== 1) {
-        overflowShadowContainer.classList.add(
-          'is-overflowing',
-          'is-scrolled-left',
+  const setAligns = useCallback(
+    (type: 'left' | 'center' | 'right') => {
+      const cell = tableCellRef.current!;
+      const table = tableNodeEntry!;
+      if (cell) {
+        const index = cell[1][cell[1].length - 1];
+        table?.[0]?.children?.forEach((el: { children: any[] }) => {
+          el.children?.forEach((cell, i) => {
+            if (i === index) {
+              Transforms.setNodes(
+                markdownEditorRef.current,
+                { align: type },
+                { at: EditorUtils.findPath(markdownEditorRef.current, cell) },
+              );
+            }
+          });
+        });
+      }
+      ReactEditor.focus(markdownEditorRef.current);
+    },
+    [tableNodeEntry],
+  );
+
+  const remove = useCallback(() => {
+    const table = tableNodeEntry!;
+
+    Transforms.delete(markdownEditorRef.current, { at: table[1] });
+    tableCellRef.current = undefined;
+    tableRef.current = undefined;
+    Transforms.insertNodes(
+      markdownEditorRef.current,
+      { type: 'paragraph', children: [{ text: '' }] },
+      { at: table[1], select: true },
+    );
+    ReactEditor.focus(markdownEditorRef.current);
+  }, [markdownEditorRef.current]);
+
+  const insertRow = useCallback((path: Path, columns: number) => {
+    Transforms.insertNodes(
+      markdownEditorRef.current,
+      {
+        type: 'table-row',
+        children: Array.from(new Array(columns)).map(() => {
+          return {
+            type: 'table-cell',
+            children: [{ text: '' }],
+          } as TableCellNode;
+        }),
+      },
+      {
+        at: path,
+      },
+    );
+    Transforms.select(
+      markdownEditorRef.current,
+      Editor.start(markdownEditorRef.current, path),
+    );
+  }, []);
+
+  const insertCol = useCallback(
+    (tablePath: Path, rows: number, index: number) => {
+      Array.from(new Array(rows)).forEach((_, i) => {
+        Transforms.insertNodes(
+          markdownEditorRef.current,
+          {
+            type: 'table-cell',
+            children: [{ text: '' }],
+            title: i === 0,
+          },
+          {
+            at: [...tablePath, i, index],
+          },
+        );
+      });
+      Transforms.select(markdownEditorRef.current, [...tablePath, 0, index, 0]);
+    },
+    [],
+  );
+
+  const removeRow = useCallback(
+    (path: Path, index: number, columns: number) => {
+      if (Path.hasPrevious(path)) {
+        Transforms.select(
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, [
+            ...tableNodeEntry?.at(1),
+            path[path.length - 1] - 1,
+            index,
+          ]),
         );
       } else {
-        overflowShadowContainer.classList.remove('is-overflowing');
+        Transforms.select(
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, [
+            ...tableNodeEntry?.at(1),
+            path[path.length - 1],
+            index,
+          ]),
+        );
       }
-    }, options).observe(observerTarget);
 
-    let handleScrollX = (e: any) => {
-      if (e.target.scrollLeft < 1) {
-        overflowShadowContainer.classList.add('is-scrolled-left');
-      } else {
-        overflowShadowContainer.classList.remove('is-scrolled-left');
+      Transforms.delete(markdownEditorRef.current, { at: path });
+
+      if (path[path.length - 1] === 0) {
+        Array.from(new Array(columns)).forEach((_, i) => {
+          Transforms.setNodes(
+            markdownEditorRef.current,
+            {
+              title: true,
+            },
+            {
+              at: [...path, i],
+            },
+          );
+        });
       }
-      if (
-        Math.abs(
-          e.target.scrollLeft +
-            e.target.offsetWidth -
-            observerTarget.offsetWidth,
-        ) <= 1
-      ) {
-        overflowShadowContainer.classList.add('is-scrolled-right');
-      } else {
-        overflowShadowContainer.classList.remove('is-scrolled-right');
+    },
+    [markdownEditorRef.current],
+  );
+
+  const runTask = useCallback(
+    (
+      task:
+        | 'insertRowBefore'
+        | 'insertRowAfter'
+        | 'insertColBefore'
+        | 'insertColAfter'
+        | 'moveUpOneRow'
+        | 'moveDownOneRow'
+        | 'moveLeftOneCol'
+        | 'moveRightOneCol'
+        | 'removeCol'
+        | 'removeRow'
+        | 'setAligns'
+        | 'in'
+        | 'insertTableCellBreak',
+      index: number,
+      ...rest: any[]
+    ) => {
+      if (!tableCellRef.current || !tableNodeEntry) return;
+      const columns = tableNodeEntry?.at(0)?.children?.[0]?.children?.length;
+      const rows = tableNodeEntry?.at(0)?.children?.length;
+      const path = tableCellRef?.current?.[1];
+      const row = path?.[path?.length - 2];
+      const rowPath = Path.parent(path);
+      switch (task) {
+        case 'insertRowBefore':
+          insertRow(
+            row === 0 ? Path.next(Path.parent(path)) : Path.parent(path),
+            columns,
+          );
+          break;
+        case 'insertRowAfter':
+          insertRow(Path.next(Path.parent(path)), columns);
+          break;
+        case 'insertColBefore':
+          insertCol(tableNodeEntry?.at(1), rows, index);
+          break;
+        case 'insertColAfter':
+          insertCol(tableNodeEntry?.at(1), rows, index + 1);
+          break;
+        case 'insertTableCellBreak':
+          Transforms.insertNodes(
+            markdownEditorRef.current,
+            [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
+            { select: true },
+          );
+          break;
+        case 'moveUpOneRow':
+          if (row > 1) {
+            Transforms.moveNodes(markdownEditorRef.current, {
+              at: rowPath,
+              to: Path.previous(rowPath),
+            });
+          } else {
+            Transforms.moveNodes(markdownEditorRef.current, {
+              at: rowPath,
+              to: [...tableNodeEntry?.at(1), rows - 1],
+            });
+          }
+          break;
+        case 'moveDownOneRow':
+          if (row < rows - 1) {
+            Transforms.moveNodes(markdownEditorRef.current, {
+              at: rowPath,
+              to: Path.next(rowPath),
+            });
+          } else {
+            Transforms.moveNodes(markdownEditorRef.current, {
+              at: rowPath,
+              to: [...tableNodeEntry?.at(1), 1],
+            });
+          }
+          break;
+        case 'moveLeftOneCol':
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.moveNodes(markdownEditorRef.current, {
+              at: [...tableNodeEntry?.at(1), i, index],
+              to: [
+                ...tableNodeEntry?.at(1),
+                i,
+                index > 0 ? index - 1 : columns - 1,
+              ],
+            });
+          });
+          break;
+        case 'moveRightOneCol':
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.moveNodes(markdownEditorRef.current, {
+              at: [...tableNodeEntry?.at(1), i, index],
+              to: [
+                ...tableNodeEntry?.at(1),
+                i,
+                index === columns - 1 ? 0 : index + 1,
+              ],
+            });
+          });
+          break;
+        case 'removeCol':
+          if (columns < 2) {
+            remove();
+            return;
+          }
+          if (index < columns - 1) {
+            Transforms.select(
+              markdownEditorRef.current,
+              Editor.start(markdownEditorRef.current, [
+                ...tableNodeEntry?.at(1),
+                row,
+                index + 1,
+              ]),
+            );
+          } else {
+            Transforms.select(
+              markdownEditorRef.current,
+              Editor.start(markdownEditorRef.current, [
+                ...tableNodeEntry?.at(1),
+                row,
+                index - 1,
+              ]),
+            );
+          }
+          Array.from(new Array(rows)).forEach((_, i) => {
+            Transforms.delete(markdownEditorRef.current, {
+              at: [...tableNodeEntry?.at(1), rows - i - 1, index],
+            });
+          });
+          break;
+        case 'removeRow':
+          if (rows < 2) {
+            remove();
+          } else {
+            removeRow(Path.parent(path), index, columns);
+          }
+          break;
+
+        case 'setAligns':
+          setAligns(rest?.at(0));
+          break;
       }
-    };
+      updateTableDimensions.cancel();
+      updateTableDimensions.run();
+      ReactEditor.focus(markdownEditorRef.current);
+    },
+    [],
+  );
 
-    observerRoot.addEventListener('scroll', handleScrollX);
+  const isSel = useMemo(() => {
+    if (selectedTable) return true;
+    if (!store.selectTablePath?.length) return false;
+    return store.selectTablePath.join('') === tablePath.join('');
+  }, [store.editor, selectedTable, store.selectTablePath, props.element]);
 
-    return () => {
-      observerRoot.removeEventListener('scroll', handleScrollX);
-    };
-  }, []);
+  const handleClickTable = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const el = store.tableCellNode;
+      if (el) {
+        tableCellRef.current = el;
+        setState((prev) => ({
+          ...prev,
+          align: el[0].align,
+        }));
+      }
+      setIsShowBar(true);
+    },
+    [store.tableCellNode, store.editor, setState, isShowBar],
+  );
+
+  const tableTargetRef = useRef<HTMLTableElement>(null);
+
+  useEffect(() => {
+    if (!props.element) return;
+    tableRef.current = tableNodeEntry;
+    updateTableDimensions.cancel();
+    updateTableDimensions.run();
+  }, [tableNodeEntry]);
+
+  const getTableNode = () => {
+    return props.element;
+  };
+
+  const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
+
+  useEffect(() => {
+    if (!store.editor) return;
+    const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
+    cachedSelCells?.forEach((cell) => {
+      const [cellNode] = cell;
+      try {
+        const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
+        if (cellDom) {
+          cellDom.classList.remove('selected-cell-td');
+        }
+      } catch (error) {
+        console.log(error, cellNode);
+      }
+    });
+    selCells?.forEach((cell) => {
+      const [cellNode] = cell;
+      try {
+        const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
+        if (cellDom) {
+          cellDom.classList.add('selected-cell-td');
+        }
+      } catch (error) {
+        console.log(error, cellNode);
+      }
+    });
+    store.CACHED_SEL_CELLS.set(store.editor, selCells);
+  }, [JSON.stringify(selCells)]);
 
   return useMemo(() => {
     return (
-      <div
-        {...props.attributes}
-        data-be={'table'}
-        onDragStart={store.dragStart}
-        ref={overflowShadowContainerRef}
-        style={{
-          display: 'flex',
-          gap: 1,
-          maxWidth: '100%',
-          minWidth: 0,
-          marginBottom: 12,
-        }}
+      <ConfigProvider
+        getPopupContainer={() =>
+          overflowShadowContainerRef?.current?.parentElement || document.body
+        }
       >
         <div
-          className={
-            'ant-md-editor-drag-el ant-md-editor-table ant-md-editor-content-table'
-          }
+          {...props.attributes}
+          data-be={'table'}
+          onDragStart={store.dragStart}
+          ref={overflowShadowContainerRef}
           style={{
-            maxWidth: '100%',
-            width: '100%',
-            border: '1px solid #e8e8e8',
-            borderRadius: '0.5em',
             display: 'flex',
+            gap: 1,
+            maxWidth: '100%',
             minWidth: 0,
-            boxShadow:
-              isSel && editorProps?.reportMode ? '0 0 0 1px #1890ff' : 'none',
+            width: '100%',
+            overflow: 'hidden',
+            position: 'relative',
+            marginBottom: 12,
           }}
+          onMouseUp={handleClickTable}
         >
-          {tableAttrVisible && (
-            <TableAttr
-              state={state}
-              setState={setState}
-              tableRef={tableRef}
-              tableCellRef={tableCellRef}
-            />
-          )}
-          <DragHandle />
+          <div className="ant-md-editor-drag-el">
+            <DragHandle />
+          </div>
           <div
-            onMouseUp={handleClickTable}
+            className={`ant-md-editor-table ant-md-editor-content-table ${
+              isShowBar ? 'show-bar' : ''
+            }`}
             onClick={() => {
               runInAction(() => {
                 if (isSel) {
                   store.selectTablePath = [];
                   return;
                 }
-                store.selectTablePath = path;
+                store.selectTablePath = tablePath;
               });
             }}
             style={{
-              width: '100%',
-              maxWidth: '100%',
-              overflow: 'auto',
               flex: 1,
               minWidth: 0,
+              marginLeft: 20,
+              marginTop: 4,
+              marginRight: 6,
             }}
           >
-            <table
+            <div
               style={{
-                borderCollapse: 'collapse',
+                visibility: isShowBar ? 'visible' : 'hidden',
+                overflow: 'hidden',
+              }}
+              data-slate-editor="false"
+            >
+              <IntersectionPointDiv
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+              <RowSideDiv
+                activeDeleteBtn={activeDeleteBtn}
+                setActiveDeleteBtn={setActiveDeleteBtn}
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+                onDeleteRow={(index) => {
+                  runTask('removeRow', index);
+                }}
+                onAlignChange={(index, align) => {
+                  runTask('setAligns', index, align);
+                }}
+                onCreateRow={(index, direction) => {
+                  if (direction === 'after') {
+                    runTask('insertRowAfter', index);
+                  }
+                  if (direction === 'before') {
+                    runTask('insertRowBefore', index);
+                  }
+                }}
+              />
+              <ColSideDiv
+                onDeleteColumn={(index) => {
+                  runTask('removeCol', index);
+                }}
+                onAlignChange={(index, align) => {
+                  runTask('setAligns', index, align);
+                }}
+                onCreateColumn={(index, direction) => {
+                  if (direction === 'after') {
+                    runTask('insertColAfter', index);
+                  }
+                  if (direction === 'before') {
+                    runTask('insertColBefore', index);
+                  }
+                }}
+                activeDeleteBtn={activeDeleteBtn}
+                setActiveDeleteBtn={setActiveDeleteBtn}
+                tableRef={tableTargetRef}
+                getTableNode={getTableNode}
+                selCells={selCells}
+                setSelCells={setSelCells}
+              />
+            </div>
+            <table
+              className="md-editor-table"
+              style={{
+                marginTop: '1em',
+                borderCollapse: 'separate',
                 borderSpacing: 0,
               }}
               ref={tableTargetRef}
@@ -387,16 +668,16 @@ export const Table = observer((props: RenderElementProps) => {
             </table>
           </div>
         </div>
-      </div>
+      </ConfigProvider>
     );
   }, [
     props.element.children,
     state,
     setState,
     store.dragStart,
-    markdownEditorRef.current?.children?.length === 1,
-    handleClickTable,
-    tableAttrVisible,
+    store.editor?.children?.length === 1,
     isSel,
+    JSON.stringify(selCells),
+    tableNodeEntry,
   ]);
 });

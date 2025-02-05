@@ -9,7 +9,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       position: 'absolute',
-      zIndex: 20,
+      zIndex: 121,
       border: '1px solid rgb(229 231 235 / 0.8)',
       overflow: 'hidden',
       height: '28px',

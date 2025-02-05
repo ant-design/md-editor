@@ -90,6 +90,13 @@ export const MEditor = observer(
         first.current = true;
         store.initializing = true;
         try {
+          console.log(
+            'reset',
+            editorProps.initSchemaValue?.length
+              ? editorProps.initSchemaValue
+              : undefined,
+            editorProps.initSchemaValue,
+          );
           EditorUtils.reset(
             markdownEditorRef.current,
             editorProps.initSchemaValue?.length
@@ -286,7 +293,7 @@ export const MEditor = observer(
 
         // 如果是表格或者代码块，直接插入文本
         if (selection?.focus) {
-          const rangeNodes = Editor.node(markdownEditorRef.current, [
+          const rangeNodes = Editor?.node(markdownEditorRef.current, [
             selection.focus.path.at(0)!,
           ]);
           if (!rangeNodes) return;
