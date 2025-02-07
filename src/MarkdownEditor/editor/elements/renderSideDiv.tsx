@@ -466,7 +466,7 @@ export function RowSideDiv(
         position: 'absolute',
         display: 'block',
         zIndex: 200,
-        width: '14.4px',
+        width: '0.9em',
         marginTop: '16px',
         marginLeft: '-16px',
       }}
@@ -484,8 +484,8 @@ export function RowSideDiv(
             width: '14px',
             height:
               index === 0
-                ? tr?.getBoundingClientRect?.()?.height - 0.66 ||
-                  tr?.clientHeight - 1
+                ? tr?.getBoundingClientRect?.()?.height - 1.66 ||
+                  tr?.clientHeight - 2
                 : tr?.getBoundingClientRect?.()?.height - 0.66 ||
                   tr?.clientHeight - 1,
             ...(index === rowDomArr.length - 1 && {
@@ -666,7 +666,7 @@ export function ColSideDiv(props: ColSideDivProps) {
         display: 'flex',
         width: tableWidth + 0.5,
         overflow: 'hidden',
-        height: '15px',
+        height: '1em',
         zIndex: 100,
         transform: `translateX(${scrollOffset / 9999}px)`,
       }}
@@ -689,7 +689,7 @@ export function ColSideDiv(props: ColSideDivProps) {
               left:
                 leftPosition - containerLeft - marginLeft - paddingLeft - 21.25,
               width: colRect?.width || td?.clientWidth,
-              height: '15px',
+              height: '0.9em',
               zIndex: 101,
               ...(index === colDomArr.length - 1 && {
                 borderTopRightRadius: '0.5em',

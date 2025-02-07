@@ -7,8 +7,8 @@
   transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .intersection-point {
-  height: 14.4px;
-  width: 14.4px;
+  height: 0.9em;
+  width: 0.9em;
   border: 1px solid #dfdfdf;
   border-right: 0px;
   border-bottom: 0px;
