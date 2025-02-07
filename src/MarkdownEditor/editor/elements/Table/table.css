@@ -15,8 +15,8 @@
   border-bottom: 0px;
   z-index: 20;
   position: absolute;
-  margin-top: 0px;
-  margin-left: -16px;
+  margin-top: -0.02em;
+  margin-left: -1.04em;
   border-top-left-radius: 0.5em;
   transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
