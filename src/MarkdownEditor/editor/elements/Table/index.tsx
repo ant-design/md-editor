@@ -5,6 +5,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -12,13 +13,13 @@ import React, {
 } from 'react';
 import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
 import stringWidth from 'string-width';
-import { TableCellNode, TableNode } from '../../el';
-import { useSelStatus } from '../../hooks/editor';
-import { ReactEditor, RenderElementProps } from '../slate-react';
-import { useEditorStore } from '../store';
-import { DragHandle } from '../tools/DragHandle';
-import { EditorUtils } from '../utils';
-import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
+import { TableCellNode, TableNode } from '../../../el';
+import { useSelStatus } from '../../../hooks/editor';
+import { ReactEditor, RenderElementProps } from '../../slate-react';
+import { useEditorStore } from '../../store';
+import { DragHandle } from '../../tools/DragHandle';
+import { EditorUtils } from '../../utils';
+import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from '../renderSideDiv';
 import './table.css';
 
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
@@ -168,6 +169,9 @@ export function TableCell(props: RenderElementProps) {
  */
 export const Table = observer((props: RenderElementProps) => {
   const { store, markdownEditorRef } = useEditorStore();
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+
+  const baseCls = getPrefixCls('md-editor-content-table');
 
   const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
@@ -484,6 +488,9 @@ export const Table = observer((props: RenderElementProps) => {
     [],
   );
 
+  /**
+   * 判断当前表格是否被选中。
+   */
   const isSel = useMemo(() => {
     if (selectedTable) return true;
     if (!store.selectTablePath?.length) return false;
@@ -578,9 +585,12 @@ export const Table = observer((props: RenderElementProps) => {
             <DragHandle />
           </div>
           <div
-            className={`ant-md-editor-table ant-md-editor-content-table ${
-              isShowBar ? 'show-bar' : ''
-            }`}
+            className={classNames(baseCls, {
+              [`${baseCls}-selected`]: isSel,
+              [`${baseCls}-show-bar`]: isShowBar,
+
+              'show-bar': isShowBar,
+            })}
             onClick={() => {
               runInAction(() => {
                 if (isSel) {

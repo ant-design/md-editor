@@ -6,6 +6,7 @@
   background-color: rgba(255, 168, 177, 0.3) !important;
   transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 .intersection-point {
   height: 0.9em;
   width: 0.9em;
