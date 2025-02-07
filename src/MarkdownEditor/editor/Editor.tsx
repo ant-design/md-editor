@@ -49,22 +49,61 @@ import {
 } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
 
+export type MEditorProps = {
+  eleItemRender?: MarkdownEditorProps['eleItemRender'];
+  onChange?: MarkdownEditorProps['onChange'];
+  instance: MarkdownEditorInstance;
+  className?: string;
+  comment?: MarkdownEditorProps['comment'];
+  prefixCls?: string;
+  reportMode?: MarkdownEditorProps['reportMode'];
+  titlePlaceholderContent?: string;
+} & MarkdownEditorProps;
+
+const genTableMinSize = (
+  elements: Elements[],
+  config?: {
+    minColumn?: number;
+    minRows?: number;
+  },
+) => {
+  if (!config) return elements;
+
+  elements.forEach((element) => {
+    if (element.type === 'table') {
+      if (config.minRows) {
+        if (element.children.length < config.minRows) {
+          for (let i = element.children.length; i < config.minRows; i++) {
+            element.children.push({
+              type: 'table-row',
+              children: [],
+            });
+          }
+        }
+      }
+
+      if (config.minColumn) {
+        element.children.forEach((row, index) => {
+          if (row.children.length < config.minColumn!) {
+            for (let i = row.children.length; i < config.minColumn!; i++) {
+              row.children.push({
+                type: 'table-cell',
+                title: index === 0,
+                children: [{ text: '' }],
+              });
+            }
+          }
+        });
+      }
+    }
+    if (element.children) {
+      genTableMinSize(element.children, config);
+    }
+  });
+};
+
 export const MEditor = observer(
-  ({
-    eleItemRender,
-    reportMode,
-    instance,
-    ...editorProps
-  }: {
-    eleItemRender?: MarkdownEditorProps['eleItemRender'];
-    onChange?: MarkdownEditorProps['onChange'];
-    instance: MarkdownEditorInstance;
-    className?: string;
-    comment?: MarkdownEditorProps['comment'];
-    prefixCls?: string;
-    reportMode?: MarkdownEditorProps['reportMode'];
-    titlePlaceholderContent?: string;
-  } & MarkdownEditorProps) => {
+  ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
     const changedMark = useRef(false);
@@ -86,17 +125,11 @@ export const MEditor = observer(
     const initialNote = async () => {
       if (instance) {
         nodeRef.current = instance;
-
         first.current = true;
         store.initializing = true;
+        const tableConfig = editorProps.tableConfig;
+        genTableMinSize(editorProps.initSchemaValue || [], tableConfig);
         try {
-          console.log(
-            'reset',
-            editorProps.initSchemaValue?.length
-              ? editorProps.initSchemaValue
-              : undefined,
-            editorProps.initSchemaValue,
-          );
           EditorUtils.reset(
             markdownEditorRef.current,
             editorProps.initSchemaValue?.length

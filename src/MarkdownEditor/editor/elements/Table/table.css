@@ -1,4 +1,4 @@
-.ant-md-editor-content-table .md-editor-table .selected-cell-td {
+.ant-md-editor-content-table table .selected-cell-td {
   background-color: rgba(209, 236, 249);
   transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -8,8 +8,8 @@
 }
 
 .intersection-point {
-  height: 0.9em;
-  width: 0.9em;
+  height: 0.94em;
+  width: 0.94em;
   border: 1px solid #dfdfdf;
   border-right: 0px;
   border-bottom: 0px;
@@ -56,45 +56,40 @@
     background-color: #d8ecff;
   }
 }
-.ant-md-editor-content-table .md-editor-table th {
-  border-top: 1px solid rgba(209, 213, 219, 0.8);
-}
-.ant-md-editor-content-table.show-bar .md-editor-table th:first-child {
+
+.ant-md-editor-content-table.show-bar table th:first-child {
   border-top-left-radius: 0;
 }
-.ant-md-editor-content-table.show-bar .md-editor-table th:last-child {
+.ant-md-editor-content-table.show-bar table th:last-child {
   border-top-right-radius: 0;
 }
-.ant-md-editor-content-table .md-editor-table th:first-child {
+.ant-md-editor-content-table table th:first-child {
   border-left: 1px solid rgba(209, 213, 219, 0.8);
 }
-.ant-md-editor-content-table .md-editor-table th:last-child {
+.ant-md-editor-content-table table th:last-child {
   border-right: 1px solid rgba(209, 213, 219, 0.8);
 }
-.ant-md-editor-content-table .md-editor-table td:first-child {
+.ant-md-editor-content-table table td:first-child {
   border-left: 1px solid rgba(209, 213, 219, 0.8);
 }
-.ant-md-editor-content-table .md-editor-table td:last-child {
+.ant-md-editor-content-table table td:last-child {
   border-right: 1px solid rgba(209, 213, 219, 0.8);
 }
-.ant-md-editor-content-table .md-editor-table tr:last-child td {
+.ant-md-editor-content-table table tr:last-child td {
   border-bottom: 1px solid rgba(209, 213, 219, 0.8);
 }
-.ant-md-editor-content-table .md-editor-table tr:last-child td:first-child {
+.ant-md-editor-content-table table tr:last-child td:first-child {
   border-bottom-left-radius: 0.5em;
 }
-.ant-md-editor-content-table.show-bar
-  .md-editor-table
-  tr:last-child
-  td:first-child {
+.ant-md-editor-content-table.show-bar table tr:last-child td:first-child {
   border-bottom-left-radius: 0;
 }
-.ant-md-editor-content-table .md-editor-table tr:last-child td:last-child {
+.ant-md-editor-content-table table tr:last-child td:last-child {
   border-bottom-right-radius: 0.5em;
 }
-.ant-md-editor-content-table .md-editor-table th:first-child {
+.ant-md-editor-content-table table th:first-child {
   border-top-left-radius: 0.5em;
 }
-.ant-md-editor-content-table .md-editor-table th:last-child {
+.ant-md-editor-content-table table th:last-child {
   border-top-right-radius: 0.5em;
 }
