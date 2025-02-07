@@ -425,6 +425,12 @@ export const Table = observer((props: RenderElementProps) => {
     updateTableDimensions.run();
   }, [tableNodeEntry]);
 
+  useEffect(() => {
+    if (!isShowBar) {
+      setActiveDeleteBtn((prev) => prev + ' ');
+    }
+  }, [isShowBar]);
+
   const getTableNode = () => {
     return props.element;
   };
