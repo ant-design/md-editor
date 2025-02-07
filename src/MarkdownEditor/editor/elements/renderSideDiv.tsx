@@ -153,10 +153,14 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
     const container = getPopupContainer?.(document.body) || document.body;
     const { left, top, right } =
       tableSideDivRef.current.getBoundingClientRect();
-    const { top: containerTop } = container.getBoundingClientRect();
+    const { top: containerTop, left: containerLeft } =
+      container.getBoundingClientRect();
 
     const domPos = isColumn
-      ? { left: (right + left) / 2 - 74, top: top - containerTop - 36 }
+      ? {
+          left: (right + left) / 2 - 74 - containerLeft,
+          top: top - containerTop - 36,
+        }
       : { left: right - 36, top: top - 70 };
     setOverlayPos(domPos);
   }, [deleteBtnHover, activeDeleteBtn]);
@@ -533,6 +537,7 @@ export function ColSideDiv(props: ColSideDivProps) {
     setActiveDeleteBtn,
   } = props;
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
+
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
   const [colDomArr, setColDomArr] = useState(
@@ -611,7 +616,6 @@ export function ColSideDiv(props: ColSideDivProps) {
     observer.observe(target);
     return () => observer.unobserve(target);
   }, [tableRef]);
-
   return (
     <div
       ref={colDivBarInnerRef}
@@ -627,36 +631,42 @@ export function ColSideDiv(props: ColSideDivProps) {
       }}
       contentEditable={false}
     >
-      {colDomArr?.map((td: any, index: number) => {
-        const colRect = td?.getBoundingClientRect();
-        const leftPosition = colRect?.left || 0;
-        return (
-          <AbstractSideDiv
-            {...props}
-            tableDom={tableDom}
-            key={index}
-            index={index}
-            type={'column'}
-            divStyle={{
-              position: 'absolute',
-              top: 0,
-              left: leftPosition - 59,
-              width: colRect?.width || td?.clientWidth,
-              height: '0.9em',
-              zIndex: 101,
-              ...(index === colDomArr.length - 1 && {
-                borderTopRightRadius: '0.5em',
-              }),
-            }}
-            getTableNode={getTableNode}
-            activationArr={activationArr}
-            selCells={selCells}
-            setSelCells={setSelCells}
-            activeDeleteBtn={activeDeleteBtn}
-            setActiveDeleteBtn={setActiveDeleteBtn}
-          />
-        );
-      })}
+      {(() => {
+        let accumulatedLeft = 0; // 初始化累积左侧位置
+        return colDomArr?.map((td: any, index: number) => {
+          const colRect = td?.getBoundingClientRect();
+          const width = colRect?.width || td?.clientWidth; // 获取当前列宽度
+          const currentLeft = accumulatedLeft; // 当前元素的left位置为累积左侧位置
+          accumulatedLeft += width; // 更新累积左侧位置，供下一个元素使用
+
+          return (
+            <AbstractSideDiv
+              {...props}
+              tableDom={tableDom}
+              key={index}
+              index={index}
+              type={'column'}
+              divStyle={{
+                position: 'absolute',
+                top: 0,
+                left: currentLeft, // 使用累积的左侧位置
+                width: width, // 列宽度
+                height: '0.9em',
+                zIndex: 101,
+                ...(index === colDomArr.length - 1 && {
+                  borderTopRightRadius: '0.5em',
+                }),
+              }}
+              getTableNode={getTableNode}
+              activationArr={activationArr}
+              selCells={selCells}
+              setSelCells={setSelCells}
+              activeDeleteBtn={activeDeleteBtn}
+              setActiveDeleteBtn={setActiveDeleteBtn}
+            />
+          );
+        });
+      })()}
     </div>
   );
 }
