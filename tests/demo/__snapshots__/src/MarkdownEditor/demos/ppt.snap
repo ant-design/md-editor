@@ -967,12 +967,12 @@
                         <div
                           class="row-div-bar-inner ignore-toggle-readonly"
                           contenteditable="false"
-                          style="position: absolute; display: block; z-index: 200; width: 0.9em; margin-top: 16px; margin-left: -16px;"
+                          style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1.06em;"
                         >
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -1.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -984,7 +984,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -996,7 +996,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1008,7 +1008,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1020,7 +1020,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1032,7 +1032,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1044,7 +1044,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1056,7 +1056,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1068,7 +1068,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
+                            style="position: relative; width: 0.94em; height: -0.66px; border-bottom-left-radius: 0.5em;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1081,12 +1081,12 @@
                         <div
                           class="col-div-bar-inner ignore-toggle-readonly"
                           contenteditable="false"
-                          style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 1rem; z-index: 100; transform: translateX(0px);"
+                          style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
                         >
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1098,7 +1098,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1110,7 +1110,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1122,7 +1122,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1134,7 +1134,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1146,7 +1146,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1158,7 +1158,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1170,7 +1170,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1182,7 +1182,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1194,7 +1194,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1206,7 +1206,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1218,7 +1218,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -1230,7 +1230,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101; border-top-right-radius: 0.5em;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13354,12 +13354,12 @@
                         <div
                           class="row-div-bar-inner ignore-toggle-readonly"
                           contenteditable="false"
-                          style="position: absolute; display: block; z-index: 200; width: 0.9em; margin-top: 16px; margin-left: -16px;"
+                          style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1.06em;"
                         >
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -1.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13371,7 +13371,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13383,7 +13383,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13395,7 +13395,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13407,7 +13407,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13419,7 +13419,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13431,7 +13431,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13443,7 +13443,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px;"
+                            style="position: relative; width: 0.94em; height: -0.66px;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13455,7 +13455,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
+                            style="position: relative; width: 0.94em; height: -0.66px; border-bottom-left-radius: 0.5em;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13468,12 +13468,12 @@
                         <div
                           class="col-div-bar-inner ignore-toggle-readonly"
                           contenteditable="false"
-                          style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 1rem; z-index: 100; transform: translateX(0px);"
+                          style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
                         >
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13485,7 +13485,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13497,7 +13497,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13509,7 +13509,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13521,7 +13521,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
                           >
                             <div
                               class="table-side-div-text"
@@ -13533,7 +13533,7 @@
                           <div
                             class="table-side-div ignore-toggle-readonly none-active  "
                             contenteditable="false"
-                            style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
+                            style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101; border-top-right-radius: 0.5em;"
                           >
                             <div
                               class="table-side-div-text"
