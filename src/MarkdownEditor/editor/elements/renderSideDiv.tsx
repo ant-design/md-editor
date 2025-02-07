@@ -484,8 +484,8 @@ export function RowSideDiv(
             width: '14px',
             height:
               index === 0
-                ? tr?.getBoundingClientRect?.()?.height - 1.66 ||
-                  tr?.clientHeight - 2
+                ? tr?.getBoundingClientRect?.()?.height - 0.66 ||
+                  tr?.clientHeight - 1
                 : tr?.getBoundingClientRect?.()?.height - 0.66 ||
                   tr?.clientHeight - 1,
             ...(index === rowDomArr.length - 1 && {
