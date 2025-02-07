@@ -507,6 +507,29 @@ export const Table = observer((props: RenderElementProps) => {
     [store.tableCellNode, store.editor, setState, isShowBar],
   );
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!tableRef.current) return;
+
+      const isInsideScrollbar = () => {
+        if (!overflowShadowContainerRef.current) return false;
+        return overflowShadowContainerRef.current.contains(
+          event.target as Node,
+        );
+      };
+
+      if (isInsideScrollbar()) {
+        return;
+      }
+      setIsShowBar(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [tableRef, store.editor, isShowBar]);
+
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   useEffect(() => {
@@ -549,7 +572,11 @@ export const Table = observer((props: RenderElementProps) => {
     });
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
   }, [JSON.stringify(selCells)]);
-
+  useEffect(() => {
+    if (!isShowBar) {
+      setActiveDeleteBtn((prev) => prev + ' ');
+    }
+  }, [isShowBar]);
   return useMemo(() => {
     return (
       <ConfigProvider
@@ -658,7 +685,7 @@ export const Table = observer((props: RenderElementProps) => {
             <table
               className="md-editor-table"
               style={{
-                marginTop: '1em',
+                marginTop: '16px',
                 borderCollapse: 'separate',
                 borderSpacing: 0,
               }}
