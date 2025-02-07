@@ -293,6 +293,31 @@ export function throttle(fn: any, wait: number) {
   return runFn;
 }
 
+export const debugLog = (path: string, ...msg: any[]) => {
+  if (typeof window === 'undefined') return;
+  //@ts-expect-error
+  if (window?.debug) {
+    console.log(`debug「${path}」--->`, ...msg);
+  }
+};
+
+/**
+ * Markdown 编辑器事件常量对象
+ * @constant
+ * @description 包含编辑器的主要事件名称
+ * @property {string} SELECTIONCHANGE - 当编辑器选区发生变化时触发的事件名
+ * @property {string} FOCUS - 当编辑器获得焦点时触发的事件名
+ * @property {string} BLUR - 当编辑器失去焦点时触发的事件名
+ */
+export const MARKDOWN_EDITOR_EVENTS = {
+  // 编辑器选区发生变化时触发的事件名
+  SELECTIONCHANGE: 'md-editor-selectionchange',
+  // 编辑器获得焦点时触发的事件名
+  FOCUS: 'md-editor-focus',
+  // 编辑器失去焦点时触发的事件名
+  BLUR: 'md-editor-blur',
+};
+
 export * from './editorUtils';
 export * from './keyboard';
 export * from './media';

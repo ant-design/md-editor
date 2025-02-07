@@ -1,9 +1,9 @@
-import { Anchor } from 'antd';
+import { Anchor, AnchorProps } from 'antd';
 import { nanoid } from 'nanoid';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { Node } from 'slate';
-import { useDebounce, useGetSetState } from '../../index';
+import { Elements, useDebounce, useGetSetState } from '../../index';
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
 
@@ -78,10 +78,15 @@ export const schemaToHeading = (schema: any) => {
   }));
 };
 
-/**
- * 配置次级标题的锚点
- */
-export const TocHeading = ({ schema }: { schema: any }) => {
+interface TocHeadingProps {
+  schema: Elements[];
+  anchorProps?: AnchorProps;
+}
+
+export const TocHeading: React.FC<TocHeadingProps> = ({
+  schema,
+  anchorProps,
+}) => {
   const { store, markdownEditorRef } = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],
@@ -156,6 +161,7 @@ export const TocHeading = ({ schema }: { schema: any }) => {
         minWidth: 200,
       }}
       offsetTop={64}
+      {...anchorProps}
       items={buildTree(state().headings).children?.map((h: any) => ({
         id: h.id,
         key: h.key,

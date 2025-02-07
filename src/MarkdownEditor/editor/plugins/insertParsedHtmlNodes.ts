@@ -3,7 +3,7 @@
 import { message } from 'antd';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { EditorUtils } from '../utils';
+import { debugLog, EditorUtils } from '../utils';
 import { docxDeserializer } from '../utils/docx/docxDeserializer';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 
@@ -202,6 +202,11 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
   }
 };
 
+export const htmlToFragmentList = (html: string, rtl: string) => {
+  let fragmentList = docxDeserializer(rtl, html.trim());
+  return fragmentList;
+};
+
 /**
  * 转化 html 到 slate
  * @param editor
@@ -219,7 +224,7 @@ export const insertParsedHtmlNodes = async (
   ) {
     return false;
   }
-
+  console.log('html', html, rtl);
   const hideLoading = message.loading('parsing...', 0);
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
@@ -231,7 +236,11 @@ export const insertParsedHtmlNodes = async (
 
   fragmentList = fragmentList
     .filter((item) => {
-      if (item.type === 'p' && !Node.string(item).trim()) {
+      if (
+        item.type === 'paragraph' &&
+        !Node.string(item).trim() &&
+        !item?.children?.at(0)?.type
+      ) {
         return false;
       }
       return true;
@@ -253,7 +262,7 @@ export const insertParsedHtmlNodes = async (
           ],
         };
       }
-      if (fragment.type === 'p' && fragment.children.length === 1) {
+      if (fragment.type === '"paragraph"' && fragment.children.length === 1) {
         return {
           type: 'paragraph',
           children: fragment.children,
@@ -261,6 +270,8 @@ export const insertParsedHtmlNodes = async (
       }
       return fragment;
     });
+
+  debugLog('wordFragmentList', fragmentList);
 
   hideLoading();
 

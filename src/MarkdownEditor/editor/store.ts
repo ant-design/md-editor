@@ -39,6 +39,7 @@ export const EditorStoreContext = createContext<{
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >;
+  markdownContainerRef: React.MutableRefObject<HTMLDivElement | null>;
 } | null>(null);
 
 export const useEditorStore = () => {
