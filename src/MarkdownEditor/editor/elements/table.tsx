@@ -685,7 +685,7 @@ export const Table = observer((props: RenderElementProps) => {
             <table
               className="md-editor-table"
               style={{
-                marginTop: '16px',
+                marginTop: '1em',
                 borderCollapse: 'separate',
                 borderSpacing: 0,
               }}
