@@ -61,7 +61,12 @@ export function findPointLeftTop(entry: NodeEntry, editor: Editor) {
   }
 }
 
-const calcCoveredCells = (store, table, startPath, endPath): any[] => {
+const calcCoveredCells = (
+  store: EditorStore,
+  table: any[],
+  startPath: any[],
+  endPath: any[],
+): any[] => {
   let cells: NodeEntry[] = [];
   const totalCellsGenerator: any = Editor.nodes(store.editor, {
     at: table[1],

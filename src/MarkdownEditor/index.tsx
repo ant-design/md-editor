@@ -18,16 +18,16 @@ import {
   useSystemKeyboard,
 } from './editor/utils/keyboard';
 
-import { ConfigProvider } from 'antd';
+import { AnchorProps, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { Subject } from 'rxjs';
-import { createEditor, Selection } from 'slate';
-import { withHistory } from 'slate-history';
+import { BaseEditor, createEditor, Selection } from 'slate';
+import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
 import { MEditor } from './editor/Editor';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
-import { withReact } from './editor/slate-react';
+import { ReactEditor, withReact } from './editor/slate-react';
 import {
   InsertAutocomplete,
   InsertAutocompleteProps,
@@ -100,6 +100,10 @@ export type IEditor = {
 export interface MarkdownEditorInstance {
   range?: Range;
   store: EditorStore;
+  markdownContainerRef: React.MutableRefObject<HTMLDivElement | null>;
+  markdownEditorRef: React.MutableRefObject<
+    BaseEditor & ReactEditor & HistoryEditor
+  >;
 }
 
 /**
@@ -117,6 +121,8 @@ export type MarkdownEditorProps = {
   codeProps?: {
     Languages?: string[];
   };
+
+  anchorProps?: AnchorProps;
   /**
    * 配置图片数据
    */
@@ -209,6 +215,20 @@ export type MarkdownEditorProps = {
    */
   titlePlaceholderContent?: string;
 
+  /**
+   * 评论配置
+   * @param enable 是否开启评论功能
+   * @param onSubmit 提交评论的回调
+   * @param commentList 评论列表
+   * @param deleteConfirmText 删除评论的确认文本
+   * @param loadMentions 加载评论的回调
+   * @param mentionsPlaceholder 提及的 placeholder
+   * @param editorRender 编辑器模式渲染
+   * @param previewRender 预览渲染
+   * @param onDelete 删除评论的回调
+   * @param listItemRender 评论列表渲染
+   * @returns
+   */
   comment?: {
     enable?: boolean;
     onSubmit?: (id: string, comment: CommentDataType) => void;
@@ -255,8 +275,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     height,
     ...rest
   } = props;
-  const [mount, setMount] = useState(false);
+  // 是否挂载
+  const [editorMountStatus, setMountedStatus] = useState(false);
 
+  // 键盘事件
   const keyTask$ = useMemo(
     () =>
       new Subject<{
@@ -266,10 +288,14 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     [],
   );
 
+  // markdown 编辑器实例
   const markdownEditorRef = useRef(
     withMarkdown(withReact(withHistory(createEditor()))),
   );
 
+  const markdownContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // 错误捕获
   useEffect(() => {
     withErrorReporting(markdownEditorRef.current);
   }, []);
@@ -307,6 +333,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     return observable(
       {
         store,
+        markdownContainerRef,
+        markdownEditorRef,
       } as MarkdownEditorInstance,
       { range: false },
     );
@@ -328,10 +356,17 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     });
   }, []);
 
+  // 初始化键盘事件
   useSystemKeyboard(keyTask$, instance.store, props);
 
   // 导入外部 hooks
-  useImperativeHandle(editorRef, () => instance, [instance]);
+  useImperativeHandle(editorRef, () => {
+    return {
+      store: instance.store,
+      markdownContainerRef,
+      markdownEditorRef,
+    };
+  }, [instance, editorMountStatus]);
 
   // 初始化 readonly
   useEffect(() => {
@@ -339,11 +374,15 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   }, [readonly]);
 
   const context = useContext(ConfigProvider.ConfigContext);
+  // ---- css style ----
   const baseClassName = context.getPrefixCls(`md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
+  // --- css style end ---
 
+  // 评论列表
   const [showCommentList, setShowComment] = useState<CommentDataType[]>([]);
 
+  // schema 数据
   const [schema, setSchema] = useState<Elements[]>(initSchemaValue);
 
   return wrapSSR(
@@ -357,6 +396,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
         readonly: props.readonly ?? false,
         editorProps: props || {},
         markdownEditorRef,
+        markdownContainerRef,
       }}
     >
       <div
@@ -413,8 +453,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             ...contentStyle,
           }}
           ref={(dom) => {
+            markdownContainerRef.current = dom;
             instance.store.setState((state) => (state.container = dom));
-            setMount(true);
+            setMountedStatus(true);
           }}
         >
           <MEditor
@@ -435,14 +476,14 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ) : (
             <FloatBar readonly={false} />
           )}
-          {mount && toc !== false && instance.store?.container ? (
+          {editorMountStatus && toc !== false && instance.store?.container ? (
             showCommentList?.length ? (
               <CommentList
                 commentList={showCommentList}
                 comment={props.comment}
               />
             ) : (
-              <TocHeading schema={schema} />
+              <TocHeading schema={schema} anchorProps={props.anchorProps} />
             )
           ) : null}
         </div>

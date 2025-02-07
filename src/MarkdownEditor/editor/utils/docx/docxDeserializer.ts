@@ -8,7 +8,7 @@ export const docxDeserializer = (rtf: string, html: string): any[] => {
   const imageTags = imagePastingListener(rtf, html);
   if (html) {
     const parsed_html = new DOMParser().parseFromString(html, 'text/html');
-    const fragment = deserialize(parsed_html.body, imageTags);
+    const fragment = deserialize(parsed_html.body, imageTags || []);
     return fragment;
   }
   return [];

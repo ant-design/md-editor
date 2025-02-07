@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { CardNode } from '../../../el';
 import { ELEMENT_TAGS } from '../../plugins/insertParsedHtmlNodes';
 
 export const TEXT_TAGS = {
@@ -107,12 +108,17 @@ export const makeDeserializer = (jsx: any) => {
         const src = el.getAttribute('src');
         if (imageTags[src]) {
           el.setAttribute('src', imageTags[src]);
-          children = [];
+          children = [
+            {
+              text: '',
+            },
+          ];
         }
         const attrs = ELEMENT_TAGS[nodeName as keyof typeof ELEMENT_TAGS](
           el as any,
         );
-        return jsx('element', attrs, children);
+
+        return jsx('element', attrs, (attrs as CardNode)?.children || children);
       }
       if (nodeName === 'H3' || nodeName === 'H2' || nodeName === 'H1') {
         return jsx(
