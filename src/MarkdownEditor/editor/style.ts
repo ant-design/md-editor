@@ -102,35 +102,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&:last-child': {
         marginBottom: 0,
       },
-      table: {
-        minWidth: '100%',
-        position: 'relative',
-        borderCollapse: 'collapse',
-        whiteSpace: 'nowrap',
-        borderSpacing: '0',
-        display: 'block',
-        width: 'max-content',
-        maxWidth: '100%',
-        overflow: 'auto',
-        fontVariant: 'tabular-nums',
-        th: {
-          textWrap: 'nowrap',
-          verticalAlign: 'top',
-          padding: '12px 20px',
-          textAlign: 'left',
-          lineHeight: 1,
-        },
-        td: {
-          textWrap: 'nowrap',
-          verticalAlign: 'top',
-          padding: '7px 20px',
-          textAlign: 'left',
-          lineHeight: 1,
-        },
-        'tr:first-child': {
-          borderBottom: '1px solid #e8e8e8',
-        },
-      },
       'pre,code,kbd,samp': {
         marginTop: '0',
         marginBottom: '0',
@@ -269,27 +240,6 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '[data-be="code"]': {
         marginBottom: '12px',
-      },
-      [`${token.componentCls}-table`]: {
-        'th,td': {
-          padding: '8px 16px',
-          textAlign: 'left',
-          borderBottom: '1px solid rgb(209 213 219 / 0.8)',
-          borderRight: '1px solid rgb(209 213 219 / 0.8)',
-        },
-        'th:last-child,td:last-child': {
-          borderRight: 'none',
-        },
-        'th:last-child': {
-          borderTopRightRadius: '0.5em',
-        },
-        'th:first-child': {
-          borderTopLeftRadius: '0.5em',
-        },
-        'tr:last-child th,tr:last-child td': {
-          borderBottom: 'none',
-        },
-        th: { fontWeight: 500, backgroundColor: 'rgb(229 231 235 / 0.5)' },
       },
       [`${token.componentCls}-description-table`]: {
         display: 'table',

@@ -17,6 +17,16 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
+      style={{ padding: 0 }}
+      contentStyle={{
+        padding: 0,
+        margin: 0,
+        paddingLeft: 0,
+      }}
+      tableConfig={{
+        minColumn: 30,
+        minRows: 30,
+      }}
       initValue={defaultValue}
     />
   );

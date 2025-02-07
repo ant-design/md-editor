@@ -27,7 +27,7 @@ import { List, ListItem } from './list';
 import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
-import { Table, TableCell } from './table';
+import { Table, TableCell } from './Table/index';
 
 const dragStart = (e: React.DragEvent) => {
   e.preventDefault();

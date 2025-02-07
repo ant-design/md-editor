@@ -197,6 +197,7 @@ export type BreakNode<T = Record<string, any>> = {
   contextProps?: T;
   otherProps?: T;
   type: 'break';
+  children: BaseElement['children'];
 };
 
 export type MediaNode<T = Record<string, any>> = {
@@ -211,6 +212,7 @@ export type MediaNode<T = Record<string, any>> = {
   docId?: string;
   hash?: string;
   h?: number;
+  children: BaseElement['children'];
   align?: 'left' | 'right';
   mediaType?: string;
 };
@@ -225,6 +227,7 @@ export type LinkCardNode<T = Record<string, any>> = {
   title?: string;
   name?: string;
   alt: string;
+  children: BaseElement['children'];
 };
 
 export type AttachNode<T = Record<string, any>> = {
@@ -234,6 +237,7 @@ export type AttachNode<T = Record<string, any>> = {
   name: string;
   size: number;
   url: string;
+  children: BaseElement['children'];
 };
 
 export type SchemaNode<T = Record<string, any>> = {

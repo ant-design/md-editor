@@ -235,15 +235,16 @@
                 </span>
               </span>
               <div
+                class="ant-md-editor-content-table-container"
                 data-be="table"
                 data-slate-node="element"
-                style="display: flex; gap: 1px; max-width: 100%; min-width: 0; width: 100%; overflow: hidden; position: relative; margin-bottom: 12px;"
+                tabindex="0"
               >
                 <div
                   class="ant-md-editor-drag-el"
                 />
                 <div
-                  class="ant-md-editor-table ant-md-editor-content-table "
+                  class="ant-md-editor-content-table"
                   style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
                 >
                   <div
@@ -264,47 +265,110 @@
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -1.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          1
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          2
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          3
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          4
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          5
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          6
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          7
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          8
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          9
+                        </div>
+                      </div>
                     </div>
                     <div
                       class="col-div-bar-inner ignore-toggle-readonly"
@@ -315,73 +379,161 @@
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          A
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          B
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          C
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          D
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          E
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          F
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          G
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          H
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          I
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          J
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          K
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          L
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          M
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <table
-                    class="md-editor-table"
-                    style="margin-top: 1em; border-collapse: separate; border-spacing: 0;"
-                  >
+                  <table>
                     <tbody
                       data-slate-node="element"
                     >
@@ -6357,15 +6509,16 @@
                 </span>
               </span>
               <div
+                class="ant-md-editor-content-table-container"
                 data-be="table"
                 data-slate-node="element"
-                style="display: flex; gap: 1px; max-width: 100%; min-width: 0; width: 100%; overflow: hidden; position: relative; margin-bottom: 12px;"
+                tabindex="0"
               >
                 <div
                   class="ant-md-editor-drag-el"
                 />
                 <div
-                  class="ant-md-editor-table ant-md-editor-content-table "
+                  class="ant-md-editor-content-table"
                   style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
                 >
                   <div
@@ -6386,47 +6539,110 @@
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -1.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          1
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          2
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          3
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          4
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          5
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          6
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          7
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          8
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: relative; width: 14px; height: -0.66px; border-bottom-left-radius: 0.5em;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          9
+                        </div>
+                      </div>
                     </div>
                     <div
                       class="col-div-bar-inner ignore-toggle-readonly"
@@ -6437,38 +6653,77 @@
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          A
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          B
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          C
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          D
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          E
+                        </div>
+                      </div>
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
                         style="position: absolute; top: 0px; left: -59px; width: 0px; height: 0.9em; z-index: 101; border-top-right-radius: 0.5em;"
-                      />
+                      >
+                        <div
+                          class="table-side-div-text"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                        >
+                          F
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <table
-                    class="md-editor-table"
-                    style="margin-top: 1em; border-collapse: separate; border-spacing: 0;"
-                  >
+                  <table>
                     <tbody
                       data-slate-node="element"
                     >
