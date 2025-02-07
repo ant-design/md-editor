@@ -106,11 +106,10 @@ export const Table = observer((props: RenderElementProps) => {
   }, 160);
 
   const setAligns = useCallback(
-    (type: 'left' | 'center' | 'right') => {
+    (index: number, type: 'left' | 'center' | 'right') => {
       const cell = tableCellRef.current!;
       const table = tableNodeEntry!;
       if (cell) {
-        const index = cell[1][cell[1].length - 1];
         table?.[0]?.children?.forEach((el: { children: any[] }) => {
           el.children?.forEach((cell, i) => {
             if (i === index) {
@@ -362,7 +361,7 @@ export const Table = observer((props: RenderElementProps) => {
           break;
 
         case 'setAligns':
-          setAligns(rest?.at(0));
+          setAligns(index, rest?.at(0));
           break;
       }
       updateTableDimensions.cancel();
