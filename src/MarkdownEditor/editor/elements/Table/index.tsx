@@ -1,5 +1,5 @@
 import { useDebounceFn } from '@ant-design/pro-components';
-import { ConfigProvider, Popover, Typography } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
@@ -11,8 +11,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
-import stringWidth from 'string-width';
+import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { TableCellNode, TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../../slate-react';
@@ -20,126 +19,9 @@ import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { EditorUtils } from '../../utils';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from '../renderSideDiv';
+import { useTableStyle } from './style';
 import './table.css';
-
-const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
-
-/**
- * TableCell 组件用于渲染表格单元格，根据元素的 title 属性决定渲染 <th> 或 <td>。
- *
- * @param {RenderElementProps} props - 传递给组件的属性。
- * @returns {JSX.Element} 渲染的表格单元格。
- *
- * @example
- * ```tsx
- * <TableCell element={element} attributes={attributes} children={children} />
- * ```
- *
- * @remarks
- * - 使用 `useEditorStore` 获取编辑器的 store。
- * - 使用 `useSelStatus` 获取选择状态。
- * - 使用 `useCallback` 创建上下文菜单的回调函数。
- * - 使用 `React.useMemo` 优化渲染性能。
- *
- * @internal
- * - `minWidth` 根据元素内容的字符串宽度计算，最小值为 20，最大值为 200。
- * - `textWrap` 设置为 'wrap'，`maxWidth` 设置为 '200px'。
- * - `onContextMenu` 事件处理函数根据元素是否有 title 属性传递不同的参数。
- */
-export function TableCell(props: RenderElementProps) {
-  const { store, readonly } = useEditorStore();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_] = useSelStatus(props.element);
-
-  return React.useMemo(() => {
-    const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
-    const minWidth = Math.min(domWidth, 200);
-    const text = Node.string(props.element);
-    const align = props.element?.align;
-    const getTextAlign = (align: string | undefined) => {
-      if (align === 'left') {
-        return 'start';
-      } else if (align === 'center') {
-        return 'center';
-      } else if (align === 'right') {
-        return 'end';
-      }
-      return undefined;
-    };
-    return props.element.title ? (
-      <th {...props.attributes} data-be={'th'}>
-        <div
-          style={{
-            minWidth: minWidth,
-            textWrap: 'wrap',
-            maxWidth: '200px',
-            display: 'flex',
-            justifyContent: align
-              ? getTextAlign(align)
-              : numberValidationRegex.test(text?.replaceAll(',', ''))
-                ? 'end'
-                : 'start',
-          }}
-        >
-          {props.children}
-        </div>
-      </th>
-    ) : (
-      <td {...props.attributes} data-be={'td'} className={classNames('group')}>
-        {readonly && domWidth > 200 ? (
-          <Popover
-            title={
-              <div
-                style={{
-                  maxWidth: 400,
-                  maxHeight: 400,
-                  fontWeight: 400,
-                  fontSize: '1em',
-                  overflow: 'auto',
-                }}
-              >
-                <Typography.Text copyable={{ text: text }}>
-                  {text}
-                </Typography.Text>
-              </div>
-            }
-          >
-            <div
-              style={{
-                minWidth: minWidth,
-                maxWidth: 200,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                display: '-webkit-box',
-                WebkitBoxOrient: 'vertical',
-                WebkitLineClamp: 2,
-                maxHeight: 40,
-              }}
-            >
-              {text}
-            </div>
-          </Popover>
-        ) : (
-          <div
-            style={{
-              minWidth: minWidth,
-              textWrap: 'wrap',
-              maxWidth: '200px',
-              display: 'flex',
-              justifyContent: align
-                ? getTextAlign(align)
-                : numberValidationRegex.test(text?.replaceAll(',', ''))
-                  ? 'end'
-                  : 'start',
-            }}
-          >
-            {props.children}
-          </div>
-        )}
-      </td>
-    );
-  }, [props.element, props.element.children, store.refreshHighlight]);
-}
+export * from './TableCell';
 
 /**
  * 表格组件，使用 `observer` 包装以响应状态变化。
@@ -172,6 +54,8 @@ export const Table = observer((props: RenderElementProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const baseCls = getPrefixCls('md-editor-content-table');
+
+  const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
   const [isShowBar, setIsShowBar] = useState(false);
   const [state, setState] = useState({
@@ -558,7 +442,7 @@ export const Table = observer((props: RenderElementProps) => {
   }, [JSON.stringify(selCells)]);
 
   return useMemo(() => {
-    return (
+    return wrapSSR(
       <ConfigProvider
         getPopupContainer={() =>
           overflowShadowContainerRef?.current?.parentElement || document.body
@@ -569,26 +453,16 @@ export const Table = observer((props: RenderElementProps) => {
           data-be={'table'}
           onDragStart={store.dragStart}
           ref={overflowShadowContainerRef}
-          style={{
-            display: 'flex',
-            gap: 1,
-            maxWidth: '100%',
-            minWidth: 0,
-            width: '100%',
-            overflow: 'hidden',
-            position: 'relative',
-            marginBottom: 12,
-          }}
+          className={classNames(`${baseCls}-container`, hashId)}
           onMouseUp={handleClickTable}
         >
           <div className="ant-md-editor-drag-el">
             <DragHandle />
           </div>
           <div
-            className={classNames(baseCls, {
+            className={classNames(baseCls, hashId, {
               [`${baseCls}-selected`]: isSel,
               [`${baseCls}-show-bar`]: isShowBar,
-
               'show-bar': isShowBar,
             })}
             onClick={() => {
@@ -665,20 +539,12 @@ export const Table = observer((props: RenderElementProps) => {
                 setSelCells={setSelCells}
               />
             </div>
-            <table
-              className="md-editor-table"
-              style={{
-                marginTop: '1em',
-                borderCollapse: 'separate',
-                borderSpacing: 0,
-              }}
-              ref={tableTargetRef}
-            >
+            <table ref={tableTargetRef}>
               <tbody data-slate-node="element">{props.children}</tbody>
             </table>
           </div>
         </div>
-      </ConfigProvider>
+      </ConfigProvider>,
     );
   }, [
     props.element.children,
