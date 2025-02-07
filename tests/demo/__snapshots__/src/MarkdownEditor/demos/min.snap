@@ -243,7 +243,7 @@
                   class="ant-md-editor-drag-el"
                 />
                 <div
-                  class="ant-md-editor-table ant-md-editor-content-table "
+                  class="ant-md-editor-content-table"
                   style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
                 >
                   <div
@@ -6365,7 +6365,7 @@
                   class="ant-md-editor-drag-el"
                 />
                 <div
-                  class="ant-md-editor-table ant-md-editor-content-table "
+                  class="ant-md-editor-content-table"
                   style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
                 >
                   <div
