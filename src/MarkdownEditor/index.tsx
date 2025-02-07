@@ -255,6 +255,16 @@ export type MarkdownEditorProps = {
       props: ElementProps<ListItemNode>,
     ) => React.ReactNode;
   };
+
+  /**
+   * 表格配置
+   * @param minRows 最小行数
+   * @param minColumn 最小列数
+   */
+  tableConfig?: {
+    minRows?: number;
+    minColumn?: number;
+  };
 };
 
 /**

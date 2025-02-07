@@ -387,10 +387,6 @@ export const Table = observer((props: RenderElementProps) => {
       const el = store.tableCellNode;
       if (el) {
         tableCellRef.current = el;
-        setState((prev) => ({
-          ...prev,
-          align: el[0].align,
-        }));
       }
       setIsShowBar(true);
     },
@@ -454,6 +450,11 @@ export const Table = observer((props: RenderElementProps) => {
           ref={overflowShadowContainerRef}
           className={classNames(`${baseCls}-container`, hashId)}
           onMouseUp={handleClickTable}
+          tabIndex={0}
+          onBlur={() => {
+            setIsShowBar(false);
+            setSelCells([]);
+          }}
         >
           <div className="ant-md-editor-drag-el">
             <DragHandle />
