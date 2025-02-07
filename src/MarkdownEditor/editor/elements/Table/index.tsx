@@ -18,7 +18,7 @@ import { ReactEditor, RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { EditorUtils } from '../../utils';
-import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from '../renderSideDiv';
+import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
 export * from './TableCell';
@@ -85,6 +85,29 @@ export const Table = observer((props: RenderElementProps) => {
     if (markdownEditorRef.current.children?.length === 0) return;
     return Editor.node(markdownEditorRef.current, tablePath);
   }, [tablePath]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!tableRef.current) return;
+
+      const isInsideScrollbar = () => {
+        if (!overflowShadowContainerRef.current) return false;
+        return overflowShadowContainerRef.current.contains(
+          event.target as Node,
+        );
+      };
+
+      if (isInsideScrollbar()) {
+        return;
+      }
+      setIsShowBar(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [tableRef, store.editor, isShowBar]);
 
   // 更新表格的行列数
   const updateTableDimensions = useDebounceFn(async () => {

@@ -20,10 +20,10 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import { Editor, Path } from 'slate';
-import { addSelection } from '../plugins/selection';
-import { ReactEditor } from '../slate-react';
-import { useEditorStore } from '../store';
-import { useStyle } from './tableAttrStyle';
+import { addSelection } from '../../plugins/selection';
+import { ReactEditor } from '../../slate-react';
+import { useEditorStore } from '../../store';
+import { useStyle } from '../tableAttrStyle';
 
 type ActivationType = 'none' | 'half' | 'full';
 
@@ -229,12 +229,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             transform: 'translate(-50%, -50%)',
             zIndex: 102,
             fontSize: '0.8em',
-            color:
-              activationArr[index] === 'full'
-                ? '#ffffff'
-                : activationArr[index] === 'half'
-                  ? '#ffffff'
-                  : '#000000',
+            color: activationArr[index] === 'full' ? '#ffffff' : '#000000',
           }}
         >
           {displayText}
@@ -471,7 +466,7 @@ export function RowSideDiv(
         position: 'absolute',
         display: 'block',
         zIndex: 200,
-        width: '0.9em',
+        width: '14.4px',
         marginTop: '16px',
         marginLeft: '-16px',
       }}
@@ -489,8 +484,8 @@ export function RowSideDiv(
             width: '14px',
             height:
               index === 0
-                ? tr?.getBoundingClientRect?.()?.height - 1.66 ||
-                  tr?.clientHeight - 2
+                ? tr?.getBoundingClientRect?.()?.height - 0.66 ||
+                  tr?.clientHeight - 1
                 : tr?.getBoundingClientRect?.()?.height - 0.66 ||
                   tr?.clientHeight - 1,
             ...(index === rowDomArr.length - 1 && {
@@ -565,6 +560,24 @@ export function ColSideDiv(props: ColSideDivProps) {
     setActiveDeleteBtn,
   } = props;
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
+  const { getPopupContainer } = useContext(ConfigProvider.ConfigContext);
+  const container = getPopupContainer?.(document.body) || document.body;
+
+  let { left: containerLeft } = container.getBoundingClientRect();
+  const firstChild = container.firstElementChild;
+  if (firstChild) {
+    const firstChildStyle = window.getComputedStyle(firstChild);
+    if (firstChildStyle.display === 'block') {
+      containerLeft += 5;
+    }
+  }
+  // 获取容器样式
+  const styles = window.getComputedStyle(container);
+
+  const paddingLeft = parseFloat(styles.paddingLeft);
+
+  const marginLeft = parseFloat(styles.marginLeft);
+
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
   const [colDomArr, setColDomArr] = useState(
@@ -643,6 +656,7 @@ export function ColSideDiv(props: ColSideDivProps) {
     observer.observe(target);
     return () => observer.unobserve(target);
   }, [tableRef]);
+
   return (
     <div
       ref={colDivBarInnerRef}
@@ -652,7 +666,7 @@ export function ColSideDiv(props: ColSideDivProps) {
         display: 'flex',
         width: tableWidth + 0.5,
         overflow: 'hidden',
-        height: '1rem',
+        height: '15px',
         zIndex: 100,
         transform: `translateX(${scrollOffset / 9999}px)`,
       }}
@@ -671,9 +685,10 @@ export function ColSideDiv(props: ColSideDivProps) {
             divStyle={{
               position: 'absolute',
               top: 0,
-              left: leftPosition - 59,
+              left:
+                leftPosition - containerLeft - marginLeft - paddingLeft - 21.25,
               width: colRect?.width || td?.clientWidth,
-              height: '0.9em',
+              height: '15px',
               zIndex: 101,
               ...(index === colDomArr.length - 1 && {
                 borderTopRightRadius: '0.5em',
