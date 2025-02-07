@@ -946,6 +946,7 @@
                     class="ant-md-editor-content-table-container"
                     data-be="table"
                     data-slate-node="element"
+                    tabindex="0"
                   >
                     <div
                       class="ant-md-editor-drag-el"
@@ -13332,6 +13333,7 @@
                     class="ant-md-editor-content-table-container"
                     data-be="table"
                     data-slate-node="element"
+                    tabindex="0"
                   >
                     <div
                       class="ant-md-editor-drag-el"
