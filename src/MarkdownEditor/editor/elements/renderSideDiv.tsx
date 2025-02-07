@@ -115,6 +115,14 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
   } = props;
 
   const isColumn = type === 'column';
+
+  let displayText = '';
+  if (isColumn) {
+    displayText = String.fromCharCode(65 + index);
+  } else {
+    displayText = (index + 1).toString();
+  }
+
   const { getPopupContainer, getPrefixCls } = useContext(
     ConfigProvider.ConfigContext,
   );
@@ -211,7 +219,27 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             addSelection(store, tableEntry, startPath, endPath, setSelCells);
           }
         }}
-      />
+      >
+        <div
+          className="table-side-div-text"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 102,
+            fontSize: '0.8em',
+            color:
+              activationArr[index] === 'full'
+                ? '#ffffff'
+                : activationArr[index] === 'half'
+                  ? '#ffffff'
+                  : '#000000',
+          }}
+        >
+          {displayText}
+        </div>
+      </div>
       {ReactDOM.createPortal(
         activeDeleteBtn === `${type}-${index}` ? (
           <div
