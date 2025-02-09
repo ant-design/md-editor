@@ -20,7 +20,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
   ]);
 
   return React.useMemo(() => {
-    const str = Node.string(props.element);
+    const str = Node.string(props.element).trim();
     return (
       <div
         {...props.attributes}
@@ -32,7 +32,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         onDragStart={store.dragStart}
         data-empty={!str && selected ? 'true' : undefined}
         style={{
-          display: str || props.children?.at(0).type ? undefined : 'none',
+          display: !!str || props.children?.at(0).type ? undefined : 'none',
         }}
       >
         <DragHandle />
