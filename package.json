@@ -45,12 +45,12 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.23.0",
-    "@ant-design/icons": "^5.6.0",
+    "@ant-design/icons": "^5.6.1",
     "@ant-design/pro-components": "^2.8.4",
     "@antv/g2": "^5.2.10",
     "@babel/runtime": "^7.26.7",
     "@juggle/resize-observer": "^3.4.0",
-    "antd": "^5.23.3",
+    "antd": "^5.23.4",
     "blob-util": "^2.0.2",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
@@ -64,7 +64,7 @@
     "is-plain-object": "^5.0.0",
     "json5": "^2.2.3",
     "lodash": "^4.17.21",
-    "mobx": "^6.13.5",
+    "mobx": "^6.13.6",
     "mobx-react": "^9.2.0",
     "motion": "^11.18.2",
     "nanoid": "^5.0.9",
@@ -106,7 +106,7 @@
     "@types/uuid": "^10.0.0",
     "@umijs/lint": "^4.4.4",
     "@vitejs/plugin-react": "^4.3.4",
-    "@vitest/coverage-istanbul": "^2.1.8",
+    "@vitest/coverage-istanbul": "^2.1.9",
     "dumi": "^2.4.17",
     "eslint": "^8.57.1",
     "father": "^4.5.2",
@@ -122,7 +122,7 @@
     "react-dom": "^18.3.1",
     "stylelint": "^14.16.1",
     "typescript": "^5.7.3",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.9"
   },
   "peerDependencies": {
     "react": ">=16.9.0",
