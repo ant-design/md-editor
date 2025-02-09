@@ -50,14 +50,16 @@ export * from './TableCell';
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store, markdownEditorRef } = useEditorStore();
+  const { store, markdownEditorRef, editorProps } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const baseCls = getPrefixCls('md-editor-content-table');
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
-  const [isShowBar, setIsShowBar] = useState(false);
+  const [isShowBar, setIsShowBar] = useState(
+    editorProps.tableConfig?.excelMode || false,
+  );
   const [state, setState] = useState({
     top: 0,
     left: 0,
@@ -100,6 +102,7 @@ export const Table = observer((props: RenderElementProps) => {
       if (isInsideScrollbar()) {
         return;
       }
+      if (editorProps.tableConfig?.excelMode) return;
       setIsShowBar(false);
     };
 
@@ -405,6 +408,8 @@ export const Table = observer((props: RenderElementProps) => {
 
   const handleClickTable = useCallback(
     (e: any) => {
+      if (editorProps.tableConfig?.excelMode) {
+      }
       e.preventDefault();
       e.stopPropagation();
       const el = store.tableCellNode;
@@ -481,6 +486,7 @@ export const Table = observer((props: RenderElementProps) => {
           onMouseUp={handleClickTable}
           tabIndex={0}
           onBlur={() => {
+            if (editorProps.tableConfig?.excelMode) return;
             setIsShowBar(false);
             setSelCells([]);
           }}

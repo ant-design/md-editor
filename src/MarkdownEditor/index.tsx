@@ -264,6 +264,7 @@ export type MarkdownEditorProps = {
   tableConfig?: {
     minRows?: number;
     minColumn?: number;
+    excelMode?: boolean;
   };
 };
 
