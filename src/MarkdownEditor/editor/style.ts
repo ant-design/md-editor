@@ -185,6 +185,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '[data-be]:not(p)': {
         position: 'relative',
       },
+      '[data-be="list"]': {
+        marginTop: '0.5em',
+        marginBottom: '0.5em',
+      },
       '[data-be="chart"]': {
         marginTop: '0.5em',
         marginBottom: '0.5em',
