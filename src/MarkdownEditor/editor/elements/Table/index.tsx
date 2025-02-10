@@ -498,6 +498,7 @@ export const Table = observer((props: RenderElementProps) => {
             className={classNames(baseCls, hashId, {
               [`${baseCls}-selected`]: isSel,
               [`${baseCls}-show-bar`]: isShowBar,
+              [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
               'show-bar': isShowBar,
             })}
             onClick={() => {
