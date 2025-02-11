@@ -876,6 +876,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -902,6 +903,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -928,6 +930,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -954,6 +957,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -980,6 +984,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1006,6 +1011,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1032,6 +1038,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1058,6 +1065,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1084,6 +1092,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1110,6 +1119,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1136,6 +1146,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1162,6 +1173,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1188,6 +1200,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1218,6 +1231,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1244,6 +1258,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1270,6 +1285,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1296,6 +1312,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1322,6 +1339,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1348,6 +1366,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1374,6 +1393,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1400,6 +1420,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1426,6 +1447,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1452,6 +1474,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1478,6 +1501,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1504,6 +1528,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1530,6 +1555,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1560,6 +1586,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1586,6 +1613,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1612,6 +1640,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1638,6 +1667,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1664,6 +1694,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1690,6 +1721,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1716,6 +1748,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1742,6 +1775,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1768,6 +1802,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1794,6 +1829,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1820,6 +1856,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1846,6 +1883,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1872,6 +1910,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1902,6 +1941,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 116px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1928,6 +1968,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1954,6 +1995,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1980,6 +2022,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2006,6 +2049,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2032,6 +2076,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2058,6 +2103,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2084,6 +2130,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2110,6 +2157,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2136,6 +2184,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2162,6 +2211,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2188,6 +2238,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2214,6 +2265,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2244,6 +2296,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2270,6 +2323,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2296,6 +2350,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2322,6 +2377,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2348,6 +2404,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2374,6 +2431,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2400,6 +2458,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2426,6 +2485,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2452,6 +2512,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2478,6 +2539,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2504,6 +2566,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2530,6 +2593,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2556,6 +2620,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2586,6 +2651,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2612,6 +2678,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2638,6 +2705,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2664,6 +2732,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2690,6 +2759,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2716,6 +2786,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2742,6 +2813,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2768,6 +2840,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2794,6 +2867,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2820,6 +2894,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2846,6 +2921,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2872,6 +2948,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2898,6 +2975,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2928,6 +3006,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2954,6 +3033,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2980,6 +3060,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3006,6 +3087,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3032,6 +3114,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3058,6 +3141,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3084,6 +3168,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3110,6 +3195,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3136,6 +3222,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3162,6 +3249,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3188,6 +3276,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3214,6 +3303,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3240,6 +3330,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3270,6 +3361,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -3296,6 +3388,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3322,6 +3415,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3348,6 +3442,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3374,6 +3469,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3400,6 +3496,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3426,6 +3523,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3452,6 +3550,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3478,6 +3577,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3504,6 +3604,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 44px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3530,6 +3631,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3556,6 +3658,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3582,6 +3685,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3784,6 +3888,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -3839,6 +3944,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3894,6 +4000,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3949,6 +4056,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4004,6 +4112,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4059,6 +4168,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4114,6 +4224,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4169,6 +4280,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4224,6 +4336,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4279,6 +4392,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4334,6 +4448,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4389,6 +4504,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4444,6 +4560,7 @@
                         class="group"
                         data-be="td"
                         data-slate-node="element"
+                        style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                       >
                         <div
                           style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -6894,6 +7011,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -6920,6 +7038,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -6946,6 +7065,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -6972,6 +7092,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -6998,6 +7119,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7024,6 +7146,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7054,6 +7177,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -7080,6 +7204,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7106,6 +7231,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7132,6 +7258,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7158,6 +7285,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7184,6 +7312,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7214,6 +7343,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -7240,6 +7370,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7266,6 +7397,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7292,6 +7424,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7318,6 +7451,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7344,6 +7478,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7374,6 +7509,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 116px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -7400,6 +7536,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7426,6 +7563,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7452,6 +7590,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7478,6 +7617,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7504,6 +7644,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7534,6 +7675,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -7560,6 +7702,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7586,6 +7729,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7612,6 +7756,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7638,6 +7783,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7664,6 +7810,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7694,6 +7841,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -7720,6 +7868,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7746,6 +7895,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7772,6 +7922,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7798,6 +7949,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7824,6 +7976,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7854,6 +8007,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -7880,6 +8034,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7906,6 +8061,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7932,6 +8088,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7958,6 +8115,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -7984,6 +8142,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -8014,6 +8173,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -8040,6 +8200,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -8066,6 +8227,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -8092,6 +8254,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -8118,6 +8281,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -8144,6 +8308,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
+                          style="transition: all 0.3s; user-select: auto; background-color: white; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
