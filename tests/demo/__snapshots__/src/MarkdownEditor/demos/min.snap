@@ -238,6 +238,7 @@
                 class="ant-md-editor-content-table-container"
                 data-be="table"
                 data-slate-node="element"
+                style="overflow: hidden;"
                 tabindex="0"
               >
                 <div
@@ -245,7 +246,7 @@
                 />
                 <div
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+                  style="flex: 1; min-width: 0; margin-left: 0px; margin-top: 0px; margin-right: 0px; overflow: auto;"
                 >
                   <div
                     data-slate-editor="false"
@@ -378,7 +379,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -390,7 +391,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -402,7 +403,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -414,7 +415,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -426,7 +427,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -438,7 +439,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -450,7 +451,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -462,7 +463,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -474,7 +475,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -486,7 +487,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -498,7 +499,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -510,7 +511,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -522,7 +523,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101; border-top-right-radius: 0.5em;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
                       >
                         <div
                           class="table-side-div-text"
@@ -533,7 +534,9 @@
                       </div>
                     </div>
                   </div>
-                  <table>
+                  <table
+                    class="ant-md-editor-content-table-editor-table"
+                  >
                     <tbody
                       data-slate-node="element"
                     >
@@ -6512,6 +6515,7 @@
                 class="ant-md-editor-content-table-container"
                 data-be="table"
                 data-slate-node="element"
+                style="overflow: hidden;"
                 tabindex="0"
               >
                 <div
@@ -6519,7 +6523,7 @@
                 />
                 <div
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+                  style="flex: 1; min-width: 0; margin-left: 0px; margin-top: 0px; margin-right: 0px; overflow: auto;"
                 >
                   <div
                     data-slate-editor="false"
@@ -6652,7 +6656,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -6664,7 +6668,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -6676,7 +6680,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -6688,7 +6692,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -6700,7 +6704,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -6712,7 +6716,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; width: 0px; height: 0.94em; z-index: 101; border-top-right-radius: 0.5em;"
+                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
                       >
                         <div
                           class="table-side-div-text"
@@ -6723,7 +6727,9 @@
                       </div>
                     </div>
                   </div>
-                  <table>
+                  <table
+                    class="ant-md-editor-content-table-editor-table"
+                  >
                     <tbody
                       data-slate-node="element"
                     >
