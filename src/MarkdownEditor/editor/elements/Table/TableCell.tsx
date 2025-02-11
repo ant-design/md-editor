@@ -1,8 +1,10 @@
 ﻿import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
-import { default as React, useMemo } from 'react';
-import { Node } from 'slate';
+import { default as React, useContext, useMemo } from 'react';
+import { Node, NodeEntry } from 'slate';
 import stringWidth from 'string-width';
+import { TableConnext } from '.';
+import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import './table.css';
@@ -69,7 +71,9 @@ export const TableTdCell = (
     width?: number;
   },
 ) => {
+  const [, cellPath] = useSelStatus(props.element);
   const { readonly } = useEditorStore();
+  const { selectedCell, setSelectedCell } = useContext(TableConnext);
   const { minWidth, domWidth, align, text } = props;
 
   const justifyContent = useMemo(() => {
@@ -133,9 +137,28 @@ export const TableTdCell = (
       </div>
     );
   }, [props.width, domWidth, minWidth, props.children, readonly, text]);
-
+  const isSelecting =
+    selectedCell?.at(0) && String(cellPath) === String(selectedCell?.at(0));
   return (
-    <td {...props.attributes} data-be={'td'} className={classNames('group')}>
+    <td
+      {...props.attributes}
+      data-be={'td'}
+      className={classNames('group')}
+      style={{
+        transition: 'all 0.3s',
+        backgroundColor: isSelecting ? '#f0f0f0' : 'white',
+        borderColor: isSelecting ? '#42a642' : undefined,
+        cursor: isSelecting
+          ? 'default'
+          : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
+      }}
+      onClick={() => {
+        if (readonly) {
+          return;
+        }
+        setSelectedCell([cellPath, props.element] as unknown as NodeEntry<any>);
+      }}
+    >
       {dom}
     </td>
   );

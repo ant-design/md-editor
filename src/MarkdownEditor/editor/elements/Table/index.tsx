@@ -23,6 +23,20 @@ import './table.css';
 export * from './TableCell';
 
 /**
+ * 表格上下文组件，用于在表格组件树中共享单元格选中状态
+ * @context
+ * @property {NodeEntry<TableCellNode> | null} selectedCell - 当前选中的表格单元格
+ * @property {(cell: NodeEntry<TableCellNode> | null) => void} setSelectedCell - 设置当前选中的表格单元格
+ */
+export const TableConnext = React.createContext<{
+  selectedCell: NodeEntry<TableCellNode> | null;
+  setSelectedCell: (cell: NodeEntry<TableCellNode> | null) => void;
+}>({
+  selectedCell: null,
+  setSelectedCell: () => {},
+});
+
+/**
  * 表格组件，使用 `observer` 包装以响应状态变化。
  *
  * @param {RenderElementProps} props - 渲染元素的属性。
@@ -49,6 +63,8 @@ export * from './TableCell';
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
+  const [selectedCell, setSelectedCell] =
+    useState<NodeEntry<TableCellNode> | null>(null);
   const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
@@ -439,127 +455,134 @@ export const Table = observer((props: RenderElementProps) => {
   return useMemo(
     () =>
       wrapSSR(
-        <ConfigProvider
-          getPopupContainer={() =>
-            overflowShadowContainerRef?.current?.parentElement?.parentElement ||
-            document.body
-          }
+        <TableConnext.Provider
+          value={{
+            selectedCell,
+            setSelectedCell,
+          }}
         >
-          <div
-            {...props.attributes}
-            data-be={'table'}
-            onDragStart={store.dragStart}
-            ref={(el) => {
-              //@ts-ignore
-              overflowShadowContainerRef.current = el;
-              props.attributes.ref(el);
-            }}
-            className={classNames(`${baseCls}-container`, hashId)}
-            onMouseUp={handleClickTable}
-            tabIndex={0}
-            onBlur={() => {
-              if (editorProps.tableConfig?.excelMode) return;
-              setIsShowBar(false);
-              setSelCells([]);
-            }}
-            style={{
-              overflow: readonly ? 'hidden' : undefined,
-            }}
+          <ConfigProvider
+            getPopupContainer={() =>
+              overflowShadowContainerRef?.current?.parentElement
+                ?.parentElement || document.body
+            }
           >
-            <div className="ant-md-editor-drag-el">
-              <DragHandle />
-            </div>
             <div
-              className={classNames(baseCls, hashId, {
-                [`${baseCls}-selected`]: isSel,
-                [`${baseCls}-show-bar`]: isShowBar,
-                [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
-                'show-bar': isShowBar,
-              })}
-              onClick={() => {
-                runInAction(() => {
-                  if (isSel) {
-                    store.selectTablePath = [];
-                    return;
-                  }
-                  store.selectTablePath = tablePath;
-                });
+              {...props.attributes}
+              data-be={'table'}
+              onDragStart={store.dragStart}
+              ref={(el) => {
+                //@ts-ignore
+                overflowShadowContainerRef.current = el;
+                props.attributes.ref(el);
+              }}
+              className={classNames(`${baseCls}-container`, hashId)}
+              onMouseUp={handleClickTable}
+              tabIndex={0}
+              onBlur={() => {
+                if (editorProps.tableConfig?.excelMode) return;
+                setIsShowBar(false);
+                setSelCells([]);
               }}
               style={{
-                flex: 1,
-                minWidth: 0,
-                marginLeft: !readonly ? 20 : 0,
-                marginTop: !readonly ? 4 : 0,
-                marginRight: !readonly ? 6 : 0,
-                overflow: !readonly ? undefined : 'auto',
+                overflow: readonly ? 'hidden' : undefined,
               }}
             >
-              <div
-                style={{
-                  visibility: isShowBar ? 'visible' : 'hidden',
-                  overflow: 'hidden',
-                }}
-                data-slate-editor="false"
-              >
-                <IntersectionPointDiv
-                  getTableNode={getTableNode}
-                  selCells={selCells}
-                  setSelCells={setSelCells}
-                />
-                <RowSideDiv
-                  activeDeleteBtn={activeDeleteBtn}
-                  setActiveDeleteBtn={setActiveDeleteBtn}
-                  tableRef={tableTargetRef}
-                  getTableNode={getTableNode}
-                  selCells={selCells}
-                  setSelCells={setSelCells}
-                  onDeleteRow={(index) => {
-                    runTask('removeRow', index);
-                  }}
-                  onAlignChange={(index, align) => {
-                    runTask('setAligns', index, align);
-                  }}
-                  onCreateRow={(index, direction) => {
-                    if (direction === 'after') {
-                      runTask('insertRowAfter', index);
-                    }
-                    if (direction === 'before') {
-                      runTask('insertRowBefore', index);
-                    }
-                  }}
-                />
-                <ColSideDiv
-                  onDeleteColumn={(index) => {
-                    runTask('removeCol', index);
-                  }}
-                  onAlignChange={(index, align) => {
-                    runTask('setAligns', index, align);
-                  }}
-                  onCreateColumn={(index, direction) => {
-                    if (direction === 'after') {
-                      runTask('insertColAfter', index);
-                    }
-                    if (direction === 'before') {
-                      runTask('insertColBefore', index);
-                    }
-                  }}
-                  activeDeleteBtn={activeDeleteBtn}
-                  setActiveDeleteBtn={setActiveDeleteBtn}
-                  tableRef={tableTargetRef}
-                  getTableNode={getTableNode}
-                  selCells={selCells}
-                  setSelCells={setSelCells}
-                />
+              <div className="ant-md-editor-drag-el">
+                <DragHandle />
               </div>
-              <table
-                ref={tableTargetRef}
-                className={classNames(`${baseCls}-editor-table`, hashId)}
+              <div
+                className={classNames(baseCls, hashId, {
+                  [`${baseCls}-selected`]: isSel,
+                  [`${baseCls}-show-bar`]: isShowBar,
+                  [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
+                  'show-bar': isShowBar,
+                })}
+                onClick={() => {
+                  runInAction(() => {
+                    if (isSel) {
+                      store.selectTablePath = [];
+                      return;
+                    }
+                    store.selectTablePath = tablePath;
+                  });
+                }}
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  marginLeft: !readonly ? 20 : 0,
+                  marginTop: !readonly ? 4 : 0,
+                  marginRight: !readonly ? 6 : 0,
+                  overflow: !readonly ? undefined : 'auto',
+                }}
               >
-                <tbody data-slate-node="element">{props.children}</tbody>
-              </table>
+                <div
+                  style={{
+                    visibility: isShowBar ? 'visible' : 'hidden',
+                    overflow: 'hidden',
+                  }}
+                  data-slate-editor="false"
+                >
+                  <IntersectionPointDiv
+                    getTableNode={getTableNode}
+                    selCells={selCells}
+                    setSelCells={setSelCells}
+                  />
+                  <RowSideDiv
+                    activeDeleteBtn={activeDeleteBtn}
+                    setActiveDeleteBtn={setActiveDeleteBtn}
+                    tableRef={tableTargetRef}
+                    getTableNode={getTableNode}
+                    selCells={selCells}
+                    setSelCells={setSelCells}
+                    onDeleteRow={(index) => {
+                      runTask('removeRow', index);
+                    }}
+                    onAlignChange={(index, align) => {
+                      runTask('setAligns', index, align);
+                    }}
+                    onCreateRow={(index, direction) => {
+                      if (direction === 'after') {
+                        runTask('insertRowAfter', index);
+                      }
+                      if (direction === 'before') {
+                        runTask('insertRowBefore', index);
+                      }
+                    }}
+                  />
+                  <ColSideDiv
+                    onDeleteColumn={(index) => {
+                      runTask('removeCol', index);
+                    }}
+                    onAlignChange={(index, align) => {
+                      runTask('setAligns', index, align);
+                    }}
+                    onCreateColumn={(index, direction) => {
+                      if (direction === 'after') {
+                        runTask('insertColAfter', index);
+                      }
+                      if (direction === 'before') {
+                        runTask('insertColBefore', index);
+                      }
+                    }}
+                    activeDeleteBtn={activeDeleteBtn}
+                    setActiveDeleteBtn={setActiveDeleteBtn}
+                    tableRef={tableTargetRef}
+                    getTableNode={getTableNode}
+                    selCells={selCells}
+                    setSelCells={setSelCells}
+                  />
+                </div>
+                <table
+                  ref={tableTargetRef}
+                  className={classNames(`${baseCls}-editor-table`, hashId)}
+                >
+                  <tbody data-slate-node="element">{props.children}</tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </ConfigProvider>,
+          </ConfigProvider>
+        </TableConnext.Provider>,
       ),
     [
       props.element.children,
