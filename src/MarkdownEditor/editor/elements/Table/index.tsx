@@ -50,7 +50,7 @@ export * from './TableCell';
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps) => {
-  const { store, markdownEditorRef, editorProps } = useEditorStore();
+  const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const baseCls = getPrefixCls('md-editor-content-table');
@@ -416,6 +416,7 @@ export const Table = observer((props: RenderElementProps) => {
       if (el) {
         tableCellRef.current = el;
       }
+      if (readonly) return;
       setIsShowBar(true);
     },
     [store.tableCellNode, store.editor, setState, isShowBar],
@@ -474,7 +475,8 @@ export const Table = observer((props: RenderElementProps) => {
     return wrapSSR(
       <ConfigProvider
         getPopupContainer={() =>
-          overflowShadowContainerRef?.current?.parentElement || document.body
+          overflowShadowContainerRef?.current?.parentElement?.parentElement ||
+          document.body
         }
       >
         <div
@@ -489,6 +491,9 @@ export const Table = observer((props: RenderElementProps) => {
             if (editorProps.tableConfig?.excelMode) return;
             setIsShowBar(false);
             setSelCells([]);
+          }}
+          style={{
+            overflow: readonly ? 'hidden' : undefined,
           }}
         >
           <div className="ant-md-editor-drag-el">
@@ -513,9 +518,10 @@ export const Table = observer((props: RenderElementProps) => {
             style={{
               flex: 1,
               minWidth: 0,
-              marginLeft: 20,
-              marginTop: 4,
-              marginRight: 6,
+              marginLeft: !readonly ? 20 : 0,
+              marginTop: !readonly ? 4 : 0,
+              marginRight: !readonly ? 6 : 0,
+              overflow: !readonly ? undefined : 'auto',
             }}
           >
             <div
@@ -575,7 +581,10 @@ export const Table = observer((props: RenderElementProps) => {
                 setSelCells={setSelCells}
               />
             </div>
-            <table ref={tableTargetRef}>
+            <table
+              ref={tableTargetRef}
+              className={classNames(`${baseCls}-editor-table`, hashId)}
+            >
               <tbody data-slate-node="element">{props.children}</tbody>
             </table>
           </div>

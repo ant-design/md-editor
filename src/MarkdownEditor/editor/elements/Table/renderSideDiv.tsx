@@ -244,7 +244,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
               top: overlayPos.top,
               display: 'flex',
               gap: '0.2em',
-              zIndex: 101,
+              zIndex: 200,
             }}
             className={classNames(baseCls, hashId)}
           >
@@ -274,7 +274,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -289,7 +289,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -304,7 +304,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -319,7 +319,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -334,7 +334,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -352,7 +352,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -367,7 +367,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
                 <div
                   className={classNames(`${baseCls}-item`, hashId)}
                   style={{
-                    zIndex: 101,
+                    zIndex: 100,
                   }}
                   onClick={() => {
                     const index = getIndexFromSelectedCells(selCells);
@@ -689,7 +689,7 @@ export function ColSideDiv(props: ColSideDivProps) {
                 leftPosition - containerLeft - marginLeft - paddingLeft - 21.25,
               width: colRect?.width || td?.clientWidth,
               height: '0.94em',
-              zIndex: 101,
+              zIndex: 100,
               ...(index === colDomArr.length - 1 && {
                 borderTopRightRadius: '0.5em',
               }),

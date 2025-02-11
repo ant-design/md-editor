@@ -17,8 +17,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         marginBottom: 12,
       },
-      table: {
+      '&-editor-table': {
         marginTop: '1em',
+      },
+      table: {
         borderCollapse: 'separate',
         borderSpacing: 0,
         display: 'table',
