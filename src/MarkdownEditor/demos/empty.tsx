@@ -167,6 +167,11 @@ public class HelloWorld {
 }
 \`\`\`
 
+\`\`\`python
+def hello():
+    print("Hello, World!")
+\`\`\`
+
 \`\`\`sql
 SELECT employees.name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id;
 \`\`\`
@@ -208,6 +213,7 @@ SELECT employees.name, departments.department_name FROM employees INNER JOIN dep
           }}
           onChange={(e, c) => console.log(e, c)}
           width={'60vw'}
+          readonly
           height={'500px'}
         />
       </div>
