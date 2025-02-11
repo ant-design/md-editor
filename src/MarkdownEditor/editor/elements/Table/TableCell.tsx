@@ -138,7 +138,10 @@ export const TableTdCell = (
     );
   }, [props.width, domWidth, minWidth, props.children, readonly, text]);
   const isSelecting =
-    selectedCell?.at(0) && String(cellPath) === String(selectedCell?.at(0));
+    selectedCell?.at(0) &&
+    String(cellPath) === String(selectedCell?.at(0)) &&
+    !readonly;
+
   return (
     <td
       {...props.attributes}
@@ -146,11 +149,14 @@ export const TableTdCell = (
       className={classNames('group')}
       style={{
         transition: 'all 0.3s',
+        userSelect: isSelecting ? 'none' : 'auto',
         backgroundColor: isSelecting ? '#f0f0f0' : 'white',
         borderColor: isSelecting ? '#42a642' : undefined,
         cursor: isSelecting
-          ? 'default'
-          : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
+          ? 'text'
+          : readonly
+            ? 'text'
+            : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
       }}
       onClick={() => {
         if (readonly) {
