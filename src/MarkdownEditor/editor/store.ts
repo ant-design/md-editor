@@ -354,6 +354,13 @@ export class EditorStore {
     }
 
     if (node.type === preNode.type) {
+      if (node.type === 'list-item') {
+        Transforms.removeNodes(this._editor.current, {
+          at,
+        });
+        Transforms.insertNodes(this._editor.current, node, { at });
+        return;
+      }
       Transforms.setNodes(this._editor.current, node, { at });
       if (node.text) {
         Transforms.insertText(this._editor.current, node.text, { at });
