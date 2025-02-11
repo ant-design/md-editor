@@ -109,16 +109,6 @@
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
                     <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                    </pre>
-                    <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="java"
                       data-bl-type="code"
@@ -609,91 +599,6 @@
                   <div
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
-                    <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                    </pre>
                     <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="json"
@@ -4835,13 +4740,6 @@
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
                     <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                      <div />
-                    </pre>
-                    <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="python"
                       data-bl-type="code"
@@ -5068,12 +4966,6 @@
                   <div
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
-                    <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                    </pre>
                     <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="sql"
@@ -5750,16 +5642,6 @@
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
                     <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                    </pre>
-                    <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="java"
                       data-bl-type="code"
@@ -6335,91 +6217,6 @@
                   <div
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
-                    <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                    </pre>
                     <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="json"
@@ -10646,13 +10443,6 @@
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
                     <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                      <div />
-                    </pre>
-                    <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="python"
                       data-bl-type="code"
@@ -10964,12 +10754,6 @@
                   <div
                     class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                   >
-                    <pre
-                      class="ant-md-editor-code-content-line-list select-none"
-                      contenteditable="false"
-                    >
-                      <div />
-                    </pre>
                     <pre
                       class="ant-md-editor-code-content-code-content"
                       data-bl-lang="sql"

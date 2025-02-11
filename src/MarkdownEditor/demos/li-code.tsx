@@ -29,7 +29,7 @@ export default () => {
               top: 99999999999999,
               behavior: 'smooth',
             });
-          }, 1);
+          }, 160);
         });
       }
     };
@@ -42,6 +42,76 @@ export default () => {
         style={{
           width: '100vw',
         }}
+        readonly
+      />
+
+      <MarkdownEditor
+        initValue={`
+在 Python 中循环遍历列表的 5 种常用方法如下：
+
+### 一、基础 for 循环（推荐）
+直接遍历列表元素：
+\`\`\`python
+fruits = ["Apple", "Mango", "Banana"]
+for fruit in fruits:
+    print(fruit)
+\`\`\`
+这是最简洁直观的方式，适用于不需要索引的场景                               [^DOC_1]                               [^DOC_3]                               [^DOC_5]                               [^DOC_8]。
+
+---
+
+### 二、带索引的循环
+使用 \`enumerate()\` 获取索引和元素：
+\`\`\`python
+for index, fruit in enumerate(fruits):
+    print(f"第{index}个元素：{fruit}")
+\`\`\`
+适合需要同时访问索引和元素的场景                               [^DOC_4]                               [^DOC_8]。
+
+---
+
+### 三、while 循环
+通过索引控制遍历：
+\`\`\`python
+i = 0
+while i < len(fruits):
+    print(fruits[i])
+    i += 1
+\`\`\`
+适用于需要动态控制循环条件的场景（如遍历时修改列表）                               [^DOC_2]                               [^DOC_7]                               [^DOC_9]。
+
+---
+
+### 四、列表推导式
+快速生成新列表：
+\`\`\`python
+uppercase_fruits = [fruit.upper() for fruit in fruits]
+\`\`\`
+适用于需要将遍历结果转换为新列表的场景                               [^DOC_1]                               [^DOC_5]。
+
+---
+
+### 五、range() + len() 组合
+通过索引范围遍历：
+\`\`\`python
+for i in range(len(fruits)):
+    print(fruits[i])
+\`\`\`
+效果类似 while 循环，但更简洁                               [^DOC_6]                               [^DOC_10]。
+
+---
+
+### 修改列表时的注意事项
+当需要在循环中增删元素时：
+1. 使用 \`while\` 循环动态控制索引                               [^DOC_9]
+2. 遍历副本避免逻辑错误：
+\`\`\`python
+for fruit in fruits.copy():  # 创建副本
+    if "n" in fruit:
+        fruits.remove(fruit)
+\`\`\`
+
+每种方法都有特定适用场景，根据是否需要索引、是否修改列表等需求选择最佳方案。`}
         readonly
       />
     </>

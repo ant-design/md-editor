@@ -362,14 +362,6 @@
                       class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                     >
                       <pre
-                        class="ant-md-editor-code-content-line-list select-none"
-                        contenteditable="false"
-                      >
-                        <div />
-                        <div />
-                        <div />
-                      </pre>
-                      <pre
                         class="ant-md-editor-code-content-code-content"
                         data-bl-lang="python"
                         data-bl-type="code"
@@ -935,13 +927,6 @@
                       class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                     >
                       <pre
-                        class="ant-md-editor-code-content-line-list select-none"
-                        contenteditable="false"
-                      >
-                        <div />
-                        <div />
-                      </pre>
-                      <pre
                         class="ant-md-editor-code-content-code-content"
                         data-bl-lang="python"
                         data-bl-type="code"
@@ -1381,13 +1366,6 @@
                     <div
                       class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                     >
-                      <pre
-                        class="ant-md-editor-code-content-line-list select-none"
-                        contenteditable="false"
-                      >
-                        <div />
-                        <div />
-                      </pre>
                       <pre
                         class="ant-md-editor-code-content-code-content"
                         data-bl-lang="python"
@@ -2013,15 +1991,6 @@
                       class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                     >
                       <pre
-                        class="ant-md-editor-code-content-line-list select-none"
-                        contenteditable="false"
-                      >
-                        <div />
-                        <div />
-                        <div />
-                        <div />
-                      </pre>
-                      <pre
                         class="ant-md-editor-code-content-code-content"
                         data-bl-lang="python"
                         data-bl-type="code"
@@ -2549,12 +2518,6 @@
                       class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                     >
                       <pre
-                        class="ant-md-editor-code-content-line-list select-none"
-                        contenteditable="false"
-                      >
-                        <div />
-                      </pre>
-                      <pre
                         class="ant-md-editor-code-content-code-content"
                         data-bl-lang="python"
                         data-bl-type="code"
@@ -3010,14 +2973,6 @@
                       class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
                     >
                       <pre
-                        class="ant-md-editor-code-content-line-list select-none"
-                        contenteditable="false"
-                      >
-                        <div />
-                        <div />
-                        <div />
-                      </pre>
-                      <pre
                         class="ant-md-editor-code-content-code-content"
                         data-bl-lang="python"
                         data-bl-type="code"
@@ -3303,6 +3258,2938 @@
                 </span>
               </span>
             </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="markdown-editor ant-md-editor ant-md-editor-readonly"
+      style="width: 400px; height: auto; display: flex; flex-direction: column; max-height: 100%;"
+    >
+      <div
+        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+      >
+        <div
+          autocapitalize="false"
+          autocorrect="false"
+          class="ant-md-editor-content-readonly ant-md-editor-content"
+          contenteditable="false"
+          data-slate-editor="true"
+          data-slate-node="value"
+          spellcheck="false"
+          style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+          zindex="-1"
+        >
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  在 Python 中循环遍历列表的 5 种常用方法如下：
+                </span>
+              </span>
+            </span>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="一、基础-for-循环（推荐"
+            data-slate-node="element"
+            data-title="false"
+            id="一、基础-for-循环（推荐"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  一、基础 for 循环（推荐 )
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  直接遍历列表元素：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="code-container wrap"
+            data-slate-node="element"
+          >
+            <div
+              class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
+              data-be="code"
+            >
+              <div
+                class="ant-md-editor-code-header"
+                contenteditable="false"
+              >
+                <div>
+                  <div
+                    class="ant-md-editor-code-header-lang"
+                    style="font-size: 0.93em;"
+                  >
+                    <span>
+                      python
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-code-header-actions"
+                >
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(-90deg); transition: transform 0.3s;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+              >
+                <pre
+                  class="ant-md-editor-code-content-code-content"
+                  data-bl-lang="python"
+                  data-bl-type="code"
+                >
+                  <code>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            fruits 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            =
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             [
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            "Apple"
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            , 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            "Mango"
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            , 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            "Banana"
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            ]
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            for
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruit 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            in
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruits:
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            print
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (fruit)
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  这是最简洁直观的方式 ，适用于不需要索引的场景 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_1"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                1
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_3"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                3
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_5"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                5
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_8"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                8
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="二、带索引的循环"
+            data-slate-node="element"
+            data-title="false"
+            id="二、带索引的循环"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  二、带索引的循环
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  使用 
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <code
+                  class="ant-md-editor-content-inline-code"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    enumerate()
+                  </span>
+                </code>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   获取索引和元素：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="code-container wrap"
+            data-slate-node="element"
+          >
+            <div
+              class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
+              data-be="code"
+            >
+              <div
+                class="ant-md-editor-code-header"
+                contenteditable="false"
+              >
+                <div>
+                  <div
+                    class="ant-md-editor-code-header-lang"
+                    style="font-size: 0.93em;"
+                  >
+                    <span>
+                      python
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-code-header-actions"
+                >
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(-90deg); transition: transform 0.3s;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+              >
+                <pre
+                  class="ant-md-editor-code-content-code-content"
+                  data-bl-lang="python"
+                  data-bl-type="code"
+                >
+                  <code>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            for
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             index, fruit 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            in
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            enumerate
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (fruits):
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            print
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            f
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            "第
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            {
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            index
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            }
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            个元素：
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            {
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            fruit
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            }
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            "
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            )
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  适合需要同时访问索引和元素的场景 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_4"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                4
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_8"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                8
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="三、while-循环"
+            data-slate-node="element"
+            data-title="false"
+            id="三、while-循环"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  三、while 循环
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  通过索引控制遍历：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="code-container wrap"
+            data-slate-node="element"
+          >
+            <div
+              class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
+              data-be="code"
+            >
+              <div
+                class="ant-md-editor-code-header"
+                contenteditable="false"
+              >
+                <div>
+                  <div
+                    class="ant-md-editor-code-header-lang"
+                    style="font-size: 0.93em;"
+                  >
+                    <span>
+                      python
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-code-header-actions"
+                >
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(-90deg); transition: transform 0.3s;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+              >
+                <pre
+                  class="ant-md-editor-code-content-code-content"
+                  data-bl-lang="python"
+                  data-bl-type="code"
+                >
+                  <code>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            i 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            =
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            0
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            while
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             i 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            &lt;
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            len
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (fruits):
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            print
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (fruits[i])
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                i 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            +=
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            1
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  适用于需要动态控制循环条件的场景（如遍历时修改列表 ) 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_2"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                2
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_7"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                7
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_9"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                9
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="四、列表推导式"
+            data-slate-node="element"
+            data-title="false"
+            id="四、列表推导式"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  四、列表推导式
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  快速生成新列表：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="code-container wrap"
+            data-slate-node="element"
+          >
+            <div
+              class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
+              data-be="code"
+            >
+              <div
+                class="ant-md-editor-code-header"
+                contenteditable="false"
+              >
+                <div>
+                  <div
+                    class="ant-md-editor-code-header-lang"
+                    style="font-size: 0.93em;"
+                  >
+                    <span>
+                      python
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-code-header-actions"
+                >
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(-90deg); transition: transform 0.3s;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+              >
+                <pre
+                  class="ant-md-editor-code-content-code-content"
+                  data-bl-lang="python"
+                  data-bl-type="code"
+                >
+                  <code>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            uppercase_fruits 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            =
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             [fruit.upper() 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            for
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruit 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            in
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruits]
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  适用于需要将遍历结果转换为新列表的场景 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_1"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                1
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_5"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                5
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="五、range-len-组合"
+            data-slate-node="element"
+            data-title="false"
+            id="五、range-len-组合"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  五、range() + len() 组合
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  通过索引范围遍历：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="code-container wrap"
+            data-slate-node="element"
+          >
+            <div
+              class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
+              data-be="code"
+            >
+              <div
+                class="ant-md-editor-code-header"
+                contenteditable="false"
+              >
+                <div>
+                  <div
+                    class="ant-md-editor-code-header-lang"
+                    style="font-size: 0.93em;"
+                  >
+                    <span>
+                      python
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-code-header-actions"
+                >
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(-90deg); transition: transform 0.3s;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+              >
+                <pre
+                  class="ant-md-editor-code-content-code-content"
+                  data-bl-lang="python"
+                  data-bl-type="code"
+                >
+                  <code>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            for
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             i 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            in
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            range
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            len
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (fruits)):
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(0, 92, 197);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            print
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            (fruits[i])
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  效果类似 while 循环 ，但更简洁 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_6"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                6
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_10"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                10
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="修改列表时的注意事项"
+            data-slate-node="element"
+            data-title="false"
+            id="修改列表时的注意事项"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  修改列表时的注意事项
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  当需要在循环中增删元素时：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="relative"
+            data-be="list"
+            data-slate-node="element"
+          >
+            <ol
+              class="ant-md-editor-list ol"
+              start="1"
+            >
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        使用 
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                      <code
+                        class="ant-md-editor-content-inline-code"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          while
+                        </span>
+                      </code>
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         循环动态控制索引 
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_9"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      9
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        遍历副本避免逻辑错误：
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div
+            class="code-container wrap"
+            data-slate-node="element"
+          >
+            <div
+              class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
+              data-be="code"
+            >
+              <div
+                class="ant-md-editor-code-header"
+                contenteditable="false"
+              >
+                <div>
+                  <div
+                    class="ant-md-editor-code-header-lang"
+                    style="font-size: 0.93em;"
+                  >
+                    <span>
+                      python
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-code-header-actions"
+                >
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-code-header-actions-item"
+                    style="font-size: 0.93em;"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(-90deg); transition: transform 0.3s;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+              >
+                <pre
+                  class="ant-md-editor-code-content-code-content"
+                  data-bl-lang="python"
+                  data-bl-type="code"
+                >
+                  <code>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            for
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruit 
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            in
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruits.copy():  
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(106, 115, 125);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            # 创建副本
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            if
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(3, 47, 98);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            "n"
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(215, 58, 73);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            in
+                          </span>
+                        </span>
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                             fruit:
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-code-content-code-line"
+                      data-be="code-line"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                          style="color: rgb(36, 41, 46);"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                    fruits.remove(fruit)
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  每种方法都有特定适用场景 ，根据是否需要索引、是否修改列表等需求选择最佳方案 。
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div
+            class=""
+          >
+            <div
+              class="ant-anchor-wrapper"
+              style="max-height: calc(100vh - 64px); min-width: 200px;"
+            >
+              <div
+                class="ant-anchor"
+              >
+                <span
+                  class="ant-anchor-ink ant-anchor-ink-visible"
+                  style="top: 0px; height: 0px;"
+                />
+                <div
+                  class="ant-anchor-link"
+                >
+                  <a
+                    class="ant-anchor-link-title"
+                    href="#一、基础-for-循环（推荐"
+                    title="一、基础 for 循环（推荐 )"
+                  >
+                    一、基础 for 循环（推荐 )
+                  </a>
+                  <div
+                    class="ant-anchor-link ant-anchor-link-active"
+                  >
+                    <a
+                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      href="#二、带索引的循环"
+                      title="二、带索引的循环"
+                    >
+                      二、带索引的循环
+                    </a>
+                  </div>
+                  <div
+                    class="ant-anchor-link"
+                  >
+                    <a
+                      class="ant-anchor-link-title"
+                      href="#三、while-循环"
+                      title="三、while 循环"
+                    >
+                      三、while 循环
+                    </a>
+                  </div>
+                  <div
+                    class="ant-anchor-link"
+                  >
+                    <a
+                      class="ant-anchor-link-title"
+                      href="#四、列表推导式"
+                      title="四、列表推导式"
+                    >
+                      四、列表推导式
+                    </a>
+                  </div>
+                  <div
+                    class="ant-anchor-link"
+                  >
+                    <a
+                      class="ant-anchor-link-title"
+                      href="#五、range-len-组合"
+                      title="五、range() + len() 组合"
+                    >
+                      五、range() + len() 组合
+                    </a>
+                  </div>
+                  <div
+                    class="ant-anchor-link"
+                  >
+                    <a
+                      class="ant-anchor-link-title"
+                      href="#修改列表时的注意事项"
+                      title="修改列表时的注意事项"
+                    >
+                      修改列表时的注意事项
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
