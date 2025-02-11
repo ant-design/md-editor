@@ -39,9 +39,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&> *:first-child': {
         marginTop: 0,
       },
-      '&> *:last-child': {
-        marginBottom: 0,
-      },
       '& > .link': { textDecoration: 'underline' },
       '& > .attach': {
         padding: '3px 0',
