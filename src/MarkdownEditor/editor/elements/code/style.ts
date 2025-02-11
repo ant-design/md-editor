@@ -68,11 +68,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflowWrap: 'break-word',
         direction: 'ltr',
         marginBottom: '0',
+        overflow: 'auto',
         boxSizing: 'border-box',
         tabSize: 2,
         caretColor: 'rgba(0, 0, 0, 0.9)',
         color: 'rgba(0, 0, 0, 0.8)',
-        // paddingLeft: '32px',
+        paddingLeft: '2em',
         background: 'rgb(250, 250, 250)',
         '&-tab-2': {
           tabSize: 2,
@@ -164,7 +165,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @returns
  */
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('editor-content-code-', (token) => {
+  return useEditorStyleRegister('editor-content-code', (token) => {
     const editorToken = {
       ...token,
       componentCls: `.${prefixCls}`,

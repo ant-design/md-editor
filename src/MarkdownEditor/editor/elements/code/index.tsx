@@ -231,7 +231,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
                 hashId,
               )}
             >
-              {/* <pre
+              <pre
                 className={classNames(
                   `${baseCls}-content-line-list`,
                   'select-none',
@@ -244,7 +244,7 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
                   .map((_, i) => (
                     <div key={i} />
                   ))}
-              </pre> */}
+              </pre>
               <pre
                 className={classNames(
                   `${baseCls}-content-code-content`,
