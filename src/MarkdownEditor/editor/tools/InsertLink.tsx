@@ -173,7 +173,7 @@ export const InsertLink = observer(() => {
       const parse = parsePath(path);
       setState({
         left,
-        y,
+        y: y - 50,
         oldUrl: url || '',
         mode,
         open: true,
