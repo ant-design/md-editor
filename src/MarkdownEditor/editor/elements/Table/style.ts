@@ -45,9 +45,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           verticalAlign: 'top',
           padding: '7px 20px',
           textAlign: 'left',
+          position: 'relative',
           lineHeight: 1,
         },
         'tr:first-child': {
+          borderBottom: '1px solid #e8e8e8',
+        },
+        'td:first-child': {
           borderBottom: '1px solid #e8e8e8',
         },
         'th,td': {

@@ -151,7 +151,7 @@ export const TableTdCell = (
         transition: 'all 0.3s',
         userSelect: isSelecting ? 'none' : 'auto',
         backgroundColor: isSelecting ? '#f0f0f0' : 'white',
-        borderColor: isSelecting ? '#42a642' : undefined,
+
         cursor: isSelecting
           ? 'text'
           : readonly
@@ -165,6 +165,19 @@ export const TableTdCell = (
         setSelectedCell([cellPath, props.element] as unknown as NodeEntry<any>);
       }}
     >
+      <div
+        style={{
+          opacity: isSelecting ? 1 : 0,
+          position: 'absolute',
+          width: 'calc(100% - 2px)',
+          height: 'calc(100% - 2px)',
+          outline: isSelecting ? '3px solid #42a642' : '0px solid #42a642',
+          left: 0,
+          pointerEvents: isSelecting ? 'auto' : 'none',
+          transition: 'all 0.3s',
+          top: 0,
+        }}
+      ></div>
       {dom}
     </td>
   );
