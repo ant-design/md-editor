@@ -13,6 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 1,
         maxWidth: '100%',
         minWidth: 0,
+        outline: 'none',
         width: '100%',
         position: 'relative',
         marginBottom: 12,
