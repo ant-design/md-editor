@@ -1,6 +1,12 @@
 ﻿import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
-import { default as React, useContext, useMemo } from 'react';
+import {
+  default as React,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { Node, NodeEntry } from 'slate';
 import stringWidth from 'string-width';
 import { TableConnext } from '.';
@@ -75,6 +81,7 @@ export const TableTdCell = (
   const { readonly } = useEditorStore();
   const { selectedCell, setSelectedCell } = useContext(TableConnext);
   const { minWidth, domWidth, align, text } = props;
+  const [editing, setEditing] = useState(false);
 
   const justifyContent = useMemo(() => {
     return align
@@ -142,29 +149,43 @@ export const TableTdCell = (
     String(cellPath) === String(selectedCell?.at(0)) &&
     !readonly;
 
+  useEffect(() => {
+    if (!isSelecting) {
+      setEditing(false);
+    }
+  }, [isSelecting]);
+
   return (
     <td
       {...props.attributes}
       data-be={'td'}
       className={classNames('group')}
-      style={{
-        transition: 'all 0.3s',
-        userSelect: isSelecting ? 'none' : 'auto',
-        backgroundColor: isSelecting ? '#f0f0f0' : undefined,
-        cursor: isSelecting
-          ? 'text'
-          : readonly
-            ? 'text'
-            : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
-      }}
+      style={
+        editing
+          ? undefined
+          : {
+              transition: 'all 0.3s',
+              userSelect: isSelecting && !editing ? 'none' : 'auto',
+              backgroundColor: isSelecting && !editing ? '#f0f0f0' : undefined,
+              cursor: isSelecting
+                ? 'text'
+                : readonly
+                  ? 'text'
+                  : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
+            }
+      }
       onClick={() => {
         if (readonly) {
           return;
         }
         setSelectedCell([cellPath, props.element] as unknown as NodeEntry<any>);
       }}
+      onDoubleClick={(e) => {
+        e.preventDefault();
+        setEditing(true);
+      }}
     >
-      {readonly ? null : (
+      {readonly && !editing ? null : (
         <div
           contentEditable={false}
           style={{
