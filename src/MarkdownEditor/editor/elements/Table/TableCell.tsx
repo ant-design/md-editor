@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Node, NodeEntry } from 'slate';
+import { Editor, Node, NodeEntry, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableConnext } from '.';
 import { useSelStatus } from '../../../hooks/editor';
@@ -148,7 +148,7 @@ export const TableTdCell = (
     selectedCell?.at(0) &&
     String(cellPath) === String(selectedCell?.at(0)) &&
     !readonly;
-
+  const { markdownEditorRef } = useEditorStore();
   useEffect(() => {
     if (!isSelecting) {
       setEditing(false);
@@ -182,10 +182,15 @@ export const TableTdCell = (
       }}
       onDoubleClick={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         setEditing(true);
+        Transforms.select(
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, cellPath),
+        );
       }}
     >
-      {readonly && !editing ? null : (
+      {readonly ? null : (
         <div
           contentEditable={false}
           style={{
