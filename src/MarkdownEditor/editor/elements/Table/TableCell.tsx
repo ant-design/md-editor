@@ -150,8 +150,7 @@ export const TableTdCell = (
       style={{
         transition: 'all 0.3s',
         userSelect: isSelecting ? 'none' : 'auto',
-        backgroundColor: isSelecting ? '#f0f0f0' : 'white',
-
+        backgroundColor: isSelecting ? '#f0f0f0' : undefined,
         cursor: isSelecting
           ? 'text'
           : readonly

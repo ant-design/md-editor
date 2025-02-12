@@ -92,6 +92,8 @@ export const Table = observer((props: RenderElementProps) => {
     return Editor.node(markdownEditorRef.current, tablePath);
   }, [tablePath]);
 
+  const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (!tableRef.current) return;
@@ -106,6 +108,7 @@ export const Table = observer((props: RenderElementProps) => {
       if (isInsideScrollbar()) {
         return;
       }
+      setSelCells([]);
       if (editorProps.tableConfig?.excelMode) return;
       setIsShowBar(false);
     };
@@ -422,8 +425,6 @@ export const Table = observer((props: RenderElementProps) => {
     return props.element;
   };
 
-  const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
-
   useEffect(() => {
     if (!store.editor) return;
     const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
@@ -480,6 +481,7 @@ export const Table = observer((props: RenderElementProps) => {
               onMouseUp={handleClickTable}
               tabIndex={0}
               onBlur={() => {
+                setSelCells([]);
                 if (editorProps.tableConfig?.excelMode) return;
                 setIsShowBar(false);
                 setSelCells([]);
