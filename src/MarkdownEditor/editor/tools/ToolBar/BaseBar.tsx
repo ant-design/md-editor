@@ -231,66 +231,64 @@ export const BaseToolBar = observer(
             <UndoOutlined />
           </div>,
         );
+      }
+
+      list.push(
+        <div
+          role="button"
+          key="clear"
+          className={classnames(`${baseClassName}-item`, hashId)}
+          onClick={() => {
+            EditorUtils.clearMarks(markdownEditorRef.current, true);
+            EditorUtils.highColor(markdownEditorRef.current);
+          }}
+        >
+          <ClearOutlined />
+        </div>,
+      );
+
+      if (['head', 'paragraph'].includes(node?.[0]?.type)) {
         list.push(
-          <div
-            role="button"
-            key="clear"
-            className={classnames(`${baseClassName}-item`, hashId)}
-            onClick={() => {
-              EditorUtils.clearMarks(markdownEditorRef.current, true);
-              EditorUtils.highColor(markdownEditorRef.current);
+          <Dropdown
+            key="head"
+            menu={{
+              items: ['H1', 'H2', 'H3'].map((item, index) => {
+                if (props.hideTools && props.hideTools.includes(item as 'H1')) {
+                  return null;
+                }
+                return {
+                  label: HeatTextMap[item.replace('H', '') as '1'] || item,
+                  key: item,
+                  onClick: () => {
+                    keyTask$.next({
+                      key: 'head',
+                      args: [index + 1],
+                    });
+                  },
+                };
+              }),
             }}
           >
-            <ClearOutlined />
-          </div>,
-        );
-
-        if (['head', 'paragraph'].includes(node?.[0]?.type)) {
-          list.push(
-            <Dropdown
-              key="head"
-              menu={{
-                items: ['H1', 'H2', 'H3'].map((item, index) => {
-                  if (
-                    props.hideTools &&
-                    props.hideTools.includes(item as 'H1')
-                  ) {
-                    return null;
-                  }
-                  return {
-                    label: HeatTextMap[item.replace('H', '') as '1'] || item,
-                    key: item,
-                    onClick: () => {
-                      keyTask$.next({
-                        key: 'head',
-                        args: [index + 1],
-                      });
-                    },
-                  };
-                }),
+            <div
+              role="button"
+              className={classnames(`${baseClassName}-item`, hashId)}
+              style={{
+                minWidth: 36,
+                textAlign: 'center',
+                fontSize: 12,
+                justifyContent: 'center',
+                lineHeight: 1,
               }}
             >
-              <div
-                role="button"
-                className={classnames(`${baseClassName}-item`, hashId)}
-                style={{
-                  minWidth: 36,
-                  textAlign: 'center',
-                  fontSize: 12,
-                  justifyContent: 'center',
-                  lineHeight: 1,
-                }}
-              >
-                {node?.[0]?.level
-                  ? `${
-                      HeatTextMap[(node[0].level + '') as '1'] ||
-                      `H${node[0].level}`
-                    }`
-                  : '正文'}
-              </div>
-            </Dropdown>,
-          );
-        }
+              {node?.[0]?.level
+                ? `${
+                    HeatTextMap[(node[0].level + '') as '1'] ||
+                    `H${node[0].level}`
+                  }`
+                : '正文'}
+            </div>
+          </Dropdown>,
+        );
       }
       if (list.length > 0) {
         list.push(
