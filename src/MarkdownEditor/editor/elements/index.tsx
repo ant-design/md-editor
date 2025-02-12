@@ -1,8 +1,9 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 
+import { ExportOutlined } from '@ant-design/icons';
 import { MarkdownEditorProps } from '../..';
 import {
   ReactEditor,
@@ -201,37 +202,57 @@ export const MLeaf = (
 
   if (leaf?.url) {
     return (
-      <span
-        data-be={'link'}
-        draggable={false}
-        onDragStart={dragStart}
-        data-url={leaf?.url}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          if (e.metaKey || e.ctrlKey || readonly) {
-            if (!leaf?.url) return;
-            window.open(leaf?.url);
-          } else if (e.detail === 2) {
-            selectFormat();
-          }
-        }}
-        id={leaf?.url}
-        data-slate-inline={true}
-        className={`${className}`}
-        style={{
-          ...style,
-          textDecorationColor: '#1677ff',
-          textUnderlineOffset: '4px',
-          color: '#1677ff',
-          cursor: 'pointer',
-        }}
-        {...props.attributes}
+      <Popover
+        trigger={'click'}
+        content={
+          <div
+            style={{
+              display: 'flex',
+              gap: 4,
+            }}
+          >
+            {leaf.url}
+            <ExportOutlined
+              onClick={() => {
+                if (!leaf?.url) return;
+                window.open(leaf?.url);
+              }}
+            />
+          </div>
+        }
       >
-        {!!props.text?.text && <InlineChromiumBugfix />}
-        {children}
-        {!!props.text?.text && <InlineChromiumBugfix />}
-      </span>
+        <span
+          data-be={'link'}
+          draggable={false}
+          onDragStart={dragStart}
+          data-url={leaf?.url}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (e.metaKey || e.ctrlKey || readonly) {
+              if (!leaf?.url) return;
+              window.open(leaf?.url);
+            } else if (e.detail === 2) {
+              selectFormat();
+            }
+          }}
+          id={leaf?.url}
+          data-slate-inline={true}
+          className={`${className}`}
+          style={{
+            ...style,
+            textDecorationColor: '#1677ff',
+            textUnderlineOffset: '4px',
+            color: '#1677ff',
+            cursor: 'pointer',
+          }}
+          {...props.attributes}
+        >
+          {!!props.text?.text && <InlineChromiumBugfix />}
+          {children}
+          {!!props.text?.text && <InlineChromiumBugfix />}
+        </span>
+      </Popover>
     );
   }
 
