@@ -1289,33 +1289,33 @@ export const Table = observer((props: RenderElementProps) => {
                   </tbody>
                 </table>
               </div>
+              <ResizeMask
+                SEL_CELLS={SEL_CELLS}
+                RESIZING_ROW={RESIZING_ROW}
+                RESIZING_ROW_ORIGIN_HEIGHT={RESIZING_ROW_ORIGIN_HEIGHT}
+                RESIZING_ROW_MIN_HEIGHT={RESIZING_ROW_MIN_HEIGHT}
+                RESIZING_COL={RESIZING_COL}
+                RESIZING_COL_ORIGIN_WIDTH={RESIZING_COL_ORIGIN_WIDTH}
+                RESIZING_COL_MIN_WIDTH={RESIZING_COL_MIN_WIDTH}
+                store={store}
+                tableRect={tableRect}
+                curCell={curCell}
+                setMaskRectSide={setMaskRectSide}
+                tableResizeMaskRect={tableResizeMaskRect}
+                setStartPositionX={setStartPositionX}
+                setStartPositionY={setStartPositionY}
+                differenceX={differenceX}
+                differenceY={differenceY}
+                setRowMovingLine={setRowMovingLine}
+                setColMovingLine={setColMovingLine}
+                rowMovingLine={rowMovingLine}
+                colMovingLine={colMovingLine}
+                isDragging={isDragging}
+                setIsDragging={setIsDragging}
+                startKey={startKey}
+                colArr={hwEach}
+              />
             </div>
-            <ResizeMask
-              SEL_CELLS={SEL_CELLS}
-              RESIZING_ROW={RESIZING_ROW}
-              RESIZING_ROW_ORIGIN_HEIGHT={RESIZING_ROW_ORIGIN_HEIGHT}
-              RESIZING_ROW_MIN_HEIGHT={RESIZING_ROW_MIN_HEIGHT}
-              RESIZING_COL={RESIZING_COL}
-              RESIZING_COL_ORIGIN_WIDTH={RESIZING_COL_ORIGIN_WIDTH}
-              RESIZING_COL_MIN_WIDTH={RESIZING_COL_MIN_WIDTH}
-              store={store}
-              tableRect={tableRect}
-              curCell={curCell}
-              setMaskRectSide={setMaskRectSide}
-              tableResizeMaskRect={tableResizeMaskRect}
-              setStartPositionX={setStartPositionX}
-              setStartPositionY={setStartPositionY}
-              differenceX={differenceX}
-              differenceY={differenceY}
-              setRowMovingLine={setRowMovingLine}
-              setColMovingLine={setColMovingLine}
-              rowMovingLine={rowMovingLine}
-              colMovingLine={colMovingLine}
-              isDragging={isDragging}
-              setIsDragging={setIsDragging}
-              startKey={startKey}
-              colArr={hwEach}
-            />
           </ConfigProvider>
         </TableConnext.Provider>,
       ),
