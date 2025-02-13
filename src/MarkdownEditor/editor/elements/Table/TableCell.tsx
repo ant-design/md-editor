@@ -157,7 +157,7 @@ export const TableTdCell = (
         'td-cell-select': !readonly && !isSelecting && !editing,
       })}
       style={{
-        backgroundColor: isSelecting ? 'transparent' : undefined,
+        backgroundColor: editing ? 'transparent' : undefined,
       }}
       onDoubleClick={(e) => {
         e.preventDefault();

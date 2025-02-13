@@ -699,6 +699,8 @@ export const Table = observer((props: RenderElementProps) => {
       }
 
       if (!isDragging) return;
+      e.stopPropagation();
+      e.preventDefault();
       endX =
         e.clientX +
         (overflowShadowContainerRef?.current?.scrollLeft || 0) -
@@ -742,6 +744,8 @@ export const Table = observer((props: RenderElementProps) => {
         (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
       isDragging = false;
       clearSelection();
+      e.stopPropagation();
+      e.preventDefault();
       tableTargetRef.current
         ?.querySelectorAll('td.selected-cell-td')
         .forEach((td) => {
