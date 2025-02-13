@@ -168,6 +168,7 @@ export const Table = observer((props: RenderElementProps) => {
       }
       setSelCells([]);
       clearSelection();
+      // excel 模式下不隐藏, 用于处理表格内部的操作
       if (!editorProps.tableConfig?.excelMode) {
         setIsShowBar(false);
       }
