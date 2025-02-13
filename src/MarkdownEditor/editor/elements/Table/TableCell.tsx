@@ -8,17 +8,6 @@ import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import './table.css';
 
-const getTextAlign = (align: string | undefined) => {
-  if (align === 'left') {
-    return 'start';
-  } else if (align === 'center') {
-    return 'center';
-  } else if (align === 'right') {
-    return 'end';
-  }
-  return undefined;
-};
-
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
 /**
@@ -38,25 +27,23 @@ export const TableThCell = (
 
   const justifyContent = useMemo(() => {
     return align
-      ? getTextAlign(align)
+      ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
-        ? 'end'
-        : 'start';
+        ? 'left'
+        : 'right';
   }, [align, text]);
 
   return (
-    <th {...props.attributes} data-be={'th'}>
-      <div
-        style={{
-          minWidth: minWidth,
-          textWrap: 'wrap',
-          maxWidth: '200px',
-          display: 'flex',
-          justifyContent,
-        }}
-      >
-        {props.children}
-      </div>
+    <th
+      {...props.attributes}
+      data-be={'th'}
+      style={{
+        minWidth: minWidth,
+        width: props.width,
+        textAlign: justifyContent as 'left',
+      }}
+    >
+      {props.children}
     </th>
   );
 };
@@ -78,10 +65,10 @@ export const TableTdCell = (
 
   const justifyContent = useMemo(() => {
     return align
-      ? getTextAlign(align)
+      ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
-        ? 'end'
-        : 'start';
+        ? 'right'
+        : 'left';
   }, [align, text]);
 
   const dom = useMemo(() => {
@@ -104,39 +91,11 @@ export const TableTdCell = (
             </div>
           }
         >
-          <div
-            style={{
-              minWidth: minWidth,
-              width: props.width,
-              maxWidth: 200,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 2,
-              maxHeight: 40,
-            }}
-            contentEditable
-          >
-            {text}
-          </div>
+          {text}
         </Popover>
       );
     }
-    return (
-      <div
-        style={{
-          minWidth: minWidth,
-          textWrap: 'wrap',
-          maxWidth: '200px',
-          display: 'flex',
-          justifyContent,
-          width: props.width,
-        }}
-      >
-        {props.children}
-      </div>
-    );
+    return props.children;
   }, [props.width, domWidth, minWidth, props.children, readonly, text]);
 
   const isSelecting = selected;
@@ -159,6 +118,10 @@ export const TableTdCell = (
       })}
       style={{
         backgroundColor: editing ? 'transparent' : undefined,
+        textAlign: justifyContent as 'left',
+        minWidth: minWidth,
+        maxWidth: '200px',
+        width: props.width,
       }}
       onDoubleClick={(e) => {
         e.preventDefault();

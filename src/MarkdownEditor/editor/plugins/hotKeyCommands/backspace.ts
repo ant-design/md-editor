@@ -66,6 +66,7 @@ export class BackspaceKey {
       if (start.offset === 0 && !Path.hasPrevious(start.path)) {
         const pre = Path.hasPrevious(path);
         if (pre) {
+          return true;
           Transforms.select(
             this.editor,
             Editor.end(this.editor, Path.previous(path)),

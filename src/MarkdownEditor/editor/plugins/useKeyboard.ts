@@ -76,6 +76,7 @@ export const useKeyboard = (
 
       if (e.key.toLowerCase().startsWith('arrow')) {
         if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;
+        return;
         keyArrow(store, e);
       } else {
         if (e.key === 'Tab') tab.run(e);
