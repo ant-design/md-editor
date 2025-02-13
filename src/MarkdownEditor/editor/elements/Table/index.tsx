@@ -627,11 +627,11 @@ export const Table = observer((props: RenderElementProps) => {
           selectionAreaRef.current.style.transform = `translate(${Math.min(selectRect.x, selectRect.x2)}px, ${Math.min(selectRect.y, selectRect.y2)}px)`;
           selectionAreaRef.current?.style.setProperty(
             'width',
-            Math.abs(selectRect.x - selectRect.x2) - 4 + 'px',
+            Math.abs(selectRect.x - selectRect.x2) + 'px',
           );
           selectionAreaRef.current?.style.setProperty(
             'height',
-            Math.abs(selectRect.y - selectRect.y2) - 4 + 'px',
+            Math.abs(selectRect.y - selectRect.y2) + 'px',
           );
           selectionAreaRef.current.style.display = 'block';
           setTimeout(() => {
