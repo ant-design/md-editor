@@ -169,8 +169,9 @@ export const Table = observer((props: RenderElementProps) => {
       setSelCells([]);
       clearSelection();
 
-      if (editorProps.tableConfig?.excelMode) return;
-      setIsShowBar(false);
+      if (!editorProps.tableConfig?.excelMode) {
+        setIsShowBar(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
