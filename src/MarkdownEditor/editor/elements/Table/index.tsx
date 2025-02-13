@@ -10,7 +10,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, NodeEntry, Path, Transforms } from 'slate';
+import { Editor, NodeEntry, Path, Selection, Transforms } from 'slate';
 import { TableCellNode, TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../../slate-react';
@@ -21,6 +21,22 @@ import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
 export * from './TableCell';
+
+const mergePaths = (paths: Path[]): Selection => {
+  const sortedPaths = paths.sort((a, b) => {
+    const minLen = Math.min(a.length, b.length);
+    for (let i = 0; i < minLen; i++) {
+      if (a[i] !== b[i]) return a[i] - b[i];
+    }
+    return a.length - b.length;
+  });
+
+  // 取首尾路径作为选区边界
+  return {
+    anchor: { path: sortedPaths.at(0)!, offset: 0 },
+    focus: { path: sortedPaths.at(-1)!, offset: 0 },
+  };
+};
 
 /**
  * 表格上下文组件，用于在表格组件树中共享单元格选中状态
@@ -75,6 +91,8 @@ export const Table = observer((props: RenderElementProps) => {
   const [isShowBar, setIsShowBar] = useState(
     editorProps.tableConfig?.excelMode || false,
   );
+
+  const selectionAreaRef = useRef<HTMLDivElement>(null);
 
   const [selectedTable, tablePath] = useSelStatus(props.element);
 
@@ -421,11 +439,8 @@ export const Table = observer((props: RenderElementProps) => {
     }
   }, [isShowBar]);
 
-  const getTableNode = () => {
-    return props.element;
-  };
-
   useEffect(() => {
+    if (!editorProps.tableConfig?.excelMode) return;
     if (!store.editor) return;
     const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
     cachedSelCells?.forEach((cell) => {
@@ -453,6 +468,113 @@ export const Table = observer((props: RenderElementProps) => {
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
   }, [JSON.stringify(selCells)]);
 
+  useEffect(() => {
+    if (!editorProps.tableConfig?.excelMode) return;
+    const table = tableTargetRef.current;
+
+    if (!table) return;
+    // 更新选区矩形并检测碰撞
+    function updateSelectionRect(
+      x1: number,
+      y1: number,
+      x2: number,
+      y2: number,
+    ) {
+      // 计算矩形边界
+      const rect = {
+        left: Math.min(x1, x2) - 4,
+        top: Math.min(y1, y2) - 4,
+        right: Math.max(x1, x2) - 4,
+        bottom: Math.max(y1, y2) - 4,
+      };
+
+      // 遍历所有 td ，检测是否与矩形碰撞
+      const tds = table?.getElementsByTagName('td') || [];
+      const paths: Path[] = [];
+      Array.from(tds).forEach((td) => {
+        const tdRect = td.getBoundingClientRect();
+        const isCollided =
+          rect.left < tdRect.right &&
+          rect.right > tdRect.left &&
+          rect.top < tdRect.bottom &&
+          rect.bottom > tdRect.top;
+        const TdNode = ReactEditor.toSlateNode(markdownEditorRef.current, td);
+        const path = ReactEditor.findPath(markdownEditorRef.current, TdNode);
+
+        if (isCollided) {
+          paths.push(path);
+        }
+        // 添加或移除选中样式
+      });
+
+      paths?.forEach((path) => {
+        Transforms.setNodes(
+          markdownEditorRef.current,
+          {
+            selected: true,
+          },
+          {
+            match: (n) => n.type === 'table-cell' && n.selected !== true,
+            at: path,
+          },
+        );
+      });
+    }
+    // 获取表格元素
+    let isDragging = false;
+    let startX: number, startY: number, endX: number, endY: number;
+
+    // 鼠标按下事件
+    table.addEventListener('mousedown', (e) => {
+      Transforms.setNodes(
+        markdownEditorRef.current,
+        {
+          selected: false,
+        },
+        {
+          match: (n) => n.type === 'table-cell' && n.selected === true,
+          at: tablePath,
+        },
+      );
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    // 鼠标移动事件
+    table.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      endX = e.clientX;
+      endY = e.clientY;
+      // 更新选区矩形
+
+      if (selectionAreaRef.current) {
+        selectionAreaRef.current.style.display = 'block';
+        selectionAreaRef.current.style.transform = `translate(${Math.min(startX, endX)}px, ${Math.min(startY, endY)}px)`;
+        selectionAreaRef.current?.style.setProperty(
+          'width',
+          Math.abs(endX - startX) + 'px',
+        );
+        selectionAreaRef.current?.style.setProperty(
+          'height',
+          Math.abs(endY - startY) + 'px',
+        );
+      }
+    });
+
+    // 鼠标释放事件
+    table.addEventListener('mouseup', (e) => {
+      endX = e.clientX;
+      endY = e.clientY;
+      if (selectionAreaRef.current) {
+        selectionAreaRef.current.style.display = 'none';
+      }
+      isDragging = false;
+      updateSelectionRect(startX, startY, endX, endY);
+      startX = startY = endX = endY = 0;
+    });
+  }, []);
+
   return useMemo(
     () =>
       wrapSSR(
@@ -462,6 +584,18 @@ export const Table = observer((props: RenderElementProps) => {
             setSelectedCell,
           }}
         >
+          <div
+            ref={selectionAreaRef}
+            style={{
+              position: 'absolute',
+              zIndex: 999,
+              border: '3px solid #42a642',
+              pointerEvents: 'none',
+              display: 'none',
+              left: 0,
+              top: 0,
+            }}
+          ></div>
           <ConfigProvider
             getPopupContainer={() =>
               overflowShadowContainerRef?.current?.parentElement
@@ -526,7 +660,9 @@ export const Table = observer((props: RenderElementProps) => {
                   data-slate-editor="false"
                 >
                   <IntersectionPointDiv
-                    getTableNode={getTableNode}
+                    getTableNode={() => {
+                      return props.element;
+                    }}
                     selCells={selCells}
                     setSelCells={setSelCells}
                   />
@@ -534,7 +670,9 @@ export const Table = observer((props: RenderElementProps) => {
                     activeDeleteBtn={activeDeleteBtn}
                     setActiveDeleteBtn={setActiveDeleteBtn}
                     tableRef={tableTargetRef}
-                    getTableNode={getTableNode}
+                    getTableNode={() => {
+                      return props.element;
+                    }}
                     selCells={selCells}
                     setSelCells={setSelCells}
                     onDeleteRow={(index) => {
@@ -570,7 +708,9 @@ export const Table = observer((props: RenderElementProps) => {
                     activeDeleteBtn={activeDeleteBtn}
                     setActiveDeleteBtn={setActiveDeleteBtn}
                     tableRef={tableTargetRef}
-                    getTableNode={getTableNode}
+                    getTableNode={() => {
+                      return props.element;
+                    }}
                     selCells={selCells}
                     setSelCells={setSelCells}
                   />

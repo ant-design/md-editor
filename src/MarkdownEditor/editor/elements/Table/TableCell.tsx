@@ -1,15 +1,8 @@
 ﻿import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
-import {
-  default as React,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
+import { default as React, useEffect, useMemo, useState } from 'react';
+import { Editor, Node, Transforms } from 'slate';
 import stringWidth from 'string-width';
-import { TableConnext } from '.';
 import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
@@ -79,8 +72,8 @@ export const TableTdCell = (
 ) => {
   const [, cellPath] = useSelStatus(props.element);
   const { readonly } = useEditorStore();
-  const { selectedCell, setSelectedCell } = useContext(TableConnext);
   const { minWidth, domWidth, align, text } = props;
+  const { selected } = props.element;
   const [editing, setEditing] = useState(false);
 
   const justifyContent = useMemo(() => {
@@ -144,10 +137,9 @@ export const TableTdCell = (
       </div>
     );
   }, [props.width, domWidth, minWidth, props.children, readonly, text]);
-  const isSelecting =
-    selectedCell?.at(0) &&
-    String(cellPath) === String(selectedCell?.at(0)) &&
-    !readonly;
+
+  const isSelecting = selected;
+
   const { markdownEditorRef } = useEditorStore();
   useEffect(() => {
     if (!isSelecting) {
@@ -174,12 +166,6 @@ export const TableTdCell = (
                   : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
             }
       }
-      onClick={() => {
-        if (readonly) {
-          return;
-        }
-        setSelectedCell([cellPath, props.element] as unknown as NodeEntry<any>);
-      }}
       onDoubleClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

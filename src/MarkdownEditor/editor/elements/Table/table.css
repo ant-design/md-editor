@@ -110,3 +110,7 @@
 .ant-md-editor-content-table table th:last-child {
   border-top-right-radius: 0.5em;
 }
+
+.ant-md-editor-content-table.show-bar table td.selected {
+  background: red;
+}
