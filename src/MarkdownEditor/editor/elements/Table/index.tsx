@@ -131,6 +131,27 @@ export const Table = observer((props: RenderElementProps) => {
 
   const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
 
+  const tableTargetRef = useRef<HTMLTableElement>(null);
+
+  const clearSelection = useCallback(() => {
+    selectionAreaRef.current?.style?.setProperty('display', 'none');
+    tableTargetRef.current
+      ?.querySelectorAll('td.selected-cell-td')
+      .forEach((td) => {
+        td.classList.remove('selected-cell-td');
+      });
+    Transforms.setNodes(
+      markdownEditorRef.current,
+      {
+        selected: false,
+      },
+      {
+        match: (n) => n.type === 'table-cell' && n.selected === true,
+        at: tablePath,
+      },
+    );
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (!tableRef.current) return;
@@ -146,6 +167,8 @@ export const Table = observer((props: RenderElementProps) => {
         return;
       }
       setSelCells([]);
+      clearSelection();
+
       if (editorProps.tableConfig?.excelMode) return;
       setIsShowBar(false);
     };
@@ -445,8 +468,6 @@ export const Table = observer((props: RenderElementProps) => {
     [store.tableCellNode, store.editor, isShowBar],
   );
 
-  const tableTargetRef = useRef<HTMLTableElement>(null);
-
   useEffect(() => {
     if (!props.element) return;
     tableRef.current = tableNodeEntry;
@@ -644,28 +665,17 @@ export const Table = observer((props: RenderElementProps) => {
     let startX: number, startY: number, endX: number, endY: number;
     // 鼠标按下事件
     table.addEventListener('mousedown', (e) => {
-      Transforms.setNodes(
-        markdownEditorRef.current,
-        {
-          selected: false,
-        },
-        {
-          match: (n) => n.type === 'table-cell' && n.selected === true,
-          at: tablePath,
-        },
-      );
-
       const target = e.target as HTMLElement;
       if (selectionAreaRef.current) {
         selectionAreaRef.current.style.display = 'none';
       }
+      clearSelection();
       if (!tableTargetRef.current?.contains(target)) {
         isDragging = false;
         startX = startY = endX = endY = 0;
 
         return;
       }
-
       isDragging = true;
       startX =
         e.clientX +
@@ -730,11 +740,10 @@ export const Table = observer((props: RenderElementProps) => {
         (overflowShadowContainerRef?.current?.scrollTop || 0) -
         (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
       isDragging = false;
-
+      clearSelection();
       tableTargetRef.current
         ?.querySelectorAll('td.selected-cell-td')
         .forEach((td) => {
-          console.log(td);
           td.classList.remove('selected-cell-td');
         });
 

@@ -34,6 +34,7 @@ export const TableThCell = (
     width?: number;
   },
 ) => {
+  console.log('TableThCell', props);
   const { minWidth, align, text } = props;
 
   const justifyContent = useMemo(() => {
