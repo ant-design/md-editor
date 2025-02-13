@@ -10,7 +10,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Editor, NodeEntry, Path, Selection, Transforms } from 'slate';
+import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { TableCellNode, TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../../slate-react';
@@ -21,22 +21,6 @@ import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
 export * from './TableCell';
-
-const mergePaths = (paths: Path[]): Selection => {
-  const sortedPaths = paths.sort((a, b) => {
-    const minLen = Math.min(a.length, b.length);
-    for (let i = 0; i < minLen; i++) {
-      if (a[i] !== b[i]) return a[i] - b[i];
-    }
-    return a.length - b.length;
-  });
-
-  // 取首尾路径作为选区边界
-  return {
-    anchor: { path: sortedPaths.at(0)!, offset: 0 },
-    focus: { path: sortedPaths.at(-1)!, offset: 0 },
-  };
-};
 
 /**
  * 表格上下文组件，用于在表格组件树中共享单元格选中状态
