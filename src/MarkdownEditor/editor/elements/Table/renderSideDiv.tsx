@@ -468,7 +468,7 @@ export function RowSideDiv(
         zIndex: 200,
         width: '0.94em',
         marginTop: '0.98em',
-        marginLeft: '-1.06em',
+        marginLeft: '-1em',
       }}
       contentEditable={false}
     >

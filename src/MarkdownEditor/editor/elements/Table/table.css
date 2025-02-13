@@ -16,7 +16,7 @@
   z-index: 20;
   position: absolute;
   margin-top: -0.02em;
-  margin-left: -1.04em;
+  margin-left: -1em;
   border-top-left-radius: 0.5em;
   transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
@@ -43,7 +43,7 @@
   &.full-active {
     background-color: #59a5f6;
   }
-  &.half-active {
+  &.half-active:not(.table-side-div) {
     background-color: #c8e0ff;
   }
   &.delete-btn-hover {
