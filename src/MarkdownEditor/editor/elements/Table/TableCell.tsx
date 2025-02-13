@@ -34,7 +34,6 @@ export const TableThCell = (
     width?: number;
   },
 ) => {
-  console.log('TableThCell', props);
   const { minWidth, align, text } = props;
 
   const justifyContent = useMemo(() => {
@@ -155,8 +154,11 @@ export const TableTdCell = (
       className={classNames('group', {
         'selected-cell-td': isSelecting,
         'editing-cell-td': editing,
-        'td-cell-select': !readonly && !isSelecting,
+        'td-cell-select': !readonly && !isSelecting && !editing,
       })}
+      style={{
+        backgroundColor: isSelecting ? '#fff' : undefined,
+      }}
       onDoubleClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
