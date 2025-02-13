@@ -618,6 +618,7 @@ export const Table = observer((props: RenderElementProps) => {
           const path = tdRectMap.get(mapKey);
           const dom = pathToDomMap.get(mapKey);
           dom?.classList.add('selected-cell-td');
+          console.log(dom);
           return path;
         });
 
@@ -634,6 +635,14 @@ export const Table = observer((props: RenderElementProps) => {
             Math.abs(selectRect.y - selectRect.y2) + 'px',
           );
           selectionAreaRef.current.style.display = 'block';
+
+          console.log({
+            x: Math.min(selectRect.x, selectRect.x2),
+            y: Math.min(selectRect.y, selectRect.y2),
+            width: Math.abs(selectRect.x - selectRect.x2),
+            height: Math.abs(selectRect.y - selectRect.y2),
+          });
+
           setTimeout(() => {
             if (selectionAreaRef.current) {
               selectionAreaRef.current.style.transition = 'none';
@@ -799,7 +808,7 @@ export const Table = observer((props: RenderElementProps) => {
                 style={{
                   position: 'absolute',
                   zIndex: 999,
-                  border: '3px solid #42a642',
+                  outline: '3px solid #42a642',
                   pointerEvents: 'none',
                   display: 'none',
                   left: 0,
