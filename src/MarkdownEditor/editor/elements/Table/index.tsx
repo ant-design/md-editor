@@ -168,7 +168,6 @@ export const Table = observer((props: RenderElementProps) => {
       }
       setSelCells([]);
       clearSelection();
-
       if (!editorProps.tableConfig?.excelMode) {
         setIsShowBar(false);
       }
