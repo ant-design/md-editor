@@ -134,22 +134,11 @@ export const Table = observer((props: RenderElementProps) => {
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   const clearSelection = useCallback(() => {
-    selectionAreaRef.current?.style?.setProperty('display', 'none');
     tableTargetRef.current
       ?.querySelectorAll('td.selected-cell-td')
       .forEach((td) => {
         td.classList.remove('selected-cell-td');
       });
-    Transforms.setNodes(
-      markdownEditorRef.current,
-      {
-        selected: false,
-      },
-      {
-        match: (n) => n.type === 'table-cell' && n.selected === true,
-        at: tablePath,
-      },
-    );
   }, []);
 
   useEffect(() => {
@@ -167,6 +156,7 @@ export const Table = observer((props: RenderElementProps) => {
         return;
       }
       setSelCells([]);
+      selectionAreaRef.current?.style?.setProperty('display', 'none');
       clearSelection();
       // excel 模式下不隐藏, 用于处理表格内部的操作
       if (!editorProps.tableConfig?.excelMode) {
@@ -577,6 +567,7 @@ export const Table = observer((props: RenderElementProps) => {
         x2: Math.max(x1, x2),
         y2: Math.max(y1, y2),
       };
+
       const pathList = nodes
         .filter((node) => {
           const tdRect = node[0];
@@ -618,7 +609,6 @@ export const Table = observer((props: RenderElementProps) => {
           const path = tdRectMap.get(mapKey);
           const dom = pathToDomMap.get(mapKey);
           dom?.classList.add('selected-cell-td');
-          console.log(dom);
           return path;
         });
 
@@ -635,14 +625,6 @@ export const Table = observer((props: RenderElementProps) => {
             Math.abs(selectRect.y - selectRect.y2) + 'px',
           );
           selectionAreaRef.current.style.display = 'block';
-
-          console.log({
-            x: Math.min(selectRect.x, selectRect.x2),
-            y: Math.min(selectRect.y, selectRect.y2),
-            width: Math.abs(selectRect.x - selectRect.x2),
-            height: Math.abs(selectRect.y - selectRect.y2),
-          });
-
           setTimeout(() => {
             if (selectionAreaRef.current) {
               selectionAreaRef.current.style.transition = 'none';
@@ -655,6 +637,21 @@ export const Table = observer((props: RenderElementProps) => {
         setSelCells([]);
         return;
       }
+      Transforms.setNodes(
+        markdownEditorRef.current,
+        {
+          selected: false,
+        },
+        {
+          match: (n, path) => {
+            if (pathList.some((p) => p && Path.equals(p, path))) {
+              return false;
+            }
+            return pathList.some((p) => p && Path.equals(p, path));
+          },
+          at: tablePath,
+        },
+      );
       setTimeout(() => {
         Transforms.setNodes(
           markdownEditorRef.current,
@@ -668,7 +665,7 @@ export const Table = observer((props: RenderElementProps) => {
             at: tablePath,
           },
         );
-      }, 600);
+      }, 100);
     }
     // 获取表格元素
     let isDragging = false;
@@ -676,16 +673,14 @@ export const Table = observer((props: RenderElementProps) => {
     // 鼠标按下事件
     table.addEventListener('mousedown', (e) => {
       const target = e.target as HTMLElement;
-      if (selectionAreaRef.current) {
-        selectionAreaRef.current.style.display = 'none';
-      }
+
       clearSelection();
       if (!tableTargetRef.current?.contains(target)) {
         isDragging = false;
         startX = startY = endX = endY = 0;
-
         return;
       }
+
       isDragging = true;
       startX =
         e.clientX +
@@ -755,11 +750,6 @@ export const Table = observer((props: RenderElementProps) => {
       clearSelection();
       e.stopPropagation();
       e.preventDefault();
-      tableTargetRef.current
-        ?.querySelectorAll('td.selected-cell-td')
-        .forEach((td) => {
-          td.classList.remove('selected-cell-td');
-        });
 
       updateSelectionRect(startX, startY, endX, endY);
       startX = startY = endX = endY = 0;

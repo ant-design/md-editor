@@ -116,6 +116,7 @@ export const TableTdCell = (
               WebkitLineClamp: 2,
               maxHeight: 40,
             }}
+            contentEditable
           >
             {text}
           </div>

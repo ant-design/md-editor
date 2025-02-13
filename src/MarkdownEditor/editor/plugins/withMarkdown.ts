@@ -90,17 +90,13 @@ export const withMarkdown = (editor: Editor) => {
           ],
           {
             at: Path.next(operation.path),
+            select: true,
           },
         );
       }
-      setTimeout(() => {
-        Transforms.setSelection(editor, {
-          anchor: { path: Path.next(operation.path), offset: 0 },
-          focus: { path: Path.next(operation.path), offset: 0 },
-        });
-      }, 100);
       return;
     }
+
     if (
       operation.type === 'split_node' ||
       operation.type === 'merge_node' ||
@@ -207,13 +203,23 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
-
+    if (operation.type === 'set_selection') {
+      const path = operation?.newProperties?.anchor?.path;
+      if (!path) return null;
+      if (!Path.isPath(path)) return null;
+      const node = Node.get(editor, Path.parent(path));
+      if (node?.type === 'card-before') {
+        return;
+      }
+      if (node?.type === 'card-after') {
+        return;
+      }
+    }
     apply(operation);
   };
 
   editor.deleteBackward = (unit: any) => {
     const { selection } = editor;
-
     if (
       selection &&
       hasRange(editor, selection) &&
