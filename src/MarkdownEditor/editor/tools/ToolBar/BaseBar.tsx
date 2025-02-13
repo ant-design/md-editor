@@ -204,21 +204,6 @@ export const BaseToolBar = observer(
         list.push(
           <div
             role="button"
-            key="redo"
-            className={classnames(`${baseClassName}-item`, hashId)}
-            onClick={() => {
-              keyTask$.next({
-                key: 'redo',
-                args: [],
-              });
-            }}
-          >
-            <RedoOutlined />
-          </div>,
-        );
-        list.push(
-          <div
-            role="button"
             key="undo"
             className={classnames(`${baseClassName}-item`, hashId)}
             onClick={() => {
@@ -229,6 +214,22 @@ export const BaseToolBar = observer(
             }}
           >
             <UndoOutlined />
+          </div>,
+        );
+
+        list.push(
+          <div
+            role="button"
+            key="redo"
+            className={classnames(`${baseClassName}-item`, hashId)}
+            onClick={() => {
+              keyTask$.next({
+                key: 'redo',
+                args: [],
+              });
+            }}
+          >
+            <RedoOutlined />
           </div>,
         );
       }
