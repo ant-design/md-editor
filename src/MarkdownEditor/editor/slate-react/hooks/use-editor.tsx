@@ -1,6 +1,6 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 
-import { EditorContext } from './use-slate-static'
+import { EditorContext } from './use-slate-static';
 
 /**
  * Get the current editor object from the React context.
@@ -8,13 +8,13 @@ import { EditorContext } from './use-slate-static'
  */
 
 export const useEditor = () => {
-  const editor = useContext(EditorContext)
+  const editor = useContext(EditorContext);
 
   if (!editor) {
     throw new Error(
-      `The \`useEditor\` hook must be used inside the <Slate> component's context.`
-    )
+      `The \`useEditor\` hook must be used inside the <Slate> component's context.`,
+    );
   }
 
-  return editor
-}
+  return editor;
+};

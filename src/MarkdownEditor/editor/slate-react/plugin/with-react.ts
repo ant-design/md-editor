@@ -1,8 +1,8 @@
-import ReactDOM from 'react-dom'
-import { BaseEditor } from 'slate'
-import { withDOM } from 'slate-dom'
-import { ReactEditor } from './react-editor'
-import { REACT_MAJOR_VERSION } from '../utils/environment'
+import ReactDOM from 'react-dom';
+import { BaseEditor } from 'slate';
+import { withDOM } from 'slate-dom';
+import { REACT_MAJOR_VERSION } from '../utils/environment';
+import { ReactEditor } from './react-editor';
 
 /**
  * `withReact` adds React and DOM specific behaviors to the editor.
@@ -14,15 +14,15 @@ import { REACT_MAJOR_VERSION } from '../utils/environment'
  */
 export const withReact = <T extends BaseEditor>(
   editor: T,
-  clipboardFormatKey = 'x-slate-fragment'
+  clipboardFormatKey = 'x-slate-fragment',
 ): T & ReactEditor => {
-  let e = editor as T & ReactEditor
+  let e = editor as T & ReactEditor;
 
-  e = withDOM(e, clipboardFormatKey)
+  e = withDOM(e, clipboardFormatKey);
 
-  const { onChange } = e
+  const { onChange } = e;
 
-  e.onChange = options => {
+  e.onChange = (options) => {
     // COMPAT: React < 18 doesn't batch `setState` hook calls, which means
     // that the children and selection can get out of sync for one render
     // pass. So we have to use this unstable API to ensure it batches them.
@@ -31,12 +31,12 @@ export const withReact = <T extends BaseEditor>(
     const maybeBatchUpdates =
       REACT_MAJOR_VERSION < 18
         ? ReactDOM.unstable_batchedUpdates
-        : (callback: () => void) => callback()
+        : (callback: () => void) => callback();
 
     maybeBatchUpdates(() => {
-      onChange(options)
-    })
-  }
+      onChange(options);
+    });
+  };
 
-  return e
-}
+  return e;
+};

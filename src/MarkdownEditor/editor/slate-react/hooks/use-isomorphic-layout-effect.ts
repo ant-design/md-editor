@@ -1,5 +1,5 @@
-import { useLayoutEffect, useEffect } from 'react'
-import { CAN_USE_DOM } from 'slate-dom'
+import { useEffect, useLayoutEffect } from 'react';
+import { CAN_USE_DOM } from 'slate-dom';
 
 /**
  * Prevent warning on SSR by falling back to useEffect when DOM isn't available
@@ -7,4 +7,4 @@ import { CAN_USE_DOM } from 'slate-dom'
 
 export const useIsomorphicLayoutEffect = CAN_USE_DOM
   ? useLayoutEffect
-  : useEffect
+  : useEffect;

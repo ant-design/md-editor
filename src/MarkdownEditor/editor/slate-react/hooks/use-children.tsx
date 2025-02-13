@@ -1,37 +1,37 @@
-import React from 'react'
+import React from 'react';
 import {
   Ancestor,
+  DecoratedRange,
   Descendant,
   Editor,
   Element,
   Range,
-  DecoratedRange,
-} from 'slate'
+} from 'slate';
 import {
   RenderElementProps,
   RenderLeafProps,
   RenderPlaceholderProps,
-} from '../components/editable'
+} from '../components/editable';
 
-import ElementComponent from '../components/element'
-import TextComponent from '../components/text'
-import { ReactEditor } from '../plugin/react-editor'
-import { IS_NODE_MAP_DIRTY, NODE_TO_INDEX, NODE_TO_PARENT } from 'slate-dom'
-import { useDecorate } from './use-decorate'
-import { SelectedContext } from './use-selected'
-import { useSlateStatic } from './use-slate-static'
+import { IS_NODE_MAP_DIRTY, NODE_TO_INDEX, NODE_TO_PARENT } from 'slate-dom';
+import ElementComponent from '../components/element';
+import TextComponent from '../components/text';
+import { ReactEditor } from '../plugin/react-editor';
+import { useDecorate } from './use-decorate';
+import { SelectedContext } from './use-selected';
+import { useSlateStatic } from './use-slate-static';
 
 /**
  * Children.
  */
 
 const useChildren = (props: {
-  decorations: DecoratedRange[]
-  node: Ancestor
-  renderElement?: (props: RenderElementProps) => JSX.Element
-  renderPlaceholder: (props: RenderPlaceholderProps) => JSX.Element
-  renderLeaf?: (props: RenderLeafProps) => JSX.Element
-  selection: Range | null
+  decorations: DecoratedRange[];
+  node: Ancestor;
+  renderElement?: (props: RenderElementProps) => JSX.Element;
+  renderPlaceholder: (props: RenderPlaceholderProps) => JSX.Element;
+  renderLeaf?: (props: RenderLeafProps) => JSX.Element;
+  selection: Range | null;
 }) => {
   const {
     decorations,
@@ -40,33 +40,33 @@ const useChildren = (props: {
     renderPlaceholder,
     renderLeaf,
     selection,
-  } = props
-  const decorate = useDecorate()
-  const editor = useSlateStatic()
-  IS_NODE_MAP_DIRTY.set(editor as ReactEditor, false)
-  const path = ReactEditor.findPath(editor, node)
-  const children = []
+  } = props;
+  const decorate = useDecorate();
+  const editor = useSlateStatic();
+  IS_NODE_MAP_DIRTY.set(editor as ReactEditor, false);
+  const path = ReactEditor.findPath(editor, node);
+  const children = [];
   const isLeafBlock =
     Element.isElement(node) &&
     !editor.isInline(node) &&
-    Editor.hasInlines(editor, node)
+    Editor.hasInlines(editor, node);
 
   for (let i = 0; i < node.children.length; i++) {
-    const p = path.concat(i)
-    const n = node.children[i] as Descendant
-    const key = ReactEditor.findKey(editor, n)
-    const range = Editor.range(editor, p)
+    const p = path.concat(i);
+    const n = node.children[i] as Descendant;
+    const key = ReactEditor.findKey(editor, n);
+    const range = Editor.range(editor, p);
     if (!range.focus) {
-      continue
+      continue;
     }
-    const sel = selection && Range.intersection(range, selection)
-    const ds = decorate([n, p])
+    const sel = selection && Range.intersection(range, selection);
+    const ds = decorate([n, p]);
 
     for (const dec of decorations) {
-      const d = Range.intersection(dec, range)
+      const d = Range.intersection(dec, range);
 
       if (d) {
-        ds.push(d)
+        ds.push(d);
       }
     }
 
@@ -82,8 +82,8 @@ const useChildren = (props: {
             renderLeaf={renderLeaf}
             selection={sel}
           />
-        </SelectedContext.Provider>
-      )
+        </SelectedContext.Provider>,
+      );
     } else {
       children.push(
         <TextComponent
@@ -94,15 +94,15 @@ const useChildren = (props: {
           renderPlaceholder={renderPlaceholder}
           renderLeaf={renderLeaf}
           text={n}
-        />
-      )
+        />,
+      );
     }
 
-    NODE_TO_INDEX.set(n, i)
-    NODE_TO_PARENT.set(n, node)
+    NODE_TO_INDEX.set(n, i);
+    NODE_TO_PARENT.set(n, node);
   }
 
-  return children
-}
+  return children;
+};
 
-export default useChildren
+export default useChildren;

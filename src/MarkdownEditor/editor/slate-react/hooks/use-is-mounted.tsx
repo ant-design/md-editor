@@ -1,14 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
 export function useIsMounted() {
-  const isMountedRef = useRef(false)
+  const isMountedRef = useRef(false);
 
   useEffect(() => {
-    isMountedRef.current = true
+    isMountedRef.current = true;
     return () => {
-      isMountedRef.current = false
-    }
-  }, [])
+      isMountedRef.current = false;
+    };
+  }, []);
 
-  return isMountedRef.current
+  return isMountedRef.current;
 }

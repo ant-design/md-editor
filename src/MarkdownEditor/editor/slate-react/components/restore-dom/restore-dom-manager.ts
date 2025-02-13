@@ -1,55 +1,55 @@
-import { RefObject } from 'react'
-import { ReactEditor } from '../../plugin/react-editor'
-import { isTrackedMutation } from 'slate-dom'
+import { RefObject } from 'react';
+import { isTrackedMutation } from 'slate-dom';
+import { ReactEditor } from '../../plugin/react-editor';
 
 export type RestoreDOMManager = {
-  registerMutations: (mutations: MutationRecord[]) => void
-  restoreDOM: () => void
-  clear: () => void
-}
+  registerMutations: (mutations: MutationRecord[]) => void;
+  restoreDOM: () => void;
+  clear: () => void;
+};
 
 export const createRestoreDomManager = (
   editor: ReactEditor,
-  receivedUserInput: RefObject<boolean>
+  receivedUserInput: RefObject<boolean>,
 ): RestoreDOMManager => {
-  let bufferedMutations: MutationRecord[] = []
+  let bufferedMutations: MutationRecord[] = [];
 
   const clear = () => {
-    bufferedMutations = []
-  }
+    bufferedMutations = [];
+  };
 
   const registerMutations = (mutations: MutationRecord[]) => {
     if (!receivedUserInput.current) {
-      return
+      return;
     }
 
-    const trackedMutations = mutations.filter(mutation =>
-      isTrackedMutation(editor, mutation, mutations)
-    )
+    const trackedMutations = mutations.filter((mutation) =>
+      isTrackedMutation(editor, mutation, mutations),
+    );
 
-    bufferedMutations.push(...trackedMutations)
-  }
+    bufferedMutations.push(...trackedMutations);
+  };
 
   function restoreDOM() {
     if (bufferedMutations.length > 0) {
-      bufferedMutations.reverse().forEach(mutation => {
+      bufferedMutations.reverse().forEach((mutation) => {
         if (mutation.type === 'characterData') {
           // We don't want to restore the DOM for characterData mutations
           // because this interrupts the composition.
-          return
+          return;
         }
 
-        mutation.removedNodes.forEach(node => {
-          mutation.target.insertBefore(node, mutation.nextSibling)
-        })
+        mutation.removedNodes.forEach((node) => {
+          mutation.target.insertBefore(node, mutation.nextSibling);
+        });
 
-        mutation.addedNodes.forEach(node => {
-          mutation.target.removeChild(node)
-        })
-      })
+        mutation.addedNodes.forEach((node) => {
+          mutation.target.removeChild(node);
+        });
+      });
 
       // Clear buffered mutations to ensure we don't undo them twice
-      clear()
+      clear();
     }
   }
 
@@ -57,5 +57,5 @@ export const createRestoreDomManager = (
     registerMutations,
     restoreDOM,
     clear,
-  }
-}
+  };
+};
