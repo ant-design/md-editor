@@ -13,22 +13,42 @@ const defaultValue = `
 `;
 export default () => {
   return (
-    <MarkdownEditor
-      width={'100vw'}
-      height={'100vh'}
-      reportMode
-      style={{ padding: 0 }}
-      contentStyle={{
-        padding: 0,
-        margin: 0,
-        paddingLeft: 0,
-      }}
-      tableConfig={{
-        minColumn: 20,
-        minRows: 10,
-        excelMode: true,
-      }}
-      initValue={defaultValue}
-    />
+    <>
+      <MarkdownEditor
+        width={'100vw'}
+        height={'50vh'}
+        reportMode
+        style={{ padding: 0 }}
+        contentStyle={{
+          padding: 0,
+          margin: 0,
+          paddingLeft: 0,
+        }}
+        tableConfig={{
+          minColumn: 20,
+          minRows: 10,
+          excelMode: true,
+        }}
+        initValue={defaultValue}
+      />
+
+      <MarkdownEditor
+        width={'100vw'}
+        height={'50vh'}
+        reportMode
+        readonly
+        style={{ padding: 0 }}
+        contentStyle={{
+          padding: 0,
+          margin: 0,
+          paddingLeft: 0,
+        }}
+        tableConfig={{
+          minColumn: 20,
+          minRows: 10,
+        }}
+        initValue={defaultValue}
+      />
+    </>
   );
 };

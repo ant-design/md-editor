@@ -488,6 +488,7 @@ export const Table = observer((props: RenderElementProps) => {
   }, [JSON.stringify(selCells)]);
 
   useEffect(() => {
+    if (readonly) return;
     const table = overflowShadowContainerRef.current;
     const tdRectMap = new Map<string, Path>();
     const pathToDomMap = new Map<string, HTMLElement>();
@@ -643,16 +644,6 @@ export const Table = observer((props: RenderElementProps) => {
     let startX: number, startY: number, endX: number, endY: number;
     // 鼠标按下事件
     table.addEventListener('mousedown', (e) => {
-      const target = e.target as HTMLElement;
-      if (selectionAreaRef.current) {
-        selectionAreaRef.current.style.display = 'none';
-      }
-      if (!tableTargetRef.current?.contains(target)) {
-        isDragging = false;
-        startX = startY = endX = endY = 0;
-
-        return;
-      }
       Transforms.setNodes(
         markdownEditorRef.current,
         {
@@ -663,6 +654,18 @@ export const Table = observer((props: RenderElementProps) => {
           at: tablePath,
         },
       );
+
+      const target = e.target as HTMLElement;
+      if (selectionAreaRef.current) {
+        selectionAreaRef.current.style.display = 'none';
+      }
+      if (!tableTargetRef.current?.contains(target)) {
+        isDragging = false;
+        startX = startY = endX = endY = 0;
+
+        return;
+      }
+
       isDragging = true;
       startX =
         e.clientX +
@@ -683,6 +686,7 @@ export const Table = observer((props: RenderElementProps) => {
         startX = startY = endX = endY = 0;
         return;
       }
+
       if (!isDragging) return;
       endX =
         e.clientX +
@@ -726,6 +730,13 @@ export const Table = observer((props: RenderElementProps) => {
         (overflowShadowContainerRef?.current?.scrollTop || 0) -
         (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
       isDragging = false;
+
+      tableTargetRef.current
+        ?.querySelectorAll('td.selected-cell-td')
+        .forEach((td) => {
+          console.log(td);
+          td.classList.remove('selected-cell-td');
+        });
 
       updateSelectionRect(startX, startY, endX, endY);
       startX = startY = endX = endY = 0;
