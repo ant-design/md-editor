@@ -484,9 +484,9 @@ export function RowSideDiv(
             width: '0.94em',
             height:
               index === 0
-                ? tr?.getBoundingClientRect?.()?.height - 0.66 ||
+                ? tr?.getBoundingClientRect?.()?.height - 1 ||
                   tr?.clientHeight - 1
-                : tr?.getBoundingClientRect?.()?.height - 0.66 ||
+                : tr?.getBoundingClientRect?.()?.height - 1 ||
                   tr?.clientHeight - 1,
             ...(index === rowDomArr.length - 1 && {
               borderBottomLeftRadius: '0.5em',
@@ -563,20 +563,8 @@ export function ColSideDiv(props: ColSideDivProps) {
   const { getPopupContainer } = useContext(ConfigProvider.ConfigContext);
   const container = getPopupContainer?.(document.body) || document.body;
 
-  let { left: containerLeft } = container.getBoundingClientRect();
-  const firstChild = container.firstElementChild;
-  if (firstChild) {
-    const firstChildStyle = window.getComputedStyle(firstChild);
-    if (firstChildStyle.display === 'block') {
-      containerLeft += 5;
-    }
-  }
-  // 获取容器样式
-  const styles = window.getComputedStyle(container);
-
-  const paddingLeft = parseFloat(styles.paddingLeft);
-
-  const marginLeft = parseFloat(styles.marginLeft);
+  let { left: containerLeft } =
+    container.querySelector('table')?.getBoundingClientRect() || {};
 
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
@@ -664,7 +652,7 @@ export function ColSideDiv(props: ColSideDivProps) {
       style={{
         position: 'absolute',
         display: 'flex',
-        width: tableWidth + 0.5,
+        width: tableWidth - 1,
         overflow: 'hidden',
         height: '0.94em',
         zIndex: 100,
@@ -685,9 +673,8 @@ export function ColSideDiv(props: ColSideDivProps) {
             divStyle={{
               position: 'absolute',
               top: 0,
-              left:
-                leftPosition - containerLeft - marginLeft - paddingLeft - 21.25,
-              width: colRect?.width || td?.clientWidth,
+              left: leftPosition - (containerLeft || 0),
+              width: (colRect?.width || td?.clientWidth) - 2,
               height: '0.94em',
               zIndex: 100,
               ...(index === colDomArr.length - 1 && {
