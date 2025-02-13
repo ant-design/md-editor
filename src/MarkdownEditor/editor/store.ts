@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { action, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
@@ -537,8 +537,9 @@ export class EditorStore {
           mark = document.createElement('div');
           mark.classList.add('move-mark');
           mark.style.width = width;
+          mark.style.height = '2px';
           mark.style.transform = `translate(${last.left}px, ${last.top}px)`;
-          this.container!.append(mark);
+          this.container?.parentElement!.append(mark);
         } else {
           mark.style.width = width;
           mark.style.transform = `translate(${last.left}px, ${last.top}px)`;
@@ -548,11 +549,12 @@ export class EditorStore {
     window.addEventListener('dragover', dragover);
     window.addEventListener(
       'dragend',
-      action(() => {
+      () => {
         try {
+          console.log('dragend');
           window.removeEventListener('dragover', dragover);
           this.readonly = false;
-          if (mark) this.container!.removeChild(mark);
+          if (mark) this.container?.parentElement!.removeChild(mark);
           if (last && this.draggedElement) {
             let [dragPath, dragNode] = this.toPath(this.draggedElement);
             let [targetPath] = this.toPath(last.el);
@@ -617,7 +619,7 @@ export class EditorStore {
         } catch (error) {
           console.error(error);
         }
-      }),
+      },
       { once: true },
     );
   }

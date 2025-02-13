@@ -88,3 +88,15 @@
   left: 3px;
   background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
 }
+
+.move-mark {
+  height: 0.125rem;
+  background-color: #1890ff;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  position: absolute;
+  border-radius: 0.25rem;
+  top: 0;
+  transition-duration: 200ms;
+}
