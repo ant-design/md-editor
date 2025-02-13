@@ -569,6 +569,7 @@ export const MEditor = observer(
         />
       );
     };
+
     const decorateFn = (e: any) => {
       const decorateList = highlight(e);
       if (!editorProps?.comment) return decorateList;

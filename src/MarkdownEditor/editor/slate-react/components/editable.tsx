@@ -1466,30 +1466,32 @@ export const Editable = forwardRef(
                       // Keep a reference to the dragged range before updating selection
                       const draggedRange = editor.selection;
 
-                      // Find the range where the drop happened
-                      const range = ReactEditor.findEventRange(editor, event);
-                      const data = event.dataTransfer;
+                      try {
+                        // Find the range where the drop happened
+                        const range = ReactEditor.findEventRange(editor, event);
+                        const data = event.dataTransfer;
 
-                      Transforms.select(editor, range);
+                        Transforms.select(editor, range);
 
-                      if (state.isDraggingInternally) {
-                        if (
-                          draggedRange &&
-                          !Range.equals(draggedRange, range) &&
-                          !Editor.void(editor, { at: range, voids: true })
-                        ) {
-                          Transforms.delete(editor, {
-                            at: draggedRange,
-                          });
+                        if (state.isDraggingInternally) {
+                          if (
+                            draggedRange &&
+                            !Range.equals(draggedRange, range) &&
+                            !Editor.void(editor, { at: range, voids: true })
+                          ) {
+                            Transforms.delete(editor, {
+                              at: draggedRange,
+                            });
+                          }
                         }
-                      }
-
-                      ReactEditor.insertData(editor, data);
-
-                      // When dragging from another source into the editor, it's possible
-                      // that the current editor does not have focus.
-                      if (!ReactEditor.isFocused(editor)) {
-                        ReactEditor.focus(editor);
+                        ReactEditor.insertData(editor, data);
+                        // When dragging from another source into the editor, it's possible
+                        // that the current editor does not have focus.
+                        if (!ReactEditor.isFocused(editor)) {
+                          ReactEditor.focus(editor);
+                        }
+                      } catch (error) {
+                        console.error(error);
                       }
                     }
                   },

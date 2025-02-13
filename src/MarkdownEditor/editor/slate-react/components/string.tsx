@@ -93,7 +93,7 @@ const TextString = (props: { text: string; isTrailing?: boolean }) => {
 
   // We intentionally render a memoized <span> that only receives the initial text content when the component is mounted.
   // We defer to the layout effect above to update the `textContent` of the span element when needed.
-  return <MemoizedText ref={ref}>{initialText?.trim()}</MemoizedText>;
+  return <MemoizedText ref={ref}>{initialText}</MemoizedText>;
 };
 
 const MemoizedText = memo(

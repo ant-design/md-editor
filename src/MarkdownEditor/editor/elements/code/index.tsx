@@ -231,20 +231,6 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
                 hashId,
               )}
             >
-              {/* <pre
-                className={classNames(
-                  `${baseCls}-content-line-list`,
-                  'select-none',
-                  hashId,
-                )}
-                contentEditable={false}
-              >
-                {(props.children || [])
-                  //@ts-ignore
-                  .map((_, i) => (
-                    <div key={i} />
-                  ))}
-              </pre> */}
               <pre
                 className={classNames(
                   `${baseCls}-content-code-content`,
@@ -302,7 +288,6 @@ export const CodeElement = (props: ElementProps<CodeNode>) => {
 };
 
 export const CodeLine = (props: ElementProps<CodeLineNode>) => {
-  const ctx = useContext(CodeCtx);
   const [, update] = useMEditor(props.element);
   const { store, markdownEditorRef, typewriter } = useEditorStore();
   const isLatest = useMemo(() => {
@@ -324,23 +309,15 @@ export const CodeLine = (props: ElementProps<CodeLineNode>) => {
 
   const baseCls = context.getPrefixCls('md-editor-code');
 
-  return useMemo(() => {
-    return (
-      <div
-        className={classNames(`${baseCls}-content-code-line`, {
-          typewriter: isLatest && typewriter,
-        })}
-        data-be={'code-line'}
-        {...props.attributes}
-      >
-        {props.children}
-      </div>
-    );
-  }, [
-    Node.string(props.element),
-    isLatest,
-    props.element.children,
-    ctx.lang,
-    store.refreshHighlight,
-  ]);
+  return (
+    <div
+      className={classNames(`${baseCls}-content-code-line`, {
+        typewriter: isLatest && typewriter,
+      })}
+      data-be={'code-line'}
+      {...props.attributes}
+    >
+      {props.children}
+    </div>
+  );
 };

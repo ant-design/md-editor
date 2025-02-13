@@ -64,22 +64,20 @@ export const Preview = ({
     return map;
   }, [editorProps?.comment?.commentList]);
 
-  const elementRenderElement = useCallback((props: RenderElementProps) => {
+  const elementRenderElement = (props: RenderElementProps) => {
     return <MElement {...props} children={props.children} readonly />;
-  }, []);
-  const renderMarkdownLeaf = useCallback(
-    (props: any) => {
-      return (
-        <MLeaf
-          {...props}
-          comment={editorProps?.comment}
-          children={props.children}
-          hashId={hashId}
-        />
-      );
-    },
-    [commentMap],
-  );
+  };
+
+  const renderMarkdownLeaf = (props: any) => {
+    return (
+      <MLeaf
+        {...props}
+        comment={editorProps?.comment}
+        children={props.children}
+        hashId={hashId}
+      />
+    );
+  };
 
   const schema = useMemo(() => {
     return parserMdToSchema(editorProps.initValue)?.schema;
