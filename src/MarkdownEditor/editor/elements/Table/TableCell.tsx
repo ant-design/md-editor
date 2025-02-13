@@ -219,5 +219,10 @@ export function TableCell(props: RenderElementProps) {
         width={width}
       />
     );
-  }, [props.element, props.element.children]);
+  }, [
+    props.element.children,
+    props.element?.align,
+    props.element?.width,
+    props.element.selected,
+  ]);
 }
