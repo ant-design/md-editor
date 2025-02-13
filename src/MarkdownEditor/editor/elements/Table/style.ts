@@ -26,11 +26,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderCollapse: 'separate',
         borderSpacing: 0,
         display: 'table',
-        minWidth: '100%',
+        // minWidth: '100%',
         position: 'relative',
         whiteSpace: 'nowrap',
         width: 'max-content',
-        maxWidth: '100%',
+        // maxWidth: '100%',
         overflow: 'auto',
         fontVariant: 'tabular-nums',
         th: {

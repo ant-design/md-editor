@@ -407,7 +407,7 @@ export function RowSideDiv(
     setActiveDeleteBtn,
   } = props;
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
-  const tableDom = (tableRef as any)?.current?.childNodes[0];
+  const tableDom = (tableRef as any)?.current?.childNodes[1];
   const [rowDomArr, setRowDomArr] = useState(
     Array.from(tableDom?.children || []),
   );
@@ -567,7 +567,7 @@ export function ColSideDiv(props: ColSideDivProps) {
     container.querySelector('table')?.getBoundingClientRect() || {};
 
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
-  const tableDom = (tableRef as any)?.current?.childNodes[0];
+  const tableDom = (tableRef as any)?.current?.childNodes[1];
   const [colDomArr, setColDomArr] = useState(
     tableDom ? Array.from(tableDom?.firstChild?.children || []) : [],
   );
