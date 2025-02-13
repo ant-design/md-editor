@@ -299,6 +299,7 @@ export const BaseToolBar = observer(
               height: '18px',
               borderColor: 'rgba(0,0,0,0.15)',
             }}
+            key={'divider'}
           />,
         );
       }
@@ -508,6 +509,7 @@ export const BaseToolBar = observer(
                 height: '18px',
                 borderColor: 'rgba(0,0,0,0.15)',
               }}
+              key={'divider'}
             />
             <Dropdown
               menu={{
@@ -713,6 +715,7 @@ export const BaseToolBar = observer(
               height: '18px',
               borderColor: 'rgba(0,0,0,0.15)',
             }}
+            key={'divider'}
           />
           {headDom}
         </>

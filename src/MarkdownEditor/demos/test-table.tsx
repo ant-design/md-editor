@@ -25,8 +25,8 @@ export default () => {
           paddingLeft: 0,
         }}
         tableConfig={{
-          minColumn: 20,
-          minRows: 10,
+          minColumn: 10,
+          minRows: 20,
           excelMode: true,
         }}
         initValue={defaultValue}
