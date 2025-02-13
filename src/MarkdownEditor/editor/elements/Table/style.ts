@@ -14,6 +14,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: '100%',
         minWidth: 0,
         outline: 'none',
+        overflow: 'auto',
         width: '100%',
         position: 'relative',
         marginBottom: 12,
@@ -48,6 +49,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           textAlign: 'left',
           position: 'relative',
           lineHeight: 1,
+          '&.selected-cell-td': {
+            backgroundColor: '#e9effd',
+          },
+          '&.td-cell-select': {
+            userSelect: 'none',
+            cursor:
+              'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
+          },
         },
         'tr:first-child': {
           borderBottom: '1px solid #e8e8e8',

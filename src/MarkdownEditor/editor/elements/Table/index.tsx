@@ -1,5 +1,6 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import { kdTree } from 'kd-tree-javascript';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, {
@@ -21,6 +22,40 @@ import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
 export * from './TableCell';
+
+const _distance = (
+  a: {
+    x: number;
+    y: number;
+    x2: number;
+    y2: number;
+  },
+  b: {
+    x: number;
+    y: number;
+    x2: number;
+    y2: number;
+  },
+) =>
+  Math.sqrt(
+    Object.keys(a).reduce(
+      (acc, key) => acc + (a[key as 'x'] - b[key as 'x']) ** 2,
+      0,
+    ),
+  );
+
+function isIntersect(
+  rectA: { x2: number; x: number; y2: number; y: number },
+  rectB: { x: number; x2: number; y: number; y2: number },
+) {
+  // X 轴投影无重叠
+  if (rectA.x2 <= rectB.x || rectA.x >= rectB.x2) return false;
+
+  // Y 轴投影无重叠
+  if (rectA.y2 <= rectB.y || rectA.y >= rectB.y2) return false;
+
+  return true;
+}
 
 /**
  * 表格上下文组件，用于在表格组件树中共享单元格选中状态
@@ -453,8 +488,40 @@ export const Table = observer((props: RenderElementProps) => {
   }, [JSON.stringify(selCells)]);
 
   useEffect(() => {
-    if (!editorProps.tableConfig?.excelMode) return;
-    const table = tableTargetRef.current;
+    const table = overflowShadowContainerRef.current;
+    const tdRectMap = new Map<string, Path>();
+    const pathToDomMap = new Map<string, HTMLElement>();
+    const tableRect =
+      overflowShadowContainerRef.current?.getBoundingClientRect() || {
+        left: 0,
+        top: 0,
+      };
+
+    const tds = Array.from(table?.getElementsByTagName('td') || []);
+    const points = tds.map((td) => {
+      const tdRect = td.getBoundingClientRect();
+      const TdNode = ReactEditor.toSlateNode(markdownEditorRef.current, td);
+      const path = ReactEditor.findPath(markdownEditorRef.current, TdNode);
+      let left = tdRect.left - tableRect?.left;
+      let top = tdRect.top - tableRect?.top;
+      const key = [left, top, left + tdRect.width, top + tdRect.height].join(
+        ',',
+      );
+      tdRectMap.set(key, path);
+      pathToDomMap.set(key, td);
+      return {
+        x: left,
+        y: top,
+        x2: left + tdRect.width,
+        y2: top + tdRect.height,
+      };
+    });
+    const cellDimensionsKdTree = new kdTree<{
+      x: number;
+      y: number;
+      x2: number;
+      y2: number;
+    }>(points, _distance, ['x', 'y', 'x2', 'y2']);
 
     if (!table) return;
     // 更新选区矩形并检测碰撞
@@ -464,52 +531,128 @@ export const Table = observer((props: RenderElementProps) => {
       x2: number,
       y2: number,
     ) {
-      // 计算矩形边界
       const rect = {
-        left: Math.min(x1, x2) - 4,
-        top: Math.min(y1, y2) - 4,
-        right: Math.max(x1, x2) - 4,
-        bottom: Math.max(y1, y2) - 4,
+        x: Math.min(x1, x2) - 4,
+        y: Math.min(y1, y2) - 4,
+        x2: Math.max(x1, x2) - 4,
+        y2: Math.max(y1, y2) - 4,
       };
 
-      // 遍历所有 td ，检测是否与矩形碰撞
-      const tds = table?.getElementsByTagName('td') || [];
-      const paths: Path[] = [];
-      Array.from(tds).forEach((td) => {
-        const tdRect = td.getBoundingClientRect();
-        const isCollided =
-          rect.left < tdRect.right &&
-          rect.right > tdRect.left &&
-          rect.top < tdRect.bottom &&
-          rect.bottom > tdRect.top;
-        const TdNode = ReactEditor.toSlateNode(markdownEditorRef.current, td);
-        const path = ReactEditor.findPath(markdownEditorRef.current, TdNode);
+      const nodes = cellDimensionsKdTree.nearest(
+        {
+          x: Math.min(x1, x2) - 4,
+          y: Math.min(y1, y2) - 4,
+          x2: Math.max(x1, x2) - 4,
+          y2: Math.max(y1, y2) - 4,
+        },
+        80,
+      );
 
-        if (isCollided) {
-          paths.push(path);
+      const selectRect = {
+        x: Math.min(x1, x2),
+        y: Math.min(y1, y2),
+        x2: Math.max(x1, x2),
+        y2: Math.max(y1, y2),
+      };
+      const pathList = nodes
+        .filter((node) => {
+          const tdRect = node[0];
+
+          const isCollided = isIntersect(tdRect, rect);
+          if (isCollided) {
+            selectRect.x = Math.max(
+              selectRect.x,
+              tdRect.x,
+              selectRect.x2,
+              tdRect.x2,
+            );
+            selectRect.y = Math.max(
+              selectRect.y,
+              tdRect.y,
+              selectRect.y2,
+              tdRect.y2,
+            );
+            selectRect.x2 = Math.min(
+              selectRect.x,
+              tdRect.x,
+              selectRect.x2,
+              tdRect.x2,
+            );
+            selectRect.y2 = Math.min(
+              selectRect.y,
+              tdRect.y,
+              selectRect.y2,
+              tdRect.y2,
+            );
+            return true;
+          }
+          return false;
+        })
+        ?.map((node) => {
+          const mapKey = [node[0].x, node[0].y, node[0].x2, node[0].y2].join(
+            ',',
+          );
+          const path = tdRectMap.get(mapKey);
+          const dom = pathToDomMap.get(mapKey);
+          dom?.classList.add('selected-cell-td');
+          return path;
+        });
+
+      setTimeout(() => {
+        if (selectionAreaRef.current) {
+          selectionAreaRef.current.style.transition = 'all 0.3s';
+          selectionAreaRef.current.style.transform = `translate(${Math.min(selectRect.x, selectRect.x2)}px, ${Math.min(selectRect.y, selectRect.y2)}px)`;
+          selectionAreaRef.current?.style.setProperty(
+            'width',
+            Math.abs(selectRect.x - selectRect.x2) - 4 + 'px',
+          );
+          selectionAreaRef.current?.style.setProperty(
+            'height',
+            Math.abs(selectRect.y - selectRect.y2) - 4 + 'px',
+          );
+          selectionAreaRef.current.style.display = 'block';
+          setTimeout(() => {
+            if (selectionAreaRef.current) {
+              selectionAreaRef.current.style.transition = 'none';
+            }
+          }, 400);
         }
-        // 添加或移除选中样式
-      });
+      }, 160);
 
-      paths?.forEach((path) => {
+      if (pathList.length === 0) {
+        setSelCells([]);
+        return;
+      }
+      setTimeout(() => {
         Transforms.setNodes(
           markdownEditorRef.current,
           {
             selected: true,
           },
           {
-            match: (n) => n.type === 'table-cell' && n.selected !== true,
-            at: path,
+            match(node, path) {
+              return pathList.some((p) => p && Path.equals(p, path));
+            },
+            at: tablePath,
           },
         );
-      });
+      }, 600);
     }
     // 获取表格元素
     let isDragging = false;
     let startX: number, startY: number, endX: number, endY: number;
-
     // 鼠标按下事件
     table.addEventListener('mousedown', (e) => {
+      const target = e.target as HTMLElement;
+      if (selectionAreaRef.current) {
+        selectionAreaRef.current.style.display = 'none';
+      }
+      if (!tableTargetRef.current?.contains(target)) {
+        isDragging = false;
+        startX = startY = endX = endY = 0;
+
+        return;
+      }
       Transforms.setNodes(
         markdownEditorRef.current,
         {
@@ -521,15 +664,34 @@ export const Table = observer((props: RenderElementProps) => {
         },
       );
       isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
+      startX =
+        e.clientX +
+        (overflowShadowContainerRef?.current?.scrollLeft || 0) -
+        (overflowShadowContainerRef.current?.getBoundingClientRect().left || 0);
+      startY =
+        e.clientY +
+        (overflowShadowContainerRef?.current?.scrollTop || 0) -
+        (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
     });
 
     // 鼠标移动事件
     table.addEventListener('mousemove', (e) => {
+      const target = e.target as HTMLElement;
+
+      if (!tableTargetRef.current?.contains(target)) {
+        isDragging = false;
+        startX = startY = endX = endY = 0;
+        return;
+      }
       if (!isDragging) return;
-      endX = e.clientX;
-      endY = e.clientY;
+      endX =
+        e.clientX +
+        (overflowShadowContainerRef?.current?.scrollLeft || 0) -
+        (overflowShadowContainerRef.current?.getBoundingClientRect().left || 0);
+      endY =
+        e.clientY +
+        (overflowShadowContainerRef?.current?.scrollTop || 0) -
+        (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
       // 更新选区矩形
 
       if (selectionAreaRef.current) {
@@ -548,12 +710,23 @@ export const Table = observer((props: RenderElementProps) => {
 
     // 鼠标释放事件
     table.addEventListener('mouseup', (e) => {
-      endX = e.clientX;
-      endY = e.clientY;
-      if (selectionAreaRef.current) {
-        selectionAreaRef.current.style.display = 'none';
+      const target = e.target as HTMLElement;
+
+      if (!tableTargetRef.current?.contains(target)) {
+        isDragging = false;
+        startX = startY = endX = endY = 0;
+        return;
       }
+      endX =
+        e.clientX +
+        (overflowShadowContainerRef?.current?.scrollLeft || 0) -
+        (overflowShadowContainerRef.current?.getBoundingClientRect().left || 0);
+      endY =
+        e.clientY +
+        (overflowShadowContainerRef?.current?.scrollTop || 0) -
+        (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
       isDragging = false;
+
       updateSelectionRect(startX, startY, endX, endY);
       startX = startY = endX = endY = 0;
     });
@@ -568,18 +741,6 @@ export const Table = observer((props: RenderElementProps) => {
             setSelectedCell,
           }}
         >
-          <div
-            ref={selectionAreaRef}
-            style={{
-              position: 'absolute',
-              zIndex: 999,
-              border: '3px solid #42a642',
-              pointerEvents: 'none',
-              display: 'none',
-              left: 0,
-              top: 0,
-            }}
-          ></div>
           <ConfigProvider
             getPopupContainer={() =>
               overflowShadowContainerRef?.current?.parentElement
@@ -608,6 +769,18 @@ export const Table = observer((props: RenderElementProps) => {
                 overflow: readonly ? 'hidden' : undefined,
               }}
             >
+              <div
+                ref={selectionAreaRef}
+                style={{
+                  position: 'absolute',
+                  zIndex: 999,
+                  border: '3px solid #42a642',
+                  pointerEvents: 'none',
+                  display: 'none',
+                  left: 0,
+                  top: 0,
+                }}
+              ></div>
               <div className="ant-md-editor-drag-el">
                 <DragHandle />
               </div>

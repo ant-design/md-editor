@@ -38,6 +38,9 @@ importers:
       '@juggle/resize-observer':
         specifier: ^3.4.0
         version: 3.4.0
+      '@types/kd-tree-javascript':
+        specifier: ^1.0.3
+        version: 1.0.3
       antd:
         specifier: ^5.23.4
         version: 5.23.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -77,6 +80,9 @@ importers:
       json5:
         specifier: ^2.2.3
         version: 2.2.3
+      kd-tree-javascript:
+        specifier: ^1.0.3
+        version: 1.0.3
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2318,6 +2324,9 @@ packages:
 
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+
+  '@types/kd-tree-javascript@1.0.3':
+    resolution: {integrity: sha512-U9nzaLMsPmUbNcUqQdl7Q2eZ0xIt3Uar1pfqVnkwNPFi4iq/UwdNTF+rz18nR2pqQW3LvrB/xoZE0RLAAmx7iQ==}
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
@@ -5679,6 +5688,9 @@ packages:
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
+
+  kd-tree-javascript@1.0.3:
+    resolution: {integrity: sha512-7oSugmaxTCJFqey11rlTSEQD3hGDnRgROMj9MEREvDGV8SlIFwN7x3jJRyFoi+mjO0+4wuSuaDLS1reNQHP7uA==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -11685,6 +11697,8 @@ snapshots:
     dependencies:
       '@types/node': 22.13.1
 
+  '@types/kd-tree-javascript@1.0.3': {}
+
   '@types/keyv@3.1.4':
     dependencies:
       '@types/node': 22.13.1
@@ -16160,6 +16174,8 @@ snapshots:
       array.prototype.flat: 1.3.3
       object.assign: 4.1.7
       object.values: 1.2.1
+
+  kd-tree-javascript@1.0.3: {}
 
   keyv@4.5.4:
     dependencies:

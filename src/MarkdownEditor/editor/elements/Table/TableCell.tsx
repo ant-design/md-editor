@@ -151,21 +151,11 @@ export const TableTdCell = (
     <td
       {...props.attributes}
       data-be={'td'}
-      className={classNames('group')}
-      style={
-        editing
-          ? undefined
-          : {
-              transition: 'all 0.3s',
-              userSelect: isSelecting && !editing ? 'none' : 'auto',
-              backgroundColor: isSelecting && !editing ? '#f0f0f0' : undefined,
-              cursor: isSelecting
-                ? 'text'
-                : readonly
-                  ? 'text'
-                  : 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
-            }
-      }
+      className={classNames('group', {
+        'selected-cell-td': isSelecting,
+        'editing-cell-td': editing,
+        'td-cell-select': !readonly && !isSelecting,
+      })}
       onDoubleClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -176,23 +166,6 @@ export const TableTdCell = (
         );
       }}
     >
-      {readonly ? null : (
-        <div
-          contentEditable={false}
-          style={{
-            opacity: isSelecting ? 1 : 0,
-            position: 'absolute',
-            width: 'calc(100% - 2px)',
-            height: 'calc(100% - 2px)',
-            outline: isSelecting ? '3px solid #42a642' : '0px solid #42a642',
-            left: 0,
-            userSelect: 'none',
-            pointerEvents: isSelecting ? 'auto' : 'auto',
-            transition: 'all 0.2s',
-            top: 0,
-          }}
-        />
-      )}
       {dom}
     </td>
   );

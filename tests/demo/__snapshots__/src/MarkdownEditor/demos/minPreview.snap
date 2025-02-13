@@ -160,6 +160,9 @@
                 tabindex="0"
               >
                 <div
+                  style="position: absolute; z-index: 999; border: 3px solid #42a642; pointer-events: none; display: none; left: 0px; top: 0px;"
+                />
+                <div
                   class="ant-md-editor-drag-el"
                 />
                 <div
@@ -178,12 +181,12 @@
                     <div
                       class="row-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1.06em;"
+                      style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1em;"
                     >
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -195,7 +198,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -207,7 +210,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -219,7 +222,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -231,7 +234,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -243,7 +246,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -255,7 +258,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -267,7 +270,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -279,7 +282,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px; border-bottom-left-radius: 0.5em;"
+                        style="position: relative; width: 0.94em; height: -1px; border-bottom-left-radius: 0.5em;"
                       >
                         <div
                           class="table-side-div-text"
@@ -292,12 +295,12 @@
                     <div
                       class="col-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
+                      style="position: absolute; display: flex; width: -1px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
                     >
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -309,7 +312,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -321,7 +324,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -333,7 +336,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -345,7 +348,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -357,7 +360,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -369,7 +372,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -381,7 +384,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -393,7 +396,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -405,7 +408,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -417,7 +420,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -429,7 +432,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -441,7 +444,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
                       >
                         <div
                           class="table-side-div-text"
@@ -794,7 +797,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -821,7 +823,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -848,7 +849,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -875,7 +875,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -902,7 +901,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -929,7 +927,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -956,7 +953,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -983,7 +979,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1010,7 +1005,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1037,7 +1031,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1064,7 +1057,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1091,7 +1083,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1118,7 +1109,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1149,7 +1139,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1176,7 +1165,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1203,7 +1191,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1230,7 +1217,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1257,7 +1243,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1284,7 +1269,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1311,7 +1295,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1338,7 +1321,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1365,7 +1347,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1392,7 +1373,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1419,7 +1399,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1446,7 +1425,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1473,7 +1451,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1504,7 +1481,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1531,7 +1507,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1558,7 +1533,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1585,7 +1559,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1612,7 +1585,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1639,7 +1611,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1666,7 +1637,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1693,7 +1663,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1720,7 +1689,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1747,7 +1715,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1774,7 +1741,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1801,7 +1767,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1828,7 +1793,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1859,7 +1823,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 116px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -1886,7 +1849,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1913,7 +1875,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1940,7 +1901,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1967,7 +1927,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -1994,7 +1953,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2021,7 +1979,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2048,7 +2005,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2075,7 +2031,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2102,7 +2057,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2129,7 +2083,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2156,7 +2109,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2183,7 +2135,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2214,7 +2165,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2241,7 +2191,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2268,7 +2217,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2295,7 +2243,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2322,7 +2269,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2349,7 +2295,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2376,7 +2321,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2403,7 +2347,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2430,7 +2373,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2457,7 +2399,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2484,7 +2425,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2511,7 +2451,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2538,7 +2477,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2569,7 +2507,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2596,7 +2533,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2623,7 +2559,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2650,7 +2585,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2677,7 +2611,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2704,7 +2637,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2731,7 +2663,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2758,7 +2689,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2785,7 +2715,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2812,7 +2741,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2839,7 +2767,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2866,7 +2793,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2893,7 +2819,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2924,7 +2849,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -2951,7 +2875,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -2978,7 +2901,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3005,7 +2927,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3032,7 +2953,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3059,7 +2979,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3086,7 +3005,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3113,7 +3031,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3140,7 +3057,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3167,7 +3083,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3194,7 +3109,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3221,7 +3135,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3248,7 +3161,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3279,7 +3191,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
@@ -3306,7 +3217,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3333,7 +3243,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3360,7 +3269,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3387,7 +3295,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3414,7 +3321,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3441,7 +3347,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3468,7 +3373,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3495,7 +3399,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3522,7 +3425,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 44px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3549,7 +3451,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3576,7 +3477,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -3603,7 +3503,6 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: text;"
                         >
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
@@ -4262,6 +4161,9 @@
                 tabindex="0"
               >
                 <div
+                  style="position: absolute; z-index: 999; border: 3px solid #42a642; pointer-events: none; display: none; left: 0px; top: 0px;"
+                />
+                <div
                   class="ant-md-editor-drag-el"
                 >
                   <span
@@ -4309,12 +4211,12 @@
                     <div
                       class="row-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1.06em;"
+                      style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1em;"
                     >
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4326,7 +4228,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4338,7 +4240,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4350,7 +4252,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4362,7 +4264,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4374,7 +4276,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4386,7 +4288,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4398,7 +4300,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px;"
+                        style="position: relative; width: 0.94em; height: -1px;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4410,7 +4312,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: relative; width: 0.94em; height: -0.66px; border-bottom-left-radius: 0.5em;"
+                        style="position: relative; width: 0.94em; height: -1px; border-bottom-left-radius: 0.5em;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4423,12 +4325,12 @@
                     <div
                       class="col-div-bar-inner ignore-toggle-readonly"
                       contenteditable="false"
-                      style="position: absolute; display: flex; width: 0.5px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
+                      style="position: absolute; display: flex; width: -1px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
                     >
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4440,7 +4342,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4452,7 +4354,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4464,7 +4366,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4476,7 +4378,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4488,7 +4390,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4500,7 +4402,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4512,7 +4414,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4524,7 +4426,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4536,7 +4438,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4548,7 +4450,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4560,7 +4462,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4572,7 +4474,7 @@
                       <div
                         class="table-side-div ignore-toggle-readonly none-active  "
                         contenteditable="false"
-                        style="position: absolute; top: 0px; left: -26.25px; width: 0px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
+                        style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
                       >
                         <div
                           class="table-side-div-text"
@@ -4922,15 +4824,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -4953,15 +4850,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -4984,15 +4876,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5015,15 +4902,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5046,15 +4928,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5077,15 +4954,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5108,15 +4980,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5139,15 +5006,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5170,15 +5032,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5201,15 +5058,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5232,15 +5084,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5263,15 +5110,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5294,15 +5136,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 76px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5329,15 +5166,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -5360,15 +5192,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5391,15 +5218,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5422,15 +5244,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5453,15 +5270,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5484,15 +5296,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5515,15 +5322,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5546,15 +5348,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5577,15 +5374,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5608,15 +5400,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5639,15 +5426,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5670,15 +5452,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5701,15 +5478,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5736,15 +5508,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -5767,15 +5534,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5798,15 +5560,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5829,15 +5586,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5860,15 +5612,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5891,15 +5638,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5922,15 +5664,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -5953,15 +5690,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -5984,15 +5716,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6015,15 +5742,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6046,15 +5768,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6077,15 +5794,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6108,15 +5820,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6143,15 +5850,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 116px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6174,15 +5876,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6205,15 +5902,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6236,15 +5928,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6267,15 +5954,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6298,15 +5980,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6329,15 +6006,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6360,15 +6032,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6391,15 +6058,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6422,15 +6084,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6453,15 +6110,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6484,15 +6136,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6515,15 +6162,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6550,15 +6192,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6581,15 +6218,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6612,15 +6244,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6643,15 +6270,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6674,15 +6296,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6705,15 +6322,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6736,15 +6348,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6767,15 +6374,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6798,15 +6400,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6829,15 +6426,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6860,15 +6452,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6891,15 +6478,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6922,15 +6504,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -6957,15 +6534,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 52px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -6988,15 +6560,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7019,15 +6586,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7050,15 +6612,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7081,15 +6638,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7112,15 +6664,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7143,15 +6690,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7174,15 +6716,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7205,15 +6742,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7236,15 +6768,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7267,15 +6794,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7298,15 +6820,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7329,15 +6846,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7364,15 +6876,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 84px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -7395,15 +6902,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7426,15 +6928,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7457,15 +6954,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7488,15 +6980,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7519,15 +7006,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7550,15 +7032,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7581,15 +7058,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7612,15 +7084,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7643,15 +7110,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7674,15 +7136,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7705,15 +7162,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7736,15 +7188,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7771,15 +7218,10 @@
                         data-slate-node="element"
                       >
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 36px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: start;"
                           >
@@ -7802,15 +7244,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 68px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7833,15 +7270,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7864,15 +7296,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7895,15 +7322,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7926,15 +7348,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7957,15 +7374,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -7988,15 +7400,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -8019,15 +7426,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -8050,15 +7452,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 44px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -8081,15 +7478,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -8112,15 +7504,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
@@ -8143,15 +7530,10 @@
                           </div>
                         </td>
                         <td
-                          class="group"
+                          class="group td-cell-select"
                           data-be="td"
                           data-slate-node="element"
-                          style="transition: all 0.3s; user-select: auto; cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto;"
                         >
-                          <div
-                            contenteditable="false"
-                            style="opacity: 0; position: absolute; width: calc(100% - 2px); height: calc(100% - 2px); outline: 0px solid #42a642; left: 0px; user-select: none; pointer-events: auto; transition: all 0.2s; top: 0px;"
-                          />
                           <div
                             style="min-width: 60px; text-wrap: wrap; max-width: 200px; display: flex; justify-content: end;"
                           >
