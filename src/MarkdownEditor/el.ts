@@ -23,7 +23,7 @@ export type CodeNode<T = Record<string, any>> = {
   render?: boolean;
   frontmatter?: boolean;
   h?: number;
-  code?: string;
+  value: string;
   katex?: boolean;
 };
 

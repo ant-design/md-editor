@@ -41,7 +41,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
     lang: props.element.language || '',
     openSelectMenu: false,
   });
-  const codeRef = useRef(props.element.code || '');
+  const codeRef = useRef(props.element.value || '');
   const pathRef = useRef<Path>();
   const posRef = useRef({ row: 0, column: 0 });
   const pasted = useRef(false);
@@ -85,10 +85,9 @@ export function AceElement(props: ElementProps<CodeNode>) {
   }, [props.element, props.element.children, state().lang]);
 
   useEffect(() => {
-    let code = props.element.code || '';
     const editor = ace.edit(dom.current!, {
       useWorker: false,
-      value: code,
+      value: props.element.value,
       fontSize: 13,
       maxLines: Infinity,
       wrap: true,
@@ -201,7 +200,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
     });
     let lang = props.element.language as string;
     setTimeout(() => {
-      editor.setTheme(`ace/theme/cloud9_night`);
+      editor.setTheme('ace/theme/cloud_editor');
       if (modeMap.has(lang)) {
         lang = modeMap.get(lang)!;
       }
@@ -213,7 +212,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
     editor.on('change', () => {
       clearTimeout(timmer.current);
       timmer.current = window.setTimeout(() => {
-        update({ code: editor.getValue() });
+        update({ value: editor.getValue() });
       }, 100);
     });
     return () => {
@@ -224,11 +223,11 @@ export function AceElement(props: ElementProps<CodeNode>) {
     store.codes.set(props.element, editorRef.current!);
     if (props.element.language === 'html' && !!props.element.render) {
       setState({
-        htmlStr: filterScript(props.element.code || 'plain text'),
+        htmlStr: filterScript(props.element.value || 'plain text'),
       });
     }
-    if (props.element.code !== codeRef.current) {
-      editorRef.current?.setValue(props.element.code || 'plain text');
+    if (props.element.value !== codeRef.current) {
+      editorRef.current?.setValue(props.element.value || 'plain text');
     }
   }, [props.element]);
   return (
@@ -248,9 +247,10 @@ export function AceElement(props: ElementProps<CodeNode>) {
         style={{
           padding: state().hide ? 0 : undefined,
           marginBottom: state().hide ? 0 : undefined,
+          boxSizing: 'border-box',
           backgroundColor: state().showBorder
             ? 'rgba(59, 130, 246, 0.1)'
-            : 'rgb(252,252,252)',
+            : 'rgb(253, 253, 253)',
           ...(!state().hide
             ? {
                 borderWidth: '2px',
@@ -271,11 +271,11 @@ export function AceElement(props: ElementProps<CodeNode>) {
               e.stopPropagation();
             }}
             style={{
-              color: 'rgba(185, 100, 100, 0.6)',
               position: 'absolute',
               left: '0',
               top: '0',
               width: '100%',
+              boxSizing: 'border-box',
               height: '1.75rem',
               paddingLeft: '0.75rem',
               paddingRight: '0.375rem',
@@ -398,14 +398,13 @@ export function AceElement(props: ElementProps<CodeNode>) {
             <div>
               <div
                 style={{
-                  transform: 'rotate(90deg)',
-                  fontSize: '1.125rem',
+                  fontSize: '1em',
                   lineHeight: '1.75rem',
                   marginLeft: '0.125rem',
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const code = props.element.code || '';
+                  const code = props.element.value || '';
                   //@ts-ignore
                   window.api.copyToClipboard(code);
                 }}
@@ -415,8 +414,8 @@ export function AceElement(props: ElementProps<CodeNode>) {
             </div>
           </div>
         )}
-        <div ref={dom} style={{ height: 20, lineHeight: '22px' }}></div>
-        <div className={'hidden'}>{props.children}</div>
+        <div ref={dom} style={{ height: 200, lineHeight: '22px' }}></div>
+        <div className={'ant-md-editor-hidden'}>{props.children}</div>
       </div>
       {props.element.language === 'mermaid' && <Mermaid el={props.element} />}
       {!!props.element.katex && <Katex el={props.element} />}
