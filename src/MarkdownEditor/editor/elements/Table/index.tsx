@@ -805,12 +805,6 @@ export const Table = observer((props: RenderElementProps) => {
               className={classNames(`${baseCls}-container`, hashId)}
               onClick={handleClickTable}
               tabIndex={0}
-              onBlur={() => {
-                setSelCells([]);
-                if (editorProps.tableConfig?.excelMode) return;
-                setIsShowBar(false);
-                setSelCells([]);
-              }}
               style={{
                 overflow: readonly ? 'hidden' : undefined,
               }}
