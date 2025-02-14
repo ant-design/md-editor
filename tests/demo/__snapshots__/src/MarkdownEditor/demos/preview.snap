@@ -1751,9 +1751,10 @@
                       data-slate-node="element"
                     >
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 52px; text-align: right;"
+                        style="text-align: right; min-width: 52px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1773,9 +1774,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1795,9 +1797,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1817,9 +1820,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1839,9 +1843,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1861,9 +1866,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1883,9 +1889,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1905,9 +1912,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1927,9 +1935,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1949,9 +1958,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1971,9 +1981,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1993,9 +2004,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -2015,9 +2027,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -4888,9 +4901,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 52px; text-align: right;"
+                      style="text-align: right; min-width: 52px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4937,9 +4951,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4986,9 +5001,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5035,9 +5051,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5084,9 +5101,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5133,9 +5151,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5182,9 +5201,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5231,9 +5251,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5280,9 +5301,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5329,9 +5351,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5378,9 +5401,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5427,9 +5451,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5476,9 +5501,10 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
+                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; text-align: right;"
+                      style="text-align: right; min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -7582,9 +7608,10 @@
                       data-slate-node="element"
                     >
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 52px; text-align: right;"
+                        style="text-align: right; min-width: 52px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -7604,9 +7631,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -7626,9 +7654,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -7648,9 +7677,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -7670,9 +7700,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -7692,9 +7723,10 @@
                         </span>
                       </th>
                       <th
+                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; text-align: right;"
+                        style="text-align: right; min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
