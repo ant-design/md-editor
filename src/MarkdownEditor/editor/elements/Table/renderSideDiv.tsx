@@ -8,7 +8,7 @@ import {
   PicLeftOutlined,
   PicRightOutlined,
 } from '@ant-design/icons';
-import { ConfigProvider, Popconfirm } from 'antd';
+import { ConfigProvider, Popconfirm, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, {
   CSSProperties,
@@ -248,137 +248,153 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             }}
             className={classNames(baseCls, hashId)}
           >
-            <div
-              id="delete-btn"
-              className={classNames(`${baseCls}-item`, hashId, {
-                [`${baseCls}-item-delete`]: true,
-              })}
-              onMouseEnter={() => setDeleteBtnHover(true)}
-              onMouseLeave={() => setDeleteBtnHover(false)}
-            >
-              <Popconfirm
-                title="Confirm to delete?"
-                onConfirm={() => {
-                  const index = getIndexFromSelectedCells(selCells);
-                  onDeleteColumn?.(index);
-                  setActiveDeleteBtn(null);
-                  setDeleteBtnHover(false);
-                  setSelCells([]);
-                }}
+            <Tooltip title="删除表格行/列">
+              <div
+                id="delete-btn"
+                className={classNames(`${baseCls}-item`, hashId, {
+                  [`${baseCls}-item-delete`]: true,
+                })}
+                onMouseEnter={() => setDeleteBtnHover(true)}
+                onMouseLeave={() => setDeleteBtnHover(false)}
               >
-                <DeleteOutlined />
-              </Popconfirm>
-            </div>
+                <Popconfirm
+                  title="Confirm to delete?"
+                  onConfirm={() => {
+                    const index = getIndexFromSelectedCells(selCells);
+                    onDeleteColumn?.(index);
+                    setActiveDeleteBtn(null);
+                    setDeleteBtnHover(false);
+                    setSelCells([]);
+                  }}
+                >
+                  <DeleteOutlined />
+                </Popconfirm>
+              </div>
+            </Tooltip>
             {isColumn ? (
               <>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onAlignChange?.(index, 'left');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <PicRightOutlined />
-                </div>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onAlignChange?.(index, 'center');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <PicCenterOutlined />
-                </div>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onAlignChange?.(index, 'right');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <PicLeftOutlined />
-                </div>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onCreateColumn?.(index, 'before');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <InsertRowLeftOutlined />
-                </div>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onCreateColumn?.(index, 'after');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <InsertRowRightOutlined />
-                </div>
+                <Tooltip title="左对齐">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onAlignChange?.(index, 'left');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <PicRightOutlined />
+                  </div>
+                </Tooltip>
+                <Tooltip title="居中对齐">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onAlignChange?.(index, 'center');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <PicCenterOutlined />
+                  </div>
+                </Tooltip>
+                <Tooltip title="右对齐">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onAlignChange?.(index, 'right');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <PicLeftOutlined />
+                  </div>
+                </Tooltip>
+                <Tooltip title="左侧插入列">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onCreateColumn?.(index, 'before');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <InsertRowLeftOutlined />
+                  </div>
+                </Tooltip>
+                <Tooltip title="右侧插入列">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onCreateColumn?.(index, 'after');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <InsertRowRightOutlined />
+                  </div>
+                </Tooltip>
               </>
             ) : (
               <>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onCreateRow?.(index, 'before');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <InsertRowAboveOutlined />
-                </div>
-                <div
-                  className={classNames(`${baseCls}-item`, hashId)}
-                  style={{
-                    zIndex: 100,
-                  }}
-                  onClick={() => {
-                    const index = getIndexFromSelectedCells(selCells);
-                    props.onCreateRow?.(index, 'after');
-                    setActiveDeleteBtn(null);
-                    setDeleteBtnHover(false);
-                    setSelCells([]);
-                  }}
-                >
-                  <InsertRowBelowOutlined />
-                </div>
+                <Tooltip title="上侧插入行">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onCreateRow?.(index, 'before');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <InsertRowAboveOutlined />
+                  </div>
+                </Tooltip>
+                <Tooltip title="下侧插入行">
+                  <div
+                    className={classNames(`${baseCls}-item`, hashId)}
+                    style={{
+                      zIndex: 100,
+                    }}
+                    onClick={() => {
+                      const index = getIndexFromSelectedCells(selCells);
+                      props.onCreateRow?.(index, 'after');
+                      setActiveDeleteBtn(null);
+                      setDeleteBtnHover(false);
+                      setSelCells([]);
+                    }}
+                  >
+                    <InsertRowBelowOutlined />
+                  </div>
+                </Tooltip>
               </>
             )}
           </div>
