@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { remove as removeDiacritics } from 'diacritics';
-
+import xss from 'xss';
 const rControl = /[\u0000-\u001f]/g;
 const rSpecial = /[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'<>,.?/]+/g;
 
@@ -115,4 +115,16 @@ export const getSelRect = () => {
   const domSelection = window.getSelection();
   const domRange = domSelection?.getRangeAt(0);
   return domRange?.getBoundingClientRect() || null;
+};
+
+export const filterScript = (str: string) => {
+  return xss(str, {
+    css: false,
+    onIgnoreTagAttr: (_, name, value) => {
+      if (name === 'style') {
+        return `${name}="${value}"`;
+      }
+      return '';
+    },
+  });
 };

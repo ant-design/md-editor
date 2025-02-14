@@ -16,6 +16,7 @@ import {
 } from 'slate';
 import { ReactEditor } from './slate-react';
 
+import { Ace } from 'ace-builds';
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '..';
@@ -65,6 +66,7 @@ export class EditorStore {
   selectTablePath: Path = [];
   focus = false;
   readonly = false;
+  codes = new WeakMap<object, Ace.Editor>();
   private ableToEnter = new Set([
     'paragraph',
     'head',

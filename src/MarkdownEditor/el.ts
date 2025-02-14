@@ -23,6 +23,8 @@ export type CodeNode<T = Record<string, any>> = {
   render?: boolean;
   frontmatter?: boolean;
   h?: number;
+  code?: string;
+  katex?: boolean;
 };
 
 export type CodeLineNode<T = Record<string, any>> = {
@@ -336,6 +338,12 @@ declare module 'slate' {
     Text: CustomLeaf;
   }
 }
+
+export type InlineKatexNode = {
+  type: 'inline-katex';
+  value: string;
+  children: BaseElement['children'];
+};
 
 export interface ElementProps<T = Elements> extends RenderElementProps {
   element: T;

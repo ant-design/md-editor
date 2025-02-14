@@ -16,7 +16,7 @@ import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
 import { Chart } from './chart/index';
-import { CodeCtx, CodeElement, CodeLine } from './code';
+import { AceElement } from './code';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -83,9 +83,7 @@ export const MElement = (
     case 'apaasify':
       return <Schema {...props} />;
     case 'code':
-      return <CodeElement {...props}>{props.children}</CodeElement>;
-    case 'code-line':
-      return <CodeLine {...props} />;
+      return <AceElement {...props}>{props.children}</AceElement>;
     case 'table':
       return <Table {...props}>{props.children}</Table>;
     case 'description':
@@ -323,11 +321,9 @@ export const MLeaf = (
 };
 
 export {
+  AceElement,
   Blockquote,
   Chart,
-  CodeCtx,
-  CodeElement,
-  CodeLine,
   Head,
   List,
   ListItem,
