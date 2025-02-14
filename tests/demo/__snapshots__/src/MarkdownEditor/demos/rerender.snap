@@ -74,6 +74,192 @@
                 </span>
               </span>
             </div>
+            <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"MarkdownType": "section", "id": "16" } --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
             <h2
               class="ant-md-editor-drag-el"
               data-be="head"
@@ -3734,6 +3920,192 @@
               </span>
             </h2>
             <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"chartType": "bar", "x":"业务", "y":"2021Q1"} --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
+            <div
               data-be="card"
               data-slate-node="element"
               style="display: flex; gap: 1px; max-width: 100%;"
@@ -4561,6 +4933,192 @@
                 </span>
               </span>
             </h2>
+            <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"chartType": "line", "x":"业务", "y":"2021Q1"} --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
             <div
               data-be="card"
               data-slate-node="element"
@@ -5390,6 +5948,192 @@
               </span>
             </h2>
             <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"chartType": "column", "x":"业务", "y":"2021Q1"} --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
+            <div
               data-be="card"
               data-slate-node="element"
               style="display: flex; gap: 1px; max-width: 100%;"
@@ -6218,6 +6962,192 @@
               </span>
             </h2>
             <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"chartType": "pie", "x":"业务", "y":"2021Q1"} --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
+            <div
               data-be="card"
               data-slate-node="element"
               style="display: flex; gap: 1px; max-width: 100%;"
@@ -7045,6 +7975,192 @@
                 </span>
               </span>
             </h2>
+            <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"chartType": "area", "x":"业务", "y":"2021Q1"} --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
             <div
               data-be="card"
               data-slate-node="element"
@@ -8155,6 +9271,192 @@
               </span>
             </h2>
             <div
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="html"
+              data-slate-node="element"
+            >
+              <div
+                class="ace-container drag-el "
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        Html Renderer
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
+                    <div
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
+                    >
+                      <div
+                        class="ace_layer ace_print-margin-layer"
+                      >
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-md-editor-hidden"
+                >
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!-- {"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]} --&gt;
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                contenteditable="false"
+                style="background-color: rgba(107, 114, 128, 0.05); padding: 0.75em; margin-bottom: 0.75em; white-space: nowrap; border-radius: 0.25em; line-height: 1.25em; overflow: auto;"
+              >
+                plain text
+              </div>
+            </div>
+            <div
               data-be="card"
               data-slate-node="element"
               style="display: flex; gap: 1px; max-width: 100%;"
@@ -8341,30 +9643,8 @@
                   <span
                     data-slate-string="true"
                   >
-                    上上任的武汉大学校长是李晓红 。
+                    上上任的武汉大学校长是李晓红 。[^1][^2]
                   </span>
-                </span>
-                <span
-                  class="  ant-md-editor-content-fnc"
-                  data-be="text"
-                  data-fnc="fnc"
-                  data-fnc-name="1"
-                  data-slate-leaf="true"
-                  draggable="false"
-                  style="font-size: 10px;"
-                >
-                  [^1
-                </span>
-                <span
-                  class="  ant-md-editor-content-fnc"
-                  data-be="text"
-                  data-fnc="fnc"
-                  data-fnc-name="2"
-                  data-slate-leaf="true"
-                  draggable="false"
-                  style="font-size: 10px;"
-                >
-                  [^2
                 </span>
               </span>
             </div>
@@ -9731,19 +11011,8 @@
                     <span
                       data-slate-string="true"
                     >
-                      数据来自 
+                      数据来自 [^3]
                     </span>
-                  </span>
-                  <span
-                    class="  ant-md-editor-content-fnc"
-                    data-be="text"
-                    data-fnc="fnc"
-                    data-fnc-name="3"
-                    data-slate-leaf="true"
-                    draggable="false"
-                    style="font-size: 10px;"
-                  >
-                    [^3
                   </span>
                 </span>
               </div>
@@ -10193,33 +11462,60 @@
               </span>
             </h2>
             <div
-              class="code-container wrap"
+              class="ace-el drag-el"
+              contenteditable="false"
+              data-be="code"
+              data-lang="java"
               data-slate-node="element"
             >
               <div
-                class="ant-md-editor-code ant-md-editor-code-light ant-md-editor-drag-el ant-md-editor-code-num ant-md-editor-code-tab-4"
-                data-be="code"
+                class="ace-container drag-el "
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
               >
                 <div
-                  class="ant-md-editor-code-header"
                   contenteditable="false"
+                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                 >
-                  <div>
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
                     <div
-                      class="ant-md-editor-code-header-lang"
-                      style="font-size: 0.93em;"
+                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                     >
+                      <img
+                        src="/src/MarkdownEditor/editor/elements/code/langIcons/java.svg"
+                        style="height: 1em; width: 1em;"
+                      />
+                    </div>
+                    <div>
                       <span>
                         java
                       </span>
                     </div>
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right"
+                      role="img"
+                      style="transform: rotate(90deg); font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
                   </div>
-                  <div
-                    class="ant-md-editor-code-header-actions"
-                  >
+                  <div>
                     <div
-                      class="ant-md-editor-code-header-actions-item"
-                      style="font-size: 0.93em;"
+                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -10241,237 +11537,215 @@
                         </svg>
                       </span>
                     </div>
+                  </div>
+                </div>
+                <div
+                  class=" ace_editor ace_hidpi ace-tm"
+                  style="height: 200px; line-height: 22px; font-size: 13px;"
+                >
+                  <textarea
+                    aria-autocomplete="both"
+                    aria-haspopup="false"
+                    aria-label="Cursor at row 1"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    class="ace_text-input"
+                    role="textbox"
+                    spellcheck="false"
+                    style="opacity: 0; font-size: 1px;"
+                    wrap="off"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="ace_gutter"
+                  >
                     <div
-                      class="ant-md-editor-code-header-actions-item"
-                      style="font-size: 0.93em;"
+                      class="ace_layer ace_gutter-layer ace_folding-enabled"
+                      style="height: 1000000px;"
+                    />
+                  </div>
+                  <div
+                    class="ace_scroller"
+                    style="line-height: 0px;"
+                  >
+                    <div
+                      class="ace_content"
                     >
-                      <span
-                        aria-label="right"
-                        class="anticon anticon-right"
-                        role="img"
-                        style="transform: rotate(-90deg); transition: transform 0.3s;"
+                      <div
+                        class="ace_layer ace_print-margin-layer"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="right"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
-                          />
-                        </svg>
-                      </span>
+                        <div
+                          class="ace_print-margin"
+                          style="left: 4px; visibility: hidden;"
+                        />
+                      </div>
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_text-layer"
+                        style="height: 1000000px; margin: 0px 4px;"
+                      />
+                      <div
+                        class="ace_layer ace_marker-layer"
+                      />
+                      <div
+                        class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                      >
+                        <div
+                          class="ace_cursor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-v"
+                    style="display: none; width: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="width: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    class="ace_scrollbar ace_scrollbar-h"
+                    style="display: none; height: 20px;"
+                  >
+                    <div
+                      class="ace_scrollbar-inner"
+                      style="height: 20px;"
+                    >
+                       
+                    </div>
+                  </div>
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                  >
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    />
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                    >
+                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                     </div>
                   </div>
                 </div>
                 <div
-                  class="ant-md-editor-code-content ant-md-editor-code-code-highlight"
+                  class="ant-md-editor-hidden"
                 >
-                  <pre
-                    class="ant-md-editor-code-content-code-content"
-                    data-bl-lang="java"
-                    data-bl-type="code"
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
                   >
-                    <code>
-                      <div
-                        class="ant-md-editor-code-content-code-line"
-                        data-be="code-line"
-                        data-slate-node="element"
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
-                          data-slate-node="text"
+                          data-slate-string="true"
                         >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              Class A {
-                            </span>
-                          </span>
+                          Class A {
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-code-content-code-line"
-                        data-be="code-line"
-                        data-slate-node="element"
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
-                          data-slate-node="text"
+                          data-slate-string="true"
                         >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                
-                            </span>
-                          </span>
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(111, 66, 193);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              main
-                            </span>
-                          </span>
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              () {
-                            </span>
-                          </span>
+                            main() {
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-code-content-code-line"
-                        data-be="code-line"
-                        data-slate-node="element"
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
-                          data-slate-node="text"
+                          data-slate-string="true"
                         >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  System.out.
-                            </span>
-                          </span>
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(111, 66, 193);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              println
-                            </span>
-                          </span>
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              (
-                            </span>
-                          </span>
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(3, 47, 98);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              "Hello World"
-                            </span>
-                          </span>
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              );
-                            </span>
-                          </span>
+                              System.out.println("Hello World");
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-code-content-code-line"
-                        data-be="code-line"
-                        data-slate-node="element"
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
-                          data-slate-node="text"
+                          data-slate-string="true"
                         >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                }
-                            </span>
-                          </span>
+                            }
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-code-content-code-line"
-                        data-be="code-line"
-                        data-slate-node="element"
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-md-editor-drag-el"
+                    data-be="paragraph"
+                    data-slate-node="element"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
-                          data-slate-node="text"
+                          data-slate-string="true"
                         >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                            style="color: rgb(36, 41, 46);"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              }
-                            </span>
-                          </span>
+                          }
                         </span>
-                      </div>
-                    </code>
-                  </pre>
+                      </span>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -7448,19 +7448,8 @@
                     <span
                       data-slate-string="true"
                     >
-                      数据来自 
+                      数据来自 [^3]
                     </span>
-                  </span>
-                  <span
-                    class="  ant-md-editor-content-fnc"
-                    data-be="text"
-                    data-fnc="fnc"
-                    data-fnc-name="3"
-                    data-slate-leaf="true"
-                    draggable="false"
-                    style="font-size: 10px;"
-                  >
-                    [^3
                   </span>
                 </span>
               </div>
