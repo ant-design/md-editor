@@ -14,6 +14,6 @@ export function Blockquote(props: ElementProps<BlockQuoteNode>) {
         {props.children}
       </blockquote>
     ),
-    [props.element.children, store.refreshHighlight],
+    [props.element.children],
   );
 }

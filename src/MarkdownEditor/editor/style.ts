@@ -177,6 +177,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '[data-be]:not(p)': {
         position: 'relative',
+        '*': {
+          boxSizing: 'border-box',
+        },
       },
       '[data-be="list"]': {
         marginTop: '0.5em',

@@ -82,12 +82,10 @@ export class EditorStore {
   draggedElement: null | HTMLElement = null;
   openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();
-  highlightCache = new Map<object, Range[]>();
   refreshFloatBar = false;
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
-  refreshHighlight: number | boolean = Date.now();
   domRect: DOMRect | null = null;
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
@@ -146,7 +144,6 @@ export class EditorStore {
       tableCellNode: false,
       editor: false,
       inputComposition: false,
-      highlightCache: false,
       draggedElement: false,
       manual: false,
       openLinkPanel: false,

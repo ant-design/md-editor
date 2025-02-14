@@ -14,7 +14,6 @@ export type CodeNode<T = Record<string, any>> = {
   }[];
   otherProps?: {
     className?: string;
-    highlight?: boolean;
     language?: string;
     render?: boolean;
     frontmatter?: boolean;
@@ -251,7 +250,6 @@ export type SchemaNode<T = Record<string, any>> = {
     num?: number;
   }[];
   otherProps?: {
-    highlight?: boolean;
     language?: string;
     render?: boolean;
     frontmatter?: boolean;
@@ -301,7 +299,6 @@ export type CustomLeaf<T = Record<string, any>> = {
   highColor?: string;
   url?: string;
   text?: string;
-  highlight?: boolean | null;
   current?: boolean | null;
   html?: string;
   // footnote
@@ -327,7 +324,6 @@ declare module 'slate' {
   }
   interface BaseRange {
     color?: string;
-    highlight?: boolean;
     current?: boolean;
   }
 

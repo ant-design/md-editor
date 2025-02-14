@@ -168,7 +168,6 @@ export const MLeaf = (
   if (leaf.bold) children = <strong>{children}</strong>;
   if (leaf.strikethrough) children = <s>{children}</s>;
   if (leaf.italic) children = <i>{children}</i>;
-  if (leaf.highlight) className = ' ' + mdEditorBaseClass + '-high-text';
   if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';
   if (leaf.current) {
     style.background = '#f59e0b';

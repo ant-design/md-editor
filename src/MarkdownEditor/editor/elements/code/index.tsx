@@ -21,9 +21,9 @@ const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
   return {
     value: lang,
     label: (
-      <span className={'flex items-center'}>
-        <img src={icon} className={'w-4'} />
-        <span className={'ml-1'}>{lang}</span>
+      <span style={{ display: 'flex', alignItems: 'center' }}>
+        <img src={icon} style={{ width: '1em' }} />
+        <span style={{ marginLeft: '0.25em' }}>{lang}</span>
       </span>
     ),
   };
@@ -200,7 +200,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
     });
     let lang = props.element.language as string;
     setTimeout(() => {
-      editor.setTheme('ace/theme/cloud_editor');
+      editor.setTheme('ace/theme/github');
       if (modeMap.has(lang)) {
         lang = modeMap.get(lang)!;
       }
@@ -250,19 +250,16 @@ export function AceElement(props: ElementProps<CodeNode>) {
           boxSizing: 'border-box',
           backgroundColor: state().showBorder
             ? 'rgba(59, 130, 246, 0.1)'
-            : 'rgb(253, 253, 253)',
-          ...(!state().hide
-            ? {
-                borderWidth: '2px',
-              }
-            : {
-                height: '0',
-                opacity: 0,
-              }),
+            : state().hide
+              ? 'transparent'
+              : 'rgb(252, 252, 252)',
+          borderWidth: !state().hide ? '2px' : 0,
+          height: state().hide ? 0 : 'auto',
+          opacity: state().hide ? 0 : 1,
         }}
         className={`ace-container drag-el ${
           props.element.frontmatter ? 'frontmatter' : ''
-        } `}
+        }`}
       >
         {!props.element.frontmatter && (
           <div
@@ -271,19 +268,18 @@ export function AceElement(props: ElementProps<CodeNode>) {
               e.stopPropagation();
             }}
             style={{
-              position: 'absolute',
-              left: '0',
-              top: '0',
-              width: '100%',
-              boxSizing: 'border-box',
-              height: '1.75rem',
-              paddingLeft: '0.75rem',
-              paddingRight: '0.375rem',
+              height: '1.75em',
+              paddingLeft: '0.75em',
+              paddingRight: '0.375em',
               display: 'flex',
               alignItems: 'center',
+              width: '100%',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              fontSize: '0.875em',
+              color: 'rgba(0, 0, 0, 0.6)',
               justifyContent: 'space-between',
-              fontSize: '0.875rem',
-              lineHeight: '1.25rem',
               zIndex: 50,
               userSelect: 'none',
             }}
@@ -350,18 +346,18 @@ export function AceElement(props: ElementProps<CodeNode>) {
                   !props.element.katex && (
                     <div
                       style={{
-                        height: '1rem',
-                        width: '1rem',
+                        height: '1em',
+                        width: '1em',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginRight: '0.25rem',
+                        marginRight: '0.25em',
                       }}
                     >
                       <img
                         style={{
-                          height: '1rem',
-                          width: '1rem',
+                          height: '1em',
+                          width: '1em',
                         }}
                         src={langIconMap.get(
                           props.element.language?.toLowerCase() || '',
@@ -387,9 +383,9 @@ export function AceElement(props: ElementProps<CodeNode>) {
                   <RightOutlined
                     style={{
                       transform: 'rotate(90deg)',
-                      fontSize: '1.125rem',
-                      lineHeight: '1.75rem',
-                      marginLeft: '0.125rem',
+                      fontSize: '1em',
+                      lineHeight: '1.75em',
+                      marginLeft: '0.125em',
                     }}
                   />
                 )}
@@ -399,8 +395,8 @@ export function AceElement(props: ElementProps<CodeNode>) {
               <div
                 style={{
                   fontSize: '1em',
-                  lineHeight: '1.75rem',
-                  marginLeft: '0.125rem',
+                  lineHeight: '1.75em',
+                  marginLeft: '0.125em',
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -423,11 +419,11 @@ export function AceElement(props: ElementProps<CodeNode>) {
         <div
           style={{
             backgroundColor: 'rgba(107, 114, 128, 0.05)',
-            padding: '0.75rem',
-            marginBottom: '0.75rem',
+            padding: '0.75em',
+            marginBottom: '0.75em',
             whiteSpace: 'nowrap',
-            borderRadius: '0.25rem',
-            lineHeight: '1.25rem',
+            borderRadius: '0.25em',
+            lineHeight: '1.25em',
             overflow: 'auto',
           }}
           onClick={(e) => {

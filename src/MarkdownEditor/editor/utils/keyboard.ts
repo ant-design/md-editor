@@ -153,7 +153,6 @@ export class KeyboardTask {
           runInAction(() => {
             if (typeof window === 'undefined') return;
             if (typeof window.matchMedia === 'undefined') return;
-            this.store.refreshHighlight = Date.now();
           });
         }, 60);
       } else if (node[0].type === 'table-cell') {
@@ -289,11 +288,6 @@ export class KeyboardTask {
         }
       }
     }
-    setTimeout(() => {
-      if (typeof window === 'undefined') return;
-      if (typeof window.matchMedia === 'undefined') return;
-      runInAction(() => (this.store!.refreshHighlight = Date.now()));
-    }, 100);
   }
 
   head(level: number) {

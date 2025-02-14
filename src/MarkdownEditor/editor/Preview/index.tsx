@@ -11,7 +11,6 @@ import {
   parserMdToSchema,
 } from '../../index';
 import { withMarkdown } from '../plugins';
-import { SetNodeToDecorations, useHighlight } from '../plugins/useHighlight';
 import { Editable, RenderElementProps, Slate, withReact } from '../slate-react';
 import { useStyle } from '../style';
 import { calcPath, getRelativePath, isPath } from '../utils/editorUtils';
@@ -27,8 +26,6 @@ export const Preview = ({
   reportMode?: MarkdownEditorProps['reportMode'];
 }) => {
   const editor = withMarkdown(withReact(withHistory(createEditor())));
-
-  const highlight = useHighlight();
 
   const onError = useCallback((e: React.SyntheticEvent) => {
     console.log('Editor error', e);
@@ -85,25 +82,19 @@ export const Preview = ({
 
   return wrapSSR(
     <Slate editor={editor} initialValue={schema}>
-      <SetNodeToDecorations />
       <Editable
         decorate={(e) => {
-          const decorateList = highlight(e);
-          if (!editorProps?.comment) return decorateList;
-          if (editorProps?.comment?.enable === false) return decorateList;
-          if (commentMap.size === 0) return decorateList;
           const ranges: BaseRange[] = [];
           const [, path] = e;
           const itemMap = commentMap.get(path.join(','));
-          if (!itemMap) return decorateList;
           let newPath = path;
           if (Array.isArray(path) && path[path.length - 1] !== 0) {
             newPath = [...path, 0];
           }
-          itemMap.forEach((itemList) => {
+          itemMap?.forEach((itemList) => {
             const item = itemList[0];
             const { anchor, focus } = item.selection || {};
-            if (!anchor || !focus) return decorateList;
+            if (!anchor || !focus) return undefined;
             const relativePath = getRelativePath(newPath, anchor.path);
             const AnchorPath = calcPath(anchor.path, relativePath);
             const FocusPath = calcPath(focus.path, relativePath);
@@ -143,7 +134,7 @@ export const Preview = ({
             }
           });
 
-          return decorateList.concat(ranges as any[]);
+          return ranges as any[];
         }}
         onError={onError}
         readOnly

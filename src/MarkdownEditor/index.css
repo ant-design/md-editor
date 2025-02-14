@@ -90,13 +90,13 @@
 }
 
 .move-mark {
-  height: 0.125rem;
+  height: 0.125em;
   background-color: #1890ff;
   left: 0;
   z-index: 1000;
   display: block;
   position: absolute;
-  border-radius: 0.25rem;
+  border-radius: 0.25em;
   top: 0;
   transition-duration: 200ms;
 }
@@ -107,18 +107,10 @@
 
 .ace-container {
   position: relative;
-  border-radius: 0.25rem;
+  border-radius: 0.25em;
   border-width: 1px;
   border-color: #0000001a;
-  padding-top: 2rem;
-  padding-bottom: 0.5rem;
-}
-
-.ace-container:is(.dark *) {
-  border-color: #e5e7eb1a;
-}
-
-.ace-container {
+  padding-top: 2em;
   margin-bottom: 0.5em;
 }
 
@@ -151,7 +143,7 @@
 }
 
 .match-text {
-  border-radius: 0.125rem;
+  border-radius: 0.125em;
   background-color: #00000026;
 }
 
@@ -160,7 +152,13 @@
 }
 
 .match-current {
-  border-radius: 0.125rem;
+  border-radius: 0.125em;
   --tw-bg-opacity: 1;
   background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+}
+
+.katex-container {
+  .newline {
+    margin: 4px 0;
+  }
 }

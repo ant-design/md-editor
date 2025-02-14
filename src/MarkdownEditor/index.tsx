@@ -36,7 +36,6 @@ import { InsertLink } from './editor/tools/InsertLink';
 import { ToolBar } from './editor/tools/ToolBar';
 import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
 import { FloatBar } from './editor/tools/ToolBar/FloatBar';
-import { codeReady } from './editor/utils/highlight';
 import { ElementProps, Elements, ListItemNode } from './el';
 import './index.css';
 import { useStyle } from './style';
@@ -349,22 +348,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       } as MarkdownEditorInstance,
       { range: false },
     );
-  }, []);
-
-  /**
-   * 初始化代码高亮
-   */
-  useEffect(() => {
-    instance.store.setState((value) => {
-      value.refreshHighlight = Date.now();
-    });
-    codeReady({
-      langs: props?.codeProps?.Languages || [],
-    }).then(() => {
-      instance.store.setState((value) => {
-        value.refreshHighlight = Date.now();
-      });
-    });
   }, []);
 
   // 初始化键盘事件

@@ -55,7 +55,16 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
   }, [props.el]);
   return (
     <div
-      className={'mermaid-container'}
+      style={{
+        marginBottom: '0.75em',
+        cursor: 'default',
+        userSelect: 'none',
+        padding: '0.75rem 0',
+        backgroundColor: 'rgba(15, 17, 20, 0.05)',
+        borderRadius: '0.25em',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
       contentEditable={false}
       onClick={() => {
         const editor = store.codes.get(props.el);
@@ -67,13 +76,20 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
       <div
         contentEditable={false}
         ref={divRef}
-        className={`w-full flex justify-center ${state().code && !state().error ? '' : 'hidden'}`}
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          visibility: state().code && !state().error ? 'visible' : 'hidden',
+        }}
       ></div>
       {state().error && (
-        <div className={'text-center text-red-500/80'}>{state().error}</div>
+        <div style={{ textAlign: 'center', color: 'rgba(239, 68, 68, 0.8)' }}>
+          {state().error}
+        </div>
       )}
       {!state().code && !state().error && (
-        <div className={'text-center text-gray-500'}>Empty</div>
+        <div style={{ textAlign: 'center', color: '#6B7280' }}>Empty</div>
       )}
     </div>
   );

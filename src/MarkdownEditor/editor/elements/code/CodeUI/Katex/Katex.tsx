@@ -49,9 +49,16 @@ export const Katex = observer((props: { el: CodeNode }) => {
   }, [props.el]);
   return (
     <div
-      className={
-        'mb-3 cursor-default select-none text-center bg-gray-500/5 py-4 rounded'
-      }
+      style={{
+        marginBottom: '0.75em',
+        cursor: 'default',
+        userSelect: 'none',
+        textAlign: 'center',
+        backgroundColor: 'rgba(107, 114, 128, 0.05)',
+        paddingTop: '1em',
+        paddingBottom: '1em',
+        borderRadius: '0.25em',
+      }}
       onClick={() => {
         const editor = store.codes.get(props.el);
         if (editor) {
@@ -65,7 +72,7 @@ export const Katex = observer((props: { el: CodeNode }) => {
         className={`${!state().code.trim() ? 'hidden' : ''} katex-container`}
       />
       {!state().code.trim() && (
-        <div className={'text-center text-gray-500'}>Formula</div>
+        <div style={{ textAlign: 'center', color: '#6B7280' }}>Formula</div>
       )}
     </div>
   );

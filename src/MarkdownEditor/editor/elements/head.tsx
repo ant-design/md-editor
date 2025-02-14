@@ -49,12 +49,5 @@ export function Head({
         {children}
       </>,
     );
-  }, [
-    element.level,
-    isLatest,
-    element.children,
-    store?.refreshHighlight,
-    selected,
-    path,
-  ]);
+  }, [element.level, isLatest, element.children, selected, path]);
 }

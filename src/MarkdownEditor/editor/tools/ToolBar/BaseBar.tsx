@@ -128,7 +128,6 @@ export const BaseToolBar = observer(
       const sel = markdownEditorRef.current?.selection;
       if (!sel) return;
       el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
-      store.highlightCache.set(el.current[0], [{ ...sel, highlight: true }]);
       store.openInsertLink$.next(sel);
       runInAction(() => {
         if (typeof window === 'undefined') return;

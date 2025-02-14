@@ -22,11 +22,7 @@ import { MElement, MLeaf } from './elements';
 import { copySelectedBlocks } from './plugins/copySelectedBlocks';
 import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
-import {
-  clearAllCodeCache,
-  SetNodeToDecorations,
-  useHighlight,
-} from './plugins/useHighlight';
+
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import {
@@ -128,7 +124,6 @@ export const MEditor = observer(
       editorProps.onChange,
     );
     const first = useRef(true);
-    const highlight = useHighlight();
 
     /**
      * 初始化编辑器
@@ -147,7 +142,6 @@ export const MEditor = observer(
               ? editorProps.initSchemaValue
               : undefined,
           );
-          clearAllCodeCache(markdownEditorRef.current);
         } catch (e) {
           EditorUtils.deleteAll(markdownEditorRef.current);
         }
@@ -571,7 +565,7 @@ export const MEditor = observer(
     };
 
     const decorateFn = (e: any) => {
-      const decorateList = highlight(e);
+      const decorateList: any[] | undefined = [];
       if (!editorProps?.comment) return decorateList;
       if (editorProps?.comment?.enable === false) return decorateList;
       if (commentMap.size === 0) return decorateList;
@@ -649,7 +643,6 @@ export const MEditor = observer(
         initialValue={[EditorUtils.p]}
         onChange={change}
       >
-        <SetNodeToDecorations />
         <Editable
           decorate={decorateFn}
           onError={onError}
