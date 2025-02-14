@@ -16,7 +16,7 @@ export const Katex = observer((props: { el: CodeNode }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const timer = useRef(0);
   useEffect(() => {
-    const code = props.el.code || '';
+    const code = props.el.value || '';
     clearTimeout(timer.current);
     timer.current = window.setTimeout(
       () => {

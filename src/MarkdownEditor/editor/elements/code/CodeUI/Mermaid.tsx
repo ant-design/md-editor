@@ -36,7 +36,7 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
   }, []);
 
   useEffect(() => {
-    const code = props.el.code || '';
+    const code = props.el.value || '';
     if (state().code !== code) {
       clearTimeout(timer.current);
       timer.current = window.setTimeout(
