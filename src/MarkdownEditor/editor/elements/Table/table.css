@@ -1,4 +1,4 @@
-.ant-md-editor-content-table table .selected-cell-td {
+.ant-md-editor-content-table table .bar-selected-cell-td {
   background-color: rgba(209, 236, 249);
   transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -109,8 +109,4 @@
 }
 .ant-md-editor-content-table table th:last-child {
   border-top-right-radius: 0.5em;
-}
-
-.ant-md-editor-content-table.show-bar table td.selected {
-  background: red;
 }

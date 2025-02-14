@@ -139,7 +139,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
 
   useEffect(() => {
     if (!store.editor) return;
-    const selectedCells = tableDom.querySelectorAll('.selected-cell-td');
+    const selectedCells = tableDom.querySelectorAll('.bar-selected-cell-td');
     if (deleteBtnHover) {
       selectedCells.forEach(
         (cell: { classList: { add: (arg0: string) => void } }) => {

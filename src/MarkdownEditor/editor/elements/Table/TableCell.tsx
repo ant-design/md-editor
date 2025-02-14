@@ -23,8 +23,12 @@ export const TableThCell = (
     width?: number;
   },
 ) => {
+  const [, cellPath] = useSelStatus(props.element);
+  const { readonly, markdownEditorRef } = useEditorStore();
   const { minWidth, align, text } = props;
-
+  const { selected } = props.element;
+  const isSelecting = selected;
+  const [editing, setEditing] = useState(false);
   const justifyContent = useMemo(() => {
     return align
       ? align
@@ -37,10 +41,25 @@ export const TableThCell = (
     <th
       {...props.attributes}
       data-be={'th'}
+      className={classNames('group', {
+        'selected-cell-td': isSelecting,
+        'editing-cell-td': editing,
+        'td-cell-select': !readonly && !isSelecting && !editing,
+      })}
       style={{
-        minWidth: minWidth,
-        width: props.width,
         textAlign: justifyContent as 'left',
+        minWidth: minWidth,
+        maxWidth: '200px',
+        width: props.width,
+      }}
+      onDoubleClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setEditing(true);
+        Transforms.select(
+          markdownEditorRef.current,
+          Editor.end(markdownEditorRef.current, cellPath),
+        );
       }}
     >
       {props.children}

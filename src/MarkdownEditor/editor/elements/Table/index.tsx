@@ -471,15 +471,15 @@ export const Table = observer((props: RenderElementProps) => {
   }, [isShowBar]);
 
   useEffect(() => {
-    if (!editorProps.tableConfig?.excelMode) return;
     if (!store.editor) return;
+    if (readonly) return;
     const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
     cachedSelCells?.forEach((cell) => {
       const [cellNode] = cell;
       try {
         const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
         if (cellDom) {
-          cellDom.classList.remove('selected-cell-td');
+          cellDom.classList.remove('bar-selected-cell-td');
         }
       } catch (error) {
         console.log(error, cellNode);
@@ -490,7 +490,8 @@ export const Table = observer((props: RenderElementProps) => {
       try {
         const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
         if (cellDom) {
-          cellDom.classList.add('selected-cell-td');
+          console.log(cellDom);
+          cellDom.classList.add('bar-selected-cell-td');
         }
       } catch (error) {
         console.log(error, cellNode);
@@ -614,6 +615,12 @@ export const Table = observer((props: RenderElementProps) => {
 
       setTimeout(() => {
         if (selectionAreaRef.current) {
+          const width = Math.abs(selectRect.x - selectRect.x2);
+          const height = Math.abs(selectRect.y - selectRect.y2);
+          if (width < 10 || height < 10) {
+            selectionAreaRef.current.style.display = 'none';
+            return;
+          }
           selectionAreaRef.current.style.transition = 'all 0.3s';
           selectionAreaRef.current.style.transform = `translate(${Math.min(selectRect.x, selectRect.x2)}px, ${Math.min(selectRect.y, selectRect.y2)}px)`;
           selectionAreaRef.current?.style.setProperty(
@@ -713,9 +720,15 @@ export const Table = observer((props: RenderElementProps) => {
         e.clientY +
         (overflowShadowContainerRef?.current?.scrollTop || 0) -
         (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
-      // 更新选区矩形
 
+      // 更新选区矩形
       if (selectionAreaRef.current) {
+        const width = Math.abs(endX - startX);
+        const height = Math.abs(endY - startY);
+        if (width < 10 || height < 10) {
+          selectionAreaRef.current.style.display = 'none';
+          return;
+        }
         selectionAreaRef.current.style.display = 'block';
         selectionAreaRef.current.style.transform = `translate(${Math.min(startX, endX)}px, ${Math.min(startY, endY)}px)`;
         selectionAreaRef.current?.style.setProperty(
@@ -781,7 +794,7 @@ export const Table = observer((props: RenderElementProps) => {
                 props.attributes.ref(el);
               }}
               className={classNames(`${baseCls}-container`, hashId)}
-              onMouseUp={handleClickTable}
+              onClick={handleClickTable}
               tabIndex={0}
               onBlur={() => {
                 setSelCells([]);
