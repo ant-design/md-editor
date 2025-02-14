@@ -169,7 +169,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
           left: (right + left) / 2 - 74 - containerLeft,
           top: top - containerTop - 36,
         }
-      : { left: right - 36, top: top - 70 };
+      : { left: right - 36, top: top - containerTop - 36 };
     setOverlayPos(domPos);
   }, [deleteBtnHover, activeDeleteBtn]);
 

@@ -780,8 +780,8 @@ export const Table = observer((props: RenderElementProps) => {
         >
           <ConfigProvider
             getPopupContainer={() =>
-              overflowShadowContainerRef?.current?.parentElement
-                ?.parentElement || document.body
+              overflowShadowContainerRef?.current?.parentElement ||
+              document.body
             }
           >
             <div
