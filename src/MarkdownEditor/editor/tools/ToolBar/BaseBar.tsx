@@ -39,24 +39,24 @@ const tools = [
   {
     key: 'bold',
     type: 'bold',
-    title: '加粗',
+    title: '加粗 Bold',
     icon: (<BoldOutlined />) as React.ReactNode,
   },
   {
     key: 'italic',
-    title: '斜体',
+    title: '斜体  Italic',
     type: 'italic',
     icon: <ItalicOutlined />,
   },
   {
     key: 'strikethrough',
-    title: '删除线',
+    title: '删除线  Strikethrough',
     type: 'strikethrough',
     icon: <StrikethroughOutlined />,
   },
   {
     key: 'inline-code',
-    title: '行内代码',
+    title: '行内代码 Inline Code ',
     type: 'code',
     icon: <LineCode />,
   },
@@ -188,7 +188,7 @@ export const BaseToolBar = observer(
     const listDom = useMemo(() => {
       const options = insertOptions.map((t) => {
         return (
-          <Tooltip title={t.label} key={t.key}>
+          <Tooltip title={t.label.join(' ')} key={t.key}>
             <div
               role="button"
               key={t.key}
@@ -208,23 +208,6 @@ export const BaseToolBar = observer(
 
       if (props.showEditor) {
         list.push(
-          <Tooltip title="重做" key="重做">
-            <div
-              role="button"
-              key="redo"
-              className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={() => {
-                keyTask$.next({
-                  key: 'redo',
-                  args: [],
-                });
-              }}
-            >
-              <RedoOutlined />
-            </div>
-          </Tooltip>,
-        );
-        list.push(
           <Tooltip title="撤销" key="undo">
             <div
               role="button"
@@ -242,19 +225,21 @@ export const BaseToolBar = observer(
         );
 
         list.push(
-          <div
-            role="button"
-            key="redo"
-            className={classnames(`${baseClassName}-item`, hashId)}
-            onClick={() => {
-              keyTask$.next({
-                key: 'redo',
-                args: [],
-              });
-            }}
-          >
-            <RedoOutlined />
-          </div>,
+          <Tooltip title="重做" key="重做">
+            <div
+              role="button"
+              key="redo"
+              className={classnames(`${baseClassName}-item`, hashId)}
+              onClick={() => {
+                keyTask$.next({
+                  key: 'redo',
+                  args: [],
+                });
+              }}
+            >
+              <RedoOutlined />
+            </div>
+          </Tooltip>,
         );
       }
 
@@ -320,13 +305,13 @@ export const BaseToolBar = observer(
       if (list.length > 0) {
         list.push(
           <Divider
+            key="divider1"
             type="vertical"
             style={{
               margin: '0 4px',
               height: '18px',
               borderColor: 'rgba(0,0,0,0.15)',
             }}
-            key={'divider'}
           />,
         );
       }
@@ -447,7 +432,7 @@ export const BaseToolBar = observer(
       if (['head', 'paragraph'].includes(node?.[0]?.type)) {
         list.push(
           <Divider
-            key="divider"
+            key="divider2"
             type="vertical"
             style={{
               margin: '0 4px',
