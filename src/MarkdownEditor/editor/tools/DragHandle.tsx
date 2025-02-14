@@ -17,7 +17,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
         style={{ ...props.style }}
         contentEditable={false}
         ref={ref}
-        onMouseDown={() => {
+        onMouseDown={(e) => {
           let parent = ref.current!.parentElement!;
           if (parent.parentElement?.dataset.be === 'list-item') {
             if (
@@ -29,6 +29,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
               parent = parent.parentElement;
             }
           }
+          e.stopPropagation();
           parent.draggable = true;
           store.draggedElement = parent;
         }}

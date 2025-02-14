@@ -454,9 +454,12 @@ export class EditorStore {
    * 3. 在拖拽过程中，根据鼠标位置动态更新拖拽标记的位置。
    * 4. 在拖拽结束时，移除事件监听器和拖拽标记，并根据拖拽目标位置更新编辑器内容。
    */
-  dragStart(e: React.DragEvent) {
+  dragStart(e: any) {
     e.stopPropagation();
-    console.log(e);
+    const img = document.createElement('img');
+    img.src =
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    e.dataTransfer.setDragImage(img, 1, 1);
     type MovePoint = {
       el: HTMLDivElement;
       direction: 'top' | 'bottom';
@@ -498,18 +501,12 @@ export class EditorStore {
       points.push({
         el: el,
         direction: 'top',
-        left:
-          el.dataset.be === 'list-item' && !el.classList.contains('task')
-            ? left - 16
-            : left,
-        top: top - 2,
+        left: left,
+        top: top,
       });
       points.push({
         el: el,
-        left:
-          el.dataset.be === 'list-item' && !el.classList.contains('task')
-            ? left - 16
-            : left,
+        left: left,
         direction: 'bottom',
         top: top + el.clientHeight + 2,
       });
@@ -528,6 +525,9 @@ export class EditorStore {
         }
       }
       if (cur) {
+        const rect = this.container!.getBoundingClientRect();
+        const scrollTop = this.container!.scrollTop;
+        const scrollLeft = this.container!.scrollLeft;
         last = cur;
         const width =
           last.el.dataset.be === 'list-item'
@@ -538,11 +538,12 @@ export class EditorStore {
           mark.classList.add('move-mark');
           mark.style.width = width;
           mark.style.height = '2px';
-          mark.style.transform = `translate(${last.left}px, ${last.top}px)`;
+
+          mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
           this.container?.parentElement!.append(mark);
         } else {
           mark.style.width = width;
-          mark.style.transform = `translate(${last.left}px, ${last.top}px)`;
+          mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
         }
       }
     };
