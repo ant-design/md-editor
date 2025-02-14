@@ -114,3 +114,22 @@
 .ant-md-editor-content-table.show-bar table td.selected {
   background: red;
 }
+.table-row-moving-line {
+  position: absolute;
+  top: -9999px;
+  z-index: 200;
+  height: 2px;
+  width: 0;
+  background: #0689f3;
+  pointer-events: none;
+}
+
+.table-col-moving-line {
+  position: absolute;
+  top: -9999px;
+  z-index: 200;
+  height: 0;
+  width: 2px;
+  background: #0689f3;
+  pointer-events: none;
+}

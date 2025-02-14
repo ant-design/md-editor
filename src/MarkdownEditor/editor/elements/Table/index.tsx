@@ -954,7 +954,6 @@ export const Table = observer((props: RenderElementProps) => {
         const diffX = e.pageX - startPositionX;
         const calculatedWidth = Math.floor(originWidth + diffX);
         let isMinValue = false;
-
         if (minWidth - originWidth + 3 >= diffX) {
           isMinValue = true;
         }
@@ -998,7 +997,6 @@ export const Table = observer((props: RenderElementProps) => {
     },
     [startPositionY, startPositionX, isDragging, curCell, maskRectSide],
   );
-
   const handleMovingLineMouseUp = useCallback(
     (e: any) => {
       const editorDom = ReactEditor.toDOMNode(store.editor, store.editor);
@@ -1121,7 +1119,6 @@ export const Table = observer((props: RenderElementProps) => {
   useEffect(() => {
     setHwEach(colArr);
   }, [colArr]);
-
   return useMemo(
     () =>
       wrapSSR(
@@ -1238,6 +1235,7 @@ export const Table = observer((props: RenderElementProps) => {
                       }
                     }}
                   />
+
                   <ColSideDiv
                     onDeleteColumn={(index) => {
                       runTask('removeCol', index);
@@ -1262,6 +1260,43 @@ export const Table = observer((props: RenderElementProps) => {
                     selCells={selCells}
                     setSelCells={setSelCells}
                   />
+                </div>
+                <div
+                  className="table-moving-line"
+                  data-ignore-slate
+                  contentEditable={false}
+                >
+                  <div
+                    data-ignore-slate
+                    className="table-row-moving-line"
+                    style={{
+                      top: (rowMovingLine?.top || 0) + 17.5,
+                      display: !rowMovingLine?.top ? 'none' : 'block',
+                      left: isShowBar ? 7 : 21,
+                      width: isShowBar
+                        ? tableRect?.width + 21
+                        : tableRect?.width || 0,
+                      position: 'absolute',
+
+                      marginTop:
+                        differenceY !== null ? Math.round(differenceY) : 0,
+                    }}
+                    contentEditable={false}
+                  ></div>
+                  <div
+                    data-ignore-slate
+                    className="table-col-moving-line"
+                    style={{
+                      top: isShowBar ? 5 : 18,
+                      left: colMovingLine?.left + 20.5 || -9999,
+                      height: isShowBar
+                        ? tableRect?.height + 18
+                        : tableRect?.height || 0,
+                      position: 'absolute',
+                      marginLeft:
+                        differenceX !== null ? Math.round(differenceX) : 0,
+                    }}
+                  ></div>
                 </div>
                 <table
                   ref={tableTargetRef}
@@ -1332,6 +1367,7 @@ export const Table = observer((props: RenderElementProps) => {
       rowMovingLine,
       differenceX,
       differenceY,
+      isDragging,
     ],
   );
 });

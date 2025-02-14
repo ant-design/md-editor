@@ -19,7 +19,7 @@ function getParentPathByType(
   return null;
 }
 
-const tableMargin = { left: 26, top: 18 };
+const tableMargin = { left: 21, top: 18 };
 
 const tdPaddingAndBorder = 4 + 1;
 
@@ -116,7 +116,7 @@ function ResizeMask(props: {
         className={'table-resize-mask'}
         contentEditable="false"
         style={{
-          background: 'rgba(200,245,233,.5)',
+          background: 'transparent',
           height: tableResizeMaskRect.height,
           width: tableResizeMaskRect.width,
           left: tableResizeMaskRect.left + tableMargin.left,
