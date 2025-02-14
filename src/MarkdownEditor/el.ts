@@ -306,6 +306,7 @@ export type CustomLeaf<T = Record<string, any>> = {
   fnc?: boolean;
   fnd?: boolean;
   comment?: boolean;
+  id?: string;
   data?: Record<string, any>;
 };
 

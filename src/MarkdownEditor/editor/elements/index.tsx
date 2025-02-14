@@ -317,7 +317,7 @@ export const MLeaf = (
       comment={props.comment}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
     >
-      <span>{dom}</span>
+      <span id={`comment-${props.leaf?.id}`}>{dom}</span>
     </CommentView>
   );
 };

@@ -627,6 +627,7 @@ export const MEditor = observer(
                   focus: { path: newFocusPath, offset: focus.offset },
                   data: itemList,
                   comment: true,
+                  id: item.id,
                   updateTime: itemList
                     .map((i) => i.updateTime)
                     .sort()
