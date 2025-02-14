@@ -24,10 +24,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'none',
       },
       '&-edit': {
-        '>*': {
-          maxWidth: 850,
-          margin: '0 auto',
-        },
         '> p.empty:nth-child(0)::before': {
           cursor: 'text',
           content: '\'Please enter content, press "/" for quick actions\'',
