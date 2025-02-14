@@ -208,19 +208,37 @@ export const BaseToolBar = observer(
 
       if (props.showEditor) {
         list.push(
-          <div
-            role="button"
-            key="undo"
-            className={classnames(`${baseClassName}-item`, hashId)}
-            onClick={() => {
-              keyTask$.next({
-                key: 'undo',
-                args: [],
-              });
-            }}
-          >
-            <UndoOutlined />
-          </div>,
+          <Tooltip title="重做" key="重做">
+            <div
+              role="button"
+              key="redo"
+              className={classnames(`${baseClassName}-item`, hashId)}
+              onClick={() => {
+                keyTask$.next({
+                  key: 'redo',
+                  args: [],
+                });
+              }}
+            >
+              <RedoOutlined />
+            </div>
+          </Tooltip>,
+        );
+        list.push(
+          <Tooltip title="撤销" key="undo">
+            <div
+              role="button"
+              className={classnames(`${baseClassName}-item`, hashId)}
+              onClick={() => {
+                keyTask$.next({
+                  key: 'undo',
+                  args: [],
+                });
+              }}
+            >
+              <UndoOutlined />
+            </div>
+          </Tooltip>,
         );
 
         list.push(
