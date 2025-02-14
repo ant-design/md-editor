@@ -8,7 +8,7 @@
   StrikethroughOutlined,
   UndoOutlined,
 } from '@ant-design/icons';
-import { ColorPicker, Divider, Dropdown } from 'antd';
+import { ColorPicker, Divider, Dropdown, Tooltip } from 'antd';
 import classnames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
@@ -39,20 +39,24 @@ const tools = [
   {
     key: 'bold',
     type: 'bold',
+    title: '加粗',
     icon: (<BoldOutlined />) as React.ReactNode,
   },
   {
     key: 'italic',
+    title: '斜体',
     type: 'italic',
     icon: <ItalicOutlined />,
   },
   {
     key: 'strikethrough',
+    title: '删除线',
     type: 'strikethrough',
     icon: <StrikethroughOutlined />,
   },
   {
     key: 'inline-code',
+    title: '行内代码',
     type: 'code',
     icon: <LineCode />,
   },
@@ -184,17 +188,19 @@ export const BaseToolBar = observer(
     const listDom = useMemo(() => {
       const options = insertOptions.map((t) => {
         return (
-          <div
-            role="button"
-            key={t.key}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
-              insert(t);
-            }}
-            className={classnames(`${baseClassName}-item`, hashId)}
-          >
-            {t.icon}
-          </div>
+          <Tooltip title={t.label} key={t.key}>
+            <div
+              role="button"
+              key={t.key}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                insert(t);
+              }}
+              className={classnames(`${baseClassName}-item`, hashId)}
+            >
+              {t.icon}
+            </div>
+          </Tooltip>
         );
       });
 
@@ -235,17 +241,19 @@ export const BaseToolBar = observer(
       }
 
       list.push(
-        <div
-          role="button"
-          key="clear"
-          className={classnames(`${baseClassName}-item`, hashId)}
-          onClick={() => {
-            EditorUtils.clearMarks(markdownEditorRef.current, true);
-            EditorUtils.highColor(markdownEditorRef.current);
-          }}
-        >
-          <ClearOutlined />
-        </div>,
+        <Tooltip title="清除格式" key="clear">
+          <div
+            role="button"
+            key="clear"
+            className={classnames(`${baseClassName}-item`, hashId)}
+            onClick={() => {
+              EditorUtils.clearMarks(markdownEditorRef.current, true);
+              EditorUtils.highColor(markdownEditorRef.current);
+            }}
+          >
+            <ClearOutlined />
+          </div>
+        </Tooltip>,
       );
 
       if (['head', 'paragraph'].includes(node?.[0]?.type)) {
@@ -306,108 +314,115 @@ export const BaseToolBar = observer(
       }
 
       list.push(
-        <div
-          key="color"
-          role="button"
-          className={classnames(`${baseClassName}-item`, hashId)}
-          style={{
-            position: 'relative',
-          }}
-        >
-          <ColorPicker
-            style={{
-              position: 'absolute',
-              opacity: 0,
-              top: 0,
-              left: 0,
-            }}
-            size="small"
-            value={highColor}
-            presets={[
-              {
-                label: 'Colors',
-                colors: colors.map((c) => c.color),
-              },
-            ]}
-            onChange={(e) => {
-              localStorage.setItem('high-color', e.toHexString());
-              EditorUtils.highColor(markdownEditorRef.current, e.toHexString());
-              setHighColor(e.toHexString());
-              setRefresh((r) => !r);
-            }}
-          />
+        <Tooltip title="字体颜色" key="color">
           <div
-            style={{
-              display: 'flex',
-              height: '100%',
-              alignItems: 'center',
-              fontWeight: EditorUtils.isFormatActive(
-                markdownEditorRef.current,
-                'highColor',
-              )
-                ? 'bold'
-                : undefined,
-              textDecoration: 'underline solid ' + highColor,
-              textDecorationLine: 'underline',
-              textDecorationThickness: 2,
-              lineHeight: 1,
-            }}
+            key="color"
             role="button"
-            onMouseEnter={(e) => e.stopPropagation()}
-            onClick={() => {
-              if (
-                EditorUtils.isFormatActive(
+            className={classnames(`${baseClassName}-item`, hashId)}
+            style={{
+              position: 'relative',
+            }}
+          >
+            <ColorPicker
+              style={{
+                position: 'absolute',
+                opacity: 0,
+                top: 0,
+                left: 0,
+              }}
+              size="small"
+              value={highColor}
+              presets={[
+                {
+                  label: 'Colors',
+                  colors: colors.map((c) => c.color),
+                },
+              ]}
+              onChange={(e) => {
+                localStorage.setItem('high-color', e.toHexString());
+                EditorUtils.highColor(
+                  markdownEditorRef.current,
+                  e.toHexString(),
+                );
+                setHighColor(e.toHexString());
+                setRefresh((r) => !r);
+              }}
+            />
+            <div
+              style={{
+                display: 'flex',
+                height: '100%',
+                alignItems: 'center',
+                fontWeight: EditorUtils.isFormatActive(
                   markdownEditorRef.current,
                   'highColor',
                 )
-              ) {
-                EditorUtils.highColor(markdownEditorRef.current);
-              } else {
-                EditorUtils.highColor(
-                  markdownEditorRef.current,
-                  highColor || '#10b981',
-                );
-              }
-            }}
-          >
-            <span
-              style={{
-                display: 'inline-block',
-                width: 16,
-                height: 16,
-                textAlign: 'center',
-                marginTop: -1,
+                  ? 'bold'
+                  : undefined,
+                textDecoration: 'underline solid ' + highColor,
+                textDecorationLine: 'underline',
+                textDecorationThickness: 2,
+                lineHeight: 1,
+              }}
+              role="button"
+              onMouseEnter={(e) => e.stopPropagation()}
+              onClick={() => {
+                if (
+                  EditorUtils.isFormatActive(
+                    markdownEditorRef.current,
+                    'highColor',
+                  )
+                ) {
+                  EditorUtils.highColor(markdownEditorRef.current);
+                } else {
+                  EditorUtils.highColor(
+                    markdownEditorRef.current,
+                    highColor || '#10b981',
+                  );
+                }
               }}
             >
-              A
-            </span>
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: 16,
+                  height: 16,
+                  textAlign: 'center',
+                  marginTop: -1,
+                }}
+              >
+                A
+              </span>
+            </div>
           </div>
-        </div>,
+        </Tooltip>,
       );
 
       list = list.concat(options);
 
       tools.forEach((tool) => {
         list.push(
-          <div
-            role="button"
-            key={tool.key}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
-              EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
-            }}
-            className={classnames(`${baseClassName}-item`, hashId)}
-            style={{
-              color: EditorUtils.isFormatActive(
-                markdownEditorRef.current,
-                tool.type,
-              )
-                ? '#1677ff'
-                : undefined,
-            }}
-          >
-            {tool.icon}
-          </div>,
+          <Tooltip title={tool.title} key={tool.key}>
+            <div
+              role="button"
+              key={tool.key}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
+              }}
+              className={classnames(`${baseClassName}-item`, hashId)}
+              style={{
+                color: EditorUtils.isFormatActive(
+                  markdownEditorRef.current,
+                  tool.type,
+                )
+                  ? '#1677ff'
+                  : undefined,
+              }}
+            >
+              {tool.icon}
+            </div>
+          </Tooltip>,
         );
       });
 
@@ -424,27 +439,29 @@ export const BaseToolBar = observer(
           />,
         );
         list.push(
-          <div
-            key="link"
-            role="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              openLink();
-            }}
-            className={classnames(`${baseClassName}-item`, hashId)}
-            style={{
-              color: EditorUtils.isFormatActive(
-                markdownEditorRef.current,
-                'url',
-              )
-                ? '#1677ff'
-                : undefined,
-            }}
-          >
-            <LinkOutlined />
-          </div>,
+          <Tooltip title="插入链接" key="link">
+            <div
+              key="link"
+              role="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openLink();
+              }}
+              className={classnames(`${baseClassName}-item`, hashId)}
+              style={{
+                color: EditorUtils.isFormatActive(
+                  markdownEditorRef.current,
+                  'url',
+                )
+                  ? '#1677ff'
+                  : undefined,
+              }}
+            >
+              <LinkOutlined />
+            </div>
+          </Tooltip>,
         );
       }
       if (props.hideTools) {
@@ -459,48 +476,54 @@ export const BaseToolBar = observer(
       <>
         {props.showEditor ? (
           <>
-            <div
-              role="button"
-              className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                keyTask$.next({
-                  key: 'redo',
-                  args: [],
-                });
-              }}
-            >
-              <RedoOutlined />
-            </div>
-            <div
-              role="button"
-              className={classnames(`${baseClassName}-item`, hashId)}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                keyTask$.next({
-                  key: 'undo',
-                  args: [],
-                });
-              }}
-            >
-              <UndoOutlined />
-            </div>
+            <Tooltip title="撤销">
+              <div
+                role="button"
+                className={classnames(`${baseClassName}-item`, hashId)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  keyTask$.next({
+                    key: 'undo',
+                    args: [],
+                  });
+                }}
+              >
+                <UndoOutlined />
+              </div>
+            </Tooltip>
+            <Tooltip title="重做">
+              <div
+                role="button"
+                className={classnames(`${baseClassName}-item`, hashId)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  keyTask$.next({
+                    key: 'redo',
+                    args: [],
+                  });
+                }}
+              >
+                <RedoOutlined />
+              </div>
+            </Tooltip>
           </>
         ) : null}
-        <div
-          role="button"
-          className={classnames(`${baseClassName}-item`, hashId)}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            EditorUtils.clearMarks(markdownEditorRef.current, true);
-            EditorUtils.highColor(markdownEditorRef.current);
-          }}
-        >
-          <ClearOutlined />
-        </div>
+        <Tooltip title="清除格式">
+          <div
+            role="button"
+            className={classnames(`${baseClassName}-item`, hashId)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              EditorUtils.clearMarks(markdownEditorRef.current, true);
+              EditorUtils.highColor(markdownEditorRef.current);
+            }}
+          >
+            <ClearOutlined />
+          </div>
+        </Tooltip>
         {['head', 'paragraph'].includes(node?.[0]?.type) ? (
           <>
             <Divider
@@ -534,24 +557,26 @@ export const BaseToolBar = observer(
                 }),
               }}
             >
-              <div
-                role="button"
-                className={classnames(`${baseClassName}-item`, hashId)}
-                style={{
-                  minWidth: 36,
-                  textAlign: 'center',
-                  fontSize: node?.[0]?.level ? 14 : 12,
-                  justifyContent: 'center',
-                  lineHeight: 1,
-                }}
-              >
-                {node?.[0]?.level
-                  ? `${
-                      HeatTextMap[(node[0].level + '') as '1'] ||
-                      `H${node[0].level}`
-                    }`
-                  : '正文'}
-              </div>
+              <Tooltip title="标题">
+                <div
+                  role="button"
+                  className={classnames(`${baseClassName}-item`, hashId)}
+                  style={{
+                    minWidth: 36,
+                    textAlign: 'center',
+                    fontSize: node?.[0]?.level ? 14 : 12,
+                    justifyContent: 'center',
+                    lineHeight: 1,
+                  }}
+                >
+                  {node?.[0]?.level
+                    ? `${
+                        HeatTextMap[(node[0].level + '') as '1'] ||
+                        `H${node[0].level}`
+                      }`
+                    : '正文'}
+                </div>
+              </Tooltip>
             </Dropdown>
             <div
               key="color"
@@ -588,81 +613,85 @@ export const BaseToolBar = observer(
                   setRefresh((r) => !r);
                 }}
               />
-              <div
-                style={{
-                  display: 'flex',
-                  height: '100%',
-                  alignItems: 'center',
-                  fontWeight: EditorUtils.isFormatActive(
-                    markdownEditorRef.current,
-                    'highColor',
-                  )
-                    ? 'bold'
-                    : undefined,
-                  textDecoration: 'underline solid ' + highColor,
-                  textDecorationLine: 'underline',
-                  textDecorationThickness: 2,
-                  lineHeight: 1,
-                }}
-                role="button"
-                onMouseEnter={(e) => e.stopPropagation()}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  if (
-                    EditorUtils.isFormatActive(
+              <Tooltip title="字体颜色">
+                <div
+                  style={{
+                    display: 'flex',
+                    height: '100%',
+                    alignItems: 'center',
+                    fontWeight: EditorUtils.isFormatActive(
                       markdownEditorRef.current,
                       'highColor',
                     )
-                  ) {
-                    EditorUtils.highColor(markdownEditorRef.current);
-                  } else {
-                    EditorUtils.highColor(
-                      markdownEditorRef.current,
-                      highColor || '#10b981',
-                    );
-                  }
-                }}
-              >
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: 16,
-                    height: 16,
-                    textAlign: 'center',
-                    marginTop: -1,
+                      ? 'bold'
+                      : undefined,
+                    textDecoration: 'underline solid ' + highColor,
+                    textDecorationLine: 'underline',
+                    textDecorationThickness: 2,
+                    lineHeight: 1,
                   }}
-                >
-                  A
-                </span>
-              </div>
-            </div>
-            {tools.map((tool) => {
-              return (
-                <div
                   role="button"
-                  key={tool.key}
-                  onMouseDown={(e) => e.preventDefault()}
+                  onMouseEnter={(e) => e.stopPropagation()}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    EditorUtils.toggleFormat(
-                      markdownEditorRef.current,
-                      tool.type,
-                    );
-                  }}
-                  className={classnames(`${baseClassName}-item`, hashId)}
-                  style={{
-                    color: EditorUtils.isFormatActive(
-                      markdownEditorRef.current,
-                      tool.type,
-                    )
-                      ? '#1677ff'
-                      : undefined,
+                    if (
+                      EditorUtils.isFormatActive(
+                        markdownEditorRef.current,
+                        'highColor',
+                      )
+                    ) {
+                      EditorUtils.highColor(markdownEditorRef.current);
+                    } else {
+                      EditorUtils.highColor(
+                        markdownEditorRef.current,
+                        highColor || '#10b981',
+                      );
+                    }
                   }}
                 >
-                  {tool.icon}
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      width: 16,
+                      height: 16,
+                      textAlign: 'center',
+                      marginTop: -1,
+                    }}
+                  >
+                    A
+                  </span>
                 </div>
+              </Tooltip>
+            </div>
+            {tools.map((tool) => {
+              return (
+                <Tooltip key={tool.key} title={tool.title}>
+                  <div
+                    role="button"
+                    key={tool.key}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      EditorUtils.toggleFormat(
+                        markdownEditorRef.current,
+                        tool.type,
+                      );
+                    }}
+                    className={classnames(`${baseClassName}-item`, hashId)}
+                    style={{
+                      color: EditorUtils.isFormatActive(
+                        markdownEditorRef.current,
+                        tool.type,
+                      )
+                        ? '#1677ff'
+                        : undefined,
+                    }}
+                  >
+                    {tool.icon}
+                  </div>
+                </Tooltip>
               );
             })}
           </>
