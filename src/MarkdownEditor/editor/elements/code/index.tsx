@@ -277,7 +277,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
               position: 'absolute',
               left: 0,
               top: 0,
-              fontSize: '0.875em',
+              fontSize: '1em',
               color: 'rgba(0, 0, 0, 0.6)',
               justifyContent: 'space-between',
               zIndex: 50,
@@ -339,6 +339,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
                   display: 'flex',
                   alignItems: 'center',
                   cursor: 'pointer',
+                  gap: 2,
                   color: 'rgba(0, 0, 0, 0.8)',
                 }}
               >

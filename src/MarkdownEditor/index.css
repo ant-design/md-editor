@@ -112,6 +112,7 @@
   border-color: #0000001a;
   padding-top: 2em;
   margin-bottom: 0.5em;
+  font-size: 14px;
 }
 
 .ace-container.frontmatter:before {
