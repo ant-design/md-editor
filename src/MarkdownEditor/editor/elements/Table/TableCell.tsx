@@ -30,7 +30,7 @@ export const TableThCell = (
   const isSelecting = selected;
   const [editing, setEditing] = useState(false);
   const justifyContent = useMemo(() => {
-    return align
+    return align || !readonly
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
         ? 'left'
@@ -83,7 +83,7 @@ export const TableTdCell = (
   const [editing, setEditing] = useState(false);
 
   const justifyContent = useMemo(() => {
-    return align
+    return align || !readonly
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
         ? 'right'

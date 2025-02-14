@@ -677,8 +677,7 @@ export const Table = observer((props: RenderElementProps) => {
     // 获取表格元素
     let isDragging = false;
     let startX: number, startY: number, endX: number, endY: number;
-    // 鼠标按下事件
-    table.addEventListener('mousedown', (e) => {
+    const mousedown = (e: any) => {
       const target = e.target as HTMLElement;
 
       clearSelection();
@@ -697,10 +696,8 @@ export const Table = observer((props: RenderElementProps) => {
         e.clientY +
         (overflowShadowContainerRef?.current?.scrollTop || 0) -
         (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
-    });
-
-    // 鼠标移动事件
-    table.addEventListener('mousemove', (e) => {
+    };
+    const mousemove = (e: any) => {
       const target = e.target as HTMLElement;
 
       if (!tableTargetRef.current?.contains(target)) {
@@ -740,10 +737,8 @@ export const Table = observer((props: RenderElementProps) => {
           Math.abs(endY - startY) + 'px',
         );
       }
-    });
-
-    // 鼠标释放事件
-    table.addEventListener('mouseup', (e) => {
+    };
+    const mouseup = (e: any) => {
       const target = e.target as HTMLElement;
 
       if (!tableTargetRef.current?.contains(target)) {
@@ -766,7 +761,21 @@ export const Table = observer((props: RenderElementProps) => {
 
       updateSelectionRect(startX, startY, endX, endY);
       startX = startY = endX = endY = 0;
-    });
+    };
+    // 鼠标按下事件
+    table.addEventListener('mousedown', mousedown);
+
+    // 鼠标移动事件
+    table.addEventListener('mousemove', mousemove);
+
+    // 鼠标释放事件
+    table.addEventListener('mouseup', mouseup);
+
+    return () => {
+      table.removeEventListener('mousedown', mousedown);
+      table.removeEventListener('mousemove', mousemove);
+      table.removeEventListener('mouseup', mouseup);
+    };
   }, []);
 
   return useMemo(
