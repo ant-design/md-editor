@@ -248,7 +248,7 @@ export function AbstractSideDiv(props: AbstractSideDivProps) {
             }}
             className={classNames(baseCls, hashId)}
           >
-            <Tooltip title="删除表格行/列">
+            <Tooltip title={isColumn ? '删除列' : '删除行'}>
               <div
                 id="delete-btn"
                 className={classNames(`${baseCls}-item`, hashId, {
