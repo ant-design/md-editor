@@ -39,7 +39,7 @@ export const CommentList: React.FC<{
   commentList: CommentDataType[];
   comment: MarkdownEditorProps['comment'];
 }> = (props) => {
-  const { readonly, markdownEditorRef } = useEditorStore();
+  const { markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const { setShowComment } = useContext(EditorStoreContext) || {};
   const baseCls = context.getPrefixCls('md-editor-comment-view');
@@ -126,7 +126,7 @@ export const CommentList: React.FC<{
                       {dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}
                     </span>
                   </div>
-                  {readonly ? null : (
+                  {
                     <div
                       className={classNames(
                         `${baseCls}-item-header-action`,
@@ -174,7 +174,7 @@ export const CommentList: React.FC<{
                         <EditOutlined />
                       </span>
                     </div>
-                  )}
+                  }
                 </div>
                 <div className={classNames(`${baseCls}-item-content`, hashId)}>
                   {item.content}
