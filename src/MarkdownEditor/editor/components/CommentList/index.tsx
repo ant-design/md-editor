@@ -89,6 +89,11 @@ export const CommentList: React.FC<{
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.95 }}
                 variants={itemVariants}
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  await props.comment?.onClick?.(item.id, item);
+                }}
                 className={classNames(`${baseCls}-item`, hashId)}
               >
                 <div className={classNames(`${baseCls}-item-header`, hashId)}>
