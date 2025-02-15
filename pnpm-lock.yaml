@@ -135,8 +135,8 @@ importers:
         specifier: 0.112.0
         version: 0.112.0
       slate-dom:
-        specifier: ^0.111.0
-        version: 0.111.0(slate@0.112.0)
+        specifier: 0.112.2
+        version: 0.112.2(slate@0.112.0)
       slate-history:
         specifier: 0.110.3
         version: 0.110.3(slate@0.112.0)
@@ -8473,8 +8473,8 @@ packages:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
 
-  slate-dom@0.111.0:
-    resolution: {integrity: sha512-VjeBh2xIRvP6ToEhrO1TPahc5fPezxbeSUhsRTppBPtHfidEdyp/MTI9TjUrZnlznJiVZ7QKrORXilFq8hsbtQ==}
+  slate-dom@0.112.2:
+    resolution: {integrity: sha512-cozITMlpcBxrov854reM6+TooiHiqpfM/nZPrnjpN1wSiDsAQmYbWUyftC+jlwcpFj80vywfDHzlG6hXIc5h6A==}
     peerDependencies:
       slate: '>=0.99.0'
 
@@ -20015,7 +20015,7 @@ snapshots:
 
   slash@4.0.0: {}
 
-  slate-dom@0.111.0(slate@0.112.0):
+  slate-dom@0.112.2(slate@0.112.0):
     dependencies:
       '@juggle/resize-observer': 3.4.0
       direction: 1.0.4
