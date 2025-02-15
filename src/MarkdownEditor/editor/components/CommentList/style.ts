@@ -33,7 +33,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-header': {
           display: 'flex',
           gap: 8,
-          alignItems: 'flex-end',
           justifyContent: 'space-between',
           '&-title': {
             display: 'flex',

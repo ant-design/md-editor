@@ -1,5 +1,10 @@
-﻿import { CloseOutlined, DeleteFilled, EditOutlined } from '@ant-design/icons';
-import { Avatar, ConfigProvider, Popconfirm } from 'antd';
+﻿import {
+  CloseOutlined,
+  DeleteFilled,
+  EditOutlined,
+  ExportOutlined,
+} from '@ant-design/icons';
+import { Avatar, ConfigProvider, Popconfirm, Tooltip } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
@@ -87,7 +92,6 @@ export const CommentList: React.FC<{
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.95 }}
                 variants={itemVariants}
                 onClick={async (e) => {
                   e.stopPropagation();
@@ -103,28 +107,32 @@ export const CommentList: React.FC<{
                       hashId,
                     )}
                   >
-                    <span
-                      className={classNames(
-                        `${baseCls}-item-header-name`,
-                        hashId,
-                      )}
-                    >
-                      <Avatar src={item.user?.avatar} size={14}>
-                        {item.user?.name
-                          ?.split(' ')
-                          ?.map((item) => item?.split('').at(0)?.toUpperCase())
-                          ?.join('') || ''}
-                      </Avatar>
-                      {item.user?.name}
-                    </span>
-                    <span
-                      className={classNames(
-                        `${baseCls}-item-header-time`,
-                        hashId,
-                      )}
-                    >
-                      {dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}
-                    </span>
+                    <div>
+                      <div
+                        className={classNames(
+                          `${baseCls}-item-header-name`,
+                          hashId,
+                        )}
+                      >
+                        <Avatar src={item.user?.avatar} size={14}>
+                          {item.user?.name
+                            ?.split(' ')
+                            ?.map((item) =>
+                              item?.split('').at(0)?.toUpperCase(),
+                            )
+                            ?.join('') || ''}
+                        </Avatar>
+                        {item.user?.name}
+                      </div>
+                      <div
+                        className={classNames(
+                          `${baseCls}-item-header-time`,
+                          hashId,
+                        )}
+                      >
+                        {dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}
+                      </div>
+                    </div>
                   </div>
                   {
                     <div
@@ -133,51 +141,84 @@ export const CommentList: React.FC<{
                         hashId,
                       )}
                     >
-                      <Popconfirm
-                        title={
-                          props.comment?.deleteConfirmText ||
-                          'Are you sure to delete this comment?'
-                        }
-                        onConfirm={async (e) => {
-                          e?.stopPropagation();
-                          e?.preventDefault();
-                          try {
-                            await props.comment?.onDelete?.(item.id, item);
-                            // 更新时间戳,触发一下dom的rerender，不然不给我更新
-                            Transforms.setNodes(
-                              markdownEditorRef.current,
-                              {
-                                updateTimestamp: Date.now(),
-                              },
-                              {
-                                at: item.path,
-                              },
-                            );
-                          } catch (error) {}
-                        }}
-                      >
+                      {props.comment?.onDelete ? (
+                        <Popconfirm
+                          title={
+                            props.comment?.deleteConfirmText ||
+                            'Are you sure to delete this comment?'
+                          }
+                          onConfirm={async (e) => {
+                            e?.stopPropagation();
+                            e?.preventDefault();
+                            try {
+                              await props.comment?.onDelete?.(item.id, item);
+                              // 更新时间戳,触发一下dom的rerender，不然不给我更新
+                              Transforms.setNodes(
+                                markdownEditorRef.current,
+                                {
+                                  updateTimestamp: Date.now(),
+                                },
+                                {
+                                  at: item.path,
+                                },
+                              );
+                            } catch (error) {}
+                          }}
+                        >
+                          <Tooltip title="删除评论">
+                            <span
+                              className={classNames(
+                                `${baseCls}-item-header-action-item`,
+                                hashId,
+                              )}
+                            >
+                              <DeleteFilled />
+                            </span>
+                          </Tooltip>
+                        </Popconfirm>
+                      ) : null}
+                      {props.comment?.onEdit ? (
+                        <Tooltip title="编辑评论">
+                          <span
+                            className={classNames(
+                              `${baseCls}-item-header-action-item`,
+                              hashId,
+                            )}
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              await props.comment?.onEdit?.(item.id, item);
+                            }}
+                          >
+                            <EditOutlined />
+                          </span>
+                        </Tooltip>
+                      ) : null}
+                      <Tooltip title="跳转到评论位置">
                         <span
                           className={classNames(
                             `${baseCls}-item-header-action-item`,
                             hashId,
                           )}
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            const element = document.getElementById(
+                              `comment-${item.id}`,
+                            );
+                            if (element) {
+                              element.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start',
+                              });
+                              window.scrollBy(0, -40);
+                            }
+                            await props.comment?.onClick?.(item.id, item);
+                          }}
                         >
-                          <DeleteFilled />
+                          <ExportOutlined />
                         </span>
-                      </Popconfirm>
-                      <span
-                        className={classNames(
-                          `${baseCls}-item-header-action-item`,
-                          hashId,
-                        )}
-                        onClick={async (e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          await props.comment?.onEdit?.(item.id, item);
-                        }}
-                      >
-                        <EditOutlined />
-                      </span>
+                      </Tooltip>
                     </div>
                   }
                 </div>
