@@ -23,6 +23,7 @@ import { copySelectedBlocks } from './plugins/copySelectedBlocks';
 import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
+import { useDebounceFn } from '@ant-design/pro-components';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import {
@@ -637,6 +638,22 @@ export const MEditor = observer(
         return decorateList;
       }
     };
+
+    const handleSelectionChange = useDebounceFn(async () => {
+      if (store.focus) {
+        // 选中时，更新选区,并且触发选区变化事件
+        const event = new CustomEvent<BaseSelection>(
+          MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+          {
+            detail: markdownEditorRef.current.selection,
+          },
+        );
+        markdownContainerRef?.current?.dispatchEvent(event);
+        store.setState((state) => {
+          state.preSelection = markdownEditorRef.current.selection;
+        });
+      }
+    }, 160);
     return wrapSSR(
       <Slate
         editor={markdownEditorRef.current}
@@ -670,19 +687,8 @@ export const MEditor = observer(
                 }
           }
           onSelect={() => {
-            if (store.focus) {
-              // 选中时，更新选区,并且触发选区变化事件
-              const event = new CustomEvent<BaseSelection>(
-                MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-                {
-                  detail: markdownEditorRef.current.selection,
-                },
-              );
-              markdownContainerRef?.current?.dispatchEvent(event);
-              store.setState((state) => {
-                state.preSelection = markdownEditorRef.current.selection;
-              });
-            }
+            handleSelectionChange?.cancel();
+            handleSelectionChange?.run();
           }}
           onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
             if (isEventHandled(event)) {
