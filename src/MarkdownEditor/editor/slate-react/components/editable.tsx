@@ -1293,9 +1293,7 @@ export const Editable = forwardRef(
                           EDITOR_TO_USER_MARKS.set(editor, editor.marks);
                           editor.marks = placeholderMarks;
                         }
-
                         Editor.insertText(editor, event.data);
-
                         const userMarks = EDITOR_TO_USER_MARKS.get(editor);
                         EDITOR_TO_USER_MARKS.delete(editor);
                         if (userMarks !== undefined) {

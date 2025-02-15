@@ -679,11 +679,6 @@ export const MEditor = observer(
                 },
               );
               markdownContainerRef?.current?.dispatchEvent(event);
-              markdownEditorRef.current.selection =
-                getSelectionFromDomSelection(
-                  markdownEditorRef.current,
-                  window.getSelection()!,
-                );
               store.setState((state) => {
                 state.preSelection = markdownEditorRef.current.selection;
               });
