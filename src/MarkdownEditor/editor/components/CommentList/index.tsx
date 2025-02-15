@@ -170,6 +170,11 @@ export const CommentList: React.FC<{
                           `${baseCls}-item-header-action-item`,
                           hashId,
                         )}
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          await props.comment?.onEdit?.(item.id, item);
+                        }}
                       >
                         <EditOutlined />
                       </span>

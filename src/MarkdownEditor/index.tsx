@@ -253,7 +253,7 @@ export type MarkdownEditorProps = {
       },
       props: ElementProps<ListItemNode>,
     ) => React.ReactNode;
-
+    onEdit?: (id: string | number, item: CommentDataType) => void;
     onClick?: (id: string | number, item: CommentDataType) => void;
   };
 
