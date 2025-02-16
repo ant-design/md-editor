@@ -5273,7 +5273,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
-                  draggable="true"
+                  draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                 >
                   <div
@@ -5327,24 +5327,28 @@
                         </div>
                       </div>
                     </div>
-                    <span
-                      data-slate-node="text"
+                    <div
+                      style="display: none;"
                     >
                       <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-length="0"
-                          data-slate-zero-width="n"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
-                          ﻿
-                          <br />
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -5497,7 +5501,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
-                  draggable="true"
+                  draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                 >
                   <div
@@ -5512,24 +5516,28 @@
                       src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
                       style="width: 100%; height: auto; max-width: 600px;"
                     />
-                    <span
-                      data-slate-node="text"
+                    <div
+                      style="display: none;"
                     >
                       <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-length="0"
-                          data-slate-zero-width="n"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
-                          ﻿
-                          <br />
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -5682,7 +5690,7 @@
                 <div
                   class="ant-md-editor-drag-el"
                   data-be="media"
-                  draggable="true"
+                  draggable="false"
                   style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                 >
                   <div
@@ -5746,24 +5754,28 @@
                         </span>
                       </div>
                     </div>
-                    <span
-                      data-slate-node="text"
+                    <div
+                      style="display: none;"
                     >
                       <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-length="0"
-                          data-slate-zero-width="n"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
-                          ﻿
-                          <br />
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>

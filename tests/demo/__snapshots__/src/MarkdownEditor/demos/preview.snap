@@ -3919,7 +3919,7 @@
             <div
               class="ant-md-editor-link-card ant-md-editor-drag-el"
               data-be="link-card"
-              draggable="true"
+              draggable="false"
               style="display: flex;"
             >
               <div
@@ -4050,7 +4050,6 @@
               data-slate-node="text"
             >
               <span
-                aria-describedby="test-id"
                 class=" "
                 data-be="link"
                 data-slate-inline="true"
@@ -5853,7 +5852,7 @@
               <div
                 class="ant-md-editor-drag-el"
                 data-be="media"
-                draggable="true"
+                draggable="false"
                 style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
@@ -5878,24 +5877,28 @@
                     />
                     <div />
                   </div>
-                  <span
-                    data-slate-node="text"
+                  <div
+                    style="display: none;"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-length="0"
-                        data-slate-zero-width="n"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        ﻿
-                        <br />
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -5984,7 +5987,7 @@
               <div
                 class="ant-md-editor-drag-el"
                 data-be="media"
-                draggable="true"
+                draggable="false"
                 style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
@@ -5999,24 +6002,28 @@
                     src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
                     style="width: 100%; height: auto; max-width: 600px;"
                   />
-                  <span
-                    data-slate-node="text"
+                  <div
+                    style="display: none;"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-length="0"
-                        data-slate-zero-width="n"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        ﻿
-                        <br />
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -6105,7 +6112,7 @@
               <div
                 class="ant-md-editor-drag-el"
                 data-be="media"
-                draggable="true"
+                draggable="false"
                 style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
@@ -6169,24 +6176,28 @@
                       </span>
                     </div>
                   </div>
-                  <span
-                    data-slate-node="text"
+                  <div
+                    style="display: none;"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-length="0"
-                        data-slate-zero-width="n"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        ﻿
-                        <br />
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -6265,7 +6276,6 @@
               data-slate-node="text"
             >
               <span
-                aria-describedby="test-id"
                 class=" "
                 data-be="text"
                 data-fnc="fnc"
@@ -6279,7 +6289,6 @@
               data-slate-node="text"
             >
               <span
-                aria-describedby="test-id"
                 class=" "
                 data-be="text"
                 data-fnc="fnc"
@@ -7875,7 +7884,6 @@
                   </span>
                 </span>
                 <span
-                  aria-describedby="test-id"
                   class="  ant-md-editor-content-fnc"
                   data-be="text"
                   data-fnc="fnc"

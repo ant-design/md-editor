@@ -90,24 +90,8 @@ exports[`word parse > docxDeserializer 1`] = `
       },
       {
         "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
         "text": "
 ",
-      },
-      {
-        "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
-        "text": "",
       },
     ],
     "type": "paragraph",
@@ -348,12 +332,7 @@ exports[`word parse > docxDeserializer 1`] = `
 ",
   },
   {
-    "children": [
-      {
-        "bold": true,
-        "text": "",
-      },
-    ],
+    "children": [],
     "type": "paragraph",
   },
   {
@@ -404,10 +383,6 @@ exports[`word parse > docxDeserializer 1`] = `
       {
         "bold": true,
         "text": "Special Servicing:",
-      },
-      {
-        "bold": true,
-        "text": "",
       },
       {
         "text": "Starwood Property Trust partners with Starwood Capital to acquire LNR Property LLC—including subsidiaries LNR Partners LLC, the largest commercial mortgage special servicer in the U.S., and Hatfield Philips International, one of the largest primary and special loan servicers in Europe
@@ -758,24 +733,8 @@ exports[`word parse > docxDeserializer 1`] = `
       },
       {
         "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
         "text": "
 ",
-      },
-      {
-        "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
-        "text": "",
       },
     ],
     "type": "paragraph",
@@ -863,33 +822,13 @@ exports[`word parse > docxDeserializer 1`] = `
       },
       {
         "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
         "text": "
 ",
       },
       {
         "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
         "text": "
 ",
-      },
-      {
-        "bold": true,
-        "text": "",
-      },
-      {
-        "bold": true,
-        "text": "",
       },
     ],
     "type": "paragraph",
