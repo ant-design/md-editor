@@ -121,6 +121,9 @@ export type MarkdownEditorProps = {
     Languages?: string[];
   };
 
+  drag?: {
+    enable?: boolean;
+  };
   anchorProps?: AnchorProps;
   /**
    * 配置图片数据
