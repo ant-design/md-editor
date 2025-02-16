@@ -343,6 +343,7 @@ export const BaseToolBar = observer(
               ]}
               onChange={(e) => {
                 localStorage.setItem('high-color', e.toHexString());
+                console.log(markdownEditorRef.current);
                 EditorUtils.highColor(
                   markdownEditorRef.current,
                   e.toHexString(),

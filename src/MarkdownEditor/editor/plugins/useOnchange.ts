@@ -42,19 +42,6 @@ export function useOnchange(
     onChange?.(schemaToMarkdown(editor.children), editor.children);
   }, 300);
 
-  const updateSelection = async () => {
-    runInAction(() => {
-      if (typeof window === 'undefined') return;
-      if (typeof window.matchMedia === 'undefined') return;
-      store.sel = editor.selection;
-    });
-  };
-  const selChange = async (changeSel: {
-    sel: BaseSelection;
-    node: NodeEntry<any>;
-  }) => {
-    selChange$.next(changeSel);
-  };
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
       if (onChangeDebounce) {
@@ -66,48 +53,42 @@ export function useOnchange(
         match: (n) => Element.isElement(n),
         mode: 'lowest',
       });
-
-      // 选区变化
-      selChange({
-        sel,
-        node,
+      setTimeout(() => {
+        selChange$.next({
+          sel,
+          node,
+        });
       });
-      updateSelection();
-      // ------选区变化end----------
-      if (!node) return;
 
+      runInAction(() => (store.sel = sel));
+      if (!node) return;
+      setTimeout(() => {
+        selChange$.next({
+          sel,
+          node,
+        });
+      });
       if (
         sel &&
-        Range.isCollapsed(sel) &&
         !floatBarIgnoreNode.has(node[0].type) &&
+        !Range.isCollapsed(sel) &&
         Path.equals(Path.parent(sel.focus.path), Path.parent(sel.anchor.path))
       ) {
         const domSelection = window.getSelection();
         const domRange = domSelection?.getRangeAt(0);
+        if (rangeContent.current === domRange?.toString()) {
+          return store.setState(
+            (state) => (state.refreshFloatBar = !state.refreshFloatBar),
+          );
+        }
         rangeContent.current = domRange?.toString() || '';
-        store.setState(
-          (state) => (state.refreshFloatBar = !state.refreshFloatBar),
-        );
-
         const rect = domRange?.getBoundingClientRect();
         if (rect) {
-          store.setState((state) => {
-            state.domRect = rect;
-          });
+          store.setState((state) => (state.domRect = rect));
         }
       } else if (store.domRect) {
         rangeContent.current = '';
         store.setState((state) => (state.domRect = null));
-      }
-
-      if (node && node[0].type === 'table-cell') {
-        store.setState((state) => {
-          state.tableCellNode = node;
-        });
-      } else if (store.tableCellNode) {
-        store.setState((state) => {
-          state.tableCellNode = null;
-        });
       }
     };
   }, [editor]);
