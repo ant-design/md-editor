@@ -44,10 +44,14 @@ export function useOnchange(
 
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
-      if (onChangeDebounce) {
+      if (
+        onChangeDebounce &&
+        _operations.some((o) => o.type !== 'set_selection')
+      ) {
         onChangeDebounce.cancel();
         onChangeDebounce?.run(schemaToMarkdown(_value), _value);
       }
+
       const sel = editor.selection;
       const [node] = Editor.nodes<Element>(editor, {
         match: (n) => Element.isElement(n),
@@ -69,6 +73,7 @@ export function useOnchange(
         });
       });
       if (
+        _operations.some((o) => o.type === 'set_selection') &&
         sel &&
         !floatBarIgnoreNode.has(node[0].type) &&
         !Range.isCollapsed(sel) &&
@@ -76,6 +81,7 @@ export function useOnchange(
       ) {
         const domSelection = window.getSelection();
         const domRange = domSelection?.getRangeAt(0);
+
         if (rangeContent.current === domRange?.toString()) {
           return store.setState(
             (state) => (state.refreshFloatBar = !state.refreshFloatBar),

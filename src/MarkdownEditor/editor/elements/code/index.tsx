@@ -85,7 +85,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
   }, [props.element, props.element.children, state().lang]);
 
   useEffect(() => {
-    const editor = ace.edit(dom.current!, {
+    const codeEditor = ace.edit(dom.current!, {
       useWorker: false,
       value: props.element.value,
       fontSize: 13,
@@ -94,18 +94,18 @@ export function AceElement(props: ElementProps<CodeNode>) {
       tabSize: 4,
       showPrintMargin: false,
     });
-    editor.commands.addCommand({
+    codeEditor.commands.addCommand({
       name: 'disableFind',
       bindKey: { win: 'Ctrl-F', mac: 'Command-F' },
       exec: () => {},
     });
 
     const t = dom.current!.querySelector('textarea');
-    editor.on('focus', () => {
+    codeEditor.on('focus', () => {
       setState({ showBorder: false, hide: false });
     });
-    editor.on('blur', () => {
-      editor.selection.clearSelection();
+    codeEditor.on('blur', () => {
+      codeEditor.selection.clearSelection();
       setState({
         hide:
           props.element.katex ||
@@ -113,13 +113,13 @@ export function AceElement(props: ElementProps<CodeNode>) {
           props.element.language === 'mermaid',
       });
     });
-    editor.selection.on('changeCursor', () => {
+    codeEditor.selection.on('changeCursor', () => {
       setTimeout(() => {
-        const pos = editor.getCursorPosition();
+        const pos = codeEditor.getCursorPosition();
         posRef.current = { row: pos.row, column: pos.column };
       });
     });
-    editor.on('paste', (e) => {
+    codeEditor.on('paste', (e) => {
       if (pasted.current) {
         e.text = '';
       } else {
@@ -178,10 +178,11 @@ export function AceElement(props: ElementProps<CodeNode>) {
         }
       }
       if (isHotkey('down', e)) {
-        const length = editor.getSession().getLength();
+        const length = codeEditor.getSession().getLength();
         if (
           posRef.current.row === length - 1 &&
-          posRef.current.column === editor.session.getLine(length - 1)?.length
+          posRef.current.column ===
+            codeEditor.session.getLine(length - 1)?.length
         ) {
           EditorUtils.focus(store.editor);
           const path = pathRef.current!;
@@ -200,23 +201,23 @@ export function AceElement(props: ElementProps<CodeNode>) {
     });
     let lang = props.element.language as string;
     setTimeout(() => {
-      editor.setTheme('ace/theme/github');
+      codeEditor.setTheme('ace/theme/github');
       if (modeMap.has(lang)) {
         lang = modeMap.get(lang)!;
       }
       if (aceLangs.has(lang)) {
-        editor.session.setMode(`ace/mode/${lang}`);
+        codeEditor.session.setMode(`ace/mode/${lang}`);
       }
     }, 16);
-    editorRef.current = editor;
-    editor.on('change', () => {
+    editorRef.current = codeEditor;
+    codeEditor.on('change', () => {
       clearTimeout(timmer.current);
       timmer.current = window.setTimeout(() => {
-        update({ value: editor.getValue() });
+        update({ value: codeEditor.getValue() });
       }, 100);
     });
     return () => {
-      editor.destroy();
+      codeEditor.destroy();
     };
   }, []);
   useEffect(() => {
