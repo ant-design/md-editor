@@ -9650,8 +9650,30 @@
                   <span
                     data-slate-string="true"
                   >
-                    上上任的武汉大学校长是李晓红 。[^1][^2]
+                    上上任的武汉大学校长是李晓红 。
                   </span>
+                </span>
+                <span
+                  class="  ant-md-editor-content-fnc"
+                  data-be="text"
+                  data-fnc="fnc"
+                  data-fnc-name="1"
+                  data-slate-leaf="true"
+                  draggable="false"
+                  style="font-size: 10px;"
+                >
+                  [^1
+                </span>
+                <span
+                  class="  ant-md-editor-content-fnc"
+                  data-be="text"
+                  data-fnc="fnc"
+                  data-fnc-name="2"
+                  data-slate-leaf="true"
+                  draggable="false"
+                  style="font-size: 10px;"
+                >
+                  [^2
                 </span>
               </span>
             </div>
@@ -11018,8 +11040,19 @@
                     <span
                       data-slate-string="true"
                     >
-                      数据来自 [^3]
+                      数据来自 
                     </span>
+                  </span>
+                  <span
+                    class="  ant-md-editor-content-fnc"
+                    data-be="text"
+                    data-fnc="fnc"
+                    data-fnc-name="3"
+                    data-slate-leaf="true"
+                    draggable="false"
+                    style="font-size: 10px;"
+                  >
+                    [^3
                   </span>
                 </span>
               </div>

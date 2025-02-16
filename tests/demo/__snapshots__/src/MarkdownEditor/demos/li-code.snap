@@ -544,7 +544,76 @@
                       <span
                         data-slate-string="true"
                       >
-                        这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7] 。
+                        这是最简洁直观的方式 
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_1"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      1
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_2"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      2
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_7"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      7
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         。
                       </span>
                     </span>
                   </span>
@@ -896,7 +965,53 @@
                       <span
                         data-slate-string="true"
                       >
-                        适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8] 。
+                        适用于需要修改元素或根据索引操作的情况 
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_1"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      1
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_8"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      8
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         。
                       </span>
                     </span>
                   </span>
@@ -1247,7 +1362,53 @@
                       <span
                         data-slate-string="true"
                       >
-                        适合需要索引和元素的场景 [^DOC_5] [^DOC_8] 。
+                        适合需要索引和元素的场景 
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_5"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      5
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_8"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      8
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         。
                       </span>
                     </span>
                   </span>
@@ -1722,7 +1883,76 @@
                       <span
                         data-slate-string="true"
                       >
-                        灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10] 。
+                        灵活性高但需注意避免无限循环 
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_1"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      1
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_9"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      9
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_10"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      10
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         。
                       </span>
                     </span>
                   </span>
@@ -2004,7 +2234,76 @@
                       <span
                         data-slate-string="true"
                       >
-                        适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9] 。
+                        适用于需要转换元素的场景 
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_4"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      4
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_7"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      7
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         
+                      </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_9"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      9
+                    </span>
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                         。
                       </span>
                     </span>
                   </span>
@@ -2752,7 +3051,99 @@
                 <span
                   data-slate-string="true"
                 >
-                  这是最简洁直观的方式 ，适用于不需要索引的场景 [^DOC_1] [^DOC_3] [^DOC_5] [^DOC_8] 。
+                  这是最简洁直观的方式 ，适用于不需要索引的场景 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_1"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                1
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_3"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                3
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_5"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                5
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_8"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                8
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
                 </span>
               </span>
             </span>
@@ -3119,7 +3510,53 @@
                 <span
                   data-slate-string="true"
                 >
-                  适合需要同时访问索引和元素的场景 [^DOC_4] [^DOC_8] 。
+                  适合需要同时访问索引和元素的场景 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_4"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                4
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_8"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                8
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
                 </span>
               </span>
             </span>
@@ -3482,7 +3919,76 @@
                 <span
                   data-slate-string="true"
                 >
-                  适用于需要动态控制循环条件的场景（如遍历时修改列表 ) [^DOC_2] [^DOC_7] [^DOC_9] 。
+                  适用于需要动态控制循环条件的场景（如遍历时修改列表 ) 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_2"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                2
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_7"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                7
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_9"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                9
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
                 </span>
               </span>
             </span>
@@ -3779,7 +4285,53 @@
                 <span
                   data-slate-string="true"
                 >
-                  适用于需要将遍历结果转换为新列表的场景 [^DOC_1] [^DOC_5] 。
+                  适用于需要将遍历结果转换为新列表的场景 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_1"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                1
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_5"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                5
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
                 </span>
               </span>
             </span>
@@ -4098,7 +4650,53 @@
                 <span
                   data-slate-string="true"
                 >
-                  效果类似 while 循环 ，但更简洁 [^DOC_6] [^DOC_10] 。
+                  效果类似 while 循环 ，但更简洁 
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_6"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                6
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+              <span
+                class="  ant-md-editor-content-fnc"
+                data-be="text"
+                data-fnc="fnc"
+                data-fnc-name="DOC_10"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-size: 10px;"
+              >
+                10
+              </span>
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   。
                 </span>
               </span>
             </span>
@@ -4256,8 +4854,19 @@
                       <span
                         data-slate-string="true"
                       >
-                         循环动态控制索引 [^DOC_9]
+                         循环动态控制索引 
                       </span>
+                    </span>
+                    <span
+                      class="  ant-md-editor-content-fnc"
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-fnc-name="DOC_9"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-size: 10px;"
+                    >
+                      9
                     </span>
                   </span>
                 </div>
