@@ -30,7 +30,7 @@ function buildTree(data: any[]) {
         if (!currentLevel?.children) {
           currentLevel.children = [];
         }
-        if (currentLevel.children?.[currentLevel.children.length - 1]) {
+        if (currentLevel.children?.at(-1)) {
           currentLevel =
             currentLevel.children?.[currentLevel.children.length - 1];
         }
@@ -162,7 +162,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
       }}
       offsetTop={64}
       {...anchorProps}
-      items={buildTree(state().headings).children?.map((h: any) => ({
+      items={[buildTree(state().headings)]?.map((h: any) => ({
         id: h.id,
         key: h.key,
         href: `#${h.id}`,
