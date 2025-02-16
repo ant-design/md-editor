@@ -264,7 +264,7 @@ export const BaseToolBar = observer(
           <Dropdown
             key="head"
             menu={{
-              items: ['H1', 'H2', 'H3'].map((item, index) => {
+              items: ['H1', 'H2', 'H3', 'Text'].map((item, index) => {
                 if (props.hideTools && props.hideTools.includes(item as 'H1')) {
                   return null;
                 }
