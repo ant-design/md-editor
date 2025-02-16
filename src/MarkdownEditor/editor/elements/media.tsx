@@ -3,6 +3,7 @@ import { Image, ImageProps } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
 
+import classNames from 'classnames';
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
@@ -88,6 +89,7 @@ export function useStyle(prefixCls?: string) {
 export const ResizeImage = ({
   onResizeStart,
   onResizeStop,
+  selected,
   supportResize,
   defaultSize,
   ...props
@@ -105,6 +107,7 @@ export const ResizeImage = ({
     width?: number;
     height?: number;
   };
+  selected?: boolean;
 }) => {
   const radio = useRef<number>(1);
   const [size, setSize] = React.useState({
@@ -121,7 +124,9 @@ export const ResizeImage = ({
       onResizeStop={(e) => {
         onResizeStop?.(e, size);
       }}
-      className={hashId}
+      className={classNames(hashId, {
+        'react-resizable-selected': selected,
+      })}
       handle={!supportResize ? <div /> : undefined}
       width={size.width as number}
       height={size.height as number}
@@ -231,6 +236,7 @@ export function Media({
           width: element.width,
           height: element.height,
         }}
+        selected={state().selected}
         supportResize={state().selected}
         src={state()?.url}
         onResizeStart={() => {
@@ -418,8 +424,7 @@ export function Media({
           display: 'flex',
           alignItems: 'flex-end',
         }}
-        onDragStart={(e) => store.dragStart(e)}
-        draggable={!state().selected}
+        draggable={false}
         onContextMenu={(e) => {
           e.stopPropagation();
         }}
@@ -456,7 +461,13 @@ export function Media({
         >
           {mediaElement}
           {imageDom}
-          {children}
+          <div
+            style={{
+              display: 'none',
+            }}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>
