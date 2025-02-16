@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-table': {
         marginTop: '1em',
       },
-      table: {
+      'table:not(.Spreadsheet__table)': {
         borderCollapse: 'separate',
         borderSpacing: 0,
         display: 'table',

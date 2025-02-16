@@ -498,12 +498,11 @@ export function RowSideDiv(
           divStyle={{
             position: 'relative',
             width: '0.94em',
-            height:
+            height: Math.round(
               index === 0
-                ? tr?.getBoundingClientRect?.()?.height - 1 ||
-                  tr?.clientHeight - 1
-                : tr?.getBoundingClientRect?.()?.height - 1 ||
-                  tr?.clientHeight - 1,
+                ? tr?.getBoundingClientRect?.()?.height || tr?.clientHeight
+                : tr?.getBoundingClientRect?.()?.height || tr?.clientHeight,
+            ),
             ...(index === rowDomArr.length - 1 && {
               borderBottomLeftRadius: '0.5em',
             }),
@@ -578,9 +577,6 @@ export function ColSideDiv(props: ColSideDivProps) {
   const colDivBarInnerRef = useRef<HTMLDivElement | null>(null);
   const { getPopupContainer } = useContext(ConfigProvider.ConfigContext);
   const container = getPopupContainer?.(document.body) || document.body;
-
-  let { left: containerLeft } =
-    container.querySelector('table')?.getBoundingClientRect() || {};
 
   const [activationArr, setActivationArr] = useState<ActivationType[]>([]);
   const tableDom = (tableRef as any)?.current?.childNodes[0];
@@ -677,8 +673,11 @@ export function ColSideDiv(props: ColSideDivProps) {
       contentEditable={false}
     >
       {colDomArr?.map((td: any, index: number) => {
-        const colRect = td?.getBoundingClientRect();
+        const colRect = (td as HTMLDivElement)?.getBoundingClientRect();
+        const width = Math.round(Math.abs(colRect?.width || 0));
         const leftPosition = colRect?.left || 0;
+        let { left: containerLeft } =
+          container.querySelector('table')?.getBoundingClientRect() || {};
         return (
           <AbstractSideDiv
             {...props}
@@ -689,8 +688,8 @@ export function ColSideDiv(props: ColSideDivProps) {
             divStyle={{
               position: 'absolute',
               top: 0,
-              left: leftPosition - (containerLeft || 0),
-              width: (colRect?.width || td?.clientWidth) - 2,
+              left: Math.floor(leftPosition - (containerLeft || 0)),
+              width: width,
               height: '0.94em',
               zIndex: 100,
               ...(index === colDomArr.length - 1 && {
