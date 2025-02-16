@@ -290,7 +290,6 @@ export const MLeaf = (
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
     </span>
   );
-
   if (props.fncProps?.render && (leaf.fnc || leaf.identifier)) {
     dom = (
       <>

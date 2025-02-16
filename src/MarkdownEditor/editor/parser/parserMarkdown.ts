@@ -857,8 +857,8 @@ export const parserMarkdown = (
         ?.replace(/ +\\n/g, ' \n')
         .replaceAll('！', ' ！') || '';
   } catch (error) {}
-  const root = parser.parse(markdown);
 
+  const root = parser.parse(markdown);
   const schema = parserBlock(root.children as any[], true) as Elements[];
   const links = findLinks(schema);
   return { schema, links };

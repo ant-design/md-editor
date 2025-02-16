@@ -24,6 +24,7 @@ import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
 import { useDebounceFn } from '@ant-design/pro-components';
+import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import {
@@ -124,6 +125,7 @@ export const MEditor = observer(
       store,
       editorProps.onChange,
     );
+    const high = useHighlight(store);
     const first = useRef(true);
 
     /**
@@ -566,7 +568,7 @@ export const MEditor = observer(
     };
 
     const decorateFn = (e: any) => {
-      const decorateList: any[] | undefined = [];
+      const decorateList: any[] | undefined = high(e) || [];
       if (!editorProps?.comment) return decorateList;
       if (editorProps?.comment?.enable === false) return decorateList;
       if (commentMap.size === 0) return decorateList;

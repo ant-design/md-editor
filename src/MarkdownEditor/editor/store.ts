@@ -64,6 +64,8 @@ export class EditorStore {
   initializing = false;
   sel: BaseSelection | undefined;
   selectTablePath: Path = [];
+  refreshHighlight: boolean = false;
+  highlightCache = new Map<object, Range[]>();
   focus = false;
   readonly = false;
   codes = new WeakMap<object, Ace.Editor>();
@@ -143,6 +145,7 @@ export class EditorStore {
       container: false,
       tableCellNode: false,
       editor: false,
+      highlightCache: false,
       inputComposition: false,
       draggedElement: false,
       manual: false,
