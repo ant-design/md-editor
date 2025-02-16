@@ -72,6 +72,7 @@ export function useOnchange(
           node,
         });
       });
+
       if (
         _operations.some((o) => o.type === 'set_selection') &&
         sel &&
@@ -82,6 +83,7 @@ export function useOnchange(
         const domSelection = window.getSelection();
         const domRange = domSelection?.getRangeAt(0);
 
+        if (!domRange?.toString()?.trim()) return;
         if (rangeContent.current === domRange?.toString()) {
           return store.setState(
             (state) => (state.refreshFloatBar = !state.refreshFloatBar),
