@@ -169,7 +169,7 @@
               >
                 <div
                   class="ace-container drag-el "
-                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
@@ -195,7 +195,7 @@
                         aria-label="right"
                         class="anticon anticon-right"
                         role="img"
-                        style="transform: rotate(90deg); font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                        style="transform: rotate(90deg); font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <svg
                           aria-hidden="true"
@@ -214,7 +214,7 @@
                     </div>
                     <div>
                       <div
-                        style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <span
                           aria-label="copy"
@@ -457,7 +457,7 @@
               >
                 <div
                   class="ace-container drag-el "
-                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
@@ -483,7 +483,7 @@
                         aria-label="right"
                         class="anticon anticon-right"
                         role="img"
-                        style="transform: rotate(90deg); font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                        style="transform: rotate(90deg); font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <svg
                           aria-hidden="true"
@@ -502,7 +502,7 @@
                     </div>
                     <div>
                       <div
-                        style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <span
                           aria-label="copy"
@@ -2395,7 +2395,7 @@
               >
                 <div
                   class="ace-container drag-el "
-                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
@@ -2421,7 +2421,7 @@
                         aria-label="right"
                         class="anticon anticon-right"
                         role="img"
-                        style="transform: rotate(90deg); font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                        style="transform: rotate(90deg); font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <svg
                           aria-hidden="true"
@@ -2440,7 +2440,7 @@
                     </div>
                     <div>
                       <div
-                        style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <span
                           aria-label="copy"
@@ -2609,6 +2609,2397 @@
                     </span>
                   </span>
                 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+        <div
+          class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
+          style="width: 60vw; height: 500px; display: flex; flex-direction: column; max-height: 100%;"
+        >
+          <div
+            style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          >
+            <div
+              autocapitalize="false"
+              autocorrect="false"
+              class="ant-md-editor-content-readonly ant-md-editor-content ant-md-editor-content-report"
+              contenteditable="false"
+              data-slate-editor="true"
+              data-slate-node="value"
+              spellcheck="false"
+              style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
+              zindex="-1"
+            >
+              <div
+                class="ace-el drag-el"
+                contenteditable="false"
+                data-be="code"
+                data-lang="java"
+                data-slate-node="element"
+              >
+                <div
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                >
+                  <div
+                    contenteditable="false"
+                    style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                  >
+                    <div
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                    >
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                      >
+                        <img
+                          src="/src/MarkdownEditor/editor/elements/code/langIcons/java.svg"
+                          style="height: 1em; width: 1em;"
+                        />
+                      </div>
+                      <div>
+                        <span>
+                          java
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class=" ace_editor ace_hidpi ace-tm"
+                    style="height: 200px; line-height: 22px; font-size: 13px;"
+                  >
+                    <textarea
+                      aria-autocomplete="both"
+                      aria-haspopup="false"
+                      aria-label="Cursor at row 1"
+                      autocapitalize="off"
+                      autocorrect="off"
+                      class="ace_text-input"
+                      readonly=""
+                      role="textbox"
+                      spellcheck="false"
+                      style="opacity: 0; font-size: 1px;"
+                      wrap="off"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="ace_gutter"
+                    >
+                      <div
+                        class="ace_layer ace_gutter-layer ace_folding-enabled"
+                        style="height: 1000000px;"
+                      />
+                    </div>
+                    <div
+                      class="ace_scroller"
+                      style="line-height: 0px;"
+                    >
+                      <div
+                        class="ace_content"
+                      >
+                        <div
+                          class="ace_layer ace_print-margin-layer"
+                        >
+                          <div
+                            class="ace_print-margin"
+                            style="left: 4px; visibility: hidden;"
+                          />
+                        </div>
+                        <div
+                          class="ace_layer ace_marker-layer"
+                        />
+                        <div
+                          class="ace_layer ace_text-layer"
+                          style="height: 1000000px; margin: 0px 4px;"
+                        />
+                        <div
+                          class="ace_layer ace_marker-layer"
+                        />
+                        <div
+                          class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                        >
+                          <div
+                            class="ace_cursor"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ace_scrollbar ace_scrollbar-v"
+                      style="display: none; width: 20px;"
+                    >
+                      <div
+                        class="ace_scrollbar-inner"
+                        style="width: 20px;"
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      class="ace_scrollbar ace_scrollbar-h"
+                      style="display: none; height: 20px;"
+                    >
+                      <div
+                        class="ace_scrollbar-inner"
+                        style="height: 20px;"
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                    >
+                      <div
+                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                      />
+                      <div
+                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                      >
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-md-editor-hidden"
+                  >
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            public class HelloWorld {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                               public static void main(String[] args) {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  System.out.println("Hello, World");
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                               }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ace-el drag-el"
+                contenteditable="false"
+                data-be="code"
+                data-lang="json"
+                data-slate-node="element"
+              >
+                <div
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                >
+                  <div
+                    contenteditable="false"
+                    style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                  >
+                    <div
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                    >
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                      >
+                        <img
+                          src="/src/MarkdownEditor/editor/elements/code/langIcons/json.svg"
+                          style="height: 1em; width: 1em;"
+                        />
+                      </div>
+                      <div>
+                        <span>
+                          json
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class=" ace_editor ace_hidpi ace-tm"
+                    style="height: 200px; line-height: 22px; font-size: 13px;"
+                  >
+                    <textarea
+                      aria-autocomplete="both"
+                      aria-haspopup="false"
+                      aria-label="Cursor at row 1"
+                      autocapitalize="off"
+                      autocorrect="off"
+                      class="ace_text-input"
+                      readonly=""
+                      role="textbox"
+                      spellcheck="false"
+                      style="opacity: 0; font-size: 1px;"
+                      wrap="off"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="ace_gutter"
+                    >
+                      <div
+                        class="ace_layer ace_gutter-layer ace_folding-enabled"
+                        style="height: 1000000px;"
+                      />
+                    </div>
+                    <div
+                      class="ace_scroller"
+                      style="line-height: 0px;"
+                    >
+                      <div
+                        class="ace_content"
+                      >
+                        <div
+                          class="ace_layer ace_print-margin-layer"
+                        >
+                          <div
+                            class="ace_print-margin"
+                            style="left: 4px; visibility: hidden;"
+                          />
+                        </div>
+                        <div
+                          class="ace_layer ace_marker-layer"
+                        />
+                        <div
+                          class="ace_layer ace_text-layer"
+                          style="height: 1000000px; margin: 0px 4px;"
+                        />
+                        <div
+                          class="ace_layer ace_marker-layer"
+                        />
+                        <div
+                          class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                        >
+                          <div
+                            class="ace_cursor"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ace_scrollbar ace_scrollbar-v"
+                      style="display: none; width: 20px;"
+                    >
+                      <div
+                        class="ace_scrollbar-inner"
+                        style="width: 20px;"
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      class="ace_scrollbar ace_scrollbar-h"
+                      style="display: none; height: 20px;"
+                    >
+                      <div
+                        class="ace_scrollbar-inner"
+                        style="height: 20px;"
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                    >
+                      <div
+                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                      />
+                      <div
+                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                      >
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-md-editor-hidden"
+                  >
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "$schema": "https://json-schema.org/draft/2020-12/schema",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "$id": "https://json-schema.org/draft/2020-12/schema",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "$vocabulary": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/core": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/validation": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "https://json-schema.org/draft/2020-12/vocab/content": true
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "$dynamicAnchor": "meta",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "title": "Core and Validation specifications meta-schema",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "allOf": [
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/core"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/applicator"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/unevaluated"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/validation"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/meta-data"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/format-annotation"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/content"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              ],
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "type": [
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "object",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "boolean"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              ],
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "$comment": "This meta-schema also defines keywords that have appeared in previous drafts in order to prevent incompatible extensions as they remain in common use.",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              "properties": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "definitions": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$comment": ""definitions" has been replaced by "$defs".",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "type": "object",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "additionalProperties": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                          "$dynamicRef": "#meta"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "deprecated": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "default": {}
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "dependencies": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$comment": ""dependencies" has been split and replaced by "dependentSchemas" and "dependentRequired" in order to serve their differing semantics.",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "type": "object",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "additionalProperties": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                          "anyOf": [
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                              {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                                  "$dynamicRef": "#meta"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                              },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                              {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                                  "$ref": "meta/validation#/$defs/stringArray"
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                              }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                          ]
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "deprecated": true,
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "default": {}
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "$recursiveAnchor": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$comment": ""$recursiveAnchor" has been replaced by "$dynamicAnchor".",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/core#/$defs/anchorString",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "deprecated": true
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  },
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  "$recursiveRef": {
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$comment": ""$recursiveRef" has been replaced by "$dynamicRef".",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "$ref": "meta/core#/$defs/uriReferenceString",
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                      "deprecated": true
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                                  }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            }
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ace-el drag-el"
+                contenteditable="false"
+                data-be="code"
+                data-lang="sql"
+                data-slate-node="element"
+              >
+                <div
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                >
+                  <div
+                    contenteditable="false"
+                    style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                  >
+                    <div
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                    >
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                      >
+                        <img
+                          src="/src/MarkdownEditor/editor/elements/code/langIcons/database.svg"
+                          style="height: 1em; width: 1em;"
+                        />
+                      </div>
+                      <div>
+                        <span>
+                          sql
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class=" ace_editor ace_hidpi ace-tm"
+                    style="height: 200px; line-height: 22px; font-size: 13px;"
+                  >
+                    <textarea
+                      aria-autocomplete="both"
+                      aria-haspopup="false"
+                      aria-label="Cursor at row 1"
+                      autocapitalize="off"
+                      autocorrect="off"
+                      class="ace_text-input"
+                      readonly=""
+                      role="textbox"
+                      spellcheck="false"
+                      style="opacity: 0; font-size: 1px;"
+                      wrap="off"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="ace_gutter"
+                    >
+                      <div
+                        class="ace_layer ace_gutter-layer ace_folding-enabled"
+                        style="height: 1000000px;"
+                      />
+                    </div>
+                    <div
+                      class="ace_scroller"
+                      style="line-height: 0px;"
+                    >
+                      <div
+                        class="ace_content"
+                      >
+                        <div
+                          class="ace_layer ace_print-margin-layer"
+                        >
+                          <div
+                            class="ace_print-margin"
+                            style="left: 4px; visibility: hidden;"
+                          />
+                        </div>
+                        <div
+                          class="ace_layer ace_marker-layer"
+                        />
+                        <div
+                          class="ace_layer ace_text-layer"
+                          style="height: 1000000px; margin: 0px 4px;"
+                        />
+                        <div
+                          class="ace_layer ace_marker-layer"
+                        />
+                        <div
+                          class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                        >
+                          <div
+                            class="ace_cursor"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ace_scrollbar ace_scrollbar-v"
+                      style="display: none; width: 20px;"
+                    >
+                      <div
+                        class="ace_scrollbar-inner"
+                        style="width: 20px;"
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      class="ace_scrollbar ace_scrollbar-h"
+                      style="display: none; height: 20px;"
+                    >
+                      <div
+                        class="ace_scrollbar-inner"
+                        style="height: 20px;"
+                      >
+                         
+                      </div>
+                    </div>
+                    <div
+                      style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                    >
+                      <div
+                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                      />
+                      <div
+                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                      >
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-md-editor-hidden"
+                  >
+                    <div
+                      class="ant-md-editor-drag-el"
+                      data-be="paragraph"
+                      data-slate-node="element"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            SELECT employees.name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id;
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

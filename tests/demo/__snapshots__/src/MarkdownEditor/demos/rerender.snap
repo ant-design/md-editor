@@ -83,7 +83,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -108,7 +108,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -143,6 +143,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -3928,7 +3929,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -3953,7 +3954,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -3988,6 +3989,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -4942,7 +4944,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -4967,7 +4969,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -5002,6 +5004,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -5956,7 +5959,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -5981,7 +5984,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -6016,6 +6019,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -6970,7 +6974,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -6995,7 +6999,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -7030,6 +7034,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -7984,7 +7989,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -8009,7 +8014,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -8044,6 +8049,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -9287,7 +9293,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; border-width: 0px; height: 0px; opacity: 0;"
+                style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; height: 0px; opacity: 0;"
               >
                 <div
                   contenteditable="false"
@@ -9312,7 +9318,7 @@
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -9347,6 +9353,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
@@ -11515,7 +11522,7 @@
             >
               <div
                 class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
               >
                 <div
                   contenteditable="false"
@@ -11537,30 +11544,10 @@
                         java
                       </span>
                     </div>
-                    <span
-                      aria-label="right"
-                      class="anticon anticon-right"
-                      role="img"
-                      style="transform: rotate(90deg); font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="right"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
-                      >
-                        <path
-                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
-                        />
-                      </svg>
-                    </span>
                   </div>
                   <div>
                     <div
-                      style="font-size: 1em; line-height: 1.75em; margin-left: 0.125em;"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
                         aria-label="copy"
@@ -11595,6 +11582,7 @@
                     autocapitalize="off"
                     autocorrect="off"
                     class="ace_text-input"
+                    readonly=""
                     role="textbox"
                     spellcheck="false"
                     style="opacity: 0; font-size: 1px;"
