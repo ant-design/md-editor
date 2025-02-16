@@ -216,6 +216,9 @@ export default () => {
           return <Tooltip title={props.children}>{_}</Tooltip>;
         },
       }}
+      onChange={(e, value) => {
+        console.log(value);
+      }}
       comment={{
         enable: true,
         commentList: list,

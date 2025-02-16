@@ -363,7 +363,6 @@ export const BaseToolBar = observer(
                   ? 'bold'
                   : undefined,
                 textDecoration: 'underline solid ' + highColor,
-                textDecorationLine: 'underline',
                 textDecorationThickness: 2,
                 lineHeight: 1,
               }}
