@@ -173,7 +173,7 @@ export const InsertLink = observer(() => {
       const parse = parsePath(path);
       setState({
         left,
-        y: y - 50,
+        y: y,
         oldUrl: url || '',
         mode,
         open: true,
@@ -297,7 +297,6 @@ export const InsertLink = observer(() => {
                 index: 0,
               });
             }}
-            placeholder={`${'Link or #head'}`}
             style={{
               flex: 1,
             }}

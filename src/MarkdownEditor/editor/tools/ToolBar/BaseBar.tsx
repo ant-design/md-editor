@@ -19,10 +19,10 @@ import { EditorUtils } from '../../utils/editorUtils';
 import { getInsertOptions } from '../InsertAutocomplete';
 
 const HeatTextMap = {
-  1: 'Heading 1',
-  2: 'Heading 2',
-  3: 'Heading 3',
-  4: 'text',
+  1: '大标题',
+  2: '段落标题',
+  3: '小标题',
+  4: '正文',
 };
 
 const LineCode = () => {
