@@ -298,6 +298,7 @@
                       style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
+                        aria-describedby="test-id"
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
@@ -671,6 +672,7 @@
                       style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
+                        aria-describedby="test-id"
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
@@ -1021,6 +1023,7 @@
                       style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
+                        aria-describedby="test-id"
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
@@ -1451,6 +1454,7 @@
                       style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
+                        aria-describedby="test-id"
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
@@ -1798,6 +1802,7 @@
                       style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
+                        aria-describedby="test-id"
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
@@ -2141,6 +2146,7 @@
                       style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
+                        aria-describedby="test-id"
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
@@ -2500,6 +2506,7 @@
                 style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -2888,6 +2895,7 @@
                 style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -3206,6 +3214,7 @@
                 style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -3568,6 +3577,7 @@
                 style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -3864,6 +3874,7 @@
                 style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -4297,6 +4308,7 @@
                 style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -4568,64 +4580,18 @@
                 >
                   <a
                     class="ant-anchor-link-title"
-                    href="#一、基础-for-循环（推荐"
-                    title="一、基础 for 循环（推荐 )"
-                  >
-                    一、基础 for 循环（推荐 )
-                  </a>
+                    href="#undefined"
+                    title=""
+                  />
                   <div
                     class="ant-anchor-link ant-anchor-link-active"
                   >
                     <a
                       class="ant-anchor-link-title ant-anchor-link-title-active"
-                      href="#二、带索引的循环"
-                      title="二、带索引的循环"
+                      href="#一、基础-for-循环（推荐"
+                      title="一、基础 for 循环（推荐 )"
                     >
-                      二、带索引的循环
-                    </a>
-                  </div>
-                  <div
-                    class="ant-anchor-link"
-                  >
-                    <a
-                      class="ant-anchor-link-title"
-                      href="#三、while-循环"
-                      title="三、while 循环"
-                    >
-                      三、while 循环
-                    </a>
-                  </div>
-                  <div
-                    class="ant-anchor-link"
-                  >
-                    <a
-                      class="ant-anchor-link-title"
-                      href="#四、列表推导式"
-                      title="四、列表推导式"
-                    >
-                      四、列表推导式
-                    </a>
-                  </div>
-                  <div
-                    class="ant-anchor-link"
-                  >
-                    <a
-                      class="ant-anchor-link-title"
-                      href="#五、range-len-组合"
-                      title="五、range() + len() 组合"
-                    >
-                      五、range() + len() 组合
-                    </a>
-                  </div>
-                  <div
-                    class="ant-anchor-link"
-                  >
-                    <a
-                      class="ant-anchor-link-title"
-                      href="#修改列表时的注意事项"
-                      title="修改列表时的注意事项"
-                    >
-                      修改列表时的注意事项
+                      一、基础 for 循环（推荐 )
                     </a>
                   </div>
                 </div>

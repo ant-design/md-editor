@@ -55,6 +55,7 @@
                   style="margin: 0px 4px; height: 18px; border-color: rgba(0,0,0,0.15);"
                 />
                 <div
+                  aria-describedby="test-id"
                   class="ant-md-editor-toolbar-item"
                   role="button"
                 >
@@ -79,6 +80,7 @@
                   </span>
                 </div>
                 <div
+                  aria-describedby="test-id"
                   class="ant-md-editor-toolbar-item"
                   role="button"
                 >
@@ -103,6 +105,7 @@
                   </span>
                 </div>
                 <div
+                  aria-describedby="test-id"
                   class="ant-md-editor-toolbar-item"
                   role="button"
                 >
@@ -167,34 +170,6 @@
                 data-lang="java"
                 data-slate-node="element"
               >
-                <span
-                  class="ant-md-editor-drag-handle"
-                  contenteditable="false"
-                >
-                  <div
-                    class="ant-md-editor-drag-icon"
-                  >
-                    <span
-                      aria-label="holder"
-                      class="anticon anticon-holder"
-                      role="img"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="holder"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
-                      >
-                        <path
-                          d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </span>
                 <div
                   class="ace-container drag-el "
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
@@ -204,6 +179,7 @@
                     style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                   >
                     <div
+                      aria-describedby="test-id"
                       style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                     >
                       <div
@@ -369,34 +345,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -418,34 +366,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -469,34 +389,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -519,34 +411,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -568,34 +432,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -623,34 +459,6 @@
                 data-lang="json"
                 data-slate-node="element"
               >
-                <span
-                  class="ant-md-editor-drag-handle"
-                  contenteditable="false"
-                >
-                  <div
-                    class="ant-md-editor-drag-icon"
-                  >
-                    <span
-                      aria-label="holder"
-                      class="anticon anticon-holder"
-                      role="img"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="holder"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
-                      >
-                        <path
-                          d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </span>
                 <div
                   class="ace-container drag-el "
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
@@ -660,6 +468,7 @@
                     style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                   >
                     <div
+                      aria-describedby="test-id"
                       style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                     >
                       <div
@@ -825,34 +634,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -874,34 +655,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -925,34 +678,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -974,34 +699,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1025,34 +722,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1074,34 +743,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1125,34 +766,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1174,34 +787,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1225,34 +810,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1274,34 +831,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1325,34 +854,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1374,34 +875,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1425,34 +898,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1474,34 +919,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1525,34 +942,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1575,34 +964,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1624,34 +985,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1675,34 +1008,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1725,34 +1030,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1774,34 +1051,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1825,34 +1074,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1875,34 +1096,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -1924,34 +1117,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -1975,34 +1140,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2025,34 +1162,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2074,34 +1183,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2125,34 +1206,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2175,34 +1228,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2224,34 +1249,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2275,34 +1272,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2325,34 +1294,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2374,34 +1315,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2425,34 +1338,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2474,34 +1359,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2525,34 +1382,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2574,34 +1403,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2625,34 +1426,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2674,34 +1447,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2725,34 +1470,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2774,34 +1491,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2825,34 +1514,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2874,34 +1535,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -2925,34 +1558,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -2974,34 +1579,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3025,34 +1602,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3074,34 +1623,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3125,34 +1646,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3174,34 +1667,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3225,34 +1690,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3274,34 +1711,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3325,34 +1734,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3375,34 +1756,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3424,34 +1777,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3475,34 +1800,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3524,34 +1821,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3575,34 +1844,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3624,34 +1865,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3675,34 +1888,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3724,34 +1909,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3775,34 +1932,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3824,34 +1953,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3875,34 +1976,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -3924,34 +1997,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -3975,34 +2020,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4024,34 +2041,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4075,34 +2064,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4124,34 +2085,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4175,34 +2108,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4224,34 +2129,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4275,34 +2152,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4324,34 +2173,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4375,34 +2196,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4424,34 +2217,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4475,34 +2240,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4524,34 +2261,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4575,34 +2284,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4624,34 +2305,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4675,34 +2328,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4725,34 +2350,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -4774,34 +2371,6 @@
                       data-be="paragraph"
                       data-slate-node="element"
                     >
-                      <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
                       <span
                         data-slate-node="text"
                       >
@@ -4829,34 +2398,6 @@
                 data-lang="sql"
                 data-slate-node="element"
               >
-                <span
-                  class="ant-md-editor-drag-handle"
-                  contenteditable="false"
-                >
-                  <div
-                    class="ant-md-editor-drag-icon"
-                  >
-                    <span
-                      aria-label="holder"
-                      class="anticon anticon-holder"
-                      role="img"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="holder"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
-                      >
-                        <path
-                          d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </span>
                 <div
                   class="ace-container drag-el "
                   style="box-sizing: border-box; background-color: rgb(252, 252, 252); border-width: 2px; height: auto; opacity: 1;"
@@ -4866,6 +2407,7 @@
                     style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                   >
                     <div
+                      aria-describedby="test-id"
                       style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                     >
                       <div
@@ -5031,34 +2573,6 @@
                       data-slate-node="element"
                     >
                       <span
-                        class="ant-md-editor-drag-handle"
-                        contenteditable="false"
-                      >
-                        <div
-                          class="ant-md-editor-drag-icon"
-                        >
-                          <span
-                            aria-label="holder"
-                            class="anticon anticon-holder"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="holder"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </span>
-                      <span
                         data-slate-node="text"
                       >
                         <span
@@ -5083,34 +2597,6 @@
                 data-be="paragraph"
                 data-slate-node="element"
               >
-                <span
-                  class="ant-md-editor-drag-handle"
-                  contenteditable="false"
-                >
-                  <div
-                    class="ant-md-editor-drag-icon"
-                  >
-                    <span
-                      aria-label="holder"
-                      class="anticon anticon-holder"
-                      role="img"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="holder"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
-                      >
-                        <path
-                          d="M300 276.5a56 56 0 1056-97 56 56 0 00-56 97zm0 284a56 56 0 1056-97 56 56 0 00-56 97zM640 228a56 56 0 10112 0 56 56 0 00-112 0zm0 284a56 56 0 10112 0 56 56 0 00-112 0zM300 844.5a56 56 0 1056-97 56 56 0 00-56 97zM640 796a56 56 0 10112 0 56 56 0 00-112 0z"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </span>
                 <span
                   data-slate-node="text"
                 >
