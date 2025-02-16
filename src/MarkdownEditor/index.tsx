@@ -289,7 +289,6 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   } = props;
   // 是否挂载
   const [editorMountStatus, setMountedStatus] = useState(false);
-
   // 键盘事件
   const keyTask$ = useMemo(
     () =>
@@ -469,7 +468,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             props.reportMode ? (
               <FloatBar readonly />
             ) : null
-          ) : (
+          ) : toolBar?.enable ? null : (
             <FloatBar readonly={false} />
           )}
           {editorMountStatus && toc !== false && instance.store?.container ? (

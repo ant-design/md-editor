@@ -20,7 +20,7 @@ export const selChange$ = new Subject<{
   sel: BaseSelection;
   node: NodeEntry<any>;
 } | null>();
-const floatBarIgnoreNode = new Set(['code-line']);
+const floatBarIgnoreNode = new Set(['code-line', 'code']);
 
 /**
  * 用于处理编辑器内容变化的自定义钩子函数。
@@ -42,19 +42,19 @@ export function useOnchange(
     onChange?.(schemaToMarkdown(editor.children), editor.children);
   }, 300);
 
-  const setSelDebounce = useDebounceFn(async () => {
+  const updateSelection = async () => {
     runInAction(() => {
       if (typeof window === 'undefined') return;
       if (typeof window.matchMedia === 'undefined') return;
       store.sel = editor.selection;
     });
-  }, 300);
-  const selChange = useDebounceFn(
-    async (changeSel: { sel: BaseSelection; node: NodeEntry<any> }) => {
-      selChange$.next(changeSel);
-    },
-    160,
-  );
+  };
+  const selChange = async (changeSel: {
+    sel: BaseSelection;
+    node: NodeEntry<any>;
+  }) => {
+    selChange$.next(changeSel);
+  };
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
       if (onChangeDebounce) {
@@ -68,29 +68,27 @@ export function useOnchange(
       });
 
       // 选区变化
-      selChange.cancel();
-      selChange.run({
+      selChange({
         sel,
         node,
       });
-      setSelDebounce.cancel();
-      setSelDebounce.run();
+      updateSelection();
       // ------选区变化end----------
-
       if (!node) return;
 
       if (
         sel &&
+        Range.isCollapsed(sel) &&
         !floatBarIgnoreNode.has(node[0].type) &&
-        !Range.isCollapsed(sel) &&
         Path.equals(Path.parent(sel.focus.path), Path.parent(sel.anchor.path))
       ) {
         const domSelection = window.getSelection();
         const domRange = domSelection?.getRangeAt(0);
+        rangeContent.current = domRange?.toString() || '';
         store.setState(
           (state) => (state.refreshFloatBar = !state.refreshFloatBar),
         );
-        rangeContent.current = domRange?.toString() || '';
+
         const rect = domRange?.getBoundingClientRect();
         if (rect) {
           store.setState((state) => {

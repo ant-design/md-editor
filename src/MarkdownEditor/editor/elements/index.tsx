@@ -197,6 +197,10 @@ export const MLeaf = (
     } catch (e) {}
   };
 
+  if (leaf.highColor) {
+    console.log(style);
+  }
+
   if (leaf?.url) {
     return (
       <Popover

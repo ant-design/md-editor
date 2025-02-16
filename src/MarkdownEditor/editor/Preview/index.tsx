@@ -66,6 +66,8 @@ export const Preview = ({
   };
 
   const renderMarkdownLeaf = (props: any) => {
+    console.log(props);
+
     return (
       <MLeaf
         {...props}

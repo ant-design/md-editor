@@ -292,6 +292,10 @@ export class KeyboardTask {
 
   head(level: number) {
     const [node] = this.curNodes;
+    if (level === 4) {
+      this.paragraph();
+      return;
+    }
     if (
       node &&
       ['paragraph', 'head'].includes(node[0].type) &&
