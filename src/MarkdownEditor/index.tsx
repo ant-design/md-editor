@@ -156,6 +156,10 @@ export type MarkdownEditorProps = {
     hideTools?: ToolsKeyType[];
   };
 
+  drag?: {
+    enable: boolean;
+  };
+
   /**
    * markdown 编辑器的根容器，用于外部获取实例
    * @default document.body

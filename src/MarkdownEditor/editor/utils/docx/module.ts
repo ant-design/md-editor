@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { message } from 'antd';
 import { CardNode } from '../../../el';
 import { ELEMENT_TAGS } from '../../plugins/insertParsedHtmlNodes';
 
@@ -139,7 +140,16 @@ export const makeDeserializer = (jsx: any) => {
 
     if (TEXT_TAGS[nodeName as keyof typeof TEXT_TAGS]) {
       const attrs = TEXT_TAGS[nodeName as keyof typeof TEXT_TAGS]?.();
-      return children.map((child: any) => jsx('text', attrs, child));
+      try {
+        return children.filter(Boolean).map((child: any) => {
+          if (typeof child === 'string') {
+            return jsx('text', attrs, child);
+          }
+          return jsx('element', ELEMENT_TAGS.P(), child);
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     return children;
@@ -149,7 +159,17 @@ export const makeDeserializer = (jsx: any) => {
     const level = el.getAttribute('style');
     const content = extractTextFromNodes(el)
       .map((c) => {
-        return deserializeElement(c as any, imageTags);
+        try {
+          return deserializeElement(c as any, imageTags);
+        } catch (error) {
+          message.error(
+            'Error deserializing list item:' + (c as HTMLElement).innerHTML,
+          );
+          console.error(error);
+        }
+        return jsx('element', { type: 'paragraph' }, [
+          { text: (c as HTMLElement).innerHTML },
+        ]);
       })
       .flat();
     return jsx(
@@ -185,9 +205,13 @@ function getSiblings(el: {
     el.attributes.getNamedItem('class') &&
     el.attributes.getNamedItem('class').value.match(/MsoListParagraph/g)
   ) {
-    const level = el.attributes
-      .getNamedItem('style')
-      .value.match(/level(\d+)/)[1];
+    const level =
+      el?.attributes?.getNamedItem('style')?.value?.match(/level(\d+)/)?.[1] ||
+      '4';
+
+    if (!el?.attributes?.getNamedItem('style')?.value) {
+      console.log(el?.attributes);
+    }
     el.setAttribute('class', 'done'); // we set this attribute to avoid getting stuck in an infinite loop
     el.setAttribute('style', level);
     siblings.push(el);

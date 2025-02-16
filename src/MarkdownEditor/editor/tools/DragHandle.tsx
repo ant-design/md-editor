@@ -8,6 +8,7 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const { store, editorProps, readonly } = useEditorStore();
   if (!store) return null;
+
   if (readonly === true) return null;
   if (editorProps?.drag?.enable !== true) return null;
   return (

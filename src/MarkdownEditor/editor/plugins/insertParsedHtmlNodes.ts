@@ -224,7 +224,6 @@ export const insertParsedHtmlNodes = async (
   ) {
     return false;
   }
-  console.log('html', html, rtl);
   const hideLoading = message.loading('parsing...', 0);
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
