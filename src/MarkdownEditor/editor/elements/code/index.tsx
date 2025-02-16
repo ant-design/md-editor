@@ -30,7 +30,7 @@ const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
 });
 
 export function AceElement(props: ElementProps<CodeNode>) {
-  const { store, markdownEditorRef } = useEditorStore();
+  const { store, markdownEditorRef, readonly } = useEditorStore();
   const [state, setState] = useGetSetState({
     showBorder: false,
     htmlStr: '',
@@ -45,7 +45,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
   const pathRef = useRef<Path>();
   const posRef = useRef({ row: 0, column: 0 });
   const pasted = useRef(false);
-  const timmer = useRef(0);
+  const debounceTimer = useRef(0);
   const [selected, path] = useSelStatus(props.element);
   pathRef.current = path;
   const editorRef = useRef<Ace.Editor>();
@@ -201,7 +201,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
     });
     let lang = props.element.language as string;
     setTimeout(() => {
-      codeEditor.setTheme('ace/theme/github');
       if (modeMap.has(lang)) {
         lang = modeMap.get(lang)!;
       }
@@ -211,11 +210,17 @@ export function AceElement(props: ElementProps<CodeNode>) {
     }, 16);
     editorRef.current = codeEditor;
     codeEditor.on('change', () => {
-      clearTimeout(timmer.current);
-      timmer.current = window.setTimeout(() => {
+      if (readonly) return;
+      clearTimeout(debounceTimer.current);
+      debounceTimer.current = window.setTimeout(() => {
         update({ value: codeEditor.getValue() });
       }, 100);
     });
+    if (readonly) {
+      codeEditor?.setReadOnly(true);
+    } else {
+      codeEditor?.setReadOnly(false);
+    }
     return () => {
       codeEditor.destroy();
     };
@@ -254,7 +259,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
             : state().hide
               ? 'transparent'
               : 'rgb(252, 252, 252)',
-          borderWidth: !state().hide ? '2px' : 0,
           height: state().hide ? 0 : 'auto',
           opacity: state().hide ? 0 : 1,
         }}
@@ -285,56 +289,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
               userSelect: 'none',
             }}
           >
-            <Popover
-              trigger={['click']}
-              placement={'bottomLeft'}
-              overlayClassName={'light-poppver'}
-              arrow={false}
-              open={state().openSelectMenu}
-              onOpenChange={(v) => {
-                if (props.element.katex || props.element.render) {
-                  return;
-                }
-                setState({ openSelectMenu: v });
-                if (v) {
-                  setTimeout(() => {
-                    (
-                      document.querySelector(
-                        '.lang-select input',
-                      ) as HTMLInputElement
-                    )?.focus();
-                  });
-                }
-              }}
-              overlayInnerStyle={{ padding: 10 }}
-              content={
-                <AutoComplete
-                  value={state().lang}
-                  options={langOptions}
-                  placeholder={'Search'}
-                  autoFocus={true}
-                  style={{ width: 200 }}
-                  filterOption={(text, item) => {
-                    return item?.value.includes(text) || false;
-                  }}
-                  onChange={(e) => {
-                    setState({ lang: e });
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setLanguage();
-                      setState({ openSelectMenu: false });
-                    }
-                  }}
-                  onBlur={setLanguage}
-                  className={'lang-select'}
-                >
-                  <Input prefix={<SearchOutlined />} placeholder={'Search'} />
-                </AutoComplete>
-              }
-            >
+            {readonly ? (
               <div
                 style={{
                   display: 'flex',
@@ -381,22 +336,124 @@ export function AceElement(props: ElementProps<CodeNode>) {
                     <span>{'plain text'}</span>
                   )}
                 </div>
-                {!props.element.katex && !props.element.render && (
-                  <RightOutlined
-                    style={{
-                      transform: 'rotate(90deg)',
-                      fontSize: '1em',
-                      lineHeight: '1.75em',
-                      marginLeft: '0.125em',
-                    }}
-                  />
-                )}
               </div>
-            </Popover>
+            ) : (
+              <Popover
+                trigger={['click']}
+                placement={'bottomLeft'}
+                overlayClassName={'light-poppver'}
+                arrow={false}
+                open={state().openSelectMenu}
+                onOpenChange={(v) => {
+                  if (props.element.katex || props.element.render) {
+                    return;
+                  }
+                  setState({ openSelectMenu: v });
+                  if (v) {
+                    setTimeout(() => {
+                      (
+                        document.querySelector(
+                          '.lang-select input',
+                        ) as HTMLInputElement
+                      )?.focus();
+                    });
+                  }
+                }}
+                overlayInnerStyle={{ padding: 10 }}
+                content={
+                  <AutoComplete
+                    value={state().lang}
+                    options={langOptions}
+                    placeholder={'Search'}
+                    autoFocus={true}
+                    disabled={readonly}
+                    style={{ width: 200 }}
+                    filterOption={(text, item) => {
+                      return item?.value.includes(text) || false;
+                    }}
+                    onChange={(e) => {
+                      setState({ lang: e });
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setLanguage();
+                        setState({ openSelectMenu: false });
+                      }
+                    }}
+                    onBlur={setLanguage}
+                    className={'lang-select'}
+                  >
+                    <Input prefix={<SearchOutlined />} placeholder={'Search'} />
+                  </AutoComplete>
+                }
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    gap: 2,
+                    color: 'rgba(0, 0, 0, 0.8)',
+                  }}
+                >
+                  {langIconMap.get(
+                    props.element.language?.toLowerCase() || '',
+                  ) &&
+                    !props.element.katex && (
+                      <div
+                        style={{
+                          height: '1em',
+                          width: '1em',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginRight: '0.25em',
+                        }}
+                      >
+                        <img
+                          style={{
+                            height: '1em',
+                            width: '1em',
+                          }}
+                          src={langIconMap.get(
+                            props.element.language?.toLowerCase() || '',
+                          )}
+                        />
+                      </div>
+                    )}
+                  <div>
+                    {props.element.language ? (
+                      <span>
+                        {props.element.katex
+                          ? 'Formula'
+                          : props.element.language === 'html' &&
+                              props.element.render
+                            ? 'Html Renderer'
+                            : props.element.language}
+                      </span>
+                    ) : (
+                      <span>{'plain text'}</span>
+                    )}
+                  </div>
+                  {!props.element.katex && !props.element.render && (
+                    <RightOutlined
+                      style={{
+                        transform: 'rotate(90deg)',
+                        fontSize: '0.9em',
+                        lineHeight: '1.75em',
+                        marginLeft: '0.125em',
+                      }}
+                    />
+                  )}
+                </div>
+              </Popover>
+            )}
             <div>
               <div
                 style={{
-                  fontSize: '1em',
+                  fontSize: '0.9em',
                   lineHeight: '1.75em',
                   marginLeft: '0.125em',
                 }}
