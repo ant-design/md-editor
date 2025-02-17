@@ -675,12 +675,14 @@ export class KeyboardTask {
       } else {
         const childrenList: ListItemNode[] = [];
 
-        Editor.nodes<any>(this.editor, {
-          mode: 'lowest',
-          match: (m) => {
-            return Element.isElement(m);
-          },
-        })?.forEach((mapNode) => {
+        [
+          ...Editor.nodes<any>(this.editor, {
+            mode: 'lowest',
+            match: (m) => {
+              return Element.isElement(m);
+            },
+          }),
+        ]?.forEach((mapNode) => {
           const item = {
             type: 'list-item',
             checked: mode === 'task' ? false : undefined,
