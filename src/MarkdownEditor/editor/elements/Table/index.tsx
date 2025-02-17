@@ -126,6 +126,8 @@ export const Table = observer((props: RenderElementProps) => {
     if (!markdownEditorRef.current) return;
     if (!markdownEditorRef.current.children) return;
     if (markdownEditorRef.current.children?.length === 0) return;
+    if (!tablePath) return;
+    if (!markdownEditorRef?.current?.hasPath?.(tablePath)) return;
     return Editor.node(markdownEditorRef.current, tablePath);
   }, [tablePath]);
 
