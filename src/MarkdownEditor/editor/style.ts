@@ -181,9 +181,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           boxSizing: 'border-box',
         },
       },
-      '[data-be="list"]': {
-        marginTop: '0.5em',
-        marginBottom: '0.5em',
+      '[data-be="list"] > ul': {
+        marginTop: '0.2em',
+        marginBottom: '0.2em',
       },
       '[data-be="chart"]': {
         marginTop: '0.5em',

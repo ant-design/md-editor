@@ -83,11 +83,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
       },
-      "[data-be='list']": {
-        marginBottom: '0.3em',
-        paddingTop: '5px',
-        paddingBottom: '5px',
-      },
       '&[data-task]': {
         listStyle: 'none !important',
         paddingLeft: '0',
