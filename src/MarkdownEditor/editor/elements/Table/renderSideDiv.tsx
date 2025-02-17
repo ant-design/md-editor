@@ -500,10 +500,8 @@ export function RowSideDiv(
             width: '0.94em',
             height:
               index === 0
-                ? tr?.getBoundingClientRect?.()?.height - 1 ||
-                  tr?.clientHeight - 1
-                : tr?.getBoundingClientRect?.()?.height - 1 ||
-                  tr?.clientHeight - 1,
+                ? tr?.getBoundingClientRect?.()?.height || tr?.clientHeight
+                : tr?.getBoundingClientRect?.()?.height || tr?.clientHeight,
             ...(index === rowDomArr.length - 1 && {
               borderBottomLeftRadius: '0.5em',
             }),
