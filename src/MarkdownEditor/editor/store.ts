@@ -347,7 +347,11 @@ export class EditorStore {
         Transforms.insertNodes(this._editor.current, node, { at });
         return;
       }
-      this.diffNode(node, preNode, Path.parent(at));
+      if (node && (node.type === 'list-item' || node.type === 'code-line')) {
+        this.diffNode(node, preNode, Path.parent(at));
+      } else {
+        this.diffNode(node, preNode, Path.next(Path.parent(at)));
+      }
       return;
     }
 
