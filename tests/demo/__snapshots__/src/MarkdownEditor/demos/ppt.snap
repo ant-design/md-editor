@@ -716,6 +716,7 @@
                           data-slate-node="text"
                         >
                           <span
+                            aria-describedby="test-id"
                             class=" "
                             data-be="link"
                             data-slate-inline="true"
@@ -4197,6 +4198,7 @@
                     data-slate-node="text"
                   >
                     <span
+                      aria-describedby="test-id"
                       class=" "
                       data-be="link"
                       data-slate-inline="true"
