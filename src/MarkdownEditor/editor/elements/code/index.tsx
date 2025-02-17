@@ -85,6 +85,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
   }, [props.element, props.element.children, state().lang]);
 
   useEffect(() => {
+    if (!dom.current) return;
     const codeEditor = ace.edit(dom.current!, {
       useWorker: false,
       value: props.element.value,
@@ -234,8 +235,13 @@ export function AceElement(props: ElementProps<CodeNode>) {
     }
     if (props.element.value !== codeRef.current) {
       editorRef.current?.setValue(props.element.value || 'plain text');
+      editorRef.current?.clearSelection();
     }
   }, [props.element]);
+
+  if (props.element.language === 'html') {
+    return null;
+  }
   return (
     <div
       {...props.attributes}
