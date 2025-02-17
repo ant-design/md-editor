@@ -343,7 +343,11 @@ export class EditorStore {
   diffNode = (node: Node, preNode: Node, at: number[]) => {
     // 如果上个节点不存在，但是本次有，直接插入
     if (node && !preNode) {
-      Transforms.insertNodes(this._editor.current, node, { at });
+      if (this._editor.current.hasPath(Path.parent(at))) {
+        Transforms.insertNodes(this._editor.current, node, { at });
+        return;
+      }
+      this.diffNode(node, preNode, Path.parent(at));
       return;
     }
 
