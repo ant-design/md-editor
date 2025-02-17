@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { MarkdownEditorProps } from '../..';
-import { AttachNode, MediaNode, TableNode } from '../../el';
+import { AttachNode, ListItemNode, MediaNode, TableNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { parserMdToSchema } from '../parser/parserMdToSchema';
 import { ReactEditor } from '../slate-react';
@@ -673,24 +673,35 @@ export class KeyboardTask {
           );
         }
       } else {
-        const text = EditorUtils.cutText(
-          this.editor,
-          Editor.start(this.editor, node[1]),
-        );
-        Transforms.delete(this.editor, { at: node[1] });
+        const childrenList: ListItemNode[] = [];
+
+        Editor.nodes<any>(this.editor, {
+          mode: 'lowest',
+          match: (m) => {
+            return Element.isElement(m);
+          },
+        })?.forEach((mapNode) => {
+          const item = {
+            type: 'list-item',
+            checked: mode === 'task' ? false : undefined,
+            children: [
+              {
+                type: 'paragraph',
+                children: [{ text: Node.string(mapNode[0]) }],
+              },
+            ],
+          } as ListItemNode;
+          childrenList.push(item);
+        });
+
+        Transforms.delete(this.editor);
         Transforms.insertNodes(
           this.editor,
           {
             type: 'list',
             order: mode === 'ordered',
             task: mode === 'task',
-            children: [
-              {
-                type: 'list-item',
-                checked: mode === 'task' ? false : undefined,
-                children: [{ type: 'paragraph', children: text }],
-              },
-            ],
+            children: childrenList,
           },
           { at: node[1], select: true },
         );

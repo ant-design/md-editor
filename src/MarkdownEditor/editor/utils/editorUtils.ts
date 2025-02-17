@@ -274,6 +274,30 @@ export class EditorUtils {
     return JSON.parse(JSON.stringify(data));
   }
 
+  static copyText(editor: Editor, start: Point, end?: Point) {
+    let leaf = Node.leaf(editor, start.path);
+    let text = '';
+
+    // Handle first leaf node from start offset
+    text += leaf.text?.slice(start.offset) || '';
+
+    // Get next nodes until we reach the end point
+    let next = Editor.next(editor, { at: start.path });
+    while (next) {
+      if (end && Path.equals(next[1], end.path)) {
+        // If we reach the end path, slice until end offset
+        text += next[0].text?.slice(0, end.offset) || '';
+        break;
+      } else {
+        // Add full text content of intermediate nodes
+        text += next[0].text || '';
+        next = Editor.next(editor, { at: next[1] });
+      }
+    }
+
+    return text;
+  }
+
   static cutText(editor: Editor, start: Point, end?: Point) {
     let leaf = Node.leaf(editor, start.path);
     let texts: CustomLeaf[] = [
