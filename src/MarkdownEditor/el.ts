@@ -96,6 +96,7 @@ export type ColumnNode<T = Record<string, any>> = {
   otherProps?: {
     elementType: string;
   } & T;
+  style: Record<string, any>;
 };
 
 export type ColumnCellNode<T = Record<string, any>> = {

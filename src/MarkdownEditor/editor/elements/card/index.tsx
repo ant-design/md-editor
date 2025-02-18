@@ -9,6 +9,7 @@ export const WarpCard = observer((props: RenderElementProps) => {
         {...props.attributes}
         data-be={'card'}
         style={{
+          ...props.element.style,
           display: 'flex',
           gap: 4,
           maxWidth: '100%',

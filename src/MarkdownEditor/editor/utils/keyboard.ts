@@ -405,66 +405,53 @@ export class KeyboardTask {
           : Path.next(node[1]);
       Transforms.insertNodes(
         this.editor,
-        {
-          type: 'card',
+        EditorUtils.wrapperCardNode({
+          type: 'table',
           children: [
             {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            {
-              type: 'table',
+              type: 'table-row',
               children: [
                 {
-                  type: 'table-row',
-                  children: [
-                    {
-                      type: 'table-cell',
-                      title: true,
-                      children: [{ text: '' }],
-                    },
-                    {
-                      type: 'table-cell',
-                      title: true,
-                      children: [{ text: '' }],
-                    },
-                    {
-                      type: 'table-cell',
-                      title: true,
-                      children: [{ text: '' }],
-                    },
-                  ],
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
                 },
                 {
-                  type: 'table-row',
-                  children: [
-                    { type: 'table-cell', children: [{ text: '' }] },
-                    {
-                      type: 'table-cell',
-                      children: [{ text: '' }],
-                    },
-                    { type: 'table-cell', children: [{ text: '' }] },
-                  ],
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
                 },
                 {
-                  type: 'table-row',
-                  children: [
-                    { type: 'table-cell', children: [{ text: '' }] },
-                    {
-                      type: 'table-cell',
-                      children: [{ text: '' }],
-                    },
-                    { type: 'table-cell', children: [{ text: '' }] },
-                  ],
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
                 },
               ],
             },
             {
-              type: 'card-after',
-              children: [{ text: '' }],
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
+            },
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
             },
           ],
-        },
+        }),
         { at: path },
       );
       if (node[0].type === 'paragraph' && !Node.string(node[0])) {
@@ -529,10 +516,13 @@ export class KeyboardTask {
       }
       Transforms.insertNodes(
         this.editor,
-        {
+        EditorUtils.wrapperCardNode({
           type: 'column-group',
           otherProps: {
             elementType: 'column',
+          },
+          style: {
+            flex: 1,
           },
           children: [
             {
@@ -544,7 +534,7 @@ export class KeyboardTask {
               children: [{ text: '' }],
             },
           ],
-        },
+        }),
         { at: path },
       );
 

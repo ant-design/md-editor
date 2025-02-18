@@ -37,6 +37,7 @@ export const ColumnGroup = (props: RenderElementProps) => {
         data-be={'column-group'}
         onDragStart={store.dragStart}
         style={{
+          ...(props.element.style || {}),
           maxWidth: '100%',
         }}
       >
