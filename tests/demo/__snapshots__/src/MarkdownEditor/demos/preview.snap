@@ -798,12 +798,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -828,10 +828,11 @@
               class="ant-md-editor-content-table-container"
               data-be="table"
               data-slate-node="element"
+              draggable="false"
               tabindex="0"
             >
               <div
-                style="position: absolute; z-index: 999; outline: 3px solid #42a642; pointer-events: none; display: none; left: 0px; top: 0px;"
+                style="position: absolute; z-index: 999; outline: 3px solid transparent; pointer-events: none; display: none; left: 0px; top: 0px;"
               />
               <div
                 class="ant-md-editor-drag-el"
@@ -1128,6 +1129,7 @@
                 </div>
                 <table
                   class="ant-md-editor-content-table-editor-table"
+                  draggable="false"
                 >
                   <tbody
                     data-slate-node="element"
@@ -3866,7 +3868,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -3928,7 +3930,7 @@
                 <span
                   data-be="card-before"
                   data-slate-node="element"
-                  style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+                  style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
                 >
                   <span
                     data-slate-node="text"
@@ -4017,7 +4019,7 @@
                 <span
                   data-be="card-after"
                   data-slate-node="element"
-                  style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+                  style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
                 >
                   <span
                     data-slate-node="text"
@@ -4108,12 +4110,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -4799,7 +4801,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -4849,12 +4851,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -5771,7 +5773,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -5821,12 +5823,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -5857,6 +5859,7 @@
                 style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
+                  aria-describedby="test-id"
                   class="md-editor-media"
                   contenteditable="false"
                   draggable="false"
@@ -5906,7 +5909,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -5956,12 +5959,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -5992,6 +5995,7 @@
                 style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
+                  aria-describedby="test-id"
                   class="md-editor-media"
                   contenteditable="false"
                   draggable="false"
@@ -6031,7 +6035,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -6081,12 +6085,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -6117,6 +6121,7 @@
                 style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
+                  aria-describedby="test-id"
                   class="md-editor-media"
                   contenteditable="false"
                   draggable="false"
@@ -6205,7 +6210,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"
@@ -6223,6 +6228,54 @@
                     ﻿
                     <br />
                   </span>
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
+                >
+                  ﻿
+                  <br />
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
+                >
+                  ﻿
+                  <br />
                 </span>
               </span>
             </span>
@@ -6272,31 +6325,27 @@
                   上上任的武汉大学校长是李晓红 。
                 </span>
               </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
               <span
                 aria-describedby="test-id"
-                class=" "
+                class="  ant-md-editor-content-fnc"
                 data-be="text"
                 data-fnc="fnc"
+                data-fnc-name="DOC_1"
                 data-slate-leaf="true"
                 draggable="false"
+                style="font-size: 10px;"
               >
                 1
               </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
               <span
                 aria-describedby="test-id"
-                class=" "
+                class="  ant-md-editor-content-fnc"
                 data-be="text"
                 data-fnc="fnc"
+                data-fnc-name="DOC_2"
                 data-slate-leaf="true"
                 draggable="false"
+                style="font-size: 10px;"
               >
                 2
               </span>
@@ -6305,12 +6354,12 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 1px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%;"
           >
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
             >
               <span
                 data-slate-node="text"
@@ -6335,10 +6384,11 @@
               class="ant-md-editor-content-table-container"
               data-be="table"
               data-slate-node="element"
+              draggable="false"
               tabindex="0"
             >
               <div
-                style="position: absolute; z-index: 999; outline: 3px solid #42a642; pointer-events: none; display: none; left: 0px; top: 0px;"
+                style="position: absolute; z-index: 999; outline: 3px solid transparent; pointer-events: none; display: none; left: 0px; top: 0px;"
               />
               <div
                 class="ant-md-editor-drag-el"
@@ -6551,6 +6601,7 @@
                 </div>
                 <table
                   class="ant-md-editor-content-table-editor-table"
+                  draggable="false"
                 >
                   <tbody
                     data-slate-node="element"
@@ -6727,7 +6778,7 @@
                         class="group td-cell-select"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px;"
+                        style="min-width: 148px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6741,8 +6792,20 @@
                             <span
                               data-slate-string="true"
                             >
-                              135,303
+                              135,303 
                             </span>
+                          </span>
+                          <span
+                            aria-describedby="test-id"
+                            class="  ant-md-editor-content-fnc"
+                            data-be="text"
+                            data-fnc="fnc"
+                            data-fnc-name="DOC_1"
+                            data-slate-leaf="true"
+                            draggable="false"
+                            style="font-size: 10px;"
+                          >
+                            1
                           </span>
                         </span>
                       </td>
@@ -7840,7 +7903,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+              style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
             >
               <span
                 data-slate-node="text"

@@ -271,6 +271,11 @@ export type MarkdownEditorProps = {
     minColumn?: number;
     excelMode?: boolean;
   };
+
+  markdown?: {
+    enable: boolean;
+    matchInputToNode?: boolean;
+  };
 };
 
 /**

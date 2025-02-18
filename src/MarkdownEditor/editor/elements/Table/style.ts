@@ -58,17 +58,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPAgMAAABGuH3ZAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAAAAA////g93P0gAAAAN0Uk5TAP//RFDWIQAAAC1JREFUeJxjYAgNYGBgyJqCTIRmTQ1gyFq1ago6AZQIYRAFEUg6QoE8BtEQBgAhdBSqzKYB6AAAAABJRU5ErkJggg==) 7 7, auto',
           },
         },
-        'tr:first-child': {
+        tr: {
           borderBottom: '1px solid #e8e8e8',
-        },
-        'td:first-child': {
-          borderBottom: '1px solid #e8e8e8',
+          td: {
+            borderBottom: '1px solid #e8e8e8',
+          },
         },
         'th,td': {
           padding: '8px 16px',
           textAlign: 'left',
-          borderBottom: '1px solid rgb(209 213 219 / 0.8)',
-          borderRight: '1px solid rgb(209 213 219 / 0.8)',
+          borderLeft: '1px solid #e8e8e8',
         },
         'th:last-child,td:last-child': {
           borderRight: 'none',
@@ -78,9 +77,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         'th:first-child': {
           borderTopLeftRadius: 16,
-        },
-        'tr:last-child th,tr:last-child td': {
-          borderBottom: 'none',
         },
       },
     },

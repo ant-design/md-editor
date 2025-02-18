@@ -1,12 +1,14 @@
-import { EyeOutlined } from '@ant-design/icons';
-import { Image, ImageProps } from 'antd';
+import { DeleteFilled, EyeOutlined } from '@ant-design/icons';
+import { Image, ImageProps, Modal, Popover } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
 
+import { useDebounceFn } from '@ant-design/pro-components';
 import classNames from 'classnames';
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
+import { ActionIconBox } from '../components/ActionIconBox';
 import { AvatarList } from '../components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
@@ -117,7 +119,21 @@ export const ResizeImage = ({
     width: number | string;
     height: number | string;
   });
+  const imgRef = useRef<HTMLImageElement>(null);
   const { wrapSSR, hashId } = useStyle('react-resizable');
+
+  //@ts-expect-error
+  const resize = useDebounceFn((size) => {
+    setSize({
+      width: size.width,
+      height: size.width / radio.current,
+    });
+    imgRef.current?.style.setProperty('width', `${size.width}px`);
+    imgRef.current?.style.setProperty(
+      'height',
+      `${(size.width || 0) / radio.current}px`,
+    );
+  }, 160);
   return wrapSSR(
     <ResizableBox
       onResizeStart={onResizeStart}
@@ -131,10 +147,13 @@ export const ResizeImage = ({
       width={size.width as number}
       height={size.height as number}
       onResize={(_, { size }) => {
-        setSize({
-          width: size.width,
-          height: size.width / radio.current,
-        });
+        imgRef.current?.style.setProperty('width', `${size.width}px`);
+        imgRef.current?.style.setProperty(
+          'height',
+          `${(size.width || 0) / radio.current}px`,
+        );
+        resize.cancel();
+        resize.run(size);
       }}
     >
       <img
@@ -157,6 +176,7 @@ export const ResizeImage = ({
         referrerPolicy={'no-referrer'}
         crossOrigin={'anonymous'}
         width={'100%'}
+        ref={imgRef}
         style={{
           width: '100%',
           height: 'auto',
@@ -436,39 +456,67 @@ export function Media({
         }}
       >
         <DragHandle />
-        <div
-          onClick={() => {
-            setTimeout(() => {
-              setState({ selected: true });
-            }, 16);
+        <Popover
+          arrow={false}
+          styles={{
+            body: {
+              padding: 8,
+            },
           }}
-          onBlur={() => {
-            setState({ selected: false });
-          }}
-          tabIndex={-1}
-          style={{
-            color: 'transparent',
-            padding: 4,
-            userSelect: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            width: mediaElement ? '100%' : undefined,
-          }}
-          ref={htmlRef}
-          draggable={false}
-          contentEditable={false}
-          className="md-editor-media"
+          trigger="click"
+          open={state().selected ? undefined : false}
+          content={
+            <ActionIconBox
+              title="删除"
+              type="danger"
+              onClick={(e) => {
+                e.stopPropagation();
+                Modal.confirm({
+                  title: '删除媒体',
+                  content: '确定删除该媒体吗？',
+                  onOk: () => {
+                    Transforms.removeNodes(markdownEditorRef.current, {
+                      at: path,
+                    });
+                  },
+                });
+              }}
+            >
+              <DeleteFilled />
+            </ActionIconBox>
+          }
         >
-          {mediaElement}
-          {imageDom}
           <div
-            style={{
-              display: 'none',
+            onClick={() => {
+              setTimeout(() => {
+                setState({ selected: true });
+              }, 16);
             }}
+            tabIndex={-1}
+            style={{
+              color: 'transparent',
+              padding: 4,
+              userSelect: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              width: mediaElement ? '100%' : undefined,
+            }}
+            ref={htmlRef}
+            draggable={false}
+            contentEditable={false}
+            className="md-editor-media"
           >
-            {children}
+            {mediaElement}
+            {imageDom}
+            <div
+              style={{
+                display: 'none',
+              }}
+            >
+              {children}
+            </div>
           </div>
-        </div>
+        </Popover>
       </div>
     </div>
   );

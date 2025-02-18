@@ -1,8 +1,16 @@
-﻿import { Editor, Node, Path, Range, Transforms } from 'slate';
+﻿import { message } from 'antd';
+import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 export const inlineNode = new Set(['break']);
-
 const voidNode = new Set(['hr', 'break']);
+
+const TableInlineNode = new Set([
+  'inline-code',
+  'inline-katex',
+  'paragraph',
+  'footnoteDefinition',
+  'media',
+]);
 
 function hasRange(editor: Editor, range: { anchor: any; focus: any }): boolean {
   const { anchor, focus } = range;
@@ -171,15 +179,50 @@ export const withMarkdown = (editor: Editor) => {
     }
     if (operation.type === 'insert_text') {
       const parentNode = Node.get(editor, Path.parent(operation.path));
-      if (
-        parentNode.type === 'card-before' ||
-        parentNode.type === 'card-after'
-      ) {
+      if (parentNode.type === 'card-after') {
+        if (
+          Node.get(editor, Path.parent(Path.parent(operation.path))).type ===
+          'card'
+        ) {
+          Transforms.insertNodes(
+            editor,
+            [
+              {
+                type: 'paragraph',
+                children: [{ text: operation.text }],
+              },
+            ],
+            {
+              at: Path.next(Path.parent(Path.parent(operation.path))),
+              select: true,
+            },
+          );
+          return;
+        }
         return;
       }
     }
     if (operation.type === 'insert_node') {
       const parentNode = Node.get(editor, Path.parent(operation.path));
+
+      // 表格内部的节点操作，只允许插入行内节点。
+      if (
+        parentNode.type === 'table-cell' ||
+        parentNode.type === 'table-row' ||
+        parentNode.type === 'column-cell'
+      ) {
+        if (TableInlineNode.has(operation.node.type) || !operation.node.type) {
+          apply(operation);
+        }
+        if (operation.node.type === 'card') {
+          const relativeNode = operation.node.children.at(1);
+          if (TableInlineNode.has(relativeNode.type)) {
+            apply(operation);
+          }
+        }
+        message.error('表格内部只支持行内节点！');
+        return;
+      }
       if (!parentNode) {
         apply(operation);
         return;
@@ -193,7 +236,7 @@ export const withMarkdown = (editor: Editor) => {
           'card'
         ) {
           Transforms.insertNodes(editor, operation.node, {
-            at: Path.parent(Path.parent(operation.path)),
+            at: Path.next(Path.parent(Path.parent(operation.path))),
           });
           return;
         }
@@ -203,18 +246,7 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
-    if (operation.type === 'set_selection') {
-      const path = operation?.newProperties?.anchor?.path;
-      if (path && Path.isPath(path)) {
-        const node = Node.get(editor, Path.parent(path));
-        if (node?.type === 'card-before') {
-          return;
-        }
-        if (node?.type === 'card-after') {
-          return;
-        }
-      }
-    }
+
     apply(operation);
   };
 

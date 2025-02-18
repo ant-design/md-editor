@@ -11,6 +11,7 @@ import {
   Transforms,
 } from 'slate';
 import { HistoryEditor } from 'slate-history';
+import { MarkdownEditorProps } from '../..';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -25,6 +26,7 @@ export const useKeyboard = (
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >,
+  props: MarkdownEditorProps['markdown'],
 ) => {
   return useMemo(() => {
     const tab = new TabKey(markdownEditorRef.current);
@@ -72,7 +74,12 @@ export const useKeyboard = (
       if (isHotkey('mod+alt+v', e) || isHotkey('mod+opt+v', e)) {
         e.preventDefault();
       }
-      match.run(e);
+      if (isHotkey('mod+shift+s', e)) {
+        e.preventDefault();
+      }
+      if (props?.matchInputToNode) {
+        match.run(e);
+      }
 
       if (e.key.toLowerCase().startsWith('arrow')) {
         if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;
@@ -88,25 +95,7 @@ export const useKeyboard = (
           mode: 'lowest',
         });
         if (!node) return;
-        let str = Node.string(node[0]) || '';
         if (node[0].type === 'paragraph') {
-          if (e.key === 'Enter' && /^<[a-z]+[\s"'=:;()\w\-[\]]*>/.test(str)) {
-            Transforms.delete(markdownEditorRef.current, { at: node[1] });
-            Transforms.insertNodes(
-              markdownEditorRef.current,
-              {
-                type: 'code',
-                language: 'html',
-                render: true,
-                children: str.split('\n').map((s) => {
-                  return { type: 'code-line', children: [{ text: s }] };
-                }),
-              },
-              { select: true, at: node[1] },
-            );
-            e.preventDefault();
-            return;
-          }
           setTimeout(() => {
             const [node] = Editor.nodes<any>(markdownEditorRef.current, {
               match: (n) => Element.isElement(n) && n.type === 'paragraph',

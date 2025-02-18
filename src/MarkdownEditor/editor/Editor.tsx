@@ -9,6 +9,7 @@ import {
   Editor,
   Element,
   Node,
+  Path,
   Range,
   Transforms,
 } from 'slate';
@@ -119,7 +120,11 @@ export const MEditor = observer(
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
 
-    const onKeyDown = useKeyboard(store, markdownEditorRef);
+    const onKeyDown = useKeyboard(
+      store,
+      markdownEditorRef,
+      editorProps?.markdown,
+    );
     const onChange = useOnchange(
       markdownEditorRef.current,
       store,
@@ -252,7 +257,26 @@ export const MEditor = observer(
           'application/x-slate-fragment',
         );
         const decoded = decodeURIComponent(window.atob(encoded));
-        const fragment = JSON.parse(decoded);
+        const fragment = JSON.parse(decoded).map((node: any) => {
+          if (node.type === 'card') {
+            return {
+              ...node,
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                ...node.children,
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
+            };
+          }
+          return node;
+        });
+
         Transforms.insertFragment(markdownEditorRef.current, fragment);
         return;
       }
@@ -292,21 +316,28 @@ export const MEditor = observer(
               }
               const selection =
                 markdownEditorRef.current?.selection?.focus?.path;
+              const node = Node.get(
+                markdownEditorRef.current,
+                Path.parent(selection!)!,
+              );
+
               const at = selection
                 ? EditorUtils.findNext(markdownEditorRef.current, selection)!
                 : undefined;
 
               [url].flat(2).forEach((u) => {
                 if (!u) return null;
-                console.log('---->', at);
                 Transforms.insertNodes(
                   markdownEditorRef.current,
                   EditorUtils.createMediaNode(u, 'image'),
                   {
                     at: [
-                      at
-                        ? at[0]
-                        : markdownEditorRef.current.children.length - 1,
+                      ...(node.type === 'table-cell' ||
+                      node.type === 'column-cell'
+                        ? selection!
+                        : at
+                          ? at
+                          : [markdownEditorRef.current.children.length - 1]),
                     ],
                   },
                 );

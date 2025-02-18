@@ -16,6 +16,7 @@ import {
   CustomLeaf,
   DescriptionNode,
   Elements,
+  InlineKatexNode,
   LinkCardNode,
   TableNode,
   TableRowNode,
@@ -185,22 +186,12 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
     const node: ColumnNode = {
       type: 'column-group',
       children,
+      style: {
+        flex: 1,
+      },
       otherProps: config,
     };
-    return {
-      type: 'card',
-      children: [
-        {
-          type: 'card-before',
-          children: [{ text: '' }],
-        },
-        node,
-        {
-          type: 'card-after',
-          children: [{ text: '' }],
-        },
-      ],
-    };
+    return EditorUtils.wrapperCardNode(node);
   }
 
   const children = table.children.map((r: { children: any[] }, l: number) => {
@@ -233,20 +224,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
     }),
   };
   if (!isChart && dataSource.length < 2 && columns.length > 4) {
-    return {
-      type: 'card',
-      children: [
-        {
-          type: 'card-before',
-          children: [{ text: '' }],
-        },
-        parserTableToDescription(children),
-        {
-          type: 'card-after',
-          children: [{ text: '' }],
-        },
-      ],
-    };
+    return EditorUtils.wrapperCardNode(parserTableToDescription(children));
   }
 
   const node: TableNode | ChartNode = {
@@ -254,20 +232,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
     children: children,
     otherProps,
   };
-  return {
-    type: 'card',
-    children: [
-      {
-        type: 'card-before',
-        children: [{ text: '' }],
-      },
-      node,
-      {
-        type: 'card-after',
-        children: [{ text: '' }],
-      },
-    ],
-  };
+  return EditorUtils.wrapperCardNode(node);
 };
 
 const parserTableToDescription = (children: TableRowNode[]) => {
@@ -444,6 +409,22 @@ const parserBlock = (
           },
         );
 
+        break;
+      case 'inlineMath':
+        el = {
+          type: 'inline-katex',
+          children: [{ text: currentElement.value }],
+        } as InlineKatexNode;
+        break;
+      case 'math':
+        el = {
+          // @ts-ignore
+          type: 'code',
+          language: 'latex',
+          katex: true,
+          value: currentElement.value,
+          children: [{ text: '' }],
+        };
         break;
       case 'list':
         el = {

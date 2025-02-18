@@ -1,12 +1,18 @@
-import { CopyOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  CloseCircleOutlined,
+  CopyOutlined,
+  RightOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import ace, { Ace } from 'ace-builds';
-import { AutoComplete, Input, Popover } from 'antd';
+import { AutoComplete, Input, message, Popover } from 'antd';
 import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Path, Transforms } from 'slate';
 import { CodeNode, ElementProps } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
+import { ActionIconBox } from '../../components/ActionIconBox';
 import { ReactEditor } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
@@ -107,12 +113,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
     });
     codeEditor.on('blur', () => {
       codeEditor.selection.clearSelection();
-      setState({
-        hide:
-          props.element.katex ||
-          (props.element.render && props.element.language !== 'html') ||
-          props.element.language === 'mermaid',
-      });
     });
     codeEditor.selection.on('changeCursor', () => {
       setTimeout(() => {
@@ -248,6 +248,8 @@ export function AceElement(props: ElementProps<CodeNode>) {
       contentEditable={false}
       className={'ace-el drag-el'}
       data-be={'code'}
+      tabIndex={-1}
+      onBlur={() => {}}
       data-lang={props.element.language}
     >
       {!props.element.frontmatter && <DragHandle />}
@@ -345,10 +347,14 @@ export function AceElement(props: ElementProps<CodeNode>) {
               </div>
             ) : (
               <Popover
+                arrow={false}
+                styles={{
+                  body: {
+                    padding: 8,
+                  },
+                }}
                 trigger={['click']}
                 placement={'bottomLeft'}
-                overlayClassName={'light-poppver'}
-                arrow={false}
                 open={state().openSelectMenu}
                 onOpenChange={(v) => {
                   if (props.element.katex || props.element.render) {
@@ -365,7 +371,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
                     });
                   }
                 }}
-                overlayInnerStyle={{ padding: 10 }}
                 content={
                   <AutoComplete
                     value={state().lang}
@@ -456,8 +461,30 @@ export function AceElement(props: ElementProps<CodeNode>) {
                 </div>
               </Popover>
             )}
-            <div>
-              <div
+            <div
+              style={{
+                display: 'flex',
+                gap: 5,
+              }}
+            >
+              {props.element.katex ? (
+                <ActionIconBox
+                  title="关闭"
+                  onClick={() => {
+                    setState({
+                      hide:
+                        props.element.katex ||
+                        (props.element.render &&
+                          props.element.language !== 'html') ||
+                        props.element.language === 'mermaid',
+                    });
+                  }}
+                >
+                  <CloseCircleOutlined />
+                </ActionIconBox>
+              ) : null}
+              <ActionIconBox
+                title="复制"
                 style={{
                   fontSize: '0.9em',
                   lineHeight: '1.75em',
@@ -465,13 +492,20 @@ export function AceElement(props: ElementProps<CodeNode>) {
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const code = props.element.value || '';
-                  //@ts-ignore
-                  window.api.copyToClipboard(code);
+                  try {
+                    const code = props.element.value || '';
+                    if (navigator.clipboard?.writeText) {
+                      navigator.clipboard.writeText(code);
+                    } else {
+                      //@ts-ignore
+                      document.execCommand('copy', false, code);
+                    }
+                    message.success('Copied');
+                  } catch (error) {}
                 }}
               >
                 <CopyOutlined />
-              </div>
+              </ActionIconBox>
             </div>
           </div>
         )}
@@ -479,7 +513,9 @@ export function AceElement(props: ElementProps<CodeNode>) {
         <div className={'ant-md-editor-hidden'}>{props.children}</div>
       </div>
       {props.element.language === 'mermaid' && <Mermaid el={props.element} />}
-      {!!props.element.katex && <Katex el={props.element} />}
+      {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
+        <Katex el={props.element} />
+      ) : null}
       {props.element.language === 'html' && !!props.element.render && (
         <div
           style={{

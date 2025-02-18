@@ -246,20 +246,7 @@ export const insertParsedHtmlNodes = async (
     })
     .map((fragment) => {
       if (fragment.type === 'table') {
-        return {
-          type: 'card',
-          children: [
-            {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            fragment,
-            {
-              type: 'card-after',
-              children: [{ text: '' }],
-            },
-          ],
-        };
+        EditorUtils.wrapperCardNode(fragment);
       }
       if (fragment.type === '"paragraph"' && fragment.children.length === 1) {
         return {

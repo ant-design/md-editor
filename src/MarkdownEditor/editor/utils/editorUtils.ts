@@ -437,6 +437,24 @@ export class EditorUtils {
       ],
     } as CardNode;
   }
+
+  static wrapperCardNode(node: any, props: Record<string, any> = {}) {
+    return {
+      type: 'card',
+      ...props,
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        node,
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    } as CardNode;
+  }
 }
 
 export const getDefaultView = (value: any): Window | null => {

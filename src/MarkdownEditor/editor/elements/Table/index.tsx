@@ -752,6 +752,7 @@ export const Table = observer((props: RenderElementProps) => {
           Math.abs(endY - startY) + 'px',
         );
       }
+      updateSelectionRect(startX, startY, endX, endY);
     };
     const mouseup = (e: any) => {
       const target = e.target as HTMLElement;
@@ -898,7 +899,7 @@ export const Table = observer((props: RenderElementProps) => {
             <div
               {...props.attributes}
               data-be={'table'}
-              onDragStart={store.dragStart}
+              draggable={false}
               ref={(el) => {
                 //@ts-ignore
                 overflowShadowContainerRef.current = el;

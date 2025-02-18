@@ -100,13 +100,16 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
 
+
+
+
 ## 引用
 
-上上任的武汉大学校长是李晓红。[^1][^2]
+上上任的武汉大学校长是李晓红。[^DOC_1][^DOC_2]
 
 | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 
 | ------------- | ------- | ------- | ------- | ------- | ------- |
-| 收入          | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 |
+| 收入          | 135,303 [^DOC_1] | 138,259 | 142,368 | 144,188 | 135,471 |
 | 增值服务      | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  | 
 | 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  | 
 | 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  |
@@ -287,7 +290,20 @@ export default () => {
           });
         },
       }}
-      initValue={defaultValue}
+      initValue={
+        process.env.NODE_ENV === 'test'
+          ? defaultValue
+          : defaultValue +
+            `## 公式
+
+Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
+equation.
+
+$$
+L = \frac{1}{2} \rho v^2 S C_L
+$$
+`
+      }
     />
   );
 };

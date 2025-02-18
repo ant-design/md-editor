@@ -166,8 +166,10 @@ export const ReadonlyBaseBar = observer(
             for (const str of texts) {
               title += str;
             }
-            navigator.clipboard.writeText(title);
-            message.success('Copy Success');
+            try {
+              navigator.clipboard.writeText(title);
+              message.success('Copy Success');
+            } catch (error) {}
           }}
         >
           <span>

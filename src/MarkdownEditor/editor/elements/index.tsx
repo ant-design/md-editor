@@ -17,6 +17,7 @@ import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
 import { Chart } from './chart/index';
 import { AceElement } from './code';
+import { InlineKatex } from './code/CodeUI/Katex/InlineKatex';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -108,9 +109,11 @@ export const MElement = (
           style={{
             minWidth: 4,
             height: '100%',
+            fontWeight: 800,
             position: 'relative',
             zIndex: 99,
-            display: props.readonly ? 'none' : 'block',
+            fontSize: '2em',
+            display: 'none',
           }}
           data-be={'card-before'}
           {...props.attributes}
@@ -127,6 +130,8 @@ export const MElement = (
             alignSelf: 'end',
             position: 'relative',
             zIndex: 99,
+
+            fontSize: '2em',
             display: props.readonly ? 'none' : 'block',
           }}
           data-be={'card-after'}
@@ -135,6 +140,9 @@ export const MElement = (
           {props.children}
         </span>
       );
+
+    case 'inline-katex':
+      return <InlineKatex {...props} />;
     default:
       return <Paragraph {...props} />;
   }

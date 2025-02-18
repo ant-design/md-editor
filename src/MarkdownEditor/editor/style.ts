@@ -108,9 +108,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         paddingTop: '.25em',
         paddingBottom: '.25em',
         fontSize: '1em',
-        lineHeight: '1.5em',
+        lineHeight: '1.5',
         marginTop: '0',
-        marginBottom: '0.8em',
+        marginBottom: '0.5em',
       },
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',

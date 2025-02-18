@@ -405,66 +405,53 @@ export class KeyboardTask {
           : Path.next(node[1]);
       Transforms.insertNodes(
         this.editor,
-        {
-          type: 'card',
+        EditorUtils.wrapperCardNode({
+          type: 'table',
           children: [
             {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            {
-              type: 'table',
+              type: 'table-row',
               children: [
                 {
-                  type: 'table-row',
-                  children: [
-                    {
-                      type: 'table-cell',
-                      title: true,
-                      children: [{ text: '' }],
-                    },
-                    {
-                      type: 'table-cell',
-                      title: true,
-                      children: [{ text: '' }],
-                    },
-                    {
-                      type: 'table-cell',
-                      title: true,
-                      children: [{ text: '' }],
-                    },
-                  ],
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
                 },
                 {
-                  type: 'table-row',
-                  children: [
-                    { type: 'table-cell', children: [{ text: '' }] },
-                    {
-                      type: 'table-cell',
-                      children: [{ text: '' }],
-                    },
-                    { type: 'table-cell', children: [{ text: '' }] },
-                  ],
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
                 },
                 {
-                  type: 'table-row',
-                  children: [
-                    { type: 'table-cell', children: [{ text: '' }] },
-                    {
-                      type: 'table-cell',
-                      children: [{ text: '' }],
-                    },
-                    { type: 'table-cell', children: [{ text: '' }] },
-                  ],
+                  type: 'table-cell',
+                  title: true,
+                  children: [{ text: '' }],
                 },
               ],
             },
             {
-              type: 'card-after',
-              children: [{ text: '' }],
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
+            },
+            {
+              type: 'table-row',
+              children: [
+                { type: 'table-cell', children: [{ text: '' }] },
+                {
+                  type: 'table-cell',
+                  children: [{ text: '' }],
+                },
+                { type: 'table-cell', children: [{ text: '' }] },
+              ],
             },
           ],
-        },
+        }),
         { at: path },
       );
       if (node[0].type === 'paragraph' && !Node.string(node[0])) {
@@ -529,10 +516,13 @@ export class KeyboardTask {
       }
       Transforms.insertNodes(
         this.editor,
-        {
+        EditorUtils.wrapperCardNode({
           type: 'column-group',
           otherProps: {
             elementType: 'column',
+          },
+          style: {
+            flex: 1,
           },
           children: [
             {
@@ -544,11 +534,9 @@ export class KeyboardTask {
               children: [{ text: '' }],
             },
           ],
-        },
-        { at: path },
+        }),
+        { at: path, select: true },
       );
-
-      Transforms.select(this.editor, Editor.start(this.editor, path));
     }
   }
 
@@ -674,15 +662,14 @@ export class KeyboardTask {
         }
       } else {
         const childrenList: ListItemNode[] = [];
+        const selectNodeList = [...this.curNodes];
 
-        [
-          ...Editor.nodes<any>(this.editor, {
-            mode: 'lowest',
-            match: (m) => {
-              return Element.isElement(m);
-            },
-          }),
-        ]?.forEach((mapNode) => {
+        //删除选中的节点
+        selectNodeList.forEach(() => {
+          Transforms.delete(this.editor);
+        });
+
+        selectNodeList?.forEach((mapNode) => {
           const item = {
             type: 'list-item',
             checked: mode === 'task' ? false : undefined,
@@ -696,7 +683,6 @@ export class KeyboardTask {
           childrenList.push(item);
         });
 
-        Transforms.delete(this.editor);
         Transforms.insertNodes(
           this.editor,
           {
@@ -800,7 +786,9 @@ export const useSystemKeyboard = (
           const url = `media://file?url=${readlUrl}&height=${
             node[0].height || ''
           }`;
-          navigator.clipboard.writeText(url);
+          try {
+            navigator.clipboard.writeText(url);
+          } catch (error) {}
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store?.editor, { at: node[1] });
             ReactEditor.focus(store?.editor);
@@ -808,7 +796,10 @@ export const useSystemKeyboard = (
         }
         if (node[0].type === 'attach') {
           const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
-          navigator.clipboard.writeText(url);
+          try {
+            navigator.clipboard.writeText(url);
+          } catch (error) {}
+
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store?.editor, { at: node[1] });
             ReactEditor.focus(store?.editor);
