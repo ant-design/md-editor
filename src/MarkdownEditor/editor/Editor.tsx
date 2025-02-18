@@ -675,7 +675,6 @@ export const MEditor = observer(
         });
       }
     }, 160);
-    console.log(readonly);
     return wrapSSR(
       <Slate
         editor={markdownEditorRef.current}
