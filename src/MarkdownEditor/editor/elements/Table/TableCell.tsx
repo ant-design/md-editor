@@ -139,6 +139,7 @@ export const TableTdCell = (
         backgroundColor: editing ? 'transparent' : undefined,
         textAlign: justifyContent as 'left',
         minWidth: minWidth,
+        border: editing ? '2px solid #42a642' : undefined,
         maxWidth: '200px',
         width: props.width,
       }}

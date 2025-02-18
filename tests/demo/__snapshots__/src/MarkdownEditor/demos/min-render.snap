@@ -215,11 +215,12 @@
                   class="ant-md-editor-content-table-container"
                   data-be="table"
                   data-slate-node="element"
+                  draggable="false"
                   style="overflow: hidden;"
                   tabindex="0"
                 >
                   <div
-                    style="position: absolute; z-index: 999; outline: 3px solid #42a642; pointer-events: none; display: none; left: 0px; top: 0px;"
+                    style="position: absolute; z-index: 999; outline: 3px solid transparent; pointer-events: none; display: none; left: 0px; top: 0px;"
                   />
                   <div
                     class="ant-md-editor-drag-el"
@@ -516,6 +517,7 @@
                     </div>
                     <table
                       class="ant-md-editor-content-table-editor-table"
+                      draggable="false"
                     >
                       <tbody
                         data-slate-node="element"
@@ -9009,11 +9011,12 @@
                   class="ant-md-editor-content-table-container"
                   data-be="table"
                   data-slate-node="element"
+                  draggable="false"
                   style="overflow: hidden;"
                   tabindex="0"
                 >
                   <div
-                    style="position: absolute; z-index: 999; outline: 3px solid #42a642; pointer-events: none; display: none; left: 0px; top: 0px;"
+                    style="position: absolute; z-index: 999; outline: 3px solid transparent; pointer-events: none; display: none; left: 0px; top: 0px;"
                   />
                   <div
                     class="ant-md-editor-drag-el"
@@ -9214,6 +9217,7 @@
                     </div>
                     <table
                       class="ant-md-editor-content-table-editor-table"
+                      draggable="false"
                     >
                       <tbody
                         data-slate-node="element"
