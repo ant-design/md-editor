@@ -231,6 +231,16 @@ export const withMarkdown = (editor: Editor) => {
       }
     }
 
+    if (
+      operation.type === 'set_selection' &&
+      operation.newProperties?.focus?.path
+    ) {
+      const node = Node.get(editor, operation.newProperties.focus.path!);
+      if (node?.type === 'card-before') {
+        return;
+      }
+    }
+
     apply(operation);
   };
 

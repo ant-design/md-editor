@@ -113,7 +113,7 @@ export const MElement = (
             position: 'relative',
             zIndex: 99,
             fontSize: '2em',
-            display: props.readonly ? 'none' : 'block',
+            display: 'none',
           }}
           data-be={'card-before'}
           {...props.attributes}
