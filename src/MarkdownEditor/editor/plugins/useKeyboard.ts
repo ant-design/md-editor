@@ -11,12 +11,14 @@ import {
   Transforms,
 } from 'slate';
 import { HistoryEditor } from 'slate-history';
+import { MarkdownEditorProps } from '../..';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
 import { keyArrow } from './hotKeyCommands/arrow';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 import { EnterKey } from './hotKeyCommands/enter';
+import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
 export const useKeyboard = (
@@ -24,12 +26,13 @@ export const useKeyboard = (
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >,
+  props: MarkdownEditorProps['markdown'],
 ) => {
   return useMemo(() => {
     const tab = new TabKey(markdownEditorRef.current);
     const backspace = new BackspaceKey(markdownEditorRef.current);
     const enter = new EnterKey(store, backspace);
-    // const match = new MatchKey(markdownEditorRef.current);
+    const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
       if (
         store.openInsertCompletion &&
@@ -71,7 +74,12 @@ export const useKeyboard = (
       if (isHotkey('mod+alt+v', e) || isHotkey('mod+opt+v', e)) {
         e.preventDefault();
       }
-      // match.run(e);
+      if (isHotkey('mod+shift+s', e)) {
+        e.preventDefault();
+      }
+      if (props?.matchInputToNode) {
+        match.run(e);
+      }
 
       if (e.key.toLowerCase().startsWith('arrow')) {
         if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;

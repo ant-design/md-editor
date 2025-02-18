@@ -119,7 +119,11 @@ export const MEditor = observer(
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
 
-    const onKeyDown = useKeyboard(store, markdownEditorRef);
+    const onKeyDown = useKeyboard(
+      store,
+      markdownEditorRef,
+      editorProps?.markdown,
+    );
     const onChange = useOnchange(
       markdownEditorRef.current,
       store,
