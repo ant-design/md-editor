@@ -12,14 +12,6 @@ globalThis.document = window.document;
 global.window.scrollTo = vi.fn();
 Element.prototype.scrollTo = vi.fn();
 
-vi.mock('lodash-es', () => {
-  return {
-    map: (arr: any[], fn: any) => arr.map(fn),
-    filter: (arr: any[], fn: any) => arr.filter(fn),
-    forEach: (arr: any[], fn: any) => arr.forEach(fn),
-  };
-});
-
 Object.defineProperty(global, 'navigator', {
   value: {
     userAgent: 'node.js',

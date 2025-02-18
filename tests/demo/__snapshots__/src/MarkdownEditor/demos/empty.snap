@@ -28,6 +28,7 @@
                 <div
                   class="ant-md-editor-toolbar-item ant-md-editor-toolbar-item-min-plus-icon"
                   role="button"
+                  tabindex="-1"
                 >
                   <span
                     aria-label="plus-circle"

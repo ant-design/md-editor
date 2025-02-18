@@ -3222,7 +3222,7 @@
       </div>
       <div
         class="markdown-editor ant-md-editor ant-md-editor-edit ant-md-editor-report"
-        style="width: 80%; height: calc(100vh - 400px); display: flex; flex-direction: column; max-height: 100%; margin: 0px auto; border: 1px solid #e8e8e8;"
+        style="width: 80%; height: 80vh; display: flex; flex-direction: column; max-height: 100%; margin: 0px auto; border: 1px solid #e8e8e8;"
       >
         <div
           class="md-editor-toolbar-container"
