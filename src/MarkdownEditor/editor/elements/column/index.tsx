@@ -1,6 +1,7 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useMemo } from 'react';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
@@ -27,6 +28,7 @@ export const ColumnGroup = (props: RenderElementProps) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-column-group');
   const { wrapSSR, hashId } = useStyle(baseCls);
+
   return useMemo(() => {
     return wrapSSR(
       <div
@@ -39,7 +41,24 @@ export const ColumnGroup = (props: RenderElementProps) => {
         }}
       >
         <DragHandle />
-        <div className={classNames(hashId, baseCls)}>{props.children}</div>
+        <PanelGroup
+          direction="horizontal"
+          className={classNames(hashId, baseCls)}
+        >
+          {props.children?.map((child: any, index: number) => {
+            if (index === 0) {
+              return (
+                <>
+                  <Panel key={index}>{child}</Panel>
+                  <PanelResizeHandle
+                    className={classNames(`${baseCls}-resize-handle`, hashId)}
+                  />
+                </>
+              );
+            }
+            return <Panel key={index}>{child}</Panel>;
+          })}
+        </PanelGroup>
       </div>,
     );
   }, [props.element.children]);

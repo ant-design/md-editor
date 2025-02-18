@@ -321,7 +321,6 @@ export const MEditor = observer(
 
               [url].flat(2).forEach((u) => {
                 if (!u) return null;
-                console.log('---->', at);
                 Transforms.insertNodes(
                   markdownEditorRef.current,
                   EditorUtils.createMediaNode(u, 'image'),
