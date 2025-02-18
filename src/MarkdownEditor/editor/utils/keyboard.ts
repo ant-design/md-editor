@@ -640,7 +640,6 @@ export class KeyboardTask {
   }
 
   list(mode: 'ordered' | 'unordered' | 'task') {
-    console.log('run list');
     const [node] = this.curNodes;
     if (node && ['paragraph'].includes(node[0].type)) {
       const parent = Editor.parent(this.editor, node[1]);

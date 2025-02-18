@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import getDirection from 'direction';
+import { debounce, throttle } from 'lodash-es';
 import React, {
   ForwardedRef,
   forwardRef,
@@ -61,7 +62,6 @@ import {
   PLACEHOLDER_SYMBOL,
   TRIPLE_CLICK,
 } from 'slate-dom';
-import { debounce, throttle } from '../../utils';
 import { AndroidInputManager } from '../hooks/android-input-manager/android-input-manager';
 import { useAndroidInputManager } from '../hooks/android-input-manager/use-android-input-manager';
 import useChildren from '../hooks/use-children';

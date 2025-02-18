@@ -43,6 +43,9 @@ export const withMarkdown = (editor: Editor) => {
   };
 
   editor.apply = (operation) => {
+    if (operation.type === 'set_selection' && operation.newProperties) {
+      console.log('set_selection', operation);
+    }
     if (
       operation.type === 'merge_node' &&
       operation.properties?.type === 'table-cell'

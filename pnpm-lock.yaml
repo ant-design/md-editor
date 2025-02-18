@@ -77,6 +77,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       mermaid:
         specifier: ^11.4.1
         version: 11.4.1
@@ -183,6 +186,9 @@ importers:
       '@types/lodash':
         specifier: ^4.17.15
         version: 4.17.15
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
@@ -2378,6 +2384,9 @@ packages:
 
   '@types/kd-tree-javascript@1.0.3':
     resolution: {integrity: sha512-U9nzaLMsPmUbNcUqQdl7Q2eZ0xIt3Uar1pfqVnkwNPFi4iq/UwdNTF+rz18nR2pqQW3LvrB/xoZE0RLAAmx7iQ==}
+
+  '@types/lodash-es@4.17.12':
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
   '@types/lodash@4.17.15':
     resolution: {integrity: sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw==}
@@ -11323,6 +11332,10 @@ snapshots:
       '@types/node': 22.13.4
 
   '@types/kd-tree-javascript@1.0.3': {}
+
+  '@types/lodash-es@4.17.12':
+    dependencies:
+      '@types/lodash': 4.17.15
 
   '@types/lodash@4.17.15': {}
 
