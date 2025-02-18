@@ -108,7 +108,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         paddingTop: '.25em',
         paddingBottom: '.25em',
         fontSize: '1em',
-        lineHeight: '1em',
+        lineHeight: '1.25em',
         marginTop: '0',
         marginBottom: '0.5em',
       },

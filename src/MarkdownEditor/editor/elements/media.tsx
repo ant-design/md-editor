@@ -1,12 +1,13 @@
-import { EyeOutlined } from '@ant-design/icons';
-import { Image, ImageProps } from 'antd';
+import { DeleteFilled, EyeOutlined } from '@ant-design/icons';
+import { Image, ImageProps, Popover } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
 
 import classNames from 'classnames';
-import { Transforms } from 'slate';
+import { Path, Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
+import { ActionIconBox } from '../components/ActionIconBox';
 import { AvatarList } from '../components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
@@ -436,39 +437,53 @@ export function Media({
         }}
       >
         <DragHandle />
-        <div
-          onClick={() => {
-            setTimeout(() => {
-              setState({ selected: true });
-            }, 16);
-          }}
-          onBlur={() => {
-            setState({ selected: false });
-          }}
-          tabIndex={-1}
-          style={{
-            color: 'transparent',
-            padding: 4,
-            userSelect: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            width: mediaElement ? '100%' : undefined,
-          }}
-          ref={htmlRef}
-          draggable={false}
-          contentEditable={false}
-          className="md-editor-media"
+        <Popover
+          trigger="click"
+          open={state().selected ? true : undefined}
+          content={
+            <ActionIconBox
+              title="删除"
+              onClick={() => {
+                Transforms.removeNodes(markdownEditorRef.current, {
+                  at: Path.parent(path),
+                });
+              }}
+            >
+              <DeleteFilled />
+            </ActionIconBox>
+          }
         >
-          {mediaElement}
-          {imageDom}
           <div
-            style={{
-              display: 'none',
+            onClick={() => {
+              setTimeout(() => {
+                setState({ selected: true });
+              }, 16);
             }}
+            tabIndex={-1}
+            style={{
+              color: 'transparent',
+              padding: 4,
+              userSelect: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              width: mediaElement ? '100%' : undefined,
+            }}
+            ref={htmlRef}
+            draggable={false}
+            contentEditable={false}
+            className="md-editor-media"
           >
-            {children}
+            {mediaElement}
+            {imageDom}
+            <div
+              style={{
+                display: 'none',
+              }}
+            >
+              {children}
+            </div>
           </div>
-        </div>
+        </Popover>
       </div>
     </div>
   );
