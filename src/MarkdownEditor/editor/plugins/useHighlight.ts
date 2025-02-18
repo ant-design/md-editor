@@ -25,6 +25,7 @@ export const clearInlineKatex = (editor: Editor) => {
 const highlightNodes = new Set([
   'paragraph',
   'table-cell',
+  'table',
   'code',
   'head',
   'inline-katex',

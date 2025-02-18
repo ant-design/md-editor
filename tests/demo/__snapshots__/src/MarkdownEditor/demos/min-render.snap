@@ -10749,6 +10749,7 @@
                 data-be="code"
                 data-lang="java"
                 data-slate-node="element"
+                tabindex="-1"
               >
                 <div
                   class="ace-container drag-el "
@@ -10775,14 +10776,19 @@
                         </span>
                       </div>
                     </div>
-                    <div>
-                      <div
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        class="ant-agent-chat-action-icon-box"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <span
                           aria-label="copy"
                           class="anticon anticon-copy"
                           role="img"
+                          tabindex="-1"
                         >
                           <svg
                             aria-hidden="true"
@@ -10798,7 +10804,7 @@
                             />
                           </svg>
                         </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                   <div
