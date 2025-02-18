@@ -252,7 +252,26 @@ export const MEditor = observer(
           'application/x-slate-fragment',
         );
         const decoded = decodeURIComponent(window.atob(encoded));
-        const fragment = JSON.parse(decoded);
+        const fragment = JSON.parse(decoded).map((node: any) => {
+          if (node.type === 'card') {
+            return {
+              ...node,
+              children: [
+                {
+                  type: 'card-before',
+                  children: [{ text: '' }],
+                },
+                ...node.children,
+                {
+                  type: 'card-after',
+                  children: [{ text: '' }],
+                },
+              ],
+            };
+          }
+          return node;
+        });
+
         Transforms.insertFragment(markdownEditorRef.current, fragment);
         return;
       }
