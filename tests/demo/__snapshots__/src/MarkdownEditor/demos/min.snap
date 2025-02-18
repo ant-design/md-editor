@@ -217,12 +217,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3286,7 +3286,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3400,12 +3400,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -4091,7 +4091,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -4205,12 +4205,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5127,7 +5127,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5241,12 +5241,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5356,7 +5356,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5470,12 +5470,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5546,7 +5546,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5660,12 +5660,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5785,7 +5785,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -5947,12 +5947,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -7483,7 +7483,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
