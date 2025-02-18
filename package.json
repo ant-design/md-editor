@@ -34,7 +34,6 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.23.0",
     "@ant-design/icons": "^5.6.1",
-    "@ant-design/md-editor": "file:",
     "@ant-design/pro-components": "^2.8.5",
     "@antv/g2": "^5.2.11",
     "@babel/runtime": "^7.26.9",
