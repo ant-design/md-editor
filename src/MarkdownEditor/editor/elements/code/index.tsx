@@ -347,10 +347,15 @@ export function AceElement(props: ElementProps<CodeNode>) {
               </div>
             ) : (
               <Popover
+                arrow={false}
+                styles={{
+                  body: {
+                    padding: 8,
+                  },
+                }}
                 trigger={['click']}
                 placement={'bottomLeft'}
                 overlayClassName={'light-poppver'}
-                arrow={false}
                 open={state().openSelectMenu}
                 onOpenChange={(v) => {
                   if (props.element.katex || props.element.render) {

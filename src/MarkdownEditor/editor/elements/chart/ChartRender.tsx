@@ -169,6 +169,12 @@ export const ChartRender: React.FC<{
         </Dropdown>
       ) : null,
       <Popover
+        arrow={false}
+        styles={{
+          body: {
+            padding: 8,
+          },
+        }}
         key="config"
         title="配置图表"
         trigger={'click'}

@@ -62,6 +62,12 @@ export const ColumnGroup = (props: RenderElementProps) => {
         }}
       >
         <Popover
+          arrow={false}
+          styles={{
+            body: {
+              padding: 8,
+            },
+          }}
           content={
             <div
               style={{

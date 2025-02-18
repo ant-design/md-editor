@@ -457,11 +457,18 @@ export function Media({
       >
         <DragHandle />
         <Popover
+          arrow={false}
+          styles={{
+            body: {
+              padding: 8,
+            },
+          }}
           trigger="click"
           open={state().selected ? undefined : false}
           content={
             <ActionIconBox
               title="删除"
+              type="danger"
               onClick={(e) => {
                 e.stopPropagation();
                 Modal.confirm({
