@@ -739,6 +739,7 @@ export const Table = observer((props: RenderElementProps) => {
           Math.abs(endY - startY) + 'px',
         );
       }
+      updateSelectionRect(startX, startY, endX, endY);
     };
     const mouseup = (e: any) => {
       const target = e.target as HTMLElement;
@@ -798,7 +799,7 @@ export const Table = observer((props: RenderElementProps) => {
             <div
               {...props.attributes}
               data-be={'table'}
-              onDragStart={store.dragStart}
+              draggable={false}
               ref={(el) => {
                 //@ts-ignore
                 overflowShadowContainerRef.current = el;
@@ -816,7 +817,7 @@ export const Table = observer((props: RenderElementProps) => {
                 style={{
                   position: 'absolute',
                   zIndex: 999,
-                  outline: '3px solid #42a642',
+                  outline: '3px solid transparent',
                   pointerEvents: 'none',
                   display: 'none',
                   left: 0,
@@ -915,6 +916,7 @@ export const Table = observer((props: RenderElementProps) => {
                   />
                 </div>
                 <table
+                  draggable={false}
                   ref={tableTargetRef}
                   className={classNames(`${baseCls}-editor-table`, hashId)}
                 >
