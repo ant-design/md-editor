@@ -798,7 +798,9 @@ export const useSystemKeyboard = (
           const url = `media://file?url=${readlUrl}&height=${
             node[0].height || ''
           }`;
-          navigator.clipboard.writeText(url);
+          try {
+            navigator.clipboard.writeText(url);
+          } catch (error) {}
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store?.editor, { at: node[1] });
             ReactEditor.focus(store?.editor);
@@ -806,7 +808,10 @@ export const useSystemKeyboard = (
         }
         if (node[0].type === 'attach') {
           const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
-          navigator.clipboard.writeText(url);
+          try {
+            navigator.clipboard.writeText(url);
+          } catch (error) {}
+
           if (isHotkey('mod+x', e)) {
             Transforms.delete(store?.editor, { at: node[1] });
             ReactEditor.focus(store?.editor);

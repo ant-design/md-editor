@@ -9,6 +9,7 @@ import {
   Editor,
   Element,
   Node,
+  Path,
   Range,
   Transforms,
 } from 'slate';
@@ -315,6 +316,11 @@ export const MEditor = observer(
               }
               const selection =
                 markdownEditorRef.current?.selection?.focus?.path;
+              const node = Node.get(
+                markdownEditorRef.current,
+                Path.parent(selection!)!,
+              );
+
               const at = selection
                 ? EditorUtils.findNext(markdownEditorRef.current, selection)!
                 : undefined;
@@ -326,9 +332,12 @@ export const MEditor = observer(
                   EditorUtils.createMediaNode(u, 'image'),
                   {
                     at: [
-                      at
-                        ? at[0]
-                        : markdownEditorRef.current.children.length - 1,
+                      ...(node.type === 'table-cell' ||
+                      node.type === 'column-cell'
+                        ? selection!
+                        : at
+                          ? at
+                          : [markdownEditorRef.current.children.length - 1]),
                     ],
                   },
                 );

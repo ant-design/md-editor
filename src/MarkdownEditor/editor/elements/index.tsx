@@ -109,8 +109,10 @@ export const MElement = (
           style={{
             minWidth: 4,
             height: '100%',
+            fontWeight: 800,
             position: 'relative',
             zIndex: 99,
+            fontSize: '2em',
             display: props.readonly ? 'none' : 'block',
           }}
           data-be={'card-before'}
@@ -128,6 +130,8 @@ export const MElement = (
             alignSelf: 'end',
             position: 'relative',
             zIndex: 99,
+
+            fontSize: '2em',
             display: props.readonly ? 'none' : 'block',
           }}
           data-be={'card-after'}
