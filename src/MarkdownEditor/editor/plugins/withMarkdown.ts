@@ -179,10 +179,26 @@ export const withMarkdown = (editor: Editor) => {
     }
     if (operation.type === 'insert_text') {
       const parentNode = Node.get(editor, Path.parent(operation.path));
-      if (
-        parentNode.type === 'card-before' ||
-        parentNode.type === 'card-after'
-      ) {
+      if (parentNode.type === 'card-after') {
+        if (
+          Node.get(editor, Path.parent(Path.parent(operation.path))).type ===
+          'card'
+        ) {
+          Transforms.insertNodes(
+            editor,
+            [
+              {
+                type: 'paragraph',
+                children: [{ text: operation.text }],
+              },
+            ],
+            {
+              at: Path.next(Path.parent(Path.parent(operation.path))),
+              select: true,
+            },
+          );
+          return;
+        }
         return;
       }
     }
@@ -220,23 +236,13 @@ export const withMarkdown = (editor: Editor) => {
           'card'
         ) {
           Transforms.insertNodes(editor, operation.node, {
-            at: Path.parent(Path.parent(operation.path)),
+            at: Path.next(Path.parent(Path.parent(operation.path))),
           });
           return;
         }
         Transforms.insertNodes(editor, operation.node, {
           at: Path.parent(operation.path),
         });
-        return;
-      }
-    }
-
-    if (
-      operation.type === 'set_selection' &&
-      operation.newProperties?.focus?.path
-    ) {
-      const node = Node.get(editor, operation.newProperties.focus.path!);
-      if (node?.type === 'card-before') {
         return;
       }
     }

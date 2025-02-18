@@ -3773,7 +3773,7 @@
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: block;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3972,7 +3972,7 @@
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: block;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
