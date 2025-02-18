@@ -355,7 +355,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
                 }}
                 trigger={['click']}
                 placement={'bottomLeft'}
-                overlayClassName={'light-poppver'}
                 open={state().openSelectMenu}
                 onOpenChange={(v) => {
                   if (props.element.katex || props.element.render) {
@@ -372,7 +371,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
                     });
                   }
                 }}
-                overlayInnerStyle={{ padding: 10 }}
                 content={
                   <AutoComplete
                     value={state().lang}
