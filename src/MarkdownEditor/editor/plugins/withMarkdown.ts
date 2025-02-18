@@ -204,16 +204,7 @@ export const withMarkdown = (editor: Editor) => {
       }
     }
     if (operation.type === 'set_selection') {
-      const path = operation?.newProperties?.anchor?.path;
-      if (path && Path.isPath(path)) {
-        const node = Node.get(editor, Path.parent(path));
-        if (node?.type === 'card-before') {
-          return;
-        }
-        if (node?.type === 'card-after') {
-          return;
-        }
-      }
+      console.log(operation);
     }
     apply(operation);
   };

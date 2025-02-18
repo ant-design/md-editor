@@ -120,9 +120,9 @@ export default () => {
           width: '80%',
           margin: '0 auto',
           border: '1px solid #e8e8e8',
-          height: 'calc(100vh - 400px)',
+          height: '80vh',
         }}
-        initValue={defaultValue}
+        initValue={`aaaa\n\nbbbb\n\nccccc\n`}
       />
     </div>
   );

@@ -640,6 +640,7 @@ export class KeyboardTask {
   }
 
   list(mode: 'ordered' | 'unordered' | 'task') {
+    console.log('run list');
     const [node] = this.curNodes;
     if (node && ['paragraph'].includes(node[0].type)) {
       const parent = Editor.parent(this.editor, node[1]);
@@ -674,15 +675,14 @@ export class KeyboardTask {
         }
       } else {
         const childrenList: ListItemNode[] = [];
+        const selectNodeList = [...this.curNodes];
 
-        [
-          ...Editor.nodes<any>(this.editor, {
-            mode: 'lowest',
-            match: (m) => {
-              return Element.isElement(m);
-            },
-          }),
-        ]?.forEach((mapNode) => {
+        //删除选中的节点
+        selectNodeList.forEach(() => {
+          Transforms.delete(this.editor);
+        });
+
+        selectNodeList?.forEach((mapNode) => {
           const item = {
             type: 'list-item',
             checked: mode === 'task' ? false : undefined,
@@ -696,7 +696,6 @@ export class KeyboardTask {
           childrenList.push(item);
         });
 
-        Transforms.delete(this.editor);
         Transforms.insertNodes(
           this.editor,
           {

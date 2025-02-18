@@ -713,6 +713,7 @@ export const BaseToolBar = observer(
               `${baseClassName}-item-min-plus-icon`,
               hashId,
             )}
+            tabIndex={-1}
           >
             <Dropdown
               menu={{
