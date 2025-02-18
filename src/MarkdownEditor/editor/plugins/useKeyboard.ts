@@ -17,7 +17,6 @@ import { EditorUtils } from '../utils/editorUtils';
 import { keyArrow } from './hotKeyCommands/arrow';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 import { EnterKey } from './hotKeyCommands/enter';
-import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
 export const useKeyboard = (
@@ -30,7 +29,7 @@ export const useKeyboard = (
     const tab = new TabKey(markdownEditorRef.current);
     const backspace = new BackspaceKey(markdownEditorRef.current);
     const enter = new EnterKey(store, backspace);
-    const match = new MatchKey(markdownEditorRef.current);
+    // const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
       if (
         store.openInsertCompletion &&
@@ -72,7 +71,7 @@ export const useKeyboard = (
       if (isHotkey('mod+alt+v', e) || isHotkey('mod+opt+v', e)) {
         e.preventDefault();
       }
-      match.run(e);
+      // match.run(e);
 
       if (e.key.toLowerCase().startsWith('arrow')) {
         if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;
@@ -88,25 +87,7 @@ export const useKeyboard = (
           mode: 'lowest',
         });
         if (!node) return;
-        let str = Node.string(node[0]) || '';
         if (node[0].type === 'paragraph') {
-          if (e.key === 'Enter' && /^<[a-z]+[\s"'=:;()\w\-[\]]*>/.test(str)) {
-            Transforms.delete(markdownEditorRef.current, { at: node[1] });
-            Transforms.insertNodes(
-              markdownEditorRef.current,
-              {
-                type: 'code',
-                language: 'html',
-                render: true,
-                children: str.split('\n').map((s) => {
-                  return { type: 'code-line', children: [{ text: s }] };
-                }),
-              },
-              { select: true, at: node[1] },
-            );
-            e.preventDefault();
-            return;
-          }
           setTimeout(() => {
             const [node] = Editor.nodes<any>(markdownEditorRef.current, {
               match: (n) => Element.isElement(n) && n.type === 'paragraph',
