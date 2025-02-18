@@ -190,7 +190,11 @@ export const withMarkdown = (editor: Editor) => {
       const parentNode = Node.get(editor, Path.parent(operation.path));
 
       // 表格内部的节点操作，只允许插入行内节点。
-      if (parentNode.type === 'table-cell' || parentNode.type === 'table-row') {
+      if (
+        parentNode.type === 'table-cell' ||
+        parentNode.type === 'table-row' ||
+        parentNode.type === 'column-cell'
+      ) {
         if (TableInlineNode.has(operation.node.type) || !operation.node.type) {
           apply(operation);
         }
