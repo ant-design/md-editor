@@ -53,6 +53,49 @@ export default () => {
         comment={{
           enable: true,
         }}
+        readonly
+        reportMode
+        image={{
+          upload: async (fileList) => {
+            return new Promise((resolve) => {
+              const file = fileList[0];
+              if (typeof file === 'string') {
+                fetch(file)
+                  .then((res) => res.blob())
+                  .then((blob) => {
+                    console.log(blob);
+                    const url = URL.createObjectURL(blob);
+                    resolve(url);
+                  });
+              } else {
+                const url = URL.createObjectURL(file);
+                resolve(url);
+              }
+            });
+          },
+        }}
+        style={{
+          width: '80%',
+          margin: '0 auto',
+          border: '1px solid #e8e8e8',
+          height: 'calc(100vh - 400px)',
+        }}
+        initValue={defaultValue}
+      />
+      <MarkdownEditor
+        toc={false}
+        toolBar={{
+          enable: true,
+          hideTools: ['code', 'inline-code'],
+          extra: [
+            <Button key="save" type="primary" size="small">
+              Save
+            </Button>,
+          ],
+        }}
+        comment={{
+          enable: true,
+        }}
         reportMode
         image={{
           upload: async (fileList) => {
@@ -79,7 +122,7 @@ export default () => {
           border: '1px solid #e8e8e8',
           height: '80vh',
         }}
-        initValue={`aaaa\n\nbbbb\n\nccccc\n`}
+        initValue={defaultValue}
       />
     </div>
   );
