@@ -1,10 +1,11 @@
 import { DeleteFilled, EyeOutlined } from '@ant-design/icons';
-import { Image, ImageProps, Popover } from 'antd';
+import { Image, ImageProps, Modal, Popover } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { ResizableBox } from 'react-resizable';
 
+import { useDebounceFn } from '@ant-design/pro-components';
 import classNames from 'classnames';
-import { Path, Transforms } from 'slate';
+import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { ActionIconBox } from '../components/ActionIconBox';
@@ -118,7 +119,21 @@ export const ResizeImage = ({
     width: number | string;
     height: number | string;
   });
+  const imgRef = useRef<HTMLImageElement>(null);
   const { wrapSSR, hashId } = useStyle('react-resizable');
+
+  //@ts-expect-error
+  const resize = useDebounceFn((size) => {
+    setSize({
+      width: size.width,
+      height: size.width / radio.current,
+    });
+    imgRef.current?.style.setProperty('width', `${size.width}px`);
+    imgRef.current?.style.setProperty(
+      'height',
+      `${(size.width || 0) / radio.current}px`,
+    );
+  }, 160);
   return wrapSSR(
     <ResizableBox
       onResizeStart={onResizeStart}
@@ -132,10 +147,13 @@ export const ResizeImage = ({
       width={size.width as number}
       height={size.height as number}
       onResize={(_, { size }) => {
-        setSize({
-          width: size.width,
-          height: size.width / radio.current,
-        });
+        imgRef.current?.style.setProperty('width', `${size.width}px`);
+        imgRef.current?.style.setProperty(
+          'height',
+          `${(size.width || 0) / radio.current}px`,
+        );
+        resize.cancel();
+        resize.run(size);
       }}
     >
       <img
@@ -158,6 +176,7 @@ export const ResizeImage = ({
         referrerPolicy={'no-referrer'}
         crossOrigin={'anonymous'}
         width={'100%'}
+        ref={imgRef}
         style={{
           width: '100%',
           height: 'auto',
@@ -443,9 +462,16 @@ export function Media({
           content={
             <ActionIconBox
               title="删除"
-              onClick={() => {
-                Transforms.removeNodes(markdownEditorRef.current, {
-                  at: Path.parent(path),
+              onClick={(e) => {
+                e.stopPropagation();
+                Modal.confirm({
+                  title: '删除媒体',
+                  content: '确定删除该媒体吗？',
+                  onOk: () => {
+                    Transforms.removeNodes(markdownEditorRef.current, {
+                      at: path,
+                    });
+                  },
                 });
               }}
             >

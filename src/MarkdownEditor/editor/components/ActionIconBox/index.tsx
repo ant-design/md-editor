@@ -1,5 +1,5 @@
 ﻿import { LoadingOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Tooltip, TooltipProps } from 'antd';
+import { ConfigProvider, Tooltip, TooltipProps } from 'antd';
 import cx from 'classnames';
 import React, { useContext, useEffect } from 'react';
 import { useStyle } from './style';
@@ -23,7 +23,6 @@ export const ActionIconBox: React.FC<{
   style?: React.CSSProperties;
   scale?: boolean;
   active?: boolean;
-  standalone?: boolean;
   onInit?: () => void;
   noPadding?: boolean;
 }> = (props) => {
@@ -35,28 +34,6 @@ export const ActionIconBox: React.FC<{
     props.onInit?.();
   }, []);
 
-  if (props.standalone) {
-    return wrapSSR(
-      <Button
-        loading={loading}
-        icon={props.children as any}
-        onClick={async (e) => {
-          if (!props.onClick) return;
-          if (loading) return;
-          setLoading(true);
-          await props.onClick?.(e as any);
-          setLoading(false);
-        }}
-        type={props.type as 'primary'}
-        className={cx(prefixCls, hashId, props.className, {
-          [`${prefixCls}-standalone`]: props.standalone,
-        })}
-        style={props.style}
-      >
-        {props.title}
-      </Button>,
-    );
-  }
   return wrapSSR(
     <Tooltip title={props.title} {...props.tooltipProps}>
       <span
