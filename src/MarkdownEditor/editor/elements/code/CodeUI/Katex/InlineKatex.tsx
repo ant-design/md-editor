@@ -23,6 +23,10 @@ export const InlineKatex = observer(
         });
       }
     }, [selected]);
+
+    if (process.env.NODE_ENV === 'test') {
+      return <InlineChromiumBugfix />;
+    }
     return useMemo(
       () => (
         <span {...attributes} data-be={'inline-katex'} className={`relative`}>

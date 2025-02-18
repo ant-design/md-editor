@@ -51,6 +51,133 @@
                 </span>
               </span>
             </h1>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              style="display: flex; gap: 4px; max-width: 100%;"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                class="ant-md-editor-column-group ant-md-editor-column-group-readonly"
+                data-be="column-group"
+                data-slate-node="element"
+                style="flex: 1; max-width: 100%;"
+              >
+                <div
+                  class="ant-md-editor-column-group-cell"
+                  data-be="column-group-cell"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        放放风
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="ant-md-editor-column-group-cell"
+                  data-be="column-group-cell"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        放放风
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="ant-md-editor-column-group-cell"
+                  data-be="column-group-cell"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        放放风
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
             <h2
               class="ant-md-editor-drag-el"
               data-be="head"
@@ -126,12 +253,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3195,7 +3322,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: none;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3367,6 +3494,25 @@
                     />
                   </svg>
                 </span>
+              </div>
+              <div
+                aria-describedby="test-id"
+                class="ant-md-editor-toolbar-item"
+                role="button"
+              >
+                <svg
+                  class="icon"
+                  height="1em"
+                  version="1.1"
+                  viewBox="0 0 1024 1024"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M874.666667 117.333333H149.333333C108.8 117.333333 74.666667 151.466667 74.666667 192v640c0 40.533333 34.133333 74.666667 74.666666 74.666667h725.333334c40.533333 0 74.666667-34.133333 74.666666-74.666667V192c0-40.533333-34.133333-74.666667-74.666666-74.666667zM138.666667 832V192c0-6.4 4.266667-10.666667 10.666666-10.666667h330.666667v661.333334H149.333333c-6.4 0-10.666667-4.266667-10.666666-10.666667z m746.666666 0c0 6.4-4.266667 10.666667-10.666666 10.666667H544v-661.333334H874.666667c6.4 0 10.666667 4.266667 10.666666 10.666667v640z"
+                    fill="currentColor"
+                  />
+                </svg>
               </div>
               <div
                 aria-describedby="test-id"
@@ -3617,6 +3763,133 @@
                 </span>
               </span>
             </h1>
+            <div
+              data-be="card"
+              data-slate-node="element"
+              style="display: flex; gap: 4px; max-width: 100%;"
+            >
+              <span
+                data-be="card-before"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: block;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <div
+                class="ant-md-editor-column-group ant-md-editor-column-group-readonly"
+                data-be="column-group"
+                data-slate-node="element"
+                style="flex: 1; max-width: 100%;"
+              >
+                <div
+                  class="ant-md-editor-column-group-cell"
+                  data-be="column-group-cell"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        放放风
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="ant-md-editor-column-group-cell"
+                  data-be="column-group-cell"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        放放风
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="ant-md-editor-column-group-cell"
+                  data-be="column-group-cell"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        放放风
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <span
+                data-be="card-after"
+                data-slate-node="element"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
             <h2
               class="ant-md-editor-drag-el"
               data-be="head"
@@ -3692,12 +3965,12 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 1px; max-width: 100%;"
+              style="display: flex; gap: 4px; max-width: 100%;"
             >
               <span
                 data-be="card-before"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; z-index: 99; display: block;"
+                style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: block;"
               >
                 <span
                   data-slate-node="text"
@@ -6760,7 +7033,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; display: block;"
+                style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
               >
                 <span
                   data-slate-node="text"

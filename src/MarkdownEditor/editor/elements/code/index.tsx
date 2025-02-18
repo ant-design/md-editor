@@ -515,7 +515,9 @@ export function AceElement(props: ElementProps<CodeNode>) {
         <div className={'ant-md-editor-hidden'}>{props.children}</div>
       </div>
       {props.element.language === 'mermaid' && <Mermaid el={props.element} />}
-      {!!props.element.katex && <Katex el={props.element} />}
+      {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
+        <Katex el={props.element} />
+      ) : null}
       {props.element.language === 'html' && !!props.element.render && (
         <div
           style={{

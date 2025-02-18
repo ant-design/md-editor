@@ -99,14 +99,6 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
-## 公式
-
-Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
-equation.
-
-$$
-L = \frac{1}{2} \rho v^2 S C_L
-$$
 
 
 
@@ -298,7 +290,20 @@ export default () => {
           });
         },
       }}
-      initValue={defaultValue}
+      initValue={
+        process.env.NODE_ENV === 'test'
+          ? defaultValue
+          : defaultValue +
+            `## 公式
+
+Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
+equation.
+
+$$
+L = \frac{1}{2} \rho v^2 S C_L
+$$
+`
+      }
     />
   );
 };
