@@ -8342,6 +8342,7 @@
                     style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                   >
                     <div
+                      aria-describedby="test-id"
                       class="md-editor-media"
                       contenteditable="false"
                       draggable="false"
@@ -8559,6 +8560,7 @@
                     style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                   >
                     <div
+                      aria-describedby="test-id"
                       class="md-editor-media"
                       contenteditable="false"
                       draggable="false"
@@ -8737,6 +8739,7 @@
                     style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                   >
                     <div
+                      aria-describedby="test-id"
                       class="md-editor-media"
                       contenteditable="false"
                       draggable="false"
