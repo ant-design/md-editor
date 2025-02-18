@@ -59,7 +59,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       const code = node?.children
         // @ts-ignore
         .map((c) => {
-          return preString + c.children[0]?.text || '';
+          return preString + c.children?.[0]?.text || '';
         })
         .join('\n');
       if (node.language === 'html' && node.render) {
