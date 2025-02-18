@@ -458,7 +458,7 @@ export function Media({
         <DragHandle />
         <Popover
           trigger="click"
-          open={state().selected ? true : undefined}
+          open={state().selected ? undefined : false}
           content={
             <ActionIconBox
               title="删除"
