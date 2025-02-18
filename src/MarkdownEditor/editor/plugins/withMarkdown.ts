@@ -216,12 +216,6 @@ export const withMarkdown = (editor: Editor) => {
     ) {
       const node = Node.get(editor, Path.parent(selection.anchor.path));
       if (node.type === 'card-before') {
-        // 移动到卡片前面
-        const cardPath = Path.parent(Path.parent(selection.anchor.path));
-        Transforms.setSelection(editor, {
-          anchor: { path: cardPath, offset: 0 },
-          focus: { path: cardPath, offset: 0 },
-        });
         return;
       }
       if (node.type === 'card-after') {

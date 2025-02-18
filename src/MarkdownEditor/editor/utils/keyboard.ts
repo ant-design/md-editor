@@ -535,10 +535,8 @@ export class KeyboardTask {
             },
           ],
         }),
-        { at: path },
+        { at: path, select: true },
       );
-
-      Transforms.select(this.editor, Editor.start(this.editor, path));
     }
   }
 

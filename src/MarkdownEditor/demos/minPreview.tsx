@@ -8,6 +8,11 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 <!-- {"MarkdownType": "section", "id": "15" } -->
 
+<!--{"elementType":"column"}-->
+| column1 | column2 |column3 |
+| ------- | ------- |------- |
+| 放放风  | 放放风  |放放风  |
+
 ## 创始人
 
 腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。
@@ -121,6 +126,9 @@ export default () => {
           margin: '0 auto',
           border: '1px solid #e8e8e8',
           height: '80vh',
+        }}
+        onChange={(value, _) => {
+          console.log(value, _);
         }}
         initValue={defaultValue}
       />
