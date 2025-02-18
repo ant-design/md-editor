@@ -99,10 +99,21 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
+## 公式
+
+Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
+equation.
+
+$$
+L = \frac{1}{2} \rho v^2 S C_L
+$$
+
+
+
 
 ## 引用
 
-上上任的武汉大学校长是李晓红。[^1][^2]
+上上任的武汉大学校长是李晓红。[^DOC_1][^DOC_2]
 
 | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 
 | ------------- | ------- | ------- | ------- | ------- | ------- |

@@ -17,6 +17,7 @@ import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
 import { Chart } from './chart/index';
 import { AceElement } from './code';
+import { InlineKatex } from './code/CodeUI/Katex/InlineKatex';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -135,6 +136,9 @@ export const MElement = (
           {props.children}
         </span>
       );
+
+    case 'inline-katex':
+      return <InlineKatex {...props} />;
     default:
       return <Paragraph {...props} />;
   }

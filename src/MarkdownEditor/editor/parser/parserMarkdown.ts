@@ -16,6 +16,7 @@ import {
   CustomLeaf,
   DescriptionNode,
   Elements,
+  InlineKatexNode,
   LinkCardNode,
   TableNode,
   TableRowNode,
@@ -444,6 +445,22 @@ const parserBlock = (
           },
         );
 
+        break;
+      case 'inlineMath':
+        el = {
+          type: 'inline-katex',
+          children: [{ text: currentElement.value }],
+        } as InlineKatexNode;
+        break;
+      case 'math':
+        el = {
+          // @ts-ignore
+          type: 'code',
+          language: 'latex',
+          katex: true,
+          value: currentElement.value,
+          children: [{ text: '' }],
+        };
         break;
       case 'list':
         el = {
