@@ -22,49 +22,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         maxWidth: '100%',
         overflow: 'auto',
         fontVariant: 'tabular-nums',
-        '& th': {
+        'td,th': {
+          borderLeft: '1px solid rgb(232, 232, 232)',
+          padding: '0.6em',
+        },
+        th: {
           padding: '0.6em',
           textAlign: 'left',
           fontWeight: 500,
           backgroundColor: 'rgb(229 231 235 / 0.5)',
-          border: '1px solid rgb(232, 232, 232)',
         },
-        '& td': {
-          padding: '0.6em',
-          textAlign: 'left',
-          border: '1px solid rgb(232, 232, 232)',
-        },
-        '& tr': {
-          'td:first-child': {
-            borderLeft: 'none',
-          },
-          'td:last-child': {
-            borderRight: 'none',
-          },
-          'th:first-child': {
-            borderLeft: 'none',
+        tr: {
+          'td,th': {
+            borderBottom: '1px solid rgb(232, 232, 232)',
           },
         },
-        '& tr:first-child': {
-          th: {
-            borderTop: 'none',
-          },
-          td: {
-            borderTop: 'none',
-          },
-        },
-        '& tr:last-child': {
-          th: {
-            borderBottom: 'none',
-          },
-          td: {
-            borderBottom: 'none',
-          },
-        },
-        '& .ant-descriptions-view table,.ant-descriptions-view th,.ant-descriptions-view td':
-          {
-            border: 'none',
-          },
       },
     },
   };
