@@ -1,4 +1,14 @@
-import { ConfigProvider } from 'antd';
+import {
+  DeleteOutlined,
+  InsertRowAboveOutlined,
+  InsertRowBelowOutlined,
+  InsertRowLeftOutlined,
+  InsertRowRightOutlined,
+  PicCenterOutlined,
+  PicLeftOutlined,
+  PicRightOutlined,
+} from '@ant-design/icons';
+import { ConfigProvider, Popconfirm, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { kdTree } from 'kd-tree-javascript';
 import { runInAction } from 'mobx';
@@ -11,6 +21,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import Spreadsheet from 'react-spreadsheet';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { TableCellNode, TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
@@ -104,6 +115,8 @@ export const Table = observer((props: RenderElementProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const baseCls = getPrefixCls('md-editor-content-table');
+
+  const baseToolbarCls = getPrefixCls('md-editor-toolbar-attributions');
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
@@ -780,6 +793,93 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
+  const extractTableData = (input: any[]): any[][] => {
+    return input.map((row) => {
+      const element = row?.props?.children?.props?.element;
+
+      const columns = Array.isArray(element)
+        ? element
+        : Array.isArray(element?.children)
+          ? element.children
+          : [];
+
+      return columns.map((column: { children: { text: string }[] }) => {
+        const content = column?.children?.[0]?.text || '';
+        return { value: content };
+      });
+    });
+  };
+  const [data, setData] = useState(extractTableData(props.children));
+
+  const [overlayPos, setOverlayPos] = useState({
+    left: -999999999,
+    top: -999999999,
+  });
+
+  const [isColumn, setIsColumn] = useState(false);
+
+  const [opIndex, setOpIndex] = useState(0);
+
+  const handleSelect = (selected: any) => {
+    try {
+      const table = document.querySelector('.Spreadsheet__table');
+      if (!table) return;
+
+      if (selected.constructor.name === 'EmptySelection') {
+        return;
+      }
+
+      let targetElement = null;
+
+      if (selected.constructor.name === 'EntireColumnsSelection') {
+        setIsColumn(true);
+
+        const headerRow = table.children[1]?.children[1];
+        if (!headerRow) return;
+        setOpIndex(selected.start);
+        const colIndex = selected.start + 1;
+        targetElement = headerRow.children[colIndex];
+      } else if (selected.constructor.name === 'EntireRowsSelection') {
+        setIsColumn(false);
+        const bodySection = table.children[1];
+        if (!bodySection) return;
+        setOpIndex(selected.start);
+        const rowIndex = selected.start + 1;
+        const row = bodySection.children[rowIndex];
+        targetElement = row?.children[0];
+      } else {
+        setOverlayPos({ left: -999999999, top: -999999999 });
+        return;
+      }
+      if (targetElement) {
+        const rect = targetElement.getBoundingClientRect();
+        setOverlayPos({
+          left: rect.left,
+          top: rect.top,
+        });
+      }
+    } catch (error) {
+      console.error('Error calculating overlay position:', error);
+      setOverlayPos({ left: -999999999, top: -999999999 });
+    }
+  };
+  const handleColumnAlignment = (align: 'left' | 'center' | 'right') => {
+    const table = document.querySelector('.Spreadsheet__table');
+    if (!table || typeof opIndex === 'undefined') return;
+
+    try {
+      const dataBody = table.children[1];
+      if (dataBody) {
+        Array.from(dataBody.children).forEach((row, rowIndex) => {
+          if (rowIndex === 0) return;
+          const dataCell = row.children[opIndex + 1] as HTMLElement;
+          if (dataCell) dataCell.style.textAlign = align;
+        });
+      }
+    } catch (error) {
+      console.error('对齐操作失败:', error);
+    }
+  };
   return useMemo(
     () =>
       wrapSSR(
@@ -811,116 +911,349 @@ export const Table = observer((props: RenderElementProps) => {
                 overflow: readonly ? 'hidden' : undefined,
               }}
             >
-              <div
-                ref={selectionAreaRef}
-                style={{
-                  position: 'absolute',
-                  zIndex: 999,
-                  outline: '3px solid #42a642',
-                  pointerEvents: 'none',
-                  display: 'none',
-                  left: 0,
-                  top: 0,
-                }}
-              ></div>
-              <div className="ant-md-editor-drag-el">
-                <DragHandle />
-              </div>
-              <div
-                className={classNames(baseCls, hashId, {
-                  [`${baseCls}-selected`]: isSel,
-                  [`${baseCls}-show-bar`]: isShowBar,
-                  [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
-                  'show-bar': isShowBar,
-                })}
-                onClick={() => {
-                  runInAction(() => {
-                    if (isSel) {
-                      store.selectTablePath = [];
-                      return;
-                    }
-                    store.selectTablePath = tablePath;
-                  });
-                }}
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  marginLeft: !readonly ? 20 : 0,
-                  marginTop: !readonly ? 4 : 0,
-                  marginRight: !readonly ? 6 : 0,
-                  overflow: !readonly ? undefined : 'auto',
-                }}
-              >
-                <div
-                  style={{
-                    visibility: isShowBar ? 'visible' : 'hidden',
-                    overflow: 'hidden',
-                  }}
-                  data-slate-editor="false"
-                >
-                  <IntersectionPointDiv
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
+              {!readonly ? (
+                <div contentEditable={false}>
+                  <Spreadsheet
+                    data={data}
+                    onSelect={handleSelect}
+                    onChange={setData}
                   />
-                  <RowSideDiv
-                    activeDeleteBtn={activeDeleteBtn}
-                    setActiveDeleteBtn={setActiveDeleteBtn}
-                    tableRef={tableTargetRef}
-                    getTableNode={() => {
-                      return props.element;
+                  <div
+                    style={{
+                      position: 'fixed',
+                      left: overlayPos.left,
+                      top: overlayPos.top,
+                      display: 'flex',
+                      gap: '0.2em',
+                      zIndex: 200,
                     }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                    onDeleteRow={(index) => {
-                      runTask('removeRow', index);
-                    }}
-                    onAlignChange={(index, align) => {
-                      runTask('setAligns', index, align);
-                    }}
-                    onCreateRow={(index, direction) => {
-                      if (direction === 'after') {
-                        runTask('insertRowAfter', index);
-                      }
-                      if (direction === 'before') {
-                        runTask('insertRowBefore', index);
-                      }
-                    }}
-                  />
-                  <ColSideDiv
-                    onDeleteColumn={(index) => {
-                      runTask('removeCol', index);
-                    }}
-                    onAlignChange={(index, align) => {
-                      runTask('setAligns', index, align);
-                    }}
-                    onCreateColumn={(index, direction) => {
-                      if (direction === 'after') {
-                        runTask('insertColAfter', index);
-                      }
-                      if (direction === 'before') {
-                        runTask('insertColBefore', index);
-                      }
-                    }}
-                    activeDeleteBtn={activeDeleteBtn}
-                    setActiveDeleteBtn={setActiveDeleteBtn}
-                    tableRef={tableTargetRef}
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                  />
+                    className={classNames(baseToolbarCls, hashId)}
+                  >
+                    <Tooltip title={isColumn ? '删除列' : '删除行'}>
+                      <div
+                        id="delete-btn"
+                        className={classNames(
+                          `${baseToolbarCls}-item`,
+                          hashId,
+                          {
+                            [`${baseToolbarCls}-item-delete`]: true,
+                          },
+                        )}
+                        // onMouseEnter={() => setDeleteBtnHover(true)}
+                        // onMouseLeave={() => setDeleteBtnHover(false)}
+                      >
+                        <Popconfirm
+                          title="Confirm to delete?"
+                          onConfirm={() => {
+                            if (isColumn) {
+                              setData((prev) =>
+                                prev.map((row) =>
+                                  row.filter((_, colIdx) => colIdx !== opIndex),
+                                ),
+                              );
+                            } else {
+                              setData((prev) =>
+                                prev.filter((_, rowIdx) => rowIdx !== opIndex),
+                              );
+                            }
+                            setOverlayPos({
+                              left: -999999999,
+                              top: -999999999,
+                            });
+                          }}
+                        >
+                          <DeleteOutlined />
+                        </Popconfirm>
+                      </div>
+                    </Tooltip>
+                    {isColumn ? (
+                      <>
+                        <Tooltip title="左对齐">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              handleColumnAlignment('left');
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <PicRightOutlined />
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="居中对齐">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              handleColumnAlignment('center');
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <PicCenterOutlined />
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="右对齐">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              handleColumnAlignment('right');
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <PicLeftOutlined />
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="左侧插入列">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              setData((prev) =>
+                                prev.map((row) => [
+                                  ...row.slice(0, opIndex),
+                                  { value: '' },
+                                  ...row.slice(opIndex),
+                                ]),
+                              );
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <InsertRowLeftOutlined />
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="右侧插入列">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              setData((prev) =>
+                                prev.map((row) => [
+                                  ...row.slice(0, opIndex + 1),
+                                  { value: '' },
+                                  ...row.slice(opIndex + 1),
+                                ]),
+                              );
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <InsertRowRightOutlined />
+                          </div>
+                        </Tooltip>
+                      </>
+                    ) : (
+                      <>
+                        <Tooltip title="上侧插入行">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              setData((prev) => [
+                                ...prev.slice(0, opIndex),
+                                new Array(prev[0]?.length || 0).fill({
+                                  value: '',
+                                }),
+                                ...prev.slice(opIndex),
+                              ]);
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <InsertRowAboveOutlined />
+                          </div>
+                        </Tooltip>
+                        <Tooltip title="下侧插入行">
+                          <div
+                            className={classNames(
+                              `${baseToolbarCls}-item`,
+                              hashId,
+                            )}
+                            style={{
+                              zIndex: 100,
+                            }}
+                            onClick={() => {
+                              setData((prev) => [
+                                ...prev.slice(0, opIndex + 1),
+                                new Array(prev[0]?.length || 0).fill({
+                                  value: '',
+                                }),
+                                ...prev.slice(opIndex + 1),
+                              ]);
+                              setOverlayPos({
+                                left: -999999999,
+                                top: -999999999,
+                              });
+                            }}
+                          >
+                            <InsertRowBelowOutlined />
+                          </div>
+                        </Tooltip>
+                      </>
+                    )}
+                  </div>
                 </div>
-                <table
-                  ref={tableTargetRef}
-                  className={classNames(`${baseCls}-editor-table`, hashId)}
-                >
-                  <tbody data-slate-node="element">{props.children}</tbody>
-                </table>
-              </div>
+              ) : (
+                <>
+                  <div
+                    ref={selectionAreaRef}
+                    style={{
+                      position: 'absolute',
+                      zIndex: 999,
+                      outline: '3px solid #42a642',
+                      pointerEvents: 'none',
+                      display: 'none',
+                      left: 0,
+                      top: 0,
+                    }}
+                  ></div>
+                  <div className="ant-md-editor-drag-el">
+                    <DragHandle />
+                  </div>
+                  <div
+                    className={classNames(baseCls, hashId, {
+                      [`${baseCls}-selected`]: isSel,
+                      [`${baseCls}-show-bar`]: isShowBar,
+                      [`${baseCls}-excel-mode`]:
+                        editorProps.tableConfig?.excelMode,
+                      'show-bar': isShowBar,
+                    })}
+                    onClick={() => {
+                      runInAction(() => {
+                        if (isSel) {
+                          store.selectTablePath = [];
+                          return;
+                        }
+                        store.selectTablePath = tablePath;
+                      });
+                    }}
+                    style={{
+                      flex: 1,
+                      minWidth: 0,
+                      marginLeft: !readonly ? 20 : 0,
+                      marginTop: !readonly ? 4 : 0,
+                      marginRight: !readonly ? 6 : 0,
+                      overflow: !readonly ? undefined : 'auto',
+                    }}
+                  >
+                    <div
+                      style={{
+                        visibility: isShowBar ? 'visible' : 'hidden',
+                        overflow: 'hidden',
+                      }}
+                      data-slate-editor="false"
+                    >
+                      <IntersectionPointDiv
+                        getTableNode={() => {
+                          return props.element;
+                        }}
+                        selCells={selCells}
+                        setSelCells={setSelCells}
+                      />
+                      <RowSideDiv
+                        activeDeleteBtn={activeDeleteBtn}
+                        setActiveDeleteBtn={setActiveDeleteBtn}
+                        tableRef={tableTargetRef}
+                        getTableNode={() => {
+                          return props.element;
+                        }}
+                        selCells={selCells}
+                        setSelCells={setSelCells}
+                        onDeleteRow={(index) => {
+                          runTask('removeRow', index);
+                        }}
+                        onAlignChange={(index, align) => {
+                          runTask('setAligns', index, align);
+                        }}
+                        onCreateRow={(index, direction) => {
+                          if (direction === 'after') {
+                            runTask('insertRowAfter', index);
+                          }
+                          if (direction === 'before') {
+                            runTask('insertRowBefore', index);
+                          }
+                        }}
+                      />
+                      <ColSideDiv
+                        onDeleteColumn={(index) => {
+                          runTask('removeCol', index);
+                        }}
+                        onAlignChange={(index, align) => {
+                          runTask('setAligns', index, align);
+                        }}
+                        onCreateColumn={(index, direction) => {
+                          if (direction === 'after') {
+                            runTask('insertColAfter', index);
+                          }
+                          if (direction === 'before') {
+                            runTask('insertColBefore', index);
+                          }
+                        }}
+                        activeDeleteBtn={activeDeleteBtn}
+                        setActiveDeleteBtn={setActiveDeleteBtn}
+                        tableRef={tableTargetRef}
+                        getTableNode={() => {
+                          return props.element;
+                        }}
+                        selCells={selCells}
+                        setSelCells={setSelCells}
+                      />
+                    </div>
+                    <table
+                      ref={tableTargetRef}
+                      className={classNames(`${baseCls}-editor-table`, hashId)}
+                    >
+                      <tbody data-slate-node="element">{props.children}</tbody>
+                    </table>
+                  </div>
+                </>
+              )}
             </div>
           </ConfigProvider>
         </TableConnext.Provider>,
@@ -932,6 +1265,8 @@ export const Table = observer((props: RenderElementProps) => {
       isSel,
       JSON.stringify(selCells),
       tableNodeEntry,
+      overlayPos,
+      data,
     ],
   );
 });

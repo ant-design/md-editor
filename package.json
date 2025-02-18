@@ -34,6 +34,7 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.23.0",
     "@ant-design/icons": "^5.6.1",
+    "@ant-design/md-editor": "file:",
     "@ant-design/pro-components": "^2.8.5",
     "@antv/g2": "^5.2.11",
     "@babel/runtime": "^7.26.9",
@@ -64,6 +65,7 @@
     "querystring": "^0.2.1",
     "rc-resize-observer": "^1.4.3",
     "react-resizable": "^3.0.5",
+    "react-spreadsheet": "^0.9.5",
     "react-use": "^17.6.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
