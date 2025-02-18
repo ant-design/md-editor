@@ -43,16 +43,30 @@ const genChildren = (children: any, num: number) => {
   ];
 };
 export const ColumnGroup = (props: RenderElementProps) => {
-  const { store, markdownEditorRef } = useEditorStore();
+  const { store, readonly, markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-column-group');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [, path] = useSelStatus(props.element);
 
   return useMemo(() => {
+    if (readonly || process.env.NODE_ENV === 'test') {
+      return wrapSSR(
+        <div
+          {...props.attributes}
+          data-be={'column-group'}
+          className={classNames(hashId, baseCls, `${baseCls}-readonly`)}
+          style={{
+            ...(props.element.style || {}),
+            maxWidth: '100%',
+          }}
+        >
+          {props.children}
+        </div>,
+      );
+    }
     return wrapSSR(
       <div
-        className={'ant-md-editor-drag-el'}
         {...props.attributes}
         data-be={'column-group'}
         onDragStart={store.dragStart}

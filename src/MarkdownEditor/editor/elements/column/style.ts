@@ -9,6 +9,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       display: 'flex',
       border: '1px solid rgb(209 213 219 / 0.8)',
+      '&-readonly': {
+        border: 'none',
+      },
       "div[data-be='paragraph']": {
         marginTop: '0',
       },
