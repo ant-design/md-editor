@@ -38,6 +38,7 @@ export default () => {
   return (
     <>
       <MarkdownEditor
+        id="test-1"
         editorRef={instance}
         style={{
           width: '100vw',

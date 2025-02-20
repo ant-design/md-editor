@@ -198,6 +198,8 @@ export type MarkdownEditorProps = {
    */
   reportMode?: boolean;
 
+  id?: string;
+
   /**
    * ppt 模式
    * @default false
@@ -404,6 +406,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       }}
     >
       <div
+        id={props.id}
         className={classNames(
           'markdown-editor',
           baseClassName,
