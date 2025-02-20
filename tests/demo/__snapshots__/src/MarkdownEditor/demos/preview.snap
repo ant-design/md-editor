@@ -84,47 +84,16 @@
               data-slate-node="text"
             >
               <span
-                class="  ant-md-editor-content-m-html"
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  &lt;font color="red"&gt;
-                </span>
-              </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
-              <span
                 class=" "
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
+                style="color: red;"
               >
                 <span
                   data-slate-string="true"
                 >
                   腾讯科技（深圳 )有限公司
-                </span>
-              </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  &lt;/font&gt;
                 </span>
               </span>
             </span>
@@ -149,48 +118,14 @@
               data-slate-node="text"
             >
               <span
-                class="  ant-md-editor-content-m-html"
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  &lt;sup&gt;
-                </span>
-              </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
-              <span
+                aria-describedby="test-id"
                 class=" "
                 data-be="text"
+                data-fnc="fnc"
                 data-slate-leaf="true"
                 draggable="false"
               >
-                <span
-                  data-slate-string="true"
-                >
-                  腾讯科技（深圳 )有限公司
-                </span>
-              </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  &lt;/sup&gt;
-                </span>
+                腾讯科技（深圳 )有限公司
               </span>
             </span>
             <span
@@ -214,48 +149,14 @@
               data-slate-node="text"
             >
               <span
-                class="  ant-md-editor-content-m-html"
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  &lt;sub&gt;
-                </span>
-              </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
-              <span
+                aria-describedby="test-id"
                 class=" "
                 data-be="text"
+                data-fnc="fnc"
                 data-slate-leaf="true"
                 draggable="false"
               >
-                <span
-                  data-slate-string="true"
-                >
-                  腾讯科技（深圳 )有限公司
-                </span>
-              </span>
-            </span>
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  &lt;/sub&gt;
-                </span>
+                腾讯科技（深圳 )有限公司
               </span>
             </span>
           </div>
