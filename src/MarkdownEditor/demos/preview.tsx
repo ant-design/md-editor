@@ -14,6 +14,8 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ## html
 
 <font color="red">腾讯科技（深圳）有限公司</font>
+<sup>腾讯科技（深圳）有限公司</sup>
+<sub>腾讯科技（深圳）有限公司</sub>
 
 ## 创始人
 
