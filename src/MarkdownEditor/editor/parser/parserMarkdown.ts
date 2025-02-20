@@ -296,7 +296,7 @@ const parserBlock = (
             .replace('-->', '')
             .trim() || '{}';
 
-        if (value) {
+        if (value && currentElement?.value.trim()?.startsWith('<!--')) {
           try {
             contextProps = json5.parse(value);
           } catch (e) {
@@ -338,7 +338,7 @@ const parserBlock = (
             el = { type: 'break', children: [{ text: '' }] };
           } else {
             const htmlMatch = currentElement.value.match(
-              /<\/?(b|i|del|code|span|a)[^\n>]*?>/,
+              /<\/?(b|i|del|font|code|span|sup|sub|a)[^\n>]*?>/,
             );
             if (htmlMatch) {
               const [str, tag] = htmlMatch;
@@ -378,6 +378,14 @@ const parserBlock = (
                     htmlTag.push({
                       tag: tag,
                       url: url[1],
+                    });
+                  }
+                } else if (tag === 'font') {
+                  const color = str.match(/color="([^"\n]+)"/);
+                  if (color) {
+                    htmlTag.push({
+                      tag: tag,
+                      color: color[1],
                     });
                   }
                 } else {
@@ -698,6 +706,13 @@ const parserBlock = (
           el = { text: currentElement.value };
           if (currentElement.value) {
             for (let t of htmlTag) {
+              if (t.tag === 'font') {
+                console.log(t);
+                el.color = t.color;
+              }
+              if (t.tag === 'sup') el.identifier = el.text;
+              if (t.tag === 'sub') el.identifier = el.text;
+
               if (t.tag === 'code') el.code = true;
               if (t.tag === 'i') el.italic = true;
               if (t.tag === 'b' || t.tag === 'strong') el.bold = true;

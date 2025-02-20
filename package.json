@@ -68,6 +68,7 @@
     "react-resizable-panels": "^2.1.7",
     "react-use": "^17.6.0",
     "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
