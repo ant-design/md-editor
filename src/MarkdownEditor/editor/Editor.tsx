@@ -277,7 +277,9 @@ export const MEditor = observer(
           return node;
         });
 
-        Transforms.insertFragment(markdownEditorRef.current, fragment);
+        Transforms.insertFragment(markdownEditorRef.current, fragment, {
+          at: currentTextSelection!,
+        });
         return;
       }
 
@@ -415,7 +417,7 @@ export const MEditor = observer(
                   !Node.string(next[0])
                 ) {
                   Transforms.delete(markdownEditorRef.current, {
-                    at: next[1],
+                    at: selection!,
                   });
                 }
                 return;
@@ -441,7 +443,7 @@ export const MEditor = observer(
                   !Node.string(next[0])
                 ) {
                   Transforms.delete(markdownEditorRef.current, {
-                    at: next[1],
+                    at: selection!,
                   });
                 }
                 return;
@@ -460,7 +462,7 @@ export const MEditor = observer(
                 Transforms.insertNodes(
                   markdownEditorRef.current,
                   EditorUtils.createMediaNode(text, 'image'),
-                  { select: true, at: path },
+                  { select: true, at: selection! },
                 );
               }
             } else {
@@ -492,7 +494,9 @@ export const MEditor = observer(
           parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);
           return;
         }
-        Transforms.insertText(markdownEditorRef.current, text);
+        Transforms.insertText(markdownEditorRef.current, text, {
+          at: selection!,
+        });
       }
 
       if (hasEditableTarget(markdownEditorRef.current, event.target)) {

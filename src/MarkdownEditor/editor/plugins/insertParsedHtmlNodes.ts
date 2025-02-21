@@ -267,6 +267,8 @@ export const insertParsedHtmlNodes = async (
     match: (n) => Element.isElement(n),
   });
 
+  const selection = editor.selection;
+
   if (sel && Editor.hasPath(editor, sel.anchor.path)) {
     if (!Range.isCollapsed(sel)) {
       const back = new BackspaceKey(editor);
@@ -318,34 +320,26 @@ export const insertParsedHtmlNodes = async (
                 to: [...nextPath, 1],
               });
             }
-            Transforms.delete(editor, { at: n[1] });
-            Transforms.select(
-              editor,
-              Editor.end(editor, [
-                ...nextPath.slice(0, -1),
-                nextPath.pop() - 1,
-              ]),
-            );
+            Transforms.delete(editor, { at: selection! });
           } else {
-            Transforms.insertNodes(editor, children, { at: Path.next(n[1]) });
-            Transforms.select(
-              editor,
-              Editor.end(editor, [
-                ...n[1].slice(0, -1),
-                n[1].pop()! + children.length,
-              ]),
-            );
+            Transforms.insertNodes(editor, children, {
+              at: selection!,
+              select: true,
+            });
           }
           if (fragmentList.length > 1) {
             Transforms.insertNodes(editor, fragmentList.slice(1), {
-              at: Path.next(Path.parent(n[1])),
+              at: selection!,
+              select: true,
             });
           }
           return true;
         }
       }
       if (node[0].type === 'table-cell') {
-        Transforms.insertFragment(editor, getTextsNode(fragmentList));
+        Transforms.insertFragment(editor, getTextsNode(fragmentList), {
+          at: selection!,
+        });
         return true;
       }
       if (node[0].type === 'head') {
@@ -357,7 +351,7 @@ export const insertParsedHtmlNodes = async (
                 type: 'paragraph',
                 children: [{ text: '' }],
               },
-              { at: Path.next(node[1]), select: true },
+              { at: selection!, select: true },
             );
             return false;
           } else {
@@ -366,7 +360,9 @@ export const insertParsedHtmlNodes = async (
         } else {
           const texts = fragmentList.filter((c) => c.text);
           if (texts.length) {
-            Transforms.insertNodes(editor, texts);
+            Transforms.insertNodes(editor, texts, {
+              at: selection!,
+            });
             return true;
           }
         }
@@ -377,6 +373,8 @@ export const insertParsedHtmlNodes = async (
   if (inner && !['code', 'code-line', 'table-cell'].includes(node?.[0].type))
     return false;
 
-  Transforms.insertFragment(editor, fragmentList);
+  Transforms.insertFragment(editor, fragmentList, {
+    at: selection!,
+  });
   return true;
 };
