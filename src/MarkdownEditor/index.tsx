@@ -406,7 +406,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       }}
     >
       <div
-        id={props.id ? String(props.id) || undefined : ''}
+        id={props.id ? String(props.id) || undefined : undefined}
         className={classNames(
           'markdown-editor',
           baseClassName,
