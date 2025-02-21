@@ -799,6 +799,9 @@ export const Table = observer((props: RenderElementProps) => {
       });
     });
   };
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
   const [data, setData] = useState(extractTableData(props.children));
 
   const [overlayPos, setOverlayPos] = useState({
@@ -812,13 +815,14 @@ export const Table = observer((props: RenderElementProps) => {
 
   const handleSelect = (selected: any) => {
     try {
-      const table = document.querySelector('.Spreadsheet__table');
+      const table = tableContainerRef.current?.querySelector(
+        '.Spreadsheet__table',
+      );
       if (!table) return;
 
       if (selected.constructor.name === 'EmptySelection') {
         return;
       }
-
       let targetElement = null;
       let isColumn = false;
 
@@ -894,11 +898,13 @@ export const Table = observer((props: RenderElementProps) => {
               }}
             >
               {!readonly ? (
-                <div contentEditable={false}>
+                <div ref={tableContainerRef} contentEditable={false}>
                   <Spreadsheet
                     data={data}
                     onSelect={handleSelect}
-                    onChange={setData}
+                    onChange={(data) => {
+                      setData(data);
+                    }}
                   />
                   <ToolbarOverlay
                     overlayPos={overlayPos}
