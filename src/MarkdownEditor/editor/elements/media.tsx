@@ -464,7 +464,7 @@ export function Media({
             },
           }}
           trigger="click"
-          open={state().selected ? undefined : false}
+          open={state().selected && !readonly ? undefined : false}
           content={
             <ActionIconBox
               title="删除"

@@ -1,4 +1,5 @@
 import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -9,7 +10,8 @@ import { unified } from 'unified';
 const parser = unified()
   .use(remarkParse)
   .use(remarkMath as any)
-  .use(remarkRehype as any)
+  .use(remarkRehype as any, { allowDangerousHtml: true })
+  .use(rehypeRaw)
   .use(rehypeKatex as any)
   .use(remarkGfm)
   .use(remarkFrontmatter, ['yaml']);

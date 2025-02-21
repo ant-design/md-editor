@@ -141,6 +141,8 @@ export const TableTdCell = (
         minWidth: minWidth,
         border: editing ? '2px solid #42a642' : undefined,
         maxWidth: '200px',
+        overflow: 'auto',
+        textWrap: 'wrap',
         width: props.width,
       }}
       onDoubleClick={(e) => {

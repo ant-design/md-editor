@@ -9,6 +9,8 @@ const TableInlineNode = new Set([
   'inline-katex',
   'paragraph',
   'footnoteDefinition',
+  'table-row',
+  'table-cell',
   'media',
 ]);
 
@@ -213,13 +215,16 @@ export const withMarkdown = (editor: Editor) => {
       ) {
         if (TableInlineNode.has(operation.node.type) || !operation.node.type) {
           apply(operation);
+          return;
         }
         if (operation.node.type === 'card') {
           const relativeNode = operation.node.children.at(1);
           if (TableInlineNode.has(relativeNode.type)) {
             apply(operation);
+            return;
           }
         }
+        console.log('parentNode', operation.node);
         message.error('表格内部只支持行内节点！');
         return;
       }
