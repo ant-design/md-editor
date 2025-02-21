@@ -1,14 +1,4 @@
-import {
-  DeleteOutlined,
-  InsertRowAboveOutlined,
-  InsertRowBelowOutlined,
-  InsertRowLeftOutlined,
-  InsertRowRightOutlined,
-  PicCenterOutlined,
-  PicLeftOutlined,
-  PicRightOutlined,
-} from '@ant-design/icons';
-import { ConfigProvider, Popconfirm, Tooltip } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { kdTree } from 'kd-tree-javascript';
 import { runInAction } from 'mobx';
@@ -32,6 +22,7 @@ import { EditorUtils } from '../../utils';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
+import ToolbarOverlay from './ToolbarOverlay';
 export * from './TableCell';
 
 const _distance = (
@@ -115,8 +106,6 @@ export const Table = observer((props: RenderElementProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const baseCls = getPrefixCls('md-editor-content-table');
-
-  const baseToolbarCls = getPrefixCls('md-editor-toolbar-attributions');
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
@@ -831,17 +820,20 @@ export const Table = observer((props: RenderElementProps) => {
       }
 
       let targetElement = null;
+      let isColumn = false;
+
+      const COLUMN_OFFSET = { x: -18, y: -36 };
+      const ROW_OFFSET = { x: 24, y: -36 };
 
       if (selected.constructor.name === 'EntireColumnsSelection') {
-        setIsColumn(true);
-
-        const headerRow = table.children[1]?.children[1];
+        isColumn = true;
+        const headerRow = table.children[1]?.children[0];
         if (!headerRow) return;
         setOpIndex(selected.start);
         const colIndex = selected.start + 1;
         targetElement = headerRow.children[colIndex];
       } else if (selected.constructor.name === 'EntireRowsSelection') {
-        setIsColumn(false);
+        isColumn = false;
         const bodySection = table.children[1];
         if (!bodySection) return;
         setOpIndex(selected.start);
@@ -852,33 +844,22 @@ export const Table = observer((props: RenderElementProps) => {
         setOverlayPos({ left: -999999999, top: -999999999 });
         return;
       }
+
       if (targetElement) {
         const rect = targetElement.getBoundingClientRect();
+
+        const offset = isColumn ? COLUMN_OFFSET : ROW_OFFSET;
+
         setOverlayPos({
-          left: rect.left,
-          top: rect.top,
+          left: rect.left + offset.x,
+          top: rect.top + offset.y,
         });
+
+        setIsColumn(isColumn);
       }
     } catch (error) {
       console.error('Error calculating overlay position:', error);
       setOverlayPos({ left: -999999999, top: -999999999 });
-    }
-  };
-  const handleColumnAlignment = (align: 'left' | 'center' | 'right') => {
-    const table = document.querySelector('.Spreadsheet__table');
-    if (!table || typeof opIndex === 'undefined') return;
-
-    try {
-      const dataBody = table.children[1];
-      if (dataBody) {
-        Array.from(dataBody.children).forEach((row, rowIndex) => {
-          if (rowIndex === 0) return;
-          const dataCell = row.children[opIndex + 1] as HTMLElement;
-          if (dataCell) dataCell.style.textAlign = align;
-        });
-      }
-    } catch (error) {
-      console.error('对齐操作失败:', error);
     }
   };
   return useMemo(
@@ -919,226 +900,13 @@ export const Table = observer((props: RenderElementProps) => {
                     onSelect={handleSelect}
                     onChange={setData}
                   />
-                  <div
-                    style={{
-                      position: 'fixed',
-                      left: overlayPos.left,
-                      top: overlayPos.top,
-                      display: 'flex',
-                      gap: '0.2em',
-                      zIndex: 200,
-                    }}
-                    className={classNames(baseToolbarCls, hashId)}
-                  >
-                    <Tooltip title={isColumn ? '删除列' : '删除行'}>
-                      <div
-                        id="delete-btn"
-                        className={classNames(
-                          `${baseToolbarCls}-item`,
-                          hashId,
-                          {
-                            [`${baseToolbarCls}-item-delete`]: true,
-                          },
-                        )}
-                        // onMouseEnter={() => setDeleteBtnHover(true)}
-                        // onMouseLeave={() => setDeleteBtnHover(false)}
-                      >
-                        <Popconfirm
-                          title="Confirm to delete?"
-                          onConfirm={() => {
-                            if (isColumn) {
-                              setData((prev) =>
-                                prev.map((row) =>
-                                  row.filter((_, colIdx) => colIdx !== opIndex),
-                                ),
-                              );
-                            } else {
-                              setData((prev) =>
-                                prev.filter((_, rowIdx) => rowIdx !== opIndex),
-                              );
-                            }
-                            setOverlayPos({
-                              left: -999999999,
-                              top: -999999999,
-                            });
-                          }}
-                        >
-                          <DeleteOutlined />
-                        </Popconfirm>
-                      </div>
-                    </Tooltip>
-                    {isColumn ? (
-                      <>
-                        <Tooltip title="左对齐">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              handleColumnAlignment('left');
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <PicRightOutlined />
-                          </div>
-                        </Tooltip>
-                        <Tooltip title="居中对齐">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              handleColumnAlignment('center');
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <PicCenterOutlined />
-                          </div>
-                        </Tooltip>
-                        <Tooltip title="右对齐">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              handleColumnAlignment('right');
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <PicLeftOutlined />
-                          </div>
-                        </Tooltip>
-                        <Tooltip title="左侧插入列">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              setData((prev) =>
-                                prev.map((row) => [
-                                  ...row.slice(0, opIndex),
-                                  { value: '' },
-                                  ...row.slice(opIndex),
-                                ]),
-                              );
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <InsertRowLeftOutlined />
-                          </div>
-                        </Tooltip>
-                        <Tooltip title="右侧插入列">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              setData((prev) =>
-                                prev.map((row) => [
-                                  ...row.slice(0, opIndex + 1),
-                                  { value: '' },
-                                  ...row.slice(opIndex + 1),
-                                ]),
-                              );
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <InsertRowRightOutlined />
-                          </div>
-                        </Tooltip>
-                      </>
-                    ) : (
-                      <>
-                        <Tooltip title="上侧插入行">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              setData((prev) => [
-                                ...prev.slice(0, opIndex),
-                                new Array(prev[0]?.length || 0).fill({
-                                  value: '',
-                                }),
-                                ...prev.slice(opIndex),
-                              ]);
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <InsertRowAboveOutlined />
-                          </div>
-                        </Tooltip>
-                        <Tooltip title="下侧插入行">
-                          <div
-                            className={classNames(
-                              `${baseToolbarCls}-item`,
-                              hashId,
-                            )}
-                            style={{
-                              zIndex: 100,
-                            }}
-                            onClick={() => {
-                              setData((prev) => [
-                                ...prev.slice(0, opIndex + 1),
-                                new Array(prev[0]?.length || 0).fill({
-                                  value: '',
-                                }),
-                                ...prev.slice(opIndex + 1),
-                              ]);
-                              setOverlayPos({
-                                left: -999999999,
-                                top: -999999999,
-                              });
-                            }}
-                          >
-                            <InsertRowBelowOutlined />
-                          </div>
-                        </Tooltip>
-                      </>
-                    )}
-                  </div>
+                  <ToolbarOverlay
+                    overlayPos={overlayPos}
+                    isColumn={isColumn}
+                    opIndex={opIndex}
+                    setData={setData}
+                    setOverlayPos={setOverlayPos}
+                  />
                 </div>
               ) : (
                 <>
