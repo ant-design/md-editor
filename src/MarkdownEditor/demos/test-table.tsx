@@ -13,7 +13,11 @@ const defaultValue = `
 `;
 export default () => {
   return (
-    <>
+    <div
+      style={{
+        paddingTop: 64,
+      }}
+    >
       <MarkdownEditor
         width={'100vw'}
         height={'50vh'}
@@ -24,6 +28,7 @@ export default () => {
           margin: 0,
           paddingLeft: 0,
         }}
+        onChange={(e) => console.log(e)}
         tableConfig={{
           minColumn: 10,
           minRows: 20,
@@ -49,6 +54,6 @@ export default () => {
         }}
         initValue={defaultValue}
       />
-    </>
+    </div>
   );
 };
