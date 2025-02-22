@@ -15,7 +15,7 @@ export default () => {
   return (
     <div
       style={{
-        paddingTop: 64,
+        paddingTop: 32,
       }}
     >
       <MarkdownEditor
