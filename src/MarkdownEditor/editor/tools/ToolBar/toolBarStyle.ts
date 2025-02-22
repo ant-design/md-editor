@@ -17,6 +17,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       color: 'rgb(107 114 128 / 80%)',
       backdropFilter: 'blur(8px)',
       boxSizing: 'border-box',
+      backgroundColor: 'rgb(255 255 255)',
       padding: '6px 4px',
       '&-item': {
         display: 'flex',
