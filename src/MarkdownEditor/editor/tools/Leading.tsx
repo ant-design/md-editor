@@ -83,6 +83,25 @@ interface TocHeadingProps {
   anchorProps?: AnchorProps;
 }
 
+const TocTitle: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  return (
+    <span
+      style={{
+        maxWidth: 200,
+        display: 'inline-block',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        fontSize: 14,
+      }}
+    >
+      {children}
+    </span>
+  );
+};
+
 export const TocHeading: React.FC<TocHeadingProps> = ({
   schema,
   anchorProps,
@@ -170,9 +189,16 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
           id: subH.id,
           key: subH.key,
           href: `#${subH.id}`,
-          title: subH.title,
+          title: <TocTitle>{subH.title}</TocTitle>,
+          children:
+            subH?.children?.map((subSubH: any) => ({
+              id: subSubH.id,
+              key: subSubH.key,
+              href: `#${subSubH.id}`,
+              title: <TocTitle>{subSubH.title}</TocTitle>,
+            })) || undefined,
         })),
-        title: h.title,
+        title: <TocTitle>{h.title}</TocTitle>,
         level: h.level,
       }))}
     />
