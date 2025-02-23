@@ -4139,7 +4139,7 @@
                 data-url="https://www.zhihu.com/question/665438199/answer/3625311124"
                 draggable="false"
                 id="https://www.zhihu.com/question/665438199/answer/3625311124"
-                style="text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
+                style="text-decoration: underline; text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
               >
                 <span
                   contenteditable="false"
