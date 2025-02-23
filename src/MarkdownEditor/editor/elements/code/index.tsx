@@ -66,8 +66,6 @@ export function AceElement(props: ElementProps<CodeNode>) {
     [path],
   );
 
-  console.log(props.element);
-
   useEffect(() => {
     if (
       selected &&
