@@ -150,6 +150,11 @@ export const withMarkdown = (editor: Editor) => {
 
     if (operation.type === 'remove_node') {
       const { node } = operation;
+      // 删除card时，选中card_AFTER 节点
+      if (node.type === 'card') {
+        Transforms.select(editor, [...(operation.path || []), 2]);
+        return;
+      }
       if (node.type === 'card-after') {
         Transforms.removeNodes(editor, {
           at: Path.parent(operation.path),
@@ -273,6 +278,7 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
+
     deleteBackward(unit);
   };
 
