@@ -15,7 +15,61 @@ import { isLink, parsePath } from '../utils/path';
 type DocItem = IEditor & { path: string; parentPath?: string };
 
 /**
- * 链接的配置面板
+ * 插入链接组件
+ *
+ * @component
+ * @example
+ * <InsertLink />
+ *
+ * @description
+ * 该组件用于在 Markdown 编辑器中插入链接。它使用 `useEditorStore` 获取编辑器的状态和引用，
+ * 并使用 `useGetSetState` 管理组件的状态。组件通过 `useSubject` 监听 `store.openInsertLink$`，
+ * 当触发时打开插入链接的模态框。用户可以输入链接或选择文档中的锚点来插入链接。
+ *
+ * @returns {JSX.Element | null} 如果 `state().open` 为 `false`，返回 `null`，否则返回模态框。
+ *
+ * @function
+ * @name InsertLink
+ *
+ * @hook
+ * @name useEditorStore
+ * @description 获取编辑器的状态和引用。
+ *
+ * @hook
+ * @name useGetSetState
+ * @description 管理组件的状态。
+ *
+ * @hook
+ * @name useSubject
+ * @description 监听 `store.openInsertLink$`，当触发时打开插入链接的模态框。
+ *
+ * @hook
+ * @name useCallback
+ * @description 创建 `prevent` 和 `setPath` 回调函数。
+ *
+ * @hook
+ * @name useRef
+ * @description 创建 `selRef` 和 `inputRef` 引用。
+ *
+ * @param {WheelEvent} e - 滚轮事件，用于阻止默认行为。
+ * @param {string} path - 链接路径，用于设置链接。
+ * @param {string} url - 链接 URL，用于关闭模态框时设置链接。
+ *
+ * @typedef {Object} State
+ * @property {boolean} open - 模态框是否打开。
+ * @property {string} inputKeyword - 输入的关键字。
+ * @property {string} oldUrl - 旧的 URL。
+ * @property {number} index - 当前选择的索引。
+ * @property {DocItem[]} docs - 文档列表。
+ * @property {DocItem[]} filterDocs - 过滤后的文档列表。
+ * @property {Array<{ item: DocItem; value: string }>} anchors - 锚点列表。
+ * @property {Array<{ item: DocItem; value: string }>} filterAnchors - 过滤后的锚点列表。
+ *
+ * @typedef {Object} DocItem
+ * @property {string} path - 文档路径。
+ *
+ * @typedef {Object} InputRef
+ * @property {Function} focus - 聚焦输入框。
  */
 export const InsertLink = observer(() => {
   const { store, markdownEditorRef } = useEditorStore();
