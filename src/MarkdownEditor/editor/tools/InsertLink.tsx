@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { DeleteOutlined } from '@ant-design/icons';
-import { Input, InputRef, Tooltip } from 'antd';
+import { Input, InputRef, Modal, Tooltip } from 'antd';
 import isHotkey from 'is-hotkey';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
-import { createPortal } from 'react-dom';
 
 import { Selection, Text, Transforms } from 'slate';
 import { IEditor } from '../..';
@@ -198,7 +197,6 @@ export const InsertLink = observer(() => {
   const close = useCallback((url?: string) => {
     store.container!.parentElement?.removeEventListener('wheel', prevent);
     setState({ open: false });
-    Transforms.select(markdownEditorRef.current, selRef.current!);
     EditorUtils.focus(markdownEditorRef.current);
     Transforms.setNodes(
       markdownEditorRef.current,
@@ -215,109 +213,113 @@ export const InsertLink = observer(() => {
 
   if (!state().open) return null;
 
-  return createPortal(
-    <div
+  return (
+    <Modal
+      onClose={() => {
+        close(state().oldUrl);
+      }}
+      open={state().open}
+      onOk={(e) => {
+        e.preventDefault();
+        if (isLink(state().inputKeyword)) {
+          close(state().inputKeyword);
+        } else {
+          if (state().anchors.length) {
+            const target = state().filterAnchors[state().index];
+            if (target) {
+              setPath(target.item.path + target.value);
+            }
+          } else {
+            const target = state().filterDocs[state().index];
+            if (target) {
+              setPath(target.path);
+            } else {
+              close(state().inputKeyword);
+            }
+          }
+        }
+      }}
+      onCancel={() => {
+        close(state().oldUrl);
+      }}
       style={{
         pointerEvents: 'auto',
-        position: 'fixed',
-        zIndex: 100,
-        inset: 0,
+        width: 370,
       }}
-      onClick={() => close(state().oldUrl)}
+      title="设置超链接"
     >
       <div
-        onClick={(e) => e.stopPropagation()}
         style={{
-          left: state().left,
-          top: state().mode === 'top' ? state().y : undefined,
-          bottom: state().mode === 'bottom' ? state().y : undefined,
-          pointerEvents: 'auto',
-          width: 370,
-          backgroundColor: 'rgba(255,255,255,0.3)',
-          padding: 4,
-          borderRadius: 4,
-          boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-          backdropFilter: 'blur(10px)',
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
-          position: 'absolute',
+          padding: '0 6px',
+          width: '100%',
+          gap: 8,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 6px',
-            width: '100%',
-            gap: 8,
-          }}
-        >
-          <Input
-            ref={inputRef}
-            value={state().inputKeyword}
-            spellCheck={false}
-            onKeyDown={(e) => {
-              if (
-                e.key.toLowerCase() === 'backspace' &&
-                state().anchors.length &&
-                (e.metaKey ||
-                  e.altKey ||
-                  state().inputKeyword.endsWith('#') ||
-                  !state().inputKeyword.includes('#'))
-              ) {
-                setState({
-                  anchors: [],
-                  filterAnchors: [],
-                });
-              }
-            }}
-            onChange={(e) => {
-              const key = e.target.value.toLowerCase();
-              if (state().anchors.length) {
-                const parse = parsePath(key);
-                const filterAnchors = state().anchors.filter((d) => {
-                  return (
-                    !parse.hash || d.value.toLowerCase().includes(parse.hash)
-                  );
-                });
-                setState({
-                  filterAnchors,
-                });
-              } else {
-                const filterDocs = state().docs.filter((d) => {
-                  return d.path.toLowerCase().includes(key);
-                });
-                setState({
-                  filterDocs,
-                });
-              }
+        <Input.TextArea
+          ref={inputRef}
+          value={state().inputKeyword}
+          spellCheck={false}
+          onKeyDown={(e) => {
+            if (
+              e.key.toLowerCase() === 'backspace' &&
+              state().anchors.length &&
+              (e.metaKey ||
+                e.altKey ||
+                state().inputKeyword.endsWith('#') ||
+                !state().inputKeyword.includes('#'))
+            ) {
               setState({
-                inputKeyword: e.target.value,
-                index: 0,
+                anchors: [],
+                filterAnchors: [],
               });
-            }}
+            }
+          }}
+          onChange={(e) => {
+            const key = e.target.value.toLowerCase();
+            if (state().anchors.length) {
+              const parse = parsePath(key);
+              const filterAnchors = state().anchors.filter((d) => {
+                return (
+                  !parse.hash || d.value.toLowerCase().includes(parse.hash)
+                );
+              });
+              setState({
+                filterAnchors,
+              });
+            } else {
+              const filterDocs = state().docs.filter((d) => {
+                return d.path.toLowerCase().includes(key);
+              });
+              setState({
+                filterDocs,
+              });
+            }
+            setState({
+              inputKeyword: e.target.value,
+              index: 0,
+            });
+          }}
+          style={{
+            flex: 1,
+          }}
+        />
+        <Tooltip title={'移除链接'}>
+          <div
             style={{
-              flex: 1,
+              cursor: 'pointer',
+              fontSize: '1.1em',
+              color: 'rgba(0,0,0,0.5)',
             }}
-          />
-          <Tooltip title={'移除链接'}>
-            <div
-              style={{
-                cursor: 'pointer',
-                fontSize: '1.1em',
-                color: 'rgba(0,0,0,0.5)',
-              }}
-              onClick={() => {
-                close();
-              }}
-            >
-              <DeleteOutlined />
-            </div>
-          </Tooltip>
-        </div>
+            onClick={() => {
+              close();
+            }}
+          >
+            <DeleteOutlined />
+          </div>
+        </Tooltip>
       </div>
-    </div>,
-    document.body,
+    </Modal>
   );
 });

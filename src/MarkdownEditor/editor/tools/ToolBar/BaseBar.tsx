@@ -349,6 +349,8 @@ export const BaseToolBar = observer(
                 opacity: 0,
                 top: 0,
                 left: 0,
+                width: '100%',
+                height: '100%',
               }}
               size="small"
               value={highColor}
@@ -360,7 +362,6 @@ export const BaseToolBar = observer(
               ]}
               onChange={(e) => {
                 localStorage.setItem('high-color', e.toHexString());
-                console.log(markdownEditorRef.current);
                 EditorUtils.highColor(
                   markdownEditorRef.current,
                   e.toHexString(),
@@ -383,6 +384,7 @@ export const BaseToolBar = observer(
                 textDecoration: 'underline solid ' + highColor,
                 textDecorationThickness: 2,
                 lineHeight: 1,
+                color: highColor || undefined,
               }}
               role="button"
               onMouseEnter={(e) => e.stopPropagation()}
@@ -436,44 +438,42 @@ export const BaseToolBar = observer(
         );
       });
 
-      if (['head', 'paragraph'].includes(node?.[0]?.type)) {
-        list.push(
-          <Divider
-            key="divider2"
-            type="vertical"
-            style={{
-              margin: '0 4px',
-              height: '18px',
-              borderColor: 'rgba(0,0,0,0.15)',
+      list.push(
+        <Divider
+          key="divider2"
+          type="vertical"
+          style={{
+            margin: '0 4px',
+            height: '18px',
+            borderColor: 'rgba(0,0,0,0.15)',
+          }}
+        />,
+      );
+      list.push(
+        <Tooltip title="插入链接" key="link">
+          <div
+            key="link"
+            role="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              openLink();
             }}
-          />,
-        );
-        list.push(
-          <Tooltip title="插入链接" key="link">
-            <div
-              key="link"
-              role="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                openLink();
-              }}
-              className={classnames(`${baseClassName}-item`, hashId)}
-              style={{
-                color: EditorUtils.isFormatActive(
-                  markdownEditorRef.current,
-                  'url',
-                )
-                  ? '#1677ff'
-                  : undefined,
-              }}
-            >
-              <LinkOutlined />
-            </div>
-          </Tooltip>,
-        );
-      }
+            className={classnames(`${baseClassName}-item`, hashId)}
+            style={{
+              color: EditorUtils.isFormatActive(
+                markdownEditorRef.current,
+                'url',
+              )
+                ? '#1677ff'
+                : undefined,
+            }}
+          >
+            <LinkOutlined />
+          </div>
+        </Tooltip>,
+      );
       if (props.hideTools) {
         list = list.filter((l) => {
           return !props?.hideTools?.includes(l.key as ToolsKeyType);
@@ -631,6 +631,7 @@ export const BaseToolBar = observer(
                 textDecorationLine: 'underline',
                 textDecorationThickness: 2,
                 lineHeight: 1,
+                color: highColor || undefined,
               }}
               role="button"
               onMouseEnter={(e) => e.stopPropagation()}

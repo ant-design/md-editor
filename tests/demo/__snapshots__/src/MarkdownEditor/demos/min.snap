@@ -7796,7 +7796,7 @@
                 </div>
               </div>
               <span
-                style="font-size: 150px; width: 2px; height: 150px; line-height: 1;"
+                style="font-size: 150px; width: 2px; height: 150px; line-height: 1; display: none;"
               >
                 <span
                   data-slate-node="text"

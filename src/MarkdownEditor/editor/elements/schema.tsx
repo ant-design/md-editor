@@ -68,6 +68,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
             width: '2px',
             height: (htmlRef.current?.clientHeight || 200) * 0.75,
             lineHeight: 1,
+            display: 'none',
           }}
         >
           {props.children}
