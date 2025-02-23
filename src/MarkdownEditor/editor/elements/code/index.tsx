@@ -403,7 +403,8 @@ export function AceElement(props: ElementProps<CodeNode>) {
                   </AutoComplete>
                 }
               >
-                <div
+                <ActionIconBox
+                  title="切换语言"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -412,56 +413,57 @@ export function AceElement(props: ElementProps<CodeNode>) {
                     color: 'rgba(0, 0, 0, 0.8)',
                   }}
                 >
-                  {langIconMap.get(
-                    props.element.language?.toLowerCase() || '',
-                  ) &&
-                    !props.element.katex && (
-                      <div
-                        style={{
-                          height: '1em',
-                          width: '1em',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          marginRight: '0.25em',
-                        }}
-                      >
-                        <img
+                  <>
+                    {langIconMap.get(
+                      props.element.language?.toLowerCase() || '',
+                    ) &&
+                      !props.element.katex && (
+                        <div
                           style={{
                             height: '1em',
                             width: '1em',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: '0.25em',
                           }}
-                          src={langIconMap.get(
-                            props.element.language?.toLowerCase() || '',
-                          )}
-                        />
-                      </div>
+                        >
+                          <img
+                            style={{
+                              height: '1em',
+                              width: '1em',
+                            }}
+                            src={langIconMap.get(
+                              props.element.language?.toLowerCase() || '',
+                            )}
+                          />
+                        </div>
+                      )}
+                    <div>
+                      {props.element.language ? (
+                        <span>
+                          {props.element.katex
+                            ? 'Formula'
+                            : props.element.language === 'html' &&
+                                props.element.render
+                              ? 'Html Renderer'
+                              : props.element.language}
+                        </span>
+                      ) : (
+                        <span>{'plain text'}</span>
+                      )}
+                    </div>
+                    {!props.element.katex && !props.element.render && (
+                      <RightOutlined
+                        style={{
+                          transform: 'rotate(90deg)',
+                          fontSize: '0.9em',
+                          marginTop: 4,
+                        }}
+                      />
                     )}
-                  <div>
-                    {props.element.language ? (
-                      <span>
-                        {props.element.katex
-                          ? 'Formula'
-                          : props.element.language === 'html' &&
-                              props.element.render
-                            ? 'Html Renderer'
-                            : props.element.language}
-                      </span>
-                    ) : (
-                      <span>{'plain text'}</span>
-                    )}
-                  </div>
-                  {!props.element.katex && !props.element.render && (
-                    <RightOutlined
-                      style={{
-                        transform: 'rotate(90deg)',
-                        fontSize: '0.9em',
-                        lineHeight: '1.75em',
-                        marginLeft: '0.125em',
-                      }}
-                    />
-                  )}
-                </div>
+                  </>
+                </ActionIconBox>
               </Popover>
             )}
             <div
