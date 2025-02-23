@@ -246,7 +246,7 @@ export const MLeaf = (
           className={`${className}`}
           style={{
             ...style,
-            textDecorationColor: '#1677ff',
+            textDecorationColor: style?.color || '#1677ff',
             textUnderlineOffset: '4px',
             color: '#1677ff',
             cursor: 'pointer',
