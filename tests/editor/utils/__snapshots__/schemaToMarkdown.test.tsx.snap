@@ -6252,9 +6252,12 @@ exports[`should convert schema to markdown in  代码
 \`\`\`ja chunk 1`] = `
 "## 代码
 
-<!--{}-->
 \`\`\`java
-undefined
+Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}
 \`\`\`"
 `;
 
@@ -6411,7 +6414,6 @@ exports[`should convert schema to markdown in  表单
 \`\`\`sc chunk 1`] = `
 "## 表单
 
-<!--{}-->
 \`\`\`schema
 {}
 \`\`\`"
