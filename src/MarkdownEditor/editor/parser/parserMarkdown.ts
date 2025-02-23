@@ -695,7 +695,6 @@ const parserBlock = (
           if (currentElement.value) {
             for (let t of htmlTag) {
               if (t.tag === 'font') {
-                console.log(t);
                 el.color = t.color;
               }
               if (t.tag === 'sup') el.identifier = el.text;
