@@ -150,8 +150,13 @@ export const withMarkdown = (editor: Editor) => {
 
     if (operation.type === 'remove_node') {
       const { node } = operation;
+      const selectPath = editor.selection?.anchor?.path;
+      const selectionNode = selectPath
+        ? Node.get(editor, Path.parent(selectPath))
+        : null;
+      console.log('remove_node', node, selectionNode);
       // 删除card时，选中card_AFTER 节点
-      if (node.type === 'card') {
+      if (node.type === 'card' && selectionNode?.type !== 'card-after') {
         Transforms.select(editor, [...(operation.path || []), 2]);
         return;
       }
