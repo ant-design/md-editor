@@ -55,7 +55,7 @@ export const useEditorStore = () => {
   );
 };
 
-const SUPPORT_TYPING_TAG = ['table-cell', 'code-line', 'paragraph', 'head'];
+const SUPPORT_TYPING_TAG = ['table-cell', 'paragraph', 'head'];
 /**
  * 编辑器存储类，用于管理Markdown编辑器的状态和操作。
  */
@@ -347,7 +347,7 @@ export class EditorStore {
         Transforms.insertNodes(this._editor.current, node, { at });
         return;
       }
-      if (node && (node.type === 'list-item' || node.type === 'code-line')) {
+      if (node && node.type === 'list-item') {
         this.diffNode(node, preNode, Path.parent(at));
       } else {
         this.diffNode(node, preNode, Path.next(Path.parent(at)));

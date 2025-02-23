@@ -151,9 +151,6 @@ export class EditorUtils {
     if (cur[0].type === 'head') {
       path = Path.next(path);
     }
-    if (cur[0].type === 'code-line') {
-      path = Path.next(Path.parent(cur[1]));
-    }
     if (cur[0].type === 'paragraph' && Node.string(cur[0])) {
       path = Path.next(cur[1]);
     }

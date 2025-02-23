@@ -60,10 +60,13 @@ export function AceElement(props: ElementProps<CodeNode>) {
     (data: Partial<CodeNode>) => {
       const code = editorRef.current?.getValue() || '';
       codeRef.current = code;
+      console.log(data);
       Transforms.setNodes(store.editor, data, { at: path });
     },
     [path],
   );
+
+  console.log(props.element);
 
   useEffect(() => {
     if (

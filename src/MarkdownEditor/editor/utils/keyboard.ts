@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import isHotkey from 'is-hotkey';
-import { action, runInAction } from 'mobx';
+import { action } from 'mobx';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
@@ -53,8 +53,6 @@ export class KeyboardTask {
     const [node] = this.curNodes;
     if (node?.[0]?.type === 'table-cell') {
       Transforms.select(this.editor, Path.parent(Path.parent(node[1])));
-    } else if (node?.[0]?.type === 'code-line') {
-      Transforms.select(this.editor, Path.parent(node[1]));
     } else {
       Transforms.select(this.editor, {
         anchor: Editor.start(this.editor, []),
@@ -65,17 +63,13 @@ export class KeyboardTask {
 
   selectLine() {
     if (this.editor.selection) {
-      const [node] = Editor.nodes<any>(this.editor, {
-        mode: 'lowest',
-        match: (m) => Element.isElement(m),
-      });
       Transforms.select(
         this.editor,
         Path.parent(this.editor.selection.anchor.path),
       );
       const text =
         Node.leaf(this.editor, this.editor.selection.anchor.path).text || '';
-      if (text && node?.[0].type !== 'code-line') {
+      if (text) {
         this.openFloatBar();
       }
     }
@@ -83,17 +77,7 @@ export class KeyboardTask {
 
   selectFormat() {
     if (this.editor.selection) {
-      const [node] = Editor.nodes<any>(this.editor, {
-        mode: 'lowest',
-        match: (m) => Element.isElement(m),
-      });
       Transforms.select(this.editor, this.editor.selection.anchor.path);
-      if (
-        node?.[0].type !== 'code-line' &&
-        !Range.isCollapsed(this.editor.selection)
-      ) {
-        this.openFloatBar();
-      }
     }
   }
 
@@ -129,12 +113,7 @@ export class KeyboardTask {
         anchor: { path: sel.anchor.path, offset: start },
         focus: { path: sel.anchor.path, offset: end },
       });
-      const [node] = this.curNodes;
-      if (
-        node?.[0].type !== 'code-line' &&
-        !Range.isCollapsed(this.editor.selection!)
-      )
-        this.openFloatBar();
+      if (!Range.isCollapsed(this.editor.selection!)) this.openFloatBar();
     }
   }
 
@@ -142,20 +121,7 @@ export class KeyboardTask {
     const text = await navigator.clipboard.readText();
     if (text) {
       const [node] = this.curNodes;
-      if (node[0].type === 'code-line') {
-        Transforms.insertFragment(
-          this.editor,
-          text.split('\n').map((c: any) => {
-            return { type: 'code-line', children: [{ text: c }] };
-          }),
-        );
-        setTimeout(() => {
-          runInAction(() => {
-            if (typeof window === 'undefined') return;
-            if (typeof window.matchMedia === 'undefined') return;
-          });
-        }, 60);
-      } else if (node[0].type === 'table-cell') {
+      if (node[0].type === 'table-cell') {
         Editor.insertText(this.editor, text.replace(/\n/g, ' '));
       } else {
         Editor.insertText(this.editor, text);
@@ -271,7 +237,7 @@ export class KeyboardTask {
         Editor.insertNode(this.editor, (first as TableNode)?.children);
       }
       if (res.schema.length) {
-        if (['code-line', 'table-cell'].includes(node[0].type)) {
+        if (['table-cell'].includes(node[0].type)) {
           const [block] = Editor.nodes<any>(this.editor, {
             match: (n) => ['table', 'code', 'paragraph'].includes(n.type),
             mode: 'lowest',
@@ -548,7 +514,8 @@ export class KeyboardTask {
         {
           type: 'code',
           language: undefined,
-          children: [{ type: 'code-line', children: [{ text: '' }] }],
+          value: '',
+          children: [{ text: '' }],
           render: type === 'html' ? true : undefined,
         },
         { at: [...node[1], 0] },
@@ -560,31 +527,21 @@ export class KeyboardTask {
         node[0].type === 'paragraph' && !Node.string(node[0])
           ? node[1]
           : Path.next(node[1]);
-      let children = [{ type: 'code-line', children: [{ text: '' }] }];
       let lang = '';
       if (type === 'mermaid') {
         lang = 'mermaid';
-        children = 'flowchart TD\n    Start --> Stop'.split('\n').map((c) => ({
-          type: 'code-line',
-          children: [{ text: c }],
-        }));
       }
 
-      if (type === 'html') {
-        lang = 'html';
-        children = [
-          {
-            type: 'code-line',
-            children: [{ text: '<div style="text-align:center">text</div>' }],
-          },
-        ];
-      }
       Transforms.insertNodes(
         this.editor,
         {
           type: 'code',
           language: lang ? lang : undefined,
-          children: children,
+          children: [
+            {
+              text: `flowchart TD\n    Start --> Stop`,
+            },
+          ],
           render: type === 'html' ? true : undefined,
         },
         { at: path },

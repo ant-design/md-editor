@@ -10659,11 +10659,96 @@
                       draggable="false"
                     >
                       <span
-                        data-slate-length="0"
-                        data-slate-zero-width="n"
+                        data-slate-string="true"
                       >
-                        ﻿
-                        <br />
+                        [
+  {
+    "title": "标题",
+    "dataIndex": "title",
+    "formItemProps": {
+      "rules": [{ "required": true, "message": "此项为必填项" }]
+    },
+    "width": "md"
+  },
+  {
+    "title": "状态",
+    "dataIndex": "state",
+    "valueType": "select",
+    "width": "md"
+  },
+  { "title": "标签", "dataIndex": "labels", "width": "md" },
+  {
+    "valueType": "switch",
+    "title": "开关",
+    "dataIndex": "Switch",
+    "fieldProps": { "style": { "width": "200px" } },
+    "width": "md"
+  },
+  {
+    "title": "创建时间",
+    "key": "showTime",
+    "dataIndex": "createName",
+    "width": "md"
+  },
+  { "title": "更新时间", "dataIndex": "updateName" },
+  {
+    "title": "分组",
+    "valueType": "group",
+    "columns": [
+      {
+        "title": "状态",
+        "dataIndex": "groupState",
+        "valueType": "select",
+        "width": "xs",
+        "colProps": { "xs": 12 }
+      },
+      {
+        "title": "标题",
+        "width": "md",
+        "dataIndex": "groupTitle",
+        "colProps": { "xs": 12 },
+        "formItemProps": {
+          "rules": [{ "required": true, "message": "此项为必填项" }]
+        }
+      }
+    ]
+  },
+  {
+    "title": "列表",
+    "valueType": "formList",
+    "dataIndex": "list",
+    "columns": [
+      {
+        "valueType": "group",
+        "columns": [
+          {
+            "title": "状态",
+            "dataIndex": "state",
+            "valueType": "select",
+            "colProps": { "xs": 24, "sm": 12 },
+            "width": "xs"
+          },
+          {
+            "title": "标题",
+            "dataIndex": "title",
+            "width": "md",
+            "formItemProps": {
+              "rules": [{ "required": true, "message": "此项为必填项" }]
+            },
+            "colProps": { "xs": 24, "sm": 12 }
+          }
+        ]
+      },
+      { "valueType": "dateTime", "dataIndex": "currentTime", "width": "md" }
+    ]
+  },
+  {
+    "title": "创建时间",
+    "dataIndex": "created_at",
+    "valueType": "dateRange",
+    "width": "md"
+  }
+]
                       </span>
                     </span>
                   </span>
@@ -10909,116 +10994,26 @@
                   <div
                     class="ant-md-editor-hidden"
                   >
-                    <div
-                      class="ant-md-editor-drag-el"
-                      data-be="paragraph"
-                      data-slate-node="element"
+                    <span
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-node="text"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
-                          class=" "
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
+                          data-slate-string="true"
                         >
-                          <span
-                            data-slate-string="true"
-                          >
-                            Class A {
-                          </span>
+                          Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}
                         </span>
                       </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-drag-el"
-                      data-be="paragraph"
-                      data-slate-node="element"
-                    >
-                      <span
-                        data-slate-node="text"
-                      >
-                        <span
-                          class=" "
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
-                        >
-                          <span
-                            data-slate-string="true"
-                          >
-                              main() {
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-drag-el"
-                      data-be="paragraph"
-                      data-slate-node="element"
-                    >
-                      <span
-                        data-slate-node="text"
-                      >
-                        <span
-                          class=" "
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
-                        >
-                          <span
-                            data-slate-string="true"
-                          >
-                                System.out.println("Hello World");
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-drag-el"
-                      data-be="paragraph"
-                      data-slate-node="element"
-                    >
-                      <span
-                        data-slate-node="text"
-                      >
-                        <span
-                          class=" "
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
-                        >
-                          <span
-                            data-slate-string="true"
-                          >
-                              }
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                    <div
-                      class="ant-md-editor-drag-el typewriter"
-                      data-be="paragraph"
-                      data-slate-node="element"
-                    >
-                      <span
-                        data-slate-node="text"
-                      >
-                        <span
-                          class=" "
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
-                        >
-                          <span
-                            data-slate-string="true"
-                          >
-                            }
-                          </span>
-                        </span>
-                      </span>
-                    </div>
+                    </span>
                   </div>
                 </div>
               </div>

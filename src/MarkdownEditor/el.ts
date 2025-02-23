@@ -7,31 +7,19 @@ type Align = 'left' | 'center' | 'right';
 export type CodeNode<T = Record<string, any>> = {
   contextProps?: T;
   type: 'code';
-  children: {
-    type: 'code-line';
-    children: BaseElement['children'];
-    num?: number;
-  }[];
   otherProps?: {
     className?: string;
     language?: string;
     render?: boolean;
     frontmatter?: boolean;
   } & T;
+  children: [{ text: string }];
   language?: string;
   render?: boolean;
   frontmatter?: boolean;
   h?: number;
   value: string;
   katex?: boolean;
-};
-
-export type CodeLineNode<T = Record<string, any>> = {
-  contextProps?: T;
-  otherProps?: T;
-  type: 'code-line';
-  children: BaseElement['children'];
-  num?: number;
 };
 
 export type ParagraphNode<T = Record<string, any>> = {
@@ -245,16 +233,12 @@ export type AttachNode<T = Record<string, any>> = {
 export type SchemaNode<T = Record<string, any>> = {
   contextProps?: T;
   type: 'schema' | 'apaasify';
-  children: {
-    type: 'code-line';
-    children: BaseElement['children'];
-    num?: number;
-  }[];
   otherProps?: {
     language?: string;
     render?: boolean;
     frontmatter?: boolean;
   } & T;
+  children: [text: string];
   value: Record<string, any> | Record<string, any>[];
   language?: string;
   render?: boolean;
@@ -269,7 +253,6 @@ export type Elements<T = Record<string, any>> =
   | SchemaNode<{ valueType: string } & T>
   | ColumnCellNode<T>
   | ColumnNode<T>
-  | CodeLineNode<T>
   | ParagraphNode<T>
   | TableNode<T>
   | TableRowNode<T>

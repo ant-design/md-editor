@@ -445,72 +445,24 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              arr = [1, 2, 3, 4]
-                            </span>
+                            arr = [1, 2, 3, 4]
+for num in arr:
+    print(num)  # 输出每个元素的值
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for num in arr:
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(num)  # 输出每个元素的值
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -874,50 +826,23 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for i in range(len(arr)):
-                            </span>
+                            for i in range(len(arr)):
+    print(arr[i])  # 通过索引访问元素
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(arr[i])  # 通过索引访问元素
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1257,50 +1182,23 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for index, value in enumerate(arr):
-                            </span>
+                            for index, value in enumerate(arr):
+    print(f"索引 {index} 的值是 {value}")
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(f"索引 {index} 的值是 {value}")
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1720,94 +1618,25 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              i = 0
-                            </span>
+                            i = 0
+while i &lt; len(arr):
+    print(arr[i])
+    i += 1  # 必须手动递增
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              while i &lt; len(arr):
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(arr[i])
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  i += 1  # 必须手动递增
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -2123,28 +1952,22 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              squared = [x**2 for x in arr]  # 遍历并计算平方
-                            </span>
+                            squared = [x**2 for x in arr]  # 遍历并计算平方
                           </span>
                         </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -2522,72 +2345,24 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              def traverse(arr, i=0):
-                            </span>
+                            def traverse(arr, i=0):
+    if i &lt; len(arr):
+        print(arr[i])
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  if i &lt; len(arr):
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                      print(arr[i])
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -2868,72 +2643,24 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        fruits = ["Apple", "Mango", "Banana"]
-                      </span>
+                      fruits = ["Apple", "Mango", "Banana"]
+for fruit in fruits:
+    print(fruit)
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for fruit in fruits:
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(fruit)
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -3335,50 +3062,23 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for index, fruit in enumerate(fruits):
-                      </span>
+                      for index, fruit in enumerate(fruits):
+    print(f"第{index}个元素：{fruit}")
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(f"第{index}个元素：{fruit}")
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -3686,94 +3386,25 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        i = 0
-                      </span>
+                      i = 0
+while i &lt; len(fruits):
+    print(fruits[i])
+    i += 1
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        while i &lt; len(fruits):
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(fruits[i])
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            i += 1
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -4104,28 +3735,22 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        uppercase_fruits = [fruit.upper() for fruit in fruits]
-                      </span>
+                      uppercase_fruits = [fruit.upper() for fruit in fruits]
                     </span>
                   </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -4433,50 +4058,23 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for i in range(len(fruits)):
-                      </span>
+                      for i in range(len(fruits)):
+    print(fruits[i])
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(fruits[i])
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -4910,72 +4508,24 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for fruit in fruits.copy():  # 创建副本
-                      </span>
+                      for fruit in fruits.copy():  # 创建副本
+    if "n" in fruit:
+        fruits.remove(fruit)
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            if "n" in fruit:
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                                fruits.remove(fruit)
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>

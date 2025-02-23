@@ -39,25 +39,7 @@ export const keyArrow = (
   const sel = editor.selection;
   if (sel && Range.isCollapsed(sel)) {
     if (isHotkey('mod+left', e)) {
-      const [node] = Editor.nodes(editor, {
-        match: (n) => n.type === 'code-line',
-      });
-      if (node) {
-        const str = Node.string(node[0]) || '';
-        const pre = str.slice(0, sel.anchor.offset);
-        if (/[^\s\t]+/.test(pre)) {
-          Transforms.select(editor, {
-            path: [...node[1], 0],
-            offset: str.match(/^[\s\t]*/)?.[0].length || 0,
-          });
-        } else {
-          Transforms.select(
-            editor,
-            Editor.start(editor, Path.parent(sel.focus.path)),
-          );
-        }
-        e.preventDefault();
-      }
+      return;
     }
     // 暂时没用了。先注释掉吧
     if (isHotkey('left', e)) {
@@ -158,16 +140,6 @@ export const keyArrow = (
         Transforms.select(editor, pre[1]);
         return;
       }
-      if (el.type === 'code-line') {
-        const code = Path.parent(path);
-        if (!Path.hasPrevious(path) && !Path.hasPrevious(code)) {
-          e.preventDefault();
-          Transforms.insertNodes(editor, EditorUtils.p, {
-            at: Path.parent(path),
-            select: true,
-          });
-        }
-      }
       if (el.type === 'table-cell' && !Path.hasPrevious(sel.focus.path)) {
         const row = Path.parent(path);
         const table = Path.parent(row);
@@ -228,16 +200,6 @@ export const keyArrow = (
         }
       }
 
-      if (el.type === 'code-line' && !Editor.hasPath(editor, Path.next(path))) {
-        const code = Path.parent(path);
-        if (!Editor.hasPath(editor, Path.next(code))) {
-          e.preventDefault();
-          Transforms.insertNodes(editor, EditorUtils.p, {
-            at: Path.next(code),
-            select: true,
-          });
-        }
-      }
       if (el.type === 'media' || el.type === 'attach') {
         const next = EditorUtils.findNext(editor, path);
         e.preventDefault();

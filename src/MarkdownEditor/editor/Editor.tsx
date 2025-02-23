@@ -7,7 +7,6 @@ import {
   BaseRange,
   BaseSelection,
   Editor,
-  Element,
   Node,
   Path,
   Range,
@@ -471,24 +470,6 @@ export const MEditor = observer(
             return;
           }
         } catch (e) {}
-
-        const [node] = Editor.nodes<Elements>(markdownEditorRef.current, {
-          match: (n) => Element.isElement(n) && n.type === 'code',
-        });
-
-        if (node) {
-          Transforms.insertFragment(
-            markdownEditorRef.current,
-            //@ts-ignore
-            text.split('\n').map((c) => {
-              return {
-                type: 'code-line',
-                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
-              };
-            }),
-          );
-          return;
-        }
 
         if (isMarkdown(text)) {
           parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);

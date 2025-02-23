@@ -323,12 +323,12 @@ const parserBlock = (
                 type: 'code',
                 language: 'html',
                 render: true,
-                children: currentElement.value.split('\n').map((s: any) => {
-                  return {
-                    type: 'code-line',
-                    children: [{ text: s }],
-                  };
-                }),
+                value: currentElement.value,
+                children: [
+                  {
+                    text: currentElement.value,
+                  },
+                ],
               };
             }
           }
@@ -662,18 +662,11 @@ const parserBlock = (
           render: currentElement.meta === 'render',
           value: isSchema ? json : currentElement.value,
           otherProps: config,
-          children: isSchema
-            ? [
-                {
-                  text: '',
-                },
-              ]
-            : currentElement.value.split('\n').map((s: any) => {
-                return {
-                  type: 'code-line',
-                  children: [{ text: s }],
-                };
-              }),
+          children: [
+            {
+              text: currentElement.value,
+            },
+          ],
         };
         break;
       case 'yaml':
@@ -682,12 +675,7 @@ const parserBlock = (
           language: 'yaml',
           value: currentElement.value,
           frontmatter: true,
-          children: currentElement.value.split('\n').map((s: any) => {
-            return {
-              type: 'code-line',
-              children: [{ text: s }],
-            };
-          }),
+          children: [{ text: currentElement.value }],
         };
         break;
       case 'blockquote':

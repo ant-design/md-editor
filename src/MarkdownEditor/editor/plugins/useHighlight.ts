@@ -29,7 +29,6 @@ const highlightNodes = new Set([
   'code',
   'head',
   'inline-katex',
-  'code-line',
 ]);
 
 export function useHighlight(store?: EditorStore) {
