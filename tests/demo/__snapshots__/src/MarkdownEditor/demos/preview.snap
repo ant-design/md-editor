@@ -160,6 +160,454 @@
               </span>
             </span>
           </div>
+          <div
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-content-table-container"
+            data-be="table"
+            data-slate-node="element"
+            draggable="false"
+            tabindex="0"
+          >
+            <div
+              style="position: absolute; z-index: 999; outline: 3px solid transparent; pointer-events: none; display: none; left: 0px; top: 0px;"
+            />
+            <div
+              class="ant-md-editor-drag-el"
+            />
+            <div
+              class="ant-md-editor-content-table"
+              style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+            >
+              <div
+                data-slate-editor="false"
+                style="visibility: hidden; overflow: hidden;"
+              >
+                <div
+                  class="intersection-point ignore-toggle-readonly "
+                  contenteditable="false"
+                  style="display: flex; z-index: 102;"
+                />
+                <div
+                  class="row-div-bar-inner ignore-toggle-readonly"
+                  contenteditable="false"
+                  style="position: absolute; display: block; z-index: 200; width: 0.94em; margin-top: 0.98em; margin-left: -1em;"
+                >
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: relative; width: 0.94em; height: -1px;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      1
+                    </div>
+                  </div>
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: relative; width: 0.94em; height: -1px;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      2
+                    </div>
+                  </div>
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: relative; width: 0.94em; height: -1px;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      3
+                    </div>
+                  </div>
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: relative; width: 0.94em; height: -1px; border-bottom-left-radius: 0.5em;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      4
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-div-bar-inner ignore-toggle-readonly"
+                  contenteditable="false"
+                  style="position: absolute; display: flex; width: -1px; overflow: hidden; height: 0.94em; z-index: 100; transform: translateX(0px);"
+                >
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      A
+                    </div>
+                  </div>
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      B
+                    </div>
+                  </div>
+                  <div
+                    class="table-side-div ignore-toggle-readonly none-active  "
+                    contenteditable="false"
+                    style="position: absolute; top: 0px; left: 0px; width: -2px; height: 0.94em; z-index: 100; border-top-right-radius: 0.5em;"
+                  >
+                    <div
+                      class="table-side-div-text"
+                      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 102; font-size: 0.8em; color: rgb(0, 0, 0);"
+                    >
+                      C
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table
+                class="ant-md-editor-content-table-editor-table"
+                draggable="false"
+              >
+                <tbody
+                  data-slate-node="element"
+                >
+                  <tr
+                    data-slate-node="element"
+                  >
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            序号
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            问题
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            答案
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr
+                    data-slate-node="element"
+                  >
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            0.0
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 188px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            世界上最小的鸟是什么?
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            蜂鸟（Hummingbird ) 。蜂鸟是世界上最小的鸟类 ，其中最小的种类是蜂鸟科中的蜂鸟属（Melli
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr
+                    data-slate-node="element"
+                  >
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            1.0
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            地球上最高的山峰是哪座?
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            珠穆朗玛峰（Mount Everest ) 。珠穆朗玛峰位于喜马拉雅山脉 ，海拔8848.86米 ，是地球上最
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr
+                    data-slate-node="element"
+                  >
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            2.0
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            哪种动物的睡眠时间最长?
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="group td-cell-select"
+                      data-be="td"
+                      data-slate-node="element"
+                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            考拉（Koala ) 。考拉每天大约睡18-22小时 ，是已知睡眠时间最长的动物之一 。
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -8112,18 +8560,11 @@
                   draggable="false"
                 >
                   <span
-                    data-slate-string="true"
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
                   >
-                    [
-  {
-    "title": "标题",
-    "dataIndex": "title",
-    "formItemProps": {
-      "rules": [{ "required": true, "message": "此项为必填项" }]
-    },
-    "width": "md"
-  }
-]
+                    ﻿
+                    <br />
                   </span>
                 </span>
               </span>

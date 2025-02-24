@@ -21,6 +21,7 @@ import {
   TableNode,
   TableRowNode,
 } from '../../el';
+import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import parser from './remarkParse';
@@ -319,17 +320,21 @@ const parserBlock = (
             if (currentElement.value === '<br/>') {
               el = { type: 'paragraph', children: [{ text: '' }] };
             } else {
-              el = {
-                type: 'code',
-                language: 'html',
-                render: true,
-                value: currentElement.value,
-                children: [
-                  {
-                    text: currentElement.value,
-                  },
-                ],
-              };
+              el = currentElement.value.match(
+                /<\/?(table|div|ul|li|ol|p)[^\n>]*?>/,
+              )
+                ? htmlToFragmentList(currentElement.value, '')
+                : {
+                    type: 'code',
+                    language: 'html',
+                    render: true,
+                    value: currentElement.value,
+                    children: [
+                      {
+                        text: currentElement.value,
+                      },
+                    ],
+                  };
             }
           }
         } else {
@@ -662,11 +667,17 @@ const parserBlock = (
           render: currentElement.meta === 'render',
           value: isSchema ? json : currentElement.value,
           otherProps: config,
-          children: [
-            {
-              text: currentElement.value,
-            },
-          ],
+          children: isSchema
+            ? [
+                {
+                  text: '',
+                },
+              ]
+            : [
+                {
+                  text: currentElement.value,
+                },
+              ],
         };
         break;
       case 'yaml':
