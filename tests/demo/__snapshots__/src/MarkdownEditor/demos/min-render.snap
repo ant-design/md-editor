@@ -10757,11 +10757,11 @@
               >
                 <div
                   class="ace-container drag-el "
-                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                   >
                     <div
                       style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"

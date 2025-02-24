@@ -30,3 +30,5 @@
 <code src="./demos/ppt.tsx" background="var(--main-bg-color)" title="ppt 模式" iframe="540px" height="540px"></code>
 
 <code src="./demos/li-code.tsx" debug background="var(--main-bg-color)" title="ppt 模式" iframe="540px" height="540px"></code>
+
+<code src="./demos/htmlrun.tsx" debug background="var(--main-bg-color)" title="支持运行html" iframe="540px" height="540px"></code>

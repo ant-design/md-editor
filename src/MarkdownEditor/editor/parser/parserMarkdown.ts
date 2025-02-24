@@ -409,6 +409,7 @@ const parserBlock = (
         }
 
         if (el) {
+          el.isConfig = currentElement?.value.trim()?.startsWith('<!--');
           el.otherProps = contextProps;
         }
 
@@ -653,7 +654,6 @@ const parserBlock = (
           currentElement.lang === 'schema' ||
           currentElement.lang === 'apaasify' ||
           currentElement.lang === 'apassify';
-
         el = {
           type: isSchema
             ? currentElement.lang === 'apassify'
@@ -666,7 +666,7 @@ const parserBlock = (
               : currentElement.lang,
           render: currentElement.meta === 'render',
           value: isSchema ? json : currentElement.value,
-          otherProps: config,
+          isConfig: currentElement?.value.trim()?.startsWith('<!--'),
           children: isSchema
             ? [
                 {
