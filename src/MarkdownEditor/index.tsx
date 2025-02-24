@@ -474,6 +474,9 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             }}
             initSchemaValue={initSchemaValue}
             style={editorStyle}
+            onSpecialChar={(char) => {
+              return ['选项1', '选项2', '选项3'];
+            }}
             instance={instance}
           />
           {readonly ? (
