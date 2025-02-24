@@ -454,7 +454,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
                 gap: 5,
               }}
             >
-              {props.element.katex ? (
+              {props.element.katex || props.element.language === 'mermaid' ? (
                 <ActionIconBox
                   title="关闭"
                   onClick={() => {
