@@ -1180,6 +1180,9 @@ export const Editable = forwardRef(
                 )}
                 onClick={useCallback(
                   (event: React.MouseEvent<HTMLDivElement>) => {
+                    if (readOnly) {
+                      return;
+                    }
                     if (
                       ReactEditor.hasTarget(editor, event.target) &&
                       !isEventHandled(event, attributes.onClick) &&
@@ -1226,9 +1229,6 @@ export const Editable = forwardRef(
                           return;
                         }
 
-                        if (readOnly) {
-                          return;
-                        }
                         if (path?.length < 1) return null;
 
                         const start = Editor.start(editor, path);
