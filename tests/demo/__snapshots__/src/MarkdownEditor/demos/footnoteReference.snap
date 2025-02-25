@@ -35,6 +35,7 @@
             >
               <span
                 class=" "
+                contenteditable="false"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -70,6 +71,7 @@
                   >
                     <span
                       class=" "
+                      contenteditable="false"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -87,6 +89,7 @@
                     <span
                       aria-describedby="test-id"
                       class=" "
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-slate-leaf="true"
@@ -112,6 +115,7 @@
                   >
                     <span
                       class=" "
+                      contenteditable="false"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -129,6 +133,7 @@
                     <span
                       aria-describedby="test-id"
                       class=" "
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-slate-leaf="true"
@@ -151,6 +156,7 @@
             >
               <span
                 class=" "
+                contenteditable="false"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -178,6 +184,7 @@
             >
               <span
                 class=" "
+                contenteditable="false"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -212,6 +219,7 @@
               >
                 <span
                   class=" "
+                  contenteditable="false"
                   data-be="text"
                   data-slate-leaf="true"
                   draggable="false"
@@ -243,6 +251,7 @@
               >
                 <span
                   class=" "
+                  contenteditable="false"
                   data-be="text"
                   data-slate-leaf="true"
                   draggable="false"
@@ -267,6 +276,7 @@
             >
               <span
                 class=" "
+                contenteditable="false"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
