@@ -714,12 +714,12 @@ const parserBlock = (
               }
               if (t.tag === 'sup') el.identifier = el.text;
               if (t.tag === 'sub') el.identifier = el.text;
-
               if (t.tag === 'code') el.code = true;
               if (t.tag === 'i') el.italic = true;
               if (t.tag === 'b' || t.tag === 'strong') el.bold = true;
               if (t.tag === 'del') el.strikethrough = true;
-              if (t.tag === 'span' && t.color) el.highColor = t.color;
+              if ((t.tag === 'span' || t.tag === 'font') && t.color)
+                el.highColor = t.color;
               if (t.tag === 'a' && t?.url) {
                 el.url = t?.url;
               }
@@ -740,6 +740,7 @@ const parserBlock = (
             el = { text: currentElement.value };
           } else {
             const leaf: CustomLeaf = {};
+
             if (currentElement.type === 'strong') leaf.bold = true;
             if (currentElement.type === 'emphasis') leaf.italic = true;
             if (currentElement.type === 'delete') leaf.strikethrough = true;
@@ -748,6 +749,21 @@ const parserBlock = (
                 leaf.url = decodeURIComponent(currentElement?.url);
               } catch (error) {
                 leaf.url = currentElement?.url;
+              }
+            }
+            if (leaf) {
+              for (let t of htmlTag) {
+                if (t.tag === 'font') {
+                  leaf.color = t.color;
+                }
+                if (t.tag === 'sup') leaf.identifier = el.text;
+                if (t.tag === 'sub') leaf.identifier = el.text;
+                if (t.tag === 'code') leaf.code = true;
+                if (t.tag === 'i') leaf.italic = true;
+                if (t.tag === 'b' || t.tag === 'strong') leaf.bold = true;
+                if (t.tag === 'del') leaf.strikethrough = true;
+                if ((t.tag === 'span' || t.tag === 'font') && t.color)
+                  leaf.highColor = t.color;
               }
             }
             el = parseText(
@@ -858,6 +874,7 @@ export const parserMarkdown = (
 
   const root = parser.parse(markdown);
   const schema = parserBlock(root.children as any[], true) as Elements[];
+
   const links = findLinks(schema);
   return { schema, links };
 };
