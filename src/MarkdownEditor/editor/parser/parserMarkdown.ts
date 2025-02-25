@@ -358,6 +358,7 @@ const parserBlock = (
                 if (tag === 'span') {
                   try {
                     const styles = str.match(/style="([^"\n]+)"/);
+
                     if (styles) {
                       // @ts-ignore
                       const stylesMap = new Map(
@@ -386,11 +387,14 @@ const parserBlock = (
                     });
                   }
                 } else if (tag === 'font') {
-                  const color = str.match(/color="([^"\n]+)"/);
+                  let color = str.match(/color="([^"\n]+)"/);
+                  if (!color) {
+                    color = str.match(/color=([^"\n]+)/);
+                  }
                   if (color) {
                     htmlTag.push({
                       tag: tag,
-                      color: color[1],
+                      color: color[1].replaceAll('>', ''),
                     });
                   }
                 } else {
