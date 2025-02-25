@@ -53,7 +53,6 @@ export const withMarkdown = (editor: Editor) => {
   };
 
   editor.apply = (operation) => {
-    console.log('operation', operation);
     if (
       operation.type === 'merge_node' &&
       operation.properties?.type === 'table-cell'
