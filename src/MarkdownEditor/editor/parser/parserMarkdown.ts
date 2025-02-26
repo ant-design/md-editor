@@ -89,8 +89,9 @@ const parseText = (
       leafs = leafs.concat(
         parseText(n.children, { ...leaf, strikethrough: true }),
       );
-    if (n.type === 'link')
+    if (n.type === 'link') {
       leafs = leafs.concat(parseText(n.children, { ...leaf, url: n?.url }));
+    }
     if (n.type === 'inlineCode')
       leafs.push({ ...leaf, text: n.value, code: true });
     // @ts-ignore
@@ -766,14 +767,30 @@ const parserBlock = (
                   leaf.highColor = t.color;
               }
             }
-            el = parseText(
-              // @ts-ignore
-              currentElement.children?.length
-                ? // @ts-ignore
-                  currentElement.children
-                : [{ value: leaf?.url || '' }],
-              leaf,
-            );
+            if (
+              (currentElement as any)?.children?.some(
+                (n: any) => n.type === 'html',
+              )
+            ) {
+              el = {
+                ...parserBlock(
+                  (currentElement as any)?.children,
+                  false,
+                  currentElement,
+                )?.at(0),
+                url: leaf.url,
+              };
+            } else {
+              el = parseText(
+                // @ts-ignore
+                currentElement.children?.length
+                  ? // @ts-ignore
+                    currentElement.children
+                  : [{ value: leaf?.url || '' }],
+                leaf,
+              );
+              console.log('el', el);
+            }
           }
         } else if (currentElement.type === 'break') {
           el = { text: '\n' };
@@ -830,26 +847,6 @@ const parserBlock = (
   });
 };
 
-const findLinks = (
-  schema: any[],
-  prePath: number[] = [],
-  links: { path: number[]; target: string }[] = [],
-) => {
-  if (!schema) return links;
-  for (let i = 0; i < schema.length; i++) {
-    const n = schema[i];
-    if (!n) continue;
-    const curPath = [...(prePath || []), i];
-    if (n?.url) {
-      links?.push?.({ path: curPath, target: n?.url });
-    }
-    if (n?.children) {
-      findLinks(n?.children, curPath, links);
-    }
-  }
-  return links;
-};
-
 export const parserMarkdown = (
   md: string,
 ): {
@@ -874,7 +871,5 @@ export const parserMarkdown = (
 
   const root = parser.parse(markdown);
   const schema = parserBlock(root.children as any[], true) as Elements[];
-
-  const links = findLinks(schema);
-  return { schema, links };
+  return { schema, links: [] };
 };
