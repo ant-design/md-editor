@@ -34,7 +34,6 @@
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -57,7 +56,6 @@
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -74,7 +72,6 @@
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -107,7 +104,6 @@
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -160,7 +156,6 @@
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -197,7 +192,6 @@
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -228,7 +222,6 @@
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -246,7 +239,6 @@
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -279,7 +271,6 @@
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -459,7 +450,6 @@
                       >
                         <span
                           class=" "
-                          contenteditable="true"
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -486,7 +476,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -511,7 +500,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -536,7 +524,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -561,7 +548,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -590,7 +576,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -621,7 +606,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -639,7 +623,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -672,7 +655,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -852,7 +834,6 @@ for num in arr:
                       >
                         <span
                           class=" "
-                          contenteditable="true"
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -878,7 +859,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -903,7 +883,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -928,7 +907,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -957,7 +935,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -988,7 +965,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1023,7 +999,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1217,7 +1192,6 @@ for num in arr:
                       >
                         <span
                           class=" "
-                          contenteditable="true"
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -1243,7 +1217,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1268,7 +1241,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1293,7 +1265,6 @@ for num in arr:
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1349,7 +1320,6 @@ for num in arr:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -1386,7 +1356,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1417,7 +1386,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1452,7 +1420,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1483,7 +1450,6 @@ for num in arr:
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1664,7 +1630,6 @@ for num in arr:
                       >
                         <span
                           class=" "
-                          contenteditable="true"
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -1692,7 +1657,6 @@ while i &lt; len(arr):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1717,7 +1681,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1742,7 +1705,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1767,7 +1729,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1796,7 +1757,6 @@ while i &lt; len(arr):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -1827,7 +1787,6 @@ while i &lt; len(arr):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2008,7 +1967,6 @@ while i &lt; len(arr):
                       >
                         <span
                           class=" "
-                          contenteditable="true"
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -2033,7 +1991,6 @@ while i &lt; len(arr):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2058,7 +2015,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2083,7 +2039,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2108,7 +2063,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2164,7 +2118,6 @@ while i &lt; len(arr):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2201,7 +2154,6 @@ while i &lt; len(arr):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2232,7 +2184,6 @@ while i &lt; len(arr):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -2412,7 +2363,6 @@ while i &lt; len(arr):
                       >
                         <span
                           class=" "
-                          contenteditable="true"
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -2442,7 +2392,6 @@ while i &lt; len(arr):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2486,7 +2435,6 @@ while i &lt; len(arr):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2512,7 +2460,6 @@ while i &lt; len(arr):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2535,7 +2482,6 @@ while i &lt; len(arr):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2715,7 +2661,6 @@ while i &lt; len(arr):
                 >
                   <span
                     class=" "
-                    contenteditable="true"
                     data-be="text"
                     data-slate-leaf="true"
                     draggable="false"
@@ -2742,7 +2687,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2767,7 +2711,6 @@ for fruit in fruits:
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2792,7 +2735,6 @@ for fruit in fruits:
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2817,7 +2759,6 @@ for fruit in fruits:
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2842,7 +2783,6 @@ for fruit in fruits:
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2895,7 +2835,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2918,7 +2857,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2935,7 +2873,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2968,7 +2905,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3148,7 +3084,6 @@ for fruit in fruits:
                 >
                   <span
                     class=" "
-                    contenteditable="true"
                     data-be="text"
                     data-slate-leaf="true"
                     draggable="false"
@@ -3174,7 +3109,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3199,7 +3133,6 @@ for fruit in fruits:
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3224,7 +3157,6 @@ for fruit in fruits:
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3277,7 +3209,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3300,7 +3231,6 @@ for fruit in fruits:
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3480,7 +3410,6 @@ for fruit in fruits:
                 >
                   <span
                     class=" "
-                    contenteditable="true"
                     data-be="text"
                     data-slate-leaf="true"
                     draggable="false"
@@ -3508,7 +3437,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3533,7 +3461,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3558,7 +3485,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3583,7 +3509,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3636,7 +3561,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3659,7 +3583,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3839,7 +3762,6 @@ while i &lt; len(fruits):
                 >
                   <span
                     class=" "
-                    contenteditable="true"
                     data-be="text"
                     data-slate-leaf="true"
                     draggable="false"
@@ -3864,7 +3786,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3889,7 +3810,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3914,7 +3834,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3967,7 +3886,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -3990,7 +3908,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -4170,7 +4087,6 @@ while i &lt; len(fruits):
                 >
                   <span
                     class=" "
-                    contenteditable="true"
                     data-be="text"
                     data-slate-leaf="true"
                     draggable="false"
@@ -4196,7 +4112,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -4221,7 +4136,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -4246,7 +4160,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -4299,7 +4212,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -4322,7 +4234,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -4359,7 +4270,6 @@ while i &lt; len(fruits):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -4376,7 +4286,6 @@ while i &lt; len(fruits):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -4409,7 +4318,6 @@ while i &lt; len(fruits):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -4450,7 +4358,6 @@ while i &lt; len(fruits):
                   >
                     <span
                       class=" "
-                      contenteditable="true"
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
@@ -4633,7 +4540,6 @@ while i &lt; len(fruits):
                 >
                   <span
                     class=" "
-                    contenteditable="true"
                     data-be="text"
                     data-slate-leaf="true"
                     draggable="false"
@@ -4660,7 +4566,6 @@ while i &lt; len(fruits):
             >
               <span
                 class=" "
-                contenteditable="true"
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
