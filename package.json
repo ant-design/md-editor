@@ -66,6 +66,7 @@
     "rc-resize-observer": "^1.4.3",
     "react-resizable": "^3.0.5",
     "react-resizable-panels": "^2.1.7",
+    "react-spreadsheet": "^0.9.5",
     "react-use": "^17.6.0",
     "rehype-katex": "^7.0.1",
     "rehype-raw": "^7.0.0",

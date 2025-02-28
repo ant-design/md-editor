@@ -11,6 +11,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import Spreadsheet from 'react-spreadsheet';
 import { Editor, NodeEntry, Path, Transforms } from 'slate';
 import { TableCellNode, TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
@@ -21,6 +22,7 @@ import { EditorUtils } from '../../utils';
 import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
+import ToolbarOverlay from './ToolbarOverlay';
 export * from './TableCell';
 
 const _distance = (
@@ -781,6 +783,89 @@ export const Table = observer((props: RenderElementProps) => {
     };
   }, []);
 
+  const extractTableData = (input: any[]): any[][] => {
+    return input.map((row) => {
+      const element = row?.props?.children?.props?.element;
+
+      const columns = Array.isArray(element)
+        ? element
+        : Array.isArray(element?.children)
+          ? element.children
+          : [];
+
+      return columns.map((column: { children: { text: string }[] }) => {
+        const content = column?.children?.[0]?.text || '';
+        return { value: content };
+      });
+    });
+  };
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  const [data, setData] = useState(extractTableData(props.children));
+
+  const [overlayPos, setOverlayPos] = useState({
+    left: -999999999,
+    top: -999999999,
+  });
+
+  const [isColumn, setIsColumn] = useState(false);
+
+  const [opIndex, setOpIndex] = useState(0);
+
+  const handleSelect = (selected: any) => {
+    try {
+      const table = tableContainerRef.current?.querySelector(
+        '.Spreadsheet__table',
+      );
+      if (!table) return;
+
+      if (selected.constructor.name === 'EmptySelection') {
+        return;
+      }
+      let targetElement = null;
+      let isColumn = false;
+
+      const COLUMN_OFFSET = { x: -18, y: -36 };
+      const ROW_OFFSET = { x: 24, y: -36 };
+
+      if (selected.constructor.name === 'EntireColumnsSelection') {
+        isColumn = true;
+        const headerRow = table.children[1]?.children[0];
+        if (!headerRow) return;
+        setOpIndex(selected.start);
+        const colIndex = selected.start + 1;
+        targetElement = headerRow.children[colIndex];
+      } else if (selected.constructor.name === 'EntireRowsSelection') {
+        isColumn = false;
+        const bodySection = table.children[1];
+        if (!bodySection) return;
+        setOpIndex(selected.start);
+        const rowIndex = selected.start + 1;
+        const row = bodySection.children[rowIndex];
+        targetElement = row?.children[0];
+      } else {
+        setOverlayPos({ left: -999999999, top: -999999999 });
+        return;
+      }
+
+      if (targetElement) {
+        const rect = targetElement.getBoundingClientRect();
+
+        const offset = isColumn ? COLUMN_OFFSET : ROW_OFFSET;
+
+        setOverlayPos({
+          left: rect.left + offset.x,
+          top: rect.top + offset.y,
+        });
+
+        setIsColumn(isColumn);
+      }
+    } catch (error) {
+      console.error('Error calculating overlay position:', error);
+      setOverlayPos({ left: -999999999, top: -999999999 });
+    }
+  };
   return useMemo(
     () =>
       wrapSSR(
@@ -812,117 +897,138 @@ export const Table = observer((props: RenderElementProps) => {
                 overflow: readonly ? 'hidden' : undefined,
               }}
             >
-              <div
-                ref={selectionAreaRef}
-                style={{
-                  position: 'absolute',
-                  zIndex: 999,
-                  outline: '3px solid transparent',
-                  pointerEvents: 'none',
-                  display: 'none',
-                  left: 0,
-                  top: 0,
-                }}
-              ></div>
-              <div className="ant-md-editor-drag-el">
-                <DragHandle />
-              </div>
-              <div
-                className={classNames(baseCls, hashId, {
-                  [`${baseCls}-selected`]: isSel,
-                  [`${baseCls}-show-bar`]: isShowBar,
-                  [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
-                  'show-bar': isShowBar,
-                })}
-                onClick={() => {
-                  runInAction(() => {
-                    if (isSel) {
-                      store.selectTablePath = [];
-                      return;
-                    }
-                    store.selectTablePath = tablePath;
-                  });
-                }}
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  marginLeft: !readonly ? 20 : 0,
-                  marginTop: !readonly ? 4 : 0,
-                  marginRight: !readonly ? 6 : 0,
-                  overflow: !readonly ? undefined : 'auto',
-                }}
-              >
-                <div
-                  style={{
-                    visibility: isShowBar ? 'visible' : 'hidden',
-                    overflow: 'hidden',
-                  }}
-                  data-slate-editor="false"
-                >
-                  <IntersectionPointDiv
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                  />
-                  <RowSideDiv
-                    activeDeleteBtn={activeDeleteBtn}
-                    setActiveDeleteBtn={setActiveDeleteBtn}
-                    tableRef={tableTargetRef}
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                    onDeleteRow={(index) => {
-                      runTask('removeRow', index);
-                    }}
-                    onAlignChange={(index, align) => {
-                      runTask('setAligns', index, align);
-                    }}
-                    onCreateRow={(index, direction) => {
-                      if (direction === 'after') {
-                        runTask('insertRowAfter', index);
-                      }
-                      if (direction === 'before') {
-                        runTask('insertRowBefore', index);
-                      }
+              {!readonly ? (
+                <div ref={tableContainerRef} contentEditable={false}>
+                  <Spreadsheet
+                    data={data}
+                    onSelect={handleSelect}
+                    onChange={(data) => {
+                      setData(data);
                     }}
                   />
-                  <ColSideDiv
-                    onDeleteColumn={(index) => {
-                      runTask('removeCol', index);
-                    }}
-                    onAlignChange={(index, align) => {
-                      runTask('setAligns', index, align);
-                    }}
-                    onCreateColumn={(index, direction) => {
-                      if (direction === 'after') {
-                        runTask('insertColAfter', index);
-                      }
-                      if (direction === 'before') {
-                        runTask('insertColBefore', index);
-                      }
-                    }}
-                    activeDeleteBtn={activeDeleteBtn}
-                    setActiveDeleteBtn={setActiveDeleteBtn}
-                    tableRef={tableTargetRef}
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
+                  <ToolbarOverlay
+                    overlayPos={overlayPos}
+                    isColumn={isColumn}
+                    opIndex={opIndex}
+                    setData={setData}
+                    setOverlayPos={setOverlayPos}
                   />
                 </div>
-                <table
-                  draggable={false}
-                  ref={tableTargetRef}
-                  className={classNames(`${baseCls}-editor-table`, hashId)}
-                >
-                  <tbody data-slate-node="element">{props.children}</tbody>
-                </table>
-              </div>
+              ) : (
+                <>
+                  <div
+                    ref={selectionAreaRef}
+                    style={{
+                      position: 'absolute',
+                      zIndex: 999,
+                      outline: '3px solid #42a642',
+                      pointerEvents: 'none',
+                      display: 'none',
+                      left: 0,
+                      top: 0,
+                    }}
+                  ></div>
+                  <div className="ant-md-editor-drag-el">
+                    <DragHandle />
+                  </div>
+                  <div
+                    className={classNames(baseCls, hashId, {
+                      [`${baseCls}-selected`]: isSel,
+                      [`${baseCls}-show-bar`]: isShowBar,
+                      [`${baseCls}-excel-mode`]:
+                        editorProps.tableConfig?.excelMode,
+                      'show-bar': isShowBar,
+                    })}
+                    onClick={() => {
+                      runInAction(() => {
+                        if (isSel) {
+                          store.selectTablePath = [];
+                          return;
+                        }
+                        store.selectTablePath = tablePath;
+                      });
+                    }}
+                    style={{
+                      flex: 1,
+                      minWidth: 0,
+                      marginLeft: !readonly ? 20 : 0,
+                      marginTop: !readonly ? 4 : 0,
+                      marginRight: !readonly ? 6 : 0,
+                      overflow: !readonly ? undefined : 'auto',
+                    }}
+                  >
+                    <div
+                      style={{
+                        visibility: isShowBar ? 'visible' : 'hidden',
+                        overflow: 'hidden',
+                      }}
+                      data-slate-editor="false"
+                    >
+                      <IntersectionPointDiv
+                        getTableNode={() => {
+                          return props.element;
+                        }}
+                        selCells={selCells}
+                        setSelCells={setSelCells}
+                      />
+                      <RowSideDiv
+                        activeDeleteBtn={activeDeleteBtn}
+                        setActiveDeleteBtn={setActiveDeleteBtn}
+                        tableRef={tableTargetRef}
+                        getTableNode={() => {
+                          return props.element;
+                        }}
+                        selCells={selCells}
+                        setSelCells={setSelCells}
+                        onDeleteRow={(index) => {
+                          runTask('removeRow', index);
+                        }}
+                        onAlignChange={(index, align) => {
+                          runTask('setAligns', index, align);
+                        }}
+                        onCreateRow={(index, direction) => {
+                          if (direction === 'after') {
+                            runTask('insertRowAfter', index);
+                          }
+                          if (direction === 'before') {
+                            runTask('insertRowBefore', index);
+                          }
+                        }}
+                      />
+                      <ColSideDiv
+                        onDeleteColumn={(index) => {
+                          runTask('removeCol', index);
+                        }}
+                        onAlignChange={(index, align) => {
+                          runTask('setAligns', index, align);
+                        }}
+                        onCreateColumn={(index, direction) => {
+                          if (direction === 'after') {
+                            runTask('insertColAfter', index);
+                          }
+                          if (direction === 'before') {
+                            runTask('insertColBefore', index);
+                          }
+                        }}
+                        activeDeleteBtn={activeDeleteBtn}
+                        setActiveDeleteBtn={setActiveDeleteBtn}
+                        tableRef={tableTargetRef}
+                        getTableNode={() => {
+                          return props.element;
+                        }}
+                        selCells={selCells}
+                        setSelCells={setSelCells}
+                      />
+                    </div>
+                    <table
+                      ref={tableTargetRef}
+                      className={classNames(`${baseCls}-editor-table`, hashId)}
+                    >
+                      <tbody data-slate-node="element">{props.children}</tbody>
+                    </table>
+                  </div>
+                </>
+              )}
             </div>
           </ConfigProvider>
         </TableConnext.Provider>,
@@ -934,6 +1040,8 @@ export const Table = observer((props: RenderElementProps) => {
       isSel,
       JSON.stringify(selCells),
       tableNodeEntry,
+      overlayPos,
+      data,
     ],
   );
 });
