@@ -213,10 +213,7 @@ export const Table = observer((props: RenderElementProps) => {
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const [tableJSONData] = useMemo(
-    () => slateTableToJSONData(props.children),
-    [],
-  );
+  const tableJSONData = useMemo(() => slateTableToJSONData(props.children), []);
 
   return useMemo(
     () =>
@@ -261,6 +258,15 @@ export const Table = observer((props: RenderElementProps) => {
                     rowHeaders={true}
                     colHeaders={true}
                     height="auto"
+                    columnSorting={true}
+                    manualColumnResize={true}
+                    manualRowResize={true}
+                    afterColumnResize={(colIndex, size) => {
+                      console.log(colIndex, size);
+                    }}
+                    afterRowResize={(rowIndex, size) => {
+                      console.log(rowIndex, size);
+                    }}
                     afterChange={(dataList, source) => {
                       dataList?.forEach((data) => {
                         if (source === 'edit' && data) {
@@ -346,6 +352,7 @@ export const Table = observer((props: RenderElementProps) => {
                           }
                         }
                       });
+                      console.log(source);
                     }}
                     autoWrapRow={true}
                     autoWrapCol={true}
