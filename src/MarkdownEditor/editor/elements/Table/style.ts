@@ -59,7 +59,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
         tr: {
-          borderBottom: '1px solid #e8e8e8',
+          '&:first-child td': {
+            borderTop: '1px solid #e8e8e8',
+          },
           td: {
             borderBottom: '1px solid #e8e8e8',
           },

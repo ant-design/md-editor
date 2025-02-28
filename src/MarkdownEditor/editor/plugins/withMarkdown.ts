@@ -147,9 +147,39 @@ export const withMarkdown = (editor: Editor) => {
       const node = Node.get(editor, operation.path);
       if (node?.type === 'table-cell') return;
     }
-
+    /**
+     * 处理删除节点和插入文本的操作，主要用于富文本编辑器中的卡片、表格和链接相关逻辑。
+ *
+ * @operation.remove_node 删除操作：
+ *  - 当删除一个`card`节点时：
+ *    如果当前选中路径的父节点不是`card-after`类型，则选择新的路径并执行操作。这确保在删除卡片后，焦点移动到正确的位
+置。
+ *
+ *  - 当删除的是一个`card-after`节点：
+ *    移除该节点，并返回。这可能用于清理卡片结构，避免冗余节点。
+ *
+ *  - `card-before`类型节点的删除直接忽略，不做处理。
+ *
+ *  - 处理表格相关节点（`table-row`和`table-cell`）时，调用`apply(operation)`函数。此处假设`apply`负责更新或维护表格
+结构。
+ *
+ *  - 如果父节点是`link-card`类型，则移除该节点，确保链接卡片的正确处理和清理。
+ *
+ * @operation.insert_text 插入文本：
+ *  - 当插入位置在`card-after`节点内时：
+ *    检查祖父节点是否为`card`。如果是，则插入新的段落节点，并设置焦点到新插入的位置，以允许继续编辑。
+ */
     if (operation.type === 'remove_node') {
       const { node } = operation;
+      const selectPath = editor.selection?.anchor?.path;
+      const selectionNode = selectPath
+        ? Node.get(editor, Path.parent(selectPath))
+        : null;
+      // 删除card时，选中card_AFTER 节点
+      if (node.type === 'card' && selectionNode?.type !== 'card-after') {
+        Transforms.select(editor, [...(operation.path || []), 2]);
+        return;
+      }
       if (node.type === 'card-after') {
         Transforms.removeNodes(editor, {
           at: Path.parent(operation.path),
@@ -273,6 +303,7 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
+
     deleteBackward(unit);
   };
 

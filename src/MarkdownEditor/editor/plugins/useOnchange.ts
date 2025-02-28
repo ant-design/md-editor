@@ -20,7 +20,7 @@ export const selChange$ = new Subject<{
   sel: BaseSelection;
   node: NodeEntry<any>;
 } | null>();
-const floatBarIgnoreNode = new Set(['code-line', 'code']);
+const floatBarIgnoreNode = new Set(['code']);
 
 /**
  * 用于处理编辑器内容变化的自定义钩子函数。

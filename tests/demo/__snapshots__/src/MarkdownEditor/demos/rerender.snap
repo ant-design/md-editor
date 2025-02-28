@@ -8362,6 +8362,7 @@
                 </span>
                 <span
                   class="  ant-md-editor-content-fnc"
+                  contenteditable="false"
                   data-be="text"
                   data-fnc="fnc"
                   data-fnc-name="1"
@@ -8373,6 +8374,7 @@
                 </span>
                 <span
                   class="  ant-md-editor-content-fnc"
+                  contenteditable="false"
                   data-be="text"
                   data-fnc="fnc"
                   data-fnc-name="2"
@@ -9753,6 +9755,7 @@
                   </span>
                   <span
                     class="  ant-md-editor-content-fnc"
+                    contenteditable="false"
                     data-be="text"
                     data-fnc="fnc"
                     data-fnc-name="3"
@@ -10162,7 +10165,7 @@
                 </div>
               </div>
               <span
-                style="font-size: 150px; width: 2px; height: 150px; line-height: 1;"
+                style="font-size: 150px; width: 2px; height: 150px; line-height: 1; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -10219,11 +10222,11 @@
             >
               <div
                 class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
               >
                 <div
                   contenteditable="false"
-                  style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                 >
                   <div
                     style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -10371,116 +10374,26 @@
                 <div
                   class="ant-md-editor-hidden"
                 >
-                  <div
-                    class="ant-md-editor-drag-el"
-                    data-be="paragraph"
-                    data-slate-node="element"
+                  <span
+                    data-slate-node="text"
                   >
                     <span
-                      data-slate-node="text"
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
                     >
                       <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
+                        data-slate-string="true"
                       >
-                        <span
-                          data-slate-string="true"
-                        >
-                          Class A {
-                        </span>
+                        Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}
                       </span>
                     </span>
-                  </div>
-                  <div
-                    class="ant-md-editor-drag-el"
-                    data-be="paragraph"
-                    data-slate-node="element"
-                  >
-                    <span
-                      data-slate-node="text"
-                    >
-                      <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                            main() {
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                  <div
-                    class="ant-md-editor-drag-el"
-                    data-be="paragraph"
-                    data-slate-node="element"
-                  >
-                    <span
-                      data-slate-node="text"
-                    >
-                      <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                              System.out.println("Hello World");
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                  <div
-                    class="ant-md-editor-drag-el"
-                    data-be="paragraph"
-                    data-slate-node="element"
-                  >
-                    <span
-                      data-slate-node="text"
-                    >
-                      <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                            }
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                  <div
-                    class="ant-md-editor-drag-el"
-                    data-be="paragraph"
-                    data-slate-node="element"
-                  >
-                    <span
-                      data-slate-node="text"
-                    >
-                      <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
-                      >
-                        <span
-                          data-slate-string="true"
-                        >
-                          }
-                        </span>
-                      </span>
-                    </span>
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>

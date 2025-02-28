@@ -7,7 +7,6 @@ import {
   BaseRange,
   BaseSelection,
   Editor,
-  Element,
   Node,
   Path,
   Range,
@@ -189,6 +188,7 @@ export const MEditor = observer(
     };
 
     const checkEnd = (e: React.MouseEvent) => {
+      if (readonly) return;
       if (!store.focus) {
         markdownEditorRef.current.selection = null;
       }
@@ -211,6 +211,7 @@ export const MEditor = observer(
      * @description focus event
      */
     const onFocus = () => {
+      if (readonly) return;
       store.setState((state) => (state.focus = true));
     };
 
@@ -220,6 +221,7 @@ export const MEditor = observer(
      * @param {React.FocusEvent<HTMLDivElement>} e
      */
     const onBlur = () => {
+      if (readonly) return;
       store.setState((state) => {
         state.focus = false;
         state.tableCellNode = null;
@@ -471,24 +473,6 @@ export const MEditor = observer(
             return;
           }
         } catch (e) {}
-
-        const [node] = Editor.nodes<Elements>(markdownEditorRef.current, {
-          match: (n) => Element.isElement(n) && n.type === 'code',
-        });
-
-        if (node) {
-          Transforms.insertFragment(
-            markdownEditorRef.current,
-            //@ts-ignore
-            text.split('\n').map((c) => {
-              return {
-                type: 'code-line',
-                children: [{ text: c.replace(/\t/g, ' '.repeat(2)) }],
-              };
-            }),
-          );
-          return;
-        }
 
         if (isMarkdown(text)) {
           parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);

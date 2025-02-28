@@ -3178,7 +3178,7 @@
                   </div>
                 </div>
                 <span
-                  style="font-size: 150px; width: 2px; height: 150px; line-height: 1;"
+                  style="font-size: 150px; width: 2px; height: 150px; line-height: 1; display: none;"
                 >
                   <span
                     data-slate-node="text"
@@ -3371,9 +3371,13 @@
                   <a
                     class="ant-anchor-link-title"
                     href="#腾讯研究报告"
-                    title="腾讯研究报告"
+                    title=""
                   >
-                    腾讯研究报告
+                    <span
+                      style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                    >
+                      腾讯研究报告
+                    </span>
                   </a>
                   <div
                     class="ant-anchor-link ant-anchor-link-active"
@@ -3381,9 +3385,13 @@
                     <a
                       class="ant-anchor-link-title ant-anchor-link-title-active"
                       href="#创始人"
-                      title="创始人"
+                      title=""
                     >
-                      创始人
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        创始人
+                      </span>
                     </a>
                   </div>
                   <div
@@ -3392,9 +3400,13 @@
                     <a
                       class="ant-anchor-link-title"
                       href="#表格"
-                      title="表格"
+                      title=""
                     >
-                      表格
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        表格
+                      </span>
                     </a>
                   </div>
                   <div
@@ -3403,9 +3415,13 @@
                     <a
                       class="ant-anchor-link-title"
                       href="#图表"
-                      title="图表"
+                      title=""
                     >
-                      图表
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        图表
+                      </span>
                     </a>
                   </div>
                   <div
@@ -3414,9 +3430,13 @@
                     <a
                       class="ant-anchor-link-title"
                       href="#表单"
-                      title="表单"
+                      title=""
                     >
-                      表单
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        表单
+                      </span>
                     </a>
                   </div>
                   <div
@@ -3425,9 +3445,13 @@
                     <a
                       class="ant-anchor-link-title"
                       href="#删除线"
-                      title="删除线"
+                      title=""
                     >
-                      删除线
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        删除线
+                      </span>
                     </a>
                   </div>
                 </div>

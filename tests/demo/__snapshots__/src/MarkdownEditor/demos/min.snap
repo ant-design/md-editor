@@ -27,58 +27,6 @@
             zindex="-1"
           >
             <h2
-              class="ant-md-editor-drag-el empty"
-              data-be="head"
-              data-head=""
-              data-slate-node="element"
-              data-title="true"
-              id=""
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
-                  >
-                    ﻿
-                    <br />
-                  </span>
-                </span>
-              </span>
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      style="padding: 24px; border: 1px solid #f0f0f0; margin: 20px auto; width: 100%;"
-    >
-      <div
-        class="markdown-editor ant-md-editor ant-md-editor-readonly"
-        style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
-      >
-        <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
-        >
-          <div
-            autocapitalize="false"
-            autocorrect="false"
-            class="ant-md-editor-content-readonly ant-md-editor-content"
-            contenteditable="false"
-            data-slate-editor="true"
-            data-slate-node="value"
-            spellcheck="false"
-            style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-            zindex="-1"
-          >
-            <h2
               class="ant-md-editor-drag-el"
               data-be="head"
               data-head="创始人"
@@ -148,16 +96,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#创始人"
-                        title="创始人"
+                        title=""
                       >
-                        创始人
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          创始人
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -3332,16 +3288,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#表格"
-                        title="表格"
+                        title=""
                       >
-                        表格
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          表格
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -4137,16 +4101,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#description"
-                        title="Description"
+                        title=""
                       >
-                        Description
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          Description
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -5173,16 +5145,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#图表"
-                        title="图表"
+                        title=""
                       >
-                        图表
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          图表
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -5402,16 +5382,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#图片"
-                        title="图片"
+                        title=""
                       >
-                        图片
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          图片
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -5592,16 +5580,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#视频"
-                        title="视频"
+                        title=""
                       >
-                        视频
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          视频
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -5831,16 +5827,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#附件"
-                        title="附件"
+                        title=""
                       >
-                        附件
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          附件
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -7533,6 +7537,7 @@
                   </span>
                   <span
                     class="  ant-md-editor-content-fnc"
+                    contenteditable="false"
                     data-be="text"
                     data-fnc="fnc"
                     data-fnc-name="3"
@@ -7632,16 +7637,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#引用"
-                        title="引用"
+                        title=""
                       >
-                        引用
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          引用
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -7730,7 +7743,7 @@
                 </div>
               </div>
               <span
-                style="font-size: 150px; width: 2px; height: 150px; line-height: 1;"
+                style="font-size: 150px; width: 2px; height: 150px; line-height: 1; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -7775,16 +7788,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link"
                     >
                       <a
                         class="ant-anchor-link-title"
                         href="#表单"
-                        title="表单"
+                        title=""
                       >
-                        表单
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          表单
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -7900,16 +7921,24 @@
                       class="ant-anchor-link-title"
                       href="#undefined"
                       title=""
-                    />
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      />
+                    </a>
                     <div
                       class="ant-anchor-link ant-anchor-link-active"
                     >
                       <a
                         class="ant-anchor-link-title ant-anchor-link-title-active"
                         href="#删除线"
-                        title="删除线"
+                        title=""
                       >
-                        删除线
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          删除线
+                        </span>
                       </a>
                     </div>
                   </div>

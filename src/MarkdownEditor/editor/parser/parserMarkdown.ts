@@ -21,6 +21,7 @@ import {
   TableNode,
   TableRowNode,
 } from '../../el';
+import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import parser from './remarkParse';
@@ -88,8 +89,9 @@ const parseText = (
       leafs = leafs.concat(
         parseText(n.children, { ...leaf, strikethrough: true }),
       );
-    if (n.type === 'link')
+    if (n.type === 'link') {
       leafs = leafs.concat(parseText(n.children, { ...leaf, url: n?.url }));
+    }
     if (n.type === 'inlineCode')
       leafs.push({ ...leaf, text: n.value, code: true });
     // @ts-ignore
@@ -319,17 +321,21 @@ const parserBlock = (
             if (currentElement.value === '<br/>') {
               el = { type: 'paragraph', children: [{ text: '' }] };
             } else {
-              el = {
-                type: 'code',
-                language: 'html',
-                render: true,
-                children: currentElement.value.split('\n').map((s: any) => {
-                  return {
-                    type: 'code-line',
-                    children: [{ text: s }],
+              el = currentElement.value.match(
+                /<\/?(table|div|ul|li|ol|p)[^\n>]*?>/,
+              )
+                ? htmlToFragmentList(currentElement.value, '')
+                : {
+                    type: 'code',
+                    language: 'html',
+                    render: true,
+                    value: currentElement.value,
+                    children: [
+                      {
+                        text: currentElement.value,
+                      },
+                    ],
                   };
-                }),
-              };
             }
           }
         } else {
@@ -353,6 +359,7 @@ const parserBlock = (
                 if (tag === 'span') {
                   try {
                     const styles = str.match(/style="([^"\n]+)"/);
+
                     if (styles) {
                       // @ts-ignore
                       const stylesMap = new Map(
@@ -381,11 +388,14 @@ const parserBlock = (
                     });
                   }
                 } else if (tag === 'font') {
-                  const color = str.match(/color="([^"\n]+)"/);
+                  let color = str.match(/color="([^"\n]+)"/);
+                  if (!color) {
+                    color = str.match(/color=([^"\n]+)/);
+                  }
                   if (color) {
                     htmlTag.push({
                       tag: tag,
-                      color: color[1],
+                      color: color[1].replaceAll('>', ''),
                     });
                   }
                 } else {
@@ -404,6 +414,7 @@ const parserBlock = (
         }
 
         if (el) {
+          el.isConfig = currentElement?.value.trim()?.startsWith('<!--');
           el.otherProps = contextProps;
         }
 
@@ -648,7 +659,6 @@ const parserBlock = (
           currentElement.lang === 'schema' ||
           currentElement.lang === 'apaasify' ||
           currentElement.lang === 'apassify';
-
         el = {
           type: isSchema
             ? currentElement.lang === 'apassify'
@@ -661,19 +671,18 @@ const parserBlock = (
               : currentElement.lang,
           render: currentElement.meta === 'render',
           value: isSchema ? json : currentElement.value,
-          otherProps: config,
+          isConfig: currentElement?.value.trim()?.startsWith('<!--'),
           children: isSchema
             ? [
                 {
                   text: '',
                 },
               ]
-            : currentElement.value.split('\n').map((s: any) => {
-                return {
-                  type: 'code-line',
-                  children: [{ text: s }],
-                };
-              }),
+            : [
+                {
+                  text: currentElement.value,
+                },
+              ],
         };
         break;
       case 'yaml':
@@ -682,12 +691,7 @@ const parserBlock = (
           language: 'yaml',
           value: currentElement.value,
           frontmatter: true,
-          children: currentElement.value.split('\n').map((s: any) => {
-            return {
-              type: 'code-line',
-              children: [{ text: s }],
-            };
-          }),
+          children: [{ text: currentElement.value }],
         };
         break;
       case 'blockquote':
@@ -707,17 +711,16 @@ const parserBlock = (
           if (currentElement.value) {
             for (let t of htmlTag) {
               if (t.tag === 'font') {
-                console.log(t);
                 el.color = t.color;
               }
               if (t.tag === 'sup') el.identifier = el.text;
               if (t.tag === 'sub') el.identifier = el.text;
-
               if (t.tag === 'code') el.code = true;
               if (t.tag === 'i') el.italic = true;
               if (t.tag === 'b' || t.tag === 'strong') el.bold = true;
               if (t.tag === 'del') el.strikethrough = true;
-              if (t.tag === 'span' && t.color) el.highColor = t.color;
+              if ((t.tag === 'span' || t.tag === 'font') && t.color)
+                el.highColor = t.color;
               if (t.tag === 'a' && t?.url) {
                 el.url = t?.url;
               }
@@ -738,6 +741,7 @@ const parserBlock = (
             el = { text: currentElement.value };
           } else {
             const leaf: CustomLeaf = {};
+
             if (currentElement.type === 'strong') leaf.bold = true;
             if (currentElement.type === 'emphasis') leaf.italic = true;
             if (currentElement.type === 'delete') leaf.strikethrough = true;
@@ -748,14 +752,45 @@ const parserBlock = (
                 leaf.url = currentElement?.url;
               }
             }
-            el = parseText(
-              // @ts-ignore
-              currentElement.children?.length
-                ? // @ts-ignore
-                  currentElement.children
-                : [{ value: leaf?.url || '' }],
-              leaf,
-            );
+            if (leaf) {
+              for (let t of htmlTag) {
+                if (t.tag === 'font') {
+                  leaf.color = t.color;
+                }
+                if (t.tag === 'sup') leaf.identifier = el.text;
+                if (t.tag === 'sub') leaf.identifier = el.text;
+                if (t.tag === 'code') leaf.code = true;
+                if (t.tag === 'i') leaf.italic = true;
+                if (t.tag === 'b' || t.tag === 'strong') leaf.bold = true;
+                if (t.tag === 'del') leaf.strikethrough = true;
+                if ((t.tag === 'span' || t.tag === 'font') && t.color)
+                  leaf.highColor = t.color;
+              }
+            }
+            if (
+              (currentElement as any)?.children?.some(
+                (n: any) => n.type === 'html',
+              )
+            ) {
+              el = {
+                ...parserBlock(
+                  (currentElement as any)?.children,
+                  false,
+                  currentElement,
+                )?.at(0),
+                url: leaf.url,
+              };
+            } else {
+              el = parseText(
+                // @ts-ignore
+                currentElement.children?.length
+                  ? // @ts-ignore
+                    currentElement.children
+                  : [{ value: leaf?.url || '' }],
+                leaf,
+              );
+              console.log('el', el);
+            }
           }
         } else if (currentElement.type === 'break') {
           el = { text: '\n' };
@@ -812,26 +847,6 @@ const parserBlock = (
   });
 };
 
-const findLinks = (
-  schema: any[],
-  prePath: number[] = [],
-  links: { path: number[]; target: string }[] = [],
-) => {
-  if (!schema) return links;
-  for (let i = 0; i < schema.length; i++) {
-    const n = schema[i];
-    if (!n) continue;
-    const curPath = [...(prePath || []), i];
-    if (n?.url) {
-      links?.push?.({ path: curPath, target: n?.url });
-    }
-    if (n?.children) {
-      findLinks(n?.children, curPath, links);
-    }
-  }
-  return links;
-};
-
 export const parserMarkdown = (
   md: string,
 ): {
@@ -856,6 +871,5 @@ export const parserMarkdown = (
 
   const root = parser.parse(markdown);
   const schema = parserBlock(root.children as any[], true) as Elements[];
-  const links = findLinks(schema);
-  return { schema, links };
+  return { schema, links: [] };
 };

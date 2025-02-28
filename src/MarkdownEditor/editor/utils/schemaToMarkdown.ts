@@ -56,12 +56,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
         schemaToMarkdown(node?.children, preString, newParent);
       break;
     case 'code':
-      const code = node?.children
-        // @ts-ignore
-        .map((c) => {
-          return preString + c.children?.[0]?.text || '';
-        })
-        .join('\n');
+      const code = node?.value;
       if (node.language === 'html' && node.render) {
         str += `${preString}\n${code}\n${preString}`;
       } else if (node.frontmatter) {
@@ -187,7 +182,7 @@ export const schemaToMarkdown = (
   let str = '';
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i];
-    if (node.otherProps) {
+    if (node.otherProps && Object.keys(node.otherProps).length) {
       let configProps = {
         ...node.otherProps,
       };

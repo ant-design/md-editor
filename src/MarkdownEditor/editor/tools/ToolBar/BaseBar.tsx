@@ -1,6 +1,6 @@
 ﻿import {
   BoldOutlined,
-  ClearOutlined,
+  HighlightOutlined,
   ItalicOutlined,
   LinkOutlined,
   PlusCircleFilled,
@@ -23,6 +23,23 @@ const HeatTextMap = {
   2: '段落标题',
   3: '小标题',
   4: '正文',
+};
+
+const ClearIcon = () => {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+    >
+      <path
+        d="M604.536246 736.222443l288.794439-282.693148-287.777557-270.999007-270.999007 283.201589z m-72.70705 71.181728L264.389275 539.455809 145.922542 660.973188l164.734856 164.734856a50.844091 50.844091 0 0 0 36.099305 14.744786h107.789474a101.688183 101.688183 0 0 0 71.181728-28.981132z m109.314796 35.082423h254.220457a50.844091 50.844091 0 0 1 0 101.688183H346.248262a152.532274 152.532274 0 0 1-107.789474-44.742801l-164.734856-164.734856a101.688183 101.688183 0 0 1 0-142.363456l457.596823-480.476663a101.688183 101.688183 0 0 1 143.380337-3.559086l287.269117 270.999007a101.688183 101.688183 0 0 1 4.067527 143.888778l-3.050646 3.050646z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
 };
 
 const LineCode = () => {
@@ -254,7 +271,7 @@ export const BaseToolBar = observer(
               EditorUtils.highColor(markdownEditorRef.current);
             }}
           >
-            <ClearOutlined />
+            <ClearIcon />
           </div>
         </Tooltip>,
       );
@@ -332,6 +349,8 @@ export const BaseToolBar = observer(
                 opacity: 0,
                 top: 0,
                 left: 0,
+                width: '100%',
+                height: '100%',
               }}
               size="small"
               value={highColor}
@@ -343,7 +362,6 @@ export const BaseToolBar = observer(
               ]}
               onChange={(e) => {
                 localStorage.setItem('high-color', e.toHexString());
-                console.log(markdownEditorRef.current);
                 EditorUtils.highColor(
                   markdownEditorRef.current,
                   e.toHexString(),
@@ -366,6 +384,7 @@ export const BaseToolBar = observer(
                 textDecoration: 'underline solid ' + highColor,
                 textDecorationThickness: 2,
                 lineHeight: 1,
+                color: highColor || undefined,
               }}
               role="button"
               onMouseEnter={(e) => e.stopPropagation()}
@@ -385,17 +404,7 @@ export const BaseToolBar = observer(
                 }
               }}
             >
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: 16,
-                  height: 16,
-                  textAlign: 'center',
-                  marginTop: -1,
-                }}
-              >
-                A
-              </span>
+              <HighlightOutlined />
             </div>
           </div>
         </Tooltip>,
@@ -429,44 +438,42 @@ export const BaseToolBar = observer(
         );
       });
 
-      if (['head', 'paragraph'].includes(node?.[0]?.type)) {
-        list.push(
-          <Divider
-            key="divider2"
-            type="vertical"
-            style={{
-              margin: '0 4px',
-              height: '18px',
-              borderColor: 'rgba(0,0,0,0.15)',
+      list.push(
+        <Divider
+          key="divider2"
+          type="vertical"
+          style={{
+            margin: '0 4px',
+            height: '18px',
+            borderColor: 'rgba(0,0,0,0.15)',
+          }}
+        />,
+      );
+      list.push(
+        <Tooltip title="插入链接" key="link">
+          <div
+            key="link"
+            role="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              openLink();
             }}
-          />,
-        );
-        list.push(
-          <Tooltip title="插入链接" key="link">
-            <div
-              key="link"
-              role="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                openLink();
-              }}
-              className={classnames(`${baseClassName}-item`, hashId)}
-              style={{
-                color: EditorUtils.isFormatActive(
-                  markdownEditorRef.current,
-                  'url',
-                )
-                  ? '#1677ff'
-                  : undefined,
-              }}
-            >
-              <LinkOutlined />
-            </div>
-          </Tooltip>,
-        );
-      }
+            className={classnames(`${baseClassName}-item`, hashId)}
+            style={{
+              color: EditorUtils.isFormatActive(
+                markdownEditorRef.current,
+                'url',
+              )
+                ? '#1677ff'
+                : undefined,
+            }}
+          >
+            <LinkOutlined />
+          </div>
+        </Tooltip>,
+      );
       if (props.hideTools) {
         list = list.filter((l) => {
           return !props?.hideTools?.includes(l.key as ToolsKeyType);
@@ -524,181 +531,162 @@ export const BaseToolBar = observer(
               EditorUtils.highColor(markdownEditorRef.current);
             }}
           >
-            <ClearOutlined />
+            <ClearIcon />
           </div>
         </Tooltip>
-        {['head', 'paragraph'].includes(node?.[0]?.type) ? (
-          <>
-            <Divider
-              type="vertical"
-              style={{
-                margin: '0 4px',
-                height: '18px',
-                borderColor: 'rgba(0,0,0,0.15)',
-              }}
-              key={'divider'}
-            />
-            <Dropdown
-              menu={{
-                items: ['H1', 'H2', 'H3'].map((item, index) => {
-                  if (
-                    props.hideTools &&
-                    props.hideTools.includes(item as 'H1')
-                  ) {
-                    return null;
-                  }
-                  return {
-                    label: HeatTextMap[item.replace('H', '') as '1'] || item,
-                    key: item,
-                    onClick: () => {
-                      keyTask$.next({
-                        key: 'head',
-                        args: [index + 1],
-                      });
-                    },
-                  };
-                }),
-              }}
-            >
-              <Tooltip title="标题">
-                <div
-                  role="button"
-                  className={classnames(`${baseClassName}-item`, hashId)}
-                  style={{
-                    minWidth: 36,
-                    textAlign: 'center',
-                    fontSize: node?.[0]?.level ? 14 : 12,
-                    justifyContent: 'center',
-                    lineHeight: 1,
-                  }}
-                >
-                  {node?.[0]?.level
-                    ? `${
-                        HeatTextMap[(node[0].level + '') as '1'] ||
-                        `H${node[0].level}`
-                      }`
-                    : '正文'}
-                </div>
-              </Tooltip>
-            </Dropdown>
+        <Divider
+          type="vertical"
+          style={{
+            margin: '0 4px',
+            height: '18px',
+            borderColor: 'rgba(0,0,0,0.15)',
+          }}
+          key={'divider'}
+        />
+        <Dropdown
+          menu={{
+            items: ['H1', 'H2', 'H3'].map((item, index) => {
+              if (props.hideTools && props.hideTools.includes(item as 'H1')) {
+                return null;
+              }
+              return {
+                label: HeatTextMap[item.replace('H', '') as '1'] || item,
+                key: item,
+                onClick: () => {
+                  keyTask$.next({
+                    key: 'head',
+                    args: [index + 1],
+                  });
+                },
+              };
+            }),
+          }}
+        >
+          <Tooltip title="标题">
             <div
-              key="color"
               role="button"
               className={classnames(`${baseClassName}-item`, hashId)}
               style={{
-                position: 'relative',
+                minWidth: 36,
+                textAlign: 'center',
+                fontSize: node?.[0]?.level ? 14 : 12,
+                justifyContent: 'center',
+                lineHeight: 1,
               }}
             >
-              <ColorPicker
-                style={{
-                  position: 'absolute',
-                  opacity: 0,
-                  width: '100%',
-                  height: '100%',
-                  top: 0,
-                  left: 0,
-                }}
-                size="small"
-                value={highColor}
-                presets={[
-                  {
-                    label: 'Colors',
-                    colors: colors.map((c) => c.color),
-                  },
-                ]}
-                onChange={(e) => {
-                  localStorage.setItem('high-color', e.toHexString());
+              {node?.[0]?.level
+                ? `${
+                    HeatTextMap[(node[0].level + '') as '1'] ||
+                    `H${node[0].level}`
+                  }`
+                : '正文'}
+            </div>
+          </Tooltip>
+        </Dropdown>
+        <div
+          key="color"
+          role="button"
+          className={classnames(`${baseClassName}-item`, hashId)}
+          style={{
+            position: 'relative',
+          }}
+        >
+          <ColorPicker
+            style={{
+              position: 'absolute',
+              opacity: 0,
+              width: '100%',
+              height: '100%',
+              top: 0,
+              left: 0,
+            }}
+            size="small"
+            value={highColor}
+            presets={[
+              {
+                label: 'Colors',
+                colors: colors.map((c) => c.color),
+              },
+            ]}
+            onChange={(e) => {
+              localStorage.setItem('high-color', e.toHexString());
+              EditorUtils.highColor(markdownEditorRef.current, e.toHexString());
+              setHighColor(e.toHexString());
+              setRefresh((r) => !r);
+            }}
+          />
+          <Tooltip title="字体颜色">
+            <div
+              style={{
+                display: 'flex',
+                height: '100%',
+                alignItems: 'center',
+                fontWeight: EditorUtils.isFormatActive(
+                  markdownEditorRef.current,
+                  'highColor',
+                )
+                  ? 'bold'
+                  : undefined,
+                textDecoration: 'underline solid ' + highColor,
+                textDecorationLine: 'underline',
+                textDecorationThickness: 2,
+                lineHeight: 1,
+                color: highColor || undefined,
+              }}
+              role="button"
+              onMouseEnter={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (
+                  EditorUtils.isFormatActive(
+                    markdownEditorRef.current,
+                    'highColor',
+                  )
+                ) {
+                  EditorUtils.highColor(markdownEditorRef.current);
+                } else {
                   EditorUtils.highColor(
                     markdownEditorRef.current,
-                    e.toHexString(),
+                    highColor || '#10b981',
                   );
-                  setHighColor(e.toHexString());
-                  setRefresh((r) => !r);
-                }}
-              />
-              <Tooltip title="字体颜色">
-                <div
-                  style={{
-                    display: 'flex',
-                    height: '100%',
-                    alignItems: 'center',
-                    fontWeight: EditorUtils.isFormatActive(
-                      markdownEditorRef.current,
-                      'highColor',
-                    )
-                      ? 'bold'
-                      : undefined,
-                    textDecoration: 'underline solid ' + highColor,
-                    textDecorationLine: 'underline',
-                    textDecorationThickness: 2,
-                    lineHeight: 1,
-                  }}
-                  role="button"
-                  onMouseEnter={(e) => e.stopPropagation()}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (
-                      EditorUtils.isFormatActive(
-                        markdownEditorRef.current,
-                        'highColor',
-                      )
-                    ) {
-                      EditorUtils.highColor(markdownEditorRef.current);
-                    } else {
-                      EditorUtils.highColor(
-                        markdownEditorRef.current,
-                        highColor || '#10b981',
-                      );
-                    }
-                  }}
-                >
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: 16,
-                      height: 16,
-                      textAlign: 'center',
-                      marginTop: -1,
-                    }}
-                  >
-                    A
-                  </span>
-                </div>
-              </Tooltip>
+                }
+              }}
+            >
+              <HighlightOutlined />
             </div>
-            {tools.map((tool) => {
-              return (
-                <Tooltip key={tool.key} title={tool.title}>
-                  <div
-                    role="button"
-                    key={tool.key}
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      EditorUtils.toggleFormat(
-                        markdownEditorRef.current,
-                        tool.type,
-                      );
-                    }}
-                    className={classnames(`${baseClassName}-item`, hashId)}
-                    style={{
-                      color: EditorUtils.isFormatActive(
-                        markdownEditorRef.current,
-                        tool.type,
-                      )
-                        ? '#1677ff'
-                        : undefined,
-                    }}
-                  >
-                    {tool.icon}
-                  </div>
-                </Tooltip>
-              );
-            })}
-          </>
-        ) : null}
+          </Tooltip>
+        </div>
+        {tools.map((tool) => {
+          return (
+            <Tooltip key={tool.key} title={tool.title}>
+              <div
+                role="button"
+                key={tool.key}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  EditorUtils.toggleFormat(
+                    markdownEditorRef.current,
+                    tool.type,
+                  );
+                }}
+                className={classnames(`${baseClassName}-item`, hashId)}
+                style={{
+                  color: EditorUtils.isFormatActive(
+                    markdownEditorRef.current,
+                    tool.type,
+                  )
+                    ? '#1677ff'
+                    : undefined,
+                }}
+              >
+                {tool.icon}
+              </div>
+            </Tooltip>
+          );
+        })}
       </>
     );
 

@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 import React from 'react';
 import {
-  BasePoint,
   Editor,
   Element,
   Node,
@@ -12,12 +11,7 @@ import {
   Text,
   Transforms,
 } from 'slate';
-import {
-  CodeLineNode,
-  NodeTypes,
-  ParagraphNode,
-  TableCellNode,
-} from '../../../el';
+import { NodeTypes, ParagraphNode, TableCellNode } from '../../../el';
 
 export class TabKey {
   constructor(private readonly editor: Editor) {}
@@ -29,8 +23,7 @@ export class TabKey {
     if (Range.isCollapsed(sel)) {
       const [node] = Editor.nodes<any>(this.editor, {
         match: (n) =>
-          Element.isElement(n) &&
-          ['table-cell', 'paragraph', 'code-line'].includes(n.type),
+          Element.isElement(n) && ['table-cell', 'paragraph'].includes(n.type),
         mode: 'lowest',
       });
       if (sel && Editor.hasPath(this.editor, sel.anchor.path)) {
@@ -45,9 +38,6 @@ export class TabKey {
               if (parent && parent[0].type === 'list-item') {
                 if (this.listItem(node, e)) return;
               }
-              break;
-            case 'code-line':
-              if (this.codeLine(e, node, sel)) return;
               break;
           }
         }
@@ -84,37 +74,6 @@ export class TabKey {
           Point.compare(Editor.start(this.editor, code[1]), start) !== 1 &&
           Point.compare(Editor.end(this.editor, code[1]), end) !== -1
         ) {
-          const nodes = Editor.nodes(this.editor, {
-            match: (n) => n?.type === 'code-line',
-          });
-          // @ts-ignore
-          for (let [el, path] of nodes) {
-            const start = Editor.start(this.editor, path);
-            if (e.shiftKey) {
-              const str = Node.string(el);
-              const reg = /^(\t|\s{1,2})/;
-              const m = str.match(reg);
-              if (m) {
-                const length = m[0].length;
-                Transforms.delete(this.editor, {
-                  at: {
-                    anchor: {
-                      path: start.path,
-                      offset: 0,
-                    },
-                    focus: {
-                      path: start.path,
-                      offset: length,
-                    },
-                  },
-                });
-              }
-            } else {
-              Transforms.insertFragment(this.editor, [{ text: '  ' }], {
-                at: start,
-              });
-            }
-          }
           return;
         }
       } else if (e.shiftKey) {
@@ -141,44 +100,6 @@ export class TabKey {
         offset: end.offset,
       });
     }
-  }
-
-  private codeLine(
-    e: React.KeyboardEvent,
-    node: NodeEntry<CodeLineNode>,
-    sel: Range,
-  ) {
-    if (e.shiftKey) {
-      const str = Node.string(node[0]);
-      const reg = /^(\t|\s{1,2})/;
-      const m = str.match(reg);
-      if (m) {
-        const length = m[0].length;
-        Transforms.delete(this.editor, {
-          at: {
-            anchor: {
-              path: sel.anchor.path,
-              offset: 0,
-            },
-            focus: {
-              path: sel.anchor.path,
-              offset: length,
-            },
-          },
-        });
-        const point: BasePoint = {
-          path: sel.anchor.path,
-          offset: sel.anchor.offset - length,
-        };
-        Transforms.select(this.editor, {
-          anchor: point,
-          focus: point,
-        });
-      }
-    } else {
-      Transforms.insertText(this.editor, '  ');
-    }
-    return true;
   }
 
   private tableCell(node: TableCellNode, nodePath: Path, shift = false) {

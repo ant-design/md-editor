@@ -246,7 +246,8 @@ export const MLeaf = (
           className={`${className}`}
           style={{
             ...style,
-            textDecorationColor: '#1677ff',
+            textDecoration: 'underline',
+            textDecorationColor: style?.color || '#1677ff',
             textUnderlineOffset: '4px',
             color: '#1677ff',
             cursor: 'pointer',
@@ -272,6 +273,7 @@ export const MLeaf = (
           selectFormat();
         }
       }}
+      contentEditable={leaf.fnc ? false : undefined}
       data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
       data-fnd={leaf.fnd ? 'fnd' : undefined}
       data-comment={leaf.comment ? 'comment' : undefined}

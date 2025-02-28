@@ -96,27 +96,6 @@ export class BackspaceKey {
         return true;
       }
     }
-    if (el.type === 'code-line') {
-      let str = el.children[0].text as string;
-      str = str.slice(0, sel.anchor.offset);
-      let m = str.match(/\s+$/);
-      str = m?.[0] || '';
-      if (str) {
-        let decrement = str.length % 2;
-        if (decrement === 0) decrement = 2;
-        let ao = sel.anchor.offset - decrement;
-        Transforms.delete(this.editor, {
-          at: {
-            anchor: {
-              path: sel.anchor.path,
-              offset: ao < 0 ? 0 : ao,
-            },
-            focus: sel.anchor,
-          },
-        });
-        return true;
-      }
-    }
     /**
      * 防止删除paragraph与空table-cell混合
      */
@@ -236,26 +215,6 @@ export class BackspaceKey {
           }
         }
         return false;
-      }
-
-      if (el.type === 'code-line') {
-        const pre = Path.hasPrevious(path);
-        const hasNext = Editor.hasPath(this.editor, Path.next(path));
-        if (!pre && !hasNext) {
-          const str = Node.string(el);
-          const parent = Path.parent(path);
-          Transforms.delete(this.editor, { at: parent });
-          Transforms.insertNodes(
-            this.editor,
-            {
-              type: 'paragraph',
-              children: [{ text: str || '' }],
-            },
-            { at: parent },
-          );
-          Transforms.select(this.editor, Editor.start(this.editor, parent));
-          return true;
-        }
       }
     }
     return false;

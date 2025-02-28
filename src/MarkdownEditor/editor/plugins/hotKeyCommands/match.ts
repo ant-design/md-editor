@@ -21,7 +21,7 @@ export class MatchKey {
       match: (n) => Element.isElement(n),
       mode: 'lowest',
     });
-    if (!node || ['code', 'code-line'].includes(node[0].type)) return;
+    if (!node || ['code'].includes(node[0].type)) return;
     const sel = this.editor.selection;
     if (!sel || !Range.isCollapsed(sel)) return;
     for (let n of TextMatchNodes) {

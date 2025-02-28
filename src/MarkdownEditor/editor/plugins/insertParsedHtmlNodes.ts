@@ -109,30 +109,30 @@ export const deserialize = (
         const dataset = dom.dataset;
         const inner = dataset?.blType === 'code';
         if (inner) {
+          const value = Array.from(target.childNodes.values()).map((n) => {
+            return n.textContent?.replace(/\n/g, '')?.replace(/\t/g, '  ');
+          });
           return {
             type: 'code',
             language: dataset?.blLang,
-            children: Array.from(target.childNodes.values()).map((n) => {
-              return {
-                type: 'code-line',
-                children: [
-                  {
-                    text:
-                      n.textContent?.replace(/\n/g, '')?.replace(/\t/g, '  ') ||
-                      '',
-                  },
-                ],
-              };
-            }),
+            value,
+            children: [
+              {
+                text: value,
+              },
+            ],
           };
         } else {
           const text = parserCodeText(findElementByNode(target));
           if (text) {
             return {
               type: 'code',
-              children: text.split('\n').map((c) => {
-                return { type: 'code-line', children: [{ text: c }] };
-              }),
+              value: text,
+              children: [
+                {
+                  text: text,
+                },
+              ],
             };
           }
         }
@@ -370,8 +370,7 @@ export const insertParsedHtmlNodes = async (
       }
     }
   }
-  if (inner && !['code', 'code-line', 'table-cell'].includes(node?.[0].type))
-    return false;
+  if (inner && !['code', 'table-cell'].includes(node?.[0].type)) return false;
 
   Transforms.insertFragment(editor, fragmentList, {
     at: selection!,

@@ -114,7 +114,7 @@ export const MdElements: Record<string, MdNode> = {
         {
           type: 'code',
           language: lang,
-          children: [{ type: 'code-line', children: [{ text: '' }] }],
+          value: '',
         },
         { at: path, select: true },
       );
@@ -306,12 +306,7 @@ export const MdElements: Record<string, MdNode> = {
           type: 'code',
           language: 'yaml',
           frontmatter: true,
-          children: [
-            {
-              type: 'code-line',
-              children: [{ text: '' }],
-            },
-          ],
+          children: [{ text: '' }],
         },
         { select: true, at: path },
       );

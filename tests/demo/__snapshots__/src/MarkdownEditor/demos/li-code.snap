@@ -293,11 +293,11 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -445,72 +445,24 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              arr = [1, 2, 3, 4]
-                            </span>
+                            arr = [1, 2, 3, 4]
+for num in arr:
+    print(num)  # 输出每个元素的值
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for num in arr:
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(num)  # 输出每个元素的值
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -536,6 +488,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -559,6 +512,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_2"
@@ -582,6 +536,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_7"
@@ -722,11 +677,11 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -874,50 +829,23 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for i in range(len(arr)):
-                            </span>
+                            for i in range(len(arr)):
+    print(arr[i])  # 通过索引访问元素
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(arr[i])  # 通过索引访问元素
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -943,6 +871,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -966,6 +895,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_8"
@@ -1105,11 +1035,11 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -1257,50 +1187,23 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for index, value in enumerate(arr):
-                            </span>
+                            for index, value in enumerate(arr):
+    print(f"索引 {index} 的值是 {value}")
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(f"索引 {index} 的值是 {value}")
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1326,6 +1229,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_5"
@@ -1349,6 +1253,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_8"
@@ -1568,11 +1473,11 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -1720,94 +1625,25 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              i = 0
-                            </span>
+                            i = 0
+while i &lt; len(arr):
+    print(arr[i])
+    i += 1  # 必须手动递增
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              while i &lt; len(arr):
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  print(arr[i])
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  i += 1  # 必须手动递增
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1833,6 +1669,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -1856,6 +1693,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -1879,6 +1717,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_10"
@@ -1971,11 +1810,11 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -2123,28 +1962,22 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              squared = [x**2 for x in arr]  # 遍历并计算平方
-                            </span>
+                            squared = [x**2 for x in arr]  # 遍历并计算平方
                           </span>
                         </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -2170,6 +2003,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_4"
@@ -2193,6 +2027,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_7"
@@ -2216,6 +2051,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -2370,11 +2206,11 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -2522,72 +2358,24 @@
                     <div
                       class="ant-md-editor-hidden"
                     >
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
+                      <span
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-node="text"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
                           <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
+                            data-slate-string="true"
                           >
-                            <span
-                              data-slate-string="true"
-                            >
-                              def traverse(arr, i=0):
-                            </span>
+                            def traverse(arr, i=0):
+    if i &lt; len(arr):
+        print(arr[i])
                           </span>
                         </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                  if i &lt; len(arr):
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                      <div
-                        class="ant-md-editor-drag-el"
-                        data-be="paragraph"
-                        data-slate-node="element"
-                      >
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                                      print(arr[i])
-                            </span>
-                          </span>
-                        </span>
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -2716,11 +2504,11 @@
           >
             <div
               class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -2868,72 +2656,24 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        fruits = ["Apple", "Mango", "Banana"]
-                      </span>
+                      fruits = ["Apple", "Mango", "Banana"]
+for fruit in fruits:
+    print(fruit)
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for fruit in fruits:
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(fruit)
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -2959,6 +2699,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -2982,6 +2723,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_3"
@@ -3005,6 +2747,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_5"
@@ -3028,6 +2771,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_8"
@@ -3183,11 +2927,11 @@
           >
             <div
               class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -3335,50 +3079,23 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for index, fruit in enumerate(fruits):
-                      </span>
+                      for index, fruit in enumerate(fruits):
+    print(f"第{index}个元素：{fruit}")
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(f"第{index}个元素：{fruit}")
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -3404,6 +3121,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_4"
@@ -3427,6 +3145,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_8"
@@ -3534,11 +3253,11 @@
           >
             <div
               class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -3686,94 +3405,25 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        i = 0
-                      </span>
+                      i = 0
+while i &lt; len(fruits):
+    print(fruits[i])
+    i += 1
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        while i &lt; len(fruits):
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(fruits[i])
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            i += 1
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -3799,6 +3449,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_2"
@@ -3822,6 +3473,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_7"
@@ -3845,6 +3497,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_9"
@@ -3952,11 +3605,11 @@
           >
             <div
               class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -4104,28 +3757,22 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        uppercase_fruits = [fruit.upper() for fruit in fruits]
-                      </span>
+                      uppercase_fruits = [fruit.upper() for fruit in fruits]
                     </span>
                   </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -4151,6 +3798,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -4174,6 +3822,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_5"
@@ -4281,11 +3930,11 @@
           >
             <div
               class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -4433,50 +4082,23 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for i in range(len(fruits)):
-                      </span>
+                      for i in range(len(fruits)):
+    print(fruits[i])
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            print(fruits[i])
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -4502,6 +4124,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_6"
@@ -4525,6 +4148,7 @@
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_10"
@@ -4706,6 +4330,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -4758,11 +4383,11 @@
           >
             <div
               class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); height: auto; opacity: 1;"
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: absolute; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
@@ -4910,72 +4535,24 @@
               <div
                 class="ant-md-editor-hidden"
               >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
+                <span
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-node="text"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-string="true"
                     >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for fruit in fruits.copy():  # 创建副本
-                      </span>
+                      for fruit in fruits.copy():  # 创建副本
+    if "n" in fruit:
+        fruits.remove(fruit)
                     </span>
                   </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                            if "n" in fruit:
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                                fruits.remove(fruit)
-                      </span>
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -5024,17 +4601,100 @@
                     class="ant-anchor-link-title"
                     href="#undefined"
                     title=""
-                  />
+                  >
+                    <span
+                      style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                    />
+                  </a>
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#一、基础-for-循环（推荐"
-                      title="一、基础 for 循环（推荐 )"
+                      title=""
                     >
-                      一、基础 for 循环（推荐 )
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        一、基础 for 循环（推荐 )
+                      </span>
                     </a>
+                    <div
+                      class="ant-anchor-link ant-anchor-link-active"
+                    >
+                      <a
+                        class="ant-anchor-link-title ant-anchor-link-title-active"
+                        href="#二、带索引的循环"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          二、带索引的循环
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#三、while-循环"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          三、while 循环
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#四、列表推导式"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          四、列表推导式
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#五、range-len-组合"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          五、range() + len() 组合
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#修改列表时的注意事项"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          修改列表时的注意事项
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

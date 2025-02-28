@@ -1,11 +1,11 @@
 import {
   CloseCircleOutlined,
   CopyOutlined,
-  RightOutlined,
+  ForwardOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
 import ace, { Ace } from 'ace-builds';
-import { AutoComplete, Input, message, Popover } from 'antd';
+import { AutoComplete, Input, message, Modal, Popover } from 'antd';
 import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
@@ -17,7 +17,6 @@ import { ReactEditor } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
 import { aceLangs, modeMap } from '../../utils/ace';
-import { filterScript } from '../../utils/dom';
 import { EditorUtils } from '../../utils/editorUtils';
 import { Katex } from './CodeUI/Katex/Katex';
 import { Mermaid } from './CodeUI/Mermaid';
@@ -40,10 +39,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
   const [state, setState] = useGetSetState({
     showBorder: false,
     htmlStr: '',
-    hide:
-      !!props.element.render ||
-      !!props.element.katex ||
-      props.element.language === 'mermaid',
+    hide: !!props.element.katex || props.element.language === 'mermaid',
     lang: props.element.language || '',
     openSelectMenu: false,
   });
@@ -60,6 +56,7 @@ export function AceElement(props: ElementProps<CodeNode>) {
     (data: Partial<CodeNode>) => {
       const code = editorRef.current?.getValue() || '';
       codeRef.current = code;
+      console.log(data);
       Transforms.setNodes(store.editor, data, { at: path });
     },
     [path],
@@ -228,18 +225,13 @@ export function AceElement(props: ElementProps<CodeNode>) {
   }, []);
   useEffect(() => {
     store.codes.set(props.element, editorRef.current!);
-    if (props.element.language === 'html' && !!props.element.render) {
-      setState({
-        htmlStr: filterScript(props.element.value || 'plain text'),
-      });
-    }
     if (props.element.value !== codeRef.current) {
       editorRef.current?.setValue(props.element.value || 'plain text');
       editorRef.current?.clearSelection();
     }
   }, [props.element]);
 
-  if (props.element.language === 'html') {
+  if (props.element.language === 'html' && props.element?.isConfig) {
     return null;
   }
   return (
@@ -267,6 +259,9 @@ export function AceElement(props: ElementProps<CodeNode>) {
             : state().hide
               ? 'transparent'
               : 'rgb(252, 252, 252)',
+          maxHeight: 400,
+          overflow: 'auto',
+          position: 'relative',
           height: state().hide ? 0 : 'auto',
           opacity: state().hide ? 0 : 1,
         }}
@@ -282,12 +277,14 @@ export function AceElement(props: ElementProps<CodeNode>) {
             }}
             style={{
               height: '1.75em',
+              backgroundColor: '#FFF',
+              borderBottom: '1px solid #eee',
               paddingLeft: '0.75em',
               paddingRight: '0.375em',
               display: 'flex',
               alignItems: 'center',
               width: '100%',
-              position: 'absolute',
+              position: 'sticky',
               left: 0,
               top: 0,
               fontSize: '1em',
@@ -400,7 +397,8 @@ export function AceElement(props: ElementProps<CodeNode>) {
                   </AutoComplete>
                 }
               >
-                <div
+                <ActionIconBox
+                  title="切换语言"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -409,56 +407,45 @@ export function AceElement(props: ElementProps<CodeNode>) {
                     color: 'rgba(0, 0, 0, 0.8)',
                   }}
                 >
-                  {langIconMap.get(
-                    props.element.language?.toLowerCase() || '',
-                  ) &&
-                    !props.element.katex && (
-                      <div
-                        style={{
-                          height: '1em',
-                          width: '1em',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          marginRight: '0.25em',
-                        }}
-                      >
-                        <img
+                  <>
+                    {langIconMap.get(
+                      props.element.language?.toLowerCase() || '',
+                    ) &&
+                      !props.element.katex && (
+                        <div
                           style={{
                             height: '1em',
                             width: '1em',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: '0.25em',
                           }}
-                          src={langIconMap.get(
-                            props.element.language?.toLowerCase() || '',
-                          )}
-                        />
-                      </div>
-                    )}
-                  <div>
-                    {props.element.language ? (
-                      <span>
-                        {props.element.katex
-                          ? 'Formula'
-                          : props.element.language === 'html' &&
-                              props.element.render
-                            ? 'Html Renderer'
+                        >
+                          <img
+                            style={{
+                              height: '1em',
+                              width: '1em',
+                            }}
+                            src={langIconMap.get(
+                              props.element.language?.toLowerCase() || '',
+                            )}
+                          />
+                        </div>
+                      )}
+                    <div>
+                      {props.element.language ? (
+                        <span>
+                          {props.element.katex
+                            ? 'Formula'
                             : props.element.language}
-                      </span>
-                    ) : (
-                      <span>{'plain text'}</span>
-                    )}
-                  </div>
-                  {!props.element.katex && !props.element.render && (
-                    <RightOutlined
-                      style={{
-                        transform: 'rotate(90deg)',
-                        fontSize: '0.9em',
-                        lineHeight: '1.75em',
-                        marginLeft: '0.125em',
-                      }}
-                    />
-                  )}
-                </div>
+                        </span>
+                      ) : (
+                        <span>{'plain text'}</span>
+                      )}
+                    </div>
+                  </>
+                </ActionIconBox>
               </Popover>
             )}
             <div
@@ -467,20 +454,38 @@ export function AceElement(props: ElementProps<CodeNode>) {
                 gap: 5,
               }}
             >
-              {props.element.katex ? (
+              {props.element.katex || props.element.language === 'mermaid' ? (
                 <ActionIconBox
                   title="关闭"
                   onClick={() => {
                     setState({
                       hide:
                         props.element.katex ||
-                        (props.element.render &&
-                          props.element.language !== 'html') ||
                         props.element.language === 'mermaid',
                     });
                   }}
                 >
                   <CloseCircleOutlined />
+                </ActionIconBox>
+              ) : null}
+              {props.element?.language === 'html' ? (
+                <ActionIconBox
+                  title="运行代码"
+                  style={{
+                    fontSize: '0.9em',
+                    lineHeight: '1.75em',
+                    marginLeft: '0.125em',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    try {
+                      setState({
+                        htmlStr: props.element?.value,
+                      });
+                    } catch (error) {}
+                  }}
+                >
+                  <ForwardOutlined />
                 </ActionIconBox>
               ) : null}
               <ActionIconBox
@@ -516,28 +521,35 @@ export function AceElement(props: ElementProps<CodeNode>) {
       {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
         <Katex el={props.element} />
       ) : null}
-      {props.element.language === 'html' && !!props.element.render && (
-        <div
+      <Modal
+        open={!!state().htmlStr}
+        destroyOnClose
+        title="html执行结果"
+        footer={null}
+        styles={{
+          body: {
+            padding: 0,
+            margin: 0,
+          },
+        }}
+        width="80vw"
+        onCancel={() => {
+          setState({ htmlStr: '' });
+        }}
+        onClose={() => {
+          setState({ htmlStr: '' });
+        }}
+      >
+        <iframe
           style={{
-            backgroundColor: 'rgba(107, 114, 128, 0.05)',
-            padding: '0.75em',
-            marginBottom: '0.75em',
-            whiteSpace: 'nowrap',
-            borderRadius: '0.25em',
-            lineHeight: '1.25em',
-            overflow: 'auto',
+            outline: 0,
+            border: 'none',
+            height: '60vh',
           }}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            EditorUtils.focusAceEnd(editorRef.current!);
-          }}
-          dangerouslySetInnerHTML={{
-            __html: state().htmlStr,
-          }}
-          contentEditable={false}
-        />
-      )}
+          width="100%"
+          srcDoc={state().htmlStr}
+        ></iframe>
+      </Modal>
     </div>
   );
 }

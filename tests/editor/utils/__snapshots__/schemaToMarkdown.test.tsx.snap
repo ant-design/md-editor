@@ -1309,48 +1309,15 @@ exports[`should convert markdown to schema in  代码
   {
     "children": [
       {
-        "children": [
-          {
-            "text": "Class A {",
-          },
-        ],
-        "type": "code-line",
-      },
-      {
-        "children": [
-          {
-            "text": "  main() {",
-          },
-        ],
-        "type": "code-line",
-      },
-      {
-        "children": [
-          {
-            "text": "    System.out.println("Hello World");",
-          },
-        ],
-        "type": "code-line",
-      },
-      {
-        "children": [
-          {
-            "text": "  }",
-          },
-        ],
-        "type": "code-line",
-      },
-      {
-        "children": [
-          {
-            "text": "}",
-          },
-        ],
-        "type": "code-line",
+        "text": "Class A {
+  main() {
+    System.out.println("Hello World");
+  }
+}",
       },
     ],
+    "isConfig": false,
     "language": "java",
-    "otherProps": {},
     "render": false,
     "type": "code",
     "value": "Class A {
@@ -4351,8 +4318,8 @@ exports[`should convert markdown to schema in  表单
         "text": "",
       },
     ],
+    "isConfig": false,
     "language": "schema",
-    "otherProps": {},
     "render": false,
     "type": "schema",
     "value": [
@@ -6198,7 +6165,6 @@ exports[`should convert schema to markdown in  代码
 \`\`\`ja chunk 1`] = `
 "## 代码
 
-<!--{}-->
 \`\`\`java
 Class A {
   main() {
@@ -6361,9 +6327,8 @@ exports[`should convert schema to markdown in  表单
 \`\`\`sc chunk 1`] = `
 "## 表单
 
-<!--{}-->
 \`\`\`schema
-{}
+undefined
 \`\`\`"
 `;
 
