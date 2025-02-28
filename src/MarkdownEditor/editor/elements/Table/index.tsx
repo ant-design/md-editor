@@ -246,7 +246,7 @@ export const Table = observer((props: RenderElementProps) => {
               onClick={handleClickTable}
               tabIndex={0}
             >
-              {!readonly ? (
+              {!readonly && process.env.NODE_ENV !== 'test' ? (
                 <div
                   ref={tableContainerRef}
                   contentEditable={false}

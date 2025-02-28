@@ -789,7 +789,6 @@ const parserBlock = (
                   : [{ value: leaf?.url || '' }],
                 leaf,
               );
-              console.log('el', el);
             }
           }
         } else if (currentElement.type === 'break') {

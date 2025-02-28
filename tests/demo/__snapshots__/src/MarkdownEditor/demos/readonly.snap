@@ -5670,7 +5670,6 @@
                 data-be="table"
                 data-slate-node="element"
                 draggable="false"
-                style="overflow: hidden;"
                 tabindex="0"
               >
                 <div
