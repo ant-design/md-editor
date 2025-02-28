@@ -258,6 +258,7 @@ export const Table = observer((props: RenderElementProps) => {
                     rowHeaders={true}
                     colHeaders={true}
                     height="auto"
+                    dropdownMenu={true}
                     columnSorting={true}
                     manualColumnResize={true}
                     manualRowResize={true}
