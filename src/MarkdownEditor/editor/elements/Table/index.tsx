@@ -1,5 +1,8 @@
+import { HotTable } from '@handsontable/react';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import 'handsontable/dist/handsontable.full.min.css';
+import { registerAllModules } from 'handsontable/registry';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, {
@@ -10,17 +13,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import Spreadsheet from 'react-spreadsheet';
-import { Editor, NodeEntry } from 'slate';
+import { Editor, Node, NodeEntry, Transforms } from 'slate';
 import { TableCellNode, TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { useTableStyle } from './style';
-import './table.css';
-import ToolbarOverlay from './ToolbarOverlay';
 export * from './TableCell';
 
+registerAllModules();
 /**
  * 表格上下文组件，用于在表格组件树中共享单元格选中状态
  * @context
@@ -34,6 +35,22 @@ export const TableConnext = React.createContext<{
   selectedCell: null,
   setSelectedCell: () => {},
 });
+
+const slateTableToJSONData = (input: any[]): any[][] => {
+  return input.map((row) => {
+    const element = row?.props?.children?.props?.element;
+
+    const columns = Array.isArray(element)
+      ? element
+      : Array.isArray(element?.children)
+        ? element.children
+        : [];
+
+    return columns.map((column: { children: { text: string }[] }) => {
+      return Node.string(column);
+    });
+  });
+};
 
 /**
  * 表格组件，使用 `observer` 包装以响应状态变化。
@@ -194,89 +211,13 @@ export const Table = observer((props: RenderElementProps) => {
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
   }, [JSON.stringify(selCells)]);
 
-  const extractTableData = (input: any[]): any[][] => {
-    return input.map((row) => {
-      const element = row?.props?.children?.props?.element;
-
-      const columns = Array.isArray(element)
-        ? element
-        : Array.isArray(element?.children)
-          ? element.children
-          : [];
-
-      return columns.map((column: { children: { text: string }[] }) => {
-        const content = column?.children?.[0]?.text || '';
-        return { value: content };
-      });
-    });
-  };
-
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const [data, setData] = useState(extractTableData(props.children));
+  const [tableJSONData] = useMemo(
+    () => slateTableToJSONData(props.children),
+    [],
+  );
 
-  const [overlayPos, setOverlayPos] = useState({
-    left: -999999999,
-    top: -999999999,
-  });
-
-  const [isColumn, setIsColumn] = useState(false);
-
-  const [opIndex, setOpIndex] = useState(0);
-
-  const handleSelect = (selected: any) => {
-    try {
-      const table = tableContainerRef.current?.querySelector(
-        '.Spreadsheet__table',
-      );
-      if (!table) return;
-
-      if (selected.constructor.name === 'EmptySelection') {
-        return;
-      }
-      let targetElement = null;
-      let isColumn = false;
-
-      const COLUMN_OFFSET = { x: -18, y: -36 };
-      const ROW_OFFSET = { x: 24, y: -36 };
-
-      if (selected.constructor.name === 'EntireColumnsSelection') {
-        isColumn = true;
-        const headerRow = table.children[1]?.children[0];
-        if (!headerRow) return;
-        setOpIndex(selected.start);
-        const colIndex = selected.start + 1;
-        targetElement = headerRow.children[colIndex];
-      } else if (selected.constructor.name === 'EntireRowsSelection') {
-        isColumn = false;
-        const bodySection = table.children[1];
-        if (!bodySection) return;
-        setOpIndex(selected.start);
-        const rowIndex = selected.start + 1;
-        const row = bodySection.children[rowIndex];
-        targetElement = row?.children[0];
-      } else {
-        setOverlayPos({ left: -999999999, top: -999999999 });
-        return;
-      }
-
-      if (targetElement) {
-        const rect = targetElement.getBoundingClientRect();
-
-        const offset = isColumn ? COLUMN_OFFSET : ROW_OFFSET;
-
-        setOverlayPos({
-          left: rect.left + offset.x,
-          top: rect.top + offset.y,
-        });
-
-        setIsColumn(isColumn);
-      }
-    } catch (error) {
-      console.error('Error calculating overlay position:', error);
-      setOverlayPos({ left: -999999999, top: -999999999 });
-    }
-  };
   return useMemo(
     () =>
       wrapSSR(
@@ -304,25 +245,113 @@ export const Table = observer((props: RenderElementProps) => {
               className={classNames(`${baseCls}-container`, hashId)}
               onClick={handleClickTable}
               tabIndex={0}
-              style={{
-                overflow: readonly ? 'hidden' : undefined,
-              }}
             >
               {!readonly ? (
-                <div ref={tableContainerRef} contentEditable={false}>
-                  <Spreadsheet
-                    data={data}
-                    onSelect={handleSelect}
-                    onChange={(data) => {
-                      setData(data);
+                <div
+                  ref={tableContainerRef}
+                  contentEditable={false}
+                  style={{
+                    width: '100%',
+                    minWidth: 0,
+                  }}
+                >
+                  <HotTable
+                    data={tableJSONData}
+                    autoColumnSize={{}}
+                    rowHeaders={true}
+                    colHeaders={true}
+                    height="auto"
+                    afterChange={(dataList, source) => {
+                      dataList?.forEach((data) => {
+                        if (source === 'edit' && data) {
+                          const [row, col, old, newValue] = data;
+                          if (!tableNodeEntry) return;
+                          const path = tableNodeEntry?.[1];
+
+                          if (!old && !newValue && newValue !== old) {
+                            if (
+                              Editor.hasPath(markdownEditorRef.current, [
+                                ...path,
+                                row,
+                                col as number,
+                              ])
+                            ) {
+                              Transforms.delete(markdownEditorRef.current, {
+                                at: [...path, row, col as number],
+                              });
+                              Transforms.insertText(
+                                markdownEditorRef.current,
+                                newValue,
+                                { at: [...path, row, col as number, 0] },
+                              );
+                            } else if (
+                              Editor.hasPath(markdownEditorRef.current, [
+                                ...path,
+                                row,
+                              ])
+                            ) {
+                              Transforms.insertNodes(
+                                markdownEditorRef.current,
+                                {
+                                  type: 'table-cell',
+                                  children: [{ text: newValue }],
+                                },
+                                { at: [...path, row, col as number] },
+                              );
+                            } else {
+                              Transforms.insertNodes(
+                                markdownEditorRef.current,
+                                {
+                                  type: 'table-row',
+                                  children: [
+                                    {
+                                      type: 'table-cell',
+                                      children: [{ text: newValue }],
+                                    },
+                                  ],
+                                },
+                                { at: [...path, row] },
+                              );
+                            }
+                          }
+                          if (old && !newValue && newValue !== old) {
+                            if (
+                              Editor.hasPath(markdownEditorRef.current, [
+                                ...path,
+                                row,
+                                col as number,
+                                0,
+                              ])
+                            ) {
+                              Transforms.delete(markdownEditorRef.current, {
+                                at: [...path, row, col as number],
+                              });
+                            }
+                          }
+                          if (old && newValue && newValue !== old) {
+                            if (
+                              Editor.hasPath(markdownEditorRef.current, [
+                                ...path,
+                                row,
+                                col as number,
+                                0,
+                              ])
+                            ) {
+                              Transforms.insertText(
+                                markdownEditorRef.current,
+                                newValue,
+                                { at: [...path, row, col as number, 0] },
+                              );
+                            }
+                          }
+                        }
+                      });
                     }}
-                  />
-                  <ToolbarOverlay
-                    overlayPos={overlayPos}
-                    isColumn={isColumn}
-                    opIndex={opIndex}
-                    setData={setData}
-                    setOverlayPos={setOverlayPos}
+                    autoWrapRow={true}
+                    autoWrapCol={true}
+                    minRows={editorProps?.tableConfig?.minRows || 3}
+                    minCols={editorProps?.tableConfig?.minColumn || 3}
+                    licenseKey="non-commercial-and-evaluation" // for non-commercial use only
                   />
                 </div>
               ) : (
@@ -373,8 +402,7 @@ export const Table = observer((props: RenderElementProps) => {
       isSel,
       JSON.stringify(selCells),
       tableNodeEntry,
-      overlayPos,
-      data,
+      tableJSONData,
     ],
   );
 });

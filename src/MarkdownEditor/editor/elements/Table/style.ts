@@ -22,7 +22,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-editor-table': {
         marginTop: '1em',
       },
-      table: {
+      'table:not(.htCore)': {
         borderCollapse: 'separate',
         borderSpacing: 0,
         display: 'table',
@@ -79,6 +79,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         'th:first-child': {
           borderTopLeftRadius: 16,
+        },
+      },
+      'table.htCore': {
+        boxSizing: 'content-box',
+        '*': {
+          boxSizing: 'content-box',
         },
       },
     },
