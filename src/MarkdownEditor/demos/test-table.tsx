@@ -30,8 +30,8 @@ export default () => {
         }}
         onChange={(e) => console.log(e)}
         tableConfig={{
-          minColumn: 10,
-          minRows: 20,
+          minColumn: 20,
+          minRows: 120,
           excelMode: true,
         }}
         initValue={defaultValue}
