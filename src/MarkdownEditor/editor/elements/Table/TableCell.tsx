@@ -1,9 +1,8 @@
 ﻿import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
-import { default as React, useMemo, useState } from 'react';
-import { Editor, Node, Transforms } from 'slate';
+import { default as React, useMemo } from 'react';
+import { Node } from 'slate';
 import stringWidth from 'string-width';
-import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import './table.css';
@@ -22,42 +21,23 @@ export const TableThCell = (
     width?: number;
   },
 ) => {
-  const [, cellPath] = useSelStatus(props.element);
-  const { readonly, markdownEditorRef } = useEditorStore();
+  const { readonly } = useEditorStore();
   const { align, text } = props;
-  const { selected } = props.element;
-  const isSelecting = selected;
-  const [editing, setEditing] = useState(false);
   const justifyContent = useMemo(() => {
     return align || !readonly
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
-        ? 'left'
-        : 'right';
+        ? 'right'
+        : undefined;
   }, [align, text]);
 
   return (
     <th
       {...props.attributes}
       data-be={'th'}
-      className={classNames('group', {
-        'selected-cell-td': isSelecting,
-        'editing-cell-td': editing,
-        'td-cell-select': !readonly && !isSelecting && !editing,
-      })}
       style={{
         textAlign: justifyContent as 'left',
-        maxWidth: '200px',
         width: props.width,
-      }}
-      onDoubleClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setEditing(true);
-        Transforms.select(
-          markdownEditorRef.current,
-          Editor.end(markdownEditorRef.current, cellPath),
-        );
       }}
     >
       {props.children}

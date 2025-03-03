@@ -16,7 +16,7 @@ export const FootnoteDefinition = (
         {element.identifier === '1' ? (
           <div
             style={{
-              borderBottom: '1px solid #e8e8e8',
+              borderBottom: '1px solid #e5e5e9',
               padding: '4px 0',
               margin: '12px 0',
               fontSize: 14,

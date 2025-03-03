@@ -178,6 +178,7 @@
               <span
                 aria-describedby="test-id"
                 class=" "
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-slate-leaf="true"
@@ -209,6 +210,7 @@
               <span
                 aria-describedby="test-id"
                 class=" "
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-slate-leaf="true"
@@ -471,7 +473,7 @@
           >
             <div
               class="ant-md-editor-content-table"
-              style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+              style="flex: 1; min-width: 0;"
             >
               <table
                 class="ant-md-editor-content-table-editor-table"
@@ -483,10 +485,10 @@
                     data-slate-node="element"
                   >
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -506,10 +508,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -529,10 +531,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -556,10 +558,10 @@
                     data-slate-node="element"
                   >
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -579,10 +581,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 188px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -602,10 +604,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -629,10 +631,10 @@
                     data-slate-node="element"
                   >
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -652,10 +654,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -675,10 +677,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -702,10 +704,10 @@
                     data-slate-node="element"
                   >
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -725,10 +727,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -748,10 +750,10 @@
                       </span>
                     </td>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 200px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -1551,7 +1553,7 @@
             >
               <div
                 class="ant-md-editor-content-table"
-                style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+                style="flex: 1; min-width: 0;"
               >
                 <table
                   class="ant-md-editor-content-table-editor-table"
@@ -1563,10 +1565,8 @@
                       data-slate-node="element"
                     >
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 52px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1586,10 +1586,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1609,10 +1607,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1632,10 +1628,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1655,10 +1649,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1678,10 +1670,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1701,10 +1691,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1724,10 +1712,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1747,10 +1733,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1770,10 +1754,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1793,10 +1775,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1816,10 +1796,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1839,10 +1817,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -1866,10 +1842,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -1889,10 +1865,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -1912,10 +1888,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -1935,10 +1911,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -1958,10 +1934,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -1981,10 +1957,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2004,10 +1980,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2027,10 +2003,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2050,10 +2026,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2073,10 +2049,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2096,10 +2072,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2119,10 +2095,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2142,10 +2118,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2169,10 +2145,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 180px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2192,10 +2168,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2215,10 +2191,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2238,10 +2214,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2261,10 +2237,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2284,10 +2260,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2307,10 +2283,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2330,10 +2306,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2353,10 +2329,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2376,10 +2352,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2399,10 +2375,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2422,10 +2398,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2445,10 +2421,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2472,10 +2448,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2495,10 +2471,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2518,10 +2494,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2541,10 +2517,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2564,10 +2540,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2587,10 +2563,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2610,10 +2586,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2633,10 +2609,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2656,10 +2632,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2679,10 +2655,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2702,10 +2678,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2725,10 +2701,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2748,10 +2724,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2775,10 +2751,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 116px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2798,10 +2774,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2821,10 +2797,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2844,10 +2820,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2867,10 +2843,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2890,10 +2866,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2913,10 +2889,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2936,10 +2912,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2959,10 +2935,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -2982,10 +2958,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3005,10 +2981,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3028,10 +3004,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3051,10 +3027,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3078,10 +3054,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3101,10 +3077,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3124,10 +3100,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3147,10 +3123,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3170,10 +3146,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3193,10 +3169,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3216,10 +3192,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3239,10 +3215,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3262,10 +3238,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3285,10 +3261,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3308,10 +3284,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3331,10 +3307,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3354,10 +3330,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3381,10 +3357,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3404,10 +3380,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3427,10 +3403,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3450,10 +3426,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3473,10 +3449,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3496,10 +3472,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3519,10 +3495,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3542,10 +3518,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3565,10 +3541,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3588,10 +3564,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3611,10 +3587,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3634,10 +3610,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3657,10 +3633,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3684,10 +3660,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3707,10 +3683,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3730,10 +3706,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3753,10 +3729,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3776,10 +3752,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3799,10 +3775,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3822,10 +3798,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3845,10 +3821,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3868,10 +3844,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3891,10 +3867,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3914,10 +3890,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3937,10 +3913,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3960,10 +3936,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -3987,10 +3963,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4010,10 +3986,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4033,10 +4009,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4056,10 +4032,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4079,10 +4055,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4102,10 +4078,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4125,10 +4101,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4148,10 +4124,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4171,10 +4147,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4194,10 +4170,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 44px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4217,10 +4193,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4240,10 +4216,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4263,10 +4239,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 60px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -4574,10 +4550,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 52px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4597,10 +4571,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4624,10 +4598,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4647,10 +4619,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4674,10 +4646,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4697,10 +4667,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4724,10 +4694,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4747,10 +4715,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4774,10 +4742,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4797,10 +4763,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4824,10 +4790,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4847,10 +4811,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4874,10 +4838,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4897,10 +4859,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4924,10 +4886,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4947,10 +4907,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -4974,10 +4934,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -4997,10 +4955,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -5024,10 +4982,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5047,10 +5003,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -5074,10 +5030,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5097,10 +5051,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -5124,10 +5078,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5147,10 +5099,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -5174,10 +5126,8 @@
                     class="ant-md-editor-description-row"
                   >
                     <th
-                      class="group td-cell-select"
                       data-be="th"
                       data-slate-node="element"
-                      style="min-width: 68px; max-width: 200px;"
                     >
                       <span
                         data-slate-node="text"
@@ -5197,10 +5147,10 @@
                       </span>
                     </th>
                     <td
-                      class="group td-cell-select"
+                      class="group"
                       data-be="td"
                       data-slate-node="element"
-                      style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                      style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                     >
                       <span
                         data-slate-node="text"
@@ -6816,7 +6766,7 @@
             >
               <div
                 class="ant-md-editor-content-table"
-                style="flex: 1; min-width: 0; margin-left: 20px; margin-top: 4px; margin-right: 6px;"
+                style="flex: 1; min-width: 0;"
               >
                 <table
                   class="ant-md-editor-content-table-editor-table"
@@ -6828,10 +6778,8 @@
                       data-slate-node="element"
                     >
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 52px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6851,10 +6799,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6874,10 +6820,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6897,10 +6841,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6920,10 +6862,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6943,10 +6883,8 @@
                         </span>
                       </th>
                       <th
-                        class="group td-cell-select"
                         data-be="th"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px;"
                       >
                         <span
                           data-slate-node="text"
@@ -6970,10 +6908,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -6993,10 +6931,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 148px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7029,10 +6967,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7052,10 +6990,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7075,10 +7013,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7098,10 +7036,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7125,10 +7063,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7148,10 +7086,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7171,10 +7109,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7194,10 +7132,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7217,10 +7155,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7240,10 +7178,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7267,10 +7205,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7290,10 +7228,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7313,10 +7251,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7336,10 +7274,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7359,10 +7297,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7382,10 +7320,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7409,10 +7347,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 116px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7432,10 +7370,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7455,10 +7393,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7478,10 +7416,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7501,10 +7439,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7524,10 +7462,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7551,10 +7489,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7574,10 +7512,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7597,10 +7535,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7620,10 +7558,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7643,10 +7581,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7666,10 +7604,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7693,10 +7631,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 52px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7716,10 +7654,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7739,10 +7677,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7762,10 +7700,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7785,10 +7723,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7808,10 +7746,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7835,10 +7773,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 84px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7858,10 +7796,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7881,10 +7819,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7904,10 +7842,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7927,10 +7865,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7950,10 +7888,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 68px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -7977,10 +7915,10 @@
                       data-slate-node="element"
                     >
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 36px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -8000,10 +7938,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -8023,10 +7961,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -8046,10 +7984,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -8069,10 +8007,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -8092,10 +8030,10 @@
                         </span>
                       </td>
                       <td
-                        class="group td-cell-select"
+                        class="group"
                         data-be="td"
                         data-slate-node="element"
-                        style="min-width: 76px; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                        style="max-width: 200px; overflow: auto; text-wrap: wrap;"
                       >
                         <span
                           data-slate-node="text"
@@ -8584,7 +8522,7 @@
           </div>
           <div
             contenteditable="false"
-            style="border-bottom: 1px solid #e8e8e8; padding: 4px 0px; margin: 12px 0px; font-size: 14px;"
+            style="border-bottom: 1px solid #e5e5e9; padding: 4px 0px; margin: 12px 0px; font-size: 14px;"
           />
           <div
             class="ant-md-editor-drag-el"
