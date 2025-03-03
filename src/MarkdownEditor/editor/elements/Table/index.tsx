@@ -28,19 +28,6 @@ export * from './TableCell';
 
 registerLanguageDictionary(zhCN);
 registerAllModules();
-/**
- * 表格上下文组件，用于在表格组件树中共享单元格选中状态
- * @context
- * @property {NodeEntry<TableCellNode> | null} selectedCell - 当前选中的表格单元格
- * @property {(cell: NodeEntry<TableCellNode> | null) => void} setSelectedCell - 设置当前选中的表格单元格
- */
-export const TableConnext = React.createContext<{
-  selectedCell: NodeEntry<TableCellNode> | null;
-  setSelectedCell: (cell: NodeEntry<TableCellNode> | null) => void;
-}>({
-  selectedCell: null,
-  setSelectedCell: () => {},
-});
 
 const slateTableToJSONData = (input: any[]): any[][] => {
   return input.map((row) => {
@@ -85,8 +72,6 @@ const slateTableToJSONData = (input: any[]): any[][] => {
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = observer((props: RenderElementProps<TableNode>) => {
-  const [selectedCell, setSelectedCell] =
-    useState<NodeEntry<TableCellNode> | null>(null);
   const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
@@ -221,10 +206,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
   const tableJSONData = useMemo(() => slateTableToJSONData(props.children), []);
 
-  useEffect(() => {
-    console.log(hotRef);
-  }, []);
-
+  // 用于处理表格内容的变化
   const updateTable = useRefFunction(
     (dataList: CellChange[] | null, source: ChangeSource) => {
       dataList?.forEach((data) => {
@@ -422,10 +404,12 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       });
     },
   );
+  // 创建列
   const afterCreateCol = useRefFunction(
-    (insertIndex: number, amount: number) => {
+    (insertIndex: number, amount: number, source?: string) => {
+      if (source === 'auto') return;
       const rows = new Array(props.element.children?.length).fill(0);
-      if (insertIndex > rows.length) {
+      if (insertIndex >= rows.length) {
         return;
       }
       rows?.forEach((_, rowIndex) => {
@@ -445,8 +429,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       });
     },
   );
+  // 创建行
   const afterCreateRow = useRefFunction(
-    (insertIndex: number, amount: number) => {
+    (insertIndex: number, amount: number, source?: string) => {
+      if (source === 'auto') return;
       const cells = new Array(props.element.children?.at(0)?.children?.length)
         .fill(0)
         .map(() => {
@@ -455,7 +441,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
             children: [{ text: '' }],
           };
         });
-      if (insertIndex > cells.length) {
+      if (insertIndex >= cells.length) {
         return;
       }
       const rows = new Array(amount).fill(0);
@@ -476,195 +462,188 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   return useMemo(
     () =>
       wrapSSR(
-        <TableConnext.Provider
-          value={{
-            selectedCell,
-            setSelectedCell,
+        <div
+          {...props.attributes}
+          data-be={'table'}
+          draggable={false}
+          ref={(el) => {
+            //@ts-ignore
+            overflowShadowContainerRef.current = el;
+            props.attributes.ref(el);
           }}
+          className={classNames(
+            `${baseCls}-container`,
+            {
+              [`${baseCls}-container-editable`]: !readonly,
+            },
+            hashId,
+          )}
+          onClick={handleClickTable}
+          tabIndex={0}
         >
-          <ConfigProvider
-            getPopupContainer={() =>
-              overflowShadowContainerRef?.current?.parentElement ||
-              document.body
-            }
-          >
+          {!readonly && process.env.NODE_ENV !== 'test' ? (
             <div
-              {...props.attributes}
-              data-be={'table'}
-              draggable={false}
-              ref={(el) => {
-                //@ts-ignore
-                overflowShadowContainerRef.current = el;
-                props.attributes.ref(el);
+              ref={tableContainerRef}
+              contentEditable={false}
+              style={{
+                width: '100%',
+                minWidth: 0,
               }}
-              className={classNames(`${baseCls}-container`, hashId)}
-              onClick={handleClickTable}
-              tabIndex={0}
+              className="ht-theme-horizon"
             >
-              {!readonly && process.env.NODE_ENV !== 'test' ? (
-                <div
-                  ref={tableContainerRef}
-                  contentEditable={false}
-                  style={{
-                    width: '100%',
-                    minWidth: 0,
-                  }}
-                  className="ht-theme-horizon"
-                >
-                  <HotTable
-                    ref={hotRef}
-                    data={tableJSONData}
-                    rowHeaders={true}
-                    colHeaders={true}
-                    height="auto"
-                    language={zhCN.languageCode}
-                    dropdownMenu={[
-                      'col_left',
-                      'col_right',
-                      '---------',
-                      'remove_col',
-                    ]}
-                    // ------  列宽的配置  ---------
-                    autoColumnSize={{}}
-                    manualColumnResize={
-                      props.element?.otherProps?.colWidths || true
-                    }
-                    afterCreateCol={afterCreateCol}
-                    afterCreateRow={afterCreateRow}
-                    afterRemoveCol={(index, amount) => {
-                      const rows = new Array(
-                        props.element.children?.length,
-                      ).fill(0);
-                      rows?.forEach((_, rowIndex) => {
-                        const cells = new Array(amount).fill(0);
-                        cells.forEach((_, colIndex) => {
-                          Transforms.delete(markdownEditorRef.current, {
-                            at: [...tablePath, rowIndex, index + colIndex],
-                          });
-                        });
+              <HotTable
+                ref={hotRef}
+                data={tableJSONData}
+                rowHeaders={true}
+                colHeaders={true}
+                height="auto"
+                language={zhCN.languageCode}
+                dropdownMenu={[
+                  'col_left',
+                  'col_right',
+                  '---------',
+                  'remove_col',
+                ]}
+                // ------  列宽的配置  ---------
+                autoColumnSize={{}}
+                manualColumnResize={
+                  props.element?.otherProps?.colWidths || true
+                }
+                afterCreateCol={afterCreateCol}
+                afterCreateRow={afterCreateRow}
+                afterRemoveCol={(index, amount) => {
+                  const rows = new Array(props.element.children?.length).fill(
+                    0,
+                  );
+                  rows?.forEach((_, rowIndex) => {
+                    const cells = new Array(amount).fill(0);
+                    cells.forEach((_, colIndex) => {
+                      Transforms.delete(markdownEditorRef.current, {
+                        at: [...tablePath, rowIndex, index + colIndex],
                       });
-                    }}
-                    afterRemoveRow={(index, amount) => {
-                      const rows = new Array(amount).fill(0);
-                      rows.forEach((_, rowIndex) => {
-                        Transforms.delete(markdownEditorRef.current, {
-                          at: [...tablePath, index + rowIndex],
-                        });
-                      });
-                    }}
-                    afterColumnResize={(size, colIndex) => {
-                      const colWidths =
-                        props.element?.otherProps?.colWidths || [];
-                      colWidths[colIndex] = size;
-                      Transforms?.setNodes(
-                        markdownEditorRef.current,
-                        {
-                          otherProps: {
-                            ...props.element.otherProps,
-                            colWidths,
-                          },
-                        },
-                        {
-                          at: tablePath,
-                        },
-                      );
-                    }}
-                    // ------  列宽的配置 end  ---------
-                    // 与内容同步，用于处理表格内容的变化
-                    afterChange={updateTable}
-                    //------- merge 合并单元格的处理 -------
-                    mergeCells={props.element?.otherProps?.mergeCells || true}
-                    afterMergeCells={(cellRange, mergeParent) => {
-                      const mergeCells =
-                        props.element?.otherProps?.mergeCells || [];
-                      mergeCells.push(mergeParent as any);
-                      Transforms?.setNodes(
-                        markdownEditorRef.current,
-                        {
-                          otherProps: {
-                            ...props.element.otherProps,
-                            mergeCells,
-                          },
-                        },
-                        {
-                          at: tablePath,
-                        },
-                      );
-                    }}
-                    afterUnmergeCells={(cellRange) => {
-                      const row = cellRange?.from?.row;
-                      const rol = cellRange?.from?.col;
-                      const mergeCells =
-                        props.element?.otherProps?.mergeCells || [];
-                      Transforms?.setNodes(
-                        markdownEditorRef.current,
-                        {
-                          otherProps: {
-                            ...props.element.otherProps,
-                            mergeCells:
-                              mergeCells?.filter((cell) => {
-                                return cell.col !== rol || cell.row !== row;
-                              }) || [],
-                          },
-                        },
-                        {
-                          at: tablePath,
-                        },
-                      );
-                    }}
-                    // ----- merge 合并单元格的处理 end --------
-                    contextMenu={[
-                      'row_above',
-                      'row_below',
-                      '---------',
-                      'undo',
-                      'redo',
-                      '---------',
-                      'mergeCells',
-                    ]}
-                    autoWrapRow={true}
-                    autoWrapCol={true}
-                    minRows={editorProps?.tableConfig?.minRows || 3}
-                    minCols={editorProps?.tableConfig?.minColumn || 3}
-                    licenseKey="non-commercial-and-evaluation" // for non-commercial use only
-                  />
-                </div>
-              ) : (
-                <>
-                  <div
-                    className={classNames(baseCls, hashId, {
-                      [`${baseCls}-selected`]: isSel,
-                      [`${baseCls}-show-bar`]: isShowBar,
-                      [`${baseCls}-excel-mode`]:
-                        editorProps.tableConfig?.excelMode,
-                      'show-bar': isShowBar,
-                    })}
-                    onClick={() => {
-                      runInAction(() => {
-                        if (isSel) {
-                          store.selectTablePath = [];
-                          return;
-                        }
-                        store.selectTablePath = tablePath;
-                      });
-                    }}
-                    style={{
-                      flex: 1,
-                      minWidth: 0,
-                    }}
-                  >
-                    <table
-                      ref={tableTargetRef}
-                      className={classNames(`${baseCls}-editor-table`, hashId)}
-                    >
-                      <tbody data-slate-node="element">{props.children}</tbody>
-                    </table>
-                  </div>
-                </>
-              )}
+                    });
+                  });
+                }}
+                afterRemoveRow={(index, amount) => {
+                  const rows = new Array(amount).fill(0);
+                  rows.forEach((_, rowIndex) => {
+                    Transforms.delete(markdownEditorRef.current, {
+                      at: [...tablePath, index + rowIndex],
+                    });
+                  });
+                }}
+                afterColumnResize={(size, colIndex) => {
+                  const colWidths = props.element?.otherProps?.colWidths || [];
+                  colWidths[colIndex] = size;
+                  Transforms?.setNodes(
+                    markdownEditorRef.current,
+                    {
+                      otherProps: {
+                        ...props.element.otherProps,
+                        colWidths,
+                      },
+                    },
+                    {
+                      at: tablePath,
+                    },
+                  );
+                }}
+                // ------  列宽的配置 end  ---------
+                // 与内容同步，用于处理表格内容的变化
+                afterChange={updateTable}
+                //------- merge 合并单元格的处理 -------
+                mergeCells={props.element?.otherProps?.mergeCells || true}
+                afterMergeCells={(cellRange, mergeParent, auto) => {
+                  if (auto) return;
+                  const mergeCells = [
+                    ...(props.element?.otherProps?.mergeCells || []),
+                  ];
+                  mergeCells.push(mergeParent as any);
+                  Transforms?.setNodes(
+                    markdownEditorRef.current,
+                    {
+                      otherProps: {
+                        ...props.element.otherProps,
+                        mergeCells,
+                      },
+                    },
+                    {
+                      at: tablePath,
+                    },
+                  );
+                }}
+                afterUnmergeCells={(cellRange, auto) => {
+                  if (auto) return;
+                  const row = cellRange?.from?.row;
+                  const rol = cellRange?.from?.col;
+                  const mergeCells =
+                    props.element?.otherProps?.mergeCells || [];
+                  Transforms?.setNodes(
+                    markdownEditorRef.current,
+                    {
+                      otherProps: {
+                        ...props.element.otherProps,
+                        mergeCells:
+                          mergeCells?.filter((cell) => {
+                            return cell.col !== rol || cell.row !== row;
+                          }) || [],
+                      },
+                    },
+                    {
+                      at: tablePath,
+                    },
+                  );
+                }}
+                // ----- merge 合并单元格的处理 end --------
+                contextMenu={[
+                  'row_above',
+                  'row_below',
+                  '---------',
+                  'undo',
+                  'redo',
+                  '---------',
+                  'mergeCells',
+                ]}
+                autoWrapRow={true}
+                autoWrapCol={true}
+                minRows={editorProps?.tableConfig?.minRows || 3}
+                minCols={editorProps?.tableConfig?.minColumn || 3}
+                licenseKey="non-commercial-and-evaluation" // for non-commercial use only
+              />
             </div>
-          </ConfigProvider>
-        </TableConnext.Provider>,
+          ) : (
+            <>
+              <div
+                className={classNames(baseCls, hashId, {
+                  [`${baseCls}-selected`]: isSel,
+                  [`${baseCls}-show-bar`]: isShowBar,
+                  [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
+                  'show-bar': isShowBar,
+                })}
+                onClick={() => {
+                  runInAction(() => {
+                    if (isSel) {
+                      store.selectTablePath = [];
+                      return;
+                    }
+                    store.selectTablePath = tablePath;
+                  });
+                }}
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                }}
+              >
+                <table
+                  ref={tableTargetRef}
+                  className={classNames(`${baseCls}-editor-table`, hashId)}
+                >
+                  <tbody data-slate-node="element">{props.children}</tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </div>,
       ),
     [
       props.element.children,

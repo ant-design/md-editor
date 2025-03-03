@@ -58,7 +58,7 @@
                 </span>
               </span>
               <div
-                class="ant-md-editor-content-table-container"
+                class="ant-md-editor-content-table-container ant-md-editor-content-table-container-editable"
                 data-be="table"
                 data-slate-node="element"
                 draggable="false"

@@ -18,6 +18,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         marginBottom: 12,
       },
+      '&-container-editable': {
+        width: '100%',
+      },
       '&-editor-table': {
         marginTop: '1em',
       },
