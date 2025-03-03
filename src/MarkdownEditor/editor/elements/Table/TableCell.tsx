@@ -28,7 +28,7 @@ export const TableThCell = (
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
         ? 'right'
-        : undefined;
+        : 'center';
   }, [align, text]);
 
   return (
@@ -62,7 +62,7 @@ export const TableTdCell = (
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
         ? 'right'
-        : 'left';
+        : 'center';
   }, [align, text]);
 
   const dom = useMemo(() => {
