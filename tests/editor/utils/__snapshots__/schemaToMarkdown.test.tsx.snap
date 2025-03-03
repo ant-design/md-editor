@@ -1316,8 +1316,8 @@ exports[`should convert markdown to schema in  代码
 }",
       },
     ],
+    "isConfig": false,
     "language": "java",
-    "otherProps": {},
     "render": false,
     "type": "code",
     "value": "Class A {
@@ -4318,8 +4318,8 @@ exports[`should convert markdown to schema in  表单
         "text": "",
       },
     ],
+    "isConfig": false,
     "language": "schema",
-    "otherProps": {},
     "render": false,
     "type": "schema",
     "value": [
@@ -6328,7 +6328,7 @@ exports[`should convert schema to markdown in  表单
 "## 表单
 
 \`\`\`schema
-{}
+undefined
 \`\`\`"
 `;
 

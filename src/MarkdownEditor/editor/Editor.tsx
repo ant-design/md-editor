@@ -233,6 +233,7 @@ export const MEditor = observer(
     };
 
     const checkEnd = (e: React.MouseEvent) => {
+      if (readonly) return;
       if (!store.focus) {
         markdownEditorRef.current.selection = null;
       }
@@ -255,6 +256,7 @@ export const MEditor = observer(
      * @description focus event
      */
     const onFocus = () => {
+      if (readonly) return;
       store.setState((state) => (state.focus = true));
     };
 
@@ -264,6 +266,7 @@ export const MEditor = observer(
      * @param {React.FocusEvent<HTMLDivElement>} e
      */
     const onBlur = () => {
+      if (readonly) return;
       store.setState((state) => {
         state.focus = false;
         state.tableCellNode = null;

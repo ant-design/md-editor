@@ -91,10 +91,68 @@
                 style="color: red;"
               >
                 <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <span
                   data-slate-string="true"
                 >
                   腾讯科技（深圳 )有限公司
                 </span>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  
+
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+                style="color: rgb(254, 3, 0);"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <span
+                  data-slate-string="true"
+                >
+                  哈哈哈
+                </span>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
               </span>
             </span>
             <span
@@ -157,6 +215,228 @@
                 draggable="false"
               >
                 腾讯科技（深圳 )有限公司
+              </span>
+            </span>
+          </div>
+          <h1
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="我是一个正经人"
+            data-slate-node="element"
+            data-title="false"
+            id="我是一个正经人"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+                style="color: rgb(254, 3, 0);"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <i>
+                  <span
+                    data-slate-string="true"
+                  >
+                    我是一个正经人
+                  </span>
+                </i>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+          </h1>
+          <h2
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="我是一个正经人"
+            data-slate-node="element"
+            data-title="false"
+            id="我是一个正经人"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+                style="color: rgb(112, 173, 72);"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <i>
+                  <span
+                    data-slate-string="true"
+                  >
+                    我是一个正经人
+                  </span>
+                </i>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+          </h2>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="我是一个正经人"
+            data-slate-node="element"
+            data-title="false"
+            id="我是一个正经人"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+                style="color: rgb(246, 204, 172);"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <i>
+                  <span
+                    data-slate-string="true"
+                  >
+                    我是一个正经人
+                  </span>
+                </i>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                aria-describedby="test-id"
+                class=" "
+                data-be="link"
+                data-slate-inline="true"
+                data-slate-leaf="true"
+                data-url="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"
+                draggable="false"
+                id="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"
+                style="text-decoration: underline; text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <span
+                  data-slate-string="true"
+                >
+                  知乎
+                </span>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                aria-describedby="test-id"
+                class=" "
+                data-be="link"
+                data-slate-inline="true"
+                data-slate-leaf="true"
+                data-url="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"
+                draggable="false"
+                id="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"
+                style="color: rgb(22, 119, 255); text-decoration: underline; text-decoration-color: red; text-underline-offset: 4px; cursor: pointer;"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <span
+                  data-slate-string="true"
+                >
+                  知乎
+                </span>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
+                >
+                  ﻿
+                  <br />
+                </span>
               </span>
             </span>
           </div>
@@ -607,6 +887,30 @@
                 </tbody>
               </table>
             </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
+                >
+                  ﻿
+                  <br />
+                </span>
+              </span>
+            </span>
           </div>
           <h2
             class="ant-md-editor-drag-el"
@@ -6855,6 +7159,7 @@
               <span
                 aria-describedby="test-id"
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -6867,6 +7172,7 @@
               <span
                 aria-describedby="test-id"
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_2"
@@ -7325,6 +7631,7 @@
                           <span
                             aria-describedby="test-id"
                             class="  ant-md-editor-content-fnc"
+                            contenteditable="false"
                             data-be="text"
                             data-fnc="fnc"
                             data-fnc-name="DOC_1"
@@ -8479,6 +8786,7 @@
                 <span
                   aria-describedby="test-id"
                   class="  ant-md-editor-content-fnc"
+                  contenteditable="false"
                   data-be="text"
                   data-fnc="fnc"
                   data-fnc-name="3"
@@ -8491,6 +8799,264 @@
               </span>
             </div>
           </blockquote>
+          <h2
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="思维图"
+            data-slate-node="element"
+            data-title="false"
+            id="思维图"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  思维图
+                </span>
+              </span>
+            </span>
+          </h2>
+          <div
+            class="ace-el drag-el"
+            contenteditable="false"
+            data-be="code"
+            data-lang="mermaid"
+            data-slate-node="element"
+            tabindex="-1"
+          >
+            <div
+              class="ace-container drag-el "
+              style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; max-height: 400px; overflow: auto; position: relative; height: 0px; opacity: 0;"
+            >
+              <div
+                contenteditable="false"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+              >
+                <span
+                  aria-describedby="test-id"
+                  class="ant-agent-chat-action-icon-box"
+                  style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                >
+                  <div
+                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                  >
+                    <img
+                      src="/src/MarkdownEditor/editor/elements/code/langIcons/mermaid.svg"
+                      style="height: 1em; width: 1em;"
+                    />
+                  </div>
+                  <div>
+                    <span>
+                      mermaid
+                    </span>
+                  </div>
+                </span>
+                <div
+                  style="display: flex; gap: 5px;"
+                >
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                  >
+                    <span
+                      aria-label="close-circle"
+                      class="anticon anticon-close-circle"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="close-circle"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm0 76c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm128.01 198.83c.03 0 .05.01.09.06l45.02 45.01a.2.2 0 01.05.09.12.12 0 010 .07c0 .02-.01.04-.05.08L557.25 512l127.87 127.86a.27.27 0 01.05.06v.02a.12.12 0 010 .07c0 .03-.01.05-.05.09l-45.02 45.02a.2.2 0 01-.09.05.12.12 0 01-.07 0c-.02 0-.04-.01-.08-.05L512 557.25 384.14 685.12c-.04.04-.06.05-.08.05a.12.12 0 01-.07 0c-.03 0-.05-.01-.09-.05l-45.02-45.02a.2.2 0 01-.05-.09.12.12 0 010-.07c0-.02.01-.04.06-.08L466.75 512 338.88 384.14a.27.27 0 01-.05-.06l-.01-.02a.12.12 0 010-.07c0-.03.01-.05.05-.09l45.02-45.02a.2.2 0 01.09-.05.12.12 0 01.07 0c.02 0 .04.01.08.06L512 466.75l127.86-127.86c.04-.05.06-.06.08-.06a.12.12 0 01.07 0z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class=" ace_editor ace_hidpi ace-tm"
+                style="height: 200px; line-height: 22px; font-size: 13px;"
+              >
+                <textarea
+                  aria-autocomplete="both"
+                  aria-haspopup="false"
+                  aria-label="Cursor at row 1"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  class="ace_text-input"
+                  role="textbox"
+                  spellcheck="false"
+                  style="opacity: 0; font-size: 1px;"
+                  wrap="off"
+                />
+                <div
+                  aria-hidden="true"
+                  class="ace_gutter"
+                >
+                  <div
+                    class="ace_layer ace_gutter-layer ace_folding-enabled"
+                    style="height: 1000000px;"
+                  />
+                </div>
+                <div
+                  class="ace_scroller"
+                  style="line-height: 0px;"
+                >
+                  <div
+                    class="ace_content"
+                  >
+                    <div
+                      class="ace_layer ace_print-margin-layer"
+                    >
+                      <div
+                        class="ace_print-margin"
+                        style="left: 4px; visibility: hidden;"
+                      />
+                    </div>
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_text-layer"
+                      style="height: 1000000px; margin: 0px 4px;"
+                    />
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                    >
+                      <div
+                        class="ace_cursor"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-v"
+                  style="display: none; width: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="width: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-h"
+                  style="display: none; height: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="height: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                >
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  />
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  >
+                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-hidden"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                      mindmap
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness&lt;br/&gt;and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div
+              contenteditable="false"
+              style="margin-bottom: 0.75em; cursor: default; user-select: none; padding: 0.75rem 0px; background-color: rgba(15, 17, 20, 0.05); border-radius: 0.25em; display: flex; justify-content: center;"
+            >
+              <div
+                contenteditable="false"
+                style="width: 100%; display: flex; justify-content: center; visibility: visible;"
+              />
+            </div>
+          </div>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -8740,13 +9306,13 @@
                 >
                   <a
                     class="ant-anchor-link-title"
-                    href="#腾讯研究报告"
+                    href="#我是一个正经人"
                     title=""
                   >
                     <span
                       style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                     >
-                      腾讯研究报告
+                      我是一个正经人
                     </span>
                   </a>
                   <div
@@ -8754,15 +9320,30 @@
                   >
                     <a
                       class="ant-anchor-link-title"
-                      href="#html"
+                      href="#我是一个正经人"
                       title=""
                     >
                       <span
                         style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                       >
-                        html
+                        我是一个正经人
                       </span>
                     </a>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#我是一个正经人"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          我是一个正经人
+                        </span>
+                      </a>
+                    </div>
                   </div>
                   <div
                     class="ant-anchor-link"
@@ -8926,6 +9507,21 @@
                         style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                       >
                         引用
+                      </span>
+                    </a>
+                  </div>
+                  <div
+                    class="ant-anchor-link"
+                  >
+                    <a
+                      class="ant-anchor-link-title"
+                      href="#思维图"
+                      title=""
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        思维图
                       </span>
                     </a>
                   </div>

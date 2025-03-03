@@ -7539,6 +7539,7 @@
                   </span>
                   <span
                     class="  ant-md-editor-content-fnc"
+                    contenteditable="false"
                     data-be="text"
                     data-fnc="fnc"
                     data-fnc-name="3"

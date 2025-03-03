@@ -1,5 +1,4 @@
-﻿import { message } from 'antd';
-import { Editor, Node, Path, Range, Transforms } from 'slate';
+﻿import { Editor, Node, Path, Range, Transforms } from 'slate';
 
 export const inlineNode = new Set(['break']);
 const voidNode = new Set(['hr', 'break']);
@@ -10,6 +9,8 @@ const TableInlineNode = new Set([
   'paragraph',
   'footnoteDefinition',
   'table-row',
+  'break',
+  'html',
   'table-cell',
   'media',
 ]);
@@ -255,7 +256,7 @@ export const withMarkdown = (editor: Editor) => {
           }
         }
         console.log('parentNode', operation.node);
-        message.error('表格内部只支持行内节点！');
+        console.error('表格内部只支持行内节点！');
         return;
       }
       if (!parentNode) {

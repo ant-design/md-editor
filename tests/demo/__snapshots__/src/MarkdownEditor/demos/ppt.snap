@@ -11500,6 +11500,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name=" 1"
@@ -11511,6 +11512,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name=" 2"

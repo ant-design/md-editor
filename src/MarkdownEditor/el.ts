@@ -20,6 +20,7 @@ export type CodeNode<T = Record<string, any>> = {
   h?: number;
   value: string;
   katex?: boolean;
+  isConfig?: boolean;
 };
 
 export type ParagraphNode<T = Record<string, any>> = {
