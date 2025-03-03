@@ -129,7 +129,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   const [columnLength, setColumnLength] = React.useState(2);
 
-  const config = [node.otherProps?.config].flat(1);
+  const config = [node.otherProps?.config || node.otherProps].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [minWidth, setMinWidth] = React.useState(256);
 

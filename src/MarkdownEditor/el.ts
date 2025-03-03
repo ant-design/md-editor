@@ -4,6 +4,13 @@ import { ReactEditor, RenderElementProps } from './editor/slate-react';
 
 type Align = 'left' | 'center' | 'right';
 
+export interface DetailedSettings {
+  row: number;
+  col: number;
+  rowspan: number;
+  colspan: number;
+}
+
 export type CodeNode<T = Record<string, any>> = {
   contextProps?: T;
   type: 'code';
@@ -67,7 +74,9 @@ export type TableNode<T = Record<string, any>> = {
       dataIndex: string;
       key: string;
     }[];
+    mergeCells: DetailedSettings[];
     dataSource: any[];
+    colWidths?: number[];
   } & T;
 };
 
@@ -107,7 +116,8 @@ export type TableCellNode<T = Record<string, any>> = {
   otherProps?: T;
   type: 'table-cell';
   title?: boolean;
-  align?: Align;
+  rows?: number;
+  cols?: number;
   //@ts-ignore
   children: BaseElement['children'];
 };

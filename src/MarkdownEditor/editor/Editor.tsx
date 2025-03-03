@@ -68,43 +68,6 @@ const genTableMinSize = (
   if (!config) return elements;
 
   elements.forEach((element) => {
-    if (element.type === 'table') {
-      const thisColumns = element.otherProps?.columns.length || 0;
-      const thisRows = element.otherProps?.dataSource.length || 0;
-
-      if (config.minRows) {
-        if (element.children.length < config.minRows) {
-          for (
-            let i = element.children.length;
-            i < Math.max(config.minRows!, thisRows);
-            i++
-          ) {
-            element.children.push({
-              type: 'table-row',
-              children: [],
-            });
-          }
-        }
-      }
-
-      if (config.minColumn) {
-        element.children.forEach((row, index) => {
-          if (row.children.length < config.minColumn!) {
-            for (
-              let i = row.children.length;
-              i < Math.max(config.minColumn!, thisColumns)!;
-              i++
-            ) {
-              row.children.push({
-                type: 'table-cell',
-                title: index === 0,
-                children: [{ text: '' }],
-              });
-            }
-          }
-        });
-      }
-    }
     if (element.children) {
       genTableMinSize(element.children, config);
     }

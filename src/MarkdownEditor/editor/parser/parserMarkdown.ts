@@ -205,7 +205,8 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
             type: 'table-cell',
             align: aligns?.[i as number] || undefined,
             title: l === 0,
-            // @ts-ignore
+            rows: l,
+            cols: i,
             children: c.children?.length
               ? parserBlock(c.children as any, false, c as any)
               : [{ text: '' }],
@@ -216,7 +217,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
   }) as TableRowNode[];
 
   const otherProps = {
-    config: config,
+    ...config,
     columns,
     dataSource: dataSource.map((item) => {
       delete item?.chartType;
@@ -233,7 +234,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
     type: isChart ? 'chart' : 'table',
     children: children,
     otherProps,
-  };
+  } as any;
   return EditorUtils.wrapperCardNode(node);
 };
 
@@ -789,7 +790,6 @@ const parserBlock = (
                   : [{ value: leaf?.url || '' }],
                 leaf,
               );
-              console.log('el', el);
             }
           }
         } else if (currentElement.type === 'break') {

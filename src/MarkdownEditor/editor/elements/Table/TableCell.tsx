@@ -1,13 +1,11 @@
 ﻿import { Popover, Typography } from 'antd';
-import classNames from 'classnames';
-import { default as React, useEffect, useMemo, useState } from 'react';
-import { Editor, Node, Transforms } from 'slate';
-import stringWidth from 'string-width';
+import { default as React, useContext, useMemo } from 'react';
+import { Node } from 'slate';
+import { TablePropsContext } from '.';
 import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import './table.css';
-
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
 /**
@@ -17,49 +15,28 @@ const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
  */
 export const TableThCell = (
   props: RenderElementProps & {
-    minWidth: number;
     align?: string;
     text?: string;
     width?: number;
   },
 ) => {
-  const [, cellPath] = useSelStatus(props.element);
-  const { readonly, markdownEditorRef } = useEditorStore();
-  const { minWidth, align, text } = props;
-  const { selected } = props.element;
-  const isSelecting = selected;
-  const [editing, setEditing] = useState(false);
+  const { readonly } = useEditorStore();
+  const { align, text } = props;
   const justifyContent = useMemo(() => {
     return align || !readonly
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
-        ? 'left'
-        : 'right';
+        ? 'right'
+        : 'center';
   }, [align, text]);
 
   return (
     <th
       {...props.attributes}
       data-be={'th'}
-      className={classNames('group', {
-        'selected-cell-td': isSelecting,
-        'editing-cell-td': editing,
-        'td-cell-select': !readonly && !isSelecting && !editing,
-      })}
       style={{
         textAlign: justifyContent as 'left',
-        minWidth: minWidth,
-        maxWidth: '200px',
         width: props.width,
-      }}
-      onDoubleClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setEditing(true);
-        Transforms.select(
-          markdownEditorRef.current,
-          Editor.end(markdownEditorRef.current, cellPath),
-        );
       }}
     >
       {props.children}
@@ -69,29 +46,59 @@ export const TableThCell = (
 
 export const TableTdCell = (
   props: RenderElementProps & {
-    minWidth: number;
     align?: string;
     text?: string;
-    domWidth: number;
     width?: number;
+    cellPath?: number[];
   },
 ) => {
-  const [, cellPath] = useSelStatus(props.element);
   const { readonly } = useEditorStore();
-  const { minWidth, domWidth, align, text } = props;
-  const { selected } = props.element;
-  const [editing, setEditing] = useState(false);
+
+  const { tableNode } = useContext(TablePropsContext);
+
+  const { align, text } = props;
 
   const justifyContent = useMemo(() => {
     return align || !readonly
       ? align
       : numberValidationRegex.test(text?.replaceAll(',', '') || '')
         ? 'right'
-        : 'left';
+        : 'center';
   }, [align, text]);
 
+  const mergeCell = useMemo(() => {
+    if (tableNode?.otherProps?.mergeCells) {
+      const row = props.cellPath?.at(-2);
+      const col = props.cellPath?.at(-1);
+      if (row === undefined || col === undefined) return null;
+      const cellConfig = tableNode?.otherProps?.mergeCells?.find(
+        (item) =>
+          item.row <= row &&
+          item.row + item.rowspan > row &&
+          item.col <= col &&
+          item.col + item.colspan > col,
+      );
+      if (cellConfig && cellConfig.row === row && cellConfig.col === col) {
+        return cellConfig;
+      }
+      if (
+        cellConfig &&
+        (cellConfig.row < row ||
+          cellConfig.col < col ||
+          cellConfig.row + cellConfig.rowspan > row ||
+          cellConfig.col + cellConfig.colspan > col)
+      ) {
+        return {
+          hidden: true,
+          ...cellConfig,
+        };
+      }
+    }
+    return null;
+  }, [tableNode?.otherProps?.mergeCells]);
+
   const dom = useMemo(() => {
-    if (readonly && domWidth > 200) {
+    if (readonly && (props.width || 0) > 200) {
       return (
         <Popover
           title={
@@ -115,44 +122,25 @@ export const TableTdCell = (
       );
     }
     return props.children;
-  }, [props.width, domWidth, minWidth, props.children, readonly, text]);
+  }, [props.width, props.children, readonly, text]);
 
-  const isSelecting = selected;
+  if (mergeCell) {
+    console.log('mergeCell', mergeCell, props.cellPath);
+  }
 
-  const { markdownEditorRef } = useEditorStore();
-  useEffect(() => {
-    if (!isSelecting) {
-      setEditing(false);
-    }
-  }, [isSelecting]);
-
+  if ((mergeCell as any)?.hidden) return null;
   return (
     <td
       {...props.attributes}
       data-be={'td'}
-      className={classNames('group', {
-        'selected-cell-td': isSelecting,
-        'editing-cell-td': editing,
-        'td-cell-select': !readonly && !isSelecting && !editing,
-      })}
+      rowSpan={mergeCell?.rowspan}
+      colSpan={mergeCell?.colspan}
       style={{
-        backgroundColor: editing ? 'transparent' : undefined,
         textAlign: justifyContent as 'left',
-        minWidth: minWidth,
-        border: editing ? '2px solid #42a642' : undefined,
         maxWidth: '200px',
         overflow: 'auto',
         textWrap: 'wrap',
         width: props.width,
-      }}
-      onDoubleClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setEditing(true);
-        Transforms.select(
-          markdownEditorRef.current,
-          Editor.end(markdownEditorRef.current, cellPath),
-        );
       }}
     >
       {dom}
@@ -183,29 +171,20 @@ export const TableTdCell = (
  * - `onContextMenu` 事件处理函数根据元素是否有 title 属性传递不同的参数。
  */
 export function TableCell(props: RenderElementProps) {
+  const [, path] = useSelStatus(props.element);
   return React.useMemo(() => {
-    const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
-    const minWidth = Math.min(domWidth, 200);
     const text = Node.string(props.element);
     const align = props.element?.align;
     const width = props.element?.width;
-
     return props.element.title ? (
-      <TableThCell
-        {...props}
-        minWidth={minWidth}
-        align={align}
-        text={text}
-        width={width}
-      />
+      <TableThCell {...props} align={align} text={text} width={width} />
     ) : (
       <TableTdCell
         {...props}
-        domWidth={domWidth}
-        minWidth={minWidth}
         align={align}
         text={text}
         width={width}
+        cellPath={path}
       />
     );
   }, [
