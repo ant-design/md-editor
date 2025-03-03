@@ -47,6 +47,11 @@ import {
 } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
 
+export type PopupConfig = {
+  popupRender?: (onSelected: (value: string) => void) => React.ReactNode | null;
+  triggerKey?: string;
+}
+
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
   onChange?: MarkdownEditorProps['onChange'];
@@ -55,8 +60,8 @@ export type MEditorProps = {
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
+  popup?:PopupConfig;
   titlePlaceholderContent?: string;
-  onSpecialChar?: (editor: Editor) => React.ReactNode; // 新增属性
 } & MarkdownEditorProps;
 
 const genTableMinSize = (
@@ -113,12 +118,14 @@ const genTableMinSize = (
 };
 
 export const MEditor = observer(
-  ({ eleItemRender, reportMode, instance, onSpecialChar, ...editorProps }: MEditorProps) => {
+  ({ eleItemRender, reportMode, popup ,instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
+
+    const { popupRender, triggerKey='$' } = popup || {};
 
     const onKeyDown = useKeyboard(
       store,
@@ -135,11 +142,8 @@ export const MEditor = observer(
 
     const [showPopup, setShowPopup] = React.useState(false);
     const [popupPosition, setPopupPosition] = React.useState<{ top: number; left: number } | null>(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
-    const [options, setOptions] = React.useState<string[]>([]);
-
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === '$') {
+      if (event.key === triggerKey) {
         const { selection } = markdownEditorRef.current;
         if (selection) {
           const domSelection = window.getSelection();
@@ -148,22 +152,14 @@ export const MEditor = observer(
           if (rect) {
             setPopupPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX });
             setShowPopup(true);
-            setOptions(onSpecialChar ? onSpecialChar(markdownEditorRef.current) : []);
           }
         }
       } else if (showPopup) {
         if (event.key === 'ArrowDown') {
-          setSelectedIndex((prevIndex) => (prevIndex + 1) % options.length);
           event.preventDefault();
         } else if (event.key === 'ArrowUp') {
-          setSelectedIndex((prevIndex) => (prevIndex - 1 + options.length) % options.length);
           event.preventDefault();
         } else if (event.key === 'Enter') {
-          const selectedOption = options[selectedIndex];
-          if (selectedOption) {
-            Transforms.insertText(markdownEditorRef.current, selectedOption);
-            setShowPopup(false);
-          }
           event.preventDefault();
         } else if (event.key === 'Escape') {
           setShowPopup(false);
@@ -173,6 +169,12 @@ export const MEditor = observer(
         setShowPopup(false);
       }
       onKeyDown(event);
+    };
+
+    const handleSelected = (value: string) => {
+      setShowPopup(false);
+      // 在文档中插入选中的值
+      Transforms.insertText(markdownEditorRef.current, value);
     };
 
     /**
@@ -806,24 +808,9 @@ export const MEditor = observer(
             renderLeaf={renderMarkdownLeaf}
           />
         </Slate>
-        {showPopup && popupPosition && (
+        {showPopup && popupPosition && popupRender && (
           <div style={{ position: 'absolute', top: popupPosition.top, left: popupPosition.left, background: 'white', border: '1px solid #ccc', zIndex: 1000 }}>
-            {options.map((option, index) => (
-              <div
-                key={index}
-                style={{
-                  padding: '8px',
-                  backgroundColor: selectedIndex === index ? '#f0f0f0' : 'white',
-                  cursor: 'pointer',
-                }}
-                onMouseDown={() => {
-                  Transforms.insertText(markdownEditorRef.current, option);
-                  setShowPopup(false);
-                }}
-              >
-                {option}
-              </div>
-            ))}
+            {popupRender(handleSelected)}
           </div>
         )}
       </div>

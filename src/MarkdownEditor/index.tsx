@@ -24,7 +24,7 @@ import { Subject } from 'rxjs';
 import { BaseEditor, createEditor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
-import { MEditor } from './editor/Editor';
+import { MEditor, PopupConfig } from './editor/Editor';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
 import { ReactEditor, withReact } from './editor/slate-react';
@@ -164,6 +164,7 @@ export type MarkdownEditorProps = {
   rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
 
   fncProps?: {
+    popup?: PopupConfig;
     render: (
       props: { children: string },
       defaultDom: React.ReactNode,
@@ -295,6 +296,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     style,
     contentStyle,
     editorStyle,
+    
     height,
     ...rest
   } = props;
@@ -474,9 +476,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             }}
             initSchemaValue={initSchemaValue}
             style={editorStyle}
-            onSpecialChar={(char) => {
-              return ['选项1', '选项2', '选项3'];
-            }}
+            popup={props?.fncProps?.popup}
             instance={instance}
           />
           {readonly ? (
