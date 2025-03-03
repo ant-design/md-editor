@@ -47,6 +47,11 @@ import {
 } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
 
+export type PopupConfig = {
+  popupRender?: (onSelected: (value: string) => void) => React.ReactNode | null;
+  triggerKey?: string;
+}
+
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
   onChange?: MarkdownEditorProps['onChange'];
@@ -55,6 +60,7 @@ export type MEditorProps = {
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
+  popup?:PopupConfig;
   titlePlaceholderContent?: string;
 } & MarkdownEditorProps;
 
@@ -75,12 +81,14 @@ const genTableMinSize = (
 };
 
 export const MEditor = observer(
-  ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
+  ({ eleItemRender, reportMode, popup ,instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
+
+    const { popupRender, triggerKey='$' } = popup || {};
 
     const onKeyDown = useKeyboard(
       store,
@@ -94,6 +102,43 @@ export const MEditor = observer(
     );
     const high = useHighlight(store);
     const first = useRef(true);
+
+    const [showPopup, setShowPopup] = React.useState(false);
+    const [popupPosition, setPopupPosition] = React.useState<{ top: number; left: number } | null>(null);
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === triggerKey) {
+        const { selection } = markdownEditorRef.current;
+        if (selection) {
+          const domSelection = window.getSelection();
+          const domRange = domSelection?.getRangeAt(0);
+          const rect = domRange?.getBoundingClientRect();
+          if (rect) {
+            setPopupPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX });
+            setShowPopup(true);
+          }
+        }
+      } else if (showPopup) {
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+        } else if (event.key === 'ArrowUp') {
+          event.preventDefault();
+        } else if (event.key === 'Enter') {
+          event.preventDefault();
+        } else if (event.key === 'Escape') {
+          setShowPopup(false);
+          event.preventDefault();
+        }
+      } else {
+        setShowPopup(false);
+      }
+      onKeyDown(event);
+    };
+
+    const handleSelected = (value: string) => {
+      setShowPopup(false);
+      // 在文档中插入选中的值
+      Transforms.insertText(markdownEditorRef.current, value);
+    };
 
     /**
      * 初始化编辑器
@@ -639,95 +684,102 @@ export const MEditor = observer(
       }
     }, 160);
     return wrapSSR(
-      <Slate
-        editor={markdownEditorRef.current}
-        initialValue={[EditorUtils.p]}
-        onChange={change}
-      >
-        <Editable
-          decorate={decorateFn}
-          onError={onError}
-          onDragOver={(e) => e.preventDefault()}
-          readOnly={readonly}
-          className={classNames(
-            `${baseClassName}-${readonlyCls}`,
-            `${baseClassName}`,
-            editorProps.className,
-            {
-              [`${baseClassName}-report`]: reportMode,
-              [`${baseClassName}-edit`]: !readonly,
-            },
-            hashId,
-          )}
-          style={
-            reportMode
-              ? {
-                  fontSize: 16,
-                  ...editorProps.style,
-                }
-              : {
-                  fontSize: 14,
-                  ...editorProps.style,
-                }
-          }
-          onSelect={() => {
-            handleSelectionChange?.cancel();
-            handleSelectionChange?.run();
-          }}
-          onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
-            if (isEventHandled(event)) {
-              return;
+      <div>
+        <Slate
+          editor={markdownEditorRef.current}
+          initialValue={[EditorUtils.p]}
+          onChange={change}
+        >
+          <Editable
+            decorate={decorateFn}
+            onError={onError}
+            onDragOver={(e) => e.preventDefault()}
+            readOnly={readonly}
+            className={classNames(
+              `${baseClassName}-${readonlyCls}`,
+              `${baseClassName}`,
+              editorProps.className,
+              {
+                [`${baseClassName}-report`]: reportMode,
+                [`${baseClassName}-edit`]: !readonly,
+              },
+              hashId,
+            )}
+            style={
+              reportMode
+                ? {
+                    fontSize: 16,
+                    ...editorProps.style,
+                  }
+                : {
+                    fontSize: 14,
+                    ...editorProps.style,
+                  }
             }
-            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
-              const domSelection = window.getSelection();
-              markdownEditorRef.current.selection =
-                getSelectionFromDomSelection(
-                  markdownEditorRef.current,
-                  domSelection!,
-                );
-              if (markdownEditorRef.current.selection) {
-                Transforms.delete(markdownEditorRef.current, {
-                  at: markdownEditorRef.current.selection!,
-                });
+            onSelect={() => {
+              handleSelectionChange?.cancel();
+              handleSelectionChange?.run();
+            }}
+            onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
+              if (isEventHandled(event)) {
                 return;
               }
-            }
-            event.preventDefault();
-          }}
-          onMouseDown={checkEnd}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onPaste={onPaste}
-          onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
-            if (isEventHandled(event)) {
-              return;
-            }
-            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
-              const domSelection = window.getSelection();
-              markdownEditorRef.current.selection =
-                getSelectionFromDomSelection(
-                  markdownEditorRef.current,
-                  domSelection!,
-                );
-              if (!markdownEditorRef.current.selection) {
+              if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
+                const domSelection = window.getSelection();
+                markdownEditorRef.current.selection =
+                  getSelectionFromDomSelection(
+                    markdownEditorRef.current,
+                    domSelection!,
+                  );
+                if (markdownEditorRef.current.selection) {
+                  Transforms.delete(markdownEditorRef.current, {
+                    at: markdownEditorRef.current.selection!,
+                  });
+                  return;
+                }
+              }
+              event.preventDefault();
+            }}
+            onMouseDown={checkEnd}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onPaste={onPaste}
+            onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
+              if (isEventHandled(event)) {
                 return;
               }
-            }
-            event.preventDefault();
-            ReactEditor.setFragmentData(
-              markdownEditorRef.current,
-              event.clipboardData,
-              'copy',
-            );
-            copySelectedBlocks(markdownEditorRef.current);
-          }}
-          onCompositionStart={onCompositionStart}
-          onCompositionEnd={onCompositionEnd}
-          renderElement={elementRenderElement}
-          onKeyDown={onKeyDown}
-          renderLeaf={renderMarkdownLeaf}
-        />
-      </Slate>,
+              if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
+                const domSelection = window.getSelection();
+                markdownEditorRef.current.selection =
+                  getSelectionFromDomSelection(
+                    markdownEditorRef.current,
+                    domSelection!,
+                  );
+                if (!markdownEditorRef.current.selection) {
+                  return;
+                }
+              }
+              event.preventDefault();
+              ReactEditor.setFragmentData(
+                markdownEditorRef.current,
+                event.clipboardData,
+                'copy',
+              );
+              copySelectedBlocks(markdownEditorRef.current);
+            }}
+            onCompositionStart={onCompositionStart}
+            onCompositionEnd={onCompositionEnd}
+            renderElement={elementRenderElement}
+            onKeyDown={handleKeyDown} // 使用新的 handleKeyDown
+            renderLeaf={renderMarkdownLeaf}
+          />
+        </Slate>
+        {showPopup && popupPosition && popupRender && (
+          <div style={{ position: 'absolute', top: popupPosition.top, left: popupPosition.left, background: 'white', border: '1px solid #ccc', zIndex: 1000 }}>
+            {popupRender(handleSelected)}
+          </div>
+        )}
+      </div>
     );
   },
 );
