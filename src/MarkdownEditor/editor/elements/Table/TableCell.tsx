@@ -1,12 +1,11 @@
 ﻿import { Popover, Typography } from 'antd';
-import classNames from 'classnames';
-import { default as React, useMemo } from 'react';
+import { default as React, useContext, useMemo } from 'react';
 import { Node } from 'slate';
-import stringWidth from 'string-width';
+import { TablePropsContext } from '.';
+import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import './table.css';
-
 const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
 /**
@@ -49,13 +48,15 @@ export const TableTdCell = (
   props: RenderElementProps & {
     align?: string;
     text?: string;
-    domWidth: number;
     width?: number;
+    cellPath?: number[];
   },
 ) => {
   const { readonly } = useEditorStore();
-  const { domWidth, align, text } = props;
-  const { selected } = props.element;
+
+  const { tableNode } = useContext(TablePropsContext);
+
+  const { align, text } = props;
 
   const justifyContent = useMemo(() => {
     return align || !readonly
@@ -65,8 +66,39 @@ export const TableTdCell = (
         : 'center';
   }, [align, text]);
 
+  const mergeCell = useMemo(() => {
+    if (tableNode?.otherProps?.mergeCells) {
+      const row = props.cellPath?.at(-2);
+      const col = props.cellPath?.at(-1);
+      if (row === undefined || col === undefined) return null;
+      const cellConfig = tableNode?.otherProps?.mergeCells?.find(
+        (item) =>
+          item.row <= row &&
+          item.row + item.rowspan > row &&
+          item.col <= col &&
+          item.col + item.colspan > col,
+      );
+      if (cellConfig && cellConfig.row === row && cellConfig.col === col) {
+        return cellConfig;
+      }
+      if (
+        cellConfig &&
+        (cellConfig.row < row ||
+          cellConfig.col < col ||
+          cellConfig.row + cellConfig.rowspan > row ||
+          cellConfig.col + cellConfig.colspan > col)
+      ) {
+        return {
+          hidden: true,
+          ...cellConfig,
+        };
+      }
+    }
+    return null;
+  }, [tableNode?.otherProps?.mergeCells]);
+
   const dom = useMemo(() => {
-    if (readonly && domWidth > 200) {
+    if (readonly && (props.width || 0) > 200) {
       return (
         <Popover
           title={
@@ -90,17 +122,19 @@ export const TableTdCell = (
       );
     }
     return props.children;
-  }, [props.width, domWidth, props.children, readonly, text]);
+  }, [props.width, props.children, readonly, text]);
 
-  const isSelecting = selected;
+  if (mergeCell) {
+    console.log('mergeCell', mergeCell, props.cellPath);
+  }
 
+  if ((mergeCell as any)?.hidden) return null;
   return (
     <td
       {...props.attributes}
       data-be={'td'}
-      className={classNames('group', {
-        'selected-cell-td': isSelecting,
-      })}
+      rowSpan={mergeCell?.rowspan}
+      colSpan={mergeCell?.colspan}
       style={{
         textAlign: justifyContent as 'left',
         maxWidth: '200px',
@@ -137,21 +171,20 @@ export const TableTdCell = (
  * - `onContextMenu` 事件处理函数根据元素是否有 title 属性传递不同的参数。
  */
 export function TableCell(props: RenderElementProps) {
+  const [, path] = useSelStatus(props.element);
   return React.useMemo(() => {
-    const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
     const text = Node.string(props.element);
     const align = props.element?.align;
     const width = props.element?.width;
-
     return props.element.title ? (
       <TableThCell {...props} align={align} text={text} width={width} />
     ) : (
       <TableTdCell
         {...props}
-        domWidth={domWidth}
         align={align}
         text={text}
         width={width}
+        cellPath={path}
       />
     );
   }, [

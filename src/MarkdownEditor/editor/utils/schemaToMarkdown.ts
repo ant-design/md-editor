@@ -186,6 +186,7 @@ export const schemaToMarkdown = (
       let configProps = {
         ...node.otherProps,
       };
+
       delete configProps['columns'];
       delete configProps['dataSource'];
       if (node.type === 'link-card') {
@@ -195,6 +196,22 @@ export const schemaToMarkdown = (
         configProps.description = node.description || configProps.description;
         configProps.icon = node.icon || configProps.icon;
       }
+      Object.keys(configProps).forEach((key) => {
+        if (typeof configProps[key] === 'object') {
+          if (
+            Array.isArray(configProps[key]) &&
+            configProps[key].length === 0
+          ) {
+            delete configProps[key];
+            return;
+          }
+          if (Object.keys(configProps[key]).length === 0) {
+            delete configProps[key];
+            return;
+          }
+        }
+      });
+
       str += `<!--${JSON.stringify(configProps)}-->\n`;
     }
     const p = parent[parent.length - 1];

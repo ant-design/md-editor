@@ -116,7 +116,8 @@ export type TableCellNode<T = Record<string, any>> = {
   otherProps?: T;
   type: 'table-cell';
   title?: boolean;
-  align?: Align;
+  rows?: number;
+  cols?: number;
   //@ts-ignore
   children: BaseElement['children'];
 };
