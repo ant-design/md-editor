@@ -234,6 +234,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -255,6 +256,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -276,6 +278,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -297,6 +300,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -318,6 +322,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -339,6 +344,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -360,6 +366,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -381,6 +388,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -402,6 +410,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -423,6 +432,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -444,6 +454,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -465,6 +476,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -486,6 +498,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -512,7 +525,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -815,7 +828,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1118,7 +1131,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1279,7 +1292,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1302,7 +1315,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1325,7 +1338,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1421,7 +1434,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1582,7 +1595,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1605,7 +1618,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1628,7 +1641,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -1724,7 +1737,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -2027,7 +2040,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -2330,7 +2343,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -2633,7 +2646,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -3080,6 +3093,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3102,7 +3116,7 @@
                           class="group"
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                         >
                           <span
                             data-slate-node="text"
@@ -3128,6 +3142,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3176,6 +3191,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3224,6 +3240,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3272,6 +3289,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3320,6 +3338,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3368,6 +3387,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -3416,6 +3436,7 @@
                         <th
                           data-be="th"
                           data-slate-node="element"
+                          style="text-align: center;"
                         >
                           <span
                             data-slate-node="text"
@@ -8696,6 +8717,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -8717,6 +8739,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -8738,6 +8761,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -8759,6 +8783,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -8780,6 +8805,7 @@
                           <th
                             data-be="th"
                             data-slate-node="element"
+                            style="text-align: center;"
                           >
                             <span
                               data-slate-node="text"
@@ -8806,7 +8832,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -8925,7 +8951,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -9044,7 +9070,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -9163,7 +9189,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -9282,7 +9308,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -9401,7 +9427,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -9520,7 +9546,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
@@ -9639,7 +9665,7 @@
                             class="group"
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: left; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: center; max-width: 200px; overflow: auto; text-wrap: wrap;"
                           >
                             <span
                               data-slate-node="text"
