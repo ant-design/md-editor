@@ -1180,6 +1180,10 @@ export default () => {
         });
       }
       Mdlist?.forEach((item, index) => {
+        if (index === 0) {
+          instance.current?.store?.setMDContent?.('');
+          return;
+        }
         setTimeout(() => {
           instance.current?.store.updateNodeList(
             parserMarkdown(item.data.content).schema,
