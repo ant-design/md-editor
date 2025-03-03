@@ -1,8 +1,12 @@
-import { HotTable } from '@handsontable/react';
+import { useRefFunction } from '@ant-design/pro-components';
+import { HotTable } from '@handsontable/react-wrapper';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import 'handsontable/dist/handsontable.full.min.css';
+import { CellChange, ChangeSource } from 'handsontable/common';
+import { registerLanguageDictionary, zhCN } from 'handsontable/i18n';
 import { registerAllModules } from 'handsontable/registry';
+import 'handsontable/styles/handsontable.min.css';
+import 'handsontable/styles/ht-theme-horizon.min.css';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, {
@@ -19,8 +23,10 @@ import { useSelStatus } from '../../../hooks/editor';
 import { ReactEditor, RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { useTableStyle } from './style';
+import './table.css';
 export * from './TableCell';
 
+registerLanguageDictionary(zhCN);
 registerAllModules();
 /**
  * 表格上下文组件，用于在表格组件树中共享单元格选中状态
@@ -78,7 +84,7 @@ const slateTableToJSONData = (input: any[]): any[][] => {
  *
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
-export const Table = observer((props: RenderElementProps) => {
+export const Table = observer((props: RenderElementProps<TableNode>) => {
   const [selectedCell, setSelectedCell] =
     useState<NodeEntry<TableCellNode> | null>(null);
   const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
@@ -210,10 +216,168 @@ export const Table = observer((props: RenderElementProps) => {
     });
     store.CACHED_SEL_CELLS.set(store.editor, selCells);
   }, [JSON.stringify(selCells)]);
-
+  const hotRef = useRef(null);
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const tableJSONData = useMemo(() => slateTableToJSONData(props.children), []);
+
+  useEffect(() => {
+    console.log(hotRef);
+  }, []);
+
+  const updateTable = useRefFunction(
+    (dataList: CellChange[] | null, source: ChangeSource) => {
+      dataList?.forEach((data) => {
+        if (source === 'edit' && data) {
+          const [row, col, old, newValue] = data;
+          if (!tableNodeEntry) return;
+          const path = tableNodeEntry?.[1];
+
+          // 如果旧值不存在，新值不存在，且新值不等于旧值
+          // 说明是新增的单元格
+          if (!old && !newValue && newValue !== old) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+              ])
+            ) {
+              Transforms.delete(markdownEditorRef.current, {
+                at: [...path, row, col as number],
+              });
+              Transforms.insertText(markdownEditorRef.current, newValue, {
+                at: [...path, row, col as number, 0],
+              });
+              return;
+            } else if (
+              Editor.hasPath(markdownEditorRef.current, [...path, row])
+            ) {
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-cell',
+                  children: [{ text: newValue }],
+                },
+                { at: [...path, row, col as number] },
+              );
+              return;
+            } else {
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-row',
+                  children: [
+                    {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    },
+                  ],
+                },
+                { at: [...path, row] },
+              );
+              return;
+            }
+          }
+
+          // 如果旧值不存在，新值存在，且新值不等于旧值
+          // 说明是新增的单元格，但是单元格已经存在，和编辑相同
+          if (!old && newValue && newValue !== old) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+                0,
+              ])
+            ) {
+              Transforms.insertText(markdownEditorRef.current, newValue, {
+                at: [...path, row, col as number, 0],
+              });
+              return;
+            } else if (
+              Editor.hasPath(markdownEditorRef.current, [...path, row])
+            ) {
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-cell',
+                  children: [{ text: newValue }],
+                },
+                { at: [...path, row, col as number] },
+              );
+              return;
+            }
+            if (
+              !Editor.hasPath(markdownEditorRef.current, [...path, row]) &&
+              Editor.hasPath(markdownEditorRef.current, [...path])
+            ) {
+              const cells = new Array(
+                props.element.children?.at(0)?.children?.length,
+              )
+                .fill(0)
+                .map((_, index) => {
+                  if (index === col) {
+                    return {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    };
+                  }
+                  return {
+                    type: 'table-cell',
+                    children: [{ text: '' }],
+                  };
+                });
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-row',
+                  children: cells,
+                },
+                { at: [...path, row] },
+              );
+              return;
+            }
+          }
+
+          // 如果旧值存在，新值不存在，且新值不等于旧值
+          // 说明是删除的单元格
+          if (old && !newValue && newValue !== old) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+                0,
+              ])
+            ) {
+              Transforms.delete(markdownEditorRef.current, {
+                at: [...path, row, col as number],
+              });
+              return;
+            }
+          }
+          // 如果旧值存在，新值存在，且新值不等于旧值
+          // 说明是编辑的单元格
+          if (old && newValue && newValue !== old) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+                0,
+              ])
+            ) {
+              Transforms.insertText(markdownEditorRef.current, newValue, {
+                at: [...path, row, col as number, 0],
+              });
+              return;
+            }
+          }
+        }
+      });
+    },
+  );
 
   return useMemo(
     () =>
@@ -251,110 +415,144 @@ export const Table = observer((props: RenderElementProps) => {
                     width: '100%',
                     minWidth: 0,
                   }}
+                  className="ht-theme-horizon"
                 >
                   <HotTable
+                    ref={hotRef}
                     data={tableJSONData}
-                    autoColumnSize={{}}
                     rowHeaders={true}
                     colHeaders={true}
                     height="auto"
-                    dropdownMenu={true}
-                    columnSorting={true}
-                    manualColumnResize={true}
-                    manualRowResize={true}
-                    afterColumnResize={(colIndex, size) => {
-                      console.log(colIndex, size);
-                    }}
-                    afterRowResize={(rowIndex, size) => {
-                      console.log(rowIndex, size);
-                    }}
-                    afterChange={(dataList, source) => {
-                      dataList?.forEach((data) => {
-                        if (source === 'edit' && data) {
-                          const [row, col, old, newValue] = data;
-                          if (!tableNodeEntry) return;
-                          const path = tableNodeEntry?.[1];
-
-                          if (!old && !newValue && newValue !== old) {
-                            if (
-                              Editor.hasPath(markdownEditorRef.current, [
-                                ...path,
-                                row,
-                                col as number,
-                              ])
-                            ) {
-                              Transforms.delete(markdownEditorRef.current, {
-                                at: [...path, row, col as number],
-                              });
-                              Transforms.insertText(
-                                markdownEditorRef.current,
-                                newValue,
-                                { at: [...path, row, col as number, 0] },
-                              );
-                            } else if (
-                              Editor.hasPath(markdownEditorRef.current, [
-                                ...path,
-                                row,
-                              ])
-                            ) {
-                              Transforms.insertNodes(
-                                markdownEditorRef.current,
-                                {
-                                  type: 'table-cell',
-                                  children: [{ text: newValue }],
-                                },
-                                { at: [...path, row, col as number] },
-                              );
-                            } else {
-                              Transforms.insertNodes(
-                                markdownEditorRef.current,
-                                {
-                                  type: 'table-row',
-                                  children: [
-                                    {
-                                      type: 'table-cell',
-                                      children: [{ text: newValue }],
-                                    },
-                                  ],
-                                },
-                                { at: [...path, row] },
-                              );
-                            }
-                          }
-                          if (old && !newValue && newValue !== old) {
-                            if (
-                              Editor.hasPath(markdownEditorRef.current, [
-                                ...path,
-                                row,
-                                col as number,
-                                0,
-                              ])
-                            ) {
-                              Transforms.delete(markdownEditorRef.current, {
-                                at: [...path, row, col as number],
-                              });
-                            }
-                          }
-                          if (old && newValue && newValue !== old) {
-                            if (
-                              Editor.hasPath(markdownEditorRef.current, [
-                                ...path,
-                                row,
-                                col as number,
-                                0,
-                              ])
-                            ) {
-                              Transforms.insertText(
-                                markdownEditorRef.current,
-                                newValue,
-                                { at: [...path, row, col as number, 0] },
-                              );
-                            }
-                          }
-                        }
+                    language={zhCN.languageCode}
+                    dropdownMenu={[
+                      'col_left',
+                      'col_right',
+                      '---------',
+                      'remove_col',
+                    ]}
+                    // ------  列宽的配置  ---------
+                    autoColumnSize={{}}
+                    manualColumnResize={
+                      props.element?.otherProps?.colWidths || true
+                    }
+                    afterCreateCol={(insertIndex, amount) => {
+                      const rows = new Array(
+                        props.element.children?.length,
+                      ).fill(0);
+                      rows?.forEach((_, rowIndex) => {
+                        const cells = new Array(amount).fill(0);
+                        cells.forEach((_, index) => {
+                          Transforms.insertNodes(
+                            markdownEditorRef.current,
+                            {
+                              type: 'table-cell',
+                              children: [{ text: '' }],
+                            },
+                            {
+                              at: [...tablePath, rowIndex, insertIndex + index],
+                            },
+                          );
+                        });
                       });
-                      console.log(source);
                     }}
+                    afterCreateRow={(index, amount) => {
+                      console.log('row', index, amount);
+                      const cells = new Array(
+                        props.element.children?.at(0)?.children?.length,
+                      )
+                        .fill(0)
+                        .map(() => {
+                          return {
+                            type: 'table-cell',
+                            children: [{ text: '' }],
+                          };
+                        });
+                      const rows = new Array(amount).fill(0);
+                      rows.forEach((_, rowIndex) => {
+                        Transforms.insertNodes(
+                          markdownEditorRef.current,
+                          {
+                            type: 'table-row',
+                            children: cells,
+                          },
+                          {
+                            at: [...tablePath, index + rowIndex],
+                          },
+                        );
+                      });
+                    }}
+                    afterRemoveCol={(index, amount) => {
+                      const rows = new Array(
+                        props.element.children?.length,
+                      ).fill(0);
+                      rows?.forEach((_, rowIndex) => {
+                        const cells = new Array(amount).fill(0);
+                        cells.forEach((_, colIndex) => {
+                          Transforms.delete(markdownEditorRef.current, {
+                            at: [...tablePath, rowIndex, index + colIndex],
+                          });
+                        });
+                      });
+                    }}
+                    afterRemoveRow={(index, amount) => {
+                      const rows = new Array(amount).fill(0);
+                      rows.forEach((_, rowIndex) => {
+                        Transforms.delete(markdownEditorRef.current, {
+                          at: [...tablePath, index + rowIndex],
+                        });
+                      });
+                    }}
+                    afterColumnResize={(size, colIndex) => {
+                      if (!props.element?.otherProps?.colWidths) {
+                        if (props.element.otherProps) {
+                          props.element.otherProps.colWidths = [];
+                        }
+                      }
+                      if (props.element?.otherProps?.colWidths) {
+                        props.element.otherProps.colWidths[colIndex] = size;
+                      }
+                    }}
+                    // ------  列宽的配置 end  ---------
+                    // 与内容同步，用于处理表格内容的变化
+                    afterChange={updateTable}
+                    //------- merge 合并单元格的处理 -------
+                    mergeCells={props.element?.otherProps?.mergeCells || true}
+                    afterMergeCells={(cellRange, mergeParent) => {
+                      const mergeCells = props.element?.otherProps?.mergeCells;
+                      if (!mergeCells && props.element.otherProps) {
+                        props.element.otherProps.mergeCells = [];
+                      }
+                      if (mergeParent !== false && mergeParent !== true) {
+                        props.element.otherProps?.mergeCells?.push?.(
+                          mergeParent as any,
+                        );
+                      }
+                    }}
+                    afterUnmergeCells={(cellRange) => {
+                      const row = cellRange?.from?.row;
+                      const rol = cellRange?.from?.col;
+                      const mergeCells = props.element?.otherProps?.mergeCells;
+
+                      if (!mergeCells && props.element.otherProps) {
+                        props.element.otherProps.mergeCells = [];
+                      }
+                      if (props.element.otherProps?.mergeCells) {
+                        props.element.otherProps.mergeCells =
+                          mergeCells?.filter((cell) => {
+                            return cell.col !== rol || cell.row !== row;
+                          }) || [];
+                      }
+                    }}
+                    // ----- merge 合并单元格的处理 end --------
+                    contextMenu={[
+                      'row_above',
+                      'row_below',
+                      '---------',
+                      'undo',
+                      'redo',
+                      '---------',
+                      'mergeCells',
+                    ]}
                     autoWrapRow={true}
                     autoWrapCol={true}
                     minRows={editorProps?.tableConfig?.minRows || 3}
@@ -406,7 +604,6 @@ export const Table = observer((props: RenderElementProps) => {
     [
       props.element.children,
       store.dragStart,
-      store.editor?.children?.length === 1,
       isSel,
       JSON.stringify(selCells),
       tableNodeEntry,

@@ -84,9 +84,9 @@ const Children = (props: Parameters<typeof useChildren>[0]) => (
  * `RenderElementProps` are passed to the `renderElement` handler.
  */
 
-export interface RenderElementProps {
+export interface RenderElementProps<T = Element> {
   children: any;
-  element: Element;
+  element: T;
   attributes: {
     'data-slate-node': 'element';
     'data-slate-inline'?: true;

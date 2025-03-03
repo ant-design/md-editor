@@ -1,5 +1,5 @@
-import { MarkdownEditor } from '@ant-design/md-editor';
-import React from 'react';
+import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import React, { useState } from 'react';
 
 const defaultValue = `
 | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
@@ -11,7 +11,10 @@ const defaultValue = `
 | 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  | 18,638  | 21,443  | 24,660  | 20,964  | 25,003  | 25,721  | 29,794  |
 | 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  | 43,713  | 45,923  | 49,877  | 49,685  | 49,994  | 53,156  | 54,379  |
 `;
+
 export default () => {
+  const [value, setValue] = useState<string>(defaultValue);
+  const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   return (
     <div
       style={{
@@ -28,7 +31,11 @@ export default () => {
           margin: 0,
           paddingLeft: 0,
         }}
-        onChange={(e) => console.log(e)}
+        onChange={(e) => {
+          console.log(e);
+          setValue(e);
+          markdownEditorRef.current?.store?.setMDContent?.(e);
+        }}
         tableConfig={{
           minColumn: 20,
           minRows: 120,
@@ -38,6 +45,7 @@ export default () => {
       />
 
       <MarkdownEditor
+        editorRef={markdownEditorRef}
         width={'100vw'}
         height={'50vh'}
         reportMode
@@ -52,7 +60,7 @@ export default () => {
           minColumn: 20,
           minRows: 10,
         }}
-        initValue={defaultValue}
+        initValue={value}
       />
     </div>
   );

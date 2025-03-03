@@ -273,7 +273,7 @@ export const MLeaf = (
           selectFormat();
         }
       }}
-      contentEditable={leaf.fnc ? false : undefined}
+      contentEditable={leaf.fnc || leaf.identifier ? false : undefined}
       data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
       data-fnd={leaf.fnd ? 'fnd' : undefined}
       data-comment={leaf.comment ? 'comment' : undefined}

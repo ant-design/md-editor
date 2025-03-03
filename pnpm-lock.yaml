@@ -23,9 +23,9 @@ importers:
       '@babel/runtime':
         specifier: ^7.26.9
         version: 7.26.9
-      '@handsontable/react':
-        specifier: ^14.6.0
-        version: 14.6.2(handsontable@14.6.2)
+      '@handsontable/react-wrapper':
+        specifier: ^15.1.0
+        version: 15.1.0(handsontable@15.1.0)
       '@juggle/resize-observer':
         specifier: ^3.4.0
         version: 3.4.0
@@ -63,8 +63,8 @@ importers:
         specifier: ^11.0.1
         version: 11.0.1
       handsontable:
-        specifier: ^14.6.0
-        version: 14.6.2
+        specifier: ^15.0.0
+        version: 15.1.0
       is-hotkey:
         specifier: ^0.2.0
         version: 0.2.0
@@ -1527,10 +1527,10 @@ packages:
   '@handsontable/pikaday@1.0.0':
     resolution: {integrity: sha512-1VN6N38t5/DcjJ7y7XUYrDx1LuzvvzlrFdBdMG90Qo1xc8+LXHqbWbsTEm5Ec5gXTEbDEO53vUT35R+2COmOyg==}
 
-  '@handsontable/react@14.6.2':
-    resolution: {integrity: sha512-HGXb7rppvNv9NHCGKaHTeqruc3TGQWmssgbUjf7wsb/aR5OD1eSi6nEa7PU0vwxDfDrKYZ8MaOGS/5SR1WAmbw==}
+  '@handsontable/react-wrapper@15.1.0':
+    resolution: {integrity: sha512-tpPfmEYyUfxrDXtISHhvTMrNla9GD7Is4hSVa2yKW/h9/kWkp+IdlGp/llqF9mLK/KmhkJcbTawq3iWyeApkhg==}
     peerDependencies:
-      handsontable: '>=14.0.0'
+      handsontable: '>=15.0.0'
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -2446,9 +2446,6 @@ packages:
 
   '@types/parse5@6.0.3':
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
-
-  '@types/pikaday@1.7.4':
-    resolution: {integrity: sha512-0KsHVyw5pTG829nqG4IRu7m+BFQlFEBdbE/1i3S5182HeKUKv1uEW0gyEmkJVp5i4IV+9pyh23O83+KpRkSQbw==}
 
   '@types/prop-types@15.7.14':
     resolution: {integrity: sha512-gNMvNH49DJ7OJYv+KAKn0Xp45p8PLl6zo2YnvDIbTd4J6MER2BmWN49TG7n9LvkyihINxeKW8+3bfS2yDC9dzQ==}
@@ -4848,8 +4845,8 @@ packages:
   handle-thing@2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
 
-  handsontable@14.6.2:
-    resolution: {integrity: sha512-APFGejWTnADsZHZdlSQAireaFip80Cw+Doj2Z6bzsbawy7F0IwcPaLD5gv2T7F0oG+f4Q2yjWZcrufBXlm1SiQ==}
+  handsontable@15.1.0:
+    resolution: {integrity: sha512-tRCdIap3qSydy1bwM5UwMbsgAlcvnUjA3m+6nCblVXHCGBE0a5eHiYoGMX6iCF/JIKGZbMO5aAtzE6u3G18jfQ==}
 
   hard-rejection@2.1.0:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
@@ -5115,8 +5112,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  hyperformula@2.7.1:
-    resolution: {integrity: sha512-mpVF5zOyNpksZzgTaCQyRAzdC/X43+taz5x1n7zNbs/PUUv0AuLmsy2yfihCr+vihUzN/pk+gXBbOfNpXKOpgA==}
+  hyperformula@3.0.0:
+    resolution: {integrity: sha512-fAmwxQnbo405llUZiLcnrQTWA26kmbWZk+Cn58PJrANJ/xHBk7ls0ilcNJRIJdti5Z6AqPVi0hZSKvHLbTYtyQ==}
 
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
@@ -6452,8 +6449,8 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
-  numbro@2.1.2:
-    resolution: {integrity: sha512-7w833BxZmKGLE9HI0aREtNVRVH6WTYUUlWf4qgA5gKNhPQ4F/MRZ14sc0v8eoLORprk9ZTVwYaLwj8N3Zgxwiw==}
+  numbro@2.5.0:
+    resolution: {integrity: sha512-xDcctDimhzko/e+y+Q2/8i3qNC9Svw1QgOkSkQoO0kIPI473tR9QRbo2KP88Ty9p8WbPy+3OpTaAIzehtuHq+A==}
 
   nwsapi@2.2.13:
     resolution: {integrity: sha512-cTGB9ptp9dY9A5VbMSe7fQBcl/tt22Vcqdq8+eN93rblOuE0aCFu4aZ2vMwct/2t+lFnosm8RkQW1I0Omb1UtQ==}
@@ -6723,9 +6720,6 @@ packages:
   pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
-
-  pikaday@1.8.2:
-    resolution: {integrity: sha512-TNtsE+34BIax3WtkB/qqu5uepV1McKYEgvL3kWzU7aqPCpMEN6rBF3AOwu4WCwAealWlBGobXny/9kJb49C1ew==}
 
   pino-abstract-transport@0.5.0:
     resolution: {integrity: sha512-+KAgmVeqXYbTtU2FScx1XS3kNyfZ5TrXY07V96QnUSFqo2gAqlvmaxH67Lj7SWazqsMabf+58ctdTcBgnOLUOQ==}
@@ -10588,9 +10582,9 @@ snapshots:
 
   '@handsontable/pikaday@1.0.0': {}
 
-  '@handsontable/react@14.6.2(handsontable@14.6.2)':
+  '@handsontable/react-wrapper@15.1.0(handsontable@15.1.0)':
     dependencies:
-      handsontable: 14.6.2
+      handsontable: 15.1.0
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
@@ -11542,10 +11536,6 @@ snapshots:
   '@types/parse-json@4.0.2': {}
 
   '@types/parse5@6.0.3': {}
-
-  '@types/pikaday@1.7.4':
-    dependencies:
-      moment: 2.30.1
 
   '@types/prop-types@15.7.14': {}
 
@@ -13733,7 +13723,8 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
-  dompurify@2.5.8: {}
+  dompurify@2.5.8:
+    optional: true
 
   dompurify@3.2.4:
     optionalDependencies:
@@ -14865,17 +14856,15 @@ snapshots:
 
   handle-thing@2.0.1: {}
 
-  handsontable@14.6.2:
+  handsontable@15.1.0:
     dependencies:
       '@handsontable/pikaday': 1.0.0
-      '@types/pikaday': 1.7.4
       core-js: 3.40.0
-      dompurify: 2.5.8
+      dompurify: 3.2.4
       moment: 2.30.1
-      numbro: 2.1.2
-      pikaday: 1.8.2
+      numbro: 2.5.0
     optionalDependencies:
-      hyperformula: 2.7.1
+      hyperformula: 3.0.0
 
   hard-rejection@2.1.0: {}
 
@@ -15290,7 +15279,7 @@ snapshots:
 
   husky@8.0.3: {}
 
-  hyperformula@2.7.1:
+  hyperformula@3.0.0:
     dependencies:
       chevrotain: 6.5.0
       tiny-emitter: 2.1.0
@@ -17131,7 +17120,7 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  numbro@2.1.2:
+  numbro@2.5.0:
     dependencies:
       bignumber.js: 8.1.1
 
@@ -17421,8 +17410,6 @@ snapshots:
 
   pify@4.0.1:
     optional: true
-
-  pikaday@1.8.2: {}
 
   pino-abstract-transport@0.5.0:
     dependencies:
