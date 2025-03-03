@@ -232,7 +232,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
           const [row, col, old, newValue] = data;
           if (!tableNodeEntry) return;
           const path = tableNodeEntry?.[1];
-
+          console.log(dataList);
           // 如果旧值不存在，新值不存在，且新值不等于旧值
           // 说明是新增的单元格
           if (!old && !newValue && newValue !== old) {
@@ -253,16 +253,39 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
             } else if (
               Editor.hasPath(markdownEditorRef.current, [...path, row])
             ) {
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                {
-                  type: 'table-cell',
-                  children: [{ text: newValue }],
-                },
-                { at: [...path, row, col as number] },
-              );
+              const rows = new Array(props.element.children?.length).fill(0);
+
+              rows?.forEach((_, rowIndex) => {
+                if (rowIndex === row) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    },
+                    { at: [...path, row, col as number] },
+                  );
+                } else if (
+                  !Editor.hasPath(markdownEditorRef.current, [
+                    ...path,
+                    row + rowIndex,
+                    col as number,
+                  ])
+                ) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: '' }],
+                    },
+                    { at: [...path, row + rowIndex, col as number] },
+                  );
+                }
+              });
               return;
-            } else {
+            } else if (
+              !Editor.hasPath(markdownEditorRef.current, [...path, row])
+            ) {
               Transforms.insertNodes(
                 markdownEditorRef.current,
                 {
@@ -298,14 +321,35 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
             } else if (
               Editor.hasPath(markdownEditorRef.current, [...path, row])
             ) {
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                {
-                  type: 'table-cell',
-                  children: [{ text: newValue }],
-                },
-                { at: [...path, row, col as number] },
-              );
+              const rows = new Array(props.element.children?.length).fill(0);
+              rows?.forEach((_, rowIndex) => {
+                if (rowIndex === row) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    },
+                    { at: [...path, row, col as number] },
+                  );
+                } else if (
+                  !Editor.hasPath(markdownEditorRef.current, [
+                    ...path,
+                    row + rowIndex,
+                    col as number,
+                  ])
+                ) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: '' }],
+                    },
+                    { at: [...path, row + rowIndex, col as number] },
+                  );
+                }
+              });
+
               return;
             }
             if (
@@ -378,7 +422,57 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       });
     },
   );
-
+  const afterCreateCol = useRefFunction(
+    (insertIndex: number, amount: number) => {
+      const rows = new Array(props.element.children?.length).fill(0);
+      if (insertIndex > rows.length) {
+        return;
+      }
+      rows?.forEach((_, rowIndex) => {
+        const cells = new Array(amount).fill(0);
+        cells.forEach((_, index) => {
+          Transforms.insertNodes(
+            markdownEditorRef.current,
+            {
+              type: 'table-cell',
+              children: [{ text: '' }],
+            },
+            {
+              at: [...tablePath, rowIndex, insertIndex + index],
+            },
+          );
+        });
+      });
+    },
+  );
+  const afterCreateRow = useRefFunction(
+    (insertIndex: number, amount: number) => {
+      const cells = new Array(props.element.children?.at(0)?.children?.length)
+        .fill(0)
+        .map(() => {
+          return {
+            type: 'table-cell',
+            children: [{ text: '' }],
+          };
+        });
+      if (insertIndex > cells.length) {
+        return;
+      }
+      const rows = new Array(amount).fill(0);
+      rows.forEach((_, rowIndex) => {
+        Transforms.insertNodes(
+          markdownEditorRef.current,
+          {
+            type: 'table-row',
+            children: cells,
+          },
+          {
+            at: [...tablePath, insertIndex + rowIndex],
+          },
+        );
+      });
+    },
+  );
   return useMemo(
     () =>
       wrapSSR(
@@ -435,52 +529,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     manualColumnResize={
                       props.element?.otherProps?.colWidths || true
                     }
-                    afterCreateCol={(insertIndex, amount) => {
-                      const rows = new Array(
-                        props.element.children?.length,
-                      ).fill(0);
-                      rows?.forEach((_, rowIndex) => {
-                        const cells = new Array(amount).fill(0);
-                        cells.forEach((_, index) => {
-                          Transforms.insertNodes(
-                            markdownEditorRef.current,
-                            {
-                              type: 'table-cell',
-                              children: [{ text: '' }],
-                            },
-                            {
-                              at: [...tablePath, rowIndex, insertIndex + index],
-                            },
-                          );
-                        });
-                      });
-                    }}
-                    afterCreateRow={(index, amount) => {
-                      console.log('row', index, amount);
-                      const cells = new Array(
-                        props.element.children?.at(0)?.children?.length,
-                      )
-                        .fill(0)
-                        .map(() => {
-                          return {
-                            type: 'table-cell',
-                            children: [{ text: '' }],
-                          };
-                        });
-                      const rows = new Array(amount).fill(0);
-                      rows.forEach((_, rowIndex) => {
-                        Transforms.insertNodes(
-                          markdownEditorRef.current,
-                          {
-                            type: 'table-row',
-                            children: cells,
-                          },
-                          {
-                            at: [...tablePath, index + rowIndex],
-                          },
-                        );
-                      });
-                    }}
+                    afterCreateCol={afterCreateCol}
+                    afterCreateRow={afterCreateRow}
                     afterRemoveCol={(index, amount) => {
                       const rows = new Array(
                         props.element.children?.length,
@@ -503,14 +553,21 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                       });
                     }}
                     afterColumnResize={(size, colIndex) => {
-                      if (!props.element?.otherProps?.colWidths) {
-                        if (props.element.otherProps) {
-                          props.element.otherProps.colWidths = [];
-                        }
-                      }
-                      if (props.element?.otherProps?.colWidths) {
-                        props.element.otherProps.colWidths[colIndex] = size;
-                      }
+                      const colWidths =
+                        props.element?.otherProps?.colWidths || [];
+                      colWidths[colIndex] = size;
+                      Transforms?.setNodes(
+                        markdownEditorRef.current,
+                        {
+                          otherProps: {
+                            ...props.element.otherProps,
+                            colWidths,
+                          },
+                        },
+                        {
+                          at: tablePath,
+                        },
+                      );
                     }}
                     // ------  列宽的配置 end  ---------
                     // 与内容同步，用于处理表格内容的变化
@@ -518,30 +575,42 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     //------- merge 合并单元格的处理 -------
                     mergeCells={props.element?.otherProps?.mergeCells || true}
                     afterMergeCells={(cellRange, mergeParent) => {
-                      const mergeCells = props.element?.otherProps?.mergeCells;
-                      if (!mergeCells && props.element.otherProps) {
-                        props.element.otherProps.mergeCells = [];
-                      }
-                      if (mergeParent !== false && mergeParent !== true) {
-                        props.element.otherProps?.mergeCells?.push?.(
-                          mergeParent as any,
-                        );
-                      }
+                      const mergeCells =
+                        props.element?.otherProps?.mergeCells || [];
+                      mergeCells.push(mergeParent as any);
+                      Transforms?.setNodes(
+                        markdownEditorRef.current,
+                        {
+                          otherProps: {
+                            ...props.element.otherProps,
+                            mergeCells,
+                          },
+                        },
+                        {
+                          at: tablePath,
+                        },
+                      );
                     }}
                     afterUnmergeCells={(cellRange) => {
                       const row = cellRange?.from?.row;
                       const rol = cellRange?.from?.col;
-                      const mergeCells = props.element?.otherProps?.mergeCells;
-
-                      if (!mergeCells && props.element.otherProps) {
-                        props.element.otherProps.mergeCells = [];
-                      }
-                      if (props.element.otherProps?.mergeCells) {
-                        props.element.otherProps.mergeCells =
-                          mergeCells?.filter((cell) => {
-                            return cell.col !== rol || cell.row !== row;
-                          }) || [];
-                      }
+                      const mergeCells =
+                        props.element?.otherProps?.mergeCells || [];
+                      Transforms?.setNodes(
+                        markdownEditorRef.current,
+                        {
+                          otherProps: {
+                            ...props.element.otherProps,
+                            mergeCells:
+                              mergeCells?.filter((cell) => {
+                                return cell.col !== rol || cell.row !== row;
+                              }) || [],
+                          },
+                        },
+                        {
+                          at: tablePath,
+                        },
+                      );
                     }}
                     // ----- merge 合并单元格的处理 end --------
                     contextMenu={[
@@ -582,10 +651,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     style={{
                       flex: 1,
                       minWidth: 0,
-                      marginLeft: !readonly ? 20 : 0,
-                      marginTop: !readonly ? 4 : 0,
-                      marginRight: !readonly ? 6 : 0,
-                      overflow: !readonly ? undefined : 'auto',
                     }}
                   >
                     <table

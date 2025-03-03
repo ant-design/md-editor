@@ -1,6 +1,6 @@
 ﻿import { Popover, Typography } from 'antd';
 import classNames from 'classnames';
-import { default as React, useEffect, useMemo, useState } from 'react';
+import { default as React, useMemo, useState } from 'react';
 import { Editor, Node, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { useSelStatus } from '../../../hooks/editor';
@@ -17,7 +17,6 @@ const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
  */
 export const TableThCell = (
   props: RenderElementProps & {
-    minWidth: number;
     align?: string;
     text?: string;
     width?: number;
@@ -25,7 +24,7 @@ export const TableThCell = (
 ) => {
   const [, cellPath] = useSelStatus(props.element);
   const { readonly, markdownEditorRef } = useEditorStore();
-  const { minWidth, align, text } = props;
+  const { align, text } = props;
   const { selected } = props.element;
   const isSelecting = selected;
   const [editing, setEditing] = useState(false);
@@ -48,7 +47,6 @@ export const TableThCell = (
       })}
       style={{
         textAlign: justifyContent as 'left',
-        minWidth: minWidth,
         maxWidth: '200px',
         width: props.width,
       }}
@@ -69,18 +67,15 @@ export const TableThCell = (
 
 export const TableTdCell = (
   props: RenderElementProps & {
-    minWidth: number;
     align?: string;
     text?: string;
     domWidth: number;
     width?: number;
   },
 ) => {
-  const [, cellPath] = useSelStatus(props.element);
   const { readonly } = useEditorStore();
-  const { minWidth, domWidth, align, text } = props;
+  const { domWidth, align, text } = props;
   const { selected } = props.element;
-  const [editing, setEditing] = useState(false);
 
   const justifyContent = useMemo(() => {
     return align || !readonly
@@ -115,16 +110,9 @@ export const TableTdCell = (
       );
     }
     return props.children;
-  }, [props.width, domWidth, minWidth, props.children, readonly, text]);
+  }, [props.width, domWidth, props.children, readonly, text]);
 
   const isSelecting = selected;
-
-  const { markdownEditorRef } = useEditorStore();
-  useEffect(() => {
-    if (!isSelecting) {
-      setEditing(false);
-    }
-  }, [isSelecting]);
 
   return (
     <td
@@ -132,27 +120,13 @@ export const TableTdCell = (
       data-be={'td'}
       className={classNames('group', {
         'selected-cell-td': isSelecting,
-        'editing-cell-td': editing,
-        'td-cell-select': !readonly && !isSelecting && !editing,
       })}
       style={{
-        backgroundColor: editing ? 'transparent' : undefined,
         textAlign: justifyContent as 'left',
-        minWidth: minWidth,
-        border: editing ? '2px solid #42a642' : undefined,
         maxWidth: '200px',
         overflow: 'auto',
         textWrap: 'wrap',
         width: props.width,
-      }}
-      onDoubleClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setEditing(true);
-        Transforms.select(
-          markdownEditorRef.current,
-          Editor.end(markdownEditorRef.current, cellPath),
-        );
       }}
     >
       {dom}
@@ -185,24 +159,16 @@ export const TableTdCell = (
 export function TableCell(props: RenderElementProps) {
   return React.useMemo(() => {
     const domWidth = stringWidth(Node.string(props.element)) * 8 + 20;
-    const minWidth = Math.min(domWidth, 200);
     const text = Node.string(props.element);
     const align = props.element?.align;
     const width = props.element?.width;
 
     return props.element.title ? (
-      <TableThCell
-        {...props}
-        minWidth={minWidth}
-        align={align}
-        text={text}
-        width={width}
-      />
+      <TableThCell {...props} align={align} text={text} width={width} />
     ) : (
       <TableTdCell
         {...props}
         domWidth={domWidth}
-        minWidth={minWidth}
         align={align}
         text={text}
         width={width}

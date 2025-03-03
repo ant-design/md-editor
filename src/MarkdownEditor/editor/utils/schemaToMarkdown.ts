@@ -434,6 +434,7 @@ const table = (
       if (c.type === 'table-cell') {
         row.push(schemaToMarkdown(c.children, '', [...parent, c]));
       }
+      if (row?.every((r) => !r)) continue;
       data.push(row);
     }
   }
