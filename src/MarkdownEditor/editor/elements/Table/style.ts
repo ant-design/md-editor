@@ -15,7 +15,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         minWidth: 0,
         outline: 'none',
         overflow: 'auto',
-        width: '100%',
         position: 'relative',
         marginBottom: 12,
       },
@@ -75,7 +74,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderLeft: '1px solid #e5e5e9',
         },
         'th:last-child,td:last-child': {
-          borderRight: 'none',
+          borderRight: '1px solid #e5e5e9',
         },
         'th:last-child': {
           borderTopRightRadius: 8,
