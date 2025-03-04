@@ -173,9 +173,9 @@ export const MLeaf = (
     );
   if (leaf.highColor) style.color = leaf.highColor;
   if (leaf.color) style.color = leaf.color;
-  if (leaf.bold) children = <strong>{children}</strong>;
+  if (leaf.bold) style.fontWeight = 'bold';
   if (leaf.strikethrough) children = <s>{children}</s>;
-  if (leaf.italic) children = <i>{children}</i>;
+  if (leaf.italic) style.fontStyle = 'italic';
   if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';
   if (leaf.current) {
     style.background = '#f59e0b';
@@ -295,11 +295,15 @@ export const MLeaf = (
     >
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       {leaf.fnc || leaf.identifier
-        ? leaf.text?.replaceAll(']', '')?.replaceAll('[^DOC_', '')
+        ? leaf.text
+            ?.replaceAll(']', '')
+            ?.replaceAll('[^DOC_', '')
+            ?.replaceAll('[^', '')
         : children}
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
     </span>
   );
+
   if (props.fncProps?.render && (leaf.fnc || leaf.identifier)) {
     dom = (
       <>

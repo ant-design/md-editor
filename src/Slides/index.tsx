@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
+
 import './white.css';
 
 const splitMarkdown = (markdown: string) => {

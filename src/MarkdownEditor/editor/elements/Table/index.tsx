@@ -7,6 +7,7 @@ import Handsontable from 'handsontable';
 import { CellChange, ChangeSource } from 'handsontable/common';
 import { registerLanguageDictionary, zhCN } from 'handsontable/i18n';
 import { registerAllModules } from 'handsontable/registry';
+import { registerRenderer, textRenderer } from 'handsontable/renderers';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-horizon.min.css';
 import { runInAction } from 'mobx';
@@ -25,20 +26,68 @@ export * from './TableCell';
 registerLanguageDictionary(zhCN);
 registerAllModules();
 
-const slateTableToJSONData = (input: any[]): any[][] => {
-  return input.map((row) => {
-    const element = row?.props?.children?.props?.element;
+registerRenderer('customStylesRenderer', (hotInstance, TD, ...rest) => {
+  textRenderer(hotInstance, TD, ...rest);
+  const cellProperties = rest.at(-1);
+  if (cellProperties.bold) {
+    TD.style.fontWeight = 'bold';
+  }
+  if (cellProperties.color) {
+    TD.style.color = cellProperties.color;
+  }
+  if (cellProperties.italic) {
+    TD.style.fontStyle = 'italic';
+  }
 
-    const columns = Array.isArray(element)
-      ? element
-      : Array.isArray(element?.children)
-        ? element.children
-        : [];
+  if (cellProperties.title) {
+    TD.style.background = '#f7f7f9';
+  }
+});
 
-    return columns.map((column: { children: { text: string }[] }) => {
-      return Node.string(column);
-    });
-  });
+const slateTableToJSONData = (
+  input: TableNode,
+): {
+  tableData: string[][];
+  cellSet: any[];
+} => {
+  const cellSetList: Record<string, any>[] = [];
+  const tableData =
+    input?.children?.map((row, rowIndex) => {
+      const cells = row.children?.map((column, colIndex) => {
+        const cellSet: Record<string, any> = {};
+        if (column.title) {
+          cellSet.title = true;
+        }
+        if (column.children?.[0]?.text && column.children.length === 1) {
+          const leaf = column.children[0];
+          if (leaf.bold) {
+            cellSet.bold = leaf.bold;
+          }
+          if (leaf.italic) {
+            cellSet.italic = leaf.italic;
+          }
+          if (leaf.underline) {
+            cellSet.underline = leaf.underline;
+          }
+          if (leaf.color) {
+            cellSet.color = leaf.color;
+          }
+          if (Object.keys(cellSet).length) {
+            cellSet.row = rowIndex;
+            cellSet.col = colIndex;
+            cellSet.renderer = 'customStylesRenderer';
+            cellSetList.push(cellSet);
+          }
+        }
+        return Node.string(column) || ' ';
+      }) as string[];
+      return cells || [];
+    }) || [];
+
+  return {
+    tableData,
+    cellSet: cellSetList,
+  };
 };
 
 export const TablePropsContext = React.createContext<{
@@ -105,7 +154,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const tableJSONData = useMemo(() => slateTableToJSONData(props.children), []);
+  const tableJSONData = useMemo(() => slateTableToJSONData(props.element), []);
 
   // 用于处理表格内容的变化
   const updateTable = useRefFunction(
@@ -360,10 +409,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   );
 
   useEffect(() => {
-    hotRef.current?.hotInstance?.updateData?.(
-      slateTableToJSONData(props.children),
-    );
-  }, [props.children]);
+    const cellSet = slateTableToJSONData(props.element);
+    hotRef.current?.hotInstance?.updateSettings({
+      cell: cellSet.cellSet,
+      data: cellSet.tableData,
+    });
+    console.log('run-', slateTableToJSONData(props.element));
+  }, [JSON.stringify(props.element)]);
 
   return useMemo(() => {
     return wrapSSR(
@@ -456,7 +508,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
               >
                 <HotTable
                   ref={hotRef as any}
-                  data={tableJSONData}
+                  data={tableJSONData.tableData}
+                  cell={tableJSONData.cellSet}
                   rowHeaders={excelMode}
                   colHeaders={excelMode}
                   height="auto"
@@ -567,6 +620,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     'redo',
                     '---------',
                     'mergeCells',
+                    'remove_col',
                   ]}
                   autoWrapRow={true}
                   autoWrapCol={true}

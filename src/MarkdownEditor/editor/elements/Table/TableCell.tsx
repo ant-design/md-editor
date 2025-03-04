@@ -168,25 +168,18 @@ export const TableTdCell = (
  */
 export function TableCell(props: RenderElementProps) {
   const [, path] = useSelStatus(props.element);
-  return React.useMemo(() => {
-    const text = Node.string(props.element);
-    const align = props.element?.align;
-    const width = props.element?.width;
-    return props.element.title ? (
-      <TableThCell {...props} align={align} text={text} width={width} />
-    ) : (
-      <TableTdCell
-        {...props}
-        align={align}
-        text={text}
-        width={width}
-        cellPath={path}
-      />
-    );
-  }, [
-    props.element.children,
-    props.element?.align,
-    props.element?.width,
-    props.element.selected,
-  ]);
+  const text = Node.string(props.element);
+  const align = props.element?.align;
+  const width = props.element?.width;
+  return props.element.title ? (
+    <TableThCell {...props} align={align} text={text} width={width} />
+  ) : (
+    <TableTdCell
+      {...props}
+      align={align}
+      text={text}
+      width={width}
+      cellPath={path}
+    />
+  );
 }
