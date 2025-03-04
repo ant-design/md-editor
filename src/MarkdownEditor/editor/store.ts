@@ -364,7 +364,7 @@ export class EditorStore {
     }
 
     if (node.type === preNode.type) {
-      if (node.type === 'list-item') {
+      if (node.type === 'list-item' || node.type === 'table-cell') {
         Transforms.removeNodes(this._editor.current, {
           at,
         });
