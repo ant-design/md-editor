@@ -40,7 +40,8 @@ registerRenderer('customStylesRenderer', (hotInstance, TD, ...rest) => {
   }
 
   if (cellProperties.title) {
-    TD.style.background = '#f7f7f9';
+    TD.style.background = '#eee';
+    TD.style.fontWeight = 'bold';
   }
 });
 
