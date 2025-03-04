@@ -1,7 +1,9 @@
+import { DeleteOutlined, FileExcelFilled } from '@ant-design/icons';
 import { useRefFunction } from '@ant-design/pro-components';
 import { HotTable } from '@handsontable/react-wrapper';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
+import Handsontable from 'handsontable';
 import { CellChange, ChangeSource } from 'handsontable/common';
 import { registerLanguageDictionary, zhCN } from 'handsontable/i18n';
 import { registerAllModules } from 'handsontable/registry';
@@ -9,16 +11,11 @@ import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-horizon.min.css';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
-import React, {
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { Editor, Node, NodeEntry, Transforms } from 'slate';
-import { TableCellNode, TableNode } from '../../../el';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Editor, Node, Path, Transforms } from 'slate';
+import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
+import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { useTableStyle } from './style';
@@ -83,14 +80,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
-  const [isShowBar, setIsShowBar] = useState(
+  const [excelMode, setExcelModeVisibility] = useState(
     editorProps.tableConfig?.excelMode || false,
   );
 
   const [selectedTable, tablePath] = useSelStatus(props.element);
 
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
-  const tableCellRef = useRef<NodeEntry<TableCellNode>>();
 
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
@@ -103,23 +99,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     return store.selectTablePath.join('') === tablePath.join('');
   }, [store.editor, selectedTable, store.selectTablePath, props.element]);
 
-  const handleClickTable = useCallback(
-    (e: any) => {
-      if (editorProps.tableConfig?.excelMode) {
-      }
-      e.preventDefault();
-      e.stopPropagation();
-      const el = store.tableCellNode;
-      if (el) {
-        tableCellRef.current = el;
-      }
-      if (readonly) return;
-      setIsShowBar(true);
-    },
-    [store.tableCellNode, store.editor, isShowBar],
-  );
+  const hotRef = useRef<{
+    hotInstance: Handsontable | null;
+  }>(null);
 
-  const hotRef = useRef(null);
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const tableJSONData = useMemo(() => slateTableToJSONData(props.children), []);
@@ -375,35 +358,93 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       });
     },
   );
-  return useMemo(
-    () =>
-      wrapSSR(
-        <TablePropsContext.Provider
-          value={{
-            tablePath,
-            tableNode: props.element,
+
+  useEffect(() => {
+    hotRef.current?.hotInstance?.updateData?.(
+      slateTableToJSONData(props.children),
+    );
+  }, [props.children]);
+
+  return useMemo(() => {
+    return wrapSSR(
+      <TablePropsContext.Provider
+        value={{
+          tablePath,
+          tableNode: props.element,
+        }}
+      >
+        <div
+          {...props.attributes}
+          data-be={'table'}
+          draggable={false}
+          ref={(el) => {
+            //@ts-ignore
+            overflowShadowContainerRef.current = el;
+            props.attributes.ref(el);
           }}
+          className={classNames(
+            `${baseCls}-container`,
+            {
+              [`${baseCls}-container-editable`]: !readonly,
+            },
+            hashId,
+          )}
+          tabIndex={0}
         >
-          <div
-            {...props.attributes}
-            data-be={'table'}
-            draggable={false}
-            ref={(el) => {
-              //@ts-ignore
-              overflowShadowContainerRef.current = el;
-              props.attributes.ref(el);
-            }}
-            className={classNames(
-              `${baseCls}-container`,
-              {
-                [`${baseCls}-container-editable`]: !readonly,
-              },
-              hashId,
-            )}
-            onClick={handleClickTable}
-            tabIndex={0}
-          >
-            {!readonly && process.env.NODE_ENV !== 'test' ? (
+          {!readonly && process.env.NODE_ENV !== 'test' ? (
+            <Popover
+              arrow={false}
+              content={
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 12,
+                  }}
+                >
+                  <ActionIconBox
+                    title={'删除表格'}
+                    style={{
+                      fontSize: 16,
+                    }}
+                    onClick={() => {
+                      hotRef.current?.hotInstance?.destroy();
+                      Transforms.delete(markdownEditorRef.current, {
+                        at: Path.parent(tablePath),
+                      });
+                    }}
+                  >
+                    <DeleteOutlined />
+                  </ActionIconBox>
+                  <ActionIconBox
+                    title="excel 模式"
+                    style={{
+                      fontSize: 16,
+                    }}
+                    onClick={() => {
+                      setExcelModeVisibility(!excelMode);
+                      if (excelMode) {
+                        hotRef.current?.hotInstance?.updateSettings?.({
+                          rowHeaders: false,
+                          colHeaders: false,
+                          minCols: 1,
+                          minRows: 1,
+                        });
+                      } else {
+                        hotRef.current?.hotInstance?.updateSettings?.({
+                          rowHeaders: true,
+                          colHeaders: true,
+                          minCols: editorProps?.tableConfig?.minColumn || 3,
+                          minRows: editorProps?.tableConfig?.minRows || 3,
+                        });
+                      }
+                    }}
+                  >
+                    <FileExcelFilled />
+                  </ActionIconBox>
+                </div>
+              }
+              trigger="click"
+            >
               <div
                 ref={tableContainerRef}
                 contentEditable={false}
@@ -414,10 +455,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 className="ht-theme-horizon"
               >
                 <HotTable
-                  ref={hotRef}
+                  ref={hotRef as any}
                   data={tableJSONData}
-                  rowHeaders={true}
-                  colHeaders={true}
+                  rowHeaders={excelMode}
+                  colHeaders={excelMode}
                   height="auto"
                   language={zhCN.languageCode}
                   dropdownMenu={[
@@ -534,42 +575,38 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   licenseKey="non-commercial-and-evaluation" // for non-commercial use only
                 />
               </div>
-            ) : (
-              <>
-                <div
-                  className={classNames(baseCls, hashId, {
-                    [`${baseCls}-selected`]: isSel,
-                    [`${baseCls}-show-bar`]: isShowBar,
-                    [`${baseCls}-excel-mode`]:
-                      editorProps.tableConfig?.excelMode,
-                    'show-bar': isShowBar,
-                  })}
-                  onClick={() => {
-                    runInAction(() => {
-                      if (isSel) {
-                        store.selectTablePath = [];
-                        return;
-                      }
-                      store.selectTablePath = tablePath;
-                    });
-                  }}
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                  }}
+            </Popover>
+          ) : (
+            <>
+              <div
+                className={classNames(baseCls, hashId, {
+                  [`${baseCls}-selected`]: isSel,
+                })}
+                onClick={() => {
+                  runInAction(() => {
+                    if (isSel) {
+                      store.selectTablePath = [];
+                      return;
+                    }
+                    store.selectTablePath = tablePath;
+                  });
+                }}
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                }}
+              >
+                <table
+                  ref={tableTargetRef}
+                  className={classNames(`${baseCls}-editor-table`, hashId)}
                 >
-                  <table
-                    ref={tableTargetRef}
-                    className={classNames(`${baseCls}-editor-table`, hashId)}
-                  >
-                    <tbody data-slate-node="element">{props.children}</tbody>
-                  </table>
-                </div>
-              </>
-            )}
-          </div>
-        </TablePropsContext.Provider>,
-      ),
-    [props.element.children, store.dragStart, isSel, tableJSONData],
-  );
+                  <tbody data-slate-node="element">{props.children}</tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </div>
+      </TablePropsContext.Provider>,
+    );
+  }, [props.element.children, excelMode, isSel, tableJSONData]);
 });

@@ -124,10 +124,6 @@ export const TableTdCell = (
     return props.children;
   }, [props.width, props.children, readonly, text]);
 
-  if (mergeCell) {
-    console.log('mergeCell', mergeCell, props.cellPath);
-  }
-
   if ((mergeCell as any)?.hidden) return null;
   return (
     <td
