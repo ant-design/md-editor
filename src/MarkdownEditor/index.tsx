@@ -24,7 +24,7 @@ import { Subject } from 'rxjs';
 import { BaseEditor, createEditor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
-import { MEditor, PopupConfig } from './editor/Editor';
+import { MEditor, TagConfig } from './editor/Editor';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
 import { ReactEditor, withReact } from './editor/slate-react';
@@ -163,8 +163,9 @@ export type MarkdownEditorProps = {
    */
   rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
 
+  tag?: TagConfig
+
   fncProps?: {
-    popup?: PopupConfig;
     render: (
       props: { children: string },
       defaultDom: React.ReactNode,
@@ -476,7 +477,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             }}
             initSchemaValue={initSchemaValue}
             style={editorStyle}
-            popup={props?.fncProps?.popup}
+            tag={props?.tag}
             instance={instance}
           />
           {readonly ? (

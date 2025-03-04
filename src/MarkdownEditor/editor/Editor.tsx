@@ -50,7 +50,15 @@ import { toUnixPath } from './utils/path';
 export type PopupConfig = {
   popupRender?: (onSelected: (value: string) => void) => React.ReactNode | null;
   triggerKey?: string;
-}
+};
+
+export type TagConfig = {
+  render: (onSelected: (value: string) => void) => React.ReactElement;
+  trigger?: string;
+  // 包裹的样式
+  bodyStyle?: React.CSSProperties;
+  className?: string;
+};
 
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
@@ -60,7 +68,7 @@ export type MEditorProps = {
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
-  popup?:PopupConfig;
+  tag?: TagConfig;
   titlePlaceholderContent?: string;
 } & MarkdownEditorProps;
 
@@ -118,14 +126,24 @@ const genTableMinSize = (
 };
 
 export const MEditor = observer(
-  ({ eleItemRender, reportMode, popup ,instance, ...editorProps }: MEditorProps) => {
+  ({
+    eleItemRender,
+    reportMode,
+    tag,
+    instance,
+    ...editorProps
+  }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
-
-    const { popupRender, triggerKey='$' } = popup || {};
+    const {
+      render,
+      trigger = '$',
+      bodyStyle,
+      className: TagClassName,
+    } = tag || {};
 
     const onKeyDown = useKeyboard(
       store,
@@ -140,21 +158,28 @@ export const MEditor = observer(
     const high = useHighlight(store);
     const first = useRef(true);
 
-    const [showPopup, setShowPopup] = React.useState(false);
-    const [popupPosition, setPopupPosition] = React.useState<{ top: number; left: number } | null>(null);
+    const [showTag, setTagShow] = React.useState(false);
+    const [TagPosition, setTagPosition] = React.useState<{
+      top: number;
+      left: number;
+    } | null>(null);
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === triggerKey) {
+      if (event.key === trigger) {
+        const { top, left } = bodyStyle || {};
         const { selection } = markdownEditorRef.current;
         if (selection) {
           const domSelection = window.getSelection();
           const domRange = domSelection?.getRangeAt(0);
           const rect = domRange?.getBoundingClientRect();
           if (rect) {
-            setPopupPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX });
-            setShowPopup(true);
+            setTagPosition({
+              top: rect.top + window.scrollY + ((top as number) || 0) + (store.container?.scrollTop || 0),
+              left: rect.left + window.scrollX + ((left as number) || 0) + (store.container?.scrollLeft || 0),
+            });
+            setTagShow(true);
           }
         }
-      } else if (showPopup) {
+      } else if (showTag) {
         if (event.key === 'ArrowDown') {
           event.preventDefault();
         } else if (event.key === 'ArrowUp') {
@@ -162,17 +187,17 @@ export const MEditor = observer(
         } else if (event.key === 'Enter') {
           event.preventDefault();
         } else if (event.key === 'Escape') {
-          setShowPopup(false);
+          setTagShow(false);
           event.preventDefault();
         }
       } else {
-        setShowPopup(false);
+        setTagShow(false);
       }
       onKeyDown(event);
     };
 
     const handleSelected = (value: string) => {
-      setShowPopup(false);
+      setTagShow(false);
       // 在文档中插入选中的值
       Transforms.insertText(markdownEditorRef.current, value);
     };
@@ -807,16 +832,23 @@ export const MEditor = observer(
             onCompositionStart={onCompositionStart}
             onCompositionEnd={onCompositionEnd}
             renderElement={elementRenderElement}
-            onKeyDown={handleKeyDown} // 使用新的 handleKeyDown
+            onKeyDown={handleKeyDown}
             renderLeaf={renderMarkdownLeaf}
           />
         </Slate>
-        {showPopup && popupPosition && popupRender && (
-          <div style={{ position: 'absolute', top: popupPosition.top, left: popupPosition.left, background: 'white', border: '1px solid #ccc', zIndex: 1000 }}>
-            {popupRender(handleSelected)}
+        {showTag && TagPosition && render && (
+          <div
+            className={classNames(`${baseClassName}-tag`, TagClassName, hashId)}
+            style={{
+              ...bodyStyle,
+              top: TagPosition.top,
+              left: TagPosition.left,
+            }}
+          >
+            {render(handleSelected)}
           </div>
         )}
-      </div>
+      </div>,
     );
   },
 );

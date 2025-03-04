@@ -257,34 +257,34 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
-      fncProps={{
-        popup: {
-          popupRender: (onSelected) => {
-            return (
-              <Dropdown
+      tag={{
+        render: (onSelected) => {
+          return (
+            <Dropdown
               open={true}
-                menu={{
-                  items: [
-                    {
-                      key: '1',
-                      label: '1st menu item',
-                      onClick: () => {
-                        onSelected('MENU1');
-                      },
+              menu={{
+                items: [
+                  {
+                    key: '1',
+                    label: '1st menu item',
+                    onClick: () => {
+                      onSelected('MENU1');
                     },
-                    {
-                      key: '2',
-                      label: '2nd menu item',
-                      onClick: () => {
-                        onSelected('MENU2');
-                      }
+                  },
+                  {
+                    key: '2',
+                    label: '2nd menu item',
+                    onClick: () => {
+                      onSelected('MENU2');
                     },
-                  ],
-                }}
-              />
-            );
-          },
+                  },
+                ],
+              }}
+            />
+          );
         },
+      }}
+      fncProps={{
         render: (props, _) => {
           return <Tooltip title={props.children}>{_}</Tooltip>;
         },
