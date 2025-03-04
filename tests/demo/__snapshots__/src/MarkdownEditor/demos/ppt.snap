@@ -11067,7 +11067,7 @@
                       draggable="false"
                       style="font-size: 10px;"
                     >
-                      [^ 1
+                       1
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
@@ -11079,7 +11079,7 @@
                       draggable="false"
                       style="font-size: 10px;"
                     >
-                      [^ 2
+                       2
                     </span>
                   </span>
                 </div>

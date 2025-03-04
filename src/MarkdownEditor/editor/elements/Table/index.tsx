@@ -415,7 +415,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       cell: cellSet.cellSet,
       data: cellSet.tableData,
     });
-    console.log('run-', slateTableToJSONData(props.element));
   }, [JSON.stringify(props.element)]);
 
   return useMemo(() => {

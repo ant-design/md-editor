@@ -195,6 +195,7 @@
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -202,13 +203,11 @@
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          直接遍历元素
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        直接遍历元素
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -579,6 +578,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -586,13 +586,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          通过索引遍历
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        通过索引遍历
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -938,6 +936,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -945,13 +944,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          同时获取索引和值（
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        同时获取索引和值（
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -968,6 +965,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -975,17 +973,15 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <code
-                          class="ant-md-editor-content-inline-code"
+                      <code
+                        class="ant-md-editor-content-inline-code"
+                      >
+                        <span
+                          data-slate-string="true"
                         >
-                          <span
-                            data-slate-string="true"
-                          >
-                            enumerate
-                          </span>
-                        </code>
-                      </strong>
+                          enumerate
+                        </span>
+                      </code>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1002,6 +998,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1009,13 +1006,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          enumerate )
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        enumerate )
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1359,6 +1354,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1366,13 +1362,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          使用 
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        使用 
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1389,6 +1383,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1396,17 +1391,15 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <code
-                          class="ant-md-editor-content-inline-code"
+                      <code
+                        class="ant-md-editor-content-inline-code"
+                      >
+                        <span
+                          data-slate-string="true"
                         >
-                          <span
-                            data-slate-string="true"
-                          >
-                            while
-                          </span>
-                        </code>
-                      </strong>
+                          while
+                        </span>
+                      </code>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1423,6 +1416,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1430,13 +1424,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          while 循环
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        while 循环
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1760,6 +1752,7 @@ while i &lt; len(arr):
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1767,13 +1760,11 @@ while i &lt; len(arr):
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          列表推导式
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        列表推导式
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -2157,6 +2148,7 @@ while i &lt; len(arr):
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -2164,13 +2156,11 @@ while i &lt; len(arr):
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          递归遍历
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        递归遍历
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"

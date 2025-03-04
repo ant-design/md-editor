@@ -236,7 +236,7 @@
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                style="color: rgb(254, 3, 0);"
+                style="color: rgb(254, 3, 0); font-style: italic;"
               >
                 <span
                   contenteditable="false"
@@ -244,13 +244,11 @@
                 >
                    
                 </span>
-                <i>
-                  <span
-                    data-slate-string="true"
-                  >
-                    我是一个正经人
-                  </span>
-                </i>
+                <span
+                  data-slate-string="true"
+                >
+                  我是一个正经人
+                </span>
                 <span
                   contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -276,7 +274,7 @@
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                style="color: rgb(112, 173, 72);"
+                style="color: rgb(112, 173, 72); font-style: italic;"
               >
                 <span
                   contenteditable="false"
@@ -284,13 +282,11 @@
                 >
                    
                 </span>
-                <i>
-                  <span
-                    data-slate-string="true"
-                  >
-                    我是一个正经人
-                  </span>
-                </i>
+                <span
+                  data-slate-string="true"
+                >
+                  我是一个正经人
+                </span>
                 <span
                   contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -316,7 +312,7 @@
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
-                style="color: rgb(246, 204, 172);"
+                style="color: rgb(246, 204, 172); font-style: italic;"
               >
                 <span
                   contenteditable="false"
@@ -324,13 +320,11 @@
                 >
                    
                 </span>
-                <i>
-                  <span
-                    data-slate-string="true"
-                  >
-                    我是一个正经人
-                  </span>
-                </i>
+                <span
+                  data-slate-string="true"
+                >
+                  我是一个正经人
+                </span>
                 <span
                   contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -7940,7 +7934,7 @@
                   draggable="false"
                   style="font-size: 10px;"
                 >
-                  [^3
+                  3
                 </span>
               </span>
             </div>
