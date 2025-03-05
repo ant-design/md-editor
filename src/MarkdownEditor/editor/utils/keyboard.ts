@@ -61,6 +61,15 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 选择当前行的文本。
+   *
+   * 如果编辑器中有选区，则选择当前行的文本，并打开浮动工具栏。
+   *
+   * @remarks
+   * 该方法首先检查编辑器中是否有选区。如果有选区，则选择当前行的文本路径。
+   * 然后获取当前行的文本内容，如果文本内容存在，则打开浮动工具栏。
+   */
   selectLine() {
     if (this.editor.selection) {
       Transforms.select(
@@ -81,6 +90,21 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 选择当前光标所在的单词或汉字。
+   *
+   * 如果当前选区是折叠的（即光标没有选中任何文本），则会尝试选择光标所在位置的整个单词或汉字。
+   *
+   * 具体步骤如下：
+   * 1. 获取当前选区，如果选区是折叠的，则继续。
+   * 2. 获取光标所在位置的文本内容。
+   * 3. 根据光标位置，向前和向后查找单词或汉字的边界。
+   * 4. 更新选区，使其包含整个单词或汉字。
+   * 5. 如果选区不再是折叠的，则打开浮动工具栏。
+   *
+   * @remarks
+   * 该方法支持英文单词和中文汉字的选择。
+   */
   selectWord() {
     const sel = this.editor.selection;
     if (sel && Range.isCollapsed(sel)) {
@@ -117,6 +141,15 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 从剪贴板粘贴纯文本内容到编辑器中。
+   *
+   * 该方法首先从剪贴板读取文本内容，然后根据当前节点的类型决定如何插入文本。
+   * 如果当前节点是表格单元格类型，则将换行符替换为空格后插入文本；
+   * 否则，直接插入文本。
+   *
+   * @returns {Promise<void>} 一个表示异步操作的 Promise 对象。
+   */
   async pastePlainText() {
     const text = await navigator.clipboard.readText();
     if (text) {

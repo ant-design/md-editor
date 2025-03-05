@@ -13,6 +13,9 @@ import {
 } from 'slate';
 import { NodeTypes, ParagraphNode, TableCellNode } from '../../../el';
 
+/**
+ * TabKey 类用于处理编辑器中的 Tab 键事件。
+ */
 export class TabKey {
   constructor(private readonly editor: Editor) {}
 
