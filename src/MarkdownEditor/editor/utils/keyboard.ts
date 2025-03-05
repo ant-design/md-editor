@@ -618,10 +618,11 @@ export class KeyboardTask {
   }
 
   list(mode: 'ordered' | 'unordered' | 'task') {
-    const [node] = this.curNodes;
-    if (node && ['paragraph'].includes(node[0].type)) {
-      const parent = Editor.parent(this.editor, node[1]);
-      if (parent[0].type === 'list-item' && !Path.hasPrevious(node[1])) {
+    const [curNode, curPath] = this.curNodes;
+    console.log(curNode);
+    if (curNode && ['paragraph', 'head'].includes(curNode[0].type)) {
+      const parent = Editor.parent(this.editor, curNode[1]);
+      if (parent[0].type === 'list-item' && !Path.hasPrevious(curNode[1])) {
         Transforms.setNodes(
           this.editor,
           {
@@ -659,6 +660,10 @@ export class KeyboardTask {
           Transforms.delete(this.editor);
         });
 
+        Transforms.delete(this.editor, {
+          at: curPath,
+        });
+
         selectNodeList?.forEach((mapNode) => {
           const item = {
             type: 'list-item',
@@ -681,7 +686,7 @@ export class KeyboardTask {
             task: mode === 'task',
             children: childrenList,
           },
-          { at: node[1], select: true },
+          { at: curNode[1], select: true },
         );
       }
     }

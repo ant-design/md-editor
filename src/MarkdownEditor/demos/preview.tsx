@@ -325,6 +325,7 @@ export default () => {
       }}
       toolBar={{
         hideTools: ['H1'],
+        min: true,
       }}
       insertAutocompleteProps={{
         optionsRender: (options) => {
