@@ -15,9 +15,6 @@ import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
-import { Chart } from './chart/index';
-import { AceElement } from './code';
-import { InlineKatex } from './code/CodeUI/Katex/InlineKatex';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -83,14 +80,10 @@ export const MElement = (
       return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
-    case 'code':
-      return <AceElement {...props}>{props.children}</AceElement>;
     case 'table':
       return <Table {...props}>{props.children}</Table>;
     case 'description':
       return <Description {...props}>{props.children}</Description>;
-    case 'chart':
-      return <Chart {...props} />;
     case 'table-row':
       return <tr {...props.attributes}>{props.children}</tr>;
     case 'table-cell':
@@ -140,9 +133,6 @@ export const MElement = (
           {props.children}
         </span>
       );
-
-    case 'inline-katex':
-      return <InlineKatex {...props} />;
     default:
       return <Paragraph {...props} />;
   }
@@ -332,9 +322,7 @@ export const MLeaf = (
 };
 
 export {
-  AceElement,
   Blockquote,
-  Chart,
   Head,
   List,
   ListItem,
