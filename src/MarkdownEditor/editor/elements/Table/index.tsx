@@ -568,8 +568,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                         Math.min(stringWidth(text) * 16 + 24, 300),
                         80,
                       );
-                    })
+                    }) ||
+                    undefined
                   }
+                  autoColumnSize={true}
                   manualColumnResize={true}
                   afterCreateCol={afterCreateCol}
                   afterCreateRow={afterCreateRow}

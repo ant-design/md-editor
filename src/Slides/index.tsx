@@ -1,5 +1,6 @@
 ﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
+import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
 
 import './white.css';
@@ -25,7 +26,6 @@ export function Slides(props: { initValue: string }) {
 
   useEffect(() => {
     const init = async () => {
-      const Reveal = await import('reveal.js').then((module) => module.default);
       if (deckRef.current) return;
       deckRef.current = new Reveal(deckDivRef.current!, {
         transition: 'slide',

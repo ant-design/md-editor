@@ -1,3 +1,4 @@
+import mermaid from 'mermaid';
 import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
@@ -18,7 +19,6 @@ export const MermaidElement = observer((props: { el: CodeNode }) => {
     [],
   );
   const render = useCallback(async () => {
-    const mermaid = await import('mermaid').then((module) => module.default);
     mermaid
       .render(id, state().code)
       .then((res) => {
