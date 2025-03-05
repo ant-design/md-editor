@@ -1,4 +1,7 @@
-import { parserMdToSchema, schemaToMarkdown } from '@ant-design/md-editor';
+import {
+  parserMdToSchema,
+  parserSlateNodeToMarkdown,
+} from '@ant-design/md-editor';
 import { expect, it } from 'vitest';
 
 const input = `
@@ -269,7 +272,7 @@ input
       10,
     )} chunk`, () => {
       const schema = parserMdToSchema('## ' + char).schema;
-      const markdown = schemaToMarkdown(schema);
+      const markdown = parserSlateNodeToMarkdown(schema);
       expect(markdown).toMatchSnapshot();
     });
     it(`should convert markdown to schema in ${char.slice(
@@ -294,7 +297,7 @@ it(`忽略card，并且只生成一次`, () => {
 | 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 
 | 云           | 162,012   | 111,521   | 111,353   | 112,799   | `).schema;
   expect(schema).toMatchSnapshot();
-  const markdown = schemaToMarkdown(schema);
+  const markdown = parserSlateNodeToMarkdown(schema);
   expect(markdown).toMatchSnapshot();
 });
 
@@ -312,6 +315,6 @@ it(`多个空格转为一个`, () => {
 因此，今日（2024年12月25日）上证指数收盘报3393.35点，微跌0.01%。`;
   const schema = parserMdToSchema(md).schema;
   expect(schema).toMatchSnapshot();
-  const markdown = schemaToMarkdown(schema);
+  const markdown = parserSlateNodeToMarkdown(schema);
   expect(markdown).toMatchSnapshot();
 });
