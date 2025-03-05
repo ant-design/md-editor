@@ -563,10 +563,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   ]}
                   colWidths={
                     props.element?.otherProps?.colWidths ||
-                    (
-                      tableJSONData?.tableData[1] || tableJSONData?.tableData[0]
-                    )?.map((text) => {
-                      return Math.min(stringWidth(text) * 16 + 24, 300);
+                    tableJSONData?.tableData?.[1]?.map((text) => {
+                      return Math.max(
+                        Math.min(stringWidth(text) * 16 + 24, 300),
+                        80,
+                      );
                     })
                   }
                   manualColumnResize={true}
@@ -596,11 +597,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   afterColumnResize={(size, colIndex) => {
                     let colWidths = [
                       ...(props.element?.otherProps?.colWidths ||
-                        (
-                          tableJSONData?.tableData[1] ||
-                          tableJSONData?.tableData[0]
-                        )?.map((text) => {
-                          return Math.min(stringWidth(text) * 16 + 24, 300);
+                        tableJSONData?.tableData?.[1]?.map((text) => {
+                          return Math.max(
+                            Math.min(stringWidth(text) * 16 + 24, 300),
+                            80,
+                          );
                         })),
                     ];
 
