@@ -619,7 +619,6 @@ export class KeyboardTask {
 
   list(mode: 'ordered' | 'unordered' | 'task') {
     const [curNode, curPath] = this.curNodes;
-    console.log(curNode);
     if (curNode && ['paragraph', 'head'].includes(curNode[0].type)) {
       const parent = Editor.parent(this.editor, curNode[1]);
       if (parent[0].type === 'list-item' && !Path.hasPrevious(curNode[1])) {
