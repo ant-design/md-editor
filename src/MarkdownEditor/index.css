@@ -120,6 +120,7 @@
   border: 1px solid #0000001a;
   margin-bottom: 0.5em;
   font-size: 14px;
+  min-width: 320px;
 }
 
 .ace-container.frontmatter:before {
