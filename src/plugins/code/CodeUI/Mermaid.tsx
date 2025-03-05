@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
-import { CodeNode } from '../../../../el';
-import { useEditorStore } from '../../../store';
-import { EditorUtils } from '../../../utils/editorUtils';
+import { useEditorStore } from '../../../MarkdownEditor/editor/store';
+import { EditorUtils } from '../../../MarkdownEditor/editor/utils/editorUtils';
+import { CodeNode } from '../../../MarkdownEditor/el';
 
 export const MermaidElement = observer((props: { el: CodeNode }) => {
   const { store } = useEditorStore();

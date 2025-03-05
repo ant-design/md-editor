@@ -5,7 +5,7 @@ import { ElementProps, Elements } from './el';
 
 export type MarkdownEditorPlugin = {
   // ------------------ 自定义节点渲染 ------------------
-  elements?: Record<string, React.ComponentType<ElementProps>>;
+  elements?: Record<string, React.ComponentType<ElementProps<any>>>;
 
   // ------------------ Markdown 双向转换 ------------------
   parseMarkdown?: {

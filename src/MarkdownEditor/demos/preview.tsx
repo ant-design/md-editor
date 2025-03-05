@@ -3,8 +3,11 @@
   MarkdownEditor,
   MarkdownEditorInstance,
 } from '@ant-design/md-editor';
+import { ChartElement } from '@ant-design/md-editor/plugins/chart';
+import { CodeElement } from '@ant-design/md-editor/plugins/code';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
+
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # 腾讯研究报告
@@ -257,6 +260,14 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
+      plugins={[
+        {
+          elements: {
+            code: CodeElement,
+            chart: ChartElement,
+          },
+        },
+      ]}
       fncProps={{
         render: (props, _) => {
           return <Tooltip title={props.children}>{_}</Tooltip>;

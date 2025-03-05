@@ -3,10 +3,10 @@ import katex from 'katex';
 import { observer } from 'mobx-react';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Editor, Node, Transforms } from 'slate';
-import { useEditorStore } from '../../../../../editor/store';
-import { ElementProps, InlineKatexNode } from '../../../../../el';
-import { useSelStatus } from '../../../../../hooks/editor';
-import { InlineChromiumBugfix } from '../../../../utils/InlineChromiumBugfix';
+import { useEditorStore } from '../../../../MarkdownEditor/editor/store';
+import { InlineChromiumBugfix } from '../../../../MarkdownEditor/editor/utils/InlineChromiumBugfix';
+import { ElementProps, InlineKatexNode } from '../../../../MarkdownEditor/el';
+import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
 
 export const InlineKatex = observer(
   ({ children, element, attributes }: ElementProps<InlineKatexNode>) => {

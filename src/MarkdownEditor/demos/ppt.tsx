@@ -1,4 +1,5 @@
-﻿import { MarkdownEditor, Slides } from '@ant-design/md-editor';
+﻿import { MarkdownEditor } from '@ant-design/md-editor';
+import { Slides } from '@ant-design/md-editor/Slides';
 import { Segmented } from 'antd';
 import React, { useState } from 'react';
 

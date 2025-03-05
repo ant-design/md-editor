@@ -10,14 +10,14 @@ import isHotkey from 'is-hotkey';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Path, Transforms } from 'slate';
-import { CodeNode, ElementProps } from '../../../el';
-import { useSelStatus } from '../../../hooks/editor';
-import { ActionIconBox } from '../../components/ActionIconBox';
-import { ReactEditor } from '../../slate-react';
-import { useEditorStore } from '../../store';
-import { DragHandle } from '../../tools/DragHandle';
-import { aceLangs, modeMap } from '../../utils/ace';
-import { EditorUtils } from '../../utils/editorUtils';
+import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
+import { ReactEditor } from '../../MarkdownEditor/editor/slate-react';
+import { useEditorStore } from '../../MarkdownEditor/editor/store';
+import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
+import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
+import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
+import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
+import { aceLangs, modeMap } from './ace';
 import { Katex } from './CodeUI/Katex/Katex';
 import { MermaidElement } from './CodeUI/Mermaid';
 import { langIconMap } from './langIconMap';
@@ -34,7 +34,7 @@ const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
   };
 });
 
-export function AceElement(props: ElementProps<CodeNode>) {
+export function CodeElement(props: ElementProps<CodeNode>) {
   const { store, markdownEditorRef, readonly } = useEditorStore();
   const [state, setState] = useGetSetState({
     showBorder: false,
