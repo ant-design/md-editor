@@ -449,13 +449,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       },
     );
   });
-  const defaultWidth = useRefFunction((tableData: any[]) => {
+  const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
       return props.element?.otherProps?.colWidths;
     if (!tableData?.[1]) return;
     if (tableData?.[1]?.filter(Boolean)?.length === 0) return;
     return tableData?.[1]?.map((text: string) => {
-      return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 80);
+      return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 50);
     });
   });
   useEffect(() => {
@@ -463,7 +463,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     hotRef.current?.hotInstance?.updateSettings({
       cell: cellSet.cellSet,
       data: cellSet.tableData,
-      colWidths: defaultWidth(cellSet.tableData),
+      colWidths: genDefaultWidth(cellSet.tableData),
     });
   }, [JSON.stringify(props.element)]);
 
@@ -596,15 +596,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     });
                   }}
                   afterColumnResize={(size, colIndex) => {
-                    let colWidths = [
-                      ...(props.element?.otherProps?.colWidths ||
-                        tableJSONData?.tableData?.[1]?.map((text) => {
-                          return Math.max(
-                            Math.min(stringWidth(text) * 16 + 24, 300),
-                            80,
-                          );
-                        })),
-                    ];
+                    let colWidths =
+                      props.element?.otherProps?.colWidths ||
+                      genDefaultWidth(
+                        hotRef.current?.hotInstance?.getData() || [],
+                      );
 
                     colWidths[colIndex] = size;
 
