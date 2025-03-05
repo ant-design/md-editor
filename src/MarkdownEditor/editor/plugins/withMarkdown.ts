@@ -255,7 +255,6 @@ export const withMarkdown = (editor: Editor) => {
             return;
           }
         }
-        console.log('parentNode', operation.node);
         console.error('表格内部只支持行内节点！');
         return;
       }

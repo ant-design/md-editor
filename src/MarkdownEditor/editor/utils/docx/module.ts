@@ -209,9 +209,6 @@ function getSiblings(el: {
       el?.attributes?.getNamedItem('style')?.value?.match(/level(\d+)/)?.[1] ||
       '4';
 
-    if (!el?.attributes?.getNamedItem('style')?.value) {
-      console.log(el?.attributes);
-    }
     el.setAttribute('class', 'done'); // we set this attribute to avoid getting stuck in an infinite loop
     el.setAttribute('style', level);
     siblings.push(el);

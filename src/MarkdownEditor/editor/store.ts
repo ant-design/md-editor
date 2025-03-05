@@ -562,7 +562,6 @@ export class EditorStore {
       'dragend',
       () => {
         try {
-          console.log('dragend');
           window.removeEventListener('dragover', dragover);
           this.readonly = false;
           if (mark) this.container?.parentElement!.removeChild(mark);
