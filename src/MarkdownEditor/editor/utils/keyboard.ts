@@ -4,7 +4,7 @@ import { action } from 'mobx';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
-import { MarkdownEditorProps } from '../..';
+import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { AttachNode, ListItemNode, MediaNode, TableNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { parserMdToSchema } from '../parser/parserMdToSchema';

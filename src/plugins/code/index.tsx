@@ -14,10 +14,10 @@ import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIcon
 import { ReactEditor } from '../../MarkdownEditor/editor/slate-react';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
+import { aceLangs, modeMap } from '../../MarkdownEditor/editor/utils/ace';
 import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
-import { aceLangs, modeMap } from './ace';
 import { Katex } from './CodeUI/Katex/Katex';
 import { MermaidElement } from './CodeUI/Mermaid';
 import { langIconMap } from './langIconMap';
@@ -555,3 +555,5 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     </div>
   );
 }
+
+export { InlineKatex } from './CodeUI/Katex/InlineKatex';

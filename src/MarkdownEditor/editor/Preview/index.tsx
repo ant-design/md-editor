@@ -9,7 +9,7 @@ import {
   MElement,
   MLeaf,
   parserMdToSchema,
-} from '../../index';
+} from '../../BaseMarkdownEditor';
 import { withMarkdown } from '../plugins';
 import { Editable, RenderElementProps, Slate, withReact } from '../slate-react';
 import { useStyle } from '../style';

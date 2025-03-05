@@ -17,7 +17,7 @@ import {
   Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
-} from '../index';
+} from '../BaseMarkdownEditor';
 import { MElement, MLeaf } from './elements';
 import { copySelectedBlocks } from './plugins/copySelectedBlocks';
 import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';

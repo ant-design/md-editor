@@ -4,7 +4,7 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
-import { MarkdownEditorProps } from '../..';
+import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import {
   ReactEditor,
   RenderElementProps,

@@ -19,7 +19,7 @@ import { ReactEditor } from './slate-react';
 import { Ace } from 'ace-builds';
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
-import { CommentDataType, MarkdownEditorProps } from '..';
+import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
 import { Elements, ListNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';

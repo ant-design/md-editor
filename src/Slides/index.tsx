@@ -1,4 +1,4 @@
-﻿import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
 import 'reveal.js/dist/reveal.css';
 
@@ -60,7 +60,7 @@ export function Slides(props: { initValue: string }) {
           splitMarkdown(props.initValue)?.map((line, index) => {
             return (
               <section key={index}>
-                <MarkdownEditor
+                <BaseMarkdownEditor
                   readonly
                   toc={false}
                   reportMode

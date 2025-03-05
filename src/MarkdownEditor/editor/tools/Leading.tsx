@@ -3,7 +3,11 @@ import { nanoid } from 'nanoid';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { Node } from 'slate';
-import { Elements, useDebounce, useGetSetState } from '../../index';
+import {
+  Elements,
+  useDebounce,
+  useGetSetState,
+} from '../../BaseMarkdownEditor';
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
 

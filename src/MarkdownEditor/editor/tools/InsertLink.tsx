@@ -5,7 +5,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';
-import { IEditor } from '../..';
+import { IEditor } from '../../BaseMarkdownEditor';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';
 import { useGetSetState } from '../utils';
