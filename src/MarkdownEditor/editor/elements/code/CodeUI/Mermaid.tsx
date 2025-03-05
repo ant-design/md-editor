@@ -1,4 +1,3 @@
-import mermaid from 'mermaid';
 import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
@@ -6,7 +5,7 @@ import { CodeNode } from '../../../../el';
 import { useEditorStore } from '../../../store';
 import { EditorUtils } from '../../../utils/editorUtils';
 
-export const Mermaid = observer((props: { el: CodeNode }) => {
+export const MermaidElement = observer((props: { el: CodeNode }) => {
   const { store } = useEditorStore();
   const [state, setState] = useGetSetState({
     code: '',
@@ -18,7 +17,8 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
     () => 'm' + (Date.now() + Math.ceil(Math.random() * 1000)),
     [],
   );
-  const render = useCallback(() => {
+  const render = useCallback(async () => {
+    const mermaid = await import('mermaid').then((module) => module.default);
     mermaid
       .render(id, state().code)
       .then((res) => {
@@ -53,6 +53,7 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
     }
     return () => window.clearTimeout(timer.current);
   }, [props.el]);
+
   return (
     <div
       style={{

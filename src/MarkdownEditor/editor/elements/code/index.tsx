@@ -19,7 +19,7 @@ import { DragHandle } from '../../tools/DragHandle';
 import { aceLangs, modeMap } from '../../utils/ace';
 import { EditorUtils } from '../../utils/editorUtils';
 import { Katex } from './CodeUI/Katex/Katex';
-import { Mermaid } from './CodeUI/Mermaid';
+import { MermaidElement } from './CodeUI/Mermaid';
 import { langIconMap } from './langIconMap';
 
 const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
@@ -517,7 +517,9 @@ export function AceElement(props: ElementProps<CodeNode>) {
         <div ref={dom} style={{ height: 200, lineHeight: '22px' }}></div>
         <div className={'ant-md-editor-hidden'}>{props.children}</div>
       </div>
-      {props.element.language === 'mermaid' && <Mermaid el={props.element} />}
+      {props.element.language === 'mermaid' && (
+        <MermaidElement el={props.element} />
+      )}
       {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
         <Katex el={props.element} />
       ) : null}

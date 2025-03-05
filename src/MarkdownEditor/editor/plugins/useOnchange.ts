@@ -14,7 +14,7 @@ import {
 } from 'slate';
 import { Elements } from '../../el';
 import { EditorStore } from '../store';
-import { schemaToMarkdown } from '../utils';
+import { parserSlateNodeToMarkdown } from '../utils';
 
 export const selChange$ = new Subject<{
   sel: BaseSelection;
@@ -39,7 +39,7 @@ export function useOnchange(
   const rangeContent = useRef('');
   const onChangeDebounce = useDebounceFn(async () => {
     if (!onChange) return;
-    onChange?.(schemaToMarkdown(editor.children), editor.children);
+    onChange?.(parserSlateNodeToMarkdown(editor.children), editor.children);
   }, 300);
 
   return React.useMemo(() => {
@@ -49,7 +49,7 @@ export function useOnchange(
         _operations.some((o) => o.type !== 'set_selection')
       ) {
         onChangeDebounce.cancel();
-        onChangeDebounce?.run(schemaToMarkdown(_value), _value);
+        onChangeDebounce?.run(parserSlateNodeToMarkdown(_value), _value);
       }
 
       const sel = editor.selection;

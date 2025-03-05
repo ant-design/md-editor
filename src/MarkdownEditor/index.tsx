@@ -21,7 +21,7 @@ import {
 import { AnchorProps, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { Subject } from 'rxjs';
-import { BaseEditor, createEditor, Selection } from 'slate';
+import { BaseEditor, createEditor, Editor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
 import { MEditor } from './editor/Editor';
@@ -38,6 +38,7 @@ import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
 import { FloatBar } from './editor/tools/ToolBar/FloatBar';
 import { ElementProps, Elements, ListItemNode } from './el';
 import './index.css';
+import { MarkdownEditorPlugin, PluginContext } from './plugin';
 import { useStyle } from './style';
 export { EditorUtils, parserMdToSchema };
 
@@ -278,6 +279,18 @@ export type MarkdownEditorProps = {
     enable: boolean;
     matchInputToNode?: boolean;
   };
+
+  plugins?: MarkdownEditorPlugin[];
+};
+
+// 组合器函数
+const composeEditors = (editor: Editor, plugins: MarkdownEditorPlugin[]) => {
+  if (plugins.length > 1) {
+    return plugins.reduce((acc, plugin) => {
+      return plugin.withEditor ? plugin.withEditor(acc) : acc;
+    }, editor);
+  }
+  return editor;
 };
 
 /**
@@ -312,7 +325,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   // markdown 编辑器实例
   const markdownEditorRef = useRef(
-    withMarkdown(withReact(withHistory(createEditor()))),
+    composeEditors(
+      withMarkdown(withReact(withHistory(createEditor()))),
+      props.plugins || [],
+    ),
   );
 
   const markdownContainerRef = useRef<HTMLDivElement | null>(null);
@@ -392,117 +408,120 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const [schema, setSchema] = useState<Elements[]>(initSchemaValue);
 
   return wrapSSR(
-    <EditorStoreContext.Provider
-      value={{
-        keyTask$,
-        rootContainer: props.rootContainer,
-        setShowComment,
-        store: instance.store,
-        typewriter: props.typewriter ?? false,
-        readonly: props.readonly ?? false,
-        editorProps: props || {},
-        markdownEditorRef,
-        markdownContainerRef,
-      }}
-    >
-      <div
-        id={props.id ? String(props.id) || undefined : undefined}
-        className={classNames(
-          'markdown-editor',
-          baseClassName,
-          hashId,
-          props.className,
-          {
-            [baseClassName + '-readonly']: readonly,
-            [baseClassName + '-edit']: !readonly,
-            [baseClassName + '-report']: props.reportMode,
-            [baseClassName + '-slide']: props.slideMode,
-          },
-        )}
-        style={{
-          width: width || '400px',
-          height: height || 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          maxHeight: '100%',
-          ...style,
+    <PluginContext.Provider value={props.plugins || []}>
+      <EditorStoreContext.Provider
+        value={{
+          keyTask$,
+          rootContainer: props.rootContainer,
+          setShowComment,
+          store: instance.store,
+          typewriter: props.typewriter ?? false,
+          readonly: props.readonly ?? false,
+          editorProps: props || {},
+          markdownEditorRef,
+          markdownContainerRef,
         }}
       >
-        {!readonly && toolBar?.enable ? (
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '100%',
-              position: 'sticky',
-              zIndex: 1000,
-              top: 0,
-            }}
-            className={classNames('md-editor-toolbar-container', {
-              [baseClassName + '-min-toolbar']: toolBar.min,
-            })}
-          >
-            <ToolBar
-              hideTools={toolBar.hideTools}
-              extra={toolBar.extra}
-              min={toolBar.min}
-            />
-          </div>
-        ) : readonly ? null : null}
         <div
+          id={props.id ? String(props.id) || undefined : undefined}
+          className={classNames(
+            'markdown-editor',
+            baseClassName,
+            hashId,
+            props.className,
+            {
+              [baseClassName + '-readonly']: readonly,
+              [baseClassName + '-edit']: !readonly,
+              [baseClassName + '-report']: props.reportMode,
+              [baseClassName + '-slide']: props.slideMode,
+            },
+          )}
           style={{
-            padding: props.readonly ? '8px' : '24px 24px',
-            paddingLeft: props.readonly ? undefined : 32,
-            overflow: 'auto',
+            width: width || '400px',
+            height: height || 'auto',
             display: 'flex',
-            height: !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
-            position: 'relative',
-            gap: 24,
-            ...contentStyle,
-          }}
-          ref={(dom) => {
-            markdownContainerRef.current = dom;
-            instance.store.setState((state) => (state.container = dom));
-            setMountedStatus(true);
+            flexDirection: 'column',
+            maxHeight: '100%',
+            ...style,
           }}
         >
-          <MEditor
-            prefixCls={baseClassName}
-            {...rest}
-            onChange={(value, schema) => {
-              setSchema(schema);
-              rest?.onChange?.(value, schema);
-            }}
-            initSchemaValue={initSchemaValue}
-            style={editorStyle}
-            instance={instance}
-          />
-          {readonly ? (
-            props.reportMode ? (
-              <FloatBar readonly />
-            ) : null
-          ) : toolBar?.enable ? null : (
-            <FloatBar readonly={false} />
-          )}
-          {editorMountStatus && toc !== false && instance.store?.container ? (
-            showCommentList?.length ? (
-              <CommentList
-                commentList={showCommentList}
-                comment={props.comment}
+          {!readonly && toolBar?.enable ? (
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '100%',
+                position: 'sticky',
+                zIndex: 1000,
+                top: 0,
+              }}
+              className={classNames('md-editor-toolbar-container', {
+                [baseClassName + '-min-toolbar']: toolBar.min,
+              })}
+            >
+              <ToolBar
+                hideTools={toolBar.hideTools}
+                extra={toolBar.extra}
+                min={toolBar.min}
               />
-            ) : (
-              <TocHeading schema={schema} anchorProps={props.anchorProps} />
-            )
-          ) : null}
+            </div>
+          ) : readonly ? null : null}
+          <div
+            style={{
+              padding: props.readonly ? '8px' : '24px 24px',
+              paddingLeft: props.readonly ? undefined : 32,
+              overflow: 'auto',
+              display: 'flex',
+              height:
+                !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
+              position: 'relative',
+              gap: 24,
+              ...contentStyle,
+            }}
+            ref={(dom) => {
+              markdownContainerRef.current = dom;
+              instance.store.setState((state) => (state.container = dom));
+              setMountedStatus(true);
+            }}
+          >
+            <MEditor
+              prefixCls={baseClassName}
+              {...rest}
+              onChange={(value, schema) => {
+                setSchema(schema);
+                rest?.onChange?.(value, schema);
+              }}
+              initSchemaValue={initSchemaValue}
+              style={editorStyle}
+              instance={instance}
+            />
+            {readonly ? (
+              props.reportMode ? (
+                <FloatBar readonly />
+              ) : null
+            ) : toolBar?.enable ? null : (
+              <FloatBar readonly={false} />
+            )}
+            {editorMountStatus && toc !== false && instance.store?.container ? (
+              showCommentList?.length ? (
+                <CommentList
+                  commentList={showCommentList}
+                  comment={props.comment}
+                />
+              ) : (
+                <TocHeading schema={schema} anchorProps={props.anchorProps} />
+              )
+            ) : null}
+          </div>
+          {readonly ? (
+            <></>
+          ) : (
+            <>
+              <InsertLink />
+              <InsertAutocomplete {...props.insertAutocompleteProps} />
+            </>
+          )}
         </div>
-        {readonly ? (
-          <></>
-        ) : (
-          <>
-            <InsertLink />
-            <InsertAutocomplete {...props.insertAutocompleteProps} />
-          </>
-        )}
-      </div>
-    </EditorStoreContext.Provider>,
+      </EditorStoreContext.Provider>
+    </PluginContext.Provider>,
   );
 };

@@ -314,9 +314,9 @@ export const MARKDOWN_EDITOR_EVENTS = {
   BLUR: 'md-editor-blur',
 };
 
+export * from '../parser/parserSlateNodeToMarkdown';
 export * from './editorUtils';
 export * from './keyboard';
 export * from './media';
 export * from './path';
-export * from './schemaToMarkdown';
 export * from './useLocalState';

@@ -4,4 +4,6 @@ export { schemaToHeading } from './MarkdownEditor/editor/tools/Leading';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';
 export * from './MarkdownEditor/index';
-export * from './Slides';
+
+export { parserMarkdownToSlateNode } from './MarkdownEditor/editor/parser/parserMarkdownToSlateNode';
+export { parserSlateNodeToMarkdown } from './MarkdownEditor/editor/parser/parserSlateNodeToMarkdown';

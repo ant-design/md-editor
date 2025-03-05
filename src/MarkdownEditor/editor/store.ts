@@ -22,7 +22,7 @@ import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '..';
 import { Elements, ListNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
-import { KeyboardTask, Methods, schemaToMarkdown } from './utils';
+import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
@@ -309,7 +309,7 @@ export class EditorStore {
    */
   setMDContent(md?: string) {
     if (md === undefined) return;
-    if (md === schemaToMarkdown(this._editor.current.children)) return;
+    if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
     const nodeList = parserMdToSchema(md).schema;
     this.setContent(nodeList);
   }

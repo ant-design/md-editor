@@ -21,6 +21,7 @@ import {
   TableNode,
   TableRowNode,
 } from '../../el';
+import { MarkdownEditorPlugin } from '../../plugin';
 import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
@@ -847,8 +848,30 @@ const parserBlock = (
   });
 };
 
-export const parserMarkdown = (
+// Markdown 转 Slate
+const parseWithPlugins = (root: Root, plugins: MarkdownEditorPlugin[]) => {
+  return root.children.map((node) => {
+    for (const plugin of plugins) {
+      const rule = plugin.parseMarkdown?.find((r) => r.match(node));
+      if (rule) return rule.convert(node);
+    }
+    return node; // 默认转换逻辑
+  });
+};
+
+/**
+ * 解析Markdown字符串并返回解析后的结构和链接信息。
+ *
+ * @param md - 要解析的Markdown字符串。
+ * @param plugins - 可选的Markdown编辑器插件数组，用于扩展解析功能。
+ * @returns 一个包含解析后的元素数组和链接信息的对象。
+ *
+ * @property schema - 解析后的元素数组。
+ * @property links - 包含路径和目标链接的对象数组。
+ */
+export const parserMarkdownToSlateNode = (
   md: string,
+  plugins?: MarkdownEditorPlugin[],
 ): {
   schema: Elements[];
   links: { path: number[]; target: string }[];
@@ -869,7 +892,13 @@ export const parserMarkdown = (
         .replaceAll('！', ' ！') || '';
   } catch (error) {}
 
-  const root = parser.parse(markdown);
-  const schema = parserBlock(root.children as any[], true) as Elements[];
+  const markdownRoot = parser.parse(markdown);
+
+  const root =
+    (plugins || [])?.length > 0
+      ? parseWithPlugins(markdownRoot, plugins || [])
+      : markdownRoot.children;
+
+  const schema = parserBlock(root as any[], true) as Elements[];
   return { schema, links: [] };
 };

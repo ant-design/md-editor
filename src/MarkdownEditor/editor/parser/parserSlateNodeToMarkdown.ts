@@ -5,7 +5,7 @@
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
 import { ChartNode, ColumnNode, DescriptionNode, TableNode } from '../../el';
-import { getMediaType } from './dom';
+import { getMediaType } from '../utils/dom';
 
 const space = '  ';
 const inlineNode = new Set(['break']);
@@ -44,16 +44,18 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
     case 'card-after':
       break;
     case 'card':
-      str += schemaToMarkdown(node?.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(node?.children, preString, newParent);
       break;
     case 'paragraph':
-      str += preString + schemaToMarkdown(node?.children, preString, newParent);
+      str +=
+        preString +
+        parserSlateNodeToMarkdown(node?.children, preString, newParent);
       break;
     case 'head':
       str +=
         '#'.repeat(node.level) +
         ' ' +
-        schemaToMarkdown(node?.children, preString, newParent);
+        parserSlateNodeToMarkdown(node?.children, preString, newParent);
       break;
     case 'code':
       const code = node?.value;
@@ -73,7 +75,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }">${node.name}</a>`;
       break;
     case 'blockquote':
-      str += schemaToMarkdown(node.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(node.children, preString, newParent);
       break;
     case 'media':
       let url = node?.url;
@@ -105,10 +107,10 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }
       break;
     case 'list':
-      str += schemaToMarkdown(node.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(node.children, preString, newParent);
       break;
     case 'list-item':
-      str += schemaToMarkdown(node.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(node.children, preString, newParent);
       break;
     case 'table':
       str += table(node, preString, newParent);
@@ -167,14 +169,18 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
 };
 
 /**
- * Converts a schema tree to a Markdown string.
+ * 将 Slate 节点树解析为 Markdown 字符串。
  *
- * @param tree - The schema tree to convert, represented as an array of nodes.
- * @param preString - A prefix string to prepend to each line of the output.
- * @param parent - An array representing the parent nodes, defaulting to a root node.
- * @returns The generated Markdown string.
+ * @param tree - Slate 节点树。
+ * @param preString - 前缀字符串，默认为空字符串。
+ * @param parent - 父节点数组，默认为包含一个根节点的数组。
+ * @returns 解析后的 Markdown 字符串。
+ *
+ * 该函数遍历 Slate 节点树，并根据节点类型和属性生成相应的 Markdown 字符串。
+ * 对于具有其他属性的节点，会将这些属性转换为 JSON 字符串并作为注释插入。
+ * 对于列表项、引用块、段落等不同类型的节点，会根据其特定的格式生成相应的 Markdown。
  */
-export const schemaToMarkdown = (
+export const parserSlateNodeToMarkdown = (
   tree: any[],
   preString = '',
   parent: any[] = [{ root: true }],
@@ -431,7 +437,9 @@ const table = (
     for (let n of children) {
       if (n.type === 'column-cell') {
         if (!n?.children) continue;
-        row.push(schemaToMarkdown(n?.children, '', [...parent, n]) || 'xxx');
+        row.push(
+          parserSlateNodeToMarkdown(n?.children, '', [...parent, n]) || 'xxx',
+        );
       }
     }
     data.push(new Array(row.length).fill('x').map((_, i) => `column${i + 1}`));
@@ -444,12 +452,12 @@ const table = (
         if (!c?.children) continue;
         for (let n of c?.children || []) {
           if (n.type === 'table-cell') {
-            row.push(schemaToMarkdown(n.children, '', [...parent, n]));
+            row.push(parserSlateNodeToMarkdown(n.children, '', [...parent, n]));
           }
         }
       }
       if (c.type === 'table-cell') {
-        row.push(schemaToMarkdown(c.children, '', [...parent, c]));
+        row.push(parserSlateNodeToMarkdown(c.children, '', [...parent, c]));
       }
       if (row?.every((r) => !r)) continue;
       data.push(row);

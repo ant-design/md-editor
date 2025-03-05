@@ -2,7 +2,7 @@
 import { message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import {
   BaseRange,
   BaseSelection,
@@ -24,6 +24,7 @@ import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
 import { useDebounceFn } from '@ant-design/pro-components';
+import { PluginContext } from '../plugin';
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -527,13 +528,22 @@ export const MEditor = observer(
       return map;
     }, [editorProps?.comment?.commentList]);
 
+    const plugins = useContext(PluginContext);
+
     const elementRenderElement = (props: RenderElementProps) => {
       const defaultDom = (
         <MElement {...props} children={props.children} readonly={readonly} />
       );
+
+      for (const plugin of plugins) {
+        const Component = plugin.elements?.[props.element.type];
+        if (Component) return <Component {...props} />;
+      }
+
       if (!eleItemRender) return defaultDom;
       if (props.element.type === 'table-cell') return defaultDom;
       if (props.element.type === 'table-row') return defaultDom;
+
       return eleItemRender(props, defaultDom) as React.ReactElement;
     };
 

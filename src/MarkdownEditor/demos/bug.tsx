@@ -2602,7 +2602,7 @@ const bugMd = `<!-- [{"chartType": "line", "x": "date", "y": "uv_click_mark", "c
 
 import { MarkdownEditorInstance } from '@ant-design/md-editor';
 import { useEffect, useRef } from 'react';
-import { parserMarkdown } from '../editor/parser/parserMarkdown';
+import { parserMarkdownToSlateNode } from '../editor/parser/parserMarkdownToSlateNode';
 
 const mdList = [
   { data: { content: '', type: 'TEXT' }, type: 'data' },
@@ -3504,14 +3504,14 @@ const Rerender = () => {
     const run = async () => {
       if (process.env.NODE_ENV === 'test') {
         instance.current?.store.updateNodeList(
-          parserMarkdown(mdList.at(-1)?.data?.content || '').schema,
+          parserMarkdownToSlateNode(mdList.at(-1)?.data?.content || '').schema,
         );
         return;
       }
       mdList?.forEach((item, index) => {
         setTimeout(() => {
           instance.current?.store.updateNodeList(
-            parserMarkdown(item.data.content).schema,
+            parserMarkdownToSlateNode(item.data.content).schema,
           );
         }, 160 * index);
       });
