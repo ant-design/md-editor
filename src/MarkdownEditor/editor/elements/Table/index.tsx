@@ -14,6 +14,7 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Editor, Node, Path, Transforms } from 'slate';
+import stringWidth from 'string-width';
 import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ActionIconBox } from '../../components';
@@ -409,6 +410,46 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     },
   );
 
+  const afterMergeCells = useRefFunction((cellRange, mergeParent, auto) => {
+    if (auto) return;
+    const mergeCells = [...(props.element?.otherProps?.mergeCells || [])];
+    mergeCells.push(mergeParent as any);
+    Transforms?.setNodes(
+      markdownEditorRef.current,
+      {
+        otherProps: {
+          ...props.element.otherProps,
+          mergeCells,
+        },
+      },
+      {
+        at: tablePath,
+      },
+    );
+  });
+
+  const afterUnmergeCells = useRefFunction((cellRange, auto) => {
+    if (auto) return;
+    const row = cellRange?.from?.row;
+    const rol = cellRange?.from?.col;
+    const mergeCells = props.element?.otherProps?.mergeCells || [];
+    Transforms?.setNodes(
+      markdownEditorRef.current,
+      {
+        otherProps: {
+          ...props.element.otherProps,
+          mergeCells:
+            mergeCells?.filter((cell) => {
+              return cell.col !== rol || cell.row !== row;
+            }) || [],
+        },
+      },
+      {
+        at: tablePath,
+      },
+    );
+  });
+
   useEffect(() => {
     const cellSet = slateTableToJSONData(props.element);
     hotRef.current?.hotInstance?.updateSettings({
@@ -520,11 +561,15 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     '---------',
                     'remove_col',
                   ]}
-                  // ------  列宽的配置  ---------
-                  autoColumnSize={{}}
-                  manualColumnResize={
-                    props.element?.otherProps?.colWidths || true
+                  colWidths={
+                    props.element?.otherProps?.colWidths ||
+                    (
+                      tableJSONData?.tableData[1] || tableJSONData?.tableData[0]
+                    )?.map((text) => {
+                      return Math.min(stringWidth(text) * 16 + 24, 300);
+                    })
                   }
+                  manualColumnResize={true}
                   afterCreateCol={afterCreateCol}
                   afterCreateRow={afterCreateRow}
                   afterRemoveCol={(index, amount) => {
@@ -549,9 +594,18 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     });
                   }}
                   afterColumnResize={(size, colIndex) => {
-                    const colWidths =
-                      props.element?.otherProps?.colWidths || [];
+                    let colWidths = [
+                      ...(props.element?.otherProps?.colWidths ||
+                        (
+                          tableJSONData?.tableData[1] ||
+                          tableJSONData?.tableData[0]
+                        )?.map((text) => {
+                          return Math.min(stringWidth(text) * 16 + 24, 300);
+                        })),
+                    ];
+
                     colWidths[colIndex] = size;
+
                     Transforms?.setNodes(
                       markdownEditorRef.current,
                       {
@@ -570,47 +624,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   afterChange={updateTable}
                   //------- merge 合并单元格的处理 -------
                   mergeCells={props.element?.otherProps?.mergeCells || true}
-                  afterMergeCells={(cellRange, mergeParent, auto) => {
-                    if (auto) return;
-                    const mergeCells = [
-                      ...(props.element?.otherProps?.mergeCells || []),
-                    ];
-                    mergeCells.push(mergeParent as any);
-                    Transforms?.setNodes(
-                      markdownEditorRef.current,
-                      {
-                        otherProps: {
-                          ...props.element.otherProps,
-                          mergeCells,
-                        },
-                      },
-                      {
-                        at: tablePath,
-                      },
-                    );
-                  }}
-                  afterUnmergeCells={(cellRange, auto) => {
-                    if (auto) return;
-                    const row = cellRange?.from?.row;
-                    const rol = cellRange?.from?.col;
-                    const mergeCells =
-                      props.element?.otherProps?.mergeCells || [];
-                    Transforms?.setNodes(
-                      markdownEditorRef.current,
-                      {
-                        otherProps: {
-                          ...props.element.otherProps,
-                          mergeCells:
-                            mergeCells?.filter((cell) => {
-                              return cell.col !== rol || cell.row !== row;
-                            }) || [],
-                        },
-                      },
-                      {
-                        at: tablePath,
-                      },
-                    );
-                  }}
+                  afterMergeCells={afterMergeCells}
+                  afterUnmergeCells={afterUnmergeCells}
                   // ----- merge 合并单元格的处理 end --------
                   contextMenu={[
                     'row_above',
@@ -620,7 +635,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     'redo',
                     '---------',
                     'mergeCells',
-                    'remove_col',
+                    'remove_row',
                   ]}
                   autoWrapRow={true}
                   autoWrapCol={true}
@@ -662,5 +677,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         </div>
       </TablePropsContext.Provider>,
     );
-  }, [props.element.children, excelMode, isSel, tableJSONData]);
+  }, [
+    props.element.children,
+    props.element?.otherProps,
+    excelMode,
+    isSel,
+    tableJSONData,
+  ]);
 });
