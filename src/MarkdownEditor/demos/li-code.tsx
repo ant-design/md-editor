@@ -49,6 +49,9 @@ export default () => {
       />
 
       <MarkdownEditor
+        style={{
+          width: '100vw',
+        }}
         initValue={`
 在 Python 中循环遍历列表的 5 种常用方法如下：
 

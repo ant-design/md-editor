@@ -449,12 +449,21 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       },
     );
   });
-
+  const defaultWidth = useRefFunction((tableData: any[]) => {
+    if (props.element?.otherProps?.colWidths)
+      return props.element?.otherProps?.colWidths;
+    if (!tableData?.[1]) return;
+    if (tableData?.[1]?.filter(Boolean)?.length === 0) return;
+    return tableData?.[1]?.map((text: string) => {
+      return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 80);
+    });
+  });
   useEffect(() => {
     const cellSet = slateTableToJSONData(props.element);
     hotRef.current?.hotInstance?.updateSettings({
       cell: cellSet.cellSet,
       data: cellSet.tableData,
+      colWidths: defaultWidth(cellSet.tableData),
     });
   }, [JSON.stringify(props.element)]);
 
@@ -561,16 +570,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     '---------',
                     'remove_col',
                   ]}
-                  colWidths={
-                    props.element?.otherProps?.colWidths ||
-                    tableJSONData?.tableData?.[1]?.map((text) => {
-                      return Math.max(
-                        Math.min(stringWidth(text) * 16 + 24, 300),
-                        80,
-                      );
-                    }) ||
-                    undefined
-                  }
                   autoColumnSize={true}
                   manualColumnResize={true}
                   afterCreateCol={afterCreateCol}
