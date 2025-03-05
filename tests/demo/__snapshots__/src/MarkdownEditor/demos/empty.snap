@@ -324,7 +324,7 @@
                         style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
                         <img
-                          src="/src/MarkdownEditor/editor/elements/code/langIcons/java.svg"
+                          src="/src/plugins/code/langIcons/java.svg"
                           style="height: 1em; width: 1em;"
                         />
                       </div>
@@ -510,7 +510,7 @@
                         style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
                         <img
-                          src="/src/MarkdownEditor/editor/elements/code/langIcons/json.svg"
+                          src="/src/plugins/code/langIcons/json.svg"
                           style="height: 1em; width: 1em;"
                         />
                       </div>
@@ -771,7 +771,7 @@
                         style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
                         <img
-                          src="/src/MarkdownEditor/editor/elements/code/langIcons/database.svg"
+                          src="/src/plugins/code/langIcons/database.svg"
                           style="height: 1em; width: 1em;"
                         />
                       </div>
@@ -997,7 +997,7 @@
                         style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
                         <img
-                          src="/src/MarkdownEditor/editor/elements/code/langIcons/java.svg"
+                          src="/src/plugins/code/langIcons/java.svg"
                           style="height: 1em; width: 1em;"
                         />
                       </div>
@@ -1182,7 +1182,7 @@
                         style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
                         <img
-                          src="/src/MarkdownEditor/editor/elements/code/langIcons/json.svg"
+                          src="/src/plugins/code/langIcons/json.svg"
                           style="height: 1em; width: 1em;"
                         />
                       </div>
@@ -1442,7 +1442,7 @@
                         style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
                         <img
-                          src="/src/MarkdownEditor/editor/elements/code/langIcons/database.svg"
+                          src="/src/plugins/code/langIcons/database.svg"
                           style="height: 1em; width: 1em;"
                         />
                       </div>

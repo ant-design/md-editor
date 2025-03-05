@@ -11260,7 +11260,6 @@
                 </span>
                 <span
                   class="  ant-md-editor-content-fnc"
-                  contenteditable="false"
                   data-be="text"
                   data-fnc="fnc"
                   data-fnc-name="1"
@@ -11272,7 +11271,6 @@
                 </span>
                 <span
                   class="  ant-md-editor-content-fnc"
-                  contenteditable="false"
                   data-be="text"
                   data-fnc="fnc"
                   data-fnc-name="2"
@@ -12411,7 +12409,6 @@
                   </span>
                   <span
                     class="  ant-md-editor-content-fnc"
-                    contenteditable="false"
                     data-be="text"
                     data-fnc="fnc"
                     data-fnc-name="3"
@@ -12890,7 +12887,7 @@
                       style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                     >
                       <img
-                        src="/src/MarkdownEditor/editor/elements/code/langIcons/java.svg"
+                        src="/src/plugins/code/langIcons/java.svg"
                         style="height: 1em; width: 1em;"
                       />
                     </div>

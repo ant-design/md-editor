@@ -87,7 +87,6 @@
                     <span
                       aria-describedby="test-id"
                       class=" "
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-slate-leaf="true"
@@ -130,7 +129,6 @@
                     <span
                       aria-describedby="test-id"
                       class=" "
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-slate-leaf="true"

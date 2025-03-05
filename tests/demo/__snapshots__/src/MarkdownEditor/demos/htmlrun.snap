@@ -72,7 +72,7 @@
                     style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/html.svg"
+                      src="/src/plugins/code/langIcons/html.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -756,7 +756,7 @@
                     style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/css.svg"
+                      src="/src/plugins/code/langIcons/css.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>

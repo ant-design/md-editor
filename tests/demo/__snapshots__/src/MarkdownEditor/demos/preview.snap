@@ -178,7 +178,6 @@
               <span
                 aria-describedby="test-id"
                 class=" "
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-slate-leaf="true"
@@ -210,7 +209,6 @@
               <span
                 aria-describedby="test-id"
                 class=" "
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-slate-leaf="true"
@@ -6568,7 +6566,6 @@
               <span
                 aria-describedby="test-id"
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -6581,7 +6578,6 @@
               <span
                 aria-describedby="test-id"
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_2"
@@ -6817,7 +6813,6 @@
                           <span
                             aria-describedby="test-id"
                             class="  ant-md-editor-content-fnc"
-                            contenteditable="false"
                             data-be="text"
                             data-fnc="fnc"
                             data-fnc-name="DOC_1"
@@ -7926,7 +7921,6 @@
                 <span
                   aria-describedby="test-id"
                   class="  ant-md-editor-content-fnc"
-                  contenteditable="false"
                   data-be="text"
                   data-fnc="fnc"
                   data-fnc-name="3"
@@ -7989,7 +7983,7 @@
                     style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/mermaid.svg"
+                      src="/src/plugins/code/langIcons/mermaid.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
