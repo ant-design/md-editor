@@ -2386,7 +2386,7 @@ while i &lt; len(arr):
     </div>
     <div
       class="markdown-editor ant-md-editor ant-md-editor-readonly"
-      style="width: 400px; height: auto; display: flex; flex-direction: column; max-height: 100%;"
+      style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
         style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
