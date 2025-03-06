@@ -26,8 +26,19 @@ import {
 import Text from './text';
 
 /**
- * Element.
+ * The default element renderer.
  */
+
+export const DefaultElement = (props: RenderElementProps) => {
+  const { attributes, children, element } = props;
+  const editor = useSlateStatic();
+  const Tag = editor.isInline(element) ? 'span' : 'div';
+  return (
+    <Tag {...attributes} style={{ position: 'relative' }}>
+      {children}
+    </Tag>
+  );
+};
 
 const Element = (props: {
   decorations: DecoratedRange[];
@@ -153,20 +164,5 @@ const MemoizedElement = React.memo(Element, (prev, next) => {
         Range.equals(prev.selection, next.selection)))
   );
 });
-
-/**
- * The default element renderer.
- */
-
-export const DefaultElement = (props: RenderElementProps) => {
-  const { attributes, children, element } = props;
-  const editor = useSlateStatic();
-  const Tag = editor.isInline(element) ? 'span' : 'div';
-  return (
-    <Tag {...attributes} style={{ position: 'relative' }}>
-      {children}
-    </Tag>
-  );
-};
 
 export default MemoizedElement;
