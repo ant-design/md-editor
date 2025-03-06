@@ -458,12 +458,28 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 50);
     });
   });
+
+  const generateMergedCells = useRefFunction((tableData: any[]) => {
+    return props.element?.otherProps?.mergeCells?.filter((item: any) => {
+      if (!item) return false;
+
+      if (item.row + item.rowspan >= tableData?.length) {
+        return false;
+      }
+      if (item.col + item.colspan >= tableData?.[item.row]?.children?.length) {
+        return false;
+      }
+
+      return true;
+    });
+  });
   useEffect(() => {
     const cellSet = slateTableToJSONData(props.element);
     hotRef.current?.hotInstance?.updateSettings({
       cell: cellSet.cellSet,
       data: cellSet.tableData,
       colWidths: genDefaultWidth(cellSet.tableData),
+      mergeCells: generateMergedCells(cellSet.tableData),
     });
   }, [JSON.stringify(props.element)]);
 
@@ -621,7 +637,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   // 与内容同步，用于处理表格内容的变化
                   afterChange={updateTable}
                   //------- merge 合并单元格的处理 -------
-                  mergeCells={props.element?.otherProps?.mergeCells || true}
                   afterMergeCells={afterMergeCells}
                   afterUnmergeCells={afterUnmergeCells}
                   // ----- merge 合并单元格的处理 end --------
