@@ -440,7 +440,7 @@ const parserBlock = (
       case 'math':
         el = {
           // @ts-ignore
-          type: 'code',
+          type: 'latex',
           language: 'latex',
           katex: true,
           value: currentElement.value,
@@ -647,45 +647,45 @@ const parserBlock = (
         el = { type: 'hr', children: [{ text: '' }] };
         break;
       case 'code':
-        let json = [];
-        try {
-          json = json5.parse(currentElement.value || '[]');
-        } catch (error) {
-          try {
-            json = partialJsonParse(currentElement.value || '[]');
-          } catch (error) {
-            json = currentElement.value as any;
-          }
-        }
-        const isSchema =
-          currentElement.lang === 'schema' ||
-          currentElement.lang === 'apaasify' ||
-          currentElement.lang === 'apassify';
         el = {
-          type: isSchema
-            ? currentElement.lang === 'apassify'
-              ? 'apaasify'
-              : currentElement.lang
-            : 'code',
+          type: 'code',
           language:
             currentElement.lang === 'apassify'
               ? 'apaasify'
               : currentElement.lang,
           render: currentElement.meta === 'render',
-          value: isSchema ? json : currentElement.value,
+          value: currentElement.value,
           isConfig: currentElement?.value.trim()?.startsWith('<!--'),
-          children: isSchema
-            ? [
-                {
-                  text: '',
-                },
-              ]
-            : [
-                {
-                  text: currentElement.value,
-                },
-              ],
+          children: [
+            {
+              text: currentElement.value,
+            },
+          ],
         };
+        const isSchema =
+          currentElement.lang === 'schema' ||
+          currentElement.lang === 'apaasify' ||
+          currentElement.lang === 'apassify';
+
+        if (currentElement.lang === 'mermaid') {
+          el.type === 'mermaid';
+        } else if (isSchema) {
+          let json = [];
+          try {
+            json = json5.parse(currentElement.value || '[]');
+          } catch (error) {
+            try {
+              json = partialJsonParse(currentElement.value || '[]');
+            } catch (error) {
+              json = currentElement.value as any;
+            }
+          }
+          el.type = 'apaasify';
+          el.value = json;
+          el.children = [{ text: '' }];
+        } else if (currentElement.lang === 'katex') {
+          el.type = 'katex';
+        }
         break;
       case 'yaml':
         el = {

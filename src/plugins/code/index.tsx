@@ -19,7 +19,6 @@ import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
 import { Katex } from './CodeUI/Katex/Katex';
-import { MermaidElement } from './CodeUI/Mermaid';
 import { langIconMap } from './langIconMap';
 
 const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
@@ -516,9 +515,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
         <div ref={dom} style={{ height: 200, lineHeight: '22px' }}></div>
         <div className={'ant-md-editor-hidden'}>{props.children}</div>
       </div>
-      {props.element.language === 'mermaid' && (
-        <MermaidElement el={props.element} />
-      )}
+
       {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
         <Katex el={props.element} />
       ) : null}
