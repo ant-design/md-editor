@@ -9843,7 +9843,7 @@
                   style="cursor: pointer; position: relative; display: flex; padding: 24px; border-radius: 8px; flex: 1; border: 1px solid rgb(209 213 219 / 0.8); align-items: center;"
                 >
                   <div
-                    data-be="schema"
+                    data-be="apaasify"
                     style="padding: 8px; width: 100%;"
                   >
                     [

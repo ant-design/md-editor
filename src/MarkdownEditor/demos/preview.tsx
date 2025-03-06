@@ -5,6 +5,7 @@
 } from '@ant-design/md-editor';
 import { ChartElement } from '@ant-design/md-editor/plugins/chart';
 import { CodeElement } from '@ant-design/md-editor/plugins/code';
+import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 
@@ -265,6 +266,7 @@ export default () => {
           elements: {
             code: CodeElement,
             chart: ChartElement,
+            mermaid: MermaidElement,
           },
         },
       ]}
