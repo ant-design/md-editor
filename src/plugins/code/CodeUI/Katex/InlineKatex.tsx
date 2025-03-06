@@ -58,7 +58,7 @@ export const InlineKatex = observer(
         <span {...attributes} data-be={'inline-katex'} className={`relative`}>
           <span
             style={{
-              display: selected ? 'block' : 'inline-flex',
+              display: 'inline-flex',
               padding: selected ? '0.25rem' : '0',
               visibility: selected ? 'visible' : 'hidden',
               width: selected ? 'auto' : '0',

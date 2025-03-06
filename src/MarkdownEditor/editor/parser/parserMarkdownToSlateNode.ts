@@ -440,7 +440,7 @@ const parserBlock = (
       case 'math':
         el = {
           // @ts-ignore
-          type: 'latex',
+          type: 'katex',
           language: 'latex',
           katex: true,
           value: currentElement.value,
