@@ -550,11 +550,12 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   });
                 }}
                 afterColumnResize={(size, colIndex) => {
-                  let colWidths =
-                    props.element?.otherProps?.colWidths ||
-                    genDefaultWidth(
-                      hotRef.current?.hotInstance?.getData() || [],
-                    );
+                  let colWidths = [
+                    ...(props.element?.otherProps?.colWidths ||
+                      genDefaultWidth(
+                        hotRef.current?.hotInstance?.getData() || [],
+                      )),
+                  ];
 
                   colWidths[colIndex] = size;
 
