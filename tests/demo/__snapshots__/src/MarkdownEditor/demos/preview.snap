@@ -8891,264 +8891,218 @@ while i &lt; len(arr):
                     </span>
                   </span>
                 </div>
-                <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
-                  data-slate-node="element"
-                  tabindex="-1"
-                >
-                  <div
-                    class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
-                  >
-                    <div
-                      contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
-                    >
-                      <span
-                        aria-describedby="test-id"
-                        class="ant-agent-chat-action-icon-box"
-                        style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-                      >
-                        <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-                        >
-                          <img
-                            src="/src/plugins/code/langIcons/python.svg"
-                            style="height: 1em; width: 1em;"
-                          />
-                        </div>
-                        <div>
-                          <span>
-                            python
-                          </span>
-                        </div>
-                      </span>
-                      <div
-                        style="display: flex; gap: 5px;"
-                      >
-                        <span
-                          aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
-                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                        >
-                          <span
-                            aria-label="copy"
-                            class="anticon anticon-copy"
-                            role="img"
-                            tabindex="-1"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="copy"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                        <span
-                          aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
-                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                        >
-                          <span
-                            aria-label="fullscreen"
-                            class="anticon anticon-fullscreen"
-                            role="img"
-                            tabindex="-1"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="fullscreen"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                    <div
-                      class=" ace_editor ace_hidpi ace-tm"
-                      style="height: 200px; line-height: 22px; font-size: 13px;"
-                    >
-                      <textarea
-                        aria-autocomplete="both"
-                        aria-haspopup="false"
-                        aria-label="Cursor at row 1"
-                        autocapitalize="off"
-                        autocorrect="off"
-                        class="ace_text-input"
-                        role="textbox"
-                        spellcheck="false"
-                        style="opacity: 0; font-size: 1px;"
-                        wrap="off"
-                      />
-                      <div
-                        aria-hidden="true"
-                        class="ace_gutter"
-                      >
-                        <div
-                          class="ace_layer ace_gutter-layer ace_folding-enabled"
-                          style="height: 1000000px;"
-                        />
-                      </div>
-                      <div
-                        class="ace_scroller"
-                        style="line-height: 0px;"
-                      >
-                        <div
-                          class="ace_content"
-                        >
-                          <div
-                            class="ace_layer ace_print-margin-layer"
-                          >
-                            <div
-                              class="ace_print-margin"
-                              style="left: 4px; visibility: hidden;"
-                            />
-                          </div>
-                          <div
-                            class="ace_layer ace_marker-layer"
-                          />
-                          <div
-                            class="ace_layer ace_text-layer"
-                            style="height: 1000000px; margin: 0px 4px;"
-                          />
-                          <div
-                            class="ace_layer ace_marker-layer"
-                          />
-                          <div
-                            class="ace_layer ace_cursor-layer ace_hidden-cursors"
-                          >
-                            <div
-                              class="ace_cursor"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="ace_scrollbar ace_scrollbar-v"
-                        style="display: none; width: 20px;"
-                      >
-                        <div
-                          class="ace_scrollbar-inner"
-                          style="width: 20px;"
-                        >
-                           
-                        </div>
-                      </div>
-                      <div
-                        class="ace_scrollbar ace_scrollbar-h"
-                        style="display: none; height: 20px;"
-                      >
-                        <div
-                          class="ace_scrollbar-inner"
-                          style="height: 20px;"
-                        >
-                           
-                        </div>
-                      </div>
-                      <div
-                        style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
-                      >
-                        <div
-                          style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
-                        />
-                        <div
-                          style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
-                        >
-                          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="ant-md-editor-hidden"
-                    >
-                      <span
-                        data-slate-node="text"
-                      >
-                        <span
-                          class=" "
-                          data-be="text"
-                          data-slate-leaf="true"
-                          draggable="false"
-                        >
-                          <span
-                            data-slate-string="true"
-                          >
-                            def traverse(arr, i=0):
-    if i &lt; len(arr):
-        print(arr[i])
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
               </li>
             </ol>
           </div>
           <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
+            class="ace-el drag-el"
+            contenteditable="false"
+            data-be="code"
+            data-lang="python"
             data-slate-node="element"
+            tabindex="-1"
           >
-            <span
-              data-slate-node="text"
+            <div
+              class="ace-container drag-el "
+              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
             >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+              <div
+                contenteditable="false"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <span
-                  data-slate-string="true"
+                  aria-describedby="test-id"
+                  class="ant-agent-chat-action-icon-box"
+                  style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
-                  ';
+                  <div
+                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                  >
+                    <img
+                      src="/src/plugins/code/langIcons/python.svg"
+                      style="height: 1em; width: 1em;"
+                    />
+                  </div>
+                  <div>
+                    <span>
+                      python
+                    </span>
+                  </div>
                 </span>
-              </span>
-            </span>
-          </div>
-          <div
-            class="ant-md-editor-drag-el empty"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                <div
+                  style="display: flex; gap: 5px;"
+                >
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class=" ace_editor ace_hidpi ace-tm"
+                style="height: 200px; line-height: 22px; font-size: 13px;"
+              >
+                <textarea
+                  aria-autocomplete="both"
+                  aria-haspopup="false"
+                  aria-label="Cursor at row 1"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  class="ace_text-input"
+                  role="textbox"
+                  spellcheck="false"
+                  style="opacity: 0; font-size: 1px;"
+                  wrap="off"
+                />
+                <div
+                  aria-hidden="true"
+                  class="ace_gutter"
+                >
+                  <div
+                    class="ace_layer ace_gutter-layer ace_folding-enabled"
+                    style="height: 1000000px;"
+                  />
+                </div>
+                <div
+                  class="ace_scroller"
+                  style="line-height: 0px;"
+                >
+                  <div
+                    class="ace_content"
+                  >
+                    <div
+                      class="ace_layer ace_print-margin-layer"
+                    >
+                      <div
+                        class="ace_print-margin"
+                        style="left: 4px; visibility: hidden;"
+                      />
+                    </div>
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_text-layer"
+                      style="height: 1000000px; margin: 0px 4px;"
+                    />
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                    >
+                      <div
+                        class="ace_cursor"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-v"
+                  style="display: none; width: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="width: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-h"
+                  style="display: none; height: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="height: 20px;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                >
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  />
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  >
+                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-md-editor-hidden"
               >
                 <span
-                  data-slate-length="0"
-                  data-slate-zero-width="n"
+                  data-slate-node="text"
                 >
-                  ﻿
-                  <br />
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                         def traverse(arr, i=0):
+       if i &lt; len(arr):
+           print(arr[i])
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
+              </div>
+            </div>
           </div>
           <h2
             class="ant-md-editor-drag-el"
