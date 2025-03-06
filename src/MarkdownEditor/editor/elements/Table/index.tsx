@@ -476,7 +476,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       hiddenRows: {
         rows: [0],
       },
-      colHeaders: cellSet.tableData.at(0),
+      colHeaders: cellSet?.tableData?.at(0),
       colWidths: genDefaultWidth(cellSet.tableData),
       mergeCells: generateMergedCells(cellSet.tableData),
     });
