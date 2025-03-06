@@ -10,9 +10,9 @@ import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
-import { MermaidElement } from '../mermaid/Mermaid';
+import { Mermaid } from '../mermaid/Mermaid';
 
-export function CodeElement(props: ElementProps<CodeNode>) {
+export function MermaidElement(props: ElementProps<CodeNode>) {
   const { markdownEditorRef } = useEditorStore();
   const [state, setState] = useGetSetState({
     showBorder: false,
@@ -141,7 +141,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
         )}
         <div className={'ant-md-editor-hidden'}>{props.children}</div>
       </div>
-      <MermaidElement el={props.element} />
+      <Mermaid el={props.element} />
     </div>
   );
 }

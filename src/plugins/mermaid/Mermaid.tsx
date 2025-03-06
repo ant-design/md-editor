@@ -6,7 +6,7 @@ import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode } from '../../MarkdownEditor/el';
 
-export const MermaidElement = observer((props: { el: CodeNode }) => {
+export const Mermaid = observer((props: { el: CodeNode }) => {
   const { store } = useEditorStore();
   const [state, setState] = useGetSetState({
     code: '',
