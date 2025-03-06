@@ -128,6 +128,2604 @@
               </div>
             </div>
           </div>
+          <div
+            class="ant-card ant-card-bordered ant-card-hoverable"
+            style="margin-bottom: 24px;"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  card
+                </div>
+                <div
+                  class="ant-card-extra"
+                >
+                  <a
+                    href="#"
+                  >
+                    More
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div
+                data-be="card"
+                data-slate-node="element"
+                style="display: flex; gap: 4px; max-width: 100%;"
+              >
+                <span
+                  data-be="card-before"
+                  data-slate-node="element"
+                  style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none;"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="n"
+                      >
+                        ﻿
+                        <br />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <div
+                  class="ant-card ant-card-bordered ant-card-hoverable"
+                  style="margin-bottom: 24px;"
+                >
+                  <div
+                    class="ant-card-head"
+                  >
+                    <div
+                      class="ant-card-head-wrapper"
+                    >
+                      <div
+                        class="ant-card-head-title"
+                      >
+                        table
+                      </div>
+                      <div
+                        class="ant-card-extra"
+                      >
+                        <a
+                          href="#"
+                        >
+                          More
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-card-body"
+                  >
+                    <div
+                      class="ant-md-editor-content-table-container ant-md-editor-content-table-container-editable"
+                      data-be="table"
+                      data-slate-node="element"
+                      draggable="false"
+                      tabindex="0"
+                    >
+                      <div
+                        class="ant-md-editor-content-table"
+                        style="flex: 1; min-width: 0;"
+                      >
+                        <table
+                          class="ant-md-editor-content-table-editor-table"
+                        >
+                          <tbody
+                            data-slate-node="element"
+                          >
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <th
+                                data-be="th"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      大类别
+                                    </span>
+                                  </span>
+                                </span>
+                              </th>
+                              <th
+                                data-be="th"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      子问题
+                                    </span>
+                                  </span>
+                                </span>
+                              </th>
+                              <th
+                                data-be="th"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      详情
+                                    </span>
+                                  </span>
+                                </span>
+                              </th>
+                              <th
+                                data-be="th"
+                                data-slate-node="element"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </th>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                colspan="1"
+                                data-be="td"
+                                data-slate-node="element"
+                                rowspan="13"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                    style="font-weight: bold;"
+                                  >
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      商业模式
+                                    </span>
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      要求行业空间大 ，至少得是千亿 rmb 利润规模以上 ，最好是万亿规模
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      中国游戏市场规模超千亿 ，在线教育/音乐等新兴赛道持续增长
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      行业规模会随着时间上升
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      手游/海外市场驱动行业增长 ，但受政策周期影响
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      显性进入壁垒：政策、牌照
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏版号审批制度构成强政策壁垒
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      隐性进入壁垒
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      14年游戏研发积累+顶级 IP 储备+用户生态
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      用户使用偏好
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      《梦幻西游》等头部产品用户生命周期超10年
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      专利、技术优势
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      自研 Messiah 引擎/AI 音乐生成技术
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否有网络效应
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏社交属性形成有限网络效应
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      毛利率 &gt; 40%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      2023年毛利率60.95%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      ROE &gt; 20%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      2023年 ROE 22%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      净利润 &gt; 15%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      2023年净利率28.37%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      品牌优势
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      中国第二大手游厂商 ，App Store 畅销榜 TOP10常年占3席
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      成本优势
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      研运一体化+自有用户平台降低获客成本
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      转换成本
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏账号资产/社交关系链形成中等转换成本
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                colspan="1"
+                                data-be="td"
+                                data-slate-node="element"
+                                rowspan="10"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                    style="font-weight: bold;"
+                                  >
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      企业文化
+                                    </span>
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否股东导向
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      连续6年提高分红 ，2023年股息支付率27%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否言行一致
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      管理层长期专注核心业务 ，无战略摇摆记录
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否行事风格谨慎
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      现金资产占比总资产35% ，零有息负债
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否专注
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏收入占比72% ，业务集中度持续提升
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否乱投资、乱花钱
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      战略投资聚焦游戏产业链 ，商誉占比&lt;1%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否有道德败坏的行为
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      无重大 ESG 负面事件记录
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否强调用户导向 ，为消费者提供优质的产品与服务
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      用户净推荐值(NPS)行业领先
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      对员工是否权责到位
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏工作室合伙人制度激发创造力
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否内部选拔
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      CEO 丁磊任职27年 ，核心团队均为内部培养
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否公平合理、对等互利的对待上下游商业合作伙伴
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      与暴雪解约事件展现契约精神
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                colspan="1"
+                                data-be="td"
+                                data-slate-node="element"
+                                rowspan="2"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                    style="font-weight: bold;"
+                                  >
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      估值
+                                    </span>
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      当前 P/S, P/E 在历史水平
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      P/E 17.2x 处近五年25%分位
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      FCF/Market Cap 与10年期国债收益率比较
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      FCF Yield 4.77% vs 国债4.7%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                colspan="1"
+                                data-be="td"
+                                data-slate-node="element"
+                                rowspan="6"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                    style="font-weight: bold;"
+                                  >
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      杂项
+                                    </span>
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否不是政策不鼓励行业
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏行业监管常态化 ，网易版号获取率100%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      是否是政策支持行业
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      数字创意产业属"十四五"规划重点
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      符合
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      不受关税影响
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      海外收入占比&lt;10%
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      不受技术封锁影响
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      游戏引擎完全自主可控
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      不受战争影响
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      主要市场在中国大陆
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                            <tr
+                              data-slate-node="element"
+                            >
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      不受疫情影响
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      线上业务占比95%+
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                              <td
+                                data-be="td"
+                                data-slate-node="element"
+                                style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                              >
+                                <span
+                                  data-slate-node="text"
+                                >
+                                  <span
+                                    class=" "
+                                    data-be="text"
+                                    data-slate-leaf="true"
+                                    draggable="false"
+                                  >
+                                    <span
+                                      data-slate-string="true"
+                                    >
+                                      优秀
+                                    </span>
+                                  </span>
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <span
+                  data-be="card-after"
+                  data-slate-node="element"
+                  style="min-width: 4px; height: 100%; align-self: end; position: relative; z-index: 99; font-size: 2em; display: block;"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="n"
+                      >
+                        ﻿
+                        <br />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-card ant-card-bordered ant-card-hoverable"
+            style="margin-bottom: 24px;"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  paragraph
+                </div>
+                <div
+                  class="ant-card-extra"
+                >
+                  <a
+                    href="#"
+                  >
+                    More
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <div
+                class="ant-md-editor-drag-el empty"
+                data-be="paragraph"
+                data-slate-node="element"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-length="0"
+                      data-slate-zero-width="n"
+                    >
+                      ﻿
+                      <br />
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
