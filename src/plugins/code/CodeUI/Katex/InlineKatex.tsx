@@ -1,4 +1,3 @@
-import { Popover } from 'antd';
 import katex from 'katex';
 import { observer } from 'mobx-react';
 import React, { useEffect, useMemo, useRef } from 'react';
@@ -11,24 +10,21 @@ import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
 export const InlineKatex = observer(
   ({ children, element, attributes }: ElementProps<InlineKatexNode>) => {
     const renderEl = useRef<HTMLElement>(null);
-    const { store, readonly } = useEditorStore();
-    const [open, setOpen] = React.useState(false);
-    const [, path] = useSelStatus(element);
+    const { markdownEditorRef, readonly } = useEditorStore();
+    const [selected, path] = useSelStatus(element);
     useEffect(() => {
-      const value = Node.string(element);
-      if (!renderEl.current) {
-        return;
+      if (!selected) {
+        const value = Node.string(element);
+        katex.render(value, renderEl.current!, {
+          strict: false,
+          output: 'html',
+          throwOnError: false,
+          macros: {
+            '\\f': '#1f(#2)',
+          },
+        });
       }
-      katex.render(value, renderEl.current!, {
-        strict: false,
-        output: 'html',
-        throwOnError: false,
-        macros: {
-          '\\f': '#1f(#2)',
-        },
-      });
-    }, [open]);
-
+    }, [selected]);
     if (process.env.NODE_ENV === 'test') {
       return <InlineChromiumBugfix />;
     }
@@ -36,55 +32,68 @@ export const InlineKatex = observer(
     if (readonly) {
       return useMemo(
         () => (
-          <span {...attributes} data-be={'inline-katex'} className={`relative`}>
-            <span
-              contentEditable={false}
-              ref={renderEl}
-              onClick={() => {
-                Transforms.select(store.editor, Editor.end(store.editor, path));
-              }}
-            />
+          <span
+            {...attributes}
+            data-be={'inline-katex'}
+            style={{
+              position: 'relative',
+            }}
+          >
+            <span contentEditable={false} ref={renderEl} />
             <span
               style={{
                 display: 'none',
               }}
             >
-              <InlineChromiumBugfix />
               {children}
-              <InlineChromiumBugfix />
             </span>
           </span>
         ),
         [element, element.children],
       );
     }
+
     return useMemo(
       () => (
         <span {...attributes} data-be={'inline-katex'} className={`relative`}>
-          <Popover
-            onOpenChange={setOpen}
-            content={
-              <span
-                contentEditable={false}
-                ref={renderEl}
-                onClick={() => {
-                  Transforms.select(
-                    store.editor,
-                    Editor.end(store.editor, path),
-                  );
-                }}
-              />
-            }
+          <span
+            style={{
+              display: selected ? 'block' : 'inline-flex',
+              padding: selected ? '0.25rem' : '0',
+              visibility: selected ? 'visible' : 'hidden',
+              width: selected ? 'auto' : '0',
+              height: selected ? 'auto' : '0',
+              overflow: 'hidden',
+              position: selected ? 'static' : 'absolute',
+            }}
+            className={selected ? 'inline-code-input' : ''}
           >
-            <span>
-              <InlineChromiumBugfix />
-              {children}
-              <InlineChromiumBugfix />
-            </span>
-          </Popover>
+            <InlineChromiumBugfix />
+            {children}
+            <InlineChromiumBugfix />
+          </span>
+          <span
+            contentEditable={false}
+            ref={renderEl}
+            onClick={() => {
+              Transforms.select(
+                markdownEditorRef.current,
+                Editor.end(markdownEditorRef.current, path),
+              );
+            }}
+            style={{
+              margin: '0 0.25rem',
+              userSelect: 'none',
+              visibility: selected ? 'hidden' : 'visible',
+              width: selected ? '0' : 'auto',
+              height: selected ? '0' : 'auto',
+              overflow: selected ? 'hidden' : 'visible',
+              position: selected ? 'absolute' : 'static',
+            }}
+          />
         </span>
       ),
-      [element, element.children],
+      [element, element.children, selected],
     );
   },
 );
