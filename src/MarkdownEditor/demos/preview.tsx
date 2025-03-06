@@ -126,6 +126,65 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 
 
+在 Python 中遍历数组（通常指列表 \`list\`）有以下常用方法：
+
+---
+
+### 一、基础遍历方法
+1. **直接遍历元素**  
+   使用 \`for-in\` 循环直接访问每个元素：
+   \`\`\`python
+   arr = [1, 2, 3, 4]
+   for num in arr:
+       print(num)  # 输出每个元素的值
+   \`\`\`  
+   这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7]。
+
+2. **通过索引遍历**  
+   结合 \`range(len())\` 获取索引：
+   \`\`\`python
+   for i in range(len(arr)):
+       print(arr[i])  # 通过索引访问元素
+   \`\`\`  
+   适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8]。
+
+3. **同时获取索引和值（\`enumerate\`）**  
+   \`\`\`python
+   for index, value in enumerate(arr):
+       print(f"索引 {index} 的值是 {value}")
+   \`\`\`  
+   适合需要索引和元素的场景 [^DOC_5] [^DOC_8]。
+
+---
+
+### 二、其他遍历方式
+4. **使用 \`while\` 循环**  
+   通过计数器手动控制遍历：
+   \`\`\`python
+   i = 0
+   while i < len(arr):
+       print(arr[i])
+       i += 1  # 必须手动递增
+   \`\`\`  
+   灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10]。
+
+5. **列表推导式**  
+   快速生成新列表的同时遍历：
+   \`\`\`python
+   squared = [x**2 for x in arr]  # 遍历并计算平方
+   \`\`\`  
+   适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9]。
+
+---
+
+### 三、特殊场景方法
+6. **递归遍历**（不常用）  
+   \`\`\`python
+   def traverse(arr, i=0):
+       if i < len(arr):
+           print(arr[i])
+';
+
 
 
 ## 引用

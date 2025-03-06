@@ -2,6 +2,7 @@ import {
   CloseCircleOutlined,
   CopyOutlined,
   ForwardOutlined,
+  FullscreenOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
 import ace, { Ace } from 'ace-builds';
@@ -18,6 +19,7 @@ import { aceLangs, modeMap } from '../../MarkdownEditor/editor/utils/ace';
 import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
+import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
 import { Katex } from './CodeUI/Katex/Katex';
 import { langIconMap } from './langIconMap';
 
@@ -34,6 +36,7 @@ const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
 });
 
 export function CodeElement(props: ElementProps<CodeNode>) {
+  const handle = useFullScreenHandle();
   const { store, markdownEditorRef, readonly } = useEditorStore();
   const [state, setState] = useGetSetState({
     showBorder: false,
@@ -244,6 +247,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     >
       {!props.element.frontmatter && <DragHandle />}
       <div
+        ref={handle.node}
         onClick={(e) => {
           e.stopPropagation();
           editorRef.current?.focus();
@@ -289,6 +293,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
               color: 'rgba(0, 0, 0, 0.6)',
               justifyContent: 'space-between',
               zIndex: 50,
+              boxSizing: 'border-box',
               userSelect: 'none',
             }}
           >
@@ -310,6 +315,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                         width: '1em',
                         display: 'flex',
                         alignItems: 'center',
+                        boxSizing: 'border-box',
                         justifyContent: 'center',
                         marginRight: '0.25em',
                       }}
@@ -401,6 +407,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                     display: 'flex',
                     alignItems: 'center',
                     cursor: 'pointer',
+                    boxSizing: 'border-box',
                     gap: 2,
                     color: 'rgba(0, 0, 0, 0.8)',
                   }}
@@ -509,6 +516,28 @@ export function CodeElement(props: ElementProps<CodeNode>) {
               >
                 <CopyOutlined />
               </ActionIconBox>
+              <ActionIconBox
+                title="复制"
+                style={{
+                  fontSize: '0.9em',
+                  lineHeight: '1.75em',
+                  marginLeft: '0.125em',
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (handle.active) {
+                    handle.exit();
+                  } else {
+                    handle.enter();
+                  }
+                }}
+              >
+                {handle.active ? (
+                  <FullscreenOutlined />
+                ) : (
+                  <FullscreenOutlined />
+                )}
+              </ActionIconBox>
             </div>
           </div>
         )}
@@ -528,6 +557,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
           body: {
             padding: 0,
             margin: 0,
+            boxSizing: 'border-box',
           },
         }}
         width="80vw"
