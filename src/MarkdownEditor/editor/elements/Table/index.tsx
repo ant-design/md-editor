@@ -475,9 +475,14 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
   useEffect(() => {
     const cellSet = slateTableToJSONData(props.element);
+    const list = cellSet.tableData;
     hotRef.current?.hotInstance?.updateSettings({
       cell: cellSet.cellSet,
-      data: cellSet.tableData,
+      data: list,
+      hiddenRows: {
+        rows: [0],
+      },
+      colHeaders: cellSet.tableData.at(0),
       colWidths: genDefaultWidth(cellSet.tableData),
       mergeCells: generateMergedCells(cellSet.tableData),
     });
@@ -576,16 +581,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   ref={hotRef as any}
                   data={tableJSONData.tableData}
                   cell={tableJSONData.cellSet}
-                  rowHeaders={excelMode}
-                  colHeaders={excelMode}
                   height="auto"
                   language={zhCN.languageCode}
-                  dropdownMenu={[
-                    'col_left',
-                    'col_right',
-                    '---------',
-                    'remove_col',
-                  ]}
                   autoColumnSize={true}
                   manualColumnResize={true}
                   afterCreateCol={afterCreateCol}
@@ -644,6 +641,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     'row_above',
                     'row_below',
                     '---------',
+                    'col_left',
+                    'col_right',
+                    '---------',
+                    'remove_col',
                     'undo',
                     'redo',
                     '---------',
