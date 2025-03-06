@@ -179,13 +179,11 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ### 三、特殊场景方法
 6. **递归遍历**（不常用）  
-   \`\`\`python
+\`\`\`python
    def traverse(arr, i=0):
        if i < len(arr):
            print(arr[i])
-';
-
-
+ \`\`\`
 
 ## 引用
 
