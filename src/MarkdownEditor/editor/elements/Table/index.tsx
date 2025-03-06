@@ -1,7 +1,6 @@
-import { DeleteOutlined, FileExcelFilled } from '@ant-design/icons';
 import { useRefFunction } from '@ant-design/pro-components';
 import { HotTable } from '@handsontable/react-wrapper';
-import { ConfigProvider, Popover } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import Handsontable from 'handsontable';
 import { CellChange, ChangeSource } from 'handsontable/common';
@@ -12,12 +11,11 @@ import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-horizon.min.css';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { Editor, Node, Path, Transforms } from 'slate';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import { Editor, Node, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
-import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { useTableStyle } from './style';
@@ -130,10 +128,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   const baseCls = getPrefixCls('md-editor-content-table');
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
-
-  const [excelMode, setExcelModeVisibility] = useState(
-    editorProps.tableConfig?.excelMode || false,
-  );
 
   const [selectedTable, tablePath] = useSelStatus(props.element);
 
@@ -515,150 +509,96 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
           tabIndex={0}
         >
           {!readonly && process.env.NODE_ENV !== 'test' ? (
-            <Popover
-              arrow={false}
-              content={
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 12,
-                  }}
-                >
-                  <ActionIconBox
-                    title={'删除表格'}
-                    style={{
-                      fontSize: 16,
-                    }}
-                    onClick={() => {
-                      hotRef.current?.hotInstance?.destroy();
-                      Transforms.delete(markdownEditorRef.current, {
-                        at: Path.parent(tablePath),
-                      });
-                    }}
-                  >
-                    <DeleteOutlined />
-                  </ActionIconBox>
-                  <ActionIconBox
-                    title="excel 模式"
-                    style={{
-                      fontSize: 16,
-                    }}
-                    onClick={() => {
-                      setExcelModeVisibility(!excelMode);
-                      if (excelMode) {
-                        hotRef.current?.hotInstance?.updateSettings?.({
-                          rowHeaders: false,
-                          colHeaders: false,
-                          minCols: 1,
-                          minRows: 1,
-                        });
-                      } else {
-                        hotRef.current?.hotInstance?.updateSettings?.({
-                          rowHeaders: true,
-                          colHeaders: true,
-                          minCols: editorProps?.tableConfig?.minColumn || 3,
-                          minRows: editorProps?.tableConfig?.minRows || 3,
-                        });
-                      }
-                    }}
-                  >
-                    <FileExcelFilled />
-                  </ActionIconBox>
-                </div>
-              }
-              trigger="click"
+            <div
+              ref={tableContainerRef}
+              contentEditable={false}
+              style={{
+                width: '100%',
+                minWidth: 0,
+              }}
+              className="ht-theme-horizon"
             >
-              <div
-                ref={tableContainerRef}
-                contentEditable={false}
-                style={{
-                  width: '100%',
-                  minWidth: 0,
-                }}
-                className="ht-theme-horizon"
-              >
-                <HotTable
-                  ref={hotRef as any}
-                  data={tableJSONData.tableData}
-                  cell={tableJSONData.cellSet}
-                  height="auto"
-                  language={zhCN.languageCode}
-                  autoColumnSize={true}
-                  manualColumnResize={true}
-                  afterCreateCol={afterCreateCol}
-                  afterCreateRow={afterCreateRow}
-                  afterRemoveCol={(index, amount) => {
-                    const rows = new Array(props.element.children?.length).fill(
-                      0,
-                    );
-                    rows?.forEach((_, rowIndex) => {
-                      const cells = new Array(amount).fill(0);
-                      cells.forEach((_, colIndex) => {
-                        Transforms.delete(markdownEditorRef.current, {
-                          at: [...tablePath, rowIndex, index + colIndex],
-                        });
-                      });
-                    });
-                  }}
-                  afterRemoveRow={(index, amount) => {
-                    const rows = new Array(amount).fill(0);
-                    rows.forEach((_, rowIndex) => {
+              <HotTable
+                ref={hotRef as any}
+                data={tableJSONData.tableData}
+                cell={tableJSONData.cellSet}
+                height="auto"
+                language={zhCN.languageCode}
+                autoColumnSize={true}
+                manualColumnResize={true}
+                afterCreateCol={afterCreateCol}
+                afterCreateRow={afterCreateRow}
+                afterRemoveCol={(index, amount) => {
+                  const rows = new Array(props.element.children?.length).fill(
+                    0,
+                  );
+                  rows?.forEach((_, rowIndex) => {
+                    const cells = new Array(amount).fill(0);
+                    cells.forEach((_, colIndex) => {
                       Transforms.delete(markdownEditorRef.current, {
-                        at: [...tablePath, index + rowIndex],
+                        at: [...tablePath, rowIndex, index + colIndex],
                       });
                     });
-                  }}
-                  afterColumnResize={(size, colIndex) => {
-                    let colWidths =
-                      props.element?.otherProps?.colWidths ||
-                      genDefaultWidth(
-                        hotRef.current?.hotInstance?.getData() || [],
-                      );
-
-                    colWidths[colIndex] = size;
-
-                    Transforms?.setNodes(
-                      markdownEditorRef.current,
-                      {
-                        otherProps: {
-                          ...props.element.otherProps,
-                          colWidths,
-                        },
-                      },
-                      {
-                        at: tablePath,
-                      },
+                  });
+                }}
+                afterRemoveRow={(index, amount) => {
+                  const rows = new Array(amount).fill(0);
+                  rows.forEach((_, rowIndex) => {
+                    Transforms.delete(markdownEditorRef.current, {
+                      at: [...tablePath, index + rowIndex],
+                    });
+                  });
+                }}
+                afterColumnResize={(size, colIndex) => {
+                  let colWidths =
+                    props.element?.otherProps?.colWidths ||
+                    genDefaultWidth(
+                      hotRef.current?.hotInstance?.getData() || [],
                     );
-                  }}
-                  // ------  列宽的配置 end  ---------
-                  // 与内容同步，用于处理表格内容的变化
-                  afterChange={updateTable}
-                  //------- merge 合并单元格的处理 -------
-                  afterMergeCells={afterMergeCells}
-                  afterUnmergeCells={afterUnmergeCells}
-                  // ----- merge 合并单元格的处理 end --------
-                  contextMenu={[
-                    'row_above',
-                    'row_below',
-                    '---------',
-                    'col_left',
-                    'col_right',
-                    '---------',
-                    'remove_col',
-                    'undo',
-                    'redo',
-                    '---------',
-                    'mergeCells',
-                    'remove_row',
-                  ]}
-                  autoWrapRow={true}
-                  autoWrapCol={true}
-                  minRows={editorProps?.tableConfig?.minRows || 3}
-                  minCols={editorProps?.tableConfig?.minColumn || 3}
-                  licenseKey="non-commercial-and-evaluation" // for non-commercial use only
-                />
-              </div>
-            </Popover>
+
+                  colWidths[colIndex] = size;
+
+                  Transforms?.setNodes(
+                    markdownEditorRef.current,
+                    {
+                      otherProps: {
+                        ...props.element.otherProps,
+                        colWidths,
+                      },
+                    },
+                    {
+                      at: tablePath,
+                    },
+                  );
+                }}
+                // ------  列宽的配置 end  ---------
+                // 与内容同步，用于处理表格内容的变化
+                afterChange={updateTable}
+                //------- merge 合并单元格的处理 -------
+                afterMergeCells={afterMergeCells}
+                afterUnmergeCells={afterUnmergeCells}
+                // ----- merge 合并单元格的处理 end --------
+                contextMenu={[
+                  'row_above',
+                  'row_below',
+                  '---------',
+                  'col_left',
+                  'col_right',
+                  '---------',
+                  'remove_col',
+                  'undo',
+                  'redo',
+                  '---------',
+                  'mergeCells',
+                  'remove_row',
+                ]}
+                autoWrapRow={true}
+                autoWrapCol={true}
+                minRows={editorProps?.tableConfig?.minRows || 3}
+                minCols={editorProps?.tableConfig?.minColumn || 3}
+                licenseKey="non-commercial-and-evaluation" // for non-commercial use only
+              />
+            </div>
           ) : (
             <>
               <div
@@ -691,11 +631,5 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         </div>
       </TablePropsContext.Provider>,
     );
-  }, [
-    props.element.children,
-    props.element?.otherProps,
-    excelMode,
-    isSel,
-    tableJSONData,
-  ]);
+  }, [props.element.children, props.element?.otherProps, isSel, tableJSONData]);
 });
