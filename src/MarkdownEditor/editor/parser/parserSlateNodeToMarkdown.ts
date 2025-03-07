@@ -203,7 +203,7 @@ export const parserSlateNodeToMarkdown = (
         configProps.icon = node.icon || configProps.icon;
       }
       Object.keys(configProps).forEach((key) => {
-        if (typeof configProps[key] === 'object') {
+        if (typeof configProps[key] === 'object' && configProps[key]) {
           if (
             Array.isArray(configProps[key]) &&
             configProps[key].length === 0
