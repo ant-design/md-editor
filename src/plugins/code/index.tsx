@@ -98,7 +98,9 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       wrap: true,
       tabSize: 4,
       showPrintMargin: false,
+      readonly: readonly,
     });
+    if (readonly) return; // 代码块只读
     codeEditor.commands.addCommand({
       name: 'disableFind',
       bindKey: { win: 'Ctrl-F', mac: 'Command-F' },
