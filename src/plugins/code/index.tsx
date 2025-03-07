@@ -8,7 +8,7 @@ import {
 import ace, { Ace } from 'ace-builds';
 import { AutoComplete, Input, message, Modal, Popover } from 'antd';
 import isHotkey from 'is-hotkey';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Path, Transforms } from 'slate';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
@@ -234,250 +234,275 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     }
   }, [props.element]);
 
-  if (props.element.language === 'html' && props.element?.isConfig) {
-    return null;
-  }
-  return (
-    <div
-      {...props.attributes}
-      contentEditable={false}
-      className={'ace-el drag-el'}
-      data-be={'code'}
-      tabIndex={-1}
-      onBlur={() => {}}
-      data-lang={props.element.language}
-    >
-      {!props.element.frontmatter && <DragHandle />}
+  return useMemo(() => {
+    if (props.element.language === 'html' && props.element?.isConfig) {
+      return null;
+    }
+    return (
       <div
-        ref={handle.node}
-        onClick={(e) => {
-          e.stopPropagation();
-          editorRef.current?.focus();
-        }}
-        style={{
-          padding: state().hide ? 0 : undefined,
-          marginBottom: state().hide ? 0 : undefined,
-          boxSizing: 'border-box',
-          backgroundColor: state().showBorder
-            ? 'rgba(59, 130, 246, 0.1)'
-            : state().hide
-              ? 'transparent'
-              : 'rgb(252, 252, 252)',
-          maxHeight: 400,
-          overflow: 'auto',
-          position: 'relative',
-          height: state().hide ? 0 : 'auto',
-          opacity: state().hide ? 0 : 1,
-        }}
-        className={`ace-container drag-el ${
-          props.element.frontmatter ? 'frontmatter' : ''
-        }`}
+        {...props.attributes}
+        contentEditable={false}
+        className={'ace-el drag-el'}
+        data-be={'code'}
+        tabIndex={-1}
+        onBlur={() => {}}
+        data-lang={props.element.language}
       >
-        {!props.element.frontmatter && (
-          <div
-            contentEditable={false}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            style={{
-              height: '1.75em',
-              backgroundColor: '#FFF',
-              borderBottom: '1px solid #eee',
-              paddingLeft: '0.75em',
-              paddingRight: '0.375em',
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              position: 'sticky',
-              left: 0,
-              top: 0,
-              fontSize: '1em',
-              color: 'rgba(0, 0, 0, 0.6)',
-              justifyContent: 'space-between',
-              zIndex: 50,
-              boxSizing: 'border-box',
-              userSelect: 'none',
-            }}
-          >
-            {readonly ? (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                  gap: 2,
-                  color: 'rgba(0, 0, 0, 0.8)',
-                }}
-              >
-                {langIconMap.get(props.element.language?.toLowerCase() || '') &&
-                  !props.element.katex && (
-                    <div
-                      style={{
-                        height: '1em',
-                        width: '1em',
-                        display: 'flex',
-                        alignItems: 'center',
-                        boxSizing: 'border-box',
-                        justifyContent: 'center',
-                        marginRight: '0.25em',
-                      }}
-                    >
-                      <img
-                        style={{
-                          height: '1em',
-                          width: '1em',
-                        }}
-                        src={langIconMap.get(
-                          props.element.language?.toLowerCase() || '',
-                        )}
-                      />
-                    </div>
-                  )}
-                <div>
-                  {props.element.language ? (
-                    <span>
-                      {props.element.katex
-                        ? 'Formula'
-                        : props.element.language === 'html' &&
-                            props.element.render
-                          ? 'Html Renderer'
-                          : props.element.language}
-                    </span>
-                  ) : (
-                    <span>{'plain text'}</span>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <Popover
-                arrow={false}
-                styles={{
-                  body: {
-                    padding: 8,
-                  },
-                }}
-                trigger={['click']}
-                placement={'bottomLeft'}
-                open={state().openSelectMenu}
-                onOpenChange={(v) => {
-                  if (props.element.katex || props.element.render) {
-                    return;
-                  }
-                  setState({ openSelectMenu: v });
-                  if (v) {
-                    setTimeout(() => {
-                      (
-                        document.querySelector(
-                          '.lang-select input',
-                        ) as HTMLInputElement
-                      )?.focus();
-                    });
-                  }
-                }}
-                content={
-                  <AutoComplete
-                    value={state().lang}
-                    options={langOptions}
-                    placeholder={'Search'}
-                    autoFocus={true}
-                    disabled={readonly}
-                    style={{ width: 200 }}
-                    filterOption={(text, item) => {
-                      return item?.value.includes(text) || false;
-                    }}
-                    onChange={(e) => {
-                      setState({ lang: e });
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setLanguage();
-                        setState({ openSelectMenu: false });
-                      }
-                    }}
-                    onBlur={setLanguage}
-                    className={'lang-select'}
-                  >
-                    <Input prefix={<SearchOutlined />} placeholder={'Search'} />
-                  </AutoComplete>
-                }
-              >
-                <ActionIconBox
-                  title="切换语言"
+        {!props.element.frontmatter && <DragHandle />}
+        <div
+          ref={handle.node}
+          onClick={(e) => {
+            e.stopPropagation();
+            editorRef.current?.focus();
+          }}
+          style={{
+            padding: state().hide ? 0 : undefined,
+            marginBottom: state().hide ? 0 : undefined,
+            boxSizing: 'border-box',
+            backgroundColor: state().showBorder
+              ? 'rgba(59, 130, 246, 0.1)'
+              : state().hide
+                ? 'transparent'
+                : 'rgb(252, 252, 252)',
+            maxHeight: 400,
+            overflow: 'auto',
+            position: 'relative',
+            height: state().hide ? 0 : 'auto',
+            opacity: state().hide ? 0 : 1,
+          }}
+          className={`ace-container drag-el ${
+            props.element.frontmatter ? 'frontmatter' : ''
+          }`}
+        >
+          {!props.element.frontmatter && (
+            <div
+              contentEditable={false}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              style={{
+                height: '1.75em',
+                backgroundColor: '#FFF',
+                borderBottom: '1px solid #eee',
+                paddingLeft: '0.75em',
+                paddingRight: '0.375em',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+                position: 'sticky',
+                left: 0,
+                top: 0,
+                fontSize: '1em',
+                color: 'rgba(0, 0, 0, 0.6)',
+                justifyContent: 'space-between',
+                zIndex: 50,
+                boxSizing: 'border-box',
+                userSelect: 'none',
+              }}
+            >
+              {readonly ? (
+                <div
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     cursor: 'pointer',
-                    boxSizing: 'border-box',
                     gap: 2,
                     color: 'rgba(0, 0, 0, 0.8)',
                   }}
                 >
-                  <>
-                    {langIconMap.get(
-                      props.element.language?.toLowerCase() || '',
-                    ) &&
-                      !props.element.katex && (
-                        <div
+                  {langIconMap.get(
+                    props.element.language?.toLowerCase() || '',
+                  ) &&
+                    !props.element.katex && (
+                      <div
+                        style={{
+                          height: '1em',
+                          width: '1em',
+                          display: 'flex',
+                          alignItems: 'center',
+                          boxSizing: 'border-box',
+                          justifyContent: 'center',
+                          marginRight: '0.25em',
+                        }}
+                      >
+                        <img
                           style={{
                             height: '1em',
                             width: '1em',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginRight: '0.25em',
                           }}
-                        >
-                          <img
+                          src={langIconMap.get(
+                            props.element.language?.toLowerCase() || '',
+                          )}
+                        />
+                      </div>
+                    )}
+                  <div>
+                    {props.element.language ? (
+                      <span>
+                        {props.element.katex
+                          ? 'Formula'
+                          : props.element.language === 'html' &&
+                              props.element.render
+                            ? 'Html Renderer'
+                            : props.element.language}
+                      </span>
+                    ) : (
+                      <span>{'plain text'}</span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <Popover
+                  arrow={false}
+                  styles={{
+                    body: {
+                      padding: 8,
+                    },
+                  }}
+                  trigger={['click']}
+                  placement={'bottomLeft'}
+                  open={state().openSelectMenu}
+                  onOpenChange={(v) => {
+                    if (props.element.katex || props.element.render) {
+                      return;
+                    }
+                    setState({ openSelectMenu: v });
+                    if (v) {
+                      setTimeout(() => {
+                        (
+                          document.querySelector(
+                            '.lang-select input',
+                          ) as HTMLInputElement
+                        )?.focus();
+                      });
+                    }
+                  }}
+                  content={
+                    <AutoComplete
+                      value={state().lang}
+                      options={langOptions}
+                      placeholder={'Search'}
+                      autoFocus={true}
+                      disabled={readonly}
+                      style={{ width: 200 }}
+                      filterOption={(text, item) => {
+                        return item?.value.includes(text) || false;
+                      }}
+                      onChange={(e) => {
+                        setState({ lang: e });
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setLanguage();
+                          setState({ openSelectMenu: false });
+                        }
+                      }}
+                      onBlur={setLanguage}
+                      className={'lang-select'}
+                    >
+                      <Input
+                        prefix={<SearchOutlined />}
+                        placeholder={'Search'}
+                      />
+                    </AutoComplete>
+                  }
+                >
+                  <ActionIconBox
+                    title="切换语言"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      cursor: 'pointer',
+                      boxSizing: 'border-box',
+                      gap: 2,
+                      color: 'rgba(0, 0, 0, 0.8)',
+                    }}
+                  >
+                    <>
+                      {langIconMap.get(
+                        props.element.language?.toLowerCase() || '',
+                      ) &&
+                        !props.element.katex && (
+                          <div
                             style={{
                               height: '1em',
                               width: '1em',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              marginRight: '0.25em',
                             }}
-                            src={langIconMap.get(
-                              props.element.language?.toLowerCase() || '',
-                            )}
-                          />
-                        </div>
-                      )}
-                    <div>
-                      {props.element.language ? (
-                        <span>
-                          {props.element.katex
-                            ? 'Formula'
-                            : props.element.language}
-                        </span>
-                      ) : (
-                        <span>{'plain text'}</span>
-                      )}
-                    </div>
-                  </>
-                </ActionIconBox>
-              </Popover>
-            )}
-            <div
-              style={{
-                display: 'flex',
-                gap: 5,
-              }}
-            >
-              {props.element.katex || props.element.language === 'mermaid' ? (
+                          >
+                            <img
+                              style={{
+                                height: '1em',
+                                width: '1em',
+                              }}
+                              src={langIconMap.get(
+                                props.element.language?.toLowerCase() || '',
+                              )}
+                            />
+                          </div>
+                        )}
+                      <div>
+                        {props.element.language ? (
+                          <span>
+                            {props.element.katex
+                              ? 'Formula'
+                              : props.element.language}
+                          </span>
+                        ) : (
+                          <span>{'plain text'}</span>
+                        )}
+                      </div>
+                    </>
+                  </ActionIconBox>
+                </Popover>
+              )}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 5,
+                }}
+              >
+                {props.element.katex || props.element.language === 'mermaid' ? (
+                  <ActionIconBox
+                    title="关闭"
+                    onClick={() => {
+                      setState({
+                        hide:
+                          props.element.katex ||
+                          props.element.language === 'mermaid',
+                      });
+                    }}
+                  >
+                    <CloseCircleOutlined />
+                  </ActionIconBox>
+                ) : null}
+                {props.element?.language === 'html' ? (
+                  <ActionIconBox
+                    title="运行代码"
+                    style={{
+                      fontSize: '0.9em',
+                      lineHeight: '1.75em',
+                      marginLeft: '0.125em',
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      try {
+                        setState({
+                          htmlStr: props.element?.value,
+                        });
+                      } catch (error) {}
+                    }}
+                  >
+                    <ForwardOutlined />
+                  </ActionIconBox>
+                ) : null}
                 <ActionIconBox
-                  title="关闭"
-                  onClick={() => {
-                    setState({
-                      hide:
-                        props.element.katex ||
-                        props.element.language === 'mermaid',
-                    });
-                  }}
-                >
-                  <CloseCircleOutlined />
-                </ActionIconBox>
-              ) : null}
-              {props.element?.language === 'html' ? (
-                <ActionIconBox
-                  title="运行代码"
+                  title="复制"
                   style={{
                     fontSize: '0.9em',
                     lineHeight: '1.75em',
@@ -486,102 +511,93 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                   onClick={(e) => {
                     e.stopPropagation();
                     try {
-                      setState({
-                        htmlStr: props.element?.value,
-                      });
+                      const code = props.element.value || '';
+                      if (navigator.clipboard?.writeText) {
+                        navigator.clipboard.writeText(code);
+                      } else {
+                        //@ts-ignore
+                        document.execCommand('copy', false, code);
+                      }
+                      message.success('Copied');
                     } catch (error) {}
                   }}
                 >
-                  <ForwardOutlined />
+                  <CopyOutlined />
                 </ActionIconBox>
-              ) : null}
-              <ActionIconBox
-                title="复制"
-                style={{
-                  fontSize: '0.9em',
-                  lineHeight: '1.75em',
-                  marginLeft: '0.125em',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  try {
-                    const code = props.element.value || '';
-                    if (navigator.clipboard?.writeText) {
-                      navigator.clipboard.writeText(code);
+                <ActionIconBox
+                  title="复制"
+                  style={{
+                    fontSize: '0.9em',
+                    lineHeight: '1.75em',
+                    marginLeft: '0.125em',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (handle.active) {
+                      handle.exit();
                     } else {
-                      //@ts-ignore
-                      document.execCommand('copy', false, code);
+                      handle.enter();
                     }
-                    message.success('Copied');
-                  } catch (error) {}
-                }}
-              >
-                <CopyOutlined />
-              </ActionIconBox>
-              <ActionIconBox
-                title="复制"
-                style={{
-                  fontSize: '0.9em',
-                  lineHeight: '1.75em',
-                  marginLeft: '0.125em',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (handle.active) {
-                    handle.exit();
-                  } else {
-                    handle.enter();
-                  }
-                }}
-              >
-                {handle.active ? (
-                  <FullscreenOutlined />
-                ) : (
-                  <FullscreenOutlined />
-                )}
-              </ActionIconBox>
+                  }}
+                >
+                  {handle.active ? (
+                    <FullscreenOutlined />
+                  ) : (
+                    <FullscreenOutlined />
+                  )}
+                </ActionIconBox>
+              </div>
             </div>
-          </div>
-        )}
-        <div ref={dom} style={{ height: 200, lineHeight: '22px' }}></div>
-        <div className={'ant-md-editor-hidden'}>{props.children}</div>
-      </div>
+          )}
+          <div ref={dom} style={{ height: 200, lineHeight: '22px' }}></div>
+          <div className={'ant-md-editor-hidden'}>{props.children}</div>
+        </div>
 
-      {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
-        <Katex el={props.element} />
-      ) : null}
-      <Modal
-        open={!!state().htmlStr}
-        destroyOnClose
-        title="html执行结果"
-        footer={null}
-        styles={{
-          body: {
-            padding: 0,
-            margin: 0,
-            boxSizing: 'border-box',
-          },
-        }}
-        width="80vw"
-        onCancel={() => {
-          setState({ htmlStr: '' });
-        }}
-        onClose={() => {
-          setState({ htmlStr: '' });
-        }}
-      >
-        <iframe
-          style={{
-            outline: 0,
-            border: 'none',
-            height: '60vh',
+        {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
+          <Katex el={props.element} />
+        ) : null}
+        <Modal
+          open={!!state().htmlStr}
+          destroyOnClose
+          title="html执行结果"
+          footer={null}
+          styles={{
+            body: {
+              padding: 0,
+              margin: 0,
+              boxSizing: 'border-box',
+            },
           }}
-          width="100%"
-          srcDoc={state().htmlStr}
-        ></iframe>
-      </Modal>
-    </div>
-  );
+          width="80vw"
+          onCancel={() => {
+            setState({ htmlStr: '' });
+          }}
+          onClose={() => {
+            setState({ htmlStr: '' });
+          }}
+        >
+          <iframe
+            style={{
+              outline: 0,
+              border: 'none',
+              height: '60vh',
+            }}
+            width="100%"
+            srcDoc={state().htmlStr}
+          ></iframe>
+        </Modal>
+      </div>
+    );
+  }, [
+    props.element,
+    props.element.children,
+    props.element.value,
+    state().showBorder,
+    state().hide,
+    state().lang,
+    selected,
+    path,
+  ]);
 }
 
 export { InlineKatex } from './CodeUI/Katex/InlineKatex';
