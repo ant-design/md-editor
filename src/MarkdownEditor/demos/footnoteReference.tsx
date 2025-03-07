@@ -36,7 +36,7 @@ export default () => {
       content: '你好',
       anchorOffset: 283,
       focusOffset: 292,
-      refContent: '日带领腾讯在香港联',
+      refContent: '日带领Umi 在香港联',
       commentType: 'comment',
     },
     {
@@ -54,7 +54,7 @@ export default () => {
       time: 1629340800000,
       content: '深圳大学是中国最好的大学之一,拥有很多优秀的学生。',
       refContent:
-        '张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。',
+        '张志东在Umi 担任 CTO，并在 2014 年 9 月离职，转任Umi 公司终身荣誉顾问及Umi 学院荣誉院长等职位 。',
       commentType: 'comment',
     },
     {
@@ -73,7 +73,7 @@ export default () => {
       content:
         '张志东, 马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。',
       refContent:
-        '张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。',
+        '张志东在Umi 担任 CTO，并在 2014 年 9 月离职，转任Umi 公司终身荣誉顾问及Umi 学院荣誉院长等职位 。',
       commentType: 'comment',
     },
   ]);

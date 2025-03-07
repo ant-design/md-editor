@@ -4,7 +4,7 @@ import React from 'react';
 
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
-# 腾讯研究报告
+# Umi 研究报告
 
 <!-- {"MarkdownType": "section", "id": "15" } -->
 
@@ -15,7 +15,7 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ## 创始人
 
-腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。
+Umi ，全称深圳市Umi 计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。
 
 <!-- {"MarkdownType": "section", "id": "16" } -->
 
