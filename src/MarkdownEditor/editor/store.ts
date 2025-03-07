@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import isEqual from 'lodash-es/isEqual';
 import { makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
@@ -344,7 +345,13 @@ export class EditorStore {
     // 如果上个节点不存在，但是本次有，直接插入
     if (node && !preNode) {
       if (this._editor.current.hasPath(Path.parent(at))) {
-        Transforms.insertNodes(this._editor.current, node, { at });
+        if (this._editor.current.hasPath(Path.previous(at))) {
+          Transforms.insertNodes(this._editor.current, node, { at });
+        } else {
+          Transforms.insertNodes(this._editor.current, node, {
+            at: Path.previous(at),
+          });
+        }
         return;
       }
       if (node && node.type === 'list-item') {
@@ -424,11 +431,30 @@ export class EditorStore {
         }
         return true;
       })
-      .forEach((node, index) => {
-        if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index))) {
+      .forEach((node: Node, index) => {
+        if (node.type !== childrenList?.at(index).type) {
+          updateMap.set(index, node);
           return;
         }
-        updateMap.set(index, node);
+        if (
+          node?.children?.length !== childrenList?.at(index)?.children?.length
+        ) {
+          updateMap.set(index, node);
+          return;
+        }
+
+        if (
+          Object.keys(node).length !==
+          Object.keys(childrenList?.at(index)).length
+        ) {
+          updateMap.set(index, node);
+          return;
+        }
+        if (!isEqual(node, childrenList?.at(index) as any)) {
+          updateMap.set(index, node);
+          return;
+        }
+        return;
       });
 
     try {
