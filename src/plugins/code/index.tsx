@@ -100,6 +100,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       showPrintMargin: false,
       readonly: readonly,
     });
+    editorRef.current = codeEditor;
     if (readonly) return; // 代码块只读
     codeEditor.commands.addCommand({
       name: 'disableFind',
@@ -226,13 +227,14 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       codeEditor.destroy();
     };
   }, []);
+
   useEffect(() => {
     store.codes.set(props.element, editorRef.current!);
     if (props.element.value !== codeRef.current) {
       editorRef.current?.setValue(props.element.value || 'plain text');
       editorRef.current?.clearSelection();
     }
-  }, [props.element]);
+  }, [props.element.value]);
 
   return useMemo(() => {
     if (props.element.language === 'html' && props.element?.isConfig) {

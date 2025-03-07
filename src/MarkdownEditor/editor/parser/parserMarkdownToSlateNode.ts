@@ -300,7 +300,11 @@ const parserBlock = (
             .replace('-->', '')
             .trim() || '{}';
 
-        if (value && currentElement?.value.trim()?.startsWith('<!--')) {
+        if (
+          value &&
+          currentElement?.value?.trim()?.endsWith('-->') &&
+          currentElement?.value.trim()?.startsWith('<!--')
+        ) {
           try {
             contextProps = json5.parse(value);
           } catch (e) {
