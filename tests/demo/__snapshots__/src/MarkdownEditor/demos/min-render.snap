@@ -10178,7 +10178,6 @@
                       autocapitalize="off"
                       autocorrect="off"
                       class="ace_text-input"
-                      readonly=""
                       role="textbox"
                       spellcheck="false"
                       style="opacity: 0; font-size: 1px;"
