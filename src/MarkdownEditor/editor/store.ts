@@ -364,6 +364,10 @@ export class EditorStore {
     }
 
     if (node.type === preNode.type) {
+      if (node.type === 'code' && preNode.type === 'code') {
+        Transforms.setNodes(this._editor.current, node, { at });
+        return;
+      }
       if (node.type === 'list-item' || node.type === 'table-cell') {
         Transforms.removeNodes(this._editor.current, {
           at,
@@ -407,7 +411,6 @@ export class EditorStore {
   updateNodeList(nodeList: Node[]) {
     const childrenList = this._editor.current.children;
     const updateMap = new Map<number, Node>();
-
     nodeList
       .filter((item: any) => {
         if (item.type === 'p' && item.children.length === 0) {

@@ -299,6 +299,94 @@ Class A {
 ## 删除线
 ~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~
 
+
+
+### 安装 Ant Design (antd) 的步骤
+
+#### 一、React 项目安装 antd
+1. **通过 npm 或 yarn 安装 antd**  
+   在项目根目录下运行以下命令：  
+   \`\`\`bash
+   npm install antd --save
+   # 或
+   yarn add antd
+   \`\`\`
+   参考来源：
+   
+2. **引入样式文件**  
+   在项目入口文件（如 \`index.js\` 或 \`main.tsx\`）中添加全局样式：  
+   \`\`\`javascript
+   import 'antd/dist/antd.css';  // 引入默认样式                                                                           [^DOC_4]
+   \`\`\`
+
+3. **按需加载组件（可选优化）**  
+   若需按需加载组件并优化体积，可通过 \`babel-plugin-import\` 配置：  
+   \`\`\`bash
+   npm install babel-plugin-import --save-dev
+   \`\`\`
+   修改 Babel 配置（如 \`babel.config.js\`）：  
+   \`\`\`javascript
+   plugins: [['import', { libraryName: 'antd', style: true }]]
+   \`\`\`
+   参考来源：                         [^DOC_8]                         [^DOC_9]
+
+4. **使用组件**  
+   在代码中按需引入组件：  
+   \`\`\`javascript
+   import { Button } from 'antd';
+   function App() {
+     return <Button type="primary">点击</Button>;
+   }
+   \`\`\`
+   参考来源：        [^DOC_3]        [^DOC_4]
+
+5. **国际化配置（可选）**  
+   若需中文语言支持：  
+   \`\`\`javascript
+   import { ConfigProvider } from 'antd';
+   import zhCN from 'antd/lib/locale/zh_CN';
+   
+   <ConfigProvider locale={zhCN}>
+     <App />
+   </ConfigProvider>
+   \`\`\`
+   参考来源：           [^DOC_1]
+
+---
+
+#### 二、Vue 项目安装 antd（Ant Design Vue）
+1. **安装 ant-design-vue**  
+   根据 Vue 版本选择安装命令：  
+   \`\`\`bash
+   # Vue 2
+   npm install ant-design-vue@1.7.8 --save
+   # Vue 3
+   npm install ant-design-vue --save
+   \`\`\`
+   参考来源：                            [^DOC_7]
+
+2. **引入样式与组件**  
+   在入口文件（如 \`main.js\`）中全局引入：  
+   \`\`\`javascript
+   import Antd from 'ant-design-vue';
+   import 'ant-design-vue/dist/antd.css';  // Vue 2 需指定旧版本样式                          [^DOC_7]
+   Vue.use(Antd);  // Vue 2 示例
+   \`\`\`
+   参考来源：                                                                                   [^DOC_7]
+
+---
+
+#### 三、通用注意事项
+- **项目依赖**：确保已安装 Node.js（建议 14.x+）和 npm/yarn                                                                                                 [^DOC_3]。
+- **脚手架工具**：React 项目可使用 \`@ant-design/create-react-app\` 快速初始化                             [^DOC_3]。
+- **主题定制**：可通过 Less 变量覆盖或 CSS 样式覆盖实现自定义主题                                      [^DOC_9]。
+
+### 总结
+- **React 项目**：安装 \`antd\` → 引入样式 → 按需加载（可选） → 使用组件                                [^DOC_3]                                [^DOC_4]                                [^DOC_6]。
+- **Vue 项目**：安装对应版本的 \`ant-design-vue\` → 引入样式和组件                                                 [^DOC_7]。  
+- 更多高级配置（如主题、国际化）可参考官方文档                                         [^DOC_1]                                         [^DOC_9]。
+
+
 `;
 
 const Mdlist = [

@@ -98,7 +98,6 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       wrap: true,
       tabSize: 4,
       showPrintMargin: false,
-      readonly: readonly,
     });
     editorRef.current = codeEditor;
     if (readonly) return; // 代码块只读
