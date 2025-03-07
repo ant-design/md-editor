@@ -432,12 +432,12 @@ export class EditorStore {
         return true;
       })
       .forEach((node: Node, index) => {
-        if (node.type !== childrenList?.at(index).type) {
+        if (node?.type !== childrenList?.at(index)?.type) {
           updateMap.set(index, node);
           return;
         }
         if (
-          node?.children?.length !== childrenList?.at(index)?.children?.length
+          node?.children?.length !== childrenList?.at?.(index)?.children?.length
         ) {
           updateMap.set(index, node);
           return;
@@ -450,7 +450,7 @@ export class EditorStore {
           updateMap.set(index, node);
           return;
         }
-        if (!isEqual(node, childrenList?.at(index) as any)) {
+        if (!isEqual(node, childrenList?.at?.(index) as any)) {
           updateMap.set(index, node);
           return;
         }
