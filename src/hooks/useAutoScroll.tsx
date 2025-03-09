@@ -46,7 +46,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
 
     lastScrollHeight.current = currentScrollHeight;
   };
-  const checkScroll = useDebounceFn(_checkScroll, 100);
+  const checkScroll = useDebounceFn(_checkScroll, 32);
   // DOM 变化监听（MutationObserver）
   useEffect(() => {
     const container = containerRef.current;
