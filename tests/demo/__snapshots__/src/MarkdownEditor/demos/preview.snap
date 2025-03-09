@@ -10,7 +10,7 @@
       style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
       >
         <div
           aria-multiline="true"
@@ -11023,6 +11023,10 @@ while i &lt; len(arr):
             </span>
           </div>
         </div>
+        <div
+          class="ant-md-editor-content-focus"
+          style="height: 64px;"
+        />
         <div>
           <div
             class=""

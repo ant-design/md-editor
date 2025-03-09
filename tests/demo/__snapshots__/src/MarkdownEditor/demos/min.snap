@@ -13,7 +13,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -132,7 +132,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -2914,7 +2914,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -3701,7 +3701,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -4745,7 +4745,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -4982,7 +4982,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -5180,7 +5180,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -5427,7 +5427,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -6973,7 +6973,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
@@ -7124,7 +7124,7 @@
         style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
       >
         <div
-          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
         >
           <div
             autocapitalize="false"
