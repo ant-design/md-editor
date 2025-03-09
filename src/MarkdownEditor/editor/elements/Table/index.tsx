@@ -12,10 +12,11 @@ import 'handsontable/styles/ht-theme-horizon.min.css';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import { Editor, Node, Transforms } from 'slate';
+import { Editor, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
+import { parserMarkdownToSlateNode } from '../../parser/parserMarkdownToSlateNode';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { useTableStyle } from './style';
@@ -43,6 +44,16 @@ registerRenderer('customStylesRenderer', (hotInstance, TD, ...rest) => {
     TD.style.fontWeight = 'bold';
   }
 });
+
+const nodeToString = (node: any) => {
+  if (node.children) {
+    return node.children.map(nodeToString).join('');
+  }
+  if (node.type === 'break') {
+    return '<br>';
+  }
+  return node.text;
+};
 
 const slateTableToJSONData = (
   input: TableNode,
@@ -79,7 +90,11 @@ const slateTableToJSONData = (
             cellSetList.push(cellSet);
           }
         }
-        return Node.string(column) || ' ';
+        return (
+          nodeToString(column)
+            .replaceAll('<br>', '\n')
+            .replaceAll('<br/>', '\n') || ' '
+        );
       }) as string[];
       return cells || [];
     }) || [];
@@ -157,11 +172,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     (dataList: CellChange[] | null, source: ChangeSource) => {
       dataList?.forEach((data) => {
         if (source === 'edit' && data) {
-          const [row, col, old, newValue] = data;
+          const [row, col, oldValue, changeValue] = data;
+          const newValue =
+            changeValue?.replaceAll?.('\n', '<br/>') || changeValue;
           const path = tablePath;
           // 如果旧值不存在，新值不存在，且新值不等于旧值
           // 说明是新增的单元格
-          if (!old && !newValue && newValue !== old) {
+          if (!oldValue && !newValue && newValue !== oldValue) {
             if (
               Editor.hasPath(markdownEditorRef.current, [
                 ...path,
@@ -231,7 +248,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
           // 如果旧值不存在，新值存在，且新值不等于旧值
           // 说明是新增的单元格，但是单元格已经存在，和编辑相同
-          if (!old && newValue && newValue !== old) {
+          if (!oldValue && newValue && newValue !== oldValue) {
             if (
               Editor.hasPath(markdownEditorRef.current, [
                 ...path,
@@ -240,9 +257,17 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 0,
               ])
             ) {
-              Transforms.insertText(markdownEditorRef.current, newValue, {
-                at: [...path, row, col as number, 0],
+              Transforms.removeNodes(markdownEditorRef.current, {
+                at: [...path, row, col as number],
               });
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-cell',
+                  children: parserMarkdownToSlateNode(newValue).schema,
+                },
+                { at: [...path, row, col as number] },
+              );
               return;
             } else if (
               Editor.hasPath(markdownEditorRef.current, [...path, row])
@@ -312,7 +337,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
           // 如果旧值存在，新值不存在，且新值不等于旧值
           // 说明是删除的单元格
-          if (old && !newValue && newValue !== old) {
+          if (oldValue && !newValue && newValue !== oldValue) {
             if (
               Editor.hasPath(markdownEditorRef.current, [
                 ...path,
@@ -329,7 +354,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
           }
           // 如果旧值存在，新值存在，且新值不等于旧值
           // 说明是编辑的单元格
-          if (old && newValue && newValue !== old) {
+          if (oldValue && newValue && newValue !== oldValue) {
             if (
               Editor.hasPath(markdownEditorRef.current, [
                 ...path,
@@ -338,9 +363,17 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 0,
               ])
             ) {
-              Transforms.insertText(markdownEditorRef.current, newValue, {
-                at: [...path, row, col as number, 0],
+              Transforms.removeNodes(markdownEditorRef.current, {
+                at: [...path, row, col as number],
               });
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-cell',
+                  children: parserMarkdownToSlateNode(newValue).schema,
+                },
+                { at: [...path, row, col as number] },
+              );
               return;
             }
           }

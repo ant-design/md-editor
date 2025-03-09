@@ -68,7 +68,7 @@ export const MElement = (
     case 'break':
       return (
         <span {...props.attributes} contentEditable={false}>
-          {props.children}
+          <span style={{ display: 'none' }}>{props.children}</span>
           <br />
         </span>
       );

@@ -347,7 +347,7 @@ const parserBlock = (
         } else {
           const breakMatch = currentElement.value.match(/<br\/?>/);
           if (breakMatch) {
-            el = { type: 'break', children: [{ text: '' }] };
+            el = { type: 'break', children: [{ text: '\n' }] };
           } else {
             const htmlMatch = currentElement.value.match(
               /<\/?(b|i|del|font|code|span|sup|sub|a)[^\n>]*?>/,
