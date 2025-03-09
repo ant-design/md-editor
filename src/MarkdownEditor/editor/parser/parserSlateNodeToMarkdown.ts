@@ -466,12 +466,13 @@ const table = (
   let output = '',
     colLength = new Map<number, number>();
 
-  for (let i = 0; i < data[0].length; i++) {
+  for (let i = 0; i < data?.[0]?.length; i++) {
     colLength.set(
       i,
       data.map((d) => stringWidth(d[i])).sort((a, b) => b - a)[0],
     );
   }
+
   for (let i = 0; i < data.length; i++) {
     let cells: string[] = [];
     for (let j = 0; j < data[i].length; j++) {
