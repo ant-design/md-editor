@@ -470,6 +470,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               paddingLeft: props.readonly ? undefined : 32,
               overflow: 'auto',
               display: 'flex',
+              flexDirection: 'column',
               height:
                 !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
               position: 'relative',

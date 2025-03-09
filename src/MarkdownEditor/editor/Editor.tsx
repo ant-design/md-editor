@@ -649,95 +649,105 @@ export const MEditor = observer(
       }
     }, 160);
     return wrapSSR(
-      <Slate
-        editor={markdownEditorRef.current}
-        initialValue={[EditorUtils.p]}
-        onChange={change}
-      >
-        <Editable
-          decorate={decorateFn}
-          onError={onError}
-          onDragOver={(e) => e.preventDefault()}
-          readOnly={readonly}
-          className={classNames(
-            `${baseClassName}-${readonlyCls}`,
-            `${baseClassName}`,
-            editorProps.className,
-            {
-              [`${baseClassName}-report`]: reportMode,
-              [`${baseClassName}-edit`]: !readonly,
-            },
-            hashId,
-          )}
-          style={
-            reportMode
-              ? {
-                  fontSize: 16,
-                  ...editorProps.style,
-                }
-              : {
-                  fontSize: 14,
-                  ...editorProps.style,
-                }
-          }
-          onSelect={() => {
-            handleSelectionChange?.cancel();
-            handleSelectionChange?.run();
-          }}
-          onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
-            if (isEventHandled(event)) {
-              return;
+      <>
+        <Slate
+          editor={markdownEditorRef.current}
+          initialValue={[EditorUtils.p]}
+          onChange={change}
+        >
+          <Editable
+            decorate={decorateFn}
+            onError={onError}
+            onDragOver={(e) => e.preventDefault()}
+            readOnly={readonly}
+            className={classNames(
+              `${baseClassName}-${readonlyCls}`,
+              `${baseClassName}`,
+              editorProps.className,
+              {
+                [`${baseClassName}-report`]: reportMode,
+                [`${baseClassName}-edit`]: !readonly,
+              },
+              hashId,
+            )}
+            style={
+              reportMode
+                ? {
+                    fontSize: 16,
+                    ...editorProps.style,
+                  }
+                : {
+                    fontSize: 14,
+                    ...editorProps.style,
+                  }
             }
-            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
-              const domSelection = window.getSelection();
-              markdownEditorRef.current.selection =
-                getSelectionFromDomSelection(
-                  markdownEditorRef.current,
-                  domSelection!,
-                );
-              if (markdownEditorRef.current.selection) {
-                Transforms.delete(markdownEditorRef.current, {
-                  at: markdownEditorRef.current.selection!,
-                });
+            onSelect={() => {
+              handleSelectionChange?.cancel();
+              handleSelectionChange?.run();
+            }}
+            onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
+              if (isEventHandled(event)) {
                 return;
               }
-            }
-            event.preventDefault();
-          }}
-          onMouseDown={checkEnd}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onPaste={onPaste}
-          onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
-            if (isEventHandled(event)) {
-              return;
-            }
-            if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
-              const domSelection = window.getSelection();
-              markdownEditorRef.current.selection =
-                getSelectionFromDomSelection(
-                  markdownEditorRef.current,
-                  domSelection!,
-                );
-              if (!markdownEditorRef.current.selection) {
+              if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
+                const domSelection = window.getSelection();
+                markdownEditorRef.current.selection =
+                  getSelectionFromDomSelection(
+                    markdownEditorRef.current,
+                    domSelection!,
+                  );
+                if (markdownEditorRef.current.selection) {
+                  Transforms.delete(markdownEditorRef.current, {
+                    at: markdownEditorRef.current.selection!,
+                  });
+                  return;
+                }
+              }
+              event.preventDefault();
+            }}
+            onMouseDown={checkEnd}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onPaste={onPaste}
+            onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
+              if (isEventHandled(event)) {
                 return;
               }
-            }
-            event.preventDefault();
-            ReactEditor.setFragmentData(
-              markdownEditorRef.current,
-              event.clipboardData,
-              'copy',
-            );
-            copySelectedBlocks(markdownEditorRef.current);
-          }}
-          onCompositionStart={onCompositionStart}
-          onCompositionEnd={onCompositionEnd}
-          renderElement={elementRenderElement}
-          onKeyDown={onKeyDown}
-          renderLeaf={renderMarkdownLeaf}
-        />
-      </Slate>,
+              if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
+                const domSelection = window.getSelection();
+                markdownEditorRef.current.selection =
+                  getSelectionFromDomSelection(
+                    markdownEditorRef.current,
+                    domSelection!,
+                  );
+                if (!markdownEditorRef.current.selection) {
+                  return;
+                }
+              }
+              event.preventDefault();
+              ReactEditor.setFragmentData(
+                markdownEditorRef.current,
+                event.clipboardData,
+                'copy',
+              );
+              copySelectedBlocks(markdownEditorRef.current);
+            }}
+            onCompositionStart={onCompositionStart}
+            onCompositionEnd={onCompositionEnd}
+            renderElement={elementRenderElement}
+            onKeyDown={onKeyDown}
+            renderLeaf={renderMarkdownLeaf}
+          />
+        </Slate>
+        {readonly ? null : (
+          <div
+            className={`${baseClassName}-focus`}
+            style={{
+              height: 64,
+            }}
+          />
+        )}
+      </>,
     );
   },
 );
