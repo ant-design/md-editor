@@ -1,5 +1,9 @@
 ﻿/* eslint-disable @typescript-eslint/no-loop-func */
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  useAutoScroll,
+} from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
 import { parserMarkdownToSlateNode } from '../editor/parser/parserMarkdownToSlateNode';
 const defaultValue = `## 创始人
@@ -1284,10 +1288,10 @@ const Mdlist = [
 ];
 export default () => {
   const instance = useRef<MarkdownEditorInstance>();
+  const { containerRef } = useAutoScroll();
   useEffect(() => {
     let md = '';
     const list = defaultValue.split('');
-    const html = document.getElementById('container');
     const run = async () => {
       if (process.env.NODE_ENV === 'test') {
         instance.current?.store.updateNodeList(
@@ -1303,10 +1307,6 @@ export default () => {
               parserMarkdownToSlateNode(md).schema,
             );
             resolve(true);
-            html?.scrollTo?.({
-              top: 99999999999999,
-              behavior: 'smooth',
-            });
           }, 1);
         });
       }
@@ -1328,6 +1328,7 @@ export default () => {
   return (
     <div
       id="container"
+      ref={containerRef}
       style={{
         padding: 64,
         paddingBottom: '20%',
@@ -1336,7 +1337,8 @@ export default () => {
         gap: 24,
         backgroundColor: '#fff',
         overflow: 'auto',
-        maxHeight: 'calc(100vh - 280px)',
+        boxSizing: 'border-box',
+        maxHeight: 'calc(100vh)',
       }}
     >
       <MarkdownEditor

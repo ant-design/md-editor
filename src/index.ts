@@ -1,3 +1,4 @@
+export * from './hooks/useAutoScroll';
 export * from './MarkdownEditor';
 export * from './MarkdownEditor/editor/components/index';
 export { parserMarkdownToSlateNode } from './MarkdownEditor/editor/parser/parserMarkdownToSlateNode';
