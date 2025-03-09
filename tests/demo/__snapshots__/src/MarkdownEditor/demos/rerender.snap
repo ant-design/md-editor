@@ -7,7 +7,7 @@
     </div>
     <div
       id="container"
-      style="padding: 64px 64px 20% 64px; display: flex; flex-direction: column; gap: 24px; background-color: rgb(255, 255, 255); overflow: auto; max-height: calc(100vh - 280px);"
+      style="padding: 64px 64px 20% 64px; display: flex; flex-direction: column; gap: 24px; background-color: rgb(255, 255, 255); overflow: auto; box-sizing: border-box; max-height: calc(100vh);"
     >
       <div
         class="markdown-editor ant-md-editor ant-md-editor-readonly"
