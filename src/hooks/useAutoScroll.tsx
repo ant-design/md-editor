@@ -1,5 +1,5 @@
 ﻿import { useEffect, useRef } from 'react';
-import { useThrottleFn } from 'react-use';
+import { useThrottleFn } from './useThrottleFn';
 
 const SCROLL_TOLERANCE = 20; // 滚动到底部的容差阈值
 
@@ -54,11 +54,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
 
     lastScrollHeight.current = currentScrollHeight;
   };
-  const checkScroll = useThrottleFn(
-    () => _checkScroll,
-    props.timeout || 160,
-    [],
-  );
+  const checkScroll = useThrottleFn(_checkScroll, props.timeout || 160);
   // DOM 变化监听（MutationObserver）
   useEffect(() => {
     const container = containerRef.current;

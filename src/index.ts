@@ -1,4 +1,6 @@
 export * from './hooks/useAutoScroll';
+export * from './hooks/useRefFunction';
+export * from './hooks/useThrottleFn';
 export * from './MarkdownEditor';
 export * from './MarkdownEditor/editor/components/index';
 export { parserMarkdownToSlateNode } from './MarkdownEditor/editor/parser/parserMarkdownToSlateNode';
