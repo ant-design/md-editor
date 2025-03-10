@@ -6,6 +6,7 @@ const SCROLL_TOLERANCE = 20; // 滚动到底部的容差阈值
 export const useAutoScroll = <T extends HTMLDivElement>(
   props: {
     SCROLL_TOLERANCE?: number;
+    onResize?: (size: { width: number; height: number }) => void;
   } = {
     SCROLL_TOLERANCE,
   },
@@ -57,6 +58,10 @@ export const useAutoScroll = <T extends HTMLDivElement>(
       // 过滤出添加节点的变化
       const hasAddedNodes = mutations.some((m) => m.addedNodes.length > 0);
       if (hasAddedNodes) checkScroll.run();
+      props.onResize?.({
+        width: container.clientWidth,
+        height: container.clientHeight,
+      });
     });
 
     observer.current.observe(container, {
