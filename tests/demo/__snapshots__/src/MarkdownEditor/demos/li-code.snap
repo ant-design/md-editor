@@ -11,7 +11,7 @@
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
       >
         <div
           autocapitalize="false"
@@ -195,6 +195,7 @@
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -202,13 +203,11 @@
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          直接遍历元素
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        直接遍历元素
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -297,16 +296,16 @@
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                         >
                           <img
-                            src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                            src="/src/plugins/code/langIcons/python.svg"
                             style="height: 1em; width: 1em;"
                           />
                         </div>
@@ -345,6 +344,32 @@
                             </svg>
                           </span>
                         </span>
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-agent-chat-action-icon-box"
+                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        >
+                          <span
+                            aria-label="fullscreen"
+                            class="anticon anticon-fullscreen"
+                            role="img"
+                            tabindex="-1"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="fullscreen"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -358,7 +383,6 @@
                         autocapitalize="off"
                         autocorrect="off"
                         class="ace_text-input"
-                        readonly=""
                         role="textbox"
                         spellcheck="false"
                         style="opacity: 0; font-size: 1px;"
@@ -488,7 +512,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -512,7 +535,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_2"
@@ -536,7 +558,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_7"
@@ -579,6 +600,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -586,13 +608,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          通过索引遍历
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        通过索引遍历
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -681,16 +701,16 @@ for num in arr:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                         >
                           <img
-                            src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                            src="/src/plugins/code/langIcons/python.svg"
                             style="height: 1em; width: 1em;"
                           />
                         </div>
@@ -729,6 +749,32 @@ for num in arr:
                             </svg>
                           </span>
                         </span>
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-agent-chat-action-icon-box"
+                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        >
+                          <span
+                            aria-label="fullscreen"
+                            class="anticon anticon-fullscreen"
+                            role="img"
+                            tabindex="-1"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="fullscreen"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -742,7 +788,6 @@ for num in arr:
                         autocapitalize="off"
                         autocorrect="off"
                         class="ace_text-input"
-                        readonly=""
                         role="textbox"
                         spellcheck="false"
                         style="opacity: 0; font-size: 1px;"
@@ -871,7 +916,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -895,7 +939,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_8"
@@ -938,6 +981,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -945,13 +989,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          同时获取索引和值（
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        同时获取索引和值（
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -968,6 +1010,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -975,17 +1018,15 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <code
-                          class="ant-md-editor-content-inline-code"
+                      <code
+                        class="ant-md-editor-content-inline-code"
+                      >
+                        <span
+                          data-slate-string="true"
                         >
-                          <span
-                            data-slate-string="true"
-                          >
-                            enumerate
-                          </span>
-                        </code>
-                      </strong>
+                          enumerate
+                        </span>
+                      </code>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1002,6 +1043,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1009,13 +1051,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          enumerate )
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        enumerate )
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1039,16 +1079,16 @@ for num in arr:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                         >
                           <img
-                            src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                            src="/src/plugins/code/langIcons/python.svg"
                             style="height: 1em; width: 1em;"
                           />
                         </div>
@@ -1087,6 +1127,32 @@ for num in arr:
                             </svg>
                           </span>
                         </span>
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-agent-chat-action-icon-box"
+                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        >
+                          <span
+                            aria-label="fullscreen"
+                            class="anticon anticon-fullscreen"
+                            role="img"
+                            tabindex="-1"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="fullscreen"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -1100,7 +1166,6 @@ for num in arr:
                         autocapitalize="off"
                         autocorrect="off"
                         class="ace_text-input"
-                        readonly=""
                         role="textbox"
                         spellcheck="false"
                         style="opacity: 0; font-size: 1px;"
@@ -1229,7 +1294,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_5"
@@ -1253,7 +1317,6 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_8"
@@ -1359,6 +1422,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1366,13 +1430,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          使用 
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        使用 
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1389,6 +1451,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1396,17 +1459,15 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <code
-                          class="ant-md-editor-content-inline-code"
+                      <code
+                        class="ant-md-editor-content-inline-code"
+                      >
+                        <span
+                          data-slate-string="true"
                         >
-                          <span
-                            data-slate-string="true"
-                          >
-                            while
-                          </span>
-                        </code>
-                      </strong>
+                          while
+                        </span>
+                      </code>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1423,6 +1484,7 @@ for num in arr:
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1430,13 +1492,11 @@ for num in arr:
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          while 循环
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        while 循环
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1477,16 +1537,16 @@ for num in arr:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                         >
                           <img
-                            src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                            src="/src/plugins/code/langIcons/python.svg"
                             style="height: 1em; width: 1em;"
                           />
                         </div>
@@ -1525,6 +1585,32 @@ for num in arr:
                             </svg>
                           </span>
                         </span>
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-agent-chat-action-icon-box"
+                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        >
+                          <span
+                            aria-label="fullscreen"
+                            class="anticon anticon-fullscreen"
+                            role="img"
+                            tabindex="-1"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="fullscreen"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -1538,7 +1624,6 @@ for num in arr:
                         autocapitalize="off"
                         autocorrect="off"
                         class="ace_text-input"
-                        readonly=""
                         role="textbox"
                         spellcheck="false"
                         style="opacity: 0; font-size: 1px;"
@@ -1669,7 +1754,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -1693,7 +1777,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -1717,7 +1800,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_10"
@@ -1760,6 +1842,7 @@ while i &lt; len(arr):
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -1767,13 +1850,11 @@ while i &lt; len(arr):
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          列表推导式
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        列表推导式
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -1814,16 +1895,16 @@ while i &lt; len(arr):
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                         >
                           <img
-                            src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                            src="/src/plugins/code/langIcons/python.svg"
                             style="height: 1em; width: 1em;"
                           />
                         </div>
@@ -1862,6 +1943,32 @@ while i &lt; len(arr):
                             </svg>
                           </span>
                         </span>
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-agent-chat-action-icon-box"
+                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        >
+                          <span
+                            aria-label="fullscreen"
+                            class="anticon anticon-fullscreen"
+                            role="img"
+                            tabindex="-1"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="fullscreen"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -1875,7 +1982,6 @@ while i &lt; len(arr):
                         autocapitalize="off"
                         autocorrect="off"
                         class="ace_text-input"
-                        readonly=""
                         role="textbox"
                         spellcheck="false"
                         style="opacity: 0; font-size: 1px;"
@@ -2003,7 +2109,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_4"
@@ -2027,7 +2132,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_7"
@@ -2051,7 +2155,6 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -2157,6 +2260,7 @@ while i &lt; len(arr):
                       data-be="text"
                       data-slate-leaf="true"
                       draggable="false"
+                      style="font-weight: bold;"
                     >
                       <span
                         contenteditable="false"
@@ -2164,13 +2268,11 @@ while i &lt; len(arr):
                       >
                          
                       </span>
-                      <strong>
-                        <span
-                          data-slate-string="true"
-                        >
-                          递归遍历
-                        </span>
-                      </strong>
+                      <span
+                        data-slate-string="true"
+                      >
+                        递归遍历
+                      </span>
                       <span
                         contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
@@ -2210,16 +2312,16 @@ while i &lt; len(arr):
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                     >
                       <div
                         style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                       >
                         <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                         >
                           <img
-                            src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                            src="/src/plugins/code/langIcons/python.svg"
                             style="height: 1em; width: 1em;"
                           />
                         </div>
@@ -2258,6 +2360,32 @@ while i &lt; len(arr):
                             </svg>
                           </span>
                         </span>
+                        <span
+                          aria-describedby="test-id"
+                          class="ant-agent-chat-action-icon-box"
+                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        >
+                          <span
+                            aria-label="fullscreen"
+                            class="anticon anticon-fullscreen"
+                            role="img"
+                            tabindex="-1"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="fullscreen"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </div>
                     </div>
                     <div
@@ -2271,7 +2399,6 @@ while i &lt; len(arr):
                         autocapitalize="off"
                         autocorrect="off"
                         class="ace_text-input"
-                        readonly=""
                         role="textbox"
                         spellcheck="false"
                         style="opacity: 0; font-size: 1px;"
@@ -2409,10 +2536,10 @@ while i &lt; len(arr):
     </div>
     <div
       class="markdown-editor ant-md-editor ant-md-editor-readonly"
-      style="width: 400px; height: auto; display: flex; flex-direction: column; max-height: 100%;"
+      style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
       >
         <div
           autocapitalize="false"
@@ -2508,16 +2635,16 @@ while i &lt; len(arr):
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
-                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                      src="/src/plugins/code/langIcons/python.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -2556,6 +2683,32 @@ while i &lt; len(arr):
                       </svg>
                     </span>
                   </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -2569,7 +2722,6 @@ while i &lt; len(arr):
                   autocapitalize="off"
                   autocorrect="off"
                   class="ace_text-input"
-                  readonly=""
                   role="textbox"
                   spellcheck="false"
                   style="opacity: 0; font-size: 1px;"
@@ -2699,7 +2851,6 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -2723,7 +2874,6 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_3"
@@ -2747,7 +2897,6 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_5"
@@ -2771,7 +2920,6 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_8"
@@ -2931,16 +3079,16 @@ for fruit in fruits:
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
-                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                      src="/src/plugins/code/langIcons/python.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -2979,6 +3127,32 @@ for fruit in fruits:
                       </svg>
                     </span>
                   </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -2992,7 +3166,6 @@ for fruit in fruits:
                   autocapitalize="off"
                   autocorrect="off"
                   class="ace_text-input"
-                  readonly=""
                   role="textbox"
                   spellcheck="false"
                   style="opacity: 0; font-size: 1px;"
@@ -3121,7 +3294,6 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_4"
@@ -3145,7 +3317,6 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_8"
@@ -3257,16 +3428,16 @@ for fruit in fruits:
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
-                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                      src="/src/plugins/code/langIcons/python.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -3305,6 +3476,32 @@ for fruit in fruits:
                       </svg>
                     </span>
                   </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -3318,7 +3515,6 @@ for fruit in fruits:
                   autocapitalize="off"
                   autocorrect="off"
                   class="ace_text-input"
-                  readonly=""
                   role="textbox"
                   spellcheck="false"
                   style="opacity: 0; font-size: 1px;"
@@ -3449,7 +3645,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_2"
@@ -3473,7 +3668,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_7"
@@ -3497,7 +3691,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_9"
@@ -3609,16 +3802,16 @@ while i &lt; len(fruits):
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
-                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                      src="/src/plugins/code/langIcons/python.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -3657,6 +3850,32 @@ while i &lt; len(fruits):
                       </svg>
                     </span>
                   </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -3670,7 +3889,6 @@ while i &lt; len(fruits):
                   autocapitalize="off"
                   autocorrect="off"
                   class="ace_text-input"
-                  readonly=""
                   role="textbox"
                   spellcheck="false"
                   style="opacity: 0; font-size: 1px;"
@@ -3798,7 +4016,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -3822,7 +4039,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_5"
@@ -3934,16 +4150,16 @@ while i &lt; len(fruits):
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
-                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                      src="/src/plugins/code/langIcons/python.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -3982,6 +4198,32 @@ while i &lt; len(fruits):
                       </svg>
                     </span>
                   </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -3995,7 +4237,6 @@ while i &lt; len(fruits):
                   autocapitalize="off"
                   autocorrect="off"
                   class="ace_text-input"
-                  readonly=""
                   role="textbox"
                   spellcheck="false"
                   style="opacity: 0; font-size: 1px;"
@@ -4124,7 +4365,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_6"
@@ -4148,7 +4388,6 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
-                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_10"
@@ -4330,7 +4569,6 @@ while i &lt; len(fruits):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
-                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -4387,16 +4625,16 @@ while i &lt; len(fruits):
             >
               <div
                 contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
               >
                 <div
                   style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
-                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                   >
                     <img
-                      src="/src/MarkdownEditor/editor/elements/code/langIcons/python.svg"
+                      src="/src/plugins/code/langIcons/python.svg"
                       style="height: 1em; width: 1em;"
                     />
                   </div>
@@ -4435,6 +4673,32 @@ while i &lt; len(fruits):
                       </svg>
                     </span>
                   </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-agent-chat-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="fullscreen"
+                      class="anticon anticon-fullscreen"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="fullscreen"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -4448,7 +4712,6 @@ while i &lt; len(fruits):
                   autocapitalize="off"
                   autocorrect="off"
                   class="ace_text-input"
-                  readonly=""
                   role="textbox"
                   spellcheck="false"
                   style="opacity: 0; font-size: 1px;"

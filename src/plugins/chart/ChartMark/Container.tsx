@@ -1,7 +1,7 @@
 ﻿import { Chart } from '@antv/g2';
 import ResizeObserver from 'rc-resize-observer';
 import React, { useEffect, useRef, useState } from 'react';
-import { debounce } from '../../../utils';
+import { debounce } from '../utils';
 
 export const Container: React.FC<{
   chartRef: React.MutableRefObject<Chart | undefined>;

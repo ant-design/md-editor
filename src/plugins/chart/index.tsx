@@ -1,10 +1,13 @@
 ﻿import dayjs from 'dayjs';
 import React, { useEffect, useMemo } from 'react';
-import { TableNode } from '../../../el';
-import { RenderElementProps, useSlate } from '../../slate-react';
-import { useEditorStore } from '../../store';
-import { DragHandle } from '../../tools/DragHandle';
-import { ErrorBoundary } from '../ErrorBoundary';
+import { ErrorBoundary } from '../../MarkdownEditor/editor/elements/ErrorBoundary';
+import {
+  RenderElementProps,
+  useSlate,
+} from '../../MarkdownEditor/editor/slate-react';
+import { useEditorStore } from '../../MarkdownEditor/editor/store';
+import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
+import { TableNode } from '../../MarkdownEditor/el';
 import { ChartRender } from './ChartRender';
 
 /**
@@ -112,7 +115,7 @@ const groupByCategory = (data: any[], key: any) => {
  * - 使用 `Dropdown` 和 `Popover` 组件生成菜单和弹出框。
  * - 支持图表类型的切换和属性的更新。
  */
-export const Chart: React.FC<RenderElementProps> = (props) => {
+export const ChartElement: React.FC<RenderElementProps> = (props) => {
   const { store, readonly, rootContainer } = useEditorStore();
   const editor = useSlate();
   const { element: node, attributes, children } = props;
@@ -129,7 +132,7 @@ export const Chart: React.FC<RenderElementProps> = (props) => {
 
   const [columnLength, setColumnLength] = React.useState(2);
 
-  const config = [node.otherProps?.config].flat(1);
+  const config = [node.otherProps?.config || node.otherProps].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [minWidth, setMinWidth] = React.useState(256);
 

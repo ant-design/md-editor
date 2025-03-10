@@ -21,6 +21,7 @@ import {
   TableNode,
   TableRowNode,
 } from '../../el';
+import { MarkdownEditorPlugin } from '../../plugin';
 import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
@@ -205,7 +206,8 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
             type: 'table-cell',
             align: aligns?.[i as number] || undefined,
             title: l === 0,
-            // @ts-ignore
+            rows: l,
+            cols: i,
             children: c.children?.length
               ? parserBlock(c.children as any, false, c as any)
               : [{ text: '' }],
@@ -216,7 +218,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
   }) as TableRowNode[];
 
   const otherProps = {
-    config: config,
+    ...config,
     columns,
     dataSource: dataSource.map((item) => {
       delete item?.chartType;
@@ -233,7 +235,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
     type: isChart ? 'chart' : 'table',
     children: children,
     otherProps,
-  };
+  } as any;
   return EditorUtils.wrapperCardNode(node);
 };
 
@@ -298,7 +300,11 @@ const parserBlock = (
             .replace('-->', '')
             .trim() || '{}';
 
-        if (value && currentElement?.value.trim()?.startsWith('<!--')) {
+        if (
+          value &&
+          currentElement?.value?.trim()?.endsWith('-->') &&
+          currentElement?.value.trim()?.startsWith('<!--')
+        ) {
           try {
             contextProps = json5.parse(value);
           } catch (e) {
@@ -341,7 +347,7 @@ const parserBlock = (
         } else {
           const breakMatch = currentElement.value.match(/<br\/?>/);
           if (breakMatch) {
-            el = { type: 'break', children: [{ text: '' }] };
+            el = { type: 'break', children: [{ text: '\n' }] };
           } else {
             const htmlMatch = currentElement.value.match(
               /<\/?(b|i|del|font|code|span|sup|sub|a)[^\n>]*?>/,
@@ -438,7 +444,7 @@ const parserBlock = (
       case 'math':
         el = {
           // @ts-ignore
-          type: 'code',
+          type: 'katex',
           language: 'latex',
           katex: true,
           value: currentElement.value,
@@ -645,45 +651,45 @@ const parserBlock = (
         el = { type: 'hr', children: [{ text: '' }] };
         break;
       case 'code':
-        let json = [];
-        try {
-          json = json5.parse(currentElement.value || '[]');
-        } catch (error) {
-          try {
-            json = partialJsonParse(currentElement.value || '[]');
-          } catch (error) {
-            json = currentElement.value as any;
-          }
-        }
-        const isSchema =
-          currentElement.lang === 'schema' ||
-          currentElement.lang === 'apaasify' ||
-          currentElement.lang === 'apassify';
         el = {
-          type: isSchema
-            ? currentElement.lang === 'apassify'
-              ? 'apaasify'
-              : currentElement.lang
-            : 'code',
+          type: 'code',
           language:
             currentElement.lang === 'apassify'
               ? 'apaasify'
               : currentElement.lang,
           render: currentElement.meta === 'render',
-          value: isSchema ? json : currentElement.value,
+          value: currentElement.value,
           isConfig: currentElement?.value.trim()?.startsWith('<!--'),
-          children: isSchema
-            ? [
-                {
-                  text: '',
-                },
-              ]
-            : [
-                {
-                  text: currentElement.value,
-                },
-              ],
+          children: [
+            {
+              text: currentElement.value,
+            },
+          ],
         };
+        const isSchema =
+          currentElement.lang === 'schema' ||
+          currentElement.lang === 'apaasify' ||
+          currentElement.lang === 'apassify';
+
+        if (currentElement.lang === 'mermaid') {
+          el.type === 'mermaid';
+        } else if (isSchema) {
+          let json = [];
+          try {
+            json = json5.parse(currentElement.value || '[]');
+          } catch (error) {
+            try {
+              json = partialJsonParse(currentElement.value || '[]');
+            } catch (error) {
+              json = currentElement.value as any;
+            }
+          }
+          el.type = 'apaasify';
+          el.value = json;
+          el.children = [{ text: '' }];
+        } else if (currentElement.lang === 'katex') {
+          el.type = 'katex';
+        }
         break;
       case 'yaml':
         el = {
@@ -789,7 +795,6 @@ const parserBlock = (
                   : [{ value: leaf?.url || '' }],
                 leaf,
               );
-              console.log('el', el);
             }
           }
         } else if (currentElement.type === 'break') {
@@ -847,8 +852,30 @@ const parserBlock = (
   });
 };
 
-export const parserMarkdown = (
+// Markdown 转 Slate
+const parseWithPlugins = (root: Root, plugins: MarkdownEditorPlugin[]) => {
+  return root.children.map((node) => {
+    for (const plugin of plugins) {
+      const rule = plugin.parseMarkdown?.find((r) => r.match(node));
+      if (rule) return rule.convert(node);
+    }
+    return node; // 默认转换逻辑
+  });
+};
+
+/**
+ * 解析Markdown字符串并返回解析后的结构和链接信息。
+ *
+ * @param md - 要解析的Markdown字符串。
+ * @param plugins - 可选的Markdown编辑器插件数组，用于扩展解析功能。
+ * @returns 一个包含解析后的元素数组和链接信息的对象。
+ *
+ * @property schema - 解析后的元素数组。
+ * @property links - 包含路径和目标链接的对象数组。
+ */
+export const parserMarkdownToSlateNode = (
   md: string,
+  plugins?: MarkdownEditorPlugin[],
 ): {
   schema: Elements[];
   links: { path: number[]; target: string }[];
@@ -869,7 +896,13 @@ export const parserMarkdown = (
         .replaceAll('！', ' ！') || '';
   } catch (error) {}
 
-  const root = parser.parse(markdown);
-  const schema = parserBlock(root.children as any[], true) as Elements[];
+  const markdownRoot = parser.parse(markdown);
+
+  const root =
+    (plugins || [])?.length > 0
+      ? parseWithPlugins(markdownRoot, plugins || [])
+      : markdownRoot.children;
+
+  const schema = parserBlock(root as any[], true) as Elements[];
   return { schema, links: [] };
 };

@@ -92,10 +92,6 @@ export const encodeHtml = (str: string) => {
   });
 };
 
-export const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
-
-export const isWindows = /windows|win32/i.test(navigator.userAgent);
-
 function isHtml(input: string) {
   return /<[a-z]+\d?(\s+[\w-]+=("[^"]*"|'[^']*'))*\s*\/?>|&#?\w+;/i.test(input);
 }
@@ -318,9 +314,9 @@ export const MARKDOWN_EDITOR_EVENTS = {
   BLUR: 'md-editor-blur',
 };
 
+export * from '../parser/parserSlateNodeToMarkdown';
 export * from './editorUtils';
 export * from './keyboard';
 export * from './media';
 export * from './path';
-export * from './schemaToMarkdown';
 export * from './useLocalState';

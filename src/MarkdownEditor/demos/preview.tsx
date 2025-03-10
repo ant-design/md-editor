@@ -3,20 +3,24 @@
   MarkdownEditor,
   MarkdownEditorInstance,
 } from '@ant-design/md-editor';
+import { ChartElement } from '@ant-design/md-editor/plugins/chart';
+import { CodeElement } from '@ant-design/md-editor/plugins/code';
+import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
+
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
-# 腾讯研究报告
+# Umi 研究报告
 
 <!-- {"MarkdownType": "section", "id": "15" } -->
 
 ## html
 
-<font color="red">腾讯科技（深圳）有限公司</font>
+<font color="red">Umi 科技（深圳）有限公司</font>
 <font color=#FE0300>哈哈哈</font>
-<sup>腾讯科技（深圳）有限公司</sup>
-<sub>腾讯科技（深圳）有限公司</sub>
+<sup>Umi 科技（深圳）有限公司</sup>
+<sub>Umi 科技（深圳）有限公司</sub>
 
 #  <font color=#FE0300>*我是一个正经人*</font>
 ##  <font color=#70AD48>*我是一个正经人*</font>
@@ -34,23 +38,23 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 ## 创始人
 
-腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。 以下是关于这些创始人的详细信息： 马化腾 马化腾，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市）八所港，广东汕头人，汉族，无党派人士。他毕业于深圳大学电子工程系计算机专业。马化腾是腾讯科技（深圳）有限公司的创始人、董事会主席、首席执行官，并曾是中华人民共和国第十二、十三届全国人民代表大会代表 。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市。 张志东 张志东，马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。
+Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米」，由蚂蚁金服开发并广泛应用于复杂前端项目
 
 
 ## 部门
 
-- 腾讯科技（深圳）有限公司
-  - 腾讯学院 
-  - 腾讯云
-- 腾讯金融
-- 腾讯游戏
-- 腾讯广告
-- 腾讯社交网络
-  - 微信
+- Umi 科技（深圳）有限公司
+  - Umi 学院 
+  - Umi 云
+- Umi 金融
+- Umi 游戏
+- Umi 广告
+- Umi 社交网络
+  - antd
   - QQ
     - QQ 音乐
     - QQ 空间
-- 腾讯其他业务
+- Umi 其他业务
 
 ## 战略
 
@@ -78,10 +82,10 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 ## 链接
 
 <!-- {"type": "card","icon":"https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10","title":"《影之刃零》发售销量会破五百万吗？ - 知乎","description":"这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…" } -->
-[腾讯官网](https://www.zhihu.com/question/665438199/answer/3625311124 "腾讯官网")
+[Umi 官网](https://www.zhihu.com/question/665438199/answer/3625311124 "Umi 官网")
 
 
-[腾讯官网](https://www.zhihu.com/question/665438199/answer/3625311124 "腾讯官网")
+[Umi 官网](https://www.zhihu.com/question/665438199/answer/3625311124 "Umi 官网")
 
 
 ## Description
@@ -122,7 +126,64 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 
 
 
+在 Python 中遍历数组（通常指列表 \`list\`）有以下常用方法：
 
+---
+
+### 一、基础遍历方法
+1. **直接遍历元素**  
+   使用 \`for-in\` 循环直接访问每个元素：
+   \`\`\`python
+   arr = [1, 2, 3, 4]
+   for num in arr:
+       print(num)  # 输出每个元素的值
+   \`\`\`  
+   这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7]。
+
+2. **通过索引遍历**  
+   结合 \`range(len())\` 获取索引：
+   \`\`\`python
+   for i in range(len(arr)):
+       print(arr[i])  # 通过索引访问元素
+   \`\`\`  
+   适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8]。
+
+3. **同时获取索引和值（\`enumerate\`）**  
+   \`\`\`python
+   for index, value in enumerate(arr):
+       print(f"索引 {index} 的值是 {value}")
+   \`\`\`  
+   适合需要索引和元素的场景 [^DOC_5] [^DOC_8]。
+
+---
+
+### 二、其他遍历方式
+4. **使用 \`while\` 循环**  
+   通过计数器手动控制遍历：
+   \`\`\`python
+   i = 0
+   while i < len(arr):
+       print(arr[i])
+       i += 1  # 必须手动递增
+   \`\`\`  
+   灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10]。
+
+5. **列表推导式**  
+   快速生成新列表的同时遍历：
+   \`\`\`python
+   squared = [x**2 for x in arr]  # 遍历并计算平方
+   \`\`\`  
+   适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9]。
+
+---
+
+### 三、特殊场景方法
+6. **递归遍历**（不常用）  
+\`\`\`python
+   def traverse(arr, i=0):
+       if i < len(arr):
+           print(arr[i])
+ \`\`\`
 
 ## 引用
 
@@ -183,7 +244,7 @@ mindmap
 \`\`\`
 
 ## 删除线
-~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~
+~~Umi 六大事业群Umi 六大事业群Umi 六大事业群~~
 
 `;
 export default () => {
@@ -200,7 +261,7 @@ export default () => {
       content: '你好',
       anchorOffset: 283,
       focusOffset: 292,
-      refContent: '日带领腾讯在香港联',
+      refContent: '日带领Umi 在香港联',
       commentType: 'comment',
     },
     {
@@ -218,7 +279,7 @@ export default () => {
       time: 1629340800000,
       content: '深圳大学是中国最好的大学之一,拥有很多优秀的学生。',
       refContent:
-        '张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。',
+        '张志东在Umi 担任 CTO，并在 2014 年 9 月离职，转任Umi 公司终身荣誉顾问及Umi 学院荣誉院长等职位 。',
       commentType: 'comment',
     },
     {
@@ -237,7 +298,7 @@ export default () => {
       content:
         '张志东, 马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。',
       refContent:
-        '张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。',
+        '张志东在Umi 担任 CTO，并在 2014 年 9 月离职，转任Umi 公司终身荣誉顾问及Umi 学院荣誉院长等职位 。',
       commentType: 'comment',
     },
   ]);
@@ -269,6 +330,15 @@ export default () => {
           },
         ],
       }}
+      plugins={[
+        {
+          elements: {
+            code: CodeElement,
+            chart: ChartElement,
+            mermaid: MermaidElement,
+          },
+        },
+      ]}
       fncProps={{
         render: (props, _) => {
           return <Tooltip title={props.children}>{_}</Tooltip>;
@@ -337,6 +407,7 @@ export default () => {
       }}
       toolBar={{
         hideTools: ['H1'],
+        min: true,
       }}
       insertAutocompleteProps={{
         optionsRender: (options) => {

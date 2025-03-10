@@ -120,6 +120,7 @@
   border: 1px solid #0000001a;
   margin-bottom: 0.5em;
   font-size: 14px;
+  min-width: 320px;
 }
 
 .ace-container.frontmatter:before {
@@ -162,11 +163,39 @@
 .match-current {
   border-radius: 0.125em;
   --tw-bg-opacity: 1;
-  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+  background-color: rgb(14 165 233 / 0.2);
 }
 
 .katex-container {
   .newline {
     margin: 4px 0;
   }
+}
+
+.inline-code-input {
+  line-height: 1.3em;
+  line-height: 1.3em;
+  border-radius: 0.125em;
+  color: rgb(13 148 136 / 1);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    Segoe UI Symbol,
+    'Noto Color Emoji';
+}
+
+.inline-code-input:before,
+.inline-code-input:after {
+  content: '$';
+  font-size: 1em;
+  color: rgb(107 114 128 / 1);
+}
+.inline-code-input:before {
+  margin-right: 2px;
+}
+.inline-code-input:after {
+  margin-left: 2px;
 }

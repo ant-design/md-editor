@@ -10,7 +10,10 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { Transforms } from 'slate';
-import { CommentDataType, MarkdownEditorProps } from '../../../index';
+import {
+  CommentDataType,
+  MarkdownEditorProps,
+} from '../../../BaseMarkdownEditor';
 
 import { EditorStoreContext, useEditorStore } from '../../store';
 import { useStyle } from './style';

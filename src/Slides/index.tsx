@@ -1,7 +1,8 @@
-﻿import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
 import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
+
 import './white.css';
 
 const splitMarkdown = (markdown: string) => {
@@ -21,28 +22,29 @@ const splitMarkdown = (markdown: string) => {
 
 export function Slides(props: { initValue: string }) {
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
-  const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
+  const deckRef = useRef<any | null>(null); // reference to deck reveal instance
 
   useEffect(() => {
-    if (deckRef.current) return;
-    deckRef.current = new Reveal(deckDivRef.current!, {
-      transition: 'slide',
-    });
-
-    deckRef.current.initialize({}).then(() => {
-      console.log('Reveal.js initialized.');
-    });
-
-    return () => {
-      try {
-        if (deckRef.current) {
-          deckRef.current.destroy();
-          deckRef.current = null;
+    const init = async () => {
+      if (deckRef.current) return;
+      deckRef.current = new Reveal(deckDivRef.current!, {
+        transition: 'slide',
+      });
+      deckRef.current.initialize({}).then(() => {
+        console.log('Reveal.js initialized.');
+      });
+      return () => {
+        try {
+          if (deckRef.current) {
+            deckRef.current.destroy();
+            deckRef.current = null;
+          }
+        } catch (e) {
+          console.warn('Reveal.js destroy call failed.');
         }
-      } catch (e) {
-        console.warn('Reveal.js destroy call failed.');
-      }
+      };
     };
+    init();
   }, []);
 
   return (
@@ -58,7 +60,7 @@ export function Slides(props: { initValue: string }) {
           splitMarkdown(props.initValue)?.map((line, index) => {
             return (
               <section key={index}>
-                <MarkdownEditor
+                <BaseMarkdownEditor
                   readonly
                   toc={false}
                   reportMode

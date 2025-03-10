@@ -179,7 +179,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           backgroundColor: 'rgb(107 114 128 / 1)',
         },
       },
-      '[data-be]:not(p)': {
+      '[data-be]:not(p):not(data-be="list")': {
         position: 'relative',
         '*': {
           outline: 'none',
@@ -255,13 +255,13 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRight: '1px solid rgb(209 213 219 / 0.8)',
         },
         'th:last-child,td:last-child': {
-          borderRight: 'none',
+          borderRight: '1px solid #e5e5e9',
         },
         'th:last-child': {
-          borderTopRightRadius: 16,
+          borderTopRightRadius: 8,
         },
         'th:first-child': {
-          borderTopLeftRadius: 16,
+          borderTopLeftRadius: 8,
         },
         'tr:last-child th,tr:last-child td': {
           borderBottom: 'none',

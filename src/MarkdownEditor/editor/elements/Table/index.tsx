@@ -1,75 +1,114 @@
+import { useRefFunction } from '@ant-design/pro-components';
+import { HotTable } from '@handsontable/react-wrapper';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { kdTree } from 'kd-tree-javascript';
+import Handsontable from 'handsontable';
+import { CellChange, ChangeSource } from 'handsontable/common';
+import { registerLanguageDictionary, zhCN } from 'handsontable/i18n';
+import { registerAllModules } from 'handsontable/registry';
+import { registerRenderer, textRenderer } from 'handsontable/renderers';
+import 'handsontable/styles/handsontable.min.css';
+import 'handsontable/styles/ht-theme-horizon.min.css';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { Editor, NodeEntry, Path, Transforms } from 'slate';
-import { TableCellNode, TableNode } from '../../../el';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import { Editor, Transforms } from 'slate';
+import stringWidth from 'string-width';
+import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
-import { ReactEditor, RenderElementProps } from '../../slate-react';
+import { parserMarkdownToSlateNode } from '../../parser/parserMarkdownToSlateNode';
+import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
-import { DragHandle } from '../../tools/DragHandle';
-import { EditorUtils } from '../../utils';
-import { ColSideDiv, IntersectionPointDiv, RowSideDiv } from './renderSideDiv';
 import { useTableStyle } from './style';
 import './table.css';
 export * from './TableCell';
 
-const _distance = (
-  a: {
-    x: number;
-    y: number;
-    x2: number;
-    y2: number;
-  },
-  b: {
-    x: number;
-    y: number;
-    x2: number;
-    y2: number;
-  },
-) =>
-  Math.sqrt(
-    Object.keys(a).reduce(
-      (acc, key) => acc + (a[key as 'x'] - b[key as 'x']) ** 2,
-      0,
-    ),
-  );
+registerLanguageDictionary(zhCN);
+registerAllModules();
 
-function isIntersect(
-  rectA: { x2: number; x: number; y2: number; y: number },
-  rectB: { x: number; x2: number; y: number; y2: number },
-) {
-  // X 轴投影无重叠
-  if (rectA.x2 <= rectB.x || rectA.x >= rectB.x2) return false;
+registerRenderer('customStylesRenderer', (hotInstance, TD, ...rest) => {
+  textRenderer(hotInstance, TD, ...rest);
+  const cellProperties = rest.at(-1);
+  if (cellProperties.bold) {
+    TD.style.fontWeight = 'bold';
+  }
+  if (cellProperties.color) {
+    TD.style.color = cellProperties.color;
+  }
+  if (cellProperties.italic) {
+    TD.style.fontStyle = 'italic';
+  }
 
-  // Y 轴投影无重叠
-  if (rectA.y2 <= rectB.y || rectA.y >= rectB.y2) return false;
-
-  return true;
-}
-
-/**
- * 表格上下文组件，用于在表格组件树中共享单元格选中状态
- * @context
- * @property {NodeEntry<TableCellNode> | null} selectedCell - 当前选中的表格单元格
- * @property {(cell: NodeEntry<TableCellNode> | null) => void} setSelectedCell - 设置当前选中的表格单元格
- */
-export const TableConnext = React.createContext<{
-  selectedCell: NodeEntry<TableCellNode> | null;
-  setSelectedCell: (cell: NodeEntry<TableCellNode> | null) => void;
-}>({
-  selectedCell: null,
-  setSelectedCell: () => {},
+  if (cellProperties.title) {
+    TD.style.background = '#eee';
+    TD.style.fontWeight = 'bold';
+  }
 });
+
+const nodeToString = (node: any) => {
+  if (node.children) {
+    return node.children.map(nodeToString).join('');
+  }
+  if (node.type === 'break') {
+    return '<br>';
+  }
+  return node.text;
+};
+
+const slateTableToJSONData = (
+  input: TableNode,
+): {
+  tableData: string[][];
+  cellSet: any[];
+} => {
+  const cellSetList: Record<string, any>[] = [];
+  const tableData =
+    input?.children?.map((row, rowIndex) => {
+      const cells = row.children?.map((column, colIndex) => {
+        const cellSet: Record<string, any> = {};
+        if (column.title) {
+          cellSet.title = true;
+        }
+        if (column.children?.[0]?.text && column.children.length === 1) {
+          const leaf = column.children[0];
+          if (leaf.bold) {
+            cellSet.bold = leaf.bold;
+          }
+          if (leaf.italic) {
+            cellSet.italic = leaf.italic;
+          }
+          if (leaf.underline) {
+            cellSet.underline = leaf.underline;
+          }
+          if (leaf.color) {
+            cellSet.color = leaf.color;
+          }
+          if (Object.keys(cellSet).length) {
+            cellSet.row = rowIndex;
+            cellSet.col = colIndex;
+            cellSet.renderer = 'customStylesRenderer';
+            cellSetList.push(cellSet);
+          }
+        }
+        return (
+          nodeToString(column)
+            .replaceAll('<br>', '\n')
+            .replaceAll('<br/>', '\n') || ' '
+        );
+      }) as string[];
+      return cells || [];
+    }) || [];
+
+  return {
+    tableData,
+    cellSet: cellSetList,
+  };
+};
+
+export const TablePropsContext = React.createContext<{
+  tablePath?: number[];
+  tableNode?: TableNode;
+}>({});
 
 /**
  * 表格组件，使用 `observer` 包装以响应状态变化。
@@ -97,9 +136,7 @@ export const TableConnext = React.createContext<{
  *
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
-export const Table = observer((props: RenderElementProps) => {
-  const [selectedCell, setSelectedCell] =
-    useState<NodeEntry<TableCellNode> | null>(null);
+export const Table = observer((props: RenderElementProps<TableNode>) => {
   const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
@@ -107,334 +144,11 @@ export const Table = observer((props: RenderElementProps) => {
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
-  const [isShowBar, setIsShowBar] = useState(
-    editorProps.tableConfig?.excelMode || false,
-  );
-
-  const selectionAreaRef = useRef<HTMLDivElement>(null);
-
   const [selectedTable, tablePath] = useSelStatus(props.element);
 
-  const tableRef = React.useRef<NodeEntry<TableNode>>();
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
-  const tableCellRef = useRef<NodeEntry<TableCellNode>>();
-  const [activeDeleteBtn, setActiveDeleteBtn] = useState<string | null>(null);
-
-  const tableNodeEntry = useMemo(() => {
-    if (!Editor) return;
-    if (!tablePath || tablePath?.length === 0) return;
-    if (!markdownEditorRef.current) return;
-    if (!markdownEditorRef.current.children) return;
-    if (markdownEditorRef.current.children?.length === 0) return;
-    if (!tablePath) return;
-    if (!markdownEditorRef?.current?.hasPath?.(tablePath)) return;
-    return Editor.node(markdownEditorRef.current, tablePath);
-  }, [tablePath]);
-
-  const [selCells, setSelCells] = useState<NodeEntry<TableCellNode>[]>([]);
 
   const tableTargetRef = useRef<HTMLTableElement>(null);
-
-  const clearSelection = useCallback(() => {
-    tableTargetRef.current
-      ?.querySelectorAll('td.selected-cell-td')
-      .forEach((td) => {
-        td.classList.remove('selected-cell-td');
-      });
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!tableRef.current) return;
-
-      const isInsideScrollbar = () => {
-        if (!overflowShadowContainerRef.current) return false;
-        return overflowShadowContainerRef.current.contains(
-          event.target as Node,
-        );
-      };
-
-      if (isInsideScrollbar()) {
-        return;
-      }
-      setSelCells([]);
-      selectionAreaRef.current?.style?.setProperty('display', 'none');
-      clearSelection();
-      // excel 模式下不隐藏, 用于处理表格内部的操作
-      if (!editorProps.tableConfig?.excelMode) {
-        setIsShowBar(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [tableRef, store.editor, isShowBar]);
-
-  const setAligns = useCallback(
-    (index: number, type: 'left' | 'center' | 'right') => {
-      const cell = tableCellRef.current!;
-      const table = tableNodeEntry!;
-      if (cell) {
-        table?.[0]?.children?.forEach((el: { children: any[] }) => {
-          el.children?.forEach((cell, i) => {
-            if (i === index) {
-              Transforms.setNodes(
-                markdownEditorRef.current,
-                { align: type },
-                { at: EditorUtils.findPath(markdownEditorRef.current, cell) },
-              );
-            }
-          });
-        });
-      }
-      ReactEditor.focus(markdownEditorRef.current);
-    },
-    [tableNodeEntry],
-  );
-
-  const remove = useCallback(() => {
-    const table = tableNodeEntry!;
-
-    Transforms.delete(markdownEditorRef.current, { at: table[1] });
-    tableCellRef.current = undefined;
-    tableRef.current = undefined;
-    Transforms.insertNodes(
-      markdownEditorRef.current,
-      { type: 'paragraph', children: [{ text: '' }] },
-      { at: table[1], select: true },
-    );
-    ReactEditor.focus(markdownEditorRef.current);
-  }, [markdownEditorRef.current]);
-
-  const insertRow = useCallback((path: Path, columns: number) => {
-    Transforms.insertNodes(
-      markdownEditorRef.current,
-      {
-        type: 'table-row',
-        children: Array.from(new Array(columns)).map(() => {
-          return {
-            type: 'table-cell',
-            children: [{ text: '' }],
-          } as TableCellNode;
-        }),
-      },
-      {
-        at: path,
-      },
-    );
-    Transforms.select(
-      markdownEditorRef.current,
-      Editor.start(markdownEditorRef.current, path),
-    );
-  }, []);
-
-  const insertCol = useCallback(
-    (tablePath: Path, rows: number, index: number) => {
-      Array.from(new Array(rows)).forEach((_, i) => {
-        Transforms.insertNodes(
-          markdownEditorRef.current,
-          {
-            type: 'table-cell',
-            children: [{ text: '' }],
-            title: i === 0,
-          },
-          {
-            at: [...tablePath, i, index],
-          },
-        );
-      });
-      Transforms.select(markdownEditorRef.current, [...tablePath, 0, index, 0]);
-    },
-    [],
-  );
-
-  const removeRow = useCallback(
-    (path: Path, index: number, columns: number) => {
-      if (Path.hasPrevious(path)) {
-        Transforms.select(
-          markdownEditorRef.current,
-          Editor.end(markdownEditorRef.current, [
-            ...tableNodeEntry?.at(1),
-            path[path.length - 1] - 1,
-            index,
-          ]),
-        );
-      } else {
-        Transforms.select(
-          markdownEditorRef.current,
-          Editor.end(markdownEditorRef.current, [
-            ...tableNodeEntry?.at(1),
-            path[path.length - 1],
-            index,
-          ]),
-        );
-      }
-
-      Transforms.delete(markdownEditorRef.current, { at: path });
-
-      if (path[path.length - 1] === 0) {
-        Array.from(new Array(columns)).forEach((_, i) => {
-          Transforms.setNodes(
-            markdownEditorRef.current,
-            {
-              title: true,
-            },
-            {
-              at: [...path, i],
-            },
-          );
-        });
-      }
-    },
-    [markdownEditorRef.current],
-  );
-
-  const runTask = useCallback(
-    (
-      task:
-        | 'insertRowBefore'
-        | 'insertRowAfter'
-        | 'insertColBefore'
-        | 'insertColAfter'
-        | 'moveUpOneRow'
-        | 'moveDownOneRow'
-        | 'moveLeftOneCol'
-        | 'moveRightOneCol'
-        | 'removeCol'
-        | 'removeRow'
-        | 'setAligns'
-        | 'in'
-        | 'insertTableCellBreak',
-      index: number,
-      ...rest: any[]
-    ) => {
-      if (!tableCellRef.current || !tableNodeEntry) return;
-      const columns = tableNodeEntry?.at(0)?.children?.[0]?.children?.length;
-      const rows = tableNodeEntry?.at(0)?.children?.length;
-      const path = tableCellRef?.current?.[1];
-      const row = path?.[path?.length - 2];
-      const rowPath = Path.parent(path);
-      switch (task) {
-        case 'insertRowBefore':
-          insertRow(
-            row === 0 ? Path.next(Path.parent(path)) : Path.parent(path),
-            columns,
-          );
-          break;
-        case 'insertRowAfter':
-          insertRow(Path.next(Path.parent(path)), columns);
-          break;
-        case 'insertColBefore':
-          insertCol(tableNodeEntry?.at(1), rows, index);
-          break;
-        case 'insertColAfter':
-          insertCol(tableNodeEntry?.at(1), rows, index + 1);
-          break;
-        case 'insertTableCellBreak':
-          Transforms.insertNodes(
-            markdownEditorRef.current,
-            [{ type: 'break', children: [{ text: '' }] }, { text: '' }],
-            { select: true },
-          );
-          break;
-        case 'moveUpOneRow':
-          if (row > 1) {
-            Transforms.moveNodes(markdownEditorRef.current, {
-              at: rowPath,
-              to: Path.previous(rowPath),
-            });
-          } else {
-            Transforms.moveNodes(markdownEditorRef.current, {
-              at: rowPath,
-              to: [...tableNodeEntry?.at(1), rows - 1],
-            });
-          }
-          break;
-        case 'moveDownOneRow':
-          if (row < rows - 1) {
-            Transforms.moveNodes(markdownEditorRef.current, {
-              at: rowPath,
-              to: Path.next(rowPath),
-            });
-          } else {
-            Transforms.moveNodes(markdownEditorRef.current, {
-              at: rowPath,
-              to: [...tableNodeEntry?.at(1), 1],
-            });
-          }
-          break;
-        case 'moveLeftOneCol':
-          Array.from(new Array(rows)).forEach((_, i) => {
-            Transforms.moveNodes(markdownEditorRef.current, {
-              at: [...tableNodeEntry?.at(1), i, index],
-              to: [
-                ...tableNodeEntry?.at(1),
-                i,
-                index > 0 ? index - 1 : columns - 1,
-              ],
-            });
-          });
-          break;
-        case 'moveRightOneCol':
-          Array.from(new Array(rows)).forEach((_, i) => {
-            Transforms.moveNodes(markdownEditorRef.current, {
-              at: [...tableNodeEntry?.at(1), i, index],
-              to: [
-                ...tableNodeEntry?.at(1),
-                i,
-                index === columns - 1 ? 0 : index + 1,
-              ],
-            });
-          });
-          break;
-        case 'removeCol':
-          if (columns < 2) {
-            remove();
-            return;
-          }
-          if (index < columns - 1) {
-            Transforms.select(
-              markdownEditorRef.current,
-              Editor.start(markdownEditorRef.current, [
-                ...tableNodeEntry?.at(1),
-                row,
-                index + 1,
-              ]),
-            );
-          } else {
-            Transforms.select(
-              markdownEditorRef.current,
-              Editor.start(markdownEditorRef.current, [
-                ...tableNodeEntry?.at(1),
-                row,
-                index - 1,
-              ]),
-            );
-          }
-          Array.from(new Array(rows)).forEach((_, i) => {
-            Transforms.delete(markdownEditorRef.current, {
-              at: [...tableNodeEntry?.at(1), rows - i - 1, index],
-            });
-          });
-          break;
-        case 'removeRow':
-          if (rows < 2) {
-            remove();
-          } else {
-            removeRow(Path.parent(path), index, columns);
-          }
-          break;
-
-        case 'setAligns':
-          setAligns(index, rest?.at(0));
-          break;
-      }
-      ReactEditor.focus(markdownEditorRef.current);
-    },
-    [],
-  );
 
   /**
    * 判断当前表格是否被选中。
@@ -445,394 +159,485 @@ export const Table = observer((props: RenderElementProps) => {
     return store.selectTablePath.join('') === tablePath.join('');
   }, [store.editor, selectedTable, store.selectTablePath, props.element]);
 
-  const handleClickTable = useCallback(
-    (e: any) => {
-      if (editorProps.tableConfig?.excelMode) {
-      }
-      e.preventDefault();
-      e.stopPropagation();
-      const el = store.tableCellNode;
-      if (el) {
-        tableCellRef.current = el;
-      }
-      if (readonly) return;
-      setIsShowBar(true);
-    },
-    [store.tableCellNode, store.editor, isShowBar],
-  );
+  const hotRef = useRef<{
+    hotInstance: Handsontable | null;
+  }>(null);
 
-  useEffect(() => {
-    if (!props.element) return;
-    tableRef.current = tableNodeEntry;
-  }, [tableNodeEntry]);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!isShowBar) {
-      setActiveDeleteBtn((prev) => prev + ' ');
-    }
-  }, [isShowBar]);
+  const tableJSONData = useMemo(() => slateTableToJSONData(props.element), []);
 
-  useEffect(() => {
-    if (!store.editor) return;
-    if (readonly) return;
-    const cachedSelCells = store.CACHED_SEL_CELLS?.get(store.editor);
-    cachedSelCells?.forEach((cell) => {
-      const [cellNode] = cell;
-      try {
-        const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
-        if (cellDom) {
-          cellDom.classList.remove('bar-selected-cell-td');
-        }
-      } catch (error) {
-        console.log(error, cellNode);
-      }
-    });
-    selCells?.forEach((cell) => {
-      const [cellNode] = cell;
-      try {
-        const cellDom = ReactEditor.toDOMNode(store.editor, cellNode);
-        if (cellDom) {
-          console.log(cellDom);
-          cellDom.classList.add('bar-selected-cell-td');
-        }
-      } catch (error) {
-        console.log(error, cellNode);
-      }
-    });
-    store.CACHED_SEL_CELLS.set(store.editor, selCells);
-  }, [JSON.stringify(selCells)]);
+  // 用于处理表格内容的变化
+  const updateTable = useRefFunction(
+    (dataList: CellChange[] | null, source: ChangeSource) => {
+      dataList?.forEach((data) => {
+        if (source === 'edit' && data) {
+          const [row, col, oldValue, changeValue] = data;
+          const newValue =
+            changeValue?.replaceAll?.('\n', '<br/>') || changeValue;
+          const path = tablePath;
+          // 如果旧值不存在，新值不存在，且新值不等于旧值
+          // 说明是新增的单元格
+          if (!oldValue && !newValue && newValue !== oldValue) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+              ])
+            ) {
+              Transforms.delete(markdownEditorRef.current, {
+                at: [...path, row, col as number],
+              });
+              Transforms.insertText(markdownEditorRef.current, newValue, {
+                at: [...path, row, col as number, 0],
+              });
+              return;
+            } else if (
+              Editor.hasPath(markdownEditorRef.current, [...path, row])
+            ) {
+              const rows = new Array(props.element.children?.length).fill(0);
 
-  useEffect(() => {
-    if (readonly) return;
-    const table = overflowShadowContainerRef.current;
-    const tdRectMap = new Map<string, Path>();
-    const pathToDomMap = new Map<string, HTMLElement>();
-    const tableRect =
-      overflowShadowContainerRef.current?.getBoundingClientRect() || {
-        left: 0,
-        top: 0,
-      };
-
-    const tds = Array.from(table?.getElementsByTagName('td') || []);
-    const points = tds.map((td) => {
-      const tdRect = td.getBoundingClientRect();
-      const TdNode = ReactEditor.toSlateNode(markdownEditorRef.current, td);
-      const path = ReactEditor.findPath(markdownEditorRef.current, TdNode);
-      let left = tdRect.left - tableRect?.left;
-      let top = tdRect.top - tableRect?.top;
-      const key = [left, top, left + tdRect.width, top + tdRect.height].join(
-        ',',
-      );
-      tdRectMap.set(key, path);
-      pathToDomMap.set(key, td);
-      return {
-        x: left,
-        y: top,
-        x2: left + tdRect.width,
-        y2: top + tdRect.height,
-      };
-    });
-    const cellDimensionsKdTree = new kdTree<{
-      x: number;
-      y: number;
-      x2: number;
-      y2: number;
-    }>(points, _distance, ['x', 'y', 'x2', 'y2']);
-
-    if (!table) return;
-    // 更新选区矩形并检测碰撞
-    function updateSelectionRect(
-      x1: number,
-      y1: number,
-      x2: number,
-      y2: number,
-    ) {
-      const rect = {
-        x: Math.min(x1, x2) - 4,
-        y: Math.min(y1, y2) - 4,
-        x2: Math.max(x1, x2) - 4,
-        y2: Math.max(y1, y2) - 4,
-      };
-
-      const nodes = cellDimensionsKdTree.nearest(
-        {
-          x: Math.min(x1, x2) - 4,
-          y: Math.min(y1, y2) - 4,
-          x2: Math.max(x1, x2) - 4,
-          y2: Math.max(y1, y2) - 4,
-        },
-        80,
-      );
-
-      const selectRect = {
-        x: Math.min(x1, x2),
-        y: Math.min(y1, y2),
-        x2: Math.max(x1, x2),
-        y2: Math.max(y1, y2),
-      };
-
-      const pathList = nodes
-        .filter((node) => {
-          const tdRect = node[0];
-
-          const isCollided = isIntersect(tdRect, rect);
-          if (isCollided) {
-            selectRect.x = Math.max(
-              selectRect.x,
-              tdRect.x,
-              selectRect.x2,
-              tdRect.x2,
-            );
-            selectRect.y = Math.max(
-              selectRect.y,
-              tdRect.y,
-              selectRect.y2,
-              tdRect.y2,
-            );
-            selectRect.x2 = Math.min(
-              selectRect.x,
-              tdRect.x,
-              selectRect.x2,
-              tdRect.x2,
-            );
-            selectRect.y2 = Math.min(
-              selectRect.y,
-              tdRect.y,
-              selectRect.y2,
-              tdRect.y2,
-            );
-            return true;
-          }
-          return false;
-        })
-        ?.map((node) => {
-          const mapKey = [node[0].x, node[0].y, node[0].x2, node[0].y2].join(
-            ',',
-          );
-          const path = tdRectMap.get(mapKey);
-          const dom = pathToDomMap.get(mapKey);
-          dom?.classList.add('selected-cell-td');
-          return path;
-        });
-
-      setTimeout(() => {
-        if (selectionAreaRef.current) {
-          const width = Math.abs(selectRect.x - selectRect.x2);
-          const height = Math.abs(selectRect.y - selectRect.y2);
-          if (width < 10 || height < 10) {
-            selectionAreaRef.current.style.display = 'none';
-            return;
-          }
-          selectionAreaRef.current.style.transition = 'all 0.3s';
-          selectionAreaRef.current.style.transform = `translate(${Math.min(selectRect.x, selectRect.x2)}px, ${Math.min(selectRect.y, selectRect.y2)}px)`;
-          selectionAreaRef.current?.style.setProperty(
-            'width',
-            Math.abs(selectRect.x - selectRect.x2) + 'px',
-          );
-          selectionAreaRef.current?.style.setProperty(
-            'height',
-            Math.abs(selectRect.y - selectRect.y2) + 'px',
-          );
-          selectionAreaRef.current.style.display = 'block';
-          setTimeout(() => {
-            if (selectionAreaRef.current) {
-              selectionAreaRef.current.style.transition = 'none';
+              rows?.forEach((_, rowIndex) => {
+                if (rowIndex === row) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    },
+                    { at: [...path, row, col as number] },
+                  );
+                } else if (
+                  !Editor.hasPath(markdownEditorRef.current, [
+                    ...path,
+                    row + rowIndex,
+                    col as number,
+                  ])
+                ) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: '' }],
+                    },
+                    { at: [...path, row + rowIndex, col as number] },
+                  );
+                }
+              });
+              return;
+            } else if (
+              !Editor.hasPath(markdownEditorRef.current, [...path, row])
+            ) {
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-row',
+                  children: [
+                    {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    },
+                  ],
+                },
+                { at: [...path, row] },
+              );
+              return;
             }
-          }, 400);
-        }
-      }, 160);
+          }
 
-      if (pathList.length === 0) {
-        setSelCells([]);
+          // 如果旧值不存在，新值存在，且新值不等于旧值
+          // 说明是新增的单元格，但是单元格已经存在，和编辑相同
+          if (!oldValue && newValue && newValue !== oldValue) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+                0,
+              ])
+            ) {
+              Transforms.removeNodes(markdownEditorRef.current, {
+                at: [...path, row, col as number],
+              });
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-cell',
+                  children: parserMarkdownToSlateNode(newValue).schema,
+                },
+                { at: [...path, row, col as number] },
+              );
+              return;
+            } else if (
+              Editor.hasPath(markdownEditorRef.current, [...path, row])
+            ) {
+              const rows = new Array(props.element.children?.length).fill(0);
+              rows?.forEach((_, rowIndex) => {
+                if (rowIndex === row) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    },
+                    { at: [...path, row, col as number] },
+                  );
+                } else if (
+                  !Editor.hasPath(markdownEditorRef.current, [
+                    ...path,
+                    row + rowIndex,
+                    col as number,
+                  ])
+                ) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    {
+                      type: 'table-cell',
+                      children: [{ text: '' }],
+                    },
+                    { at: [...path, row + rowIndex, col as number] },
+                  );
+                }
+              });
+
+              return;
+            }
+            if (
+              !Editor.hasPath(markdownEditorRef.current, [...path, row]) &&
+              Editor.hasPath(markdownEditorRef.current, [...path])
+            ) {
+              const cells = new Array(
+                props.element.children?.at(0)?.children?.length,
+              )
+                .fill(0)
+                .map((_, index) => {
+                  if (index === col) {
+                    return {
+                      type: 'table-cell',
+                      children: [{ text: newValue }],
+                    };
+                  }
+                  return {
+                    type: 'table-cell',
+                    children: [{ text: '' }],
+                  };
+                });
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-row',
+                  children: cells,
+                },
+                { at: [...path, row] },
+              );
+              return;
+            }
+          }
+
+          // 如果旧值存在，新值不存在，且新值不等于旧值
+          // 说明是删除的单元格
+          if (oldValue && !newValue && newValue !== oldValue) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+                0,
+              ])
+            ) {
+              Transforms.delete(markdownEditorRef.current, {
+                at: [...path, row, col as number],
+              });
+              return;
+            }
+          }
+          // 如果旧值存在，新值存在，且新值不等于旧值
+          // 说明是编辑的单元格
+          if (oldValue && newValue && newValue !== oldValue) {
+            if (
+              Editor.hasPath(markdownEditorRef.current, [
+                ...path,
+                row,
+                col as number,
+                0,
+              ])
+            ) {
+              Transforms.removeNodes(markdownEditorRef.current, {
+                at: [...path, row, col as number],
+              });
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                {
+                  type: 'table-cell',
+                  children: parserMarkdownToSlateNode(newValue).schema,
+                },
+                { at: [...path, row, col as number] },
+              );
+              return;
+            }
+          }
+        }
+      });
+    },
+  );
+  // 创建列
+  const afterCreateCol = useRefFunction(
+    (insertIndex: number, amount: number, source?: string) => {
+      if (source === 'auto') return;
+      const rows = new Array(props.element.children?.length).fill(0);
+      if (insertIndex >= rows.length) {
         return;
       }
-      Transforms.setNodes(
-        markdownEditorRef.current,
-        {
-          selected: false,
-        },
-        {
-          match: (n, path) => {
-            if (pathList.some((p) => p && Path.equals(p, path))) {
-              return false;
-            }
-            return pathList.some((p) => p && Path.equals(p, path));
-          },
-          at: tablePath,
-        },
-      );
-      setTimeout(() => {
-        Transforms.setNodes(
+      rows?.forEach((_, rowIndex) => {
+        const cells = new Array(amount).fill(0);
+        cells.forEach((_, index) => {
+          Transforms.insertNodes(
+            markdownEditorRef.current,
+            {
+              type: 'table-cell',
+              children: [{ text: '' }],
+            },
+            {
+              at: [...tablePath, rowIndex, insertIndex + index],
+            },
+          );
+        });
+      });
+    },
+  );
+  // 创建行
+  const afterCreateRow = useRefFunction(
+    (insertIndex: number, amount: number, source?: string) => {
+      if (source === 'auto') return;
+      const cells = new Array(props.element.children?.at(0)?.children?.length)
+        .fill(0)
+        .map(() => {
+          return {
+            type: 'table-cell',
+            children: [{ text: '' }],
+          };
+        });
+      if (insertIndex >= cells.length) {
+        return;
+      }
+      const rows = new Array(amount).fill(0);
+      rows.forEach((_, rowIndex) => {
+        Transforms.insertNodes(
           markdownEditorRef.current,
           {
-            selected: true,
+            type: 'table-row',
+            children: cells,
           },
           {
-            match(node, path) {
-              return pathList.some((p) => p && Path.equals(p, path));
-            },
-            at: tablePath,
+            at: [...tablePath, insertIndex + rowIndex],
           },
         );
-      }, 100);
-    }
-    // 获取表格元素
-    let isDragging = false;
-    let startX: number, startY: number, endX: number, endY: number;
-    const mousedown = (e: any) => {
-      const target = e.target as HTMLElement;
+      });
+    },
+  );
 
-      clearSelection();
-      if (!tableTargetRef.current?.contains(target)) {
-        isDragging = false;
-        startX = startY = endX = endY = 0;
-        return;
+  const afterMergeCells = useRefFunction((cellRange, mergeParent, auto) => {
+    if (auto) return;
+    const mergeCells = [...(props.element?.otherProps?.mergeCells || [])];
+    mergeCells.push(mergeParent as any);
+    Transforms?.setNodes(
+      markdownEditorRef.current,
+      {
+        otherProps: {
+          ...props.element.otherProps,
+          mergeCells,
+        },
+      },
+      {
+        at: tablePath,
+      },
+    );
+  });
+
+  const afterUnmergeCells = useRefFunction((cellRange, auto) => {
+    if (auto) return;
+    const row = cellRange?.from?.row;
+    const rol = cellRange?.from?.col;
+    const mergeCells = props.element?.otherProps?.mergeCells || [];
+    Transforms?.setNodes(
+      markdownEditorRef.current,
+      {
+        otherProps: {
+          ...props.element.otherProps,
+          mergeCells:
+            mergeCells?.filter((cell) => {
+              return cell.col !== rol || cell.row !== row;
+            }) || [],
+        },
+      },
+      {
+        at: tablePath,
+      },
+    );
+  });
+  const genDefaultWidth = useRefFunction((tableData: any[]) => {
+    if (props.element?.otherProps?.colWidths)
+      return props.element?.otherProps?.colWidths;
+    if (!tableData?.[1]) return;
+    if (tableData?.[1]?.filter(Boolean)?.length === 0) return;
+    return tableData?.[1]?.map((text: string) => {
+      return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 50);
+    });
+  });
+
+  const generateMergedCells = useRefFunction((tableData: any[]) => {
+    return props.element?.otherProps?.mergeCells?.filter((item: any) => {
+      if (!item) return false;
+
+      if (item.row + item.rowspan >= tableData?.length) {
+        return false;
+      }
+      if (item.col + item.colspan >= tableData?.[item.row]?.children?.length) {
+        return false;
       }
 
-      isDragging = true;
-      startX =
-        e.clientX +
-        (overflowShadowContainerRef?.current?.scrollLeft || 0) -
-        (overflowShadowContainerRef.current?.getBoundingClientRect().left || 0);
-      startY =
-        e.clientY +
-        (overflowShadowContainerRef?.current?.scrollTop || 0) -
-        (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
-    };
-    const mousemove = (e: any) => {
-      const target = e.target as HTMLElement;
+      return true;
+    });
+  });
+  useEffect(() => {
+    const cellSet = slateTableToJSONData(props.element);
+    const list = cellSet.tableData;
+    hotRef.current?.hotInstance?.updateSettings({
+      cell: cellSet.cellSet,
+      data: list,
+      hiddenRows: {
+        rows: [0],
+      },
+      colHeaders: cellSet?.tableData?.at(0),
+      colWidths: genDefaultWidth(cellSet.tableData),
+      mergeCells: generateMergedCells(cellSet.tableData),
+    });
+  }, [JSON.stringify(props.element)]);
 
-      if (!tableTargetRef.current?.contains(target)) {
-        isDragging = false;
-        startX = startY = endX = endY = 0;
-        return;
-      }
-
-      if (!isDragging) return;
-      e.stopPropagation();
-      e.preventDefault();
-      endX =
-        e.clientX +
-        (overflowShadowContainerRef?.current?.scrollLeft || 0) -
-        (overflowShadowContainerRef.current?.getBoundingClientRect().left || 0);
-      endY =
-        e.clientY +
-        (overflowShadowContainerRef?.current?.scrollTop || 0) -
-        (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
-
-      // 更新选区矩形
-      if (selectionAreaRef.current) {
-        const width = Math.abs(endX - startX);
-        const height = Math.abs(endY - startY);
-        if (width < 10 || height < 10) {
-          selectionAreaRef.current.style.display = 'none';
-          return;
-        }
-        selectionAreaRef.current.style.display = 'block';
-        selectionAreaRef.current.style.transform = `translate(${Math.min(startX, endX)}px, ${Math.min(startY, endY)}px)`;
-        selectionAreaRef.current?.style.setProperty(
-          'width',
-          Math.abs(endX - startX) + 'px',
-        );
-        selectionAreaRef.current?.style.setProperty(
-          'height',
-          Math.abs(endY - startY) + 'px',
-        );
-      }
-      updateSelectionRect(startX, startY, endX, endY);
-    };
-    const mouseup = (e: any) => {
-      const target = e.target as HTMLElement;
-
-      if (!tableTargetRef.current?.contains(target)) {
-        isDragging = false;
-        startX = startY = endX = endY = 0;
-        return;
-      }
-      endX =
-        e.clientX +
-        (overflowShadowContainerRef?.current?.scrollLeft || 0) -
-        (overflowShadowContainerRef.current?.getBoundingClientRect().left || 0);
-      endY =
-        e.clientY +
-        (overflowShadowContainerRef?.current?.scrollTop || 0) -
-        (overflowShadowContainerRef.current?.getBoundingClientRect().top || 0);
-      isDragging = false;
-      clearSelection();
-      e.stopPropagation();
-      e.preventDefault();
-
-      updateSelectionRect(startX, startY, endX, endY);
-      startX = startY = endX = endY = 0;
-    };
-    // 鼠标按下事件
-    table.addEventListener('mousedown', mousedown);
-
-    // 鼠标移动事件
-    table.addEventListener('mousemove', mousemove);
-
-    // 鼠标释放事件
-    table.addEventListener('mouseup', mouseup);
-
-    return () => {
-      table.removeEventListener('mousedown', mousedown);
-      table.removeEventListener('mousemove', mousemove);
-      table.removeEventListener('mouseup', mouseup);
-    };
-  }, []);
-
-  return useMemo(
-    () =>
-      wrapSSR(
-        <TableConnext.Provider
-          value={{
-            selectedCell,
-            setSelectedCell,
+  return useMemo(() => {
+    return wrapSSR(
+      <TablePropsContext.Provider
+        value={{
+          tablePath,
+          tableNode: props.element,
+        }}
+      >
+        <div
+          {...props.attributes}
+          data-be={'table'}
+          draggable={false}
+          ref={(el) => {
+            //@ts-ignore
+            overflowShadowContainerRef.current = el;
+            props.attributes.ref(el);
           }}
+          className={classNames(
+            `${baseCls}-container`,
+            {
+              [`${baseCls}-container-editable`]: !readonly,
+            },
+            hashId,
+          )}
+          tabIndex={0}
         >
-          <ConfigProvider
-            getPopupContainer={() =>
-              overflowShadowContainerRef?.current?.parentElement ||
-              document.body
-            }
-          >
+          {!readonly && process.env.NODE_ENV !== 'test' ? (
             <div
-              {...props.attributes}
-              data-be={'table'}
-              draggable={false}
-              ref={(el) => {
-                //@ts-ignore
-                overflowShadowContainerRef.current = el;
-                props.attributes.ref(el);
-              }}
-              className={classNames(`${baseCls}-container`, hashId)}
-              onClick={handleClickTable}
-              tabIndex={0}
+              ref={tableContainerRef}
+              contentEditable={false}
               style={{
-                overflow: readonly ? 'hidden' : undefined,
+                width: '100%',
+                minWidth: 0,
               }}
+              className="ht-theme-horizon"
             >
-              <div
-                ref={selectionAreaRef}
-                style={{
-                  position: 'absolute',
-                  zIndex: 999,
-                  outline: '3px solid transparent',
-                  pointerEvents: 'none',
-                  display: 'none',
-                  left: 0,
-                  top: 0,
+              <HotTable
+                ref={hotRef as any}
+                data={tableJSONData.tableData}
+                cell={tableJSONData.cellSet}
+                height="auto"
+                language={zhCN.languageCode}
+                autoColumnSize={true}
+                manualColumnResize={true}
+                afterCreateCol={afterCreateCol}
+                afterCreateRow={afterCreateRow}
+                afterRemoveCol={(index, amount) => {
+                  const rows = new Array(props.element.children?.length).fill(
+                    0,
+                  );
+                  rows?.forEach((_, rowIndex) => {
+                    const cells = new Array(amount).fill(0);
+                    cells.forEach((_, colIndex) => {
+                      Transforms.delete(markdownEditorRef.current, {
+                        at: [...tablePath, rowIndex, index + colIndex],
+                      });
+                    });
+                  });
                 }}
-              ></div>
-              <div className="ant-md-editor-drag-el">
-                <DragHandle />
-              </div>
+                afterRemoveRow={(index, amount) => {
+                  const rows = new Array(amount).fill(0);
+                  rows.forEach((_, rowIndex) => {
+                    Transforms.delete(markdownEditorRef.current, {
+                      at: [...tablePath, index + rowIndex],
+                    });
+                  });
+                }}
+                afterColumnResize={(size, colIndex) => {
+                  let colWidths = [
+                    ...(props.element?.otherProps?.colWidths ||
+                      genDefaultWidth(
+                        hotRef.current?.hotInstance?.getData() || [],
+                      )),
+                  ];
+
+                  colWidths[colIndex] = size;
+
+                  Transforms?.setNodes(
+                    markdownEditorRef.current,
+                    {
+                      otherProps: {
+                        ...props.element.otherProps,
+                        colWidths,
+                      },
+                    },
+                    {
+                      at: tablePath,
+                    },
+                  );
+                }}
+                // ------  列宽的配置 end  ---------
+                // 与内容同步，用于处理表格内容的变化
+                afterChange={updateTable}
+                //------- merge 合并单元格的处理 -------
+                afterMergeCells={afterMergeCells}
+                afterUnmergeCells={afterUnmergeCells}
+                // ----- merge 合并单元格的处理 end --------
+                contextMenu={[
+                  'row_above',
+                  'row_below',
+                  '---------',
+                  'col_left',
+                  'col_right',
+                  '---------',
+                  'remove_col',
+                  'undo',
+                  'redo',
+                  '---------',
+                  'mergeCells',
+                  'remove_row',
+                ]}
+                autoWrapRow={true}
+                autoWrapCol={true}
+                minRows={editorProps?.tableConfig?.minRows || 3}
+                minCols={editorProps?.tableConfig?.minColumn || 3}
+                licenseKey="non-commercial-and-evaluation" // for non-commercial use only
+              />
+            </div>
+          ) : (
+            <>
               <div
                 className={classNames(baseCls, hashId, {
                   [`${baseCls}-selected`]: isSel,
-                  [`${baseCls}-show-bar`]: isShowBar,
-                  [`${baseCls}-excel-mode`]: editorProps.tableConfig?.excelMode,
-                  'show-bar': isShowBar,
                 })}
                 onClick={() => {
                   runInAction(() => {
@@ -846,94 +651,19 @@ export const Table = observer((props: RenderElementProps) => {
                 style={{
                   flex: 1,
                   minWidth: 0,
-                  marginLeft: !readonly ? 20 : 0,
-                  marginTop: !readonly ? 4 : 0,
-                  marginRight: !readonly ? 6 : 0,
-                  overflow: !readonly ? undefined : 'auto',
                 }}
               >
-                <div
-                  style={{
-                    visibility: isShowBar ? 'visible' : 'hidden',
-                    overflow: 'hidden',
-                  }}
-                  data-slate-editor="false"
-                >
-                  <IntersectionPointDiv
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                  />
-                  <RowSideDiv
-                    activeDeleteBtn={activeDeleteBtn}
-                    setActiveDeleteBtn={setActiveDeleteBtn}
-                    tableRef={tableTargetRef}
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                    onDeleteRow={(index) => {
-                      runTask('removeRow', index);
-                    }}
-                    onAlignChange={(index, align) => {
-                      runTask('setAligns', index, align);
-                    }}
-                    onCreateRow={(index, direction) => {
-                      if (direction === 'after') {
-                        runTask('insertRowAfter', index);
-                      }
-                      if (direction === 'before') {
-                        runTask('insertRowBefore', index);
-                      }
-                    }}
-                  />
-                  <ColSideDiv
-                    onDeleteColumn={(index) => {
-                      runTask('removeCol', index);
-                    }}
-                    onAlignChange={(index, align) => {
-                      runTask('setAligns', index, align);
-                    }}
-                    onCreateColumn={(index, direction) => {
-                      if (direction === 'after') {
-                        runTask('insertColAfter', index);
-                      }
-                      if (direction === 'before') {
-                        runTask('insertColBefore', index);
-                      }
-                    }}
-                    activeDeleteBtn={activeDeleteBtn}
-                    setActiveDeleteBtn={setActiveDeleteBtn}
-                    tableRef={tableTargetRef}
-                    getTableNode={() => {
-                      return props.element;
-                    }}
-                    selCells={selCells}
-                    setSelCells={setSelCells}
-                  />
-                </div>
                 <table
-                  draggable={false}
                   ref={tableTargetRef}
                   className={classNames(`${baseCls}-editor-table`, hashId)}
                 >
                   <tbody data-slate-node="element">{props.children}</tbody>
                 </table>
               </div>
-            </div>
-          </ConfigProvider>
-        </TableConnext.Provider>,
-      ),
-    [
-      props.element.children,
-      store.dragStart,
-      store.editor?.children?.length === 1,
-      isSel,
-      JSON.stringify(selCells),
-      tableNodeEntry,
-    ],
-  );
+            </>
+          )}
+        </div>
+      </TablePropsContext.Provider>,
+    );
+  }, [props.element.children, props.element?.otherProps, isSel, tableJSONData]);
 });

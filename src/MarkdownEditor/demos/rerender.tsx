@@ -1,13 +1,58 @@
 ﻿/* eslint-disable @typescript-eslint/no-loop-func */
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  useAutoScroll,
+} from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
-import { parserMarkdown } from '../editor/parser/parserMarkdown';
+import { parserMarkdownToSlateNode } from '../editor/parser/parserMarkdownToSlateNode';
 const defaultValue = `## 创始人
 
-腾讯，全称深圳市腾讯计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。 以下是关于这些创始人的详细信息： 马化腾 马化腾，1971 年 10 月 29 日出生于广东省东方县（现海南省东方市）八所港，广东汕头人，汉族，无党派人士。他毕业于深圳大学电子工程系计算机专业。马化腾是腾讯科技（深圳）有限公司的创始人、董事会主席、首席执行官，并曾是中华人民共和国第十二、十三届全国人民代表大会代表 。马化腾在 1998 年 11 月 11 日与合伙人共同注册成立了腾讯，并在 2004 年 6 月 16 日带领腾讯在香港联合交易所有限公司主板上市。 张志东 张志东，马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。张志东在腾讯担任 CTO，并在 2014 年 9 月离职，转任腾讯公司终身荣誉顾问及腾讯学院荣誉院长等职位 。
+Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米」，由蚂蚁金服开发并广泛应用于复杂前端项目
 
 <!-- {"MarkdownType": "section", "id": "16" } -->
+| 大类别   | 子问题                          | 详情 | 是否符合 |
+|--------|-----------------------------|----|------|
+| **商业模式** | 要求行业空间大，至少得是千亿rmb利润规模以上，最好是万亿规模 | 中国游戏行业2023年市场规模超3000亿，网易作为头部企业直接受益 | 符合 |
+|        | 行业规>模会随着时间上升             | 移动游戏、云音乐等细分领域持续增长 | 符合 |
+|        | 显性进入壁垒：政策、牌照             | 游戏版号审批制形成政策壁垒 | 符合 |
+|        | 隐性进入壁垒                     | 长期积累的IP资源（如《梦幻西游》）和用户生态 | 优秀 |
+|        | 用户使用偏好                     | 多款游戏MAU超千万，云音乐月活1.9亿 | 优秀 |
+|        | 专利、技术优势                   | AI语音合成、游戏引擎等6000+专利 | 符合 |
+|        | 是否有网络效应                   | 游戏社交生态、云音乐社区形成网络效应 | 符合 |
+|        | 毛利率 > 40%                   | 2023年毛利率61% | 优秀 |
+|        | ROE > 20%                    | 2023年ROE 22.9% | 符合 |
+|        | 净利润 > 15%                   | 2023年净利润率28.4% | 优秀 |
+|        | 品牌优势                       | 中国第二大游戏厂商，多款国民级游戏 | 优秀 |
+|        | 成本优势                       | 自研引擎降低开发成本，规模效应显著 | 符合 |
+|        | 转换成本 | 游戏账号体系、社交关系链形成黏性 | 符合 |
+| **企业文化** | 是否股东导向                     | 连续6年分红，2023年股息支付率40% | 优秀 |
+|        | 是否言行一致                     | 战略聚焦"精品化"路线十年未变 | 符合 |
+|        | 是否行事风格谨慎                   | 资产负债率31%，现金占比超总资产65% | 优秀 |
+|        | 是否专注                       | 游戏业务占比73%，教育/音乐等协同发展 | 符合 |
+|        | 是否乱投资、乱花钱                 | 研发费用率16%，资本开支聚焦核心业务 | 符合 |
+|        | 是否有道德败坏的行为                 | 未出现重大伦理争议 | 符合 |
+|        | 是否强调用户导向，为消费者提供优质的产品与服务 | "游戏热爱者"品牌主张持续践行 | 优秀 |
+|        | 对员工是否权责到位                 | 实施"游戏制作人工作室"制度 | 符合 |
+|        | 是否内部选拔                     | CEO丁磊任职超20年，核心团队稳定 | 优秀 |
+|        | 是否公平合理、对等互利的对待上下游商业合作伙伴 | 与暴雪等国际大厂长期合作 | 符合 |
+| **估值**   | 当前P/S, P/E 在历史水平         | 当前PE 17.1倍，处于5年估值中枢低位 | 符合 |
+|        | FCF/Market Cap 与10年期国债收益率比较 | FCF收益率6.1% vs 国债4.7% | 优秀 |
+| **杂项**   | 是否不是政策不鼓励行业               | 游戏行业受版号监管但属合法经营 | 符合 |
+|        | 是否是政策支持行业                 | 数字文创入选"十四五"规划 | 符合 |
+|        | 不受关税影响                      | 主要市场在国内 | 优秀 |
+|        | 不受技术封锁影响                    | 自主引擎技术降低依赖 | 符合 |
+|        | 不受战争影响                      | 无直接关联 | 符合 |
+|        | 不受疫情影响                      | 线上业务受益 | 优秀 |
 
+**关键亮点**：
+1. 财务指标全面达标：毛利率61%/ROE22.9%/现金流充沛，展现优质印
+钞机属性
+2. 护城河立体化：政策壁垒+IP矩阵+自研技术+用户生态构建多维防御
+3. 估值安全边际：PE处于历史低位，FCF收益率显著高于无风险利率
+
+**潜在风险**：
+版号审批节奏影响新游上线，需持续跟>踪《永劫无间》等旗舰产品表现
 
 ## 表格
 
@@ -142,11 +187,11 @@ const defaultValue = `## 创始人
 
 ## 列表
 
-腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群腾讯六大事业群
+Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群Umi 六大事业群
 
 - 互动娱乐事业群
 - 企业服务事业群
-- **微信**事业群
+- **antd**事业群
 - 互联网平台事业群
 - 技术工程事业群
 
@@ -256,7 +301,95 @@ Class A {
 \`\`\`
 
 ## 删除线
-~~腾讯六大事业群腾讯六大事业群腾讯六大事业群~~
+~~Umi 六大事业群Umi 六大事业群Umi 六大事业群~~
+
+
+
+### 安装 Ant Design (antd) 的步骤
+
+#### 一、React 项目安装 antd
+1. **通过 npm 或 yarn 安装 antd**  
+   在项目根目录下运行以下命令：  
+   \`\`\`bash
+   npm install antd --save
+   # 或
+   yarn add antd
+   \`\`\`
+   参考来源：
+   
+2. **引入样式文件**  
+   在项目入口文件（如 \`index.js\` 或 \`main.tsx\`）中添加全局样式：  
+   \`\`\`javascript
+   import 'antd/dist/antd.css';  // 引入默认样式                                                                           [^DOC_4]
+   \`\`\`
+
+3. **按需加载组件（可选优化）**  
+   若需按需加载组件并优化体积，可通过 \`babel-plugin-import\` 配置：  
+   \`\`\`bash
+   npm install babel-plugin-import --save-dev
+   \`\`\`
+   修改 Babel 配置（如 \`babel.config.js\`）：  
+   \`\`\`javascript
+   plugins: [['import', { libraryName: 'antd', style: true }]]
+   \`\`\`
+   参考来源：                         [^DOC_8]                         [^DOC_9]
+
+4. **使用组件**  
+   在代码中按需引入组件：  
+   \`\`\`javascript
+   import { Button } from 'antd';
+   function App() {
+     return <Button type="primary">点击</Button>;
+   }
+   \`\`\`
+   参考来源：        [^DOC_3]        [^DOC_4]
+
+5. **国际化配置（可选）**  
+   若需中文语言支持：  
+   \`\`\`javascript
+   import { ConfigProvider } from 'antd';
+   import zhCN from 'antd/lib/locale/zh_CN';
+   
+   <ConfigProvider locale={zhCN}>
+     <App />
+   </ConfigProvider>
+   \`\`\`
+   参考来源：           [^DOC_1]
+
+---
+
+#### 二、Vue 项目安装 antd（Ant Design Vue）
+1. **安装 ant-design-vue**  
+   根据 Vue 版本选择安装命令：  
+   \`\`\`bash
+   # Vue 2
+   npm install ant-design-vue@1.7.8 --save
+   # Vue 3
+   npm install ant-design-vue --save
+   \`\`\`
+   参考来源：                            [^DOC_7]
+
+2. **引入样式与组件**  
+   在入口文件（如 \`main.js\`）中全局引入：  
+   \`\`\`javascript
+   import Antd from 'ant-design-vue';
+   import 'ant-design-vue/dist/antd.css';  // Vue 2 需指定旧版本样式                          [^DOC_7]
+   Vue.use(Antd);  // Vue 2 示例
+   \`\`\`
+   参考来源：                                                                                   [^DOC_7]
+
+---
+
+#### 三、通用注意事项
+- **项目依赖**：确保已安装 Node.js（建议 14.x+）和 npm/yarn                                                                                                 [^DOC_3]。
+- **脚手架工具**：React 项目可使用 \`@ant-design/create-react-app\` 快速初始化                             [^DOC_3]。
+- **主题定制**：可通过 Less 变量覆盖或 CSS 样式覆盖实现自定义主题                                      [^DOC_9]。
+
+### 总结
+- **React 项目**：安装 \`antd\` → 引入样式 → 按需加载（可选） → 使用组件                                [^DOC_3]                                [^DOC_4]                                [^DOC_6]。
+- **Vue 项目**：安装对应版本的 \`ant-design-vue\` → 引入样式和组件                                                 [^DOC_7]。  
+- 更多高级配置（如主题、国际化）可参考官方文档                                         [^DOC_1]                                         [^DOC_9]。
+
 
 `;
 
@@ -1155,14 +1288,14 @@ const Mdlist = [
 ];
 export default () => {
   const instance = useRef<MarkdownEditorInstance>();
+  const { containerRef } = useAutoScroll();
   useEffect(() => {
     let md = '';
     const list = defaultValue.split('');
-    const html = document.getElementById('container');
     const run = async () => {
       if (process.env.NODE_ENV === 'test') {
         instance.current?.store.updateNodeList(
-          parserMarkdown(defaultValue).schema,
+          parserMarkdownToSlateNode(defaultValue).schema,
         );
         return;
       }
@@ -1170,19 +1303,21 @@ export default () => {
         md += item;
         await new Promise((resolve) => {
           setTimeout(() => {
-            instance.current?.store.updateNodeList(parserMarkdown(md).schema);
+            instance.current?.store.updateNodeList(
+              parserMarkdownToSlateNode(md).schema,
+            );
             resolve(true);
-            html?.scrollTo?.({
-              top: 99999999999999,
-              behavior: 'smooth',
-            });
           }, 1);
         });
       }
       Mdlist?.forEach((item, index) => {
+        if (index === 0) {
+          instance.current?.store?.setMDContent?.('');
+          return;
+        }
         setTimeout(() => {
           instance.current?.store.updateNodeList(
-            parserMarkdown(item.data.content).schema,
+            parserMarkdownToSlateNode(item.data.content).schema,
           );
         }, 160 * index);
       });
@@ -1193,6 +1328,7 @@ export default () => {
   return (
     <div
       id="container"
+      ref={containerRef}
       style={{
         padding: 64,
         paddingBottom: '20%',
@@ -1201,7 +1337,8 @@ export default () => {
         gap: 24,
         backgroundColor: '#fff',
         overflow: 'auto',
-        maxHeight: 'calc(100vh - 280px)',
+        boxSizing: 'border-box',
+        maxHeight: 'calc(100vh)',
       }}
     >
       <MarkdownEditor

@@ -208,6 +208,27 @@ export class EditorUtils {
     Transforms.move(editor, { unit: 'offset', reverse: true });
   }
 
+  /**
+   * 清除编辑器中选中的文本的所有标记。
+   *
+   * @param editor - 编辑器实例。
+   * @param split - 是否分割节点，默认为 false。
+   *
+   * 如果编辑器中没有选中的文本，则直接返回。
+   * 使用 `Transforms.unsetNodes` 方法移除选中的文本节点中的以下标记：
+   * - 'url'
+   * - 'strikethrough'
+   * - 'italic'
+   * - 'code'
+   * - 'bold'
+   * - 'color'
+   * - 'textColor'
+   * - 'highColor'
+   *
+   * 获取选中节点的父节点，如果父节点是段落并且编辑器中存在该路径的父节点，
+   * 则获取父节点的父节点。如果节点类型是列表项，则提升节点。
+   * 最后，将选中节点的父节点类型设置为段落。
+   */
   static clearMarks(editor: Editor, split = false) {
     if (!editor.selection) return;
     Transforms.unsetNodes(
@@ -218,6 +239,7 @@ export class EditorUtils {
         'italic',
         'code',
         'bold',
+        'color',
         'textColor',
         'highColor',
       ],
@@ -226,7 +248,34 @@ export class EditorUtils {
         match: Text.isText,
       },
     );
+    const parent = Path.parent(editor.selection.anchor.path);
+
+    let node = Node.get(editor, parent);
+    if (
+      node.type === 'paragraph' &&
+      Editor.hasPath(editor, Path.parent(parent))
+    ) {
+      node = Node.get(editor, Path.parent(parent));
+    }
+    if (node.type === 'list-item') {
+      Transforms.liftNodes(editor, {
+        at: Path.parent(editor.selection.anchor.path),
+        mode: 'highest',
+      });
+    }
+    Transforms.setNodes(
+      editor,
+      { type: 'paragraph' },
+      { at: Path.parent(editor.selection.anchor.path) },
+    );
   }
+
+  /**
+   * 删除编辑器中的所有内容，并插入新的节点（如果提供）。
+   *
+   * @param editor - 编辑器实例。
+   * @param insertNodes - 要插入的新节点数组。如果未提供，将插入默认节点。
+   */
   static deleteAll(editor: Editor, insertNodes?: any[]) {
     const nodes = Array.from(
       Editor.nodes(editor, {
@@ -249,6 +298,13 @@ export class EditorUtils {
     Transforms.insertNodes(editor, insertNodes, { at: [0] });
   }
 
+  /**
+   * 重置编辑器的内容，并可选地插入新的节点和强制重置历史记录。
+   *
+   * @param editor - 要重置的编辑器实例。
+   * @param insertNodes - 可选的插入节点数组。如果未提供，则使用默认节点。
+   * @param force - 可选的布尔值或历史记录对象。如果为布尔值，则强制重置历史记录；如果为历史记录对象，则使用提供的历史记录。
+   */
   static reset(editor: Editor, insertNodes?: any[], force?: boolean | History) {
     if (!insertNodes) insertNodes = [EditorUtils.p];
     editor.children = JSON.parse(JSON.stringify(insertNodes));
@@ -259,6 +315,14 @@ export class EditorUtils {
     editor.onChange();
   }
 
+  /**
+   * 检查选区是否完全包含在指定节点路径中。
+   *
+   * @param editor - 编辑器实例。
+   * @param sel - 选区范围。
+   * @param nodePath - 节点路径。
+   * @returns 如果选区完全包含在节点路径中，则返回 true，否则返回 false。
+   */
   static includeAll(editor: Editor, sel: Range, nodePath: Path) {
     const [start, end] = Range.edges(sel);
     return (
@@ -271,6 +335,14 @@ export class EditorUtils {
     return JSON.parse(JSON.stringify(data));
   }
 
+  /**
+   * 复制指定范围内的文本内容。
+   *
+   * @param editor - 编辑器实例。
+   * @param start - 文本复制的起始位置。
+   * @param end - （可选）文本复制的结束位置。如果未提供，则复制从起始位置到文档末尾的所有文本。
+   * @returns 返回指定范围内的文本内容。
+   */
   static copyText(editor: Editor, start: Point, end?: Point) {
     let leaf = Node.leaf(editor, start.path);
     let text = '';
@@ -295,6 +367,14 @@ export class EditorUtils {
     return text;
   }
 
+  /**
+   * 从编辑器中剪切文本。
+   *
+   * @param editor - 编辑器实例。
+   * @param start - 开始位置的点。
+   * @param end - 结束位置的点（可选）。
+   * @returns 剪切的文本数组，每个元素为一个 CustomLeaf 对象。
+   */
   static cutText(editor: Editor, start: Point, end?: Point) {
     let leaf = Node.leaf(editor, start.path);
     let texts: CustomLeaf[] = [
@@ -316,6 +396,14 @@ export class EditorUtils {
     return texts;
   }
 
+  /**
+   * 检查编辑器中是否有指定格式的活动节点。
+   *
+   * @param editor - 编辑器实例。
+   * @param format - 要检查的格式名称。
+   * @param value - 可选的值，用于进一步验证格式是否匹配。
+   * @returns 如果存在匹配的格式节点，则返回 true；否则返回 false。
+   */
   static isFormatActive(editor: Editor, format: string, value?: any) {
     try {
       const [match] = Editor.nodes(editor, {
@@ -349,6 +437,12 @@ export class EditorUtils {
     }
   }
 
+  /**
+   * 为编辑器中的文本节点设置高亮颜色。
+   *
+   * @param editor - 编辑器实例。
+   * @param color - 可选的高亮颜色字符串。如果未提供，则移除高亮颜色。
+   */
   static highColor(editor: Editor, color?: string) {
     Transforms.setNodes(
       editor,

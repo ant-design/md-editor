@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useEffect, useMemo } from 'react';
 import { Editor, Element, Node, Point, Transforms } from 'slate';
-import { CommentDataType } from '../../../index';
+import { CommentDataType } from '../../../BaseMarkdownEditor';
 import { useEditorStore } from '../../store';
 import {
   getPointStrOffset,

@@ -2,7 +2,7 @@
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../../utils/useStyle';
+} from '../../MarkdownEditor/editor/utils/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {

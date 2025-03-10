@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import React, { useCallback, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
-import { IEditor } from '../../../index';
+import { IEditor } from '../../../BaseMarkdownEditor';
 import { useEditorStore } from '../../store';
 import { getSelRect } from '../../utils/dom';
 import { useLocalState } from '../../utils/useLocalState';

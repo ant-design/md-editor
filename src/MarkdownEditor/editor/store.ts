@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import isEqual from 'lodash-es/isEqual';
 import { makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
@@ -19,10 +20,10 @@ import { ReactEditor } from './slate-react';
 import { Ace } from 'ace-builds';
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
-import { CommentDataType, MarkdownEditorProps } from '..';
+import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
 import { Elements, ListNode, TableCellNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
-import { KeyboardTask, Methods, schemaToMarkdown } from './utils';
+import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
@@ -309,7 +310,7 @@ export class EditorStore {
    */
   setMDContent(md?: string) {
     if (md === undefined) return;
-    if (md === schemaToMarkdown(this._editor.current.children)) return;
+    if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
     const nodeList = parserMdToSchema(md).schema;
     this.setContent(nodeList);
   }
@@ -344,7 +345,13 @@ export class EditorStore {
     // 如果上个节点不存在，但是本次有，直接插入
     if (node && !preNode) {
       if (this._editor.current.hasPath(Path.parent(at))) {
-        Transforms.insertNodes(this._editor.current, node, { at });
+        if (this._editor.current.hasPath(Path.previous(at))) {
+          Transforms.insertNodes(this._editor.current, node, { at });
+        } else {
+          Transforms.insertNodes(this._editor.current, node, {
+            at: Path.previous(at),
+          });
+        }
         return;
       }
       if (node && node.type === 'list-item') {
@@ -364,7 +371,11 @@ export class EditorStore {
     }
 
     if (node.type === preNode.type) {
-      if (node.type === 'list-item') {
+      if (node.type === 'code' && preNode.type === 'code') {
+        Transforms.setNodes(this._editor.current, node, { at });
+        return;
+      }
+      if (node.type === 'list-item' || node.type === 'table-cell') {
         Transforms.removeNodes(this._editor.current, {
           at,
         });
@@ -407,7 +418,6 @@ export class EditorStore {
   updateNodeList(nodeList: Node[]) {
     const childrenList = this._editor.current.children;
     const updateMap = new Map<number, Node>();
-
     nodeList
       .filter((item: any) => {
         if (item.type === 'p' && item.children.length === 0) {
@@ -421,11 +431,30 @@ export class EditorStore {
         }
         return true;
       })
-      .forEach((node, index) => {
-        if (JSON.stringify(node) === JSON.stringify(childrenList?.at(index))) {
+      .forEach((node: Node, index) => {
+        if (node?.type !== childrenList?.at(index)?.type) {
+          updateMap.set(index, node);
           return;
         }
-        updateMap.set(index, node);
+        if (
+          node?.children?.length !== childrenList?.at?.(index)?.children?.length
+        ) {
+          updateMap.set(index, node);
+          return;
+        }
+
+        if (
+          Object.keys(node).length !==
+          Object.keys(childrenList?.at(index)).length
+        ) {
+          updateMap.set(index, node);
+          return;
+        }
+        if (!isEqual(node, childrenList?.at?.(index) as any)) {
+          updateMap.set(index, node);
+          return;
+        }
+        return;
       });
 
     try {
@@ -562,7 +591,6 @@ export class EditorStore {
       'dragend',
       () => {
         try {
-          console.log('dragend');
           window.removeEventListener('dragover', dragover);
           this.readonly = false;
           if (mark) this.container?.parentElement!.removeChild(mark);

@@ -4,7 +4,6 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
-import { MarkdownEditorProps } from '../..';
 import {
   ReactEditor,
   RenderElementProps,
@@ -15,9 +14,6 @@ import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
-import { Chart } from './chart/index';
-import { AceElement } from './code';
-import { InlineKatex } from './code/CodeUI/Katex/InlineKatex';
 import { TagPopup } from './code/TagPopup';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
@@ -31,6 +27,8 @@ import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
 import { Table, TableCell } from './Table/index';
+import { InlineKatex } from '@ant-design/md-editor/plugins/code';
+import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 
 const dragStart = (e: React.DragEvent) => {
   e.preventDefault();
@@ -84,14 +82,10 @@ export const MElement = (
       return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
-    case 'code':
-      return <AceElement {...props}>{props.children}</AceElement>;
     case 'table':
       return <Table {...props}>{props.children}</Table>;
     case 'description':
       return <Description {...props}>{props.children}</Description>;
-    case 'chart':
-      return <Chart {...props} />;
     case 'table-row':
       return <tr {...props.attributes}>{props.children}</tr>;
     case 'table-cell':
@@ -165,7 +159,7 @@ export const MLeaf = (
   let children = <>{props.children}</>;
   if (leaf.code) {
     const { tag, text } = props?.leaf || {};
-    const { prefixCls = '$' } = tag;
+    const { prefixCls = '$' } = tag || {};
     if (tag && leaf.text?.startsWith(prefixCls)) {
       children = (
         <TagPopup
@@ -350,9 +344,7 @@ export const MLeaf = (
 };
 
 export {
-  AceElement,
   Blockquote,
-  Chart,
   Head,
   List,
   ListItem,

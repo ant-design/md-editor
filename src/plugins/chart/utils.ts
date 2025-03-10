@@ -35,3 +35,26 @@ export const stringFormatNumber = (value: string | number) => {
     return value;
   }
 };
+
+export function debounce(
+  func: { (): void; apply?: any },
+  delay: number | undefined,
+) {
+  let timer: any = null;
+  const fn = function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      //@ts-ignore
+      func.apply(this, arguments);
+    }, delay);
+  };
+  fn.flush = function () {
+    clearTimeout(timer);
+    //@ts-ignore
+    func.apply(this, arguments);
+  };
+  fn.cancel = function () {
+    clearTimeout(timer);
+  };
+  return fn;
+}

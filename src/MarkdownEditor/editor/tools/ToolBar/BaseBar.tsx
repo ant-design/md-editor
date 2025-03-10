@@ -186,19 +186,26 @@ export const BaseToolBar = observer(
 
     const insertOptions = useMemo(
       () =>
-        props.showInsertAction
-          ? getInsertOptions({
-              isTop: false,
-            })
-              .map((o) => o?.children)
-              .flat(1)
-              .filter((o) => {
-                if (!editorProps?.image && o.task === 'uploadImage') {
-                  return false;
-                }
-                return true;
-              })
-          : [],
+        getInsertOptions({
+          isTop: false,
+        })
+          .map((o) => o?.children)
+          .flat(1)
+          .filter((o) => {
+            if (!editorProps?.image && o.task === 'uploadImage') {
+              return false;
+            }
+            return true;
+          })
+          .filter((o) => {
+            if (props.showInsertAction) {
+              return true;
+            }
+            if (o.task === 'list') {
+              return true;
+            }
+            return false;
+          }),
       [editorProps],
     );
 

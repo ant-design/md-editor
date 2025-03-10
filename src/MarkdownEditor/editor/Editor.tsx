@@ -2,7 +2,7 @@
 import { MenuProps, message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { ReactNode, useEffect, useMemo, useRef } from 'react';
+import React, { ReactNode, useContext, useEffect, useMemo, useRef } from 'react';
 import {
   BaseRange,
   BaseSelection,
@@ -17,13 +17,14 @@ import {
   Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
-} from '../index';
+} from '../BaseMarkdownEditor';
 import { MElement, MLeaf } from './elements';
 import { copySelectedBlocks } from './plugins/copySelectedBlocks';
 import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
 import { useDebounceFn } from '@ant-design/pro-components';
+import { PluginContext } from '../plugin';
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -71,43 +72,6 @@ const genTableMinSize = (
   if (!config) return elements;
 
   elements.forEach((element) => {
-    if (element.type === 'table') {
-      const thisColumns = element.otherProps?.columns.length || 0;
-      const thisRows = element.otherProps?.dataSource.length || 0;
-
-      if (config.minRows) {
-        if (element.children.length < config.minRows) {
-          for (
-            let i = element.children.length;
-            i < Math.max(config.minRows!, thisRows);
-            i++
-          ) {
-            element.children.push({
-              type: 'table-row',
-              children: [],
-            });
-          }
-        }
-      }
-
-      if (config.minColumn) {
-        element.children.forEach((row, index) => {
-          if (row.children.length < config.minColumn!) {
-            for (
-              let i = row.children.length;
-              i < Math.max(config.minColumn!, thisColumns)!;
-              i++
-            ) {
-              row.children.push({
-                type: 'table-cell',
-                title: index === 0,
-                children: [{ text: '' }],
-              });
-            }
-          }
-        });
-      }
-    }
     if (element.children) {
       genTableMinSize(element.children, config);
     }
@@ -591,13 +555,22 @@ export const MEditor = observer(
       return map;
     }, [editorProps?.comment?.commentList]);
 
+    const plugins = useContext(PluginContext);
+
     const elementRenderElement = (props: RenderElementProps) => {
       const defaultDom = (
         <MElement {...props} children={props.children} readonly={readonly} />
       );
+
+      for (const plugin of plugins) {
+        const Component = plugin.elements?.[props.element.type];
+        if (Component) return <Component {...props} />;
+      }
+
       if (!eleItemRender) return defaultDom;
       if (props.element.type === 'table-cell') return defaultDom;
       if (props.element.type === 'table-row') return defaultDom;
+
       return eleItemRender(props, defaultDom) as React.ReactElement;
     };
 
@@ -703,7 +676,7 @@ export const MEditor = observer(
       }
     }, 160);
     return wrapSSR(
-      <div>
+      <>
         <Slate
           editor={markdownEditorRef.current}
           initialValue={[EditorUtils.p]}
@@ -760,6 +733,7 @@ export const MEditor = observer(
               event.preventDefault();
             }}
             onMouseDown={checkEnd}
+            
             onFocus={onFocus}
             onBlur={onBlur}
             onPaste={onPaste}
@@ -793,7 +767,15 @@ export const MEditor = observer(
             renderLeaf={renderMarkdownLeaf}
           />
         </Slate>
-      </div>,
+        {readonly ? null : (
+          <div
+            className={`${baseClassName}-focus`}
+            style={{
+              height: 64,
+            }}
+          />
+        )}
+      </>,
     );
   },
 );
