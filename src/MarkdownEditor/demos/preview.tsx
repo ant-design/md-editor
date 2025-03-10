@@ -3,7 +3,7 @@
   MarkdownEditor,
   MarkdownEditorInstance,
 } from '@ant-design/md-editor';
-import { Dropdown, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
@@ -258,31 +258,16 @@ export default () => {
       height={'100vh'}
       reportMode
       tag={{
-        render: (onSelected) => {
-          return (
-            <Dropdown
-              open={true}
-              menu={{
-                items: [
-                  {
-                    key: '1',
-                    label: '1st menu item',
-                    onClick: () => {
-                      onSelected('MENU1');
-                    },
-                  },
-                  {
-                    key: '2',
-                    label: '2nd menu item',
-                    onClick: () => {
-                      onSelected('MENU2');
-                    },
-                  },
-                ],
-              }}
-            />
-          );
-        },
+        items: [
+          {
+            label: '腾讯',
+            key: 'tencent',
+          },
+          {
+            label: '阿里巴巴',
+            key: 'alibaba',
+          },
+        ],
       }}
       fncProps={{
         render: (props, _) => {

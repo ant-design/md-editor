@@ -1,8 +1,8 @@
 /* eslint-disable react/no-children-prop */
-import { message } from 'antd';
+import { MenuProps, message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef } from 'react';
 import {
   BaseRange,
   BaseSelection,
@@ -46,19 +46,8 @@ import {
   isPath,
 } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
+import { TagPopupProps } from './elements/code/TagPopup';
 
-export type PopupConfig = {
-  popupRender?: (onSelected: (value: string) => void) => React.ReactNode | null;
-  triggerKey?: string;
-};
-
-export type TagConfig = {
-  render: (onSelected: (value: string) => void) => React.ReactElement;
-  trigger?: string;
-  // 包裹的样式
-  bodyStyle?: React.CSSProperties;
-  className?: string;
-};
 
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
@@ -68,7 +57,7 @@ export type MEditorProps = {
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
-  tag?: TagConfig;
+  tag?: TagPopupProps;
   titlePlaceholderContent?: string;
 } & MarkdownEditorProps;
 
@@ -139,10 +128,7 @@ export const MEditor = observer(
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
     const {
-      render,
-      trigger = '$',
-      bodyStyle,
-      className: TagClassName,
+      prefixCls = '$',
     } = tag || {};
 
     const onKeyDown = useKeyboard(
@@ -158,48 +144,19 @@ export const MEditor = observer(
     const high = useHighlight(store);
     const first = useRef(true);
 
-    const [showTag, setTagShow] = React.useState(false);
-    const [TagPosition, setTagPosition] = React.useState<{
-      top: number;
-      left: number;
-    } | null>(null);
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === trigger) {
-        const { top, left } = bodyStyle || {};
-        const { selection } = markdownEditorRef.current;
-        if (selection) {
-          const domSelection = window.getSelection();
-          const domRange = domSelection?.getRangeAt(0);
-          const rect = domRange?.getBoundingClientRect();
-          if (rect) {
-            setTagPosition({
-              top: rect.top + window.scrollY + ((top as number) || 0) + (store.container?.scrollTop || 0),
-              left: rect.left + window.scrollX + ((left as number) || 0) + (store.container?.scrollLeft || 0),
-            });
-            setTagShow(true);
-          }
-        }
-      } else if (showTag) {
-        if (event.key === 'ArrowDown') {
-          event.preventDefault();
-        } else if (event.key === 'ArrowUp') {
-          event.preventDefault();
-        } else if (event.key === 'Enter') {
-          event.preventDefault();
-        } else if (event.key === 'Escape') {
-          setTagShow(false);
-          event.preventDefault();
-        }
-      } else {
-        setTagShow(false);
+      if (event?.key === prefixCls) {
+        Transforms.insertNodes(
+          markdownEditorRef.current,{
+            type: "code",
+            code: true,
+            tag: {
+              ...tag
+            },
+            text: ''
+          })
       }
       onKeyDown(event);
-    };
-
-    const handleSelected = (value: string) => {
-      setTagShow(false);
-      // 在文档中插入选中的值
-      Transforms.insertText(markdownEditorRef.current, value);
     };
 
     /**
@@ -836,18 +793,6 @@ export const MEditor = observer(
             renderLeaf={renderMarkdownLeaf}
           />
         </Slate>
-        {showTag && TagPosition && render && (
-          <div
-            className={classNames(`${baseClassName}-tag`, TagClassName, hashId)}
-            style={{
-              ...bodyStyle,
-              top: TagPosition.top,
-              left: TagPosition.left,
-            }}
-          >
-            {render(handleSelected)}
-          </div>
-        )}
       </div>,
     );
   },

@@ -24,7 +24,7 @@ import { Subject } from 'rxjs';
 import { BaseEditor, createEditor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
-import { MEditor, TagConfig } from './editor/Editor';
+import { MEditor } from './editor/Editor';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
 import { ReactEditor, withReact } from './editor/slate-react';
@@ -39,6 +39,7 @@ import { FloatBar } from './editor/tools/ToolBar/FloatBar';
 import { ElementProps, Elements, ListItemNode } from './el';
 import './index.css';
 import { useStyle } from './style';
+import { TagPopupProps } from './editor/elements/code/TagPopup';
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
@@ -163,7 +164,7 @@ export type MarkdownEditorProps = {
    */
   rootContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
 
-  tag?: TagConfig
+  tag?: TagPopupProps
 
   fncProps?: {
     render: (

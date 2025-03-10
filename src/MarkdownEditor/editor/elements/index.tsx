@@ -18,6 +18,7 @@ import { WarpCard } from './card';
 import { Chart } from './chart/index';
 import { AceElement } from './code';
 import { InlineKatex } from './code/CodeUI/Katex/InlineKatex';
+import { TagPopup } from './code/TagPopup';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -158,19 +159,39 @@ export const MLeaf = (
   const { markdownEditorRef, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
-
   const leaf = props.leaf;
   const style: CSSProperties = {};
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
-  if (leaf.code)
-    children = (
-      <code
-        className={classNames(mdEditorBaseClass + '-inline-code', props.hashId)}
-      >
-        {children}
-      </code>
-    );
+  if (leaf.code) {
+    const { tag, text } = props?.leaf || {};
+    const { prefixCls = '$' } = tag;
+    if (tag && leaf.text?.startsWith(prefixCls)) {
+      children = (
+        <TagPopup
+          {...props?.leaf?.tag}
+          text={text}
+          onSelect={(v) => {
+            markdownEditorRef.current.insertText(v);
+          }}
+        >
+          {children}
+        </TagPopup>
+      );
+    } else {
+      children = (
+        <code
+          className={classNames(
+            mdEditorBaseClass + '-inline-code',
+            props.hashId,
+          )}
+        >
+          {children}
+        </code>
+      );
+    }
+  }
+
   if (leaf.highColor) style.color = leaf.highColor;
   if (leaf.color) style.color = leaf.color;
   if (leaf.bold) children = <strong>{children}</strong>;
