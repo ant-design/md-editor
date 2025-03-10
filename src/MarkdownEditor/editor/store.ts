@@ -21,7 +21,12 @@ import { Ace } from 'ace-builds';
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
-import { Elements, ListNode, TableCellNode } from '../el';
+import {
+  Elements,
+  FootnoteDefinitionNode,
+  ListNode,
+  TableCellNode,
+} from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
@@ -90,6 +95,7 @@ export class EditorStore {
   openLinkPanel = false;
   tableCellNode: null | NodeEntry<TableCellNode> = null;
   domRect: DOMRect | null = null;
+  footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
   preSelection: null | Selection = null;
@@ -143,6 +149,7 @@ export class EditorStore {
       CACHED_SEL_CELLS: false,
       SEL_CELLS: false,
       preSelection: false,
+      footnoteDefinitionMap: false,
       container: false,
       tableCellNode: false,
       editor: false,

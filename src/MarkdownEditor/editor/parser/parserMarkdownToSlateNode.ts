@@ -468,20 +468,23 @@ const parserBlock = (
         };
         break;
       case 'footnoteDefinition':
+        const linkNode = parserBlock(
+          currentElement.children,
+          false,
+          currentElement,
+        )
+          ?.at(0)
+          // @ts-ignore
+          ?.children?.at(0) as any;
         el = {
+          ...linkNode,
           type: 'footnoteDefinition',
           identifier: currentElement.identifier,
           children: [
-            { text: `[^${currentElement.identifier}]:` },
-            ...(
-              parserBlock(
-                currentElement.children,
-                false,
-                currentElement,
-              )[0] as any
-            )?.children,
+            parserBlock(currentElement.children, false, currentElement).at(0),
           ],
         };
+
         break;
       case 'listItem':
         const children = currentElement.children?.length

@@ -130,7 +130,7 @@ export const MEditor = observer(
       }
     }, [instance, markdownEditorRef.current]);
 
-    const change = (v: any[]) => {
+    const onSlateChange = (v: any[]) => {
       if (first.current) {
         setTimeout(() => {
           first.current = false;
@@ -653,7 +653,7 @@ export const MEditor = observer(
         <Slate
           editor={markdownEditorRef.current}
           initialValue={[EditorUtils.p]}
-          onChange={change}
+          onChange={onSlateChange}
         >
           <Editable
             decorate={decorateFn}
@@ -739,14 +739,6 @@ export const MEditor = observer(
             renderLeaf={renderMarkdownLeaf}
           />
         </Slate>
-        {readonly ? null : (
-          <div
-            className={`${baseClassName}-focus`}
-            style={{
-              height: 64,
-            }}
-          />
-        )}
       </>,
     );
   },

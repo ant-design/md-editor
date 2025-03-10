@@ -165,7 +165,7 @@ export type MarkdownEditorProps = {
 
   fncProps?: {
     render: (
-      props: { children: string },
+      props: { children: string; identifier?: string },
       defaultDom: React.ReactNode,
     ) => React.ReactNode;
   };
@@ -470,7 +470,6 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               paddingLeft: props.readonly ? undefined : 32,
               overflow: 'auto',
               display: 'flex',
-              flexDirection: 'column',
               height:
                 !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
               position: 'relative',
@@ -512,6 +511,14 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               )
             ) : null}
           </div>
+          {readonly ? null : (
+            <div
+              className={`${baseClassName}-focus`}
+              style={{
+                height: 64,
+              }}
+            />
+          )}
           {readonly ? (
             <></>
           ) : (

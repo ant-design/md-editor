@@ -298,11 +298,13 @@ export const MLeaf = (
       <>
         {props.fncProps.render?.(
           {
+            ...leaf,
             children:
               leaf.text
                 ?.toLocaleUpperCase()
                 ?.replaceAll('[^', '')
                 .replaceAll(']', '') || '',
+            
           },
           dom,
         )}
