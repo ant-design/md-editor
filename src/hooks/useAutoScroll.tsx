@@ -8,6 +8,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
     SCROLL_TOLERANCE?: number;
     onResize?: (size: { width: number; height: number }) => void;
     deps?: any[];
+    timeout?: number;
   } = {
     SCROLL_TOLERANCE,
   },
@@ -53,7 +54,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
 
     lastScrollHeight.current = currentScrollHeight;
   };
-  const checkScroll = useDebounceFn(_checkScroll, 32);
+  const checkScroll = useDebounceFn(_checkScroll, props.timeout || 160);
   // DOM 变化监听（MutationObserver）
   useEffect(() => {
     const container = containerRef.current;
