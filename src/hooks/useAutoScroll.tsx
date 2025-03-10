@@ -7,6 +7,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
   props: {
     SCROLL_TOLERANCE?: number;
     onResize?: (size: { width: number; height: number }) => void;
+    deps?: any[];
   } = {
     SCROLL_TOLERANCE,
   },
@@ -73,7 +74,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
     });
 
     return () => observer.current?.disconnect();
-  }, []);
+  }, [...(props.deps || [])]);
 
   // 暴露手动滚动方法
   const scrollToBottom = () => {
