@@ -19,18 +19,16 @@
 
 <code src="./demos/rerender-edit.tsx" background="var(--main-bg-color)" title="编辑模式-动态render" iframe=540></code>
 
-<code src="./demos/pure.tsx" background="var(--main-bg-color)" title="pure 地址" iframe=540></code>
+<code src="./demos/pure.tsx" background="var(--main-bg-color)" title="pure 模式" iframe=540></code>
 
 <code src="./demos/bug.tsx" background="var(--main-bg-color)" debug title="bug" iframe=540></code>
 
-<code src="./demos/max-chart.tsx" background="var(--main-bg-color)"  title="bug" iframe=540></code>
-
-<code src="./demos/max-chart.tsx" background="var(--main-bg-color)" title="bug" iframe=540></code>
+<code src="./demos/max-chart.tsx" background="var(--main-bg-color)"  title="图表性能优化" iframe=540></code>
 
 <code src="./demos/empty.tsx" background="var(--main-bg-color)" title="空模式" iframe=540 ></code>
 
 <code src="./demos/ppt.tsx" background="var(--main-bg-color)" title="ppt 模式" iframe=540 ></code>
 
-<code src="./demos/li-code.tsx" debug background="var(--main-bg-color)" title="ppt 模式" iframe=540 ></code>
+<code src="./demos/li-code.tsx" debug background="var(--main-bg-color)" title="li 嵌套 icode" iframe=540 ></code>
 
 <code src="./demos/htmlrun.tsx"  background="var(--main-bg-color)" title="支持运行html" iframe=540 ></code>
