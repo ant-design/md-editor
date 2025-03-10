@@ -1,5 +1,5 @@
-﻿import { useDebounceFn } from '@ant-design/pro-components';
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
+import { useThrottleFn } from 'react-use';
 
 const SCROLL_TOLERANCE = 20; // 滚动到底部的容差阈值
 
@@ -54,17 +54,20 @@ export const useAutoScroll = <T extends HTMLDivElement>(
 
     lastScrollHeight.current = currentScrollHeight;
   };
-  const checkScroll = useDebounceFn(_checkScroll, props.timeout || 160);
+  const checkScroll = useThrottleFn(
+    () => _checkScroll,
+    props.timeout || 160,
+    [],
+  );
   // DOM 变化监听（MutationObserver）
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     observer.current = new MutationObserver((mutations) => {
-      checkScroll.cancel();
       // 过滤出添加节点的变化
       const hasAddedNodes = mutations.some((m) => m.addedNodes.length > 0);
-      if (hasAddedNodes) checkScroll.run();
+      if (hasAddedNodes) checkScroll?.();
     });
 
     observer.current.observe(container, {
@@ -79,7 +82,7 @@ export const useAutoScroll = <T extends HTMLDivElement>(
 
   // 暴露手动滚动方法
   const scrollToBottom = () => {
-    checkScroll.run(true);
+    checkScroll?.(true);
   };
 
   return {
