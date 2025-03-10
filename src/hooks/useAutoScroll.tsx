@@ -21,6 +21,11 @@ export const useAutoScroll = <T extends HTMLDivElement>(
     const container = containerRef.current;
     if (!container) return;
 
+    props.onResize?.({
+      width: container.clientWidth,
+      height: container.clientHeight,
+    });
+
     const currentScrollHeight = container.scrollHeight;
     const prevScrollHeight = lastScrollHeight.current;
 
@@ -58,10 +63,6 @@ export const useAutoScroll = <T extends HTMLDivElement>(
       // 过滤出添加节点的变化
       const hasAddedNodes = mutations.some((m) => m.addedNodes.length > 0);
       if (hasAddedNodes) checkScroll.run();
-      props.onResize?.({
-        width: container.clientWidth,
-        height: container.clientHeight,
-      });
     });
 
     observer.current.observe(container, {
