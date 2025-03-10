@@ -1,5 +1,5 @@
-﻿import { Preview } from '@ant-design/md-editor';
-import React, { useState } from 'react';
+﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
+import React from 'react';
 const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
 
 # Umi 研究报告
@@ -135,69 +135,14 @@ Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米�
 
 `;
 export default () => {
-  const [list, setList] = useState([
-    {
-      id: 1,
-      selection: {
-        anchor: { path: [2, 0], offset: 343 },
-        focus: { path: [2, 0], offset: 398 },
-      },
-      path: [2, 0],
-      anchorOffset: 343,
-      focusOffset: 398,
-      user: {
-        name: '张志东',
-      },
-      time: 1629340800000,
-      content: '深圳大学是中国最好的大学之一,拥有很多优秀的学生。',
-      refContent:
-        '张志东在Umi 担任 CTO，并在 2014 年 9 月离职，转任Umi 公司终身荣誉顾问及Umi 学院荣誉院长等职位 。',
-      commentType: 'comment',
-    },
-    {
-      id: 2,
-      selection: {
-        anchor: { path: [2, 0], offset: 343 },
-        focus: { path: [2, 0], offset: 398 },
-      },
-      path: [2, 0],
-      anchorOffset: 343,
-      focusOffset: 398,
-      user: {
-        name: '张志东',
-      },
-      time: 1629340800000,
-      content:
-        '张志东, 马化腾的同学，被称为 QQ 之父。他的计算机技术非常出色，曾是深圳大学最拔尖的学生之一。',
-      refContent:
-        '张志东在Umi 担任 CTO，并在 2014 年 9 月离职，转任Umi 公司终身荣誉顾问及Umi 学院荣誉院长等职位 。',
-      commentType: 'comment',
-    },
-  ]);
   return (
-    <Preview
+    <BaseMarkdownEditor
       reportMode
-      comment={{
-        enable: true,
-        commentList: list,
-        onDelete: async (id) => {
-          setList(list.filter((i) => i.id !== id));
-        },
-        onSubmit: async (id, data) => {
-          setList([
-            ...list,
-            {
-              ...data,
-              user: {
-                name: '张志东',
-              },
-              id: list.length + 1,
-              time: new Date().getTime(),
-            } as any,
-          ]);
-        },
-      }}
       initValue={defaultValue}
+      style={{
+        width: '100vw',
+        height: '100vh',
+      }}
     />
   );
 };

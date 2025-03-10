@@ -13,7 +13,7 @@
         style="width: 100vw; height: 50vh; display: flex; flex-direction: column; max-height: 100%; padding: 0px;"
       >
         <div
-          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px; margin: 0px;"
+          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; margin: 0px;"
         >
           <div
             aria-multiline="true"
@@ -3134,18 +3134,18 @@
               </span>
             </div>
           </div>
-          <div
-            class="ant-md-editor-content-focus"
-            style="height: 64px;"
-          />
         </div>
+        <div
+          class="ant-md-editor-focus"
+          style="height: 64px;"
+        />
       </div>
       <div
         class="markdown-editor ant-md-editor ant-md-editor-readonly ant-md-editor-report"
         style="width: 100vw; height: 50vh; display: flex; flex-direction: column; max-height: 100%; padding: 0px;"
       >
         <div
-          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px; margin: 0px;"
+          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; margin: 0px;"
         >
           <div
             autocapitalize="false"

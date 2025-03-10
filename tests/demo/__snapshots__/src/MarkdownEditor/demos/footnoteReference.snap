@@ -10,7 +10,7 @@
       style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
+        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
       >
         <div
           aria-multiline="true"
@@ -196,66 +196,30 @@
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el"
+            class="ant-md-editor-drag-el empty"
             contenteditable="false"
             data-be="footnoteDefinition"
             data-slate-node="element"
-            style="font-size: 12px; margin: 5px 0px; display: none;"
+            style="font-size: 12px; margin: 5px 0px; display: flex;"
           >
             doc_0.
             <a
               href="#md-editor-refdoc_0"
               style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="z"
-                  >
-                    ﻿
-                  </span>
-                </span>
-              </span>
-            </a>
+            />
           </div>
           <div
-            class="ant-md-editor-drag-el"
+            class="ant-md-editor-drag-el empty"
             contenteditable="false"
             data-be="footnoteDefinition"
             data-slate-node="element"
-            style="font-size: 12px; margin: 5px 0px; display: none;"
+            style="font-size: 12px; margin: 5px 0px; display: flex;"
           >
             doc_1.
             <a
               href="#md-editor-refdoc_1"
               style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="z"
-                  >
-                    ﻿
-                  </span>
-                </span>
-              </span>
-            </a>
+            />
           </div>
           <div
             class="ant-md-editor-drag-el empty"
@@ -282,11 +246,11 @@
             </span>
           </div>
         </div>
-        <div
-          class="ant-md-editor-content-focus"
-          style="height: 64px;"
-        />
       </div>
+      <div
+        class="ant-md-editor-focus"
+        style="height: 64px;"
+      />
     </div>
   </div>
 </DocumentFragment>

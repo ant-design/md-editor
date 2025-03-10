@@ -8,7 +8,6 @@ export {
   parserSlateNodeToMarkdown,
   parserSlateNodeToMarkdown as schemaToMarkdown,
 } from './MarkdownEditor/editor/parser/parserSlateNodeToMarkdown';
-export * from './MarkdownEditor/editor/Preview/index';
 export { schemaToHeading } from './MarkdownEditor/editor/tools/Leading';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';

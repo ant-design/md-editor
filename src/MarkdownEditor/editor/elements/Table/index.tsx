@@ -511,7 +511,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       },
       colHeaders: cellSet?.tableData?.at(0),
       colWidths: genDefaultWidth(cellSet.tableData),
-      mergeCells: generateMergedCells(cellSet.tableData),
+      mergeCells: generateMergedCells(cellSet.tableData) || [],
     });
   }, [JSON.stringify(props.element)]);
 

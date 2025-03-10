@@ -10,7 +10,7 @@
       style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
+        style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
       >
         <div
           aria-multiline="true"
@@ -10935,70 +10935,6 @@ while i &lt; len(arr):
             </span>
           </div>
           <div
-            contenteditable="false"
-            style="border-bottom: 1px solid #e5e5e9; padding: 4px 0px; margin: 12px 0px; font-size: 14px;"
-          />
-          <div
-            class="ant-md-editor-drag-el"
-            contenteditable="false"
-            data-be="footnoteDefinition"
-            data-slate-node="element"
-            style="font-size: 12px; margin: 5px 0px; display: none;"
-          >
-            1.
-            <a
-              href="#md-editor-ref1"
-              style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    remarkjs.md
-                  </span>
-                </span>
-              </span>
-            </a>
-          </div>
-          <div
-            class="ant-md-editor-drag-el"
-            contenteditable="false"
-            data-be="footnoteDefinition"
-            data-slate-node="element"
-            style="font-size: 12px; margin: 5px 0px; display: none;"
-          >
-            2.
-            <a
-              href="#md-editor-ref2"
-              style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    remarkjs.md
-                  </span>
-                </span>
-              </span>
-            </a>
-          </div>
-          <div
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
@@ -11023,10 +10959,6 @@ while i &lt; len(arr):
             </span>
           </div>
         </div>
-        <div
-          class="ant-md-editor-content-focus"
-          style="height: 64px;"
-        />
         <div>
           <div
             class=""
@@ -11347,6 +11279,10 @@ while i &lt; len(arr):
           </div>
         </div>
       </div>
+      <div
+        class="ant-md-editor-focus"
+        style="height: 64px;"
+      />
     </div>
   </div>
 </DocumentFragment>

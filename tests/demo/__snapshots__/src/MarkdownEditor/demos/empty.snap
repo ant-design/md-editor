@@ -284,7 +284,7 @@
             </div>
           </div>
           <div
-            style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; flex-direction: column; height: calc(100% - 56px); position: relative; gap: 24px;"
+            style="padding: 24px 24px 24px 32px; overflow: auto; display: flex; height: calc(100% - 56px); position: relative; gap: 24px;"
           >
             <div
               aria-multiline="true"
@@ -1031,11 +1031,11 @@
                 </span>
               </div>
             </div>
-            <div
-              class="ant-md-editor-content-focus"
-              style="height: 64px;"
-            />
           </div>
+          <div
+            class="ant-md-editor-focus"
+            style="height: 64px;"
+          />
         </div>
          
         <div
@@ -1043,7 +1043,7 @@
           style="width: 60vw; height: 500px; display: flex; flex-direction: column; max-height: 100%;"
         >
           <div
-            style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; flex-direction: column; height: 100%; position: relative; gap: 24px;"
+            style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
           >
             <div
               autocapitalize="false"
