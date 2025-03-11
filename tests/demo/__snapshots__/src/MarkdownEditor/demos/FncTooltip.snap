@@ -461,7 +461,41 @@
             <a
               href="#md-editor-ref1"
               style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            />
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  aria-describedby="test-id"
+                  class=" "
+                  data-be="link"
+                  data-slate-inline="true"
+                  data-slate-leaf="true"
+                  data-url="https://www.tradesmax.com/component/k2/item/22075-microsoft"
+                  draggable="false"
+                  id="https://www.tradesmax.com/component/k2/item/22075-microsoft"
+                  style="text-decoration: underline; text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
+                >
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                  <span
+                    data-slate-string="true"
+                  >
+                    微软(MSFT)股价陷低谷 ，AI 投入何时兑现增加承诺 ？ - 美股投资网
+                  </span>
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                </span>
+              </span>
+            </a>
           </div>
           <div
             class="ant-md-editor-drag-el empty"

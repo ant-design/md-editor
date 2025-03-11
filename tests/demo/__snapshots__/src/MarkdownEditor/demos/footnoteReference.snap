@@ -206,7 +206,26 @@
             <a
               href="#md-editor-refdoc_0"
               style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            />
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </a>
           </div>
           <div
             class="ant-md-editor-drag-el empty"
@@ -219,7 +238,26 @@
             <a
               href="#md-editor-refdoc_1"
               style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
-            />
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </a>
           </div>
           <div
             class="ant-md-editor-drag-el empty"

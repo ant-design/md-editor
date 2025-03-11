@@ -10935,6 +10935,66 @@ while i &lt; len(arr):
             </span>
           </div>
           <div
+            class="ant-md-editor-drag-el"
+            contenteditable="false"
+            data-be="footnoteDefinition"
+            data-slate-node="element"
+            style="font-size: 12px; margin: 5px 0px; display: flex;"
+          >
+            1.
+            <a
+              href="#md-editor-ref1"
+              style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    remarkjs.md
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            contenteditable="false"
+            data-be="footnoteDefinition"
+            data-slate-node="element"
+            style="font-size: 12px; margin: 5px 0px; display: flex;"
+          >
+            2.
+            <a
+              href="#md-editor-ref2"
+              style="color: rgb(22, 119, 255); text-decoration: none; margin-left: 5px; cursor: pointer;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    remarkjs.md
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+          <div
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
