@@ -477,12 +477,11 @@ const parserBlock = (
           // @ts-ignore
           ?.children?.at(0) as any;
         el = {
-          ...linkNode,
+          value: linkNode.text,
+          url: linkNode?.url,
           type: 'footnoteDefinition',
           identifier: currentElement.identifier,
-          children: [
-            parserBlock(currentElement.children, false, currentElement).at(0),
-          ],
+          children: [linkNode],
         };
 
         break;

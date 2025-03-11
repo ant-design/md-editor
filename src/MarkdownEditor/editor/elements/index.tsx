@@ -304,7 +304,6 @@ export const MLeaf = (
                 ?.toLocaleUpperCase()
                 ?.replaceAll('[^', '')
                 .replaceAll(']', '') || '',
-            
           },
           dom,
         )}

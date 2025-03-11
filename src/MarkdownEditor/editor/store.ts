@@ -382,7 +382,11 @@ export class EditorStore {
         Transforms.setNodes(this._editor.current, node, { at });
         return;
       }
-      if (node.type === 'list-item' || node.type === 'table-cell') {
+      if (
+        node.type === 'list-item' ||
+        node.type === 'table-cell' ||
+        node.type === 'footnoteDefinition'
+      ) {
         Transforms.removeNodes(this._editor.current, {
           at,
         });

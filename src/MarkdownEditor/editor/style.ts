@@ -112,8 +112,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         marginTop: '0',
         marginBottom: '0.5em',
         '&:last-child': {
-          margin: 0,
-          padding: 0,
+          marginBottom: 0,
+          paddingBottom: 0,
         },
       },
       'h1,h2,h3,h4,h5,h6': {
