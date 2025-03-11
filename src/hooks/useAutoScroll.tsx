@@ -44,8 +44,8 @@ export const useAutoScroll = <T extends HTMLDivElement>(
       (currentScrollHeight > prevScrollHeight &&
         (isNearBottom || isLocked.current));
 
-    if (shouldScroll) {
-      container.scrollTo({
+    if (shouldScroll && container.scrollTo) {
+      container.scrollTo?.({
         top: currentScrollHeight,
         behavior: 'smooth',
       });
