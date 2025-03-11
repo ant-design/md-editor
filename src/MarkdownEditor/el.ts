@@ -43,7 +43,7 @@ export type FootnoteDefinitionNode<T = Record<string, any>> = {
   identifier: string;
   otherProps?: T;
   url?: string;
-  text?: string;
+  value?: string;
   type: 'footnoteDefinition';
   children: BaseElement['children'];
   h?: number;

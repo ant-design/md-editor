@@ -45,7 +45,7 @@ const FncTooltip = (props: {
       content={
         <div>
           <a href={node?.url} target="_blank" rel="noreferrer">
-            {node?.text}
+            {node?.value}
           </a>
         </div>
       }
