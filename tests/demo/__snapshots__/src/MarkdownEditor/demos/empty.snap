@@ -1043,7 +1043,7 @@
           style="width: 60vw; height: 500px; display: flex; flex-direction: column; max-height: 100%;"
         >
           <div
-            style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+            style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
           >
             <div
               autocapitalize="false"
