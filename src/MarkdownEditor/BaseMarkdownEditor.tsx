@@ -466,8 +466,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ) : readonly ? null : null}
           <div
             style={{
-              padding: props.readonly ? '8px' : '24px 24px',
-              paddingLeft: props.readonly ? undefined : 32,
+              padding: props.readonly ? '8px' : '12px 20px',
               overflow: 'auto',
               display: 'flex',
               height:
