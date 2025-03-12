@@ -1,4 +1,5 @@
-﻿import {
+﻿import { ExportOutlined } from '@ant-design/icons';
+import {
   FootnoteDefinitionNode,
   MARKDOWN_EDITOR_EVENTS,
   MarkdownEditor,
@@ -43,10 +44,25 @@ const FncTooltip = (props: {
       }}
       title="Link"
       content={
-        <div>
-          <a href={node?.url} target="_blank" rel="noreferrer">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+          }}
+        >
+          <a
+            href={node?.url}
+            style={{
+              color: '#1890ff',
+            }}
+            target="_blank"
+            rel="noreferrer"
+          >
             {node?.value}
           </a>
+
+          <ExportOutlined />
         </div>
       }
     >
