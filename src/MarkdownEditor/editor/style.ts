@@ -67,6 +67,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         margin: '0 2px',
         lineHeight: '14px',
         top: '-0.5em',
+        position: 'relative',
         textAlign: 'center',
         justifyContent: 'center',
         transition: 'all 0.3s',
