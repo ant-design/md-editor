@@ -1,4 +1,5 @@
-﻿import React, { useMemo } from 'react';
+﻿import { ExportOutlined } from '@ant-design/icons';
+import React, { useMemo } from 'react';
 import { Node } from 'slate';
 import { ElementProps, FootnoteDefinitionNode } from '../../el';
 import { useEditorStore } from '../store';
@@ -24,6 +25,7 @@ export const FootnoteDefinition = (
           fontSize: '12px',
           margin: '5px 0',
           display: 'flex',
+          gap: 4,
         }}
         contentEditable={false}
         data-be={'footnoteDefinition'}
@@ -39,11 +41,17 @@ export const FootnoteDefinition = (
           style={{
             color: '#1677ff',
             textDecoration: 'none',
-            marginLeft: '5px',
             cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 2,
           }}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {props.children}
+
+          <ExportOutlined />
         </a>
       </div>
     );
