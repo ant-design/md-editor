@@ -11,7 +11,7 @@
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+        style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
       >
         <div
           autocapitalize="false"
@@ -2539,7 +2539,7 @@ while i &lt; len(arr):
       style="width: 100vw; height: auto; display: flex; flex-direction: column; max-height: 100%;"
     >
       <div
-        style="padding-top: 8px; padding-right: 8px; padding-bottom: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+        style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
       >
         <div
           autocapitalize="false"
