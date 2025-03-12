@@ -18,6 +18,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       whiteSpace: 'normal',
       '> *': {
         boxSizing: 'border-box',
+        scrollbarWidth: 'thin',
+        scrollbarColor: 'hsl(#e4e4e7) transparent',
       },
       '&-edit-area': {
         outline: 'none !important',
