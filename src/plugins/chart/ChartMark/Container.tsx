@@ -76,6 +76,7 @@ export const Container: React.FC<{
         ref={htmlRef}
         onClick={onSize}
         style={{
+          height: 'calc(100% - 48px)',
           maxHeight: `max(${htmlRef.current?.clientWidth || 400}px, 400px)`,
         }}
       />

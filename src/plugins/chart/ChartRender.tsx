@@ -1,6 +1,7 @@
 ﻿import {
   DownloadOutlined,
   DownOutlined,
+  FullscreenOutlined,
   ReloadOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
@@ -10,6 +11,7 @@ import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useMemo, useRef, useState } from 'react';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
+import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
 import { ChartAttrToolBar } from './ChartAttrToolBar';
 import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
@@ -85,6 +87,7 @@ export const ChartRender: React.FC<{
   columnLength?: number;
   onColumnLengthChange?: (value: number) => void;
 }> = (props) => {
+  const handle = useFullScreenHandle();
   const [chartType, setChartType] = useState<
     'pie' | 'bar' | 'line' | 'column' | 'area' | 'descriptions' | 'table'
   >(() => props.chartType);
@@ -411,76 +414,122 @@ export const ChartRender: React.FC<{
         </div>
       );
     }
-  }, [chartType, JSON.stringify(chartData), JSON.stringify(config)]);
+  }, [
+    chartType,
+    JSON.stringify(chartData),
+    handle.active,
+    JSON.stringify(config),
+  ]);
 
   const toolBar = getChartPopover();
 
   if (!chartDom) return null;
+
   return (
-    <div>
+    <ConfigProvider
+      getPopupContainer={(node) => (handle.node.current || node) as HTMLElement}
+      getTargetContainer={() =>
+        (handle.node.current || document?.body) as HTMLElement
+      }
+    >
       <div
+        ref={handle.node}
         style={{
-          userSelect: 'none',
+          background: '#fff',
+          borderRadius: 'inherit',
         }}
-        contentEditable={false}
       >
-        <ChartAttrToolBar
-          title={title || ''}
-          node={node}
-          options={[
-            {
-              style: { padding: 0 },
-              icon: toolBar.at(0),
-            },
-            {
-              style: { padding: 0 },
-              icon: toolBar.at(1),
-            },
-            {
-              style: { padding: 0 },
-              icon: toolBar.at(2),
-            },
-            {
-              style: { padding: 0 },
-              icon: (
-                <ActionIconBox
-                  title="重新渲染"
-                  onClick={() => chartRef.current?.render()}
-                >
-                  <ReloadOutlined />
-                </ActionIconBox>
-              ),
-            },
-            {
-              style: { padding: 0 },
-              icon: (
-                <ActionIconBox
-                  title="下载"
-                  onClick={() => {
-                    const csvString = chartData
-                      .map((item) => {
-                        return Object.values(item).join(',');
-                      })
-                      .join('\n');
-                    const blob = new Blob([csvString], {
-                      type: 'text/csv;charset=utf-8;',
-                    });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'data.csv';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                  }}
-                >
-                  <DownloadOutlined />
-                </ActionIconBox>
-              ),
-            },
-          ]}
-        />
+        <div
+          style={{
+            userSelect: 'none',
+          }}
+          contentEditable={false}
+        >
+          <ChartAttrToolBar
+            title={title || ''}
+            node={node}
+            options={[
+              {
+                style: { padding: 0 },
+                icon: toolBar.at(0),
+              },
+              {
+                style: { padding: 0 },
+                icon: toolBar.at(1),
+              },
+              {
+                style: { padding: 0 },
+                icon: toolBar.at(2),
+              },
+              {
+                style: { padding: 0 },
+                icon: (
+                  <ActionIconBox
+                    title="重新渲染"
+                    onClick={() => chartRef.current?.render()}
+                  >
+                    <ReloadOutlined />
+                  </ActionIconBox>
+                ),
+              },
+              {
+                style: { padding: 0 },
+                icon: (
+                  <ActionIconBox
+                    title="下载"
+                    onClick={() => {
+                      const csvString = chartData
+                        .map((item) => {
+                          return Object.values(item).join(',');
+                        })
+                        .join('\n');
+                      const blob = new Blob([csvString], {
+                        type: 'text/csv;charset=utf-8;',
+                      });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'data.csv';
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                  >
+                    <DownloadOutlined />
+                  </ActionIconBox>
+                ),
+              },
+              {
+                style: { padding: 0 },
+                icon: (
+                  <ActionIconBox
+                    title="全屏"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (handle.active) {
+                        handle.exit();
+                        setConfig(props.config);
+                      } else {
+                        handle.enter();
+                        setConfig({
+                          ...props.config,
+                          height: undefined,
+                        });
+                      }
+                    }}
+                  >
+                    {handle.active ? (
+                      <FullscreenOutlined />
+                    ) : (
+                      <FullscreenOutlined />
+                    )}
+                  </ActionIconBox>
+                ),
+              },
+            ]}
+          />
+        </div>
+        {chartDom ?? null}
       </div>
-      {chartDom ?? null}
-    </div>
+    </ConfigProvider>
   );
 };
