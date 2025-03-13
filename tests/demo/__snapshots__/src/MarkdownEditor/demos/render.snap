@@ -5572,7 +5572,7 @@
                   class="ant-md-editor-drag-el"
                   data-be="chart"
                   data-slate-node="element"
-                  style="flex: 1; min-width: 256px; max-width: 100%;"
+                  style="flex: 1; min-width: min(256px, 100%); max-width: 100%;"
                 >
                   <div
                     class="ant-md-editor-chart-box"
@@ -6455,7 +6455,7 @@
                       >
                         <div
                           contenteditable="false"
-                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: calc(100% - 16px); flex: 1;"
+                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                         />
                       </div>
                     </div>
