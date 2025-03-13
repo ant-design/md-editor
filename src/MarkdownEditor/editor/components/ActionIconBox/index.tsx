@@ -28,7 +28,7 @@ export const ActionIconBox: React.FC<{
 }> = (props) => {
   const [loading, setLoading] = React.useState(false);
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('agent-chat-action-icon-box');
+  const prefixCls = getPrefixCls('md-editor-action-icon-box');
   const { wrapSSR, hashId } = useStyle(prefixCls, props.style || {});
   useEffect(() => {
     props.onInit?.();
