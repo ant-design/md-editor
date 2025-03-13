@@ -64,6 +64,8 @@ export const ChartAttrToolBar: React.FC<{
         {props.title}
       </div>
       {props?.options?.map((item, index) => {
+        if (!item.icon) return null;
+
         if (!item.title) {
           return (
             <div

@@ -1,4 +1,5 @@
 ﻿import {
+  DownloadOutlined,
   DownOutlined,
   ReloadOutlined,
   SettingOutlined,
@@ -447,6 +448,32 @@ export const ChartRender: React.FC<{
                   onClick={() => chartRef.current?.render()}
                 >
                   <ReloadOutlined />
+                </ActionIconBox>
+              ),
+            },
+            {
+              style: { padding: 0 },
+              icon: (
+                <ActionIconBox
+                  title="下载"
+                  onClick={() => {
+                    const csvString = chartData
+                      .map((item) => {
+                        return Object.values(item).join(',');
+                      })
+                      .join('\n');
+                    const blob = new Blob([csvString], {
+                      type: 'text/csv;charset=utf-8;',
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'data.csv';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  <DownloadOutlined />
                 </ActionIconBox>
               ),
             },
