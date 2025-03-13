@@ -722,6 +722,22 @@
                         contenteditable="false"
                         style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: calc(100% - 16px); flex: 1;"
                       />
+                      <div
+                        contenteditable="false"
+                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: calc(100% - 16px); flex: 1;"
+                      />
+                      <div
+                        contenteditable="false"
+                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: calc(100% - 16px); flex: 1;"
+                      />
+                      <div
+                        contenteditable="false"
+                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: calc(100% - 16px); flex: 1;"
+                      />
+                      <div
+                        contenteditable="false"
+                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: calc(100% - 16px); flex: 1;"
+                      />
                     </div>
                   </div>
                 </div>

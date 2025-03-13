@@ -218,7 +218,11 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
   }) as TableRowNode[];
 
   const otherProps = {
-    ...(config.config ? config : { config }),
+    ...(isChart
+      ? {
+          config,
+        }
+      : config),
     columns,
     dataSource: dataSource.map((item) => {
       delete item?.chartType;
@@ -227,6 +231,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
       };
     }),
   };
+
   if (!isChart && dataSource.length < 2 && columns.length > 4) {
     return EditorUtils.wrapperCardNode(parserTableToDescription(children));
   }

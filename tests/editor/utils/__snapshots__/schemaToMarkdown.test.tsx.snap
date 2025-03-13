@@ -627,7 +627,6 @@ exports[`should convert markdown to schema in  Bar 图表
           },
         ],
         "otherProps": {
-          "chartType": "bar",
           "columns": [
             {
               "dataIndex": "业务",
@@ -655,6 +654,11 @@ exports[`should convert markdown to schema in  Bar 图表
               "title": "2021Q4",
             },
           ],
+          "config": {
+            "chartType": "bar",
+            "x": "业务",
+            "y": "2021Q1",
+          },
           "dataSource": [
             {
               "2021Q1": "135,303",
@@ -713,8 +717,6 @@ exports[`should convert markdown to schema in  Bar 图表
               "业务": "云",
             },
           ],
-          "x": "业务",
-          "y": "2021Q1",
         },
         "type": "chart",
       },
@@ -1354,7 +1356,6 @@ exports[`should convert markdown to schema in  Line 图表
           },
         ],
         "otherProps": {
-          "chartType": "line",
           "columns": [
             {
               "dataIndex": "业务",
@@ -1382,6 +1383,11 @@ exports[`should convert markdown to schema in  Line 图表
               "title": "2021Q4",
             },
           ],
+          "config": {
+            "chartType": "line",
+            "x": "业务",
+            "y": "2021Q1",
+          },
           "dataSource": [
             {
               "2021Q1": "135,303",
@@ -1440,8 +1446,6 @@ exports[`should convert markdown to schema in  Line 图表
               "业务": "云",
             },
           ],
-          "x": "业务",
-          "y": "2021Q1",
         },
         "type": "chart",
       },
@@ -2324,7 +2328,6 @@ exports[`should convert markdown to schema in  图表 area
           },
         ],
         "otherProps": {
-          "chartType": "area",
           "columns": [
             {
               "dataIndex": "业务",
@@ -2352,6 +2355,11 @@ exports[`should convert markdown to schema in  图表 area
               "title": "2021Q4",
             },
           ],
+          "config": {
+            "chartType": "area",
+            "x": "业务",
+            "y": "2021Q1",
+          },
           "dataSource": [
             {
               "2021Q1": "135,303",
@@ -2410,8 +2418,6 @@ exports[`should convert markdown to schema in  图表 area
               "业务": "云",
             },
           ],
-          "x": "业务",
-          "y": "2021Q1",
         },
         "type": "chart",
       },
@@ -3049,7 +3055,6 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
           },
         ],
         "otherProps": {
-          "chartType": "column",
           "columns": [
             {
               "dataIndex": "业务",
@@ -3077,6 +3082,11 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
               "title": "2021Q4",
             },
           ],
+          "config": {
+            "chartType": "column",
+            "x": "业务",
+            "y": "2021Q1",
+          },
           "dataSource": [
             {
               "2021Q1": "135,303",
@@ -3135,8 +3145,6 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
               "业务": "云",
             },
           ],
-          "x": "业务",
-          "y": "2021Q1",
         },
         "type": "chart",
       },
@@ -3776,7 +3784,6 @@ exports[`should convert markdown to schema in  图表 pie
           },
         ],
         "otherProps": {
-          "chartType": "pie",
           "columns": [
             {
               "dataIndex": "业务",
@@ -3804,6 +3811,11 @@ exports[`should convert markdown to schema in  图表 pie
               "title": "2021Q4",
             },
           ],
+          "config": {
+            "chartType": "pie",
+            "x": "业务",
+            "y": "2021Q1",
+          },
           "dataSource": [
             {
               "2021Q1": "135,303",
@@ -3862,8 +3874,6 @@ exports[`should convert markdown to schema in  图表 pie
               "业务": "云",
             },
           ],
-          "x": "业务",
-          "y": "2021Q1",
         },
         "type": "chart",
       },
@@ -6916,7 +6926,7 @@ exports[`should convert schema to markdown in  Bar 图表
 <!--{"chartType":"bar","x":"业务","y":"2021Q1"}-->
 
 
-<!--{"chartType":"bar","x":"业务","y":"2021Q1"}-->
+<!--{"config":{"chartType":"bar","x":"业务","y":"2021Q1"}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
@@ -6939,7 +6949,7 @@ exports[`should convert schema to markdown in  Line 图表
 <!--{"chartType":"line","x":"业务","y":"2021Q1"}-->
 
 
-<!--{"chartType":"line","x":"业务","y":"2021Q1"}-->
+<!--{"config":{"chartType":"line","x":"业务","y":"2021Q1"}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
@@ -7017,7 +7027,7 @@ exports[`should convert schema to markdown in  图表 area
 <!--{"chartType":"area","x":"业务","y":"2021Q1"}-->
 
 
-<!--{"chartType":"area","x":"业务","y":"2021Q1"}-->
+<!--{"config":{"chartType":"area","x":"业务","y":"2021Q1"}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
@@ -7038,7 +7048,7 @@ exports[`should convert schema to markdown in  图表 column chunk 1`] = `
 <!--{"chartType":"column","x":"业务","y":"2021Q1"}-->
 
 
-<!--{"chartType":"column","x":"业务","y":"2021Q1"}-->
+<!--{"config":{"chartType":"column","x":"业务","y":"2021Q1"}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
@@ -7061,7 +7071,7 @@ exports[`should convert schema to markdown in  图表 pie
 <!--{"chartType":"pie","x":"业务","y":"2021Q1"}-->
 
 
-<!--{"chartType":"pie","x":"业务","y":"2021Q1"}-->
+<!--{"config":{"chartType":"pie","x":"业务","y":"2021Q1"}}-->
 | 业务         | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  |
 | ------------ | ------- | ------- | ------- | ------- |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
