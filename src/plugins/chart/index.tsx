@@ -312,7 +312,7 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
                               border: '1px solid #eee',
                               borderRadius: '0.5em',
                               margin: 'auto',
-                              minWidth: `calc(${100 / columnLength}% - 16px)`,
+                              minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
                               flex: 1,
                               userSelect: 'none',
                             }}
