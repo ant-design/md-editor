@@ -218,7 +218,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
   }) as TableRowNode[];
 
   const otherProps = {
-    ...config,
+    ...(config.config ? config : { config }),
     columns,
     dataSource: dataSource.map((item) => {
       delete item?.chartType;

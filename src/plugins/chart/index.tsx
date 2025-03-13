@@ -131,7 +131,6 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
   const columns = (node as TableNode).otherProps?.columns || [];
 
   const [columnLength, setColumnLength] = React.useState(2);
-
   const config = [node.otherProps?.config || node.otherProps].flat(1);
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [minWidth, setMinWidth] = React.useState(256);
@@ -282,6 +281,7 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
                         return dom;
                       });
                     }
+
                     return (
                       <ChartRender
                         key={index}
