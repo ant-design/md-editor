@@ -76,7 +76,7 @@ export const Container: React.FC<{
         ref={htmlRef}
         onClick={onSize}
         style={{
-          maxHeight: htmlRef.current?.clientWidth || '400px',
+          maxHeight: `max(${htmlRef.current?.clientWidth || 400}px, 400px)`,
         }}
       />
     </ResizeObserver>

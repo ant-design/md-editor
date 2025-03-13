@@ -154,7 +154,7 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
         data-be={'chart'}
         style={{
           flex: 1,
-          minWidth: Math.min(minWidth, 856),
+          minWidth: `min(${Math.min(minWidth, 856)}px, 100%)`,
           maxWidth: '100%',
         }}
         ref={htmlRef}
@@ -289,6 +289,7 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
                         onColumnLengthChange={setColumnLength}
                         chartType={chartType}
                         chartData={chartData}
+                        title={rest?.title}
                         config={{
                           height,
                           x,
@@ -331,7 +332,7 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
                           border: '1px solid #eee',
                           borderRadius: '0.5em',
                           margin: 'auto',
-                          minWidth: `calc(${100 / columnLength}% - 16px)`,
+                          minWidth: `max(calc(${100 / columnLength}% - 16px), 256px)`,
                           flex: 1,
                         }}
                         onClick={(e) => {
