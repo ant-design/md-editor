@@ -320,7 +320,7 @@
                       >
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -346,7 +346,7 @@
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -725,7 +725,7 @@ for num in arr:
                       >
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -751,7 +751,7 @@ for num in arr:
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -1103,7 +1103,7 @@ for num in arr:
                       >
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -1129,7 +1129,7 @@ for num in arr:
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -1561,7 +1561,7 @@ for num in arr:
                       >
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -1587,7 +1587,7 @@ for num in arr:
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -1919,7 +1919,7 @@ while i &lt; len(arr):
                       >
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -1945,7 +1945,7 @@ while i &lt; len(arr):
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -2336,7 +2336,7 @@ while i &lt; len(arr):
                       >
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -2362,7 +2362,7 @@ while i &lt; len(arr):
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-agent-chat-action-icon-box"
+                          class="ant-md-editor-action-icon-box"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                         >
                           <span
@@ -2659,7 +2659,7 @@ while i &lt; len(arr):
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -2685,7 +2685,7 @@ while i &lt; len(arr):
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -3103,7 +3103,7 @@ for fruit in fruits:
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -3129,7 +3129,7 @@ for fruit in fruits:
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -3452,7 +3452,7 @@ for fruit in fruits:
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -3478,7 +3478,7 @@ for fruit in fruits:
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -3826,7 +3826,7 @@ while i &lt; len(fruits):
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -3852,7 +3852,7 @@ while i &lt; len(fruits):
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -4174,7 +4174,7 @@ while i &lt; len(fruits):
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -4200,7 +4200,7 @@ while i &lt; len(fruits):
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -4649,7 +4649,7 @@ while i &lt; len(fruits):
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -4675,7 +4675,7 @@ while i &lt; len(fruits):
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span

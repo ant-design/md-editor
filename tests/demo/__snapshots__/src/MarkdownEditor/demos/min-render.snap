@@ -10155,7 +10155,7 @@
                     >
                       <span
                         aria-describedby="test-id"
-                        class="ant-agent-chat-action-icon-box"
+                        class="ant-md-editor-action-icon-box"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <span
@@ -10181,7 +10181,7 @@
                       </span>
                       <span
                         aria-describedby="test-id"
-                        class="ant-agent-chat-action-icon-box"
+                        class="ant-md-editor-action-icon-box"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                       >
                         <span

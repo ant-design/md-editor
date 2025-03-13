@@ -65,7 +65,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  class="ant-agent-chat-action-icon-box"
+                  class="ant-md-editor-action-icon-box"
                   style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -87,7 +87,7 @@
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -113,7 +113,7 @@
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -139,7 +139,7 @@
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -775,7 +775,7 @@
               >
                 <span
                   aria-describedby="test-id"
-                  class="ant-agent-chat-action-icon-box"
+                  class="ant-md-editor-action-icon-box"
                   style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
                 >
                   <div
@@ -797,7 +797,7 @@
                 >
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span
@@ -823,7 +823,7 @@
                   </span>
                   <span
                     aria-describedby="test-id"
-                    class="ant-agent-chat-action-icon-box"
+                    class="ant-md-editor-action-icon-box"
                     style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                   >
                     <span

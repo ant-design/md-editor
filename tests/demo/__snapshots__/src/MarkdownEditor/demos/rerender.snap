@@ -12902,7 +12902,7 @@
                   >
                     <span
                       aria-describedby="test-id"
-                      class="ant-agent-chat-action-icon-box"
+                      class="ant-md-editor-action-icon-box"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
@@ -12928,7 +12928,7 @@
                     </span>
                     <span
                       aria-describedby="test-id"
-                      class="ant-agent-chat-action-icon-box"
+                      class="ant-md-editor-action-icon-box"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                     >
                       <span
@@ -13313,7 +13313,7 @@
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -13339,7 +13339,7 @@
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -13697,7 +13697,7 @@ yarn add antd
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -13723,7 +13723,7 @@ yarn add antd
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14009,7 +14009,7 @@ yarn add antd
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14035,7 +14035,7 @@ yarn add antd
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14285,7 +14285,7 @@ yarn add antd
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14311,7 +14311,7 @@ yarn add antd
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14605,7 +14605,7 @@ yarn add antd
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14631,7 +14631,7 @@ yarn add antd
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14928,7 +14928,7 @@ function App() {
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -14954,7 +14954,7 @@ function App() {
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -15293,7 +15293,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -15319,7 +15319,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -15641,7 +15641,7 @@ npm install ant-design-vue --save
                         >
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
@@ -15667,7 +15667,7 @@ npm install ant-design-vue --save
                           </span>
                           <span
                             aria-describedby="test-id"
-                            class="ant-agent-chat-action-icon-box"
+                            class="ant-md-editor-action-icon-box"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
                           >
                             <span
