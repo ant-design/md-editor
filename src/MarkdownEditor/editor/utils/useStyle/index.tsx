@@ -46,7 +46,7 @@ export const resetComponent: GenerateStyle<ChatTokenType> = (
     margin: 0,
     padding: 0,
     color: token.colorText,
-    fontSize: token.fontSize,
+    fontSize: '1em',
     lineHeight: token.lineHeight,
     listStyle: 'none',
   },
