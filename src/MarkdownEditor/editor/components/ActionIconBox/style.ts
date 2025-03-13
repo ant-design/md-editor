@@ -1,7 +1,6 @@
 ﻿import {
   ChatTokenType,
   GenerateStyle,
-  resetComponent,
   useEditorStyleRegister,
 } from '../../utils/useStyle';
 
@@ -14,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (
       minWidth: 14,
       minHeight: 14,
       maxHeight: 24,
-      lineHeight: '1.5',
+      lineHeight: 1,
       display: 'flex',
       cursor: 'pointer',
       padding: 4,
@@ -29,7 +28,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (
         padding: 0,
       },
       '&:hover': {
-        color: token.colorPrimary,
         background: token.colorBgTextHover,
       },
       '&-standalone': {
@@ -94,6 +92,6 @@ export function useStyle(prefixCls: string, style: React.CSSProperties) {
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(proChatToken, style), resetComponent(proChatToken)];
+    return [genStyle(proChatToken, style)];
   });
 }

@@ -41,7 +41,7 @@ export const Column: React.FC<ChartProps> = (props) => {
         tickCount: 5,
       })
       .style({
-        maxWidth: 10, // 圆角样式
+        maxWidth: 20, // 圆角样式
         radiusTopLeft: 4,
         fillOpacity: 0.85,
         radiusTopRight: 4,

@@ -1,9 +1,14 @@
-﻿import { DownOutlined, SettingOutlined } from '@ant-design/icons';
+﻿import {
+  DownOutlined,
+  ReloadOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useMemo, useRef, useState } from 'react';
+import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 import { ChartAttrToolBar } from './ChartAttrToolBar';
 import { Area, Bar, Column, Line, Pie } from './ChartMark';
 
@@ -249,13 +254,12 @@ export const ChartRender: React.FC<{
           </ConfigProvider>
         }
       >
-        <span
-          style={{
-            padding: '4px 8px',
-          }}
+        <ActionIconBox
+          title="配置图表"
+          onClick={() => chartRef.current?.render()}
         >
           <SettingOutlined />
-        </span>
+        </ActionIconBox>
       </Popover>,
     ].filter((item) => !!item) as JSX.Element[];
 
@@ -434,6 +438,17 @@ export const ChartRender: React.FC<{
             {
               style: { padding: 0 },
               icon: toolBar.at(2),
+            },
+            {
+              style: { padding: 0 },
+              icon: (
+                <ActionIconBox
+                  title="重新渲染"
+                  onClick={() => chartRef.current?.render()}
+                >
+                  <ReloadOutlined />
+                </ActionIconBox>
+              ),
             },
           ]}
         />

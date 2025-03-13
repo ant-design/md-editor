@@ -36,7 +36,10 @@ export const Pie: React.FC<ChartProps> = (props) => {
       });
 
     chartRef.current = chart;
-    chart.render();
+
+    setTimeout(() => {
+      chart.render();
+    }, 16);
 
     return () => {
       if (!chart) return;
