@@ -1,8 +1,8 @@
 /* eslint-disable react/no-children-prop */
-import { message } from 'antd';
+import { MenuProps, message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { ReactNode, useContext, useEffect, useMemo, useRef } from 'react';
 import {
   BaseRange,
   BaseSelection,
@@ -47,6 +47,8 @@ import {
   isPath,
 } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
+import { TagPopupProps } from './elements/code/TagPopup';
+
 
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
@@ -56,6 +58,7 @@ export type MEditorProps = {
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
+  tag?: TagPopupProps;
   titlePlaceholderContent?: string;
 } & MarkdownEditorProps;
 
@@ -76,12 +79,21 @@ const genTableMinSize = (
 };
 
 export const MEditor = observer(
-  ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
+  ({
+    eleItemRender,
+    reportMode,
+    tag,
+    instance,
+    ...editorProps
+  }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
+    const {
+      prefixCls = '$',
+    } = tag || {};
 
     const onKeyDown = useKeyboard(
       store,
@@ -95,6 +107,21 @@ export const MEditor = observer(
     );
     const high = useHighlight(store);
     const first = useRef(true);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event?.key === prefixCls) {
+        Transforms.insertNodes(
+          markdownEditorRef.current,{
+            type: "code",
+            code: true,
+            tag: {
+              ...tag
+            },
+            text: ''
+          })
+      }
+      onKeyDown(event);
+    };
 
     /**
      * 初始化编辑器
@@ -706,6 +733,7 @@ export const MEditor = observer(
               event.preventDefault();
             }}
             onMouseDown={checkEnd}
+            
             onFocus={onFocus}
             onBlur={onBlur}
             onPaste={onPaste}
@@ -735,7 +763,7 @@ export const MEditor = observer(
             onCompositionStart={onCompositionStart}
             onCompositionEnd={onCompositionEnd}
             renderElement={elementRenderElement}
-            onKeyDown={onKeyDown}
+            onKeyDown={handleKeyDown}
             renderLeaf={renderMarkdownLeaf}
           />
         </Slate>

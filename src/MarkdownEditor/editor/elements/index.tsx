@@ -4,7 +4,6 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
-import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import {
   ReactEditor,
   RenderElementProps,
@@ -15,6 +14,7 @@ import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
+import { TagPopup } from './code/TagPopup';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -27,6 +27,8 @@ import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
 import { Table, TableCell } from './Table/index';
+import { InlineKatex } from '@ant-design/md-editor/plugins/code';
+import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 
 const dragStart = (e: React.DragEvent) => {
   e.preventDefault();
@@ -68,7 +70,7 @@ export const MElement = (
     case 'break':
       return (
         <span {...props.attributes} contentEditable={false}>
-          <span style={{ display: 'none' }}>{props.children}</span>
+          {props.children}
           <br />
         </span>
       );
@@ -133,6 +135,9 @@ export const MElement = (
           {props.children}
         </span>
       );
+
+    case 'inline-katex':
+      return <InlineKatex {...props} />;
     default:
       return <Paragraph {...props} />;
   }
@@ -148,19 +153,39 @@ export const MLeaf = (
   const { markdownEditorRef, readonly } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
-
   const leaf = props.leaf;
   const style: CSSProperties = {};
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
-  if (leaf.code)
-    children = (
-      <code
-        className={classNames(mdEditorBaseClass + '-inline-code', props.hashId)}
-      >
-        {children}
-      </code>
-    );
+  if (leaf.code) {
+    const { tag, text } = props?.leaf || {};
+    const { prefixCls = '$' } = tag || {};
+    if (tag && leaf.text?.startsWith(prefixCls)) {
+      children = (
+        <TagPopup
+          {...props?.leaf?.tag}
+          text={text}
+          onSelect={(v) => {
+            markdownEditorRef.current.insertText(v);
+          }}
+        >
+          {children}
+        </TagPopup>
+      );
+    } else {
+      children = (
+        <code
+          className={classNames(
+            mdEditorBaseClass + '-inline-code',
+            props.hashId,
+          )}
+        >
+          {children}
+        </code>
+      );
+    }
+  }
+
   if (leaf.highColor) style.color = leaf.highColor;
   if (leaf.color) style.color = leaf.color;
   if (leaf.bold) style.fontWeight = 'bold';
@@ -263,6 +288,7 @@ export const MLeaf = (
           selectFormat();
         }
       }}
+      contentEditable={leaf.fnc ? false : undefined}
       data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
       data-fnd={leaf.fnd ? 'fnd' : undefined}
       data-comment={leaf.comment ? 'comment' : undefined}
@@ -284,15 +310,14 @@ export const MLeaf = (
     >
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       {leaf.fnc || leaf.identifier
-        ? leaf.text
-            ?.replaceAll(']', '')
-            ?.replaceAll('[^DOC_', '')
-            ?.replaceAll('[^', '')
+           ? leaf.text
+           ?.replaceAll(']', '')
+           ?.replaceAll('[^DOC_', '')
+           ?.replaceAll('[^', '')
         : children}
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
     </span>
   );
-
   if (props.fncProps?.render && (leaf.fnc || leaf.identifier)) {
     dom = (
       <>

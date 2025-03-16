@@ -275,6 +275,10 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
     },
+    [`${token.componentCls}-tag`]: {
+      position: 'absolute',
+      zIndex: 1000,
+    },
   };
 };
 
