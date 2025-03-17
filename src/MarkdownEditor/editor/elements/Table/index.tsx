@@ -560,7 +560,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 autoColumnSize={true}
                 manualColumnResize={true}
                 afterGetColHeader={function (col, TH) {
-                  let preValue = TH.firstChild?.textContent + '';
                   if (col === -1) {
                     return;
                   }
@@ -578,8 +577,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   TH.onblur = function () {
                     let headers = instance?.getColHeader();
                     headers[col] = input.value + '';
-                    console.log(preValue, input.value);
-                    updateTable([[0, col, preValue, input.value]], 'edit');
+                    updateTable(
+                      [[0, col, TH.firstChild?.textContent + '', input.value]],
+                      'edit',
+                    );
                     (TH.firstChild as any).style.display = 'block';
                     instance.updateSettings({
                       colHeaders: headers as string[],
@@ -589,8 +590,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   input.onblur = function () {
                     let headers = instance?.getColHeader();
                     headers[col] = input.value + '';
-                    console.log(preValue, input.value);
-                    updateTable([[0, col, preValue, input.value]], 'edit');
+                    updateTable(
+                      [[0, col, TH.firstChild?.textContent + '', input.value]],
+                      'edit',
+                    );
                     (TH.firstChild as any).style.display = 'block';
                     instance.updateSettings({
                       colHeaders: headers as string[],
@@ -605,10 +608,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                       if ((TH.firstChild as any).style.display === 'none') {
                         (TH.firstChild as any).style.display = 'block';
                         input.style.display = 'none';
-                        preValue = TH.firstChild?.textContent + '';
                       } else {
                         (TH.firstChild as any).style.display = 'none';
-                        preValue = TH.firstChild?.textContent + '';
                         input.style.display = 'block';
                       }
                     }
