@@ -559,6 +559,61 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 language={zhCN.languageCode}
                 autoColumnSize={true}
                 manualColumnResize={true}
+                afterGetColHeader={function (col, TH) {
+                  let preValue = TH.firstChild?.textContent + '';
+                  if (col === -1) {
+                    return;
+                  }
+                  if (TH.querySelector('input')) return;
+                  let instance = hotRef.current?.hotInstance;
+                  if (!instance) return;
+                  // create input element
+                  let input = document.createElement('input');
+                  if (!input) return;
+                  input.type = 'text';
+                  input.style =
+                    'width:calc(100% - 4px);display:none;height:calc(100% - 4px);border:none;outline:none;border-radius:inherit';
+                  input.value = TH.firstChild?.textContent + '';
+                  TH.appendChild(input);
+                  TH.onblur = function () {
+                    let headers = instance?.getColHeader();
+                    headers[col] = input.value + '';
+                    console.log(preValue, input.value);
+                    updateTable([[0, col, preValue, input.value]], 'edit');
+                    (TH.firstChild as any).style.display = 'block';
+                    instance.updateSettings({
+                      colHeaders: headers as string[],
+                    });
+                    input.style.display = 'none';
+                  };
+                  input.onblur = function () {
+                    let headers = instance?.getColHeader();
+                    headers[col] = input.value + '';
+                    console.log(preValue, input.value);
+                    updateTable([[0, col, preValue, input.value]], 'edit');
+                    (TH.firstChild as any).style.display = 'block';
+                    instance.updateSettings({
+                      colHeaders: headers as string[],
+                    });
+                    input.style.display = 'none';
+                  };
+
+                  TH.style.position = 'relative';
+
+                  TH.ondblclick = function () {
+                    if (TH.firstChild && (TH.firstChild as any)?.style) {
+                      if ((TH.firstChild as any).style.display === 'none') {
+                        (TH.firstChild as any).style.display = 'block';
+                        input.style.display = 'none';
+                        preValue = TH.firstChild?.textContent + '';
+                      } else {
+                        (TH.firstChild as any).style.display = 'none';
+                        preValue = TH.firstChild?.textContent + '';
+                        input.style.display = 'block';
+                      }
+                    }
+                  };
+                }}
                 afterCreateCol={afterCreateCol}
                 afterCreateRow={afterCreateRow}
                 afterRemoveCol={(index, amount) => {
