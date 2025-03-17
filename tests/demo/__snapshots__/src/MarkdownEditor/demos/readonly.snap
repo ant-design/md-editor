@@ -10,7 +10,7 @@
     >
       <div
         class="markdown-editor ant-md-editor ant-md-editor-readonly"
-        style="width: calc(99vw - 16px); height: auto; display: flex; flex-direction: column; max-height: 100%; border: 1px solid #eee;"
+        style="width: calc(99vw - 16px); height: auto; display: flex; flex-direction: column; max-height: 100%; border: 1px solid rgb(238, 238, 238);"
       >
         <div
           style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
@@ -720,23 +720,23 @@
                     >
                       <div
                         contenteditable="false"
-                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                        style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                       />
                       <div
                         contenteditable="false"
-                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                        style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                       />
                       <div
                         contenteditable="false"
-                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                        style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                       />
                       <div
                         contenteditable="false"
-                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                        style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                       />
                       <div
                         contenteditable="false"
-                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                        style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                       />
                     </div>
                   </div>
@@ -5580,7 +5580,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                        style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                       />
                     </div>
                   </div>

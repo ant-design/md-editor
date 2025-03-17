@@ -465,6 +465,11 @@
                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         </div>
                       </div>
+                      <div
+                        class="ace_tooltip"
+                        role="tooltip"
+                        style="display: none; pointer-events: auto;"
+                      />
                     </div>
                     <div
                       class="ant-md-editor-hidden"
@@ -512,6 +517,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -535,6 +541,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_2"
@@ -558,6 +565,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_7"
@@ -870,6 +878,11 @@ for num in arr:
                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         </div>
                       </div>
+                      <div
+                        class="ace_tooltip"
+                        role="tooltip"
+                        style="display: none; pointer-events: auto;"
+                      />
                     </div>
                     <div
                       class="ant-md-editor-hidden"
@@ -916,6 +929,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -939,6 +953,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_8"
@@ -1248,6 +1263,11 @@ for num in arr:
                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         </div>
                       </div>
+                      <div
+                        class="ace_tooltip"
+                        role="tooltip"
+                        style="display: none; pointer-events: auto;"
+                      />
                     </div>
                     <div
                       class="ant-md-editor-hidden"
@@ -1294,6 +1314,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_5"
@@ -1317,6 +1338,7 @@ for num in arr:
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_8"
@@ -1706,6 +1728,11 @@ for num in arr:
                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         </div>
                       </div>
+                      <div
+                        class="ace_tooltip"
+                        role="tooltip"
+                        style="display: none; pointer-events: auto;"
+                      />
                     </div>
                     <div
                       class="ant-md-editor-hidden"
@@ -1754,6 +1781,7 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_1"
@@ -1777,6 +1805,7 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -1800,6 +1829,7 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_10"
@@ -2064,6 +2094,11 @@ while i &lt; len(arr):
                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         </div>
                       </div>
+                      <div
+                        class="ace_tooltip"
+                        role="tooltip"
+                        style="display: none; pointer-events: auto;"
+                      />
                     </div>
                     <div
                       class="ant-md-editor-hidden"
@@ -2109,6 +2144,7 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_4"
@@ -2132,6 +2168,7 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_7"
@@ -2155,6 +2192,7 @@ while i &lt; len(arr):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -2481,6 +2519,11 @@ while i &lt; len(arr):
                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                         </div>
                       </div>
+                      <div
+                        class="ace_tooltip"
+                        role="tooltip"
+                        style="display: none; pointer-events: auto;"
+                      />
                     </div>
                     <div
                       class="ant-md-editor-hidden"
@@ -2804,6 +2847,11 @@ while i &lt; len(arr):
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </div>
                 </div>
+                <div
+                  class="ace_tooltip"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
               </div>
               <div
                 class="ant-md-editor-hidden"
@@ -2851,6 +2899,7 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -2874,6 +2923,7 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_3"
@@ -2897,6 +2947,7 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_5"
@@ -2920,6 +2971,7 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_8"
@@ -3248,6 +3300,11 @@ for fruit in fruits:
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </div>
                 </div>
+                <div
+                  class="ace_tooltip"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
               </div>
               <div
                 class="ant-md-editor-hidden"
@@ -3294,6 +3351,7 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_4"
@@ -3317,6 +3375,7 @@ for fruit in fruits:
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_8"
@@ -3597,6 +3656,11 @@ for fruit in fruits:
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </div>
                 </div>
+                <div
+                  class="ace_tooltip"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
               </div>
               <div
                 class="ant-md-editor-hidden"
@@ -3645,6 +3709,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_2"
@@ -3668,6 +3733,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_7"
@@ -3691,6 +3757,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_9"
@@ -3971,6 +4038,11 @@ while i &lt; len(fruits):
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </div>
                 </div>
+                <div
+                  class="ace_tooltip"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
               </div>
               <div
                 class="ant-md-editor-hidden"
@@ -4016,6 +4088,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_1"
@@ -4039,6 +4112,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_5"
@@ -4319,6 +4393,11 @@ while i &lt; len(fruits):
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </div>
                 </div>
+                <div
+                  class="ace_tooltip"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
               </div>
               <div
                 class="ant-md-editor-hidden"
@@ -4365,6 +4444,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_6"
@@ -4388,6 +4468,7 @@ while i &lt; len(fruits):
               </span>
               <span
                 class="  ant-md-editor-content-fnc"
+                contenteditable="false"
                 data-be="text"
                 data-fnc="fnc"
                 data-fnc-name="DOC_10"
@@ -4569,6 +4650,7 @@ while i &lt; len(fruits):
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="DOC_9"
@@ -4794,6 +4876,11 @@ while i &lt; len(fruits):
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </div>
                 </div>
+                <div
+                  class="ace_tooltip"
+                  role="tooltip"
+                  style="display: none; pointer-events: auto;"
+                />
               </div>
               <div
                 class="ant-md-editor-hidden"

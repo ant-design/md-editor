@@ -230,24 +230,20 @@
                             data-slate-void="true"
                           >
                             <span
-                              style="display: none;"
+                              data-slate-spacer="true"
+                              style="height: 0px; color: transparent; outline: none; position: absolute;"
                             >
                               <span
-                                data-slate-spacer="true"
-                                style="height: 0px; color: transparent; outline: none; position: absolute;"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-node="text"
+                                  data-slate-leaf="true"
                                 >
                                   <span
-                                    data-slate-leaf="true"
+                                    data-slate-length="1"
+                                    data-slate-zero-width="z"
                                   >
-                                    <span
-                                      data-slate-length="1"
-                                      data-slate-zero-width="z"
-                                    >
-                                      ﻿
-                                    </span>
+                                    ﻿
                                   </span>
                                 </span>
                               </span>
@@ -3364,24 +3360,20 @@
                             data-slate-void="true"
                           >
                             <span
-                              style="display: none;"
+                              data-slate-spacer="true"
+                              style="height: 0px; color: transparent; outline: none; position: absolute;"
                             >
                               <span
-                                data-slate-spacer="true"
-                                style="height: 0px; color: transparent; outline: none; position: absolute;"
+                                data-slate-node="text"
                               >
                                 <span
-                                  data-slate-node="text"
+                                  data-slate-leaf="true"
                                 >
                                   <span
-                                    data-slate-leaf="true"
+                                    data-slate-length="1"
+                                    data-slate-zero-width="z"
                                   >
-                                    <span
-                                      data-slate-length="1"
-                                      data-slate-zero-width="z"
-                                    >
-                                      ﻿
-                                    </span>
+                                    ﻿
                                   </span>
                                 </span>
                               </span>

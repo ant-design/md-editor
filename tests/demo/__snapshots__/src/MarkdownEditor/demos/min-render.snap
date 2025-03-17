@@ -9,7 +9,7 @@
       style="padding: 64px; display: flex; flex-direction: column; gap: 24px; max-width: 600px; margin: 0px auto;"
     >
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -109,7 +109,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -2872,7 +2872,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -3400,7 +3400,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -4245,7 +4245,7 @@
                       >
                         <div
                           contenteditable="false"
-                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                          style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                         />
                       </div>
                     </div>
@@ -4281,7 +4281,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -5126,7 +5126,7 @@
                       >
                         <div
                           contenteditable="false"
-                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                          style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                         />
                       </div>
                     </div>
@@ -5162,7 +5162,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -6007,7 +6007,7 @@
                       >
                         <div
                           contenteditable="false"
-                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                          style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                         />
                       </div>
                     </div>
@@ -6043,7 +6043,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -6888,7 +6888,7 @@
                       >
                         <div
                           contenteditable="false"
-                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                          style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                         />
                       </div>
                     </div>
@@ -6924,7 +6924,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -7769,7 +7769,7 @@
                       >
                         <div
                           contenteditable="false"
-                          style="user-select: none; border: 1px solid #eee; border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                          style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
                         />
                       </div>
                     </div>
@@ -7805,7 +7805,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -8023,7 +8023,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -8202,7 +8202,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -8322,7 +8322,7 @@
                       tabindex="-1"
                     >
                       <div
-                        style="padding: 12px; border: 1px solid #f0f0f0; border-radius: 0.5em; width: 100%; flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
+                        style="padding: 12px; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
                       >
                         <div
                           style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
@@ -8430,7 +8430,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -9678,6 +9678,7 @@
                     </span>
                     <span
                       class="  ant-md-editor-content-fnc"
+                      contenteditable="false"
                       data-be="text"
                       data-fnc="fnc"
                       data-fnc-name="3"
@@ -9799,7 +9800,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -9880,7 +9881,7 @@
                   contenteditable="false"
                   data-be="link-card"
                   draggable="false"
-                  style="cursor: pointer; position: relative; display: flex; padding: 24px; border-radius: 8px; flex: 1; border: 1px solid rgb(209 213 219 / 0.8); align-items: center;"
+                  style="cursor: pointer; position: relative; display: flex; padding: 24px; border-radius: 8px; flex: 1; border: 1px solid rgba(209, 213, 219, 0.8); align-items: center;"
                 >
                   <div
                     data-be="apaasify"
@@ -10044,7 +10045,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
@@ -10300,6 +10301,11 @@
                         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                       </div>
                     </div>
+                    <div
+                      class="ace_tooltip"
+                      role="tooltip"
+                      style="display: none; pointer-events: auto;"
+                    />
                   </div>
                   <div
                     class="ant-md-editor-hidden"
@@ -10332,7 +10338,7 @@
         </div>
       </div>
       <div
-        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid #f0f0f0; margin: 20px auto; width: 100%; position: relative;"
+        style="padding: 24px; border-radius: 24px; background-color: rgb(255, 255, 255); border: 1px solid rgb(240, 240, 240); margin: 20px auto; width: 100%; position: relative;"
       >
         <div
           style="position: absolute; top: 14px; right: 24px; display: flex; gap: 8px; z-index: 999;"
