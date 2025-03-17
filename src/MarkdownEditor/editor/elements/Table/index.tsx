@@ -569,35 +569,29 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   // create input element
                   let input = document.createElement('input');
                   if (!input) return;
-                  input.type = 'text';
-                  input.style =
+                  (input as any).type = 'text';
+                  (input as any).style =
                     'width:calc(100% - 4px);display:none;height:calc(100% - 4px);border:none;outline:none;border-radius:inherit';
                   input.value = TH.firstChild?.textContent + '';
                   TH.appendChild(input);
                   TH.onblur = function () {
-                    let headers = instance?.getColHeader();
+                    let headers = instance?.getColHeader() as string[];
                     headers[col] = input.value + '';
                     updateTable(
                       [[0, col, TH.firstChild?.textContent + '', input.value]],
                       'edit',
                     );
                     (TH.firstChild as any).style.display = 'block';
-                    instance.updateSettings({
-                      colHeaders: headers as string[],
-                    });
                     input.style.display = 'none';
                   };
                   input.onblur = function () {
-                    let headers = instance?.getColHeader();
+                    let headers = instance?.getColHeader() as string[];
                     headers[col] = input.value + '';
                     updateTable(
                       [[0, col, TH.firstChild?.textContent + '', input.value]],
                       'edit',
                     );
                     (TH.firstChild as any).style.display = 'block';
-                    instance.updateSettings({
-                      colHeaders: headers as string[],
-                    });
                     input.style.display = 'none';
                   };
 

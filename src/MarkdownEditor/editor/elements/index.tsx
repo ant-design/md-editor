@@ -4,6 +4,8 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
+import { InlineKatex } from '@ant-design/md-editor/plugins/code';
+import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import {
   ReactEditor,
   RenderElementProps,
@@ -27,8 +29,6 @@ import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
 import { Table, TableCell } from './Table/index';
-import { InlineKatex } from '@ant-design/md-editor/plugins/code';
-import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 
 const dragStart = (e: React.DragEvent) => {
   e.preventDefault();
@@ -158,12 +158,12 @@ export const MLeaf = (
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
   if (leaf.code) {
-    const { tag, text } = props?.leaf || {};
+    const { tag, text } = (props?.leaf || {}) as any;
     const { prefixCls = '$' } = tag || {};
     if (tag && leaf.text?.startsWith(prefixCls)) {
       children = (
         <TagPopup
-          {...props?.leaf?.tag}
+          {...(props?.leaf as any)?.tag}
           text={text}
           onSelect={(v) => {
             markdownEditorRef.current.insertText(v);
@@ -310,10 +310,10 @@ export const MLeaf = (
     >
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       {leaf.fnc || leaf.identifier
-           ? leaf.text
-           ?.replaceAll(']', '')
-           ?.replaceAll('[^DOC_', '')
-           ?.replaceAll('[^', '')
+        ? leaf.text
+            ?.replaceAll(']', '')
+            ?.replaceAll('[^DOC_', '')
+            ?.replaceAll('[^', '')
         : children}
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
     </span>
