@@ -4,9 +4,7 @@ import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ElementProps, LinkCardNode } from '../../../el';
 import { AvatarList } from '../../components/ContributorAvatar';
-import { useEditorStore } from '../../store';
 import { DragHandle } from '../../tools/DragHandle';
-import { EditorUtils } from '../../utils/editorUtils';
 import { useStyle } from './style';
 
 export function LinkCard({
@@ -20,7 +18,6 @@ export function LinkCard({
     updateTime: string;
   }>
 >) {
-  const { store, markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-link-card');
   const { wrapSSR, hashId } = useStyle(baseCls);
@@ -36,9 +33,6 @@ export function LinkCard({
         }}
         onMouseDown={(e) => {
           e.stopPropagation();
-          if (!store.focus) {
-            EditorUtils.focus(markdownEditorRef.current);
-          }
         }}
         style={{
           display: 'flex',

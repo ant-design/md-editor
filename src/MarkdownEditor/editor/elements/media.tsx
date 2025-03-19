@@ -13,7 +13,6 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';
-import { EditorUtils } from '../utils/editorUtils';
 
 /**
  * 图片组件，带有错误处理功能
@@ -179,7 +178,7 @@ export function Media({
 }: ElementProps<MediaNode>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, path] = useSelStatus(element);
-  const { store, markdownEditorRef, readonly } = useEditorStore();
+  const { markdownEditorRef, readonly } = useEditorStore();
   const htmlRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = useGetSetState({
     height: element.height,
@@ -261,7 +260,6 @@ export function Media({
         draggable={false}
         style={{
           maxWidth: 800,
-          marginBottom: 12,
         }}
         width={element.width}
         height={element.height}
@@ -432,9 +430,6 @@ export function Media({
         }}
         onMouseDown={(e) => {
           e.stopPropagation();
-          if (!store.focus) {
-            EditorUtils.focus(markdownEditorRef.current);
-          }
         }}
       >
         <DragHandle />
