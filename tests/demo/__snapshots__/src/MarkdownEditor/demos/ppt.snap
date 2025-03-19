@@ -951,6 +951,7 @@
                     tabindex="0"
                   >
                     <div
+                      aria-describedby="test-id"
                       class="ant-md-editor-content-table"
                       style="flex: 1; min-width: 0;"
                     >
@@ -11074,6 +11075,7 @@
                     tabindex="0"
                   >
                     <div
+                      aria-describedby="test-id"
                       class="ant-md-editor-content-table"
                       style="flex: 1; min-width: 0;"
                     >
@@ -12393,17 +12395,10 @@
                   style="display: flex;"
                 >
                   <div
-                    class="ant-md-editor-drag-el"
-                    contenteditable="false"
-                    data-be="link-card"
-                    draggable="false"
-                    style="cursor: pointer; position: relative; display: flex; padding: 24px; border-radius: 8px; flex: 1; border: 1px solid rgba(209, 213, 219, 0.8); align-items: center;"
+                    data-be="apaasify"
+                    style="padding: 8px; width: 100%; cursor: pointer; position: relative; display: flex; border-radius: 8px; flex: 1; border: 1px solid rgba(209, 213, 219, 0.8); align-items: center;"
                   >
-                    <div
-                      data-be="apaasify"
-                      style="padding: 8px; width: 100%;"
-                    >
-                      [
+                    [
   {
     "title": "标题",
     "dataIndex": "title",
@@ -12418,10 +12413,9 @@
     "width": "md"
   }
 ]
-                    </div>
                   </div>
                   <span
-                    style="font-size: 150px; width: 2px; height: 150px; line-height: 1; display: none;"
+                    style="display: none;"
                   >
                     <span
                       data-slate-node="text"

@@ -100,6 +100,18 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       showPrintMargin: false,
     });
     editorRef.current = codeEditor;
+    let lang = props.element.language as string;
+
+    setTimeout(() => {
+      if (modeMap.has(lang)) {
+        lang = modeMap.get(lang)!;
+      }
+      if (aceLangs.has(lang)) {
+        codeEditor.session.setMode(`ace/mode/${lang}`);
+      }
+    }, 16);
+    editorRef.current = codeEditor;
+
     if (readonly) return; // 代码块只读
     codeEditor.commands.addCommand({
       name: 'disableFind',
@@ -200,16 +212,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       const newEvent = new KeyboardEvent(e.type, e);
       window.dispatchEvent(newEvent);
     });
-    let lang = props.element.language as string;
-    setTimeout(() => {
-      if (modeMap.has(lang)) {
-        lang = modeMap.get(lang)!;
-      }
-      if (aceLangs.has(lang)) {
-        codeEditor.session.setMode(`ace/mode/${lang}`);
-      }
-    }, 16);
-    editorRef.current = codeEditor;
+
     codeEditor.on('change', () => {
       if (readonly) return;
       clearTimeout(debounceTimer.current);

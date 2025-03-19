@@ -1,6 +1,7 @@
+import { FullscreenOutlined } from '@ant-design/icons';
 import { useRefFunction } from '@ant-design/pro-components';
 import { HotTable } from '@handsontable/react-wrapper';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import Handsontable from 'handsontable';
 import { CellChange, ChangeSource } from 'handsontable/common';
@@ -16,6 +17,7 @@ import { Editor, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
+import { ActionIconBox } from '../../components';
 import { parserMarkdownToSlateNode } from '../../parser/parserMarkdownToSlateNode';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
@@ -685,31 +687,83 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
             </div>
           ) : (
             <>
-              <div
-                className={classNames(baseCls, hashId, {
-                  [`${baseCls}-selected`]: isSel,
-                })}
-                onClick={() => {
-                  runInAction(() => {
-                    if (isSel) {
-                      store.selectTablePath = [];
-                      return;
-                    }
-                    store.selectTablePath = tablePath;
-                  });
+              <Popover
+                trigger={['click', 'hover']}
+                arrow={false}
+                styles={{
+                  body: {
+                    padding: 8,
+                  },
                 }}
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                }}
+                content={
+                  <div>
+                    <ActionIconBox
+                      title="全屏"
+                      onClick={(e) => {
+                        e.stopPropagation();
+
+                        Modal.info({
+                          icon: null,
+                          title: '全屏预览表格',
+                          closable: true,
+                          footer: null,
+                          content: (
+                            <div
+                              className={classNames(baseCls, hashId, {
+                                [`${baseCls}-selected`]: isSel,
+                              })}
+                              style={{
+                                flex: 1,
+                                minWidth: 0,
+                                overflow: 'auto',
+                                width: 'calc(80vw - 64px)',
+                              }}
+                              ref={(dom) => {
+                                if (dom) {
+                                  dom.appendChild(
+                                    tableTargetRef.current?.cloneNode(
+                                      true,
+                                    ) as Node,
+                                  );
+                                }
+                              }}
+                            />
+                          ),
+                          width: '80vw',
+                        });
+                      }}
+                    >
+                      <FullscreenOutlined />
+                    </ActionIconBox>
+                  </div>
+                }
               >
-                <table
-                  ref={tableTargetRef}
-                  className={classNames(`${baseCls}-editor-table`, hashId)}
+                <div
+                  className={classNames(baseCls, hashId, {
+                    [`${baseCls}-selected`]: isSel,
+                  })}
+                  onClick={() => {
+                    runInAction(() => {
+                      if (isSel) {
+                        store.selectTablePath = [];
+                        return;
+                      }
+                      store.selectTablePath = tablePath;
+                    });
+                  }}
+                  style={{
+                    flex: 1,
+                    minWidth: 0,
+                  }}
                 >
-                  <tbody data-slate-node="element">{props.children}</tbody>
-                </table>
-              </div>
+                  <table
+                    ref={tableTargetRef}
+                    className={classNames(`${baseCls}-editor-table`, hashId)}
+                  >
+                    <tbody data-slate-node="element">{props.children}</tbody>
+                  </table>
+                </div>
+              </Popover>
             </>
           )}
         </div>

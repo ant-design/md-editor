@@ -65,6 +65,7 @@
                 tabindex="0"
               >
                 <div
+                  aria-describedby="test-id"
                   class="ant-md-editor-content-table"
                   style="flex: 1; min-width: 0;"
                 >
@@ -3191,6 +3192,7 @@
                 tabindex="0"
               >
                 <div
+                  aria-describedby="test-id"
                   class="ant-md-editor-content-table"
                   style="flex: 1; min-width: 0;"
                 >

@@ -13,6 +13,8 @@
 
 <code src="./demos/render.tsx" background="var(--main-bg-color)" title="自定义render" iframe=540></code>
 
+<code src="./demos/chart-list.tsx" background="var(--main-bg-color)" title="图表列表" iframe=540></code>
+
 <code src="./demos/minPreview.tsx" background="var(--main-bg-color)" title="自定义toolbar" iframe=540></code>
 
 <code src="./demos/min-render.tsx" background="var(--main-bg-color)" title="render 地址" iframe=540></code>
