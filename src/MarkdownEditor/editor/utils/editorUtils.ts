@@ -427,12 +427,6 @@ export class EditorUtils {
 
   static toggleFormat(editor: Editor, format: any) {
     const str = editor.selection ? Editor.string(editor, editor.selection) : '';
-    const [curNode] = Editor.nodes<any>(editor, {
-      mode: 'lowest',
-      match: (m) => {
-        return Element.isElement(m);
-      },
-    });
     if (str) {
       const isActive = EditorUtils.isFormatActive(editor, format);
       Transforms.setNodes(
@@ -440,9 +434,6 @@ export class EditorUtils {
         { [format]: isActive ? null : true },
         { match: Text.isText, split: true },
       );
-    }
-    if (curNode) {
-      Transforms.select(editor, curNode[1]);
     }
   }
 
@@ -453,20 +444,11 @@ export class EditorUtils {
    * @param color - 可选的高亮颜色字符串。如果未提供，则移除高亮颜色。
    */
   static highColor(editor: Editor, color?: string) {
-    const [curNode] = Editor.nodes<any>(editor, {
-      mode: 'lowest',
-      match: (m) => {
-        return Element.isElement(m);
-      },
-    });
     Transforms.setNodes(
       editor,
       { highColor: color },
       { match: Text.isText, split: true },
     );
-    if (curNode) {
-      Transforms.select(editor, curNode[1]);
-    }
   }
 
   static checkEnd(editor: Editor) {
