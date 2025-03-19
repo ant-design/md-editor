@@ -15,6 +15,7 @@ import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Editor, Element, NodeEntry } from 'slate';
 import { useEditorStore } from '../../store';
+import { getSelRect } from '../../utils/dom';
 import { EditorUtils } from '../../utils/editorUtils';
 import { getInsertOptions } from '../InsertAutocomplete';
 
@@ -144,6 +145,7 @@ export const BaseToolBar = observer(
 
     const openLink = useCallback(() => {
       const sel = markdownEditorRef.current?.selection;
+      store.domRect = getSelRect();
       if (!sel) return;
       el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
       store.openInsertLink$.next(sel);
