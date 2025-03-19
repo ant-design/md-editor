@@ -37,8 +37,6 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
     }
   }, [selected, path]);
 
-  console.log('MermaidElement', props.element);
-
   return (
     <div
       {...props.attributes}
