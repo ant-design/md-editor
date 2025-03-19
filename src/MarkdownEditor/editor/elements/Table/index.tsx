@@ -481,7 +481,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
       return props.element?.otherProps?.colWidths;
-    if (!tableData?.[1]) return;
+    if (!tableData?.[1]) return tableData[0].map(() => 80);
     if (tableData?.[1]?.filter(Boolean)?.length === 0) return;
     return tableData?.[1]?.map((text: string) => {
       return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 50);
