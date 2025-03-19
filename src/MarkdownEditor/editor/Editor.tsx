@@ -224,6 +224,7 @@ export const MEditor = observer(
       event.stopPropagation();
       event.preventDefault();
       const currentTextSelection = markdownEditorRef.current.selection;
+      const path = EditorUtils.findMediaInsertPath(markdownEditorRef.current);
       if (
         currentTextSelection &&
         currentTextSelection.anchor &&
@@ -267,7 +268,7 @@ export const MEditor = observer(
         });
 
         Transforms.insertFragment(markdownEditorRef.current, fragment, {
-          at: currentTextSelection!,
+          at: path!,
         });
         return;
       }
@@ -753,7 +754,10 @@ export const MEditor = observer(
                 event.clipboardData,
                 'copy',
               );
-              copySelectedBlocks(markdownEditorRef.current);
+              copySelectedBlocks(
+                markdownEditorRef.current,
+                markdownContainerRef.current!,
+              );
             }}
             onCompositionStart={onCompositionStart}
             onCompositionEnd={onCompositionEnd}

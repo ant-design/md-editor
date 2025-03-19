@@ -22,17 +22,19 @@ import { Editor } from 'slate';
  * - 使用encodeURIComponent处理UTF-8字符
  * - 通过DataTransfer API设置多种剪贴板格式
  */
-export const copySelectedBlocks = (editor: Editor) => {
+export const copySelectedBlocks = (
+  editor: Editor,
+  container: HTMLDivElement,
+) => {
   const selectedFragment = editor.selection;
 
   copyToClipboard(' ', {
     onCopy: (dataTransfer) => {
       const data = dataTransfer as DataTransfer;
       if (!data) return;
-      let textPlain = '';
-      const div = document.createElement('div');
-      data.setData('text/plain', textPlain);
-      data.setData('text/html', div.innerHTML);
+      let textPlain = container?.textContent;
+      data.setData('text/plain', textPlain || '');
+      data.setData('text/html', container?.innerHTML);
 
       // set slate fragment
       const selectedFragmentStr = JSON.stringify(selectedFragment);

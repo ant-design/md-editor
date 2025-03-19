@@ -406,6 +406,9 @@ export class KeyboardTask {
         this.editor,
         EditorUtils.wrapperCardNode({
           type: 'table',
+          otherProps: {
+            colWidths: new Array(3).fill(200) as number[],
+          },
           children: [
             {
               type: 'table-row',
