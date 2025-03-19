@@ -519,14 +519,14 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                         //@ts-ignore
                         document.execCommand('copy', false, code);
                       }
-                      message.success('Copied');
+                      message.success('复制成功');
                     } catch (error) {}
                   }}
                 >
                   <CopyOutlined />
                 </ActionIconBox>
                 <ActionIconBox
-                  title="复制"
+                  title="全屏"
                   style={{
                     fontSize: '0.9em',
                     lineHeight: '1.75em',

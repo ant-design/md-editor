@@ -1,8 +1,8 @@
 /* eslint-disable react/no-children-prop */
-import { MenuProps, message } from 'antd';
+import { message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { ReactNode, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import {
   BaseRange,
   BaseSelection,
@@ -25,6 +25,7 @@ import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAnd
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { PluginContext } from '../plugin';
+import { TagPopupProps } from './elements/code/TagPopup';
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -47,8 +48,6 @@ import {
   isPath,
 } from './utils/editorUtils';
 import { toUnixPath } from './utils/path';
-import { TagPopupProps } from './elements/code/TagPopup';
-
 
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
@@ -91,9 +90,7 @@ export const MEditor = observer(
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
-    const {
-      prefixCls = '$',
-    } = tag || {};
+    const { prefixCls = '$' } = tag || {};
 
     const onKeyDown = useKeyboard(
       store,
@@ -110,15 +107,14 @@ export const MEditor = observer(
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event?.key === prefixCls) {
-        Transforms.insertNodes(
-          markdownEditorRef.current,{
-            type: "code",
-            code: true,
-            tag: {
-              ...tag
-            },
-            text: ''
-          })
+        Transforms.insertNodes(markdownEditorRef.current, {
+          type: 'code',
+          code: true,
+          tag: {
+            ...tag,
+          },
+          text: '',
+        });
       }
       onKeyDown(event);
     };
@@ -302,7 +298,7 @@ export const MEditor = observer(
         try {
           const fileList = event.clipboardData.files;
           if (fileList.length > 0) {
-            const hideLoading = message.loading('Uploading...');
+            const hideLoading = message.loading('上传中...');
             try {
               const url = [];
               for await (const file of fileList) {
@@ -337,7 +333,7 @@ export const MEditor = observer(
                   },
                 );
               });
-              message.success('Upload success');
+              message.success('上传成功');
             } catch (error) {
               console.log('error', error);
             } finally {
@@ -733,7 +729,6 @@ export const MEditor = observer(
               event.preventDefault();
             }}
             onMouseDown={checkEnd}
-            
             onFocus={onFocus}
             onBlur={onBlur}
             onPaste={onPaste}

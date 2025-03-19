@@ -130,7 +130,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
                       //@ts-ignore
                       document.execCommand('copy', false, code);
                     }
-                    message.success('Copied');
+                    message.success('复制成功');
                   } catch (error) {}
                 }}
               >

@@ -168,7 +168,7 @@ export const ReadonlyBaseBar = observer(
             }
             try {
               navigator.clipboard.writeText(title);
-              message.success('Copy Success');
+              message.success('复制成功');
             } catch (error) {}
           }}
         >

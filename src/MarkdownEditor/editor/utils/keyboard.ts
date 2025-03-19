@@ -204,7 +204,7 @@ export class KeyboardTask {
         return;
       }
       input.dataset.readonly = 'true';
-      const hideLoading = message.loading('Uploading...');
+      const hideLoading = message.loading('上传中...');
       try {
         const url =
           (await this.props?.image?.upload?.(
@@ -213,7 +213,7 @@ export class KeyboardTask {
         [url].flat().forEach((u: string) => {
           insertMedia(u);
         });
-        message.success('Upload success');
+        message.success('上传成功');
       } catch (error) {
       } finally {
         hideLoading();
