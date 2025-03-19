@@ -121,6 +121,7 @@
   margin-bottom: 0.5em;
   font-size: 14px;
   min-width: min(320px, 100%);
+  margin-top: 8px;
 }
 
 .ace-container.frontmatter:before {
