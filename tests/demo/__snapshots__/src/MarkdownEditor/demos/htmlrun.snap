@@ -56,7 +56,7 @@
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "
@@ -775,7 +775,7 @@
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "

@@ -4,7 +4,6 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
-import { InlineKatex } from '@ant-design/md-editor/plugins/code';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import {
   ReactEditor,
@@ -136,8 +135,6 @@ export const MElement = (
         </span>
       );
 
-    case 'inline-katex':
-      return <InlineKatex {...props} />;
     default:
       return <Paragraph {...props} />;
   }

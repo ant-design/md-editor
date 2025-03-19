@@ -37,12 +37,14 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
     }
   }, [selected, path]);
 
+  console.log('MermaidElement', props.element);
+
   return (
     <div
       {...props.attributes}
       contentEditable={false}
       className={'ace-el drag-el'}
-      data-be={'code'}
+      data-be={'mermaid'}
       tabIndex={-1}
       onBlur={() => {}}
       data-lang={props.element.language}
@@ -68,9 +70,6 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
           height: state().hide ? 0 : 'auto',
           opacity: state().hide ? 0 : 1,
         }}
-        className={`ace-container drag-el ${
-          props.element.frontmatter ? 'frontmatter' : ''
-        }`}
       >
         {!props.element.frontmatter && (
           <div

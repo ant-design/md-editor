@@ -291,7 +291,7 @@
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: rgb(252, 252, 252);"
+                    style="background-color: transparent;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -708,7 +708,7 @@ for num in arr:
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: rgb(252, 252, 252);"
+                    style="background-color: transparent;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -1097,7 +1097,7 @@ for num in arr:
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: rgb(252, 252, 252);"
+                    style="background-color: transparent;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -1566,7 +1566,7 @@ for num in arr:
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: rgb(252, 252, 252);"
+                    style="background-color: transparent;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -1936,7 +1936,7 @@ while i &lt; len(arr):
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: rgb(252, 252, 252);"
+                    style="background-color: transparent;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -2365,7 +2365,7 @@ while i &lt; len(arr):
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: rgb(252, 252, 252);"
+                    style="background-color: transparent;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -2697,7 +2697,7 @@ while i &lt; len(arr):
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "
@@ -3154,7 +3154,7 @@ for fruit in fruits:
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "
@@ -3514,7 +3514,7 @@ for fruit in fruits:
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "
@@ -3900,7 +3900,7 @@ while i &lt; len(fruits):
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "
@@ -4259,7 +4259,7 @@ while i &lt; len(fruits):
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "
@@ -4746,7 +4746,7 @@ while i &lt; len(fruits):
             tabindex="-1"
           >
             <div
-              style="background-color: rgb(252, 252, 252);"
+              style="background-color: transparent;"
             >
               <div
                 class="ace-container drag-el "

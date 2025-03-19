@@ -679,7 +679,7 @@ const parserBlock = (
           currentElement.lang === 'apassify';
 
         if (currentElement.lang === 'mermaid') {
-          el.type === 'mermaid';
+          el.type = 'mermaid';
         } else if (isSchema) {
           let json = [];
           try {
@@ -911,5 +911,6 @@ export const parserMarkdownToSlateNode = (
       : markdownRoot.children;
 
   const schema = parserBlock(root as any[], true) as Elements[];
+
   return { schema, links: [] };
 };

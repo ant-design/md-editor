@@ -12876,7 +12876,7 @@
               tabindex="-1"
             >
               <div
-                style="background-color: rgb(252, 252, 252);"
+                style="background-color: transparent;"
               >
                 <div
                   class="ace-container drag-el "
@@ -13296,7 +13296,7 @@
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -13689,7 +13689,7 @@ yarn add antd
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -14010,7 +14010,7 @@ yarn add antd
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -14295,7 +14295,7 @@ yarn add antd
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -14626,7 +14626,7 @@ yarn add antd
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -14960,7 +14960,7 @@ function App() {
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -15335,7 +15335,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
@@ -15693,7 +15693,7 @@ npm install ant-design-vue --save
                     tabindex="-1"
                   >
                     <div
-                      style="background-color: rgb(252, 252, 252);"
+                      style="background-color: transparent;"
                     >
                       <div
                         class="ace-container drag-el "
