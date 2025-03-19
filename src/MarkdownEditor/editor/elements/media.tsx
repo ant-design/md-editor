@@ -1,10 +1,9 @@
 import { DeleteFilled, EyeOutlined } from '@ant-design/icons';
 import { Image, ImageProps, Modal, Popover } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-import { ResizableBox } from 'react-resizable';
 
 import { useDebounceFn } from '@ant-design/pro-components';
-import classNames from 'classnames';
+import { Rnd } from 'react-rnd';
 import { Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
@@ -15,7 +14,6 @@ import { DragHandle } from '../tools/DragHandle';
 import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
-import { useEditorStyleRegister } from '../utils/useStyle';
 
 /**
  * 图片组件，带有错误处理功能
@@ -50,39 +48,6 @@ const ImageAndError: React.FC<ImageProps> = (props) => {
   );
 };
 
-export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('editor-content-contributorAvatar', () => {
-    const componentCls = `.${prefixCls}`;
-
-    return [
-      {
-        [componentCls]: {
-          position: 'relative',
-          boxSizing: 'border-box',
-          '&-hide': { display: 'none' },
-          '&-handle': {
-            position: 'absolute',
-            padding: '0 3px 3px 0',
-            backgroundRepeat: 'no-repeat',
-            backgroundOrigin: 'content-box',
-            boxSizing: 'border-box',
-            cursor: 'se-resize',
-            zIndex: 9999,
-            width: '14px',
-            height: '14px',
-            border: '2px solid #fff',
-            backgroundColor: '#2f8ef4',
-            borderRadius: '10px',
-            bottom: '-7px',
-            right: '-7px',
-            pointerEvents: 'all',
-          },
-        },
-      },
-    ];
-  });
-}
-
 /**
  * 修复图片大小的问题
  * @param props
@@ -92,18 +57,14 @@ export const ResizeImage = ({
   onResizeStart,
   onResizeStop,
   selected,
-  supportResize,
   defaultSize,
   ...props
 }: React.ImgHTMLAttributes<HTMLImageElement> & {
-  onResizeStart?: (e: React.SyntheticEvent) => void;
-  onResizeStop?: (
-    e: React.SyntheticEvent,
-    size: {
-      width: number | string;
-      height: number | string;
-    },
-  ) => void;
+  onResizeStart?: () => void;
+  onResizeStop?: (size: {
+    width: number | string;
+    height: number | string;
+  }) => void;
   supportResize?: boolean;
   defaultSize?: {
     width?: number;
@@ -120,7 +81,6 @@ export const ResizeImage = ({
     height: number | string;
   });
   const imgRef = useRef<HTMLImageElement>(null);
-  const { wrapSSR, hashId } = useStyle('react-resizable');
 
   //@ts-expect-error
   const resize = useDebounceFn((size) => {
@@ -134,59 +94,81 @@ export const ResizeImage = ({
       `${(size.width || 0) / radio.current}px`,
     );
   }, 160);
-  return wrapSSR(
-    <ResizableBox
-      onResizeStart={onResizeStart}
-      onResizeStop={(e) => {
-        onResizeStop?.(e, size);
-      }}
-      className={classNames(hashId, {
-        'react-resizable-selected': selected,
-      })}
-      handle={!supportResize ? <div /> : undefined}
-      width={size.width as number}
-      height={size.height as number}
-      onResize={(_, { size }) => {
-        imgRef.current?.style.setProperty('width', `${size.width}px`);
-        imgRef.current?.style.setProperty(
-          'height',
-          `${(size.width || 0) / radio.current}px`,
-        );
-        resize.cancel();
-        resize.run(size);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 4,
+        overflow: 'hidden',
+        width: size.width as number,
+        height: size.height as number,
       }}
     >
-      <img
-        draggable={false}
-        onLoad={(e) => {
-          let width = (e.target as HTMLImageElement).clientWidth;
-          const height = (e.target as HTMLImageElement).clientHeight;
-          radio.current = width / height;
-          width = Math.min(
-            width,
-            600,
-            document.documentElement.clientWidth * 0.8 || 600,
+      <Rnd
+        onResizeStart={onResizeStart}
+        onResizeStop={() => {
+          onResizeStop?.(size);
+        }}
+        default={{
+          x: 0,
+          y: 0,
+          width: '100%',
+          height: '100%',
+        }}
+        size={size}
+        disableDragging
+        onResize={(_, dir, ele) => {
+          imgRef.current?.style.setProperty('width', `${ele.clientWidth}px`);
+          imgRef.current?.style.setProperty(
+            'height',
+            `${(ele.clientWidth || 0) / radio.current}px`,
           );
-          setSize({
-            width: width,
-            height: width / radio.current,
+
+          resize.cancel();
+          resize.run({
+            width: ele.clientWidth,
+            height: (ele.clientWidth || 0) / radio.current,
           });
         }}
-        alt={'image'}
-        referrerPolicy={'no-referrer'}
-        crossOrigin={'anonymous'}
-        width={'100%'}
-        ref={imgRef}
-        style={{
-          width: '100%',
-          height: 'auto',
-          position: 'relative',
-          zIndex: 99,
-          minHeight: 20,
-        }}
-        {...props}
-      />
-    </ResizableBox>,
+      >
+        <img
+          draggable={false}
+          onLoad={(e) => {
+            let width = (e.target as HTMLImageElement).naturalWidth;
+            const height = (e.target as HTMLImageElement).naturalHeight;
+            radio.current = width / height;
+            width = Math.min(
+              width,
+              600,
+              document.documentElement.clientWidth * 0.8 || 600,
+            );
+
+            setSize({
+              width: width,
+              height: width / radio.current,
+            });
+          }}
+          alt={'image'}
+          referrerPolicy={'no-referrer'}
+          crossOrigin={'anonymous'}
+          width={`min(${size.width}px, 100%)`}
+          ref={imgRef}
+          style={{
+            width: '100%',
+            height: 'auto',
+            position: 'relative',
+            zIndex: 99,
+            outline: selected ? '2px solid #1890ff' : 'none',
+            boxShadow: selected ? '0 0 0 2px #1890ff' : 'none',
+            minHeight: 20,
+          }}
+          {...props}
+        />
+      </Rnd>
+    </div>
   );
 };
 
@@ -262,7 +244,7 @@ export function Media({
         onResizeStart={() => {
           setState({ selected: true });
         }}
-        onResizeStop={(_, size) => {
+        onResizeStop={(size) => {
           Transforms.setNodes(markdownEditorRef.current, size, { at: path });
           setState({ selected: false });
         }}
