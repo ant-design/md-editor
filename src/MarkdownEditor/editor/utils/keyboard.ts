@@ -665,6 +665,9 @@ export class KeyboardTask {
         Transforms.delete(this.editor, {
           at: curPath,
         });
+        Transforms.delete(this.editor, {
+          at: curNode[1],
+        });
 
         selectNodeList?.forEach((mapNode) => {
           const item = {
