@@ -1,7 +1,6 @@
-import { FullscreenOutlined } from '@ant-design/icons';
 import { useRefFunction } from '@ant-design/pro-components';
 import { HotTable } from '@handsontable/react-wrapper';
-import { ConfigProvider, Modal, Popover } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import Handsontable from 'handsontable';
 import { CellChange, ChangeSource } from 'handsontable/common';
@@ -10,17 +9,16 @@ import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-horizon.min.css';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { Editor, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
-import { ActionIconBox } from '../../components';
 import { parserMarkdownToSlateNode } from '../../parser/parserMarkdownToSlateNode';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
+import { ReadonlyTable } from './ReadonlyTable';
 import { useTableStyle } from './style';
 import './table.css';
 export * from './TableCell';
@@ -149,8 +147,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   const [selectedTable, tablePath] = useSelStatus(props.element);
 
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
-
-  const tableTargetRef = useRef<HTMLTableElement>(null);
 
   /**
    * 判断当前表格是否被选中。
@@ -686,85 +682,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
               />
             </div>
           ) : (
-            <>
-              <Popover
-                trigger={['click', 'hover']}
-                arrow={false}
-                styles={{
-                  body: {
-                    padding: 8,
-                  },
-                }}
-                content={
-                  <div>
-                    <ActionIconBox
-                      title="全屏"
-                      onClick={(e) => {
-                        e.stopPropagation();
-
-                        Modal.info({
-                          icon: null,
-                          title: '全屏预览表格',
-                          closable: true,
-                          footer: null,
-                          content: (
-                            <div
-                              className={classNames(baseCls, hashId, {
-                                [`${baseCls}-selected`]: isSel,
-                              })}
-                              style={{
-                                flex: 1,
-                                minWidth: 0,
-                                overflow: 'auto',
-                                width: 'calc(80vw - 64px)',
-                              }}
-                              ref={(dom) => {
-                                if (dom) {
-                                  dom.appendChild(
-                                    tableTargetRef.current?.cloneNode(
-                                      true,
-                                    ) as Node,
-                                  );
-                                }
-                              }}
-                            />
-                          ),
-                          width: '80vw',
-                        });
-                      }}
-                    >
-                      <FullscreenOutlined />
-                    </ActionIconBox>
-                  </div>
-                }
-              >
-                <div
-                  className={classNames(baseCls, hashId, {
-                    [`${baseCls}-selected`]: isSel,
-                  })}
-                  onClick={() => {
-                    runInAction(() => {
-                      if (isSel) {
-                        store.selectTablePath = [];
-                        return;
-                      }
-                      store.selectTablePath = tablePath;
-                    });
-                  }}
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                  }}
-                >
-                  <table
-                    ref={tableTargetRef}
-                    className={classNames(`${baseCls}-editor-table`, hashId)}
-                  >
-                    <tbody data-slate-node="element">{props.children}</tbody>
-                  </table>
-                </div>
-              </Popover>
-            </>
+            <ReadonlyTable hashId={hashId}>{props.children}</ReadonlyTable>
           )}
         </div>
       </TablePropsContext.Provider>,

@@ -8,13 +8,13 @@
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
+      overflow: 'auto',
       '&-container': {
         display: 'flex',
         gap: 1,
         maxWidth: '100%',
         minWidth: 0,
         outline: 'none',
-        overflow: 'auto',
         position: 'relative',
         marginBottom: 12,
       },
