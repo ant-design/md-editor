@@ -89,6 +89,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
   }, [props.element, props.element.children, state().lang]);
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'test') return;
     if (!dom.current) return;
     const codeEditor = ace.edit(dom.current!, {
       useWorker: false,
