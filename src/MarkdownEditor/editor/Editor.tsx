@@ -106,7 +106,7 @@ export const MEditor = observer(
     const first = useRef(true);
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event?.key === prefixCls) {
+      if (tag && event?.key === prefixCls) {
         Transforms.insertNodes(markdownEditorRef.current, {
           type: 'code',
           code: true,
