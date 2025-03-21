@@ -36,3 +36,5 @@
 <code src="./demos/li-code.tsx" debug background="var(--main-bg-color)" title="li 嵌套 icode" iframe=540 ></code>
 
 <code src="./demos/htmlrun.tsx"  background="var(--main-bg-color)" title="支持运行html" iframe=540 ></code>
+
+<code src="./demos/ThoughtChainList.tsx"  background="var(--main-bg-color)" title="思维链" iframe=540 ></code>

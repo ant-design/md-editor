@@ -3,6 +3,7 @@ import { message } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import {
   BaseRange,
   BaseSelection,
@@ -556,7 +557,13 @@ export const MEditor = observer(
 
     const elementRenderElement = (props: RenderElementProps) => {
       const defaultDom = (
-        <MElement {...props} children={props.children} readonly={readonly} />
+        <ErrorBoundary
+          fallbackRender={() => {
+            return null;
+          }}
+        >
+          <MElement {...props} children={props.children} readonly={readonly} />
+        </ErrorBoundary>
       );
 
       for (const plugin of plugins) {

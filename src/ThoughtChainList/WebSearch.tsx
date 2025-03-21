@@ -1,0 +1,152 @@
+﻿import { CloseCircleFilled } from '@ant-design/icons';
+import { Typography } from 'antd';
+import React, { useMemo } from 'react';
+import { WhiteBoxProcessInterface } from '.';
+import { DotLoading } from './DotAni';
+import { MarkdownEditorUpdate } from './MarkdownEditor';
+
+export const WebSearch = (
+  props: {
+    isFinished: boolean;
+    onChangeItem?: (
+      item: WhiteBoxProcessInterface,
+      changeProps: {
+        feedbackContent: string;
+        feedbackType: 'sql' | 'toolArg';
+        feedbackRunId: string;
+      },
+    ) => void;
+  } & WhiteBoxProcessInterface,
+) => {
+  const errorMsg =
+    props.output?.errorMsg ||
+    props.output?.response?.error ||
+    props.output?.response?.errorMsg;
+
+  return useMemo(() => {
+    return (
+      <>
+        <div
+          style={{
+            display: 'flex',
+            gap: '10px',
+            flexDirection: 'column',
+          }}
+        >
+          {!props.output && !props?.isFinished ? (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                height: '38px',
+                borderRadius: '12px',
+                opacity: 1,
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
+                flexDirection: 'row',
+                padding: '8px',
+                gap: '10px',
+                alignSelf: 'stretch',
+                background: '#FBFCFD',
+                zIndex: 2,
+              }}
+            >
+              <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
+              网络查询中
+              <DotLoading />
+            </div>
+          ) : null}
+          {!errorMsg && props.output ? (
+            <div
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
+                padding: '8px 12px',
+                gap: '10px',
+                alignSelf: 'stretch',
+                background: '#FBFCFD',
+                zIndex: 1,
+                borderRadius: '12px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '10px',
+                  borderRadius: '12px',
+                  opacity: 1,
+                  wordBreak: 'break-all',
+                  wordWrap: 'break-word',
+                  flexDirection: 'column',
+                  alignSelf: 'stretch',
+                }}
+                className="code-view"
+              >
+                <MarkdownEditorUpdate
+                  typewriter={
+                    !props.output?.response?.error &&
+                    !props.isFinished &&
+                    props.output?.type === 'TOKEN'
+                  }
+                  initValue={props.output?.data?.replace('>', '')}
+                />
+              </div>
+            </div>
+          ) : null}
+          {errorMsg ? (
+            <div
+              style={{
+                borderRadius: '12px',
+                opacity: 1,
+                display: 'flex',
+                padding: '12px 12px',
+                alignSelf: 'stretch',
+                background: '#FFEDEC',
+                wordBreak: 'break-all',
+                minHeight: 18,
+                wordWrap: 'break-word',
+                zIndex: 2,
+                backgroundColor: '#FFEDEC',
+                border: '1px solid rgba(244, 244, 247, 0.7473)',
+                gap: 8,
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 12,
+                }}
+              >
+                <div>
+                  <CloseCircleFilled
+                    style={{
+                      color: '#FF4141',
+                      marginRight: 8,
+                    }}
+                  />
+                  <Typography.Text>任务执行失败，需要修改</Typography.Text>
+                </div>
+                <Typography
+                  style={{
+                    color: '#FF4141',
+                    wordBreak: 'break-all',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {JSON.stringify(errorMsg)}
+                </Typography>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </>
+    );
+  }, [props.category, JSON.stringify(props.output?.data), props.costMillis]);
+};

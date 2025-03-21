@@ -28,6 +28,16 @@ Object.defineProperty(globalThis, 'cancelAnimationFrame', {
   writable: true,
 });
 
+Object.defineProperty(globalThis, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: vi.fn(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  })),
+});
+
 if (typeof globalThis !== 'undefined') {
   // ref: https://github.com/ant-design/ant-design/issues/18774
   if (!globalThis.matchMedia) {
