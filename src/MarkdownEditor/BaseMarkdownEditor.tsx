@@ -168,6 +168,15 @@ export type MarkdownEditorProps = {
       props: { children: string; identifier?: string },
       defaultDom: React.ReactNode,
     ) => React.ReactNode;
+    onFootnoteDefinitionChange?: (
+      value: {
+        id: any;
+        placeholder: any;
+        origin_text: any;
+        url: any;
+        origin_url: any;
+      }[],
+    ) => void;
   };
   /**
    * 用于外部获取实例

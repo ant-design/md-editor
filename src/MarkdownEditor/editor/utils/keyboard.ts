@@ -763,7 +763,7 @@ export const useSystemKeyboard = (
     return new KeyboardTask(store, props);
   }, [props.readonly]);
 
-  useSubject(keyTask$, ({ key, args }) => {
+  useSubject(keyTask$, ({ key, args }: any) => {
     // @ts-ignore
     task[key](...(args || []));
   });

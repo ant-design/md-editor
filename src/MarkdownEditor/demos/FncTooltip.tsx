@@ -1,9 +1,9 @@
 ﻿import { ExportOutlined } from '@ant-design/icons';
 import {
-  FootnoteDefinitionNode,
   MARKDOWN_EDITOR_EVENTS,
   MarkdownEditor,
   MarkdownEditorInstance,
+  useRefFunction,
 } from '@ant-design/md-editor';
 import { ChartElement } from '@ant-design/md-editor/plugins/chart';
 import { CodeElement } from '@ant-design/md-editor/plugins/code';
@@ -28,52 +28,17 @@ const defaultValue = `根据提供的上下文数据，微软最近的股票并�
 [^1]: [微软(MSFT)股价陷低谷，AI投入何时兑现增加承诺？ - 美股投资网](https://www.tradesmax.com/component/k2/item/22075-microsoft)
 `;
 
-const FncTooltip = (props: {
-  identifier?: any;
-  children?: any;
-  editorRef?: any;
-}) => {
-  const { editorRef } = props;
-  const [node, setNode] = React.useState<FootnoteDefinitionNode | null>(null);
-  return (
-    <Popover
-      onOpenChange={() => {
-        setNode(
-          editorRef.current?.store.footnoteDefinitionMap.get(props.identifier),
-        );
-      }}
-      title="Link"
-      content={
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-          }}
-        >
-          <a
-            href={node?.url}
-            style={{
-              color: '#1890ff',
-            }}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {node?.value}
-          </a>
-
-          <ExportOutlined />
-        </div>
-      }
-    >
-      {props.children}
-    </Popover>
-  );
-};
-
 export default () => {
   const editorRef = React.useRef<MarkdownEditorInstance>();
-
+  const [nodeList, setNodeList] = React.useState<
+    {
+      id: any;
+      placeholder: any;
+      origin_text: any;
+      url: any;
+      origin_url: any;
+    }[]
+  >([]);
   useEffect(() => {
     // @ts-ignore
     window.editorRef = editorRef;
@@ -84,6 +49,43 @@ export default () => {
       },
     );
   }, []);
+
+  const funRender = useRefFunction(
+    (props: { identifier?: any }, _: React.ReactNode) => {
+      const node = nodeList.find(
+        (item) => item.placeholder === props.identifier,
+      );
+      return (
+        <Popover
+          title="参考链接"
+          content={
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <a
+                href={node?.url}
+                style={{
+                  color: '#1890ff',
+                }}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {node?.origin_text}
+              </a>
+
+              <ExportOutlined />
+            </div>
+          }
+        >
+          {_}
+        </Popover>
+      );
+    },
+  );
   return (
     <MarkdownEditor
       editorRef={editorRef}
@@ -100,12 +102,12 @@ export default () => {
         },
       ]}
       fncProps={{
+        onFootnoteDefinitionChange: (nodeList) => {
+          console.log(nodeList);
+          setNodeList(nodeList);
+        },
         render: (props, _) => {
-          return (
-            <FncTooltip {...props} editorRef={editorRef}>
-              {_}
-            </FncTooltip>
-          );
+          return funRender(props, _);
         },
       }}
       onChange={(e, value) => {

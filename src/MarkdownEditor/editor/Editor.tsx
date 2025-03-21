@@ -672,6 +672,24 @@ export const MEditor = observer(
         });
       }
     }, 160);
+
+    useEffect(() => {
+      const footnoteDefinitionList = markdownEditorRef.current.children
+        .filter((item) => item.type === 'footnoteDefinition')
+        .map((item, index) => {
+          return {
+            id: item.id || index,
+            placeholder: item.identifier,
+            origin_text: item.value,
+            url: item.url,
+            origin_url: item.url,
+          };
+        });
+      editorProps?.fncProps?.onFootnoteDefinitionChange?.(
+        footnoteDefinitionList,
+      );
+    }, [markdownEditorRef.current.children]);
+
     return wrapSSR(
       <>
         <Slate

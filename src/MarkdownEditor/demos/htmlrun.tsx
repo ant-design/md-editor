@@ -133,6 +133,7 @@ export default () => {
       height={'100vh'}
       reportMode
       fncProps={{
+        
         render: (props, _) => {
           return <Tooltip title={props.children}>{_}</Tooltip>;
         },
