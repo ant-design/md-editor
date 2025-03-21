@@ -103,7 +103,6 @@ export default () => {
       ]}
       fncProps={{
         onFootnoteDefinitionChange: (nodeList) => {
-          console.log(nodeList);
           setNodeList(nodeList);
         },
         render: (props, _) => {
