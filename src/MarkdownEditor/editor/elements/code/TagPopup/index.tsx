@@ -25,7 +25,6 @@ const TagPopup = (
     };
   },
 ) => {
-  console.log('Tag Props', props);
   const {
     items = [],
     onSelect,
@@ -33,15 +32,9 @@ const TagPopup = (
     dropdownRender,
     dropdownStyle,
     menu,
-    prefixCls,
     notFoundContent,
     className,
-    text,
   } = props || {};
-  console.log('children', children);
-
-  const { text: inputValue } = text;
-  console.log('inputValuetext', text);
 
   const [open, setOpen] = React.useState(true);
 
@@ -60,6 +53,8 @@ const TagPopup = (
     <Dropdown
       open={open}
       className={className}
+      onOpenChange={setOpen}
+      autoFocus={true}
       dropdownRender={(defalutDom) => {
         if (dropdownRender) {
           return dropdownRender(defalutDom);
