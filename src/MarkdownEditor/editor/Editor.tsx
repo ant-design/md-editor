@@ -59,7 +59,7 @@ export type MEditorProps = {
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
   tag?: TagPopupProps;
-  titlePlaceholderContent?: string;
+  placeholder?: string;
 } & MarkdownEditorProps;
 
 const genTableMinSize = (
@@ -520,7 +520,8 @@ export const MEditor = observer(
     }, [readonly, store.focus, !childrenIsEmpty]);
 
     const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
-      titlePlaceholderContent: editorProps.titlePlaceholderContent,
+      placeholderContent:
+        editorProps?.textAreaProps?.placeholder || editorProps?.placeholder,
     });
 
     const baseClassName = `${editorProps.prefixCls}-content`;

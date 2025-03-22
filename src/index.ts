@@ -11,4 +11,5 @@ export {
 export { schemaToHeading } from './MarkdownEditor/editor/tools/Leading';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';
+export * from './MarkdownInputField/MarkdownInputField';
 export * from './ThoughtChainList';

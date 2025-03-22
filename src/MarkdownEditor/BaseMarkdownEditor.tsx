@@ -289,6 +289,11 @@ export type MarkdownEditorProps = {
   };
 
   plugins?: MarkdownEditorPlugin[];
+
+  textAreaProps?: {
+    enable: boolean;
+    placeholder?: string;
+  };
 };
 
 // 组合器函数
@@ -519,7 +524,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               )
             ) : null}
           </div>
-          {readonly ? null : (
+          {readonly || props.textAreaProps?.enable ? null : (
             <div
               className={`${baseClassName}-focus`}
               style={{

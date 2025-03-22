@@ -38,3 +38,5 @@
 <code src="./demos/htmlrun.tsx"  background="var(--main-bg-color)" title="支持运行html" iframe=540 ></code>
 
 <code src="./demos/ThoughtChainList.tsx"  background="var(--main-bg-color)" title="思维链" iframe=540 ></code>
+
+<code src="./demos/markdownInputField.tsx"  background="var(--main-bg-color)" title="文本框输入" iframe=540 ></code>

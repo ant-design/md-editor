@@ -35,7 +35,7 @@ export type ChatTokenType = GlobalToken & {
    */
   componentCls: string;
 
-  titlePlaceholderContent?: string;
+  placeholderContent?: string;
 };
 
 export const resetComponent: GenerateStyle<ChatTokenType> = (
