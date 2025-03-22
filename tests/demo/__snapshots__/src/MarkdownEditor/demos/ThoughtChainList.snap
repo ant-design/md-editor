@@ -157,24 +157,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              查
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              看
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                               
-                            </span>
+                            查看 
                           </div>
                         </span>
                         <span
@@ -192,24 +175,7 @@
                             <div
                               class="flex justify-center space-x-2"
                             >
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                用
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                户
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                表
-                              </span>
+                              用户表
                             </div>
                           </span>
                         </span>
@@ -219,24 +185,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                               
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              数
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              据
-                            </span>
+                             数据
                           </div>
                         </span>
                       </div>
@@ -812,24 +761,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              查
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              询
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                               
-                            </span>
+                            查询 
                           </div>
                         </span>
                         <span
@@ -847,36 +779,7 @@
                             <div
                               class="flex justify-center space-x-2"
                             >
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                多
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                个
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                知
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                识
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                库
-                              </span>
+                              多个知识库
                             </div>
                           </span>
                         </span>
@@ -886,36 +789,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                               
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              相
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              关
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              文
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              章
-                            </span>
+                             相关文章
                           </div>
                         </span>
                       </div>
@@ -1103,66 +977,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              如
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              何
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              解
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              决
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              工
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              作
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              效
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 0.9810267756402027; transform: rotateX(-1.7075901923817582deg);"
-                            >
-                              率
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 0.8955777775554452; transform: rotateX(-9.398000020009931deg);"
-                            >
-                              问
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 0.7601571383711416; transform: rotateX(-21.585857546597254deg);"
-                            >
-                              题
-                            </span>
+                            如何解决工作效率问题
                           </div>
                         </span>
                       </div>
@@ -1348,24 +1163,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              调
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              用
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                               
-                            </span>
+                            调用 
                           </div>
                         </span>
                         <span
@@ -1383,54 +1181,7 @@
                             <div
                               class="flex justify-center space-x-2"
                             >
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                工
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                具
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                1
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                等
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                多
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                个
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 1; transform: none;"
-                              >
-                                工
-                              </span>
-                              <span
-                                class="origin-center drop-shadow-sm"
-                                style="opacity: 0.9810267756402027; transform: rotateX(-1.7075901923817582deg);"
-                              >
-                                具
-                              </span>
+                              工具1等多个工具
                             </div>
                           </span>
                         </span>
@@ -1440,24 +1191,7 @@
                           <div
                             class="flex justify-center space-x-2"
                           >
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                               
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              工
-                            </span>
-                            <span
-                              class="origin-center drop-shadow-sm"
-                              style="opacity: 1; transform: none;"
-                            >
-                              具
-                            </span>
+                             工具
                           </div>
                         </span>
                       </div>
