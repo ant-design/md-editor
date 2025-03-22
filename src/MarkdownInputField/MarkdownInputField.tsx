@@ -30,12 +30,22 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           minHeight: '32px',
           height: '100%',
         }}
+        contentStyle={{
+          padding: '12px',
+        }}
         textAreaProps={{
           enable: true,
           placeholder: props.placeholder,
         }}
         initValue={props.value}
         onChange={props.onChange}
+        toc={false}
+        toolBar={{
+          enable: false,
+        }}
+        floatBar={{
+          enable: false,
+        }}
       />
     </div>
   );

@@ -152,7 +152,9 @@ export type MarkdownEditorProps = {
     extra?: React.ReactNode[];
     hideTools?: ToolsKeyType[];
   };
-
+  floatBar?: {
+    enable?: boolean;
+  };
   drag?: {
     enable: boolean;
   };
@@ -510,7 +512,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               props.reportMode ? (
                 <FloatBar readonly />
               ) : null
-            ) : toolBar?.enable ? null : (
+            ) : toolBar?.enable || props.floatBar?.enable === false ? null : (
               <FloatBar readonly={false} />
             )}
             {editorMountStatus && toc !== false && instance.store?.container ? (
