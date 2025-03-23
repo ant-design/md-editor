@@ -50,45 +50,52 @@ export const TagPopup = (
   });
 
   return (
-    <Dropdown
-      open={open}
-      className={className}
-      onOpenChange={setOpen}
-      autoFocus={true}
-      dropdownRender={(defaultDropdownContent) => {
-        if (dropdownRender) {
-          return dropdownRender(defaultDropdownContent);
-        } else if (menu! && items!) {
-          return notFoundContent || '';
-        } else {
-          return defaultDropdownContent;
-        }
+    <span
+      onKeyDown={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
       }}
-      overlayStyle={dropdownStyle}
-      menu={
-        menu
-          ? menu
-          : {
-              items: selectedItems,
-            }
-      }
     >
-      <div
-        onClick={() => {
-          setOpen(true);
+      <Dropdown
+        open={open}
+        className={className}
+        onOpenChange={setOpen}
+        autoFocus={true}
+        dropdownRender={(defaultDropdownContent) => {
+          if (dropdownRender) {
+            return dropdownRender(defaultDropdownContent);
+          } else if (menu! && items!) {
+            return notFoundContent || '';
+          } else {
+            return defaultDropdownContent;
+          }
         }}
-        style={{
-          backgroundColor: '#f5f5f5',
-          padding: '0 4px',
-          borderRadius: 4,
-          fontSize: '1em',
-          display: 'inline-block',
-          lineHeight: '24px',
-          color: '#bfbfbf',
-        }}
+        overlayStyle={dropdownStyle}
+        menu={
+          menu
+            ? menu
+            : {
+                items: selectedItems,
+              }
+        }
       >
-        {children}
-      </div>
-    </Dropdown>
+        <div
+          onClick={() => {
+            setOpen(true);
+          }}
+          style={{
+            backgroundColor: '#f5f5f5',
+            padding: '0 4px',
+            borderRadius: 4,
+            fontSize: '1em',
+            display: 'inline-block',
+            lineHeight: '24px',
+            color: '#bfbfbf',
+          }}
+        >
+          {children}
+        </div>
+      </Dropdown>
+    </span>
   );
 };

@@ -164,28 +164,11 @@ export const MLeaf = (
           {...props.tagInputProps}
           text={text}
           onSelect={(v) => {
-            const path = ReactEditor.findPath(
-              markdownEditorRef.current,
-              props.text,
-            );
-
-            const start = {
-              path,
-              offset: 1,
-            };
-
-            const end = {
-              path,
-              offset: leaf.text?.length || 0,
-            };
-
-            Transforms.select(markdownEditorRef.current, {
-              anchor: start,
-              focus: end,
-            });
-
             Transforms.delete(markdownEditorRef.current);
-            markdownEditorRef.current.insertText(v);
+            Transforms.insertText(markdownEditorRef.current, v);
+            Transforms.insertNodes(markdownEditorRef.current, [{ text: ' ' }], {
+              select: true,
+            });
           }}
         >
           {children}

@@ -214,7 +214,7 @@ export const withMarkdown = (editor: Editor) => {
     if (operation.type === 'insert_text') {
       const parentNode = Node.get(editor, Path.parent(operation.path));
       const currentNode = Node.get(editor, operation.path);
-      if (currentNode?.code && operation.text === ' ') {
+      if (currentNode?.tag && operation.text === ' ') {
         // 如果当前节点是代码块，且输入的是空格，则插入一个空格到 code 节点外
         Transforms.insertNodes(editor, [{ text: ' ' }]);
         return;
