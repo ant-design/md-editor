@@ -10,7 +10,10 @@ export type TagPopupProps = {
     onClick?: (v: string) => void;
   }>;
   prefixCls?: string;
-  dropdownRender?: (defaultdom: ReactNode) => React.ReactNode;
+  dropdownRender?: (
+    defaultNode: ReactNode,
+    props: TagPopupProps,
+  ) => React.ReactNode;
   dropdownStyle?: React.CSSProperties;
   menu?: MenuProps;
   notFoundContent?: React.ReactNode;
@@ -63,7 +66,7 @@ export const TagPopup = (
         autoFocus={true}
         dropdownRender={(defaultDropdownContent) => {
           if (dropdownRender) {
-            return dropdownRender(defaultDropdownContent);
+            return dropdownRender(defaultDropdownContent, props);
           } else if (menu! && items!) {
             return notFoundContent || '';
           } else {
