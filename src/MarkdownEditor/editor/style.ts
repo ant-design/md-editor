@@ -3,7 +3,7 @@
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../editor/utils/useStyle';
+} from '../../hooks/useStyle';
 import './keyframes.css';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {

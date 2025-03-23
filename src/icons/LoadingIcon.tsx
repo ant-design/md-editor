@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { useEditorStyleRegister } from '../MarkdownEditor/editor/utils/useStyle';
+import { useEditorStyleRegister } from '../hooks/useStyle';
 
 const C = 2 * 7 * Math.PI;
 const loadingDash = new Keyframes('loadingDash', {

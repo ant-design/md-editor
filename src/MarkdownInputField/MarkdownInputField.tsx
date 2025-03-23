@@ -1,7 +1,7 @@
 ﻿import { SendOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import React from 'react';
 import { BaseMarkdownEditor } from '../MarkdownEditor';
+import { SendButton } from './SendButton';
 
 export type MarkdownInputFieldProps = {
   value: string;
@@ -65,15 +65,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           enable: false,
         }}
       />
-      <Button
+      <SendButton
         style={{
           position: 'absolute',
           right: 8,
           bottom: 8,
         }}
         disabled={props.disabled}
-        type="primary"
-        shape="circle"
         icon={<SendOutlined />}
       />
     </div>
