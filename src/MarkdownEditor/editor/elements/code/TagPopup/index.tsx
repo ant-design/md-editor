@@ -38,7 +38,7 @@ export const TagPopup = (
 
   const [open, setOpen] = React.useState(true);
 
-  const MergedItem = items.map((item) => {
+  const selectedItems = items.map((item) => {
     const { key } = item || {};
     return {
       ...item,
@@ -55,13 +55,13 @@ export const TagPopup = (
       className={className}
       onOpenChange={setOpen}
       autoFocus={true}
-      dropdownRender={(defalutDom) => {
+      dropdownRender={(defaultDropdownContent) => {
         if (dropdownRender) {
-          return dropdownRender(defalutDom);
+          return dropdownRender(defaultDropdownContent);
         } else if (menu! && items!) {
           return notFoundContent || '';
         } else {
-          return defalutDom;
+          return defaultDropdownContent;
         }
       }}
       overlayStyle={dropdownStyle}
@@ -69,7 +69,7 @@ export const TagPopup = (
         menu
           ? menu
           : {
-              items: MergedItem,
+              items: selectedItems,
             }
       }
     >

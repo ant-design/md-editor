@@ -161,7 +161,7 @@ export const MLeaf = (
     if (enable && tag) {
       children = (
         <TagPopup
-          {...(props?.leaf as any)?.tag}
+          {...props.tagInputProps}
           text={text}
           onSelect={(v) => {
             const path = ReactEditor.findPath(
