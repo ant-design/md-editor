@@ -1,7 +1,9 @@
-﻿import { SendOutlined } from '@ant-design/icons';
-import React from 'react';
+﻿import { ConfigProvider } from 'antd';
+import classNames from 'classnames';
+import React, { useContext } from 'react';
 import { BaseMarkdownEditor } from '../MarkdownEditor';
 import { SendButton } from './SendButton';
+import { useStyle } from './style';
 
 export type MarkdownInputFieldProps = {
   value: string;
@@ -10,36 +12,28 @@ export type MarkdownInputFieldProps = {
   style: React.CSSProperties;
   className?: string;
   disabled?: boolean;
-};
-
-const disableStyle: React.CSSProperties = {
-  opacity: 0.5,
-  backgroundColor: 'rgba(0,0,0,0.04)',
-  cursor: 'not-allowed',
+  typing?: boolean;
+  onSend?: (value: string) => Promise<void>;
 };
 
 export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   props,
 ) => {
-  return (
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const baseCls = getPrefixCls('md-input-field');
+  const { wrapSSR, hashId } = useStyle(baseCls);
+  const [isHover, setHover] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  return wrapSSR(
     <div
-      className={props.className}
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        boxShadow: `0 1px 2px 0 rgba(0, 0, 0, 0.03),0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)`,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        outline: '1px solid #d9d9d9',
-        borderRadius: '12px',
-        minHeight: '32px',
-        maxWidth: 980,
-        position: 'relative',
-        ...(props.disabled ? disableStyle : {}),
-        ...props.style,
-      }}
+      className={classNames(baseCls, hashId, props.className, {
+        [`${baseCls}-disabled`]: props.disabled || loading,
+        [`${baseCls}-typing`]: false,
+        [`${baseCls}-loading`]: loading,
+      })}
+      style={props.style}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
       <BaseMarkdownEditor
         style={{
@@ -71,9 +65,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           right: 8,
           bottom: 8,
         }}
+        typing={!!props.typing || loading}
+        isHover={isHover}
         disabled={props.disabled}
-        icon={<SendOutlined />}
+        onClick={() => {
+          if (props.onSend) {
+            setLoading(true);
+            props.onSend(props.value).finally(() => {
+              setLoading(false);
+            });
+          }
+        }}
       />
-    </div>
+    </div>,
   );
 };

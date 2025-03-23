@@ -2,6 +2,7 @@
 import classNames from 'classnames';
 import React, { useContext, useEffect } from 'react';
 import { SendIcon } from './SendIcon';
+import { useStyle } from './style';
 
 type SendButtonProps = {
   isHover: boolean;
@@ -20,7 +21,8 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
   }, []);
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const baseCls = getPrefixCls('md-input-field-send-button');
-  return (
+  const { wrapSSR, hashId } = useStyle(baseCls);
+  return wrapSSR(
     <div
       onClick={() => {
         if (!disabled) {
@@ -28,7 +30,7 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
         }
       }}
       style={style}
-      className={classNames(baseCls, {
+      className={classNames(baseCls, hashId, {
         [`${baseCls}-compact`]: props.compact,
         [`${baseCls}-disabled`]: disabled,
         [`${baseCls}-typing`]: typing,
@@ -39,6 +41,6 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
         disabled={disabled}
         typing={typing}
       />
-    </div>
+    </div>,
   );
 };
