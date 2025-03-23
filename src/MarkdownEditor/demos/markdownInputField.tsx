@@ -1,8 +1,16 @@
-﻿import React from 'react';
-
-import { MarkdownInputField } from '@ant-design/md-editor';
+﻿import { MarkdownInputField } from '@ant-design/md-editor';
+import React from 'react';
 
 export default () => {
+  const [list, setList] = React.useState<Set<string>>(() => new Set());
+  const send = async (value: string) => {
+    setList((prev) => {
+      const next = new Set(prev);
+      console.log(value);
+      next.add(value);
+      return next;
+    });
+  };
   return (
     <div
       style={{
@@ -14,17 +22,13 @@ export default () => {
         gap: '20px',
       }}
     >
-      <MarkdownInputField
-        value=""
-        onChange={() => {}}
-        placeholder="请输入内容"
-      />
-      <MarkdownInputField
-        value=""
-        disabled
-        onChange={() => {}}
-        placeholder="请输入内容"
-      />
+      <ul>
+        {[...list].map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+      <MarkdownInputField onSend={send} placeholder="请输入内容" />
+      <MarkdownInputField onSend={send} disabled placeholder="请输入内容" />
     </div>
   );
 };

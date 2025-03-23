@@ -101,6 +101,9 @@ importers:
       rc-resize-observer:
         specifier: ^1.4.3
         version: 1.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rc-util:
+        specifier: ^5.44.4
+        version: 5.44.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-error-boundary:
         specifier: ^5.0.0
         version: 5.0.0(react@18.3.1)

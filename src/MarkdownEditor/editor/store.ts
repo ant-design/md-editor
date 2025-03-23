@@ -309,6 +309,10 @@ export class EditorStore {
    */
   clearContent() {
     Transforms.removeNodes(this._editor.current, {});
+    Transforms.insertNodes(this._editor.current, {
+      type: 'paragraph',
+      children: [{ text: '' }],
+    });
   }
 
   /**

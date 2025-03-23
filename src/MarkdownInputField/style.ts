@@ -20,10 +20,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minHeight: '32px',
       maxWidth: 980,
       position: 'relative',
+      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
+      '&:hover': {
+        outline: '2px solid #1890ff',
+      },
       '&&-disabled': {
         opacity: 0.5,
         backgroundColor: 'rgba(0,0,0,0.04)',
         cursor: 'not-allowed',
+        '&:hover': {
+          outline: '1px solid #d9d9d9',
+        },
       },
     },
   };
@@ -35,7 +42,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @returns
  */
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('SendButton', (token) => {
+  return useEditorStyleRegister('MarkdownInputField', (token) => {
     const proChatToken = {
       ...token,
       componentCls: `.${prefixCls}`,

@@ -40,7 +40,7 @@ export function useOnchange(
   const onChangeDebounce = useDebounceFn(async () => {
     if (!onChange) return;
     onChange?.(parserSlateNodeToMarkdown(editor.children), editor.children);
-  }, 300);
+  }, 16);
 
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
