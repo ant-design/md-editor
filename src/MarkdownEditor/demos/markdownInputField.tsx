@@ -27,7 +27,17 @@ export default () => {
           <li key={index}>{item}</li>
         ))}
       </ul>
-      <MarkdownInputField onSend={send} placeholder="请输入内容" />
+      <MarkdownInputField
+        tagInputProps={{
+          enable: true,
+          items: ['tag1', 'tag2', 'tag3'].map((item) => ({
+            key: item,
+            label: item,
+          })),
+        }}
+        onSend={send}
+        placeholder="请输入内容"
+      />
       <MarkdownInputField onSend={send} disabled placeholder="请输入内容" />
     </div>
   );
