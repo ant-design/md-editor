@@ -3,7 +3,11 @@ import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
 import React, { useContext, useEffect } from 'react';
 import { useRefFunction } from '../hooks/useRefFunction';
-import { BaseMarkdownEditor, MarkdownEditorInstance } from '../MarkdownEditor';
+import {
+  BaseMarkdownEditor,
+  MarkdownEditorInstance,
+  MarkdownEditorProps,
+} from '../MarkdownEditor';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 
@@ -81,6 +85,8 @@ export type MarkdownInputFieldProps = {
    * @example onSend={async (text) => await submitMessage(text)}
    */
   onSend?: (value: string) => Promise<void>;
+
+  tagInputProps?: MarkdownEditorProps['tagInputProps'];
 };
 
 /**
@@ -188,6 +194,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           enable: true,
           placeholder: props.placeholder,
         }}
+        tagInputProps={
+          props.tagInputProps || {
+            enable: true,
+            items: [
+              {
+                key: 'Bold',
+                label: 'Bold',
+              },
+            ],
+          }
+        }
         initValue={props.value}
         onChange={(value) => {
           setValue(value);

@@ -318,7 +318,8 @@ export default () => {
       width={'100vw'}
       height={'100vh'}
       reportMode
-      tag={{
+      tagInputProps={{
+        enable: true,
         items: [
           {
             label: '腾讯',

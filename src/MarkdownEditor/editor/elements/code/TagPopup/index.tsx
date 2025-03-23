@@ -1,7 +1,7 @@
 import { Dropdown, MenuProps } from 'antd';
 import React, { ReactNode } from 'react';
 
-type TagPopupProps = {
+export type TagPopupProps = {
   children?: React.ReactNode;
   onSelect?: (value: string) => void;
   items?: Array<{
@@ -18,7 +18,7 @@ type TagPopupProps = {
   className?: string;
 };
 
-const TagPopup = (
+export const TagPopup = (
   props: TagPopupProps & {
     text: {
       text: string;
@@ -43,7 +43,7 @@ const TagPopup = (
     return {
       ...item,
       onClick: () => {
-        onSelect && onSelect(`${key}` || '');
+        onSelect?.(`${key}` || '');
         setOpen(false);
       },
     };
@@ -92,5 +92,3 @@ const TagPopup = (
     </Dropdown>
   );
 };
-
-export { TagPopup, TagPopupProps };

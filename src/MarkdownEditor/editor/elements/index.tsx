@@ -145,6 +145,7 @@ export const MLeaf = (
     hashId: string;
     comment: MarkdownEditorProps['comment'];
     fncProps: MarkdownEditorProps['fncProps'];
+    tagInputProps: MarkdownEditorProps['tagInputProps'];
   },
 ) => {
   const { markdownEditorRef, readonly } = useEditorStore();
@@ -155,9 +156,9 @@ export const MLeaf = (
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
   if (leaf.code) {
-    const { tag, text } = (props?.leaf || {}) as any;
-    const { prefixCls = '$' } = tag || {};
-    if (tag && leaf.text?.startsWith(prefixCls)) {
+    const { text, tag } = (props?.leaf || {}) as any;
+    const { enable } = props.tagInputProps || {};
+    if (enable && tag) {
       children = (
         <TagPopup
           {...(props?.leaf as any)?.tag}
@@ -165,24 +166,24 @@ export const MLeaf = (
           onSelect={(v) => {
             const path = ReactEditor.findPath(
               markdownEditorRef.current,
-              props.text
+              props.text,
             );
-            
+
             const start = {
               path,
-              offset: 1
+              offset: 1,
             };
-            
+
             const end = {
               path,
-              offset: leaf.text?.length || 0
+              offset: leaf.text?.length || 0,
             };
-            
+
             Transforms.select(markdownEditorRef.current, {
               anchor: start,
-              focus: end
+              focus: end,
             });
-            
+
             Transforms.delete(markdownEditorRef.current);
             markdownEditorRef.current.insertText(v);
           }}

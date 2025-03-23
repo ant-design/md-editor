@@ -15,6 +15,7 @@ import { BaseEditor, createEditor, Editor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
 import { MEditor } from './editor/Editor';
+import { TagPopupProps } from './editor/elements/code/TagPopup';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
@@ -296,6 +297,10 @@ export type MarkdownEditorProps = {
     enable: boolean;
     placeholder?: string;
   };
+
+  tagInputProps?: {
+    enable: boolean;
+  } & TagPopupProps;
 };
 
 // 组合器函数

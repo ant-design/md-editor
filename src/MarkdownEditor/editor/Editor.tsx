@@ -25,8 +25,8 @@ import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
 import { useDebounceFn } from '@ant-design/pro-components';
+import { useRefFunction } from '../../hooks/useRefFunction';
 import { PluginContext } from '../plugin';
-import { TagPopupProps } from './elements/code/TagPopup';
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -58,7 +58,6 @@ export type MEditorProps = {
   comment?: MarkdownEditorProps['comment'];
   prefixCls?: string;
   reportMode?: MarkdownEditorProps['reportMode'];
-  tag?: TagPopupProps;
   placeholder?: string;
 } & MarkdownEditorProps;
 
@@ -79,19 +78,13 @@ const genTableMinSize = (
 };
 
 export const MEditor = observer(
-  ({
-    eleItemRender,
-    reportMode,
-    tag,
-    instance,
-    ...editorProps
-  }: MEditorProps) => {
+  ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
-    const { prefixCls = '$' } = tag || {};
+    const { prefixCls = '$' } = editorProps.tagInputProps || {};
 
     const onKeyDown = useKeyboard(
       store,
@@ -106,19 +99,23 @@ export const MEditor = observer(
     const high = useHighlight(store);
     const first = useRef(true);
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (tag && event?.key === prefixCls) {
-        Transforms.insertNodes(markdownEditorRef.current, {
-          type: 'code',
-          code: true,
-          tag: {
-            ...tag,
-          },
-          text: '',
-        });
-      }
-      onKeyDown(event);
-    };
+    const handleKeyDown = useRefFunction(
+      (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (editorProps.tagInputProps?.enable && event?.key === prefixCls) {
+          event.preventDefault();
+          event.stopPropagation();
+          Transforms.insertNodes(markdownEditorRef.current, [
+            {
+              code: true,
+              tag: true,
+              text: '$',
+            },
+          ]);
+          return;
+        }
+        onKeyDown(event);
+      },
+    );
 
     /**
      * 初始化编辑器
@@ -587,6 +584,7 @@ export const MEditor = observer(
           comment={editorProps?.comment}
           children={props.children}
           hashId={hashId}
+          tagInputProps={editorProps.tagInputProps}
         />
       );
     };
