@@ -384,7 +384,8 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                           let isFinished = false;
                           if (
                             (item.output || props?.chatItem?.isFinished) &&
-                            item.output?.type !== 'TOKEN'
+                            item.output?.type !== 'TOKEN' &&
+                            item.output?.type !== 'RUNNING'
                           ) {
                             isFinished = true;
                             icon = <FinishedIcon />;
@@ -404,7 +405,9 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                             info,
                             isFinished,
                             status:
-                              !item.output || item.isLoading
+                              !item.output ||
+                              item.output?.type === 'RUNNING' ||
+                              item.output?.type === 'TOKEN'
                                 ? 'loading'
                                 : 'success',
                             icon: icon,
