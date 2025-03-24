@@ -682,7 +682,9 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
               />
             </div>
           ) : (
-            <ReadonlyTable hashId={hashId}>{props.children}</ReadonlyTable>
+            <ReadonlyTable {...props} hashId={hashId}>
+              {props.children}
+            </ReadonlyTable>
           )}
         </div>
       </TablePropsContext.Provider>,

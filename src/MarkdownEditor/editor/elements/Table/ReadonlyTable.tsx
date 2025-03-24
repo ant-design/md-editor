@@ -1,9 +1,11 @@
-﻿import { FullscreenOutlined } from '@ant-design/icons';
+﻿import { DownloadOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useMemo, useRef } from 'react';
+import { TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
+import { RenderElementProps } from '../../slate-react';
 import useScrollShadow from './useScrollShadow';
 export * from './TableCell';
 
@@ -34,7 +36,14 @@ export * from './TableCell';
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const ReadonlyTable = observer(
-  ({ hashId, children }: { children: React.ReactNode; hashId: string }) => {
+  ({
+    hashId,
+    children,
+    ...props
+  }: {
+    children: React.ReactNode;
+    hashId: string;
+  } & RenderElementProps<TableNode>) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
     const baseCls = getPrefixCls('md-editor-content-table');
@@ -54,7 +63,12 @@ export const ReadonlyTable = observer(
             },
           }}
           content={
-            <div>
+            <div
+              style={{
+                display: 'flex',
+                gap: 8,
+              }}
+            >
               <ActionIconBox
                 title="全屏"
                 onClick={(e) => {
@@ -92,6 +106,31 @@ export const ReadonlyTable = observer(
                 }}
               >
                 <FullscreenOutlined />
+              </ActionIconBox>
+              <ActionIconBox
+                title="下载"
+                onClick={() => {
+                  let csv =
+                    props.element?.otherProps?.columns
+                      .map((col: Record<string, any>) => col.title)
+                      .join(',') + '\n';
+                  csv += props.element?.otherProps?.dataSource
+                    .map((row: Record<string, any>) =>
+                      Object.values(row).join(','),
+                    )
+                    .join('\n');
+                  const blob = new Blob([csv], {
+                    type: 'text/csv;charset=utf-8;',
+                  });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'table.csv';
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+              >
+                <DownloadOutlined />
               </ActionIconBox>
             </div>
           }
