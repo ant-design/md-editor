@@ -682,9 +682,15 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
               />
             </div>
           ) : (
-            <ReadonlyTable {...props} hashId={hashId}>
-              {props.children}
-            </ReadonlyTable>
+            <div
+              onMouseEnter={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <ReadonlyTable {...props} hashId={hashId}>
+                {props.children}
+              </ReadonlyTable>
+            </div>
           )}
         </div>
       </TablePropsContext.Provider>,
