@@ -63,7 +63,7 @@ export const ReadonlyTable = observer(
             },
           }}
           content={
-            <div
+          <div
               style={{
                 display: 'flex',
                 gap: 8,

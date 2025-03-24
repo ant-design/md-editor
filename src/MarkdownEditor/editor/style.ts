@@ -26,7 +26,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-edit': {
         '> div.empty:first-child::before': {
           cursor: 'text',
-          content: `"${token.placeholderContent}"` || 'Please enter content',
+          content:
+            `"${token.placeholderContent || ''}"` || 'Please enter content',
           color: 'rgba(0,0,0,0.45)',
           display: 'block',
           position: 'absolute',
