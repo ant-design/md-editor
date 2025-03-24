@@ -19,7 +19,7 @@ import { WebSearch } from './WebSearch';
  */
 export const ThoughtChainListItem: React.FC<{
   chatItem?: {
-    isFinished: boolean;
+    isFinished?: boolean;
     endTime?: number;
     createAt: number;
   };

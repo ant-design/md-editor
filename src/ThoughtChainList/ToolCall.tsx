@@ -33,7 +33,7 @@ import { DotLoading } from './DotAni';
  */
 export const ToolCall = (
   props: {
-    isFinished: boolean;
+    isFinished?: boolean;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
       changeProps: {

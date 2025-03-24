@@ -7,7 +7,7 @@ import { MarkdownEditorUpdate } from './MarkdownEditor';
 
 export const DeepThink = (
   props: {
-    isFinished: boolean;
+    isFinished?: boolean;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
       changeProps: {

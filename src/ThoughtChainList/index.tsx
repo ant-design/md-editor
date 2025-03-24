@@ -156,7 +156,7 @@ export interface ThoughtChainListProps {
   thoughtChainList: WhiteBoxProcessInterface[];
   loading?: boolean;
   chatItem?: {
-    isFinished: boolean;
+    isFinished?: boolean;
     endTime?: number;
     createAt: number;
   };
@@ -410,11 +410,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                             icon: icon,
                           } as WhiteBoxProcessInterface & {
                             icon: React.ReactNode;
-                            isFinished: boolean;
+                            isFinished?: boolean;
                           };
                         }) as (WhiteBoxProcessInterface & {
                           icon: React.ReactNode;
-                          isFinished: boolean;
+                          isFinished?: boolean;
                         })[])
                     ).map((item, index) => {
                       const info = item.info?.split(/(\$\{\w+\})/);

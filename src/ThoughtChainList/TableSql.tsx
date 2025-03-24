@@ -33,7 +33,7 @@ import { CostMillis } from './CostMillis';
  */
 export const TableSql = (
   props: {
-    isFinished: boolean;
+    isFinished?: boolean;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
       changeProps: {

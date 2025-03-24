@@ -7,7 +7,7 @@ import { MarkdownEditorUpdate } from './MarkdownEditor';
 
 export const WebSearch = (
   props: {
-    isFinished: boolean;
+    isFinished?: boolean;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
       changeProps: {
