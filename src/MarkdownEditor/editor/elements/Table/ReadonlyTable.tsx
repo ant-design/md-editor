@@ -62,8 +62,12 @@ export const ReadonlyTable = observer(
               padding: 8,
             },
           }}
+          align={{
+            offset: [0, 40],
+          }}
+          placement="topRight"
           content={
-          <div
+            <div
               style={{
                 display: 'flex',
                 gap: 8,
