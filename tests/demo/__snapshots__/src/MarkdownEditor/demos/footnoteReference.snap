@@ -203,11 +203,8 @@
             style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"
           >
             doc_0.
-            <a
-              href="#md-editor-refdoc_0"
-              rel="noopener noreferrer"
-              style="color: rgb(22, 119, 255); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 2px;"
-              target="_blank"
+            <span
+              style="display: flex; align-items: center; gap: 2px;"
             >
               <span
                 data-slate-node="text"
@@ -247,7 +244,7 @@
                   />
                 </svg>
               </span>
-            </a>
+            </span>
           </div>
           <div
             class="ant-md-editor-drag-el empty"
@@ -257,11 +254,8 @@
             style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"
           >
             doc_1.
-            <a
-              href="#md-editor-refdoc_1"
-              rel="noopener noreferrer"
-              style="color: rgb(22, 119, 255); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 2px;"
-              target="_blank"
+            <span
+              style="display: flex; align-items: center; gap: 2px;"
             >
               <span
                 data-slate-node="text"
@@ -301,7 +295,7 @@
                   />
                 </svg>
               </span>
-            </a>
+            </span>
           </div>
           <div
             class="ant-md-editor-drag-el empty"

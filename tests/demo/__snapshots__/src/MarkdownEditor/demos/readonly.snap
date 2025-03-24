@@ -10316,11 +10316,8 @@ while i &lt; len(arr):
             style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"
           >
             1.
-            <a
-              href="#md-editor-ref1"
-              rel="noopener noreferrer"
-              style="color: rgb(22, 119, 255); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 2px;"
-              target="_blank"
+            <span
+              style="display: flex; align-items: center; gap: 2px;"
             >
               <span
                 data-slate-node="text"
@@ -10358,7 +10355,7 @@ while i &lt; len(arr):
                   />
                 </svg>
               </span>
-            </a>
+            </span>
           </div>
           <div
             class="ant-md-editor-drag-el"
@@ -10368,11 +10365,8 @@ while i &lt; len(arr):
             style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"
           >
             2.
-            <a
-              href="#md-editor-ref2"
-              rel="noopener noreferrer"
-              style="color: rgb(22, 119, 255); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 2px;"
-              target="_blank"
+            <span
+              style="display: flex; align-items: center; gap: 2px;"
             >
               <span
                 data-slate-node="text"
@@ -10410,7 +10404,7 @@ while i &lt; len(arr):
                   />
                 </svg>
               </span>
-            </a>
+            </span>
           </div>
         </div>
         <div>
