@@ -36,23 +36,16 @@ export const FootnoteDefinition = (
       >
         <DragHandle />
         {element.identifier}.
-        <a
-          href={'#md-editor-ref' + (element.identifier || '')}
+        <span
           style={{
-            color: '#1677ff',
-            textDecoration: 'none',
-            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: 2,
           }}
-          target="_blank"
-          rel="noopener noreferrer"
         >
           {props.children}
-
           <ExportOutlined />
-        </a>
+        </span>
       </div>
     );
   }, [props.element.children]);
