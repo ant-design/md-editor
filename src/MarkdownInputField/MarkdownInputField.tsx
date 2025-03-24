@@ -86,6 +86,12 @@ export type MarkdownInputFieldProps = {
    */
   onSend?: (value: string) => Promise<void>;
 
+  /**
+   * 正在输入中时点击发送按钮的回调函数。
+   * @example onStop={() => console.log('Sending...')}
+   */
+  onStop?: () => void;
+
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
 };
 
@@ -122,7 +128,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   const baseCls = getPrefixCls('md-input-field');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [isHover, setHover] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const [value, setValue] = useMergedState('', {
     value: props.value,
@@ -135,23 +141,23 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
 
   const sendMessage = useRefFunction(() => {
     if (props.onSend && value) {
-      setLoading(true);
+      setIsLoading(true);
       props
         .onSend(value)
         .then(() => {
           markdownEditorRef?.current?.store?.clearContent();
         })
         .finally(() => {
-          setLoading(false);
+          setIsLoading(false);
         });
     }
   });
   return wrapSSR(
     <div
       className={classNames(baseCls, hashId, props.className, {
-        [`${baseCls}-disabled`]: props.disabled || loading,
+        [`${baseCls}-disabled`]: props.disabled,
         [`${baseCls}-typing`]: false,
-        [`${baseCls}-loading`]: loading,
+        [`${baseCls}-loading`]: isLoading,
       })}
       style={props.style}
       onMouseEnter={() => setHover(true)}
@@ -185,8 +191,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           width: '100%',
           minHeight: '32px',
           height: '100%',
-          pointerEvents: props.disabled ? 'none' : 'auto',
+          cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+          opacity: isLoading || props.disabled ? 0.5 : 1,
         }}
+        readonly={isLoading}
         contentStyle={{
           padding: '12px',
         }}
@@ -223,10 +231,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           right: 4,
           bottom: 8,
         }}
-        typing={!!props.typing || loading}
+        typing={!!props.typing || isLoading}
         isHover={isHover}
         disabled={props.disabled}
         onClick={() => {
+          if (props.typing || isLoading) {
+            setIsLoading(false);
+            props.onStop?.();
+            return;
+          }
           if (props.onSend) {
             sendMessage();
           }

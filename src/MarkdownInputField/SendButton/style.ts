@@ -19,6 +19,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'not-allowed',
         opacity: 0.5,
       },
+      '&&-loading': {
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      },
     },
   };
 };

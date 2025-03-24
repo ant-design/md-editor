@@ -4,6 +4,11 @@ import React from 'react';
 export default () => {
   const [list, setList] = React.useState<Set<string>>(() => new Set());
   const send = async (value: string) => {
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 10000);
+    });
     setList((prev) => {
       const next = new Set(prev);
       console.log(value);
@@ -36,6 +41,7 @@ export default () => {
           })),
         }}
         onSend={send}
+        onStop={() => console.log('stop...')}
         placeholder="请输入内容"
       />
       <MarkdownInputField onSend={send} disabled placeholder="请输入内容" />
