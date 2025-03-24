@@ -98,6 +98,7 @@ export const TableSql = (
                   padding: 0,
                   width: '100%',
                 }}
+                toc={false}
                 editorRef={editorRef}
                 contentStyle={{
                   padding: 0,
@@ -258,6 +259,7 @@ export const TableSql = (
                   padding: 0,
                   width: '100%',
                 }}
+                toc={false}
                 readonly
                 contentStyle={{
                   padding: 0,

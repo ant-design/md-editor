@@ -35,6 +35,7 @@ export const MarkdownEditorUpdate = (
         padding: 0,
         width: '100%',
       }}
+      toc={false}
       readonly
       contentStyle={{
         padding: 0,

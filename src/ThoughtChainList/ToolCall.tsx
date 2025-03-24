@@ -107,6 +107,7 @@ export const ToolCall = (
                   width: '100%',
                   background: '#FFF',
                 }}
+                toc={false}
                 readonly={false}
                 contentStyle={{
                   padding: 0,
@@ -259,6 +260,7 @@ export const ToolCall = (
                   padding: 0,
                   width: '100%',
                 }}
+                toc={false}
                 readonly
                 contentStyle={{
                   padding: 0,
@@ -364,6 +366,7 @@ export const ToolCall = (
                     padding: 0,
                     width: '100%',
                   }}
+                  toc={false}
                   readonly
                   contentStyle={{
                     padding: 0,
