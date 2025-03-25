@@ -112,7 +112,9 @@
                 draggable="false"
                 tabindex="0"
               >
-                <div>
+                <div
+                  style="max-width: 100%; width: 100%;"
+                >
                   <div
                     aria-describedby="test-id"
                     class="ant-md-editor-content-table"
@@ -2844,7 +2846,9 @@
                 draggable="false"
                 tabindex="0"
               >
-                <div>
+                <div
+                  style="max-width: 100%; width: 100%;"
+                >
                   <div
                     aria-describedby="test-id"
                     class="ant-md-editor-content-table"
@@ -10687,7 +10691,9 @@
                 draggable="false"
                 tabindex="0"
               >
-                <div>
+                <div
+                  style="max-width: 100%; width: 100%;"
+                >
                   <div
                     aria-describedby="test-id"
                     class="ant-md-editor-content-table"
