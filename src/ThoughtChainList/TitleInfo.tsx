@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import React, { useMemo } from 'react';
 import { DocMeta } from '.';
 import { ActionIconBox } from '../index';
-import { CollapseIcon } from './Collapse';
+import { CollapseIcon, ExpandIcon } from './Collapse';
 import { CostMillis } from './CostMillis';
 import { FlipText } from './FlipText';
 
@@ -246,7 +246,7 @@ export const TitleInfo = (props: {
               setCollapse?.(!collapse);
             }}
           >
-            <CollapseIcon />
+            {collapse ? <ExpandIcon /> : <CollapseIcon />}
           </ActionIconBox>
         </div>
       </div>

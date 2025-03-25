@@ -8,7 +8,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { FinishedIcon } from '../icons/FinishedIcon';
 import { LoadingIcon } from '../icons/LoadingIcon';
 import { ActionIconBox, useAutoScroll } from '../index';
-import { CollapseIcon } from './Collapse';
+import { CollapseIcon, ExpandIcon } from './Collapse';
 import { DotLoading } from './DotAni';
 import { FlipText } from './FlipText';
 import { useStyle } from './style';
@@ -333,7 +333,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                     setCollapse(!collapse);
                   }}
                 >
-                  <CollapseIcon />
+                  {collapse ? <ExpandIcon /> : <CollapseIcon />}
                 </ActionIconBox>
               </motion.div>
               <div
