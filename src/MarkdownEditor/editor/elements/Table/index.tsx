@@ -686,6 +686,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
               onMouseEnter={(e) => {
                 e.stopPropagation();
               }}
+              style={{
+                maxWidth: '100%',
+                width: '100%',
+              }}
             >
               <ReadonlyTable {...props} hashId={hashId}>
                 {props.children}
