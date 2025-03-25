@@ -431,6 +431,12 @@ L = \frac{1}{2} \rho v^2 S C_L
 $$
 
 $x^3+x^9+x^y$
+
+$sqrt{3x-1}+(1+x)^2$ 。
+
+$$
+x = {-b pm sqrt{b^2-4ac} over 2a}.
+$$
 `
       }
     />
