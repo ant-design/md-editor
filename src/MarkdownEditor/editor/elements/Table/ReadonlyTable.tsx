@@ -6,6 +6,7 @@ import React, { useContext, useMemo, useRef } from 'react';
 import { TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
+import { useEditorStore } from '../../store';
 import useScrollShadow from './useScrollShadow';
 export * from './TableCell';
 
@@ -44,7 +45,14 @@ export const ReadonlyTable = observer(
     children: React.ReactNode;
     hashId: string;
   } & RenderElementProps<TableNode>) => {
+    const { editorProps } = useEditorStore();
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+    const {
+      actions = {
+        download: 'csv',
+        fullScreen: 'modal',
+      },
+    } = editorProps?.tableConfig || {};
 
     const baseCls = getPrefixCls('md-editor-content-table');
 
@@ -73,69 +81,74 @@ export const ReadonlyTable = observer(
                 gap: 8,
               }}
             >
-              <ActionIconBox
-                title="全屏"
-                onClick={(e) => {
-                  e.stopPropagation();
+              {actions.fullScreen ? (
+                <ActionIconBox
+                  title="全屏"
+                  onClick={(e) => {
+                    e.stopPropagation();
 
-                  Modal.info({
-                    icon: null,
-                    title: '全屏预览表格',
-                    closable: true,
-                    footer: null,
-                    content: (
-                      <div
-                        className={classNames(
-                          baseCls,
-                          hashId,
-                          getPrefixCls('md-editor-content'),
-                        )}
-                        style={{
-                          flex: 1,
-                          minWidth: 0,
-                          overflow: 'auto',
-                          width: 'calc(80vw - 64px)',
-                        }}
-                        ref={(dom) => {
-                          if (dom) {
-                            dom.appendChild(
-                              tableTargetRef.current?.cloneNode(true) as Node,
-                            );
-                          }
-                        }}
-                      />
-                    ),
-                    width: '80vw',
-                  });
-                }}
-              >
-                <FullscreenOutlined />
-              </ActionIconBox>
-              <ActionIconBox
-                title="下载"
-                onClick={() => {
-                  let csv =
-                    props.element?.otherProps?.columns
-                      .map((col: Record<string, any>) => col.title)
-                      .join(',') + '\n';
-                  csv += props.element?.otherProps?.dataSource
-                    .map((row: Record<string, any>) =>
-                      Object.values(row).join(','),
-                    )
-                    .join('\n');
-                  const blob = new Blob([csv], {
-                    type: 'text/csv;charset=utf-8;',
-                  });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'table.csv';
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-              >
-                <DownloadOutlined />
-              </ActionIconBox>
+                    Modal.info({
+                      icon: null,
+                      title: '全屏预览表格',
+                      closable: true,
+                      footer: null,
+                      content: (
+                        <div
+                          className={classNames(
+                            baseCls,
+                            hashId,
+                            getPrefixCls('md-editor-content'),
+                          )}
+                          style={{
+                            flex: 1,
+                            minWidth: 0,
+                            overflow: 'auto',
+                            width: 'calc(80vw - 64px)',
+                          }}
+                          ref={(dom) => {
+                            if (dom) {
+                              dom.appendChild(
+                                tableTargetRef.current?.cloneNode(true) as Node,
+                              );
+                            }
+                          }}
+                        />
+                      ),
+                      width: '80vw',
+                    });
+                  }}
+                >
+                  <FullscreenOutlined />
+                </ActionIconBox>
+              ) : null}
+
+              {actions.download ? (
+                <ActionIconBox
+                  title="下载"
+                  onClick={() => {
+                    let csv =
+                      props.element?.otherProps?.columns
+                        .map((col: Record<string, any>) => col.title)
+                        .join(',') + '\n';
+                    csv += props.element?.otherProps?.dataSource
+                      .map((row: Record<string, any>) =>
+                        Object.values(row).join(','),
+                      )
+                      .join('\n');
+                    const blob = new Blob([csv], {
+                      type: 'text/csv;charset=utf-8;',
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'table.csv';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  <DownloadOutlined />
+                </ActionIconBox>
+              ) : null}
             </div>
           }
         >
