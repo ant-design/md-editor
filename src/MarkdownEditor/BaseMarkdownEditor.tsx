@@ -285,8 +285,8 @@ export type MarkdownEditorProps = {
     minColumn?: number;
     excelMode?: boolean;
     actions?: {
-      download: ['csv'];
-      fullScreen: 'modal';
+      download?: ['csv'];
+      fullScreen?: 'modal';
     };
   };
 

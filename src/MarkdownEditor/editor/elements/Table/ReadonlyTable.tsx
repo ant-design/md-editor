@@ -73,7 +73,7 @@ export const ReadonlyTable = observer(
           align={{
             offset: [0, 40],
           }}
-          placement="topRight"
+          placement="topLeft"
           content={
             <div
               style={{

@@ -92,6 +92,9 @@ export default () => {
         tableConfig={{
           minColumn: 20,
           minRows: 10,
+          actions: {
+            fullScreen: 'modal',
+          },
         }}
         initValue={defaultValue}
       />
