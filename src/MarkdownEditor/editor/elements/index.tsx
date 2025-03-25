@@ -289,6 +289,9 @@ export const MLeaf = (
         if (e.detail === 2) {
           selectFormat();
         }
+        if (props.fncProps?.onOriginUrlClick) {
+          props.fncProps.onOriginUrlClick(leaf?.identifier);
+        }
       }}
       contentEditable={leaf.fnc ? false : undefined}
       data-fnc={leaf.fnc || leaf.identifier ? 'fnc' : undefined}
