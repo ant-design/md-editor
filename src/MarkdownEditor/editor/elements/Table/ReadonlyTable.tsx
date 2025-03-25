@@ -2,7 +2,7 @@
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
@@ -60,122 +60,135 @@ export const ReadonlyTable = observer(
 
     const [tableRef, scrollState] = useScrollShadow();
 
+    const [previewOpen, setPreviewOpen] = useState(false);
+
     return useMemo(() => {
-      return (
-        <Popover
-          trigger={['click', 'hover']}
-          arrow={false}
-          styles={{
-            body: {
-              padding: 8,
-            },
-          }}
-          align={{
-            offset: [0, 40],
-          }}
-          zIndex={10}
-          placement="topLeft"
-          content={
-            <div
-              style={{
-                display: 'flex',
-                gap: 8,
-              }}
-            >
-              {actions.fullScreen ? (
-                <ActionIconBox
-                  title="全屏"
-                  onClick={(e) => {
-                    e.stopPropagation();
-
-                    Modal.info({
-                      icon: null,
-                      title: '全屏预览表格',
-                      closable: true,
-                      footer: null,
-                      content: (
-                        <div
-                          className={classNames(
-                            baseCls,
-                            hashId,
-                            getPrefixCls('md-editor-content'),
-                          )}
-                          style={{
-                            flex: 1,
-                            minWidth: 0,
-                            overflow: 'auto',
-                            width: 'calc(80vw - 64px)',
-                          }}
-                          ref={(dom) => {
-                            if (dom) {
-                              dom.appendChild(
-                                tableTargetRef.current?.cloneNode(true) as Node,
-                              );
-                            }
-                          }}
-                        />
-                      ),
-                      width: '80vw',
-                    });
-                  }}
-                >
-                  <FullscreenOutlined />
-                </ActionIconBox>
-              ) : null}
-
-              {actions.download ? (
-                <ActionIconBox
-                  title="下载"
-                  onClick={() => {
-                    let csv =
-                      props.element?.otherProps?.columns
-                        .map((col: Record<string, any>) => col.title)
-                        .join(',') + '\n';
-                    csv += props.element?.otherProps?.dataSource
-                      .map((row: Record<string, any>) =>
-                        Object.values(row).join(','),
-                      )
-                      .join('\n');
-                    const blob = new Blob([csv], {
-                      type: 'text/csv;charset=utf-8;',
-                    });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'table.csv';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                  }}
-                >
-                  <DownloadOutlined />
-                </ActionIconBox>
-              ) : null}
-            </div>
-          }
+      const dom = (
+        <ConfigProvider
+          getPopupContainer={() => tableTargetRef.current || document.body}
+          getTargetContainer={() => tableTargetRef.current || document.body}
         >
-          <div
-            className={classNames(baseCls, hashId)}
-            ref={tableRef}
-            style={{
-              flex: 1,
-              minWidth: 0,
-              boxShadow: `
+          <table
+            ref={tableTargetRef}
+            className={classNames(`${baseCls}-editor-table`, hashId)}
+          >
+            <tbody data-slate-node="element">{children}</tbody>
+          </table>
+        </ConfigProvider>
+      );
+      return (
+        <>
+          <Popover
+            trigger={['click', 'hover']}
+            arrow={false}
+            styles={{
+              body: {
+                padding: 8,
+              },
+            }}
+            align={{
+              offset: [0, 40],
+            }}
+            zIndex={10}
+            placement="topLeft"
+            content={
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 8,
+                }}
+              >
+                {actions.fullScreen ? (
+                  <ActionIconBox
+                    title="全屏"
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      setPreviewOpen(true);
+                    }}
+                  >
+                    <FullscreenOutlined />
+                  </ActionIconBox>
+                ) : null}
+
+                {actions.download ? (
+                  <ActionIconBox
+                    title="下载"
+                    onClick={() => {
+                      let csv =
+                        props.element?.otherProps?.columns
+                          .map((col: Record<string, any>) => col.title)
+                          .join(',') + '\n';
+                      csv += props.element?.otherProps?.dataSource
+                        .map((row: Record<string, any>) =>
+                          Object.values(row).join(','),
+                        )
+                        .join('\n');
+                      const blob = new Blob([csv], {
+                        type: 'text/csv;charset=utf-8;',
+                      });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'table.csv';
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                  >
+                    <DownloadOutlined />
+                  </ActionIconBox>
+                ) : null}
+              </div>
+            }
+          >
+            <div
+              className={classNames(baseCls, hashId)}
+              ref={tableRef}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                boxShadow: `
                       ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtStart ? 'inset 0 8px 8px -8px rgba(0,0,0,0.1)' : ''}
                       ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtEnd ? 'inset 0 -8px 8px -8px rgba(0,0,0,0.1)' : ''}
                       ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtStart ? 'inset 8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
                       ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtEnd ? 'inset -8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
                     `,
+              }}
+            >
+              {dom}
+            </div>
+          </Popover>{' '}
+          <Modal
+            title={editorProps?.tableConfig?.previewTitle || '预览表格'}
+            open={previewOpen}
+            closable
+            footer={null}
+            onClose={() => {
+              setPreviewOpen(false);
+            }}
+            width="80vw"
+            onCancel={() => {
+              setPreviewOpen(false);
             }}
           >
-            <table
-              ref={tableTargetRef}
-              className={classNames(`${baseCls}-editor-table`, hashId)}
+            <div
+              className={classNames(
+                baseCls,
+                hashId,
+                getPrefixCls('md-editor-content'),
+              )}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                overflow: 'auto',
+                width: 'calc(80vw - 64px)',
+              }}
             >
-              <tbody data-slate-node="element">{children}</tbody>
-            </table>
-          </div>
-        </Popover>
+              {dom}
+            </div>
+          </Modal>
+        </>
       );
-    }, [children, scrollState]);
+    }, [children, scrollState, previewOpen]);
   },
 );

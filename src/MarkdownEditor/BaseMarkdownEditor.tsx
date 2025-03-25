@@ -284,6 +284,7 @@ export type MarkdownEditorProps = {
     minRows?: number;
     minColumn?: number;
     excelMode?: boolean;
+    previewTitle?: ReactNode;
     actions?: {
       download?: ['csv'];
       fullScreen?: 'modal';
