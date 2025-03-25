@@ -180,6 +180,7 @@ export type MarkdownEditorProps = {
         origin_url: any;
       }[],
     ) => void;
+    onOriginUrlClick?: (url: string) => void;
   };
   /**
    * 用于外部获取实例
