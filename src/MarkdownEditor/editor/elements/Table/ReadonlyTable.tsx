@@ -57,6 +57,7 @@ export const ReadonlyTable = observer(
     const baseCls = getPrefixCls('md-editor-content-table');
 
     const tableTargetRef = useRef<HTMLTableElement>(null);
+    const modelTargetRef = useRef<HTMLDivElement>(null);
 
     const [tableRef, scrollState] = useScrollShadow();
 
@@ -64,17 +65,12 @@ export const ReadonlyTable = observer(
 
     return useMemo(() => {
       const dom = (
-        <ConfigProvider
-          getPopupContainer={() => tableTargetRef.current || document.body}
-          getTargetContainer={() => tableTargetRef.current || document.body}
+        <table
+          ref={tableTargetRef}
+          className={classNames(`${baseCls}-editor-table`, hashId)}
         >
-          <table
-            ref={tableTargetRef}
-            className={classNames(`${baseCls}-editor-table`, hashId)}
-          >
-            <tbody data-slate-node="element">{children}</tbody>
-          </table>
-        </ConfigProvider>
+          <tbody data-slate-node="element">{children}</tbody>
+        </table>
       );
       return (
         <>
@@ -86,8 +82,6 @@ export const ReadonlyTable = observer(
                 padding: 8,
               },
             }}
-            getPopupContainer={() => tableTargetRef.current || document.body}
-            getTooltipContainer={() => tableTargetRef.current || document.body}
             align={{
               offset: [0, 40],
             }}
@@ -185,8 +179,18 @@ export const ReadonlyTable = observer(
                 overflow: 'auto',
                 width: 'calc(80vw - 64px)',
               }}
+              ref={modelTargetRef}
             >
-              {dom}
+              <ConfigProvider
+                getPopupContainer={() =>
+                  modelTargetRef.current || document.body
+                }
+                getTargetContainer={() =>
+                  modelTargetRef.current || document.body
+                }
+              >
+                {dom}
+              </ConfigProvider>
             </div>
           </Modal>
         </>
