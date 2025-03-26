@@ -163,6 +163,7 @@ export interface ThoughtChainListProps {
   style?: React.CSSProperties;
   compact?: boolean;
   markdownRenderProps?: MarkdownEditorProps;
+  finishAutoCollapse?: boolean;
 }
 
 /**
@@ -210,7 +211,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   });
 
   useEffect(() => {
-    if (props?.chatItem?.isFinished) {
+    if (props?.chatItem?.isFinished && props.finishAutoCollapse !== false) {
       setCollapse(true);
     }
   }, [props?.chatItem?.isFinished]);
