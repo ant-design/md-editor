@@ -164,6 +164,12 @@ export interface ThoughtChainListProps {
   compact?: boolean;
   markdownRenderProps?: MarkdownEditorProps;
   finishAutoCollapse?: boolean;
+  locale?: {
+    thinking: string;
+    taskFinished: string;
+    taskCost: string;
+    
+  };
 }
 
 /**
@@ -317,14 +323,14 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                             } 任务`
                           ) : (
                             <div>
-                              思考中
+                              {props.locale?.thinking || '思考中'}
                               <DotLoading />
                             </div>
                           )}
                         </div>
                       )
                     ) : (
-                      <div>思考完成</div>
+                      <div>{props.locale?.taskFinished || '任务完成'}</div>
                     )}
                   </span>
                 </div>
