@@ -334,7 +334,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                     setCollapse(!collapse);
                   }}
                 >
-                  {collapse ? <ExpandIcon /> : <CollapseIcon />}
+                  {!collapse ? <ExpandIcon /> : <CollapseIcon />}
                 </ActionIconBox>
               </motion.div>
               <div

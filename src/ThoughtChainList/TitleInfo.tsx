@@ -246,7 +246,7 @@ export const TitleInfo = (props: {
               setCollapse?.(!collapse);
             }}
           >
-            {collapse ? <ExpandIcon /> : <CollapseIcon />}
+            {!collapse ? <ExpandIcon /> : <CollapseIcon />}
           </ActionIconBox>
         </div>
       </div>
