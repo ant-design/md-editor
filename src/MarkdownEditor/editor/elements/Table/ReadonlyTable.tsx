@@ -86,6 +86,8 @@ export const ReadonlyTable = observer(
                 padding: 8,
               },
             }}
+            getPopupContainer={() => tableTargetRef.current || document.body}
+            getTooltipContainer={() => tableTargetRef.current || document.body}
             align={{
               offset: [0, 40],
             }}
@@ -157,7 +159,7 @@ export const ReadonlyTable = observer(
             >
               {dom}
             </div>
-          </Popover>{' '}
+          </Popover>
           <Modal
             title={editorProps?.tableConfig?.previewTitle || '预览表格'}
             open={previewOpen}
