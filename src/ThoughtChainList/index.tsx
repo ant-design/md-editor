@@ -168,7 +168,6 @@ export interface ThoughtChainListProps {
     thinking: string;
     taskFinished: string;
     taskCost: string;
-    
   };
 }
 
