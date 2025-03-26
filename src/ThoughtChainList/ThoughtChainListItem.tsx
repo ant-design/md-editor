@@ -48,6 +48,7 @@ export const ThoughtChainListItem: React.FC<{
             }}
             key={thoughtChainListItem.runId}
             isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            markdownRenderProps={props.markdownRenderProps}
           />
         ) : null}
         {thoughtChainListItem.category === 'TableSql' ? (
@@ -55,12 +56,14 @@ export const ThoughtChainListItem: React.FC<{
             {...thoughtChainListItem}
             isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
             key={thoughtChainListItem.runId}
+            markdownRenderProps={props.markdownRenderProps}
           />
         ) : null}
         {thoughtChainListItem.category === 'ToolCall' ? (
           <ToolCall
             {...thoughtChainListItem}
             key={thoughtChainListItem.runId}
+            markdownRenderProps={props.markdownRenderProps}
             isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
           />
         ) : null}
@@ -70,6 +73,7 @@ export const ThoughtChainListItem: React.FC<{
             {...thoughtChainListItem}
             isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
             key={thoughtChainListItem.runId}
+            markdownRenderProps={props.markdownRenderProps}
           />
         ) : null}
 
@@ -78,6 +82,7 @@ export const ThoughtChainListItem: React.FC<{
             {...thoughtChainListItem}
             key={thoughtChainListItem.runId}
             isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            markdownRenderProps={props.markdownRenderProps}
           />
         ) : null}
       </>

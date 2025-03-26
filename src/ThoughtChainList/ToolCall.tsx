@@ -180,6 +180,7 @@ export const ToolCall = (
         </div>
       );
     }
+
     return (
       <>
         <div
@@ -263,6 +264,7 @@ export const ToolCall = (
                   padding: 0,
                   width: '100%',
                 }}
+                {...props.markdownRenderProps}
                 toc={false}
                 readonly
                 contentStyle={{
@@ -369,6 +371,7 @@ export const ToolCall = (
                     padding: 0,
                     width: '100%',
                   }}
+                  {...props.markdownRenderProps}
                   toc={false}
                   readonly
                   contentStyle={{

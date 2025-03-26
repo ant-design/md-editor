@@ -262,6 +262,7 @@ export const TableSql = (
                   padding: 0,
                   width: '100%',
                 }}
+                {...props.markdownRenderProps}
                 toc={false}
                 readonly
                 contentStyle={{
