@@ -87,13 +87,14 @@ export const TagPopup = (
             setOpen(true);
           }}
           style={{
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#e6f4ff',
             padding: '0 4px',
             borderRadius: 4,
-            fontSize: '1em',
+            fontSize: '0.9em',
             display: 'inline-block',
-            lineHeight: '24px',
-            color: '#bfbfbf',
+            lineHeight: 1.5,
+            color: '#1677ff',
+            border: '1px solid #91caff',
           }}
         >
           {children}

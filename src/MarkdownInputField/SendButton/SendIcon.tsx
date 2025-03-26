@@ -34,7 +34,14 @@ export const IconPath: React.FC<{
   }, [pathIndex]);
 
   return path ? (
-    <motion.path fillRule="evenodd" fill="currentColor" d={path} />
+    <motion.path fillRule="evenodd" fill="currentColor" d={path}>
+      <animate
+        attributeName="fill"
+        values="#F0F2F5;#83E4FF"
+        dur="1s"
+        repeatCount="1"
+      />
+    </motion.path>
   ) : null;
 };
 
@@ -126,9 +133,30 @@ export const SendIcon = memo(
               id="master_svg0_55_08882"
               gradientTransform="translate(2.341064453125 8.49853515625) rotate(26.38798296677497) scale(31.6552527525724 30.21162992383312)"
             >
-              <stop offset="11.407196521759033%" stopColor="#7D19FF" />
-              <stop offset="72.30085134506226%" stopColor="#389FFF" />
-              <stop offset="100%" stopColor="#83E4FF" />
+              <stop offset="11.407196521759033%" stopColor="#7D19FF">
+                <animate
+                  attributeName="stop-color"
+                  values="#7D19FF;#389FFF;#83E4FF;#7D19FF"
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+              <stop offset="72.30085134506226%" stopColor="#389FFF">
+                <animate
+                  attributeName="stop-color"
+                  values="#389FFF;#7D19FF;#389FFF;#83E4FF;#389FFF"
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+              <stop offset="100%" stopColor="#83E4FF">
+                <animate
+                  attributeName="stop-color"
+                  values="#83E4FF;#7D19FF;#389FFF;#83E4FF"
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+              </stop>
             </radialGradient>
           </defs>
           <g>
