@@ -107,7 +107,7 @@
         </div>
         <div
           class="ant-md-input-field-editor"
-          style="border-radius: 11px;"
+          style="border-radius: 10px;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -264,7 +264,7 @@
         </div>
         <div
           class="ant-md-input-field-editor"
-          style="border-radius: 11px;"
+          style="border-radius: 10px;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -419,7 +419,7 @@
         </div>
         <div
           class="ant-md-input-field-editor ant-md-input-field-editor-disabled"
-          style="border-radius: 11px;"
+          style="border-radius: 10px;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
