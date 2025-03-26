@@ -284,7 +284,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       </div>
       <div
         style={{
-          borderRadius: props.style?.borderRadius || 11,
+          borderRadius: props.style?.borderRadius || 10,
         }}
         className={classNames(`${baseCls}-editor`, hashId, {
           [`${baseCls}-editor-hover`]: isHover,

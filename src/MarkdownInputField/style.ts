@@ -16,7 +16,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#E6ECF4',
-      padding: '1px',
+      padding: '2px',
       borderRadius: '12px',
       minHeight: '32px',
       maxWidth: 980,
