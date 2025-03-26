@@ -2,12 +2,14 @@
 import { Typography } from 'antd';
 import React, { useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
+import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
 
 export const DeepThink = (
   props: {
     isFinished?: boolean;
+    markdownRenderProps?: MarkdownEditorProps;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
       changeProps: {
@@ -87,6 +89,7 @@ export const DeepThink = (
                 className="code-view"
               >
                 <MarkdownEditorUpdate
+                  {...props.markdownRenderProps}
                   typewriter={
                     !props.output?.response?.error &&
                     !props.isFinished &&

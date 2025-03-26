@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import React, { useMemo } from 'react';
 import { DocMeta, WhiteBoxProcessInterface } from '.';
+import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DeepThink } from './DeepThink';
 import { RagRetrievalInfo } from './RagRetrievalInfo';
 import { TableSql } from './TableSql';
@@ -31,6 +32,7 @@ export const ThoughtChainListItem: React.FC<{
   };
   isFinished?: boolean;
   setDocMeta: (meta: Partial<DocMeta>) => void;
+  markdownRenderProps?: MarkdownEditorProps;
 }> = (props) => {
   const [collapse, setCollapse] = React.useState<boolean>(false);
   const { thoughtChainListItem, prefixCls, hashId, setDocMeta } = props;

@@ -6,6 +6,7 @@
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
+  MarkdownEditorProps,
   parserSlateNodeToMarkdown,
 } from '@ant-design/md-editor';
 import { Button, Popover, Table, Typography } from 'antd';
@@ -42,6 +43,7 @@ export const TableSql = (
         feedbackRunId: string;
       },
     ) => void;
+    markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
   const [editor, setEditor] = React.useState<boolean>(false);
@@ -98,6 +100,7 @@ export const TableSql = (
                   padding: 0,
                   width: '100%',
                 }}
+                {...props.markdownRenderProps}
                 toc={false}
                 editorRef={editorRef}
                 contentStyle={{

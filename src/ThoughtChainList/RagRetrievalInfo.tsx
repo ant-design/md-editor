@@ -1,5 +1,6 @@
 ﻿import React, { useMemo } from 'react';
 import { DocMeta, WhiteBoxProcessInterface } from '.';
+import { MarkdownEditorProps } from '../MarkdownEditor';
 import { CostMillis } from './CostMillis';
 
 /**
@@ -18,6 +19,7 @@ export const RagRetrievalInfo = (
   props: {
     onMetaClick: (meta: DocMeta) => void;
     isFinished?: boolean;
+    markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
   return useMemo(

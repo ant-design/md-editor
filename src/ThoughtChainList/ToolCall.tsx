@@ -6,6 +6,7 @@
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
+  MarkdownEditorProps,
   parserSlateNodeToMarkdown,
 } from '@ant-design/md-editor';
 import { Button, Typography } from 'antd';
@@ -42,6 +43,7 @@ export const ToolCall = (
         feedbackRunId: string;
       },
     ) => void;
+    markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
   const [editor, setEditor] = React.useState<boolean>(false);
@@ -102,6 +104,7 @@ export const ToolCall = (
             >
               <MarkdownEditor
                 editorRef={editorRef}
+                {...props.markdownRenderProps}
                 style={{
                   padding: 0,
                   width: '100%',

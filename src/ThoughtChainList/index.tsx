@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { FinishedIcon } from '../icons/FinishedIcon';
 import { LoadingIcon } from '../icons/LoadingIcon';
-import { ActionIconBox, useAutoScroll } from '../index';
+import { ActionIconBox, MarkdownEditorProps, useAutoScroll } from '../index';
 import { CollapseIcon, ExpandIcon } from './Collapse';
 import { DotLoading } from './DotAni';
 import { FlipText } from './FlipText';
@@ -162,6 +162,7 @@ export interface ThoughtChainListProps {
   };
   style?: React.CSSProperties;
   compact?: boolean;
+  markdownRenderProps?: MarkdownEditorProps;
 }
 
 /**
@@ -444,6 +445,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                         >
                           <ThoughtChainListItem
                             index={index}
+                            markdownRenderProps={props.markdownRenderProps}
                             chatItem={props.chatItem}
                             key={(item.runId || '') + '' + index}
                             thoughtChainListItem={item}

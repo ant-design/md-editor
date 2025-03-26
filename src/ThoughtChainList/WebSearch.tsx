@@ -2,6 +2,7 @@
 import { Typography } from 'antd';
 import React, { useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
+import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
 
@@ -16,6 +17,7 @@ export const WebSearch = (
         feedbackRunId: string;
       },
     ) => void;
+    markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
   const errorMsg =
@@ -87,6 +89,7 @@ export const WebSearch = (
                 className="code-view"
               >
                 <MarkdownEditorUpdate
+                  {...props.markdownRenderProps}
                   typewriter={
                     !props.output?.response?.error &&
                     !props.isFinished &&
