@@ -6,6 +6,7 @@ import { useEditorStore } from '../../../../MarkdownEditor/editor/store';
 import { InlineChromiumBugfix } from '../../../../MarkdownEditor/editor/utils/InlineChromiumBugfix';
 import { ElementProps, InlineKatexNode } from '../../../../MarkdownEditor/el';
 import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
+import './katex.min.css';
 
 export const InlineKatex = observer(
   ({ children, element, attributes }: ElementProps<InlineKatexNode>) => {
