@@ -65,7 +65,7 @@ export const makeDeserializer = (jsx: any) => {
       }
 
       if (el.textContent.match(/^[\s]*$/gm)) {
-        return null;
+        return el.textContent?.trim() || null;
       } else {
         // sometimes work adds line breaks when pasting
         const regex = /\n(?!\n)/g;

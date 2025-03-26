@@ -432,6 +432,9 @@ exports[`word parse > docxDeserializer 1`] = `
         "text": "Property/ Equity:",
       },
       {
+        "text": "Starwood Property Trust spins off its",
+      },
+      {
         "italic": true,
         "text": "single-family rental business",
       },
@@ -514,6 +517,11 @@ exports[`word parse > docxDeserializer 1`] = `
         "bold": true,
         "text": "Infrastructure:",
       },
+      {
+        "text": "Starwood Property Trust completes acquisition of GE’s Energy Project Finance
+Debt Business platform and $2.5 billion portfolio. Commences strategy of
+investing in energy infrastructure loans.",
+      },
     ],
     "type": "paragraph",
   },
@@ -584,7 +592,9 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔REAL ESTATE LENDING
-
+The company has built a leading franchise in the global real estate finance
+market by offering seamless, customized solutions for borrowers—including first
+mortgages, subordinate debt, mezzanine loans, B-notes and preferred equity.
 
 ",
       },
@@ -595,7 +605,9 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔REAL ESTATE INVESTING AND SERVICING
-",
+This segment includes a variety of business lines focused on commercial
+mortgage-backed securities (CMBS) and commercial real estate investments,
+special servicing operations and a commercial mortgage conduit platform.",
       },
     ],
     "type": "paragraph",
@@ -648,8 +660,11 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔PROPERTY
-
-
+In 2014, Starwood Property Trust began investing in real estate assets to
+complement its other businesses.
+The company focuses on investing in properties that generate current, stable
+cash-on-cash returns while also offering the potential for capital
+appreciation.
 
 ",
       },
@@ -660,7 +675,11 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔INFRASTRUCTURE LENDING
-",
+In 2018, Starwood Property Trust acquired an Energy Project Finance Debt
+platform and $2.5 billion loan portfolio from GE Financial Services. The
+vertically integrated platform included a seasoned leadership team and
+employees across loan origination, underwriting, capital markets and asset
+management.",
       },
     ],
     "type": "paragraph",
@@ -702,7 +721,9 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔DEEP, HANDS-ON REAL ESTATE PERSPECTIVE
-",
+Starwood Property Trust has successfully navigated multiple real estate cycles,
+with a track record of deploying over $98 billion of capital since inception.
+In addition, the company’s",
       },
       {
         "bold": true,
@@ -720,7 +741,9 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔ONE-STOP SHOP FOR COMPLEX TRANSACTIONS
-",
+With access to multiple sources of financing and an experienced team of loan
+origination and syndication professionals, Starwood Property Trust can offer
+customized and creative solutions to borrowers—in keeping with its goal of",
       },
       {
         "bold": true,
@@ -743,7 +766,10 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔GLOBAL REACH
-
+Starwood Property Trust benefits from an unsurpassed global sourcing engine
+that comes from Starwood Capital Group’s position as one of the largest
+institutional real estate investors in the world, with nearly 5,000 employees
+across 16 offices on three continents.
 ",
       },
       {
@@ -786,7 +812,8 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔IN-DEPTH MARKET KNOWLEDGE
-",
+With Starwood Property Trust’s 2013 acquisition of LNR came LNR Partners, one
+of the largest",
       },
       {
         "bold": true,
@@ -802,7 +829,9 @@ exports[`word parse > docxDeserializer 1`] = `
     "children": [
       {
         "text": "➔INFORMATION ADVANTAGE
-
+The expertise developed through Starwood Capital Group’s symbiotic business
+lines enhances Starwood Property Trust’s judgment throughout the underwriting
+process.
 
 ",
       },
@@ -819,6 +848,10 @@ exports[`word parse > docxDeserializer 1`] = `
         "bold": true,
         "text": "
 ",
+      },
+      {
+        "bold": true,
+        "text": "Annaly Capital (NLY), AGNC Investment (AGNC)",
       },
       {
         "bold": true,
@@ -850,8 +883,9 @@ exports[`word parse > docxDeserializer 1`] = `
         "text": "agency mortgage-backed securities (MBS)",
       },
       {
-        "text": "
-",
+        "text": ". These are securities backed by mortgages
+and guaranteed by government-sponsored entities like Fannie Mae or Freddie Mac.
+STWD Focuses on",
       },
       {
         "bold": true,
@@ -897,7 +931,7 @@ exports[`word parse > docxDeserializer 1`] = `
       },
       {
         "text": ", especially in rising-rate environments.
-",
+STWD has",
       },
       {
         "bold": true,
@@ -924,7 +958,10 @@ exports[`word parse > docxDeserializer 1`] = `
       },
       {
         "text": ": NLY & AGNC both have simpler business models focused on MBS and leveraging spreads. Heavy use of leverage and hedging strategies to generate returns.
-",
+STWD: More complex business model due to diversification into multiple real
+estate sectors, including infrastructure and servicing. Provides exposure to
+different types of assets, which can reduce single-sector risk but adds
+operational complexity.",
       },
     ],
     "type": "paragraph",
@@ -951,7 +988,7 @@ exports[`word parse > docxDeserializer 1`] = `
       },
       {
         "text": " (e.g., Fed rate changes, yield curve steepness, mortgage prepayment speeds). Rising rates can compress margins, while falling rates can boost returns.
-",
+STWD: Driven by the",
       },
       {
         "bold": true,
@@ -1038,7 +1075,7 @@ exports[`word parse > docxDeserializer 1`] = `
       {
         "text": "
 
-Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireBob Faith), chairman, and CEO of ",
+Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand the co-founder (withBob Faith), chairman, and CEO of ",
       },
       {
         "bold": true,
@@ -1115,7 +1152,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireBob F
   {
     "children": [
       {
-        "text": "Sternlicht is on the board of directors of the Estée Lauder Companies, The Business Council, the Real Estate Roundtable, the Robin Hood Foundation, Dreamland Community Theatre, and the Juvenile Diabetes Research Foundation’s National Leadership Advocacy Program. He previously served on the boards of directors of the Pension Real Estate Association, RH (company)Invitation Homes, Tri Pointe Homes, and is a past trustee of his alma mater, Brown University. (Wikipedia)",
+        "text": "Sternlicht is on the board of directors of the Estée Lauder Companies, The Business Council, the Real Estate Roundtable, the Robin Hood Foundation, Dreamland Community Theatre, and the Juvenile Diabetes Research Foundation’s National Leadership Advocacy Program. He previously served on the boards of directors of the Pension Real Estate Association, RH (company),Invitation Homes, Tri Pointe Homes, and is a past trustee of his alma mater, Brown University. (Wikipedia)",
       },
     ],
     "type": "paragraph",

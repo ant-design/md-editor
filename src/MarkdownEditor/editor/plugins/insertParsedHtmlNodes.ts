@@ -204,6 +204,8 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
 
 export const htmlToFragmentList = (html: string, rtl: string) => {
   let fragmentList = docxDeserializer(rtl, html.trim());
+
+
   return fragmentList;
 };
 
