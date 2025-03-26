@@ -66,7 +66,20 @@ export const TagPopup = (
         autoFocus={true}
         dropdownRender={(defaultDropdownContent) => {
           if (dropdownRender) {
-            return dropdownRender(defaultDropdownContent, props);
+            return (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                {dropdownRender(defaultDropdownContent, props)}
+              </div>
+            );
           } else if (menu! && items!) {
             return notFoundContent || '';
           } else {
