@@ -185,50 +185,159 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         }
       }}
     >
-      <BaseMarkdownEditor
-        editorRef={markdownEditorRef}
+      <div
+        className={classNames(`${baseCls}-background`, hashId, {
+          [`${baseCls}-hover`]: isHover,
+        })}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          fill="none"
+          version="1.1"
+          width="100%"
+          style={{
+            borderRadius: 'inherit',
+          }}
+          height="100%"
+        >
+          <defs>
+            <linearGradient
+              x1="2.463307335887066e-16"
+              y1="0.5"
+              x2="0.9838055372238159"
+              y2="0.5"
+              id="master_svg1_55_47405"
+            >
+              <stop
+                offset="0%"
+                stopColor="#CD36FF"
+                stopOpacity="0.22383680939674377"
+              >
+                <animate
+                  attributeName="stop-color"
+                  values="#CD36FF; #FFD972; #5EBFFF; #6FFFA7;#CD36FF"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+              <stop
+                offset="33.917319774627686%"
+                stopColor="#AEB6FF"
+                stopOpacity="0.699999988079071"
+              >
+                <animate
+                  attributeName="stop-color"
+                  values="#AEB6FF; #CD36FF; #FFD972; #5EBFFF; #6FFFA7;#AEB6FF"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+              <stop
+                offset="51.650047302246094%"
+                stopColor="#FFD972"
+                stopOpacity="0.4300000071525574"
+              >
+                <animate
+                  attributeName="stop-color"
+                  values="#FFD972; #5EBFFF; #6FFFA7; #CD36FF; #FFD972"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+              <stop
+                offset="81.37043118476868%"
+                stopColor="#5EBFFF"
+                stopOpacity="0.6200000047683716"
+              >
+                <animate
+                  attributeName="stop-color"
+                  values="#5EBFFF; #6FFFA7; #CD36FF; #FFD972; #5EBFFF"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+              <stop
+                offset="100%"
+                stopColor="#6FFFA7"
+                stopOpacity="0.5468477010726929"
+              >
+                <animate
+                  attributeName="stop-color"
+                  values="#6FFFA7; #CD36FF; #FFD972; #5EBFFF; #6FFFA7"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </stop>
+            </linearGradient>
+          </defs>
+          <g>
+            <rect
+              x={0}
+              y={0}
+              width="100%"
+              height="100%"
+              fill="url(#master_svg1_55_47405)"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
         style={{
-          width: '100%',
-          minHeight: '32px',
-          height: '100%',
-          cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-          opacity: isLoading || props.disabled ? 0.5 : 1,
+          borderRadius: props.style?.borderRadius || 11,
         }}
-        readonly={isLoading}
-        contentStyle={{
-          padding: '12px',
-        }}
-        textAreaProps={{
-          enable: true,
-          placeholder: props.placeholder,
-        }}
-        tagInputProps={
-          props.tagInputProps || {
+        className={classNames(`${baseCls}-editor`, hashId, {
+          [`${baseCls}-editor-hover`]: isHover,
+          [`${baseCls}-editor-disabled`]: props.disabled,
+        })}
+      >
+        <BaseMarkdownEditor
+          editorRef={markdownEditorRef}
+          style={{
+            width: '100%',
+            minHeight: '32px',
+            height: '100%',
+            cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+            opacity: isLoading || props.disabled ? 0.5 : 1,
+          }}
+          readonly={isLoading}
+          contentStyle={{
+            padding: '12px',
+            paddingRight: '52px',
+          }}
+          textAreaProps={{
             enable: true,
-            items: [
-              {
-                key: 'Bold',
-                label: 'Bold',
-              },
-            ],
+            placeholder: props.placeholder,
+          }}
+          tagInputProps={
+            props.tagInputProps || {
+              enable: true,
+              items: [
+                {
+                  key: 'Bold',
+                  label: 'Bold',
+                },
+              ],
+            }
           }
-        }
-        initValue={props.value}
-        onChange={(value) => {
-          setValue(value);
-        }}
-        toc={false}
-        toolBar={{
-          enable: false,
-        }}
-        floatBar={{
-          enable: false,
-        }}
-      />
+          initValue={props.value}
+          onChange={(value) => {
+            setValue(value);
+          }}
+          toc={false}
+          toolBar={{
+            enable: false,
+          }}
+          floatBar={{
+            enable: false,
+          }}
+        />
+      </div>
       <SendButton
         style={{
           position: 'absolute',
           right: 4,
+          zIndex: 99,
           bottom: 8,
         }}
         typing={!!props.typing || isLoading}
