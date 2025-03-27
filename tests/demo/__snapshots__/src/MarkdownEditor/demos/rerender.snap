@@ -12973,6 +12973,7 @@
                   <div
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    Class A {   main() {     System.out.println("Hello World");   } }
                     <span
                       data-slate-node="text"
                     >
@@ -13297,6 +13298,7 @@
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          npm install antd --save # 或 yarn add antd
                           <span
                             data-slate-node="text"
                           >
@@ -13594,6 +13596,7 @@ yarn add antd
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          import 'antd/dist/antd.css';  // 引入默认样式 [^DOC_4]
                           <span
                             data-slate-node="text"
                           >
@@ -13819,6 +13822,7 @@ yarn add antd
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          npm install babel-plugin-import --save-dev
                           <span
                             data-slate-node="text"
                           >
@@ -14008,6 +14012,7 @@ yarn add antd
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          plugins: [['import', { libraryName: 'antd', style: true }]]
                           <span
                             data-slate-node="text"
                           >
@@ -14243,6 +14248,7 @@ yarn add antd
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          import { Button } from 'antd'; function App() {   return &lt;Button type="primary"&gt;点击&lt;/Button&gt;; }
                           <span
                             data-slate-node="text"
                           >
@@ -14481,6 +14487,7 @@ function App() {
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          import { ConfigProvider } from 'antd'; import zhCN from 'antd/lib/locale/zh_CN';  &lt;ConfigProvider locale={zhCN}&gt;   &lt;App /&gt; &lt;/ConfigProvider&gt;
                           <span
                             data-slate-node="text"
                           >
@@ -14760,6 +14767,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          # Vue 2 npm install ant-design-vue@1.7.8 --save # Vue 3 npm install ant-design-vue --save
                           <span
                             data-slate-node="text"
                           >
@@ -15022,6 +15030,7 @@ npm install ant-design-vue --save
                         <div
                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          import Antd from 'ant-design-vue'; import 'ant-design-vue/dist/antd.css';  // Vue 2 需指定旧版本样式 [^DOC_7] Vue.use(Antd);  // Vue 2 示例
                           <span
                             data-slate-node="text"
                           >
