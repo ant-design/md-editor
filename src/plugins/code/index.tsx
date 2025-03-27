@@ -573,6 +573,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                 pointerEvents: 'none',
               }}
             >
+              {props.element?.value?.replaceAll('\n', ' ')}
               {props.children}
             </div>
           </div>
