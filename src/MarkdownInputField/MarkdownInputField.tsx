@@ -93,6 +93,8 @@ export type MarkdownInputFieldProps = {
   onStop?: () => void;
 
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
+  bgColorList?: [string, string, string, string];
+  borderRadius?: number;
 };
 
 /**
@@ -159,7 +161,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         [`${baseCls}-typing`]: false,
         [`${baseCls}-loading`]: isLoading,
       })}
-      style={props.style}
+      style={{
+        ...props.style,
+        borderRadius: props.borderRadius || 12,
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onKeyDown={(e) => {
@@ -284,7 +289,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       </div>
       <div
         style={{
-          borderRadius: props.style?.borderRadius || 10,
+          borderRadius: (props.borderRadius || 10) - 2 || 10,
         }}
         className={classNames(`${baseCls}-editor`, hashId, {
           [`${baseCls}-editor-hover`]: isHover,

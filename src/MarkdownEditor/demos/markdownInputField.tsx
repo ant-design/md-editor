@@ -1,4 +1,5 @@
 ﻿import { MarkdownInputField } from '@ant-design/md-editor';
+import { ColorPicker, Slider } from 'antd';
 import React from 'react';
 
 export default () => {
@@ -16,6 +17,17 @@ export default () => {
       return next;
     });
   };
+  const [borderRadius, setBorderRadius] = React.useState(0);
+  const [colorList, setColorList] = React.useState<
+    [string, string, string, string]
+  >(
+    '#CD36FF; #FFD972; #5EBFFF; #6FFFA7'?.split(';') as [
+      string,
+      string,
+      string,
+      string,
+    ],
+  );
   return (
     <div
       style={{
@@ -27,12 +39,65 @@ export default () => {
         gap: '20px',
       }}
     >
+      <div>
+        颜色
+        <ColorPicker
+          value={colorList?.at(0)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[0] = e.toHex();
+              return next;
+            });
+          }}
+        />
+        <ColorPicker
+          value={colorList?.at(1)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[1] = e.toHex();
+              return next;
+            });
+          }}
+        />
+        <ColorPicker
+          value={colorList?.at(2)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[2] = e.toHex();
+              return next;
+            });
+          }}
+        />
+        <ColorPicker
+          value={colorList?.at(3)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[3] = e.toHex();
+              return next;
+            });
+          }}
+        />
+      </div>
+      <div>
+        圆角：
+        <Slider
+          value={borderRadius}
+          onChange={(value) => setBorderRadius(value)}
+        />
+      </div>
+
       <ul>
         {[...list].map((item, index) => (
           <li key={index}>{item}</li>
         ))}
       </ul>
       <MarkdownInputField
+        bgColorList={colorList}
+        borderRadius={borderRadius}
         tagInputProps={{
           enable: true,
           items: ['tag1', 'tag2', 'tag3'].map((item) => ({
@@ -45,6 +110,7 @@ export default () => {
         placeholder="请输入内容"
       />
       <MarkdownInputField
+        borderRadius={borderRadius}
         tagInputProps={{
           enable: true,
           items: ['tag1', 'tag2', 'tag3'].map((item) => ({
@@ -57,7 +123,12 @@ export default () => {
         onStop={() => console.log('stop...')}
         placeholder="请输入内容"
       />
-      <MarkdownInputField onSend={send} disabled placeholder="请输入内容" />
+      <MarkdownInputField
+        borderRadius={borderRadius}
+        onSend={send}
+        disabled
+        placeholder="请输入内容"
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -65,6 +136,9 @@ export default () => {
         version="1.1"
         width="100%"
         height="100%"
+        style={{
+          borderRadius,
+        }}
       >
         <defs>
           <linearGradient
