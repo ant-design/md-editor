@@ -468,6 +468,7 @@
                                         <div
                                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                         >
+                                          SELECT * FROM table_name
                                           <span
                                             data-slate-node="text"
                                           >
@@ -1485,6 +1486,7 @@
                                         <div
                                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                         >
+                                          {   "params": {     "name": "参数"   } }
                                           <span
                                             data-slate-node="text"
                                           >
@@ -1674,6 +1676,7 @@
                                         <div
                                           style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                         >
+                                          {   "error": false,   "data": "调用工具成功" }
                                           <span
                                             data-slate-node="text"
                                           >

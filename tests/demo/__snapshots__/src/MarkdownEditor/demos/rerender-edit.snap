@@ -12331,6 +12331,7 @@
                   <div
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    Class A {   main() {     System.out.println("Hello World");   } }
                     <span
                       data-slate-node="text"
                     >

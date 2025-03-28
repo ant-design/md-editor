@@ -381,6 +381,7 @@
                       <div
                         style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                       >
+                        arr = [1, 2, 3, 4] for num in arr:     print(num)  # 输出每个元素的值
                         <span
                           data-slate-node="text"
                         >
@@ -702,6 +703,7 @@ for num in arr:
                       <div
                         style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                       >
+                        for i in range(len(arr)):     print(arr[i])  # 通过索引访问元素
                         <span
                           data-slate-node="text"
                         >
@@ -995,6 +997,7 @@ for num in arr:
                       <div
                         style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                       >
+                        for index, value in enumerate(arr):     print(f"索引 {index} 的值是 {value}")
                         <span
                           data-slate-node="text"
                         >
@@ -1368,6 +1371,7 @@ for num in arr:
                       <div
                         style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                       >
+                        i = 0 while i &lt; len(arr):     print(arr[i])     i += 1  # 必须手动递增
                         <span
                           data-slate-node="text"
                         >
@@ -1642,6 +1646,7 @@ while i &lt; len(arr):
                       <div
                         style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                       >
+                        squared = [x**2 for x in arr]  # 遍历并计算平方
                         <span
                           data-slate-node="text"
                         >
@@ -1975,6 +1980,7 @@ while i &lt; len(arr):
                       <div
                         style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                       >
+                        def traverse(arr, i=0):     if i &lt; len(arr):         print(arr[i])
                         <span
                           data-slate-node="text"
                         >
@@ -2211,6 +2217,7 @@ while i &lt; len(arr):
                 <div
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
+                  fruits = ["Apple", "Mango", "Banana"] for fruit in fruits:     print(fruit)
                   <span
                     data-slate-node="text"
                   >
@@ -2572,6 +2579,7 @@ for fruit in fruits:
                 <div
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
+                  for index, fruit in enumerate(fruits):     print(f"第{index}个元素：{fruit}")
                   <span
                     data-slate-node="text"
                   >
@@ -2836,6 +2844,7 @@ for fruit in fruits:
                 <div
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
+                  i = 0 while i &lt; len(fruits):     print(fruits[i])     i += 1
                   <span
                     data-slate-node="text"
                   >
@@ -3126,6 +3135,7 @@ while i &lt; len(fruits):
                 <div
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
+                  uppercase_fruits = [fruit.upper() for fruit in fruits]
                   <span
                     data-slate-node="text"
                   >
@@ -3389,6 +3399,7 @@ while i &lt; len(fruits):
                 <div
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
+                  for i in range(len(fruits)):     print(fruits[i])
                   <span
                     data-slate-node="text"
                   >
@@ -3780,6 +3791,7 @@ while i &lt; len(fruits):
                 <div
                   style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                 >
+                  for fruit in fruits.copy():  # 创建副本     if "n" in fruit:         fruits.remove(fruit)
                   <span
                     data-slate-node="text"
                   >
