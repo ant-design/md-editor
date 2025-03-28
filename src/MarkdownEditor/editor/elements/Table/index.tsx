@@ -557,6 +557,9 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 language={zhCN.languageCode}
                 autoColumnSize={true}
                 manualColumnResize={true}
+                afterRenderer={(row, col, cellProperties) => {
+                  console.log(row, col, cellProperties);
+                }}
                 afterGetColHeader={function (col, TH) {
                   if (col === -1) {
                     return;
@@ -569,7 +572,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   if (!input) return;
                   (input as any).type = 'text';
                   (input as any).style =
-                    'width:calc(100% - 4px);display:none;height:calc(100% - 4px);border:none;outline:none;border-radius:inherit';
+                    'width:calc(100% - 4px);color:#000;display:none;height:calc(100% - 4px);border:none;outline:none;border-radius:inherit';
                   input.value = TH.firstChild?.textContent + '';
                   TH.appendChild(input);
                   TH.onblur = function () {
