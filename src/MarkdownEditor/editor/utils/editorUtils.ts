@@ -266,13 +266,16 @@ export class EditorUtils {
     const [[selectNodes, selectPath]] = Editor.nodes(editor, {
       match: (n) => Element.isElement(n),
       mode: 'highest',
-    });
-    if (selectNodes.type === 'list') {
+    }) as any;
+    if ((selectNodes as any).type === 'list') {
       Transforms.removeNodes(editor, {
-        at: selectPath,
+        at: selectPath as any,
         voids: true,
       });
-      const paragraphNode = EditorUtils.listToParagraph(editor, selectNodes);
+      const paragraphNode = EditorUtils.listToParagraph(
+        editor,
+        selectNodes as any,
+      );
       console.log('paragraphNode', paragraphNode);
       Transforms.insertNodes(editor, paragraphNode, { at: editor.selection });
       return;
@@ -312,7 +315,7 @@ export class EditorUtils {
         }
       });
     });
-    return paragraphNode?.flat(2);
+    return paragraphNode?.flat(2) as any[];
   }
 
   /**
