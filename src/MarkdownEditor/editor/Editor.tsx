@@ -222,7 +222,6 @@ export const MEditor = observer(
       event.stopPropagation();
       event.preventDefault();
       const currentTextSelection = markdownEditorRef.current.selection;
-      const path = EditorUtils.findMediaInsertPath(markdownEditorRef.current);
       if (
         currentTextSelection &&
         currentTextSelection.anchor &&
@@ -266,7 +265,8 @@ export const MEditor = observer(
         });
 
         Transforms.insertFragment(markdownEditorRef.current, fragment, {
-          at: path!,
+          at: currentTextSelection!,
+          hanging: true,
         });
         return;
       }
