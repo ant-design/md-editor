@@ -22,31 +22,45 @@ type Leading = {
 
 const cache = new Map<object, Leading>();
 
-function buildTree(data: any[]) {
-  let tree = {} as Record<string, any>;
+function buildTree(headers: any[]) {
+  // 创建虚拟根节点，用于统一处理顶级节点
+  const root = {
+    title: '',
+    version: '',
+    children: [] as any[],
+    id: '',
+    key: nanoid(),
+  };
+  const stack = [{ node: root, level: 0, key: nanoid() }]; // 使用栈维护路径
 
-  data.forEach((item: { level?: any }) => {
-    if (item.level === 1) {
-      tree = { ...item, children: [] };
-    } else {
-      let currentLevel = tree;
-      for (let i = 2; i < item.level; i++) {
-        if (!currentLevel?.children) {
-          currentLevel.children = [];
-        }
-        if (currentLevel.children?.at(-1)) {
-          currentLevel =
-            currentLevel.children?.[currentLevel.children.length - 1];
-        }
-      }
-      if (!currentLevel?.children) {
-        currentLevel.children = [];
-      }
-      currentLevel.children.push({ ...item, children: [] });
+  for (const header of headers) {
+    // 解构层级、标题、版本（假设输入数据包含 level 字段）
+    const { level, title, version } = header;
+
+    // 创建新节点
+    const newNode = {
+      title: title,
+      version: version,
+      children: [] as any[],
+      id: title,
+      Key: nanoid(),
+    } as any;
+
+    // 关键逻辑：找到合适的父节点
+    while (stack.length > 0 && stack[stack.length - 1].level >= level) {
+      stack.pop(); // 弹出层级大于等于当前节点的元素
     }
-  });
 
-  return tree;
+    // 当前栈顶即为父节点
+    const parent = stack[stack.length - 1].node;
+    parent.children.push(newNode);
+
+    // 将新节点压入栈
+    stack.push({ node: newNode, level: level, key: nanoid() });
+  }
+
+  // 返回真实根节点的子节点（去除虚拟根节点）
+  return root;
 }
 
 export const schemaToHeading = (schema: any) => {
@@ -175,9 +189,10 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
     return () => {};
   }, []);
 
-  if (!buildTree(state().headings).children) {
+  if (!buildTree(state().headings).children?.length) {
     return null as React.ReactNode;
   }
+
   return (
     <Anchor
       style={{
@@ -185,7 +200,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
       }}
       offsetTop={64}
       {...anchorProps}
-      items={[buildTree(state().headings)]?.map((h: any) => ({
+      items={buildTree(state().headings).children?.map((h: any) => ({
         id: h.id,
         key: h.key,
         href: `#${h.id}`,
