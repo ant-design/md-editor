@@ -557,9 +557,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 language={zhCN.languageCode}
                 autoColumnSize={true}
                 manualColumnResize={true}
-                afterRenderer={(row, col, cellProperties) => {
-                  console.log(row, col, cellProperties);
-                }}
                 afterGetColHeader={function (col, TH) {
                   if (col === -1) {
                     return;
