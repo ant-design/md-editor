@@ -13,6 +13,21 @@ const defaultValue = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": 
 | ------- | ------- |------- |
 | 放放风  | 放放风  |放放风  |
 
+## 部门
+
+- Umi 科技（深圳）有限公司
+  - Umi 学院 
+  - Umi 云
+- Umi 金融
+- Umi 游戏
+- Umi 广告
+- Umi 社交网络
+  - antd
+  - QQ
+    - QQ 音乐
+    - QQ 空间
+- Umi 其他业务
+
 ## 创始人
 
 Umi ，全称深圳市Umi 计算机系统有限公司，是由五位创始人共同创立的，他们是马化腾、张志东、许晨晔、陈一丹和曾李青。
