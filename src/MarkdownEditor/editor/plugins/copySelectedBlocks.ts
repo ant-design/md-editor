@@ -27,7 +27,7 @@ export const copySelectedBlocks = (
   container: HTMLDivElement,
 ) => {
   const selectedFragment = editor.selection;
-  copyToClipboard(' ', {
+  copyToClipboard(window?.getSelection?.()?.toString() || ' ', {
     onCopy: (dataTransfer) => {
       const data = dataTransfer as DataTransfer;
       if (!data) return;
