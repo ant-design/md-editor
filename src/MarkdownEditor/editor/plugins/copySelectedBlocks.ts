@@ -27,21 +27,19 @@ export const copySelectedBlocks = (
   container: HTMLDivElement,
 ) => {
   const selectedFragment = editor.selection;
-
   copyToClipboard(' ', {
     onCopy: (dataTransfer) => {
       const data = dataTransfer as DataTransfer;
       if (!data) return;
-      let textPlain = container?.textContent;
-      data.setData('text/plain', textPlain || '');
-      data.setData('text/html', container?.innerHTML);
-
-      // set slate fragment
+      if (!editor.selection) return;
+      const selectedText = Editor.string(editor, editor.selection!);
+      data.setData('text/plain', selectedText || '');
+      data.setData('text/html', container?.innerHTML || '');
       const selectedFragmentStr = JSON.stringify(selectedFragment);
       const encodedFragment = window.btoa(
         encodeURIComponent(selectedFragmentStr),
       );
-      data.setData('application/x-slate-fragment', encodedFragment);
+      data.setData('application/x-slate-md-fragment', encodedFragment);
     },
   });
 };

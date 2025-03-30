@@ -239,9 +239,9 @@ export const MEditor = observer(
       }
 
       const types = event.clipboardData.types;
-      if (types.includes('application/x-slate-fragment')) {
+      if (types.includes('application/x-slate-md-fragment')) {
         const encoded = event.clipboardData.getData(
-          'application/x-slate-fragment',
+          'application/x-slate-md-fragment',
         );
         const decoded = decodeURIComponent(window.atob(encoded));
         try {
@@ -777,12 +777,15 @@ export const MEditor = observer(
                   return;
                 }
               }
-              event.preventDefault();
               ReactEditor.setFragmentData(
                 markdownEditorRef.current,
                 event.clipboardData,
                 'copy',
               );
+              if (markdownEditorRef.current?.selection) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
               copySelectedBlocks(
                 markdownEditorRef.current,
                 markdownContainerRef.current!,
