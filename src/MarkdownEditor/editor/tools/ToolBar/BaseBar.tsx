@@ -158,7 +158,7 @@ export const BaseToolBar = observer(
 
     useEffect(() => {
       setRefresh((r) => !r);
-    }, [store.refreshFloatBar]);
+    }, [store.refreshFloatBar, store.domRect]);
 
     /**
      * 获取当前节点
