@@ -12,7 +12,7 @@ import {
 } from 'slate';
 import { DOMNode } from 'slate-dom';
 import { History } from 'slate-history';
-import { CardNode, CustomLeaf } from '../../el';
+import { CardNode, CustomLeaf, ListNode, ParagraphNode } from '../../el';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 
@@ -263,11 +263,59 @@ export class EditorUtils {
         mode: 'highest',
       });
     }
+    const [[selectNodes, selectPath]] = Editor.nodes(editor, {
+      match: (n) => Element.isElement(n),
+      mode: 'highest',
+    }) as any;
+    if ((selectNodes as any).type === 'list') {
+      Transforms.removeNodes(editor, {
+        at: selectPath as any,
+        voids: true,
+      });
+      const paragraphNode = EditorUtils.listToParagraph(
+        editor,
+        selectNodes as any,
+      );
+      console.log('paragraphNode', paragraphNode);
+      Transforms.insertNodes(editor, paragraphNode, { at: editor.selection });
+      return;
+    }
     Transforms.setNodes(
       editor,
       { type: 'paragraph' },
       { at: Path.parent(editor.selection.anchor.path) },
     );
+  }
+
+  /**
+   * 将列表节点转换为段落节点数组
+   *
+   * 该方法通过递归遍历列表节点及其子节点，提取所有段落节点，并将它们汇集成一个扁平化的数组。
+   *
+   * @param editor - 编辑器实例
+   * @param listNode - 要处理的列表节点
+   * @returns 从列表节点中提取的所有段落节点的数组
+   *
+   * @example
+   * const paragraphs = EditorUtils.listToParagraph(editor, someListNode);
+   * // 返回列表中所有段落节点的扁平数组
+   */
+  static listToParagraph(editor: Editor, listNode: ListNode) {
+    const paragraphNode: ParagraphNode[] = [];
+    const children = listNode.children;
+    if (children.length === 0) return [];
+    children?.forEach((item) => {
+      item?.children?.forEach((child: any) => {
+        if (child.type === 'paragraph') {
+          paragraphNode.push(child);
+        }
+        if (child.type === 'list') {
+          const childParagraphNode = EditorUtils.listToParagraph(editor, child);
+          paragraphNode.push(...childParagraphNode);
+        }
+      });
+    });
+    return paragraphNode?.flat(2) as any[];
   }
 
   /**

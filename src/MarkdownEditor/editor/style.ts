@@ -147,7 +147,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       h4: { fontWeight: 600, fontSize: '1em' },
       h5: { fontWeight: 600, fontSize: '0.875em' },
       h6: { fontWeight: 600, fontSize: '0.85em', color: '#59636e' },
-
       a: {
         color: '#1677ff',
         backgroundColor: 'transparent',
@@ -194,8 +193,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '[data-be="list"] > ul': {
-        marginTop: '0.2em',
-        marginBottom: '0.2em',
+        marginTop: '0.25em',
+        marginBottom: '0.25em',
       },
       '[data-be="chart"]': {
         marginTop: '0.5em',
