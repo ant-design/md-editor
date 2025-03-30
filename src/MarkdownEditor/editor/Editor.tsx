@@ -20,7 +20,6 @@ import {
   MarkdownEditorProps,
 } from '../BaseMarkdownEditor';
 import { MElement, MLeaf } from './elements';
-import { copySelectedBlocks } from './plugins/copySelectedBlocks';
 import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
@@ -243,9 +242,8 @@ export const MEditor = observer(
         const encoded = event.clipboardData.getData(
           'application/x-slate-md-fragment',
         );
-        const decoded = decodeURIComponent(window.atob(encoded));
         try {
-          const fragment = JSON.parse(decoded).map((node: any) => {
+          const fragment = JSON.parse(encoded).map((node: any) => {
             if (node.type === 'card') {
               return {
                 ...node,
@@ -785,11 +783,19 @@ export const MEditor = observer(
               if (markdownEditorRef.current?.selection) {
                 event.preventDefault();
                 event.stopPropagation();
+                const editor = markdownEditorRef.current;
+                const data = event?.clipboardData;
+                const selectedText = Editor.string(editor, editor.selection!);
+                data.setData('text/plain', selectedText || '');
+                data.setData(
+                  'text/html',
+                  markdownContainerRef.current?.innerHTML || '',
+                );
+                data.setData(
+                  'application/x-slate-md-fragment',
+                  JSON.stringify(editor?.getFragment() || []),
+                );
               }
-              copySelectedBlocks(
-                markdownEditorRef.current,
-                markdownContainerRef.current!,
-              );
             }}
             onCompositionStart={onCompositionStart}
             onCompositionEnd={onCompositionEnd}
