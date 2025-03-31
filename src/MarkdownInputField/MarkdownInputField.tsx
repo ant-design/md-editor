@@ -1,7 +1,7 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { useMergedState } from 'rc-util';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
@@ -154,6 +154,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         });
     }
   });
+
+  const colorList = useMemo(() => {
+    function generateEdges(colors: string[]) {
+      return colors.map((current) => {
+        const middle = colors.filter((color) => color !== current);
+        return [current, ...middle, current];
+      });
+    }
+    return generateEdges(
+      props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
+    );
+  }, [props.bgColorList?.join(',')]);
   return wrapSSR(
     <div
       className={classNames(baseCls, hashId, props.className, {
@@ -214,66 +226,23 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
               y2="0.5"
               id="master_svg1_55_47405"
             >
-              <stop
-                offset="0%"
-                stopColor="#CD36FF"
-                stopOpacity="0.22383680939674377"
-              >
-                <animate
-                  attributeName="stop-color"
-                  values="#CD36FF; #FFD972; #5EBFFF; #6FFFA7;#CD36FF"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </stop>
-              <stop
-                offset="33.917319774627686%"
-                stopColor="#AEB6FF"
-                stopOpacity="0.699999988079071"
-              >
-                <animate
-                  attributeName="stop-color"
-                  values="#AEB6FF; #CD36FF; #FFD972; #5EBFFF; #6FFFA7;#AEB6FF"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </stop>
-              <stop
-                offset="51.650047302246094%"
-                stopColor="#FFD972"
-                stopOpacity="0.4300000071525574"
-              >
-                <animate
-                  attributeName="stop-color"
-                  values="#FFD972; #5EBFFF; #6FFFA7; #CD36FF; #FFD972"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </stop>
-              <stop
-                offset="81.37043118476868%"
-                stopColor="#5EBFFF"
-                stopOpacity="0.6200000047683716"
-              >
-                <animate
-                  attributeName="stop-color"
-                  values="#5EBFFF; #6FFFA7; #CD36FF; #FFD972; #5EBFFF"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </stop>
-              <stop
-                offset="100%"
-                stopColor="#6FFFA7"
-                stopOpacity="0.5468477010726929"
-              >
-                <animate
-                  attributeName="stop-color"
-                  values="#6FFFA7; #CD36FF; #FFD972; #5EBFFF; #6FFFA7"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </stop>
+              {colorList.map((color, index) => {
+                return (
+                  <stop
+                    key={index}
+                    offset={`${(index * 100) / colorList.length}%`}
+                    stopColor={color[0]}
+                    stopOpacity="0.6300000071525574"
+                  >
+                    <animate
+                      attributeName="stop-color"
+                      values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
+                      dur="4s"
+                      repeatCount="indefinite"
+                    />
+                  </stop>
+                );
+              })}
             </linearGradient>
           </defs>
           <g>
@@ -289,7 +258,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       </div>
       <div
         style={{
-          borderRadius: (props.borderRadius || 10) - 2 || 10,
+          borderRadius: (props.borderRadius || 12) - 2 || 10,
         }}
         className={classNames(`${baseCls}-editor`, hashId, {
           [`${baseCls}-editor-hover`]: isHover,
