@@ -76,7 +76,7 @@ const genTableMinSize = (
   });
 };
 
-export const MEditor = observer(
+export const SlateMarkdownEditor = observer(
   ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
@@ -85,11 +85,7 @@ export const MEditor = observer(
     const nodeRef = useRef<MarkdownEditorInstance>();
     const { prefixCls = '$' } = editorProps.tagInputProps || {};
 
-    const onKeyDown = useKeyboard(
-      store,
-      markdownEditorRef,
-      editorProps?.markdown,
-    );
+    const onKeyDown = useKeyboard(store, markdownEditorRef, editorProps);
     const onChange = useOnchange(
       markdownEditorRef.current,
       store,

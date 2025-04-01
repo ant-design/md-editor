@@ -96,6 +96,23 @@ export type MarkdownInputFieldProps = {
   bgColorList?: [string, string, string, string];
   borderRadius?: number;
 };
+/**
+ * 根据提供的颜色数组生成边缘颜色序列。
+ * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
+ * 并在序列末尾再添加当前颜色。
+ *
+ * @param colors - 要处理的颜色数组
+ * @returns 一个二维数组，每个子数组包含从特定位置开始循环的颜色序列，并在末尾重复当前颜色
+ * @example
+ * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
+ * generateEdges(['red', 'blue', 'green'])
+ */
+export function generateEdges(colors: string[]) {
+  return colors.map((current, index) => {
+    const rotated = colors.slice(index).concat(colors.slice(0, index));
+    return [...rotated, current];
+  });
+}
 
 /**
  * @component MarkdownInputField
@@ -156,12 +173,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   });
 
   const colorList = useMemo(() => {
-    function generateEdges(colors: string[]) {
-      return colors.map((current) => {
-        const middle = colors.filter((color) => color !== current);
-        return [current, ...middle, current];
-      });
-    }
     return generateEdges(
       props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
     );
@@ -181,7 +192,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       onMouseLeave={() => setHover(false)}
       onKeyDown={(e) => {
         const { triggerSendKey = 'Enter' } = props;
-        if (triggerSendKey === 'Enter' && e.key === 'Enter') {
+        if (
+          triggerSendKey === 'Enter' &&
+          e.key === 'Enter' &&
+          !(e.ctrlKey || e.metaKey)
+        ) {
           e.stopPropagation();
           e.preventDefault();
           if (props.onSend) {
@@ -282,6 +297,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           textAreaProps={{
             enable: true,
             placeholder: props.placeholder,
+            triggerSendKey: props.triggerSendKey || 'Enter',
           }}
           tagInputProps={
             props.tagInputProps || {

@@ -1,4 +1,4 @@
-﻿import { MarkdownInputField } from '@ant-design/md-editor';
+﻿import { generateEdges, MarkdownInputField } from '@ant-design/md-editor';
 import { ColorPicker, Slider } from 'antd';
 import React, { useMemo } from 'react';
 
@@ -30,12 +30,6 @@ export default () => {
   );
 
   const genColorList = useMemo(() => {
-    function generateEdges(colors: string[]) {
-      return colors.map((current) => {
-        const middle = colors.filter((color) => color !== current);
-        return [current, ...middle?.reverse(), current];
-      });
-    }
     return generateEdges(
       colorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
     );

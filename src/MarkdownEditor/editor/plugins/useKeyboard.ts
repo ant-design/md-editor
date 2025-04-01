@@ -26,7 +26,7 @@ export const useKeyboard = (
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >,
-  props: MarkdownEditorProps['markdown'],
+  props: MarkdownEditorProps,
 ) => {
   return useMemo(() => {
     const tab = new TabKey(markdownEditorRef.current);
@@ -77,7 +77,7 @@ export const useKeyboard = (
       if (isHotkey('mod+shift+s', e)) {
         e.preventDefault();
       }
-      if (props?.matchInputToNode) {
+      if (props?.markdown?.matchInputToNode) {
         match.run(e);
       }
 
@@ -87,8 +87,24 @@ export const useKeyboard = (
         keyArrow(store, e);
       } else {
         if (e.key === 'Tab') tab.run(e);
-        if (e.key === 'Enter') {
-          enter.run(e);
+        if (props.textAreaProps?.triggerSendKey === 'Enter') {
+          if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            e.stopPropagation();
+            e.preventDefault();
+            enter.run(e);
+          }
+        } else if (props.textAreaProps?.triggerSendKey === 'Mod+Enter') {
+          if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
+            e.stopPropagation();
+            e.preventDefault();
+            enter.run(e);
+          }
+        } else {
+          if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
+            e.stopPropagation();
+            e.preventDefault();
+            enter.run(e);
+          }
         }
         const [node] = Editor.nodes<any>(markdownEditorRef.current, {
           match: (n) => Element.isElement(n),

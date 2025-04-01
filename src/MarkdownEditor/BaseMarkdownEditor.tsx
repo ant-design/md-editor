@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 import { BaseEditor, createEditor, Editor, Selection } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { CommentList } from './editor/components/CommentList';
-import { MEditor } from './editor/Editor';
+import { SlateMarkdownEditor } from './editor/Editor';
 import { TagPopupProps } from './editor/elements/code/TagPopup';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { withMarkdown } from './editor/plugins';
@@ -302,6 +302,7 @@ export type MarkdownEditorProps = {
   textAreaProps?: {
     enable: boolean;
     placeholder?: string;
+    triggerSendKey?: 'Enter' | 'Mod+Enter';
   };
 
   tagInputProps?: {
@@ -508,7 +509,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               setMountedStatus(true);
             }}
           >
-            <MEditor
+            <SlateMarkdownEditor
               prefixCls={baseClassName}
               {...rest}
               onChange={(value, schema) => {

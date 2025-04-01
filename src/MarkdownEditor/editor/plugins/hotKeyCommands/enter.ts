@@ -110,16 +110,23 @@ export class EnterKey {
           if (!str && !el.children.some((c: any) => c.type === 'media')) {
             this.empty(e, path);
           } else {
-            this.paragraph(e, node, sel);
+            const insert = this.paragraph(e, node, sel);
+            if (!insert) {
+              this.editor?.insertBreak();
+            }
+            return;
           }
           break;
         case 'head':
           if (this.head(el, path, sel)) {
             e.preventDefault();
           }
+        default:
+          this.editor?.insertBreak();
           break;
       }
     }
+    this.editor?.insertBreak();
   }
 
   empty(e: React.KeyboardEvent, path: Path) {
@@ -353,7 +360,7 @@ export class EnterKey {
               startText: m[0],
             });
             e.preventDefault();
-            return;
+            return true;
           }
         }
       }
@@ -384,6 +391,7 @@ export class EnterKey {
           Editor.start(this.editor, Path.next(node[1])),
         );
         e.preventDefault();
+        return true;
       } else {
         e.preventDefault();
         let checked: boolean | undefined = undefined;
@@ -451,6 +459,7 @@ export class EnterKey {
             1,
           );
         }
+        return true;
       }
     }
   }
