@@ -339,19 +339,22 @@ export class EditorUtils {
       mode: 'lowest',
     });
     if (match) {
-      let [node, path] = match;
-      if (node.text || node.text === '') {
+      let [node, path] = match as any[];
+      if ((node as any).text || (node as any).text === '') {
         // 如果节点是文本节点，则获取其父节点
         const parent = Path.parent(path);
-        node = Node.get(editor, parent);
-        path = parent;
+        node = Node.get(editor, parent) as any;
+        path = parent as any;
       }
       // 删除选中的节点
       Transforms.removeNodes(editor, {
-        at: path,
+        at: path as any,
       });
       // 插入新节点替换原内容
-      Transforms.insertNodes(editor, newNode, { at: path, select: true });
+      Transforms.insertNodes(editor, newNode as any, {
+        at: path,
+        select: true,
+      });
     } else {
       // 如果没有选中节点，则直接插入新节点
       Transforms.insertNodes(editor, newNode);
