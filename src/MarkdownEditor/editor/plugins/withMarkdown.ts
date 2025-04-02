@@ -211,6 +211,25 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
+
+    if (operation.type === 'remove_text') {
+      const currentNode = Node.get(editor, operation.path);
+      if (currentNode?.tag && operation.text === currentNode.triggerText) {
+        // 如果当前节点是代码块，且输入的是空格，则插入一个空格到 code 节点外
+        Transforms.setNodes(
+          editor,
+          { tag: false, code: false, text: ' ' },
+          { at: operation.path },
+        );
+        Transforms.delete(editor, {
+          at: {
+            anchor: { path: operation.path, offset: 0 },
+            focus: { path: operation.path, offset: operation.text.length },
+          },
+        });
+        return;
+      }
+    }
     if (operation.type === 'insert_text') {
       const parentNode = Node.get(editor, Path.parent(operation.path));
       const currentNode = Node.get(editor, operation.path);

@@ -138,8 +138,8 @@ export const SlateMarkdownEditor = observer(
             {
               code: true,
               tag: true,
-              text: prefixCls,
-              triggerText: prefixCls,
+              text: event?.key + ' ',
+              triggerText: event?.key,
             },
           ]);
           return;
