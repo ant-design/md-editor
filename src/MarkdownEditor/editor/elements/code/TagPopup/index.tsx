@@ -1,9 +1,11 @@
 import { Dropdown, MenuProps } from 'antd';
-import React, { ReactNode } from 'react';
+import { useMergedState } from 'rc-util';
+import React, { ReactNode, useRef } from 'react';
+import { useSlate } from '../../../slate-react';
 
 export type TagPopupProps = {
   children?: React.ReactNode;
-  onSelect?: (value: string) => void;
+  onSelect?: (value: string, path: number[]) => void;
   items?: Array<{
     label: string;
     key: string | number;
@@ -19,8 +21,33 @@ export type TagPopupProps = {
   notFoundContent?: React.ReactNode;
   bodyStyle?: React.CSSProperties;
   className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
+/**
+ * TagPopup 组件 - 在编辑器中显示一个标签弹出选择框
+ *
+ * 该组件在编辑器中创建一个交互式标签选择弹出框，允许用户从预定义列表中选择标签。
+ * 当选择一个标签时，会调用提供的回调函数并关闭弹出框。该组件与 Slate 编辑器集成，
+ * 可以感知当前的节点路径。
+ *
+ * @param props - 组件属性
+ * @param props.items - 可选的下拉菜单项列表
+ * @param props.onSelect - 当选择一个项时的回调函数，接收所选项的键和路径
+ * @param props.children - 触发器元素内容
+ * @param props.dropdownRender - 自定义下拉菜单渲染函数
+ * @param props.dropdownStyle - 下拉菜单的样式
+ * @param props.menu - 自定义菜单配置
+ * @param props.notFoundContent - 未找到内容时显示的内容
+ * @param props.className - 组件的额外 CSS 类名
+ * @param props.open - 控制下拉菜单是否打开
+ * @param props.onOpenChange - 下拉菜单打开状态变化时的回调
+ * @param props.text - 包含文本内容的对象
+ * @param props.text.text - 文本内容
+ *
+ * @returns 一个带有下拉菜单的标签弹出组件
+ */
 export const TagPopup = (
   props: TagPopupProps & {
     text: {
@@ -38,15 +65,22 @@ export const TagPopup = (
     notFoundContent,
     className,
   } = props || {};
+  const editor = useSlate();
 
-  const [open, setOpen] = React.useState(true);
+  const currentNodePath = useRef<number[]>();
+
+  const [open, setOpen] = useMergedState(true, {
+    value: props.open,
+    onChange: props.onOpenChange,
+  });
 
   const selectedItems = items.map((item) => {
     const { key } = item || {};
+
     return {
       ...item,
       onClick: () => {
-        onSelect?.(`${key}` || '');
+        onSelect?.(`${key}` || '', currentNodePath.current || []);
         setOpen(false);
       },
     };
@@ -62,8 +96,15 @@ export const TagPopup = (
       <Dropdown
         open={open}
         className={className}
-        onOpenChange={setOpen}
+        onOpenChange={(changeOpen) => {
+          const path = editor.selection?.anchor.path;
+          if (path) {
+            currentNodePath.current = path;
+          }
+          setOpen(changeOpen);
+        }}
         autoFocus={true}
+        trigger={['click']}
         dropdownRender={(defaultDropdownContent) => {
           if (dropdownRender) {
             return (
@@ -77,7 +118,13 @@ export const TagPopup = (
                   e.preventDefault();
                 }}
               >
-                {dropdownRender(defaultDropdownContent, props)}
+                {dropdownRender(defaultDropdownContent, {
+                  ...props,
+                  onSelect: (value: string, path?: number[]) => {
+                    onSelect?.(value, path || currentNodePath.current || []);
+                    setOpen(false);
+                  },
+                })}
               </div>
             );
           } else if (menu! && items!) {

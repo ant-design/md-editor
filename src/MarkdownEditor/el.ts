@@ -290,6 +290,7 @@ export type CustomLeaf<T = Record<string, any>> = {
   bold?: boolean | null;
   identifier?: string;
   code?: boolean | null;
+  tag?: boolean | null;
   italic?: boolean | null;
   strikethrough?: boolean | null;
   color?: string;

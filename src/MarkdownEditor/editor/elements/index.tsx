@@ -155,20 +155,22 @@ export const MLeaf = (
   const style: CSSProperties = {};
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
-  if (leaf.code) {
-    const { text, tag } = (props?.leaf || {}) as any;
+  if (leaf.code || leaf.tag) {
+    const { text, tag, triggerText } = (props?.leaf || {}) as any;
     const { enable } = props.tagInputProps || {};
     if (enable && tag) {
       children = (
         <TagPopup
           {...props.tagInputProps}
           text={text}
-          onSelect={(v) => {
-            Transforms.delete(markdownEditorRef.current);
-            Transforms.insertText(markdownEditorRef.current, v);
-            Transforms.insertNodes(markdownEditorRef.current, [{ text: ' ' }], {
-              select: true,
-            });
+          onSelect={(v, path) => {
+            Transforms.insertText(
+              markdownEditorRef.current,
+              `${triggerText || '$'}${v}`,
+              {
+                at: path,
+              },
+            );
           }}
         >
           {children}
