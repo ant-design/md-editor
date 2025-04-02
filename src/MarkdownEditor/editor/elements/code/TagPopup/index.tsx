@@ -84,6 +84,12 @@ export const TagPopup = (
   }, []);
 
   if (suggestionConnext?.isRender) {
+    if (suggestionConnext?.triggerNodeContext) {
+      suggestionConnext.triggerNodeContext.current = {
+        ...props,
+        text: props.text.text,
+      };
+    }
     if (suggestionConnext?.onSelectRef) {
       suggestionConnext.onSelectRef.current = (
         value: string,

@@ -161,6 +161,7 @@ export const MLeaf = (
     if (enable && tag) {
       children = (
         <TagPopup
+          {...props}
           {...props.tagInputProps}
           text={text}
           onSelect={(v, path) => {

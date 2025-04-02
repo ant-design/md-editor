@@ -2,6 +2,7 @@
 import { useMergedState } from 'rc-util';
 import React, { useRef } from 'react';
 import { MarkdownEditorProps } from '../../MarkdownEditor';
+import { TagPopupProps } from '../../MarkdownEditor/editor/elements/code/TagPopup';
 
 /**
  * 建议面板状态的 React 上下文
@@ -24,6 +25,12 @@ export const SuggestionConnext = React.createContext<{
   onSelectRef?: React.MutableRefObject<
     ((value: string) => void | undefined) | undefined
   >;
+  triggerNodeContext?: React.MutableRefObject<
+    | (TagPopupProps & {
+        text: string;
+      })
+    | undefined
+  >;
 }>({
   isRender: true,
 });
@@ -38,6 +45,10 @@ export const Suggestion: React.FC<{
   });
   const onSelectRef =
     useRef<(value: string, path?: number[]) => void | undefined>(undefined);
+
+  const triggerNodeContext = useRef<TagPopupProps & { text: string }>(
+    undefined,
+  );
   const {
     items = [],
     dropdownRender,
@@ -65,6 +76,7 @@ export const Suggestion: React.FC<{
         setOpen,
         isRender: true,
         onSelectRef,
+        triggerNodeContext,
       }}
     >
       <Dropdown
@@ -99,6 +111,7 @@ export const Suggestion: React.FC<{
               >
                 {dropdownRender(defaultDropdownContent, {
                   ...props,
+                  ...triggerNodeContext.current,
                   onSelect: (value: string, path?: number[]) => {
                     onSelectRef.current?.(`${value}` || '', path);
                     setOpen(false);
