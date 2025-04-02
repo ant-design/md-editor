@@ -76,6 +76,38 @@ const genTableMinSize = (
   });
 };
 
+/**
+ * Slate Markdown编辑器组件
+ *
+ * 基于Slate.js的Markdown编辑器，支持丰富的编辑功能，包括文本编辑、表格、代码块、媒体插入、链接等。
+ * 通过MobX进行状态管理，支持多种编辑器事件和操作。
+ *
+ * @param {Object} props - 编辑器属性
+ * @param {Function} props.eleItemRender - 自定义元素渲染函数，用于自定义编辑器中的元素渲染
+ * @param {boolean} [props.reportMode] - 是否为报告模式，影响样式渲染
+ * @param {MarkdownEditorInstance} [props.instance] - 编辑器实例，用于控制和访问编辑器
+ * @param {Object} [props.tagInputProps] - 标签输入相关配置
+ * @param {boolean} [props.tagInputProps.enable] - 是否启用标签输入功能
+ * @param {string} [props.tagInputProps.prefixCls='$'] - 标签前缀字符
+ * @param {Object} [props.textAreaProps] - 文本区域相关配置
+ * @param {string} [props.textAreaProps.placeholder] - 文本区域占位文本
+ * @param {string} [props.placeholder] - 编辑器占位文本
+ * @param {Function} [props.onChange] - 内容变化回调函数
+ * @param {Array} [props.initSchemaValue] - 初始化编辑器的值
+ * @param {Object} [props.tableConfig] - 表格相关配置
+ * @param {Object} [props.image] - 图片相关配置
+ * @param {Function} [props.image.upload] - 图片上传函数
+ * @param {Object} [props.fncProps] - 脚注相关配置
+ * @param {Function} [props.fncProps.onFootnoteDefinitionChange] - 脚注定义变化回调
+ * @param {Object} [props.comment] - 注释相关配置
+ * @param {boolean} [props.comment.enable] - 是否启用注释功能
+ * @param {Array} [props.comment.commentList] - 注释列表
+ * @param {string} [props.prefixCls] - 组件前缀类名
+ * @param {string} [props.className] - 自定义CSS类名
+ * @param {Object} [props.style] - 自定义样式
+ *
+ * @returns {JSX.Element} Markdown编辑器组件
+ */
 export const SlateMarkdownEditor = observer(
   ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
@@ -259,11 +291,9 @@ export const SlateMarkdownEditor = observer(
             return node;
           });
 
-          Transforms.insertNodes(markdownEditorRef.current, fragment, {
-            at: currentTextSelection!,
-            hanging: true,
-            select: true,
-          });
+          if (fragment.length === 0) return;
+          EditorUtils.replaceSelectedNode(markdownEditorRef.current, fragment);
+          return;
         } catch (error) {
           console.log('error', error);
         }

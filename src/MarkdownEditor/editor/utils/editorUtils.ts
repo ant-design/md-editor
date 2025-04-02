@@ -12,7 +12,13 @@ import {
 } from 'slate';
 import { DOMNode } from 'slate-dom';
 import { History } from 'slate-history';
-import { CardNode, CustomLeaf, ListNode, ParagraphNode } from '../../el';
+import {
+  CardNode,
+  CustomLeaf,
+  Elements,
+  ListNode,
+  ParagraphNode,
+} from '../../el';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 
@@ -317,6 +323,40 @@ export class EditorUtils {
     });
     return paragraphNode?.flat(2) as any[];
   }
+
+  /**
+   * 替换编辑器中当前选中的节点
+   *
+   * 该方法会查找当前选区中的最低块级节点，然后用新的节点替换它。
+   * 替换过程包括：查找最低块级节点，选中整个节点，插入新节点来替换原内容。
+   *
+   * @param editor - 编辑器实例
+   * @param newNode - 要插入的新节点数组
+   */
+  static replaceSelectedNode = (editor: Editor, newNode: Elements[]) => {
+    // 查找当前选区的最低块级节点
+    const [match] = Editor.nodes(editor, {
+      mode: 'lowest',
+    });
+    if (match) {
+      let [node, path] = match;
+      if (node.text || node.text === '') {
+        // 如果节点是文本节点，则获取其父节点
+        const parent = Path.parent(path);
+        node = Node.get(editor, parent);
+        path = parent;
+      }
+      // 删除选中的节点
+      Transforms.removeNodes(editor, {
+        at: path,
+      });
+      // 插入新节点替换原内容
+      Transforms.insertNodes(editor, newNode, { at: path, select: true });
+    } else {
+      // 如果没有选中节点，则直接插入新节点
+      Transforms.insertNodes(editor, newNode);
+    }
+  };
 
   /**
    * 删除编辑器中的所有内容，并插入新的节点（如果提供）。
