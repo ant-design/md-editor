@@ -15,7 +15,7 @@ export type TagPopupProps = {
   dropdownRender?: (
     defaultNode: ReactNode,
     props: TagPopupProps & {
-      onSelect?: (value: string, path: number[]) => void;
+      onSelect?: (value: string, path?: number[]) => void;
     },
   ) => React.ReactNode;
   dropdownStyle?: React.CSSProperties;
@@ -106,6 +106,10 @@ export const TagPopup = (
           e.preventDefault();
         }}
         onClick={(e) => {
+          const path = editor.selection?.anchor.path;
+          if (path) {
+            currentNodePath.current = path;
+          }
           e.stopPropagation();
           if (!suggestionConnext.open) {
             suggestionConnext?.setOpen?.(true);
