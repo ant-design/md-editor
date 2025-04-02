@@ -128,7 +128,10 @@ export const SlateMarkdownEditor = observer(
 
     const handleKeyDown = useRefFunction(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (editorProps.tagInputProps?.enable && event?.key === prefixCls) {
+        if (
+          editorProps.tagInputProps?.enable &&
+          [prefixCls].flat(2)?.includes(event?.key)
+        ) {
           event.preventDefault();
           event.stopPropagation();
           Transforms.insertNodes(markdownEditorRef.current, [
