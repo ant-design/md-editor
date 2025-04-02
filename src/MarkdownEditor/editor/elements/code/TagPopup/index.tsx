@@ -11,7 +11,7 @@ export type TagPopupProps = {
     key: string | number;
     onClick?: (v: string) => void;
   }>;
-  prefixCls?: string;
+  prefixCls?: string | string[];
   dropdownRender?: (
     defaultNode: ReactNode,
     props: TagPopupProps,
