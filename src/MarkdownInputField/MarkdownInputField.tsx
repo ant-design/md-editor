@@ -10,6 +10,7 @@ import {
 } from '../MarkdownEditor';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
+import { Suggestion } from './Suggestion';
 
 /**
  * Markdown 输入字段的属性接口
@@ -178,172 +179,174 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     );
   }, [props.bgColorList?.join(',')]);
   return wrapSSR(
-    <div
-      className={classNames(baseCls, hashId, props.className, {
-        [`${baseCls}-disabled`]: props.disabled,
-        [`${baseCls}-typing`]: false,
-        [`${baseCls}-loading`]: isLoading,
-      })}
-      style={{
-        ...props.style,
-        borderRadius: props.borderRadius || 12,
-      }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onKeyDown={(e) => {
-        const { triggerSendKey = 'Enter' } = props;
-        if (
-          triggerSendKey === 'Enter' &&
-          e.key === 'Enter' &&
-          !(e.ctrlKey || e.metaKey)
-        ) {
-          e.stopPropagation();
-          e.preventDefault();
-          if (props.onSend) {
-            sendMessage();
-          }
-          return;
-        }
-        if (
-          triggerSendKey === 'Mod+Enter' &&
-          (e.ctrlKey || e.metaKey) &&
-          e.key === 'Enter'
-        ) {
-          e.stopPropagation();
-          e.preventDefault();
-          if (props.onSend) {
-            sendMessage();
-          }
-        }
-      }}
-    >
+    <Suggestion tagInputProps={props.tagInputProps}>
       <div
-        className={classNames(`${baseCls}-background`, hashId, {
-          [`${baseCls}-hover`]: isHover,
+        className={classNames(baseCls, hashId, props.className, {
+          [`${baseCls}-disabled`]: props.disabled,
+          [`${baseCls}-typing`]: false,
+          [`${baseCls}-loading`]: isLoading,
         })}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          fill="none"
-          version="1.1"
-          width="100%"
-          style={{
-            borderRadius: 'inherit',
-          }}
-          height="100%"
-        >
-          <defs>
-            <linearGradient
-              x1="2.463307335887066e-16"
-              y1="0.5"
-              x2="0.9838055372238159"
-              y2="0.5"
-              id="master_svg1_55_47405"
-            >
-              {colorList.map((color, index) => {
-                return (
-                  <stop
-                    key={index}
-                    offset={`${(index * 100) / colorList.length}%`}
-                    stopColor={color[0]}
-                    stopOpacity="0.6300000071525574"
-                  >
-                    <animate
-                      attributeName="stop-color"
-                      values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
-                      dur="4s"
-                      repeatCount="indefinite"
-                    />
-                  </stop>
-                );
-              })}
-            </linearGradient>
-          </defs>
-          <g>
-            <rect
-              x={0}
-              y={0}
-              width="100%"
-              height="100%"
-              fill="url(#master_svg1_55_47405)"
-            />
-          </g>
-        </svg>
-      </div>
-      <div
         style={{
-          borderRadius: (props.borderRadius || 12) - 2 || 10,
+          ...props.style,
+          borderRadius: props.borderRadius || 12,
         }}
-        className={classNames(`${baseCls}-editor`, hashId, {
-          [`${baseCls}-editor-hover`]: isHover,
-          [`${baseCls}-editor-disabled`]: props.disabled,
-        })}
-      >
-        <BaseMarkdownEditor
-          editorRef={markdownEditorRef}
-          style={{
-            width: '100%',
-            minHeight: '32px',
-            height: '100%',
-            cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-            opacity: isLoading || props.disabled ? 0.5 : 1,
-          }}
-          readonly={isLoading}
-          contentStyle={{
-            padding: '12px',
-            paddingRight: '52px',
-          }}
-          textAreaProps={{
-            enable: true,
-            placeholder: props.placeholder,
-            triggerSendKey: props.triggerSendKey || 'Enter',
-          }}
-          tagInputProps={
-            props.tagInputProps || {
-              enable: true,
-              items: [
-                {
-                  key: 'Bold',
-                  label: 'Bold',
-                },
-              ],
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onKeyDown={(e) => {
+          const { triggerSendKey = 'Enter' } = props;
+          if (
+            triggerSendKey === 'Enter' &&
+            e.key === 'Enter' &&
+            !(e.ctrlKey || e.metaKey)
+          ) {
+            e.stopPropagation();
+            e.preventDefault();
+            if (props.onSend) {
+              sendMessage();
+            }
+            return;
+          }
+          if (
+            triggerSendKey === 'Mod+Enter' &&
+            (e.ctrlKey || e.metaKey) &&
+            e.key === 'Enter'
+          ) {
+            e.stopPropagation();
+            e.preventDefault();
+            if (props.onSend) {
+              sendMessage();
             }
           }
-          initValue={props.value}
-          onChange={(value) => {
-            setValue(value);
+        }}
+      >
+        <div
+          className={classNames(`${baseCls}-background`, hashId, {
+            [`${baseCls}-hover`]: isHover,
+          })}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            fill="none"
+            version="1.1"
+            width="100%"
+            style={{
+              borderRadius: 'inherit',
+            }}
+            height="100%"
+          >
+            <defs>
+              <linearGradient
+                x1="2.463307335887066e-16"
+                y1="0.5"
+                x2="0.9838055372238159"
+                y2="0.5"
+                id="master_svg1_55_47405"
+              >
+                {colorList.map((color, index) => {
+                  return (
+                    <stop
+                      key={index}
+                      offset={`${(index * 100) / colorList.length}%`}
+                      stopColor={color[0]}
+                      stopOpacity="0.6300000071525574"
+                    >
+                      <animate
+                        attributeName="stop-color"
+                        values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
+                        dur="4s"
+                        repeatCount="indefinite"
+                      />
+                    </stop>
+                  );
+                })}
+              </linearGradient>
+            </defs>
+            <g>
+              <rect
+                x={0}
+                y={0}
+                width="100%"
+                height="100%"
+                fill="url(#master_svg1_55_47405)"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          style={{
+            borderRadius: (props.borderRadius || 12) - 2 || 10,
           }}
-          toc={false}
-          toolBar={{
-            enable: false,
+          className={classNames(`${baseCls}-editor`, hashId, {
+            [`${baseCls}-editor-hover`]: isHover,
+            [`${baseCls}-editor-disabled`]: props.disabled,
+          })}
+        >
+          <BaseMarkdownEditor
+            editorRef={markdownEditorRef}
+            style={{
+              width: '100%',
+              minHeight: '32px',
+              height: '100%',
+              cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+              opacity: isLoading || props.disabled ? 0.5 : 1,
+            }}
+            readonly={isLoading}
+            contentStyle={{
+              padding: '12px',
+              paddingRight: '52px',
+            }}
+            textAreaProps={{
+              enable: true,
+              placeholder: props.placeholder,
+              triggerSendKey: props.triggerSendKey || 'Enter',
+            }}
+            tagInputProps={
+              props.tagInputProps || {
+                enable: true,
+                items: [
+                  {
+                    key: 'Bold',
+                    label: 'Bold',
+                  },
+                ],
+              }
+            }
+            initValue={props.value}
+            onChange={(value) => {
+              setValue(value);
+            }}
+            toc={false}
+            toolBar={{
+              enable: false,
+            }}
+            floatBar={{
+              enable: false,
+            }}
+          />
+        </div>
+        <SendButton
+          style={{
+            position: 'absolute',
+            right: 4,
+            zIndex: 99,
+            bottom: 8,
           }}
-          floatBar={{
-            enable: false,
+          typing={!!props.typing || isLoading}
+          isHover={isHover}
+          disabled={props.disabled}
+          onClick={() => {
+            if (props.typing || isLoading) {
+              setIsLoading(false);
+              props.onStop?.();
+              return;
+            }
+            if (props.onSend) {
+              sendMessage();
+            }
           }}
         />
       </div>
-      <SendButton
-        style={{
-          position: 'absolute',
-          right: 4,
-          zIndex: 99,
-          bottom: 8,
-        }}
-        typing={!!props.typing || isLoading}
-        isHover={isHover}
-        disabled={props.disabled}
-        onClick={() => {
-          if (props.typing || isLoading) {
-            setIsLoading(false);
-            props.onStop?.();
-            return;
-          }
-          if (props.onSend) {
-            sendMessage();
-          }
-        }}
-      />
-    </div>,
+    </Suggestion>,
   );
 };

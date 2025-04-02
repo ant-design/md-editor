@@ -1,11 +1,11 @@
 import { Dropdown, MenuProps } from 'antd';
 import { useMergedState } from 'rc-util';
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode, useContext, useEffect, useRef } from 'react';
+import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
 import { useSlate } from '../../../slate-react';
 
 export type TagPopupProps = {
   children?: React.ReactNode;
-  onSelect?: (value: string, path: number[]) => void;
   items?: Array<{
     label: string;
     key: string | number;
@@ -14,7 +14,9 @@ export type TagPopupProps = {
   prefixCls?: string | string[];
   dropdownRender?: (
     defaultNode: ReactNode,
-    props: TagPopupProps,
+    props: TagPopupProps & {
+      onSelect?: (value: string, path: number[]) => void;
+    },
   ) => React.ReactNode;
   dropdownStyle?: React.CSSProperties;
   menu?: MenuProps;
@@ -53,6 +55,7 @@ export const TagPopup = (
     text: {
       text: string;
     };
+    onSelect?: (value: string, path: number[]) => void;
   },
 ) => {
   const {
@@ -67,12 +70,64 @@ export const TagPopup = (
   } = props || {};
   const editor = useSlate();
 
+  const suggestionConnext = useContext(SuggestionConnext);
+
   const currentNodePath = useRef<number[]>();
 
   const [open, setOpen] = useMergedState(true, {
     value: props.open,
     onChange: props.onOpenChange,
   });
+
+  useEffect(() => {
+    suggestionConnext?.setOpen?.(true);
+  }, []);
+
+  if (suggestionConnext?.isRender) {
+    if (suggestionConnext?.onSelectRef) {
+      suggestionConnext.onSelectRef.current = (
+        value: string,
+        path?: number[],
+      ) => {
+        onSelect?.(value, path || currentNodePath.current || []);
+        suggestionConnext?.setOpen?.(false);
+      };
+    }
+    return (
+      <span
+        onKeyDown={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (!suggestionConnext.open) {
+            suggestionConnext?.setOpen?.(true);
+          } else {
+            suggestionConnext?.setOpen?.(false);
+          }
+        }}
+      >
+        <div
+          onClick={() => {
+            setOpen(true);
+          }}
+          style={{
+            backgroundColor: '#e6f4ff',
+            padding: '0 4px',
+            borderRadius: 4,
+            fontSize: '0.9em',
+            display: 'inline-block',
+            lineHeight: 1.5,
+            color: '#1677ff',
+            border: '1px solid #91caff',
+          }}
+        >
+          {children}
+        </div>
+      </span>
+    );
+  }
 
   const selectedItems = items.map((item) => {
     const { key } = item || {};
