@@ -94,7 +94,7 @@
       </div>
       <ul />
       <div
-        class="ant-md-input-field"
+        class="ant-dropdown-trigger ant-md-input-field"
         style="border-radius: 12px;"
       >
         <div
@@ -240,7 +240,7 @@
         </div>
       </div>
       <div
-        class="ant-md-input-field"
+        class="ant-dropdown-trigger ant-md-input-field"
         style="border-radius: 12px;"
       >
         <div
@@ -384,7 +384,7 @@
         </div>
       </div>
       <div
-        class="ant-md-input-field ant-md-input-field-disabled"
+        class="ant-dropdown-trigger ant-md-input-field ant-md-input-field-disabled"
         style="border-radius: 12px;"
       >
         <div
