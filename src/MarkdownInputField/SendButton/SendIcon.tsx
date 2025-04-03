@@ -140,7 +140,7 @@ export const SendIcon = memo(
                   attributeName="stop-color"
                   values="#7D19FF;#389FFF;#83E4FF;#7D19FF"
                   dur="3s"
-                  repeatCount="indefinite"
+                  repeatCount="1"
                 />
               </stop>
               <stop offset="72.30085134506226%" stopColor="#389FFF">
@@ -148,7 +148,7 @@ export const SendIcon = memo(
                   attributeName="stop-color"
                   values="#389FFF;#7D19FF;#389FFF;#83E4FF;#389FFF"
                   dur="3s"
-                  repeatCount="indefinite"
+                  repeatCount="1"
                 />
               </stop>
               <stop offset="100%" stopColor="#83E4FF">
@@ -156,7 +156,7 @@ export const SendIcon = memo(
                   attributeName="stop-color"
                   values="#83E4FF;#7D19FF;#389FFF;#83E4FF"
                   dur="3s"
-                  repeatCount="indefinite"
+                  repeatCount="1"
                 />
               </stop>
             </radialGradient>
