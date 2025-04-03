@@ -14,7 +14,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       overflow: 'auto',
       background: '#FBFCFD',
       gap: '8px',
-      height: 76,
+      height: 88,
       borderRadius: 'inherit',
       padding: 8,
       position: 'relative',
@@ -28,9 +28,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: '#353E5C',
         fontSize: 16,
         position: 'absolute',
-        top: -4,
+        top: -8,
         borderRadius: '50%',
-        right: 4,
+        right: -8,
         color: '#FFFFFF',
         display: 'flex',
         justifyContent: 'center',
@@ -151,6 +151,6 @@ export function useStyle(prefixCls?: string) {
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(proChatToken), resetComponent(proChatToken)];
+    return [resetComponent(proChatToken), genStyle(proChatToken)];
   });
 }

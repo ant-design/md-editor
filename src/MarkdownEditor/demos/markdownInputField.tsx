@@ -101,6 +101,7 @@ export default () => {
           <li key={index}>{item}</li>
         ))}
       </ul>
+      <h2>基本</h2>
       <MarkdownInputField
         bgColorList={colorList}
         borderRadius={borderRadius}
@@ -115,6 +116,33 @@ export default () => {
         onStop={() => console.log('stop...')}
         placeholder="请输入内容"
       />
+      <h2>文件上传</h2>
+
+      <MarkdownInputField
+        bgColorList={colorList}
+        borderRadius={borderRadius}
+        attachment={{
+          enable: true,
+          upload: async (file) => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve(URL.createObjectURL(file));
+              }, 1000);
+            });
+          },
+        }}
+        tagInputProps={{
+          enable: true,
+          items: ['tag1', 'tag2', 'tag3'].map((item) => ({
+            key: item,
+            label: item,
+          })),
+        }}
+        onSend={send}
+        onStop={() => console.log('stop...')}
+        placeholder="请输入内容"
+      />
+      <h2>滚动条</h2>
       <MarkdownInputField
         borderRadius={borderRadius}
         tagInputProps={{
@@ -129,6 +157,7 @@ export default () => {
         onStop={() => console.log('stop...')}
         placeholder="请输入内容"
       />
+      <h2>disable</h2>
       <MarkdownInputField
         borderRadius={borderRadius}
         onSend={send}

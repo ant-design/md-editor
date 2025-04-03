@@ -10,7 +10,10 @@ import {
   MarkdownEditorProps,
 } from '../MarkdownEditor';
 import { AttachmentButton, AttachmentButtonProps } from './AttachmentButton';
-import { AttachmentFile } from './AttachmentButton/AttachmentFileList';
+import {
+  AttachmentFile,
+  AttachmentFileList,
+} from './AttachmentButton/AttachmentFileList';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
@@ -122,24 +125,23 @@ export type MarkdownInputFieldProps = {
     enable?: boolean;
   } & AttachmentButtonProps;
 
-  fileMap: Map<string, AttachmentFile> | undefined;
-  setFileMap: (fileMap: Map<string, AttachmentFile>) => void;
-
   actionsRender?: (
-    props: MarkdownInputFieldProps & {
-      isHover: boolean;
-      isLoading: boolean;
-      fileUploadStatus: 'uploading' | 'done' | 'error';
-    },
+    props: MarkdownInputFieldProps &
+      MarkdownInputFieldProps['attachment'] & {
+        isHover: boolean;
+        isLoading: boolean;
+        fileUploadStatus: 'uploading' | 'done' | 'error';
+      },
     defaultActions: React.ReactNode[],
   ) => React.ReactNode[];
 
   beforeActionsRender?: (
-    props: MarkdownInputFieldProps & {
-      isHover: boolean;
-      isLoading: boolean;
-      fileUploadStatus: 'uploading' | 'done' | 'error';
-    },
+    props: MarkdownInputFieldProps &
+      MarkdownInputFieldProps['attachment'] & {
+        isHover: boolean;
+        isLoading: boolean;
+        fileUploadStatus: 'uploading' | 'done' | 'error';
+      },
   ) => React.ReactNode[];
 };
 /**
@@ -302,6 +304,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     props.onStop,
   ]);
 
+  const updateFileMap = useRefFunction(
+    (newFileMap?: Map<string, AttachmentFile>) => {
+      setFileMap?.(new Map(newFileMap));
+    },
+  );
+
+  const removeOnFileChange = useRefFunction((file: AttachmentFile) => {
+    const map = new Map(fileMap);
+    map.delete(file.uuid!);
+    updateFileMap(map);
+  });
   return wrapSSR(
     <Suggestion tagInputProps={props.tagInputProps}>
       <div
@@ -400,12 +413,24 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         <div
           style={{
             borderRadius: (props.borderRadius || 12) - 2 || 10,
+            maxHeight: 120 + (props.attachment?.enable ? 90 : 0),
           }}
           className={classNames(`${baseCls}-editor`, hashId, {
             [`${baseCls}-editor-hover`]: isHover,
             [`${baseCls}-editor-disabled`]: props.disabled,
           })}
         >
+          {useMemo(() => {
+            return props.attachment?.enable ? (
+              <AttachmentFileList
+                fileMap={fileMap}
+                onDelete={removeOnFileChange}
+                onClearFileMap={() => {
+                  updateFileMap(new Map());
+                }}
+              />
+            ) : null;
+          }, [fileMap?.values(), props.attachment?.enable])}
           <BaseMarkdownEditor
             editorRef={markdownEditorRef}
             style={{
@@ -462,9 +487,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             {props.beforeActionsRender
               ? props.beforeActionsRender({
                   value,
-                  ...props,
                   fileMap,
-                  setFileMap,
+                  onFileMapChange: setFileMap,
+                  ...props,
                   isHover,
                   isLoading,
                   fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
@@ -487,7 +512,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
                     value,
                     ...props,
                     fileMap,
-                    setFileMap,
+                    onFileMapChange: setFileMap,
                     isHover,
                     isLoading,
                     fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
