@@ -30,7 +30,7 @@ type SendButtonProps = {
    * 应用于按钮的CSS样式
    * CSS styles to be applied to the button.
    */
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 
   /**
    * 按钮初始化时触发的回调函数

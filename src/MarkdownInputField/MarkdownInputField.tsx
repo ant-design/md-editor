@@ -1,13 +1,16 @@
 ﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
+import { AttachmentButton, AttachmentButtonProps } from './AttachmentButton';
+import { AttachmentFile } from './AttachmentButton/AttachmentFileList';
 import { SendButton } from './SendButton';
 import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
@@ -96,6 +99,48 @@ export type MarkdownInputFieldProps = {
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
   bgColorList?: [string, string, string, string];
   borderRadius?: number;
+
+  /**
+   * 附件配置
+   * @description 配置附件功能，可以启用或禁用附件上传，并自定义附件按钮的属性
+   * @example
+   * ```tsx
+   * <AgentChat
+   *   attachment={{
+   *     enable: true,
+   *     accept: '.pdf,.doc,.docx',
+   *     maxSize: 10 * 1024 * 1024, // 10MB
+   *     onUpload: async (file) => {
+   *       const url = await uploadFile(file);
+   *       return { url };
+   *     }
+   *   }}
+   * />
+   * ```
+   */
+  attachment?: {
+    enable?: boolean;
+  } & AttachmentButtonProps;
+
+  fileMap: Map<string, AttachmentFile> | undefined;
+  setFileMap: (fileMap: Map<string, AttachmentFile>) => void;
+
+  actionsRender?: (
+    props: MarkdownInputFieldProps & {
+      isHover: boolean;
+      isLoading: boolean;
+      fileUploadStatus: 'uploading' | 'done' | 'error';
+    },
+    defaultActions: React.ReactNode[],
+  ) => React.ReactNode[];
+
+  beforeActionsRender?: (
+    props: MarkdownInputFieldProps & {
+      isHover: boolean;
+      isLoading: boolean;
+      fileUploadStatus: 'uploading' | 'done' | 'error';
+    },
+  ) => React.ReactNode[];
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -150,14 +195,36 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   const [isHover, setHover] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
+
+  const actionsRef = React.useRef<HTMLDivElement>(null);
+
   const [value, setValue] = useMergedState('', {
     value: props.value,
     onChange: props.onChange,
   });
 
+  const [rightPadding, setRightPadding] = useState(64);
+  const [leftPadding, setLeftPadding] = useState(0);
+
+  const [fileMap, setFileMap] = useMergedState<
+    Map<string, AttachmentFile> | undefined
+  >(undefined, {
+    value: props.attachment?.fileMap,
+    onChange: props.attachment?.onFileMapChange,
+  });
+
   useEffect(() => {
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
+
+  // 判断是否所有文件上传完成
+  const fileUploadDone = useMemo(() => {
+    return fileMap?.size
+      ? Array.from(fileMap?.values() || []).every(
+          (file) => file.status === 'done',
+        )
+      : true;
+  }, [fileMap]);
 
   const sendMessage = useRefFunction(() => {
     if (props.onSend && value) {
@@ -178,6 +245,47 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
     );
   }, [props.bgColorList?.join(',')]);
+
+  const defaultSendActions = useMemo(() => {
+    return [
+      <AttachmentButton
+        key="attachment-button"
+        {...props.attachment}
+        fileMap={fileMap}
+        onFileMapChange={(fileMap) => {
+          setFileMap(fileMap);
+        }}
+        disabled={!fileUploadDone}
+      />,
+      <SendButton
+        key="send-button"
+        typing={!!props.typing || isLoading}
+        isHover={isHover}
+        disabled={props.disabled}
+        onClick={() => {
+          if (props.typing || isLoading) {
+            setIsLoading(false);
+            props.onStop?.();
+            return;
+          }
+          if (props.onSend) {
+            sendMessage();
+          }
+        }}
+      />,
+    ];
+  }, [
+    props.attachment,
+    fileUploadDone,
+    isLoading,
+    isHover,
+    props.disabled,
+    props.typing,
+    sendMessage,
+    props.onSend,
+    props.onStop,
+  ]);
+
   return wrapSSR(
     <Suggestion tagInputProps={props.tagInputProps}>
       <div
@@ -294,7 +402,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             readonly={isLoading}
             contentStyle={{
               padding: '12px',
-              paddingRight: '52px',
+              paddingRight: rightPadding || '52px',
+              paddingLeft: leftPadding || '12px',
             }}
             textAreaProps={{
               enable: true,
@@ -325,27 +434,53 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             }}
           />
         </div>
-        <SendButton
-          style={{
-            position: 'absolute',
-            right: 4,
-            zIndex: 99,
-            bottom: 8,
+        <RcResizeObserver
+          onResize={(e) => {
+            setLeftPadding(e.offsetWidth);
           }}
-          typing={!!props.typing || isLoading}
-          isHover={isHover}
-          disabled={props.disabled}
-          onClick={() => {
-            if (props.typing || isLoading) {
-              setIsLoading(false);
-              props.onStop?.();
-              return;
-            }
-            if (props.onSend) {
-              sendMessage();
-            }
+        >
+          <div
+            ref={actionsRef}
+            className={classNames(`${baseCls}-send-before-actions`, hashId)}
+          >
+            {props.beforeActionsRender
+              ? props.beforeActionsRender({
+                  value,
+                  ...props,
+                  fileMap,
+                  setFileMap,
+                  isHover,
+                  isLoading,
+                  fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                })
+              : []}
+          </div>
+        </RcResizeObserver>
+        <RcResizeObserver
+          onResize={(e) => {
+            setRightPadding(e.offsetWidth);
           }}
-        />
+        >
+          <div
+            ref={actionsRef}
+            className={classNames(`${baseCls}-send-actions`, hashId)}
+          >
+            {props.actionsRender
+              ? props.actionsRender(
+                  {
+                    value,
+                    ...props,
+                    fileMap,
+                    setFileMap,
+                    isHover,
+                    isLoading,
+                    fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                  },
+                  defaultSendActions,
+                )
+              : defaultSendActions}
+          </div>
+        </RcResizeObserver>
       </div>
     </Suggestion>,
   );

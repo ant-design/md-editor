@@ -66,6 +66,24 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
       },
+      '&-send-before-actions': {
+        position: 'absolute',
+        left: 4,
+        zIndex: 99,
+        bottom: 8,
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'center',
+      },
+      '&-send-actions': {
+        position: 'absolute',
+        right: 4,
+        zIndex: 99,
+        bottom: 8,
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'center',
+      },
     },
   };
 };
