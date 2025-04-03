@@ -243,7 +243,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     if (props.element.language === 'html' && props.element?.isConfig) {
       return null;
     }
-    if (props.element.language === 'think') {
+    if (props.element.language === 'think' && readonly) {
       return (
         <div
           style={{
