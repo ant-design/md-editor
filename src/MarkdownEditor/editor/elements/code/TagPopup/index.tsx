@@ -1,3 +1,4 @@
+import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
 import { Dropdown, MenuProps } from 'antd';
 import { useMergedState } from 'rc-util';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
@@ -80,8 +81,18 @@ export const TagPopup = (
   });
 
   useEffect(() => {
+    const path = editor.selection?.anchor.path;
+    if (path) {
+      currentNodePath.current = path;
+    }
     suggestionConnext?.setOpen?.(true);
   }, []);
+
+  const selectRef = useRefFunction((value: string, path?: number[]) => {
+    console.log('onSelectRef', value, currentNodePath.current);
+    onSelect?.(value, path || currentNodePath.current || []);
+    suggestionConnext?.setOpen?.(false);
+  });
 
   if (suggestionConnext?.isRender) {
     if (suggestionConnext?.triggerNodeContext) {
@@ -91,13 +102,7 @@ export const TagPopup = (
       };
     }
     if (suggestionConnext?.onSelectRef) {
-      suggestionConnext.onSelectRef.current = (
-        value: string,
-        path?: number[],
-      ) => {
-        onSelect?.(value, path || currentNodePath.current || []);
-        suggestionConnext?.setOpen?.(false);
-      };
+      suggestionConnext.onSelectRef.current = selectRef;
     }
     return (
       <span
@@ -110,6 +115,7 @@ export const TagPopup = (
           if (path) {
             currentNodePath.current = path;
           }
+          e.preventDefault();
           e.stopPropagation();
           if (!suggestionConnext.open) {
             suggestionConnext?.setOpen?.(true);
