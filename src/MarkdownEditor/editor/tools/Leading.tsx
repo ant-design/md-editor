@@ -162,7 +162,9 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
   useEffect(() => {
     cache.clear();
     getHeading();
-    setState({ active: '' });
+    if (state().active) {
+      setState({ active: '' });
+    }
   }, [store?.container, markdownEditorRef.current.children]);
 
   useDebounce(getHeading, 100, [markdownEditorRef.current.children]);
