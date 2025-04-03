@@ -89,7 +89,6 @@ export const TagPopup = (
   }, []);
 
   const selectRef = useRefFunction((value: string, path?: number[]) => {
-    console.log('onSelectRef', value, currentNodePath.current);
     onSelect?.(value, path || currentNodePath.current || []);
     suggestionConnext?.setOpen?.(false);
   });
