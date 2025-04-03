@@ -243,6 +243,21 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     if (props.element.language === 'html' && props.element?.isConfig) {
       return null;
     }
+    if (props.element.language === 'think') {
+      return (
+        <div
+          style={{
+            color: '#8b8b8b',
+            whiteSpace: 'pre-wrap',
+            margin: 0,
+            borderLeft: '2px solid #e5e5e5',
+            paddingLeft: '1em',
+          }}
+        >
+          {props.element?.value}
+        </div>
+      );
+    }
     return (
       <div
         {...props.attributes}
