@@ -246,17 +246,33 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     );
   }, [props.bgColorList?.join(',')]);
 
+  /**
+   * 构造消息发送操作按钮数组
+   *
+   * @returns {React.ReactNode[]} 过滤后的操作按钮数组，包括：
+   *   - 附件按钮（如果启用）：用于管理文件上传
+   *   - 发送按钮：用于发送消息或停止当前操作
+   *
+   * 根据当前状态，发送按钮有不同行为：
+   * - 正在输入或加载时：点击会停止当前操作
+   * - 其他情况：点击会发送消息
+   *
+   * 依赖项包括附件配置、文件上传状态、加载状态、悬停状态、禁用状态、
+   * 输入状态、发送消息函数和回调函数等。
+   */
   const defaultSendActions = useMemo(() => {
     return [
-      <AttachmentButton
-        key="attachment-button"
-        {...props.attachment}
-        fileMap={fileMap}
-        onFileMapChange={(fileMap) => {
-          setFileMap(fileMap);
-        }}
-        disabled={!fileUploadDone}
-      />,
+      props.attachment?.enable ? (
+        <AttachmentButton
+          key="attachment-button"
+          {...props.attachment}
+          fileMap={fileMap}
+          onFileMapChange={(fileMap) => {
+            setFileMap(fileMap);
+          }}
+          disabled={!fileUploadDone}
+        />
+      ) : null,
       <SendButton
         key="send-button"
         typing={!!props.typing || isLoading}
@@ -273,7 +289,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           }
         }}
       />,
-    ];
+    ].filter(Boolean);
   }, [
     props.attachment,
     fileUploadDone,
