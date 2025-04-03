@@ -148,7 +148,7 @@ export const MLeaf = (
     tagInputProps: MarkdownEditorProps['tagInputProps'];
   },
 ) => {
-  const { markdownEditorRef, readonly } = useEditorStore();
+  const { markdownEditorRef, readonly, store } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
   const leaf = props.leaf;
@@ -172,6 +172,20 @@ export const MLeaf = (
                 at: path,
               },
             );
+            (
+              store?.container?.querySelector(
+                'div[data-slate-node="value"]',
+              ) as HTMLDivElement
+            )?.focus();
+            setTimeout(() => {
+              Transforms.insertNodes(
+                markdownEditorRef.current,
+                [{ text: ' ' }],
+                {
+                  select: true,
+                },
+              );
+            }, 0);
           }}
         >
           {children}
