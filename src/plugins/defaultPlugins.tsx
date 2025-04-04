@@ -5,8 +5,9 @@ export const standardPlugins = [
   {
     elements: {
       code: CodeElement,
-      katex: CodeElement,
+
       chart: ChartElement,
+      katex: CodeElement,
       'inline-katex': InlineKatex,
     },
   },

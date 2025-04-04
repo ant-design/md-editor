@@ -9,12 +9,14 @@ import {
   CSSIcon,
   DOCSIcon,
   HTMLIcon,
+  JSONIcon,
   MarkDownIcon,
   PDFIcon,
   PPTIcon,
   PPTXIcon,
   XLSIcon,
   XLSXIcon,
+  YMLIcon,
 } from '../../../icons/FileIconList';
 import { isImageFile } from '../index';
 import { AttachmentFile } from './index';
@@ -47,6 +49,12 @@ export const getFileIcon = (file: AttachmentFile) => {
       return <PPTIcon />;
     case 'pptx':
       return <PPTXIcon />;
+    case 'yml':
+      return <YMLIcon />;
+    case 'json':
+      return <JSONIcon />;
+    case 'yaml':
+      return <YMLIcon />;
     case 'zip':
     case 'rar':
     case '7z':
