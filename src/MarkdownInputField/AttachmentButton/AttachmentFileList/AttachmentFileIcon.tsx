@@ -21,7 +21,23 @@ import {
 import { isImageFile } from '../index';
 import { AttachmentFile } from './index';
 
-export const getFileIcon = (file: AttachmentFile) => {
+/**
+ * 根据文件名和扩展名返回对应类型的文件图标组件
+ *
+ * @param file - 附件文件对象，包含文件名等信息
+ * @returns React图标组件，根据文件扩展名选择适当的图标
+ *
+ * @example
+ * // 返回Markdown文件图标
+ * getFileIconByFileName({name: "document.md"})
+ *
+ * // 返回Excel文件图标
+ * getFileIconByFileName({name: "spreadsheet.xlsx"})
+ *
+ * // 返回默认文件图标
+ * getFileIconByFileName({name: "unknown.xyz"})
+ */
+export const getFileIconByFileName = (file: AttachmentFile) => {
   const fileName = file.name || '';
   const extension = fileName.split('.').pop()?.toLowerCase() || '';
 
@@ -138,7 +154,7 @@ export const AttachmentFileIcon: React.FC<{
           ...props.style,
         }}
       >
-        {getFileIcon(file)}
+        {getFileIconByFileName(file)}
       </div>
     );
   }, [file, props.className, props.style]);
