@@ -61,6 +61,50 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
 
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 
+  const everythingIsImage = useMemo(() => {
+    return fileList.every((file) => isImageFile(file));
+  }, [fileList]);
+
+  if (everythingIsImage) {
+    return wrapSSR(
+      <motion.div
+        variants={{
+          visible: {
+            opacity: 1,
+            transition: {
+              when: 'beforeChildren',
+              staggerChildren: 0.1,
+            },
+          },
+          hidden: {
+            opacity: 0,
+            transition: {
+              when: 'afterChildren',
+            },
+          },
+        }}
+        whileInView="visible"
+        initial="hidden"
+        animate={'visible'}
+        className={classNames(prefix, hashId)}
+      >
+        <Image.PreviewGroup>
+          {fileList.map((file, index) => {
+            return (
+              <Image
+                className={classNames(`${prefix}-image`, hashId)}
+                width={178}
+                height={178}
+                src={file.previewUrl || file.url}
+                key={file.uuid || file.name || index}
+              />
+            );
+          })}
+        </Image.PreviewGroup>
+      </motion.div>,
+    );
+  }
+
   return wrapSSR(
     <>
       <Image

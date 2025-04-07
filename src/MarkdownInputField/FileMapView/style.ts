@@ -52,6 +52,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
       },
+      '&-image': {
+        borderRadius: '18px',
+        opacity: 1,
+        background: '#FFFFFF',
+        boxSizing: 'border-box',
+        border: '1px solid #E6ECF4',
+        padding: 6,
+        img: {
+          objectFit: 'cover',
+        },
+      },
       '&-item': {
         width: '178px',
         height: '56px',

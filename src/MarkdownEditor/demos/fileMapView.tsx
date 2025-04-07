@@ -147,6 +147,76 @@ export default () => {
     >
       <h2>基本</h2>
       <FileMapView fileMap={fileMap} />
+
+      <h2>文件少于等于四个</h2>
+      <FileMapView
+        fileMap={
+          new Map<string, AttachmentFile>([...Array.from(fileMap).slice(0, 4)])
+        }
+      />
+      <h2>都是图片</h2>
+      <FileMapView
+        fileMap={
+          new Map<string, AttachmentFile>([
+            [
+              'file-1.jpg',
+              {
+                name: `file-${1}.jpg`,
+                url: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                type: 'image/jpeg',
+                status: 'done',
+                previewUrl:
+                  'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                size: 1024,
+                uuid: `uuid-${1}`,
+                lastModified: Date.now(),
+              } as AttachmentFile,
+            ],
+            [
+              'file-2.jpg',
+              {
+                name: `file-${2}.jpg`,
+                url: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                type: 'image/jpeg',
+                status: 'done',
+                previewUrl:
+                  'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                size: 1024,
+                uuid: `uuid-${2}`,
+                lastModified: Date.now(),
+              } as AttachmentFile,
+            ],
+            [
+              'file-3.jpg',
+              {
+                name: `file-${3}.jpg`,
+                url: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                type: 'image/jpeg',
+                status: 'done',
+                previewUrl:
+                  'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                size: 1024,
+                uuid: `uuid-${3}`,
+                lastModified: Date.now(),
+              } as AttachmentFile,
+            ],
+            [
+              'file-4.jpg',
+              {
+                name: `file-${4}.jpg`,
+                url: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                type: 'image/jpeg',
+                status: 'done',
+                previewUrl:
+                  'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*jThjRaPDP3kAAAAAAAAAAAAAekN6AQ/original',
+                size: 1024,
+                uuid: `uuid-${4}`,
+                lastModified: Date.now(),
+              } as AttachmentFile,
+            ],
+          ])
+        }
+      />
     </div>
   );
 };
