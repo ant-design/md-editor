@@ -43,6 +43,7 @@ export const FileMapViewItem: React.FC<{
               opacity: 1,
             },
           }}
+          exit={{ opacity: 0, y: 20 }}
           className={props.className}
         >
           <div

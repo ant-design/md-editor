@@ -10,7 +10,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [`${token.componentCls}`]: {
       maxWidth: '100%',
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'row-reverse',
       flexWrap: 'wrap',
       overflow: 'auto',
       gap: '8px',
@@ -25,7 +25,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '68px',
         height: '32px',
         display: 'flex',
-        flexDirection: 'row-reverse',
+        flexDirection: 'row',
         alignItems: 'center',
         padding: '4px 8px',
         cursor: 'pointer',

@@ -26,6 +26,7 @@ export const AttachmentFileListItem: React.FC<{
           },
         }}
         className={props.className}
+        exit={{ opacity: 0, y: -20 }}
       >
         <div
           className={classNames(`${props.prefixCls}-file-icon`, props.hashId)}

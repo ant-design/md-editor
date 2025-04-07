@@ -1,7 +1,7 @@
 ﻿import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { AttachmentFileListItem } from './AttachmentFileListItem';
 import { useStyle } from './style';
@@ -60,18 +60,20 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
         }
         className={classNames(prefix, hashId)}
       >
-        {Array.from(props.fileMap?.values?.() || []).map((file, index) => (
-          <AttachmentFileListItem
-            prefixCls={`${prefix}-item`}
-            hashId={hashId}
-            className={classNames(hashId, `${prefix}-item`)}
-            key={index}
-            file={file}
-            onDelete={() => props.onDelete(file)}
-            onPreview={() => {}}
-            onDownload={() => {}}
-          />
-        ))}
+        <AnimatePresence initial={false}>
+          {Array.from(props.fileMap?.values() || []).map((file, index) => (
+            <AttachmentFileListItem
+              prefixCls={`${prefix}-item`}
+              hashId={hashId}
+              className={classNames(hashId, `${prefix}-item`)}
+              key={index}
+              file={file}
+              onDelete={() => props.onDelete(file)}
+              onPreview={() => {}}
+              onDownload={() => {}}
+            />
+          ))}
+        </AnimatePresence>
       </motion.div>
       {Array.from(props.fileMap?.values() || []).every(
         (file) => file.status === 'done',
