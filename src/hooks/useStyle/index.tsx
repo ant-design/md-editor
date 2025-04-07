@@ -73,18 +73,17 @@ export function useEditorStyleRegister(
 
   chatToken.chatCls = `.${getPrefixCls('md-editor')}`;
   chatToken.antCls = `.${getPrefixCls()}`;
-
   chatToken.titlePlaceholderContent = '"Please enter a title"';
 
   return {
     wrapSSR: useDefaultStyleRegister(
       {
         theme: theme as any,
-        token,
+        token: chatToken,
         hashId,
         path: [`MD-Editor-${componentName}`],
       },
-      () => styleFn(token as ChatTokenType),
+      () => styleFn(chatToken as any as ChatTokenType),
     ),
     hashId,
   };
