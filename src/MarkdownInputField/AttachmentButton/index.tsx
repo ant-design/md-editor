@@ -65,6 +65,36 @@ export type AttachmentButtonProps = {
 };
 
 export const isImageFile = (file: AttachmentFile) => {
+  if (file.name.includes('.svg')) {
+    return true;
+  }
+  if (file.type?.includes('.png')) {
+    return true;
+  }
+  if (file.type?.includes('jpg') || file.type?.includes('jpeg')) {
+    return true;
+  }
+  if (file.type?.includes('gif')) {
+    return true;
+  }
+  if (file.type?.includes('webp')) {
+    return true;
+  }
+  if (file.type?.includes('bmp')) {
+    return true;
+  }
+  if (file.type?.includes('tiff')) {
+    return true;
+  }
+  if (file.type?.includes('webp')) {
+    return true;
+  }
+  if (file.type?.includes('bmp')) {
+    return true;
+  }
+  if (file.type?.includes('tiff')) {
+    return true;
+  }
   return file.type?.startsWith('image/');
 };
 

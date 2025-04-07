@@ -31,6 +31,9 @@ export const FileMapViewItem: React.FC<{
       >
         <motion.div
           onClick={() => {
+            if (file.status === 'error') {
+              return;
+            }
             props.onPreview?.();
           }}
           variants={{
