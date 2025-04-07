@@ -37,13 +37,14 @@ export const FileMapViewItem: React.FC<{
             props.onPreview?.();
           }}
           variants={{
-            hidden: { y: 20, opacity: 0 },
+            hidden: { x: 20, opacity: 0 },
             visible: {
-              y: 0,
+              x: 0,
               opacity: 1,
             },
+            exit: { x: -20, opacity: 0 },
           }}
-          exit={{ opacity: 0, y: 20 }}
+          exit={{ opacity: 0, x: -20 }}
           className={props.className}
         >
           <div

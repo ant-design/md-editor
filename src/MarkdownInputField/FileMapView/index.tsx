@@ -1,7 +1,7 @@
 ﻿import { RightOutlined } from '@ant-design/icons';
 import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { isImageFile } from '../AttachmentButton';
 import { AttachmentFile } from '../AttachmentButton/AttachmentFileList';
@@ -74,33 +74,31 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         animate={'visible'}
         className={classNames(prefix, hashId)}
       >
-        <AnimatePresence initial={false}>
-          {fileList.map((file, index) => {
-            return (
-              <FileMapViewItem
-                onPreview={() => {
-                  if (props.onPreview) {
-                    props.onPreview?.(file);
-                    return;
-                  }
-                  if (isImageFile(file)) {
-                    setImgSrc(file.previewUrl || file.url);
-                    return;
-                  }
-                  window.open(file.previewUrl || file.url, '_blank');
-                }}
-                onDownload={() => {
-                  props.onDownload?.(file);
-                }}
-                prefixCls={`${prefix}-item`}
-                hashId={hashId}
-                className={classNames(hashId, `${prefix}-item`)}
-                file={file}
-                key={index}
-              />
-            );
-          })}
-        </AnimatePresence>
+        {fileList.map((file, index) => {
+          return (
+            <FileMapViewItem
+              onPreview={() => {
+                if (props.onPreview) {
+                  props.onPreview?.(file);
+                  return;
+                }
+                if (isImageFile(file)) {
+                  setImgSrc(file.previewUrl || file.url);
+                  return;
+                }
+                window.open(file.previewUrl || file.url, '_blank');
+              }}
+              onDownload={() => {
+                props.onDownload?.(file);
+              }}
+              prefixCls={`${prefix}-item`}
+              hashId={hashId}
+              className={classNames(hashId, `${prefix}-item`)}
+              file={file}
+              key={index}
+            />
+          );
+        })}
       </motion.div>
 
       {(props.fileMap?.size || 0) > 4 && (
