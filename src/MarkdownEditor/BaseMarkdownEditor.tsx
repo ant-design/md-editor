@@ -328,7 +328,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const {
     initValue,
     width,
-    toolBar,
+    toolBar = {},
     editorRef,
     toc = true,
     readonly,
@@ -538,7 +538,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               )
             ) : null}
           </div>
-          {readonly || props.textAreaProps?.enable ? null : (
+          {readonly || props?.textAreaProps?.enable ? null : (
             <div
               className={`${baseClassName}-focus`}
               style={{
@@ -551,7 +551,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ) : (
             <>
               <InsertLink />
-              <InsertAutocomplete {...props.insertAutocompleteProps} />
+              <InsertAutocomplete {...(props?.insertAutocompleteProps || {})} />
             </>
           )}
         </div>

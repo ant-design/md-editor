@@ -7,7 +7,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   return (
     <BaseMarkdownEditor
       {...props}
-      plugins={[...(standardPlugins || []), ...(props.plugins || [])]}
+      plugins={[...(standardPlugins || []), ...(props?.plugins || [])]}
     />
   );
 };
