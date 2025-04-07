@@ -9,61 +9,6 @@
       style="padding: 20px; margin: auto; max-width: 800px; display: flex; flex-direction: column; gap: 20px;"
     >
       <div>
-        颜色
-        <div
-          aria-describedby="test-id"
-          class="ant-color-picker-trigger"
-        >
-          <div
-            class="ant-color-picker-color-block"
-          >
-            <div
-              class="ant-color-picker-color-block-inner"
-              style="background: rgb(205, 54, 255);"
-            />
-          </div>
-        </div>
-        <div
-          aria-describedby="test-id"
-          class="ant-color-picker-trigger"
-        >
-          <div
-            class="ant-color-picker-color-block"
-          >
-            <div
-              class="ant-color-picker-color-block-inner"
-              style="background: rgb(255, 217, 114);"
-            />
-          </div>
-        </div>
-        <div
-          aria-describedby="test-id"
-          class="ant-color-picker-trigger"
-        >
-          <div
-            class="ant-color-picker-color-block"
-          >
-            <div
-              class="ant-color-picker-color-block-inner"
-              style="background: rgb(94, 191, 255);"
-            />
-          </div>
-        </div>
-        <div
-          aria-describedby="test-id"
-          class="ant-color-picker-trigger"
-        >
-          <div
-            class="ant-color-picker-color-block"
-          >
-            <div
-              class="ant-color-picker-color-block-inner"
-              style="background: rgb(111, 255, 167);"
-            />
-          </div>
-        </div>
-      </div>
-      <div>
         圆角：
         <div
           class="ant-slider ant-slider-horizontal"
@@ -797,6 +742,61 @@
           >
             <div
               style="width: 1em; height: 1em;"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        颜色
+        <div
+          aria-describedby="test-id"
+          class="ant-color-picker-trigger"
+        >
+          <div
+            class="ant-color-picker-color-block"
+          >
+            <div
+              class="ant-color-picker-color-block-inner"
+              style="background: rgb(205, 54, 255);"
+            />
+          </div>
+        </div>
+        <div
+          aria-describedby="test-id"
+          class="ant-color-picker-trigger"
+        >
+          <div
+            class="ant-color-picker-color-block"
+          >
+            <div
+              class="ant-color-picker-color-block-inner"
+              style="background: rgb(255, 217, 114);"
+            />
+          </div>
+        </div>
+        <div
+          aria-describedby="test-id"
+          class="ant-color-picker-trigger"
+        >
+          <div
+            class="ant-color-picker-color-block"
+          >
+            <div
+              class="ant-color-picker-color-block-inner"
+              style="background: rgb(94, 191, 255);"
+            />
+          </div>
+        </div>
+        <div
+          aria-describedby="test-id"
+          class="ant-color-picker-trigger"
+        >
+          <div
+            class="ant-color-picker-color-block"
+          >
+            <div
+              class="ant-color-picker-color-block-inner"
+              style="background: rgb(111, 255, 167);"
             />
           </div>
         </div>

@@ -8,7 +8,7 @@ export default () => {
     await new Promise((resolve) => {
       setTimeout(() => {
         resolve(true);
-      }, 10000);
+      }, 1000);
     });
     setList((prev) => {
       const next = new Set(prev);
@@ -45,49 +45,6 @@ export default () => {
         gap: '20px',
       }}
     >
-      <div>
-        颜色
-        <ColorPicker
-          value={colorList?.at(0)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[0] = e.toHex();
-              return next;
-            });
-          }}
-        />
-        <ColorPicker
-          value={colorList?.at(1)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[1] = e.toHex();
-              return next;
-            });
-          }}
-        />
-        <ColorPicker
-          value={colorList?.at(2)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[2] = e.toHex();
-              return next;
-            });
-          }}
-        />
-        <ColorPicker
-          value={colorList?.at(3)}
-          onChange={(e) => {
-            setColorList((prev) => {
-              const next = [...prev] as [string, string, string, string];
-              next[3] = e.toHex();
-              return next;
-            });
-          }}
-        />
-      </div>
       <div>
         圆角：
         <Slider
@@ -167,6 +124,50 @@ export default () => {
         disabled
         placeholder="请输入内容"
       />
+
+      <div>
+        颜色
+        <ColorPicker
+          value={colorList?.at(0)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[0] = e.toHex();
+              return next;
+            });
+          }}
+        />
+        <ColorPicker
+          value={colorList?.at(1)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[1] = e.toHex();
+              return next;
+            });
+          }}
+        />
+        <ColorPicker
+          value={colorList?.at(2)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[2] = e.toHex();
+              return next;
+            });
+          }}
+        />
+        <ColorPicker
+          value={colorList?.at(3)}
+          onChange={(e) => {
+            setColorList((prev) => {
+              const next = [...prev] as [string, string, string, string];
+              next[3] = e.toHex();
+              return next;
+            });
+          }}
+        />
+      </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"

@@ -89,6 +89,10 @@ export const Suggestion: React.FC<{
             ? menu
             : {
                 items: selectedItems,
+                onKeyDown: (e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                },
               }
         }
         placement="top"

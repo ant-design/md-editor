@@ -177,6 +177,7 @@ export const withMarkdown = (editor: Editor) => {
       const selectionNode = selectPath
         ? Node.get(editor, Path.parent(selectPath))
         : null;
+
       // 删除card时，选中card_AFTER 节点
       if (node.type === 'card' && selectionNode?.type !== 'card-after') {
         Transforms.select(editor, [...(operation.path || []), 2]);
@@ -208,6 +209,19 @@ export const withMarkdown = (editor: Editor) => {
         Transforms.removeNodes(editor, {
           at: Path.parent(operation.path),
         });
+        return;
+      }
+
+      // 删除代码块时，删除空格
+      // 代码块的前一个节点是代码块时，删除前一个节点
+      const [preNode, prePath] =
+        Editor.previous(editor, { at: selectPath }) || [];
+
+      if (preNode?.tag && node?.text === '') {
+        Transforms.removeNodes(editor, {
+          at: prePath,
+        });
+        apply(operation);
         return;
       }
     }
