@@ -257,7 +257,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.9996165114003817; transform: translateX(0.07828261933208355px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -350,7 +350,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.8874491716924239; transform: translateX(-2.1346148616418783px);"
+          style="opacity: 0.9094590646927826; transform: translateX(-1.9062929963102355px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -443,7 +443,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.46601781030913114; transform: translateX(3.210886739221888px);"
+          style="opacity: 0.5260104397093528; transform: translateX(1.6746984643496026px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -531,7 +531,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateX(20px);"
+          style="opacity: 0.004456934206245934; transform: translateX(19.95612059440012px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
