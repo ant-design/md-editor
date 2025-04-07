@@ -265,6 +265,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     return SupportedFileFormats;
   }, [props.attachment?.supportedFormats]);
 
+  /**
+   * 上传图片的函数
+   * @description 该函数用于处理图片上传的逻辑，包括创建文件输入框和上传文件到服务器。
+   * @returns {Promise<void>} 上传操作的Promise
+   */
   const uploadImage = useRefFunction(async () => {
     const input = document.createElement('input');
     input.id = 'uploadImage' + '_' + Math.random();
