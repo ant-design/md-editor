@@ -103,7 +103,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
  * @returns
  */
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('lui-chat-attachment-button', (token) => {
+  return useEditorStyleRegister('md-editor-attachment-button', (token) => {
     const proChatToken = {
       ...token,
       componentCls: `.${prefixCls}`,

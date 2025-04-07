@@ -3,7 +3,7 @@
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../../hooks/useStyle';
+} from '../../hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -11,40 +11,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       maxWidth: '100%',
       display: 'flex',
       flexDirection: 'row',
+      flexWrap: 'wrap',
       overflow: 'auto',
-      background: '#FBFCFD',
       gap: '8px',
-      height: 88,
       borderRadius: 'inherit',
       padding: 8,
       position: 'relative',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       '&::-webkit-scrollbar': {
         width: 6,
-      },
-      '&-close-icon': {
-        width: '24px',
-        height: '24px',
-        background: '#f50',
-        fontSize: 16,
-        position: 'absolute',
-        top: -12,
-        borderRadius: '50%',
-        right: -12,
-        color: '#FFFFFF',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor: 'pointer',
-        '&:hover': {
-          transform: 'scale(1.05)',
-        },
-      },
-      '&:hover': {
-        backgroundColor: '#F7F8FA',
-        [`${token.componentCls}-close-icon`]: {
-          display: 'flex',
-        },
       },
       '&-item': {
         width: '178px',
@@ -62,10 +37,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: '8px',
         position: 'relative',
         '&:hover': {
-          backgroundColor: '#F7F8FA;',
-          [`${token.componentCls}-item-close-icon`]: {
-            display: 'flex',
-          },
+          boxShadow:
+            '0px 2px 9px 0px rgba(202, 218, 255, 0.3671),0px 1px 7px 0px rgba(51, 0, 123, 0.07),0px 0px 1px 0px rgba(74, 0, 255, 0.0806),inset 0px 1px 4px 0px rgba(225, 235, 240, 0.5),inset 0px 1px 1px 0px rgba(204, 214, 220, 0.05)',
         },
         '&-file-icon': {
           width: '40px',
@@ -110,47 +83,23 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: '#B0B7C3',
           fontSize: '12px',
         },
-        '&-close-icon': {
-          width: '16px',
-          height: '16px',
-          backgroundColor: '#353E5C',
-          fontSize: 12,
-          position: 'absolute',
-          top: -6,
-          borderRadius: '50%',
-          right: -6,
-          color: '#FFFFFF',
-          display: 'none',
-          justifyContent: 'center',
-          alignItems: 'center',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          '&:hover': {
-            transform: 'scale(1.05)',
-          },
-        },
-        '&-uploading-icon': {
-          width: '40px',
-          height: '40px',
-          fontSize: 24,
-          display: 'flex',
-          padding: '8px',
-        },
       },
     },
   };
 };
 
 /**
+ * ProchatItem
  * @param prefixCls
  * @returns
  */
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('md-editor-attachment-file-list', (token) => {
+  return useEditorStyleRegister('md-md-editor-file-view', (token) => {
     const proChatToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(proChatToken), genStyle(proChatToken)];
+    return [genStyle(proChatToken), resetComponent(proChatToken)];
   });
 }

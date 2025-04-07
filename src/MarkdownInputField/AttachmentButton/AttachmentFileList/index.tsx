@@ -30,7 +30,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   props,
 ) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context.getPrefixCls('lui-chat-attachment-list');
+  const prefix = context.getPrefixCls('md-editor-attachment-list');
   const { wrapSSR, hashId } = useStyle(prefix);
   return wrapSSR(
     <>

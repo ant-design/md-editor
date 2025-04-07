@@ -40,3 +40,5 @@
 <code src="./demos/ThoughtChainList.tsx"  background="var(--main-bg-color)" title="思维链" iframe=540 ></code>
 
 <code src="./demos/markdownInputField.tsx"  background="var(--main-bg-color)" title="文本框输入" iframe=540 ></code>
+
+<code src="./demos/fileMapView.tsx"  background="var(--main-bg-color)" title="文件预览" iframe=540 ></code>

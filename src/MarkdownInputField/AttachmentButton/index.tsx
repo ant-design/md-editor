@@ -153,7 +153,7 @@ export const upLoadFileToServer = async (
  */
 export const AttachmentButton: React.FC<AttachmentButtonProps> = (props) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context.getPrefixCls('lui-chat-attachment-button');
+  const prefix = context.getPrefixCls('md-editor-attachment-button');
   const { wrapSSR, hashId } = useStyle(prefix);
 
   // 默认支持的文件格式

@@ -341,11 +341,11 @@
           style="border-radius: 10px; max-height: 210px;"
         >
           <div
-            class="ant-lui-chat-attachment-list"
+            class="ant-md-editor-attachment-list"
             style="height: 0px; overflow: hidden; padding: 0px; opacity: 1;"
           />
           <div
-            class="ant-lui-chat-attachment-list-close-icon"
+            class="ant-md-editor-attachment-list-close-icon"
             style="opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);"
           >
             <span
@@ -423,7 +423,7 @@
           class="ant-md-input-field-send-actions"
         >
           <div
-            class="ant-lui-chat-attachment-button"
+            class="ant-md-editor-attachment-button"
           >
             <svg
               aria-describedby="test-id"

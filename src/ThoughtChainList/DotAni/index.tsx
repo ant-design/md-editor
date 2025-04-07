@@ -2,5 +2,5 @@
 import './index.css';
 
 export const DotLoading = () => {
-  return <div className="lui-chat-loader" />;
+  return <div className="md-editor-loader" />;
 };
