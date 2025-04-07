@@ -8,6 +8,7 @@ import AttachmentButtonPopover, {
 } from './AttachmentButtonPopover';
 import { AttachmentFile } from './AttachmentFileList';
 import { useStyle } from './style';
+export * from './AttachmentButtonPopover';
 
 /**
  * AttachmentButton 组件的属性

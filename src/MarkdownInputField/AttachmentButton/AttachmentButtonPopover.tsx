@@ -138,7 +138,7 @@ export const AttachmentSupportedFormatsContent = (
   );
 };
 
-const AttachmentButtonPopover: React.FC<AttachmentButtonPopoverProps> = (
+export const AttachmentButtonPopover: React.FC<AttachmentButtonPopoverProps> = (
   props,
 ) => {
   if (!props?.supportedFormats?.length) return null;
