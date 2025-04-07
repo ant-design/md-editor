@@ -9,7 +9,12 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
-import { AttachmentButton, AttachmentButtonProps } from './AttachmentButton';
+import {
+  AttachmentButton,
+  AttachmentButtonProps,
+  upLoadFileToServer,
+} from './AttachmentButton';
+import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
 import {
   AttachmentFile,
   AttachmentFileList,
@@ -247,7 +252,56 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
     );
   }, [props.bgColorList?.join(',')]);
+  const updateAttachmentFiles = useRefFunction(
+    (newFileMap?: Map<string, AttachmentFile>) => {
+      setFileMap?.(new Map(newFileMap));
+    },
+  );
+  // 默认支持的文件格式
+  const supportedFormats = useMemo(() => {
+    if (props.attachment?.supportedFormats) {
+      return props.attachment.supportedFormats;
+    }
+    return SupportedFileFormats;
+  }, [props.attachment?.supportedFormats]);
 
+  const uploadImage = useRefFunction(async () => {
+    const input = document.createElement('input');
+    input.id = 'uploadImage' + '_' + Math.random();
+    input.type = 'file';
+
+    input.accept =
+      supportedFormats?.map((item) => item.extensions?.join(',')).join(',') ||
+      'image/*';
+
+    input.multiple = true;
+    input.style.display = 'none';
+    input.onchange = async (e: any) => {
+      if (input.dataset.readonly) {
+        return;
+      }
+      input.dataset.readonly = 'true';
+      try {
+        await upLoadFileToServer(e.target.files, {
+          ...props.attachment,
+          fileMap,
+          onFileMapChange: (newFileMap) => {
+            updateAttachmentFiles(newFileMap);
+          },
+        });
+      } catch (error) {
+        console.error('Error uploading files:', error);
+      } finally {
+        input.value = '';
+        delete input.dataset.readonly;
+      }
+    };
+    if (input.dataset.readonly) {
+      return;
+    }
+    input.click();
+    input.remove();
+  });
   /**
    * 构造消息发送操作按钮数组
    *
@@ -266,11 +320,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     return [
       props.attachment?.enable ? (
         <AttachmentButton
+          uploadImage={uploadImage}
           key="attachment-button"
           {...props.attachment}
+          supportedFormats={supportedFormats}
           fileMap={fileMap}
           onFileMapChange={(fileMap) => {
-            setFileMap(fileMap);
+            updateAttachmentFiles(fileMap);
           }}
           disabled={!fileUploadDone}
         />
@@ -304,17 +360,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     props.onStop,
   ]);
 
-  const updateFileMap = useRefFunction(
-    (newFileMap?: Map<string, AttachmentFile>) => {
-      setFileMap?.(new Map(newFileMap));
-    },
-  );
-
-  const removeOnFileChange = useRefFunction((file: AttachmentFile) => {
-    const map = new Map(fileMap);
-    map.delete(file.uuid!);
-    updateFileMap(map);
+  const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {
+    try {
+      await props.attachment?.onDelete?.(file);
+      const map = new Map(fileMap);
+      map.delete(file.uuid!);
+      updateAttachmentFiles(map);
+    } catch (error) {
+      console.error('Error removing file:', error);
+    }
   });
+
   return wrapSSR(
     <Suggestion tagInputProps={props.tagInputProps}>
       <div
@@ -424,9 +480,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             return props.attachment?.enable ? (
               <AttachmentFileList
                 fileMap={fileMap}
-                onDelete={removeOnFileChange}
+                onDelete={handleFileRemoval}
                 onClearFileMap={() => {
-                  updateFileMap(new Map());
+                  updateAttachmentFiles(new Map());
                 }}
               />
             ) : null;

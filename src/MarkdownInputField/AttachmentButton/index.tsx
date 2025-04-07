@@ -62,6 +62,19 @@ export type AttachmentButtonProps = {
    * 是否禁用附件上传按钮
    */
   disabled?: boolean;
+
+  /**
+   * 删除文件的回调函数
+   * @param file - 被删除的文件对象
+   * @example
+   * const handleDelete = async (file: AttachmentFile) => {
+   *   await api.deleteFile(file.id);
+   *  console.log('File deleted:', file.name);
+   * }
+   */
+  onDelete?: (file: AttachmentFile) => Promise<void>;
+  onPreview?: (file: AttachmentFile) => Promise<void>;
+  onDownload?: (file: AttachmentFile) => Promise<void>;
 };
 
 export const isImageFile = (file: AttachmentFile) => {
@@ -181,7 +194,11 @@ export const upLoadFileToServer = async (
  *
  * @returns {React.ReactElement} 渲染的附件按钮组件
  */
-export const AttachmentButton: React.FC<AttachmentButtonProps> = (props) => {
+export const AttachmentButton: React.FC<
+  AttachmentButtonProps & {
+    uploadImage(): Promise<void>;
+  }
+> = (props) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context.getPrefixCls('md-editor-attachment-button');
   const { wrapSSR, hashId } = useStyle(prefix);
@@ -194,36 +211,6 @@ export const AttachmentButton: React.FC<AttachmentButtonProps> = (props) => {
     return SupportedFileFormats;
   }, [props.supportedFormats]);
 
-  const uploadImage = () => {
-    const input = document.createElement('input');
-    input.id = 'uploadImage' + '_' + Math.random();
-    input.type = 'file';
-
-    input.accept =
-      supportedFormats?.map((item) => item.extensions?.join(',')).join(',') ||
-      'image/*';
-
-    input.multiple = true;
-    input.style.display = 'none';
-    input.onchange = async (e: any) => {
-      if (input.dataset.readonly) {
-        return;
-      }
-      input.dataset.readonly = 'true';
-      try {
-        await upLoadFileToServer(e.target.files, props);
-      } catch (error) {
-      } finally {
-        input.value = '';
-        delete input.dataset.readonly;
-      }
-    };
-    if (input.dataset.readonly) {
-      return;
-    }
-    input.click();
-    input.remove();
-  };
   return wrapSSR(
     <div
       className={classNames(`${prefix}`, hashId, {
@@ -231,7 +218,7 @@ export const AttachmentButton: React.FC<AttachmentButtonProps> = (props) => {
       })}
       onClick={() => {
         if (props.disabled) return;
-        uploadImage?.();
+        props.uploadImage?.();
       }}
     >
       <AttachmentButtonPopover supportedFormats={supportedFormats}>

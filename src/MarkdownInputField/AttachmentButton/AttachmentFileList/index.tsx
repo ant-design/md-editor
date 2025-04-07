@@ -111,7 +111,9 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
               className={classNames(hashId, `${prefix}-item`)}
               key={file?.uuid || file?.name || index}
               file={file}
-              onDelete={() => props.onDelete(file)}
+              onDelete={() => {
+                props.onDelete(file);
+              }}
               onPreview={() => {
                 if (props.onPreview) {
                   props.onPreview?.(file);

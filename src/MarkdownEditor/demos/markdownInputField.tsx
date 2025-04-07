@@ -130,6 +130,9 @@ export default () => {
               }, 1000);
             });
           },
+          onDelete: async (file) => {
+            URL.revokeObjectURL(file.previewUrl!);
+          },
         }}
         tagInputProps={{
           enable: true,
