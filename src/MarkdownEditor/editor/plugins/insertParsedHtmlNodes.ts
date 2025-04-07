@@ -205,7 +205,6 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
 export const htmlToFragmentList = (html: string, rtl: string) => {
   let fragmentList = docxDeserializer(rtl, html.trim());
 
-
   return fragmentList;
 };
 
@@ -373,9 +372,14 @@ export const insertParsedHtmlNodes = async (
     }
   }
   if (inner && !['code', 'table-cell'].includes(node?.[0].type)) return false;
-
-  Transforms.insertFragment(editor, fragmentList, {
-    at: selection!,
-  });
+  EditorUtils.replaceSelectedNode(
+    editor,
+    fragmentList?.map((item) => {
+      if (!item.type) {
+        return { type: 'paragraph', children: [item] };
+      }
+      return item;
+    }),
+  );
   return true;
 };

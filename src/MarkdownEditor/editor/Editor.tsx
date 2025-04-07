@@ -303,7 +303,6 @@ export const SlateMarkdownEditor = observer(
         }
         return;
       }
-
       if (types.includes('text/html')) {
         try {
           const html = await event.clipboardData.getData('text/html');
