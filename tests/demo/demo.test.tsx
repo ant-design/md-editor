@@ -13,7 +13,7 @@ const TestApp = (props: { children: any; onInit: () => void }) => {
   useEffect(() => {
     setTimeout(() => {
       props.onInit?.();
-    }, 1000);
+    }, 2000);
   }, []);
   return (
     <App>
@@ -54,7 +54,7 @@ function demoTest() {
           </ConfigProvider>,
         );
 
-        await waitTime(1000);
+        await waitTime(1500);
         await waitFor(() => {
           return wrapper.findAllByText('test');
         });

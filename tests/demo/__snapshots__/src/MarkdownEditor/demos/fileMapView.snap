@@ -350,7 +350,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.9073469641662085; transform: translateX(-1.9309749755582262px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -443,7 +443,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.5197371068803477; transform: translateX(1.8164108088764417px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -531,7 +531,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.0029045448914985176; transform: translateX(19.980332475263193px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -619,7 +619,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateX(20px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -682,7 +682,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateX(20px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -752,7 +752,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateX(20px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -815,7 +815,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateX(20px);"
+          style="opacity: 1; transform: none;"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
