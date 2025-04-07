@@ -1,4 +1,5 @@
-﻿import { ConfigProvider, Image } from 'antd';
+﻿import { RightOutlined } from '@ant-design/icons';
+import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
@@ -20,9 +21,17 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   const prefix = context.getPrefixCls('md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
 
+  const [collapse, setCollapse] = React.useState(false);
+
   const fileList = useMemo(() => {
+    if (!props.fileMap) {
+      return [];
+    }
+    if (collapse) {
+      return Array.from(props.fileMap.values()).slice(0, 4);
+    }
     return Array.from(props.fileMap?.values() || []);
-  }, []);
+  }, [collapse]);
 
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 
@@ -62,7 +71,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
         }}
         whileInView="visible"
         initial="hidden"
-        animate="visible"
+        animate={'visible'}
         style={
           props.fileMap?.size
             ? {}
@@ -96,6 +105,28 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
           );
         })}
       </motion.div>
+
+      {(props.fileMap?.size || 0) > 4 && (
+        <div>
+          <div
+            className={classNames(`${prefix}-collapse-button`, hashId)}
+            onClick={() => {
+              setCollapse(!collapse);
+            }}
+          >
+            <RightOutlined
+              className={classNames(
+                `${prefix}-collapse-button-icon`,
+                {
+                  [`${prefix}-collapse-button-icon-collapse`]: collapse,
+                },
+                hashId,
+              )}
+            />
+            <span>{collapse ? '展开' : '收起'}</span>
+          </div>
+        </div>
+      )}
     </>,
   );
 };

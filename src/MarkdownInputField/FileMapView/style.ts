@@ -21,6 +21,37 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&::-webkit-scrollbar': {
         width: 6,
       },
+      '&-collapse-button': {
+        width: '68px',
+        height: '32px',
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        alignItems: 'center',
+        padding: '4px 8px',
+        cursor: 'pointer',
+        gap: 4,
+        float: 'right',
+        borderRadius: '18px',
+        opacity: 1,
+        boxSizing: 'border-box',
+        color: '#666F8D',
+        fontSize: '14px',
+        border: '1px solid #E6ECF4',
+
+        '&:hover': {
+          background: '#F7F8FA',
+          boxShadow:
+            '0px 2px 9px 0px rgba(202, 218, 255, 0.3671),0px 1px 7px 0px rgba(51, 0, 123, 0.07),0px 0px 1px 0px rgba(74, 0, 255, 0.0806),inset 0px 1px 4px 0px rgba(225, 235, 240, 0.5),inset 0px 1px 1px 0px rgba(204, 214, 220, 0.05)',
+        },
+        '&-icon': {
+          transform: 'rotate(-90deg)',
+          transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+          color: '#666F8D',
+          '&-collapse': {
+            transform: 'rotate(90deg)',
+          },
+        },
+      },
       '&-item': {
         width: '178px',
         height: '56px',
