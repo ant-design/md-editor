@@ -16,6 +16,32 @@ export type FileMapViewProps = {
 
 export type { AttachmentFile } from '../AttachmentButton/AttachmentFileList';
 
+/**
+ * @component FileMapView
+ * @description 文件地图视图组件，用于显示文件列表并提供预览和下载功能
+ *
+ * @param {FileMapViewProps} props - 组件属性
+ * @param {Map<string, any>} [props.fileMap] - 文件映射表，键为文件ID，值为文件对象
+ * @param {Function} [props.onPreview] - 文件预览回调函数，如果提供则覆盖默认预览行为
+ * @param {Function} [props.onDownload] - 文件下载回调函数
+ *
+ * @remarks
+ * 该组件具有以下特点:
+ * - 支持文件列表的展开和收起功能（当文件数量超过4个时）
+ * - 对于图片文件，提供内置的预览功能
+ * - 对于非图片文件，默认在新标签页中打开
+ * - 支持自定义预览和下载行为
+ * - 使用动画效果展示文件列表项
+ *
+ * @example
+ * ```tsx
+ * <FileMapView
+ *   fileMap={myFileMap}
+ *   onPreview={(file) => console.log('预览文件', file)}
+ *   onDownload={(file) => console.log('下载文件', file)}
+ * />
+ * ```
+ */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context.getPrefixCls('md-editor-file-view-list');
@@ -91,11 +117,11 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
               onDownload={() => {
                 props.onDownload?.(file);
               }}
+              key={file?.uuid || file?.name || index}
               prefixCls={`${prefix}-item`}
               hashId={hashId}
               className={classNames(hashId, `${prefix}-item`)}
               file={file}
-              key={index}
             />
           );
         })}

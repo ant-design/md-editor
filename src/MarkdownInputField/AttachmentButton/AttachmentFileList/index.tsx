@@ -1,8 +1,9 @@
 ﻿import { DeleteOutlined } from '@ant-design/icons';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Image } from 'antd';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
+import { isImageFile } from '..';
 import { AttachmentFileListItem } from './AttachmentFileListItem';
 import { useStyle } from './style';
 
@@ -16,6 +17,8 @@ export type AttachmentFile = File & {
 export type AttachmentFileListProps = {
   fileMap?: Map<string, AttachmentFile>;
   onDelete: (file: AttachmentFile) => void;
+  onPreview?: (file: AttachmentFile) => void;
+  onDownload?: (file: AttachmentFile) => void;
   onClearFileMap?: () => void;
 };
 
@@ -26,12 +29,36 @@ export const kbToSize = (kb: number) => {
   return parseFloat((kb / Math.pow(1024, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
+/**
+ * @description 附件文件列表组件，用于展示已上传的附件
+ * @component
+ *
+ * @param {Object} props - 组件属性
+ * @param {Map<string, any>} props.fileMap - 文件映射表，键为文件唯一标识，值为文件对象
+ * @param {Function} props.onDelete - 删除文件的回调函数，参数为被删除的文件
+ * @param {Function} [props.onPreview] - 预览文件的回调函数，参数为被预览的文件
+ * @param {Function} props.onDownload - 下载文件的回调函数，参数为被下载的文件
+ * @param {Function} [props.onClearFileMap] - 清空所有文件的回调函数
+ *
+ * @example
+ * <AttachmentFileList
+ *   fileMap={fileMap}
+ *   onDelete={handleDelete}
+ *   onPreview={handlePreview}
+ *   onDownload={handleDownload}
+ *   onClearFileMap={handleClearAll}
+ * />
+ *
+ * @returns {React.ReactElement} 渲染的附件文件列表组件
+ */
 export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   props,
 ) => {
   const context = useContext(ConfigProvider.ConfigContext);
   const prefix = context.getPrefixCls('md-editor-attachment-list');
   const { wrapSSR, hashId } = useStyle(prefix);
+  const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
+
   return wrapSSR(
     <>
       <motion.div
@@ -60,17 +87,43 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
         }
         className={classNames(prefix, hashId)}
       >
+        <Image
+          key="preview"
+          src={imgSrc}
+          alt="Preview"
+          style={{ display: 'none' }}
+          preview={{
+            visible: !!imgSrc,
+            scaleStep: 1,
+            src: imgSrc,
+            onVisibleChange: (value) => {
+              if (!value) {
+                setImgSrc(undefined);
+              }
+            },
+          }}
+        />
         <AnimatePresence initial={false}>
           {Array.from(props.fileMap?.values() || []).map((file, index) => (
             <AttachmentFileListItem
               prefixCls={`${prefix}-item`}
               hashId={hashId}
               className={classNames(hashId, `${prefix}-item`)}
-              key={index}
+              key={file?.uuid || file?.name || index}
               file={file}
               onDelete={() => props.onDelete(file)}
-              onPreview={() => {}}
-              onDownload={() => {}}
+              onPreview={() => {
+                if (props.onPreview) {
+                  props.onPreview?.(file);
+                  return;
+                }
+                if (isImageFile(file)) {
+                  setImgSrc(file.previewUrl || file.url);
+                  return;
+                }
+                window.open(file.previewUrl || file.url, '_blank');
+              }}
+              onDownload={() => props.onDownload?.(file)}
             />
           ))}
         </AnimatePresence>

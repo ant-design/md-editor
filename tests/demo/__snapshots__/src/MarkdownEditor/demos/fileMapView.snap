@@ -257,7 +257,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.9999292578504535; transform: none;"
+          style="opacity: 0.9996165114003817; transform: translateX(0.07828261933208355px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -350,7 +350,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.8964871970310923; transform: translateY(-2.0486628512562284px);"
+          style="opacity: 0.8874491716924239; transform: translateX(-2.1346148616418783px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -443,7 +443,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0.49043136845430124; transform: translateY(2.564856549936551px);"
+          style="opacity: 0.46601781030913114; transform: translateX(3.210886739221888px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -531,7 +531,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateY(20px);"
+          style="opacity: 0; transform: translateX(20px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -619,7 +619,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateY(20px);"
+          style="opacity: 0; transform: translateX(20px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -682,7 +682,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateY(20px);"
+          style="opacity: 0; transform: translateX(20px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -752,7 +752,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateY(20px);"
+          style="opacity: 0; transform: translateX(20px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
@@ -815,7 +815,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
-          style="opacity: 0; transform: translateY(20px);"
+          style="opacity: 0; transform: translateX(20px);"
         >
           <div
             class="ant-md-editor-file-view-list-item-file-icon"
