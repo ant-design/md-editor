@@ -233,6 +233,19 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       : true;
   }, [fileMap]);
 
+  /**
+   * 发送消息的函数
+   * @description 该函数用于处理发送消息的逻辑，包括调用回调函数和清空输入框。
+   * @returns {Promise<void>} 发送操作的Promise
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   value="# 示例"
+   *   onChange={(value) => console.log(value)}
+   *   onSend={(value) => Promise.resolve()}
+   * />
+   * ```
+   */
   const sendMessage = useRefFunction(() => {
     if (props.onSend && value) {
       setIsLoading(true);
@@ -247,11 +260,20 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     }
   });
 
+  /**
+   * 生成背景颜色列表
+   * @description 该函数用于生成背景颜色列表，默认使用四种颜色。
+   * @returns {string[][]} 颜色列表
+   */
   const colorList = useMemo(() => {
     return generateEdges(
       props.bgColorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
     );
   }, [props.bgColorList?.join(',')]);
+
+  /**
+   * 更新附件文件列表
+   */
   const updateAttachmentFiles = useRefFunction(
     (newFileMap?: Map<string, AttachmentFile>) => {
       setFileMap?.(new Map(newFileMap));
