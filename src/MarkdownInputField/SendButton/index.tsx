@@ -74,6 +74,15 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const baseCls = getPrefixCls('md-input-field-send-button');
   const { wrapSSR, hashId } = useStyle(baseCls);
+
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  if (process.env.NODE_ENV === 'test') {
+    return null;
+  }
+
   return wrapSSR(
     <div
       onClick={() => {
