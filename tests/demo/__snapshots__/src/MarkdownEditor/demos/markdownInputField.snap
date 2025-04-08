@@ -183,15 +183,7 @@
         />
         <div
           class="ant-md-input-field-send-actions"
-        >
-          <div
-            class="ant-md-input-field-send-button"
-          >
-            <div
-              style="width: 1em; height: 1em;"
-            />
-          </div>
-        </div>
+        />
       </div>
       <h2>
         文件上传
@@ -429,13 +421,6 @@
               </g>
             </svg>
           </div>
-          <div
-            class="ant-md-input-field-send-button"
-          >
-            <div
-              style="width: 1em; height: 1em;"
-            />
-          </div>
         </div>
       </div>
       <h2>
@@ -581,15 +566,7 @@
         />
         <div
           class="ant-md-input-field-send-actions"
-        >
-          <div
-            class="ant-md-input-field-send-button"
-          >
-            <div
-              style="width: 1em; height: 1em;"
-            />
-          </div>
-        </div>
+        />
       </div>
       <h2>
         disable
@@ -736,15 +713,7 @@
         />
         <div
           class="ant-md-input-field-send-actions"
-        >
-          <div
-            class="ant-md-input-field-send-button ant-md-input-field-send-button-disabled"
-          >
-            <div
-              style="width: 1em; height: 1em;"
-            />
-          </div>
-        </div>
+        />
       </div>
       <div>
         颜色
