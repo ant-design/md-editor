@@ -217,6 +217,7 @@ export const withMarkdown = (editor: Editor) => {
       const [preNode, prePath] =
         Editor.previous(editor, { at: selectPath }) || [];
 
+      //@ts-ignore
       if (preNode?.tag && node?.text === '') {
         Transforms.removeNodes(editor, {
           at: prePath,
