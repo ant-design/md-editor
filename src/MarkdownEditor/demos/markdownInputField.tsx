@@ -60,6 +60,18 @@ export default () => {
       </ul>
       <h2>基本</h2>
       <MarkdownInputField
+        beforeActionsRender={() => {
+          return [
+            <span
+              key="test"
+              style={{
+                color: 'red',
+              }}
+            >
+              测试
+            </span>,
+          ];
+        }}
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{

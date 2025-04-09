@@ -180,7 +180,13 @@
         </div>
         <div
           class="ant-md-input-field-send-before-actions"
-        />
+        >
+          <span
+            style="color: red;"
+          >
+            测试
+          </span>
+        </div>
         <div
           class="ant-md-input-field-send-actions"
         />
