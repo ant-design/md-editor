@@ -200,3 +200,7 @@
 .inline-code-input:after {
   margin-left: 2px;
 }
+
+div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
+  display: none;
+}

@@ -182,7 +182,7 @@
           class="ant-md-input-field-send-before-actions"
         >
           <span
-            style="color: red;"
+            style="color: red; padding: 6px;"
           >
             测试
           </span>

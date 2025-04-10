@@ -247,7 +247,7 @@ export const insertParsedHtmlNodes = async (
     })
     .map((fragment) => {
       if (fragment.type === 'table') {
-        EditorUtils.wrapperCardNode(fragment);
+        return EditorUtils.wrapperCardNode(fragment);
       }
       if (fragment.type === '"paragraph"' && fragment.children.length === 1) {
         return {
@@ -378,6 +378,7 @@ export const insertParsedHtmlNodes = async (
       if (!item.type) {
         return { type: 'paragraph', children: [item] };
       }
+
       return item;
     }),
   );

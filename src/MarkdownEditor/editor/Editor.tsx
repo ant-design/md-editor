@@ -512,6 +512,7 @@ export const SlateMarkdownEditor = observer(
      * 处理输入法开始事件
      */
     const onCompositionStart = (e: React.CompositionEvent) => {
+      store.container?.classList.add('composition');
       store.inputComposition = true;
       if (
         markdownEditorRef.current.selection &&
@@ -526,6 +527,7 @@ export const SlateMarkdownEditor = observer(
      */
     const onCompositionEnd = () => {
       store.inputComposition = false;
+      store.container?.classList.remove('composition');
     };
 
     const onError = (e: React.SyntheticEvent) => {
@@ -740,6 +742,8 @@ export const SlateMarkdownEditor = observer(
             onError={onError}
             onDragOver={(e) => e.preventDefault()}
             readOnly={readonly}
+            onCompositionStartCapture={onCompositionStart}
+            onCompositionEndCapture={onCompositionEnd}
             className={classNames(
               `${baseClassName}-${readonlyCls}`,
               `${baseClassName}`,
