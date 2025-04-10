@@ -40,8 +40,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         '&:hover': {
           background: '#F7F8FA',
-          boxShadow:
-            '0px 2px 9px 0px rgba(202, 218, 255, 0.3671),0px 1px 7px 0px rgba(51, 0, 123, 0.07),0px 0px 1px 0px rgba(74, 0, 255, 0.0806),inset 0px 1px 4px 0px rgba(225, 235, 240, 0.5),inset 0px 1px 1px 0px rgba(204, 214, 220, 0.05)',
+          transform: 'scale(1.05)',
         },
         '&-icon': {
           transform: 'rotate(-90deg)',
