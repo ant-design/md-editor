@@ -511,6 +511,18 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       colWidths: genDefaultWidth(cellSet.tableData),
       mergeCells: generateMergedCells(cellSet.tableData) || [],
     });
+    const minWidth =
+      tableContainerRef?.current?.querySelector('.wtHider')?.clientWidth;
+
+    const dom = tableContainerRef.current?.querySelector(
+      '.ht-theme-horizon',
+    ) as HTMLDivElement;
+    if (dom) {
+      dom.style.minWidth = `min(${(
+        (store?.container?.querySelector('.ant-md-editor-content')
+          ?.clientWidth || 200) * 0.95
+      ).toFixed(0)}px,${minWidth}px)`;
+    }
   }, [JSON.stringify(props.element)]);
 
   return useMemo(() => {
@@ -549,6 +561,15 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
               }}
               className="ht-theme-horizon"
             >
+              <div
+                style={{
+                  height: 1,
+                  overflow: 'hidden',
+                  opacity: 0,
+                }}
+              >
+                {props.children}
+              </div>
               <HotTable
                 ref={hotRef as any}
                 data={tableJSONData.tableData}

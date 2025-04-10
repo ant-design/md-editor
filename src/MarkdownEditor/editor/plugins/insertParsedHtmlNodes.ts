@@ -205,7 +205,18 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
 export const htmlToFragmentList = (html: string, rtl: string) => {
   let fragmentList = docxDeserializer(rtl, html.trim());
 
-  return fragmentList;
+  return fragmentList.map((fragment) => {
+    if (fragment.type === 'table') {
+      return EditorUtils.wrapperCardNode(fragment);
+    }
+    if (fragment.type === '"paragraph"' && fragment.children.length === 1) {
+      return {
+        type: 'paragraph',
+        children: fragment.children,
+      };
+    }
+    return fragment;
+  });
 };
 
 /**
