@@ -66,7 +66,9 @@ export default () => {
               key="test"
               style={{
                 color: 'red',
-                padding: 6,
+                padding: 4,
+                fontSize: 14,
+                borderRadius: 4,
               }}
             >
               测试
