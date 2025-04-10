@@ -11,6 +11,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       boxSizing: 'border-box',
       caretColor: '#1677ff',
+      color: 'inherit',
       outline: 'none !important',
       minWidth: '0px',
       width: '100%',
