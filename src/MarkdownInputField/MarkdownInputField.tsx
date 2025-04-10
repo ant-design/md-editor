@@ -413,6 +413,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onKeyDown={(e) => {
+          if (markdownEditorRef?.current?.store.inputComposition) {
+            return;
+          }
+
           const { triggerSendKey = 'Enter' } = props;
           if (
             triggerSendKey === 'Enter' &&
@@ -424,6 +428,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             if (props.onSend) {
               sendMessage();
             }
+
             return;
           }
           if (
