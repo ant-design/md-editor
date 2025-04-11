@@ -518,10 +518,12 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       '.ht-theme-horizon',
     ) as HTMLDivElement;
     if (dom) {
-      dom.style.minWidth = `min(${(
-        (store?.container?.querySelector('.ant-md-editor-content')
-          ?.clientWidth || 200) * 0.95
-      ).toFixed(0)}px,${minWidth}px)`;
+      setTimeout(() => {
+        dom.style.minWidth = `min(${(
+          (store?.container?.querySelector('.ant-md-editor-content')
+            ?.clientWidth || 200) * 0.95
+        ).toFixed(0)}px,${minWidth}px)`;
+      }, 200);
     }
   }, [JSON.stringify(props.element)]);
 
