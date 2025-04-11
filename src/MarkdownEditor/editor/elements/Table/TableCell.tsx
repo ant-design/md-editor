@@ -19,18 +19,14 @@ export const TableThCell = (
     width?: number;
   },
 ) => {
-  const { readonly } = useEditorStore();
-  const { align, text } = props;
-  const justifyContent = useMemo(() => {
-    return align || !readonly ? align : undefined;
-  }, [align, text]);
+  const { align } = props;
 
   return (
     <th
       {...props.attributes}
       data-be={'th'}
       style={{
-        textAlign: justifyContent as 'left',
+        textAlign: align as 'left',
         width: props.width,
       }}
     >
@@ -52,10 +48,6 @@ export const TableTdCell = (
   const { tableNode } = useContext(TablePropsContext);
 
   const { align, text } = props;
-
-  const justifyContent = useMemo(() => {
-    return align || !readonly ? align : undefined;
-  }, [align, text]);
 
   const mergeCell = useMemo(() => {
     if (tableNode?.otherProps?.mergeCells) {
@@ -123,7 +115,7 @@ export const TableTdCell = (
       rowSpan={mergeCell?.rowspan}
       colSpan={mergeCell?.colspan}
       style={{
-        textAlign: justifyContent as 'left',
+        textAlign: align as 'left',
         maxWidth: '200px',
         overflow: 'auto',
         textWrap: 'wrap',

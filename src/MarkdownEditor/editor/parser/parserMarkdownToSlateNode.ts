@@ -27,6 +27,35 @@ import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import parser from './remarkParse';
 
+const advancedNumericCheck = (value: string | number) => {
+  const numericPattern = /^[-+]?[0-9,]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+  return (
+    typeof value === 'number' ||
+    (typeof value === 'string' && numericPattern.test(value))
+  );
+};
+const isNumericValue = (value: string | number) => {
+  return (
+    typeof value === 'number' ||
+    (!isNaN(parseFloat(value)) && isFinite(value as unknown as number)) ||
+    advancedNumericCheck(value)
+  );
+};
+
+const getColumnAlignment = (
+  data: any[],
+  columns: {
+    dataIndex: string;
+  }[],
+) => {
+  if (!data.length) return [];
+  return columns.map((col) => {
+    const values = data.map((row: { [x: string]: any }) => row[col.dataIndex]);
+
+    return values.every(isNumericValue) ? 'right' : 'left';
+  });
+};
+
 const stringifyObj = remark().use(remarkGfm);
 
 const myRemark = {
@@ -149,7 +178,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
       }) || [];
 
   const dataSource =
-    table?.children?.slice(1).map((row) => {
+    table?.children?.slice(1)?.map((row) => {
       return row.children?.reduce((acc, cell, index) => {
         // 如果数据列数超出表头列数，舍弃多余的数据
         if (index >= columns.length) {
@@ -168,7 +197,15 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
       }, {} as any);
     }) || [];
 
+  if (table.align?.every((item) => !item)) {
+    const aligns = getColumnAlignment(dataSource, columns);
+    table.align = aligns;
+  }
+
   const aligns = table.align;
+
+  console.log('aligns', aligns);
+
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
   const isColumn = config?.elementType === 'column';
 
@@ -200,6 +237,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
   const children = table.children.map((r: { children: any[] }, l: number) => {
     return {
       type: 'table-row',
+      align: aligns?.[l] || undefined,
       children: r.children.map(
         (c: { children: string | any[] }, i: string | number) => {
           return {
