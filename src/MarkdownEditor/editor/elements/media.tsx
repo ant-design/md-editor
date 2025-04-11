@@ -1,4 +1,4 @@
-import { DeleteFilled, EyeOutlined } from '@ant-design/icons';
+import { DeleteFilled, EyeOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Image, ImageProps, Modal, Popover } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
@@ -71,6 +71,7 @@ export const ResizeImage = ({
   };
   selected?: boolean;
 }) => {
+  const [loading, setLoading] = React.useState(true);
   const radio = useRef<number>(1);
   const [size, setSize] = React.useState({
     width: defaultSize?.width || 400,
@@ -106,6 +107,26 @@ export const ResizeImage = ({
         height: size.height as number,
       }}
     >
+      {loading ? (
+        <div
+          style={{
+            width: '100px',
+            height: '100px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.05)',
+            borderRadius: 12,
+          }}
+        >
+          <LoadingOutlined
+            style={{
+              fontSize: 24,
+              color: '#1890ff',
+            }}
+          />
+        </div>
+      ) : null}
       <Rnd
         onResizeStart={onResizeStart}
         onResizeStop={() => {
@@ -136,6 +157,7 @@ export const ResizeImage = ({
         <img
           draggable={false}
           onLoad={(e) => {
+            setLoading(false);
             let width = (e.target as HTMLImageElement).naturalWidth;
             const height = (e.target as HTMLImageElement).naturalHeight;
             radio.current = width / height;
@@ -163,6 +185,7 @@ export const ResizeImage = ({
             outline: selected ? '2px solid #1890ff' : 'none',
             boxShadow: selected ? '0 0 0 2px #1890ff' : 'none',
             minHeight: 20,
+            display: loading ? 'none' : 'block',
           }}
           {...props}
         />
