@@ -6,7 +6,6 @@ import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import './table.css';
-const numberValidationRegex = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
 
 /**
  * TableThCell 组件用于渲染表格标题单元格。
@@ -23,11 +22,7 @@ export const TableThCell = (
   const { readonly } = useEditorStore();
   const { align, text } = props;
   const justifyContent = useMemo(() => {
-    return align || !readonly
-      ? align
-      : numberValidationRegex.test(text?.replaceAll(',', '') || '')
-        ? 'right'
-        : 'center';
+    return align || !readonly ? align : undefined;
   }, [align, text]);
 
   return (
@@ -59,11 +54,7 @@ export const TableTdCell = (
   const { align, text } = props;
 
   const justifyContent = useMemo(() => {
-    return align || !readonly
-      ? align
-      : numberValidationRegex.test(text?.replaceAll(',', '') || '')
-        ? 'right'
-        : 'center';
+    return align || !readonly ? align : undefined;
   }, [align, text]);
 
   const mergeCell = useMemo(() => {
