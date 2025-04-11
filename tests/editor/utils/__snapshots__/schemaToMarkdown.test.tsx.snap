@@ -41,10 +41,10 @@ exports[`should convert markdown to schema in  Bar 图表
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -110,7 +110,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -176,7 +176,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -242,7 +242,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -308,7 +308,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -374,7 +374,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -440,7 +440,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -506,7 +506,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -572,7 +572,7 @@ exports[`should convert markdown to schema in  Bar 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -779,10 +779,10 @@ exports[`should convert markdown to schema in  Line 图表
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -848,7 +848,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -914,7 +914,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -980,7 +980,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -1046,7 +1046,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -1112,7 +1112,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -1178,7 +1178,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -1244,7 +1244,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -1310,7 +1310,7 @@ exports[`should convert markdown to schema in  Line 图表
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -1760,10 +1760,10 @@ exports[`should convert markdown to schema in  图表 area
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -1829,7 +1829,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -1895,7 +1895,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -1961,7 +1961,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -2027,7 +2027,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -2093,7 +2093,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -2159,7 +2159,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -2225,7 +2225,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -2291,7 +2291,7 @@ exports[`should convert markdown to schema in  图表 area
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -2496,10 +2496,10 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -2565,7 +2565,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -2631,7 +2631,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -2697,7 +2697,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -2763,7 +2763,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -2829,7 +2829,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -2895,7 +2895,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -2961,7 +2961,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -3027,7 +3027,7 @@ exports[`should convert markdown to schema in  图表 column chunk 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -3234,10 +3234,10 @@ exports[`should convert markdown to schema in  图表 pie
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -3303,7 +3303,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -3369,7 +3369,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -3435,7 +3435,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -3501,7 +3501,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -3567,7 +3567,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -3633,7 +3633,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -3699,7 +3699,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -3765,7 +3765,7 @@ exports[`should convert markdown to schema in  图表 pie
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -3972,7 +3972,7 @@ exports[`should convert markdown to schema in  定义列表
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
                 "text": "业务",
@@ -3984,7 +3984,7 @@ exports[`should convert markdown to schema in  定义列表
             "type": "table-cell",
           },
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
                 "text": "收入",
@@ -4214,10 +4214,10 @@ exports[`should convert markdown to schema in  引用
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -4283,7 +4283,7 @@ exports[`should convert markdown to schema in  引用
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -4349,7 +4349,7 @@ exports[`should convert markdown to schema in  引用
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -4415,7 +4415,7 @@ exports[`should convert markdown to schema in  引用
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -4481,7 +4481,7 @@ exports[`should convert markdown to schema in  引用
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -4547,7 +4547,7 @@ exports[`should convert markdown to schema in  引用
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -4613,7 +4613,7 @@ exports[`should convert markdown to schema in  引用
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -4679,7 +4679,7 @@ exports[`should convert markdown to schema in  引用
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -4745,7 +4745,7 @@ exports[`should convert markdown to schema in  引用
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -5106,10 +5106,10 @@ exports[`should convert markdown to schema in  表格
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -5193,7 +5193,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "2022Q3",
@@ -5205,7 +5205,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "2022Q4",
@@ -5217,7 +5217,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "2023Q1",
@@ -5271,7 +5271,7 @@ exports[`should convert markdown to schema in  表格
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -5355,7 +5355,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "140,093",
@@ -5367,7 +5367,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "144,954",
@@ -5379,7 +5379,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "149,986",
@@ -5433,7 +5433,7 @@ exports[`should convert markdown to schema in  表格
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -5517,7 +5517,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "72,727",
@@ -5529,7 +5529,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "70,417",
@@ -5541,7 +5541,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "79,337",
@@ -5595,7 +5595,7 @@ exports[`should convert markdown to schema in  表格
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -5679,7 +5679,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "na",
@@ -5691,7 +5691,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "na",
@@ -5703,7 +5703,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "na",
@@ -5757,7 +5757,7 @@ exports[`should convert markdown to schema in  表格
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -5841,7 +5841,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "na",
@@ -5853,7 +5853,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "na",
@@ -5865,7 +5865,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "na",
@@ -5919,7 +5919,7 @@ exports[`should convert markdown to schema in  表格
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -6003,7 +6003,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "21,443",
@@ -6015,7 +6015,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "24,660",
@@ -6027,7 +6027,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "20,964",
@@ -6081,7 +6081,7 @@ exports[`should convert markdown to schema in  表格
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -6165,7 +6165,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "45,923",
@@ -6177,7 +6177,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "49,877",
@@ -6189,7 +6189,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "49,685",
@@ -6240,10 +6240,10 @@ exports[`should convert markdown to schema in  表格
             "type": "table-row",
           },
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -6327,7 +6327,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "44,844",
@@ -6339,7 +6339,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "47,244",
@@ -6351,7 +6351,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "48,701",
@@ -6402,10 +6402,10 @@ exports[`should convert markdown to schema in  表格
             "type": "table-row",
           },
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -6489,7 +6489,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "1,079",
@@ -6501,7 +6501,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "2,633",
@@ -6513,7 +6513,7 @@ exports[`should convert markdown to schema in  表格
                 "type": "table-cell",
               },
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "984",
@@ -6991,7 +6991,7 @@ exports[`should convert schema to markdown in  Bar 图表
 
 <!--{"config":{"chartType":"bar","x":"业务","y":"2021Q1"}}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |
@@ -7014,7 +7014,7 @@ exports[`should convert schema to markdown in  Line 图表
 
 <!--{"config":{"chartType":"line","x":"业务","y":"2021Q1"}}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |
@@ -7092,7 +7092,7 @@ exports[`should convert schema to markdown in  图表 area
 
 <!--{"config":{"chartType":"area","x":"业务","y":"2021Q1"}}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |
@@ -7113,7 +7113,7 @@ exports[`should convert schema to markdown in  图表 column chunk 1`] = `
 
 <!--{"config":{"chartType":"column","x":"业务","y":"2021Q1"}}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |
@@ -7136,7 +7136,7 @@ exports[`should convert schema to markdown in  图表 pie
 
 <!--{"config":{"chartType":"pie","x":"业务","y":"2021Q1"}}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |
@@ -7157,7 +7157,7 @@ exports[`should convert schema to markdown in  定义列表
 
 
 | 业务 | 增值服务 | 网络游戏 | 社交网络收入 | 网络广告 |    其他 | 金融科技 |      云 |
-| :--- | -------: | -------: | -----------: | -------: | ------: | -------: | ------: |
+| ---- | -------: | -------: | -----------: | -------: | ------: | -------: | ------: |
 | 收入 |  135,303 |  138,259 |      142,368 |  144,188 | 135,471 |  134,034 | 140,093 |
 
 "
@@ -7174,7 +7174,7 @@ exports[`should convert schema to markdown in  引用
 
 <!--{}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |
@@ -7207,7 +7207,7 @@ exports[`should convert schema to markdown in  表格
 
 <!--{}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |  2022Q1 |  2022Q2 | 2022Q3  | 2022Q4  | 2023Q1  |  2023Q2 |  2023Q3 |  2023Q4 |
-| :----------- | ------: | ------: | ------: | ------: | ------: | ------: | :------ | :------ | :------ | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: | ------: | ------: | ------- | ------- | ------- | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |  72,738 |  71,683 | 72,727  | 70,417  | 79,337  |  74,211 |  75,748 |  69,100 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |  43,600 |  42,500 | na      | na      | na      |  44,500 |  46,000 |  40,900 |
@@ -7353,10 +7353,10 @@ exports[`忽略card，并且只生成一次 1`] = `
       {
         "children": [
           {
-            "align": "left",
+            "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "业务",
@@ -7422,7 +7422,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "收入",
@@ -7488,7 +7488,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "增值服务",
@@ -7554,7 +7554,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络游戏",
@@ -7620,7 +7620,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": "right",
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "社交网络收入",
@@ -7686,7 +7686,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "网络广告",
@@ -7752,7 +7752,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "其他",
@@ -7818,7 +7818,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "金融科技",
@@ -7884,7 +7884,7 @@ exports[`忽略card，并且只生成一次 1`] = `
             "align": undefined,
             "children": [
               {
-                "align": "left",
+                "align": undefined,
                 "children": [
                   {
                     "text": "云",
@@ -8055,7 +8055,7 @@ exports[`忽略card，并且只生成一次 2`] = `
 
 <!--{}-->
 | 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |
-| :----------- | ------: | ------: | ------: | ------: |
+| ------------ | ------: | ------: | ------: | ------: |
 | 收入         | 135,303 | 138,259 | 142,368 | 144,188 |
 | 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |
 | 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |

@@ -52,7 +52,7 @@ const getColumnAlignment = (
   return columns.map((col) => {
     const values = data.map((row: { [x: string]: any }) => row[col.dataIndex]);
 
-    return values.every(isNumericValue) ? 'right' : 'left';
+    return values.every(isNumericValue) ? 'right' : null;
   });
 };
 
