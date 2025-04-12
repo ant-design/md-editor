@@ -15,9 +15,9 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@@/*": [".dumi/tmp/*"],
-      "@ant-design/md-editor": ["src"],
-      "@ant-design/md-editor/*": ["src/*", "*"]
+      "@@/*": [".dumi/tmp/*"]
+      // "@ant-design/md-editor": ["src"],
+      // "@ant-design/md-editor/*": ["src/*", "*"]
     }
   },
   "include": [

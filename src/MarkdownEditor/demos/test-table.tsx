@@ -1,4 +1,6 @@
 import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
 import React from 'react';
 
 const defaultValue = `<!--{"mergeCells":[{"row":1,"col":0,"rowspan":13,"colspan":1}],"colWidths":[152,373,300,88]}-->
@@ -56,48 +58,50 @@ export default () => {
         paddingTop: 32,
       }}
     >
-      <MarkdownEditor
-        editorRef={markdownEditor2Ref}
-        width={'100vw'}
-        height={'50vh'}
-        reportMode
-        style={{ padding: 0 }}
-        contentStyle={{
-          padding: 0,
-          margin: 0,
-          paddingLeft: 0,
-        }}
-        onChange={(e) => {
-          console.log(e);
-          markdownEditorRef.current?.store?.setMDContent?.(e);
-        }}
-        tableConfig={{
-          excelMode: true,
-        }}
-        initValue={defaultValue}
-      />
+      <ConfigProvider locale={zhCN}>
+        <MarkdownEditor
+          editorRef={markdownEditor2Ref}
+          width={'100vw'}
+          height={'50vh'}
+          reportMode
+          style={{ padding: 0 }}
+          contentStyle={{
+            padding: 0,
+            margin: 0,
+            paddingLeft: 0,
+          }}
+          onChange={(e) => {
+            console.log(e);
+            markdownEditorRef.current?.store?.setMDContent?.(e);
+          }}
+          tableConfig={{
+            excelMode: true,
+          }}
+          initValue={defaultValue}
+        />
 
-      <MarkdownEditor
-        editorRef={markdownEditorRef}
-        width={'100vw'}
-        height={'50vh'}
-        reportMode
-        readonly
-        style={{ padding: 0 }}
-        contentStyle={{
-          padding: 0,
-          margin: 0,
-          paddingLeft: 0,
-        }}
-        tableConfig={{
-          minColumn: 20,
-          minRows: 10,
-          actions: {
-            fullScreen: 'modal',
-          },
-        }}
-        initValue={defaultValue}
-      />
+        <MarkdownEditor
+          editorRef={markdownEditorRef}
+          width={'100vw'}
+          height={'50vh'}
+          reportMode
+          readonly
+          style={{ padding: 0 }}
+          contentStyle={{
+            padding: 0,
+            margin: 0,
+            paddingLeft: 0,
+          }}
+          tableConfig={{
+            minColumn: 20,
+            minRows: 10,
+            actions: {
+              fullScreen: 'modal',
+            },
+          }}
+          initValue={defaultValue}
+        />
+      </ConfigProvider>
     </div>
   );
 };

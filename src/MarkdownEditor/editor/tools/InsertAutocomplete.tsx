@@ -22,6 +22,7 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import { Editor, Element, Node, Transforms } from 'slate';
+import { I18nContext, LocalKeys } from '../../../i18n';
 import { CardNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
 import { selChange$ } from '../plugins/useOnchange';
@@ -161,34 +162,35 @@ export const ColumnThreeIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
-  ctx,
-) => {
+export const getInsertOptions: (
+  ctx: { isTop: boolean },
+  locale: LocalKeys,
+) => InsertOptions[] = (ctx, locale) => {
   const options: InsertOptions[] = [
     {
       label: ['元素', 'Elements'],
       key: 'element',
       children: [
         {
-          label: ['表格', 'Table'],
+          label: [locale.table || '表格'],
           key: 'table',
           task: 'insertTable',
           icon: <TableOutlined />,
         },
         {
-          label: ['分栏', 'Column'],
+          label: [locale.column || '分栏'],
           key: 'column',
           task: 'insertColumn',
           icon: <ColumnIcon />,
         },
         {
-          label: ['引用', 'Quote'],
+          label: [locale.quote || '引用'],
           key: 'quote',
           task: 'insertQuote',
           icon: <Quote />,
         },
         {
-          label: ['代码', 'Code'],
+          label: [locale.code || '代码'],
           key: 'code',
           task: 'insertCode',
           icon: <CodeOutlined />,
@@ -200,7 +202,7 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       key: 'media',
       children: [
         {
-          label: ['本地图片', 'Local image'],
+          label: [locale.localeImage || '本地图片'],
           task: 'uploadImage',
           key: 'localeImage',
           args: ['', true],
@@ -213,21 +215,21 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       key: 'list',
       children: [
         {
-          label: ['无序列表', 'Bulleted list'],
+          label: [locale['b-list'] || '无序列表'],
           task: 'list',
           key: 'b-list',
           args: ['unordered'],
           icon: <UnorderedListOutlined />,
         },
         {
-          label: ['有序列表', 'Numbered list'],
+          label: [locale['n-list'] || '有序列表'],
           task: 'list',
           key: 'n-list',
           args: ['ordered'],
           icon: <OrderedListOutlined />,
         },
         {
-          label: ['任务列表', 'Todo list'],
+          label: [locale['t-list'] || '任务列表'],
           task: 'list',
           key: 't-list',
           args: ['task'],
@@ -242,21 +244,21 @@ export const getInsertOptions: (ctx: { isTop: boolean }) => InsertOptions[] = (
       key: 'head',
       children: [
         {
-          label: ['主标题', 'Heading 1'],
+          label: [locale.head1 || '主标题'],
           task: 'head',
           key: 'head1',
           args: [1],
           icon: <FontSizeOutlined />,
         },
         {
-          label: ['段标题', 'Heading 2'],
+          label: [locale.head2 || '段标题'],
           task: 'head',
           key: 'head2',
           icon: <FontSizeOutlined />,
           args: [2],
         },
         {
-          label: ['小标题', 'Heading 3'],
+          label: [locale.head3 || '小标题'],
           task: 'head',
           key: 'head3',
           icon: <FontSizeOutlined />,
@@ -509,11 +511,16 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       }
     }, []);
 
+    const i18n = useContext(I18nContext);
+
     const insertOptions = useMemo(() => {
-      return getInsertOptions({
-        isTop: ctx.current.isTop,
-      });
-    }, []);
+      return getInsertOptions(
+        {
+          isTop: ctx.current.isTop,
+        },
+        i18n.locale,
+      );
+    }, [i18n.locale, ctx.current.isTop]);
     /**
      * 插入媒体
      */

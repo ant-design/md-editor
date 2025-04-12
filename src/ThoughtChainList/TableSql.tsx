@@ -3,16 +3,16 @@
   CopyOutlined,
   EditOutlined,
 } from '@ant-design/icons';
+import { Button, Popover, Table, Typography } from 'antd';
+import React, { useMemo } from 'react';
+import { WhiteBoxProcessInterface } from '.';
+import { ActionIconBox } from '../index';
 import {
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
   parserSlateNodeToMarkdown,
-} from '@ant-design/md-editor';
-import { Button, Popover, Table, Typography } from 'antd';
-import React, { useMemo } from 'react';
-import { WhiteBoxProcessInterface } from '.';
-import { ActionIconBox } from '../index';
+} from '../MarkdownEditor';
 import { CostMillis } from './CostMillis';
 
 /**

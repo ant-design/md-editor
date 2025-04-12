@@ -8,9 +8,16 @@ import {
 import ace, { Ace } from 'ace-builds';
 import { AutoComplete, Input, message, Modal, Popover } from 'antd';
 import isHotkey from 'is-hotkey';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Path, Transforms } from 'slate';
+import { I18nContext } from 'src/i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { ReactEditor } from '../../MarkdownEditor/editor/slate-react';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
@@ -238,7 +245,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       editorRef.current?.clearSelection();
     }
   }, [props.element.value]);
-
+  const i18n = useContext(I18nContext);
   return useMemo(() => {
     if (props.element.language === 'html' && props.element?.isConfig) {
       return null;
@@ -555,7 +562,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                     <CopyOutlined />
                   </ActionIconBox>
                   <ActionIconBox
-                    title="全屏"
+                    title={i18n?.locale?.fullScreen || '全屏'}
                     style={{
                       fontSize: '0.9em',
                       lineHeight: '1.75em',

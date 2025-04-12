@@ -9,7 +9,8 @@ import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
+import { I18nContext } from 'src/i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
 import { ChartAttrToolBar } from './ChartAttrToolBar';
@@ -420,7 +421,7 @@ export const ChartRender: React.FC<{
     handle.active,
     JSON.stringify(config),
   ]);
-
+  const i18n = useContext(I18nContext);
   const toolBar = getChartPopover();
 
   if (!chartDom) return null;
@@ -502,7 +503,7 @@ export const ChartRender: React.FC<{
                 style: { padding: 0 },
                 icon: (
                   <ActionIconBox
-                    title="全屏"
+                    title={i18n?.locale?.fullScreen || '全屏'}
                     onClick={(e) => {
                       e.stopPropagation();
                       if (handle.active) {

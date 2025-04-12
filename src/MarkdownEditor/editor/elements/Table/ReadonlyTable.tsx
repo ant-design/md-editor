@@ -3,6 +3,7 @@ import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useMemo, useRef, useState } from 'react';
+import { I18nContext } from 'src/i18n';
 import { TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
@@ -62,7 +63,7 @@ export const ReadonlyTable = observer(
     const [tableRef, scrollState] = useScrollShadow();
 
     const [previewOpen, setPreviewOpen] = useState(false);
-
+    const i18n = useContext(I18nContext);
     return useMemo(() => {
       const dom = (
         <table
@@ -96,10 +97,9 @@ export const ReadonlyTable = observer(
               >
                 {actions.fullScreen ? (
                   <ActionIconBox
-                    title="全屏"
+                    title={i18n?.locale?.fullScreen || '全屏'}
                     onClick={(e) => {
                       e.stopPropagation();
-
                       setPreviewOpen(true);
                     }}
                   >

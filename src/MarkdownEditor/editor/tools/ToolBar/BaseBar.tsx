@@ -12,8 +12,15 @@ import { ColorPicker, Divider, Dropdown, Tooltip } from 'antd';
 import classnames from 'classnames';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { Editor, Element, NodeEntry } from 'slate';
+import { I18nContext } from '../../../../i18n';
 import { useEditorStore } from '../../store';
 import { getSelRect } from '../../utils/dom';
 import { EditorUtils } from '../../utils/editorUtils';
@@ -185,12 +192,15 @@ export const BaseToolBar = observer(
       if (typeof localStorage === 'undefined') return undefined;
       setHighColor(localStorage.getItem('high-color'));
     }, [EditorUtils.isFormatActive(markdownEditorRef.current, 'highColor')]);
-
+    const i18n = useContext(I18nContext);
     const insertOptions = useMemo(
       () =>
-        getInsertOptions({
-          isTop: false,
-        })
+        getInsertOptions(
+          {
+            isTop: false,
+          },
+          i18n.locale,
+        )
           .map((o) => o?.children)
           .flat(1)
           .filter((o) => {

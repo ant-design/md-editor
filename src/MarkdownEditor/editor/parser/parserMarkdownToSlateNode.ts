@@ -204,8 +204,6 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
 
   const aligns = table.align;
 
-  console.log('aligns', aligns);
-
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
   const isColumn = config?.elementType === 'column';
 
