@@ -353,7 +353,7 @@ export const BaseToolBar = observer(
       }
 
       list.push(
-        <Tooltip title="字体颜色" key="color">
+        <Tooltip title={i18n?.locale?.['font-color'] || '字体颜色'} key="color">
           <div
             key="color"
             role="button"
