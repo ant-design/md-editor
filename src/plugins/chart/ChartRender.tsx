@@ -10,7 +10,7 @@ import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
 import React, { useContext, useMemo, useRef, useState } from 'react';
-import { I18nContext } from 'src/i18n';
+import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
 import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
 import { ChartAttrToolBar } from './ChartAttrToolBar';

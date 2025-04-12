@@ -35,9 +35,15 @@ export const cnLabels = {
   webSearch: '联网搜索',
   preview: '预览',
   expand: '展开',
+  bold: '加粗',
+  italic: '斜体',
+  strikethrough: '删除线',
+  'inline-code': '行内代码',
   collapse: '收起',
   fullScreen: '全屏',
   taskComplete: '任务完成',
+  inProgressTask: '正在进行${taskName}任务',
+  totalTimeUsed: '共耗时',
   edit: '修改',
   multipleKnowledgeBases: '多个知识库',
   multipleTables: '等多个表格',
@@ -48,8 +54,14 @@ export const cnLabels = {
 
 // 英文 key-label 映射
 export const enLabels = {
+  bold: 'Bold',
+  italic: 'Italic',
+  strikethrough: 'Strikethrough',
+  'inline-code': 'Inline Code',
   column: 'Column',
   quote: 'Quote',
+  totalTimeUsed: 'Total Time Used',
+  inProgressTask: 'Task in progress: ${taskName}',
   code: 'Code',
   localeImage: 'Local image',
   'b-list': 'Bulleted list',
@@ -123,3 +135,13 @@ export const I18nProvide: React.FC<{
     </I18nContext.Provider>
   );
 };
+
+export function compileTemplate(
+  template: string,
+  variables: Record<string, string> = {},
+) {
+  return template.replace(/\$\{(\w+)\}/g, (_, varName) => {
+    // 优先使用传入变量，找不到时显示变量名
+    return variables[varName] ?? `[${varName}]`;
+  });
+}

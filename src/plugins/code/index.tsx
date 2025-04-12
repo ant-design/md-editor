@@ -17,7 +17,7 @@ import React, {
 } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Path, Transforms } from 'slate';
-import { I18nContext } from 'src/i18n';
+import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { ReactEditor } from '../../MarkdownEditor/editor/slate-react';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';

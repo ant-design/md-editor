@@ -3,7 +3,7 @@ import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useMemo, useRef, useState } from 'react';
-import { I18nContext } from 'src/i18n';
+import { I18nContext } from '../../../../i18n';
 import { TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
@@ -84,7 +84,7 @@ export const ReadonlyTable = observer(
               },
             }}
             align={{
-              offset: [0, 40],
+              offset: [4, 40],
             }}
             zIndex={999}
             placement="topLeft"

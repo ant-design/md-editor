@@ -65,24 +65,24 @@ const tools = [
   {
     key: 'bold',
     type: 'bold',
-    title: '加粗 Bold',
+    title: '加粗',
     icon: (<BoldOutlined />) as React.ReactNode,
   },
   {
     key: 'italic',
-    title: '斜体  Italic',
+    title: '斜体',
     type: 'italic',
     icon: <ItalicOutlined />,
   },
   {
     key: 'strikethrough',
-    title: '删除线  Strikethrough',
+    title: '删除线',
     type: 'strikethrough',
     icon: <StrikethroughOutlined />,
   },
   {
     key: 'inline-code',
-    title: '行内代码 Inline Code ',
+    title: '行内代码',
     type: 'code',
     icon: <LineCode />,
   },
@@ -433,7 +433,12 @@ export const BaseToolBar = observer(
 
       tools.forEach((tool) => {
         list.push(
-          <Tooltip title={tool.title} key={tool.key}>
+          <Tooltip
+            title={
+              i18n?.locale?.[tool.key as keyof typeof i18n.locale] || tool.title
+            }
+            key={tool.key}
+          >
             <div
               role="button"
               key={tool.key}
@@ -678,7 +683,13 @@ export const BaseToolBar = observer(
         </div>
         {tools.map((tool) => {
           return (
-            <Tooltip key={tool.key} title={tool.title}>
+            <Tooltip
+              key={tool.key}
+              title={
+                i18n?.locale?.[tool.key as keyof typeof i18n.locale] ||
+                tool.title
+              }
+            >
               <div
                 role="button"
                 key={tool.key}

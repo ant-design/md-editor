@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { compileTemplate, I18nContext } from '../i18n';
 import { FinishedIcon } from '../icons/FinishedIcon';
 import { LoadingIcon } from '../icons/LoadingIcon';
 import { ActionIconBox, MarkdownEditorProps, useAutoScroll } from '../index';
@@ -221,6 +222,8 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
     }
   }, [props?.chatItem?.isFinished]);
 
+  const i18n = useContext(I18nContext);
+
   return wrapSSR(
     <>
       <Drawer
@@ -305,7 +308,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                     {props?.chatItem ? (
                       !props.loading && props?.chatItem?.endTime ? (
                         <FlipText
-                          word={`任务完成，共耗时 ${(
+                          word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${(
                             ((props.chatItem?.endTime || 0) -
                               (props.chatItem?.createAt || 0)) /
                             1000
@@ -314,12 +317,13 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                       ) : (
                         <div>
                           {props.thoughtChainList.at(-1) && collapse ? (
-                            `正在进行 ${
-                              CategoryTextMap[
-                                props.thoughtChainList.at(-1)?.category ||
-                                  'other'
-                              ] || ''
-                            } 任务`
+                            compileTemplate(i18n.locale?.inProgressTask, {
+                              taskName:
+                                CategoryTextMap[
+                                  props.thoughtChainList.at(-1)?.category ||
+                                    'other'
+                                ] || '',
+                            })
                           ) : (
                             <div>
                               {props.locale?.thinking || '思考中'}
@@ -329,7 +333,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                         </div>
                       )
                     ) : (
-                      <div>{props.locale?.taskFinished || '任务完成'}</div>
+                      <div>
+                        {props.locale?.taskFinished ||
+                          i18n?.locale?.taskComplete ||
+                          '任务完成'}
+                      </div>
                     )}
                   </span>
                 </div>
