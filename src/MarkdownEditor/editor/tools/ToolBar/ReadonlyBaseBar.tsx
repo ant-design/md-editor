@@ -2,8 +2,9 @@
 import { Input, message, Modal } from 'antd';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { Editor, Element, Node, Point, Transforms } from 'slate';
+import { I18nContext } from '../../../../i18n';
 import { CommentDataType } from '../../../BaseMarkdownEditor';
 import { useEditorStore } from '../../store';
 import {
@@ -28,7 +29,7 @@ export const ReadonlyBaseBar = observer(
     useEffect(() => {
       setRefresh((r) => !r);
     }, [store.refreshFloatBar]);
-
+    const i18n = useContext(I18nContext);
     /**
      * 获取当前节点
      */
@@ -91,7 +92,7 @@ export const ReadonlyBaseBar = observer(
                 commentType: 'comment',
               };
               Modal.confirm({
-                title: '添加评论',
+                title: i18n.locale?.addComment || '添加评论',
                 content: (
                   <Input.TextArea
                     style={{
@@ -168,7 +169,7 @@ export const ReadonlyBaseBar = observer(
             }
             try {
               navigator.clipboard.writeText(title);
-              message.success('复制成功');
+              message.success(i18n.locale?.copySuccess || '复制成功');
             } catch (error) {}
           }}
         >

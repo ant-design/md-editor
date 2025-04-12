@@ -1,8 +1,9 @@
 ﻿import { Popover } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { DocMeta } from '.';
+import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
 import { CollapseIcon, ExpandIcon } from './Collapse';
 import { CostMillis } from './CostMillis';
@@ -43,6 +44,7 @@ export const TitleInfo = (props: {
   >;
 }) => {
   const { collapse, setCollapse } = props;
+  const i18n = useContext(I18nContext);
   const titleDom = useMemo(() => {
     const titleSegments = props.title.split(/(\$\{.*})/);
 
@@ -56,13 +58,19 @@ export const TitleInfo = (props: {
         if (Array.isArray(metaList)) {
           if (metaList.length > 1) {
             if (props.category === 'RagRetrieval') {
-              infoTitle = '多个知识库';
+              infoTitle = i18n.locale?.multipleKnowledgeBases || '多个知识库';
             } else if (props.category === 'TableSql') {
-              infoTitle = metaList.at(0)?.name + '... 等多个表格';
+              infoTitle =
+                metaList.at(0)?.name +
+                (i18n.locale?.multipleTables || '多个表格');
             } else if (props.category === 'ToolCall') {
-              infoTitle = metaList.at(0)?.name + '等多个工具';
+              infoTitle =
+                metaList.at(0)?.name +
+                (i18n.locale?.multipleTools || '等多个工具');
             } else {
-              infoTitle = metaList.at(0)?.name + '等多个数据';
+              infoTitle =
+                metaList.at(0)?.name +
+                (i18n.locale?.multipleData || '等多个数据');
             }
           }
           if (metaList.length === 1) {
@@ -241,7 +249,11 @@ export const TitleInfo = (props: {
           )}
         >
           <ActionIconBox
-            title={collapse ? '展开' : '收起'}
+            title={
+              collapse
+                ? i18n?.locale?.expand || '展开'
+                : i18n?.locale?.collapse || '收起'
+            }
             onClick={() => {
               setCollapse?.(!collapse);
             }}

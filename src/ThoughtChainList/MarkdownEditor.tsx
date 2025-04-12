@@ -1,10 +1,10 @@
-﻿import {
+﻿import React, { useEffect } from 'react';
+import {
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorProps,
   parserMdToSchema,
-} from '@ant-design/md-editor';
-import React, { useEffect } from 'react';
+} from '../MarkdownEditor';
 
 const toListMarkdown = (content: string) => {
   return content;

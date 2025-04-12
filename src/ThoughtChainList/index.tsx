@@ -227,7 +227,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   return wrapSSR(
     <>
       <Drawer
-        title={'预览 ' + docMeta?.doc_name}
+        title={i18n.locale?.preview + ' ' + docMeta?.doc_name}
         open={!!docMeta}
         onClose={() => {
           setDocMeta(null);
@@ -319,10 +319,14 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                           {props.thoughtChainList.at(-1) && collapse ? (
                             compileTemplate(i18n.locale?.inProgressTask, {
                               taskName:
+                                i18n.locale?.[
+                                  props.thoughtChainList.at(-1)?.category ||
+                                    'other'
+                                ] ||
                                 CategoryTextMap[
                                   props.thoughtChainList.at(-1)?.category ||
                                     'other'
-                                ] || '',
+                                ],
                             })
                           ) : (
                             <div>
@@ -343,7 +347,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                 </div>
 
                 <ActionIconBox
-                  title={collapse ? '展开' : '收起'}
+                  title={
+                    collapse
+                      ? i18n?.locale?.expand || '展开'
+                      : i18n?.locale?.collapse || '收起'
+                  }
                   onClick={() => {
                     setCollapse(!collapse);
                   }}

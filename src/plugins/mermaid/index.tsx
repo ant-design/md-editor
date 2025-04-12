@@ -1,9 +1,10 @@
 import { CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
 import { Ace } from 'ace-builds';
 import { message } from 'antd';
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Path } from 'slate';
+import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
 import { ReactEditor } from '../../MarkdownEditor/editor/slate-react';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
@@ -36,8 +37,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
       setState({ showBorder: false });
     }
   }, [selected, path]);
-
-
+  const i18n = useContext(I18nContext);
   return (
     <div
       {...props.attributes}
@@ -128,7 +128,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
                       //@ts-ignore
                       document.execCommand('copy', false, code);
                     }
-                    message.success('复制成功');
+                    message.success(i18n.locale?.copySuccess || '复制成功');
                   } catch (error) {}
                 }}
               >

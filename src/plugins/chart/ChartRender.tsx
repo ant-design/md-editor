@@ -102,7 +102,7 @@ export const ChartRender: React.FC<{
   } = props;
 
   const chartRef = useRef<Chart>();
-
+  const i18n = useContext(I18nContext);
   const [config, setConfig] = useState(() => props.config);
   /**
    * 图表配置
@@ -116,7 +116,9 @@ export const ChartRender: React.FC<{
             ChartMap[chartType as 'pie']?.changeData?.map((key: string) => {
               return {
                 key,
-                label: ChartMap[key as 'pie'].title,
+                label:
+                  i18n?.locale?.[(key + 'eChart') as 'pieChart'] ||
+                  ChartMap[key as 'pie']?.title,
                 onClick: () => {
                   setChartType(key as 'pie');
                 },
@@ -186,14 +188,14 @@ export const ChartRender: React.FC<{
           },
         }}
         key="config"
-        title="配置图表"
+        title={i18n?.locale?.configChart || '配置图表'}
         trigger={'click'}
         content={
           <ConfigProvider componentSize="small">
             <ProForm
               submitter={{
                 searchConfig: {
-                  submitText: '更新',
+                  submitText: i18n?.locale?.updateChart || '更新',
                 },
               }}
               style={{
@@ -220,7 +222,7 @@ export const ChartRender: React.FC<{
                   }}
                 >
                   <ProFormSelect
-                    label="X轴"
+                    label="X"
                     name="x"
                     fieldProps={{
                       onClick: (e) => {
@@ -238,7 +240,7 @@ export const ChartRender: React.FC<{
                   />
                   <ProFormSelect
                     name="y"
-                    label="Y轴"
+                    label="Y"
                     fieldProps={{
                       onClick: (e) => {
                         e.stopPropagation();
@@ -260,7 +262,7 @@ export const ChartRender: React.FC<{
         }
       >
         <ActionIconBox
-          title="配置图表"
+          title={i18n?.locale?.configChart || '配置图表'}
           onClick={() => chartRef.current?.render()}
         >
           <SettingOutlined />
@@ -421,7 +423,7 @@ export const ChartRender: React.FC<{
     handle.active,
     JSON.stringify(config),
   ]);
-  const i18n = useContext(I18nContext);
+
   const toolBar = getChartPopover();
 
   if (!chartDom) return null;

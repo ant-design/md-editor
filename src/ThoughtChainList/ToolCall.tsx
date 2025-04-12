@@ -4,8 +4,9 @@
   EditOutlined,
 } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
+import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
 import {
   MarkdownEditor,
@@ -53,7 +54,7 @@ export const ToolCall = (
     props.output?.errorMsg ||
     props.output?.response?.error ||
     props.output?.response?.errorMsg;
-
+  const i18n = useContext(I18nContext);
   return useMemo(() => {
     if (editor) {
       return (
@@ -89,7 +90,7 @@ export const ToolCall = (
                 justifyContent: 'space-between',
               }}
             >
-              执行入参
+              {i18n.locale?.executionParameters || '执行入参'}
             </div>
             <div
               style={{
@@ -151,7 +152,7 @@ export const ToolCall = (
                 );
               }}
             >
-              取消
+              {i18n.locale?.cancel || '取消'}
             </Button>
             <Button
               style={{
@@ -174,7 +175,7 @@ export const ToolCall = (
                 });
               }}
             >
-              重试
+              {i18n.locale?.retry || '重试'}
             </Button>
           </div>
         </div>
@@ -215,7 +216,7 @@ export const ToolCall = (
                 justifyContent: 'space-between',
               }}
             >
-              执行入参
+              {i18n.locale?.executionParameters || '执行入参'}
               <div
                 style={{
                   display: 'flex',
@@ -298,7 +299,7 @@ export const ToolCall = (
               }}
             >
               <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
-              API调用中
+              {i18n.locale?.apiCalling || 'API调用中'}
               <DotLoading />
             </div>
           ) : null}
@@ -335,7 +336,7 @@ export const ToolCall = (
                     alignItems: 'center',
                   }}
                 >
-                  <span>执行出参</span>
+                  <span>{i18n.locale?.executionResult || '执行结果'}</span>
                   <CostMillis costMillis={props.costMillis} />
                 </div>
                 <ActionIconBox
@@ -421,7 +422,10 @@ export const ToolCall = (
                       marginRight: 8,
                     }}
                   />
-                  <Typography.Text>任务执行失败，需要修改</Typography.Text>
+                  <Typography.Text>
+                    {i18n.locale?.taskExecutionFailed ||
+                      '任务执行失败，需要修改'}
+                  </Typography.Text>
                 </div>
                 <Typography
                   style={{
@@ -444,7 +448,7 @@ export const ToolCall = (
                     setEditor(true);
                   }}
                 >
-                  修改
+                  {i18n.locale?.edit || '修改'}
                 </Button>
               ) : null}
             </div>

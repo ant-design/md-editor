@@ -4,8 +4,9 @@
   EditOutlined,
 } from '@ant-design/icons';
 import { Button, Popover, Table, Typography } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
+import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
 import {
   MarkdownEditor,
@@ -46,6 +47,7 @@ export const TableSql = (
     markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
+  const i18n = useContext(I18nContext);
   const [editor, setEditor] = React.useState<boolean>(false);
   const editorRef = React.useRef<MarkdownEditorInstance | undefined>(undefined);
 
@@ -84,7 +86,7 @@ export const TableSql = (
                 justifyContent: 'space-between',
               }}
             >
-              查询 SQL
+              {i18n.locale?.executeSQL || '查询 SQL'}
             </div>
             <div
               style={{
@@ -134,7 +136,7 @@ export const TableSql = (
                 );
               }}
             >
-              取消
+              {i18n.locale?.cancel || '取消'}
             </Button>
             <Button
               style={{
@@ -157,7 +159,7 @@ export const TableSql = (
                 });
               }}
             >
-              重试
+              {i18n.locale?.retry || '重试'}
             </Button>
           </div>
         </div>
@@ -216,7 +218,7 @@ export const TableSql = (
                 justifyContent: 'space-between',
               }}
             >
-              查询 SQL
+              {i18n.locale?.executeSQL || '查询 SQL'}
               <div
                 style={{
                   display: 'flex',
@@ -292,7 +294,7 @@ export const TableSql = (
               }}
             >
               <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
-              SQL 执行中...
+              {i18n.locale?.executing || 'SQL 执行中...'}
             </div>
           ) : null}
           {!errorMsg && props.output ? (
@@ -328,11 +330,11 @@ export const TableSql = (
                     alignItems: 'center',
                   }}
                 >
-                  <span>查询结果</span>
+                  <span>{i18n.locale?.queryResults || '查询结果'}</span>
                   <CostMillis costMillis={props.costMillis} />
                 </div>
                 <ActionIconBox
-                  title="复制"
+                  title={i18n.locale?.copy || '复制'}
                   onClick={async (e) => {
                     e.stopPropagation();
                     e.preventDefault();
@@ -355,7 +357,6 @@ export const TableSql = (
                         hideOnSinglePage: true,
                         showSizeChanger: true,
                         showQuickJumper: true,
-                        showTotal: (total) => `共 ${total} 条`,
                       }
                     : false
                 }
@@ -439,7 +440,9 @@ export const TableSql = (
                       marginRight: 8,
                     }}
                   />
-                  <Typography.Text>Table 查询失败，需要修改</Typography.Text>
+                  <Typography.Text>
+                    {i18n.locale?.queryFailed || '查询失败，需要修改'}
+                  </Typography.Text>
                 </div>
                 <Typography
                   style={{
@@ -462,7 +465,7 @@ export const TableSql = (
                     setEditor(true);
                   }}
                 >
-                  修改
+                  {i18n.locale?.edit || '修改'}
                 </Button>
               ) : null}
             </div>

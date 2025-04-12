@@ -1,7 +1,8 @@
 ﻿import { CloseCircleFilled } from '@ant-design/icons';
 import { Typography } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
+import { I18nContext } from '../i18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
@@ -24,7 +25,7 @@ export const DeepThink = (
     props.output?.errorMsg ||
     props.output?.response?.error ||
     props.output?.response?.errorMsg;
-
+  const i18n = useContext(I18nContext);
   return useMemo(() => {
     return (
       <>
@@ -54,7 +55,7 @@ export const DeepThink = (
               }}
             >
               <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
-              深度思考中
+              {i18n?.locale?.deepThinkingInProgress || '正在深度思考中'}
               <DotLoading />
             </div>
           ) : null}
@@ -140,7 +141,10 @@ export const DeepThink = (
                       marginRight: 8,
                     }}
                   />
-                  <Typography.Text>任务执行失败，需要修改</Typography.Text>
+                  <Typography.Text>
+                    {i18n?.locale?.taskExecutionFailed ||
+                      '任务执行失败，需要修改'}
+                  </Typography.Text>
                 </div>
                 <Typography
                   style={{

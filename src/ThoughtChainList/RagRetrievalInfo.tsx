@@ -1,5 +1,6 @@
-﻿import React, { useMemo } from 'react';
+﻿import React, { useContext, useMemo } from 'react';
 import { DocMeta, WhiteBoxProcessInterface } from '.';
+import { I18nContext } from '../i18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { CostMillis } from './CostMillis';
 
@@ -22,6 +23,7 @@ export const RagRetrievalInfo = (
     markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
+  const i18n = useContext(I18nContext);
   return useMemo(
     () => (
       <>
@@ -40,7 +42,7 @@ export const RagRetrievalInfo = (
             flexWrap: 'wrap',
           }}
         >
-          查询关键词
+          {i18n?.locale?.queryKeyWords || '检索查询'}
           <div
             style={{
               display: 'flex',
@@ -98,7 +100,7 @@ export const RagRetrievalInfo = (
                 alignItems: 'center',
               }}
             >
-              <span>检索结果 </span>
+              <span>{i18n?.locale?.searchResults || '检索结果'} </span>
               <CostMillis costMillis={props.costMillis} />
             </div>
             <div

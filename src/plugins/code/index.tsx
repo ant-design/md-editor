@@ -555,7 +555,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                           //@ts-ignore
                           document.execCommand('copy', false, code);
                         }
-                        message.success('复制成功');
+                        message.success(i18n.locale?.copySuccess || '复制成功');
                       } catch (error) {}
                     }}
                   >
