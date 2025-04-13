@@ -165,6 +165,9 @@ export const I18nProvide: React.FC<{
     }
     if (typeof navigator !== 'undefined') {
       const userLang = navigator.language;
+      if (!userLang) {
+        return cnLabels;
+      }
       return userLang.startsWith('zh') ? cnLabels : enLabels;
     }
     return props.locale || cnLabels;
