@@ -1,7 +1,7 @@
-﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
+import { BaseMarkdownEditor } from '../MarkdownEditor';
 
 import './white.css';
 

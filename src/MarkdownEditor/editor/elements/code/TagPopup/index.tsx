@@ -1,8 +1,8 @@
-import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
 import { Dropdown, MenuProps } from 'antd';
 import { useMergedState } from 'rc-util';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
+import { useRefFunction } from '../../../../../hooks/useRefFunction';
 import { useSlate } from '../../../slate-react';
 
 export type TagPopupProps = {

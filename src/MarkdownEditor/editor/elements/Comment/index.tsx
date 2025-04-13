@@ -1,8 +1,8 @@
-﻿import {
+﻿import React, { useContext } from 'react';
+import {
   CommentDataType,
   MarkdownEditorProps,
-} from '@ant-design/md-editor/MarkdownEditor/BaseMarkdownEditor';
-import React, { useContext } from 'react';
+} from '../../../BaseMarkdownEditor';
 import { EditorStoreContext } from '../../store';
 
 export const CommentView = (props: {
