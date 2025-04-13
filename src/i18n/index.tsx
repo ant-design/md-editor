@@ -179,6 +179,20 @@ export const I18nProvide: React.FC<{
   );
 };
 
+/**
+ * 编译模板字符串，将其中的变量占位符替换为对应的值
+ *
+ * @param template - 包含变量占位符的模板字符串，格式为 ${variableName}
+ * @param variables - 变量名和对应值的键值对对象，默认为空对象
+ * @returns 替换变量后的字符串。如果变量在variables中不存在，则显示为[variableName]
+ *
+ * @example
+ * // 返回 "你好，世界！"
+ * compileTemplate("你好，${name}！", { name: "世界" });
+ *
+ * // 返回 "你好，[name]！"（当变量未提供时）
+ * compileTemplate("你好，${name}！");
+ */
 export function compileTemplate(
   template: string,
   variables: Record<string, string> = {},
