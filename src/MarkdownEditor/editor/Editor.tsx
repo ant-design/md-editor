@@ -794,7 +794,6 @@ export const SlateMarkdownEditor = observer(
             onBlur={onBlur}
             onPaste={onPaste}
             onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
-              console.log('onCopy', event);
               if (isEventHandled(event)) {
                 return;
               }
