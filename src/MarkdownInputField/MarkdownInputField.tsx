@@ -221,6 +221,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   });
 
   useEffect(() => {
+    console.log('value', props.value);
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
 
@@ -253,7 +254,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
       props
         .onSend(value)
         .then(() => {
-          markdownEditorRef?.current?.store?.clearContent();
+          setTimeout(() => {
+            markdownEditorRef?.current?.store?.clearContent();
+            props.onChange?.('');
+            setValue('');
+            setFileMap?.(new Map());
+          }, 16);
         })
         .finally(() => {
           setIsLoading(false);

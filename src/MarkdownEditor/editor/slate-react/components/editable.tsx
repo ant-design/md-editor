@@ -973,7 +973,6 @@ export const Editable = forwardRef(
             return;
           }
         }
-
         EDITOR_TO_PENDING_INSERTION_MARKS.delete(editor);
       });
     });

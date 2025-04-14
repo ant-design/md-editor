@@ -308,11 +308,13 @@ export class EditorStore {
    *清空编辑器内容
    */
   clearContent() {
-    Transforms.removeNodes(this._editor.current, {});
-    Transforms.insertNodes(this._editor.current, {
-      type: 'paragraph',
-      children: [{ text: '' }],
-    });
+    this._editor.current.selection = null;
+    this._editor.current.children = [
+      {
+        type: 'paragraph',
+        children: [{ text: '' }],
+      },
+    ];
   }
 
   /**
