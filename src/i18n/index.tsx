@@ -70,10 +70,16 @@ export const cnLabels = {
   executionParameters: '执行入参',
   apiCalling: 'API调用中',
   networkQuerying: '网络查询中',
+  switchLanguage: '切换语言',
+  insertLink: '插入链接',
+  clearFormatting: '清除格式',
 };
 
 // 英文 key-label 映射
 export const enLabels: typeof cnLabels = {
+  switchLanguage: 'Switch Language',
+  insertLink: 'Insert Link',
+  clearFormatting: 'Clear Formatting',
   queryKeyWords: 'Query Keywords',
   searchResults: 'Search Results',
   executionResult: 'Execution Result',

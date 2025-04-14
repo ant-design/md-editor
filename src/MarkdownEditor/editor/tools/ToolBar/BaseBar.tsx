@@ -280,7 +280,10 @@ export const BaseToolBar = observer(
       }
 
       list.push(
-        <Tooltip title="清除格式" key="clear">
+        <Tooltip
+          title={i18n?.locale?.clearFormatting || '清除格式'}
+          key="clear"
+        >
           <div
             role="button"
             key="clear"
@@ -474,7 +477,7 @@ export const BaseToolBar = observer(
         />,
       );
       list.push(
-        <Tooltip title="插入链接" key="link">
+        <Tooltip title={i18n?.locale?.insertLink || '插入链接'} key="link">
           <div
             key="link"
             role="button"
@@ -544,7 +547,7 @@ export const BaseToolBar = observer(
             </Tooltip>
           </>
         ) : null}
-        <Tooltip title="清除格式">
+        <Tooltip title={i18n?.locale?.clearFormatting || '清除格式'}>
           <div
             role="button"
             className={classnames(`${baseClassName}-item`, hashId)}

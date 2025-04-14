@@ -424,7 +424,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                         filterOption={(text, item) => {
                           return item?.value.includes(text) || false;
                         }}
-                        onChange={(e) => {
+                        onSelect={(e) => {
                           setState({ lang: e });
                         }}
                         onKeyDown={(e) => {
@@ -446,7 +446,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                     }
                   >
                     <ActionIconBox
-                      title="切换语言"
+                      title={i18n?.locale?.switchLanguage || '切换雨燕'}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
