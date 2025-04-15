@@ -577,6 +577,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         >
           <div
             ref={actionsRef}
+            contentEditable={false}
             className={classNames(`${baseCls}-send-before-actions`, hashId)}
           >
             {props.beforeActionsRender
@@ -599,6 +600,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         >
           <div
             ref={actionsRef}
+            contentEditable={false}
             className={classNames(`${baseCls}-send-actions`, hashId)}
           >
             {props.actionsRender

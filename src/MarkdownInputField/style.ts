@@ -68,6 +68,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-send-before-actions': {
         position: 'absolute',
+        userSelect: 'none',
         left: 4,
         zIndex: 99,
         bottom: 8,
@@ -77,6 +78,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-send-actions': {
         position: 'absolute',
+        userSelect: 'none',
         right: 4,
         zIndex: 99,
         bottom: 8,

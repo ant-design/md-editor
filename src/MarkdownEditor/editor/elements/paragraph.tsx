@@ -5,6 +5,7 @@ import { ElementProps, ParagraphNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
+import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 
 export const Paragraph = (props: ElementProps<ParagraphNode>) => {
   const { store, markdownEditorRef, typewriter, readonly } = useEditorStore();
@@ -36,7 +37,9 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         }}
       >
         <DragHandle />
+        <InlineChromiumBugfix />
         {props.children}
+        <InlineChromiumBugfix />
       </div>
     );
   }, [props.element.children, readonly, selected, isLatest, typewriter]);

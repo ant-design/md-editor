@@ -46,6 +46,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-actions': {
           display: 'flex',
           gap: '8px',
+          userSelect: 'none',
           '&-item': {
             display: 'flex',
             alignItems: 'center',
