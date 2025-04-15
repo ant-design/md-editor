@@ -171,8 +171,10 @@ export const MLeaf = (
         <TagPopup
           {...props}
           {...props.tagInputProps}
-          text={text}
+          text={text?.trim() === '$' ? '$placeholder:输入变量' : text}
           onSelect={(v, path) => {
+            if (!markdownEditorRef.current) return;
+
             Transforms.insertText(
               markdownEditorRef.current,
               `${triggerText || '$'}${v}`,

@@ -269,6 +269,22 @@ export const SlateMarkdownEditor = observer(
         }
       }
 
+      if (currentTextSelection) {
+        const [curNode] = Editor?.node(
+          markdownEditorRef.current,
+          currentTextSelection.focus.path!,
+        );
+        if (curNode.tag) {
+          const text = event.clipboardData.getData('text/plain');
+          if (text) {
+            Transforms.insertText(markdownEditorRef.current, text, {
+              at: currentTextSelection.focus,
+            });
+            return;
+          }
+        }
+      }
+
       const types = event.clipboardData.types;
       if (types.includes('application/x-slate-md-fragment')) {
         const encoded = event.clipboardData.getData(

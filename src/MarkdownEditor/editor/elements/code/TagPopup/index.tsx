@@ -26,6 +26,13 @@ export type TagPopupProps = {
   className?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  tagRender?: (
+    props: TagPopupProps & {
+      text: string;
+      onSelect?: (value: string, path?: number[]) => void;
+    },
+    defaultDom: ReactNode,
+  ) => React.ReactNode;
 };
 
 /**
@@ -53,9 +60,7 @@ export type TagPopupProps = {
  */
 export const TagPopup = (
   props: TagPopupProps & {
-    text: {
-      text: string;
-    };
+    text: string;
     onSelect?: (value: string, path: number[]) => void;
   },
 ) => {
@@ -70,6 +75,8 @@ export const TagPopup = (
     className,
   } = props || {};
   const editor = useSlate();
+
+  const domRef = useRef<HTMLDivElement>(null);
 
   const suggestionConnext = useContext(SuggestionConnext);
 
@@ -93,11 +100,74 @@ export const TagPopup = (
     suggestionConnext?.setOpen?.(false);
   });
 
+  const defaultDom = props.text?.startsWith('$placeholder') ? (
+    <div
+      onClick={() => {
+        setOpen(true);
+      }}
+      ref={domRef}
+      style={{
+        padding: '0 4px',
+        borderRadius: 4,
+        fontSize: '0.9em',
+        display: 'inline-block',
+        lineHeight: 1.5,
+        opacity: 0.6,
+        color: 'rgba(0, 0, 0, 0.45)',
+        border: '1px solid #91caff',
+      }}
+    >
+      <span>
+        {props.text?.replace('$placeholder:', '')}
+        <span
+          style={{
+            display: 'none',
+          }}
+        >
+          {children}
+        </span>
+      </span>
+    </div>
+  ) : (
+    <div
+      onClick={() => {
+        setOpen(true);
+      }}
+      ref={domRef}
+      style={{
+        backgroundColor: '#e6f4ff',
+        padding: '0 4px',
+        borderRadius: 4,
+        fontSize: '0.9em',
+        display: 'inline-block',
+        lineHeight: 1.5,
+        color: '#1677ff',
+        border: '1px solid #91caff',
+      }}
+    >
+      <span>{children}</span>
+    </div>
+  );
+
+  let dom = props.tagRender
+    ? props.tagRender(
+        {
+          ...props,
+          text: props.text,
+          onSelect: (value: string, path?: number[]) => {
+            onSelect?.(value, path || currentNodePath.current || []);
+            setOpen(false);
+          },
+        },
+        defaultDom,
+      )
+    : defaultDom;
+
   if (suggestionConnext?.isRender) {
     if (suggestionConnext?.triggerNodeContext) {
       suggestionConnext.triggerNodeContext.current = {
         ...props,
-        text: props.text.text,
+        text: props.text,
       };
     }
     if (suggestionConnext?.onSelectRef) {
@@ -123,23 +193,7 @@ export const TagPopup = (
           }
         }}
       >
-        <div
-          onClick={() => {
-            setOpen(true);
-          }}
-          style={{
-            backgroundColor: '#e6f4ff',
-            padding: '0 4px',
-            borderRadius: 4,
-            fontSize: '0.9em',
-            display: 'inline-block',
-            lineHeight: 1.5,
-            color: '#1677ff',
-            border: '1px solid #91caff',
-          }}
-        >
-          {children}
-        </div>
+        {dom}
       </span>
     );
   }
@@ -212,23 +266,7 @@ export const TagPopup = (
               }
         }
       >
-        <div
-          onClick={() => {
-            setOpen(true);
-          }}
-          style={{
-            backgroundColor: '#e6f4ff',
-            padding: '0 4px',
-            borderRadius: 4,
-            fontSize: '0.9em',
-            display: 'inline-block',
-            lineHeight: 1.5,
-            color: '#1677ff',
-            border: '1px solid #91caff',
-          }}
-        >
-          {children}
-        </div>
+        {dom}
       </Dropdown>
     </span>
   );
