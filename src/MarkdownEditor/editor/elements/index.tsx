@@ -1,7 +1,7 @@
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
-import { Editor, Transforms } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
@@ -188,13 +188,23 @@ export const MLeaf = (
               ) as HTMLDivElement
             )?.focus();
             setTimeout(() => {
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                [{ text: ' ' }],
-                {
-                  select: true,
-                },
-              );
+              if (!markdownEditorRef.current) return;
+
+              const nextPath = Path.next(path);
+              if (!Editor.hasPath(markdownEditorRef.current, nextPath)) {
+                Transforms.insertNodes(
+                  markdownEditorRef.current,
+                  [{ text: ' ' }],
+                  {
+                    select: true,
+                  },
+                );
+              } else {
+                Transforms.select(markdownEditorRef.current, {
+                  anchor: Editor.end(markdownEditorRef.current, nextPath),
+                  focus: Editor.end(markdownEditorRef.current, nextPath),
+                });
+              }
             }, 0);
           }}
         >

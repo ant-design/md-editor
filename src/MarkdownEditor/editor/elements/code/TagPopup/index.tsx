@@ -53,8 +53,7 @@ export type TagPopupProps = {
  * @param props.className - 组件的额外 CSS 类名
  * @param props.open - 控制下拉菜单是否打开
  * @param props.onOpenChange - 下拉菜单打开状态变化时的回调
- * @param props.text - 包含文本内容的对象
- * @param props.text.text - 文本内容
+ * @param props.text - 包含文本内容
  *
  * @returns 一个带有下拉菜单的标签弹出组件
  */
@@ -115,18 +114,11 @@ export const TagPopup = (
         opacity: 0.6,
         color: 'rgba(0, 0, 0, 0.45)',
         border: '1px solid #91caff',
+        position: 'relative',
       }}
+      title={props.text?.replace('$placeholder:', '')}
     >
-      <span>
-        {props.text?.replace('$placeholder:', '')}
-        <span
-          style={{
-            display: 'none',
-          }}
-        >
-          {children}
-        </span>
-      </span>
+      {children}
     </div>
   ) : (
     <div
@@ -145,7 +137,7 @@ export const TagPopup = (
         border: '1px solid #91caff',
       }}
     >
-      <span>{children}</span>
+      {children}
     </div>
   );
 
