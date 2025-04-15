@@ -6,7 +6,7 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import ace, { Ace } from 'ace-builds';
-import { AutoComplete, Input, message, Modal, Popover } from 'antd';
+import { AutoComplete, Button, Input, message, Modal, Popover } from 'antd';
 import isHotkey from 'is-hotkey';
 import React, {
   useCallback,
@@ -14,6 +14,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 import { useGetSetState } from 'react-use';
 import { Editor, Path, Transforms } from 'slate';
@@ -42,6 +43,121 @@ const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
   };
 });
 
+const LanguageSelector = (props: {
+  element: {
+    language: string;
+    katex: any;
+  };
+  containerRef: React.RefObject<HTMLDivElement>;
+  setLanguage: (e: string) => void;
+}) => {
+  const i18n = useContext(I18nContext);
+  const [keyword, setKeyword] = useState('');
+  return (
+    <Popover
+      arrow={false}
+      styles={{
+        body: {
+          padding: 8,
+        },
+      }}
+      trigger={['click']}
+      placement={'bottomLeft'}
+      onOpenChange={(v) => {
+        if (v) {
+          setTimeout(() => {
+            (
+              props?.containerRef?.current?.querySelector(
+                '.lang-select input',
+              ) as HTMLInputElement
+            )?.focus();
+          });
+        } else {
+          setKeyword('');
+        }
+      }}
+      content={
+        <AutoComplete
+          value={keyword}
+          options={langOptions}
+          placeholder={'Search'}
+          autoFocus={true}
+          style={{ width: 200 }}
+          filterOption={(text, item) => {
+            return item?.value.includes(text) || false;
+          }}
+          onSelect={(e) => {
+            props.setLanguage(e);
+          }}
+          onChange={(e) => {
+            setKeyword(e);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }}
+          className={'lang-select'}
+        >
+          <Input prefix={<SearchOutlined />} placeholder={'Search'} />
+        </AutoComplete>
+      }
+    >
+      <Button
+        type="text"
+        title={i18n?.locale?.switchLanguage || '切换语言'}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          cursor: 'pointer',
+          boxSizing: 'border-box',
+          gap: 2,
+          color: 'rgba(0, 0, 0, 0.8)',
+        }}
+        size="small"
+        icon={
+          langIconMap.get(props.element.language?.toLowerCase() || '') &&
+          !props.element.katex && (
+            <div
+              style={{
+                height: '1em',
+                width: '1em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: '0.25em',
+              }}
+            >
+              <img
+                style={{
+                  height: '1em',
+                  width: '1em',
+                }}
+                src={langIconMap.get(
+                  props.element.language?.toLowerCase() || '',
+                )}
+              />
+            </div>
+          )
+        }
+      >
+        <>
+          <div>
+            {props.element.language ? (
+              <span>
+                {props.element.katex ? 'Formula' : props.element.language}
+              </span>
+            ) : (
+              <span>{'plain text'}</span>
+            )}
+          </div>
+        </>
+      </Button>
+    </Popover>
+  );
+};
+
 export function CodeElement(props: ElementProps<CodeNode>) {
   const handle = useFullScreenHandle();
   const { store, markdownEditorRef, readonly } = useEditorStore();
@@ -50,8 +166,8 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     htmlStr: '',
     hide: !!props.element.katex || props.element.language === 'mermaid',
     lang: props.element.language || '',
-    openSelectMenu: false,
   });
+  const containerRef = useRef<HTMLDivElement>(null);
   const codeRef = useRef(props.element.value || '');
   const pathRef = useRef<Path>();
   const posRef = useRef({ row: 0, column: 0 });
@@ -81,19 +197,22 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       setState({ showBorder: false });
     }
   }, [selected, path]);
-  const setLanguage = useCallback(() => {
-    if (props.element.language?.toLowerCase() === state().lang) return;
-    let lang = state().lang;
-    update({ language: state().lang });
-    if (modeMap.has(lang)) {
-      lang = modeMap.get(lang)!;
-    }
-    if (aceLangs.has(lang)) {
-      editorRef.current?.session.setMode(`ace/mode/${lang}`);
-    } else {
-      editorRef.current?.session.setMode(`ace/mode/text`);
-    }
-  }, [props.element, props.element.children, state().lang]);
+  const setLanguage = useCallback(
+    (changeLang: string) => {
+      let lang = changeLang.toLowerCase();
+      if (props.element.language?.toLowerCase() === lang) return;
+      update({ language: lang });
+      if (modeMap.has(lang)) {
+        lang = modeMap.get(lang)!;
+      }
+      if (aceLangs.has(lang)) {
+        editorRef.current?.session.setMode(`ace/mode/${lang}`);
+      } else {
+        editorRef.current?.session.setMode(`ace/mode/text`);
+      }
+    },
+    [props.element, props.element.children],
+  );
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'test') return;
@@ -271,18 +390,28 @@ export function CodeElement(props: ElementProps<CodeNode>) {
         contentEditable={false}
         className={'ace-el drag-el'}
         data-be={'code'}
+        ref={containerRef}
         tabIndex={-1}
-        onBlur={() => {}}
+        onBlur={(e) => {
+          e.stopPropagation();
+          e.stopPropagation();
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.stopPropagation();
+        }}
         data-lang={props.element.language}
       >
         {!props.element.frontmatter && <DragHandle />}
         <div
+          contentEditable={false}
           ref={handle.node}
           style={{
             backgroundColor: handle.active
               ? 'rgb(252, 252, 252)'
               : 'transparent',
             padding: handle.active ? '2em' : undefined,
+            userSelect: 'none',
           }}
         >
           <div
@@ -388,114 +517,11 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                     </div>
                   </div>
                 ) : (
-                  <Popover
-                    arrow={false}
-                    styles={{
-                      body: {
-                        padding: 8,
-                      },
-                    }}
-                    trigger={['click']}
-                    placement={'bottomLeft'}
-                    open={state().openSelectMenu}
-                    onOpenChange={(v) => {
-                      if (props.element.katex || props.element.render) {
-                        return;
-                      }
-                      setState({ openSelectMenu: v });
-                      if (v) {
-                        setTimeout(() => {
-                          (
-                            document.querySelector(
-                              '.lang-select input',
-                            ) as HTMLInputElement
-                          )?.focus();
-                        });
-                      }
-                    }}
-                    content={
-                      <AutoComplete
-                        value={state().lang}
-                        options={langOptions}
-                        placeholder={'Search'}
-                        autoFocus={true}
-                        disabled={readonly}
-                        style={{ width: 200 }}
-                        filterOption={(text, item) => {
-                          return item?.value.includes(text) || false;
-                        }}
-                        onSelect={(e) => {
-                          setState({ lang: e });
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setLanguage();
-                            setState({ openSelectMenu: false });
-                          }
-                        }}
-                        onBlur={setLanguage}
-                        className={'lang-select'}
-                      >
-                        <Input
-                          prefix={<SearchOutlined />}
-                          placeholder={'Search'}
-                        />
-                      </AutoComplete>
-                    }
-                  >
-                    <ActionIconBox
-                      title={i18n?.locale?.switchLanguage || '切换雨燕'}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                        boxSizing: 'border-box',
-                        gap: 2,
-                        color: 'rgba(0, 0, 0, 0.8)',
-                      }}
-                    >
-                      <>
-                        {langIconMap.get(
-                          props.element.language?.toLowerCase() || '',
-                        ) &&
-                          !props.element.katex && (
-                            <div
-                              style={{
-                                height: '1em',
-                                width: '1em',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginRight: '0.25em',
-                              }}
-                            >
-                              <img
-                                style={{
-                                  height: '1em',
-                                  width: '1em',
-                                }}
-                                src={langIconMap.get(
-                                  props.element.language?.toLowerCase() || '',
-                                )}
-                              />
-                            </div>
-                          )}
-                        <div>
-                          {props.element.language ? (
-                            <span>
-                              {props.element.katex
-                                ? 'Formula'
-                                : props.element.language}
-                            </span>
-                          ) : (
-                            <span>{'plain text'}</span>
-                          )}
-                        </div>
-                      </>
-                    </ActionIconBox>
-                  </Popover>
+                  <LanguageSelector
+                    {...(props as any)}
+                    setLanguage={setLanguage}
+                    containerRef={containerRef}
+                  />
                 )}
                 <div
                   style={{

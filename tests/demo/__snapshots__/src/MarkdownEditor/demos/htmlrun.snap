@@ -68,7 +68,8 @@
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -78,25 +79,33 @@
                   contenteditable="false"
                   style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                 >
-                  <span
+                  <button
                     aria-describedby="test-id"
-                    class="ant-md-editor-action-icon-box"
+                    class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
                     style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                    title="切换语言"
+                    type="button"
                   >
-                    <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    <span
+                      class="ant-btn-icon"
                     >
-                      <img
-                        src="/src/plugins/code/langIcons/html.svg"
-                        style="height: 1em; width: 1em;"
-                      />
-                    </div>
-                    <div>
-                      <span>
-                        html
-                      </span>
-                    </div>
-                  </span>
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                      >
+                        <img
+                          src="/src/plugins/code/langIcons/html.svg"
+                          style="height: 1em; width: 1em;"
+                        />
+                      </div>
+                    </span>
+                    <span>
+                      <div>
+                        <span>
+                          html
+                        </span>
+                      </div>
+                    </span>
+                  </button>
                   <div
                     style="display: flex; gap: 5px;"
                   >
@@ -860,7 +869,8 @@
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -870,25 +880,33 @@
                   contenteditable="false"
                   style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                 >
-                  <span
+                  <button
                     aria-describedby="test-id"
-                    class="ant-md-editor-action-icon-box"
+                    class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
                     style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                    title="切换语言"
+                    type="button"
                   >
-                    <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                    <span
+                      class="ant-btn-icon"
                     >
-                      <img
-                        src="/src/plugins/code/langIcons/css.svg"
-                        style="height: 1em; width: 1em;"
-                      />
-                    </div>
-                    <div>
-                      <span>
-                        css
-                      </span>
-                    </div>
-                  </span>
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                      >
+                        <img
+                          src="/src/plugins/code/langIcons/css.svg"
+                          style="height: 1em; width: 1em;"
+                        />
+                      </div>
+                    </span>
+                    <span>
+                      <div>
+                        <span>
+                          css
+                        </span>
+                      </div>
+                    </span>
+                  </button>
                   <div
                     style="display: flex; gap: 5px;"
                   >

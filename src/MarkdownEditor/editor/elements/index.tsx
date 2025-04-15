@@ -108,6 +108,7 @@ export const MElement = (
             zIndex: 99,
             fontSize: '2em',
             display: 'none',
+            lineHeight: 1,
           }}
           data-be={'card-before'}
           {...props.attributes}
@@ -121,15 +122,22 @@ export const MElement = (
           style={{
             minWidth: 4,
             height: '100%',
-            alignSelf: 'end',
             position: 'relative',
+            lineHeight: 1,
             zIndex: 99,
-
             fontSize: '2em',
+            overflow: 'hidden',
             display: props.readonly ? 'none' : 'block',
           }}
           data-be={'card-after'}
           {...props.attributes}
+          ref={(e: HTMLDivElement) => {
+            props.attributes.ref(e);
+            if (!e) return;
+            e.style.fontSize =
+              (e?.parentElement?.clientHeight || 0) * 0.9 + 'px';
+            e.style.lineHeight = (e?.parentElement?.clientHeight || 0) + 'px';
+          }}
         >
           {props.children}
         </span>

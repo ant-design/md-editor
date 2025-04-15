@@ -327,7 +327,8 @@
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: transparent;"
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -673,7 +674,8 @@ for num in arr:
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: transparent;"
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -991,7 +993,8 @@ for num in arr:
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: transparent;"
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -1389,7 +1392,8 @@ for num in arr:
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: transparent;"
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -1688,7 +1692,8 @@ while i &lt; len(arr):
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: transparent;"
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -2046,7 +2051,8 @@ while i &lt; len(arr):
                   tabindex="-1"
                 >
                   <div
-                    style="background-color: transparent;"
+                    contenteditable="false"
+                    style="background-color: transparent; user-select: none;"
                   >
                     <div
                       class="ace-container drag-el "
@@ -2319,7 +2325,8 @@ while i &lt; len(arr):
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -2705,7 +2712,8 @@ for fruit in fruits:
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -2994,7 +3002,8 @@ for fruit in fruits:
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -3309,7 +3318,8 @@ while i &lt; len(fruits):
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -3597,7 +3607,8 @@ while i &lt; len(fruits):
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "
@@ -4037,7 +4048,8 @@ while i &lt; len(fruits):
             tabindex="-1"
           >
             <div
-              style="background-color: transparent;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
                 class="ace-container drag-el "

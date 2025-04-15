@@ -378,7 +378,8 @@
                                     tabindex="-1"
                                   >
                                     <div
-                                      style="background-color: transparent;"
+                                      contenteditable="false"
+                                      style="background-color: transparent; user-select: none;"
                                     >
                                       <div
                                         class="ace-container drag-el "
@@ -1377,7 +1378,8 @@
                                     tabindex="-1"
                                   >
                                     <div
-                                      style="background-color: transparent;"
+                                      contenteditable="false"
+                                      style="background-color: transparent; user-select: none;"
                                     >
                                       <div
                                         class="ace-container drag-el "
@@ -1567,7 +1569,8 @@
                                     tabindex="-1"
                                   >
                                     <div
-                                      style="background-color: transparent;"
+                                      contenteditable="false"
+                                      style="background-color: transparent; user-select: none;"
                                     >
                                       <div
                                         class="ace-container drag-el "

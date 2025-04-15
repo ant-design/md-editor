@@ -588,9 +588,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   let instance = hotRef.current?.hotInstance;
                   if (!instance) return;
                   // create input element
-                  let input = document.createElement('input');
+                  let input = document.createElement('textarea');
                   if (!input) return;
-                  (input as any).type = 'text';
                   (input as any).style =
                     'width:calc(100% - 4px);color:#000;display:none;height:calc(100% - 4px);border:none;outline:none;border-radius:inherit';
                   input.value = TH.firstChild?.textContent + '';
@@ -617,7 +616,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   };
 
                   TH.style.position = 'relative';
-
+                  TH.style.whiteSpace = 'break-spaces';
                   TH.ondblclick = function () {
                     if (TH.firstChild && (TH.firstChild as any)?.style) {
                       if ((TH.firstChild as any).style.display === 'none') {

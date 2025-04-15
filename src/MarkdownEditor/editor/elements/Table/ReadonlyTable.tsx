@@ -1,10 +1,14 @@
-﻿import { DownloadOutlined, FullscreenOutlined } from '@ant-design/icons';
+﻿import {
+  CopyOutlined,
+  DownloadOutlined,
+  FullscreenOutlined,
+} from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { I18nContext } from '../../../../i18n';
-import { TableNode } from '../../../index';
+import { parserSlateNodeToMarkdown, TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
@@ -52,6 +56,7 @@ export const ReadonlyTable = observer(
       actions = {
         download: 'csv',
         fullScreen: 'modal',
+        copy: 'md',
       },
     } = editorProps?.tableConfig || {};
 
@@ -104,6 +109,65 @@ export const ReadonlyTable = observer(
                     }}
                   >
                     <FullscreenOutlined />
+                  </ActionIconBox>
+                ) : null}
+                {actions.copy ? (
+                  <ActionIconBox
+                    title={i18n?.locale?.copy || '复制'}
+                    onClick={() => {
+                      const clipboardItems: ClipboardItems = [];
+                      navigator?.clipboard.write([
+                        new ClipboardItem({
+                          'application/x-slate-md-fragment': new Blob(
+                            [JSON.stringify(props.element)],
+                            { type: 'application/x-slate-md-fragment' },
+                          ),
+                        }),
+                      ]);
+                      if (actions.copy === 'html') {
+                        clipboardItems.push(
+                          new ClipboardItem({
+                            'text/plain': new Blob(
+                              [tableTargetRef.current?.innerHTML || ''],
+                              { type: 'text/plain' },
+                            ),
+                          }),
+                        );
+                      }
+                      if (actions.copy === 'md') {
+                        clipboardItems.push(
+                          new ClipboardItem({
+                            'text/plain': new Blob(
+                              [parserSlateNodeToMarkdown([props.element])],
+                              { type: 'text/plain' },
+                            ),
+                          }),
+                        );
+                      }
+                      if (actions.copy === 'csv') {
+                        new ClipboardItem({
+                          'text/plain': new Blob(
+                            [
+                              props.element?.otherProps?.columns
+                                .map((col: Record<string, any>) => col.title)
+                                .join(',') +
+                                '\n' +
+                                props.element?.otherProps?.dataSource
+                                  .map((row: Record<string, any>) =>
+                                    Object.values(row).join(','),
+                                  )
+                                  .join('\n'),
+                            ],
+                            { type: 'text/plain' },
+                          ),
+                        });
+                      }
+                      try {
+                        navigator?.clipboard.write(clipboardItems);
+                      } catch (error) {}
+                    }}
+                  >
+                    <CopyOutlined />
                   </ActionIconBox>
                 ) : null}
 

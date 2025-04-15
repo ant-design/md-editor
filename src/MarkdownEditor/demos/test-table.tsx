@@ -71,7 +71,6 @@ export default () => {
             paddingLeft: 0,
           }}
           onChange={(e) => {
-            console.log(e);
             markdownEditorRef.current?.store?.setMDContent?.(e);
           }}
           tableConfig={{
@@ -95,9 +94,6 @@ export default () => {
           tableConfig={{
             minColumn: 20,
             minRows: 10,
-            actions: {
-              fullScreen: 'modal',
-            },
           }}
           initValue={defaultValue}
         />

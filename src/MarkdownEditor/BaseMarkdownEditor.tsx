@@ -290,6 +290,7 @@ export type MarkdownEditorProps = {
     actions?: {
       download?: ['csv'];
       fullScreen?: 'modal';
+      copy?: 'md' | 'html' | 'csv';
     };
   };
 
