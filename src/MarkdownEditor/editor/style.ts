@@ -27,6 +27,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-edit': {
         '> div.empty:first-child [data-slate-node="text"]': {
           display: 'inline-block',
+          minWidth: 20,
           '&::before': {
             cursor: 'text',
             content:
