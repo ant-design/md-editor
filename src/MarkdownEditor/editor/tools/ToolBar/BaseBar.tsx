@@ -244,7 +244,7 @@ export const BaseToolBar = observer(
 
       if (props.showEditor) {
         list.push(
-          <Tooltip title="撤销" key="undo">
+          <Tooltip title={i18n?.locale?.undo || '撤销'} key="undo">
             <div
               role="button"
               className={classnames(`${baseClassName}-item`, hashId)}
@@ -261,7 +261,7 @@ export const BaseToolBar = observer(
         );
 
         list.push(
-          <Tooltip title="重做" key="重做">
+          <Tooltip title={i18n?.locale?.['redo'] || '重做'} key="重做">
             <div
               role="button"
               key="redo"

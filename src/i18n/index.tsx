@@ -73,10 +73,14 @@ export const cnLabels = {
   switchLanguage: '切换语言',
   insertLink: '插入链接',
   clearFormatting: '清除格式',
+  undo: '撤销',
+  redo: '重做',
 };
 
 // 英文 key-label 映射
 export const enLabels: typeof cnLabels = {
+  undo: 'Undo',
+  redo: 'Redo',
   switchLanguage: 'Switch Language',
   insertLink: 'Insert Link',
   clearFormatting: 'Clear Formatting',
