@@ -539,7 +539,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                     </ActionIconBox>
                   ) : null}
                   <ActionIconBox
-                    title="复制"
+                    title={i18n?.locale?.copy || '复制'}
                     style={{
                       fontSize: '0.9em',
                       lineHeight: '1.75em',
