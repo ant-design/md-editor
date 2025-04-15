@@ -1116,6 +1116,12 @@
                                     data-slate-node="element"
                                   >
                                     <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
+                                    </span>
+                                    <span
                                       data-slate-node="text"
                                     >
                                       <span
@@ -1130,6 +1136,12 @@
                                           工作效率问题解决方案 ，提高工作效率 ，提高工作效率 ，工作效率问题解决方案  ，提高工作效率  ，提高工作效率工作效率问题解决方案  ，提高工作效率  ，提高工作效率工作效率问题解决方案  ，提高工作效率  ，提高工作效率工作效率问题解决方案  ，提高工作效率  ，提高工作效率工作效率问题解决方案  ，提高工作效率  ，提高工作效率
                                         </span>
                                       </span>
+                                    </span>
+                                    <span
+                                      contenteditable="false"
+                                      style="font-size: 0px; line-height: 0; display: inline-block;"
+                                    >
+                                       
                                     </span>
                                   </div>
                                 </div>

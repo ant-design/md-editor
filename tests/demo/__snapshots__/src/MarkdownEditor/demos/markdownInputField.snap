@@ -156,6 +156,12 @@
                   data-slate-node="element"
                 >
                   <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                  <span
                     data-slate-node="text"
                   >
                     <span
@@ -173,6 +179,12 @@
                       </span>
                     </span>
                   </span>
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
                 </div>
               </div>
             </div>
@@ -180,6 +192,7 @@
         </div>
         <div
           class="ant-md-input-field-send-before-actions"
+          contenteditable="false"
         >
           <span
             style="color: red; padding: 4px; font-size: 14px; border-radius: 4px;"
@@ -189,6 +202,7 @@
         </div>
         <div
           class="ant-md-input-field-send-actions"
+          contenteditable="false"
         />
       </div>
       <h2>
@@ -376,6 +390,12 @@
                   data-slate-node="element"
                 >
                   <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                  <span
                     data-slate-node="text"
                   >
                     <span
@@ -393,6 +413,12 @@
                       </span>
                     </span>
                   </span>
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
                 </div>
               </div>
             </div>
@@ -400,9 +426,11 @@
         </div>
         <div
           class="ant-md-input-field-send-before-actions"
+          contenteditable="false"
         />
         <div
           class="ant-md-input-field-send-actions"
+          contenteditable="false"
         >
           <div
             class="ant-md-editor-attachment-button"
@@ -547,6 +575,12 @@
                   data-slate-node="element"
                 >
                   <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                  <span
                     data-slate-node="text"
                   >
                     <span
@@ -562,6 +596,12 @@
                       </span>
                     </span>
                   </span>
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
                 </div>
               </div>
             </div>
@@ -569,9 +609,11 @@
         </div>
         <div
           class="ant-md-input-field-send-before-actions"
+          contenteditable="false"
         />
         <div
           class="ant-md-input-field-send-actions"
+          contenteditable="false"
         />
       </div>
       <h2>
@@ -692,6 +734,12 @@
                   data-slate-node="element"
                 >
                   <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                  <span
                     data-slate-node="text"
                   >
                     <span
@@ -709,6 +757,12 @@
                       </span>
                     </span>
                   </span>
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
                 </div>
               </div>
             </div>
@@ -716,9 +770,11 @@
         </div>
         <div
           class="ant-md-input-field-send-before-actions"
+          contenteditable="false"
         />
         <div
           class="ant-md-input-field-send-actions"
+          contenteditable="false"
         />
       </div>
       <div>

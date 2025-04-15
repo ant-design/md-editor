@@ -754,6 +754,12 @@
                 data-slate-node="element"
               >
                 <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <span
                   data-slate-node="text"
                 >
                   <span
@@ -770,6 +776,12 @@
                       <br />
                     </span>
                   </span>
+                </span>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
                 </span>
               </div>
             </div>
