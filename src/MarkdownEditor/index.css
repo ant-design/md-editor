@@ -201,6 +201,9 @@
   margin-left: 2px;
 }
 
-div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
+div.composition
+  .ant-md-editor-content-edit
+  > div.empty:first-child
+  [data-slate-node='text']::before {
   display: none;
 }
