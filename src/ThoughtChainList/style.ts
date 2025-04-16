@@ -19,6 +19,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       minWidth: 296,
       position: 'relative',
       maxWidth: '100%',
+      '.empty': {
+        display: 'flex',
+      },
       '&-container': {
         width: '100%',
         borderRadius: '6px 12px 0px 0px',
