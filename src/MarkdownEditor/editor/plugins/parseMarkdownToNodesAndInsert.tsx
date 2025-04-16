@@ -13,8 +13,9 @@ export const parseMarkdownToNodesAndInsert = (
   markdown: string,
 ) => {
   const nodes = JSON.parse(JSON.stringify(parserMdToSchema(markdown).schema));
-
-  nodes.push({ type: 'paragraph', children: [{ text: '' }] });
+  if (nodes.length === 0) {
+    nodes.push({ type: 'paragraph', children: [{ text: '' }] });
+  }
 
   const fragment = nodes;
   const sel = editor.selection;

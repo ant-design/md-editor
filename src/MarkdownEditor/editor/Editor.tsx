@@ -253,6 +253,7 @@ export const SlateMarkdownEditor = observer(
     const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
       event.stopPropagation();
       event.preventDefault();
+      console.log('onPaste', event);
       const currentTextSelection = markdownEditorRef.current.selection;
       if (
         currentTextSelection &&
@@ -400,6 +401,8 @@ export const SlateMarkdownEditor = observer(
 
       if (types.includes('text/plain')) {
         const text = event.clipboardData.getData('text/plain');
+        console.log('text', text);
+        if (!text) return;
         const selection = markdownEditorRef.current.selection;
 
         // 如果是表格或者代码块，直接插入文本
@@ -507,12 +510,15 @@ export const SlateMarkdownEditor = observer(
             }
             return;
           }
-        } catch (e) {}
+        } catch (e) {
+          console.log('insert error', e);
+        }
 
         if (isMarkdown(text)) {
           parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);
           return;
         }
+        console.log('text', text);
         Transforms.insertText(markdownEditorRef.current, text, {
           at: selection!,
         });
