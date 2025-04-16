@@ -13072,7 +13072,7 @@
                       >
                         <img
                           src="/src/plugins/code/langIcons/java.svg"
-                          style="height: 1em; width: 1em;"
+                          style="height: 1em; width: 1em; display: none;"
                         />
                       </div>
                       <div>
@@ -13434,7 +13434,7 @@
                             >
                               <img
                                 src="/src/plugins/code/langIcons/console.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -13757,7 +13757,7 @@ yarn add antd
                             >
                               <img
                                 src="/src/plugins/code/langIcons/javascript.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -13996,7 +13996,7 @@ yarn add antd
                             >
                               <img
                                 src="/src/plugins/code/langIcons/console.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -14199,7 +14199,7 @@ yarn add antd
                             >
                               <img
                                 src="/src/plugins/code/langIcons/javascript.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -14460,7 +14460,7 @@ yarn add antd
                             >
                               <img
                                 src="/src/plugins/code/langIcons/javascript.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -14724,7 +14724,7 @@ function App() {
                             >
                               <img
                                 src="/src/plugins/code/langIcons/javascript.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -15029,7 +15029,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
                             >
                               <img
                                 src="/src/plugins/code/langIcons/console.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>
@@ -15317,7 +15317,7 @@ npm install ant-design-vue --save
                             >
                               <img
                                 src="/src/plugins/code/langIcons/javascript.svg"
-                                style="height: 1em; width: 1em;"
+                                style="height: 1em; width: 1em; display: none;"
                               />
                             </div>
                             <div>

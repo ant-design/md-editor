@@ -397,7 +397,7 @@
                                             >
                                               <img
                                                 src="/src/plugins/code/langIcons/database.svg"
-                                                style="height: 1em; width: 1em;"
+                                                style="height: 1em; width: 1em; display: none;"
                                               />
                                             </div>
                                             <div>
@@ -1428,7 +1428,7 @@
                                             >
                                               <img
                                                 src="/src/plugins/code/langIcons/json.svg"
-                                                style="height: 1em; width: 1em;"
+                                                style="height: 1em; width: 1em; display: none;"
                                               />
                                             </div>
                                             <div>
@@ -1619,7 +1619,7 @@
                                             >
                                               <img
                                                 src="/src/plugins/code/langIcons/json.svg"
-                                                style="height: 1em; width: 1em;"
+                                                style="height: 1em; width: 1em; display: none;"
                                               />
                                             </div>
                                             <div>

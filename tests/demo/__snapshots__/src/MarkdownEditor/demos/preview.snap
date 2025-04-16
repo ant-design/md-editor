@@ -447,7 +447,7 @@
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el empty"
+            class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
           >
@@ -467,11 +467,54 @@
                 draggable="false"
               >
                 <span
-                  data-slate-length="0"
-                  data-slate-zero-width="n"
+                  data-slate-string="true"
                 >
-                  ﻿
-                  <br />
+                  Description: 
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+                style="font-weight: bold;"
+              >
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+                <span
+                  data-slate-string="true"
+                >
+                  Full-Year 2024 Diluted EPS Up 24% to 15.88 and Adjusted Diluted EPS Up 9% to 13.17
+                </span>
+                <span
+                  contenteditable="false"
+                  style="font-size: 0px; line-height: 0; display: inline-block;"
+                >
+                   
+                </span>
+              </span>
+            </span>
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                   Expects 2025 To Be Another Year of Positive Revenue Growth for Crocs, Inc., Led by the Crocs Brand Upsizes Share Repurchase Authorization by 1 Billion Resulting in Total Authorization Outstanding of Approximately ...
                 </span>
               </span>
             </span>

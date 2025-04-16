@@ -31,6 +31,25 @@ import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHan
 import { Katex } from './CodeUI/Katex/Katex';
 import { langIconMap } from './langIconMap';
 
+const LoadImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  const [show, setShow] = useState(false);
+  return (
+    <img
+      {...props}
+      style={{
+        ...props.style,
+        display: show ? 'block' : 'none',
+      }}
+      onLoad={() => {
+        setShow(true);
+      }}
+      onError={() => {
+        setShow(false);
+      }}
+    />
+  );
+};
+
 const langOptions = Array.from(langIconMap).map(([lang, icon]) => {
   return {
     value: lang,
@@ -492,7 +511,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
                             marginRight: '0.25em',
                           }}
                         >
-                          <img
+                          <LoadImage
                             style={{
                               height: '1em',
                               width: '1em',

@@ -10172,7 +10172,7 @@
                         >
                           <img
                             src="/src/plugins/code/langIcons/java.svg"
-                            style="height: 1em; width: 1em;"
+                            style="height: 1em; width: 1em; display: none;"
                           />
                         </div>
                         <div>

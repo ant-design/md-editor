@@ -20,7 +20,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       position: 'relative',
       maxWidth: '100%',
       '.empty': {
-        display: 'flex',
+        display: 'none',
       },
       '&-container': {
         width: '100%',

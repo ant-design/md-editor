@@ -7160,7 +7160,7 @@
                           >
                             <img
                               src="/src/plugins/code/langIcons/python.svg"
-                              style="height: 1em; width: 1em;"
+                              style="height: 1em; width: 1em; display: none;"
                             />
                           </div>
                           <div>
@@ -7526,7 +7526,7 @@ for num in arr:
                           >
                             <img
                               src="/src/plugins/code/langIcons/python.svg"
-                              style="height: 1em; width: 1em;"
+                              style="height: 1em; width: 1em; display: none;"
                             />
                           </div>
                           <div>
@@ -7876,7 +7876,7 @@ for num in arr:
                           >
                             <img
                               src="/src/plugins/code/langIcons/python.svg"
-                              style="height: 1em; width: 1em;"
+                              style="height: 1em; width: 1em; display: none;"
                             />
                           </div>
                           <div>
@@ -8322,7 +8322,7 @@ for num in arr:
                           >
                             <img
                               src="/src/plugins/code/langIcons/python.svg"
-                              style="height: 1em; width: 1em;"
+                              style="height: 1em; width: 1em; display: none;"
                             />
                           </div>
                           <div>
@@ -8641,7 +8641,7 @@ while i &lt; len(arr):
                           >
                             <img
                               src="/src/plugins/code/langIcons/python.svg"
-                              style="height: 1em; width: 1em;"
+                              style="height: 1em; width: 1em; display: none;"
                             />
                           </div>
                           <div>
@@ -9006,7 +9006,7 @@ while i &lt; len(arr):
                     >
                       <img
                         src="/src/plugins/code/langIcons/python.svg"
-                        style="height: 1em; width: 1em;"
+                        style="height: 1em; width: 1em; display: none;"
                       />
                     </div>
                     <div>
