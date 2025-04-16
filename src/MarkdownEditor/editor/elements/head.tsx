@@ -26,9 +26,8 @@ export function Head({
     editor.children.at?.(path.at(0)! + 1),
     typewriter,
   ]);
-
+  const str = Node.string(element);
   return React.useMemo(() => {
-    const str = Node.string(element);
     return createElement(
       `h${element.level}`,
       {
@@ -49,5 +48,5 @@ export function Head({
         {children}
       </>,
     );
-  }, [element.level, isLatest, element.children, selected, path]);
+  }, [element.level, isLatest, str, element.children, selected, path]);
 }
