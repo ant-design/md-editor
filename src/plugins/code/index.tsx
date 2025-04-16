@@ -134,9 +134,11 @@ const LanguageSelector = (props: {
                   height: '1em',
                   width: '1em',
                 }}
-                src={langIconMap.get(
-                  props.element.language?.toLowerCase() || '',
-                )}
+                src={
+                  langIconMap.get(props.element.language?.toLowerCase() || '')
+                    ?.src ||
+                  langIconMap.get(props.element.language?.toLowerCase() || '')
+                }
               />
             </div>
           )
