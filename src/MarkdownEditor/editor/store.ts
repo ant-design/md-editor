@@ -337,6 +337,20 @@ export class EditorStore {
     this._editor.current.onChange();
     this._editor.current.insertText('\n');
   }
+  /**
+   * 在指定路径后插入节点。
+   * @param path
+   * @param node
+   */
+  insertAfter(path: number[], node: Node) {
+    if (this._editor.current.hasPath(Path.previous(path))) {
+      Transforms.insertNodes(this._editor.current, node, {
+        at: path,
+      });
+    } else {
+      this.insertAfter(Path.previous(path), node);
+    }
+  }
 
   /**
    * 比较两个节点并更新编辑器中的节点。
@@ -361,9 +375,7 @@ export class EditorStore {
         if (this._editor.current.hasPath(Path.previous(at))) {
           Transforms.insertNodes(this._editor.current, node, { at });
         } else {
-          Transforms.insertNodes(this._editor.current, node, {
-            at: Path.previous(at),
-          });
+          this.insertAfter(Path.previous(at), node);
         }
         return;
       }
