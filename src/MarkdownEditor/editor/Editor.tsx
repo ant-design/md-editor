@@ -204,6 +204,7 @@ export const SlateMarkdownEditor = observer(
     };
 
     const checkEnd = (e: React.MouseEvent) => {
+      if (editorProps?.typewriter) return;
       if (readonly) return;
       if (!store.focus) {
         markdownEditorRef.current.selection = null;

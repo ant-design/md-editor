@@ -369,7 +369,7 @@ const parserBlock = (
               el = { type: 'paragraph', children: [{ text: '' }] };
             } else {
               el = currentElement.value.match(
-                /<\/?(table|div|ul|li|ol|p)[^\n>]*?>/,
+                /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
               )
                 ? htmlToFragmentList(currentElement.value, '')
                 : {
@@ -391,7 +391,7 @@ const parserBlock = (
             el = { type: 'break', children: [{ text: '\n' }] };
           } else {
             const htmlMatch = currentElement.value.match(
-              /<\/?(b|i|del|font|code|span|sup|sub|a)[^\n>]*?>/,
+              /<\/?(b|i|del|font|code|span|sup|sub|strong|a)[^\n>]*?>/,
             );
             if (htmlMatch) {
               const [str, tag] = htmlMatch;
