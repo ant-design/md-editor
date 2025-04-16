@@ -21,9 +21,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backgroundColor: '#a1a1aa',
         borderRadius: '20px',
       },
-      '[data-empty]:before': {
-        display: 'none',
-      },
       '&-edit': {
         '> div.empty:first-child [data-slate-node="text"]': {
           display: 'inline-block',
