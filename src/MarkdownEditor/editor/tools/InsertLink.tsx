@@ -189,7 +189,7 @@ export const InsertLink = observer(() => {
         pointerEvents: 'auto',
         width: 370,
       }}
-      title="设置超链接"
+      title=" "
     >
       <div
         style={{
