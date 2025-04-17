@@ -37,9 +37,9 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         }}
       >
         <DragHandle />
-        <InlineChromiumBugfix />
+        {!str ? <InlineChromiumBugfix /> : null}
         {props.children}
-        <InlineChromiumBugfix />
+        {!str ? <InlineChromiumBugfix /> : null}
       </div>
     );
   }, [props.element.children, readonly, selected, isLatest, typewriter]);

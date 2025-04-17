@@ -688,7 +688,14 @@ const parserBlock = (
         }
         break;
       case 'inlineCode':
-        el = { text: currentElement.value, code: true };
+        el = {
+          text: currentElement.value,
+          tag: currentElement.value?.startsWith('${'),
+          placeHolder: currentElement.value
+            ?.replaceAll('${', '')
+            .replaceAll('}', ''),
+          code: true,
+        };
         break;
       case 'thematicBreak':
         el = { type: 'hr', children: [{ text: '' }] };

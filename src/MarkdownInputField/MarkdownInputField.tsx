@@ -2,7 +2,13 @@
 import classNames from 'classnames';
 import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { useRefFunction } from '../hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
@@ -148,6 +154,7 @@ export type MarkdownInputFieldProps = {
         fileUploadStatus: 'uploading' | 'done' | 'error';
       },
   ) => React.ReactNode[];
+  inputRef?: React.MutableRefObject<MarkdownEditorInstance | undefined>;
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -221,9 +228,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   });
 
   useEffect(() => {
-    console.log('value', props.value);
+    if (!markdownEditorRef.current) return;
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
+
+  useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
   // 判断是否所有文件上传完成
   const fileUploadDone = useMemo(() => {
@@ -578,6 +587,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           <div
             ref={actionsRef}
             contentEditable={false}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+            onKeyDown={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
             className={classNames(`${baseCls}-send-before-actions`, hashId)}
           >
             {props.beforeActionsRender
@@ -601,6 +618,14 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           <div
             ref={actionsRef}
             contentEditable={false}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+            onKeyDown={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
             className={classNames(`${baseCls}-send-actions`, hashId)}
           >
             {props.actionsRender

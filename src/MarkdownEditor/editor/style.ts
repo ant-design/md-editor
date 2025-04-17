@@ -36,7 +36,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         '>[data-be="paragraph"] [data-slate-node="text"]': {
           display: 'inline-block',
-          minWidth: 20,
+          minWidth: 2,
         },
       },
 

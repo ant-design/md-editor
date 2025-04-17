@@ -1,8 +1,6 @@
-import { Dropdown, MenuProps } from 'antd';
-import { useMergedState } from 'rc-util';
+import { MenuProps } from 'antd';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
-import { useRefFunction } from '../../../../../hooks/useRefFunction';
 import { useSlate } from '../../../slate-react';
 
 export type TagPopupProps = {
@@ -63,16 +61,7 @@ export const TagPopup = (
     onSelect?: (value: string, path: number[]) => void;
   },
 ) => {
-  const {
-    items = [],
-    onSelect,
-    children,
-    dropdownRender,
-    dropdownStyle,
-    menu,
-    notFoundContent,
-    className,
-  } = props || {};
+  const { onSelect, children } = props || {};
   const editor = useSlate();
 
   const domRef = useRef<HTMLDivElement>(null);
@@ -81,29 +70,16 @@ export const TagPopup = (
 
   const currentNodePath = useRef<number[]>();
 
-  const [open, setOpen] = useMergedState(true, {
-    value: props.open,
-    onChange: props.onOpenChange,
-  });
-
   useEffect(() => {
     const path = editor.selection?.anchor.path;
     if (path) {
       currentNodePath.current = path;
+      suggestionConnext?.setOpen?.(true);
     }
-    suggestionConnext?.setOpen?.(true);
   }, []);
-
-  const selectRef = useRefFunction((value: string, path?: number[]) => {
-    onSelect?.(value, path || currentNodePath.current || []);
-    suggestionConnext?.setOpen?.(false);
-  });
 
   const defaultDom = props.text?.startsWith('$placeholder') ? (
     <div
-      onClick={() => {
-        setOpen(true);
-      }}
       ref={domRef}
       style={{
         padding: '0 4px',
@@ -122,9 +98,6 @@ export const TagPopup = (
     </div>
   ) : (
     <div
-      onClick={() => {
-        setOpen(true);
-      }}
       ref={domRef}
       style={{
         backgroundColor: '#e6f4ff',
@@ -146,9 +119,8 @@ export const TagPopup = (
         {
           ...props,
           text: props.text,
-          onSelect: (value: string, path?: number[]) => {
-            onSelect?.(value, path || currentNodePath.current || []);
-            setOpen(false);
+          onSelect: (value: string) => {
+            onSelect?.(value, currentNodePath.current || []);
           },
         },
         defaultDom,
@@ -162,15 +134,9 @@ export const TagPopup = (
         text: props.text,
       };
     }
-    if (suggestionConnext?.onSelectRef) {
-      suggestionConnext.onSelectRef.current = selectRef;
-    }
+
     return (
       <span
-        onKeyDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-        }}
         onClick={(e) => {
           const path = editor.selection?.anchor.path;
           if (path) {
@@ -180,6 +146,12 @@ export const TagPopup = (
           e.stopPropagation();
           if (!suggestionConnext.open) {
             suggestionConnext?.setOpen?.(true);
+            if (suggestionConnext?.onSelectRef) {
+              suggestionConnext.onSelectRef.current = (newValue) => {
+                onSelect?.(newValue, path || []);
+                suggestionConnext?.setOpen?.(false);
+              };
+            }
           } else {
             suggestionConnext?.setOpen?.(false);
           }
@@ -190,76 +162,5 @@ export const TagPopup = (
     );
   }
 
-  const selectedItems = items.map((item) => {
-    const { key } = item || {};
-
-    return {
-      ...item,
-      onClick: () => {
-        onSelect?.(`${key}` || '', currentNodePath.current || []);
-        setOpen(false);
-      },
-    };
-  });
-
-  return (
-    <span
-      onKeyDown={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      }}
-    >
-      <Dropdown
-        open={open}
-        className={className}
-        onOpenChange={(changeOpen) => {
-          const path = editor.selection?.anchor.path;
-          if (path) {
-            currentNodePath.current = path;
-          }
-          setOpen(changeOpen);
-        }}
-        autoFocus={true}
-        trigger={['click']}
-        dropdownRender={(defaultDropdownContent) => {
-          if (dropdownRender) {
-            return (
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                }}
-                onKeyDown={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-              >
-                {dropdownRender(defaultDropdownContent, {
-                  ...props,
-                  onSelect: (value: string, path?: number[]) => {
-                    onSelect?.(value, path || currentNodePath.current || []);
-                    setOpen(false);
-                  },
-                })}
-              </div>
-            );
-          } else if (menu! && items!) {
-            return notFoundContent || '';
-          } else {
-            return defaultDropdownContent;
-          }
-        }}
-        overlayStyle={dropdownStyle}
-        menu={
-          menu
-            ? menu
-            : {
-                items: selectedItems,
-              }
-        }
-      >
-        {dom}
-      </Dropdown>
-    </span>
-  );
+  return dom;
 };

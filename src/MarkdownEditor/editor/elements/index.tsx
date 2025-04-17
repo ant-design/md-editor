@@ -174,7 +174,6 @@ export const MLeaf = (
           text={text?.trim() === '$' ? '$placeholder:输入变量' : text}
           onSelect={(v, path) => {
             if (!markdownEditorRef.current) return;
-
             Transforms.insertText(
               markdownEditorRef.current,
               `${triggerText || '$'}${v}`,
@@ -189,7 +188,7 @@ export const MLeaf = (
             )?.focus();
             setTimeout(() => {
               if (!markdownEditorRef.current) return;
-
+              if (!path?.length) return;
               const nextPath = Path.next(path);
               if (!Editor.hasPath(markdownEditorRef.current, nextPath)) {
                 Transforms.insertNodes(
@@ -201,8 +200,8 @@ export const MLeaf = (
                 );
               } else {
                 Transforms.select(markdownEditorRef.current, {
-                  anchor: Editor.end(markdownEditorRef.current, nextPath),
-                  focus: Editor.end(markdownEditorRef.current, nextPath),
+                  anchor: Editor.end(markdownEditorRef.current, path),
+                  focus: Editor.end(markdownEditorRef.current, path),
                 });
               }
             }, 0);

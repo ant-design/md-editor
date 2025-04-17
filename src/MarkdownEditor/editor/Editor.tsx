@@ -610,7 +610,7 @@ export const SlateMarkdownEditor = observer(
 
     const plugins = useContext(PluginContext);
 
-    const elementRenderElement = (props: RenderElementProps) => {
+    const elementRenderElement = useRefFunction((props: RenderElementProps) => {
       const defaultDom = (
         <ErrorBoundary
           fallbackRender={() => {
@@ -631,9 +631,9 @@ export const SlateMarkdownEditor = observer(
       if (props.element.type === 'table-row') return defaultDom;
 
       return eleItemRender(props, defaultDom) as React.ReactElement;
-    };
+    });
 
-    const renderMarkdownLeaf = (props: any) => {
+    const renderMarkdownLeaf = useRefFunction((props: any) => {
       return (
         <MLeaf
           {...props}
@@ -644,9 +644,9 @@ export const SlateMarkdownEditor = observer(
           tagInputProps={editorProps.tagInputProps}
         />
       );
-    };
+    });
 
-    const decorateFn = (e: any) => {
+    const decorateFn = useRefFunction((e: any) => {
       const decorateList: any[] | undefined = high(e) || [];
       if (!editorProps?.comment) return decorateList;
       if (editorProps?.comment?.enable === false) return decorateList;
@@ -718,7 +718,7 @@ export const SlateMarkdownEditor = observer(
         console.log('error', error);
         return decorateList;
       }
-    };
+    });
 
     const handleSelectionChange = useDebounceFn(async () => {
       if (store.focus) {

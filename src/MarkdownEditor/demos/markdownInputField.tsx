@@ -1,8 +1,13 @@
-﻿import { generateEdges, MarkdownInputField } from '@ant-design/md-editor';
+﻿import {
+  generateEdges,
+  MarkdownEditorInstance,
+  MarkdownInputField,
+} from '@ant-design/md-editor';
 import { ColorPicker, Slider } from 'antd';
 import React, { useMemo } from 'react';
 
 export default () => {
+  const markdownRef = React.useRef<MarkdownEditorInstance>();
   const [list, setList] = React.useState<Set<string>>(() => new Set());
   const send = async (value: string) => {
     await new Promise((resolve) => {
@@ -60,10 +65,16 @@ export default () => {
       </ul>
       <h2>基本</h2>
       <MarkdownInputField
+        inputRef={markdownRef}
         beforeActionsRender={() => {
           return [
             <span
               key="test"
+              onClick={() => {
+                markdownRef.current?.store?.setMDContent(
+                  '帮我查询`${目标企业}` `${近3年}`的`${资产总额}`。',
+                );
+              }}
               style={{
                 color: 'red',
                 padding: 4,
@@ -71,7 +82,7 @@ export default () => {
                 borderRadius: 4,
               }}
             >
-              测试
+              模板
             </span>,
           ];
         }}
