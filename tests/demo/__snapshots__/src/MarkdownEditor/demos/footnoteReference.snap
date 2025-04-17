@@ -31,12 +31,6 @@
             data-slate-node="element"
           >
             <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
-            <span
               data-slate-node="text"
             >
               <span
@@ -51,12 +45,6 @@
                   《将近酒》这首诗的参考文献如下：
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </div>
           <div
@@ -77,12 +65,6 @@
                   data-be="paragraph"
                   data-slate-node="element"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -113,12 +95,6 @@
                       DOC_0
                     </span>
                   </span>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </div>
               </li>
               <li
@@ -131,12 +107,6 @@
                   data-be="paragraph"
                   data-slate-node="element"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -167,12 +137,6 @@
                       DOC_1
                     </span>
                   </span>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </div>
               </li>
             </ul>
@@ -182,12 +146,6 @@
             data-be="paragraph"
             data-slate-node="element"
           >
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
             <span
               data-slate-node="text"
             >
@@ -209,24 +167,12 @@
                 </span>
               </span>
             </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
           </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
           >
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
             <span
               data-slate-node="text"
             >
@@ -247,12 +193,6 @@
 五花马 ，千金裘 ，呼儿将出换美酒 ，与尔同销万古愁 。
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </div>
           <div

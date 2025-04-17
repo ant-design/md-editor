@@ -31,12 +31,6 @@
             data-slate-node="element"
           >
             <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
-            <span
               data-slate-node="text"
             >
               <span
@@ -51,12 +45,6 @@
                   根据提供的上下文数据 ，微软最近的股票并没有大涨 ，反而表现不佳 。以下是相关信息的总结：
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </div>
           <div
@@ -78,12 +66,6 @@
                   data-be="paragraph"
                   data-slate-node="element"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -159,12 +141,6 @@
                       </span>
                     </span>
                   </span>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </div>
               </li>
               <li
@@ -177,12 +153,6 @@
                   data-be="paragraph"
                   data-slate-node="element"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -258,12 +228,6 @@
                       </span>
                     </span>
                   </span>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </div>
               </li>
               <li
@@ -276,12 +240,6 @@
                   data-be="paragraph"
                   data-slate-node="element"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -357,12 +315,6 @@
                       </span>
                     </span>
                   </span>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </div>
               </li>
               <li
@@ -375,12 +327,6 @@
                   data-be="paragraph"
                   data-slate-node="element"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -456,12 +402,6 @@
                       </span>
                     </span>
                   </span>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </div>
               </li>
             </ol>
@@ -471,12 +411,6 @@
             data-be="paragraph"
             data-slate-node="element"
           >
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
             <span
               data-slate-node="text"
             >
@@ -493,24 +427,12 @@
                 </span>
               </span>
             </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
           </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
           >
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
             <span
               data-slate-node="text"
             >
@@ -526,12 +448,6 @@
                   *** Reference Sources ***
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </div>
           <div

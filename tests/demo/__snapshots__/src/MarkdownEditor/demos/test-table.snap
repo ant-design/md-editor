@@ -2917,12 +2917,6 @@
               data-slate-node="element"
             >
               <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
-              <span
                 data-slate-node="text"
               >
                 <span
@@ -2967,12 +2961,6 @@
                   </span>
                 </span>
               </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
             </div>
             <div
               class="relative"
@@ -2994,12 +2982,6 @@
                     data-slate-node="element"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-node="text"
                     >
                       <span
@@ -3016,12 +2998,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </li>
                 <li
@@ -3034,12 +3010,6 @@
                     data-be="paragraph"
                     data-slate-node="element"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <span
                       data-slate-node="text"
                     >
@@ -3056,12 +3026,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </li>
                 <li
@@ -3074,12 +3038,6 @@
                     data-be="paragraph"
                     data-slate-node="element"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <span
                       data-slate-node="text"
                     >
@@ -3096,12 +3054,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </li>
               </ol>
@@ -3111,12 +3063,6 @@
               data-be="paragraph"
               data-slate-node="element"
             >
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
               <span
                 data-slate-node="text"
               >
@@ -3162,12 +3108,6 @@
 版号审批节奏影响新游上线 ，需持续跟&gt;踪《永劫无间》等旗舰产品表现
                   </span>
                 </span>
-              </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
               </span>
             </div>
             <div
@@ -6120,12 +6060,6 @@
               data-slate-node="element"
             >
               <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
-              <span
                 data-slate-node="text"
               >
                 <span
@@ -6170,12 +6104,6 @@
                   </span>
                 </span>
               </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
             </div>
             <div
               class="relative"
@@ -6197,12 +6125,6 @@
                     data-slate-node="element"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-node="text"
                     >
                       <span
@@ -6219,12 +6141,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </li>
                 <li
@@ -6237,12 +6153,6 @@
                     data-be="paragraph"
                     data-slate-node="element"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <span
                       data-slate-node="text"
                     >
@@ -6259,12 +6169,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </li>
                 <li
@@ -6277,12 +6181,6 @@
                     data-be="paragraph"
                     data-slate-node="element"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <span
                       data-slate-node="text"
                     >
@@ -6299,12 +6197,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </li>
               </ol>
@@ -6314,12 +6206,6 @@
               data-be="paragraph"
               data-slate-node="element"
             >
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
               <span
                 data-slate-node="text"
               >
@@ -6365,12 +6251,6 @@
 版号审批节奏影响新游上线 ，需持续跟&gt;踪《永劫无间》等旗舰产品表现
                   </span>
                 </span>
-              </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
               </span>
             </div>
           </div>
