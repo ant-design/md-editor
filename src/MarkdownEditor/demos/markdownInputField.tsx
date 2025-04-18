@@ -72,7 +72,7 @@ export default () => {
               key="test"
               onClick={() => {
                 markdownRef.current?.store?.setMDContent(
-                  '帮我查询`${目标企业}` `${近3年}`的`${资产总额}`。',
+                  '帮我查询`${placeholder:目标企业}` `${placeholder:近3年}`的`${placeholder:资产总额}`。',
                 );
               }}
               style={{

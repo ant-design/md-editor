@@ -1,4 +1,5 @@
 import { MenuProps } from 'antd';
+import classNames from 'classnames';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
 import { useSlate } from '../../../slate-react';
@@ -31,6 +32,7 @@ export type TagPopupProps = {
     },
     defaultDom: ReactNode,
   ) => React.ReactNode;
+  placeholder?: string;
 };
 
 /**
@@ -78,46 +80,14 @@ export const TagPopup = (
     }
   }, []);
 
-  const defaultDom = props.text?.startsWith('$placeholder') ? (
+  const placeholder = props.placeholder;
+
+  const defaultDom = (
     <div
       ref={domRef}
-      style={{
-        padding: '0 4px',
-        borderRadius: 4,
-        fontSize: '0.9em',
-        display: 'inline-block',
-        lineHeight: 1.5,
-        opacity: 0.6,
-        color: 'rgba(0, 0, 0, 0.45)',
-        border: '1px solid #91caff',
-        position: 'relative',
-      }}
-      onClick={(e) => {
-        const path = editor.selection?.anchor.path;
-        if (path) {
-          currentNodePath.current = path;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        if (!suggestionConnext.open) {
-          suggestionConnext?.setOpen?.(true);
-          if (suggestionConnext?.onSelectRef) {
-            suggestionConnext.onSelectRef.current = (newValue) => {
-              onSelect?.(newValue, path || []);
-              suggestionConnext?.setOpen?.(false);
-            };
-          }
-        } else {
-          suggestionConnext?.setOpen?.(false);
-        }
-      }}
-      title={props.text?.replace('$placeholder:', '')}
-    >
-      {children}
-    </div>
-  ) : (
-    <div
-      ref={domRef}
+      className={classNames('tag-popup-input', {
+        empty: !props.text.trim(),
+      })}
       onClick={(e) => {
         const path = editor.selection?.anchor.path;
         if (path) {
@@ -147,7 +117,6 @@ export const TagPopup = (
         }
       }}
       style={{
-        backgroundColor: '#e6f4ff',
         padding: '0 4px',
         borderRadius: 4,
         fontSize: '0.9em',
@@ -155,7 +124,9 @@ export const TagPopup = (
         lineHeight: 1.5,
         color: '#1677ff',
         border: '1px solid #91caff',
+        position: 'relative',
       }}
+      title={placeholder}
     >
       {children}
     </div>

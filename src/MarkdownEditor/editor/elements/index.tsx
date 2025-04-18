@@ -164,14 +164,14 @@ export const MLeaf = (
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
   if (leaf.code || leaf.tag) {
-    const { text, tag, triggerText } = (props?.leaf || {}) as any;
+    const { text, tag, placeholder, triggerText } = (props?.leaf || {}) as any;
     const { enable } = props.tagInputProps || {};
     if (enable && tag) {
       children = (
         <TagPopup
           {...props}
           {...props.tagInputProps}
-          text={text?.trim() === '$' ? '$placeholder:输入变量' : text}
+          text={text}
           onSelect={(v, path) => {
             if (!markdownEditorRef.current) return;
             Transforms.insertText(
@@ -206,6 +206,7 @@ export const MLeaf = (
               }
             }, 0);
           }}
+          placeholder={placeholder || '请输入'}
         >
           {children}
         </TagPopup>

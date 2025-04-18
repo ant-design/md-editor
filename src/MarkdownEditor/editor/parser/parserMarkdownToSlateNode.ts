@@ -688,12 +688,14 @@ const parserBlock = (
         }
         break;
       case 'inlineCode':
+        const hasPlaceHolder = currentElement.value?.match(
+          /\$\{placeholder:(.*?)\}/,
+        );
+        console.log(hasPlaceHolder);
         el = {
-          text: currentElement.value,
+          text: hasPlaceHolder ? ' ' : currentElement.value,
           tag: currentElement.value?.startsWith('${'),
-          placeHolder: currentElement.value
-            ?.replaceAll('${', '')
-            .replaceAll('}', ''),
+          placeholder: hasPlaceHolder ? hasPlaceHolder[1] : undefined,
           code: true,
         };
         break;

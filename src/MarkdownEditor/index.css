@@ -207,3 +207,22 @@ div.composition
   [data-slate-node='text']::before {
   display: none;
 }
+.tag-popup-input {
+  position: relative;
+}
+.tag-popup-input.empty::before {
+  content: attr(title); /* element attribute*/
+  color: rgba(0, 0, 0, 0.45);
+  user-select: none;
+  position: absolute;
+  left: 8px;
+  top: 0;
+}
+.tag-popup-input:hover::before {
+  color: rgba(0, 0, 0, 0.25);
+}
+.tag-popup-input.empty::after {
+  content: attr(title); /* element attribute*/
+  opacity: 0;
+  user-select: none;
+}
