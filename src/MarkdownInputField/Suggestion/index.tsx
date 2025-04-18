@@ -43,6 +43,7 @@ export const Suggestion: React.FC<{
     value: props?.tagInputProps?.open,
     onChange: props?.tagInputProps?.onOpenChange,
   });
+
   const onSelectRef =
     useRef<(value: string, path?: number[]) => void | undefined>(undefined);
 

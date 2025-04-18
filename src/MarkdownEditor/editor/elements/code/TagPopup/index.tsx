@@ -92,6 +92,25 @@ export const TagPopup = (
         border: '1px solid #91caff',
         position: 'relative',
       }}
+      onClick={(e) => {
+        const path = editor.selection?.anchor.path;
+        if (path) {
+          currentNodePath.current = path;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (!suggestionConnext.open) {
+          suggestionConnext?.setOpen?.(true);
+          if (suggestionConnext?.onSelectRef) {
+            suggestionConnext.onSelectRef.current = (newValue) => {
+              onSelect?.(newValue, path || []);
+              suggestionConnext?.setOpen?.(false);
+            };
+          }
+        } else {
+          suggestionConnext?.setOpen?.(false);
+        }
+      }}
       title={props.text?.replace('$placeholder:', '')}
     >
       {children}
@@ -99,6 +118,34 @@ export const TagPopup = (
   ) : (
     <div
       ref={domRef}
+      onClick={(e) => {
+        const path = editor.selection?.anchor.path;
+        if (path) {
+          currentNodePath.current = path;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (!suggestionConnext.open) {
+          suggestionConnext?.setOpen?.(true);
+          if (suggestionConnext?.onSelectRef) {
+            suggestionConnext.onSelectRef.current = (newValue) => {
+              onSelect?.(newValue, path || []);
+              suggestionConnext?.setOpen?.(false);
+            };
+          }
+          if (suggestionConnext?.triggerNodeContext) {
+            suggestionConnext.triggerNodeContext.current = {
+              ...props,
+              text: props.text,
+            };
+          }
+        } else {
+          suggestionConnext?.setOpen?.(false);
+          if (suggestionConnext?.triggerNodeContext) {
+            suggestionConnext.triggerNodeContext.current = undefined;
+          }
+        }
+      }}
       style={{
         backgroundColor: '#e6f4ff',
         padding: '0 4px',
@@ -114,7 +161,7 @@ export const TagPopup = (
     </div>
   );
 
-  let dom = props.tagRender
+  let renderDom = props.tagRender
     ? props.tagRender(
         {
           ...props,
@@ -126,7 +173,6 @@ export const TagPopup = (
         defaultDom,
       )
     : defaultDom;
-
   if (suggestionConnext?.isRender) {
     if (suggestionConnext?.triggerNodeContext) {
       suggestionConnext.triggerNodeContext.current = {
@@ -134,33 +180,6 @@ export const TagPopup = (
         text: props.text,
       };
     }
-
-    return (
-      <span
-        onClick={(e) => {
-          const path = editor.selection?.anchor.path;
-          if (path) {
-            currentNodePath.current = path;
-          }
-          e.preventDefault();
-          e.stopPropagation();
-          if (!suggestionConnext.open) {
-            suggestionConnext?.setOpen?.(true);
-            if (suggestionConnext?.onSelectRef) {
-              suggestionConnext.onSelectRef.current = (newValue) => {
-                onSelect?.(newValue, path || []);
-                suggestionConnext?.setOpen?.(false);
-              };
-            }
-          } else {
-            suggestionConnext?.setOpen?.(false);
-          }
-        }}
-      >
-        {dom}
-      </span>
-    );
   }
-
-  return dom;
+  return renderDom;
 };
