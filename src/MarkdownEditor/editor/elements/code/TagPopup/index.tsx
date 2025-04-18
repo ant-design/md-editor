@@ -25,6 +25,7 @@ export type TagPopupProps = {
   className?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+
   tagRender?: (
     props: TagPopupProps & {
       text: string;
@@ -33,6 +34,12 @@ export type TagPopupProps = {
     },
     defaultDom: ReactNode,
   ) => React.ReactNode;
+  /**
+   * 输入值改变时触发的回调函数
+   * @param value
+   * @param props
+   * @returns
+   */
   onChange?: (
     value: string,
     props: TagPopupProps & {
