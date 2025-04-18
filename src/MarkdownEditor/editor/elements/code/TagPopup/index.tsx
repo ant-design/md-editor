@@ -29,10 +29,18 @@ export type TagPopupProps = {
     props: TagPopupProps & {
       text: string;
       onSelect?: (value: string, path?: number[]) => void;
+      placeholder?: string;
     },
     defaultDom: ReactNode,
   ) => React.ReactNode;
-  onChange?: (value: string) => void;
+  onChange?: (
+    value: string,
+    props: TagPopupProps & {
+      text: string;
+      onSelect?: (value: string, path?: number[]) => void;
+      placeholder?: string;
+    },
+  ) => void;
 };
 
 /**
@@ -82,7 +90,13 @@ export const TagPopup = (
   }, []);
 
   useEffect(() => {
-    props.onChange?.(props.text || '');
+    props.onChange?.(props.text || '', {
+      ...props,
+      text: props.text,
+      onSelect: (value: string) => {
+        onSelect?.(value, currentNodePath.current || []);
+      },
+    });
   }, [props.text, suggestionConnext.open]);
 
   const placeholder = props.placeholder;
