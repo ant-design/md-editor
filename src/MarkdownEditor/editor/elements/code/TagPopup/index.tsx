@@ -32,7 +32,7 @@ export type TagPopupProps = {
     },
     defaultDom: ReactNode,
   ) => React.ReactNode;
-  placeholder?: string;
+  onChange?: (value: string) => void;
 };
 
 /**
@@ -60,6 +60,7 @@ export type TagPopupProps = {
 export const TagPopup = (
   props: TagPopupProps & {
     text: string;
+    placeholder?: string;
     onSelect?: (value: string, path: number[]) => void;
   },
 ) => {
@@ -79,6 +80,10 @@ export const TagPopup = (
       suggestionConnext?.setOpen?.(true);
     }
   }, []);
+
+  useEffect(() => {
+    props.onChange?.(props.text || '');
+  }, [props.text, suggestionConnext.open]);
 
   const placeholder = props.placeholder;
 
