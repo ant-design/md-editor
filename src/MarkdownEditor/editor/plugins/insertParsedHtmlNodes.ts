@@ -382,7 +382,10 @@ export const insertParsedHtmlNodes = async (
       }
     }
   }
-  if (inner && !['code', 'table-cell'].includes(node?.[0].type)) return false;
+
+  // 如果当前选中的是代码块或者表格单元格，则不进行插入
+  if (inner && ['code', 'table-cell'].includes(node?.[0].type)) return true;
+
   EditorUtils.replaceSelectedNode(
     editor,
     fragmentList?.map((item) => {

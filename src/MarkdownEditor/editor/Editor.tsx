@@ -401,7 +401,6 @@ export const SlateMarkdownEditor = observer(
 
       if (types.includes('text/plain')) {
         const text = event.clipboardData.getData('text/plain');
-        console.log('text', text);
         if (!text) return;
         const selection = markdownEditorRef.current.selection;
 
@@ -512,13 +511,13 @@ export const SlateMarkdownEditor = observer(
           }
         } catch (e) {
           console.log('insert error', e);
+          return;
         }
 
         if (isMarkdown(text)) {
           parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);
           return;
         }
-        console.log('text', text);
         Transforms.insertText(markdownEditorRef.current, text, {
           at: selection!,
         });
