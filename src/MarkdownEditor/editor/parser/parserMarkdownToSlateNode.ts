@@ -897,11 +897,7 @@ const parserBlock = (
 
     el = null;
   }
-  return els.sort((a, b) => {
-    if ((a as any).type === 'footnoteDefinition') return 1;
-    if ((b as any).type === 'footnoteDefinition') return -1;
-    return 0;
-  });
+  return els;
 };
 
 // Markdown 转 Slate
@@ -932,24 +928,7 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  let markdown = md;
-  try {
-    markdown =
-      md
-        .replaceAll(/([\u4e00-\u9fa5]+)([a-zA-Z])/g, '$1 $2')
-        .replaceAll(/([a-zA-Z])([\u4e00-\u9fa5]+)/g, '$1 $2')
-        .replaceAll('）', ' )')
-        .replaceAll('】', ' 】')
-        .replaceAll('，', ' ，')
-        .replaceAll('。', ' 。')
-        .replaceAll('？', ' ？')
-        ?.replace(/ +\[/g, ' [')
-        ?.replace(/ +\\n/g, ' \n')
-        .replaceAll('！', ' ！') || '';
-  } catch (error) {}
-
-  const markdownRoot = parser.parse(markdown);
-
+  const markdownRoot = parser.parse(md);
   const root =
     (plugins || [])?.length > 0
       ? parseWithPlugins(markdownRoot, plugins || [])
