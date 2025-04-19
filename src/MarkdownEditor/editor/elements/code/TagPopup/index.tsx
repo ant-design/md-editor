@@ -93,6 +93,18 @@ export const TagPopup = (
     if (path) {
       currentNodePath.current = path;
       suggestionConnext?.setOpen?.(true);
+      if (suggestionConnext?.triggerNodeContext) {
+        suggestionConnext.triggerNodeContext.current = {
+          ...props,
+          text: props.text,
+        };
+      }
+      if (suggestionConnext?.onSelectRef) {
+        suggestionConnext.onSelectRef.current = (newValue) => {
+          onSelect?.(newValue, path || []);
+          suggestionConnext?.setOpen?.(false);
+        };
+      }
     }
   }, []);
 
