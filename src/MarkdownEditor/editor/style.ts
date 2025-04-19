@@ -299,17 +299,20 @@ export function useStyle(
   prefixCls: string,
   propsToken: Partial<ChatTokenType>,
 ) {
-  return useEditorStyleRegister('editor-content', (token) => {
-    const editorToken = {
-      ...token,
-      ...propsToken,
-      componentCls: `.${prefixCls}`,
-    };
+  return useEditorStyleRegister(
+    'editor-content' + propsToken.placeholderContent,
+    (token) => {
+      const editorToken = {
+        ...token,
+        ...propsToken,
+        componentCls: `.${prefixCls}`,
+      };
 
-    return [
-      genStyle(editorToken),
-      resetComponent(editorToken),
-      genSlideStyle(editorToken),
-    ];
-  });
+      return [
+        genStyle(editorToken),
+        resetComponent(editorToken),
+        genSlideStyle(editorToken),
+      ];
+    },
+  );
 }
