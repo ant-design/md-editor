@@ -252,7 +252,6 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
       ),
     };
   }) as TableRowNode[];
-
   const otherProps = {
     ...(isChart
       ? {

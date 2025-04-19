@@ -490,7 +490,8 @@ export class EditorStore {
     return (
       a.type === b.type &&
       a.text === b.text &&
-      JSON.stringify(a.properties) === JSON.stringify(b.properties)
+      JSON.stringify(a.properties) === JSON.stringify(b.properties) &&
+      JSON.stringify(a.otherProps) === JSON.stringify(b.otherProps)
     );
   };
 
@@ -518,67 +519,68 @@ export class EditorStore {
    * 它会移除多余的节点。
    */
   updateNodeList = throttle((nodeList: Node[]) => {
-    const childrenList = this._editor.current.children;
-    const updateMap = new Map<number, Node>();
-    nodeList
-      .filter((item: any) => {
-        if (item.type === 'p' && item.children.length === 0) {
-          return false;
-        }
-        if (item.type === 'list' && item.children.length === 0) {
-          return false;
-        }
-        if (item.type === 'listItem' && item.children.length === 0) {
-          return false;
-        }
-        return true;
-      })
-      .forEach((node: Node, index) => {
-        if (node?.type !== childrenList?.at(index)?.type) {
-          updateMap.set(index, node);
-          return;
-        }
-        if (
-          node?.children?.length !== childrenList?.at?.(index)?.children?.length
-        ) {
-          updateMap.set(index, node);
-          return;
-        }
+    Editor.withoutNormalizing(this.editor, () => {
+      const childrenList = this._editor.current.children;
+      const updateMap = new Map<number, Node>();
+      nodeList
+        .filter((item: any) => {
+          if (item.type === 'p' && item.children.length === 0) {
+            return false;
+          }
+          if (item.type === 'list' && item.children.length === 0) {
+            return false;
+          }
+          if (item.type === 'listItem' && item.children.length === 0) {
+            return false;
+          }
+          return true;
+        })
+        .forEach((node: Node, index) => {
+          if (node?.type !== childrenList?.at(index)?.type) {
+            updateMap.set(index, node);
+            return;
+          }
+          if (
+            node?.children?.length !==
+            childrenList?.at?.(index)?.children?.length
+          ) {
+            updateMap.set(index, node);
+            return;
+          }
 
-        if (
-          Object.keys(node).length !==
-          Object.keys(childrenList?.at(index)).length
-        ) {
-          updateMap.set(index, node);
+          if (
+            Object.keys(node).length !==
+            Object.keys(childrenList?.at(index)).length
+          ) {
+            updateMap.set(index, node);
+            return;
+          }
+          if (!isEqual(node, childrenList?.at?.(index) as any)) {
+            updateMap.set(index, node);
+            return;
+          }
           return;
-        }
-        if (!isEqual(node, childrenList?.at?.(index) as any)) {
-          updateMap.set(index, node);
-          return;
-        }
-        return;
-      });
+        });
 
-    try {
-      updateMap.forEach((node, key) => {
-        Editor.withoutNormalizing(this.editor, () => {
+      try {
+        updateMap.forEach((node, key) => {
           this.diffNode(node, childrenList[key], [key]);
         });
-      });
-    } catch (error) {
-      this._editor.current.children = nodeList;
-    }
+      } catch (error) {
+        this._editor.current.children = nodeList;
+      }
 
-    const maxSize = childrenList.length - nodeList.length;
-    if (maxSize > 0) {
-      childrenList.forEach((node, index) => {
-        if (nodeList.at(index)) return;
-        if (this._editor.current.hasPath([index])) {
-          Transforms.removeNodes(this._editor.current, { at: [index] });
-        }
-      });
-    }
-  }, 160);
+      const maxSize = childrenList.length - nodeList.length;
+      if (maxSize > 0) {
+        childrenList.forEach((node, index) => {
+          if (nodeList.at(index)) return;
+          if (this._editor.current.hasPath([index])) {
+            Transforms.removeNodes(this._editor.current, { at: [index] });
+          }
+        });
+      }
+    });
+  }, 160) as (nodeList: Node[]) => void;
 
   /**
    * 处理拖拽开始事件。
