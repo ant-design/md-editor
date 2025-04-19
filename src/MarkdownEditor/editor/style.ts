@@ -34,10 +34,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             position: 'absolute',
           },
         },
-        '>[data-be="paragraph"] [data-slate-node="text"]': {
-          display: 'inline-block',
-          minWidth: 2,
-        },
       },
 
       '&> *:first-child': {
