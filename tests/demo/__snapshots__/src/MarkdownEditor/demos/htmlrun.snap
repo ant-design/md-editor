@@ -42,7 +42,7 @@
                 <span
                   data-slate-string="true"
                 >
-                  以下是使用 HTML、CSS 和 JavaScript 实现的七色旋转背景 ，并带有速度控制滑块的代码：
+                  以下是使用HTML、CSS和JavaScript实现的七色旋转背景，并带有速度控制滑块的代码：
                 </span>
               </span>
             </span>
@@ -371,7 +371,7 @@
                       <span
                         data-slate-string="true"
                       >
-                        通过 CSS 动画实现旋转效果
+                        通过CSS动画实现旋转效果
                       </span>
                     </span>
                   </span>
@@ -399,7 +399,7 @@
                       <span
                         data-slate-string="true"
                       >
-                        速度控制滑块范围从0.1x 到2x
+                        速度控制滑块范围从0.1x到2x
                       </span>
                     </span>
                   </span>
@@ -427,7 +427,7 @@
                       <span
                         data-slate-string="true"
                       >
-                        动态更新动画速度（数值越小越慢 ，越大越快 )
+                        动态更新动画速度（数值越小越慢，越大越快）
                       </span>
                     </span>
                   </span>
@@ -599,7 +599,7 @@
                       <span
                         data-slate-string="true"
                       >
-                        滑块值范围：0.1（最慢 )到 2（最快 )
+                        滑块值范围：0.1（最慢）到 2（最快）
                       </span>
                     </span>
                   </span>
@@ -675,7 +675,7 @@
                 <span
                   data-slate-string="true"
                 >
-                  可以通过修改以下 CSS 代码中的颜色值来改变颜色组合：
+                  可以通过修改以下CSS代码中的颜色值来改变颜色组合：
                 </span>
               </span>
             </span>

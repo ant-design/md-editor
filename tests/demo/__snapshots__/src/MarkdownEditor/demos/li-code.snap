@@ -111,7 +111,7 @@
                 <span
                   data-slate-string="true"
                 >
-                   )有以下常用方法：
+                  ）有以下常用方法：
                 </span>
               </span>
             </span>
@@ -494,7 +494,7 @@ for num in arr:
                       <span
                         data-slate-string="true"
                       >
-                         。
+                        。
                       </span>
                     </span>
                   </span>
@@ -792,7 +792,7 @@ for num in arr:
                       <span
                         data-slate-string="true"
                       >
-                         。
+                        。
                       </span>
                     </span>
                   </span>
@@ -889,7 +889,7 @@ for num in arr:
                       <span
                         data-slate-string="true"
                       >
-                        enumerate )
+                        enumerate）
                       </span>
                       <span
                         contenteditable="false"
@@ -1087,7 +1087,7 @@ for num in arr:
                       <span
                         data-slate-string="true"
                       >
-                         。
+                        。
                       </span>
                     </span>
                   </span>
@@ -1488,7 +1488,7 @@ while i &lt; len(arr):
                       <span
                         data-slate-string="true"
                       >
-                         。
+                        。
                       </span>
                     </span>
                   </span>
@@ -1761,7 +1761,7 @@ while i &lt; len(arr):
                       <span
                         data-slate-string="true"
                       >
-                         。
+                        。
                       </span>
                     </span>
                   </span>
@@ -1881,7 +1881,7 @@ while i &lt; len(arr):
                       <span
                         data-slate-string="true"
                       >
-                        （不常用 )
+                        （不常用）
                       </span>
                     </span>
                   </span>
@@ -2035,6 +2035,70 @@ while i &lt; len(arr):
             </span>
           </div>
         </div>
+        <div>
+          <div
+            class=""
+          >
+            <div
+              class="ant-anchor-wrapper"
+              style="max-height: calc(100vh - 64px); min-width: 200px;"
+            >
+              <div
+                class="ant-anchor"
+              >
+                <span
+                  class="ant-anchor-ink ant-anchor-ink-visible"
+                  style="top: 0px; height: 0px;"
+                />
+                <div
+                  class="ant-anchor-link ant-anchor-link-active"
+                >
+                  <a
+                    class="ant-anchor-link-title ant-anchor-link-title-active"
+                    href="#一、基础遍历方法"
+                    title=""
+                  >
+                    <span
+                      style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                    >
+                      一、基础遍历方法
+                    </span>
+                  </a>
+                </div>
+                <div
+                  class="ant-anchor-link"
+                >
+                  <a
+                    class="ant-anchor-link-title"
+                    href="#二、其他遍历方式"
+                    title=""
+                  >
+                    <span
+                      style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                    >
+                      二、其他遍历方式
+                    </span>
+                  </a>
+                </div>
+                <div
+                  class="ant-anchor-link"
+                >
+                  <a
+                    class="ant-anchor-link-title"
+                    href="#三、特殊场景方法"
+                    title=""
+                  >
+                    <span
+                      style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                    >
+                      三、特殊场景方法
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -2080,10 +2144,10 @@ while i &lt; len(arr):
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
-            data-head="一、基础-for-循环（推荐"
+            data-head="一、基础-for-循环（推荐）"
             data-slate-node="element"
             data-title="false"
-            id="一、基础-for-循环（推荐"
+            id="一、基础-for-循环（推荐）"
           >
             <span
               data-slate-node="text"
@@ -2097,7 +2161,7 @@ while i &lt; len(arr):
                 <span
                   data-slate-string="true"
                 >
-                  一、基础 for 循环（推荐 )
+                  一、基础 for 循环（推荐）
                 </span>
               </span>
             </span>
@@ -2264,7 +2328,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                  这是最简洁直观的方式 ，适用于不需要索引的场景 
+                  这是最简洁直观的方式，适用于不需要索引的场景                               
                 </span>
               </span>
               <span
@@ -2288,7 +2352,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -2312,7 +2376,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -2336,7 +2400,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -2360,7 +2424,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                   。
+                  。
                 </span>
               </span>
             </span>
@@ -2626,7 +2690,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                  适合需要同时访问索引和元素的场景 
+                  适合需要同时访问索引和元素的场景                               
                 </span>
               </span>
               <span
@@ -2650,7 +2714,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -2674,7 +2738,7 @@ for fruit in fruits:
                 <span
                   data-slate-string="true"
                 >
-                   。
+                  。
                 </span>
               </span>
             </span>
@@ -2894,7 +2958,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                  适用于需要动态控制循环条件的场景（如遍历时修改列表 ) 
+                  适用于需要动态控制循环条件的场景（如遍历时修改列表）                               
                 </span>
               </span>
               <span
@@ -2918,7 +2982,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -2942,7 +3006,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -2966,7 +3030,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   。
+                  。
                 </span>
               </span>
             </span>
@@ -3183,7 +3247,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                  适用于需要将遍历结果转换为新列表的场景 
+                  适用于需要将遍历结果转换为新列表的场景                               
                 </span>
               </span>
               <span
@@ -3207,7 +3271,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -3231,7 +3295,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   。
+                  。
                 </span>
               </span>
             </span>
@@ -3449,7 +3513,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                  效果类似 while 循环 ，但更简洁 
+                  效果类似 while 循环，但更简洁                               
                 </span>
               </span>
               <span
@@ -3473,7 +3537,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   
+                                                 
                 </span>
               </span>
               <span
@@ -3497,7 +3561,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                   。
+                  。
                 </span>
               </span>
             </span>
@@ -3655,7 +3719,7 @@ while i &lt; len(fruits):
                       <span
                         data-slate-string="true"
                       >
-                         循环动态控制索引 
+                         循环动态控制索引                               
                       </span>
                     </span>
                     <span
@@ -3843,7 +3907,7 @@ while i &lt; len(fruits):
                 <span
                   data-slate-string="true"
                 >
-                  每种方法都有特定适用场景 ，根据是否需要索引、是否修改列表等需求选择最佳方案 。
+                  每种方法都有特定适用场景，根据是否需要索引、是否修改列表等需求选择最佳方案。
                 </span>
               </span>
             </span>
@@ -3869,13 +3933,13 @@ while i &lt; len(fruits):
                 >
                   <a
                     class="ant-anchor-link-title"
-                    href="#一、基础 for 循环（推荐 )"
+                    href="#一、基础 for 循环（推荐）"
                     title=""
                   >
                     <span
                       style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                     >
-                      一、基础 for 循环（推荐 )
+                      一、基础 for 循环（推荐）
                     </span>
                   </a>
                 </div>
