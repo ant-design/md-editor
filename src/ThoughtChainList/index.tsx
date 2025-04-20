@@ -472,7 +472,10 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                             key={(item.runId || '') + '' + index}
                             thoughtChainListItem={item}
                             hashId={hashId}
-                            isFinished={item.isFinished}
+                            isFinished={
+                              item.isFinished ||
+                              (!props.loading && !!props?.chatItem?.endTime)
+                            }
                             setDocMeta={setDocMeta}
                             prefixCls={prefixCls}
                           />
