@@ -584,7 +584,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   if (col === -1) {
                     return;
                   }
-                  if (TH.querySelector('input')) return;
+                  if (TH.querySelector('textarea')) return;
                   let instance = hotRef.current?.hotInstance;
                   if (!instance) return;
                   // create input element
@@ -598,21 +598,39 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                     let headers = instance?.getColHeader() as string[];
                     headers[col] = input.value + '';
                     updateTable(
-                      [[0, col, TH.firstChild?.textContent + '', input.value]],
+                      [
+                        [
+                          0,
+                          col,
+                          TH.firstChild?.textContent + '',
+                          input.value || ' ',
+                        ],
+                      ],
                       'edit',
                     );
                     (TH.firstChild as any).style.display = 'block';
                     input.style.display = 'none';
+                    hotRef.current?.hotInstance?.refreshDimensions();
+                    hotRef.current?.hotInstance?.render();
                   };
                   input.onblur = function () {
                     let headers = instance?.getColHeader() as string[];
                     headers[col] = input.value + '';
                     updateTable(
-                      [[0, col, TH.firstChild?.textContent + '', input.value]],
+                      [
+                        [
+                          0,
+                          col,
+                          TH.firstChild?.textContent + '',
+                          input.value || ' ',
+                        ],
+                      ],
                       'edit',
                     );
                     (TH.firstChild as any).style.display = 'block';
                     input.style.display = 'none';
+                    hotRef.current?.hotInstance?.refreshDimensions();
+                    hotRef.current?.hotInstance?.render();
                   };
 
                   TH.style.position = 'relative';

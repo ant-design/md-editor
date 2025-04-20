@@ -226,3 +226,15 @@ div.composition
   opacity: 0;
   user-select: none;
 }
+
+.handsontable thead tr th .relative .colHeader {
+  white-space: pre;
+}
+.ht_clone_top th {
+  white-space: normal;
+  height: auto !important;
+}
+
+.handsontable.ht-wrapper .ht_master .htCore thead tr:last-child th:first-child {
+  height: auto !important;
+}
