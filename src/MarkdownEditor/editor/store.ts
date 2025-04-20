@@ -491,7 +491,8 @@ export class EditorStore {
       a.type === b.type &&
       a.text === b.text &&
       JSON.stringify(a.properties) === JSON.stringify(b.properties) &&
-      JSON.stringify(a.otherProps) === JSON.stringify(b.otherProps)
+      JSON.stringify(a.otherProps) === JSON.stringify(b.otherProps) &&
+      a.value === b.value
     );
   };
 
