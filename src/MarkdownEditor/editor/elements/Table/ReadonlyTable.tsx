@@ -145,6 +145,17 @@ export const ReadonlyTable = observer(
                         );
                       }
                       if (actions.copy === 'csv') {
+                        console.log(
+                          props.element?.otherProps?.columns
+                            .map((col: Record<string, any>) => col.title)
+                            .join(',') +
+                            '\n' +
+                            props.element?.otherProps?.dataSource
+                              .map((row: Record<string, any>) =>
+                                Object.values(row).join(','),
+                              )
+                              .join('\n'),
+                        );
                         new ClipboardItem({
                           'text/plain': new Blob(
                             [

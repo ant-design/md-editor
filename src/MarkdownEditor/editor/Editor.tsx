@@ -253,7 +253,6 @@ export const SlateMarkdownEditor = observer(
     const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
       event.stopPropagation();
       event.preventDefault();
-      console.log('onPaste', event);
       const currentTextSelection = markdownEditorRef.current.selection;
       if (
         currentTextSelection &&

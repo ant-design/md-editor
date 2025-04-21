@@ -16,14 +16,18 @@ export const parseMarkdownToNodesAndInsert = (
   if (nodes.length === 0) {
     nodes.push({ type: 'paragraph', children: [{ text: '' }] });
   }
+  console.log('nodes', JSON.stringify(nodes, null, 2));
 
   const fragment = nodes;
   const sel = editor.selection;
   if (sel && Editor.hasPath(editor, sel.anchor.path)) {
-    Transforms.removeNodes(editor, { at: sel });
     if (editor.children.length < 1) {
       Transforms.insertNodes(editor, fragment);
       return;
+    }
+    const selectString = Editor.string(editor, sel);
+    if (selectString) {
+      Transforms.removeNodes(editor, { at: sel });
     }
     Transforms.insertNodes(editor, fragment, { at: sel });
     return true;

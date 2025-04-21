@@ -105,10 +105,16 @@ const MARKDOWN_REGEX = new RegExp(
     '(\\*.*?\\*|_.*?_)|' + // 斜体（如 *italic* 或 _italic_）
     '(~~.*?~~)|' + // 删除线（如 ~~text~~）
     '(^===+$|^---+$|^\\*\\*\\*+$)', // 水平线（如 --- 或 ***）
+
   'gm', // 全局匹配 + 多行模式
 );
 
 export function isMarkdown(text: string): boolean {
+  const mdTableRegex =
+    /^\s*\|(.+)\|\s*\n\s*\|(?:\s*:?-+:?\s*\|)+\s*\n(?:\s*\|(.+)\|\s*(?:\n|$))+/;
+  if (mdTableRegex.test(text.trim())) {
+    return true;
+  }
   return MARKDOWN_REGEX.test(text);
 }
 export function debounce(
