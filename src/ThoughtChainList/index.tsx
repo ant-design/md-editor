@@ -160,6 +160,7 @@ export interface ThoughtChainListProps {
     isFinished?: boolean;
     endTime?: number;
     createAt: number;
+    isAborted?: boolean;
   };
   style?: React.CSSProperties;
   compact?: boolean;
@@ -223,6 +224,55 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   }, [props?.chatItem?.isFinished]);
 
   const i18n = useContext(I18nContext);
+
+  const endStatusDisplay = useMemo(() => {
+    if (!props.loading && props?.chatItem?.isFinished) {
+      return (
+        <FlipText
+          word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${(
+            ((props.chatItem?.endTime || 0) - (props.chatItem?.createAt || 0)) /
+            1000
+          ).toFixed(2)}s`}
+        />
+      );
+    }
+    if (!props.loading && props?.chatItem?.isAborted) {
+      return (
+        <FlipText
+          word={`${i18n.locale?.taskAborted || '任务已取消'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${(
+            ((props.chatItem?.endTime || 0) - (props.chatItem?.createAt || 0)) /
+            1000
+          ).toFixed(2)}s`}
+        />
+      );
+    }
+    return (
+      <div>
+        {props.thoughtChainList.at(-1) && collapse ? (
+          compileTemplate(i18n.locale?.inProgressTask, {
+            taskName:
+              i18n.locale?.[
+                props.thoughtChainList.at(-1)?.category || 'other'
+              ] ||
+              CategoryTextMap[
+                props.thoughtChainList.at(-1)?.category || 'other'
+              ],
+          })
+        ) : (
+          <div>
+            {props.locale?.thinking || '思考中'}
+            <DotLoading />
+          </div>
+        )}
+      </div>
+    );
+  }, [
+    props.loading,
+    props.thoughtChainList?.at?.(-1)?.category,
+    props.chatItem?.isFinished,
+    props.chatItem?.isAborted,
+    collapse,
+  ]);
 
   return wrapSSR(
     <>
@@ -306,36 +356,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                     }}
                   >
                     {props?.chatItem ? (
-                      !props.loading && props?.chatItem?.endTime ? (
-                        <FlipText
-                          word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${(
-                            ((props.chatItem?.endTime || 0) -
-                              (props.chatItem?.createAt || 0)) /
-                            1000
-                          ).toFixed(2)}s`}
-                        />
-                      ) : (
-                        <div>
-                          {props.thoughtChainList.at(-1) && collapse ? (
-                            compileTemplate(i18n.locale?.inProgressTask, {
-                              taskName:
-                                i18n.locale?.[
-                                  props.thoughtChainList.at(-1)?.category ||
-                                    'other'
-                                ] ||
-                                CategoryTextMap[
-                                  props.thoughtChainList.at(-1)?.category ||
-                                    'other'
-                                ],
-                            })
-                          ) : (
-                            <div>
-                              {props.locale?.thinking || '思考中'}
-                              <DotLoading />
-                            </div>
-                          )}
-                        </div>
-                      )
+                      endStatusDisplay
                     ) : (
                       <div>
                         {props.locale?.taskFinished ||
@@ -492,6 +513,10 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
         collapse,
         props?.style,
         props?.chatItem?.isFinished,
+        props?.chatItem?.endTime,
+        props?.chatItem?.createAt,
+        props?.chatItem?.isAborted,
+        props?.loading,
         JSON.stringify(props.thoughtChainList),
       ])}
     </>,
