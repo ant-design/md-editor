@@ -27,7 +27,20 @@ export type TagPopupProps = {
   className?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-
+  /**
+   * 在弹出框打开之前的回调函数
+   * 可以用于控制弹出框是否打开
+   * @param open
+   * @param props
+   * @returns
+   */
+  beforeOpenChange?: (
+    open: boolean,
+    props: TagPopupProps & {
+      text: string;
+      placeholder?: string;
+    },
+  ) => boolean;
   tagRender?: (
     props: TagPopupProps & {
       text: string;
@@ -131,7 +144,19 @@ export const TagPopup = (
 
   const placeholder = props.placeholder;
 
-  const defaultDom = (
+  let renderDom = props.tagRender
+    ? props.tagRender(
+        {
+          ...props,
+          text: props.text,
+          onSelect: (value: string) => {
+            onSelect?.(value, currentNodePath.current || []);
+          },
+        },
+        children,
+      )
+    : children;
+  return (
     <div
       ref={domRef}
       className={classNames('tag-popup-input', {
@@ -141,6 +166,16 @@ export const TagPopup = (
         const path = editor.selection?.anchor.path;
         if (path) {
           currentNodePath.current = path;
+        }
+        if (props.beforeOpenChange) {
+          const canOpen = props.beforeOpenChange(true, {
+            ...props,
+            text: props.text,
+            placeholder,
+          });
+          if (!canOpen) {
+            return;
+          }
         }
         e.preventDefault();
         e.stopPropagation();
@@ -179,21 +214,7 @@ export const TagPopup = (
       }}
       title={placeholder}
     >
-      {children}
+      {renderDom}
     </div>
   );
-
-  let renderDom = props.tagRender
-    ? props.tagRender(
-        {
-          ...props,
-          text: props.text,
-          onSelect: (value: string) => {
-            onSelect?.(value, currentNodePath.current || []);
-          },
-        },
-        defaultDom,
-      )
-    : defaultDom;
-  return renderDom;
 };
