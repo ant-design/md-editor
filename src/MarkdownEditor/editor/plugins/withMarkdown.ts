@@ -218,7 +218,8 @@ export const withMarkdown = (editor: Editor) => {
         Editor.previous(editor, { at: selectPath }) || [];
 
       //@ts-ignore
-      if (preNode?.tag && node?.text === '') {
+      if (preNode?.tag && node?.text === ' ') {
+        console.log(node, preNode, prePath);
         Transforms.removeNodes(editor, {
           at: prePath,
         });

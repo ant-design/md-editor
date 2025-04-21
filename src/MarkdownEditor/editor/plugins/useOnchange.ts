@@ -51,53 +51,54 @@ export function useOnchange(
         onChangeDebounce.cancel();
         onChangeDebounce?.run(parserSlateNodeToMarkdown(_value), _value);
       }
-
       const sel = editor.selection;
-      const [node] = Editor.nodes<Element>(editor, {
-        match: (n) => Element.isElement(n),
-        mode: 'lowest',
-      });
-      setTimeout(() => {
-        selChange$.next({
-          sel,
-          node,
+
+      try {
+        const [node] = Editor.nodes<Element>(editor, {
+          match: (n) => Element.isElement(n),
+          mode: 'lowest',
         });
-      });
-
-      runInAction(() => (store.sel = sel));
-      if (!node) return;
-      setTimeout(() => {
-        selChange$.next({
-          sel,
-          node,
+        setTimeout(() => {
+          selChange$.next({
+            sel,
+            node,
+          });
         });
-      });
 
-      if (
-        _operations.some((o) => o.type === 'set_selection') &&
-        sel &&
-        !floatBarIgnoreNode.has(node[0].type) &&
-        !Range.isCollapsed(sel) &&
-        Path.equals(Path.parent(sel.focus.path), Path.parent(sel.anchor.path))
-      ) {
-        const domSelection = window.getSelection();
-        const domRange = domSelection?.getRangeAt(0);
+        runInAction(() => (store.sel = sel));
+        if (!node) return;
+        setTimeout(() => {
+          selChange$.next({
+            sel,
+            node,
+          });
+        });
+        if (
+          _operations.some((o) => o.type === 'set_selection') &&
+          sel &&
+          !floatBarIgnoreNode.has(node[0].type) &&
+          !Range.isCollapsed(sel) &&
+          Path.equals(Path.parent(sel.focus.path), Path.parent(sel.anchor.path))
+        ) {
+          const domSelection = window.getSelection();
+          const domRange = domSelection?.getRangeAt(0);
 
-        if (!domRange?.toString()?.trim()) return;
-        if (rangeContent.current === domRange?.toString()) {
-          return store.setState(
-            (state) => (state.refreshFloatBar = !state.refreshFloatBar),
-          );
+          if (!domRange?.toString()?.trim()) return;
+          if (rangeContent.current === domRange?.toString()) {
+            return store.setState(
+              (state) => (state.refreshFloatBar = !state.refreshFloatBar),
+            );
+          }
+          rangeContent.current = domRange?.toString() || '';
+          const rect = domRange?.getBoundingClientRect();
+          if (rect) {
+            store.setState((state) => (state.domRect = rect));
+          }
+        } else if (store.domRect) {
+          rangeContent.current = '';
+          store.setState((state) => (state.domRect = null));
         }
-        rangeContent.current = domRange?.toString() || '';
-        const rect = domRange?.getBoundingClientRect();
-        if (rect) {
-          store.setState((state) => (state.domRect = rect));
-        }
-      } else if (store.domRect) {
-        rangeContent.current = '';
-        store.setState((state) => (state.domRect = null));
-      }
+      } catch (error) {}
     };
   }, [editor]);
 }

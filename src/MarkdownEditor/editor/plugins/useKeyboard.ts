@@ -112,38 +112,36 @@ export const useKeyboard = (
         });
         if (!node) return;
         if (node[0].type === 'paragraph') {
-          setTimeout(() => {
-            const [node] = Editor.nodes<any>(markdownEditorRef.current, {
-              match: (n) => Element.isElement(n) && n.type === 'paragraph',
-              mode: 'lowest',
-            });
-            if (
-              node &&
-              node[0].children.length === 1 &&
-              !EditorUtils.isDirtLeaf(node[0].children[0]) &&
-              (e.key === 'Backspace' || /^[^\n]$/.test(e.key))
-            ) {
-              let str = Node.string(node[0]) || '';
-              const codeMatch = str.match(/^```([\w+\-#]+)$/i);
-              if (codeMatch) {
-              } else {
-                const insertMatch = str.match(/^\/([^\n]+)?$/i);
-                if (
-                  insertMatch &&
-                  !(
-                    !Path.hasPrevious(node[1]) &&
-                    Node.parent(markdownEditorRef.current, node[1]).type ===
-                      'list-item'
-                  )
-                ) {
-                  runInAction(() => (store.openInsertCompletion = true));
-                  setTimeout(() => {
-                    store.insertCompletionText$.next(insertMatch[1]);
-                  });
-                }
+          const [node] = Editor.nodes<any>(markdownEditorRef.current, {
+            match: (n) => Element.isElement(n) && n.type === 'paragraph',
+            mode: 'lowest',
+          });
+          if (
+            node &&
+            node[0].children.length === 1 &&
+            !EditorUtils.isDirtLeaf(node[0].children[0]) &&
+            (e.key === 'Backspace' || /^[^\n]$/.test(e.key))
+          ) {
+            let str = Node.string(node[0]) || '';
+            const codeMatch = str.match(/^```([\w+\-#]+)$/i);
+            if (codeMatch) {
+            } else {
+              const insertMatch = str.match(/^\/([^\n]+)?$/i);
+              if (
+                insertMatch &&
+                !(
+                  !Path.hasPrevious(node[1]) &&
+                  Node.parent(markdownEditorRef.current, node[1]).type ===
+                    'list-item'
+                )
+              ) {
+                runInAction(() => (store.openInsertCompletion = true));
+                setTimeout(() => {
+                  store.insertCompletionText$.next(insertMatch[1]);
+                });
               }
             }
-          });
+          }
         }
       }
     };
