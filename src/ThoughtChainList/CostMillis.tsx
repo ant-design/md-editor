@@ -54,6 +54,7 @@ export const CostMillis = (props: { costMillis?: number }) => {
             gap: '6px',
             borderRadius: '12px',
             height: '2em',
+            minHeight: '28px',
             fontSize: '0.9em',
             wordBreak: 'break-all',
             wordWrap: 'break-word',
