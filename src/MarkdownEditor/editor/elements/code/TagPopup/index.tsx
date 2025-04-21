@@ -141,6 +141,7 @@ export const TagPopup = (
   }, []);
 
   useEffect(() => {
+    // 默认选中一下
     props.onChange?.(props.text || '', {
       ...props,
       text: props.text,
@@ -164,6 +165,7 @@ export const TagPopup = (
         children,
       )
     : children;
+
   return (
     <div
       ref={domRef}

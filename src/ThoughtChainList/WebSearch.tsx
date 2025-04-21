@@ -91,6 +91,7 @@ export const WebSearch = (
               >
                 <MarkdownEditorUpdate
                   {...props.markdownRenderProps}
+                  isFinished={props.isFinished}
                   typewriter={
                     !props.output?.response?.error &&
                     !props.isFinished &&

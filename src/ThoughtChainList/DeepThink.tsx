@@ -96,6 +96,7 @@ export const DeepThink = (
                     !props.isFinished &&
                     props.output?.type === 'TOKEN'
                   }
+                  isFinished={props.isFinished}
                   initValue={props.output?.data
                     ?.replaceAll('<font color=#898989>[', '')
                     ?.replaceAll(']</font>', '\n')
