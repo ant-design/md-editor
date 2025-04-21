@@ -42,6 +42,7 @@ export const MarkdownEditorUpdate = (
         width: '100%',
       }}
       {...props}
+      typewriter={props.typewriter && !props.isFinished}
       initValue=""
     />
   );
