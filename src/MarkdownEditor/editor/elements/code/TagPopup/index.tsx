@@ -1,3 +1,4 @@
+import { runFunction } from '@ant-design/pro-components';
 import { MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
@@ -56,7 +57,14 @@ export type TagPopupProps = {
     },
     text: string,
   ) => string;
-  tagTextStyle?: React.CSSProperties;
+  tagTextStyle?:
+    | ((
+        props: TagPopupProps & {
+          text: string;
+          placeholder?: string;
+        },
+      ) => React.CSSProperties)
+    | React.CSSProperties;
   tagTextClassName?: string;
   /**
    * 输入值改变时触发的回调函数
@@ -210,7 +218,11 @@ export const TagPopup = (
         color: '#1677ff',
         border: '1px solid #91caff',
         position: 'relative',
-        ...props.tagTextStyle,
+        ...runFunction(props.tagTextStyle, {
+          ...props,
+          text: props.text,
+          placeholder,
+        }),
       }}
       title={placeholder}
     >
