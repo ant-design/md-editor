@@ -343,6 +343,7 @@ export class EditorStore {
     if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
     const nodeList = parserMdToSchema(md).schema;
     this.setContent(nodeList);
+    this._editor.current.children = nodeList;
     ReactEditor.deselect(this._editor.current);
   }
 

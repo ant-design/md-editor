@@ -209,17 +209,20 @@ div.composition
 }
 .tag-popup-input {
   position: relative;
+  margin: 0 4px;
+  cursor: pointer;
 }
 .tag-popup-input.empty::before {
   content: attr(title); /* element attribute*/
-  color: rgba(0, 0, 0, 0.45);
+  color: inherit;
+  opacity: 0.5;
   user-select: none;
   position: absolute;
-  left: 8px;
+  left: 4px;
   top: 0;
 }
 .tag-popup-input:hover::before {
-  color: rgba(0, 0, 0, 0.25);
+  opacity: 0.6;
 }
 .tag-popup-input.empty::after {
   content: attr(title); /* element attribute*/
