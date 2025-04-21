@@ -93,6 +93,10 @@ export default () => {
             console.log('dropdownRender', props.placeholder);
             return d;
           },
+          tagTextRender: (props, text) => {
+            console.log('tagTextRender', text);
+            return text.replaceAll('$', '');
+          },
           enable: true,
           items: ['tag1', 'tag2', 'tag3'].map((item) => ({
             key: item,
