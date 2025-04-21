@@ -296,7 +296,7 @@ export function useStyle(
   propsToken: Partial<ChatTokenType>,
 ) {
   return useEditorStyleRegister(
-    'editor-content' + propsToken.placeholderContent,
+    'editor-content' + (propsToken.placeholderContent || 'default'),
     (token) => {
       const editorToken = {
         ...token,
@@ -305,8 +305,8 @@ export function useStyle(
       };
 
       return [
-        genStyle(editorToken),
         resetComponent(editorToken),
+        genStyle(editorToken),
         genSlideStyle(editorToken),
       ];
     },
