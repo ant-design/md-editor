@@ -36,6 +36,15 @@ export type TagPopupProps = {
     },
     defaultDom: ReactNode,
   ) => React.ReactNode;
+  tagTextRender?: (
+    props: TagPopupProps & {
+      text: string;
+      placeholder?: string;
+    },
+    text: string,
+  ) => string;
+  tagTextStyle?: React.CSSProperties;
+  tagTextClassName?: string;
   /**
    * 输入值改变时触发的回调函数
    * @param value
@@ -166,6 +175,7 @@ export const TagPopup = (
         color: '#1677ff',
         border: '1px solid #91caff',
         position: 'relative',
+        ...props.tagTextStyle,
       }}
       title={placeholder}
     >

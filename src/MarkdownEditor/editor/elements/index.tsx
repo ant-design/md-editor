@@ -165,7 +165,7 @@ export const MLeaf = (
   let children = <>{props.children}</>;
   if (leaf.code || leaf.tag) {
     const { text, tag, placeholder, triggerText } = (props?.leaf || {}) as any;
-    const { enable } = props.tagInputProps || {};
+    const { enable, tagTextRender } = props.tagInputProps || {};
     if (enable && tag) {
       children = (
         <TagPopup
@@ -176,7 +176,14 @@ export const MLeaf = (
             if (!markdownEditorRef.current) return;
             Transforms.insertText(
               markdownEditorRef.current,
-              `${triggerText || '$'}${v}`,
+              tagTextRender?.(
+                {
+                  ...props,
+                  ...props.tagInputProps,
+                  text: v,
+                },
+                `${triggerText || '$'}${v}`,
+              ) || `${triggerText || '$'}${v}`,
               {
                 at: path,
               },
