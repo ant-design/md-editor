@@ -89,6 +89,10 @@ export default () => {
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
+          dropdownRender: (d, props) => {
+            console.log('dropdownRender', props.placeholder);
+            return d;
+          },
           enable: true,
           items: ['tag1', 'tag2', 'tag3'].map((item) => ({
             key: item,

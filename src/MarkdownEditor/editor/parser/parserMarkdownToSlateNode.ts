@@ -690,7 +690,6 @@ const parserBlock = (
         const hasPlaceHolder = currentElement.value?.match(
           /\$\{placeholder:(.*?)\}/,
         );
-        console.log(hasPlaceHolder);
         el = {
           text: hasPlaceHolder ? ' ' : currentElement.value,
           tag: currentElement.value?.startsWith('${'),

@@ -15,6 +15,8 @@ export type TagPopupProps = {
   dropdownRender?: (
     defaultNode: ReactNode,
     props: TagPopupProps & {
+      text?: string;
+      placeholder?: string;
       onSelect?: (value: string, path?: number[]) => void;
     },
   ) => React.ReactNode;
@@ -134,19 +136,20 @@ export const TagPopup = (
         e.preventDefault();
         e.stopPropagation();
         if (!suggestionConnext.open) {
-          suggestionConnext?.setOpen?.(true);
-          if (suggestionConnext?.onSelectRef) {
-            suggestionConnext.onSelectRef.current = (newValue) => {
-              onSelect?.(newValue, path || []);
-              suggestionConnext?.setOpen?.(false);
-            };
-          }
           if (suggestionConnext?.triggerNodeContext) {
             suggestionConnext.triggerNodeContext.current = {
               ...props,
               text: props.text,
             };
           }
+
+          if (suggestionConnext?.onSelectRef) {
+            suggestionConnext.onSelectRef.current = (newValue) => {
+              onSelect?.(newValue, path || []);
+              suggestionConnext?.setOpen?.(false);
+            };
+          }
+          suggestionConnext?.setOpen?.(true);
         } else {
           suggestionConnext?.setOpen?.(false);
           if (suggestionConnext?.triggerNodeContext) {
@@ -182,13 +185,5 @@ export const TagPopup = (
         defaultDom,
       )
     : defaultDom;
-  if (suggestionConnext?.isRender) {
-    if (suggestionConnext?.triggerNodeContext) {
-      suggestionConnext.triggerNodeContext.current = {
-        ...props,
-        text: props.text,
-      };
-    }
-  }
   return renderDom;
 };

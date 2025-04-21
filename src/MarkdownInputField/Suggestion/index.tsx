@@ -1,6 +1,7 @@
 ﻿import { Dropdown } from 'antd';
 import { useMergedState } from 'rc-util';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRefFunction } from '../../hooks/useRefFunction';
 import { MarkdownEditorProps } from '../../MarkdownEditor';
 import { TagPopupProps } from '../../MarkdownEditor/editor/elements/code/TagPopup';
 
@@ -27,7 +28,8 @@ export const SuggestionConnext = React.createContext<{
   >;
   triggerNodeContext?: React.MutableRefObject<
     | (TagPopupProps & {
-        text: string;
+        text?: string;
+        placeholder?: string;
       })
     | undefined
   >;
@@ -39,17 +41,12 @@ export const Suggestion: React.FC<{
   children: React.ReactNode;
   tagInputProps?: MarkdownEditorProps['tagInputProps'];
 }> = (props) => {
-  const [open, setOpen] = useMergedState(false, {
-    value: props?.tagInputProps?.open,
-    onChange: props?.tagInputProps?.onOpenChange,
-  });
-
   const onSelectRef =
     useRef<(value: string, path?: number[]) => void | undefined>(undefined);
 
-  const triggerNodeContext = useRef<TagPopupProps & { text: string }>(
-    undefined,
-  );
+  const triggerNodeContext = useRef<
+    TagPopupProps & { text?: string; placeholder?: string }
+  >(undefined);
   const {
     items = [],
     dropdownRender,
@@ -58,6 +55,16 @@ export const Suggestion: React.FC<{
     notFoundContent,
   } = props.tagInputProps || {};
 
+  const [open, setOpen] = useMergedState(false, {
+    value: props?.tagInputProps?.open,
+    onChange: props?.tagInputProps?.onOpenChange,
+  });
+
+  const [node, setNode] = useState(() => triggerNodeContext.current);
+
+  useEffect(() => {
+    setNode(triggerNodeContext.current);
+  }, [open]);
   const selectedItems = items.map((item) => {
     const { key } = item || {};
 
@@ -69,6 +76,38 @@ export const Suggestion: React.FC<{
       },
     };
   });
+
+  const dropdownRenderRender = useRefFunction(
+    (defaultDropdownContent: React.ReactNode) => {
+      if (dropdownRender) {
+        return (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            onKeyDown={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+          >
+            {dropdownRender(defaultDropdownContent, {
+              ...props,
+              ...node,
+              onSelect: (value: string, path?: number[]) => {
+                onSelectRef.current?.(`${value}` || '', path);
+                setOpen(false);
+              },
+            })}
+          </div>
+        );
+      } else if (menu! && items!) {
+        return notFoundContent || '';
+      } else {
+        return defaultDropdownContent;
+      }
+    },
+  );
 
   return (
     <SuggestionConnext.Provider
@@ -96,40 +135,14 @@ export const Suggestion: React.FC<{
                 },
               }
         }
+        forceRender
+        destroyPopupOnHide
         placement="top"
         onOpenChange={(isOpenChanged) => {
           if (isOpenChanged) return;
           setOpen(isOpenChanged);
         }}
-        dropdownRender={(defaultDropdownContent) => {
-          if (dropdownRender) {
-            return (
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                }}
-                onKeyDown={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-              >
-                {dropdownRender(defaultDropdownContent, {
-                  ...props,
-                  ...triggerNodeContext.current,
-                  onSelect: (value: string, path?: number[]) => {
-                    onSelectRef.current?.(`${value}` || '', path);
-                    setOpen(false);
-                  },
-                })}
-              </div>
-            );
-          } else if (menu! && items!) {
-            return notFoundContent || '';
-          } else {
-            return defaultDropdownContent;
-          }
-        }}
+        dropdownRender={dropdownRenderRender}
       >
         {props.children}
       </Dropdown>
