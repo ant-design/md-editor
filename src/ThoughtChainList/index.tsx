@@ -226,26 +226,39 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   const i18n = useContext(I18nContext);
 
   const endStatusDisplay = useMemo(() => {
-    if (!props.loading && props?.chatItem?.isFinished) {
-      return (
-        <FlipText
-          word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${(
-            ((props.chatItem?.endTime || 0) - (props.chatItem?.createAt || 0)) /
-            1000
-          ).toFixed(2)}s`}
-        />
-      );
-    }
+    const time =
+      ((props.chatItem?.endTime || 0) - (props.chatItem?.createAt || 0)) / 1000;
+
     if (!props.loading && props?.chatItem?.isAborted) {
+      if (time > 0) {
+        return (
+          <FlipText
+            word={`${i18n.locale?.taskAborted || '任务已取消'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${time.toFixed(
+              2,
+            )}s`}
+          />
+        );
+      }
+      return <FlipText word={`${i18n.locale?.taskAborted || '任务已取消'}`} />;
+    }
+
+    if (!props.loading && props?.chatItem?.isFinished) {
+      if (time > 0) {
+        return (
+          <FlipText
+            word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${time.toFixed(
+              2,
+            )}s`}
+          />
+        );
+      }
       return (
         <FlipText
-          word={`${i18n.locale?.taskAborted || '任务已取消'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${(
-            ((props.chatItem?.endTime || 0) - (props.chatItem?.createAt || 0)) /
-            1000
-          ).toFixed(2)}s`}
+          word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'}`}
         />
       );
     }
+
     return (
       <div>
         {props.thoughtChainList.at(-1) && collapse ? (
@@ -260,7 +273,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
           })
         ) : (
           <div>
-            {props.locale?.thinking || '思考中'}
+            {props.locale?.thinking || i18n.locale?.thinking || '思考中'}
             <DotLoading />
           </div>
         )}
