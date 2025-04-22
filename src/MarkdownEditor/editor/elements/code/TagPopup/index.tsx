@@ -149,6 +149,12 @@ export const TagPopup = (
         onSelect?.(value, currentNodePath.current || []);
       },
     });
+    if (suggestionConnext?.triggerNodeContext) {
+      suggestionConnext.triggerNodeContext.current = {
+        ...props,
+        text: props.text,
+      };
+    }
   }, [props.text, suggestionConnext.open]);
 
   const placeholder = props.placeholder;
