@@ -1,6 +1,6 @@
 ﻿import { Dropdown } from 'antd';
 import { useMergedState } from 'rc-util';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { MarkdownEditorProps } from '../../MarkdownEditor';
 import { TagPopupProps } from '../../MarkdownEditor/editor/elements/code/TagPopup';
@@ -60,11 +60,6 @@ export const Suggestion: React.FC<{
     onChange: props?.tagInputProps?.onOpenChange,
   });
 
-  const [node, setNode] = useState(() => triggerNodeContext.current);
-
-  useEffect(() => {
-    setNode(triggerNodeContext.current);
-  }, [open]);
   const selectedItems = items.map((item) => {
     const { key } = item || {};
 
@@ -93,7 +88,7 @@ export const Suggestion: React.FC<{
           >
             {dropdownRender(defaultDropdownContent, {
               ...props,
-              ...node,
+              ...triggerNodeContext.current,
               onSelect: (value: string, path?: number[]) => {
                 onSelectRef.current?.(`${value}` || '', path);
                 setOpen(false);

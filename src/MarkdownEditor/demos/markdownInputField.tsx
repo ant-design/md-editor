@@ -90,7 +90,7 @@ export default () => {
         borderRadius={borderRadius}
         tagInputProps={{
           dropdownRender: (d, props) => {
-            console.log('dropdownRender', props.placeholder);
+            console.log('dropdownRender', props);
             return d;
           },
           tagTextRender: (props, text) => {
