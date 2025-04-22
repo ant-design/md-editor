@@ -520,7 +520,7 @@ export class EditorStore {
    * 最后，如果当前编辑器中的子节点比新的节点列表多，
    * 它会移除多余的节点。
    */
-  updateNodeList = throttle((nodeList: Node[]) => {
+  updateNodeList = (nodeList: Node[]) => {
     Editor.withoutNormalizing(this.editor, () => {
       const childrenList = this._editor.current.children;
       const updateMap = new Map<number, Node>();
@@ -582,7 +582,7 @@ export class EditorStore {
         });
       }
     });
-  }, 160) as (nodeList: Node[]) => void;
+  };
 
   /**
    * 处理拖拽开始事件。
