@@ -33,9 +33,6 @@ import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
-
-}
-
 export const EditorStoreContext = createContext<{
   store: EditorStore;
   typewriter: boolean;
