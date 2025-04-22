@@ -26,6 +26,8 @@ export const DeepThink = (
     props.output?.response?.error ||
     props.output?.response?.errorMsg;
   const i18n = useContext(I18nContext);
+
+  console.log(props, 'DeepThink');
   return useMemo(() => {
     return (
       <>
