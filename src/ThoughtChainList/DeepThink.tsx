@@ -96,7 +96,9 @@ export const DeepThink = (
                     !props.isFinished &&
                     props.output?.type === 'TOKEN'
                   }
-                  isFinished={props.isFinished}
+                  isFinished={
+                    props.isFinished || props.output?.type !== 'TOKEN'
+                  }
                   initValue={props.output?.data
                     ?.replaceAll('<font color=#898989>[', '')
                     ?.replaceAll(']</font>', '\n')
@@ -162,5 +164,5 @@ export const DeepThink = (
         </div>
       </>
     );
-  }, [props.category, JSON.stringify(props.output?.data), props.costMillis]);
+  }, [props.category, JSON.stringify(props.output), props.costMillis]);
 };
