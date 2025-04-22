@@ -36,6 +36,8 @@ const LoadImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
   return (
     <img
       {...props}
+      //@ts-ignore
+      src={props.src?.src || props.src}
       style={{
         ...props.style,
         display: show ? 'block' : 'none',
@@ -241,10 +243,12 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     const codeEditor = ace.edit(dom.current!, {
       useWorker: false,
       value: props.element.value,
-      fontSize: 13,
+      fontSize: 12,
+      animatedScroll: true,
       maxLines: Infinity,
       wrap: true,
       tabSize: 4,
+      readOnly: readonly,
       showPrintMargin: false,
     });
     editorRef.current = codeEditor;
@@ -385,6 +389,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
       editorRef.current?.clearSelection();
     }
   }, [props.element.value]);
+
   const i18n = useContext(I18nContext);
   return useMemo(() => {
     if (props.element.language === 'html' && props.element?.isConfig) {
