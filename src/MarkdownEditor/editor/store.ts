@@ -262,6 +262,19 @@ export class EditorStore {
     Transforms.insertNodes(this._editor.current, nodes, options);
   }
 
+  insertText(
+    text: string,
+    options?: {
+      at?: Path;
+      select?: boolean;
+      voids?: boolean;
+      match?: (n: Node) => boolean;
+      mode?: 'highest' | 'lowest';
+    },
+  ) {
+    Transforms.insertText(this._editor.current, text, options);
+  }
+
   /**
    * 计算指定 HTML 元素相对于文档顶部的偏移量。
    *
