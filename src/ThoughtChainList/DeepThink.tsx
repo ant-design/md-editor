@@ -27,7 +27,6 @@ export const DeepThink = (
     props.output?.response?.errorMsg;
   const i18n = useContext(I18nContext);
 
-  console.log(props, 'DeepThink');
   return useMemo(() => {
     return (
       <>
@@ -101,13 +100,7 @@ export const DeepThink = (
                   isFinished={
                     props.isFinished || props.output?.type !== 'TOKEN'
                   }
-                  initValue={props.output?.data
-                    ?.replaceAll('<font color=#898989>[', '')
-                    ?.replaceAll(']</font>', '\n')
-                    ?.replaceAll('<font color=#898989>', '')
-                    ?.replaceAll('</font>', '')
-                    ?.replaceAll('</think>', '')
-                    ?.replaceAll('<think>', '')}
+                  initValue={props.output?.data}
                 />
               </div>
             </div>
