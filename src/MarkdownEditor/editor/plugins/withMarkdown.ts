@@ -144,6 +144,9 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
+    if (operation?.type === 'split_node') {
+      console.log('insert_text', operation);
+    }
 
     if (operation.type === 'move_node') {
       const node = Node.get(editor, operation.path);

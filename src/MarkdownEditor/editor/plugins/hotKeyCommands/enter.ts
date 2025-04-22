@@ -11,7 +11,7 @@ import {
   Range,
   Transforms,
 } from 'slate';
-import { HeadNode, NodeTypes, ParagraphNode, TableNode } from '../../../el';
+import { HeadNode, ParagraphNode, TableNode } from '../../../el';
 import { EditorStore } from '../../store';
 import { isMod } from '../../utils';
 import { EditorUtils } from '../../utils/editorUtils';
@@ -60,70 +60,6 @@ export class EnterKey {
         });
         e.preventDefault();
         return;
-      }
-      switch (el.type as NodeTypes) {
-        case 'table-cell':
-          e.preventDefault();
-          this.table(node, sel, e);
-          break;
-        case 'media':
-          e.preventDefault();
-          Transforms.insertNodes(this.editor, EditorUtils.p, {
-            at: Path.next(path),
-            select: true,
-          });
-          break;
-        case 'attach':
-          e.preventDefault();
-          Transforms.insertNodes(this.editor, EditorUtils.p, {
-            at: Path.next(path),
-            select: true,
-          });
-          break;
-        case 'paragraph':
-          const end = Range.end(sel);
-          const leaf = Node.leaf(this.editor, end.path);
-          const dirt = EditorUtils.isDirtLeaf(leaf);
-          if (dirt) {
-            if (end.offset === leaf.text?.length) {
-              if (Editor.hasPath(this.editor, Path.next(end.path))) {
-                Transforms.move(this.editor, { unit: 'offset' });
-              } else {
-                const parent = Editor.parent(this.editor, node[1]);
-                if (parent[0].type !== 'list-item' || Path.hasPrevious(path)) {
-                  Transforms.transform(this.editor, {
-                    type: 'insert_node',
-                    path: Path.next(end.path),
-                    node: { text: '' },
-                  });
-                  Transforms.move(this.editor, { unit: 'offset' });
-                }
-              }
-            } else if (
-              sel.anchor.offset === 0 &&
-              !Path.hasPrevious(sel.anchor.path)
-            ) {
-              EditorUtils.moveBeforeSpace(this.editor, sel.anchor.path);
-            }
-          }
-          const str = Node.string(el);
-          if (!str && !el.children.some((c: any) => c.type === 'media')) {
-            this.empty(e, path);
-          } else {
-            const insert = this.paragraph(e, node, sel);
-            if (!insert) {
-              this.editor?.insertBreak();
-            }
-            return;
-          }
-          break;
-        case 'head':
-          if (this.head(el, path, sel)) {
-            e.preventDefault();
-          }
-        default:
-          this.editor?.insertBreak();
-          break;
       }
     }
     this.editor?.insertBreak();
