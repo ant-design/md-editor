@@ -33,20 +33,7 @@ import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
 
-function throttle(fn: any, delay: number | undefined) {
-  let timer: NodeJS.Timeout | null;
-  return function () {
-    // @ts-ignore
-    let _this = this;
-    let args = arguments;
-    if (timer) {
-      return;
-    }
-    timer = setTimeout(function () {
-      fn.apply(_this, args);
-      timer = null; // 清空定时器
-    }, delay);
-  };
+
 }
 
 export const EditorStoreContext = createContext<{
