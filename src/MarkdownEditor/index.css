@@ -211,6 +211,13 @@ div.composition
   position: relative;
   margin: 0 4px;
   cursor: pointer;
+  padding: 0px 4px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  display: inline-block;
+  line-height: 1.5;
+  color: rgb(22, 119, 255);
+  border: 1px solid rgb(145, 202, 255);
 }
 .tag-popup-input.empty::before {
   content: attr(title); /* element attribute*/
@@ -227,6 +234,8 @@ div.composition
 .tag-popup-input.empty::after {
   content: attr(title); /* element attribute*/
   opacity: 0;
+  height: 0.5px;
+  overflow: hidden;
   user-select: none;
 }
 

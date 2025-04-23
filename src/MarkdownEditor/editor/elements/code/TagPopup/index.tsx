@@ -217,21 +217,11 @@ export const TagPopup = (
           }
         }
       }}
-      style={{
-        padding: '0 4px',
-        borderRadius: 4,
-        fontSize: '0.9em',
-        display: 'inline-block',
-        lineHeight: 1.5,
-        color: '#1677ff',
-        border: '1px solid #91caff',
-        position: 'relative',
-        ...runFunction(props.tagTextStyle, {
-          ...props,
-          text: props.text,
-          placeholder,
-        }),
-      }}
+      style={runFunction(props.tagTextStyle, {
+        ...props,
+        text: props.text,
+        placeholder,
+      })}
       title={placeholder}
     >
       {renderDom}
