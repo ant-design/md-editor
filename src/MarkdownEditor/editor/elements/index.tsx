@@ -182,8 +182,8 @@ export const MLeaf = (
                   ...props.tagInputProps,
                   text: v,
                 },
-                `${triggerText || '$'}${v}`,
-              ) || `${triggerText || '$'}${v}`,
+                `${triggerText ?? '$'}${v}`,
+              ) || `${triggerText ?? '$'}${v}`,
               {
                 at: path,
               },

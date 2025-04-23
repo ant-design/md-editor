@@ -12,7 +12,7 @@ export type TagPopupProps = {
     key: string | number;
     onClick?: (v: string) => void;
   }>;
-  prefixCls?: string | string[];
+  prefixCls?: string | string[] | false;
   dropdownRender?: (
     defaultNode: ReactNode,
     props: TagPopupProps & {
