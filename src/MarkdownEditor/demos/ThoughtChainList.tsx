@@ -126,7 +126,7 @@ export default function Home() {
             info: '正在执行: brave_web_search',
             runId: '0',
             output: {
-              data: '```json\n{"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}\n```\n\n\n\n\n',
+              data: '```json\n{"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}\n```\n\n\n `table` \n',
               type: 'END',
             },
           },
