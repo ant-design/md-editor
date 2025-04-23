@@ -159,25 +159,53 @@ export const TagPopup = (
 
   const placeholder = props.placeholder;
 
-  let renderDom = props.tagRender
-    ? props.tagRender(
-        {
-          ...props,
-          text: props.text,
-          onSelect: (value: string) => {
-            onSelect?.(value, currentNodePath.current || []);
-          },
+  let renderDom = props.tagRender ? (
+    props.tagRender(
+      {
+        ...props,
+        text: props.text,
+        onSelect: (value: string) => {
+          onSelect?.(value, currentNodePath.current || []);
         },
-        children,
-      )
-    : children;
+      },
+      <div
+        className={classNames('tag-popup-input', {
+          empty: !props.text.trim(),
+        })}
+        title={placeholder}
+      >
+        {children}
+      </div>,
+    )
+  ) : (
+    <div
+      className={classNames('tag-popup-input', {
+        empty: !props.text.trim(),
+      })}
+      title={placeholder}
+    >
+      {children}
+    </div>
+  );
 
   return (
     <div
       ref={domRef}
-      className={classNames('tag-popup-input', {
-        empty: !props.text.trim(),
-      })}
+      className={classNames(
+        'tag-popup-input-warp',
+        props.className,
+        props.prefixCls,
+        props.tagTextClassName,
+      )}
+      style={{
+        ...runFunction(props.tagTextStyle, {
+          ...props,
+          text: props.text,
+          placeholder,
+        }),
+        display: 'inline-flex',
+        position: 'relative',
+      }}
       onClick={(e) => {
         const path = editor.selection?.anchor.path;
         if (path) {
@@ -217,12 +245,6 @@ export const TagPopup = (
           }
         }
       }}
-      style={runFunction(props.tagTextStyle, {
-        ...props,
-        text: props.text,
-        placeholder,
-      })}
-      title={placeholder}
     >
       {renderDom}
     </div>

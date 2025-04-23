@@ -10,6 +10,12 @@
   box-sizing: border-box;
   top: calc(3px + 0.75em - 14px);
 }
+:root {
+  --markdown-input-field-tag-color: rgb(22, 119, 255);
+  --markdown-input-field-tag-placeholder-color: rgb(22, 119, 255);
+  --markdown-input-field-tag-border-color: rgb(145, 202, 255);
+  --markdown-input-field-tag-hint-opacity: 0.5;
+}
 
 .ant-md-editor-drag-icon {
   display: flex;
@@ -207,26 +213,30 @@ div.composition
   [data-slate-node='text']::before {
   display: none;
 }
-.tag-popup-input {
+.tag-popup-input-warp {
   position: relative;
   margin: 0 4px;
   cursor: pointer;
   padding: 0px 4px;
   border-radius: 4px;
   font-size: 0.9em;
-  display: inline-block;
+  display: inline-flex;
   line-height: 1.5;
-  color: rgb(22, 119, 255);
-  border: 1px solid rgb(145, 202, 255);
+  color: var(--markdown-input-field-tag-color);
+  border: 1px solid var(--markdown-input-field-tag-border-color);
 }
 .tag-popup-input.empty::before {
+  color: var(--markdown-input-field-tag-placeholder-color);
   content: attr(title); /* element attribute*/
-  color: inherit;
   opacity: 0.5;
   user-select: none;
   position: absolute;
   left: 4px;
   top: 0;
+}
+
+.tag-popup-input.composing.empty::before {
+  display: none;
 }
 .tag-popup-input:hover::before {
   opacity: 0.6;

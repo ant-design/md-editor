@@ -1,4 +1,5 @@
-﻿import {
+﻿import { DownOutlined } from '@ant-design/icons';
+import {
   generateEdges,
   MarkdownEditorInstance,
   MarkdownInputField,
@@ -93,6 +94,12 @@ export default () => {
             console.log('dropdownRender', props);
             return d;
           },
+          tagTextStyle: {
+            background: '#EEF1FF',
+            color: '#4C4BDF',
+            lineHeight: '22px',
+            borderWidth: 0,
+          },
           tagTextRender: (props, text) => {
             console.log('tagTextRender', text);
             return text.replaceAll('$', '');
@@ -102,6 +109,22 @@ export default () => {
             key: item,
             label: item,
           })),
+          tagRender: (props: any, defaultDom: React.ReactNode) => {
+            return (
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {defaultDom}
+                <DownOutlined />
+              </div>
+            );
+          },
         }}
         onSend={send}
         onStop={() => console.log('stop...')}
