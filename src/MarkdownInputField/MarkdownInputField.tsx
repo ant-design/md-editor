@@ -569,6 +569,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             onChange={(value) => {
               setValue(value);
             }}
+            titlePlaceholderContent={props.placeholder}
             toc={false}
             toolBar={{
               enable: false,

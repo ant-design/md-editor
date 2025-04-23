@@ -22,17 +22,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '20px',
       },
       '&-edit': {
-        '> div.empty:first-child [data-slate-node="text"]': {
-          display: 'inline-block',
-          minWidth: 20,
+        '> div.empty:first-child': {
           '&::before': {
             cursor: 'text',
-            content:
-              `"${token.placeholderContent || ''}"` || 'Please enter content',
+            content: 'attr(data-slate-placeholder)',
             color: 'rgba(0,0,0,0.45)',
             display: 'inline-block',
             position: 'absolute',
           },
+        },
+        '> div.empty:first-child [data-slate-node="text"]': {
+          display: 'inline-block',
+          minWidth: 20,
         },
       },
 

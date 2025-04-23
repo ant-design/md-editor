@@ -8,7 +8,8 @@ import { DragHandle } from '../tools/DragHandle';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 
 export const Paragraph = (props: ElementProps<ParagraphNode>) => {
-  const { store, markdownEditorRef, typewriter, readonly } = useEditorStore();
+  const { store, markdownEditorRef, typewriter, readonly, editorProps } =
+    useEditorStore();
   const [selected, path] = useSelStatus(props.element);
   const isLatest = useMemo(() => {
     if (markdownEditorRef.current?.children.length === 0) return false;
@@ -22,6 +23,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
 
   return React.useMemo(() => {
     const str = Node.string(props.element).trim();
+    const isEmpty = !str && selected ? 'true' : undefined;
     return (
       <div
         {...props.attributes}
@@ -30,8 +32,13 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
           empty: !str,
           typewriter: isLatest && typewriter,
         })}
+        data-slate-placeholder={
+          isEmpty
+            ? editorProps.titlePlaceholderContent || '请输入内容...'
+            : undefined
+        }
         onDragStart={store.dragStart}
-        data-empty={!str && selected ? 'true' : undefined}
+        data-empty={isEmpty}
         style={{
           display: !!str || !!props.children?.at(0).type ? undefined : 'none',
         }}

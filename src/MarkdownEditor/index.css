@@ -207,10 +207,7 @@
   margin-left: 2px;
 }
 
-div.composition
-  .ant-md-editor-content-edit
-  > div.empty:first-child
-  [data-slate-node='text']::before {
+div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
   display: none;
 }
 .tag-popup-input-warp {

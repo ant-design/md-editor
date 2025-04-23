@@ -67,13 +67,11 @@ export function useEditorStyleRegister(
     ...token,
     chatCls: '',
     antCls: '',
-    titlePlaceholderContent: '"Please enter a title"',
   };
   const { getPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
 
   chatToken.chatCls = `.${getPrefixCls('md-editor')}`;
   chatToken.antCls = `.${getPrefixCls()}`;
-  chatToken.titlePlaceholderContent = '"Please enter a title"';
 
   return {
     wrapSSR: useDefaultStyleRegister(
