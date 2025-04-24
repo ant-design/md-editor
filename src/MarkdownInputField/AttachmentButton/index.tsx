@@ -76,6 +76,10 @@ export type AttachmentButtonProps = {
   onDelete?: (file: AttachmentFile) => Promise<void>;
   onPreview?: (file: AttachmentFile) => Promise<void>;
   onDownload?: (file: AttachmentFile) => Promise<void>;
+
+  maxFileSize?: number;
+  maxFileCount?: number;
+  minFileCount?: number;
 };
 
 export const isImageFile = (file: AttachmentFile) => {
@@ -124,6 +128,9 @@ export const upLoadFileToServer = async (
     fileMap?: Map<string, AttachmentFile>;
     onFileMapChange?: (files?: Map<string, AttachmentFile>) => void;
     upload?: (file: AttachmentFile) => Promise<string>;
+    maxFileSize?: number;
+    maxFileCount?: number;
+    minFileCount?: number;
   },
 ) => {
   const map = props.fileMap || new Map<string, AttachmentFile>();
@@ -139,10 +146,25 @@ export const upLoadFileToServer = async (
       map.set(file.uuid || '', file);
     }
   });
+  if (props.maxFileCount && fileList.length > props.maxFileCount) {
+    message.error(`最多只能上传 ${props.maxFileCount} 个文件`);
+    return;
+  }
+  if (props.minFileCount && fileList.length < props.minFileCount) {
+    message.error(`至少需要上传 ${props.minFileCount} 个文件`);
+    return;
+  }
   props.onFileMapChange?.(map);
   try {
     for await (const file of fileList) {
       await waitTime(16);
+      if (props.maxFileSize && file.size > props.maxFileSize) {
+        file.status = 'error';
+        map.set(file.uuid || '', file);
+        props.onFileMapChange?.(map);
+        message.error(`文件大小超过 ${props.maxFileSize / 1024} KB`);
+        continue;
+      }
       const url = (await props?.upload?.(file)) || file.previewUrl;
       if (url) {
         file.status = 'done';
