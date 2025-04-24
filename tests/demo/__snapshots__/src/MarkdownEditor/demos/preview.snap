@@ -481,6 +481,7 @@
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
+            data-slate-placeholder="请输入内容..."
           >
             <span
               contenteditable="false"
@@ -875,6 +876,7 @@
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
+            data-slate-placeholder="请输入内容..."
           >
             <span
               contenteditable="false"
@@ -6679,6 +6681,7 @@
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
+            data-slate-placeholder="请输入内容..."
           >
             <span
               contenteditable="false"
@@ -10678,6 +10681,7 @@ while i &lt; len(arr):
             class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
+            data-slate-placeholder="请输入内容..."
           >
             <span
               contenteditable="false"

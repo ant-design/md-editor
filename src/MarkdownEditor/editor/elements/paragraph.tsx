@@ -33,7 +33,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
           typewriter: isLatest && typewriter,
         })}
         data-slate-placeholder={
-          isEmpty
+          !str
             ? editorProps.titlePlaceholderContent || '请输入内容...'
             : undefined
         }
@@ -49,5 +49,12 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         {!str ? <InlineChromiumBugfix /> : null}
       </div>
     );
-  }, [props.element.children, readonly, selected, isLatest, typewriter]);
+  }, [
+    props.element.children,
+    readonly,
+    selected,
+    isLatest,
+    editorProps.titlePlaceholderContent,
+    typewriter,
+  ]);
 };

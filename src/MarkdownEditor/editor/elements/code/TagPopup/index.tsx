@@ -107,6 +107,7 @@ export type TagPopupProps = {
 export const TagPopup = (
   props: TagPopupProps & {
     text: string;
+    focus?: boolean;
     placeholder?: string;
     onSelect?: (value: string, path: number[]) => void;
   },
@@ -139,7 +140,6 @@ export const TagPopup = (
       }
     }
   }, []);
-
   useEffect(() => {
     if (suggestionConnext?.triggerNodeContext) {
       suggestionConnext.triggerNodeContext.current = {
@@ -147,6 +147,9 @@ export const TagPopup = (
         text: props.text,
       };
     }
+  }, [props.text]);
+
+  useEffect(() => {
     // 默认选中一下
     props.onChange?.(props.text || '', {
       ...props,
@@ -223,27 +226,20 @@ export const TagPopup = (
         }
         e.preventDefault();
         e.stopPropagation();
-        if (!suggestionConnext.open) {
-          if (suggestionConnext?.triggerNodeContext) {
-            suggestionConnext.triggerNodeContext.current = {
-              ...props,
-              text: props.text,
-            };
-          }
-
-          if (suggestionConnext?.onSelectRef) {
-            suggestionConnext.onSelectRef.current = (newValue) => {
-              onSelect?.(newValue, path || []);
-              suggestionConnext?.setOpen?.(false);
-            };
-          }
-          suggestionConnext?.setOpen?.(true);
-        } else {
-          suggestionConnext?.setOpen?.(false);
-          if (suggestionConnext?.triggerNodeContext) {
-            suggestionConnext.triggerNodeContext.current = undefined;
-          }
+        if (suggestionConnext?.triggerNodeContext) {
+          suggestionConnext.triggerNodeContext.current = {
+            ...props,
+            text: props.text,
+          };
         }
+
+        if (suggestionConnext?.onSelectRef) {
+          suggestionConnext.onSelectRef.current = (newValue) => {
+            onSelect?.(newValue, path || []);
+            suggestionConnext?.setOpen?.(false);
+          };
+        }
+        suggestionConnext?.setOpen?.(true);
       }}
     >
       {renderDom}

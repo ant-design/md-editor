@@ -92,7 +92,21 @@ export default () => {
         tagInputProps={{
           dropdownRender: (d, props) => {
             console.log('dropdownRender', props);
-            return d;
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
+                  background: '#eee',
+                  border: '1px solid #EEE',
+                  padding: 12,
+                }}
+              >
+                {props.placeholder}
+                {d}
+              </div>
+            );
           },
           tagTextStyle: {
             background: '#EEF1FF',
