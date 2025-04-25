@@ -163,6 +163,11 @@ export class EditorStore {
     });
   }
 
+  editorFocus() {
+    this.focus = true;
+    ReactEditor.focus(this._editor.current);
+  }
+
   /**
    * 查找最新的节点索引。
    *
