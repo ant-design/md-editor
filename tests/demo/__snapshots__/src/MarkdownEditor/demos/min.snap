@@ -6765,7 +6765,6 @@
             </blockquote>
             <div
               class="ant-md-editor-drag-el"
-              contenteditable="false"
               data-be="footnoteDefinition"
               data-slate-node="element"
               style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"
@@ -6814,7 +6813,6 @@
             </div>
             <div
               class="ant-md-editor-drag-el"
-              contenteditable="false"
               data-be="footnoteDefinition"
               data-slate-node="element"
               style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"

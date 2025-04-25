@@ -536,6 +536,23 @@ export const SlateMarkdownEditor = observer(
     const onCompositionStart = (e: React.CompositionEvent) => {
       store.container?.classList.add('composition');
       store.inputComposition = true;
+
+      const focusPath = markdownEditorRef.current.selection?.focus.path || [];
+      if (focusPath.length > 0) {
+        const node = Node.get(
+          markdownEditorRef.current,
+          markdownEditorRef.current.selection?.focus.path || [],
+        );
+        if (node) {
+          const dom = ReactEditor.toDOMNode(markdownEditorRef.current, node);
+          if (dom) {
+            dom
+              .querySelector('.tag-popup-input')
+              ?.classList.add('tag-popup-input-composition');
+          }
+        }
+      }
+
       if (
         markdownEditorRef.current.selection &&
         Range.isCollapsed(markdownEditorRef.current.selection)
@@ -550,6 +567,22 @@ export const SlateMarkdownEditor = observer(
     const onCompositionEnd = () => {
       store.inputComposition = false;
       store.container?.classList.remove('composition');
+
+      const focusPath = markdownEditorRef.current.selection?.focus.path || [];
+      if (focusPath.length > 0) {
+        const node = Node.get(
+          markdownEditorRef.current,
+          markdownEditorRef.current.selection?.focus.path || [],
+        );
+        if (node) {
+          const dom = ReactEditor.toDOMNode(markdownEditorRef.current, node);
+          if (dom) {
+            dom
+              .querySelector('.tag-popup-input')
+              ?.classList.remove('tag-popup-input-composition');
+          }
+        }
+      }
     };
 
     const onError = (e: React.SyntheticEvent) => {

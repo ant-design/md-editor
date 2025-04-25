@@ -266,10 +266,10 @@ export const MLeaf = (
     } catch (e) {}
   };
 
-  if (leaf?.url) {
+  if (leaf?.url && readonly) {
     return (
       <Popover
-        trigger={'click'}
+        trigger="click"
         content={
           <div
             style={{
@@ -288,18 +288,20 @@ export const MLeaf = (
         }
       >
         <span
-          data-be={'link'}
+          data-be="link"
           draggable={false}
           onDragStart={dragStart}
           data-url={leaf?.url}
           onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            if (e.metaKey || e.ctrlKey || readonly) {
-              if (!leaf?.url) return;
-              window.open(leaf?.url);
-            } else if (e.detail === 2) {
-              selectFormat();
+            if (readonly) {
+              e.stopPropagation();
+              e.preventDefault();
+              if (e.metaKey || e.ctrlKey || readonly) {
+                if (!leaf?.url) return;
+                window.open(leaf?.url);
+              } else if (e.detail === 2) {
+                selectFormat();
+              }
             }
           }}
           id={leaf?.url}
@@ -326,7 +328,7 @@ export const MLeaf = (
   let dom = (
     <span
       {...props.attributes}
-      data-be={'text'}
+      data-be="text"
       draggable={false}
       onDragStart={dragStart}
       onClick={(e) => {
@@ -354,7 +356,16 @@ export const MLeaf = (
       })}
       style={{
         fontSize: leaf.fnc ? 10 : undefined,
-        ...style,
+        ...(leaf.url
+          ? {
+              ...style,
+              textDecoration: 'underline',
+              textDecorationColor: style?.color || '#1677ff',
+              textUnderlineOffset: '4px',
+              color: '#1677ff',
+              cursor: 'pointer',
+            }
+          : style),
       }}
     >
       {!!dirty && !!leaf.text && <InlineChromiumBugfix />}

@@ -162,38 +162,43 @@ export const TagPopup = (
 
   const placeholder = props.placeholder;
 
-  let renderDom = props.tagRender ? (
-    props.tagRender(
-      {
-        ...props,
-        text: props.text,
-        onSelect: (value: string) => {
-          onSelect?.(value, currentNodePath.current || []);
-        },
-      },
-      <div
-        className={classNames('tag-popup-input', {
-          empty: !props.text.trim(),
-        })}
-        title={placeholder}
-      >
-        {children}
-      </div>,
-    )
-  ) : (
+  const defaultDom = (
     <div
+      ref={domRef}
       className={classNames('tag-popup-input', {
         empty: !props.text.trim(),
       })}
+      onMouseEnter={() => {
+        const target = domRef.current;
+        if (!target) return;
+        target?.classList.add('tag-popup-input-focus');
+      }}
+      onMouseLeave={() => {
+        const target = domRef.current;
+        if (!target) return;
+        target?.classList.remove('tag-popup-input-focus');
+      }}
       title={placeholder}
     >
       {children}
     </div>
   );
 
+  let renderDom = props.tagRender
+    ? props.tagRender(
+        {
+          ...props,
+          text: props.text,
+          onSelect: (value: string) => {
+            onSelect?.(value, currentNodePath.current || []);
+          },
+        },
+        defaultDom,
+      )
+    : defaultDom;
+
   return (
     <div
-      ref={domRef}
       className={classNames(
         'tag-popup-input-warp',
         props.className,

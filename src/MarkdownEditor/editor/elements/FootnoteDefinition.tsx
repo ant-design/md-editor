@@ -8,7 +8,7 @@ import { DragHandle } from '../tools/DragHandle';
 export const FootnoteDefinition = (
   props: ElementProps<FootnoteDefinitionNode>,
 ) => {
-  const { store } = useEditorStore();
+  const { store, readonly } = useEditorStore();
   const element = props.element;
   useMemo(() => {
     store.footnoteDefinitionMap = store.footnoteDefinitionMap.set(
@@ -27,7 +27,6 @@ export const FootnoteDefinition = (
           display: 'flex',
           gap: 4,
         }}
-        contentEditable={false}
         data-be={'footnoteDefinition'}
         className={
           !str ? 'ant-md-editor-drag-el empty' : 'ant-md-editor-drag-el'
@@ -44,7 +43,7 @@ export const FootnoteDefinition = (
           }}
         >
           {props.children}
-          <ExportOutlined />
+          {readonly ? <ExportOutlined /> : null}
         </span>
       </div>
     );
