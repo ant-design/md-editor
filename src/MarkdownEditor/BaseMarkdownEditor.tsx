@@ -481,7 +481,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                   width: '100%',
                   maxWidth: '100%',
                   position: 'sticky',
-                  zIndex: 1000,
+                  zIndex: 99,
                   top: 0,
                 }}
                 className={classNames('md-editor-toolbar-container', {
