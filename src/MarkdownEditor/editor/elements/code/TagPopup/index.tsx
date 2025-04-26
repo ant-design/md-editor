@@ -140,6 +140,7 @@ export const TagPopup = (
       }
     }
   }, []);
+
   useEffect(() => {
     if (suggestionConnext?.triggerNodeContext) {
       suggestionConnext.triggerNodeContext.current = {

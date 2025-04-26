@@ -173,6 +173,8 @@ export const MLeaf = (
           {...props.tagInputProps}
           text={text}
           onSelect={(v, path) => {
+            if (!v) return;
+            if (!path?.length) return;
             if (!markdownEditorRef.current) return;
             Transforms.insertText(
               markdownEditorRef.current,
