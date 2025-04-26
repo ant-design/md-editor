@@ -43,7 +43,7 @@
       </h2>
       <div
         class="ant-dropdown-trigger ant-md-input-field"
-        style="border-radius: 12px;"
+        style="height: 66px; border-radius: 12px;"
       >
         <div
           class="ant-md-input-field-background"

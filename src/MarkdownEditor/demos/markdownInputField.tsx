@@ -66,6 +66,9 @@ export default () => {
       </ul>
       <h2>基本</h2>
       <MarkdownInputField
+        style={{
+          height: 66,
+        }}
         inputRef={markdownRef}
         beforeActionsRender={() => {
           return [

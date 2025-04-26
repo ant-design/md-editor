@@ -210,6 +210,9 @@ export const SlateMarkdownEditor = observer(
         markdownEditorRef.current.selection = null;
       }
       const target = e.target as HTMLDivElement;
+      if (editorProps.textAreaProps?.enable) {
+        return false;
+      }
       if (target.dataset.slateEditor) {
         const top = (target.lastElementChild as HTMLElement)?.offsetTop;
         if (

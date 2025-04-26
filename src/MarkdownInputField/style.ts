@@ -48,6 +48,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         width: '100%',
         zIndex: 9,
         maxHeight: 120,
+        height: '100%',
+        borderRadius: 'inherit',
         overflowY: 'auto',
         scrollbarColor: '#B9C0CB transparent',
         scrollbarWidth: 'thin',
