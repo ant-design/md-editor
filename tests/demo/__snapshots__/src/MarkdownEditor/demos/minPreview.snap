@@ -3346,7 +3346,7 @@
       >
         <div
           class="md-editor-toolbar-container"
-          style="width: 100%; max-width: 100%; position: sticky; z-index: 1000; top: 0px;"
+          style="width: 100%; max-width: 100%; position: sticky; z-index: 99; top: 0px;"
         >
           <div
             class="ant-md-editor-toolbar"
