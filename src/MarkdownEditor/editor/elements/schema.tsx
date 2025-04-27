@@ -1,10 +1,16 @@
 ﻿import React, { useMemo } from 'react';
 import { RenderElementProps } from '../slate-react';
+import { useEditorStore } from '../store';
 
 export const Schema: React.FC<RenderElementProps> = (props) => {
   const { element: node } = props;
-  return useMemo(
-    () => (
+  const { editorProps } = useEditorStore();
+  return useMemo(() => {
+    if (editorProps?.apassify?.enable && editorProps.apassify.render) {
+      return editorProps.apassify.render(props);
+    }
+
+    return (
       <div
         {...node.attributes}
         style={{
@@ -44,7 +50,6 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
           {props.children}
         </span>
       </div>
-    ),
-    [node],
-  );
+    );
+  }, [node.value]);
 };

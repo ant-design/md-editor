@@ -37,7 +37,7 @@ import {
   Methods,
   useSystemKeyboard,
 } from './editor/utils/keyboard';
-import { ElementProps, Elements, ListItemNode } from './el';
+import { ElementProps, Elements, ListItemNode, SchemaNode } from './el';
 import './index.css';
 import { MarkdownEditorPlugin, PluginContext } from './plugin';
 import { useStyle } from './style';
@@ -197,6 +197,12 @@ export type MarkdownEditorProps = {
     props: ElementProps,
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
+
+  apassify?: {
+    enable?: boolean;
+    render?: (props: ElementProps<SchemaNode>) => React.ReactNode;
+  } & Record<string, any>;
+
   initSchemaValue?: Elements[];
   /**
    * 内容变化回调
