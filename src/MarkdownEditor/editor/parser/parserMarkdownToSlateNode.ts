@@ -736,7 +736,7 @@ const parserBlock = (
           }
           el.type = 'apaasify';
           el.value = json;
-          el.children = [{ text: '' }];
+          el.children = [{ text: currentElement.value }];
         } else if (currentElement.lang === 'katex') {
           el.type = 'katex';
         }
