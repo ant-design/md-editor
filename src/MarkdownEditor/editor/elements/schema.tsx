@@ -23,7 +23,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
               pointerEvents: 'none',
             }}
           >
-            {props.children}
+            {props.element.value}
           </div>
         </div>
       );
