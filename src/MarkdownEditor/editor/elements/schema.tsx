@@ -7,7 +7,26 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
   const { editorProps } = useEditorStore();
   return useMemo(() => {
     if (editorProps?.apassify?.enable && editorProps.apassify.render) {
-      return editorProps.apassify.render(props);
+      return (
+        <div
+          {...node.attributes}
+          style={{
+            display: 'flex',
+          }}
+        >
+          {editorProps.apassify.render(props)}
+          <div
+            style={{
+              height: 1,
+              opacity: 0,
+              userSelect: 'none',
+              pointerEvents: 'none',
+            }}
+          >
+            {props.children}
+          </div>
+        </div>
+      );
     }
 
     return (
