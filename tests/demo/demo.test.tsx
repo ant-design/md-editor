@@ -13,7 +13,7 @@ const TestApp = (props: { children: any; onInit: () => void }) => {
   useEffect(() => {
     setTimeout(() => {
       props.onInit?.();
-    }, 2500);
+    }, 2000);
   }, []);
   return (
     <App>

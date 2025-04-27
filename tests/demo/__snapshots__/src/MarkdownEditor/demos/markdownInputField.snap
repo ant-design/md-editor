@@ -207,6 +207,174 @@
         />
       </div>
       <h2>
+        自定义的 Tag
+      </h2>
+      <div
+        class="ant-dropdown-trigger ant-md-input-field"
+        style="border-radius: 12px;"
+      >
+        <div
+          class="ant-md-input-field-background"
+        >
+          <svg
+            fill="none"
+            height="100%"
+            style="border-radius: inherit;"
+            version="1.1"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <defs>
+              <lineargradient
+                id="master_svg1_55_47405"
+                x1="2.463307335887066e-16"
+                x2="0.9838055372238159"
+                y1="0.5"
+                y2="0.5"
+              >
+                <stop
+                  offset="0%"
+                  stop-color="#CD36FF"
+                  stop-opacity="0.6300000071525574"
+                >
+                  <animate
+                    attributeName="stop-color"
+                    dur="4s"
+                    repeatCount="indefinite"
+                    values="#CD36FF;  #FFD972;  #5EBFFF;  #6FFFA7;#CD36FF"
+                  />
+                </stop>
+                <stop
+                  offset="25%"
+                  stop-color=" #FFD972"
+                  stop-opacity="0.6300000071525574"
+                >
+                  <animate
+                    attributeName="stop-color"
+                    dur="4s"
+                    repeatCount="indefinite"
+                    values=" #FFD972;  #5EBFFF;  #6FFFA7; #CD36FF; #FFD972"
+                  />
+                </stop>
+                <stop
+                  offset="50%"
+                  stop-color=" #5EBFFF"
+                  stop-opacity="0.6300000071525574"
+                >
+                  <animate
+                    attributeName="stop-color"
+                    dur="4s"
+                    repeatCount="indefinite"
+                    values=" #5EBFFF;  #6FFFA7; #CD36FF;  #FFD972; #5EBFFF"
+                  />
+                </stop>
+                <stop
+                  offset="75%"
+                  stop-color=" #6FFFA7"
+                  stop-opacity="0.6300000071525574"
+                >
+                  <animate
+                    attributeName="stop-color"
+                    dur="4s"
+                    repeatCount="indefinite"
+                    values=" #6FFFA7; #CD36FF;  #FFD972;  #5EBFFF; #6FFFA7"
+                  />
+                </stop>
+              </lineargradient>
+            </defs>
+            <g>
+              <rect
+                fill="url(#master_svg1_55_47405)"
+                height="100%"
+                width="100%"
+                x="0"
+                y="0"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          class="ant-md-input-field-editor"
+          style="border-radius: 10px; max-height: 120px;"
+        >
+          <div
+            class="markdown-editor ant-md-editor ant-md-editor-edit"
+            style="width: 100%; height: 100%; display: flex; flex-direction: column; max-height: 100%; min-height: 32px; cursor: auto; opacity: 1;"
+          >
+            <div
+              style="padding: 12px 64px 12px 12px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+            >
+              <div
+                aria-multiline="true"
+                autocapitalize="false"
+                autocorrect="false"
+                class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-edit"
+                contenteditable="true"
+                data-slate-editor="true"
+                data-slate-node="value"
+                role="textbox"
+                spellcheck="false"
+                style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                zindex="-1"
+              >
+                <div
+                  class="ant-md-editor-drag-el empty"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                  data-slate-placeholder="请输入内容"
+                >
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="n"
+                      >
+                        ﻿
+                        <br />
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    style="font-size: 0px; line-height: 0; display: inline-block;"
+                  >
+                     
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-md-input-field-send-before-actions"
+          contenteditable="false"
+        >
+          <span
+            style="color: red; padding: 4px; font-size: 14px; border-radius: 4px;"
+          >
+            模板
+          </span>
+        </div>
+        <div
+          class="ant-md-input-field-send-actions"
+          contenteditable="false"
+        />
+      </div>
+      <h2>
         文件上传
       </h2>
       <div
