@@ -236,12 +236,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       "h2 + [data-be='list'] ol": {
         marginTop: '0',
       },
-      '& .typewriter:last-of-type > *:last-of-type span[data-slate-leaf]:last-of-type  span[data-slate-string]':
-        {
-          borderRight: '0.15em solid #1677ff',
-          animation:
-            'typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite',
-        },
     },
   };
 };
@@ -296,20 +290,17 @@ export function useStyle(
   prefixCls: string,
   propsToken: Partial<ChatTokenType>,
 ) {
-  return useEditorStyleRegister(
-    'editor-content' + (propsToken.placeholderContent || 'default'),
-    (token) => {
-      const editorToken = {
-        ...token,
-        ...propsToken,
-        componentCls: `.${prefixCls}`,
-      };
+  return useEditorStyleRegister('editor-content', (token) => {
+    const editorToken = {
+      ...token,
+      ...propsToken,
+      componentCls: `.${prefixCls}`,
+    };
 
-      return [
-        resetComponent(editorToken),
-        genStyle(editorToken),
-        genSlideStyle(editorToken),
-      ];
-    },
-  );
+    return [
+      resetComponent(editorToken),
+      genStyle(editorToken),
+      genSlideStyle(editorToken),
+    ];
+  });
 }

@@ -255,3 +255,14 @@ div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
 .handsontable.ht-wrapper .ht_master .htCore thead tr:last-child th:first-child {
   height: auto !important;
 }
+
+.ant-md-editor-content
+  .typewriter:last-of-type
+  > *:last-of-type
+  span[data-slate-leaf]:last-of-type
+  span[data-slate-string] {
+  border-right: 0.15em solid #1677ff;
+  animation:
+    typing 3.5s steps(30, end),
+    blink-caret 0.5s step-end infinite;
+}
