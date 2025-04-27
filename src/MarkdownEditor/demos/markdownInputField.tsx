@@ -4,8 +4,66 @@ import {
   MarkdownEditorInstance,
   MarkdownInputField,
 } from '@ant-design/md-editor';
-import { ColorPicker, Slider } from 'antd';
+import { ColorPicker, Dropdown, Slider } from 'antd';
 import React, { useMemo } from 'react';
+
+import { useState } from 'react';
+
+const TagRender: React.FC<any> = (props: {
+  onSelect: (value: string) => void;
+  defaultDom: React.ReactNode;
+  placeholder: string;
+  readonly?: boolean;
+}) => {
+  const { onSelect, defaultDom, readonly } = props || {};
+  const [items] = useState<any[]>(() => [
+    {
+      key: '1',
+      label: '选项1',
+    },
+    {
+      key: '2',
+      label: '选项2',
+    },
+    {
+      key: '3',
+      label: '选项3',
+    },
+  ]);
+
+  return (
+    <Dropdown
+      disabled={readonly}
+      menu={{
+        items,
+        onClick: (e) => {
+          const item = items.find((item) => item.key === e.key);
+          if (item) {
+            onSelect?.(item.label);
+          }
+        },
+      }}
+      trigger={['click']}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+        }}
+      >
+        {defaultDom}
+        <DownOutlined
+          style={{
+            color: '#999',
+            fontSize: 12,
+          }}
+        />
+      </div>
+    </Dropdown>
+  );
+};
 
 export default () => {
   const markdownRef = React.useRef<MarkdownEditorInstance>();
@@ -93,24 +151,76 @@ export default () => {
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
-          dropdownRender: (d, props) => {
-            console.log('dropdownRender', props);
+          dropdownRender: () => {
+            return null;
+          },
+          tagTextStyle: {
+            background: '#EEF1FF',
+            color: '#4C4BDF',
+            lineHeight: '22px',
+            borderWidth: 0,
+          },
+          tagTextRender: (props, text) => {
+            return text.replaceAll('$', '');
+          },
+          enable: true,
+          items: ['tag1', 'tag2', 'tag3'].map((item) => ({
+            key: item,
+            label: item,
+          })),
+          tagRender: (props, defaultDom: React.ReactNode) => {
             return (
-              <div
+              <TagRender
                 style={{
+                  width: '100%',
                   display: 'flex',
-                  flexDirection: 'column',
-                  gap: 4,
-                  background: '#eee',
-                  border: '1px solid #EEE',
-                  padding: 12,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-              >
-                {props.placeholder}
-                {d}
-              </div>
+                defaultDom={defaultDom}
+                placeholder={props.placeholder}
+                onSelect={(value: string) => {
+                  props.onSelect?.(value);
+                }}
+              />
             );
           },
+        }}
+        onSend={send}
+        onStop={() => console.log('stop...')}
+        placeholder="请输入内容"
+      />
+      <h2>自定义的 Tag</h2>
+      <MarkdownInputField
+        inputRef={markdownRef}
+        beforeActionsRender={() => {
+          return [
+            <span
+              key="test"
+              onClick={() => {
+                markdownRef.current?.store?.setMDContent(
+                  '帮我查询`${placeholder:目标企业}` `${placeholder:近3年}`的`${placeholder:资产总额}`。',
+                );
+              }}
+              style={{
+                color: 'red',
+                padding: 4,
+                fontSize: 14,
+                borderRadius: 4,
+              }}
+            >
+              模板
+            </span>,
+          ];
+        }}
+        bgColorList={colorList}
+        borderRadius={borderRadius}
+        tagInputProps={{
+          dropdownRender: () => {
+            return null;
+          },
+
           tagTextStyle: {
             background: '#EEF1FF',
             color: '#4C4BDF',
@@ -126,9 +236,9 @@ export default () => {
             key: item,
             label: item,
           })),
-          tagRender: (props: any, defaultDom: React.ReactNode) => {
+          tagRender: (props, defaultDom: React.ReactNode) => {
             return (
-              <div
+              <TagRender
                 style={{
                   width: '100%',
                   display: 'flex',
@@ -136,10 +246,12 @@ export default () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
-              >
-                {defaultDom}
-                <DownOutlined />
-              </div>
+                defaultDom={defaultDom}
+                placeholder={props.placeholder}
+                onSelect={(value: string) => {
+                  props.onSelect?.(value);
+                }}
+              />
             );
           },
         }}
