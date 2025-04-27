@@ -23,7 +23,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
               pointerEvents: 'none',
             }}
           >
-            {props.element.value}
+            {JSON.stringify(props.element.value, null, 2)}
           </div>
         </div>
       );
