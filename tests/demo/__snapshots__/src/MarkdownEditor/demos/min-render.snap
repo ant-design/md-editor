@@ -185,7 +185,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -2949,7 +2949,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -3476,7 +3476,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -4357,7 +4357,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -5238,7 +5238,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -6119,7 +6119,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -7000,7 +7000,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -7881,7 +7881,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: inline-flex; gap: 4px; max-width: 100%;"
+                style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -8098,7 +8098,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -8277,7 +8277,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"
@@ -8553,7 +8553,7 @@
               <div
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%;"
+                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
               >
                 <span
                   data-be="card-before"

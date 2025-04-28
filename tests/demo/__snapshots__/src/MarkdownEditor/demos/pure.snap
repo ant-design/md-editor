@@ -758,7 +758,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 4px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -3419,7 +3419,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -3570,7 +3570,7 @@
                 <span
                   data-be="card-after"
                   data-slate-node="element"
-                  style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+                  style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
                 >
                   <span
                     data-slate-node="text"
@@ -3645,7 +3645,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 4px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -4309,7 +4309,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -4359,7 +4359,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 4px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -5258,7 +5258,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5308,7 +5308,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: inline-flex; gap: 4px; max-width: 100%;"
+            style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -5444,7 +5444,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5494,7 +5494,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 4px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -5570,7 +5570,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5620,7 +5620,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 4px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -5745,7 +5745,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5843,7 +5843,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: flex; gap: 4px; max-width: 100%;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -7121,7 +7121,7 @@
             <span
               data-be="card-after"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"

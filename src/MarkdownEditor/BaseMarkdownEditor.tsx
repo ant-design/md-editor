@@ -1,4 +1,4 @@
-import { AnchorProps, ConfigProvider } from 'antd';
+import { AnchorProps, ConfigProvider, ImageProps } from 'antd';
 import classNames from 'classnames';
 import { observable } from 'mobx';
 import React, {
@@ -129,6 +129,10 @@ export type MarkdownEditorProps = {
    */
   image?: {
     upload?: (file: File[] | string[]) => Promise<string[] | string>;
+    render?: (
+      props: ImageProps,
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode;
   };
   initValue?: string;
   /**

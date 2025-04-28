@@ -33,12 +33,30 @@ import { getMediaType } from '../../utils/dom';
  * ```
  */
 const ImageAndError: React.FC<ImageProps> = (props) => {
+  const { editorProps } = useEditorStore();
   const [error, setError] = React.useState(false);
   if (error) {
     return (
       <a href={props.src} target="_blank" rel="noopener noreferrer">
         {props.alt || props.src}
       </a>
+    );
+  }
+  if (editorProps?.image?.render) {
+    return editorProps.image.render?.(
+      {
+        ...props,
+        onError: () => {
+          setError(true);
+        },
+      },
+      <Image
+        {...props}
+        width={Number(props.width) || props.width || 400}
+        onError={() => {
+          setError(true);
+        }}
+      />,
     );
   }
   return (
