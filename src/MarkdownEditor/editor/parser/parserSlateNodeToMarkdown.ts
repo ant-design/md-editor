@@ -77,32 +77,42 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
     case 'blockquote':
       str += parserSlateNodeToMarkdown(node.children, preString, newParent);
       break;
+    case 'image':
+      let nodeImageUrl = new URL(node?.url);
+      if (node.width) {
+        nodeImageUrl.searchParams.set('width', node.width);
+      }
+      if (node.height) {
+        nodeImageUrl.searchParams.set('height', node.height);
+      }
+      str += `![${node.alt || ''}](${nodeImageUrl.toString()})`;
+      break;
     case 'media':
-      let url = node?.url;
-      let type = getMediaType(url, node?.alt);
+      let nodeUrl = node?.url;
+      let type = getMediaType(nodeUrl, node?.alt);
       if (node.height) {
         if (type === 'video') {
-          str += `<video src="${encodeURI(url)}" alt="" height="${
+          str += `<video src="${encodeURI(nodeUrl)}" alt="" height="${
             node.height || ''
           }"/>`;
         } else if (type === 'image') {
-          str += `<img src="${encodeURI(url)}" alt="" height="${
+          str += `<img src="${encodeURI(nodeUrl)}" alt="" height="${
             node.height || ''
           }" ${node.align ? `data-align="${node.align}"` : ''}/>`;
         }
       } else {
         if (type === 'video') {
-          str += `<video src="${encodeURI(url)}"/>`;
+          str += `<video src="${encodeURI(nodeUrl)}"/>`;
         } else if (type === 'image') {
           if (node.align) {
-            str += `<img src="${encodeURI(url)}" alt="" ${
+            str += `<img src="${encodeURI(nodeUrl)}" alt="" ${
               node.align ? `data-align="${node.align}"` : ''
             }/>`;
           } else {
-            str += `![${node.alt || ''}](${encodeURI(url)})`;
+            str += `![${node.alt || ''}](${encodeURI(nodeUrl)})`;
           }
         } else {
-          str += `<iframe src="${encodeURI(url)}"/>`;
+          str += `<iframe src="${encodeURI(nodeUrl)}"/>`;
         }
       }
       break;

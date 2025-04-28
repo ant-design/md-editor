@@ -7143,7 +7143,7 @@ exports[`should convert schema to markdown in  图片
 ![](h chunk 1`] = `
 "## 图片
 
-"
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)"
 `;
 
 exports[`should convert schema to markdown in  图表 area
