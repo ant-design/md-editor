@@ -156,7 +156,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; line-height: 0px; z-index: 99; font-size: 0px; overflow: hidden; display: none;"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3315,7 +3315,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; line-height: 0px; z-index: 99; font-size: 0px; overflow: hidden; display: none;"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
               >
                 <span
                   data-slate-node="text"
@@ -3895,7 +3895,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; line-height: 0px; z-index: 99; font-size: 0px; overflow: hidden; display: block;"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
               >
                 <span
                   data-slate-node="text"
@@ -7054,7 +7054,7 @@
               <span
                 data-be="card-after"
                 data-slate-node="element"
-                style="min-width: 4px; height: 100%; position: relative; line-height: 0px; z-index: 99; font-size: 0px; overflow: hidden; display: block;"
+                style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: block;"
               >
                 <span
                   data-slate-node="text"
