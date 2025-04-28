@@ -10,7 +10,7 @@ export const WarpCard = observer((props: RenderElementProps) => {
         data-be={'card'}
         style={{
           ...props.element.style,
-          display: 'flex',
+          display: props.element.block === false ? 'inline-flex' : 'flex',
           gap: 4,
           maxWidth: '100%',
         }}
@@ -18,5 +18,5 @@ export const WarpCard = observer((props: RenderElementProps) => {
         {props.children}
       </div>
     );
-  }, [props.element.children]);
+  }, [props.element.children, props.element.block]);
 });

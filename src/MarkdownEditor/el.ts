@@ -213,6 +213,7 @@ export type MediaNode<T = Record<string, any>> = {
   height?: number;
   width?: number;
   docId?: string;
+  block?: boolean;
   hash?: string;
   h?: number;
   children: BaseElement['children'];

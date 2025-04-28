@@ -1,10 +1,15 @@
-﻿import { DeleteFilled, LoadingOutlined } from '@ant-design/icons';
-import { Image, ImageProps, Modal, Popover } from 'antd';
+﻿import {
+  DeleteFilled,
+  LoadingOutlined,
+  PicCenterOutlined,
+  PicLeftOutlined,
+} from '@ant-design/icons';
+import { Image, ImageProps, Modal, Popover, Space } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
-import { Transforms } from 'slate';
+import { Path, Transforms } from 'slate';
 import { ElementProps, MediaNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ActionIconBox } from '../../components/ActionIconBox';
@@ -293,8 +298,6 @@ export function EditorImage({
       style={{
         cursor: 'pointer',
         position: 'relative',
-        display: 'inline-flex',
-        alignItems: 'flex-end',
       }}
       draggable={false}
       onContextMenu={(e) => {
@@ -312,27 +315,55 @@ export function EditorImage({
             padding: 8,
           },
         }}
-        trigger="click"
+        trigger="hover"
         open={state().selected && !readonly ? undefined : false}
         content={
-          <ActionIconBox
-            title="删除"
-            type="danger"
-            onClick={(e) => {
-              e.stopPropagation();
-              Modal.confirm({
-                title: '删除媒体',
-                content: '确定删除该媒体吗？',
-                onOk: () => {
-                  Transforms.removeNodes(markdownEditorRef.current, {
+          <Space>
+            <ActionIconBox
+              title="删除"
+              type="danger"
+              onClick={(e) => {
+                e.stopPropagation();
+                Modal.confirm({
+                  title: '删除媒体',
+                  content: '确定删除该媒体吗？',
+                  onOk: () => {
+                    Transforms.removeNodes(markdownEditorRef.current, {
+                      at: path,
+                    });
+                  },
+                });
+              }}
+            >
+              <DeleteFilled />
+            </ActionIconBox>
+            <ActionIconBox
+              title={element?.block ? '行内图片' : '"单独一行"'}
+              onClick={(e) => {
+                e.stopPropagation();
+                Transforms.setNodes(
+                  markdownEditorRef.current,
+                  {
+                    block: !element.block,
+                  },
+                  {
                     at: path,
-                  });
-                },
-              });
-            }}
-          >
-            <DeleteFilled />
-          </ActionIconBox>
+                  },
+                );
+                Transforms.setNodes(
+                  markdownEditorRef.current,
+                  {
+                    block: !element.block,
+                  },
+                  {
+                    at: Path.parent(path),
+                  },
+                );
+              }}
+            >
+              {element.block ? <PicLeftOutlined /> : <PicCenterOutlined />}
+            </ActionIconBox>
+          </Space>
         }
       >
         <div
@@ -343,11 +374,8 @@ export function EditorImage({
           }}
           tabIndex={-1}
           style={{
-            color: 'transparent',
             padding: 4,
-            userSelect: 'none',
             display: 'flex',
-            flexDirection: 'column',
           }}
           ref={htmlRef}
           draggable={false}

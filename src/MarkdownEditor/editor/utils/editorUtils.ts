@@ -609,15 +609,30 @@ export class EditorUtils {
 
       if (type === 'image' && getMediaType(src, extraPros?.alt) === 'other') {
         return {
-          ...(extraPros || {}),
-          type: 'image',
-          url: src,
-          mediaType: 'image',
-          alt: altText,
-          width: urlParams.get('width') || undefined,
-          height: urlParams.get('height') || undefined,
-          children: [{ text: '' }],
-        } as any;
+          type: 'card',
+          block: urlParams.get('block') || false,
+          children: [
+            {
+              type: 'card-before',
+              children: [{ text: '' }],
+            },
+            {
+              ...(extraPros || {}),
+              block: urlParams.get('block'),
+              type: 'image',
+              url: src,
+              mediaType: 'image',
+              alt: altText,
+              width: urlParams.get('width') || undefined,
+              height: urlParams.get('height') || undefined,
+              children: [{ text: '' }],
+            } as any,
+            {
+              type: 'card-after',
+              children: [{ text: '' }],
+            },
+          ],
+        };
       }
     } catch (error) {
       console.error('Error parsing URL:', error, src);

@@ -134,13 +134,6 @@ export const MElement = (
           }}
           data-be={'card-after'}
           {...props.attributes}
-          ref={(e: HTMLDivElement) => {
-            props.attributes.ref(e);
-            if (!e) return;
-            e.style.fontSize =
-              (e?.parentElement?.clientHeight || 0) * 0.9 + 'px';
-            e.style.lineHeight = (e?.parentElement?.clientHeight || 0) + 'px';
-          }}
         >
           {props.children}
         </span>

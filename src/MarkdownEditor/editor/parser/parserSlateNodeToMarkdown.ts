@@ -85,6 +85,9 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       if (node.height) {
         nodeImageUrl.searchParams.set('height', node.height);
       }
+      if (node.block) {
+        nodeImageUrl.searchParams.set('block', node.block);
+      }
       str += `![${node.alt || ''}](${nodeImageUrl.toString()})`;
       break;
     case 'media':
