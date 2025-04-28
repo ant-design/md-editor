@@ -115,6 +115,7 @@ Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米�
 ## 图片
 
 ![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
 
 ## 视频
 

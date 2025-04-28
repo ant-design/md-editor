@@ -2602,7 +2602,7 @@ const bugMd = `<!-- [{"chartType": "line", "x": "date", "y": "uv_click_mark", "c
 
 
 
-\# 个⼈简历 
+# 个⼈简历 
 
 <html><body><table><tr><td>##基本信息 |姓名</td><td>一张三</td><td>|性别</td><td>|男 1</td></tr><tr><td>|出生日期 丨联系方式</td><td>11990年5月1日 |138-1234-5678</td><td>|籍贯 |邮箱</td><td>- 丨江苏南京 zianyoan@erampie.com |</td></tr></table></body></html>
 

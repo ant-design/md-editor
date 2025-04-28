@@ -21,6 +21,7 @@ import {
 } from '../../el';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
+import { getMediaType } from './dom';
 
 export class EditorUtils {
   static get p() {
@@ -602,6 +603,26 @@ export class EditorUtils {
     if (!src) {
       return { text: '' };
     }
+    try {
+      const urlParams = new URL(src).searchParams;
+      const altText = extraPros?.alt || urlParams.get('alt') || '';
+
+      if (type === 'image' && getMediaType(src, extraPros?.alt) === 'other') {
+        return {
+          ...(extraPros || {}),
+          type: 'image',
+          url: src,
+          mediaType: 'image',
+          alt: altText,
+          width: urlParams.get('width') || undefined,
+          height: urlParams.get('height') || undefined,
+          children: [{ text: '' }],
+        } as any;
+      }
+    } catch (error) {
+      console.error('Error parsing URL:', error, src);
+    }
+
     return {
       type: 'card',
       children: [

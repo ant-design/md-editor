@@ -22,6 +22,7 @@ import { Description } from './description';
 import { FootnoteDefinition } from './FootnoteDefinition';
 import { FootnoteReference } from './FootnoteReference';
 import { Head } from './head';
+import { EditorImage } from './image';
 import { LinkCard } from './LinkCard';
 import { List, ListItem } from './list';
 import { Media } from './media';
@@ -89,6 +90,8 @@ export const MElement = (
       return <tr {...props.attributes}>{props.children}</tr>;
     case 'table-cell':
       return <TableCell {...props}>{props.children}</TableCell>;
+    case 'image':
+      return <EditorImage {...props} />;
     case 'media':
       return <Media {...props} />;
     case 'footnoteDefinition':
@@ -163,6 +166,7 @@ export const MLeaf = (
   const style: CSSProperties = {};
   let className = props.hashId + ' ';
   let children = <>{props.children}</>;
+
   if (leaf.code || leaf.tag) {
     const { text, tag, placeholder, triggerText } = (props?.leaf || {}) as any;
     const { enable, tagTextRender } = props.tagInputProps || {};

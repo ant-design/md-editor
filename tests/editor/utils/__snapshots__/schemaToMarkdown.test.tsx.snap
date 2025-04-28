@@ -1700,36 +1700,17 @@ exports[`should convert markdown to schema in  图片
     "type": "head",
   },
   {
+    "alt": "",
     "children": [
       {
-        "children": [
-          {
-            "text": "",
-          },
-        ],
-        "type": "card-before",
-      },
-      {
-        "alt": "",
-        "children": [
-          {
-            "text": "",
-          },
-        ],
-        "mediaType": "image",
-        "type": "media",
-        "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
-      },
-      {
-        "children": [
-          {
-            "text": "",
-          },
-        ],
-        "type": "card-after",
+        "text": "",
       },
     ],
-    "type": "card",
+    "height": undefined,
+    "mediaType": "image",
+    "type": "image",
+    "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
+    "width": undefined,
   },
 ]
 `;
@@ -7161,10 +7142,6 @@ exports[`should convert schema to markdown in  图片
 
 ![](h chunk 1`] = `
 "## 图片
-
-
-
-<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>
 
 "
 `;
