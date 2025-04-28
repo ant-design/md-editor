@@ -13,6 +13,7 @@ export const WarpCard = observer((props: RenderElementProps) => {
           display: props.element.block === false ? 'inline-flex' : 'flex',
           gap: 4,
           maxWidth: '100%',
+          alignItems: 'flex-end',
         }}
       >
         {props.children}

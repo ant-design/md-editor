@@ -9,7 +9,7 @@
 
 <code src="./demos/FncTooltip.tsx" background="var(--main-bg-color)" title="引用展示" iframe=540></code>
 
-<code src="./demos/min.tsx" background="var(--main-bg-color)" title="嵌入框模式" iframe=540></code>
+<code src="./demos/min.tsx" background="var(--main-bg-color)" title="嵌入框模p式" iframe=540></code>
 
 <code src="./demos/readonly.tsx" background="var(--main-bg-color)" title="只读模式" iframe=540></code>
 

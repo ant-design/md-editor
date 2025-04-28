@@ -130,7 +130,7 @@ export const MElement = (
             zIndex: 99,
             fontSize: '2em',
             overflow: 'hidden',
-            display: props.readonly ? 'none' : 'block',
+            display: props.readonly ? 'none' : 'inline-block',
           }}
           data-be={'card-after'}
           {...props.attributes}
