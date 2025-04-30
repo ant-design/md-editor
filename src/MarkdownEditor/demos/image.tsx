@@ -73,6 +73,16 @@ export default () => {
               }
             });
           },
+          render: (props) => {
+            return (
+              <img
+                {...props}
+                style={{
+                  border: '2px solid red',
+                }}
+              />
+            );
+          },
         }}
         initValue={defaultValue}
       />
