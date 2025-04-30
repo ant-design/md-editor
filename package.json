@@ -18,7 +18,7 @@
     "doctor": "father doctor",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-    "linçt": "npm run lint:es && npm run lint:css",
+    "lint": "npm run lint:es && npm run lint:css",
     "prepare": "husky install && dumi setup",
     "prepublishOnly": "father doctor && npm run test && npm run build",
     "prettier": "prettier --write \"{src,test}/**/*.{js,jsx,ts,tsx,css,less,json,md}\"",
