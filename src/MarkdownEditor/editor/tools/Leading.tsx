@@ -205,17 +205,17 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
       items={buildTree(state().headings).children?.map((h: any) => ({
         id: h.id,
         key: h.key,
-        href: `#${h.id}`,
+        href: `#${slugify(h.id)}`,
         children: h?.children?.map((subH: any) => ({
           id: subH.id,
           key: subH.key,
-          href: `#${subH.id}`,
+          href: `#${slugify(subH.id)}`,
           title: <TocTitle>{subH.title}</TocTitle>,
           children:
             subH?.children?.map((subSubH: any) => ({
               id: subSubH.id,
               key: subSubH.key,
-              href: `#${subSubH.id}`,
+              href: `#${slugify(subSubH.id)}`,
               title: <TocTitle>{subSubH.title}</TocTitle>,
             })) || undefined,
         })),
