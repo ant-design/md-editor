@@ -379,6 +379,20 @@ export class EditorStore {
       );
     }
   };
+  /**
+   * 在指定路径后插入节点。
+   * @param path
+   * @param node
+   */
+  insertAfter(path: number[], node: Node) {
+    if (this._editor.current.hasPath(Path.previous(path))) {
+      Transforms.insertNodes(this._editor.current, node, {
+        at: path,
+      });
+    } else {
+      this.insertAfter(Path.previous(path), node);
+    }
+  }
 
   /**
    * 比较两个节点并更新编辑器中的节点。
@@ -397,117 +411,75 @@ export class EditorStore {
    * 如果 `node` 和 `preNode` 都没有子节点，则更新当前路径的节点，并插入文本（如果有）。
    */
   diffNode = (node: Node, preNode: Node, at: number[]) => {
-    // 处理新增节点的情况
+    // 如果上个节点不存在，但是本次有，直接插入
     if (node && !preNode) {
-      this.handleNewNodeInsertion(node, at);
-      return;
-    }
-
-    // 类型不同时直接替换节点
-    if (node.type !== preNode.type) {
-      this.replaceNode(node, at);
-      return;
-    }
-
-    // 类型相同时处理属性更新
-    if (node.type === preNode.type) {
-      this.updateExistingNode(node, preNode, at);
-    }
-
-    // 处理子节点差异
-    this.processChildren(node, preNode, at);
-  };
-
-  // 辅助方法：处理新增节点插入
-  private handleNewNodeInsertion = (node: Node, at: number[]) => {
-    const parentPath = Path.parent(at);
-
-    if (this.editor.hasPath(parentPath)) {
-      if (this.editor.hasPath(Path.previous(at))) {
-        Transforms.insertNodes(this.editor, node, { at });
-      } else {
-        this.insertAdjacentNode(Path.previous(at), node);
-      }
-    } else {
-      this.handleParentCreation(node, parentPath);
-    }
-  };
-
-  // 辅助方法：替换节点
-  private replaceNode = (node: Node, at: number[]) => {
-    Transforms.removeNodes(this.editor, { at });
-    Transforms.insertNodes(this.editor, node, { at });
-  };
-
-  // 辅助方法：更新现有节点属性
-  private updateExistingNode = (node: Node, preNode: Node, at: number[]) => {
-    const shouldReplace = [
-      'code',
-      'list-item',
-      'table-cell',
-      'footnoteDefinition',
-    ].includes(node.type);
-
-    if (shouldReplace && !this.isNodeEqual(node, preNode)) {
-      this.replaceNode(node, at);
-      return;
-    }
-
-    if (!this.isNodeEqual(node, preNode)) {
-      Transforms.setNodes(this.editor, node, { at });
-    }
-
-    // 更新文本内容（变化时才更新）
-    if (node.text !== preNode.text) {
-      Transforms.insertText(this.editor, node.text, { at });
-    }
-  };
-
-  // 辅助方法：处理子节点差异
-  private processChildren = (node: Node, preNode: Node, at: number[]) => {
-    const nodeChildren = node.children || [];
-    const preChildren = preNode.children || [];
-    const maxLength = Math.max(nodeChildren.length, preChildren.length);
-
-    // 处理现有子节点
-    for (let i = 0; i < maxLength; i++) {
-      const childPath = [...at, i];
-
-      if (i < nodeChildren.length && i < preChildren.length) {
-        // 递归比较子节点
-        this.diffNode(nodeChildren[i], preChildren[i], childPath);
-      } else if (i < nodeChildren.length) {
-        // 插入新增子节点
-        Transforms.insertNodes(this.editor, nodeChildren[i], { at: childPath });
-      } else {
-        // 删除多余子节点
-        if (this.editor.hasPath(childPath)) {
-          Transforms.removeNodes(this.editor, { at: childPath });
+      if (this._editor.current.hasPath(Path.parent(at))) {
+        if (this._editor.current.hasPath(Path.previous(at))) {
+          Transforms.insertNodes(this._editor.current, node, { at });
+        } else {
+          this.insertAfter(Path.previous(at), node);
         }
+        return;
+      }
+      if (node && node.type === 'list-item') {
+        this.diffNode(node, preNode, Path.parent(at));
+      } else {
+        this.diffNode(node, preNode, Path.next(Path.parent(at)));
+      }
+      return;
+    }
+    if (node.type === 'table' && !this.readonly) {
+      Transforms.removeNodes(this._editor.current, {
+        at,
+      });
+      Transforms.insertNodes(this._editor.current, node, { at });
+      return;
+    }
+    if (node.type !== preNode.type) {
+      Transforms.removeNodes(this._editor.current, {
+        at,
+      });
+      Transforms.insertNodes(this._editor.current, node, { at });
+      return;
+    }
+
+    if (node.type === preNode.type) {
+      if (node.type === 'code' && preNode.type === 'code') {
+        Transforms.setNodes(this._editor.current, node, { at });
+        return;
+      }
+
+      if (
+        node.type === 'list-item' ||
+        node.type === 'table-cell' ||
+        node.type === 'footnoteDefinition'
+      ) {
+        Transforms.removeNodes(this._editor.current, {
+          at,
+        });
+        Transforms.insertNodes(this._editor.current, node, { at });
+        return;
+      }
+
+      Transforms.setNodes(this._editor.current, node, { at });
+      if (node.text) {
+        Transforms.insertText(this._editor.current, node.text, { at });
       }
     }
-  };
 
-  // 辅助方法：判断节点是否相等（浅比较）
-  private isNodeEqual = (a: Node, b: Node): boolean => {
-    return (
-      a.type === b.type &&
-      a.text === b.text &&
-      JSON.stringify(a.properties) === JSON.stringify(b.properties) &&
-      JSON.stringify(a.otherProps) === JSON.stringify(b.otherProps) &&
-      a.value === b.value
-    );
-  };
-
-  // 辅助方法：处理父节点创建
-  private handleParentCreation = (node: Node, parentPath: number[]) => {
-    if (node.type === 'list-item') {
-      this.diffNode(node, null, parentPath);
-    } else {
-      this.diffNode(node, null, Path.next(parentPath));
+    if (node.children) {
+      node.children.forEach((child: any, index: any) => {
+        if (!this._editor.current.hasPath(at)) {
+          Transforms.insertNodes(this._editor.current, child, { at });
+          return;
+        }
+        this.diffNode(child, preNode.children[index], [...at, index]);
+      });
+      return;
     }
+    return;
   };
-  timer: NodeJS.Timeout | null = null;
+
   /**
    * 更新节点列表的方法。
    *
@@ -522,10 +494,10 @@ export class EditorStore {
    * 最后，如果当前编辑器中的子节点比新的节点列表多，
    * 它会移除多余的节点。
    */
-  updateNodeList = (nodeList: Node[]) => {
+  updateNodeList(nodeList: Node[]) {
+    const childrenList = this._editor.current.children;
+    const updateMap = new Map<number, Node>();
     Editor.withoutNormalizing(this.editor, () => {
-      const childrenList = this._editor.current.children;
-      const updateMap = new Map<number, Node>();
       nodeList
         .filter((item: any) => {
           if (item.type === 'p' && item.children.length === 0) {
@@ -537,7 +509,23 @@ export class EditorStore {
           if (item.type === 'listItem' && item.children.length === 0) {
             return false;
           }
+          if (
+            item.type === 'code' &&
+            item.language === 'code' &&
+            item.otherProps?.length === 0
+          ) {
+            return false;
+          }
+          if (item.type === 'image' && !item.src) {
+            return false;
+          }
           return true;
+        })
+        .map((item: any) => {
+          if (item.type === 'card') {
+            return item.children[1];
+          }
+          return item;
         })
         .forEach((node: Node, index) => {
           if (node?.type !== childrenList?.at(index)?.type) {
@@ -553,8 +541,8 @@ export class EditorStore {
           }
 
           if (
-            Object.keys(node).length !==
-            Object.keys(childrenList?.at(index)).length
+            Object.keys(node || {}).length !==
+            Object.keys(childrenList?.at(index) || {}).length
           ) {
             updateMap.set(index, node);
             return;
@@ -584,7 +572,7 @@ export class EditorStore {
         });
       }
     });
-  };
+  }
 
   /**
    * 处理拖拽开始事件。

@@ -761,6 +761,18 @@ const parserBlock = (
       case 'table':
         el = parseTableOrChart(currentElement, preElement);
         break;
+      case 'definition':
+        el = {
+          type: 'paragraph',
+          children: [
+            {
+              text:
+                `[${currentElement.label}]: ` +
+                (currentElement.url ? `${currentElement.url}` : ''),
+            },
+          ],
+        };
+        break;
       default:
         if (currentElement.type === 'text' && htmlTag.length) {
           el = { text: currentElement.value };
@@ -931,7 +943,6 @@ export const parserMarkdownToSlateNode = (
     (plugins || [])?.length > 0
       ? parseWithPlugins(markdownRoot, plugins || [])
       : markdownRoot.children;
-
   const schema = parserBlock(root as any[], true) as Elements[];
 
   return { schema, links: [] };

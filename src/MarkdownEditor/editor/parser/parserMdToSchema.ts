@@ -12,6 +12,9 @@ const transformResult = (result: ParserResult) => {
       if ((s as CodeNode).language === 'html' && (s as CodeNode).otherProps) {
         return false;
       }
+      if (!s.type && !(s as any)?.text) {
+        return false;
+      }
       return true;
     }),
     links: result.links || [],
