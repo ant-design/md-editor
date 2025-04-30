@@ -3629,14 +3629,15 @@
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink"
+                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link"
+                    class="ant-anchor-link ant-anchor-link-active"
                   >
                     <a
-                      class="ant-anchor-link-title"
-                      href="#Description"
+                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      href="#description"
                       title=""
                     >
                       <span

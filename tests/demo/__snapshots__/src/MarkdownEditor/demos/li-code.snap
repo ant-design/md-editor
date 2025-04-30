@@ -3865,11 +3865,11 @@ while i &lt; len(fruits):
                   style="top: 0px; height: 0px;"
                 />
                 <div
-                  class="ant-anchor-link"
+                  class="ant-anchor-link ant-anchor-link-active"
                 >
                   <a
-                    class="ant-anchor-link-title"
-                    href="#一、基础 for 循环（推荐）"
+                    class="ant-anchor-link-title ant-anchor-link-title-active"
+                    href="#一、基础-for-循环（推荐）"
                     title=""
                   >
                     <span
@@ -3880,10 +3880,10 @@ while i &lt; len(fruits):
                   </a>
                 </div>
                 <div
-                  class="ant-anchor-link ant-anchor-link-active"
+                  class="ant-anchor-link"
                 >
                   <a
-                    class="ant-anchor-link-title ant-anchor-link-title-active"
+                    class="ant-anchor-link-title"
                     href="#二、带索引的循环"
                     title=""
                   >
@@ -3899,7 +3899,7 @@ while i &lt; len(fruits):
                 >
                   <a
                     class="ant-anchor-link-title"
-                    href="#三、while 循环"
+                    href="#三、while-循环"
                     title=""
                   >
                     <span
@@ -3929,7 +3929,7 @@ while i &lt; len(fruits):
                 >
                   <a
                     class="ant-anchor-link-title"
-                    href="#五、range() + len() 组合"
+                    href="#五、range-len-组合"
                     title=""
                   >
                     <span
