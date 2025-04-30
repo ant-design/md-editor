@@ -29,6 +29,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             color: 'rgba(0,0,0,0.45)',
             display: 'inline-block',
             position: 'absolute',
+            width: 'max-content',
           },
         },
         '> div.empty:first-child [data-slate-node="text"]': {
