@@ -32,7 +32,7 @@ import { getMediaType } from '../../utils/dom';
  * <ImageAndError src="https://example.com/image.jpg" alt="示例图片" />
  * ```
  */
-const ImageAndError: React.FC<ImageProps> = (props) => {
+export const ImageAndError: React.FC<ImageProps> = (props) => {
   const { editorProps } = useEditorStore();
   const [error, setError] = React.useState(false);
   if (error) {

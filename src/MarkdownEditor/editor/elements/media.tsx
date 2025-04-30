@@ -1,5 +1,5 @@
 import { DeleteFilled, EyeOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Image, ImageProps, Modal, Popover } from 'antd';
+import { Modal, Popover } from 'antd';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { useDebounceFn } from '@ant-design/pro-components';
@@ -13,39 +13,7 @@ import { useEditorStore } from '../store';
 import { DragHandle } from '../tools/DragHandle';
 import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';
-
-/**
- * 图片组件，带有错误处理功能
- * 如果图片加载失败，将显示可点击的链接
- *
- * @component
- * @param props - 图片属性，继承自 ImageProps 接口
- * @param props.src - 图片的源地址
- * @returns 返回一个图片组件，如果加载失败则返回一个链接
- *
- * @example
- * ```tsx
- * <ImageAndError src="https://example.com/image.jpg" alt="示例图片" />
- * ```
- */
-const ImageAndError: React.FC<ImageProps> = (props) => {
-  const [error, setError] = React.useState(false);
-  if (error) {
-    return (
-      <a href={props.src} target="_blank" rel="noopener noreferrer">
-        {props.alt || props.src}
-      </a>
-    );
-  }
-  return (
-    <Image
-      {...props}
-      onError={() => {
-        setError(true);
-      }}
-    />
-  );
-};
+import { ImageAndError } from './image';
 
 /**
  * 修复图片大小的问题
