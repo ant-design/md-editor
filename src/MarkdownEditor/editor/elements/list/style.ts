@@ -13,6 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         color: 'rgb(107 114 128 /1)',
       },
       'div[data-be="paragraph"]': {
+        display: 'block',
         marginBottom: '0 !important',
         marginTop: '0 !important',
         paddingTop: '0 !important',
