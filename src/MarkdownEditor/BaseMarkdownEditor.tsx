@@ -385,12 +385,6 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const initSchemaValue = useMemo(() => {
     let list = parserMdToSchema(initValue!)?.schema;
     if (!props.readonly) {
-      list = list.map((item) => {
-        if (item.type === 'card') {
-          return item?.children?.[1] || item;
-        }
-        return item;
-      });
       list.push(EditorUtils.p);
     }
     const schema =
