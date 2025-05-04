@@ -515,12 +515,6 @@ export class EditorStore {
           }
           return true;
         })
-        .map((item: any) => {
-          if (item.type === 'card' && this.readonly) {
-            return item?.children?.[1] || item;
-          }
-          return item;
-        })
         .forEach((node: Node, index) => {
           if (node?.type !== childrenList?.at(index)?.type) {
             updateMap.set(index, node);

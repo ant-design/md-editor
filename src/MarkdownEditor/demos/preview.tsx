@@ -431,28 +431,185 @@ export default () => {
           });
         },
       }}
-      initValue={
-        process.env.NODE_ENV === 'test'
-          ? defaultValue
-          : defaultValue +
-            `## 公式
-
-Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
-equation.
-
-$$
-L = \frac{1}{2} \rho v^2 S C_L
-$$
-
-$x^3+x^9+x^y$
-
-$sqrt{3x-1}+(1+x)^2$ 。
-
-$$
-x = {-b pm sqrt{b^2-4ac} over 2a}.
-$$
-`
-      }
+      initSchemaValue={[
+        {
+          children: [
+            {
+              text: '你好，hhhh',
+            },
+          ],
+          type: 'paragraph',
+        },
+        {
+          children: [
+            {
+              text: '哒哒哒哒',
+            },
+          ],
+          type: 'paragraph',
+        },
+        {
+          children: [
+            {
+              children: [
+                {
+                  text: '',
+                },
+              ],
+              type: 'card-before',
+            },
+            {
+              children: [
+                {
+                  children: [
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '1111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                  ],
+                  type: 'table-row',
+                },
+                {
+                  children: [
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '1',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '11',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                  ],
+                  type: 'table-row',
+                },
+                {
+                  children: [
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                    {
+                      children: [
+                        {
+                          children: [
+                            {
+                              text: '111',
+                            },
+                          ],
+                          type: 'paragraph',
+                        },
+                      ],
+                      type: 'table-cell',
+                    },
+                  ],
+                  type: 'table-row',
+                },
+              ],
+              otherProps: {
+                colWidths: [200, 200, 200],
+              },
+              type: 'table',
+            },
+            {
+              children: [
+                {
+                  text: '',
+                },
+              ],
+              type: 'card-after',
+            },
+          ],
+          type: 'card',
+        },
+      ]}
     />
   );
 };
