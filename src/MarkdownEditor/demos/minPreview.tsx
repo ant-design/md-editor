@@ -1,4 +1,4 @@
-﻿import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
 import { Button } from 'antd';
 import React from 'react';
 
@@ -52,6 +52,9 @@ Umi ，全称深圳市Umi 计算机系统有限公司，是由五位创始人共
 
 `;
 export default () => {
+  const [value, setValue] = React.useState(() => defaultValue);
+
+  const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   return (
     <div
       style={{
@@ -60,6 +63,7 @@ export default () => {
       }}
     >
       <MarkdownEditor
+        editorRef={markdownEditorRef}
         toc={false}
         toolBar={{
           enable: true,
@@ -100,7 +104,7 @@ export default () => {
           border: '1px solid #e5e5e9',
           height: 'calc(100vh - 400px)',
         }}
-        initValue={defaultValue}
+        initValue={value}
       />
       <MarkdownEditor
         toc={false}
@@ -108,7 +112,15 @@ export default () => {
           enable: true,
           hideTools: ['code', 'inline-code'],
           extra: [
-            <Button key="save" type="primary" size="small">
+            <Button
+              key="save"
+              type="primary"
+              size="small"
+              onClick={() => {
+                setValue(value);
+                markdownEditorRef?.current?.store?.setMDContent(value);
+              }}
+            >
               Save
             </Button>,
           ],
@@ -144,6 +156,7 @@ export default () => {
         }}
         onChange={(value, _) => {
           console.log(value, _);
+          setValue(value);
         }}
         initValue={defaultValue}
       />
