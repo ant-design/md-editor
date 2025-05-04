@@ -428,13 +428,7 @@ export class EditorStore {
       }
       return;
     }
-    if (node.type === 'table' && !this.readonly) {
-      Transforms.removeNodes(this._editor.current, {
-        at,
-      });
-      Transforms.insertNodes(this._editor.current, node, { at });
-      return;
-    }
+
     if (node.type !== preNode.type) {
       Transforms.removeNodes(this._editor.current, {
         at,
