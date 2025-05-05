@@ -1,13 +1,26 @@
-﻿import { observer } from 'mobx-react';
-import React from 'react';
-import { RenderElementProps } from '../../slate-react';
+﻿import React from 'react';
+import { Editor, Transforms } from 'slate';
+import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
+import { RenderElementProps, useSlate } from '../../slate-react';
 
-export const WarpCard = observer((props: RenderElementProps) => {
+export const WarpCard = (props: RenderElementProps) => {
+  const [selected, path] = useSelStatus(props.element);
+  const editor = useSlate();
   return React.useMemo(() => {
     return (
       <div
         {...props.attributes}
         data-be={'card'}
+        onClick={(e) => {
+          e.stopPropagation();
+          const start = Editor.start(editor, path);
+          const end = Editor.end(editor, path);
+          Transforms.select(editor, {
+            anchor: start,
+            focus: end,
+          });
+          e.preventDefault();
+        }}
         style={{
           ...props.element.style,
           display: props.element.block === false ? 'inline-flex' : 'flex',
@@ -19,5 +32,5 @@ export const WarpCard = observer((props: RenderElementProps) => {
         {props.children}
       </div>
     );
-  }, [props.element.children, props.element.block]);
-});
+  }, [props.element.children, selected, path, props.element.block]);
+};
