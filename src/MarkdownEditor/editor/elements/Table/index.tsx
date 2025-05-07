@@ -511,21 +511,37 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       colWidths: genDefaultWidth(cellSet.tableData),
       mergeCells: generateMergedCells(cellSet.tableData) || [],
     });
-    const minWidth =
-      tableContainerRef?.current?.querySelector('.wtHider')?.clientWidth;
-
-    const dom = tableContainerRef.current?.querySelector(
-      '.ht-theme-horizon',
-    ) as HTMLDivElement;
-    if (dom) {
-      setTimeout(() => {
-        dom.style.minWidth = `min(${(
-          (store?.container?.querySelector('.ant-md-editor-content')
-            ?.clientWidth || 200) * 0.95
-        ).toFixed(0)}px,${minWidth}px)`;
-      }, 200);
-    }
+    document.dispatchEvent(
+      new CustomEvent('md-resize', {
+        detail: {},
+      }),
+    );
   }, [JSON.stringify(props.element)]);
+
+  useEffect(() => {
+    const resize = () => {
+      const minWidth = store?.container?.querySelector(
+        '.ant-md-editor-content',
+      )?.clientWidth;
+
+      const dom = tableContainerRef.current?.querySelector(
+        '.ht-theme-horizon',
+      ) as HTMLDivElement;
+      if (dom) {
+        setTimeout(() => {
+          dom.style.minWidth = `min(${(
+            (store?.container?.querySelector('.ant-md-editor-content')
+              ?.clientWidth || 200) * 0.95
+          ).toFixed(0)}px,${minWidth}px)`;
+        }, 200);
+      }
+    };
+    document.addEventListener('md-resize', resize);
+    resize();
+    return () => {
+      document.removeEventListener('md-resize', resize);
+    };
+  }, []);
 
   return useMemo(() => {
     return wrapSSR(

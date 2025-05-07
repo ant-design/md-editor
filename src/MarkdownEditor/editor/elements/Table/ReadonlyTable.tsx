@@ -6,7 +6,7 @@
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { I18nContext } from '../../../../i18n';
 import { parserSlateNodeToMarkdown, TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
@@ -50,7 +50,7 @@ export const ReadonlyTable = observer(
     children: React.ReactNode;
     hashId: string;
   } & RenderElementProps<TableNode>) => {
-    const { editorProps } = useEditorStore();
+    const { editorProps, store } = useEditorStore();
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const {
       actions = {
@@ -69,6 +69,34 @@ export const ReadonlyTable = observer(
 
     const [previewOpen, setPreviewOpen] = useState(false);
     const i18n = useContext(I18nContext);
+
+    useEffect(() => {
+      const resize = () => {
+        const minWidth = store?.container?.querySelector(
+          '.ant-md-editor-content',
+        )?.clientWidth;
+
+        const dom = tableTargetRef.current as HTMLDivElement;
+        if (dom) {
+          setTimeout(() => {
+            dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${minWidth}px)`;
+          }, 200);
+        }
+      };
+      document.addEventListener('md-resize', resize);
+      resize();
+      return () => {
+        document.removeEventListener('md-resize', resize);
+      };
+    }, []);
+
+    useEffect(() => {
+      document.dispatchEvent(
+        new CustomEvent('md-resize', {
+          detail: {},
+        }),
+      );
+    }, []);
     return useMemo(() => {
       const dom = (
         <table

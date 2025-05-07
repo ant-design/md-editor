@@ -169,6 +169,17 @@ export class EditorStore {
   }
 
   /**
+   * 触发表格的宽度调整事件。
+   */
+  resizeTable() {
+    document.dispatchEvent(
+      new CustomEvent('md-resize', {
+        detail: {},
+      }),
+    );
+  }
+
+  /**
    * 查找最新的节点索引。
    *
    * @param node - 当前节点。
