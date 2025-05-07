@@ -224,12 +224,52 @@
                     <div
                       aria-describedby="test-id"
                       class="ant-md-editor-content-table"
-                      style="flex: 1; min-width: 0;"
+                      style="flex: 1; min-width: min(190px,908px);"
                     >
                       <table
                         class="ant-md-editor-content-table-editor-table"
-                        style="min-width: min(190px,0px);"
                       >
+                        <colgroup>
+                          <col
+                            style="width: 60px; min-width: 60px; max-width: 60px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                        </colgroup>
                         <tbody
                           data-slate-node="element"
                         >
@@ -8593,12 +8633,28 @@
                     <div
                       aria-describedby="test-id"
                       class="ant-md-editor-content-table"
-                      style="flex: 1; min-width: 0;"
+                      style="flex: 1; min-width: min(190px,348px);"
                     >
                       <table
                         class="ant-md-editor-content-table-editor-table"
-                        style="min-width: min(190px,0px);"
                       >
+                        <colgroup>
+                          <col
+                            style="width: 60px; min-width: 60px; max-width: 60px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                          <col
+                            style="width: 70px; min-width: 70px; max-width: 70px;"
+                          />
+                        </colgroup>
                         <tbody
                           data-slate-node="element"
                         >

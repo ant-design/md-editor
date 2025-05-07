@@ -70,12 +70,25 @@
                   <div
                     aria-describedby="test-id"
                     class="ant-md-editor-content-table"
-                    style="flex: 1; min-width: 0;"
+                    style="flex: 1; min-width: min(190px,921px);"
                   >
                     <table
                       class="ant-md-editor-content-table-editor-table"
-                      style="min-width: min(190px,0px);"
                     >
+                      <colgroup>
+                        <col
+                          style="width: 152px; min-width: 152px; max-width: 152px;"
+                        />
+                        <col
+                          style="width: 373px; min-width: 373px; max-width: 373px;"
+                        />
+                        <col
+                          style="width: 300px; min-width: 300px; max-width: 300px;"
+                        />
+                        <col
+                          style="width: 88px; min-width: 88px; max-width: 88px;"
+                        />
+                      </colgroup>
                       <tbody
                         data-slate-node="element"
                       >
@@ -3215,12 +3228,25 @@
                   <div
                     aria-describedby="test-id"
                     class="ant-md-editor-content-table"
-                    style="flex: 1; min-width: 0;"
+                    style="flex: 1; min-width: min(190px,921px);"
                   >
                     <table
                       class="ant-md-editor-content-table-editor-table"
-                      style="min-width: min(190px,0px);"
                     >
+                      <colgroup>
+                        <col
+                          style="width: 152px; min-width: 152px; max-width: 152px;"
+                        />
+                        <col
+                          style="width: 373px; min-width: 373px; max-width: 373px;"
+                        />
+                        <col
+                          style="width: 300px; min-width: 300px; max-width: 300px;"
+                        />
+                        <col
+                          style="width: 88px; min-width: 88px; max-width: 88px;"
+                        />
+                      </colgroup>
                       <tbody
                         data-slate-node="element"
                       >

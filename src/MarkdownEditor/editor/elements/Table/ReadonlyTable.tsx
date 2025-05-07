@@ -7,6 +7,8 @@ import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Node } from 'slate';
+import stringWidth from 'string-width';
 import { I18nContext } from '../../../../i18n';
 import { parserSlateNodeToMarkdown, TableNode } from '../../../index';
 import { ActionIconBox } from '../../components';
@@ -70,12 +72,46 @@ export const ReadonlyTable = observer(
     const [previewOpen, setPreviewOpen] = useState(false);
     const i18n = useContext(I18nContext);
 
+    const colWidths = useMemo(() => {
+      if (props.element?.otherProps?.colWidths) {
+        return props.element?.otherProps?.colWidths;
+      }
+
+      if (typeof window === 'undefined') return [];
+      if (props.element?.children?.at(1)?.children) {
+        const minWidth = store?.container?.querySelector(
+          '.ant-md-editor-content',
+        )?.clientWidth;
+        const lastRow = props.element?.children?.at(0)?.children;
+        return props.element?.children
+          ?.at(1)
+          ?.children?.map((col: Node, index) => {
+            const width = stringWidth(Node.string(col)) * 10;
+
+            return Math.min(
+              Math.max(
+                60,
+                width,
+                lastRow?.at(index)
+                  ? stringWidth(Node.string(lastRow?.at(index))) * 10
+                  : 0,
+              ),
+              (minWidth || 400) / 4,
+            );
+          });
+      }
+    }, [
+      props.element?.otherProps?.colWidths,
+      props.element?.children?.at(1)?.children,
+    ]);
+
     useEffect(() => {
+      if (typeof window === 'undefined') return;
       const resize = () => {
-        const maxWidth =
-          (props?.element?.otherProps?.colWidths || []).reduce(
-            (a: number, b: number) => a + b,
-          ) + 4;
+        let maxWidth = colWidths
+          ? colWidths?.reduce((a: number, b: number) => a + b, 0) + 8
+          : 0;
+
         const minWidth = store?.container?.querySelector(
           '.ant-md-editor-content',
         )?.clientWidth;
@@ -84,7 +120,6 @@ export const ReadonlyTable = observer(
         if (dom) {
           setTimeout(() => {
             dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px)`;
-            dom.style.maxWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || 'xxx'}px)`;
           }, 200);
         }
       };
@@ -93,7 +128,7 @@ export const ReadonlyTable = observer(
       return () => {
         document.removeEventListener('md-resize', resize);
       };
-    }, []);
+    }, [colWidths]);
 
     useEffect(() => {
       document.dispatchEvent(
@@ -109,21 +144,18 @@ export const ReadonlyTable = observer(
           className={classNames(`${baseCls}-editor-table`, hashId)}
         >
           <colgroup>
-            {props.element?.otherProps?.columns.map(
-              (col: Record<string, any>, index) => {
-                const colWidth = props.element?.otherProps?.colWidths?.[index];
-                return (
-                  <col
-                    key={col.key}
-                    style={{
-                      width: col.width || colWidth,
-                      minWidth: col.width || colWidth,
-                      maxWidth: col.width || colWidth,
-                    }}
-                  />
-                );
-              },
-            ) || null}
+            {(colWidths || []).map((colWidth, index) => {
+              return (
+                <col
+                  key={index}
+                  style={{
+                    width: colWidth,
+                    minWidth: colWidth,
+                    maxWidth: colWidth,
+                  }}
+                />
+              );
+            }) || null}
           </colgroup>
           <tbody data-slate-node="element">{children}</tbody>
         </table>
