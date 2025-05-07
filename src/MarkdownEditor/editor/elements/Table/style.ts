@@ -34,9 +34,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         cursor: 'default',
         margin: '0',
         outlineWidth: '0',
-        fontFamily:
-          '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Helvetica Neue,Arial,sans-serif',
-        tableLayout: 'fixed',
         overflow: 'auto',
         fontVariant: 'tabular-nums',
         th: {
@@ -67,9 +64,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         'th,td': {
           padding: '8px 12px',
-          lineHeight: '1.5',
-          fontFamily:
-            '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Helvetica Neue,Arial,sans-serif',
+          lineHeight: 1.5,
           textAlign: 'left',
           borderLeft: '1px solid #e5e5e9',
         },

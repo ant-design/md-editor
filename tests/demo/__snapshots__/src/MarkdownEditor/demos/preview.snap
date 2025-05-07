@@ -538,6 +538,7 @@
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    style="min-width: min(190px,0px);"
                   >
                     <tbody
                       data-slate-node="element"
@@ -1968,6 +1969,7 @@
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    style="min-width: min(190px,0px);"
                   >
                     <tbody
                       data-slate-node="element"
@@ -9472,6 +9474,7 @@ while i &lt; len(arr):
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    style="min-width: min(190px,0px);"
                   >
                     <tbody
                       data-slate-node="element"

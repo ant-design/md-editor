@@ -72,14 +72,19 @@ export const ReadonlyTable = observer(
 
     useEffect(() => {
       const resize = () => {
+        const maxWidth =
+          (props?.element?.otherProps?.colWidths || []).reduce(
+            (a: number, b: number) => a + b,
+          ) + 4;
         const minWidth = store?.container?.querySelector(
           '.ant-md-editor-content',
         )?.clientWidth;
 
-        const dom = tableTargetRef.current as HTMLDivElement;
+        const dom = tableRef.current as HTMLDivElement;
         if (dom) {
           setTimeout(() => {
-            dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${minWidth}px)`;
+            dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth}px)`;
+            dom.style.maxWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth}px)`;
           }, 200);
         }
       };
@@ -103,6 +108,23 @@ export const ReadonlyTable = observer(
           ref={tableTargetRef}
           className={classNames(`${baseCls}-editor-table`, hashId)}
         >
+          <colgroup>
+            {props.element?.otherProps?.columns.map(
+              (col: Record<string, any>, index) => {
+                const colWidth = props.element?.otherProps?.colWidths?.[index];
+                return (
+                  <col
+                    key={col.key}
+                    style={{
+                      width: col.width || colWidth,
+                      minWidth: col.width || colWidth,
+                      maxWidth: col.width || colWidth,
+                    }}
+                  />
+                );
+              },
+            ) || null}
+          </colgroup>
           <tbody data-slate-node="element">{children}</tbody>
         </table>
       );
