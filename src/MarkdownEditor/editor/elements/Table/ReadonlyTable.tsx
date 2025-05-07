@@ -83,8 +83,8 @@ export const ReadonlyTable = observer(
         const dom = tableRef.current as HTMLDivElement;
         if (dom) {
           setTimeout(() => {
-            dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth}px)`;
-            dom.style.maxWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth}px)`;
+            dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px)`;
+            dom.style.maxWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || 'xxx'}px)`;
           }, 200);
         }
       };
