@@ -82,18 +82,25 @@ export const ReadonlyTable = observer(
         const minWidth = store?.container?.querySelector(
           '.ant-md-editor-content',
         )?.clientWidth;
-        const lastRow = props.element?.children?.at(0)?.children;
+        const lastRow = props.element?.children?.at(1)?.children;
+        const twoRow = props.element?.children?.at(2)?.children;
+        const thereRow = props.element?.children?.at(3)?.children;
         return props.element?.children
-          ?.at(1)
+          ?.at(0)
           ?.children?.map((col: Node, index) => {
             const width = stringWidth(Node.string(col)) * 10;
-
             return Math.min(
               Math.max(
                 60,
                 width,
                 lastRow?.at(index)
                   ? stringWidth(Node.string(lastRow?.at(index))) * 10
+                  : 0,
+                twoRow?.at(index)
+                  ? stringWidth(Node.string(twoRow?.at(index))) * 10
+                  : 0,
+                thereRow?.at(index)
+                  ? stringWidth(Node.string(thereRow?.at(index))) * 10
                   : 0,
               ),
               (minWidth || 400) / 4,

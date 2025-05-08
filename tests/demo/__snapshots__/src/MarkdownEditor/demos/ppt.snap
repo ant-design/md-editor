@@ -956,14 +956,14 @@
                       <div
                         aria-describedby="test-id"
                         class="ant-md-editor-content-table"
-                        style="flex: 1; min-width: min(190px,1008px);"
+                        style="flex: 1; min-width: min(190px,1048px);"
                       >
                         <table
                           class="ant-md-editor-content-table-editor-table"
                         >
                           <colgroup>
                             <col
-                              style="width: 60px; min-width: 60px; max-width: 60px;"
+                              style="width: 100px; min-width: 100px; max-width: 100px;"
                             />
                             <col
                               style="width: 80px; min-width: 80px; max-width: 80px;"
@@ -11100,14 +11100,14 @@
                       <div
                         aria-describedby="test-id"
                         class="ant-md-editor-content-table"
-                        style="flex: 1; min-width: min(190px,468px);"
+                        style="flex: 1; min-width: min(190px,488px);"
                       >
                         <table
                           class="ant-md-editor-content-table-editor-table"
                         >
                           <colgroup>
                             <col
-                              style="width: 60px; min-width: 60px; max-width: 60px;"
+                              style="width: 80px; min-width: 80px; max-width: 80px;"
                             />
                             <col
                               style="width: 80px; min-width: 80px; max-width: 80px;"

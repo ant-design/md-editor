@@ -1975,14 +1975,14 @@
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: min(190px,908px);"
+                  style="flex: 1; min-width: min(190px,948px);"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
                   >
                     <colgroup>
                       <col
-                        style="width: 60px; min-width: 60px; max-width: 60px;"
+                        style="width: 100px; min-width: 100px; max-width: 100px;"
                       />
                       <col
                         style="width: 70px; min-width: 70px; max-width: 70px;"
@@ -9520,14 +9520,14 @@ while i &lt; len(arr):
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: min(190px,448px);"
+                  style="flex: 1; min-width: min(190px,468px);"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
                   >
                     <colgroup>
                       <col
-                        style="width: 60px; min-width: 60px; max-width: 60px;"
+                        style="width: 80px; min-width: 80px; max-width: 80px;"
                       />
                       <col
                         style="width: 100px; min-width: 100px; max-width: 100px;"
