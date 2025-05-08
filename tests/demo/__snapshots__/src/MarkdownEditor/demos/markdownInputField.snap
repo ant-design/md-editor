@@ -47,7 +47,7 @@
       >
         <div
           class="ant-md-input-field-background"
-          style="min-height: 66px; max-height: 0; height: 0px; width: 100%;"
+          style="min-height: 66px; height: 100%; width: 100%;"
         >
           <svg
             fill="none"
@@ -203,7 +203,7 @@
       >
         <div
           class="ant-md-input-field-background"
-          style="min-height: 0; max-height: 0; height: 0px; width: 100%;"
+          style="min-height: 0; height: 100%; width: 100%;"
         >
           <svg
             fill="none"
@@ -365,7 +365,7 @@
       >
         <div
           class="ant-md-input-field-background"
-          style="min-height: 0; max-height: 0; height: 0px; width: 100%;"
+          style="min-height: 0; height: 100%; width: 100%;"
         >
           <svg
             fill="none"
@@ -612,7 +612,7 @@
       >
         <div
           class="ant-md-input-field-background"
-          style="min-height: 0; max-height: 0; height: 0px; width: 100%;"
+          style="min-height: 0; height: 100%; width: 100%;"
         >
           <svg
             fill="none"
@@ -760,7 +760,7 @@
       >
         <div
           class="ant-md-input-field-background"
-          style="min-height: 0; max-height: 0; height: 0px; width: 100%;"
+          style="min-height: 0; height: 100%; width: 100%;"
         >
           <svg
             fill="none"
