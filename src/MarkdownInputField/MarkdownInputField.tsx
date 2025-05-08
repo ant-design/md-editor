@@ -483,8 +483,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           })}
           style={{
             minHeight: props.style?.minHeight || 0,
-            maxHeight: props.style?.maxHeight || 0,
-            height: props.style?.height || 0,
+            height: props.style?.height || '100%',
             width: props.style?.width || '100%',
           }}
         >

@@ -57,6 +57,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           backgroundColor: 'rgba(0,0,0,0.04)',
           cursor: 'not-allowed',
         },
+        'div[data-be="paragraph"]': {
+          margin: '0 !important',
+          padding: '0 !important',
+        },
       },
       '&&-disabled': {
         backgroundColor: 'rgba(0,0,0,0.04)',

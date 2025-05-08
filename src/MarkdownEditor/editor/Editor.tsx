@@ -315,6 +315,23 @@ export const SlateMarkdownEditor = observer(
             return node;
           });
 
+          if (editorProps.textAreaProps?.enable) {
+            if (
+              fragment.length === 1 &&
+              fragment?.at(0).type === 'paragraph' &&
+              currentTextSelection
+            ) {
+              const text = event.clipboardData.getData('text/plain');
+              if (text) {
+                Transforms.insertText(markdownEditorRef.current, text, {
+                  at: currentTextSelection.focus,
+                });
+                return;
+              }
+              return;
+            }
+          }
+
           if (fragment.length === 0) return;
           EditorUtils.replaceSelectedNode(markdownEditorRef.current, fragment);
           return;
