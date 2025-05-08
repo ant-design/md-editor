@@ -954,7 +954,7 @@
                       <div
                         aria-describedby="test-id"
                         class="ant-md-editor-content-table"
-                        style="flex: 1; min-width: min(190px,1048px);"
+                        style="flex: 1; min-width: min(190px,1236px);"
                       >
                         <table
                           class="ant-md-editor-content-table-editor-table"
@@ -964,40 +964,40 @@
                               style="width: 100px; min-width: 100px; max-width: 100px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 70px; min-width: 70px; max-width: 70px;"
+                              style="width: 84px; min-width: 84px; max-width: 84px;"
                             />
                             <col
-                              style="width: 70px; min-width: 70px; max-width: 70px;"
+                              style="width: 84px; min-width: 84px; max-width: 84px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                           </colgroup>
                           <tbody
@@ -11096,29 +11096,29 @@
                       <div
                         aria-describedby="test-id"
                         class="ant-md-editor-content-table"
-                        style="flex: 1; min-width: min(190px,488px);"
+                        style="flex: 1; min-width: min(190px,588px);"
                       >
                         <table
                           class="ant-md-editor-content-table-editor-table"
                         >
                           <colgroup>
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 100px; min-width: 100px; max-width: 100px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                             <col
-                              style="width: 80px; min-width: 80px; max-width: 80px;"
+                              style="width: 96px; min-width: 96px; max-width: 96px;"
                             />
                           </colgroup>
                           <tbody

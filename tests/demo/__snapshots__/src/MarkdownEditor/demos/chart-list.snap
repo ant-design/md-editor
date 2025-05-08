@@ -5678,14 +5678,14 @@
                   <div
                     aria-describedby="test-id"
                     class="ant-md-editor-content-table"
-                    style="flex: 1; min-width: min(190px,228px);"
+                    style="flex: 1; min-width: min(190px,240px);"
                   >
                     <table
                       class="ant-md-editor-content-table-editor-table"
                     >
                       <colgroup>
                         <col
-                          style="width: 60px; min-width: 60px; max-width: 60px;"
+                          style="width: 72px; min-width: 72px; max-width: 72px;"
                         />
                         <col
                           style="width: 60px; min-width: 60px; max-width: 60px;"
