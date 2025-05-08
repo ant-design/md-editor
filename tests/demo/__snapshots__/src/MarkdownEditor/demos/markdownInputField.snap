@@ -157,12 +157,6 @@
                   data-slate-placeholder="请输入内容"
                 >
                   <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
-                  <span
                     data-slate-node="text"
                   >
                     <span
@@ -324,12 +318,6 @@
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -559,12 +547,6 @@
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
@@ -892,12 +874,6 @@
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <span
                     data-slate-node="text"
                   >
