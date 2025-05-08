@@ -194,6 +194,31 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           backgroundColor: 'rgb(107 114 128 / 1)',
         },
       },
+      '@media screen and (max-width: 600px)': {
+        h1: {
+          fontSize: '1.5em',
+        },
+        h2: {
+          fontSize: '1.25em',
+        },
+        h3: {
+          fontSize: '1.125em',
+        },
+        h4: {
+          fontSize: '1em',
+        },
+        'h1,h2': {
+          marginTop: '0.2em',
+          marginBottom: '0.2em',
+        },
+        'h3,h4,h5,h6': {
+          marginTop: '0.1em',
+          marginBottom: '0.1em',
+        },
+        'ol,ul': {
+          paddingLeft: '0.2em',
+        },
+      },
       '[data-be]:not(p):not(data-be="list")': {
         position: 'relative',
         '*': {
