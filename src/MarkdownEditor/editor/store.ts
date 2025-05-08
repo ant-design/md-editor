@@ -164,8 +164,13 @@ export class EditorStore {
   }
 
   editorFocus() {
-    this.focus = true;
-    ReactEditor.focus(this._editor.current);
+    const editor = this._editor.current;
+    ReactEditor.focus(editor);
+    Transforms.move(editor, { distance: 1, unit: 'offset' });
+    Transforms.select(this._editor.current, {
+      anchor: Editor.end(this._editor.current, []),
+      focus: Editor.end(this._editor.current, []),
+    });
   }
 
   /**

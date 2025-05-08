@@ -44,7 +44,6 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
         }}
       >
         <DragHandle />
-        {!str ? <InlineChromiumBugfix /> : null}
         {props.children}
         {!str ? <InlineChromiumBugfix /> : null}
       </div>

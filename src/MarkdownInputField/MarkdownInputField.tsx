@@ -468,6 +468,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           if (actionsRef.current?.contains(e.target as Node)) {
             return;
           }
+
           markdownEditorRef?.current?.store?.editorFocus();
         }}
       >

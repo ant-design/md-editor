@@ -23,6 +23,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-edit': {
         '> div.empty:first-child': {
+          '[data-slate-zero-width="n"]': {
+            display: 'inline-block',
+            minWidth: 20,
+          },
           '&::before': {
             cursor: 'text',
             content: 'attr(data-slate-placeholder)',
