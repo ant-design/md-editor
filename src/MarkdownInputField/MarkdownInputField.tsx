@@ -15,6 +15,7 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../MarkdownEditor';
+import { ReactEditor } from '../MarkdownEditor/editor/slate-react';
 import {
   AttachmentButton,
   AttachmentButtonProps,
@@ -468,8 +469,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           if (actionsRef.current?.contains(e.target as Node)) {
             return;
           }
-
-          markdownEditorRef?.current?.store?.editorFocus();
+          if (
+            markdownEditorRef.current?.store?.editor &&
+            !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
+          ) {
+            markdownEditorRef?.current?.store?.editorFocus();
+          }
         }}
       >
         <div
