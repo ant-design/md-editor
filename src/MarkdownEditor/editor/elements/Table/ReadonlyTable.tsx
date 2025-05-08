@@ -135,9 +135,11 @@ export const ReadonlyTable = observer(
         }
       };
       document.addEventListener('md-resize', resize);
+      window.addEventListener('resize', resize);
       resize();
       return () => {
         document.removeEventListener('md-resize', resize);
+        window.removeEventListener('resize', resize);
       };
     }, [colWidths]);
 

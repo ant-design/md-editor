@@ -11,7 +11,7 @@ import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-horizon.min.css';
 import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import { Editor, Transforms } from 'slate';
+import { Editor, Node, Transforms } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
@@ -474,14 +474,56 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       },
     );
   });
+
+  const colWidths = useMemo(() => {
+    if (props.element?.otherProps?.colWidths) {
+      return props.element?.otherProps?.colWidths;
+    }
+
+    if (typeof window === 'undefined') return [];
+    if (props.element?.children?.at(1)?.children) {
+      const minWidth = store?.container?.querySelector(
+        '.ant-md-editor-content',
+      )?.clientWidth;
+      const lastRow = props.element?.children?.at(1)?.children || [];
+      const twoRow = props.element?.children?.at(2)?.children || [];
+      const thereRow = props.element?.children?.at(3)?.children || [];
+      const fourRow = props.element?.children?.at(4)?.children || [];
+      return props.element?.children
+        ?.at(0)
+        ?.children?.map((col: Node, index) => {
+          const width = stringWidth(Node.string(col)) * 12;
+          return Math.min(
+            Math.max(
+              60,
+              width,
+              lastRow?.at(index)
+                ? stringWidth(Node.string(lastRow?.at(index))) * 12
+                : 0,
+              twoRow?.at(index)
+                ? stringWidth(Node.string(twoRow?.at(index))) * 12
+                : 0,
+              thereRow?.at(index)
+                ? stringWidth(Node.string(thereRow?.at(index))) * 12
+                : 0,
+              fourRow?.at(index)
+                ? stringWidth(Node.string(fourRow?.at(index))) * 12
+                : 0,
+            ),
+            (minWidth || 400) / 4,
+          );
+        });
+    }
+  }, [
+    props.element?.otherProps?.colWidths,
+    props.element?.children?.at(1)?.children,
+  ]);
   const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
       return props.element?.otherProps?.colWidths;
     if (!tableData?.[1]) return tableData[0].map(() => 80);
     if (tableData?.[1]?.filter(Boolean)?.length === 0) return;
-    return tableData?.[1]?.map((text: string) => {
-      return Math.max(Math.min(stringWidth(text) * 16 + 24, 300), 50);
-    });
+    return colWidths;
   });
 
   const generateMergedCells = useRefFunction((tableData: any[]) => {
@@ -498,6 +540,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       return true;
     });
   });
+
   useEffect(() => {
     const cellSet = slateTableToJSONData(props.element);
     const list = cellSet.tableData;
@@ -519,6 +562,9 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   }, [JSON.stringify(props.element)]);
 
   useEffect(() => {
+    if (!overflowShadowContainerRef.current) return;
+    if (typeof window === 'undefined') return;
+    const cellSet = slateTableToJSONData(props.element);
     const resize = () => {
       const minWidth = store?.container?.querySelector(
         '.ant-md-editor-content',
@@ -536,10 +582,15 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         }, 200);
       }
     };
-    document.addEventListener('md-resize', resize);
+    window.addEventListener('md-resize', resize);
+    window.addEventListener('resize', resize);
+    hotRef.current?.hotInstance?.updateSettings({
+      colWidths: genDefaultWidth(cellSet.tableData),
+    });
     resize();
     return () => {
-      document.removeEventListener('md-resize', resize);
+      window.removeEventListener('md-resize', resize);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
