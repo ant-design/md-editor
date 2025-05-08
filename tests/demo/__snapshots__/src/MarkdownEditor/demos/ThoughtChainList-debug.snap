@@ -167,7 +167,7 @@
                         <span
                           aria-describedby="test-id"
                           class="ant-thought-chain-list-content-list-item-info"
-                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; background: rgb(255, 255, 255); border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
+                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
                         >
                           <img
                             src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Np4tQ6SDSEsAAAAAAAAAAAAADkN6AQ/original"
@@ -777,7 +777,7 @@
                         <span
                           aria-describedby="test-id"
                           class="ant-thought-chain-list-content-list-item-info"
-                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; background: rgb(255, 255, 255); border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
+                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
                         >
                           <img
                             src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*TzR2R6uohL0AAAAAAAAAAAAADkN6AQ/original"
@@ -1168,7 +1168,7 @@
                         <span
                           aria-describedby="test-id"
                           class="ant-thought-chain-list-content-list-item-info"
-                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; background: rgb(255, 255, 255); border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
+                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
                         >
                           <img
                             src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*owExQ60sdmAAAAAAAAAAAAAADkN6AQ/original"

@@ -7156,6 +7156,7 @@
                   draggable="false"
                 >
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -7168,6 +7169,7 @@
                     </span>
                   </s>
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      

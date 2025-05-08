@@ -201,6 +201,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -211,6 +212,7 @@
                                   商业模式
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -1187,6 +1189,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -1197,6 +1200,7 @@
                                   企业文化
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -2136,6 +2140,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -2146,6 +2151,7 @@
                                   估值
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -2333,6 +2339,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -2343,6 +2350,7 @@
                                   杂项
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -2933,6 +2941,7 @@
                   style="font-weight: bold;"
                 >
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -2943,6 +2952,7 @@
                     关键亮点
                   </span>
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -3078,6 +3088,7 @@
                   style="font-weight: bold;"
                 >
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -3088,6 +3099,7 @@
                     潜在风险
                   </span>
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -3137,6 +3149,7 @@
                 </span>
               </span>
               <span
+                contenteditable="false"
                 style="font-size: 0px; line-height: 0; display: inline-block;"
               >
                  
@@ -3340,6 +3353,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -3350,6 +3364,7 @@
                                   商业模式
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -4326,6 +4341,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -4336,6 +4352,7 @@
                                   企业文化
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -5275,6 +5292,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -5285,6 +5303,7 @@
                                   估值
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -5472,6 +5491,7 @@
                                 style="font-weight: bold;"
                               >
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -5482,6 +5502,7 @@
                                   杂项
                                 </span>
                                 <span
+                                  contenteditable="false"
                                   style="font-size: 0px; line-height: 0; display: inline-block;"
                                 >
                                    
@@ -6072,6 +6093,7 @@
                   style="font-weight: bold;"
                 >
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -6082,6 +6104,7 @@
                     关键亮点
                   </span>
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -6217,6 +6240,7 @@
                   style="font-weight: bold;"
                 >
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -6227,6 +6251,7 @@
                     潜在风险
                   </span>
                   <span
+                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
