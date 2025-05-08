@@ -175,7 +175,6 @@
                     </span>
                   </span>
                   <span
-                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -188,13 +187,7 @@
         <div
           class="ant-md-input-field-send-before-actions"
           contenteditable="false"
-        >
-          <span
-            style="color: red; padding: 4px; font-size: 14px; border-radius: 4px;"
-          >
-            模板
-          </span>
-        </div>
+        />
         <div
           class="ant-md-input-field-send-actions"
           contenteditable="false"
@@ -337,7 +330,6 @@
                     </span>
                   </span>
                   <span
-                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -566,7 +558,6 @@
                     </span>
                   </span>
                   <span
-                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      
@@ -893,7 +884,6 @@
                     </span>
                   </span>
                   <span
-                    contenteditable="false"
                     style="font-size: 0px; line-height: 0; display: inline-block;"
                   >
                      

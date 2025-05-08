@@ -77,7 +77,6 @@
                 draggable="false"
               >
                 <span
-                  contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
                 >
                    
@@ -92,7 +91,6 @@
                   </span>
                 </code>
                 <span
-                  contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
                 >
                    
@@ -198,7 +196,6 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -209,7 +206,6 @@
                         直接遍历元素
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -243,7 +239,6 @@
                       draggable="false"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -258,7 +253,6 @@
                         </span>
                       </code>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -521,7 +515,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -532,7 +525,6 @@ for num in arr:
                         通过索引遍历
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -566,7 +558,6 @@ for num in arr:
                       draggable="false"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -581,7 +572,6 @@ for num in arr:
                         </span>
                       </code>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -819,7 +809,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -830,7 +819,6 @@ for num in arr:
                         同时获取索引和值（
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -848,7 +836,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -863,7 +850,6 @@ for num in arr:
                         </span>
                       </code>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -881,7 +867,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -892,7 +877,6 @@ for num in arr:
                         enumerate）
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1177,7 +1161,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1188,7 +1171,6 @@ for num in arr:
                         使用 
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1206,7 +1188,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1221,7 +1202,6 @@ for num in arr:
                         </span>
                       </code>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1239,7 +1219,6 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1250,7 +1229,6 @@ for num in arr:
                         while 循环
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1515,7 +1493,6 @@ while i &lt; len(arr):
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1526,7 +1503,6 @@ while i &lt; len(arr):
                         列表推导式
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1851,7 +1827,6 @@ while i &lt; len(arr):
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -1862,7 +1837,6 @@ while i &lt; len(arr):
                         递归遍历
                       </span>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -2448,7 +2422,6 @@ for fruit in fruits:
                 draggable="false"
               >
                 <span
-                  contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
                 >
                    
@@ -2463,7 +2436,6 @@ for fruit in fruits:
                   </span>
                 </code>
                 <span
-                  contenteditable="false"
                   style="font-size: 0px; line-height: 0; display: inline-block;"
                 >
                    
@@ -3621,7 +3593,6 @@ while i &lt; len(fruits):
                       draggable="false"
                     >
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          
@@ -3636,7 +3607,6 @@ while i &lt; len(fruits):
                         </span>
                       </code>
                       <span
-                        contenteditable="false"
                         style="font-size: 0px; line-height: 0; display: inline-block;"
                       >
                          

@@ -128,26 +128,6 @@ export default () => {
           height: 66,
         }}
         inputRef={markdownRef}
-        beforeActionsRender={() => {
-          return [
-            <span
-              key="test"
-              onClick={() => {
-                markdownRef.current?.store?.setMDContent(
-                  '帮我查询`${placeholder:目标企业}` `${placeholder:近3年}`的`${placeholder:资产总额}`。',
-                );
-              }}
-              style={{
-                color: 'red',
-                padding: 4,
-                fontSize: 14,
-                borderRadius: 4,
-              }}
-            >
-              模板
-            </span>,
-          ];
-        }}
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
