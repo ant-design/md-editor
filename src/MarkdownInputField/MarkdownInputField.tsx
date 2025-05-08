@@ -458,6 +458,18 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             }
           }
         }}
+        onClick={(e) => {
+          if (markdownEditorRef?.current?.store.inputComposition) {
+            return;
+          }
+          if (props.disabled) {
+            return;
+          }
+          if (actionsRef.current?.contains(e.target as Node)) {
+            return;
+          }
+          markdownEditorRef?.current?.store?.editorFocus();
+        }}
       >
         <div
           className={classNames(`${baseCls}-background`, hashId, {
