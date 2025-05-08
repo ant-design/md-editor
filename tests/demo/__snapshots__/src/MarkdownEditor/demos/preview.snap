@@ -11079,7 +11079,7 @@ while i &lt; len(arr):
             </span>
           </h2>
           <div
-            style="display: flex;"
+            style="display: flex; flex-direction: column; width: 100%;"
           >
             <div
               data-be="apaasify"

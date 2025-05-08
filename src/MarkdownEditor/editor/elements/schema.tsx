@@ -34,6 +34,8 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
         {...node.attributes}
         style={{
           display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
         }}
       >
         <div
