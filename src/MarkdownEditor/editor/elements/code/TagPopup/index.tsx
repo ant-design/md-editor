@@ -216,6 +216,8 @@ export const TagPopup = (
         position: 'relative',
       }}
       onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
         const path = editor.selection?.anchor.path;
         if (path) {
           currentNodePath.current = path;
@@ -230,8 +232,7 @@ export const TagPopup = (
             return;
           }
         }
-        e.preventDefault();
-        e.stopPropagation();
+
         if (suggestionConnext?.triggerNodeContext) {
           suggestionConnext.triggerNodeContext.current = {
             ...props,
