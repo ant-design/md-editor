@@ -476,6 +476,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           className={classNames(`${baseCls}-background`, hashId, {
             [`${baseCls}-hover`]: isHover,
           })}
+          style={{
+            minHeight: props.style?.minHeight || 0,
+            maxHeight: props.style?.maxHeight || 0,
+            height: props.style?.height || 0,
+            width: props.style?.width || '100%',
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -529,7 +535,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         <div
           style={{
             borderRadius: (props.borderRadius || 12) - 2 || 10,
-            maxHeight: 120 + (props.attachment?.enable ? 90 : 0),
+            maxHeight:
+              props.style?.maxHeight ||
+              120 + (props.attachment?.enable ? 90 : 0),
+            flex: 1,
           }}
           className={classNames(`${baseCls}-editor`, hashId, {
             [`${baseCls}-editor-hover`]: isHover,

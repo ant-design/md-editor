@@ -21,7 +21,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
               opacity: 0,
               userSelect: 'none',
               pointerEvents: 'none',
-              display: 'none',
+              overflow: 'hidden',
             }}
           >
             {JSON.stringify(props.element.value, null, 2)}

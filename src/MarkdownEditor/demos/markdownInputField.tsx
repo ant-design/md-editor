@@ -125,7 +125,7 @@ export default () => {
       <h2>基本</h2>
       <MarkdownInputField
         style={{
-          height: 66,
+          minHeight: 66,
         }}
         inputRef={markdownRef}
         bgColorList={colorList}
