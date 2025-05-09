@@ -120,7 +120,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'block',
         paddingBottom: '.25em',
         fontSize: '1em',
-        lineHeight: '1.5',
+        lineHeight: 1.7,
         marginTop: '0',
         marginBottom: '0.5em',
         '&:first-child': {
