@@ -12,6 +12,7 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
           {...node.attributes}
           style={{
             display: 'flex',
+            flexDirection: 'column',
           }}
         >
           {editorProps.apassify.render(props)}
