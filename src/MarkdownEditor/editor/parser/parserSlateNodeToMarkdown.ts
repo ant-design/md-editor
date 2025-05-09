@@ -38,6 +38,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
   let str = '';
   const newParent = [...parent, node];
   if (!node) return str;
+
   switch (node.type) {
     case 'card-before':
       break;
@@ -389,7 +390,8 @@ const textStyle = (t: Text) => {
     afterStr = str.match(/\s+$/)?.[0] || '';
     str = str.trim();
   }
-  if (t.code) str = `\`${str}\``;
+  if (t.code && !t.tag) str = `\`${str}\``;
+  if (t.tag) str = `\`${str || (t as any)?.placeholder || ''}\``;
   if (t.italic) str = `*${str}*`;
   if (t.bold) str = `**${str}**`;
   if (t.strikethrough) str = `~~${str}~~`;
