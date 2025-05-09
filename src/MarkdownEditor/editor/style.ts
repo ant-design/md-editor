@@ -134,6 +134,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',
+        textWrap: 'balance',
         marginTop: '1.5em',
         marginBottom: '1em',
         fontWeight: 600,
