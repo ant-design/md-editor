@@ -19,6 +19,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '> *': {
         boxSizing: 'border-box',
         scrollbarWidth: 'thin',
+        fontVariantNumeric: 'tabular-nums',
+        WebkitTextSizeAdjust: '100%',
+        msTextSizeAdjust: '100%',
+        WebkitFontSmoothing: 'antialiased',
         scrollbarColor: 'hsl(#e4e4e7) transparent',
       },
       '&-edit-area': {
