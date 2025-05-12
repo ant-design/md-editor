@@ -819,8 +819,6 @@ export const SlateMarkdownEditor = observer(
             readOnly={readonly}
             onCompositionStart={onCompositionStart}
             onCompositionEnd={onCompositionEnd}
-            onCompositionStartCapture={onCompositionStart}
-            onCompositionEndCapture={onCompositionEnd}
             className={classNames(
               editorProps.className,
               `${baseClassName}-${readonlyCls}`,
