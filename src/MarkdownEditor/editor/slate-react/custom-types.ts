@@ -3,7 +3,9 @@ import { ReactEditor } from './plugin/react-editor';
 
 declare module 'slate' {
   interface CustomTypes {
+    //@ts-ignore
     Editor: ReactEditor;
+    //@ts-ignore
     Text: BaseText & {
       placeholder?: string;
       onPlaceholderResize?: (node: HTMLElement | null) => void;

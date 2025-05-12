@@ -61,6 +61,7 @@ export const Slate = (props: {
   });
 
   const { selectorContext, onChange: handleSelectorChange } =
+    //@ts-ignore
     useSelectorContext(editor);
 
   const onContextChange = useCallback(
@@ -81,6 +82,7 @@ export const Slate = (props: {
         v: prevContext.v + 1,
         editor,
       }));
+      //@ts-ignore
       handleSelectorChange(editor);
     },
     [editor, handleSelectorChange, onChange, onSelectionChange, onValueChange],

@@ -330,6 +330,7 @@ declare module 'slate' {
     Editor: BaseEditor & ReactEditor & HistoryEditor;
     Element: Elements & BaseElement;
     // Element: CustomElement
+    //@ts-ignore
     Text: CustomLeaf;
   }
 }

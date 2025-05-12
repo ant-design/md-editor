@@ -88,7 +88,7 @@ export const ReadonlyTable = observer(
         const fourRow = props.element?.children?.at(4)?.children || [];
         return props.element?.children
           ?.at(0)
-          ?.children?.map((col: Node, index) => {
+          ?.children?.map((col: Node, index: any) => {
             const width = stringWidth(Node.string(col)) * 12;
             return Math.min(
               Math.max(
@@ -157,7 +157,7 @@ export const ReadonlyTable = observer(
           className={classNames(`${baseCls}-editor-table`, hashId)}
         >
           <colgroup>
-            {(colWidths || []).map((colWidth, index) => {
+            {(colWidths || []).map((colWidth: any, index: any) => {
               return (
                 <col
                   key={index}

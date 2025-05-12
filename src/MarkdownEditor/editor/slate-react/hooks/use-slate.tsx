@@ -31,6 +31,7 @@ export const useSlate = (): Editor => {
   }
 
   const { editor } = context;
+  //@ts-ignore
   return editor;
 };
 
@@ -43,5 +44,6 @@ export const useSlateWithV = (): { editor: Editor; v: number } => {
     );
   }
 
+  //@ts-ignore
   return context;
 };

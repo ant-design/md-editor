@@ -20,6 +20,6 @@ export const useSlateStatic = (): Editor => {
       `The \`useSlateStatic\` hook must be used inside the <Slate> component's context.`,
     );
   }
-
+  //@ts-ignore
   return editor;
 };

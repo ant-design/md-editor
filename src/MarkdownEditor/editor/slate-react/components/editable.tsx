@@ -87,7 +87,7 @@ const Children = (props: Parameters<typeof useChildren>[0]) => (
  * `RenderElementProps` are passed to the `renderElement` handler.
  */
 
-export interface RenderElementProps {
+export interface RenderElementProps<T = Record<string, any>> {
   children: any;
   element: Element;
   attributes: {

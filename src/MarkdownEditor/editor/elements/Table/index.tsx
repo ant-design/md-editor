@@ -464,7 +464,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         otherProps: {
           ...props.element.otherProps,
           mergeCells:
-            mergeCells?.filter((cell) => {
+            mergeCells?.filter((cell: any) => {
               return cell.col !== rol || cell.row !== row;
             }) || [],
         },
@@ -491,7 +491,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       const fourRow = props.element?.children?.at(4)?.children || [];
       return props.element?.children
         ?.at(0)
-        ?.children?.map((col: Node, index) => {
+        ?.children?.map((col: Node, index: number) => {
           const width = stringWidth(Node.string(col)) * 12;
           return Math.min(
             Math.max(
