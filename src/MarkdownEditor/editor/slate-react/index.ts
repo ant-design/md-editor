@@ -1,15 +1,17 @@
 // Components
 export type {
+  DefaultPlaceholder,
   RenderElementProps,
   RenderLeafProps,
   RenderPlaceholderProps,
 } from './components/editable';
 
-export { DefaultPlaceholder, Editable } from './components/editable';
+export { Editable } from './components/editable';
 
 export { DefaultElement } from './components/element';
 export { DefaultLeaf } from './components/leaf';
 export { Slate } from './components/slate';
+export { DefaultText } from './components/text';
 
 // Hooks
 export { useComposing } from './hooks/use-composing';

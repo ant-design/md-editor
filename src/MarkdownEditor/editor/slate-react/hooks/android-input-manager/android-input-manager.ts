@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-loop-func */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
+import { DebouncedFunc } from 'lodash';
 import { Editor, Node, Path, Point, Range, Text, Transforms } from 'slate';
 import {
   applyStringDiff,
@@ -44,10 +46,10 @@ const isDataTransfer = (value: any): value is DataTransfer =>
   value?.constructor.name === 'DataTransfer';
 
 export type CreateAndroidInputManagerOptions = {
-  editor: ReactEditor;
+  editor: any;
 
-  scheduleOnDOMSelectionChange: any;
-  onDOMSelectionChange: any;
+  scheduleOnDOMSelectionChange: DebouncedFunc<() => void>;
+  onDOMSelectionChange: DebouncedFunc<() => void>;
 };
 
 export type AndroidInputManager = {
@@ -194,7 +196,7 @@ export function createAndroidInputManager({
         editor,
         EDITOR_TO_PENDING_DIFFS.get(editor)?.filter(
           ({ id }) => id !== diff!.id,
-        ) as any,
+        )!,
       );
 
       if (!verifyDiffState(editor, diff)) {
@@ -404,7 +406,7 @@ export function createAndroidInputManager({
         const [start, end] = Range.edges(targetRange);
         const leaf = Node.leaf(editor, start.path);
 
-        if (leaf.text!.length === start.offset && end.offset === 0) {
+        if (leaf.text?.length === start.offset && end.offset === 0) {
           const next = Editor.next(editor, {
             at: start.path,
             match: Text.isText,
@@ -478,7 +480,7 @@ export function createAndroidInputManager({
         if (canStoreDiff && Range.isCollapsed(targetRange)) {
           const targetNode = Node.leaf(editor, anchor.path);
 
-          if (anchor.offset < targetNode.text!.length) {
+          if (anchor.offset < (targetNode?.text?.length || 0)) {
             return storeDiff(anchor.path, {
               text: '',
               start: anchor.offset,

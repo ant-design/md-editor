@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { forwardRef, memo, useRef, useState } from 'react';
 import { Editor, Element, Node, Path, Text } from 'slate';
 
@@ -20,7 +19,6 @@ const String = (props: {
   const editor = useSlateStatic();
   const path = ReactEditor.findPath(editor, text);
   const parentPath = Path.parent(path);
-  //@ts-ignore
   const isMarkPlaceholder = Boolean(leaf[MARK_PLACEHOLDER_SYMBOL]);
 
   // COMPAT: Render text inside void nodes with a zero-width space.
@@ -52,11 +50,11 @@ const String = (props: {
 
   // COMPAT: Browsers will collapse trailing new lines at the end of blocks,
   // so we need to add an extra trailing new lines to prevent that.
-  if (isLast && leaf.text?.slice(-1) === '\n') {
+  if (isLast && leaf.text.slice(-1) === '\n') {
     return <TextString isTrailing text={leaf.text} />;
   }
 
-  return <TextString text={leaf.text!} />;
+  return <TextString text={leaf.text} />;
 };
 
 /**

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import getDirection from 'direction';
 import React, { JSX, useCallback } from 'react';
 import {
@@ -21,30 +22,21 @@ import {
   RenderElementProps,
   RenderLeafProps,
   RenderPlaceholderProps,
+  RenderTextProps,
 } from './editable';
 
 import Text from './text';
 
 /**
- * The default element renderer.
+ * Element.
  */
-
-export const DefaultElement = (props: RenderElementProps) => {
-  const { attributes, children, element } = props;
-  const editor = useSlateStatic();
-  const Tag = editor.isInline(element) ? 'span' : 'div';
-  return (
-    <Tag {...attributes} style={{ position: 'relative' }}>
-      {children}
-    </Tag>
-  );
-};
 
 const Element = (props: {
   decorations: DecoratedRange[];
   element: SlateElement;
   renderElement?: (props: RenderElementProps) => JSX.Element;
   renderPlaceholder: (props: RenderPlaceholderProps) => JSX.Element;
+  renderText?: (props: RenderTextProps) => JSX.Element;
   renderLeaf?: (props: RenderLeafProps) => JSX.Element;
   selection: Range | null;
 }) => {
@@ -54,6 +46,7 @@ const Element = (props: {
     renderElement = (p: RenderElementProps) => <DefaultElement {...p} />,
     renderPlaceholder,
     renderLeaf,
+    renderText,
     selection,
   } = props;
   const editor = useSlateStatic();
@@ -81,6 +74,7 @@ const Element = (props: {
     renderElement,
     renderPlaceholder,
     renderLeaf,
+    renderText,
     selection,
   });
 
@@ -155,6 +149,7 @@ const MemoizedElement = React.memo(Element, (prev, next) => {
   return (
     prev.element === next.element &&
     prev.renderElement === next.renderElement &&
+    prev.renderText === next.renderText &&
     prev.renderLeaf === next.renderLeaf &&
     prev.renderPlaceholder === next.renderPlaceholder &&
     isElementDecorationsEqual(prev.decorations, next.decorations) &&
@@ -164,5 +159,20 @@ const MemoizedElement = React.memo(Element, (prev, next) => {
         Range.equals(prev.selection, next.selection)))
   );
 });
+
+/**
+ * The default element renderer.
+ */
+
+export const DefaultElement = (props: RenderElementProps) => {
+  const { attributes, children, element } = props;
+  const editor = useSlateStatic();
+  const Tag = editor.isInline(element) ? 'span' : 'div';
+  return (
+    <Tag {...attributes} style={{ position: 'relative' }}>
+      {children}
+    </Tag>
+  );
+};
 
 export default MemoizedElement;

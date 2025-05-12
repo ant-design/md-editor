@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import { Editor } from 'slate';
+import { ReactEditor } from '../plugin/react-editor';
 
 /**
  * A React context for sharing the editor object, in a way that re-renders the
@@ -8,12 +9,12 @@ import { Editor } from 'slate';
 
 export interface SlateContextValue {
   v: number;
-  editor: Editor;
+  editor: ReactEditor;
 }
 
 export const SlateContext = createContext<{
   v: number;
-  editor: Editor;
+  editor: ReactEditor;
 } | null>(null);
 
 /**

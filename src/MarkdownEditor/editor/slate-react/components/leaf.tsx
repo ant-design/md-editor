@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable eqeqeq */
 import { ResizeObserver as ResizeObserverPolyfill } from '@juggle/resize-observer';
 import React, {
   JSX,
@@ -8,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Element, Text } from 'slate';
+import { Element, LeafPosition, Text } from 'slate';
 import {
   EDITOR_TO_PLACEHOLDER_ELEMENT,
   IS_ANDROID,
@@ -54,6 +55,7 @@ const Leaf = (props: {
   renderPlaceholder: (props: RenderPlaceholderProps) => JSX.Element;
   renderLeaf?: (props: RenderLeafProps) => JSX.Element;
   text: Text;
+  leafPosition?: LeafPosition;
 }) => {
   const {
     leaf,
@@ -62,6 +64,7 @@ const Leaf = (props: {
     parent,
     renderPlaceholder,
     renderLeaf = (props: RenderLeafProps) => <DefaultLeaf {...props} />,
+    leafPosition,
   } = props;
 
   const editor = useSlateStatic();
@@ -74,10 +77,10 @@ const Leaf = (props: {
     (placeholderEl: HTMLElement | null) => {
       disconnectPlaceholderResizeObserver(
         placeholderResizeObserver,
-        placeholderEl === null,
+        placeholderEl == null,
       );
 
-      if (placeholderEl === null) {
+      if (placeholderEl == null) {
         EDITOR_TO_PLACEHOLDER_ELEMENT.delete(editor);
         //@ts-ignore
         leaf.onPlaceholderResize?.(null);
@@ -163,7 +166,13 @@ const Leaf = (props: {
     'data-slate-leaf': true,
   };
 
-  return renderLeaf({ attributes, children, leaf, text });
+  return renderLeaf({
+    attributes,
+    children,
+    leaf,
+    text,
+    leafPosition,
+  });
 };
 
 const MemoizedLeaf = React.memo(Leaf, (prev, next) => {

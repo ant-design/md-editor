@@ -1,7 +1,9 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import getDirection from 'direction';
-import { debounce, throttle } from 'lodash-es';
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 import React, {
   ForwardedRef,
   forwardRef,
@@ -18,6 +20,7 @@ import {
   DecoratedRange,
   Editor,
   Element,
+  LeafPosition,
   Node,
   NodeEntry,
   Path,
@@ -84,9 +87,9 @@ const Children = (props: Parameters<typeof useChildren>[0]) => (
  * `RenderElementProps` are passed to the `renderElement` handler.
  */
 
-export interface RenderElementProps<T = Element> {
+export interface RenderElementProps {
   children: any;
-  element: T;
+  element: Element;
   attributes: {
     'data-slate-node': 'element';
     'data-slate-inline'?: true;
@@ -102,10 +105,30 @@ export interface RenderElementProps<T = Element> {
 
 export interface RenderLeafProps {
   children: any;
+  /**
+   * The leaf node with any applied decorations.
+   * If no decorations are applied, it will be identical to the `text` property.
+   */
   leaf: Text;
   text: Text;
   attributes: {
     'data-slate-leaf': true;
+  };
+  /**
+   * The position of the leaf within the Text node, only present when the text node is split by decorations.
+   */
+  leafPosition?: LeafPosition;
+}
+
+/**
+ * `RenderTextProps` are passed to the `renderText` handler.
+ */
+export interface RenderTextProps {
+  text: Text;
+  children: any;
+  attributes: {
+    'data-slate-node': 'text';
+    ref: any;
   };
 }
 
@@ -122,6 +145,7 @@ export type EditableProps = {
   style?: React.CSSProperties;
   renderElement?: (props: RenderElementProps) => JSX.Element;
   renderLeaf?: (props: RenderLeafProps) => JSX.Element;
+  renderText?: (props: RenderTextProps) => JSX.Element;
   renderPlaceholder?: (props: RenderPlaceholderProps) => JSX.Element;
   scrollSelectionIntoView?: (editor: ReactEditor, domRange: DOMRange) => void;
   as?: React.ElementType;
@@ -146,6 +170,7 @@ export const Editable = forwardRef(
       readOnly = false,
       renderElement,
       renderLeaf,
+      renderText,
       renderPlaceholder = defaultRenderPlaceholder,
       scrollSelectionIntoView = defaultScrollSelectionIntoView,
       style: userStyle = {},
@@ -505,6 +530,7 @@ export const Editable = forwardRef(
     // https://github.com/facebook/react/issues/11211
     const onDOMBeforeInput = useCallback(
       (event: InputEvent) => {
+        handleNativeHistoryEvents(editor, event);
         const el = ReactEditor.toDOMNode(editor, editor);
         const root = el.getRootNode();
 
@@ -644,30 +670,26 @@ export const Editable = forwardRef(
           ) {
             const [targetRange] = (event as any).getTargetRanges();
 
-            try {
-              if (targetRange) {
-                const range = ReactEditor.toSlateRange(editor, targetRange, {
-                  exactMatch: false,
-                  suppressThrow: false,
-                });
+            if (targetRange) {
+              const range = ReactEditor.toSlateRange(editor, targetRange, {
+                exactMatch: false,
+                suppressThrow: false,
+              });
 
-                if (!selection || !Range.equals(selection, range)) {
-                  native = false;
+              if (!selection || !Range.equals(selection, range)) {
+                native = false;
 
-                  const selectionRef =
-                    !isCompositionChange &&
-                    editor.selection &&
-                    Editor.rangeRef(editor, editor.selection);
+                const selectionRef =
+                  !isCompositionChange &&
+                  editor.selection &&
+                  Editor.rangeRef(editor, editor.selection);
 
-                  Transforms.select(editor, range);
+                Transforms.select(editor, range);
 
-                  if (selectionRef) {
-                    EDITOR_TO_USER_SELECTION.set(editor, selectionRef);
-                  }
+                if (selectionRef) {
+                  EDITOR_TO_USER_SELECTION.set(editor, selectionRef);
                 }
               }
-            } catch (error) {
-              console.log(error, targetRange);
             }
           }
 
@@ -822,7 +844,7 @@ export const Editable = forwardRef(
 
     const callbackRef = useCallback(
       (node: HTMLDivElement | null) => {
-        if (node === null) {
+        if (node == null) {
           onDOMSelectionChange.cancel();
           scheduleOnDOMSelectionChange.cancel();
 
@@ -930,7 +952,7 @@ export const Editable = forwardRef(
         onPlaceholderResize: placeHolderResizeHandler,
         anchor: start,
         focus: start,
-      } as any);
+      });
     }
 
     const { marks } = editor;
@@ -977,6 +999,7 @@ export const Editable = forwardRef(
             return;
           }
         }
+
         EDITOR_TO_PENDING_INSERTION_MARKS.delete(editor);
       });
     });
@@ -1083,22 +1106,10 @@ export const Editable = forwardRef(
                     // This means undo can be triggered even when the div is not focused,
                     // and it only triggers the input event for the node. (2024/10/09)
                     if (!ReactEditor.isFocused(editor)) {
-                      const native = event.nativeEvent as InputEvent;
-                      const maybeHistoryEditor: any = editor;
-                      if (
-                        native.inputType === 'historyUndo' &&
-                        typeof maybeHistoryEditor.undo === 'function'
-                      ) {
-                        maybeHistoryEditor.undo();
-                        return;
-                      }
-                      if (
-                        native.inputType === 'historyRedo' &&
-                        typeof maybeHistoryEditor.redo === 'function'
-                      ) {
-                        maybeHistoryEditor.redo();
-                        return;
-                      }
+                      handleNativeHistoryEvents(
+                        editor,
+                        event.nativeEvent as InputEvent,
+                      );
                     }
                   },
                   [attributes.onInput, editor],
@@ -1146,32 +1157,29 @@ export const Editable = forwardRef(
                     // non- editable section of an element that isn't a void node (eg.
                     // a list item of the check list example).
                     if (
-                      relatedTarget !== null &&
+                      relatedTarget != null &&
                       isDOMNode(relatedTarget) &&
                       ReactEditor.hasDOMNode(editor, relatedTarget)
                     ) {
-                      try {
-                        const node = ReactEditor.toSlateNode(
-                          editor,
-                          relatedTarget,
-                        );
+                      const node = ReactEditor.toSlateNode(
+                        editor,
+                        relatedTarget,
+                      );
 
-                        if (Element.isElement(node) && !editor.isVoid(node)) {
-                          return;
-                        }
-                        // COMPAT: Safari doesn't always remove the selection even if the content-
-                        // editable element no longer has focus. Refer to:
-                        // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
-                        if (IS_WEBKIT) {
-                          const domSelection = getSelection(root);
-                          domSelection?.removeAllRanges();
-                        }
-                        IS_FOCUSED.delete(editor);
-                      } catch (error) {
-                        console.error(error);
-                        console.log('relatedTarget', relatedTarget);
+                      if (Element.isElement(node) && !editor.isVoid(node)) {
+                        return;
                       }
                     }
+
+                    // COMPAT: Safari doesn't always remove the selection even if the content-
+                    // editable element no longer has focus. Refer to:
+                    // https://stackoverflow.com/questions/12353247/force-contenteditable-div-to-stop-accepting-input-after-it-loses-focus-under-web
+                    if (IS_WEBKIT) {
+                      const domSelection = getSelection(root);
+                      domSelection?.removeAllRanges();
+                    }
+
+                    IS_FOCUSED.delete(editor);
                   },
                   [
                     readOnly,
@@ -1183,72 +1191,66 @@ export const Editable = forwardRef(
                 )}
                 onClick={useCallback(
                   (event: React.MouseEvent<HTMLDivElement>) => {
-                    if (readOnly) {
-                      return;
-                    }
                     if (
                       ReactEditor.hasTarget(editor, event.target) &&
                       !isEventHandled(event, attributes.onClick) &&
                       isDOMNode(event.target)
                     ) {
-                      try {
-                        const node = ReactEditor.toSlateNode(
-                          editor,
-                          event.target,
-                        );
-                        const path = ReactEditor.findPath(editor, node);
+                      const node = ReactEditor.toSlateNode(
+                        editor,
+                        event.target,
+                      );
+                      const path = ReactEditor.findPath(editor, node);
 
-                        // At this time, the Slate document may be arbitrarily different,
-                        // because onClick handlers can change the document before we get here.
-                        // Therefore we must check that this path actually exists,
-                        // and that it still refers to the same node.
+                      // At this time, the Slate document may be arbitrarily different,
+                      // because onClick handlers can change the document before we get here.
+                      // Therefore we must check that this path actually exists,
+                      // and that it still refers to the same node.
+                      if (
+                        !Editor.hasPath(editor, path) ||
+                        Node.get(editor, path) !== node
+                      ) {
+                        return;
+                      }
+
+                      if (event.detail === TRIPLE_CLICK && path.length >= 1) {
+                        let blockPath = path;
                         if (
-                          !Editor.hasPath(editor, path) ||
-                          Node.get(editor, path) !== node
+                          !(
+                            Element.isElement(node) &&
+                            Editor.isBlock(editor, node)
+                          )
                         ) {
-                          return;
+                          const block = Editor.above(editor, {
+                            match: (n) =>
+                              Element.isElement(n) && Editor.isBlock(editor, n),
+                            at: path,
+                          });
+
+                          blockPath = block?.[1] ?? path.slice(0, 1);
                         }
 
-                        if (event.detail === TRIPLE_CLICK && path.length >= 1) {
-                          let blockPath = path;
-                          if (
-                            !(
-                              Element.isElement(node) &&
-                              Editor.isBlock(editor, node)
-                            )
-                          ) {
-                            const block = Editor.above(editor, {
-                              match: (n) =>
-                                Element.isElement(n) &&
-                                Editor.isBlock(editor, n),
-                              at: path,
-                            });
+                        const range = Editor.range(editor, blockPath);
+                        Transforms.select(editor, range);
+                        return;
+                      }
 
-                            blockPath = block?.[1] ?? path.slice(0, 1);
-                          }
+                      if (readOnly) {
+                        return;
+                      }
 
-                          const range = Editor.range(editor, blockPath);
-                          Transforms.select(editor, range);
-                          return;
-                        }
+                      const start = Editor.start(editor, path);
+                      const end = Editor.end(editor, path);
+                      const startVoid = Editor.void(editor, { at: start });
+                      const endVoid = Editor.void(editor, { at: end });
 
-                        if (path?.length < 1) return null;
-
-                        const start = Editor.start(editor, path);
-                        const end = Editor.end(editor, path);
-                        const startVoid = Editor.void(editor, { at: start });
-                        const endVoid = Editor.void(editor, { at: end });
-
-                        if (
-                          startVoid &&
-                          endVoid &&
-                          Path.equals(startVoid[1], endVoid[1])
-                        ) {
-                          const range = Editor.range(editor, start);
-                          Transforms.select(editor, range);
-                        }
-                      } catch (error) {
-                        console.error(error);
+                      if (
+                        startVoid &&
+                        endVoid &&
+                        Path.equals(startVoid[1], endVoid[1])
+                      ) {
+                        const range = Editor.range(editor, start);
+                        Transforms.select(editor, range);
                       }
                     }
                   },
@@ -1296,7 +1298,9 @@ export const Editable = forwardRef(
                           EDITOR_TO_USER_MARKS.set(editor, editor.marks);
                           editor.marks = placeholderMarks;
                         }
+
                         Editor.insertText(editor, event.data);
+
                         const userMarks = EDITOR_TO_USER_MARKS.get(editor);
                         EDITOR_TO_USER_MARKS.delete(editor);
                         if (userMarks !== undefined) {
@@ -1466,7 +1470,6 @@ export const Editable = forwardRef(
 
                       // Keep a reference to the dragged range before updating selection
                       const draggedRange = editor.selection;
-
                       try {
                         // Find the range where the drop happened
                         const range = ReactEditor.findEventRange(editor, event);
@@ -1485,7 +1488,9 @@ export const Editable = forwardRef(
                             });
                           }
                         }
+
                         ReactEditor.insertData(editor, data);
+
                         // When dragging from another source into the editor, it's possible
                         // that the current editor does not have focus.
                         if (!ReactEditor.isFocused(editor)) {
@@ -1853,7 +1858,7 @@ export const Editable = forwardRef(
                       // COMPAT: Firefox, Chrome and Safari don't emit `beforeinput` events
                       // when "paste without formatting" is used, so fallback. (2020/02/20)
                       // COMPAT: Safari InputEvents generated by pasting won't include
-                      // application/x-slate-md-fragment items, so use the
+                      // application/x-slate-fragment items, so use the
                       // ClipboardEvent here. (2023/03/15)
                       if (
                         !HAS_BEFORE_INPUT_SUPPORT ||
@@ -1874,6 +1879,7 @@ export const Editable = forwardRef(
                   renderElement={renderElement}
                   renderPlaceholder={renderPlaceholder}
                   renderLeaf={renderLeaf}
+                  renderText={renderText}
                   selection={editor.selection}
                 />
               </Component>
@@ -1965,7 +1971,7 @@ export const isEventHandled = <
   // shall be treated as being handled or not.
   const shouldTreatEventAsHandled = handler(event);
 
-  if (shouldTreatEventAsHandled !== null) {
+  if (shouldTreatEventAsHandled != null) {
     return shouldTreatEventAsHandled;
   }
 
@@ -2003,9 +2009,27 @@ export const isDOMEventHandled = <E extends Event>(
   // shall be treated as being handled or not.
   const shouldTreatEventAsHandled = handler(event);
 
-  if (shouldTreatEventAsHandled !== null) {
+  if (shouldTreatEventAsHandled != null) {
     return shouldTreatEventAsHandled;
   }
 
   return event.defaultPrevented;
+};
+
+const handleNativeHistoryEvents = (editor: Editor, event: InputEvent) => {
+  const maybeHistoryEditor: any = editor;
+  if (
+    event.inputType === 'historyUndo' &&
+    typeof maybeHistoryEditor.undo === 'function'
+  ) {
+    maybeHistoryEditor.undo();
+    return;
+  }
+  if (
+    event.inputType === 'historyRedo' &&
+    typeof maybeHistoryEditor.redo === 'function'
+  ) {
+    maybeHistoryEditor.redo();
+    return;
+  }
 };

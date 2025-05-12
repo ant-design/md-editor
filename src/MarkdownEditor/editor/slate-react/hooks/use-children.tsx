@@ -11,6 +11,7 @@ import {
   RenderElementProps,
   RenderLeafProps,
   RenderPlaceholderProps,
+  RenderTextProps,
 } from '../components/editable';
 
 import { IS_NODE_MAP_DIRTY, NODE_TO_INDEX, NODE_TO_PARENT } from 'slate-dom';
@@ -30,6 +31,7 @@ const useChildren = (props: {
   node: Ancestor;
   renderElement?: (props: RenderElementProps) => JSX.Element;
   renderPlaceholder: (props: RenderPlaceholderProps) => JSX.Element;
+  renderText?: (props: RenderTextProps) => JSX.Element;
   renderLeaf?: (props: RenderLeafProps) => JSX.Element;
   selection: Range | null;
 }) => {
@@ -38,6 +40,7 @@ const useChildren = (props: {
     node,
     renderElement,
     renderPlaceholder,
+    renderText,
     renderLeaf,
     selection,
   } = props;
@@ -56,9 +59,6 @@ const useChildren = (props: {
     const n = node.children[i] as Descendant;
     const key = ReactEditor.findKey(editor, n);
     const range = Editor.range(editor, p);
-    if (!range.focus) {
-      continue;
-    }
     const sel = selection && Range.intersection(range, selection);
     const ds = decorate([n, p]);
 
@@ -80,6 +80,7 @@ const useChildren = (props: {
             renderElement={renderElement}
             renderPlaceholder={renderPlaceholder}
             renderLeaf={renderLeaf}
+            renderText={renderText}
             selection={sel}
           />
         </SelectedContext.Provider>,
@@ -93,6 +94,7 @@ const useChildren = (props: {
           parent={node}
           renderPlaceholder={renderPlaceholder}
           renderLeaf={renderLeaf}
+          renderText={renderText}
           text={n}
         />,
       );
