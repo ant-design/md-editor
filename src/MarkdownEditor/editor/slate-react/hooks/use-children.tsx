@@ -46,6 +46,7 @@ const useChildren = (props: {
   } = props;
   const decorate = useDecorate();
   const editor = useSlateStatic();
+  //@ts-ignore
   IS_NODE_MAP_DIRTY.set(editor as ReactEditor, false);
   const path = ReactEditor.findPath(editor, node);
   const children = [];
@@ -59,7 +60,12 @@ const useChildren = (props: {
     const n = node.children[i] as Descendant;
     const key = ReactEditor.findKey(editor, n);
     const range = Editor.range(editor, p);
-    const sel = selection && Range.intersection(range, selection);
+    const sel =
+      selection &&
+      range &&
+      range?.anchor &&
+      range?.focus &&
+      Range.intersection(range, selection);
     const ds = decorate([n, p]);
 
     for (const dec of decorations) {
