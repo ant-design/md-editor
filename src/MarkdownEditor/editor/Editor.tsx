@@ -817,6 +817,8 @@ export const SlateMarkdownEditor = observer(
             onError={onError}
             onDragOver={(e) => e.preventDefault()}
             readOnly={readonly}
+            onCompositionStart={onCompositionStart}
+            onCompositionEnd={onCompositionEnd}
             onCompositionStartCapture={onCompositionStart}
             onCompositionEndCapture={onCompositionEnd}
             className={classNames(
@@ -905,8 +907,6 @@ export const SlateMarkdownEditor = observer(
                 );
               }
             }}
-            onCompositionStart={onCompositionStart}
-            onCompositionEnd={onCompositionEnd}
             renderElement={elementRenderElement}
             onKeyDown={handleKeyDown}
             renderLeaf={renderMarkdownLeaf}
