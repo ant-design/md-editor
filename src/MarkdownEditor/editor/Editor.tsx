@@ -848,19 +848,39 @@ export const SlateMarkdownEditor = observer(
               if (isEventHandled(event)) {
                 return;
               }
-              if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
-                const domSelection = window.getSelection();
-                markdownEditorRef.current.selection =
-                  getSelectionFromDomSelection(
-                    markdownEditorRef.current,
-                    domSelection!,
-                  );
-                if (markdownEditorRef.current.selection) {
-                  Transforms.delete(markdownEditorRef.current, {
-                    at: markdownEditorRef.current.selection!,
-                  });
-                  return;
-                }
+              const domSelection = window.getSelection();
+              markdownEditorRef.current.selection =
+                getSelectionFromDomSelection(
+                  markdownEditorRef.current,
+                  domSelection!,
+                );
+              if (!markdownEditorRef.current.selection) {
+                return;
+              }
+              ReactEditor.setFragmentData(
+                markdownEditorRef.current,
+                event.clipboardData,
+                'cut',
+              );
+              if (markdownEditorRef.current?.selection) {
+                event.preventDefault();
+                event.stopPropagation();
+                const editor = markdownEditorRef.current;
+                const data = event?.clipboardData;
+                const selectedText = Editor.string(editor, editor.selection!);
+                data.setData('text/plain', selectedText || '');
+                // data.setData(
+                //   'text/html',
+                //   markdownContainerRef.current?.innerHTML || '',
+                // );
+                data.setData(
+                  'application/x-slate-md-fragment',
+                  JSON.stringify(editor?.getFragment() || []),
+                );
+                Transforms.delete(markdownEditorRef.current, {
+                  at: markdownEditorRef.current.selection!,
+                });
+                return;
               }
               event.preventDefault();
             }}
