@@ -209,12 +209,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           fontSize: '1em',
         },
         'h1,h2': {
-          marginTop: '0.2em',
-          marginBottom: '0.2em',
+          marginTop: '1em',
+          marginBottom: '1em',
         },
         'h3,h4,h5,h6': {
-          marginTop: '0.1em',
-          marginBottom: '0.1em',
+          marginTop: '0.8em',
+          marginBottom: '0.8em',
         },
         'ol,ul': {
           paddingLeft: '0.2em',
