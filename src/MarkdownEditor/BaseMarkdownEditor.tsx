@@ -1,3 +1,4 @@
+import { Ace } from 'ace-builds';
 import { AnchorProps, ConfigProvider, ImageProps } from 'antd';
 import classNames from 'classnames';
 import { observable } from 'mobx';
@@ -121,7 +122,8 @@ export type MarkdownEditorProps = {
    */
   codeProps?: {
     Languages?: string[];
-  };
+    hideToolBar?: boolean;
+  } & Partial<Ace.EditorOptions>;
 
   anchorProps?: AnchorProps;
   /**

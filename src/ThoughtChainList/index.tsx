@@ -15,6 +15,8 @@ import { FlipText } from './FlipText';
 import { useStyle } from './style';
 import { ThoughtChainListItem } from './ThoughtChainListItem';
 
+import { merge } from 'lodash-es';
+
 const CategoryTextMap = {
   TableSql: '表查询',
   ToolCall: '工具查询',
@@ -501,7 +503,17 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                         >
                           <ThoughtChainListItem
                             index={index}
-                            markdownRenderProps={props.markdownRenderProps}
+                            markdownRenderProps={merge(
+                              props.markdownRenderProps,
+                              {
+                                codeProps: {
+                                  hideToolBar: true,
+                                  showLineNumbers: false,
+                                  showGutter: false,
+                                  fontSize: 12,
+                                },
+                              },
+                            )}
                             chatItem={props.chatItem}
                             key={(item.runId || '') + '' + index}
                             thoughtChainListItem={item}

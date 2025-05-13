@@ -18,7 +18,7 @@ export const MarkdownEditorUpdate = (
   const editorRef = React.useRef<MarkdownEditorInstance>();
   useEffect(() => {
     editorRef.current?.store?.updateNodeList(
-      parserMdToSchema(toListMarkdown(props.initValue || '')).schema,
+      parserMdToSchema(toListMarkdown(props.initValue || '').trim()).schema,
     );
   }, [props.initValue]);
 
@@ -40,6 +40,10 @@ export const MarkdownEditorUpdate = (
       contentStyle={{
         padding: 0,
         width: '100%',
+      }}
+      codeProps={{
+        hideToolBar: true,
+        showLineNumbers: false,
       }}
       {...props}
       typewriter={props.typewriter && !props.isFinished}
