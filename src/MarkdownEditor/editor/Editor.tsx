@@ -895,10 +895,10 @@ export const SlateMarkdownEditor = observer(
                 const data = event?.clipboardData;
                 const selectedText = Editor.string(editor, editor.selection!);
                 data.setData('text/plain', selectedText || '');
-                data.setData(
-                  'text/html',
-                  markdownContainerRef.current?.innerHTML || '',
-                );
+                // data.setData(
+                //   'text/html',
+                //   markdownContainerRef.current?.innerHTML || '',
+                // );
                 data.setData(
                   'application/x-slate-md-fragment',
                   JSON.stringify(editor?.getFragment() || []),
