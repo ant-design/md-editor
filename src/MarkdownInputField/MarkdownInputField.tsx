@@ -260,7 +260,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   const sendMessage = useRefFunction(() => {
     if (props.disabled) return;
     if (props.typing) return;
-    if (props.onSend && value) {
+    const mdValue = markdownEditorRef?.current?.store?.getMDContent();
+    if (props.onSend && mdValue) {
       setIsLoading(true);
       props
         .onSend(value)

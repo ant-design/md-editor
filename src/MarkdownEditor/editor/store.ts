@@ -365,6 +365,17 @@ export class EditorStore {
     ReactEditor.deselect(this._editor.current);
   }
 
+  getContent() {
+    const nodeList = this._editor.current.children;
+    return nodeList;
+  }
+
+  getMDContent() {
+    const nodeList = this._editor.current.children;
+    const md = parserSlateNodeToMarkdown(nodeList);
+    return md;
+  }
+
   /**
    * 设置编辑器内容，通过节点列表
    * @param nodeList
