@@ -3,7 +3,7 @@ import { MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
-import { useSlate } from '../../../slate-react';
+import { ReactEditor, useSlate } from '../../../slate-react';
 
 export type TagPopupProps = {
   children?: React.ReactNode;
@@ -122,7 +122,10 @@ export const TagPopup = (
   const currentNodePath = useRef<number[]>();
 
   useEffect(() => {
-    const path = editor.selection?.anchor.path;
+    if (!domRef.current) return;
+    const slateNode = ReactEditor.toSlateNode(editor, domRef.current);
+    // 获取路径
+    const path = ReactEditor.findPath(editor, slateNode);
     if (path) {
       currentNodePath.current = path;
       suggestionConnext?.setOpen?.(true);
@@ -218,10 +221,6 @@ export const TagPopup = (
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        const path = editor.selection?.anchor.path;
-        if (path) {
-          currentNodePath.current = path;
-        }
         if (props.beforeOpenChange) {
           const canOpen = props.beforeOpenChange(true, {
             ...props,
@@ -242,7 +241,7 @@ export const TagPopup = (
 
         if (suggestionConnext?.onSelectRef) {
           suggestionConnext.onSelectRef.current = (newValue) => {
-            onSelect?.(newValue, path || []);
+            onSelect?.(newValue, currentNodePath.current || []);
             suggestionConnext?.setOpen?.(false);
           };
         }
