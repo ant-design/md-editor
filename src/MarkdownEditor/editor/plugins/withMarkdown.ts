@@ -229,23 +229,34 @@ export const withMarkdown = (editor: Editor) => {
 
     if (operation.type === 'remove_text') {
       const currentNode = Node.get(editor, operation.path);
-      if (
-        currentNode?.tag &&
-        currentNode.triggerText &&
-        operation.text === currentNode.triggerText
-      ) {
-        // 如果当前节点是代码块，且输入的是空格，则插入一个空格到 code 节点外
-        Transforms.setNodes(
-          editor,
-          { tag: false, code: false, text: ' ' },
-          { at: operation.path },
-        );
-        Transforms.delete(editor, {
-          at: {
-            anchor: { path: operation.path, offset: 0 },
-            focus: { path: operation.path, offset: operation.text.length },
-          },
-        });
+      if (currentNode?.tag) {
+        console.log(currentNode);
+        if (
+          currentNode.triggerText &&
+          operation.text === currentNode.triggerText
+        ) {
+          Transforms.setNodes(
+            editor,
+            { tag: false, code: false, text: ' ' },
+            { at: operation.path },
+          );
+          Transforms.delete(editor, {
+            at: {
+              anchor: { path: operation.path, offset: 0 },
+              focus: { path: operation.path, offset: operation.text.length },
+            },
+          });
+          return;
+        }
+
+        if (currentNode.text?.trim() === '') {
+          Transforms.setNodes(
+            editor,
+            { tag: false, code: false, text: ' ' },
+            { at: operation.path },
+          );
+        }
+
         return;
       }
     }
