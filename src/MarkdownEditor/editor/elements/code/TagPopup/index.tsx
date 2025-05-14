@@ -128,7 +128,6 @@ export const TagPopup = (
     const path = ReactEditor.findPath(editor, slateNode);
     if (path) {
       currentNodePath.current = path;
-      suggestionConnext?.setOpen?.(true);
       if (suggestionConnext?.triggerNodeContext) {
         suggestionConnext.triggerNodeContext.current = {
           ...props,
