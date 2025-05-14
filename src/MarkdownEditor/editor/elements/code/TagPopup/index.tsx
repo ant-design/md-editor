@@ -136,12 +136,14 @@ export const TagPopup = (
       }
       if (suggestionConnext?.onSelectRef) {
         suggestionConnext.onSelectRef.current = (newValue) => {
-          onSelect?.(newValue, path || []);
+          // 获取最新路径
+          const currentPath = ReactEditor.findPath(editor, slateNode);
+          onSelect?.(newValue, currentPath || path || []);
           suggestionConnext?.setOpen?.(false);
         };
       }
     }
-  });
+  }, [editor.children, props.text]); // 添加依赖项
 
   useEffect(() => {
     if (suggestionConnext?.triggerNodeContext) {
