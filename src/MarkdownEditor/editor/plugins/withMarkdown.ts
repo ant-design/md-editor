@@ -254,9 +254,8 @@ export const withMarkdown = (editor: Editor) => {
             { tag: false, code: false, text: ' ' },
             { at: operation.path },
           );
+          return;
         }
-
-        return;
       }
     }
     if (operation.type === 'insert_text') {

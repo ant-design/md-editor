@@ -173,25 +173,37 @@ export const MLeaf = (
             if (!v) return;
             if (!path?.length) return;
             if (!markdownEditorRef.current) return;
-            Transforms.insertText(
-              markdownEditorRef.current,
-              tagTextRender?.(
-                {
-                  ...props,
-                  ...props.tagInputProps,
-                  text: v,
-                },
-                `${triggerText ?? '$'}${v}`,
-              ) || `${triggerText ?? '$'}${v}`,
-              {
+
+            Editor.withoutNormalizing(markdownEditorRef.current, () => {
+              const newText =
+                tagTextRender?.(
+                  {
+                    ...props,
+                    ...props.tagInputProps,
+                    text: v,
+                  },
+                  `${triggerText ?? '$'}${v}`,
+                ) || `${triggerText ?? '$'}${v}`;
+
+              Transforms.insertText(markdownEditorRef.current, newText, {
                 at: path,
-              },
-            );
-            (
-              store?.container?.querySelector(
-                'div[data-slate-node="value"]',
-              ) as HTMLDivElement
-            )?.focus();
+              });
+
+              Transforms.setNodes(
+                markdownEditorRef.current,
+                { text: newText, tag: true, code: true, placeholder },
+                { at: path },
+              );
+            });
+
+            const focusElement = store?.container?.querySelector(
+              'div[data-slate-node="value"]',
+            ) as HTMLDivElement;
+
+            if (focusElement) {
+              focusElement?.focus();
+            }
+
             setTimeout(() => {
               if (!markdownEditorRef.current) return;
               if (!path?.length) return;
