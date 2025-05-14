@@ -687,13 +687,29 @@ const parserBlock = (
         }
         break;
       case 'inlineCode':
-        const hasPlaceHolder = currentElement.value?.match(
-          /\$\{placeholder:(.*?)\}/,
-        );
+        const hasPlaceHolder = currentElement.value?.match(/\$\{(.*?)\}/);
+        const values = hasPlaceHolder
+          ? hasPlaceHolder[1]
+              .split(';')
+              .map((item) => {
+                const values = item?.split(':');
+                return {
+                  [values?.at(0) || '']: values?.at(1),
+                };
+              })
+              .reduce((acc, item) => {
+                return {
+                  ...acc,
+                  ...item,
+                };
+              }, {})
+          : undefined;
+
         el = {
-          text: hasPlaceHolder ? ' ' : currentElement.value,
+          text: values ? values?.initialValue || ' ' : currentElement.value,
           tag: currentElement.value?.startsWith('${'),
-          placeholder: hasPlaceHolder ? hasPlaceHolder[1] : undefined,
+          placeholder: values?.placeholder || undefined,
+          initialValue: values?.initialValue || undefined,
           code: true,
         };
         break;
