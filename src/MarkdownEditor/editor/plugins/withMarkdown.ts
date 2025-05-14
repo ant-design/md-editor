@@ -230,7 +230,6 @@ export const withMarkdown = (editor: Editor) => {
     if (operation.type === 'remove_text') {
       const currentNode = Node.get(editor, operation.path);
       if (currentNode?.tag) {
-        console.log(currentNode);
         if (
           currentNode.triggerText &&
           operation.text === currentNode.triggerText
