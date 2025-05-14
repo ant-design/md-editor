@@ -146,15 +146,6 @@ export const TagPopup = (
   }, [editor.children, props.text]); // 添加依赖项
 
   useEffect(() => {
-    if (suggestionConnext?.triggerNodeContext) {
-      suggestionConnext.triggerNodeContext.current = {
-        ...props,
-        text: props.text,
-      };
-    }
-  }, [props.text]);
-
-  useEffect(() => {
     // 默认选中一下
     props.onChange?.(props.text || '', {
       ...props,
