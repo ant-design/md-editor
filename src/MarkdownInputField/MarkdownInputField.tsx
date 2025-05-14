@@ -264,7 +264,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     if (props.onSend && mdValue) {
       setIsLoading(true);
       props
-        .onSend(value)
+        .onSend(mdValue)
         .then(() => {
           setTimeout(() => {
             markdownEditorRef?.current?.store?.clearContent();
