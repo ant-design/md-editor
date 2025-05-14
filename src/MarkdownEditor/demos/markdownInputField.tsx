@@ -5,7 +5,7 @@ import {
   MarkdownInputField,
 } from '@ant-design/md-editor';
 import { ColorPicker, Dropdown, Slider } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { useState } from 'react';
 
@@ -67,6 +67,7 @@ const TagRender: React.FC<any> = (props: {
 
 export default () => {
   const markdownRef = React.useRef<MarkdownEditorInstance>();
+  const markdownRefTwo = React.useRef<MarkdownEditorInstance>();
   const [list, setList] = React.useState<Set<string>>(() => new Set());
   const send = async (value: string) => {
     await new Promise((resolve) => {
@@ -98,6 +99,12 @@ export default () => {
       colorList || ['#CD36FF', '#FFD972', '#5EBFFF', '#6FFFA7'],
     );
   }, [colorList?.join(',')]);
+
+  useEffect(() => {
+    markdownRefTwo.current?.store?.setMDContent(
+      '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。',
+    );
+  }, []);
   return (
     <div
       style={{
@@ -127,7 +134,7 @@ export default () => {
         style={{
           minHeight: 66,
         }}
-        inputRef={markdownRef}
+        inputRef={markdownRefTwo}
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{

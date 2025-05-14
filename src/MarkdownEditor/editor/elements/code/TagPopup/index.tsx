@@ -141,7 +141,7 @@ export const TagPopup = (
         };
       }
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (suggestionConnext?.triggerNodeContext) {
