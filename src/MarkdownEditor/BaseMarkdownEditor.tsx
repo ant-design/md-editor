@@ -293,6 +293,9 @@ export type MarkdownEditorProps = {
    * 表格配置
    * @param minRows 最小行数
    * @param minColumn 最小列数
+   * @param excelMode 是否启用Excel模式
+   * @param previewTitle 预览标题
+   * @param actions 操作配置
    */
   tableConfig?: {
     minRows?: number;
@@ -306,19 +309,37 @@ export type MarkdownEditorProps = {
     };
   };
 
+  /**
+   * Markdown配置
+   * @param enable 是否启用Markdown
+   * @param matchInputToNode 是否匹配输入到节点
+   */
   markdown?: {
     enable: boolean;
     matchInputToNode?: boolean;
   };
 
+  /**
+   * 编辑器插件配置
+   */
   plugins?: MarkdownEditorPlugin[];
 
+  /**
+   * 文本区域配置
+   * @param enable 是否启用文本区域
+   * @param placeholder 占位符文本
+   * @param triggerSendKey 触发发送的按键
+   */
   textAreaProps?: {
     enable: boolean;
     placeholder?: string;
     triggerSendKey?: 'Enter' | 'Mod+Enter';
   };
 
+  /**
+   * 标签输入配置
+   * @param enable 是否启用标签输入
+   */
   tagInputProps?: {
     enable: boolean;
   } & TagPopupProps;

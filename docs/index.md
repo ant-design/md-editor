@@ -1,6 +1,6 @@
 ---
 hero:
-  title: MDEditor
+  title: "@ant-design/md-editor"
   description: 类语雀的编辑器，支持 markdown 渲染和编辑
   actions:
     - text: 快速开始

@@ -541,8 +541,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
           style={{
             borderRadius: (props.borderRadius || 12) - 2 || 10,
             maxHeight:
-              props.style?.maxHeight ||
-              120 + (props.attachment?.enable ? 90 : 0),
+             `max(${props.style?.maxHeight || 120 + (props.attachment?.enable ? 90 : 0)}px,100%)`,
             flex: 1,
           }}
           className={classNames(`${baseCls}-editor`, hashId, {

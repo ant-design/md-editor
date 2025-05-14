@@ -214,24 +214,29 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   const prefixCls = context.getPrefixCls('thought-chain-list');
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [docMeta, setDocMeta] = React.useState<Partial<DocMeta> | null>(null);
-
+  const {
+    chatItem = {
+      isFinished: true,
+      isAborted: false,
+    } as ThoughtChainListProps['chatItem'],
+    finishAutoCollapse = false,
+  } = props;
   const { containerRef } = useAutoScroll({
     SCROLL_TOLERANCE: 30,
   });
 
   useEffect(() => {
-    if (props?.chatItem?.isFinished && props.finishAutoCollapse !== false) {
+    if (chatItem?.isFinished && finishAutoCollapse !== false) {
       setCollapse(true);
     }
-  }, [props?.chatItem?.isFinished]);
+  }, [chatItem?.isFinished]);
 
   const i18n = useContext(I18nContext);
 
   const endStatusDisplay = useMemo(() => {
-    const time =
-      ((props.chatItem?.endTime || 0) - (props.chatItem?.createAt || 0)) / 1000;
+    const time = ((chatItem?.endTime || 0) - (chatItem?.createAt || 0)) / 1000;
 
-    if (!props.loading && props?.chatItem?.isAborted) {
+    if (!props.loading && chatItem?.isAborted) {
       if (time > 0) {
         return (
           <FlipText
@@ -244,7 +249,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
       return <FlipText word={`${i18n.locale?.taskAborted || '任务已取消'}`} />;
     }
 
-    if (!props.loading && props?.chatItem?.isFinished) {
+    if (!props.loading && chatItem?.isFinished) {
       if (time > 0) {
         return (
           <FlipText
@@ -254,11 +259,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
           />
         );
       }
-      return (
-        <FlipText
-          word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'}`}
-        />
-      );
+      return <FlipText word={`${i18n.locale?.taskComplete || '任务完成'} `} />;
     }
 
     return (
@@ -284,8 +285,8 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   }, [
     props.loading,
     props.thoughtChainList?.at?.(-1)?.category,
-    props.chatItem?.isFinished,
-    props.chatItem?.isAborted,
+    chatItem?.isFinished,
+    chatItem?.isAborted,
     collapse,
   ]);
 
@@ -514,13 +515,13 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                                 },
                               },
                             )}
-                            chatItem={props.chatItem}
+                            chatItem={chatItem}
                             key={(item.runId || '') + '' + index}
                             thoughtChainListItem={item}
                             hashId={hashId}
                             isFinished={
                               item.isFinished ||
-                              (!props.loading && !!props?.chatItem?.endTime)
+                              (!props.loading && !!chatItem?.endTime)
                             }
                             setDocMeta={setDocMeta}
                             prefixCls={prefixCls}
@@ -537,10 +538,10 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
       }, [
         collapse,
         props?.style,
-        props?.chatItem?.isFinished,
-        props?.chatItem?.endTime,
-        props?.chatItem?.createAt,
-        props?.chatItem?.isAborted,
+        chatItem?.isFinished,
+        chatItem?.endTime,
+        chatItem?.createAt,
+        chatItem?.isAborted,
         props?.loading,
         JSON.stringify(props.thoughtChainList),
       ])}
