@@ -869,10 +869,16 @@ export const SlateMarkdownEditor = observer(
                 const data = event?.clipboardData;
                 const selectedText = Editor.string(editor, editor.selection!);
                 data.setData('text/plain', selectedText || '');
-                // data.setData(
-                //   'text/html',
-                //   markdownContainerRef.current?.innerHTML || '',
-                // );
+                const tempDiv = document.createElement('div');
+                // 获取选中内容的HTML
+                const domRange = ReactEditor.toDOMRange(
+                  editor,
+                  editor.selection as Range,
+                );
+                const selectedHtml = domRange.cloneContents();
+                tempDiv.appendChild(selectedHtml);
+                data.setData('text/html', tempDiv.innerHTML);
+                tempDiv?.remove();
                 data.setData(
                   'application/x-slate-md-fragment',
                   JSON.stringify(editor?.getFragment() || []),
@@ -915,10 +921,16 @@ export const SlateMarkdownEditor = observer(
                 const data = event?.clipboardData;
                 const selectedText = Editor.string(editor, editor.selection!);
                 data.setData('text/plain', selectedText || '');
-                // data.setData(
-                //   'text/html',
-                //   markdownContainerRef.current?.innerHTML || '',
-                // );
+                const tempDiv = document.createElement('div');
+                // 获取选中内容的HTML
+                const domRange = ReactEditor.toDOMRange(
+                  editor,
+                  editor.selection as Range,
+                );
+                const selectedHtml = domRange.cloneContents();
+                tempDiv.appendChild(selectedHtml);
+                data.setData('text/html', tempDiv.innerHTML);
+                tempDiv?.remove();
                 data.setData(
                   'application/x-slate-md-fragment',
                   JSON.stringify(editor?.getFragment() || []),
