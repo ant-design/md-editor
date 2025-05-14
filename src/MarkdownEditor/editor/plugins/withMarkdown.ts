@@ -144,9 +144,6 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
-    if (operation?.type === 'split_node') {
-      console.log('insert_text', operation);
-    }
 
     if (operation.type === 'move_node') {
       const node = Node.get(editor, operation.path);
@@ -222,7 +219,6 @@ export const withMarkdown = (editor: Editor) => {
 
       //@ts-ignore
       if (preNode?.tag && node?.text === ' ') {
-        console.log(node, preNode, prePath);
         Transforms.removeNodes(editor, {
           at: prePath,
         });
@@ -255,8 +251,14 @@ export const withMarkdown = (editor: Editor) => {
     }
     if (operation.type === 'insert_text') {
       const parentNode = Node.get(editor, Path.parent(operation.path));
+      const node = Node.get(editor, operation.path);
       const currentNode = Node.get(editor, operation.path);
-      if (currentNode?.tag && operation.text === ' ') {
+
+      if (
+        currentNode?.tag &&
+        operation.text === ' ' &&
+        editor.selection?.focus.offset === node.text.length
+      ) {
         // 如果当前节点是代码块，且输入的是空格，则插入一个空格到 code 节点外
         Transforms.insertNodes(editor, [{ text: ' ' }]);
         return;
