@@ -262,6 +262,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     if (props.typing) return;
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
 
+    // 如果mdValue和value不一致，并且mdValue不为空，则调用onChange
+    if (mdValue !== value && mdValue) {
+      props.onChange?.(mdValue);
+    }
+
     if (props.onSend && mdValue) {
       setIsLoading(true);
       props
@@ -594,6 +599,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             initValue={props.value}
             onChange={(value) => {
               setValue(value);
+              props.onChange?.(value);
             }}
             titlePlaceholderContent={props.placeholder}
             toc={false}
