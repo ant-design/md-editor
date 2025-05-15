@@ -64,6 +64,23 @@ export const useEditorStore = () => {
 
 const SUPPORT_TYPING_TAG = ['table-cell', 'paragraph', 'head'];
 /**
+ * 表示更新操作的类型
+ */
+type OperationType = 'insert' | 'remove' | 'update' | 'replace' | 'text';
+
+/**
+ * 表示一个更新操作
+ */
+interface UpdateOperation {
+  type: OperationType;
+  path: Path;
+  node?: Node;
+  properties?: Partial<Node>;
+  text?: string;
+  priority: number; // 优先级，越小越先执行
+}
+
+/**
  * 编辑器存储类，用于管理Markdown编辑器的状态和操作。
  */
 export class EditorStore {
@@ -385,208 +402,17 @@ export class EditorStore {
     this._editor.current.onChange();
     this._editor.current.insertText('\n');
   }
-  private insertAdjacentNode = (referencePath: Path, node: Node) => {
-    const editor = this._editor.current;
-
-    // 获取参考节点的下一个路径
-    const nextPath = Path.next(referencePath);
-
-    // 检查路径是否存在
-    if (editor.hasPath(nextPath)) {
-      Transforms.insertNodes(editor, node, { at: nextPath });
-    } else {
-      // 处理父节点不存在时需要先创建父级
-      Transforms.insertNodes(
-        editor,
-        {
-          type: 'paragraph', // 默认容器类型
-          children: [node],
-        },
-        { at: nextPath },
-      );
-    }
-  };
-  /**
-   * 在指定路径后插入节点。
-   * @param path
-   * @param node
-   */
-  insertAfter(path: number[], node: Node) {
-    if (this._editor.current.hasPath(Path.previous(path))) {
-      Transforms.insertNodes(this._editor.current, node, {
-        at: path,
-      });
-    } else {
-      this.insertAfter(Path.previous(path), node);
-    }
-  }
 
   /**
-   * 比较两个节点并更新编辑器中的节点。
-   *
-   * @param node - 当前节点。
-   * @param preNode - 之前的节点。
-   * @param at - 节点在编辑器中的路径。
-   *
-   * 如果 `preNode` 和 `node` 的类型不同，或者节点类型为 'code' 或 'footnoteDefinition'，
-   * 则删除当前路径和下一个路径的节点，并插入新的节点。
-   *
-   * 如果 `node` 有子节点，则递归比较和更新子节点。
-   *
-   * 如果 `node` 没有子节点但 `preNode` 有子节点，则删除当前路径的节点并插入新的节点。
-   *
-   * 如果 `node` 和 `preNode` 都没有子节点，则更新当前路径的节点，并插入文本（如果有）。
-   */
-  diffNode = (node: Node, preNode: Node, at: number[]) => {
-    // 如果上个节点不存在，但是本次有，直接插入
-    if (node && !preNode) {
-      if (this._editor.current.hasPath(Path.parent(at))) {
-        if (this._editor.current.hasPath(Path.previous(at))) {
-          Transforms.insertNodes(this._editor.current, node, { at });
-        } else {
-          this.insertAfter(Path.previous(at), node);
-        }
-        return;
-      }
-      if (node && node.type === 'list-item') {
-        this.diffNode(node, preNode, Path.parent(at));
-      } else {
-        this.diffNode(node, preNode, Path.next(Path.parent(at)));
-      }
-      return;
-    }
-
-    if (node.type !== preNode.type) {
-      Transforms.removeNodes(this._editor.current, {
-        at,
-      });
-      Transforms.insertNodes(this._editor.current, node, { at });
-      return;
-    }
-
-    if (node.type === preNode.type) {
-      if (node.type === 'code' && preNode.type === 'code') {
-        Transforms.setNodes(this._editor.current, node, { at });
-        return;
-      }
-
-      if (
-        node.type === 'list-item' ||
-        node.type === 'table-cell' ||
-        node.type === 'footnoteDefinition'
-      ) {
-        Transforms.removeNodes(this._editor.current, {
-          at,
-        });
-        Transforms.insertNodes(this._editor.current, node, { at });
-        return;
-      }
-
-      Transforms.setNodes(this._editor.current, node, { at });
-      if (node.text) {
-        Transforms.insertText(this._editor.current, node.text, { at });
-      }
-    }
-
-    if (node.children) {
-      node.children.forEach((child: any, index: any) => {
-        if (!this._editor.current.hasPath(at)) {
-          Transforms.insertNodes(this._editor.current, child, { at });
-          return;
-        }
-        this.diffNode(child, preNode.children[index], [...at, index]);
-      });
-      return;
-    }
-    return;
-  };
-
-  /**
-   * 更新节点列表的方法。
-   *
-   * @param nodeList - 新的节点列表。
-   *
-   * 该方法会比较新的节点列表和当前编辑器中的子节点列表，
-   * 并根据差异更新编辑器中的节点。
-   *
-   * 首先，它会创建一个映射来存储需要更新的节点。
-   * 然后，它会遍历新的节点列表，并将需要更新的节点添加到映射中。
-   * 接着，它会根据映射中的信息调用 `diffNode` 方法来更新节点。
-   * 最后，如果当前编辑器中的子节点比新的节点列表多，
-   * 它会移除多余的节点。
+   * 更新节点列表
+   * @param nodeList 新的节点列表
+   * @returns 操作队列
    */
   updateNodeList(nodeList: Node[]) {
     const childrenList = this._editor.current.children;
-    const updateMap = new Map<number, Node>();
-    Editor.withoutNormalizing(this.editor, () => {
-      nodeList
-        .filter((item: any) => {
-          if (item.type === 'p' && item.children.length === 0) {
-            return false;
-          }
-          if (item.type === 'list' && item.children.length === 0) {
-            return false;
-          }
-          if (item.type === 'listItem' && item.children.length === 0) {
-            return false;
-          }
-          if (
-            item.type === 'code' &&
-            item.language === 'code' &&
-            item.otherProps?.length === 0
-          ) {
-            return false;
-          }
-          if (item.type === 'image' && !item.src) {
-            return false;
-          }
-          return true;
-        })
-        .forEach((node: Node, index) => {
-          if (node?.type !== childrenList?.at(index)?.type) {
-            updateMap.set(index, node);
-            return;
-          }
-          if (
-            node?.children?.length !==
-            childrenList?.at?.(index)?.children?.length
-          ) {
-            updateMap.set(index, node);
-            return;
-          }
-
-          if (
-            Object.keys(node || {}).length !==
-            Object.keys(childrenList?.at(index) || {}).length
-          ) {
-            updateMap.set(index, node);
-            return;
-          }
-          if (!isEqual(node, childrenList?.at?.(index) as any)) {
-            updateMap.set(index, node);
-            return;
-          }
-          return;
-        });
-
-      try {
-        updateMap.forEach((node, key) => {
-          this.diffNode(node, childrenList[key], [key]);
-        });
-      } catch (error) {
-        this._editor.current.children = nodeList;
-      }
-
-      const maxSize = childrenList.length - nodeList.length;
-      if (maxSize > 0) {
-        childrenList.forEach((node, index) => {
-          if (nodeList.at(index)) return;
-          if (this._editor.current.hasPath([index])) {
-            Transforms.removeNodes(this._editor.current, { at: [index] });
-          }
-        });
-      }
-    });
+    const operations = this.generateDiffOperations(nodeList, childrenList);
+    this.executeOperations(operations);
+    return operations;
   }
 
   /**
@@ -773,5 +599,543 @@ export class EditorStore {
       },
       { once: true },
     );
+  }
+
+  /**
+   * 找出两个节点列表之间的最小差异，并生成执行队列
+   * @param newNodes 新的节点列表
+   * @param oldNodes 旧的节点列表
+   * @returns 操作队列
+   */
+  generateDiffOperations(
+    newNodes: Node[],
+    oldNodes: Node[],
+  ): UpdateOperation[] {
+    if (!newNodes || !oldNodes) return [];
+
+    const operations: UpdateOperation[] = [];
+
+    // 第一阶段：处理节点数量不同的情况
+    const lengthDiff = newNodes.length - oldNodes.length;
+
+    if (lengthDiff > 0) {
+      // 新列表比旧列表长，添加新节点
+      for (let i = oldNodes.length; i < newNodes.length; i++) {
+        operations.push({
+          type: 'insert',
+          path: [i],
+          node: newNodes[i],
+          priority: 10, // 新增节点优先级较低
+        });
+      }
+    } else if (lengthDiff < 0) {
+      // 旧列表比新列表长，需要删除节点
+      // 从后往前删除，以避免索引问题
+      for (let i = oldNodes.length - 1; i >= newNodes.length; i--) {
+        operations.push({
+          type: 'remove',
+          path: [i],
+          priority: 0, // 删除操作优先级最高
+        });
+      }
+    }
+
+    // 第二阶段：深度比较共有的节点
+    const minLength = Math.min(newNodes.length, oldNodes.length);
+    for (let i = 0; i < minLength; i++) {
+      const newNode = newNodes[i];
+      const oldNode = oldNodes[i];
+
+      this.compareNodes(newNode, oldNode, [i], operations);
+    }
+
+    // 按优先级排序操作队列
+    return operations.sort((a, b) => a.priority - b.priority);
+  }
+
+  /**
+   * 递归比较两个节点及其子节点
+   * @param newNode 新节点
+   * @param oldNode 旧节点
+   * @param path 当前路径
+   * @param operations 操作队列
+   */
+  private compareNodes(
+    newNode: Node,
+    oldNode: Node,
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    // 如果节点类型不同，直接替换整个节点
+    if (newNode.type !== oldNode.type) {
+      operations.push({
+        type: 'replace',
+        path,
+        node: newNode,
+        priority: 5,
+      });
+      return;
+    }
+
+    // 特殊处理表格节点
+    if (newNode.type === 'table') {
+      this.compareTableNodes(newNode, oldNode, path, operations);
+      return;
+    }
+
+    // 如果两个节点是文本节点
+    if (typeof newNode.text === 'string' && typeof oldNode.text === 'string') {
+      if (newNode.text !== oldNode.text) {
+        operations.push({
+          type: 'text',
+          path,
+          text: newNode.text,
+          priority: 8,
+        });
+      }
+
+      // 比较文本节点的其他属性（如加粗、斜体等）
+      const newProps = { ...newNode };
+      const oldProps = { ...oldNode };
+      delete newProps.text;
+      delete oldProps.text;
+
+      if (!isEqual(newProps, oldProps)) {
+        operations.push({
+          type: 'update',
+          path,
+          properties: newProps,
+          priority: 7,
+        });
+      }
+      return;
+    }
+
+    // 处理其他类型的节点属性更新
+    const newProps = { ...newNode, children: undefined };
+    const oldProps = { ...oldNode, children: undefined };
+
+    if (!isEqual(newProps, oldProps)) {
+      operations.push({
+        type: 'update',
+        path,
+        properties: newProps,
+        priority: 7,
+      });
+    }
+
+    // 递归比较子节点
+    if (newNode.children && oldNode.children) {
+      // 特殊处理列表、引用等可能有嵌套结构的节点
+      const childrenOps = this.generateDiffOperations(
+        newNode.children,
+        oldNode.children,
+      );
+
+      // 将子节点的操作添加到队列中，调整路径
+      childrenOps.forEach((op) => {
+        operations.push({
+          ...op,
+          path: [...path, ...op.path],
+        });
+      });
+    }
+  }
+
+  /**
+   * 特殊处理表格节点的比较
+   */
+  private compareTableNodes(
+    newTable: Node,
+    oldTable: Node,
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    const newRows = newTable.children || [];
+    const oldRows = oldTable.children || [];
+
+    // 检查是否是同一个表格的更新（检查表格的关键属性）
+    const isSameTableStructure = () => {
+      // 如果有表格ID或其他唯一标识符，优先比较这些
+      if (newTable.id && oldTable.id) {
+        return newTable.id === oldTable.id;
+      }
+
+      // 表格结构基本一致的情况（行数相同）
+      if (newRows.length === oldRows.length) {
+        // 检查每行的单元格数量
+        for (let i = 0; i < newRows.length; i++) {
+          const newRow = newRows[i];
+          const oldRow = oldRows[i];
+          if (
+            !newRow.children ||
+            !oldRow.children ||
+            newRow.children.length !== oldRow.children.length
+          ) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      return false;
+    };
+
+    // 非结构化属性对比（排除children）
+    const tablePropsChanged = () => {
+      const newProps = { ...newTable };
+      const oldProps = { ...oldTable };
+      delete newProps.children;
+      delete oldProps.children;
+
+      return !isEqual(newProps, oldProps);
+    };
+
+    // 检查表格是否只有内容变化而结构相同
+    if (isSameTableStructure()) {
+      // 只更新表格属性（不包括子节点）
+      if (tablePropsChanged()) {
+        const newTableProps = { ...newTable, children: undefined };
+        operations.push({
+          type: 'update',
+          path,
+          properties: newTableProps,
+          priority: 7,
+        });
+      }
+
+      // 逐行比较和更新
+      for (let rowIdx = 0; rowIdx < newRows.length; rowIdx++) {
+        const rowPath = [...path, rowIdx];
+        const newRow = newRows[rowIdx];
+        const oldRow = oldRows[rowIdx];
+
+        // 更新行属性（不包括子节点）
+        const newRowProps = { ...newRow, children: undefined };
+        const oldRowProps = { ...oldRow, children: undefined };
+
+        if (!isEqual(newRowProps, oldRowProps)) {
+          operations.push({
+            type: 'update',
+            path: rowPath,
+            properties: newRowProps,
+            priority: 7,
+          });
+        }
+
+        // 单元格比较和更新
+        const newCells = newRow.children || [];
+        const oldCells = oldRow.children || [];
+        const minCellCount = Math.min(newCells.length, oldCells.length);
+
+        // 更新共有的单元格
+        for (let cellIdx = 0; cellIdx < minCellCount; cellIdx++) {
+          const cellPath = [...rowPath, cellIdx];
+          const newCell = newCells[cellIdx];
+          const oldCell = oldCells[cellIdx];
+
+          this.compareCells(newCell, oldCell, cellPath, operations);
+        }
+
+        // 处理单元格数量变化
+        if (newCells.length > oldCells.length) {
+          // 添加新单元格
+          for (
+            let cellIdx = oldCells.length;
+            cellIdx < newCells.length;
+            cellIdx++
+          ) {
+            operations.push({
+              type: 'insert',
+              path: [...rowPath, cellIdx],
+              node: newCells[cellIdx],
+              priority: 6,
+            });
+          }
+        } else if (newCells.length < oldCells.length) {
+          // 删除多余单元格（从后向前删除）
+          for (
+            let cellIdx = oldCells.length - 1;
+            cellIdx >= newCells.length;
+            cellIdx--
+          ) {
+            operations.push({
+              type: 'remove',
+              path: [...rowPath, cellIdx],
+              priority: 1,
+            });
+          }
+        }
+      }
+    } else {
+      // 表格结构发生了变化，检查变化情况决定更新策略
+
+      // 如果是简单的行增减，采用行级更新而非整表替换
+      if (Math.abs(newRows.length - oldRows.length) <= 2) {
+        // 行数量变化较小，尝试行级别更新
+
+        // 先更新表格属性
+        if (tablePropsChanged()) {
+          operations.push({
+            type: 'update',
+            path,
+            properties: { ...newTable, children: undefined },
+            priority: 7,
+          });
+        }
+
+        // 更新共有的行
+        const minRowCount = Math.min(newRows.length, oldRows.length);
+        for (let rowIdx = 0; rowIdx < minRowCount; rowIdx++) {
+          const rowPath = [...path, rowIdx];
+          this.compareNodes(
+            newRows[rowIdx],
+            oldRows[rowIdx],
+            rowPath,
+            operations,
+          );
+        }
+
+        // 处理行数变化
+        if (newRows.length > oldRows.length) {
+          // 添加新行
+          for (let rowIdx = oldRows.length; rowIdx < newRows.length; rowIdx++) {
+            operations.push({
+              type: 'insert',
+              path: [...path, rowIdx],
+              node: newRows[rowIdx],
+              priority: 5,
+            });
+          }
+        } else if (newRows.length < oldRows.length) {
+          // 从后向前删除多余的行
+          for (
+            let rowIdx = oldRows.length - 1;
+            rowIdx >= newRows.length;
+            rowIdx--
+          ) {
+            operations.push({
+              type: 'remove',
+              path: [...path, rowIdx],
+              priority: 1,
+            });
+          }
+        }
+      } else {
+        // 结构变化较大，整表替换可能更高效
+        operations.push({
+          type: 'replace',
+          path,
+          node: newTable,
+          priority: 5,
+        });
+      }
+    }
+  }
+
+  /**
+   * 比较和更新表格单元格
+   */
+  private compareCells(
+    newCell: Node,
+    oldCell: Node,
+    path: Path,
+    operations: UpdateOperation[],
+  ): void {
+    // 检查单元格属性是否变化
+    const newCellProps = { ...newCell, children: undefined };
+    const oldCellProps = { ...oldCell, children: undefined };
+
+    if (!isEqual(newCellProps, oldCellProps)) {
+      operations.push({
+        type: 'update',
+        path,
+        properties: newCellProps,
+        priority: 7,
+      });
+    }
+
+    // 处理单元格内容
+    const newChildren = newCell.children || [];
+    const oldChildren = oldCell.children || [];
+
+    // 简单文本单元格的优化处理
+    if (
+      newChildren.length === 1 &&
+      oldChildren.length === 1 &&
+      typeof newChildren[0].text === 'string' &&
+      typeof oldChildren[0].text === 'string'
+    ) {
+      // 只有文本内容变化
+      if (newChildren[0].text !== oldChildren[0].text) {
+        operations.push({
+          type: 'text',
+          path: [...path, 0],
+          text: newChildren[0].text,
+          priority: 8,
+        });
+      }
+
+      // 检查文本节点的属性变化（加粗、斜体等）
+      const newTextProps = { ...newChildren[0] };
+      const oldTextProps = { ...oldChildren[0] };
+      delete newTextProps.text;
+      delete oldTextProps.text;
+
+      if (!isEqual(newTextProps, oldTextProps)) {
+        operations.push({
+          type: 'update',
+          path: [...path, 0],
+          properties: newTextProps,
+          priority: 7,
+        });
+      }
+    } else {
+      // 复杂单元格内容，递归处理子节点
+      // 使用子节点差异检测，而不是替换整个单元格
+
+      // 检查是否结构完全不同
+      const structurallyDifferent =
+        newChildren.length !== oldChildren.length ||
+        newChildren.some(
+          (n: Node, i: number) =>
+            oldChildren[i] && n.type !== oldChildren[i].type,
+        );
+
+      if (structurallyDifferent) {
+        // 结构不同，替换单元格内容
+        // 但保留单元格本身，只更新children
+        const childOps = this.generateDiffOperations(newChildren, oldChildren);
+
+        // 调整子操作的路径
+        childOps.forEach((op) => {
+          operations.push({
+            ...op,
+            path: [...path, ...op.path],
+          });
+        });
+      } else {
+        // 逐个比较并更新子节点
+        for (
+          let i = 0;
+          i < Math.min(newChildren.length, oldChildren.length);
+          i++
+        ) {
+          this.compareNodes(
+            newChildren[i],
+            oldChildren[i],
+            [...path, i],
+            operations,
+          );
+        }
+      }
+    }
+  }
+
+  /**
+   * 执行操作队列
+   * @param operations 操作队列
+   */
+  executeOperations(operations: UpdateOperation[]): void {
+    const editor = this._editor.current;
+    if (!editor) return;
+
+    // 使用批处理模式执行所有操作
+    Editor.withoutNormalizing(editor, () => {
+      for (const op of operations) {
+        try {
+          switch (op.type) {
+            case 'insert':
+              if (op.node && editor.hasPath(Path.parent(op.path))) {
+                Transforms.insertNodes(editor, op.node, { at: op.path });
+              }
+              break;
+
+            case 'remove':
+              if (editor.hasPath(op.path)) {
+                Transforms.removeNodes(editor, { at: op.path });
+              }
+              break;
+
+            case 'update':
+              if (op.properties && editor.hasPath(op.path)) {
+                Transforms.setNodes(editor, op.properties, { at: op.path });
+              }
+              break;
+
+            case 'replace':
+              if (op.node && editor.hasPath(op.path)) {
+                Transforms.removeNodes(editor, { at: op.path });
+                Transforms.insertNodes(editor, op.node, { at: op.path });
+              }
+              break;
+
+            case 'text':
+              if (op.text !== undefined && editor.hasPath(op.path)) {
+                Transforms.insertText(editor, op.text, {
+                  at: op.path,
+                  voids: true,
+                });
+              }
+              break;
+          }
+        } catch (err) {
+          console.error(
+            `Error executing operation ${op.type} at path ${op.path}:`,
+            err,
+          );
+        }
+      }
+    });
+  }
+
+  /**
+   * 优化的更新节点列表方法，使用差异检测和操作队列
+   * @param nodeList 新的节点列表
+   */
+  updateNodeListOptimized(nodeList: Node[]): void {
+    if (!nodeList || !Array.isArray(nodeList)) return;
+
+    // 过滤无效节点
+    const filteredNodes = nodeList.filter((item) => {
+      if (!item) return false;
+      if (item.type === 'p' && (!item.children || item.children.length === 0))
+        return false;
+      if (
+        item.type === 'list' &&
+        (!item.children || item.children.length === 0)
+      )
+        return false;
+      if (
+        item.type === 'listItem' &&
+        (!item.children || item.children.length === 0)
+      )
+        return false;
+      if (
+        item.type === 'code' &&
+        item.language === 'code' &&
+        (!item.otherProps || item.otherProps.length === 0)
+      )
+        return false;
+      if (item.type === 'image' && !item.src) return false;
+      return true;
+    });
+
+    try {
+      // 生成差异操作
+      const operations = this.generateDiffOperations(
+        filteredNodes,
+        this._editor.current.children,
+      );
+
+      // 执行差异操作
+      if (operations.length > 0) {
+        this.executeOperations(operations);
+      }
+    } catch (error) {
+      console.error('Failed to update nodes with optimized method:', error);
+      // 回退：如果优化方法失败，使用直接替换
+      this._editor.current.children = nodeList;
+    }
   }
 }

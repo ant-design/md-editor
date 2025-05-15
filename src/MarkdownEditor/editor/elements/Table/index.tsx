@@ -476,47 +476,47 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
 
   const colWidths = useMemo(() => {
+    // 如果存在预定义的列宽，直接使用
     if (props.element?.otherProps?.colWidths) {
       return props.element?.otherProps?.colWidths;
     }
 
-    if (typeof window === 'undefined') return [];
-    if (props.element?.children?.at(1)?.children) {
-      const minWidth = store?.container?.querySelector(
-        '.ant-md-editor-content',
-      )?.clientWidth;
-      const lastRow = props.element?.children?.at(1)?.children || [];
-      const twoRow = props.element?.children?.at(2)?.children || [];
-      const thereRow = props.element?.children?.at(3)?.children || [];
-      const fourRow = props.element?.children?.at(4)?.children || [];
-      return props.element?.children
-        ?.at(0)
-        ?.children?.map((col: Node, index: number) => {
-          const width = stringWidth(Node.string(col)) * 12;
-          return Math.min(
-            Math.max(
-              60,
-              width,
-              lastRow?.at(index)
-                ? stringWidth(Node.string(lastRow?.at(index))) * 12
-                : 0,
-              twoRow?.at(index)
-                ? stringWidth(Node.string(twoRow?.at(index))) * 12
-                : 0,
-              thereRow?.at(index)
-                ? stringWidth(Node.string(thereRow?.at(index))) * 12
-                : 0,
-              fourRow?.at(index)
-                ? stringWidth(Node.string(fourRow?.at(index))) * 12
-                : 0,
-            ),
-            (minWidth || 400) / 4,
-          );
-        });
-    }
+    if (typeof window === 'undefined' || !props.element?.children?.length)
+      return [];
+
+    const tableRows = props.element.children;
+    if (!tableRows?.[0]?.children?.length) return [];
+
+    // 获取编辑器容器宽度用于计算最大列宽
+    const containerWidth =
+      store?.container?.querySelector('.ant-md-editor-content')?.clientWidth ||
+      400;
+    const maxColumnWidth = containerWidth / 4;
+    const minColumnWidth = 60;
+
+    const columnCount = tableRows[0].children.length;
+    const rowsToSample = Math.min(5, tableRows.length); // 最多采样5行(0-4)
+
+    // 根据第一行的列数初始化宽度数组
+    return Array.from({ length: columnCount }, (_, colIndex) => {
+      // 获取前5行(或更少，如果表格较小)中单元格文本的宽度
+      const cellWidths = [];
+
+      for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
+        const cell = tableRows[rowIndex]?.children?.[colIndex];
+        if (cell) {
+          const textWidth = stringWidth(Node.string(cell)) * 12;
+          cellWidths.push(textWidth);
+        }
+      }
+
+      // 计算最佳宽度(内容最大宽度，最小60，最大containerWidth/4)
+      return Math.min(Math.max(minColumnWidth, ...cellWidths), maxColumnWidth);
+    });
   }, [
     props.element?.otherProps?.colWidths,
-    props.element?.children?.at(1)?.children,
+    props.element?.children,
+    store?.container,
   ]);
   const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
