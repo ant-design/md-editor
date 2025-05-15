@@ -261,6 +261,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
     if (props.disabled) return;
     if (props.typing) return;
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
+
     if (props.onSend && mdValue) {
       setIsLoading(true);
       props
@@ -540,8 +541,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         <div
           style={{
             borderRadius: (props.borderRadius || 12) - 2 || 10,
-            maxHeight:
-             `max(${props.style?.maxHeight || 120 + (props.attachment?.enable ? 90 : 0)}px,100%)`,
+            maxHeight: `max(${props.style?.maxHeight || 120 + (props.attachment?.enable ? 90 : 0)}px,100%)`,
             flex: 1,
           }}
           className={classNames(`${baseCls}-editor`, hashId, {

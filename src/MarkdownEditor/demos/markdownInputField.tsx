@@ -138,15 +138,6 @@ export default () => {
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
-          tagTextStyle: {
-            background: '#EEF1FF',
-            color: '#4C4BDF',
-            lineHeight: '22px',
-            borderWidth: 0,
-          },
-          tagTextRender: (props, text) => {
-            return text.replaceAll('$', '');
-          },
           enable: true,
           items: async (props) => {
             return ['tag1', 'tag2', 'tag3'].map((item) => {
