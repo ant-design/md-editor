@@ -73,47 +73,50 @@ export const ReadonlyTable = observer(
     const i18n = useContext(I18nContext);
 
     const colWidths = useMemo(() => {
+      // If exists in props, use directly to avoid calculation
       if (props.element?.otherProps?.colWidths) {
         return props.element?.otherProps?.colWidths;
       }
 
-      if (typeof window === 'undefined') return [];
-      if (props.element?.children?.at(1)?.children) {
-        const minWidth = store?.container?.querySelector(
-          '.ant-md-editor-content',
-        )?.clientWidth;
-        const lastRow = props.element?.children?.at(1)?.children || [];
-        const twoRow = props.element?.children?.at(2)?.children || [];
-        const thereRow = props.element?.children?.at(3)?.children || [];
-        const fourRow = props.element?.children?.at(4)?.children || [];
-        return props.element?.children
-          ?.at(0)
-          ?.children?.map((col: Node, index: any) => {
-            const width = stringWidth(Node.string(col)) * 12;
-            return Math.min(
-              Math.max(
-                60,
-                width,
-                lastRow?.at(index)
-                  ? stringWidth(Node.string(lastRow?.at(index))) * 12
-                  : 0,
-                twoRow?.at(index)
-                  ? stringWidth(Node.string(twoRow?.at(index))) * 12
-                  : 0,
-                thereRow?.at(index)
-                  ? stringWidth(Node.string(thereRow?.at(index))) * 12
-                  : 0,
-                fourRow?.at(index)
-                  ? stringWidth(Node.string(fourRow?.at(index))) * 12
-                  : 0,
-              ),
-              (minWidth || 400) / 4,
-            );
-          });
-      }
+      if (typeof window === 'undefined' || !props.element?.children?.length)
+        return [];
+
+      const tableRows = props.element.children;
+      if (!tableRows?.[0]?.children?.length) return [];
+
+      // Get container width just once
+      const containerWidth =
+        store?.container?.querySelector('.ant-md-editor-content')
+          ?.clientWidth || 400;
+      const maxColumnWidth = containerWidth / 4;
+      const minColumnWidth = 60;
+
+      const columnCount = tableRows[0].children.length;
+      const rowsToSample = Math.min(5, tableRows.length);
+
+      // Calculate widths once
+      return Array.from({ length: columnCount }, (_, colIndex) => {
+        const cellWidths = [];
+
+        for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
+          const cell = tableRows[rowIndex]?.children?.[colIndex];
+          if (cell) {
+            const textWidth = stringWidth(Node.string(cell)) * 12;
+            cellWidths.push(textWidth);
+          }
+        }
+
+        return Math.min(
+          Math.max(minColumnWidth, ...cellWidths),
+          maxColumnWidth,
+        );
+      });
     }, [
       props.element?.otherProps?.colWidths,
-      props.element?.children?.at(1)?.children,
+      // Avoid deep comparison by using more primitive values
+      props.element?.children?.length,
+      props.element?.children?.[0]?.children?.length,
+      store?.container,
     ]);
 
     useEffect(() => {

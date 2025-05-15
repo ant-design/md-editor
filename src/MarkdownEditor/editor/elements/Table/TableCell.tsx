@@ -50,35 +50,55 @@ export const TableTdCell = (
   const { align, text } = props;
 
   const mergeCell = useMemo(() => {
-    if (tableNode?.otherProps?.mergeCells) {
-      const row = props.cellPath?.at(-2);
-      const col = props.cellPath?.at(-1);
-      if (row === undefined || col === undefined) return null;
-      const cellConfig = tableNode?.otherProps?.mergeCells?.find(
-        (item) =>
-          item.row <= row &&
-          item.row + item.rowspan > row &&
-          item.col <= col &&
-          item.col + item.colspan > col,
-      );
-      if (cellConfig && cellConfig.row === row && cellConfig.col === col) {
-        return cellConfig;
-      }
-      if (
-        cellConfig &&
-        (cellConfig.row < row ||
-          cellConfig.col < col ||
-          cellConfig.row + cellConfig.rowspan > row ||
-          cellConfig.col + cellConfig.colspan > col)
-      ) {
-        return {
-          hidden: true,
-          ...cellConfig,
-        };
-      }
+    // 如果没有定义合并单元格，提前返回
+    if (!tableNode?.otherProps?.mergeCells?.length) return null;
+
+    const row = props.cellPath?.at(-2);
+    const col = props.cellPath?.at(-1);
+
+    // 如果单元格坐标无效，提前返回
+    if (row === undefined || col === undefined) return null;
+
+    // 查找此单元格的合并配置
+    const cellConfig = tableNode.otherProps.mergeCells.find(
+      (item) =>
+        item.row <= row &&
+        item.row + item.rowspan > row &&
+        item.col <= col &&
+        item.col + item.colspan > col,
+    );
+
+    // 如果没有匹配的合并单元格，提前返回
+    if (!cellConfig) return null;
+
+    // 如果这是合并的主单元格
+    if (cellConfig.row === row && cellConfig.col === col) {
+      return cellConfig;
     }
-    return null;
-  }, [tableNode?.otherProps?.mergeCells]);
+
+    // 如果这是合并的一部分被隐藏的单元格
+    return {
+      hidden: true,
+      ...cellConfig,
+    };
+  }, [
+    tableNode?.otherProps?.mergeCells,
+    props.cellPath?.at(-2), // 行
+    props.cellPath?.at(-1), // 列
+  ]);
+
+  // 使用ref而不是state来标记用户是否正在输入，避免不必要的重新渲染
+  const isEditing = React.useRef(false);
+
+  // 设置输入时的标记
+  const handleFocus = React.useCallback(() => {
+    isEditing.current = true;
+  }, []);
+
+  // 清除输入标记
+  const handleBlur = React.useCallback(() => {
+    isEditing.current = false;
+  }, []);
 
   const dom = useMemo(() => {
     if (readonly && (props.width || 0) > 200) {
@@ -108,18 +128,22 @@ export const TableTdCell = (
   }, [props.width, props.children, readonly, text]);
 
   if ((mergeCell as any)?.hidden) return null;
+
   return (
     <td
       {...props.attributes}
       data-be={'td'}
       rowSpan={mergeCell?.rowspan}
       colSpan={mergeCell?.colspan}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       style={{
         textAlign: align as 'left',
-        maxWidth: '200px',
         overflow: 'auto',
         textWrap: 'wrap',
         width: props.width,
+        // 当用户输入时，提供视觉稳定性，防止因计算导致的闪动
+        transition: 'text-align 0.2s ease-in-out',
       }}
     >
       {dom}

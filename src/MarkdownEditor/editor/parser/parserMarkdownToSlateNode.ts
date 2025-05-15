@@ -42,17 +42,51 @@ const isNumericValue = (value: string | number) => {
   );
 };
 
+/**
+ * 判断是否包含不完整输入
+ * 如果一行中包含可能尚未完成的数字输入，返回 true
+ */
+const hasIncompleteNumericInput = (values: any[]): boolean => {
+  // 检查是否有可能是正在输入的不完整数字
+  // 例如: '12.' 或 '0.' 或 '-' 或 仅有一个数字字符的情况
+  return values.some((val) => {
+    if (typeof val !== 'string') return false;
+    return (
+      (val.endsWith('.') && /\d/.test(val)) || // 以小数点结尾
+      val === '-' || // 只有负号
+      val === '+' || // 只有正号
+      (val.length === 1 && /\d/.test(val)) // 只有一个数字
+    );
+  });
+};
+
+// 获取文件中定义的AlignType类型或声明一个等效类型
+type AlignType = 'left' | 'center' | 'right' | null;
+
 const getColumnAlignment = (
   data: any[],
   columns: {
     dataIndex: string;
   }[],
-) => {
+): AlignType[] => {
   if (!data.length) return [];
-  return columns.map((col) => {
-    const values = data.map((row: { [x: string]: any }) => row[col.dataIndex]);
 
-    return values.every(isNumericValue) ? 'right' : null;
+  // 缓存上一次的对齐结果，避免频繁切换
+  const prevAlignments: AlignType[] = [];
+
+  return columns.map((col, index) => {
+    const values = data
+      .map((row: { [x: string]: any }) => row[col.dataIndex])
+      .filter(Boolean);
+    values?.pop();
+    // 如果检测到可能正在输入的数字，保持当前对齐状态
+    if (hasIncompleteNumericInput(values)) {
+      return prevAlignments[index] || null;
+    }
+
+    const alignment: AlignType = values.every(isNumericValue) ? 'right' : null;
+    prevAlignments[index] = alignment;
+    return alignment;
   });
 };
 
