@@ -6249,19 +6249,7 @@ URL:
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
-                      >
-                        <div
-                          style="display: flex; align-items: center; height: 38px; border-radius: 12px; opacity: 1; word-break: break-all; word-wrap: break-word; flex-direction: row; padding: 8px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 2;"
-                        >
-                          <img
-                            src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original"
-                          />
-                          深度思考中
-                          <div
-                            class="md-editor-loader"
-                          />
-                        </div>
-                      </div>
+                      />
                     </div>
                   </div>
                 </div>

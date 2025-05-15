@@ -129,7 +129,7 @@
         </div>
         <div
           class="ant-md-input-field-editor"
-          style="border-radius: 10px; max-height: 120px; flex: 1;"
+          style="border-radius: 10px; max-height: max(120px,100%); flex: 1;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -514,7 +514,7 @@
         </div>
         <div
           class="ant-md-input-field-editor"
-          style="border-radius: 10px; max-height: 120px; flex: 1;"
+          style="border-radius: 10px; max-height: max(120px,100%); flex: 1;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -677,7 +677,7 @@
         </div>
         <div
           class="ant-md-input-field-editor"
-          style="border-radius: 10px; max-height: 210px; flex: 1;"
+          style="border-radius: 10px; max-height: max(210px,100%); flex: 1;"
         >
           <div
             class="ant-md-editor-attachment-list"
@@ -925,7 +925,7 @@
         </div>
         <div
           class="ant-md-input-field-editor"
-          style="border-radius: 10px; max-height: 120px; flex: 1;"
+          style="border-radius: 10px; max-height: max(120px,100%); flex: 1;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
@@ -1073,7 +1073,7 @@
         </div>
         <div
           class="ant-md-input-field-editor ant-md-input-field-editor-disabled"
-          style="border-radius: 10px; max-height: 120px; flex: 1;"
+          style="border-radius: 10px; max-height: max(120px,100%); flex: 1;"
         >
           <div
             class="markdown-editor ant-md-editor ant-md-editor-edit"
