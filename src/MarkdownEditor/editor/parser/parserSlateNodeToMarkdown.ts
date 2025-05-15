@@ -391,7 +391,8 @@ const textStyle = (t: Text) => {
     str = str.trim();
   }
   if (t.code && !t.tag) str = `\`${str}\``;
-  if (t.tag) str = `\`${str || (t as any)?.placeholder || ''}\``;
+  if (t.tag)
+    str = `\`${str || `\${placeholder:${(t as any)?.placeholder}}` || ''}\``;
   if (t.italic) str = `*${str}*`;
   if (t.bold) str = `**${str}**`;
   if (t.strikethrough) str = `~~${str}~~`;
