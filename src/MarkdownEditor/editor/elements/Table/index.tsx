@@ -45,6 +45,11 @@ registerRenderer('customStylesRenderer', (hotInstance, TD, ...rest) => {
   }
 });
 
+/**
+ * 将节点转换为字符串
+ * @param node 需要转换的节点
+ * @returns 转换后的字符串
+ */
 const nodeToString = (node: any) => {
   if (node.children) {
     return node.children.map(nodeToString).join('');
@@ -55,6 +60,11 @@ const nodeToString = (node: any) => {
   return node.text;
 };
 
+/**
+ * 将Slate表格结构转换为JSON数据格式
+ * @param input TableNode类型的表格节点
+ * @returns 包含tableData和cellSet的对象
+ */
 const slateTableToJSONData = (
   input: TableNode,
 ): {
@@ -165,7 +175,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
   const tableJSONData = useMemo(() => slateTableToJSONData(props.element), []);
 
-  // 用于处理表格内容的变化
+  /**
+   * 表格内容变化处理函数
+   * @param dataList 单元格变化列表
+   * @param source 变化来源
+   */
   const updateTable = useRefFunction(
     (dataList: CellChange[] | null, source: ChangeSource) => {
       dataList?.forEach((data) => {
@@ -379,7 +393,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       });
     },
   );
-  // 创建列
+
+  /**
+   * 创建列的回调函数
+   * @param insertIndex 插入位置的索引
+   * @param amount 插入的列数量
+   * @param source 操作来源
+   */
   const afterCreateCol = useRefFunction(
     (insertIndex: number, amount: number, source?: string) => {
       if (source === 'auto') return;
@@ -404,7 +424,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       });
     },
   );
-  // 创建行
+
+  /**
+   * 创建行的回调函数
+   * @param insertIndex 插入位置的索引
+   * @param amount 插入的行数量
+   * @param source 操作来源
+   */
   const afterCreateRow = useRefFunction(
     (insertIndex: number, amount: number, source?: string) => {
       if (source === 'auto') return;
@@ -435,6 +461,12 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     },
   );
 
+  /**
+   * 合并单元格后的回调函数
+   * @param cellRange 合并的单元格范围
+   * @param mergeParent 合并后的父单元格信息
+   * @param auto 是否为自动操作
+   */
   const afterMergeCells = useRefFunction((cellRange, mergeParent, auto) => {
     if (auto) return;
     const mergeCells = [...(props.element?.otherProps?.mergeCells || [])];
@@ -453,6 +485,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     );
   });
 
+  /**
+   * 取消合并单元格后的回调函数
+   * @param cellRange 取消合并的单元格范围
+   * @param auto 是否为自动操作
+   */
   const afterUnmergeCells = useRefFunction((cellRange, auto) => {
     if (auto) return;
     const row = cellRange?.from?.row;
@@ -513,11 +550,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       // 计算最佳宽度(内容最大宽度，最小60，最大containerWidth/4)
       return Math.min(Math.max(minColumnWidth, ...cellWidths), maxColumnWidth);
     });
-  }, [
-    props.element?.otherProps?.colWidths,
-    props.element?.children,
-    store?.container,
-  ]);
+  }, [props.element?.otherProps?.colWidths, props.element?.children]);
+
+  /**
+   * 生成默认列宽
+   * @param tableData 表格数据
+   * @returns 列宽数组
+   */
   const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
       return props.element?.otherProps?.colWidths;
@@ -526,6 +565,11 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     return colWidths;
   });
 
+  /**
+   * 生成合并单元格的配置
+   * @param tableData 表格数据
+   * @returns 经过过滤的合并单元格配置
+   */
   const generateMergedCells = useRefFunction((tableData: any[]) => {
     return props.element?.otherProps?.mergeCells?.filter((item: any) => {
       if (!item) return false;
@@ -541,6 +585,9 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     });
   });
 
+  /**
+   * 处理表格数据更新
+   */
   useEffect(() => {
     const cellSet = slateTableToJSONData(props.element);
     const list = cellSet.tableData;
@@ -561,6 +608,9 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     );
   }, [JSON.stringify(props.element)]);
 
+  /**
+   * 处理表格大小调整和响应窗口变化
+   */
   useEffect(() => {
     if (!overflowShadowContainerRef.current) return;
     if (typeof window === 'undefined') return;
