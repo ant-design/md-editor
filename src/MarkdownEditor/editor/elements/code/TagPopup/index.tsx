@@ -11,6 +11,12 @@ type TagPopupItem = Array<{
   onClick?: (v: string) => void;
 }>;
 
+type RenderProps = TagPopupProps & {
+  text?: string;
+  placeholder?: string;
+  onSelect?: (value: string, path?: number[]) => void;
+};
+
 export type TagPopupProps = {
   /**
    * 子元素内容
@@ -19,15 +25,7 @@ export type TagPopupProps = {
   /**
    * 下拉菜单项列表或返回下拉菜单项列表的函数
    */
-  items?:
-    | TagPopupItem
-    | ((
-        props: TagPopupProps & {
-          text?: string;
-          placeholder?: string;
-          onSelect?: (value: string, path?: number[]) => void;
-        },
-      ) => Promise<TagPopupItem>);
+  items?: TagPopupItem | ((props: RenderProps) => Promise<TagPopupItem>);
   /**
    * 组件CSS前缀类名
    */
@@ -39,11 +37,7 @@ export type TagPopupProps = {
    */
   dropdownRender?: (
     defaultNode: ReactNode,
-    props: TagPopupProps & {
-      text?: string;
-      placeholder?: string;
-      onSelect?: (value: string, path?: number[]) => void;
-    },
+    props: RenderProps,
   ) => React.ReactNode;
   /**
    * 下拉菜单的自定义样式
@@ -81,50 +75,26 @@ export type TagPopupProps = {
    * @param props 组件属性
    * @returns 是否允许打开
    */
-  beforeOpenChange?: (
-    open: boolean,
-    props: TagPopupProps & {
-      text: string;
-      placeholder?: string;
-    },
-  ) => boolean;
+  beforeOpenChange?: (open: boolean, props: RenderProps) => boolean;
   /**
    * 自定义标签渲染函数
    * @param props 组件属性
    * @param defaultDom 默认渲染的DOM
    * @returns 自定义渲染的React节点
    */
-  tagRender?: (
-    props: TagPopupProps & {
-      text: string;
-      onSelect?: (value: string, path?: number[]) => void;
-      placeholder?: string;
-    },
-    defaultDom: ReactNode,
-  ) => React.ReactNode;
+  tagRender?: (props: RenderProps, defaultDom: ReactNode) => React.ReactNode;
   /**
    * 自定义标签文本渲染函数
    * @param props 组件属性
    * @param text 文本内容
    * @returns 处理后的文本
    */
-  tagTextRender?: (
-    props: TagPopupProps & {
-      text: string;
-      placeholder?: string;
-    },
-    text: string,
-  ) => string;
+  tagTextRender?: (props: RenderProps, text: string) => string;
   /**
    * 标签文本的样式，可以是样式对象或返回样式对象的函数
    */
   tagTextStyle?:
-    | ((
-        props: TagPopupProps & {
-          text: string;
-          placeholder?: string;
-        },
-      ) => React.CSSProperties)
+    | ((props: RenderProps) => React.CSSProperties)
     | React.CSSProperties;
   /**
    * 标签文本的类名
@@ -136,14 +106,7 @@ export type TagPopupProps = {
    * @param props 组件属性
    * @returns
    */
-  onChange?: (
-    value: string,
-    props: TagPopupProps & {
-      text: string;
-      onSelect?: (value: string, path?: number[]) => void;
-      placeholder?: string;
-    },
-  ) => void;
+  onChange?: (value: string, props: RenderProps) => void;
 };
 
 /**
@@ -168,14 +131,7 @@ export type TagPopupProps = {
  *
  * @returns 一个带有下拉菜单的标签弹出组件
  */
-export const TagPopup = (
-  props: TagPopupProps & {
-    text: string;
-    focus?: boolean;
-    placeholder?: string;
-    onSelect?: (value: string, path: number[]) => void;
-  },
-) => {
+export const TagPopup = (props: RenderProps) => {
   const { onSelect, children } = props || {};
   const editor = useSlate();
 
@@ -235,7 +191,7 @@ export const TagPopup = (
     <div
       ref={domRef}
       className={classNames('tag-popup-input', {
-        empty: !props.text.trim(),
+        empty: !props.text?.trim(),
       })}
       onMouseEnter={() => {
         const target = domRef.current;
