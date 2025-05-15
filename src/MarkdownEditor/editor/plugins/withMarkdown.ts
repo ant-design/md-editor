@@ -248,7 +248,11 @@ export const withMarkdown = (editor: Editor) => {
           return;
         }
 
-        if (currentNode.text?.trim() === '') {
+        if (
+          currentNode.text?.trim() === '' &&
+          editor?.children?.at(0)?.children?.length === 1 &&
+          editor?.children?.at(0)?.children?.at(0)?.tag
+        ) {
           Transforms.setNodes(
             editor,
             { tag: false, code: false, text: ' ' },
