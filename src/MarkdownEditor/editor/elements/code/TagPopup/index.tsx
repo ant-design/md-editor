@@ -5,14 +5,38 @@ import React, { ReactNode, useContext, useEffect, useRef } from 'react';
 import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
 import { ReactEditor, useSlate } from '../../../slate-react';
 
+type TagPopupItem = Array<{
+  label: string;
+  key: string | number;
+  onClick?: (v: string) => void;
+}>;
+
 export type TagPopupProps = {
+  /**
+   * 子元素内容
+   */
   children?: React.ReactNode;
-  items?: Array<{
-    label: string;
-    key: string | number;
-    onClick?: (v: string) => void;
-  }>;
+  /**
+   * 下拉菜单项列表或返回下拉菜单项列表的函数
+   */
+  items?:
+    | TagPopupItem
+    | ((
+        props: TagPopupProps & {
+          text?: string;
+          placeholder?: string;
+          onSelect?: (value: string, path?: number[]) => void;
+        },
+      ) => Promise<TagPopupItem>);
+  /**
+   * 组件CSS前缀类名
+   */
   prefixCls?: string | string[] | false;
+  /**
+   * 自定义下拉菜单渲染函数
+   * @param defaultNode 默认渲染的节点
+   * @param props 组件属性
+   */
   dropdownRender?: (
     defaultNode: ReactNode,
     props: TagPopupProps & {
@@ -21,19 +45,41 @@ export type TagPopupProps = {
       onSelect?: (value: string, path?: number[]) => void;
     },
   ) => React.ReactNode;
+  /**
+   * 下拉菜单的自定义样式
+   */
   dropdownStyle?: React.CSSProperties;
+  /**
+   * 菜单属性配置
+   */
   menu?: MenuProps;
+  /**
+   * 当没有数据时显示的内容
+   */
   notFoundContent?: React.ReactNode;
+  /**
+   * 下拉菜单主体的样式
+   */
   bodyStyle?: React.CSSProperties;
+  /**
+   * 组件自定义类名
+   */
   className?: string;
+  /**
+   * 控制下拉菜单是否展开
+   */
   open?: boolean;
+  /**
+   * 下拉菜单展开状态变化的回调函数
+   * @param open 是否展开
+   */
   onOpenChange?: (open: boolean) => void;
   /**
    * 在弹出框打开之前的回调函数
    * 可以用于控制弹出框是否打开
-   * @param open
-   * @param props
-   * @returns
+   * @param open 是否打开
+   * @param props 组件属性
+   * @returns 是否允许打开
    */
   beforeOpenChange?: (
     open: boolean,
@@ -42,6 +88,12 @@ export type TagPopupProps = {
       placeholder?: string;
     },
   ) => boolean;
+  /**
+   * 自定义标签渲染函数
+   * @param props 组件属性
+   * @param defaultDom 默认渲染的DOM
+   * @returns 自定义渲染的React节点
+   */
   tagRender?: (
     props: TagPopupProps & {
       text: string;
@@ -50,6 +102,12 @@ export type TagPopupProps = {
     },
     defaultDom: ReactNode,
   ) => React.ReactNode;
+  /**
+   * 自定义标签文本渲染函数
+   * @param props 组件属性
+   * @param text 文本内容
+   * @returns 处理后的文本
+   */
   tagTextRender?: (
     props: TagPopupProps & {
       text: string;
@@ -57,6 +115,9 @@ export type TagPopupProps = {
     },
     text: string,
   ) => string;
+  /**
+   * 标签文本的样式，可以是样式对象或返回样式对象的函数
+   */
   tagTextStyle?:
     | ((
         props: TagPopupProps & {
@@ -65,11 +126,14 @@ export type TagPopupProps = {
         },
       ) => React.CSSProperties)
     | React.CSSProperties;
+  /**
+   * 标签文本的类名
+   */
   tagTextClassName?: string;
   /**
    * 输入值改变时触发的回调函数
-   * @param value
-   * @param props
+   * @param value 输入的值
+   * @param props 组件属性
    * @returns
    */
   onChange?: (
@@ -128,6 +192,15 @@ export const TagPopup = (
     const path = ReactEditor.findPath(editor, slateNode);
     if (path) {
       currentNodePath.current = path;
+    }
+  }, [editor.children, props.text]); // 添加依赖项
+
+  useEffect(() => {
+    if (!domRef.current) return;
+    const slateNode = ReactEditor.toSlateNode(editor, domRef.current);
+    const path = ReactEditor.findPath(editor, slateNode);
+    if (path) {
+      currentNodePath.current = path;
       if (suggestionConnext?.triggerNodeContext) {
         suggestionConnext.triggerNodeContext.current = {
           ...props,
@@ -143,7 +216,7 @@ export const TagPopup = (
         };
       }
     }
-  }, [editor.children, props.text]); // 添加依赖项
+  }, [props.text]);
 
   useEffect(() => {
     // 默认选中一下

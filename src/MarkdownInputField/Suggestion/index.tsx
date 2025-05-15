@@ -1,6 +1,6 @@
-﻿import { Dropdown } from 'antd';
+﻿import { Dropdown, Spin } from 'antd';
 import { useMergedState } from 'rc-util';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { MarkdownEditorProps } from '../../MarkdownEditor';
 import { TagPopupProps } from '../../MarkdownEditor/editor/elements/code/TagPopup';
@@ -60,17 +60,48 @@ export const Suggestion: React.FC<{
     onChange: props?.tagInputProps?.onOpenChange,
   });
 
-  const selectedItems = items.map((item) => {
-    const { key } = item || {};
+  const [loading, setLoading] = useState(false);
+  const [selectedItems, setSelectedItems] = useState(() => {
+    if (typeof items === 'function') {
+      return [];
+    }
+    return items.map((item) => {
+      const { key } = item || {};
 
-    return {
-      ...item,
-      onClick: () => {
-        setOpen(false);
-        onSelectRef.current?.(`${key}` || '');
-      },
-    };
+      return {
+        ...item,
+        onClick: () => {
+          setOpen(false);
+          onSelectRef.current?.(`${key}` || '');
+        },
+      };
+    });
   });
+
+  useEffect(() => {
+    const loadingData = async () => {
+      if (typeof items === 'function') {
+        setLoading(true);
+        const result = await items(triggerNodeContext.current!);
+        if (Array.isArray(result)) {
+          setSelectedItems(
+            result.map((item) => {
+              const { key } = item || {};
+              return {
+                ...item,
+                onClick: () => {
+                  setOpen(false);
+                  onSelectRef.current?.(`${key}` || '');
+                },
+              };
+            }),
+          );
+        }
+        setLoading(false);
+      }
+    };
+    loadingData();
+  }, [open]);
 
   const dropdownRenderRender = useRefFunction(
     (defaultDropdownContent: React.ReactNode) => {
@@ -86,14 +117,18 @@ export const Suggestion: React.FC<{
               e.preventDefault();
             }}
           >
-            {dropdownRender(defaultDropdownContent, {
-              ...props,
-              ...triggerNodeContext.current,
-              onSelect: (value: string, path?: number[]) => {
-                onSelectRef.current?.(`${value}` || '', path);
-                setOpen(false);
-              },
-            })}
+            {loading ? (
+              <Spin />
+            ) : (
+              dropdownRender(defaultDropdownContent, {
+                ...props,
+                ...triggerNodeContext.current,
+                onSelect: (value: string, path?: number[]) => {
+                  onSelectRef.current?.(`${value}` || '', path);
+                  setOpen(false);
+                },
+              })
+            )}
           </div>
         );
       } else if (menu! && items!) {

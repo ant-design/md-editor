@@ -138,8 +138,46 @@ export default () => {
         bgColorList={colorList}
         borderRadius={borderRadius}
         tagInputProps={{
-          dropdownRender: () => {
-            return null;
+          tagTextStyle: {
+            background: '#EEF1FF',
+            color: '#4C4BDF',
+            lineHeight: '22px',
+            borderWidth: 0,
+          },
+          tagTextRender: (props, text) => {
+            return text.replaceAll('$', '');
+          },
+          enable: true,
+          items: async (props) => {
+            return ['tag1', 'tag2', 'tag3'].map((item) => {
+              return {
+                key: item,
+                label: props?.placeholder + item,
+              };
+            });
+          },
+        }}
+        onSend={send}
+        onStop={() => console.log('stop...')}
+        placeholder="请输入内容"
+      />
+
+      <h2>dropdownRender</h2>
+      <MarkdownInputField
+        style={{
+          minHeight: 66,
+        }}
+        inputRef={markdownRefTwo}
+        bgColorList={colorList}
+        borderRadius={borderRadius}
+        tagInputProps={{
+          dropdownRender: (defaultDom, props) => {
+            return (
+              <div>
+                placeholder: {props.placeholder} text: {props.text}
+                {defaultDom}
+              </div>
+            );
           },
           tagTextStyle: {
             background: '#EEF1FF',
@@ -151,27 +189,13 @@ export default () => {
             return text.replaceAll('$', '');
           },
           enable: true,
-          items: ['tag1', 'tag2', 'tag3'].map((item) => ({
-            key: item,
-            label: item,
-          })),
-          tagRender: (props, defaultDom: React.ReactNode) => {
-            return (
-              <TagRender
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                defaultDom={defaultDom}
-                placeholder={props.placeholder}
-                onSelect={(value: string) => {
-                  props.onSelect?.(value);
-                }}
-              />
-            );
+          items: async (props) => {
+            return ['tag1', 'tag2', 'tag3'].map((item) => {
+              return {
+                key: item,
+                label: props?.placeholder + item,
+              };
+            });
           },
         }}
         onSend={send}
