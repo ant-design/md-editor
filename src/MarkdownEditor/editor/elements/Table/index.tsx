@@ -173,7 +173,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const tableJSONData = useMemo(() => slateTableToJSONData(props.element), []);
+  const tableJSONData = useMemo(() => {
+    // Calculate table JSON data only when needed
+    return slateTableToJSONData(props.element);
+  }, [props.element.id, props.element.children]); // More specific dependency
 
   /**
    * 表格内容变化处理函数
@@ -513,7 +516,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
 
   const colWidths = useMemo(() => {
-    // 如果存在预定义的列宽，直接使用
+    // If exists in props, use directly to avoid calculation
     if (props.element?.otherProps?.colWidths) {
       return props.element?.otherProps?.colWidths;
     }
@@ -524,7 +527,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     const tableRows = props.element.children;
     if (!tableRows?.[0]?.children?.length) return [];
 
-    // 获取编辑器容器宽度用于计算最大列宽
+    // Get container width just once
     const containerWidth =
       store?.container?.querySelector('.ant-md-editor-content')?.clientWidth ||
       400;
@@ -532,11 +535,10 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     const minColumnWidth = 60;
 
     const columnCount = tableRows[0].children.length;
-    const rowsToSample = Math.min(5, tableRows.length); // 最多采样5行(0-4)
+    const rowsToSample = Math.min(5, tableRows.length);
 
-    // 根据第一行的列数初始化宽度数组
+    // Calculate widths once
     return Array.from({ length: columnCount }, (_, colIndex) => {
-      // 获取前5行(或更少，如果表格较小)中单元格文本的宽度
       const cellWidths = [];
 
       for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
@@ -547,15 +549,18 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         }
       }
 
-      // 计算最佳宽度(内容最大宽度，最小60，最大containerWidth/4)
       return Math.min(Math.max(minColumnWidth, ...cellWidths), maxColumnWidth);
     });
-  }, [props.element?.otherProps?.colWidths, props.element?.children]);
+  }, [
+    props.element?.otherProps?.colWidths,
+    // Avoid deep comparison by using more primitive values
+    props.element?.children?.length,
+    props.element?.children?.[0]?.children?.length,
+    store?.container,
+  ]);
 
   /**
-   * 生成默认列宽
-   * @param tableData 表格数据
-   * @returns 列宽数组
+   * Generate default column widths (memoized)
    */
   const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
@@ -566,83 +571,88 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
 
   /**
-   * 生成合并单元格的配置
-   * @param tableData 表格数据
-   * @returns 经过过滤的合并单元格配置
+   * Generate merged cells configuration (memoized)
    */
   const generateMergedCells = useRefFunction((tableData: any[]) => {
-    return props.element?.otherProps?.mergeCells?.filter((item: any) => {
+    const mergeCells = props.element?.otherProps?.mergeCells;
+    if (!mergeCells || mergeCells.length === 0) return [];
+
+    return mergeCells.filter((item: any) => {
       if (!item) return false;
-
-      if (item.row + item.rowspan >= tableData?.length) {
+      if (item.row + item.rowspan >= tableData?.length) return false;
+      if (item.col + item.colspan >= tableData?.[item.row]?.children?.length)
         return false;
-      }
-      if (item.col + item.colspan >= tableData?.[item.row]?.children?.length) {
-        return false;
-      }
-
       return true;
     });
   });
 
   /**
-   * 处理表格数据更新
+   * Optimize table data updates by using element ID instead of full serialization
    */
   useEffect(() => {
-    const cellSet = slateTableToJSONData(props.element);
-    const list = cellSet.tableData;
-    hotRef.current?.hotInstance?.updateSettings({
-      cell: cellSet.cellSet,
-      data: list,
-      hiddenRows: {
-        rows: [0],
-      },
-      colHeaders: cellSet?.tableData?.at(0),
-      colWidths: genDefaultWidth(cellSet.tableData),
-      mergeCells: generateMergedCells(cellSet.tableData) || [],
+    const hotInstance = hotRef.current?.hotInstance;
+    if (!hotInstance) return;
+
+    hotInstance.updateSettings({
+      cell: tableJSONData.cellSet,
+      data: tableJSONData.tableData,
+      hiddenRows: { rows: [0] },
+      colHeaders: tableJSONData.tableData?.at(0),
+      colWidths: genDefaultWidth(tableJSONData.tableData),
+      mergeCells: generateMergedCells(tableJSONData.tableData) || [],
     });
-    document.dispatchEvent(
-      new CustomEvent('md-resize', {
-        detail: {},
-      }),
-    );
-  }, [JSON.stringify(props.element)]);
+
+    // Use requestAnimationFrame to batch UI updates
+    requestAnimationFrame(() => {
+      document.dispatchEvent(new CustomEvent('md-resize', { detail: {} }));
+    });
+  }, [props.element.id, tableJSONData]); // More specific dependency
 
   /**
-   * 处理表格大小调整和响应窗口变化
+   * Combine resize handlers into a single effect with debounced resize
    */
   useEffect(() => {
-    if (!overflowShadowContainerRef.current) return;
-    if (typeof window === 'undefined') return;
-    const cellSet = slateTableToJSONData(props.element);
-    const resize = () => {
-      const minWidth = store?.container?.querySelector(
-        '.ant-md-editor-content',
-      )?.clientWidth;
+    if (!overflowShadowContainerRef.current || typeof window === 'undefined')
+      return;
 
-      const dom = tableContainerRef.current?.querySelector(
-        '.ht-theme-horizon',
-      ) as HTMLDivElement;
-      if (dom) {
-        setTimeout(() => {
+    // Debounce resize to avoid excessive calculations
+    let resizeTimeout: number;
+    const resize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => {
+        const minWidth = store?.container?.querySelector(
+          '.ant-md-editor-content',
+        )?.clientWidth;
+
+        const dom = tableContainerRef.current?.querySelector(
+          '.ht-theme-horizon',
+        ) as HTMLDivElement;
+
+        if (dom) {
           dom.style.minWidth = `min(${(
             (store?.container?.querySelector('.ant-md-editor-content')
               ?.clientWidth || 200) * 0.95
           ).toFixed(0)}px,${minWidth}px)`;
-        }, 200);
-      }
+        }
+
+        hotRef.current?.hotInstance?.updateSettings({
+          colWidths: genDefaultWidth(tableJSONData.tableData),
+        });
+      }, 100); // Debounce 100ms
     };
+
     window.addEventListener('md-resize', resize);
     window.addEventListener('resize', resize);
-    hotRef.current?.hotInstance?.updateSettings({
-      colWidths: genDefaultWidth(cellSet.tableData),
-    });
+
+    // Initial resize
     resize();
+
     return () => {
       window.removeEventListener('md-resize', resize);
       window.removeEventListener('resize', resize);
+      clearTimeout(resizeTimeout);
     };
-  }, []);
+  }, [tableJSONData.tableData]);
 
   return useMemo(() => {
     return wrapSSR(
@@ -856,5 +866,15 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         </div>
       </TablePropsContext.Provider>,
     );
-  }, [props.element.children, props.element?.otherProps, isSel, tableJSONData]);
+  }, [
+    // Use more granular dependencies instead of deep objects
+    props.element.id,
+    props.element?.otherProps?.colWidths,
+    props.element?.otherProps?.mergeCells?.length,
+    isSel,
+    tableJSONData,
+    readonly,
+    hashId,
+    baseCls,
+  ]);
 });
