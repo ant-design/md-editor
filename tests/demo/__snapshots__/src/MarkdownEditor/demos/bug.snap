@@ -3491,7 +3491,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3519,7 +3519,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3547,7 +3547,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3575,7 +3575,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3607,7 +3607,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3635,7 +3635,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3663,7 +3663,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el"
@@ -3691,7 +3691,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <div
                             class="ant-md-editor-drag-el empty"

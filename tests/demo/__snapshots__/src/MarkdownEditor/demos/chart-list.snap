@@ -5771,7 +5771,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5793,7 +5793,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5815,7 +5815,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5841,7 +5841,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5863,7 +5863,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5885,7 +5885,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5911,7 +5911,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5933,7 +5933,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5955,7 +5955,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -5981,7 +5981,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6003,7 +6003,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6025,7 +6025,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6051,7 +6051,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6073,7 +6073,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6095,7 +6095,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6121,7 +6121,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6143,7 +6143,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6165,7 +6165,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6191,7 +6191,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6213,7 +6213,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6235,7 +6235,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6261,7 +6261,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6283,7 +6283,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6305,7 +6305,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6331,7 +6331,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6353,7 +6353,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6375,7 +6375,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6401,7 +6401,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6423,7 +6423,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6445,7 +6445,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6471,7 +6471,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6493,7 +6493,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6515,7 +6515,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6541,7 +6541,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6563,7 +6563,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6585,7 +6585,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6611,7 +6611,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6633,7 +6633,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6655,7 +6655,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6681,7 +6681,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6703,7 +6703,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6725,7 +6725,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6751,7 +6751,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6773,7 +6773,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6795,7 +6795,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6821,7 +6821,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6843,7 +6843,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"
@@ -6865,7 +6865,7 @@
                           <td
                             data-be="td"
                             data-slate-node="element"
-                            style="text-align: right; max-width: 200px; overflow: auto; text-wrap: wrap;"
+                            style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
                               data-slate-node="text"

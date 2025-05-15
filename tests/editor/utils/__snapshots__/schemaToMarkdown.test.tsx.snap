@@ -3976,7 +3976,7 @@ exports[`should convert markdown to schema in  定义列表
       {
         "children": [
           {
-            "align": undefined,
+            "align": "right",
             "children": [
               {
                 "text": "业务",
@@ -3988,7 +3988,7 @@ exports[`should convert markdown to schema in  定义列表
             "type": "table-cell",
           },
           {
-            "align": undefined,
+            "align": "right",
             "children": [
               {
                 "text": "收入",
@@ -7248,7 +7248,7 @@ exports[`should convert schema to markdown in  定义列表
 
 
 | 业务 | 增值服务 | 网络游戏 | 社交网络收入 | 网络广告 |    其他 | 金融科技 |      云 |
-| ---- | -------: | -------: | -----------: | -------: | ------: | -------: | ------: |
+| ---: | -------: | -------: | -----------: | -------: | ------: | -------: | ------: |
 | 收入 |  135,303 |  138,259 |      142,368 |  144,188 | 135,471 |  134,034 | 140,093 |
 
 "
