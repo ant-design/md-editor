@@ -53,3 +53,5 @@
 <code src="./demos/bug.tsx" background="var(--main-bg-color)" debug title="bug" iframe=540></code>
 
 <code src="./demos/li-code.tsx" debug background="var(--main-bg-color)" title="li 嵌套 icode" iframe=540 ></code>
+
+<code src="./demos/same-render.tsx" debug background="var(--main-bg-color)" title="相同渲染" iframe=540 ></code>
