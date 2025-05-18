@@ -828,6 +828,8 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 afterUnmergeCells={afterUnmergeCells}
                 // ----- merge 合并单元格的处理 end --------
                 contextMenu={[
+                  'copy',
+                  '---------',
                   'row_above',
                   'row_below',
                   '---------',
