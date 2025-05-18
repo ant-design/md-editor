@@ -1663,7 +1663,7 @@ Umi  chunk 1`] = `
 `;
 
 exports[`should convert markdown to schema in  删除线
-~~Umi chunk 1`] = `
+~~插件系 chunk 1`] = `
 [
   {
     "children": [
@@ -1678,7 +1678,7 @@ exports[`should convert markdown to schema in  删除线
     "children": [
       {
         "strikethrough": true,
-        "text": "Umi 六大事业群Umi 六大事业群Umi 六大事业群",
+        "text": "插件系统架构",
       },
     ],
     "type": "paragraph",
@@ -1700,7 +1700,6 @@ exports[`should convert markdown to schema in  图片
     "type": "head",
   },
   {
-    "block": false,
     "children": [
       {
         "children": [
@@ -1712,17 +1711,14 @@ exports[`should convert markdown to schema in  图片
       },
       {
         "alt": "",
-        "block": null,
         "children": [
           {
             "text": "",
           },
         ],
-        "height": undefined,
         "mediaType": "image",
-        "type": "image",
+        "type": "media",
         "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
-        "width": undefined,
       },
       {
         "children": [
@@ -7155,10 +7151,10 @@ Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米�
 `;
 
 exports[`should convert schema to markdown in  删除线
-~~Umi chunk 1`] = `
+~~插件系 chunk 1`] = `
 "## 删除线
 
-~~Umi 六大事业群Umi 六大事业群Umi 六大事业群~~"
+~~插件系统架构~~"
 `;
 
 exports[`should convert schema to markdown in  图片
@@ -7168,7 +7164,7 @@ exports[`should convert schema to markdown in  图片
 
 
 
-![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
+<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>
 
 "
 `;

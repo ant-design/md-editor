@@ -6,6 +6,12 @@ import { getMediaType } from './dom';
 
 export const getRemoteMediaType = async (url: string) => {
   if (!url) return 'other';
+  if (url.startsWith('data:')) {
+    const m = url.match(/data:image\/(\w+);base64,(.*)/);
+    if (m) return m[1];
+    return 'other';
+  }
+  if (typeof url !== 'string') return 'other';
   try {
     const type = getMediaType(url);
     if (type !== 'other') return type;

@@ -70,6 +70,17 @@ export const slugify = (str: string): string => {
  * @returns The media type of the file.
  */
 export const getMediaType = (name?: string, alt?: string) => {
+  // Handle blob URLs
+  if (typeof name === 'string' && name.startsWith('blob:')) {
+    if (alt) {
+      if (alt.startsWith('data:')) return 'image';
+      if (alt.startsWith('video:')) return 'video';
+      if (alt.startsWith('audio:')) return 'audio';
+      if (alt.startsWith('attachment:')) return 'attachment';
+      if (alt === 'image') return 'image';
+    }
+    return 'other';
+  }
   if (typeof name !== 'string') return 'other';
   if (alt) {
     if (alt.startsWith('data:')) return 'image';

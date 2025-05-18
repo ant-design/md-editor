@@ -619,7 +619,10 @@ export class EditorUtils {
       const urlParams = new URL(fullSrc).searchParams;
       const altText = extraPros?.alt || urlParams.get('alt') || '';
 
-      if (type === 'image' && getMediaType(src, extraPros?.alt) === 'other') {
+      if (
+        type === 'image' &&
+        ['image'].includes(getMediaType(src, extraPros?.alt || type))
+      ) {
         return {
           type: 'card',
           block: urlParams.get('block') || false,

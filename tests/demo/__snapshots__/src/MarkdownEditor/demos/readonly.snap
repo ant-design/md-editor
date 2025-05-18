@@ -26,10 +26,10 @@
           <h1
             class="ant-md-editor-drag-el"
             data-be="head"
-            data-head="umi-研究报告"
+            data-head="现代代码编辑器技术解析与实现示例"
             data-slate-node="element"
             data-title="true"
-            id="umi-研究报告"
+            id="现代代码编辑器技术解析与实现示例"
           >
             <span
               data-slate-node="text"
@@ -43,7 +43,7 @@
                 <span
                   data-slate-string="true"
                 >
-                  Umi 研究报告
+                  现代代码编辑器技术解析与实现示例
                 </span>
               </span>
             </span>
@@ -870,35 +870,11 @@
                
             </span>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="创始人"
-            data-slate-node="element"
-            data-title="false"
-            id="创始人"
-          >
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  创始人
-                </span>
-              </span>
-            </span>
-          </h2>
           <div
-            class="ant-md-editor-drag-el"
+            class="ant-md-editor-drag-el empty"
             data-be="paragraph"
             data-slate-node="element"
+            data-slate-placeholder="请输入内容..."
           >
             <span
               data-slate-node="text"
@@ -910,20 +886,28 @@
                 draggable="false"
               >
                 <span
-                  data-slate-string="true"
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
                 >
-                  Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米」，由蚂蚁金服开发并广泛应用于复杂前端项目
+                  ﻿
+                  <br />
                 </span>
               </span>
+            </span>
+            <span
+              contenteditable="false"
+              style="font-size: 0px; line-height: 0; display: inline-block;"
+            >
+               
             </span>
           </div>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
-            data-head="部门"
+            data-head="_1-编辑器核心功能架构"
             data-slate-node="element"
             data-title="false"
-            id="部门"
+            id="_1-编辑器核心功能架构"
           >
             <span
               data-slate-node="text"
@@ -937,11 +921,36 @@
                 <span
                   data-slate-string="true"
                 >
-                  部门
+                  1. 编辑器核心功能架构
                 </span>
               </span>
             </span>
           </h2>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_1-1-基础功能模块"
+            data-slate-node="element"
+            data-title="false"
+            id="_1-1-基础功能模块"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  1.1 基础功能模块
+                </span>
+              </span>
+            </span>
+          </h3>
           <div
             class="relative"
             data-be="list"
@@ -972,7 +981,7 @@
                       <span
                         data-slate-string="true"
                       >
-                        Umi 科技（深圳）有限公司
+                        文本处理系统
                       </span>
                     </span>
                   </span>
@@ -1007,7 +1016,7 @@
                             <span
                               data-slate-string="true"
                             >
-                              Umi 学院
+                              行缓冲区管理
                             </span>
                           </span>
                         </span>
@@ -1035,7 +1044,35 @@
                             <span
                               data-slate-string="true"
                             >
-                              Umi 云
+                              字符编码转换
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      class="ant-md-editor-list-item"
+                      data-be="list-item"
+                      data-slate-node="element"
+                    >
+                      <div
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              撤销/重做堆栈
                             </span>
                           </span>
                         </span>
@@ -1066,91 +1103,7 @@
                       <span
                         data-slate-string="true"
                       >
-                        Umi 金融
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li
-                class="ant-md-editor-list-item"
-                data-be="list-item"
-                data-slate-node="element"
-              >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        Umi 游戏
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li
-                class="ant-md-editor-list-item"
-                data-be="list-item"
-                data-slate-node="element"
-              >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        Umi 广告
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li
-                class="ant-md-editor-list-item"
-                data-be="list-item"
-                data-slate-node="element"
-              >
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        Umi 社交网络
+                        用户界面组件
                       </span>
                     </span>
                   </span>
@@ -1185,7 +1138,7 @@
                             <span
                               data-slate-string="true"
                             >
-                              antd
+                              多标签页管理
                             </span>
                           </span>
                         </span>
@@ -1213,79 +1166,104 @@
                             <span
                               data-slate-string="true"
                             >
-                              QQ
+                              分屏视图
                             </span>
                           </span>
                         </span>
                       </div>
+                    </li>
+                    <li
+                      class="ant-md-editor-list-item"
+                      data-be="list-item"
+                      data-slate-node="element"
+                    >
                       <div
-                        class="relative"
-                        data-be="list"
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
                         data-slate-node="element"
                       >
-                        <ul
-                          class="ant-md-editor-list ul"
+                        <span
+                          data-slate-node="text"
                         >
-                          <li
-                            class="ant-md-editor-list-item"
-                            data-be="list-item"
-                            data-slate-node="element"
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
-                            <div
-                              class="ant-md-editor-drag-el"
-                              data-be="paragraph"
-                              data-slate-node="element"
+                            <span
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-node="text"
-                              >
-                                <span
-                                  class=" "
-                                  data-be="text"
-                                  data-slate-leaf="true"
-                                  draggable="false"
-                                >
-                                  <span
-                                    data-slate-string="true"
-                                  >
-                                    QQ 音乐
-                                  </span>
-                                </span>
-                              </span>
-                            </div>
-                          </li>
-                          <li
-                            class="ant-md-editor-list-item"
-                            data-be="list-item"
-                            data-slate-node="element"
-                          >
-                            <div
-                              class="ant-md-editor-drag-el"
-                              data-be="paragraph"
-                              data-slate-node="element"
-                            >
-                              <span
-                                data-slate-node="text"
-                              >
-                                <span
-                                  class=" "
-                                  data-be="text"
-                                  data-slate-leaf="true"
-                                  draggable="false"
-                                >
-                                  <span
-                                    data-slate-string="true"
-                                  >
-                                    QQ 空间
-                                  </span>
-                                </span>
-                              </span>
-                            </div>
-                          </li>
-                        </ul>
+                              状态栏集成
+                            </span>
+                          </span>
+                        </span>
                       </div>
                     </li>
                   </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_1-2-高级功能实现"
+            data-slate-node="element"
+            data-title="false"
+            id="_1-2-高级功能实现"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  1.2 高级功能实现
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="relative"
+            data-be="list"
+            data-slate-node="element"
+          >
+            <ul
+              class="ant-md-editor-list ul"
+            >
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        智能代码补全
+                      </span>
+                    </span>
+                  </span>
                 </div>
               </li>
               <li
@@ -1310,7 +1288,63 @@
                       <span
                         data-slate-string="true"
                       >
-                        Umi 其他业务
+                        实时语法检查
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        版本控制集成
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        插件扩展系统
                       </span>
                     </span>
                   </span>
@@ -1318,216 +1352,40 @@
               </li>
             </ul>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="战略"
+          <div
+            class="select-none"
+            contenteditable="false"
             data-slate-node="element"
-            data-title="false"
-            id="战略"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
           >
-            <span
-              data-slate-node="text"
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
             >
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  data-slate-leaf="true"
                 >
-                  战略
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
                 </span>
               </span>
-            </span>
-          </h2>
-          <div
-            class="relative"
-            data-be="list"
-            data-slate-node="element"
-          >
-            <ul
-              class="ant-md-editor-list ul"
-              data-task="true"
-            >
-              <li
-                class="ant-md-editor-list-item ant-md-editor-list-task"
-                data-be="list-item"
-                data-slate-node="element"
-              >
-                <span
-                  class="ant-md-editor-list-check-item"
-                  contenteditable="false"
-                >
-                  <label
-                    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
-                  >
-                    <span
-                      class="ant-checkbox ant-wave-target ant-checkbox-checked"
-                    >
-                      <input
-                        checked=""
-                        class="ant-checkbox-input"
-                        type="checkbox"
-                      />
-                      <span
-                        class="ant-checkbox-inner"
-                      />
-                    </span>
-                  </label>
-                </span>
-                <div
-                  class="ant-space ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small"
-                >
-                  <div
-                    class="ant-space-item"
-                  >
-                    <div
-                      style="display: flex; align-items: center; background-color: rgb(245, 245, 245); padding: 0px 4px; border-radius: 4px; font-size: 1em; line-height: 24px; color: rgb(22, 119, 255);"
-                    >
-                      @
-                      <img
-                        alt="张志东"
-                        height="16"
-                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png?param=3&id=2"
-                        width="16"
-                      />
-                      <span>
-                        张志东
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                         Write the press release
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li
-                class="ant-md-editor-list-item ant-md-editor-list-task"
-                data-be="list-item"
-                data-slate-node="element"
-              >
-                <span
-                  class="ant-md-editor-list-check-item"
-                  contenteditable="false"
-                >
-                  <label
-                    class="ant-checkbox-wrapper"
-                  >
-                    <span
-                      class="ant-checkbox ant-wave-target"
-                    >
-                      <input
-                        class="ant-checkbox-input"
-                        type="checkbox"
-                      />
-                      <span
-                        class="ant-checkbox-inner"
-                      />
-                    </span>
-                  </label>
-                </span>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        Update the website
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li
-                class="ant-md-editor-list-item ant-md-editor-list-task"
-                data-be="list-item"
-                data-slate-node="element"
-              >
-                <span
-                  class="ant-md-editor-list-check-item"
-                  contenteditable="false"
-                >
-                  <label
-                    class="ant-checkbox-wrapper"
-                  >
-                    <span
-                      class="ant-checkbox ant-wave-target"
-                    >
-                      <input
-                        class="ant-checkbox-input"
-                        type="checkbox"
-                      />
-                      <span
-                        class="ant-checkbox-inner"
-                      />
-                    </span>
-                  </label>
-                </span>
-                <div
-                  class="ant-md-editor-drag-el"
-                  data-be="paragraph"
-                  data-slate-node="element"
-                >
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        Contact the media
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </li>
-            </ul>
+            </div>
           </div>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
-            data-head="表格"
+            data-head="_2-关键技术方案对比"
             data-slate-node="element"
             data-title="false"
-            id="表格"
+            id="_2-关键技术方案对比"
           >
             <span
               data-slate-node="text"
@@ -1541,7 +1399,7 @@
                 <span
                   data-slate-string="true"
                 >
-                  表格
+                  2. 关键技术方案对比
                 </span>
               </span>
             </span>
@@ -1588,50 +1446,23 @@
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: min(190px,1116px);"
+                  style="flex: 1; min-width: min(190px,404px);"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
                   >
                     <colgroup>
                       <col
+                        style="width: 96px; min-width: 96px; max-width: 96px;"
+                      />
+                      <col
                         style="width: 100px; min-width: 100px; max-width: 100px;"
                       />
                       <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
+                        style="width: 100px; min-width: 100px; max-width: 100px;"
                       />
                       <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
+                        style="width: 100px; min-width: 100px; max-width: 100px;"
                       />
                     </colgroup>
                     <tbody
@@ -1656,139 +1487,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                业务
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2021Q1
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2021Q2
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2021Q3
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2021Q4
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2022Q1
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2022Q2
+                                技术方向
                               </span>
                             </span>
                           </span>
@@ -1809,7 +1508,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                2022Q3
+                                实现方案
                               </span>
                             </span>
                           </span>
@@ -1830,7 +1529,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                2022Q4
+                                优点
                               </span>
                             </span>
                           </span>
@@ -1851,73 +1550,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                2023Q1
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2023Q2
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2023Q3
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                          style="text-align: right;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2023Q4
+                                缺点
                               </span>
                             </span>
                           </span>
@@ -1943,139 +1576,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                收入
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                135,303
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                138,259
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                142,368
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                144,188
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                135,471
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                134,034
+                                语法高亮
                               </span>
                             </span>
                           </span>
@@ -2097,7 +1598,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                140,093
+                                正则表达式匹配
                               </span>
                             </span>
                           </span>
@@ -2119,7 +1620,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                144,954
+                                实现简单
                               </span>
                             </span>
                           </span>
@@ -2141,7 +1642,35 @@
                               <span
                                 data-slate-string="true"
                               >
-                                149,986
+                                性能较差
+                              </span>
+                            </span>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr
+                        data-slate-node="element"
+                      >
+                        <td
+                          data-be="td"
+                          data-slate-node="element"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-length="0"
+                                data-slate-zero-width="n"
+                              >
+                                ﻿
+                                <br />
                               </span>
                             </span>
                           </span>
@@ -2149,7 +1678,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <span
                             data-slate-node="text"
@@ -2163,7 +1692,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                149,208
+                                语法树分析
                               </span>
                             </span>
                           </span>
@@ -2171,7 +1700,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <span
                             data-slate-node="text"
@@ -2185,7 +1714,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                154,625
+                                高准确性
                               </span>
                             </span>
                           </span>
@@ -2193,7 +1722,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <span
                             data-slate-node="text"
@@ -2207,7 +1736,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                155,200
+                                实现复杂
                               </span>
                             </span>
                           </span>
@@ -2233,139 +1762,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                社交网络收入增值服务
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                72,443
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                72,013
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                75,203
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                71,913
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                72,738
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                71,683
+                                文件管理
                               </span>
                             </span>
                           </span>
@@ -2387,7 +1784,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                72,727
+                                内存映射文件
                               </span>
                             </span>
                           </span>
@@ -2409,7 +1806,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                70,417
+                                大文件处理优势
                               </span>
                             </span>
                           </span>
@@ -2431,7 +1828,35 @@
                               <span
                                 data-slate-string="true"
                               >
-                                79,337
+                                内存消耗较大
+                              </span>
+                            </span>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr
+                        data-slate-node="element"
+                      >
+                        <td
+                          data-be="td"
+                          data-slate-node="element"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-length="0"
+                                data-slate-zero-width="n"
+                              >
+                                ﻿
+                                <br />
                               </span>
                             </span>
                           </span>
@@ -2439,7 +1864,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <span
                             data-slate-node="text"
@@ -2453,7 +1878,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                74,211
+                                分块加载机制
                               </span>
                             </span>
                           </span>
@@ -2461,7 +1886,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <span
                             data-slate-node="text"
@@ -2475,7 +1900,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                75,748
+                                内存效率高
                               </span>
                             </span>
                           </span>
@@ -2483,7 +1908,7 @@
                         <td
                           data-be="td"
                           data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
                           <span
                             data-slate-node="text"
@@ -2497,7 +1922,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                69,100
+                                需要复杂索引
                               </span>
                             </span>
                           </span>
@@ -2523,139 +1948,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                网络游戏
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                43,600
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                43,000
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                44,900
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                42,800
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                43,600
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                42,500
+                                渲染引擎
                               </span>
                             </span>
                           </span>
@@ -2677,7 +1970,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                na
+                                Canvas 绘制
                               </span>
                             </span>
                           </span>
@@ -2699,7 +1992,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                na
+                                高性能渲染
                               </span>
                             </span>
                           </span>
@@ -2721,73 +2014,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                na
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                44,500
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                46,000
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                40,900
+                                兼容性要求高
                               </span>
                             </span>
                           </span>
@@ -2811,141 +2038,11 @@
                               draggable="false"
                             >
                               <span
-                                data-slate-string="true"
+                                data-slate-length="0"
+                                data-slate-zero-width="n"
                               >
-                                社交网络收入
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                28,800
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,000
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                30,300
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,100
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,100
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,200
+                                ﻿
+                                <br />
                               </span>
                             </span>
                           </span>
@@ -2967,7 +2064,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                na
+                                DOM 元素渲染
                               </span>
                             </span>
                           </span>
@@ -2989,7 +2086,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                na
+                                天然支持文字样式
                               </span>
                             </span>
                           </span>
@@ -3011,1233 +2108,7 @@
                               <span
                                 data-slate-string="true"
                               >
-                                na
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,700
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,700
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                28,200
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
-                        data-slate-node="element"
-                      >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                网络广告
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                21,820
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                22,833
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                22,495
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                21,518
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                17,988
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                18,638
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                21,443
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                24,660
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                20,964
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                25,003
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                25,721
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                29,794
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
-                        data-slate-node="element"
-                      >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                其他
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                41,040
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                43,413
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                44,670
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                50,757
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                44,745
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                43,713
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                45,923
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                49,877
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                49,685
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                49,994
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                53,156
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                54,379
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
-                        data-slate-node="element"
-                      >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                金融科技
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                39,028
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                41,892
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                43,317
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                47,958
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                42,768
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                42,208
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                44,844
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                47,244
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                48,701
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                48,635
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                52,048
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                52,435
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
-                        data-slate-node="element"
-                      >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                云
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                62,012
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,521
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,353
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2,799
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,977
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,505
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,079
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                2,633
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                984
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,359
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,108
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                1,944
+                                大数据量性能瓶颈
                               </span>
                             </span>
                           </span>
@@ -4272,6 +2143,1053 @@
                 </span>
               </span>
             </span>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h2
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_3-语法高亮实现示例"
+            data-slate-node="element"
+            data-title="false"
+            id="_3-语法高亮实现示例"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  3. 语法高亮实现示例
+                </span>
+              </span>
+            </span>
+          </h2>
+          <div
+            class="ace-el drag-el"
+            contenteditable="false"
+            data-be="code"
+            data-lang="javascript"
+            data-slate-node="element"
+            tabindex="-1"
+          >
+            <div
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
+            >
+              <div
+                class="ace-container drag-el "
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/plugins/code/langIcons/javascript.svg"
+                        style="height: 1em; width: 1em; display: none;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        javascript
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style="display: flex; gap: 5px;"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class="ant-md-editor-action-icon-box"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      aria-describedby="test-id"
+                      class="ant-md-editor-action-icon-box"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="fullscreen"
+                        class="anticon anticon-fullscreen"
+                        role="img"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="fullscreen"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style="height: 200px; line-height: 22px;"
+                />
+                <div
+                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                >
+                  // 使用有限状态机实现基础语法高亮 class SyntaxHighlighter {   constructor(rules) {     this.states = [];     this.rules = rules;   }    parse(text) {     let currentState = 'initial';     const tokens = [];          while (text.length &gt; 0) {       let matched = false;       for (const rule of this.rules[currentState]) {         const match = text.match(rule.regex);         if (match) {           tokens.push({             type: rule.tokenType,             value: match[0]           });           text = text.substr(match[0].length);           currentState = rule.nextState || currentState;           matched = true;           break;         }       }       if (!matched) {         text = text.substr(1);       }     }     return tokens;   } }
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        // 使用有限状态机实现基础语法高亮
+class SyntaxHighlighter {
+  constructor(rules) {
+    this.states = [];
+    this.rules = rules;
+  }
+
+  parse(text) {
+    let currentState = 'initial';
+    const tokens = [];
+    
+    while (text.length &gt; 0) {
+      let matched = false;
+      for (const rule of this.rules[currentState]) {
+        const match = text.match(rule.regex);
+        if (match) {
+          tokens.push({
+            type: rule.tokenType,
+            value: match[0]
+          });
+          text = text.substr(match[0].length);
+          currentState = rule.nextState || currentState;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        text = text.substr(1);
+      }
+    }
+    return tokens;
+  }
+}
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <h2
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_4-性能优化策略"
+            data-slate-node="element"
+            data-title="false"
+            id="_4-性能优化策略"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  4. 性能优化策略
+                </span>
+              </span>
+            </span>
+          </h2>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_4-1-渲染优化技巧"
+            data-slate-node="element"
+            data-title="false"
+            id="_4-1-渲染优化技巧"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  4.1 渲染优化技巧
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="relative"
+            data-be="list"
+            data-slate-node="element"
+          >
+            <ol
+              class="ant-md-editor-list ol"
+              start="1"
+            >
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        视窗区域计算
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="relative"
+                  data-be="list"
+                  data-slate-node="element"
+                >
+                  <ul
+                    class="ant-md-editor-list ul"
+                  >
+                    <li
+                      class="ant-md-editor-list-item"
+                      data-be="list-item"
+                      data-slate-node="element"
+                    >
+                      <div
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              动态加载可见区域内容
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      class="ant-md-editor-list-item"
+                      data-be="list-item"
+                      data-slate-node="element"
+                    >
+                      <div
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              使用图层化渲染策略
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        增量更新机制
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="relative"
+                  data-be="list"
+                  data-slate-node="element"
+                >
+                  <ul
+                    class="ant-md-editor-list ul"
+                  >
+                    <li
+                      class="ant-md-editor-list-item"
+                      data-be="list-item"
+                      data-slate-node="element"
+                    >
+                      <div
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              差异对比算法
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </li>
+                    <li
+                      class="ant-md-editor-list-item"
+                      data-be="list-item"
+                      data-slate-node="element"
+                    >
+                      <div
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              局部重绘技术
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_4-2-内存管理方案"
+            data-slate-node="element"
+            data-title="false"
+            id="_4-2-内存管理方案"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  4.2 内存管理方案
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ace-el drag-el"
+            contenteditable="false"
+            data-be="code"
+            data-lang="python"
+            data-slate-node="element"
+            tabindex="-1"
+          >
+            <div
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
+            >
+              <div
+                class="ace-container drag-el "
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/plugins/code/langIcons/python.svg"
+                        style="height: 1em; width: 1em; display: none;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        python
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style="display: flex; gap: 5px;"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class="ant-md-editor-action-icon-box"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      aria-describedby="test-id"
+                      class="ant-md-editor-action-icon-box"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="fullscreen"
+                        class="anticon anticon-fullscreen"
+                        role="img"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="fullscreen"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style="height: 200px; line-height: 22px;"
+                />
+                <div
+                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                >
+                  # 文件分块加载示例 class FileBuffer:     BLOCK_SIZE = 4096          def __init__(self, filename):         self.blocks = []         with open(filename, 'r') as f:             while True:                 block = f.read(self.BLOCK_SIZE)                 if not block:                     break                 self.blocks.append(block)                      def get_line(self, line_num):         cumulative = 0         for block in self.blocks:             lines = block.split(' ')             if line_num &lt; cumulative + len(lines):                 return lines[line_num - cumulative]             cumulative += len(lines)         return None
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        # 文件分块加载示例
+class FileBuffer:
+    BLOCK_SIZE = 4096
+    
+    def __init__(self, filename):
+        self.blocks = []
+        with open(filename, 'r') as f:
+            while True:
+                block = f.read(self.BLOCK_SIZE)
+                if not block:
+                    break
+                self.blocks.append(block)
+                
+    def get_line(self, line_num):
+        cumulative = 0
+        for block in self.blocks:
+            lines = block.split('
+')
+            if line_num &lt; cumulative + len(lines):
+                return lines[line_num - cumulative]
+            cumulative += len(lines)
+        return None
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  ---SW
+                </span>
+              </span>
+            </span>
+          </div>
+          <h2
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_5-扩展功能开发指南"
+            data-slate-node="element"
+            data-title="false"
+            id="_5-扩展功能开发指南"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  5. 扩展功能开发指南
+                </span>
+              </span>
+            </span>
+          </h2>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_5-1-插件系统架构"
+            data-slate-node="element"
+            data-title="false"
+            id="_5-1-插件系统架构"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  5.1 插件系统架构
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            data-be="card"
+            data-slate-node="element"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+          >
+            <span
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+            <div
+              data-slate-node="element"
+            >
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="media"
+                draggable="false"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
+                  draggable="false"
+                  style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column;"
+                  tabindex="-1"
+                >
+                  <div
+                    class="ant-image"
+                    crossorigin="anonymous"
+                    draggable="false"
+                    referrerpolicy="no-referrer"
+                    style="width: 400px;"
+                  >
+                    <img
+                      alt="image"
+                      class="ant-image-img"
+                      crossorigin="anonymous"
+                      draggable="false"
+                      referrerpolicy="no-referrer"
+                      src="placeholder://plugins-architecture.png"
+                      style="max-width: 800px;"
+                      width="400"
+                    />
+                    <div
+                      class="ant-image-mask"
+                    >
+                      <div
+                        class="ant-image-mask-info"
+                      >
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                        Preview
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="display: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_5-2-api接口设计"
+            data-slate-node="element"
+            data-title="false"
+            id="_5-2-api接口设计"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  5.2 API接口设计
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            class="ace-el drag-el"
+            contenteditable="false"
+            data-be="code"
+            data-lang="typescript"
+            data-slate-node="element"
+            tabindex="-1"
+          >
+            <div
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
+            >
+              <div
+                class="ace-container drag-el "
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+              >
+                <div
+                  contenteditable="false"
+                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                >
+                  <div
+                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                  >
+                    <div
+                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                    >
+                      <img
+                        src="/src/plugins/code/langIcons/typescript.svg"
+                        style="height: 1em; width: 1em; display: none;"
+                      />
+                    </div>
+                    <div>
+                      <span>
+                        typescript
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style="display: flex; gap: 5px;"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class="ant-md-editor-action-icon-box"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      aria-describedby="test-id"
+                      class="ant-md-editor-action-icon-box"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                    >
+                      <span
+                        aria-label="fullscreen"
+                        class="anticon anticon-fullscreen"
+                        role="img"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="fullscreen"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style="height: 200px; line-height: 22px;"
+                />
+                <div
+                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                >
+                  interface EditorPlugin {   name: string;   activate(editor: EditorCore): void;   deactivate?(): void; }  class EditorCore {   registerPlugin(plugin: EditorPlugin): boolean {     // 实现插件注册逻辑   }      // 其他核心方法... }
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        interface EditorPlugin {
+  name: string;
+  activate(editor: EditorCore): void;
+  deactivate?(): void;
+}
+
+class EditorCore {
+  registerPlugin(plugin: EditorPlugin): boolean {
+    // 实现插件注册逻辑
+  }
+  
+  // 其他核心方法...
+}
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="select-none"
+            contenteditable="false"
+            data-slate-node="element"
+            data-slate-void="true"
+            style="height: 1px; background-color: rgb(229, 231, 235); margin: 2em 0px;"
+          >
+            <div
+              data-slate-spacer="true"
+              style="height: 0px; color: transparent; outline: none; position: absolute;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  data-slate-leaf="true"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="z"
+                  >
+                    ﻿
+                  </span>
+                </span>
+              </span>
+            </div>
           </div>
           <h2
             class="ant-md-editor-drag-el"
@@ -6180,7 +5098,7 @@
           <div
             data-be="card"
             data-slate-node="element"
-            style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
               data-be="card-before"
@@ -6207,87 +5125,90 @@
               </span>
             </span>
             <div
-              class="ant-md-editor-drag-el"
-              data-be="image"
               data-slate-node="element"
-              draggable="false"
-              style="cursor: pointer; position: relative;"
             >
               <div
-                aria-describedby="test-id"
-                class="md-editor-media"
-                contenteditable="false"
+                class="ant-md-editor-drag-el"
+                data-be="media"
                 draggable="false"
-                style="padding: 4px; display: flex;"
-                tabindex="-1"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
               >
                 <div
-                  class="ant-image"
-                  crossorigin="anonymous"
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
                   draggable="false"
-                  referrerpolicy="no-referrer"
-                  style="width: 400px;"
+                  style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column;"
+                  tabindex="-1"
                 >
-                  <img
-                    alt="image"
-                    class="ant-image-img"
+                  <div
+                    class="ant-image"
                     crossorigin="anonymous"
                     draggable="false"
                     referrerpolicy="no-referrer"
-                    src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
-                    style="max-width: 800px;"
-                    width="400"
-                  />
-                  <div
-                    class="ant-image-mask"
+                    style="width: 400px;"
                   >
+                    <img
+                      alt="image"
+                      class="ant-image-img"
+                      crossorigin="anonymous"
+                      draggable="false"
+                      referrerpolicy="no-referrer"
+                      src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
+                      style="max-width: 800px;"
+                      width="400"
+                    />
                     <div
-                      class="ant-image-mask-info"
+                      class="ant-image-mask"
                     >
-                      <span
-                        aria-label="eye"
-                        class="anticon anticon-eye"
-                        role="img"
+                      <div
+                        class="ant-image-mask-info"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          aria-label="eye"
+                          class="anticon anticon-eye"
+                          role="img"
                         >
-                          <path
-                            d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                          />
-                        </svg>
-                      </span>
-                      Preview
+                          <svg
+                            aria-hidden="true"
+                            data-icon="eye"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                            />
+                          </svg>
+                        </span>
+                        Preview
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  style="display: none;"
-                >
-                  <span
-                    data-slate-node="text"
+                  <div
+                    style="display: none;"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-length="0"
-                        data-slate-zero-width="n"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        ﻿
-                        <br />
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -10564,7 +9485,7 @@ while i &lt; len(arr):
                   <span
                     data-slate-string="true"
                   >
-                    Umi 六大事业群Umi 六大事业群Umi 六大事业群
+                    插件系统架构
                   </span>
                 </s>
                 <span
@@ -10597,13 +9518,13 @@ while i &lt; len(arr):
                 >
                   <a
                     class="ant-anchor-link-title"
-                    href="#umi-研究报告"
+                    href="#现代代码编辑器技术解析与实现示例"
                     title=""
                   >
                     <span
                       style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                     >
-                      Umi 研究报告
+                      现代代码编辑器技术解析与实现示例
                     </span>
                   </a>
                   <div
@@ -10671,13 +9592,58 @@ while i &lt; len(arr):
                   >
                     <a
                       class="ant-anchor-link-title"
-                      href="#创始人"
+                      href="#_1-编辑器核心功能架构"
                       title=""
                     >
                       <span
                         style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                       >
-                        创始人
+                        1. 编辑器核心功能架构
+                      </span>
+                    </a>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_1-1-基础功能模块"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          1.1 基础功能模块
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_1-2-高级功能实现"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          1.2 高级功能实现
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-anchor-link"
+                  >
+                    <a
+                      class="ant-anchor-link-title"
+                      href="#_2-关键技术方案对比"
+                      title=""
+                    >
+                      <span
+                        style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                      >
+                        2. 关键技术方案对比
                       </span>
                     </a>
                   </div>
@@ -10686,13 +9652,13 @@ while i &lt; len(arr):
                   >
                     <a
                       class="ant-anchor-link-title"
-                      href="#部门"
+                      href="#_3-语法高亮实现示例"
                       title=""
                     >
                       <span
                         style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                       >
-                        部门
+                        3. 语法高亮实现示例
                       </span>
                     </a>
                   </div>
@@ -10701,30 +9667,90 @@ while i &lt; len(arr):
                   >
                     <a
                       class="ant-anchor-link-title"
-                      href="#战略"
+                      href="#_4-性能优化策略"
                       title=""
                     >
                       <span
                         style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                       >
-                        战略
+                        4. 性能优化策略
                       </span>
                     </a>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_4-1-渲染优化技巧"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          4.1 渲染优化技巧
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_4-2-内存管理方案"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          4.2 内存管理方案
+                        </span>
+                      </a>
+                    </div>
                   </div>
                   <div
                     class="ant-anchor-link"
                   >
                     <a
                       class="ant-anchor-link-title"
-                      href="#表格"
+                      href="#_5-扩展功能开发指南"
                       title=""
                     >
                       <span
                         style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                       >
-                        表格
+                        5. 扩展功能开发指南
                       </span>
                     </a>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_5-1-插件系统架构"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          5.1 插件系统架构
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_5-2-api接口设计"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          5.2 API接口设计
+                        </span>
+                      </a>
+                    </div>
                   </div>
                   <div
                     class="ant-anchor-link"

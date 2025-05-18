@@ -10839,7 +10839,7 @@
             <div
               data-be="card"
               data-slate-node="element"
-              style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+              style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
             >
               <span
                 data-be="card-before"
@@ -10866,87 +10866,90 @@
                 </span>
               </span>
               <div
-                class="ant-md-editor-drag-el"
-                data-be="image"
                 data-slate-node="element"
-                draggable="false"
-                style="cursor: pointer; position: relative;"
               >
                 <div
-                  aria-describedby="test-id"
-                  class="md-editor-media"
-                  contenteditable="false"
+                  class="ant-md-editor-drag-el"
+                  data-be="media"
                   draggable="false"
-                  style="padding: 4px; display: flex;"
-                  tabindex="-1"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
                 >
                   <div
-                    class="ant-image"
-                    crossorigin="anonymous"
+                    aria-describedby="test-id"
+                    class="md-editor-media"
+                    contenteditable="false"
                     draggable="false"
-                    referrerpolicy="no-referrer"
-                    style="width: 400px;"
+                    style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column;"
+                    tabindex="-1"
                   >
-                    <img
-                      alt="image"
-                      class="ant-image-img"
+                    <div
+                      class="ant-image"
                       crossorigin="anonymous"
                       draggable="false"
                       referrerpolicy="no-referrer"
-                      src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
-                      style="max-width: 800px;"
-                      width="400"
-                    />
-                    <div
-                      class="ant-image-mask"
+                      style="width: 400px;"
                     >
+                      <img
+                        alt="image"
+                        class="ant-image-img"
+                        crossorigin="anonymous"
+                        draggable="false"
+                        referrerpolicy="no-referrer"
+                        src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
+                        style="max-width: 800px;"
+                        width="400"
+                      />
                       <div
-                        class="ant-image-mask-info"
+                        class="ant-image-mask"
                       >
-                        <span
-                          aria-label="eye"
-                          class="anticon anticon-eye"
-                          role="img"
+                        <div
+                          class="ant-image-mask-info"
                         >
-                          <svg
-                            aria-hidden="true"
-                            data-icon="eye"
-                            fill="currentColor"
-                            focusable="false"
-                            height="1em"
-                            viewBox="64 64 896 896"
-                            width="1em"
+                          <span
+                            aria-label="eye"
+                            class="anticon anticon-eye"
+                            role="img"
                           >
-                            <path
-                              d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                            />
-                          </svg>
-                        </span>
-                        Preview
+                            <svg
+                              aria-hidden="true"
+                              data-icon="eye"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                              />
+                            </svg>
+                          </span>
+                          Preview
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    style="display: none;"
-                  >
-                    <span
-                      data-slate-node="text"
+                    <div
+                      style="display: none;"
                     >
                       <span
-                        class=" "
-                        data-be="text"
-                        data-slate-leaf="true"
-                        draggable="false"
+                        data-slate-node="text"
                       >
                         <span
-                          data-slate-length="0"
-                          data-slate-zero-width="n"
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
                         >
-                          ﻿
-                          <br />
+                          <span
+                            data-slate-length="0"
+                            data-slate-zero-width="n"
+                          >
+                            ﻿
+                            <br />
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -13202,7 +13205,7 @@
                     <span
                       data-slate-string="true"
                     >
-                      Umi 六大事业群Umi 六大事业群Umi 六大事业群
+                      插件系统架构
                     </span>
                   </s>
                   <span

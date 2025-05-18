@@ -338,7 +338,7 @@ mindmap
 \`\`\`
 
 ## 删除线
-~~Umi 六大事业群Umi 六大事业群Umi 六大事业群~~
+~~插件系统架构~~
 
 `;
 export default () => {
