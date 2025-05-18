@@ -922,7 +922,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -3700,7 +3700,7 @@
                       <span
                         data-be="card-before"
                         data-slate-node="element"
-                        style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                        style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                       >
                         <span
                           data-slate-node="text"
@@ -3913,7 +3913,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -4656,7 +4656,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -5633,7 +5633,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -10482,7 +10482,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -10674,7 +10674,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -10828,7 +10828,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"
@@ -11077,7 +11077,7 @@
                   <span
                     data-be="card-before"
                     data-slate-node="element"
-                    style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                    style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
                   >
                     <span
                       data-slate-node="text"

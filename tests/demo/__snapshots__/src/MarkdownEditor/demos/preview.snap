@@ -494,7 +494,7 @@
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -1424,7 +1424,7 @@
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -2904,7 +2904,7 @@ class FileBuffer:
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -3342,7 +3342,7 @@ class EditorCore {
                 <span
                   data-be="card-before"
                   data-slate-node="element"
-                  style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+                  style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
                 >
                   <span
                     data-slate-node="text"
@@ -3511,7 +3511,7 @@ class EditorCore {
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -4226,7 +4226,7 @@ class EditorCore {
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5198,7 +5198,7 @@ class EditorCore {
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5390,7 +5390,7 @@ class EditorCore {
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5576,7 +5576,7 @@ class EditorCore {
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -5702,7 +5702,7 @@ class EditorCore {
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
@@ -8117,7 +8117,7 @@ while i &lt; len(arr):
             <span
               data-be="card-before"
               data-slate-node="element"
-              style="min-width: 4px; height: 100%; font-weight: 800; position: relative; z-index: 99; font-size: 2em; display: none; line-height: 1;"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
                 data-slate-node="text"
