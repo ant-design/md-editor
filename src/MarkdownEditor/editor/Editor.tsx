@@ -138,6 +138,7 @@ export const SlateMarkdownEditor = observer(
             {
               code: true,
               tag: true,
+              autoOpen: true,
               text: event?.key + ' ',
               triggerText: event?.key,
             },

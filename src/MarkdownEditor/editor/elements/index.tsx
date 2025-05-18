@@ -161,12 +161,14 @@ export const MLeaf = (
   let children = <>{props.children}</>;
 
   if (leaf.code || leaf.tag) {
-    const { text, tag, placeholder, triggerText } = (props?.leaf || {}) as any;
+    const { text, tag, placeholder, autoOpen, triggerText } = (props?.leaf ||
+      {}) as any;
     const { enable, tagTextRender } = props.tagInputProps || {};
     if (enable && tag) {
       children = (
         <TagPopup
           {...props}
+          autoOpen={autoOpen}
           {...props.tagInputProps}
           text={text}
           onSelect={(v, path) => {

@@ -14,6 +14,7 @@ type TagPopupItem = Array<{
 type RenderProps = TagPopupProps & {
   text?: string;
   placeholder?: string;
+  autoOpen?: boolean;
   onSelect?: (value: string, path?: number[]) => void;
 };
 
@@ -184,6 +185,12 @@ export const TagPopup = (props: RenderProps) => {
       },
     });
   }, [props.text, suggestionConnext.open]);
+
+  useEffect(() => {
+    if (props.autoOpen && suggestionConnext?.setOpen) {
+      suggestionConnext.setOpen(true);
+    }
+  }, []);
 
   const placeholder = props.placeholder;
 
