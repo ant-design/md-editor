@@ -106,12 +106,12 @@ export const MElement = (
           style={{
             minWidth: 4,
             height: '100%',
-            fontWeight: 800,
             position: 'relative',
+            lineHeight: 1,
             zIndex: 99,
             fontSize: '2em',
-            display: 'none',
-            lineHeight: 1,
+            overflow: 'hidden',
+            display: props.readonly ? 'none' : 'inline-block',
           }}
           data-be={'card-before'}
           {...props.attributes}
