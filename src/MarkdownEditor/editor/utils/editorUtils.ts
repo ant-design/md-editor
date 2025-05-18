@@ -604,7 +604,19 @@ export class EditorUtils {
       return { text: '' };
     }
     try {
-      const urlParams = new URL(src).searchParams;
+      // Handle relative URLs by adding the current origin if needed
+      let fullSrc = src;
+      if (src && !src.match(/^(https?:\/\/|data:|file:)/)) {
+        // If URL doesn't have a protocol, add the current origin
+        if (src.startsWith('/')) {
+          // Root-relative URL
+          fullSrc = `${window.location.origin}${src}`;
+        } else {
+          // Document-relative URL
+          fullSrc = `${window.location.origin}/${src}`;
+        }
+      }
+      const urlParams = new URL(fullSrc).searchParams;
       const altText = extraPros?.alt || urlParams.get('alt') || '';
 
       if (type === 'image' && getMediaType(src, extraPros?.alt) === 'other') {
