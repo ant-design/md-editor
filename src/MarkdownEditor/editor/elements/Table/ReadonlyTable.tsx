@@ -86,8 +86,8 @@ export const ReadonlyTable = observer(
 
       // 只获取一次容器宽度
       const containerWidth =
-        store?.container?.querySelector('.ant-md-editor-content')
-          ?.clientWidth || 400;
+        (store?.container?.querySelector('.ant-md-editor-content')
+          ?.clientWidth || 400) - 32;
       const maxColumnWidth = containerWidth / 4;
       const minColumnWidth = 60;
 

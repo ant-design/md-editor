@@ -1,5 +1,5 @@
 import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Divider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import React from 'react';
 
@@ -67,7 +67,7 @@ export default () => {
         <MarkdownEditor
           editorRef={markdownEditor2Ref}
           width={'100vw'}
-          height={'50vh'}
+          height={'calc(50vh - 16px)'}
           reportMode
           style={{ padding: 0 }}
           contentStyle={{
@@ -83,11 +83,15 @@ export default () => {
           }}
           initValue={defaultValue}
         />
-
+        <Divider
+          style={{
+            margin: 0,
+          }}
+        />
         <MarkdownEditor
           editorRef={markdownEditorRef}
           width={'100vw'}
-          height={'50vh'}
+          height={'calc(50vh - 16px)'}
           reportMode
           readonly
           style={{ padding: 0 }}
