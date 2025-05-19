@@ -1,0 +1,391 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Low Code Component Schema",
+  "description": "Schema definition for low code component configuration",
+  "type": "object",
+  "required": [
+    "version",
+    "name",
+    "description",
+    "author",
+    "createTime",
+    "updateTime",
+    "pageConfig",
+    "dataSources",
+    "component",
+    "theme",
+    "previewSettings"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Version number of the component"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the component"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the component"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author of the component"
+    },
+    "createTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation time of the component"
+    },
+    "updateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update time of the component"
+    },
+    "pageConfig": {
+      "type": "object",
+      "required": ["layout", "router", "globalVariables"],
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": ["flex"],
+          "description": "Layout type of the page"
+        },
+        "router": {
+          "type": "object",
+          "required": ["mode", "basePath"],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": ["hash"],
+              "description": "Router mode"
+            },
+            "basePath": {
+              "type": "string",
+              "description": "Base path for routing"
+            }
+          }
+        },
+        "globalVariables": {
+          "type": "object",
+          "required": ["colors", "constants"],
+          "properties": {
+            "colors": {
+              "type": "object",
+              "properties": {
+                "sunny": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                },
+                "rainy": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                },
+                "cloudy": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                }
+              }
+            },
+            "constants": {
+              "type": "object",
+              "properties": {
+                "refreshInterval": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "dataSources": {
+      "type": "object",
+      "required": ["restAPI", "mock"],
+      "properties": {
+        "restAPI": {
+          "type": "object",
+          "required": ["baseURL", "defaultHeaders", "timeout", "interceptors"],
+          "properties": {
+            "baseURL": {
+              "type": "string",
+              "format": "uri"
+            },
+            "defaultHeaders": {
+              "type": "object"
+            },
+            "timeout": {
+              "type": "number"
+            },
+            "interceptors": {
+              "type": "object",
+              "properties": {
+                "request": {
+                  "type": "boolean"
+                },
+                "response": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "mock": {
+          "type": "object",
+          "required": ["enable", "responseDelay", "dataPath"],
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            },
+            "responseDelay": {
+              "type": "number"
+            },
+            "dataPath": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "required": ["properties", "type", "schema"],
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {
+            "weather": {
+              "type": "object",
+              "required": ["title", "type", "default"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "default": {
+                  "type": "string"
+                }
+              }
+            },
+            "temperature": {
+              "type": "object",
+              "required": ["title", "type", "default"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "default": {
+                  "type": "number"
+                }
+              }
+            },
+            "humidity": {
+              "type": "object",
+              "required": ["title", "type", "default"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "default": {
+                  "type": "number"
+                }
+              }
+            },
+            "windSpeed": {
+              "type": "object",
+              "required": ["title", "type", "default"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "default": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": ["html"]
+        },
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "required": ["colorPalette", "spacing", "typography", "breakpoints"],
+      "properties": {
+        "colorPalette": {
+          "type": "object",
+          "required": [
+            "primary",
+            "secondary",
+            "success",
+            "warning",
+            "error",
+            "text"
+          ],
+          "properties": {
+            "primary": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "secondary": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "success": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "warning": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "error": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "text": {
+              "type": "object",
+              "properties": {
+                "primary": {
+                  "type": "string"
+                },
+                "secondary": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "required": ["base", "multiplier"],
+          "properties": {
+            "base": {
+              "type": "number"
+            },
+            "multiplier": {
+              "type": "number"
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "required": ["fontFamily", "fontSizes", "lineHeights"],
+          "properties": {
+            "fontFamily": {
+              "type": "string"
+            },
+            "fontSizes": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "lineHeights": {
+              "type": "object",
+              "properties": {
+                "normal": {
+                  "type": "number"
+                },
+                "heading": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "breakpoints": {
+          "type": "object",
+          "required": ["xs", "sm", "md", "lg", "xl"],
+          "properties": {
+            "xs": {
+              "type": "number"
+            },
+            "sm": {
+              "type": "number"
+            },
+            "md": {
+              "type": "number"
+            },
+            "lg": {
+              "type": "number"
+            },
+            "xl": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "previewSettings": {
+      "type": "object",
+      "required": ["viewport", "environment"],
+      "properties": {
+        "viewport": {
+          "type": "object",
+          "required": ["defaultDevice", "responsive", "customSizes"],
+          "properties": {
+            "defaultDevice": {
+              "type": "string"
+            },
+            "responsive": {
+              "type": "boolean"
+            },
+            "customSizes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name", "width", "height"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "height": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "environment": {
+          "type": "object",
+          "required": ["mockData", "networkThrottle", "debugMode"],
+          "properties": {
+            "mockData": {
+              "type": "boolean"
+            },
+            "networkThrottle": {
+              "type": "string"
+            },
+            "debugMode": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

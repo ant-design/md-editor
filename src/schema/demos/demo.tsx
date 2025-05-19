@@ -1,0 +1,146 @@
+import { SchemaRenderer } from '@ant-design/md-editor';
+import React from 'react';
+
+const sampleSchema = {
+  version: '1.0.0',
+  name: 'Weather Card Component',
+  description: 'A beautiful weather display card component',
+  author: 'Weather Team',
+  createTime: '2024-03-20T10:00:00Z',
+  updateTime: '2024-03-20T10:00:00Z',
+  pageConfig: {
+    layout: 'flex' as const,
+    router: {
+      mode: 'hash' as const,
+      basePath: '/weather',
+    },
+    globalVariables: {
+      colors: {
+        sunny: '#FFB300',
+        rainy: '#2196F3',
+        cloudy: '#90A4AE',
+      },
+      constants: {
+        refreshInterval: 300000,
+      },
+    },
+  },
+  dataSources: {
+    restAPI: {
+      baseURL: 'https://api.weatherapi.com/v1',
+      defaultHeaders: {
+        'Content-Type': 'application/json',
+      },
+      timeout: 3000,
+      interceptors: {
+        request: true,
+        response: true,
+      },
+    },
+    mock: {
+      enable: true,
+      responseDelay: 100,
+      dataPath: '/mock/weather',
+    },
+  },
+  component: {
+    properties: {
+      weather: {
+        title: '天气',
+        type: 'string' as const,
+        default: '晴',
+      },
+      temperature: {
+        title: '温度',
+        type: 'string' as const,
+        default: '25',
+      },
+      humidity: {
+        title: '湿度',
+        type: 'string' as const,
+        default: '65',
+      },
+      windSpeed: {
+        title: '风速',
+        type: 'string' as const,
+        default: '15',
+      },
+    },
+    type: 'html' as const,
+    schema:
+      '<div>今天天气是 {{weather}}，温度是 {{temperature}}，湿度是 {{humidity}}，风速是 {{windSpeed}}。</div>',
+  },
+  theme: {
+    colorPalette: {
+      primary: '#1890ff',
+      secondary: '#722ed1',
+      success: '#52c41a',
+      warning: '#faad14',
+      error: '#f5222d',
+      text: {
+        primary: 'rgba(0, 0, 0, 0.85)',
+        secondary: 'rgba(0, 0, 0, 0.45)',
+      },
+    },
+    spacing: {
+      base: 8,
+      multiplier: 2,
+    },
+    typography: {
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto",
+      fontSizes: [12, 14, 16, 20, 24],
+      lineHeights: {
+        normal: 1.5,
+        heading: 1.2,
+      },
+    },
+    breakpoints: {
+      xs: 320,
+      sm: 576,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+    },
+  },
+  previewSettings: {
+    viewport: {
+      defaultDevice: 'desktop',
+      responsive: true,
+      customSizes: [
+        {
+          name: 'Mobile Portrait',
+          width: 375,
+          height: 667,
+        },
+        {
+          name: 'Mobile Landscape',
+          width: 667,
+          height: 375,
+        },
+      ],
+    },
+    environment: {
+      mockData: true,
+      networkThrottle: 'fast-3g',
+      debugMode: true,
+    },
+  },
+};
+
+const DemoPage: React.FC = () => {
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        background: '#f0f2f5',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <SchemaRenderer schema={sampleSchema} />
+    </div>
+  );
+};
+
+export default DemoPage;

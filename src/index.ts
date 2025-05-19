@@ -14,4 +14,5 @@ export * from './MarkdownEditor/editor/utils/docx/index';
 export * from './MarkdownInputField/AttachmentButton';
 export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
+export * from './schema';
 export * from './ThoughtChainList';
