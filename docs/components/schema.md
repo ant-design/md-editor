@@ -290,37 +290,72 @@ const CompleteExample: React.FC = () => {
     author: 'Weather Team',
     createTime: '2024-03-20T10:00:00Z',
     updateTime: '2024-03-20T10:00:00Z',
+    pageConfig: {
+      layout: 'flex',
+      router: { mode: 'hash', basePath: '/weather' },
+      globalVariables: {
+        colors: { sunny: '#FFB300', rainy: '#2196F3', cloudy: '#90A4AE' },
+        constants: { refreshInterval: 300000 },
+      },
+    },
+    dataSources: {
+      restAPI: {
+        baseURL: 'https://api.weatherapi.com/v1',
+        defaultHeaders: { 'Content-Type': 'application/json' },
+        timeout: 3000,
+        interceptors: { request: true, response: true },
+      },
+      mock: {
+        enable: true,
+        responseDelay: 100,
+        dataPath: '/mock/weather',
+      },
+    },
     component: {
       properties: {
-        title: {
-          title: '标题',
-          type: 'string' as const,
-          default: '我的文章',
-          required: true,
-          minLength: 2,
-          maxLength: 50,
-        },
-        content: {
-          title: '内容',
-          type: 'string' as const,
-          default: '请输入文章内容',
-          required: true,
-        },
-        category: {
-          title: '分类',
-          type: 'string' as const,
-          default: '技术',
-          enum: ['技术', '生活', '其他'],
+        weather: { title: '天气', type: 'string', default: '晴' },
+        temperature: { title: '温度', type: 'string', default: '25' },
+        humidity: { title: '湿度', type: 'string', default: '65' },
+        windSpeed: { title: '风速', type: 'string', default: '15' },
+      },
+      type: 'html',
+      schema:
+        '<div style="\n    min-height: 100vh;\n    display: grid;\n    place-items: center;\n    background: linear-gradient(160deg, #2c3e50, #3498db);\n">\n    <div style="\n        background: rgba(255, 255, 255, 0.15);\n        backdrop-filter: blur(10px);\n        border-radius: 20px;\n        padding: 2rem;\n        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);\n        color: white;\n        width: 280px;\n        position: relative;\n        overflow: hidden;\n    ">\n        <!-- 天气图标 -->\n        <div style="\n            font-size: 4rem;\n            text-align: center;\n            margin-bottom: 1rem;\n            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);\n            animation: float 3s ease-in-out infinite;\n        ">⛅</div>\n\n        <!-- 温度显示 -->\n        <div style="\n            font-size: 3rem;\n            font-weight: bold;\n            text-align: center;\n            margin-bottom: 1.5rem;\n            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);\n        ">{{温度}}°C</div>\n\n        <!-- 数据网格 -->\n        <div style="\n            display: grid;\n            grid-template-columns: repeat(2, 1fr);\n            gap: 1rem;\n        ">\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">💧</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">湿度</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{湿度}}%</div>\n            </div>\n\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">🌪️</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">风速</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{风速}}m/s</div>\n            </div>\n\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">🧭</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">风向</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{风向}}</div>\n            </div>\n\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">📉</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">气压</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{气压}}hPa</div>\n            </div>\n        </div>\n\n        <!-- 装饰元素 -->\n        <div style="\n            position: absolute;\n            width: 150px;\n            height: 150px;\n            background: rgba(255,255,255,0.05);\n            border-radius: 50%;\n            top: -50px;\n            right: -50px;\n        "></div>\n        \n        <style>\n            @keyframes float {\n                0%, 100% { transform: translateY(0); }\n                50% { transform: translateY(-10px); }\n            }\n        </style>\n    </div>\n</div>',
+    },
+    theme: {
+      colorPalette: {
+        primary: '#1890ff',
+        secondary: '#722ed1',
+        success: '#52c41a',
+        warning: '#faad14',
+        error: '#f5222d',
+        text: {
+          primary: 'rgba(0, 0, 0, 0.85)',
+          secondary: 'rgba(0, 0, 0, 0.45)',
         },
       },
-      type: 'html' as const,
-      schema: `
-        <div class="article">
-          <h1>{{title}}</h1>
-          <div class="category">分类：{{category}}</div>
-          <div class="content">{{content}}</div>
-        </div>
-      `,
+      spacing: { base: 8, multiplier: 2 },
+      typography: {
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto",
+        fontSizes: [12, 14, 16, 20, 24],
+        lineHeights: { normal: 1.5, heading: 1.2 },
+      },
+      breakpoints: { xs: 320, sm: 576, md: 768, lg: 992, xl: 1200 },
+    },
+    previewSettings: {
+      viewport: {
+        defaultDevice: 'desktop',
+        responsive: true,
+        customSizes: [
+          { name: 'Mobile Portrait', width: 375, height: 667 },
+          { name: 'Mobile Landscape', width: 667, height: 375 },
+        ],
+      },
+      environment: {
+        mockData: true,
+        networkThrottle: 'fast-3g',
+        debugMode: true,
+      },
     },
   };
   const handleValuesChange = (_, values: Record<string, any>) => {
