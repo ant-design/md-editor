@@ -23,59 +23,19 @@ function hasRange(editor: Editor, range: { anchor: any; focus: any }): boolean {
   );
 }
 
-// 处理表格相关节点的操作
-const handleTableOperation = (
-  editor: Editor,
-  operation: Operation,
-): boolean => {
-  const { apply } = editor;
-
-  if (
-    operation.type === 'merge_node' &&
-    operation.properties?.type === 'table-cell'
-  ) {
-    return true;
-  }
-
-  if (operation.type === 'move_node') {
-    const node = Node.get(editor, operation.path);
-    if (node?.type === 'table-cell') return true;
-  }
-
-  if (operation.type === 'remove_node') {
-    const { node } = operation;
-    if (['table-row', 'table-cell'].includes(node.type)) {
-      if (node.type === 'table-cell' || node.type === 'table-row') {
-        apply(operation);
-        return true;
-      }
-      return true;
-    }
-  }
-
-  if (operation.type === 'insert_node') {
-    const parentNode = Node.get(editor, Path.parent(operation.path));
-    if (parentNode.type === 'table-cell' || parentNode.type === 'table-row') {
-      if (TableInlineNode.has(operation.node.type) || !operation.node.type) {
-        apply(operation);
-        return true;
-      }
-      if (operation.node.type === 'card') {
-        const relativeNode = operation.node.children.at(1);
-        if (TableInlineNode.has(relativeNode.type)) {
-          apply(operation);
-          return true;
-        }
-      }
-      console.error('表格内部只支持行内节点！');
-      return true;
-    }
-  }
-
-  return false;
-};
-
-// 处理卡片相关节点的操作
+/**
+ * 处理卡片相关节点的操作
+ *
+ * @param editor - Slate编辑器实例
+ * @param operation - 要处理的操作
+ * @returns 如果操作被处理则返回true，否则返回false
+ *
+ * @description
+ * 处理以下卡片相关操作:
+ * - 删除卡片节点 (remove_node)，包括card、card-before和card-after
+ * - 在卡片后插入文本 (insert_text)
+ * - 在卡片内插入节点 (insert_node)
+ */
 const handleCardOperation = (editor: Editor, operation: Operation): boolean => {
   if (operation.type === 'remove_node') {
     const { node } = operation;
@@ -148,7 +108,18 @@ const handleCardOperation = (editor: Editor, operation: Operation): boolean => {
   return false;
 };
 
-// 处理链接卡片和媒体相关节点的操作
+/**
+ * 处理链接卡片和媒体相关节点的操作
+ *
+ * @param editor - Slate编辑器实例
+ * @param operation - 要处理的操作
+ * @returns 如果操作被处理则返回true，否则返回false
+ *
+ * @description
+ * 处理以下链接和媒体相关操作:
+ * - 拆分链接卡片或媒体节点 (split_node)
+ * - 删除链接卡片内的节点 (remove_node)
+ */
 const handleLinkAndMediaOperation = (
   editor: Editor,
   operation: Operation,
@@ -190,7 +161,17 @@ const handleLinkAndMediaOperation = (
   return false;
 };
 
-// 处理schema相关节点的操作
+/**
+ * 处理schema相关节点的操作
+ *
+ * @param editor - Slate编辑器实例
+ * @param operation - 要处理的操作
+ * @returns 如果操作被处理则返回true，否则返回false
+ *
+ * @description
+ * 处理以下schema相关操作:
+ * - 拆分schema节点 (split_node)，在拆分点之后插入新的段落节点
+ */
 const handleSchemaOperation = (
   editor: Editor,
   operation: Operation,
@@ -221,7 +202,19 @@ const handleSchemaOperation = (
   return false;
 };
 
-// 处理代码/标签相关节点的操作
+/**
+ * 处理代码和标签相关节点的操作
+ *
+ * @param editor - Slate编辑器实例
+ * @param operation - 要处理的操作
+ * @returns 如果操作被处理则返回true，否则返回false
+ *
+ * @description
+ * 处理以下代码和标签相关操作:
+ * - 删除文本 (remove_text)，处理特殊触发文本和空标签
+ * - 删除节点 (remove_node)，处理代码块周围的空格
+ * - 插入文本 (insert_text)，处理代码块中的空格插入
+ */
 const handleCodeTagOperation = (
   editor: Editor,
   operation: Operation,
@@ -300,7 +293,6 @@ const handleCodeTagOperation = (
 
 // 将所有处理函数放入数组
 const operationHandlers = [
-  handleTableOperation,
   handleCardOperation,
   handleLinkAndMediaOperation,
   handleSchemaOperation,
