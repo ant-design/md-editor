@@ -73,7 +73,7 @@ export const ReadonlyTable = observer(
     const i18n = useContext(I18nContext);
 
     const colWidths = useMemo(() => {
-      // If exists in props, use directly to avoid calculation
+      // 如果在props中存在，直接使用以避免计算
       if (props.element?.otherProps?.colWidths) {
         return props.element?.otherProps?.colWidths;
       }
@@ -84,7 +84,7 @@ export const ReadonlyTable = observer(
       const tableRows = props.element.children;
       if (!tableRows?.[0]?.children?.length) return [];
 
-      // Get container width just once
+      // 只获取一次容器宽度
       const containerWidth =
         store?.container?.querySelector('.ant-md-editor-content')
           ?.clientWidth || 400;
@@ -94,7 +94,7 @@ export const ReadonlyTable = observer(
       const columnCount = tableRows[0].children.length;
       const rowsToSample = Math.min(5, tableRows.length);
 
-      // Calculate widths once
+      // 一次性计算宽度
       const calculatedWidths = Array.from(
         { length: columnCount },
         (_, colIndex) => {
@@ -115,7 +115,7 @@ export const ReadonlyTable = observer(
         },
       );
 
-      // If table has fewer than 5 rows and total width exceeds container width, distribute evenly
+      // 如果表格少于5行且总宽度超过容器宽度，则均匀分配宽度
       if (tableRows.length < 5) {
         const totalWidth = calculatedWidths.reduce(
           (sum, width) => sum + width,

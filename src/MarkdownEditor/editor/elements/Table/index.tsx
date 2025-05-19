@@ -174,9 +174,9 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const tableJSONData = useMemo(() => {
-    // Calculate table JSON data only when needed
+    // 仅在需要时计算表格JSON数据
     return slateTableToJSONData(props.element);
-  }, [props.element.id, props.element.children]); // More specific dependency
+  }, [props.element.id, props.element.children]); // 更具体的依赖项
 
   /**
    * 表格内容变化处理函数
@@ -516,7 +516,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
 
   const colWidths = useMemo(() => {
-    // If exists in props, use directly to avoid calculation
+    // 如果在props中存在，直接使用以避免计算
     if (props.element?.otherProps?.colWidths) {
       return props.element?.otherProps?.colWidths;
     }
@@ -527,7 +527,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     const tableRows = props.element.children;
     if (!tableRows?.[0]?.children?.length) return [];
 
-    // Get container width just once
+    // 只获取一次容器宽度
     const containerWidth =
       store?.container?.querySelector('.ant-md-editor-content')?.clientWidth ||
       400;
@@ -537,7 +537,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     const columnCount = tableRows[0].children.length;
     const rowsToSample = Math.min(5, tableRows.length);
 
-    // Calculate widths once
+    // 一次性计算宽度
     const calculatedWidths = Array.from(
       { length: columnCount },
       (_, colIndex) => {
@@ -558,7 +558,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       },
     );
 
-    // If table has fewer than 5 rows and total width exceeds container width, distribute evenly
+    // 如果表格少于5行且总宽度超过容器宽度，则均匀分配宽度
     if (tableRows.length < 5) {
       const totalWidth = calculatedWidths.reduce(
         (sum, width) => sum + width,
@@ -582,7 +582,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   ]);
 
   /**
-   * Generate default column widths (memoized)
+   * 生成默认列宽（记忆化）
    */
   const genDefaultWidth = useRefFunction((tableData: any[]) => {
     if (props.element?.otherProps?.colWidths)
@@ -593,7 +593,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
 
   /**
-   * Generate merged cells configuration (memoized)
+   * 生成合并单元格配置（记忆化）
    */
   const generateMergedCells = useRefFunction((tableData: any[]) => {
     const mergeCells = props.element?.otherProps?.mergeCells;
@@ -609,7 +609,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
   });
 
   /**
-   * Optimize table data updates by using element ID instead of full serialization
+   * 通过使用元素ID而不是完整序列化来优化表格数据更新
    */
   useEffect(() => {
     const hotInstance = hotRef.current?.hotInstance;
@@ -624,20 +624,20 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       mergeCells: generateMergedCells(tableJSONData.tableData) || [],
     });
 
-    // Use requestAnimationFrame to batch UI updates
+    // 使用requestAnimationFrame来批量更新UI
     requestAnimationFrame(() => {
       document.dispatchEvent(new CustomEvent('md-resize', { detail: {} }));
     });
-  }, [props.element.id, tableJSONData]); // More specific dependency
+  }, [props.element.id, tableJSONData]); // 更具体的依赖项
 
   /**
-   * Combine resize handlers into a single effect with debounced resize
+   * 将调整大小处理程序合并到单个效果中，并使用防抖调整大小
    */
   useEffect(() => {
     if (!overflowShadowContainerRef.current || typeof window === 'undefined')
       return;
 
-    // Debounce resize to avoid excessive calculations
+    // 防抖调整大小以避免过多计算
     let resizeTimeout: number;
     const resize = () => {
       clearTimeout(resizeTimeout);
@@ -660,13 +660,13 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
         hotRef.current?.hotInstance?.updateSettings({
           colWidths: genDefaultWidth(tableJSONData.tableData),
         });
-      }, 100); // Debounce 100ms
+      }, 100); // 100毫秒防抖
     };
 
     window.addEventListener('md-resize', resize);
     window.addEventListener('resize', resize);
 
-    // Initial resize
+    // 初始调整大小
     resize();
 
     return () => {
@@ -736,7 +736,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                   if (TH.querySelector('textarea')) return;
                   let instance = hotRef.current?.hotInstance;
                   if (!instance) return;
-                  // create input element
+                  // 创建输入元素
                   let input = document.createElement('textarea');
                   if (!input) return;
                   (input as any).style =
@@ -869,7 +869,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
                 autoWrapCol={true}
                 minRows={editorProps?.tableConfig?.minRows || 3}
                 minCols={editorProps?.tableConfig?.minColumn || 3}
-                licenseKey="non-commercial-and-evaluation" // for non-commercial use only
+                licenseKey="non-commercial-and-evaluation" // 仅用于非商业用途
               />
             </div>
           ) : (
@@ -891,7 +891,7 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
       </TablePropsContext.Provider>,
     );
   }, [
-    // Use more granular dependencies instead of deep objects
+    // 使用更细粒度的依赖项而不是深层对象
     props.element.id,
     props.element?.otherProps?.colWidths,
     props.element?.otherProps?.mergeCells?.length,
