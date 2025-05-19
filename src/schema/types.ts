@@ -30,35 +30,37 @@ export interface ComponentProperties {
 }
 
 export interface ThemeConfig {
-  colorPalette: {
-    primary: string;
-    secondary: string;
-    success: string;
-    warning: string;
-    error: string;
-    text: {
-      primary: string;
-      secondary: string;
+  colorPalette?: {
+    primary?: string;
+    secondary?: string;
+    success?: string;
+    warning?: string;
+    error?: string;
+    text?: {
+      primary?: string;
+      secondary?: string;
     };
   };
-  spacing: {
-    base: number;
-    multiplier: number;
+  spacing?: {
+    base?: number;
+    multiplier?: number;
+    width?: string | number;
+    height?: string | number;
   };
-  typography: {
-    fontFamily: string;
-    fontSizes: number[];
-    lineHeights: {
+  typography?: {
+    fontFamily?: string;
+    fontSizes?: number[];
+    lineHeights?: {
       normal: number;
       heading: number;
     };
   };
-  breakpoints: {
-    xs: number;
-    sm: number;
-    md: number;
-    lg: number;
-    xl: number;
+  breakpoints?: {
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
   };
 }
 

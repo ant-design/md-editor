@@ -133,7 +133,7 @@ const MyFormComponent: React.FC = () => {
       properties: {
         name: {
           title: '姓名',
-          type: 'string' as const,
+          type: 'string',
           default: '',
           required: true,
           minLength: 2,
@@ -141,14 +141,14 @@ const MyFormComponent: React.FC = () => {
         },
         age: {
           title: '年龄',
-          type: 'number' as const,
+          type: 'number',
           default: 18,
           minimum: 0,
           maximum: 120,
         },
         gender: {
           title: '性别',
-          type: 'string' as const,
+          type: 'string',
           default: '男',
           enum: ['男', '女', '其他'],
         },
@@ -187,16 +187,16 @@ const MyRendererComponent: React.FC = () => {
       properties: {
         title: {
           title: '标题',
-          type: 'string' as const,
+          type: 'string',
           default: '我的博客',
         },
         content: {
           title: '内容',
-          type: 'string' as const,
+          type: 'string',
           default: '这是一篇博客文章',
         },
       },
-      type: 'html' as const,
+      type: 'html',
       schema: `
         <div class="blog-post">
           <h1>{{title}}</h1>
@@ -230,11 +230,11 @@ const validateSchema = () => {
       properties: {
         name: {
           title: '姓名',
-          type: 'string' as const,
+          type: 'string',
           default: '',
         },
       },
-      type: 'html' as const,
+      type: 'html',
       schema: '<div>{{name}}</div>',
     },
   };
@@ -255,7 +255,7 @@ const validateSchema = () => {
 const validateValue = () => {
   const property = {
     title: '年龄',
-    type: 'number' as const,
+    type: 'number',
     default: 18,
     minimum: 0,
     maximum: 120,
@@ -313,35 +313,55 @@ const CompleteExample: React.FC = () => {
     },
     component: {
       properties: {
-        weather: { title: '天气', type: 'string', default: '晴' },
-        temperature: { title: '温度', type: 'string', default: '25' },
-        humidity: { title: '湿度', type: 'string', default: '65' },
-        windSpeed: { title: '风速', type: 'string', default: '15' },
+        weather: {
+          title: '天气',
+          type: 'string',
+          required: true,
+          enum: ['☀️ 晴', '☁️ 多云', '☁️ 阴', '🌧️ 雨', '❄️ 雪'],
+          default: '☀️ 晴',
+        },
+        temperature: {
+          title: '温度',
+          type: 'number',
+          required: true,
+          minimum: -50,
+          maximum: 50,
+          step: 0.1,
+          default: 25,
+        },
+        humidity: {
+          title: '湿度',
+          type: 'number',
+          required: true,
+          minimum: 0,
+          maximum: 100,
+          step: 1,
+          default: 65,
+        },
+        windSpeed: {
+          title: '风速',
+          type: 'number',
+          required: true,
+          minimum: 0,
+          maximum: 200,
+          step: 0.1,
+          default: 15,
+        },
+        pa: {
+          title: '气压',
+          type: 'number',
+          required: true,
+          minimum: 0,
+          maximum: 10,
+          step: 0.1,
+          default: 1,
+        },
       },
       type: 'html',
       schema:
-        '<div style="\n    min-height: 100vh;\n    display: grid;\n    place-items: center;\n    background: linear-gradient(160deg, #2c3e50, #3498db);\n">\n    <div style="\n        background: rgba(255, 255, 255, 0.15);\n        backdrop-filter: blur(10px);\n        border-radius: 20px;\n        padding: 2rem;\n        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);\n        color: white;\n        width: 280px;\n        position: relative;\n        overflow: hidden;\n    ">\n        <!-- 天气图标 -->\n        <div style="\n            font-size: 4rem;\n            text-align: center;\n            margin-bottom: 1rem;\n            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);\n            animation: float 3s ease-in-out infinite;\n        ">⛅</div>\n\n        <!-- 温度显示 -->\n        <div style="\n            font-size: 3rem;\n            font-weight: bold;\n            text-align: center;\n            margin-bottom: 1.5rem;\n            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);\n        ">{{温度}}°C</div>\n\n        <!-- 数据网格 -->\n        <div style="\n            display: grid;\n            grid-template-columns: repeat(2, 1fr);\n            gap: 1rem;\n        ">\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">💧</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">湿度</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{湿度}}%</div>\n            </div>\n\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">🌪️</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">风速</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{风速}}m/s</div>\n            </div>\n\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">🧭</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">风向</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{风向}}</div>\n            </div>\n\n            <div style="\n                background: rgba(255, 255, 255, 0.1);\n                padding: 1rem;\n                border-radius: 12px;\n                text-align: center;\n            ">\n                <div style="font-size: 1.5rem">📉</div>\n                <div style="font-size: 0.9rem; opacity: 0.8">气压</div>\n                <div style="font-size: 1.2rem; font-weight: bold">{{气压}}hPa</div>\n            </div>\n        </div>\n\n        <!-- 装饰元素 -->\n        <div style="\n            position: absolute;\n            width: 150px;\n            height: 150px;\n            background: rgba(255,255,255,0.05);\n            border-radius: 50%;\n            top: -50px;\n            right: -50px;\n        "></div>\n        \n        <style>\n            @keyframes float {\n                0%, 100% { transform: translateY(0); }\n                50% { transform: translateY(-10px); }\n            }\n        </style>\n    </div>\n</div>',
+        '<div style= "min-height: 200px;display: grid;max-width: 400px;place-items: center;background: linear-gradient(160deg, #2c3e50, #3498db); "><div style= " background: linear-gradient(160deg, #2c3e50, #3498db); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); color: white; width: 100%; position: relative; overflow: hidden; "><!--天气图标--><div style= "  font-size: 4rem;  text-align: center;  margin-bottom: 1rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  animation: float 3s ease-in-out infinite;  ">{{weather}}</div><!--温度显示--><div style= "  font-size: 3rem;  font-weight: bold;  text-align: center;  margin-bottom: 1.5rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  ">{{temperature}}°C</div><!--数据网格--><div style= "  display: grid;  grid-template-columns: repeat(2, 1fr);  gap: 1rem;  "><div style= " background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">💧</div><div style= "font-size: 0.9rem; opacity: 0.8 ">湿度</div><div style= "font-size: 1.2rem; font-weight: bold ">{{humidity}}%</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🌪️</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风速</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}m/s</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🧭</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风向</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">📉</div><div style= "font-size: 0.9rem; opacity: 0.8 ">气压</div><div style= "font-size: 1.2rem; font-weight: bold ">{{pa}}hPa</div></div></div><!--装饰元素--><div style= "  position: absolute;  width: 150px;  height: 150px;  background: rgba(255,255,255,0.05);  border-radius: 50%;  top: -50px;  right: -50px;  "></div><style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style></div></div>',
     },
-    theme: {
-      colorPalette: {
-        primary: '#1890ff',
-        secondary: '#722ed1',
-        success: '#52c41a',
-        warning: '#faad14',
-        error: '#f5222d',
-        text: {
-          primary: 'rgba(0, 0, 0, 0.85)',
-          secondary: 'rgba(0, 0, 0, 0.45)',
-        },
-      },
-      spacing: { base: 8, multiplier: 2 },
-      typography: {
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto",
-        fontSizes: [12, 14, 16, 20, 24],
-        lineHeights: { normal: 1.5, heading: 1.2 },
-      },
-      breakpoints: { xs: 320, sm: 576, md: 768, lg: 992, xl: 1200 },
-    },
+    theme: { spacing: { base: 0, multiplier: 0, width: 400 } },
     previewSettings: {
       viewport: {
         defaultDevice: 'desktop',
@@ -376,8 +396,10 @@ const CompleteExample: React.FC = () => {
         <SchemaForm schema={schema} onValuesChange={handleValuesChange} />
       </div>
       <div style={{ flex: 1 }}>
-        <h2>预览效果</h2>
-        <SchemaRenderer schema={schema} values={formValues} />
+        <div>
+          <h2>预览效果</h2>
+          <SchemaRenderer schema={schema} values={formValues} />
+        </div>
       </div>
     </div>
   );

@@ -100,7 +100,7 @@ const sampleSchema = {
             text-align: center;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        ">{{温度}}°C</div>
+        ">{{temperature}}°C</div>
 
         <!-- 数据网格 -->
         <div style="
@@ -116,7 +116,7 @@ const sampleSchema = {
             ">
                 <div style="font-size: 1.5rem">💧</div>
                 <div style="font-size: 0.9rem; opacity: 0.8">湿度</div>
-                <div style="font-size: 1.2rem; font-weight: bold">{{湿度}}%</div>
+                <div style="font-size: 1.2rem; font-weight: bold">{{humidity}}%</div>
             </div>
 
             <div style="
@@ -127,7 +127,7 @@ const sampleSchema = {
             ">
                 <div style="font-size: 1.5rem">🌪️</div>
                 <div style="font-size: 0.9rem; opacity: 0.8">风速</div>
-                <div style="font-size: 1.2rem; font-weight: bold">{{风速}}m/s</div>
+                <div style="font-size: 1.2rem; font-weight: bold">{{windSpeed}}m/s</div>
             </div>
 
             <div style="
@@ -138,7 +138,7 @@ const sampleSchema = {
             ">
                 <div style="font-size: 1.5rem">🧭</div>
                 <div style="font-size: 0.9rem; opacity: 0.8">风向</div>
-                <div style="font-size: 1.2rem; font-weight: bold">{{风向}}</div>
+                <div style="font-size: 1.2rem; font-weight: bold">{{windSpeed}}</div>
             </div>
 
             <div style="
@@ -149,7 +149,7 @@ const sampleSchema = {
             ">
                 <div style="font-size: 1.5rem">📉</div>
                 <div style="font-size: 0.9rem; opacity: 0.8">气压</div>
-                <div style="font-size: 1.2rem; font-weight: bold">{{气压}}hPa</div>
+                <div style="font-size: 1.2rem; font-weight: bold">{{pa}}hPa</div>
             </div>
         </div>
 

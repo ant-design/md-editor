@@ -143,68 +143,7 @@
       "properties": {
         "properties": {
           "type": "object",
-          "properties": {
-            "weather": {
-              "type": "object",
-              "required": ["title", "type", "default"],
-              "properties": {
-                "title": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "default": {
-                  "type": "string"
-                }
-              }
-            },
-            "temperature": {
-              "type": "object",
-              "required": ["title", "type", "default"],
-              "properties": {
-                "title": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "default": {
-                  "type": "number"
-                }
-              }
-            },
-            "humidity": {
-              "type": "object",
-              "required": ["title", "type", "default"],
-              "properties": {
-                "title": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "default": {
-                  "type": "number"
-                }
-              }
-            },
-            "windSpeed": {
-              "type": "object",
-              "required": ["title", "type", "default"],
-              "properties": {
-                "title": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "default": {
-                  "type": "number"
-                }
-              }
-            }
-          }
+          "properties": {}
         },
         "type": {
           "type": "string",
@@ -217,7 +156,6 @@
     },
     "theme": {
       "type": "object",
-      "required": ["colorPalette", "spacing", "typography", "breakpoints"],
       "properties": {
         "colorPalette": {
           "type": "object",
