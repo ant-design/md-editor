@@ -178,7 +178,6 @@ const handleLinkAndMediaOperation = (
   }
 
   if (operation.type === 'remove_node') {
-    const { node } = operation;
     const parentNode = Node.get(editor, Path.parent(operation.path));
     if ('link-card' === parentNode.type) {
       Transforms.removeNodes(editor, {
