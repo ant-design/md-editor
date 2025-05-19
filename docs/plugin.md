@@ -1,4 +1,4 @@
-# Markdown 编辑器插件文档
+# 插件
 
 ## 概述
 
@@ -10,15 +10,15 @@ Markdown 编辑器插件系统提供了灵活的方式来扩展编辑器的功�
 
 ### 自定义节点渲染
 
-```typescript
+```typescript | pure
 elements?: Record<string, React.ComponentType<ElementProps<any>>>
 ```
 
 此属性允许你为特定节点类型定义自定义的 React 组件。通过这个属性，你可以自定义 Markdown 元素在编辑器中的渲染方式。
 
 示例：
-```typescript
-const 自定义引用块插件: MarkdownEditorPlugin = {
+```typescript | pure
+const customBlockquotePlugin: MarkdownEditorPlugin = {
   elements: {
     blockquote: ({ attributes, children }) => (
       <blockquote {...attributes} className="custom-quote">
@@ -35,7 +35,7 @@ const 自定义引用块插件: MarkdownEditorPlugin = {
 
 将 Markdown AST 节点转换为 Slate 元素。这个功能允许你自定义如何将 Markdown 语法解析为编辑器中的元素。
 
-```typescript
+```typescript | pure
 parseMarkdown?: {
   match: (node: Node) => boolean;  // 匹配 Markdown 语法
   convert: (node: Node) => Elements | NodeEntry<Text>;  // 转换为 Slate 元素
@@ -43,8 +43,8 @@ parseMarkdown?: {
 ```
 
 示例：
-```typescript
-const 自定义代码块插件: MarkdownEditorPlugin = {
+```typescript | pure
+const customCodeBlockPlugin: MarkdownEditorPlugin = {
   parseMarkdown: [{
     match: (node) => node.type === 'code',
     convert: (node) => ({
@@ -60,7 +60,7 @@ const 自定义代码块插件: MarkdownEditorPlugin = {
 
 将 Slate 元素转换回 Markdown AST 节点。这个功能用于将编辑器内容导出为 Markdown 格式。
 
-```typescript
+```typescript | pure
 toMarkdown?: {
   match: (node: Elements) => boolean;  // 匹配 Slate 元素类型
   convert: (node: Elements) => Node;  // 转换为 Markdown AST 节点
@@ -68,8 +68,8 @@ toMarkdown?: {
 ```
 
 示例：
-```typescript
-const 自定义代码块插件: MarkdownEditorPlugin = {
+```typescript | pure
+const customCodeBlockPlugin: MarkdownEditorPlugin = {
   toMarkdown: [{
     match: (node) => node.type === 'code-block',
     convert: (node) => ({
@@ -87,13 +87,13 @@ const 自定义代码块插件: MarkdownEditorPlugin = {
 
 自定义编辑器实例行为。通过这个功能，你可以修改或扩展编辑器的核心行为。
 
-```typescript
+```typescript | pure
 withEditor?: (editor: Editor) => Editor
 ```
 
 示例：
-```typescript
-const 自定义空节点插件: MarkdownEditorPlugin = {
+```typescript | pure
+const customVoidNodePlugin: MarkdownEditorPlugin = {
   withEditor: (editor) => {
     const { isVoid } = editor;
     editor.isVoid = (element) => {
@@ -108,13 +108,13 @@ const 自定义空节点插件: MarkdownEditorPlugin = {
 
 定义自定义键盘快捷键，用于触发特定的编辑器操作。
 
-```typescript
+```typescript | pure
 hotkeys?: Record<string, (editor: Editor) => void>
 ```
 
 示例：
-```typescript
-const 自定义快捷键插件: MarkdownEditorPlugin = {
+```typescript | pure
+const customHotkeyPlugin: MarkdownEditorPlugin = {
   hotkeys: {
     'mod+shift+c': (editor) => {
       // 处理自定义快捷键
@@ -128,13 +128,13 @@ const 自定义快捷键插件: MarkdownEditorPlugin = {
 
 使用自定义逻辑处理粘贴事件，可以用于实现特殊的粘贴行为。
 
-```typescript
+```typescript | pure
 onPaste?: (text: string) => boolean
 ```
 
 示例：
-```typescript
-const 自定义粘贴插件: MarkdownEditorPlugin = {
+```typescript | pure
+const customPastePlugin: MarkdownEditorPlugin = {
   onPaste: (text) => {
     if (text.startsWith('custom:')) {
       // 处理自定义粘贴格式
@@ -149,22 +149,20 @@ const 自定义粘贴插件: MarkdownEditorPlugin = {
 
 插件通过 React Context 传递给编辑器。你可以组合多个插件来实现不同的功能：
 
-```typescript
-import { PluginContext } from './plugin';
+```typescript | pure
+import { MarkdownEditor } from './plugin';
 
-function MarkdownEditor({ children }) {
+function MarkdownEditorWithPlugins({ children }) {
   const plugins = [
-    自定义引用块插件,
-    自定义代码块插件,
-    自定义空节点插件,
-    自定义快捷键插件,
-    自定义粘贴插件
+    customBlockquotePlugin,
+    customCodeBlockPlugin,
+    customVoidNodePlugin,
+    customHotkeyPlugin,
+    customPastePlugin
   ];
 
   return (
-    <PluginContext.Provider value={plugins}>
-      {children}
-    </PluginContext.Provider>
+    <MarkdownEditor plugins={plugins} />
   );
 }
 ```
