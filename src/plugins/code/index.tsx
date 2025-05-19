@@ -661,7 +661,6 @@ export function CodeElement(props: ElementProps<CodeNode>) {
         ) : null}
         <Modal
           open={!!state().htmlStr}
-          destroyOnClose
           destroyOnHidden
           title="html执行结果"
           footer={null}

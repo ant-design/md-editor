@@ -1,0 +1,521 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      class="markdown-editor ant-md-editor ant-md-editor-edit ant-md-editor-report"
+      style="width: 100vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%;"
+    >
+      <div
+        style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+      >
+        <div
+          aria-multiline="true"
+          autocapitalize="false"
+          autocorrect="false"
+          class="ant-md-editor-content-focus ant-md-editor-content ant-md-editor-content-report ant-md-editor-content-edit"
+          contenteditable="true"
+          data-slate-editor="true"
+          data-slate-node="value"
+          role="textbox"
+          spellcheck="false"
+          style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 16px;"
+          zindex="-1"
+        >
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  根据提供的上下文数据，微软最近的股票并没有大涨，反而表现不佳。以下是相关信息的总结：
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="relative"
+            data-be="list"
+            data-slate-node="element"
+          >
+            <ol
+              class="ant-md-editor-list ol"
+              start="1"
+            >
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-weight: bold;"
+                    >
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                      <span
+                        data-slate-string="true"
+                      >
+                        股价表现不佳
+                      </span>
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        ：微软的股价自2024年7月触及峰值以来，已累计下跌约17%，并且在2024年11月6日收于2024年1月以来的最低水平
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class=" "
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      1
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        。
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-weight: bold;"
+                    >
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                      <span
+                        data-slate-string="true"
+                      >
+                        财报表现
+                      </span>
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        ：微软的财报显示，其Azure云计算业务的增长不尽如人意，尽管部分原因是公司数据中心数量不足，无法满足市场需求。虽然其人工智能服务有所增长，但将这些产品货币化的进程比许多投资者预期的要慢
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class=" "
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      1
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        。
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-weight: bold;"
+                    >
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                      <span
+                        data-slate-string="true"
+                      >
+                        人工智能投入
+                      </span>
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        ：微软在人工智能领域的投入持续增加，资本支出大幅膨胀。该公司预计本财年将在人工智能数据中心上投入800亿美元，但这些投入尚未显著转化为盈利增长
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class=" "
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      1
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        。
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                      style="font-weight: bold;"
+                    >
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                      <span
+                        data-slate-string="true"
+                      >
+                        竞争压力
+                      </span>
+                      <span
+                        contenteditable="false"
+                        style="font-size: 0px; line-height: 0; display: inline-block;"
+                      >
+                         
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        ：微软在人工智能领域的竞争对手，如DeepSeek，宣称找到了一种更高效的人工智能模型创建方法，这对微软及其合作伙伴OpenAI构成了挑战
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      class=" "
+                      data-be="text"
+                      data-fnc="fnc"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      1
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        。
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  综上所述，微软最近的股票并没有大涨，反而因为财报表现不佳、人工智能投入尚未显著转化为盈利增长以及竞争压力等因素，股价表现疲软。
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="paragraph"
+            data-slate-node="element"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  *** Reference Sources ***
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el"
+            data-be="footnoteDefinition"
+            data-slate-node="element"
+            style="font-size: 12px; margin: 5px 0px; display: flex; gap: 4px;"
+          >
+            1.
+            <span
+              style="display: flex; align-items: center; gap: 2px;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                  style="text-decoration: underline; text-decoration-color: #1677ff; text-underline-offset: 4px; color: rgb(22, 119, 255); cursor: pointer;"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    微软(MSFT)股价陷低谷，AI投入何时兑现增加承诺？ - 美股投资网
+                  </span>
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="ant-md-editor-drag-el empty"
+            data-be="paragraph"
+            data-slate-node="element"
+            data-slate-placeholder="请输入内容..."
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-length="0"
+                  data-slate-zero-width="n"
+                >
+                  ﻿
+                  <br />
+                </span>
+              </span>
+            </span>
+            <span
+              contenteditable="false"
+              style="font-size: 0px; line-height: 0; display: inline-block;"
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-md-editor-focus"
+        style="height: 64px;"
+      />
+    </div>
+  </div>
+</DocumentFragment>

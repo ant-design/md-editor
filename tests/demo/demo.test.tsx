@@ -30,10 +30,12 @@ function demoTest() {
     process.env.NODE_ENV = 'test';
   });
 
-  const files = glob.sync('./src/**/demos/**/*.tsx', {
+  const files = glob.sync('./docs/**/demos/**/*.tsx', {
     ignore: ['./**/*.test.tsx', './**/node_modules/**'],
     nodir: true,
   });
+
+  console.log(files);
 
   files.forEach((file) => {
     describe(`Rendering demo: ${file}`, () => {

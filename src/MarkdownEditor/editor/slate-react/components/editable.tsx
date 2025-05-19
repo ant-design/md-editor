@@ -1036,7 +1036,7 @@ export const Editable = forwardRef(
                 data-slate-editor
                 data-slate-node="value"
                 // explicitly set this
-                contentEditable={!readOnly}
+                contentEditable={!readOnly ? true : undefined}
                 // in some cases, a decoration needs access to the range / selection to decorate a text node,
                 // then you will select the whole text node when you select part the of text
                 // this magic zIndex="-1" will fix it
