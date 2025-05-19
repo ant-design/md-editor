@@ -1,0 +1,34 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="min-height: 100vh; background: rgb(240, 242, 245); display: flex; justify-content: center; align-items: center;"
+    >
+      <div
+        style="color: red;"
+      >
+        Schema 验证失败：
+        <pre>
+          [
+  {
+    "path": "/component/properties/temperature/default",
+    "message": "must be number"
+  },
+  {
+    "path": "/component/properties/humidity/default",
+    "message": "must be number"
+  },
+  {
+    "path": "/component/properties/windSpeed/default",
+    "message": "must be number"
+  }
+]
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
