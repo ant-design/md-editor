@@ -95,25 +95,44 @@ export const ReadonlyTable = observer(
       const rowsToSample = Math.min(5, tableRows.length);
 
       // Calculate widths once
-      return Array.from({ length: columnCount }, (_, colIndex) => {
-        const cellWidths = [];
+      const calculatedWidths = Array.from(
+        { length: columnCount },
+        (_, colIndex) => {
+          const cellWidths = [];
 
-        for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
-          const cell = tableRows[rowIndex]?.children?.[colIndex];
-          if (cell) {
-            const textWidth = stringWidth(Node.string(cell)) * 12;
-            cellWidths.push(textWidth);
+          for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
+            const cell = tableRows[rowIndex]?.children?.[colIndex];
+            if (cell) {
+              const textWidth = stringWidth(Node.string(cell)) * 12;
+              cellWidths.push(textWidth);
+            }
           }
-        }
 
-        return Math.min(
-          Math.max(minColumnWidth, ...cellWidths),
-          maxColumnWidth,
+          return Math.min(
+            Math.max(minColumnWidth, ...cellWidths),
+            maxColumnWidth,
+          );
+        },
+      );
+
+      // If table has fewer than 5 rows and total width exceeds container width, distribute evenly
+      if (tableRows.length < 5) {
+        const totalWidth = calculatedWidths.reduce(
+          (sum, width) => sum + width,
+          0,
         );
-      });
+        if (totalWidth > containerWidth) {
+          const evenWidth = Math.max(
+            minColumnWidth,
+            Math.floor(containerWidth / columnCount),
+          );
+          return Array(columnCount).fill(evenWidth);
+        }
+      }
+
+      return calculatedWidths;
     }, [
       props.element?.otherProps?.colWidths,
-      // Avoid deep comparison by using more primitive values
       props.element?.children?.length,
       props.element?.children?.[0]?.children?.length,
       store?.container,
