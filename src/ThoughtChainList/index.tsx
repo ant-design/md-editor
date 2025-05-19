@@ -161,7 +161,7 @@ export interface ThoughtChainListProps {
   chatItem?: {
     isFinished?: boolean;
     endTime?: number;
-    createAt: number;
+    createAt?: number;
     isAborted?: boolean;
   };
   style?: React.CSSProperties;

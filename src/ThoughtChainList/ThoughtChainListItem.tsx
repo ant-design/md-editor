@@ -22,7 +22,7 @@ export const ThoughtChainListItem: React.FC<{
   chatItem?: {
     isFinished?: boolean;
     endTime?: number;
-    createAt: number;
+    createAt?: number;
   };
   hashId: string;
   prefixCls: string;
