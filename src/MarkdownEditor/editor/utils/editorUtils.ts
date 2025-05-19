@@ -610,13 +610,17 @@ export class EditorUtils {
         // If URL doesn't have a protocol, add the current origin
         if (src.startsWith('/')) {
           // Root-relative URL
-          fullSrc = `${window.location.origin}${src}`;
+          fullSrc = `${window.location.origin || ''}${src}`;
         } else {
           // Document-relative URL
-          fullSrc = `${window.location.origin}/${src}`;
+          fullSrc = `${window.location.origin || ''}/${src}`;
         }
       }
-      const urlParams = new URL(fullSrc).searchParams;
+      let urlParams = new URLSearchParams();
+      try {
+        urlParams = new URL(fullSrc).searchParams;
+      } catch (error) {}
+
       const altText = extraPros?.alt || urlParams.get('alt') || '';
 
       if (

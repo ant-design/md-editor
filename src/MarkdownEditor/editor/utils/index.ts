@@ -92,31 +92,8 @@ export const encodeHtml = (str: string) => {
   });
 };
 
-const MARKDOWN_REGEX = new RegExp(
-  '(^#+\\s.*)|' + // 标题（如 # Heading）
-    '(^[\\*\\-+] .*)|' + // 无序列表（如 * Item）
-    '(^\\d+\\. .*)|' + // 有序列表（如 1. Item）
-    '(\\[.*?\\]\\(.*?\\))|' + // 链接（如 [text](url)）
-    '(!\\[.*?\\]\\(.*?\\))|' + // 图片（如 ![alt](url)）
-    '(^`{3}.*)|' + // 代码块（如 ```js）
-    '(`.*?`)|' + // 行内代码（如 `code`）
-    '(^> .*)|' + // 引用块（如 > Quote）
-    '(\\*\\*.*?\\*\\*|__.*?__)|' + // 粗体（如 **bold** 或 __bold__）
-    '(\\*.*?\\*|_.*?_)|' + // 斜体（如 *italic* 或 _italic_）
-    '(~~.*?~~)|' + // 删除线（如 ~~text~~）
-    '(^===+$|^---+$|^\\*\\*\\*+$)', // 水平线（如 --- 或 ***）
+export { isMarkdown } from './isMarkdown';
 
-  'gm', // 全局匹配 + 多行模式
-);
-
-export function isMarkdown(text: string): boolean {
-  const mdTableRegex =
-    /^\s*\|(.+)\|\s*\n\s*\|(?:\s*:?-+:?\s*\|)+\s*\n(?:\s*\|(.+)\|\s*(?:\n|$))+/;
-  if (mdTableRegex.test(text.trim())) {
-    return true;
-  }
-  return MARKDOWN_REGEX.test(text);
-}
 export function debounce(
   func: { (): void; apply?: any },
   delay: number | undefined,

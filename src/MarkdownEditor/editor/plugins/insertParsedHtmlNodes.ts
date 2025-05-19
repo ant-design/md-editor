@@ -245,30 +245,6 @@ export const insertParsedHtmlNodes = async (
 
   await upLoadFile(fragmentList, editorProps);
 
-  fragmentList = fragmentList
-    .filter((item) => {
-      if (
-        item.type === 'paragraph' &&
-        !Node.string(item).trim() &&
-        !item?.children?.at(0)?.type
-      ) {
-        return false;
-      }
-      return true;
-    })
-    .map((fragment) => {
-      if (fragment.type === 'table') {
-        return EditorUtils.wrapperCardNode(fragment);
-      }
-      if (fragment.type === '"paragraph"' && fragment.children.length === 1) {
-        return {
-          type: 'paragraph',
-          children: fragment.children,
-        };
-      }
-      return fragment;
-    });
-
   debugLog('wordFragmentList', fragmentList);
 
   hideLoading();

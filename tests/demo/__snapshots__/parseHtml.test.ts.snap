@@ -5,15 +5,6 @@ exports[`word parse > docxDeserializer 1`] = `
   {
     "children": [
       {
-        "text": " ",
-      },
-    ],
-    "className": "P",
-    "type": "paragraph",
-  },
-  {
-    "children": [
-      {
         "block": false,
         "children": [
           {
@@ -74,14 +65,6 @@ exports[`word parse > docxDeserializer 1`] = `
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
@@ -113,10 +96,6 @@ exports[`word parse > docxDeserializer 1`] = `
         "text": " (https://www.starwoodcapital.com/), is the largest commercial mortgage real estate investment trust in the United States.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -179,10 +158,6 @@ exports[`word parse > docxDeserializer 1`] = `
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "Amid the depths of the Great Recession, Starwood Capital recognized that traditional commercial lenders were withdrawing from the marketplace and a significant need had emerged for alternative commercial mortgage financings. In response, the Firm established Starwood Property Trust and in August 2009 took the company public (NYSE: STWD)—creating the largest blind pool company ever traded on the New York Stock Exchange. The business has since grown dramatically, and Starwood Property Trust today is the largest ",
@@ -195,10 +170,6 @@ exports[`word parse > docxDeserializer 1`] = `
         "text": " in the United States.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -242,19 +213,11 @@ exports[`word parse > docxDeserializer 1`] = `
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "➔Starwood Property Trust’s multi-cylinder investment platform allows it to dynamically seek out investment opportunities across a much broader universe.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -266,19 +229,11 @@ exports[`word parse > docxDeserializer 1`] = `
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "➔The company’s core business focuses on originating, acquiring, financing and managing commercial mortgage loans and other commercial real estate debt investments.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -290,19 +245,11 @@ exports[`word parse > docxDeserializer 1`] = `
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "➔The ability to leverage the platform of Starwood Capital Group, a leading global private investment firm with 32 years of experience and broad operating expertise across virtually every real estate asset class.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -340,20 +287,12 @@ exports[`word parse > docxDeserializer 1`] = `
 ",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
         "text": "公司历史",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -493,10 +432,6 @@ exports[`word parse > docxDeserializer 1`] = `
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "Starwood Property Trust commences its strategy of investment in non-agency residential mortgages
@@ -531,10 +466,6 @@ Debt Business platform and $2.5 billion portfolio. Commences strategy of
 investing in energy infrastructure loans.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -584,20 +515,12 @@ investing in energy infrastructure loans.",
 ",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
         "text": "生意模式 ",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -625,10 +548,6 @@ special servicing operations and a commercial mortgage conduit platform.",
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
@@ -645,10 +564,6 @@ special servicing operations and a commercial mortgage conduit platform.",
         "text": ", a third-party entity or specialized department within a financial institution, tasked with resolving distressed loans to minimize losses for the lender or investors.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -697,20 +612,8 @@ management.",
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "text": "
 ",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
   },
   {
     "children": [
@@ -723,10 +626,6 @@ management.",
         "text": " EDGE",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -960,10 +859,6 @@ STWD has",
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "➔",
@@ -980,10 +875,6 @@ different types of assets, which can reduce single-sector risk but adds
 operational complexity.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -1014,10 +905,6 @@ STWD: Driven by the",
         "text": ", loan performance, and demand for financing. Less impacted by short-term interest rate changes but affected by broader economic conditions (e.g., credit availability and real estate demand).",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -1067,20 +954,12 @@ STWD: Driven by the",
 ",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
         "text": "公司管理结构",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -1112,10 +991,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
         "text": " and served as its Chairman and CEO from 1995 to 2005. As of May 2023, his net worth was estimated at $4.6 billion.",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -1182,10 +1057,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "➔President: Jeffery F. DiModica, CFA",
@@ -1206,20 +1077,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
 ",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
         "text": "公司财务及估值",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -1267,10 +1130,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "text": "
 ",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
   },
   {
     "children": [
@@ -1325,14 +1184,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
   {
     "text": "
 ",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
   },
   {
     "children": [
@@ -1519,10 +1370,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
 ",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "➔Cash Flow:",
@@ -1577,20 +1424,12 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
 ",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "bold": true,
         "text": "公司未来成长性",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
   {
@@ -1644,10 +1483,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
     "type": "paragraph",
   },
   {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
     "children": [
       {
         "text": "2024.09:",
@@ -1695,18 +1530,6 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
         "type": "card",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
-    "type": "paragraph",
-  },
-  {
-    "children": [],
     "type": "paragraph",
   },
 ]
