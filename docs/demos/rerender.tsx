@@ -5,7 +5,7 @@ import {
   useAutoScroll,
 } from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
-import { parserMarkdownToSlateNode } from '../editor/parser/parserMarkdownToSlateNode';
+import { parserMarkdownToSlateNode  } from '@ant-design/md-editor';
 const defaultValue = `## 创始人
 
 Umi 是一个可扩展的企业级前端应用框架，中文发音为「乌米」，由蚂蚁金服开发并广泛应用于复杂前端项目

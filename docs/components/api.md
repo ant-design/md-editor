@@ -1,3 +1,8 @@
+---
+nav:
+  order: 1
+---
+
 # Markdown Editor
 
 Markdown Editor 是一个功能强大的 Markdown 编辑器组件，支持丰富的编辑功能、工具栏、代码高亮、评论等多种功能。

@@ -3,19 +3,7 @@
   "title": "Low Code Component Schema",
   "description": "Schema definition for low code component configuration",
   "type": "object",
-  "required": [
-    "version",
-    "name",
-    "description",
-    "author",
-    "createTime",
-    "updateTime",
-    "pageConfig",
-    "dataSources",
-    "component",
-    "theme",
-    "previewSettings"
-  ],
+  "required": ["version", "name", "description", "component"],
   "properties": {
     "version": {
       "type": "string",

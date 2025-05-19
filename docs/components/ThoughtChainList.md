@@ -1,3 +1,8 @@
+---
+nav:
+  order: 1
+---
+
 # ThoughtChainList
 
 一个用于可视化 AI 思考过程和推理链的 React 组件，具有可折叠、交互式格式。

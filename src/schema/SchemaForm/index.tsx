@@ -5,7 +5,10 @@ import { LowCodeSchema, SchemaProperty } from '../../schema/types';
 
 interface SchemaFormProps {
   schema: LowCodeSchema;
-  onValuesChange?: (values: Record<string, any>) => void;
+  onValuesChange?: (
+    _: Record<string, any>,
+    values: Record<string, any>,
+  ) => void;
   initialValues?: Record<string, any>;
 }
 
@@ -111,7 +114,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
         )
       }
       onValuesChange={(_, allValues) => {
-        onValuesChange?.(allValues);
+        onValuesChange?.(_, allValues);
       }}
       style={{
         maxWidth: 400,

@@ -1,3 +1,9 @@
+---
+nav:
+  title: Demo
+  order: 4
+---
+
 # Demo
 
 ## 基础功能

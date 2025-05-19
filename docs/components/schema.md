@@ -1,4 +1,10 @@
-# Schema 使用指南
+---
+nav:
+  title: 组件
+  order: 1
+---
+
+# Schema
 
 本文档介绍如何使用 Schema 系统来创建和配置组件。
 
@@ -235,7 +241,7 @@ const validateSchema = () => {
 
   try {
     const validationResult = validator.validate(schema);
-    if (validationResult.valid) {
+    if (validationResult?.valid) {
       console.log('Schema 验证通过');
     } else {
       console.error('Schema 验证失败：', validationResult.errors);
@@ -270,15 +276,20 @@ const validateValue = () => {
 
 下面是一个完整的使用示例，展示了如何组合使用这些组件：
 
-```tsx | pure
+```tsx
 import React, { useState } from 'react';
-import { SchemaForm，SchemaRenderer，validator } from '@ant-design/md-editor';
-
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
 
 const CompleteExample: React.FC = () => {
   const [formValues, setFormValues] = useState({});
 
   const schema = {
+    version: '1.0.0',
+    name: 'Weather Card Component',
+    description: 'A beautiful weather display card component',
+    author: 'Weather Team',
+    createTime: '2024-03-20T10:00:00Z',
+    updateTime: '2024-03-20T10:00:00Z',
     component: {
       properties: {
         title: {
@@ -312,11 +323,11 @@ const CompleteExample: React.FC = () => {
       `,
     },
   };
-
-  const handleValuesChange = (values: Record<string, any>) => {
+  const handleValuesChange = (_, values: Record<string, any>) => {
+    console.log(values);
     // 验证数据
     const validationResult = validator.validate(schema);
-    if (validationResult.valid) {
+    if (validationResult?.valid) {
       setFormValues(values);
     } else {
       console.error('Schema 验证失败：', validationResult.errors);
@@ -331,18 +342,7 @@ const CompleteExample: React.FC = () => {
       </div>
       <div style={{ flex: 1 }}>
         <h2>预览效果</h2>
-        <SchemaRenderer
-          schema={{
-            ...schema,
-            component: {
-              ...schema.component,
-              properties: {
-                ...schema.component.properties,
-                ...formValues,
-              },
-            },
-          }}
-        />
+        <SchemaRenderer schema={schema} values={formValues} />
       </div>
     </div>
   );

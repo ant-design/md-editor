@@ -1,3 +1,4 @@
+import { merge } from 'lodash';
 import React from 'react';
 import { LowCodeSchema } from '../../schema/types';
 import { validator } from '../../schema/validator';
@@ -7,12 +8,16 @@ export * from './templateEngine';
 
 export interface SchemaRendererProps {
   schema: LowCodeSchema;
+  values: Record<string, any>;
 }
 
-export const SchemaRenderer: React.FC<SchemaRendererProps> = ({ schema }) => {
+export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
+  schema,
+  values,
+}) => {
   // 验证 schema
   const validationResult = validator.validate(schema);
-  if (!validationResult.valid) {
+  if (!validationResult?.valid) {
     console.error('Schema validation failed:', validationResult.errors);
     return (
       <div style={{ color: 'red' }}>
@@ -27,12 +32,15 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({ schema }) => {
   const templateHtml = schema.component.schema;
 
   // 准备模板数据
-  const templateData = Object.entries(properties).reduce(
-    (data, [key, value]) => {
-      data[key] = value.default;
-      return data;
-    },
-    {} as Record<string, string | number | boolean>,
+  const templateData = merge(
+    Object.entries(properties).reduce(
+      (data, [key, value]) => {
+        data[key] = value.default;
+        return data;
+      },
+      {} as Record<string, string | number | boolean>,
+    ),
+    values,
   );
 
   // 使用模板引擎渲染
@@ -40,14 +48,14 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({ schema }) => {
 
   // 应用主题样式
   const containerStyle = {
-    padding: `${schema.theme.spacing.base}px`,
-    background: schema.theme.colorPalette.primary,
-    color: '#fff',
+    padding: `${schema.theme?.spacing?.base || 16}px`,
+    background: schema.theme?.colorPalette?.primary,
+    color: undefined,
     borderRadius: '16px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-    fontFamily: schema.theme.typography.fontFamily,
-    fontSize: `${schema.theme.typography.fontSizes[2]}px`, // 使用中等大小的字体
-    lineHeight: schema.theme.typography.lineHeights.normal,
+    fontFamily: schema.theme?.typography?.fontFamily,
+    fontSize: `${schema.theme?.typography?.fontSizes?.[2] || '14'}px`, // 使用中等大小的字体
+    lineHeight: schema.theme?.typography?.lineHeights?.normal || 1.6,
   };
 
   return (

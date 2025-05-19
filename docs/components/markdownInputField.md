@@ -1,3 +1,8 @@
+---
+nav:
+  order: 1
+---
+
 # MarkdownInputField
 
 `MarkdownInputField` 是一个带发送功能的 Markdown 输入字段组件，允许用户编辑 Markdown 内容并通过按钮或快捷键发送。
