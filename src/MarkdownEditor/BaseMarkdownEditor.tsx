@@ -466,12 +466,17 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   const [openInsertCompletion, setOpenInsertCompletion] = useState(false);
   const [openLinkPanel, setOpenLinkPanel] = useState(false);
   const [refreshFloatBar, setRefreshFloatBar] = useState(false);
+
+  const insertCompletionText$ = useMemo(() => new Subject<string>(), []);
+  const openInsertLink$ = useMemo(() => new Subject<Selection>(), []);
   return wrapSSR(
     <I18nProvide>
       <PluginContext.Provider value={props.plugins || []}>
         <EditorStoreContext.Provider
           value={{
             keyTask$,
+            insertCompletionText$,
+            openInsertLink$,
             openInsertCompletion,
             openLinkPanel,
             setOpenLinkPanel,

@@ -311,6 +311,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       openInsertCompletion,
       setOpenInsertCompletion,
       keyTask$,
+      insertCompletionText$,
     } = useEditorStore();
     const dom = useRef<HTMLDivElement>(null);
     const ctx = useRef<{
@@ -563,7 +564,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       }
     }, []);
 
-    useSubject(store.insertCompletionText$, (text) => {
+    useSubject(insertCompletionText$, (text) => {
       let tempText = text || '';
 
       let filterOptions: InsertOptions[] = [];

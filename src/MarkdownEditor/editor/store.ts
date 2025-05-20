@@ -35,6 +35,8 @@ export const EditorStoreContext = createContext<{
     key: Methods<KeyboardTask>;
     args?: any[];
   }>;
+  insertCompletionText$: Subject<string>;
+  openInsertLink$: Subject<Selection>;
   refreshFloatBar?: boolean;
   setRefreshFloatBar?: (refresh: boolean) => void;
   openLinkPanel?: boolean;
@@ -93,9 +95,7 @@ export class EditorStore {
     'attach',
   ]);
   draggedElement: null | HTMLElement = null;
-  insertCompletionText$ = new Subject<string>();
   refreshFloatBar = false;
-  openInsertLink$ = new Subject<Selection>();
   domRect: DOMRect | null = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   container: null | HTMLDivElement = null;

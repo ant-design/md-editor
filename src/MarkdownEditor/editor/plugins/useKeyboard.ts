@@ -30,7 +30,11 @@ export const useKeyboard = (
   props: MarkdownEditorProps,
 ) => {
   return useMemo(() => {
-    const { openInsertCompletion, setOpenInsertCompletion } = useEditorStore();
+    const {
+      openInsertCompletion,
+      insertCompletionText$,
+      setOpenInsertCompletion,
+    } = useEditorStore();
     const tab = new TabKey(markdownEditorRef.current);
     const backspace = new BackspaceKey(markdownEditorRef.current);
     const enter = new EnterKey(store, backspace);
@@ -136,7 +140,7 @@ export const useKeyboard = (
               ) {
                 setOpenInsertCompletion?.(true);
                 setTimeout(() => {
-                  store.insertCompletionText$.next(insertMatch[1]);
+                  insertCompletionText$.next(insertMatch[1]);
                 });
               }
             }

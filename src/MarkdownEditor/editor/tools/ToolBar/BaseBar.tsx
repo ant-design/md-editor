@@ -147,6 +147,7 @@ export const BaseToolBar = observer(
       markdownEditorRef,
       keyTask$,
       editorProps,
+      openInsertLink$,
       refreshFloatBar,
     } = useEditorStore();
 
@@ -160,7 +161,7 @@ export const BaseToolBar = observer(
       store.domRect = getSelRect();
       if (!sel) return;
       el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
-      store.openInsertLink$.next(sel);
+      openInsertLink$.next(sel);
       if (typeof window === 'undefined') return;
       if (typeof window.matchMedia === 'undefined') return;
       setOpenLinkPanel?.(true);

@@ -71,7 +71,8 @@ type DocItem = IEditor & { path: string; parentPath?: string };
  * @property {Function} focus - 聚焦输入框。
  */
 export const InsertLink = observer(() => {
-  const { store, setOpenLinkPanel, markdownEditorRef } = useEditorStore();
+  const { store, openInsertLink$, setOpenLinkPanel, markdownEditorRef } =
+    useEditorStore();
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
 
@@ -104,7 +105,7 @@ export const InsertLink = observer(() => {
     }
   }, []);
 
-  useSubject(store.openInsertLink$, (sel) => {
+  useSubject(openInsertLink$, (sel) => {
     if (store.domRect) {
       selRef.current = sel;
       store.container!.parentElement?.addEventListener('wheel', prevent, {
