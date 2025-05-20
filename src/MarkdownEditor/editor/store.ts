@@ -9,7 +9,6 @@ import {
   Editor,
   Element,
   Node,
-  NodeEntry,
   Path,
   Range,
   Selection,
@@ -88,8 +87,6 @@ export class EditorStore {
     'media',
     'attach',
   ]);
-  SEL_CELLS: WeakMap<Editor, NodeEntry[]> = new WeakMap();
-  CACHED_SEL_CELLS: WeakMap<Editor, NodeEntry[]> = new WeakMap();
   draggedElement: null | HTMLElement = null;
   openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();
@@ -153,8 +150,6 @@ export class EditorStore {
     this._editor = _editor;
     makeAutoObservable(this, {
       _editor: false,
-      CACHED_SEL_CELLS: false,
-      SEL_CELLS: false,
       footnoteDefinitionMap: false,
       container: false,
       editor: false,
@@ -165,30 +160,6 @@ export class EditorStore {
       openLinkPanel: false,
       initializing: false,
     });
-  }
-
-  /**
-   * Focuses the editor and moves the cursor to the end of the document.
-   */
-  editorFocus() {
-    const editor = this._editor.current;
-    ReactEditor.focus(editor);
-    Transforms.move(editor, { distance: 1, unit: 'offset' });
-    Transforms.select(this._editor.current, {
-      anchor: Editor.end(this._editor.current, []),
-      focus: Editor.end(this._editor.current, []),
-    });
-  }
-
-  /**
-   * 触发表格的宽度调整事件。
-   */
-  resizeTable() {
-    document.dispatchEvent(
-      new CustomEvent('md-resize', {
-        detail: {},
-      }),
-    );
   }
 
   /**

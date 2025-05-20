@@ -9,6 +9,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { Editor, Transforms } from 'slate';
 import { useRefFunction } from '../hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
@@ -480,7 +481,15 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             markdownEditorRef.current?.store?.editor &&
             !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
           ) {
-            markdownEditorRef?.current?.store?.editorFocus();
+            const editor = markdownEditorRef.current?.markdownEditorRef.current;
+            if (editor) {
+              ReactEditor.focus(editor);
+              Transforms.move(editor, { distance: 1, unit: 'offset' });
+              Transforms.select(editor, {
+                anchor: Editor.end(editor, []),
+                focus: Editor.end(editor, []),
+              });
+            }
           }
         }}
       >
