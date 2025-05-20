@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useDebounceFn } from '@ant-design/pro-components';
-import { runInAction } from 'mobx';
 import React, { useRef } from 'react';
 import { Subject } from 'rxjs';
 import {
@@ -65,7 +64,6 @@ export function useOnchange(
           });
         });
 
-        runInAction(() => (store.sel = sel));
         if (!node) return;
         setTimeout(() => {
           selChange$.next({

@@ -6,7 +6,6 @@ import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
   BaseEditor,
-  BaseSelection,
   Editor,
   Element,
   Node,
@@ -77,7 +76,6 @@ interface UpdateOperation {
 export class EditorStore {
   manual = false;
   initializing = false;
-  sel: BaseSelection | undefined;
   highlightCache = new Map<object, Range[]>();
   focus = false;
   private ableToEnter = new Set([
@@ -155,7 +153,6 @@ export class EditorStore {
     this._editor = _editor;
     makeAutoObservable(this, {
       _editor: false,
-      sel: false,
       CACHED_SEL_CELLS: false,
       SEL_CELLS: false,
       footnoteDefinitionMap: false,

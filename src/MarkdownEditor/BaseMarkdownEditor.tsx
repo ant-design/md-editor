@@ -452,11 +452,6 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     };
   }, [instance, editorMountStatus]);
 
-  // 初始化 readonly
-  useEffect(() => {
-    instance.store.setState((state) => (state.readonly = !!readonly));
-  }, [readonly]);
-
   const context = useContext(ConfigProvider.ConfigContext);
   // ---- css style ----
   const baseClassName = context.getPrefixCls(`md-editor`);
