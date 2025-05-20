@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable no-param-reassign */
 import isEqual from 'lodash-es/isEqual';
-import { makeAutoObservable } from 'mobx';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
@@ -125,15 +124,6 @@ export class EditorStore {
   ) {
     this.dragStart = this.dragStart.bind(this);
     this._editor = _editor;
-    makeAutoObservable(this, {
-      _editor: false,
-      footnoteDefinitionMap: false,
-      editor: false,
-      highlightCache: false,
-      inputComposition: false,
-      draggedElement: false,
-      manual: false,
-    });
   }
 
   /**

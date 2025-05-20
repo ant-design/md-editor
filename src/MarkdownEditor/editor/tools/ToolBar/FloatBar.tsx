@@ -1,6 +1,5 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react';
 import React, { useCallback, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
@@ -16,7 +15,7 @@ const fileMap = new Map<string, IEditor>();
 /**
  * 浮动工具栏,用于设置文本样式
  */
-export const FloatBar = observer((props: { readonly: boolean }) => {
+export const FloatBar = (props: { readonly: boolean }) => {
   const {
     store,
     domRect,
@@ -137,4 +136,4 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
     ),
     document.body,
   );
-});
+};

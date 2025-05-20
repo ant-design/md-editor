@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { DeleteOutlined } from '@ant-design/icons';
 import { Input, InputRef, Modal, Tooltip } from 'antd';
-import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';
 import { IEditor } from '../../BaseMarkdownEditor';
@@ -70,7 +69,7 @@ type DocItem = IEditor & { path: string; parentPath?: string };
  * @typedef {Object} InputRef
  * @property {Function} focus - 聚焦输入框。
  */
-export const InsertLink = observer(() => {
+export const InsertLink = () => {
   const {
     store,
     markdownContainerRef,
@@ -276,4 +275,4 @@ export const InsertLink = observer(() => {
       </div>
     </Modal>
   );
-});
+};

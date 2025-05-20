@@ -5,7 +5,6 @@
 } from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Node } from 'slate';
 import stringWidth from 'string-width';
@@ -18,7 +17,7 @@ import useScrollShadow from './useScrollShadow';
 export * from './TableCell';
 
 /**
- * 表格组件，使用 `observer` 包装以响应状态变化。
+ * 表格组
  *
  * @param {RenderElementProps} props - 渲染元素的属性。
  *
@@ -43,349 +42,343 @@ export * from './TableCell';
  *
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
-export const ReadonlyTable = observer(
-  ({
-    hashId,
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    hashId: string;
-  } & RenderElementProps<TableNode>) => {
-    const { editorProps, markdownContainerRef } = useEditorStore();
-    const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-    const {
-      actions = {
-        download: 'csv',
-        fullScreen: 'modal',
-        copy: 'md',
-      },
-    } = editorProps?.tableConfig || {};
+export const ReadonlyTable = ({
+  hashId,
+  children,
+  ...props
+}: {
+  children: React.ReactNode;
+  hashId: string;
+} & RenderElementProps<TableNode>) => {
+  const { editorProps, markdownContainerRef } = useEditorStore();
+  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const {
+    actions = {
+      download: 'csv',
+      fullScreen: 'modal',
+      copy: 'md',
+    },
+  } = editorProps?.tableConfig || {};
 
-    const baseCls = getPrefixCls('md-editor-content-table');
+  const baseCls = getPrefixCls('md-editor-content-table');
 
-    const tableTargetRef = useRef<HTMLTableElement>(null);
-    const modelTargetRef = useRef<HTMLDivElement>(null);
+  const tableTargetRef = useRef<HTMLTableElement>(null);
+  const modelTargetRef = useRef<HTMLDivElement>(null);
 
-    const [tableRef, scrollState] = useScrollShadow();
+  const [tableRef, scrollState] = useScrollShadow();
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const i18n = useContext(I18nContext);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const i18n = useContext(I18nContext);
 
-    const colWidths = useMemo(() => {
-      // 如果在props中存在，直接使用以避免计算
-      if (props.element?.otherProps?.colWidths) {
-        return props.element?.otherProps?.colWidths;
-      }
+  const colWidths = useMemo(() => {
+    // 如果在props中存在，直接使用以避免计算
+    if (props.element?.otherProps?.colWidths) {
+      return props.element?.otherProps?.colWidths;
+    }
 
-      if (typeof window === 'undefined' || !props.element?.children?.length)
-        return [];
+    if (typeof window === 'undefined' || !props.element?.children?.length)
+      return [];
 
-      const tableRows = props.element.children;
-      if (!tableRows?.[0]?.children?.length) return [];
+    const tableRows = props.element.children;
+    if (!tableRows?.[0]?.children?.length) return [];
 
-      // 只获取一次容器宽度
-      const containerWidth =
-        (markdownContainerRef?.current?.querySelector('.ant-md-editor-content')
-          ?.clientWidth || 400) - 32;
-      const maxColumnWidth = containerWidth / 4;
-      const minColumnWidth = 60;
+    // 只获取一次容器宽度
+    const containerWidth =
+      (markdownContainerRef?.current?.querySelector('.ant-md-editor-content')
+        ?.clientWidth || 400) - 32;
+    const maxColumnWidth = containerWidth / 4;
+    const minColumnWidth = 60;
 
-      const columnCount = tableRows[0].children.length;
-      const rowsToSample = Math.min(5, tableRows.length);
+    const columnCount = tableRows[0].children.length;
+    const rowsToSample = Math.min(5, tableRows.length);
 
-      // 一次性计算宽度
-      const calculatedWidths = Array.from(
-        { length: columnCount },
-        (_, colIndex) => {
-          const cellWidths = [];
+    // 一次性计算宽度
+    const calculatedWidths = Array.from(
+      { length: columnCount },
+      (_, colIndex) => {
+        const cellWidths = [];
 
-          for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
-            const cell = tableRows[rowIndex]?.children?.[colIndex];
-            if (cell) {
-              const textWidth = stringWidth(Node.string(cell)) * 12;
-              cellWidths.push(textWidth);
-            }
+        for (let rowIndex = 0; rowIndex < rowsToSample; rowIndex++) {
+          const cell = tableRows[rowIndex]?.children?.[colIndex];
+          if (cell) {
+            const textWidth = stringWidth(Node.string(cell)) * 12;
+            cellWidths.push(textWidth);
           }
+        }
 
-          return Math.min(
-            Math.max(minColumnWidth, ...cellWidths),
-            maxColumnWidth,
-          );
-        },
-      );
-
-      // 如果表格少于5行且总宽度超过容器宽度，则均匀分配宽度
-      if (tableRows.length < 5) {
-        const totalWidth = calculatedWidths.reduce(
-          (sum, width) => sum + width,
-          0,
+        return Math.min(
+          Math.max(minColumnWidth, ...cellWidths),
+          maxColumnWidth,
         );
-        if (totalWidth > containerWidth) {
-          const evenWidth = Math.max(
-            minColumnWidth,
-            Math.floor(containerWidth / columnCount),
-          );
-          return Array(columnCount).fill(evenWidth);
-        }
+      },
+    );
+
+    // 如果表格少于5行且总宽度超过容器宽度，则均匀分配宽度
+    if (tableRows.length < 5) {
+      const totalWidth = calculatedWidths.reduce(
+        (sum, width) => sum + width,
+        0,
+      );
+      if (totalWidth > containerWidth) {
+        const evenWidth = Math.max(
+          minColumnWidth,
+          Math.floor(containerWidth / columnCount),
+        );
+        return Array(columnCount).fill(evenWidth);
       }
+    }
 
-      return calculatedWidths;
-    }, [
-      props.element?.otherProps?.colWidths,
-      props.element?.children?.length,
-      props.element?.children?.[0]?.children?.length,
-    ]);
+    return calculatedWidths;
+  }, [
+    props.element?.otherProps?.colWidths,
+    props.element?.children?.length,
+    props.element?.children?.[0]?.children?.length,
+  ]);
 
-    useEffect(() => {
-      if (typeof window === 'undefined') return;
-      const resize = () => {
-        let maxWidth = colWidths
-          ? colWidths?.reduce((a: number, b: number) => a + b, 0) + 8
-          : 0;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const resize = () => {
+      let maxWidth = colWidths
+        ? colWidths?.reduce((a: number, b: number) => a + b, 0) + 8
+        : 0;
 
-        const minWidth = markdownContainerRef?.current?.querySelector(
-          '.ant-md-editor-content',
-        )?.clientWidth;
+      const minWidth = markdownContainerRef?.current?.querySelector(
+        '.ant-md-editor-content',
+      )?.clientWidth;
 
-        const dom = tableRef.current as HTMLDivElement;
-        if (dom) {
-          setTimeout(() => {
-            dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px)`;
-          }, 200);
-        }
-      };
-      document.addEventListener('md-resize', resize);
-      window.addEventListener('resize', resize);
-      resize();
-      return () => {
-        document.removeEventListener('md-resize', resize);
-        window.removeEventListener('resize', resize);
-      };
-    }, [colWidths]);
+      const dom = tableRef.current as HTMLDivElement;
+      if (dom) {
+        setTimeout(() => {
+          dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px)`;
+        }, 200);
+      }
+    };
+    document.addEventListener('md-resize', resize);
+    window.addEventListener('resize', resize);
+    resize();
+    return () => {
+      document.removeEventListener('md-resize', resize);
+      window.removeEventListener('resize', resize);
+    };
+  }, [colWidths]);
 
-    useEffect(() => {
-      document.dispatchEvent(
-        new CustomEvent('md-resize', {
-          detail: {},
-        }),
-      );
-    }, []);
-    return useMemo(() => {
-      const dom = (
-        <table
-          ref={tableTargetRef}
-          className={classNames(`${baseCls}-editor-table`, hashId)}
-        >
-          <colgroup>
-            {(colWidths || []).map((colWidth: any, index: any) => {
-              return (
-                <col
-                  key={index}
-                  style={{
-                    width: colWidth,
-                    minWidth: colWidth,
-                    maxWidth: colWidth,
-                  }}
-                />
-              );
-            }) || null}
-          </colgroup>
-          <tbody data-slate-node="element">{children}</tbody>
-        </table>
-      );
-      return (
-        <>
-          <Popover
-            trigger={['click', 'hover']}
-            arrow={false}
-            styles={{
-              body: {
-                padding: 8,
-              },
-            }}
-            align={{
-              offset: [4, 40],
-            }}
-            zIndex={999}
-            placement="topLeft"
-            content={
-              <div
+  useEffect(() => {
+    document.dispatchEvent(
+      new CustomEvent('md-resize', {
+        detail: {},
+      }),
+    );
+  }, []);
+  return useMemo(() => {
+    const dom = (
+      <table
+        ref={tableTargetRef}
+        className={classNames(`${baseCls}-editor-table`, hashId)}
+      >
+        <colgroup>
+          {(colWidths || []).map((colWidth: any, index: any) => {
+            return (
+              <col
+                key={index}
                 style={{
-                  display: 'flex',
-                  gap: 8,
+                  width: colWidth,
+                  minWidth: colWidth,
+                  maxWidth: colWidth,
                 }}
-              >
-                {actions.fullScreen ? (
-                  <ActionIconBox
-                    title={i18n?.locale?.fullScreen || '全屏'}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPreviewOpen(true);
-                    }}
-                  >
-                    <FullscreenOutlined />
-                  </ActionIconBox>
-                ) : null}
-                {actions.copy ? (
-                  <ActionIconBox
-                    title={i18n?.locale?.copy || '复制'}
-                    onClick={() => {
-                      const clipboardItems: ClipboardItems = [];
-                      navigator?.clipboard.write([
-                        new ClipboardItem({
-                          'application/x-slate-md-fragment': new Blob(
-                            [JSON.stringify(props.element)],
-                            { type: 'application/x-slate-md-fragment' },
-                          ),
-                        }),
-                      ]);
-                      if (actions.copy === 'html') {
-                        clipboardItems.push(
-                          new ClipboardItem({
-                            'text/plain': new Blob(
-                              [tableTargetRef.current?.innerHTML || ''],
-                              { type: 'text/plain' },
-                            ),
-                          }),
-                        );
-                      }
-                      if (actions.copy === 'md') {
-                        clipboardItems.push(
-                          new ClipboardItem({
-                            'text/plain': new Blob(
-                              [parserSlateNodeToMarkdown([props.element])],
-                              { type: 'text/plain' },
-                            ),
-                          }),
-                        );
-                      }
-                      if (actions.copy === 'csv') {
-                        console.log(
-                          props.element?.otherProps?.columns
-                            .map((col: Record<string, any>) => col.title)
-                            .join(',') +
-                            '\n' +
-                            props.element?.otherProps?.dataSource
-                              .map((row: Record<string, any>) =>
-                                Object.values(row).join(','),
-                              )
-                              .join('\n'),
-                        );
+              />
+            );
+          }) || null}
+        </colgroup>
+        <tbody data-slate-node="element">{children}</tbody>
+      </table>
+    );
+    return (
+      <>
+        <Popover
+          trigger={['click', 'hover']}
+          arrow={false}
+          styles={{
+            body: {
+              padding: 8,
+            },
+          }}
+          align={{
+            offset: [4, 40],
+          }}
+          zIndex={999}
+          placement="topLeft"
+          content={
+            <div
+              style={{
+                display: 'flex',
+                gap: 8,
+              }}
+            >
+              {actions.fullScreen ? (
+                <ActionIconBox
+                  title={i18n?.locale?.fullScreen || '全屏'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setPreviewOpen(true);
+                  }}
+                >
+                  <FullscreenOutlined />
+                </ActionIconBox>
+              ) : null}
+              {actions.copy ? (
+                <ActionIconBox
+                  title={i18n?.locale?.copy || '复制'}
+                  onClick={() => {
+                    const clipboardItems: ClipboardItems = [];
+                    navigator?.clipboard.write([
+                      new ClipboardItem({
+                        'application/x-slate-md-fragment': new Blob(
+                          [JSON.stringify(props.element)],
+                          { type: 'application/x-slate-md-fragment' },
+                        ),
+                      }),
+                    ]);
+                    if (actions.copy === 'html') {
+                      clipboardItems.push(
                         new ClipboardItem({
                           'text/plain': new Blob(
-                            [
-                              props.element?.otherProps?.columns
-                                .map((col: Record<string, any>) => col.title)
-                                .join(',') +
-                                '\n' +
-                                props.element?.otherProps?.dataSource
-                                  .map((row: Record<string, any>) =>
-                                    Object.values(row).join(','),
-                                  )
-                                  .join('\n'),
-                            ],
+                            [tableTargetRef.current?.innerHTML || ''],
                             { type: 'text/plain' },
                           ),
-                        });
-                      }
-                      try {
-                        navigator?.clipboard.write(clipboardItems);
-                      } catch (error) {}
-                    }}
-                  >
-                    <CopyOutlined />
-                  </ActionIconBox>
-                ) : null}
-
-                {actions.download ? (
-                  <ActionIconBox
-                    title="下载"
-                    onClick={() => {
-                      let csv =
+                        }),
+                      );
+                    }
+                    if (actions.copy === 'md') {
+                      clipboardItems.push(
+                        new ClipboardItem({
+                          'text/plain': new Blob(
+                            [parserSlateNodeToMarkdown([props.element])],
+                            { type: 'text/plain' },
+                          ),
+                        }),
+                      );
+                    }
+                    if (actions.copy === 'csv') {
+                      console.log(
                         props.element?.otherProps?.columns
                           .map((col: Record<string, any>) => col.title)
-                          .join(',') + '\n';
-                      csv += props.element?.otherProps?.dataSource
-                        .map((row: Record<string, any>) =>
-                          Object.values(row).join(','),
-                        )
-                        .join('\n');
-                      const blob = new Blob([csv], {
-                        type: 'text/csv;charset=utf-8;',
+                          .join(',') +
+                          '\n' +
+                          props.element?.otherProps?.dataSource
+                            .map((row: Record<string, any>) =>
+                              Object.values(row).join(','),
+                            )
+                            .join('\n'),
+                      );
+                      new ClipboardItem({
+                        'text/plain': new Blob(
+                          [
+                            props.element?.otherProps?.columns
+                              .map((col: Record<string, any>) => col.title)
+                              .join(',') +
+                              '\n' +
+                              props.element?.otherProps?.dataSource
+                                .map((row: Record<string, any>) =>
+                                  Object.values(row).join(','),
+                                )
+                                .join('\n'),
+                          ],
+                          { type: 'text/plain' },
+                        ),
                       });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = url;
-                      a.download = 'table.csv';
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                  >
-                    <DownloadOutlined />
-                  </ActionIconBox>
-                ) : null}
-              </div>
-            }
-          >
-            <div
-              className={classNames(baseCls, hashId)}
-              ref={tableRef}
-              style={{
-                flex: 1,
-                minWidth: 0,
-                boxShadow: `
+                    }
+                    try {
+                      navigator?.clipboard.write(clipboardItems);
+                    } catch (error) {}
+                  }}
+                >
+                  <CopyOutlined />
+                </ActionIconBox>
+              ) : null}
+
+              {actions.download ? (
+                <ActionIconBox
+                  title="下载"
+                  onClick={() => {
+                    let csv =
+                      props.element?.otherProps?.columns
+                        .map((col: Record<string, any>) => col.title)
+                        .join(',') + '\n';
+                    csv += props.element?.otherProps?.dataSource
+                      .map((row: Record<string, any>) =>
+                        Object.values(row).join(','),
+                      )
+                      .join('\n');
+                    const blob = new Blob([csv], {
+                      type: 'text/csv;charset=utf-8;',
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'table.csv';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  <DownloadOutlined />
+                </ActionIconBox>
+              ) : null}
+            </div>
+          }
+        >
+          <div
+            className={classNames(baseCls, hashId)}
+            ref={tableRef}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              boxShadow: `
                       ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtStart ? 'inset 0 8px 8px -8px rgba(0,0,0,0.1)' : ''}
                       ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtEnd ? 'inset 0 -8px 8px -8px rgba(0,0,0,0.1)' : ''}
                       ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtStart ? 'inset 8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
                       ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtEnd ? 'inset -8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
                     `,
-              }}
-            >
-              {dom}
-            </div>
-          </Popover>
-          <Modal
-            title={editorProps?.tableConfig?.previewTitle || '预览表格'}
-            open={previewOpen}
-            closable
-            footer={null}
-            onClose={() => {
-              setPreviewOpen(false);
-            }}
-            width="80vw"
-            onCancel={() => {
-              setPreviewOpen(false);
             }}
           >
-            <div
-              className={classNames(
-                baseCls,
-                hashId,
-                getPrefixCls('md-editor-content'),
-              )}
-              style={{
-                flex: 1,
-                minWidth: 0,
-                overflow: 'auto',
-                width: 'calc(80vw - 64px)',
-              }}
-              ref={modelTargetRef}
+            {dom}
+          </div>
+        </Popover>
+        <Modal
+          title={editorProps?.tableConfig?.previewTitle || '预览表格'}
+          open={previewOpen}
+          closable
+          footer={null}
+          onClose={() => {
+            setPreviewOpen(false);
+          }}
+          width="80vw"
+          onCancel={() => {
+            setPreviewOpen(false);
+          }}
+        >
+          <div
+            className={classNames(
+              baseCls,
+              hashId,
+              getPrefixCls('md-editor-content'),
+            )}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              overflow: 'auto',
+              width: 'calc(80vw - 64px)',
+            }}
+            ref={modelTargetRef}
+          >
+            <ConfigProvider
+              getPopupContainer={() => modelTargetRef.current || document.body}
+              getTargetContainer={() => modelTargetRef.current || document.body}
             >
-              <ConfigProvider
-                getPopupContainer={() =>
-                  modelTargetRef.current || document.body
-                }
-                getTargetContainer={() =>
-                  modelTargetRef.current || document.body
-                }
-              >
-                {dom}
-              </ConfigProvider>
-            </div>
-          </Modal>
-        </>
-      );
-    }, [children, scrollState, previewOpen]);
-  },
-);
+              {dom}
+            </ConfigProvider>
+          </div>
+        </Modal>
+      </>
+    );
+  }, [children, scrollState, previewOpen]);
+};

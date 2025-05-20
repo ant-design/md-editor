@@ -1,6 +1,5 @@
 import { message } from 'antd';
 import isHotkey from 'is-hotkey';
-import { action } from 'mobx';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
@@ -835,94 +834,88 @@ export const useSystemKeyboard = (
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const keydown = useCallback(
-    action((e: KeyboardEvent) => {
-      if (!store) return;
+  const keydown = useCallback((e: KeyboardEvent) => {
+    if (!store) return;
 
-      if (isHotkey('mod+c', e) || isHotkey('mod+x', e)) {
-        const [node] = Editor.nodes<MediaNode | AttachNode>(store?.editor, {
-          mode: 'lowest',
-          match: (m) =>
-            Element.isElement(m) && (m.type === 'media' || m.type === 'attach'),
+    if (isHotkey('mod+c', e) || isHotkey('mod+x', e)) {
+      const [node] = Editor.nodes<MediaNode | AttachNode>(store?.editor, {
+        mode: 'lowest',
+        match: (m) =>
+          Element.isElement(m) && (m.type === 'media' || m.type === 'attach'),
+      });
+      if (!node) return;
+      let readlUrl = node[0]?.url as string;
+
+      if (node[0].type === 'media') {
+        const url = `media://file?url=${readlUrl}&height=${
+          node[0].height || ''
+        }`;
+        try {
+          navigator.clipboard.writeText(url);
+        } catch (error) {}
+        if (isHotkey('mod+x', e)) {
+          Transforms.delete(store?.editor, { at: node[1] });
+          ReactEditor.focus(store?.editor);
+        }
+      }
+      if (node[0].type === 'attach') {
+        const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
+        try {
+          navigator.clipboard.writeText(url);
+        } catch (error) {}
+
+        if (isHotkey('mod+x', e)) {
+          Transforms.delete(store?.editor, { at: node[1] });
+          ReactEditor.focus(store?.editor);
+        }
+      }
+    }
+
+    if (isHotkey('backspace', e)) {
+      if (!store.focus) return;
+      const [node] = task.curNodes;
+      if (node?.[0].type === 'media') {
+        e.preventDefault();
+        Transforms.removeNodes(task.editor, { at: node[1] });
+        Transforms.insertNodes(task.editor, EditorUtils.p, {
+          at: node[1],
+          select: true,
         });
-        if (!node) return;
-        let readlUrl = node[0]?.url as string;
-
-        if (node[0].type === 'media') {
-          const url = `media://file?url=${readlUrl}&height=${
-            node[0].height || ''
-          }`;
-          try {
-            navigator.clipboard.writeText(url);
-          } catch (error) {}
-          if (isHotkey('mod+x', e)) {
-            Transforms.delete(store?.editor, { at: node[1] });
-            ReactEditor.focus(store?.editor);
-          }
-        }
-        if (node[0].type === 'attach') {
-          const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
-          try {
-            navigator.clipboard.writeText(url);
-          } catch (error) {}
-
-          if (isHotkey('mod+x', e)) {
-            Transforms.delete(store?.editor, { at: node[1] });
-            ReactEditor.focus(store?.editor);
-          }
-        }
+        ReactEditor.focus(task.editor);
       }
-
-      if (isHotkey('backspace', e)) {
-        if (!store.focus) return;
-        const [node] = task.curNodes;
-        if (node?.[0].type === 'media') {
-          e.preventDefault();
-          Transforms.removeNodes(task.editor, { at: node[1] });
-          Transforms.insertNodes(task.editor, EditorUtils.p, {
-            at: node[1],
-            select: true,
-          });
-          ReactEditor.focus(task.editor);
-        }
-      }
-      if (isHotkey('arrowUp', e) || isHotkey('arrowDown', e)) {
-        const [node] = task.curNodes;
-        if (node?.[0].type === 'media') {
-          e.preventDefault();
-          if (isHotkey('arrowUp', e)) {
-            Transforms.select(
+    }
+    if (isHotkey('arrowUp', e) || isHotkey('arrowDown', e)) {
+      const [node] = task.curNodes;
+      if (node?.[0].type === 'media') {
+        e.preventDefault();
+        if (isHotkey('arrowUp', e)) {
+          Transforms.select(
+            task.editor,
+            Editor.end(task.editor, EditorUtils.findPrev(task.editor, node[1])),
+          );
+        } else if (EditorUtils.findNext(task.editor, node[1])) {
+          Transforms.select(
+            task.editor,
+            Editor.start(
               task.editor,
-              Editor.end(
-                task.editor,
-                EditorUtils.findPrev(task.editor, node[1]),
-              ),
-            );
-          } else if (EditorUtils.findNext(task.editor, node[1])) {
-            Transforms.select(
-              task.editor,
-              Editor.start(
-                task.editor,
-                EditorUtils.findNext(task.editor, node[1])!,
-              ),
-            );
-          }
-          ReactEditor.focus(task.editor);
+              EditorUtils.findNext(task.editor, node[1])!,
+            ),
+          );
         }
+        ReactEditor.focus(task.editor);
       }
-      for (let key of keyMap) {
-        if (isHotkey(key[0], e)) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (!key[3] && !store.focus) return;
-          // @ts-ignore
-          task[key[1]](...(key[2] || []));
-          break;
-        }
+    }
+    for (let key of keyMap) {
+      if (isHotkey(key[0], e)) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!key[3] && !store.focus) return;
+        // @ts-ignore
+        task[key[1]](...(key[2] || []));
+        break;
       }
-    }),
-    [],
-  );
+    }
+  }, []);
 
   useEffect(() => {
     window.addEventListener('keydown', keydown);

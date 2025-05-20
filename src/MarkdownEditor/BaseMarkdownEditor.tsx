@@ -1,7 +1,6 @@
 import { Ace } from 'ace-builds';
 import { AnchorProps, ConfigProvider, ImageProps } from 'antd';
 import classNames from 'classnames';
-import { observable } from 'mobx';
 import React, {
   ReactNode,
   useContext,
@@ -430,14 +429,11 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   // 初始化实例
   const instance = useMemo(() => {
-    return observable(
-      {
-        store,
-        markdownContainerRef,
-        markdownEditorRef,
-      } as MarkdownEditorInstance,
-      { range: false },
-    );
+    return {
+      store,
+      markdownContainerRef,
+      markdownEditorRef,
+    } as MarkdownEditorInstance;
   }, []);
 
   // 初始化键盘事件

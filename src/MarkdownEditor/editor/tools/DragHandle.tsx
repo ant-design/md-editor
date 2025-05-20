@@ -1,10 +1,9 @@
 import { HolderOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
-import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
 import { useEditorStore } from '../store';
 
-export const DragHandle = observer((props: { style?: CSSProperties }) => {
+export const DragHandle = (props: { style?: CSSProperties }) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const { store, editorProps, readonly } = useEditorStore();
   if (!store) return null;
@@ -41,4 +40,4 @@ export const DragHandle = observer((props: { style?: CSSProperties }) => {
       </span>
     </Tooltip>
   );
-});
+};
