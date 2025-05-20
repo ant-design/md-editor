@@ -243,8 +243,8 @@ export const SlateMarkdownEditor = observer(
         // 判断点击位置是否在编辑器内容底部区域
         // 当点击位置距离顶部的距离大于最后一个元素的顶部位置时，认为点击在底部区域
         if (
-          store.container &&
-          store.container.scrollTop + e.clientY - 60 > top
+          markdownContainerRef.current &&
+          markdownContainerRef.current.scrollTop + e.clientY - 60 > top
         ) {
           // 尝试将光标设置到编辑器内容末尾
           if (EditorUtils.checkEnd(markdownEditorRef.current)) {
@@ -581,7 +581,7 @@ export const SlateMarkdownEditor = observer(
      * 处理输入法开始事件
      */
     const onCompositionStart = (e: React.CompositionEvent) => {
-      store.container?.classList.add('composition');
+      markdownContainerRef.current?.classList.add('composition');
       store.inputComposition = true;
 
       const focusPath = markdownEditorRef.current.selection?.focus.path || [];
@@ -613,7 +613,7 @@ export const SlateMarkdownEditor = observer(
      */
     const onCompositionEnd = () => {
       store.inputComposition = false;
-      store.container?.classList.remove('composition');
+      markdownContainerRef.current?.classList.remove('composition');
 
       const focusPath = markdownEditorRef.current.selection?.focus.path || [];
       if (focusPath.length > 0) {

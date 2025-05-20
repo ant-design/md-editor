@@ -189,7 +189,7 @@ export const ListItem = ({
   attributes,
 }: ElementProps<ListItemNode>) => {
   const [, update] = useMEditor(element);
-  const { store, editorProps } = useEditorStore();
+  const { store, editorProps, markdownContainerRef } = useEditorStore();
   const isTask = typeof element.checked === 'boolean';
   const context = useContext(ConfigProvider.ConfigContext);
   const listItemRender = editorProps?.comment?.listItemRender;
@@ -233,7 +233,7 @@ export const ListItem = ({
             [`${baseCls}-task`]: isTask,
           })}
           data-be={'list-item'}
-          onDragStart={(e) => store.dragStart(e)}
+          onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
           {...attributes}
         >
           {listItemRender(
@@ -253,7 +253,7 @@ export const ListItem = ({
           [`${baseCls}-task`]: isTask,
         })}
         data-be={'list-item'}
-        onDragStart={(e) => store.dragStart(e)}
+        onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
         {...attributes}
       >
         {checkbox}

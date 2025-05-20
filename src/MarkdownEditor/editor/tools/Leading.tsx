@@ -124,7 +124,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
   schema,
   anchorProps,
 }) => {
-  const { store, markdownEditorRef } = useEditorStore();
+  const { store, markdownEditorRef, markdownContainerRef } = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],
     active: '',
@@ -165,7 +165,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
     if (state().active) {
       setState({ active: '' });
     }
-  }, [store?.container, markdownEditorRef.current.children]);
+  }, [markdownEditorRef.current.children]);
 
   useDebounce(getHeading, 100, [markdownEditorRef.current.children]);
 
@@ -174,7 +174,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
     if (div) {
       const scroll = (e: Event) => {
         const top = (e.target as HTMLElement).scrollTop;
-        const container = store?.container;
+        const container = markdownContainerRef.current;
         if (!container) return;
         const heads = state().headings.slice().reverse();
         for (let h of heads) {

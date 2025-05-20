@@ -18,19 +18,22 @@ function group(array: string | any[], subGroupLength: number) {
 }
 
 export const Description = (props: RenderElementProps) => {
-  const { store } = useEditorStore();
+  const { store, markdownContainerRef } = useEditorStore();
 
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-description');
   const { wrapSSR, hashId } = useStyle(baseCls);
   return React.useMemo(() => {
     const subGroupLength =
-      Math.max(Math.floor((store.container?.clientWidth || 0) / 400), 1) * 2;
+      Math.max(
+        Math.floor((markdownContainerRef.current?.clientWidth || 0) / 400),
+        1,
+      ) * 2;
     return wrapSSR(
       <div
         {...props.attributes}
         data-be={'table'}
-        onDragStart={store.dragStart}
+        onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
         className={classNames(baseCls, 'ant-md-editor-drag-el', hashId)}
       >
         <DragHandle />

@@ -71,8 +71,13 @@ type DocItem = IEditor & { path: string; parentPath?: string };
  * @property {Function} focus - 聚焦输入框。
  */
 export const InsertLink = observer(() => {
-  const { store, openInsertLink$, setOpenLinkPanel, markdownEditorRef } =
-    useEditorStore();
+  const {
+    store,
+    markdownContainerRef,
+    openInsertLink$,
+    setOpenLinkPanel,
+    markdownEditorRef,
+  } = useEditorStore();
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
 
@@ -108,9 +113,13 @@ export const InsertLink = observer(() => {
   useSubject(openInsertLink$, (sel) => {
     if (store.domRect) {
       selRef.current = sel;
-      store.container!.parentElement?.addEventListener('wheel', prevent, {
-        passive: false,
-      });
+      markdownContainerRef.current!.parentElement?.addEventListener(
+        'wheel',
+        prevent,
+        {
+          passive: false,
+        },
+      );
 
       const url = EditorUtils.getUrl(markdownEditorRef.current);
       let path = url;
@@ -139,7 +148,10 @@ export const InsertLink = observer(() => {
   });
 
   const close = useCallback((url?: string) => {
-    store.container!.parentElement?.removeEventListener('wheel', prevent);
+    markdownContainerRef.current!.parentElement?.removeEventListener(
+      'wheel',
+      prevent,
+    );
     setState({ open: false });
     EditorUtils.focus(markdownEditorRef.current);
     Transforms.setNodes(

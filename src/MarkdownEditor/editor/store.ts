@@ -98,33 +98,7 @@ export class EditorStore {
   refreshFloatBar = false;
   domRect: DOMRect | null = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
-  container: null | HTMLDivElement = null;
   inputComposition = false;
-  tableTask$ = new Subject<
-    | 'insertRowBefore'
-    | 'insertRowAfter'
-    | 'insertColBefore'
-    | 'insertColAfter'
-    | 'moveUpOneRow'
-    | 'moveDownOneRow'
-    | 'moveLeftOneCol'
-    | 'moveRightOneCol'
-    | 'removeCol'
-    | 'removeRow'
-    | 'in'
-    | 'insertTableCellBreak'
-  >();
-
-  /**
-   * Gets the markdown editor content DOM element.
-   *
-   * @returns The content DIV element of the markdown editor.
-   */
-  get doc() {
-    return this.container?.querySelector(
-      '.markdown-editor-content',
-    ) as HTMLDivElement;
-  }
 
   /**
    * Sets the manual flag to true temporarily to prevent automatic behavior.
@@ -154,7 +128,6 @@ export class EditorStore {
     makeAutoObservable(this, {
       _editor: false,
       footnoteDefinitionMap: false,
-      container: false,
       editor: false,
       highlightCache: false,
       inputComposition: false,
@@ -282,38 +255,6 @@ export class EditorStore {
   }
 
   /**
-   * 计算指定 HTML 元素相对于文档顶部的偏移量。
-   *
-   * @param node - 要计算偏移量的 HTML 元素。
-   * @returns 元素相对于文档顶部的偏移量（以像素为单位）。
-   */
-  offsetTop(node: HTMLElement) {
-    let top = 0;
-    const doc = this.doc;
-    while (doc?.contains(node.offsetParent) && doc !== node) {
-      top += node.offsetTop;
-      node = node.offsetParent as HTMLElement;
-    }
-    return top;
-  }
-
-  /**
-   * Calculates the horizontal offset of an element relative to the document.
-   *
-   * @param node - The HTML element to calculate the offset for.
-   * @returns The element's offset from the left of the document (in pixels).
-   */
-  offsetLeft(node: HTMLElement) {
-    let left = 0;
-    const doc = this.doc;
-    while (doc.contains(node) && doc !== node) {
-      left += node.offsetLeft;
-      node = node.offsetParent as HTMLElement;
-    }
-    return left;
-  }
-
-  /**
    * Updates the state of the editor store.
    *
    * @param value - A function that modifies the store state, or an object with new values.
@@ -432,7 +373,7 @@ export class EditorStore {
    * 3. 在拖拽过程中，根据鼠标位置动态更新拖拽标记的位置。
    * 4. 在拖拽结束时，移除事件监听器和拖拽标记，并根据拖拽目标位置更新编辑器内容。
    */
-  dragStart(e: any) {
+  dragStart(e: any, container: HTMLDivElement) {
     e.stopPropagation();
     const img = document.createElement('img');
     img.src =
@@ -474,8 +415,8 @@ export class EditorStore {
         continue;
       }
       if (el === this.draggedElement) continue;
-      const top = getOffsetTop(el, this.container!);
-      const left = getOffsetLeft(el, this.container!);
+      const top = getOffsetTop(el, container!);
+      const left = getOffsetLeft(el, container!);
       points.push({
         el: el,
         direction: 'top',
@@ -492,7 +433,7 @@ export class EditorStore {
     let last: MovePoint | null = null;
     const dragover = (e: DragEvent) => {
       e.preventDefault();
-      const top = e.clientY - 40 + this.container!.scrollTop;
+      const top = e.clientY - 40 + container!.scrollTop;
       let distance = 1000000;
       let cur: MovePoint | null = null;
       for (let p of points) {
@@ -503,9 +444,9 @@ export class EditorStore {
         }
       }
       if (cur) {
-        const rect = this.container!.getBoundingClientRect();
-        const scrollTop = this.container!.scrollTop;
-        const scrollLeft = this.container!.scrollLeft;
+        const rect = container!.getBoundingClientRect();
+        const scrollTop = container!.scrollTop;
+        const scrollLeft = container!.scrollLeft;
         last = cur;
         const width =
           last.el.dataset.be === 'list-item'
@@ -518,7 +459,7 @@ export class EditorStore {
           mark.style.height = '2px';
 
           mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
-          this.container?.parentElement!.append(mark);
+          container?.parentElement!.append(mark);
         } else {
           mark.style.width = width;
           mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
@@ -531,7 +472,7 @@ export class EditorStore {
       () => {
         try {
           window.removeEventListener('dragover', dragover);
-          if (mark) this.container?.parentElement!.removeChild(mark);
+          if (mark) container?.parentElement!.removeChild(mark);
           if (last && this.draggedElement) {
             let [dragPath, dragNode] = this.toPath(this.draggedElement);
             let [targetPath] = this.toPath(last.el);

@@ -548,7 +548,6 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               }}
               ref={(dom) => {
                 markdownContainerRef.current = dom;
-                instance.store.setState((state) => (state.container = dom));
                 setMountedStatus(true);
               }}
             >
@@ -572,7 +571,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               )}
               {editorMountStatus &&
               toc !== false &&
-              instance.store?.container ? (
+              markdownContainerRef.current ? (
                 showCommentList?.length ? (
                   <CommentList
                     commentList={showCommentList}

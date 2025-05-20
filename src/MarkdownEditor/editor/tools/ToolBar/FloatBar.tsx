@@ -17,7 +17,8 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer((props: { readonly: boolean }) => {
-  const { store, openLinkPanel, markdownEditorRef } = useEditorStore();
+  const { store, markdownContainerRef, openLinkPanel, markdownEditorRef } =
+    useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,
@@ -33,7 +34,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         let left = store.domRect.x;
         left = left - ((props.readonly ? 65 : 178) - store.domRect.width) / 2;
 
-        const container = store.container!;
+        const container = markdownContainerRef.current!;
         if (left < 4) left = 4;
         const barWidth = props.readonly ? 65 : 232;
 
@@ -104,7 +105,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
-  if (!store.container) return null;
+  if (!markdownContainerRef.current) return null;
 
   return ReactDOM.createPortal(
     wrapSSR(
