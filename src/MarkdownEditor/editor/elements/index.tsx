@@ -152,7 +152,8 @@ export const MLeaf = (
     tagInputProps: MarkdownEditorProps['tagInputProps'];
   },
 ) => {
-  const { markdownEditorRef, readonly, store } = useEditorStore();
+  const { markdownEditorRef, markdownContainerRef, readonly } =
+    useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
   const leaf = props.leaf;
@@ -198,7 +199,7 @@ export const MLeaf = (
               );
             });
 
-            const focusElement = store?.container?.querySelector(
+            const focusElement = markdownContainerRef.current?.querySelector(
               'div[data-slate-node="value"]',
             ) as HTMLDivElement;
 

@@ -52,7 +52,7 @@ export const ReadonlyTable = observer(
     children: React.ReactNode;
     hashId: string;
   } & RenderElementProps<TableNode>) => {
-    const { editorProps, store } = useEditorStore();
+    const { editorProps, markdownContainerRef } = useEditorStore();
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
     const {
       actions = {
@@ -86,7 +86,7 @@ export const ReadonlyTable = observer(
 
       // 只获取一次容器宽度
       const containerWidth =
-        (store?.container?.querySelector('.ant-md-editor-content')
+        (markdownContainerRef?.current?.querySelector('.ant-md-editor-content')
           ?.clientWidth || 400) - 32;
       const maxColumnWidth = containerWidth / 4;
       const minColumnWidth = 60;
@@ -135,7 +135,6 @@ export const ReadonlyTable = observer(
       props.element?.otherProps?.colWidths,
       props.element?.children?.length,
       props.element?.children?.[0]?.children?.length,
-      store?.container,
     ]);
 
     useEffect(() => {
@@ -145,7 +144,7 @@ export const ReadonlyTable = observer(
           ? colWidths?.reduce((a: number, b: number) => a + b, 0) + 8
           : 0;
 
-        const minWidth = store?.container?.querySelector(
+        const minWidth = markdownContainerRef?.current?.querySelector(
           '.ant-md-editor-content',
         )?.clientWidth;
 

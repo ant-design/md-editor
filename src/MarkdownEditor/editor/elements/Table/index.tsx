@@ -146,7 +146,8 @@ export const TablePropsContext = React.createContext<{
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
 export const Table = (props: RenderElementProps<TableNode>) => {
-  const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
+  const { markdownEditorRef, editorProps, markdownContainerRef, readonly } =
+    useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
   const baseCls = getPrefixCls('md-editor-content-table');
@@ -519,8 +520,8 @@ export const Table = (props: RenderElementProps<TableNode>) => {
 
     // 只获取一次容器宽度
     const containerWidth =
-      (store?.container?.querySelector('.ant-md-editor-content')?.clientWidth ||
-        400) - 32;
+      (markdownContainerRef?.current?.querySelector('.ant-md-editor-content')
+        ?.clientWidth || 400) - 32;
     const maxColumnWidth = containerWidth / 4;
     const minColumnWidth = 60;
 
@@ -568,7 +569,6 @@ export const Table = (props: RenderElementProps<TableNode>) => {
     props.element?.otherProps?.colWidths,
     props.element?.children?.length,
     props.element?.children?.[0]?.children?.length,
-    store?.container,
   ]);
 
   /**
@@ -632,7 +632,7 @@ export const Table = (props: RenderElementProps<TableNode>) => {
     const resize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = window.setTimeout(() => {
-        const minWidth = store?.container?.querySelector(
+        const minWidth = markdownContainerRef?.current?.querySelector(
           '.ant-md-editor-content',
         )?.clientWidth;
 
@@ -642,8 +642,9 @@ export const Table = (props: RenderElementProps<TableNode>) => {
 
         if (dom) {
           dom.style.minWidth = `min(${(
-            (store?.container?.querySelector('.ant-md-editor-content')
-              ?.clientWidth || 200) * 0.95
+            (markdownContainerRef?.current?.querySelector(
+              '.ant-md-editor-content',
+            )?.clientWidth || 200) * 0.95
           ).toFixed(0)}px,${minWidth}px)`;
         }
 
