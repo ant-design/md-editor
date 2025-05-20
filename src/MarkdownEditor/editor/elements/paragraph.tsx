@@ -8,8 +8,14 @@ import { DragHandle } from '../tools/DragHandle';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 
 export const Paragraph = (props: ElementProps<ParagraphNode>) => {
-  const { store, markdownEditorRef, typewriter, readonly, editorProps } =
-    useEditorStore();
+  const {
+    store,
+    markdownEditorRef,
+    markdownContainerRef,
+    typewriter,
+    readonly,
+    editorProps,
+  } = useEditorStore();
   const [selected, path] = useSelStatus(props.element);
   const isLatest = useMemo(() => {
     if (markdownEditorRef.current?.children.length === 0) return false;
@@ -37,7 +43,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
             ? editorProps.titlePlaceholderContent || '请输入内容...'
             : undefined
         }
-        onDragStart={store.dragStart}
+        onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
         data-empty={isEmpty}
         style={{
           display: !!str || !!props.children?.at(0).type ? undefined : 'none',

@@ -43,7 +43,8 @@ const genChildren = (children: any, num: number) => {
   ];
 };
 export const ColumnGroup = (props: RenderElementProps) => {
-  const { store, readonly, markdownEditorRef } = useEditorStore();
+  const { store, readonly, markdownContainerRef, markdownEditorRef } =
+    useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const baseCls = context.getPrefixCls('md-editor-column-group');
   const { wrapSSR, hashId } = useStyle(baseCls);
@@ -69,7 +70,9 @@ export const ColumnGroup = (props: RenderElementProps) => {
       <div
         {...props.attributes}
         data-be={'column-group'}
-        onDragStart={store.dragStart}
+        onDragStart={(e) => {
+          store.dragStart(e, markdownContainerRef.current!);
+        }}
         style={{
           ...(props.element.style || {}),
           maxWidth: '100%',

@@ -116,7 +116,8 @@ const groupByCategory = (data: any[], key: any) => {
  * - 支持图表类型的切换和属性的更新。
  */
 export const ChartElement: React.FC<RenderElementProps> = (props) => {
-  const { store, readonly, rootContainer } = useEditorStore();
+  const { store, readonly, markdownContainerRef, rootContainer } =
+    useEditorStore();
   const editor = useSlate();
   const { element: node, attributes, children } = props;
   let chartData = useMemo(() => {
@@ -158,7 +159,7 @@ export const ChartElement: React.FC<RenderElementProps> = (props) => {
           maxWidth: '100%',
         }}
         ref={htmlRef}
-        onDragStart={store.dragStart}
+        onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
       >
         <DragHandle />
         <div

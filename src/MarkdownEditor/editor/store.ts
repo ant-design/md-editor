@@ -38,6 +38,8 @@ export const EditorStoreContext = createContext<{
   insertCompletionText$: Subject<string>;
   openInsertLink$: Subject<Selection>;
   refreshFloatBar?: boolean;
+  domRect: DOMRect | null;
+  setDomRect: (rect: DOMRect | null) => void;
   setRefreshFloatBar?: (refresh: boolean) => void;
   openLinkPanel?: boolean;
   setOpenLinkPanel?: (open: boolean) => void;
@@ -96,7 +98,6 @@ export class EditorStore {
   ]);
   draggedElement: null | HTMLElement = null;
   refreshFloatBar = false;
-  domRect: DOMRect | null = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   inputComposition = false;
 

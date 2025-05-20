@@ -42,25 +42,6 @@ export class KeyboardTask {
   }
 
   /**
-   * 打开浮动工具栏
-   *
-   * 获取当前选区的DOM范围和位置，并更新编辑器状态中的domRect
-   *
-   * @private 私有方法，仅在内部使用
-   */
-  private openFloatBar() {
-    setTimeout(() => {
-      try {
-        const domRange = window.getSelection()?.getRangeAt(0);
-        const rect = domRange?.getBoundingClientRect();
-        if (rect) {
-          this.store.setState((state) => (state.domRect = rect));
-        }
-      } catch (e) {}
-    });
-  }
-
-  /**
    * 全选编辑器内容
    *
    * 如果当前位于表格单元格内，则选中整个表格；
@@ -95,9 +76,6 @@ export class KeyboardTask {
       );
       const text =
         Node.leaf(this.editor, this.editor.selection.anchor.path).text || '';
-      if (text) {
-        this.openFloatBar();
-      }
     }
   }
 
@@ -159,7 +137,6 @@ export class KeyboardTask {
         anchor: { path: sel.anchor.path, offset: start },
         focus: { path: sel.anchor.path, offset: end },
       });
-      if (!Range.isCollapsed(this.editor.selection!)) this.openFloatBar();
     }
   }
 

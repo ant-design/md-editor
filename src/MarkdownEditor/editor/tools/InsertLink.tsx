@@ -76,6 +76,7 @@ export const InsertLink = observer(() => {
     markdownContainerRef,
     openInsertLink$,
     setOpenLinkPanel,
+    domRect,
     markdownEditorRef,
   } = useEditorStore();
   const selRef = useRef<Selection>();
@@ -111,7 +112,7 @@ export const InsertLink = observer(() => {
   }, []);
 
   useSubject(openInsertLink$, (sel) => {
-    if (store.domRect) {
+    if (domRect) {
       selRef.current = sel;
       markdownContainerRef.current!.parentElement?.addEventListener(
         'wheel',

@@ -148,6 +148,8 @@ export const BaseToolBar = observer(
       keyTask$,
       editorProps,
       openInsertLink$,
+      domRect,
+      setDomRect,
       refreshFloatBar,
     } = useEditorStore();
 
@@ -158,7 +160,7 @@ export const BaseToolBar = observer(
 
     const openLink = useCallback(() => {
       const sel = markdownEditorRef.current?.selection;
-      store.domRect = getSelRect();
+      setDomRect(getSelRect()!);
       if (!sel) return;
       el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
       openInsertLink$.next(sel);
@@ -169,7 +171,7 @@ export const BaseToolBar = observer(
 
     useEffect(() => {
       setRefresh((r) => !r);
-    }, [refreshFloatBar, store.domRect]);
+    }, [refreshFloatBar, domRect]);
 
     /**
      * 获取当前节点

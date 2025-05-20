@@ -40,7 +40,8 @@ export function useOnchange(
     onChange?.(parserSlateNodeToMarkdown(editor.children), editor.children);
   }, 16);
 
-  const { setRefreshFloatBar, refreshFloatBar, store } = useEditorStore();
+  const { setRefreshFloatBar, domRect, setDomRect, refreshFloatBar, store } =
+    useEditorStore();
 
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
@@ -90,11 +91,11 @@ export function useOnchange(
           rangeContent.current = domRange?.toString() || '';
           const rect = domRange?.getBoundingClientRect();
           if (rect) {
-            store.setState((state) => (state.domRect = rect));
+            setDomRect?.(rect);
           }
-        } else if (store.domRect) {
+        } else if (domRect) {
           rangeContent.current = '';
-          store.setState((state) => (state.domRect = null));
+          setDomRect?.(null);
         }
       } catch (error) {}
     };

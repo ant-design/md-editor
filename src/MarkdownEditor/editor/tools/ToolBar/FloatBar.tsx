@@ -17,8 +17,14 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer((props: { readonly: boolean }) => {
-  const { store, markdownContainerRef, openLinkPanel, markdownEditorRef } =
-    useEditorStore();
+  const {
+    store,
+    domRect,
+    setDomRect,
+    markdownContainerRef,
+    openLinkPanel,
+    markdownEditorRef,
+  } = useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,
@@ -30,9 +36,9 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
 
   const resize = useCallback(
     (force = false) => {
-      if (store.domRect && !openLinkPanel) {
-        let left = store.domRect.x;
-        left = left - ((props.readonly ? 65 : 178) - store.domRect.width) / 2;
+      if (domRect && !openLinkPanel) {
+        let left = domRect.x;
+        left = left - ((props.readonly ? 65 : 178) - domRect.width) / 2;
 
         const container = markdownContainerRef.current!;
         if (left < 4) left = 4;
@@ -41,7 +47,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
         if (left > container.clientWidth - barWidth)
           left = container.clientWidth - barWidth / 2;
 
-        let top = state.open && !force ? state.top : store.domRect.top - 32;
+        let top = state.open && !force ? state.top : domRect.top - 32;
 
         setState({
           open: true,
@@ -54,14 +60,14 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
   );
 
   useEffect(() => {
-    if (store.domRect && markdownEditorRef.current) {
+    if (domRect && markdownEditorRef.current) {
       resize(true);
       sel.current = markdownEditorRef.current.selection!;
     } else {
       setState({ open: false });
       fileMap.clear();
     }
-  }, [store.domRect]);
+  }, [domRect]);
 
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
@@ -91,7 +97,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
       if (state.open) {
         const rect = getSelRect();
         if (rect) {
-          store.setState((state) => (state.domRect = rect));
+          setDomRect?.(rect);
         }
         resize(true);
       }

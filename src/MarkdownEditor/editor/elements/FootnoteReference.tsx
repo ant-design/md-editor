@@ -8,7 +8,7 @@ import { DragHandle } from '../tools/DragHandle';
 export const FootnoteReference = (
   props: ElementProps<FootnoteDefinitionNode>,
 ) => {
-  const { store } = useEditorStore();
+  const { store, markdownContainerRef } = useEditorStore();
   const [selected] = useSelStatus(props.element);
   return React.useMemo(() => {
     const str = Node.string(props.element);
@@ -19,7 +19,7 @@ export const FootnoteReference = (
         className={
           !str ? 'ant-md-editor-drag-el empty' : 'ant-md-editor-drag-el'
         }
-        onDragStart={store.dragStart}
+        onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
         data-empty={!str && selected ? 'true' : undefined}
       >
         <DragHandle />

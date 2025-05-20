@@ -469,6 +469,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   const insertCompletionText$ = useMemo(() => new Subject<string>(), []);
   const openInsertLink$ = useMemo(() => new Subject<Selection>(), []);
+
+  const [domRect, setDomRect] = useState<DOMRect | null>(null);
+
   return wrapSSR(
     <I18nProvide>
       <PluginContext.Provider value={props.plugins || []}>
@@ -485,6 +488,8 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             rootContainer: props.rootContainer,
             setShowComment,
             store: instance.store,
+            domRect,
+            setDomRect,
             typewriter: props.typewriter ?? false,
             readonly: props.readonly ?? false,
             editorProps: props || {},

@@ -13,7 +13,11 @@ export function Head({
   attributes,
   children,
 }: ElementProps<HeadNode>) {
-  const { store = {} as Record<string, any>, typewriter } = useEditorStore();
+  const {
+    store = {} as Record<string, any>,
+    markdownContainerRef,
+    typewriter,
+  } = useEditorStore();
   const editor = useSlate();
   const [selected, path] = useSelStatus(element);
 
@@ -36,7 +40,7 @@ export function Head({
         ['data-be']: 'head',
         ['data-head']: slugify(Node.string(element) || ''),
         ['data-title']: path?.[0] === 0,
-        onDragStart: store.dragStart,
+        onDragStart: (e) => store.dragStart(e, markdownContainerRef.current!),
         ['data-empty']: !str && selected ? 'true' : undefined,
         className: classNames('ant-md-editor-drag-el', {
           empty: !str,
