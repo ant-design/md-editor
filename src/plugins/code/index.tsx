@@ -325,43 +325,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
         e.stopPropagation();
         return;
       }
-      if (isHotkey('up', e)) {
-        if (
-          posRef.current.row === 0 &&
-          posRef.current.column === 0 &&
-          !props.element.frontmatter
-        ) {
-          EditorUtils.focus(store.editor);
-          const path = pathRef.current!;
-          if (Path.hasPrevious(path)) {
-            EditorUtils.selectPrev(store, path);
-          } else {
-            Transforms.insertNodes(store.editor, EditorUtils.p, {
-              at: path,
-              select: true,
-            });
-          }
-        }
-      }
-      if (isHotkey('down', e)) {
-        const length = codeEditor.getSession().getLength();
-        if (
-          posRef.current.row === length - 1 &&
-          posRef.current.column ===
-            codeEditor.session.getLine(length - 1)?.length
-        ) {
-          EditorUtils.focus(store.editor);
-          const path = pathRef.current!;
-          if (Editor.hasPath(store.editor, Path.next(path))) {
-            EditorUtils.selectNext(store, path);
-          } else {
-            Transforms.insertNodes(store.editor, EditorUtils.p, {
-              at: Path.next(path),
-              select: true,
-            });
-          }
-        }
-      }
+
       const newEvent = new KeyboardEvent(e.type, e);
       window.dispatchEvent(newEvent);
     });
@@ -384,7 +348,6 @@ export function CodeElement(props: ElementProps<CodeNode>) {
   }, []);
 
   useEffect(() => {
-    store.codes.set(props.element, editorRef.current!);
     if (props.element.value !== codeRef.current) {
       editorRef.current?.setValue(props.element.value || 'plain text');
       editorRef.current?.clearSelection();

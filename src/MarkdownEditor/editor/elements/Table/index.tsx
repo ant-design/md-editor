@@ -158,15 +158,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
 
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
 
-  /**
-   * 判断当前表格是否被选中。
-   */
-  const isSel = useMemo(() => {
-    if (selectedTable) return true;
-    if (!store.selectTablePath?.length) return false;
-    return store.selectTablePath.join('') === tablePath.join('');
-  }, [store.editor, selectedTable, store.selectTablePath, props.element]);
-
   const hotRef = useRef<{
     hotInstance: Handsontable | null;
   }>(null);
@@ -895,7 +886,6 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     props.element.id,
     props.element?.otherProps?.colWidths,
     props.element?.otherProps?.mergeCells?.length,
-    isSel,
     tableJSONData,
     readonly,
     hashId,

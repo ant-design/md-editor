@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import React, { useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { useEditorStore } from '../../../../MarkdownEditor/editor/store';
-import { EditorUtils } from '../../../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode } from '../../../../MarkdownEditor/el';
 import './katex.min.css';
 
@@ -58,12 +57,6 @@ export const Katex = observer((props: { el: CodeNode }) => {
         paddingTop: '1em',
         paddingBottom: '1em',
         borderRadius: '0.25em',
-      }}
-      onClick={() => {
-        const editor = store.codes.get(props.el);
-        if (editor) {
-          EditorUtils.focusAceEnd(editor);
-        }
       }}
       contentEditable={false}
     >

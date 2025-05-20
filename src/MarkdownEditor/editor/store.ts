@@ -18,16 +18,10 @@ import {
 } from 'slate';
 import { ReactEditor } from './slate-react';
 
-import { Ace } from 'ace-builds';
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
-import {
-  Elements,
-  FootnoteDefinitionNode,
-  ListNode,
-  TableCellNode,
-} from '../el';
+import { Elements, FootnoteDefinitionNode, ListNode } from '../el';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
@@ -84,12 +78,8 @@ export class EditorStore {
   manual = false;
   initializing = false;
   sel: BaseSelection | undefined;
-  selectTablePath: Path = [];
-  refreshHighlight: boolean = false;
   highlightCache = new Map<object, Range[]>();
   focus = false;
-  readonly = false;
-  codes = new WeakMap<object, Ace.Editor>();
   private ableToEnter = new Set([
     'paragraph',
     'head',
@@ -108,12 +98,9 @@ export class EditorStore {
   refreshFloatBar = false;
   openInsertLink$ = new Subject<Selection>();
   openLinkPanel = false;
-  tableCellNode: null | NodeEntry<TableCellNode> = null;
   domRect: DOMRect | null = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
-  domRange: HTMLElement | null = null;
   container: null | HTMLDivElement = null;
-  preSelection: null | Selection = null;
   inputComposition = false;
   tableTask$ = new Subject<
     | 'insertRowBefore'
@@ -129,17 +116,6 @@ export class EditorStore {
     | 'in'
     | 'insertTableCellBreak'
   >();
-
-  floatBarOpen: boolean = false;
-
-  /**
-   * Sets the open state of the floating toolbar.
-   *
-   * @param open - Boolean indicating whether the floating toolbar should be open.
-   */
-  setFloatBarOpen(open: boolean) {
-    this.floatBarOpen = open;
-  }
 
   /**
    * Gets the markdown editor content DOM element.
@@ -182,10 +158,8 @@ export class EditorStore {
       sel: false,
       CACHED_SEL_CELLS: false,
       SEL_CELLS: false,
-      preSelection: false,
       footnoteDefinitionMap: false,
       container: false,
-      tableCellNode: false,
       editor: false,
       highlightCache: false,
       inputComposition: false,
@@ -588,7 +562,6 @@ export class EditorStore {
       () => {
         try {
           window.removeEventListener('dragover', dragover);
-          this.readonly = false;
           if (mark) this.container?.parentElement!.removeChild(mark);
           if (last && this.draggedElement) {
             let [dragPath, dragNode] = this.toPath(this.draggedElement);

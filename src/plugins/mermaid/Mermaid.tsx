@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
-import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode } from '../../MarkdownEditor/el';
 
 export const Mermaid = observer((props: { el: CodeNode }) => {
@@ -67,12 +66,6 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
         justifyContent: 'center',
       }}
       contentEditable={false}
-      onClick={() => {
-        const editor = store.codes.get(props.el);
-        if (editor) {
-          EditorUtils.focusAceEnd(editor);
-        }
-      }}
     >
       <div
         contentEditable={false}

@@ -277,7 +277,6 @@ export const SlateMarkdownEditor = observer(
       if (readonly) return;
       store.setState((state) => {
         state.focus = false;
-        state.tableCellNode = null;
       });
     };
 
@@ -815,9 +814,6 @@ export const SlateMarkdownEditor = observer(
           },
         );
         markdownContainerRef?.current?.dispatchEvent(event);
-        store.setState((state) => {
-          state.preSelection = markdownEditorRef.current.selection;
-        });
       }
     }, 160);
 

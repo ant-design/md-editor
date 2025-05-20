@@ -64,7 +64,6 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
   }, [store.domRect]);
 
   useEffect(() => {
-    store.setFloatBarOpen(state.open);
     const close = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && !store.openLinkPanel) {
         e.preventDefault();
@@ -79,13 +78,11 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
             Editor.end(markdownEditorRef.current, end),
           );
         }
-        store.setFloatBarOpen(false);
       }
     };
     window.addEventListener('keydown', close);
     return () => {
       window.removeEventListener('keydown', close);
-      store.setFloatBarOpen(false);
     };
   }, [state.open]);
 

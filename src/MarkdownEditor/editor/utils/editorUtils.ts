@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { Ace } from 'ace-builds';
 import {
   Editor,
   Element,
@@ -20,7 +19,6 @@ import {
   ParagraphNode,
 } from '../../el';
 import { ReactEditor } from '../slate-react';
-import { EditorStore } from '../store';
 import { getMediaType } from './dom';
 
 export class EditorUtils {
@@ -71,60 +69,6 @@ export class EditorUtils {
       leaf.html ||
       leaf.highColor
     );
-  }
-
-  static focusAceEnd(editor: Ace.Editor) {
-    const row = editor.session.getLength();
-    const lineLength = editor.session.getLine(row - 1).length;
-    editor.clearSelection();
-    editor.focus();
-    editor.moveCursorTo(row - 1, lineLength);
-  }
-
-  static selectPrev(store: EditorStore, path: Path) {
-    const prePath = EditorUtils.findPrev(store.editor, path);
-    if (prePath) {
-      const node = Node.get(store.editor, prePath);
-      if (node.type === 'code') {
-        const ace = store.codes.get(node);
-        if (ace) {
-          EditorUtils.focusAceEnd(ace);
-        }
-        return true;
-      } else {
-        Transforms.select(store.editor, Editor.end(store.editor, prePath));
-      }
-      EditorUtils.focus(store.editor);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  static focusAceStart(editor: Ace.Editor) {
-    editor.focus();
-    editor.clearSelection();
-    editor.moveCursorTo(0, 0);
-  }
-
-  static selectNext(store: EditorStore, path: Path) {
-    const nextPath = EditorUtils.findNext(store.editor, path);
-    if (nextPath) {
-      const node = Node.get(store.editor, nextPath);
-      if (node.type === 'code') {
-        const ace = store.codes.get(node);
-        if (ace) {
-          EditorUtils.focusAceStart(ace);
-        }
-        return true;
-      } else {
-        Transforms.select(store.editor, Editor.start(store.editor, nextPath));
-      }
-      EditorUtils.focus(store.editor);
-      return true;
-    } else {
-      return false;
-    }
   }
 
   static isTop(editor: Editor, path: Path) {
