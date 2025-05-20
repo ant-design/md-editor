@@ -112,6 +112,7 @@ export const SlateMarkdownEditor = observer(
   ({ eleItemRender, reportMode, instance, ...editorProps }: MEditorProps) => {
     const { store, markdownEditorRef, markdownContainerRef, readonly } =
       useEditorStore();
+
     const changedMark = useRef(false);
     const value = useRef<any[]>([EditorUtils.p]);
     const nodeRef = useRef<MarkdownEditorInstance>();
@@ -183,49 +184,80 @@ export const SlateMarkdownEditor = observer(
       }
     }, [instance, markdownEditorRef.current]);
 
-    const onSlateChange = (v: any[]) => {
+    /**
+     * 处理Slate编辑器内容变化事件
+     *
+     * 负责更新值引用、触发onChange回调，以及标记内容变化状态
+     *
+     * @param v 编辑器的新值
+     */
+    const onSlateChange = useRefFunction((v: any[]) => {
+      // 忽略初始化时的第一次变化
       if (first.current) {
         setTimeout(() => {
           first.current = false;
         }, 100);
         return;
       }
+
+      // 更新当前值引用
       value.current = v;
+      // 触发onChange回调
       onChange(v, markdownEditorRef.current.operations);
-
-      if (
-        !markdownEditorRef.current.operations?.every(
-          (o) => o.type === 'set_selection',
-        )
-      ) {
-        if (!changedMark.current) {
-          changedMark.current = true;
-        }
+      // 检查是否存在非选区变化操作，如有则标记内容已变更
+      const hasContentChanges = markdownEditorRef.current.operations?.some(
+        (op) => op.type !== 'set_selection',
+      );
+      if (hasContentChanges && !changedMark.current) {
+        changedMark.current = true;
       }
-    };
+    });
 
-    const checkEnd = (e: React.MouseEvent) => {
+    /**
+     * 处理鼠标点击事件，检查是否需要将光标定位到内容末尾
+     *
+     * 当用户点击编辑器底部区域时，将光标定位到编辑器内容末尾，
+     * 提供更直观的编辑体验。
+     *
+     * @param e 鼠标事件
+     * @returns 布尔值表示是否阻止默认行为
+     */
+    const checkEnd = useRefFunction((e: React.MouseEvent) => {
+      // 如果启用打字机模式或为只读模式，不处理定位逻辑
       if (editorProps?.typewriter) return;
       if (readonly) return;
+
+      // 当编辑器失去焦点时，清除选区
       if (!store.focus) {
         markdownEditorRef.current.selection = null;
       }
+
+      // 获取目标元素
       const target = e.target as HTMLDivElement;
+
+      // 如果启用文本区域模式，不处理定位逻辑
       if (editorProps.textAreaProps?.enable) {
         return false;
       }
+
+      // 检查是否点击在编辑器内容区域
       if (target.dataset.slateEditor) {
+        // 获取最后一个元素的顶部位置
         const top = (target.lastElementChild as HTMLElement)?.offsetTop;
+
+        // 判断点击位置是否在编辑器内容底部区域
+        // 当点击位置距离顶部的距离大于最后一个元素的顶部位置时，认为点击在底部区域
         if (
           store.container &&
           store.container.scrollTop + e.clientY - 60 > top
         ) {
+          // 尝试将光标设置到编辑器内容末尾
           if (EditorUtils.checkEnd(markdownEditorRef.current)) {
             e.preventDefault();
           }
         }
       }
-    };
+    });
 
     /**
      * 处理焦点事件, 隐藏所有的range
@@ -789,6 +821,96 @@ export const SlateMarkdownEditor = observer(
       }
     }, 160);
 
+    /**
+     * 处理复制和剪切的共享逻辑
+     * @param event 剪贴板事件
+     * @param operationType 操作类型 ('copy' | 'cut')
+     * @returns 是否处理了事件
+     */
+    const handleClipboardCopy = useRefFunction(
+      (
+        event: React.ClipboardEvent<HTMLDivElement>,
+        operationType: 'copy' | 'cut',
+      ): boolean => {
+        // 1. 如果事件已被处理，则直接返回
+        if (isEventHandled(event)) {
+          return false;
+        }
+
+        // 2. 检查目标元素是否可编辑，如果不可编辑，则从DOM选区中获取编辑器选区
+        if (
+          operationType === 'copy' &&
+          !hasEditableTarget(markdownEditorRef.current, event.target)
+        ) {
+          const domSelection = window.getSelection();
+          markdownEditorRef.current.selection = getSelectionFromDomSelection(
+            markdownEditorRef.current,
+            domSelection!,
+          );
+        } else if (operationType === 'cut') {
+          const domSelection = window.getSelection();
+          markdownEditorRef.current.selection = getSelectionFromDomSelection(
+            markdownEditorRef.current,
+            domSelection!,
+          );
+        }
+
+        // 如果无法获取选区，则直接返回
+        if (!markdownEditorRef.current.selection) {
+          return false;
+        }
+
+        // 3. 处理复制/剪切选中内容
+        if (markdownEditorRef.current?.selection) {
+          // 阻止默认行为和事件冒泡
+          event.preventDefault();
+          event.stopPropagation();
+
+          const editor = markdownEditorRef.current;
+          const data = event?.clipboardData;
+
+          // 复制纯文本内容
+          const selectedText = Editor.string(editor, editor.selection!);
+          data.setData('text/plain', selectedText || '');
+
+          // 复制HTML内容
+          const tempDiv = document.createElement('div');
+          const domRange = ReactEditor.toDOMRange(
+            editor,
+            editor.selection as Range,
+          );
+          const selectedHtml = domRange.cloneContents();
+          tempDiv.appendChild(selectedHtml);
+          data.setData('text/html', tempDiv.innerHTML);
+          tempDiv?.remove();
+
+          // 设置Slate编辑器特定的片段数据，用于保留格式信息
+          data.setData(
+            'application/x-slate-md-fragment',
+            JSON.stringify(editor?.getFragment() || []),
+          );
+
+          // 4. 设置剪贴板的片段数据
+          ReactEditor.setFragmentData(
+            markdownEditorRef.current,
+            event.clipboardData,
+            operationType,
+          );
+
+          // 5. 如果是剪切操作，删除选中内容
+          if (operationType === 'cut') {
+            Transforms.delete(markdownEditorRef.current, {
+              at: markdownEditorRef.current.selection!,
+            });
+          }
+
+          return true;
+        }
+
+        return false;
+      },
+    );
+
     useEffect(() => {
       const footnoteDefinitionList = markdownEditorRef.current.children
         .filter((item) => item.type === 'footnoteDefinition')
@@ -846,97 +968,17 @@ export const SlateMarkdownEditor = observer(
               handleSelectionChange?.run();
             }}
             onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
-              if (isEventHandled(event)) {
-                return;
-              }
-              const domSelection = window.getSelection();
-              markdownEditorRef.current.selection =
-                getSelectionFromDomSelection(
-                  markdownEditorRef.current,
-                  domSelection!,
-                );
-              if (!markdownEditorRef.current.selection) {
-                return;
-              }
-              ReactEditor.setFragmentData(
-                markdownEditorRef.current,
-                event.clipboardData,
-                'cut',
-              );
-              if (markdownEditorRef.current?.selection) {
+              const handled = handleClipboardCopy(event, 'cut');
+              if (!handled) {
                 event.preventDefault();
-                event.stopPropagation();
-                const editor = markdownEditorRef.current;
-                const data = event?.clipboardData;
-                const selectedText = Editor.string(editor, editor.selection!);
-                data.setData('text/plain', selectedText || '');
-                const tempDiv = document.createElement('div');
-                // 获取选中内容的HTML
-                const domRange = ReactEditor.toDOMRange(
-                  editor,
-                  editor.selection as Range,
-                );
-                const selectedHtml = domRange.cloneContents();
-                tempDiv.appendChild(selectedHtml);
-                data.setData('text/html', tempDiv.innerHTML);
-                tempDiv?.remove();
-                data.setData(
-                  'application/x-slate-md-fragment',
-                  JSON.stringify(editor?.getFragment() || []),
-                );
-                Transforms.delete(markdownEditorRef.current, {
-                  at: markdownEditorRef.current.selection!,
-                });
-                return;
               }
-              event.preventDefault();
             }}
             onMouseDown={checkEnd}
             onFocus={onFocus}
             onBlur={onBlur}
             onPaste={onPaste}
             onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
-              if (isEventHandled(event)) {
-                return;
-              }
-              if (!hasEditableTarget(markdownEditorRef.current, event.target)) {
-                const domSelection = window.getSelection();
-                markdownEditorRef.current.selection =
-                  getSelectionFromDomSelection(
-                    markdownEditorRef.current,
-                    domSelection!,
-                  );
-                if (!markdownEditorRef.current.selection) {
-                  return;
-                }
-              }
-              ReactEditor.setFragmentData(
-                markdownEditorRef.current,
-                event.clipboardData,
-                'copy',
-              );
-              if (markdownEditorRef.current?.selection) {
-                event.preventDefault();
-                event.stopPropagation();
-                const editor = markdownEditorRef.current;
-                const data = event?.clipboardData;
-                const selectedText = Editor.string(editor, editor.selection!);
-                data.setData('text/plain', selectedText || '');
-                const tempDiv = document.createElement('div');
-                // 获取选中内容的HTML
-                const domRange = ReactEditor.toDOMRange(
-                  editor,
-                  editor.selection as Range,
-                );
-                const selectedHtml = domRange.cloneContents();
-                tempDiv.appendChild(selectedHtml);
-                data.setData('text/html', tempDiv.innerHTML);
-                tempDiv?.remove();
-                data.setData(
-                  'application/x-slate-md-fragment',
-                  JSON.stringify(editor?.getFragment() || []),
-                );
-              }
+              handleClipboardCopy(event, 'copy');
             }}
             renderElement={elementRenderElement}
             onKeyDown={handleKeyDown}

@@ -5,9 +5,8 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
 import { Editor, Element, Node, Path, Range, Transforms } from 'slate';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
-import { AttachNode, ListItemNode, MediaNode, TableNode } from '../../el';
+import { AttachNode, ListItemNode, MediaNode } from '../../el';
 import { useSubject } from '../../hooks/subscribe';
-import { parserMdToSchema } from '../parser/parserMdToSchema';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from './editorUtils';
@@ -28,6 +27,11 @@ export class KeyboardTask {
     this.props = props;
   }
 
+  /**
+   * 获取当前编辑器中的最低层级元素节点
+   *
+   * @returns 编辑器中所有匹配的元素节点及其路径
+   */
   get curNodes() {
     return Editor.nodes<any>(this.editor, {
       mode: 'lowest',
@@ -37,6 +41,13 @@ export class KeyboardTask {
     });
   }
 
+  /**
+   * 打开浮动工具栏
+   *
+   * 获取当前选区的DOM范围和位置，并更新编辑器状态中的domRect
+   *
+   * @private 私有方法，仅在内部使用
+   */
   private openFloatBar() {
     setTimeout(() => {
       try {
@@ -49,6 +60,12 @@ export class KeyboardTask {
     });
   }
 
+  /**
+   * 全选编辑器内容
+   *
+   * 如果当前位于表格单元格内，则选中整个表格；
+   * 否则选中编辑器中的所有内容
+   */
   selectAll() {
     const [node] = this.curNodes;
     if (node?.[0]?.type === 'table-cell') {
@@ -84,9 +101,14 @@ export class KeyboardTask {
     }
   }
 
-  selectFormat() {
+  /**
+   * 将选中文本转换为行内代码
+   *
+   * 如果编辑器存在选区，将选中的文本转换为行内代码格式
+   */
+  selectFormatToCode() {
     if (this.editor.selection) {
-      Transforms.select(this.editor, this.editor.selection.anchor.path);
+      EditorUtils.toggleFormat(this.editor, 'code');
     }
   }
 
@@ -161,8 +183,13 @@ export class KeyboardTask {
       }
     }
   }
+
   /**
    * 上传图片
+   *
+   * 创建文件上传输入框，允许用户选择图片文件上传，
+   * 然后根据当前节点位置将图片插入到编辑器中适当的位置。
+   * 支持列单元格、普通节点和空编辑器的不同插入逻辑。
    */
   uploadImage() {
     const input = document.createElement('input');
@@ -228,67 +255,13 @@ export class KeyboardTask {
   }
 
   /**
-   * Asynchronously pastes Markdown code from the clipboard into the editor.
+   * 设置标题级别
    *
-   * This function reads Markdown text from the clipboard, parses it into a schema,
-   * and inserts it into the editor at the current selection. It handles different
-   * node types and ensures proper insertion based on the context of the current node.
+   * 将当前段落或标题节点转换为指定级别的标题。
+   * 如果级别为4，则转换为普通段落。
    *
-   * The function performs the following steps:
-   * 1. Reads Markdown text from the clipboard.
-   * 2. Parses the Markdown text into a schema.
-   * 3. Checks if the current node is a paragraph and empty, then deletes it and inserts the new schema.
-   * 4. If the schema's first node is a paragraph and the current node is a paragraph or table-cell, it inserts the first node's children.
-   * 5. Inserts the remaining schema nodes based on the type of the current node.
-   * 6. Refreshes the editor's highlight state after a short delay.
-   *
-   * @returns {Promise<void>} A promise that resolves when the paste operation is complete.
+   * @param level 标题级别（1-3）或4（表示普通段落）
    */
-  async pasteMarkdownCode() {
-    const markdownCode = await navigator.clipboard.readText();
-    if (markdownCode) {
-      const [node] = this.curNodes;
-      const res = await parserMdToSchema(markdownCode);
-
-      if (
-        node?.[0]?.type === 'paragraph' &&
-        !Node.string(node[0]) &&
-        node?.[0]?.children.length === 1
-      ) {
-        Transforms.delete(this.editor, { at: node[1] });
-        Transforms.insertNodes(this.editor, res.schema, {
-          at: node[1],
-          select: true,
-        });
-        return;
-      }
-      if (
-        res.schema[0]?.type === 'paragraph' &&
-        ['paragraph', 'table-cell'].includes(node[0].type)
-      ) {
-        const first = res.schema.shift();
-        Editor.insertNode(this.editor, (first as TableNode)?.children);
-      }
-      if (res.schema.length) {
-        if (['table-cell'].includes(node[0].type)) {
-          const [block] = Editor.nodes<any>(this.editor, {
-            match: (n) => ['table', 'code', 'paragraph'].includes(n.type),
-            mode: 'lowest',
-          });
-          Transforms.insertNodes(this.editor, res.schema, {
-            at: Path.next(block[1]),
-            select: true,
-          });
-        } else {
-          Transforms.insertNodes(this.editor, res.schema, {
-            at: Path.next(node[1]),
-            select: true,
-          });
-        }
-      }
-    }
-  }
-
   head(level: number) {
     const [node] = this.curNodes;
     if (level === 4) {
@@ -308,6 +281,11 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 将标题转换为普通段落
+   *
+   * 如果当前节点是标题类型，将其转换为普通段落
+   */
   paragraph() {
     const [node] = this.curNodes;
     if (node && ['head'].includes(node[0].type)) {
@@ -315,6 +293,13 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 增加标题级别（使标题变小）
+   *
+   * 将段落转换为4级标题，
+   * 或将标题级别从1级改为普通段落，
+   * 或将其他级别标题升级一级（数字变小）
+   */
   increaseHead() {
     const [node] = this.curNodes;
     if (
@@ -344,6 +329,13 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 降低标题级别（使标题变大）
+   *
+   * 将段落转换为1级标题，
+   * 或将4级标题改为普通段落，
+   * 或将其他级别标题降级一级（数字变大）
+   */
   decreaseHead() {
     const [node] = this.curNodes;
     if (
@@ -373,6 +365,13 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 插入或移除引用块
+   *
+   * 如果当前节点已在引用块中，则移除引用块；
+   * 否则，将当前节点转换为引用块。
+   * 如果当前节点是标题，先将其转换为普通段落。
+   */
   insertQuote() {
     const [node] = this.curNodes;
     if (!['paragraph', 'head'].includes(node[0].type)) return;
@@ -395,6 +394,13 @@ export class KeyboardTask {
     });
   }
 
+  /**
+   * 插入表格
+   *
+   * 在当前位置插入一个3x3的表格（包含表头行）。
+   * 根据当前节点类型（段落、标题或列单元格）
+   * 决定在何处插入表格及如何处理现有内容。
+   */
   insertTable() {
     const [node] = this.curNodes;
     if (node && ['paragraph', 'head'].includes(node[0].type)) {
@@ -509,6 +515,12 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 插入分栏组
+   *
+   * 在当前位置插入一个两列的分栏布局。
+   * 如果当前节点是空段落，会被删除。
+   */
   insertColumn() {
     const [node] = this.curNodes;
     if (node) {
@@ -542,6 +554,14 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 插入代码块
+   *
+   * 在当前位置插入代码块，并根据传入的类型设置语言和渲染模式。
+   * 支持在列单元格内或普通段落/标题后插入代码块。
+   *
+   * @param type 可选的代码块类型，'mermaid'表示流程图，'html'表示HTML渲染
+   */
   insertCode(type?: 'mermaid' | 'html') {
     const [node] = this.curNodes;
     if (node && ['column-cell'].includes(node[0].type)) {
@@ -587,6 +607,12 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 插入水平分割线
+   *
+   * 在当前位置插入水平分割线，并将光标定位到分割线后的位置。
+   * 如果分割线后没有内容，则自动插入一个空段落并将光标定位到该段落。
+   */
   horizontalLine() {
     const [node] = this.curNodes;
     if (node && ['paragraph', 'head'].includes(node[0].type)) {
@@ -620,6 +646,14 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 创建或转换列表
+   *
+   * 将当前段落或标题转换为指定类型的列表。
+   * 如果已经是列表项，则更改列表类型。
+   *
+   * @param mode 列表类型 'ordered'(有序列表), 'unordered'(无序列表), 'task'(任务列表)
+   */
   list(mode: 'ordered' | 'unordered' | 'task') {
     const [curNode, curPath] = this.curNodes;
     if (curNode && ['paragraph', 'head'].includes(curNode[0].type)) {
@@ -697,10 +731,23 @@ export class KeyboardTask {
     }
   }
 
+  /**
+   * 切换文本格式
+   *
+   * 在当前选区上应用或取消指定的文本格式（如加粗、斜体等）
+   *
+   * @param type 要应用的格式类型（'bold'、'italic'、'strikethrough'等）
+   */
   format(type: string) {
     EditorUtils.toggleFormat(this!.editor, type);
   }
 
+  /**
+   * 清除文本格式
+   *
+   * 移除当前选区中的所有格式标记。
+   * 如果选区是折叠的（只有光标），则清除光标所在位置的所有标记
+   */
   clear() {
     if (this.editor.selection)
       EditorUtils.clearMarks(
@@ -709,12 +756,22 @@ export class KeyboardTask {
       );
   }
 
+  /**
+   * 撤销上一步操作
+   *
+   * 调用编辑器的undo方法，回退到上一个历史状态
+   */
   undo() {
     try {
       this.store?.editor.undo();
     } catch (e) {}
   }
 
+  /**
+   * 重做上一步被撤销的操作
+   *
+   * 调用编辑器的redo方法，前进到下一个历史状态
+   */
   redo() {
     try {
       this.store?.editor.redo();
@@ -722,12 +779,44 @@ export class KeyboardTask {
   }
 }
 
+/**
+ * 
+以下是 Markdown 编辑器快捷键列表及其功能说明：
+
+| 快捷键 | 功能 |
+|-------|------|
+| `Cmd/Ctrl+Shift+L` | 选择当前行文本 |
+| `Cmd/Ctrl+E` | 选择当前格式化的文本 |
+| `Cmd/Ctrl+D` | 选择当前光标所在的单词或汉字 |
+| `Cmd/Ctrl+A` | 全选编辑器内容 |
+| `Cmd/Ctrl+Shift+V` | 粘贴纯文本内容（无格式） |
+| `Cmd/Ctrl+1` | 设置为一级标题 (H1) |
+| `Cmd/Ctrl+2` | 设置为二级标题 (H2) |
+| `Cmd/Ctrl+3` | 设置为三级标题 (H3) |
+| `Cmd/Ctrl+4` | 转换为普通段落 |
+| `Cmd/Ctrl+0` | 转换为普通段落 |
+| `Cmd/Ctrl+]` | 增加标题级别（标题变小） |
+| `Cmd/Ctrl+[` | 降低标题级别（标题变大） |
+| `Option/Alt+Q` | 插入或移除引用块 |
+| `Cmd/Ctrl+Option/Alt+T` | 插入表格 |
+| `Cmd/Ctrl+Option/Alt+C` | 插入代码块 |
+| `Cmd/Ctrl+Option/Alt+/` | 插入水平分割线 |
+| `Cmd/Ctrl+Option/Alt+O` | 创建有序列表 |
+| `Cmd/Ctrl+Option/Alt+U` | 创建无序列表 |
+| `Cmd/Ctrl+Option/Alt+S` | 创建任务列表 |
+| `Cmd/Ctrl+B` | 切换文本加粗格式 |
+| `Cmd/Ctrl+I` | 切换文本斜体格式 |
+| `Cmd/Ctrl+Shift+S` | 切换文本删除线格式 |
+| `Option/Alt+`` | 切换行内代码格式 |
+| `Cmd/Ctrl+\` | 清除所有文本格式 |
+| `Cmd/Ctrl+Option/Alt+M` | 插入流程图(Mermaid)代码块 |
+注：`Cmd` 键在 Windows 系统上对应 `Ctrl` 键，`Option` 键在 Windows 系统上对应 `Alt` 键。
+ */
 const keyMap: [string, Methods<KeyboardTask>, any[]?, boolean?][] = [
   ['mod+shift+l', 'selectLine'],
-  ['mod+e', 'selectFormat'],
+  ['mod+e', 'selectFormatToCode'],
   ['mod+d', 'selectWord'],
   ['mod+a', 'selectAll'],
-  ['mod+option+v', 'pasteMarkdownCode'],
   ['mod+shift+v', 'pastePlainText'],
   ['mod+1', 'head', [1]],
   ['mod+2', 'head', [2]],
