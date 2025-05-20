@@ -97,7 +97,6 @@ export class EditorStore {
     'attach',
   ]);
   draggedElement: null | HTMLElement = null;
-  refreshFloatBar = false;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   inputComposition = false;
 
