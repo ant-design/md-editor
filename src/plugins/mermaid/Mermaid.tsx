@@ -1,11 +1,10 @@
 import mermaid from 'mermaid';
-import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { CodeNode } from '../../MarkdownEditor/el';
 
-export const Mermaid = observer((props: { el: CodeNode }) => {
+export const Mermaid = (props: { el: CodeNode }) => {
   const { store } = useEditorStore();
   const [state, setState] = useGetSetState({
     code: '',
@@ -87,4 +86,4 @@ export const Mermaid = observer((props: { el: CodeNode }) => {
       )}
     </div>
   );
-});
+};

@@ -9,7 +9,6 @@ import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-horizon.min.css';
-import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { Editor, Node, Transforms } from 'slate';
 import stringWidth from 'string-width';
@@ -146,7 +145,7 @@ export const TablePropsContext = React.createContext<{
  *
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
-export const Table = observer((props: RenderElementProps<TableNode>) => {
+export const Table = (props: RenderElementProps<TableNode>) => {
   const { store, markdownEditorRef, editorProps, readonly } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
@@ -891,4 +890,4 @@ export const Table = observer((props: RenderElementProps<TableNode>) => {
     hashId,
     baseCls,
   ]);
-});
+};

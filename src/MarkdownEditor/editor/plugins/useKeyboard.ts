@@ -1,5 +1,4 @@
 import isHotkey from 'is-hotkey';
-import { runInAction } from 'mobx';
 import React, { useMemo } from 'react';
 import {
   BaseEditor,
@@ -21,6 +20,8 @@ import { EnterKey } from './hotKeyCommands/enter';
 import { MatchKey } from './hotKeyCommands/match';
 import { TabKey } from './hotKeyCommands/tab';
 
+import { useEditorStore } from '../store';
+
 export const useKeyboard = (
   store: EditorStore,
   markdownEditorRef: React.MutableRefObject<
@@ -29,15 +30,13 @@ export const useKeyboard = (
   props: MarkdownEditorProps,
 ) => {
   return useMemo(() => {
+    const { openInsertCompletion, setOpenInsertCompletion } = useEditorStore();
     const tab = new TabKey(markdownEditorRef.current);
     const backspace = new BackspaceKey(markdownEditorRef.current);
     const enter = new EnterKey(store, backspace);
     const match = new MatchKey(markdownEditorRef.current);
     return (e: React.KeyboardEvent) => {
-      if (
-        store.openInsertCompletion &&
-        (isHotkey('up', e) || isHotkey('down', e))
-      ) {
+      if (openInsertCompletion && (isHotkey('up', e) || isHotkey('down', e))) {
         e.preventDefault();
         return;
       }
@@ -135,7 +134,7 @@ export const useKeyboard = (
                     'list-item'
                 )
               ) {
-                runInAction(() => (store.openInsertCompletion = true));
+                setOpenInsertCompletion?.(true);
                 setTimeout(() => {
                   store.insertCompletionText$.next(insertMatch[1]);
                 });

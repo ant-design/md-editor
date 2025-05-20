@@ -121,7 +121,6 @@ export const SlateMarkdownEditor = observer(
     const onKeyDown = useKeyboard(store, markdownEditorRef, editorProps);
     const onChange = useOnchange(
       markdownEditorRef.current,
-      store,
       editorProps.onChange,
     );
     const high = useHighlight(store);
@@ -157,7 +156,6 @@ export const SlateMarkdownEditor = observer(
       if (instance) {
         nodeRef.current = instance;
         first.current = true;
-        store.initializing = true;
         const tableConfig = editorProps.tableConfig;
         genTableMinSize(editorProps.initSchemaValue || [], tableConfig);
         try {
@@ -170,9 +168,6 @@ export const SlateMarkdownEditor = observer(
         } catch (e) {
           EditorUtils.deleteAll(markdownEditorRef.current);
         }
-        setTimeout(() => {
-          store.initializing = false;
-        }, 10);
       } else {
         nodeRef.current = undefined;
       }

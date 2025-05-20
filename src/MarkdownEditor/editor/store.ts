@@ -35,6 +35,12 @@ export const EditorStoreContext = createContext<{
     key: Methods<KeyboardTask>;
     args?: any[];
   }>;
+  refreshFloatBar?: boolean;
+  setRefreshFloatBar?: (refresh: boolean) => void;
+  openLinkPanel?: boolean;
+  setOpenLinkPanel?: (open: boolean) => void;
+  openInsertCompletion?: boolean;
+  setOpenInsertCompletion?: (open: boolean) => void;
   editorProps: MarkdownEditorProps;
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
@@ -74,7 +80,6 @@ interface UpdateOperation {
 
 export class EditorStore {
   manual = false;
-  initializing = false;
   highlightCache = new Map<object, Range[]>();
   focus = false;
   private ableToEnter = new Set([
@@ -88,11 +93,9 @@ export class EditorStore {
     'attach',
   ]);
   draggedElement: null | HTMLElement = null;
-  openInsertCompletion = false;
   insertCompletionText$ = new Subject<string>();
   refreshFloatBar = false;
   openInsertLink$ = new Subject<Selection>();
-  openLinkPanel = false;
   domRect: DOMRect | null = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   container: null | HTMLDivElement = null;
@@ -157,8 +160,6 @@ export class EditorStore {
       inputComposition: false,
       draggedElement: false,
       manual: false,
-      openLinkPanel: false,
-      initializing: false,
     });
   }
 

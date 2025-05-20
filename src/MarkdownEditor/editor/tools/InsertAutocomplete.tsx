@@ -11,7 +11,6 @@ import { Button, ConfigProvider, Input, Menu, Tabs } from 'antd';
 import { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, {
   useCallback,
@@ -306,8 +305,13 @@ export interface InsertAutocompleteProps {
 
 export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
   (props) => {
-    const { store, markdownEditorRef, keyTask$ } = useEditorStore();
-
+    const {
+      store,
+      markdownEditorRef,
+      openInsertCompletion,
+      setOpenInsertCompletion,
+      keyTask$,
+    } = useEditorStore();
     const dom = useRef<HTMLDivElement>(null);
     const ctx = useRef<{
       path: number[];
@@ -362,11 +366,9 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             x: state.left,
             y: state.top || state.bottom || 0,
           });
-          runInAction(() => {
-            if (typeof window === 'undefined') return;
-            if (typeof window.matchMedia === 'undefined') return;
-            store.openInsertCompletion = false;
-          });
+          if (typeof window === 'undefined') return;
+          if (typeof window.matchMedia === 'undefined') return;
+          setOpenInsertCompletion?.(false);
           close();
           return;
         }
@@ -392,11 +394,9 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             key: op.task,
             args: op.args,
           });
-          runInAction(() => {
-            if (typeof window === 'undefined') return;
-            if (typeof window.matchMedia === 'undefined') return;
-            store.openInsertCompletion = false;
-          });
+          if (typeof window === 'undefined') return;
+          if (typeof window.matchMedia === 'undefined') return;
+          setOpenInsertCompletion?.(false);
           close();
         }
       },
@@ -489,7 +489,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
           }
         }
       }
-      if (e.key === 'Enter' && store.openInsertCompletion) {
+      if (e.key === 'Enter' && openInsertCompletion) {
         const op = state.options[state.index];
         if (op) {
           e.preventDefault();
@@ -498,15 +498,11 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         }
       }
       if (isHotkey('esc', e)) {
-        runInAction(() => {
-          store.openInsertCompletion = false;
-        });
+        setOpenInsertCompletion?.(false);
         EditorUtils.focus(markdownEditorRef.current);
       }
       if (isHotkey('backspace', e)) {
-        runInAction(() => {
-          store.openInsertCompletion = false;
-        });
+        setOpenInsertCompletion?.(false);
         EditorUtils.focus(markdownEditorRef.current);
       }
     }, []);
@@ -670,7 +666,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
         window.removeEventListener('click', clickClose);
       };
 
-      if (store.openInsertCompletion) {
+      if (openInsertCompletion) {
         const [node] = Editor.nodes<any>(markdownEditorRef.current, {
           match: (n) => Element.isElement(n),
           mode: 'lowest',
@@ -709,7 +705,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
       return () => {
         removeEventListeners();
       };
-    }, [store.openInsertCompletion]);
+    }, [openInsertCompletion]);
 
     const context = useContext(ConfigProvider.ConfigContext);
     const baseClassName = context.getPrefixCls(`md-editor-insert-autocomplete`);
@@ -725,7 +721,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = observer(
             position: 'absolute',
             zIndex: 9999,
             display:
-              !store.openInsertCompletion || !state.filterOptions.length
+              !openInsertCompletion || !state.filterOptions.length
                 ? 'none'
                 : 'flex',
             width: state.insertLink || state.insertAttachment ? 320 : undefined,

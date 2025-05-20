@@ -1,7 +1,6 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { observer } from 'mobx-react';
 import React, { useContext, useRef } from 'react';
 import { NodeEntry, Transforms } from 'slate';
 import { ChartNode, EditorUtils } from '../../../MarkdownEditor';
@@ -21,7 +20,7 @@ export const ChartAttrToolBar: React.FC<{
   }[];
   node: NodeEntry<ChartNode>;
   title?: React.ReactNode;
-}> = observer((props) => {
+}> = (props) => {
   const { markdownEditorRef, readonly } = useEditorStore();
 
   const chartNodeRef = useRef<NodeEntry<ChartNode>>();
@@ -98,4 +97,4 @@ export const ChartAttrToolBar: React.FC<{
       )}
     </div>,
   );
-});
+};

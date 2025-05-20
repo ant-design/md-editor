@@ -22,13 +22,14 @@ export const ReadonlyBaseBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store, markdownEditorRef, editorProps } = useEditorStore();
+    const { refreshFloatBar, markdownEditorRef, editorProps } =
+      useEditorStore();
 
     const [, setRefresh] = React.useState(false);
 
     useEffect(() => {
       setRefresh((r) => !r);
-    }, [store.refreshFloatBar]);
+    }, [refreshFloatBar]);
     const i18n = useContext(I18nContext);
     /**
      * 获取当前节点

@@ -11,14 +11,13 @@ import { useLocalState } from '../../utils/useLocalState';
 import { BaseToolBar } from './BaseBar';
 import { useStyle } from './floatBarStyle';
 import { ReadonlyBaseBar } from './ReadonlyBaseBar';
-
 const fileMap = new Map<string, IEditor>();
 
 /**
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = observer((props: { readonly: boolean }) => {
-  const { store, markdownEditorRef } = useEditorStore();
+  const { store, openLinkPanel, markdownEditorRef } = useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,
@@ -30,7 +29,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
 
   const resize = useCallback(
     (force = false) => {
-      if (store.domRect && !store.openLinkPanel) {
+      if (store.domRect && !openLinkPanel) {
         let left = store.domRect.x;
         left = left - ((props.readonly ? 65 : 178) - store.domRect.width) / 2;
 
@@ -65,7 +64,7 @@ export const FloatBar = observer((props: { readonly: boolean }) => {
 
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !store.openLinkPanel) {
+      if (e.key === 'Escape' && !openLinkPanel) {
         e.preventDefault();
         setState({ open: false });
         fileMap.clear();

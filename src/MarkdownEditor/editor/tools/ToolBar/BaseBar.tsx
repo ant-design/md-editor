@@ -10,7 +10,6 @@
 } from '@ant-design/icons';
 import { ColorPicker, Divider, Dropdown, Tooltip } from 'antd';
 import classnames from 'classnames';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, {
   useCallback,
@@ -142,8 +141,14 @@ export const BaseToolBar = observer(
     const baseClassName = props.prefix || `toolbar-action`;
     const { hashId } = props;
 
-    const { store, markdownEditorRef, keyTask$, editorProps } =
-      useEditorStore();
+    const {
+      store,
+      setOpenLinkPanel,
+      markdownEditorRef,
+      keyTask$,
+      editorProps,
+      refreshFloatBar,
+    } = useEditorStore();
 
     const [, setRefresh] = React.useState(false);
     const [highColor, setHighColor] = React.useState<string | null>(null);
@@ -156,16 +161,14 @@ export const BaseToolBar = observer(
       if (!sel) return;
       el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
       store.openInsertLink$.next(sel);
-      runInAction(() => {
-        if (typeof window === 'undefined') return;
-        if (typeof window.matchMedia === 'undefined') return;
-        store.openLinkPanel = true;
-      });
+      if (typeof window === 'undefined') return;
+      if (typeof window.matchMedia === 'undefined') return;
+      setOpenLinkPanel?.(true);
     }, []);
 
     useEffect(() => {
       setRefresh((r) => !r);
-    }, [store.refreshFloatBar, store.domRect]);
+    }, [refreshFloatBar, store.domRect]);
 
     /**
      * 获取当前节点

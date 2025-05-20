@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { DeleteOutlined } from '@ant-design/icons';
 import { Input, InputRef, Modal, Tooltip } from 'antd';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { useCallback, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';
@@ -72,7 +71,7 @@ type DocItem = IEditor & { path: string; parentPath?: string };
  * @property {Function} focus - 聚焦输入框。
  */
 export const InsertLink = observer(() => {
-  const { store, markdownEditorRef } = useEditorStore();
+  const { store, setOpenLinkPanel, markdownEditorRef } = useEditorStore();
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
 
@@ -147,11 +146,9 @@ export const InsertLink = observer(() => {
       { url },
       { match: Text.isText, split: true },
     );
-    runInAction(() => {
-      if (typeof window === 'undefined') return;
-      if (typeof window.matchMedia === 'undefined') return;
-      store.openLinkPanel = false;
-    });
+    if (typeof window === 'undefined') return;
+    if (typeof window.matchMedia === 'undefined') return;
+    setOpenLinkPanel?.(false);
   }, []);
 
   if (!state().open) return null;

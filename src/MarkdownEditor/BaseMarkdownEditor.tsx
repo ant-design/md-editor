@@ -463,13 +463,20 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   // schema 数据
   const [schema, setSchema] = useState<Elements[]>(initSchemaValue);
-
+  const [openInsertCompletion, setOpenInsertCompletion] = useState(false);
+  const [openLinkPanel, setOpenLinkPanel] = useState(false);
+  const [refreshFloatBar, setRefreshFloatBar] = useState(false);
   return wrapSSR(
     <I18nProvide>
       <PluginContext.Provider value={props.plugins || []}>
         <EditorStoreContext.Provider
           value={{
             keyTask$,
+            openInsertCompletion,
+            openLinkPanel,
+            setOpenLinkPanel,
+            setRefreshFloatBar,
+            refreshFloatBar,
             rootContainer: props.rootContainer,
             setShowComment,
             store: instance.store,

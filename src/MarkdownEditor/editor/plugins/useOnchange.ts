@@ -12,7 +12,7 @@ import {
   Range,
 } from 'slate';
 import { Elements } from '../../el';
-import { EditorStore } from '../store';
+import { useEditorStore } from '../store';
 import { parserSlateNodeToMarkdown } from '../utils';
 
 export const selChange$ = new Subject<{
@@ -32,7 +32,6 @@ const floatBarIgnoreNode = new Set(['code']);
  */
 export function useOnchange(
   editor: Editor,
-  store: EditorStore,
   onChange?: (value: string, schema: Elements[]) => void,
 ) {
   const rangeContent = useRef('');
@@ -40,6 +39,8 @@ export function useOnchange(
     if (!onChange) return;
     onChange?.(parserSlateNodeToMarkdown(editor.children), editor.children);
   }, 16);
+
+  const { setRefreshFloatBar, refreshFloatBar, store } = useEditorStore();
 
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
@@ -83,9 +84,8 @@ export function useOnchange(
 
           if (!domRange?.toString()?.trim()) return;
           if (rangeContent.current === domRange?.toString()) {
-            return store.setState(
-              (state) => (state.refreshFloatBar = !state.refreshFloatBar),
-            );
+            setRefreshFloatBar?.(!refreshFloatBar);
+            return;
           }
           rangeContent.current = domRange?.toString() || '';
           const rect = domRange?.getBoundingClientRect();

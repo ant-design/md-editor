@@ -93,7 +93,7 @@ export const useSelStatus = (element: any) => {
   const editor = useSlate();
   const { store, markdownEditorRef } = useEditorStore();
   const [state, setState] = useGetSetState({
-    selected: !store?.initializing && ReactEditor.isFocused(editor),
+    selected: ReactEditor.isFocused(editor),
     path: EditorUtils.findPath(editor, element),
   });
 

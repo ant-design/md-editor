@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { action, AnnotationsMap } from 'mobx';
-import { useLocalObservable } from 'mobx-react';
-import { useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 type GetFields<
   T,
@@ -13,26 +11,31 @@ type GetFields<
 type SetState<T extends Record<string, any>, F extends GetFields<T>> = (
   data: { [P in F]?: T[P] } | ((state: T) => void),
 ) => void;
+
 export const useLocalState = <T extends Record<string, any>>(
   data: (() => T) | T,
-  annotations?: AnnotationsMap<T, never>,
 ): [T, SetState<T, GetFields<T>>] => {
-  const state = useLocalObservable(() => {
-    return data instanceof Function ? data() : data;
-  }, annotations) as T;
-  const setState = useCallback(
-    action((data: any) => {
-      if (data instanceof Function) {
-        // @ts-ignore
-        data(state);
-      } else {
-        for (let key of Object.keys(data)) {
-          // @ts-ignore
-          state[key] = data[key];
-        }
-      }
-    }),
-    [],
-  );
+  const initialData = data instanceof Function ? data() : data;
+  const [state, setReactState] = useState<T>(initialData);
+
+  // Use ref to ensure we always have the latest state in our setter
+  const stateRef = useRef(state);
+  stateRef.current = state;
+
+  const setState = useCallback((update: any) => {
+    if (update instanceof Function) {
+      setReactState((prevState) => {
+        const newState = { ...prevState };
+        update(newState);
+        return newState;
+      });
+    } else {
+      setReactState((prevState) => ({
+        ...prevState,
+        ...update,
+      }));
+    }
+  }, []);
+
   return [state, setState];
 };

@@ -1,13 +1,10 @@
 import katex from 'katex';
-import { observer } from 'mobx-react';
 import React, { useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
-import { useEditorStore } from '../../../../MarkdownEditor/editor/store';
 import { CodeNode } from '../../../../MarkdownEditor/el';
 import './katex.min.css';
 
-export const Katex = observer((props: { el: CodeNode }) => {
-  const { store } = useEditorStore();
+export const Katex = (props: { el: CodeNode }) => {
   const [state, setState] = useGetSetState({
     code: '',
     error: '',
@@ -69,4 +66,4 @@ export const Katex = observer((props: { el: CodeNode }) => {
       )}
     </div>
   );
-});
+};
