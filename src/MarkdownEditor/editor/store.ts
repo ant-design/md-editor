@@ -80,9 +80,6 @@ interface UpdateOperation {
   priority: number; // 优先级，越小越先执行
 }
 
-/**
- * 编辑器存储类，用于管理Markdown编辑器的状态和操作。
- */
 export class EditorStore {
   manual = false;
   initializing = false;
@@ -135,16 +132,30 @@ export class EditorStore {
 
   floatBarOpen: boolean = false;
 
+  /**
+   * Sets the open state of the floating toolbar.
+   *
+   * @param open - Boolean indicating whether the floating toolbar should be open.
+   */
   setFloatBarOpen(open: boolean) {
     this.floatBarOpen = open;
   }
 
+  /**
+   * Gets the markdown editor content DOM element.
+   *
+   * @returns The content DIV element of the markdown editor.
+   */
   get doc() {
     return this.container?.querySelector(
       '.markdown-editor-content',
     ) as HTMLDivElement;
   }
 
+  /**
+   * Sets the manual flag to true temporarily to prevent automatic behavior.
+   * Resets the flag to false after a short delay.
+   */
   doManual() {
     this.manual = true;
     setTimeout(() => (this.manual = false), 30);
@@ -152,6 +163,11 @@ export class EditorStore {
 
   _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
 
+  /**
+   * Gets the current editor instance.
+   *
+   * @returns The current Slate editor instance.
+   */
   get editor() {
     return this._editor.current;
   }
@@ -180,6 +196,9 @@ export class EditorStore {
     });
   }
 
+  /**
+   * Focuses the editor and moves the cursor to the end of the document.
+   */
   editorFocus() {
     const editor = this._editor.current;
     ReactEditor.focus(editor);
@@ -300,6 +319,12 @@ export class EditorStore {
     Transforms.insertNodes(this._editor.current, nodes, options);
   }
 
+  /**
+   * Inserts text at the current selection or at a specified path.
+   *
+   * @param text - The text to insert.
+   * @param options - Optional configuration for text insertion.
+   */
   insertText(
     text: string,
     options?: {
@@ -329,6 +354,12 @@ export class EditorStore {
     return top;
   }
 
+  /**
+   * Calculates the horizontal offset of an element relative to the document.
+   *
+   * @param node - The HTML element to calculate the offset for.
+   * @returns The element's offset from the left of the document (in pixels).
+   */
   offsetLeft(node: HTMLElement) {
     let left = 0;
     const doc = this.doc;
@@ -339,6 +370,11 @@ export class EditorStore {
     return left;
   }
 
+  /**
+   * Updates the state of the editor store.
+   *
+   * @param value - A function that modifies the store state, or an object with new values.
+   */
   setState(value: (state: EditorStore) => void) {
     if (value instanceof Function) {
       value(this);
@@ -350,6 +386,13 @@ export class EditorStore {
     }
   }
 
+  /**
+   * Converts an HTML element to a Slate path and node.
+   *
+   * @param el - The HTML element to convert.
+   * @returns A tuple containing the path and the corresponding Slate node.
+   * @private
+   */
   private toPath(el: HTMLElement) {
     const node = ReactEditor.toSlateNode(this._editor.current, el);
     const path = ReactEditor.findPath(this._editor.current, node);
@@ -357,7 +400,7 @@ export class EditorStore {
   }
 
   /**
-   *清空编辑器内容
+   * Clears all content from the editor, replacing it with an empty paragraph.
    */
   clearContent() {
     this._editor.current.selection = null;
@@ -370,8 +413,11 @@ export class EditorStore {
   }
 
   /**
-   * 设置编辑器内容
-   * @param md
+   * Sets the editor content from markdown text.
+   *
+   * @param md - Markdown string to set as the editor content.
+   *             If undefined, the method returns without making any changes.
+   *             If the markdown is the same as the current content, no changes are made.
    */
   setMDContent(md?: string) {
     if (md === undefined) return;
@@ -382,11 +428,21 @@ export class EditorStore {
     ReactEditor.deselect(this._editor.current);
   }
 
+  /**
+   * Gets the current editor content as a node list.
+   *
+   * @returns The current editor content as a node list.
+   */
   getContent() {
     const nodeList = this._editor.current.children;
     return nodeList;
   }
 
+  /**
+   * Gets the current editor content as a markdown string.
+   *
+   * @returns The current editor content converted to markdown.
+   */
   getMDContent() {
     const nodeList = this._editor.current.children;
     const md = parserSlateNodeToMarkdown(nodeList);
@@ -394,8 +450,9 @@ export class EditorStore {
   }
 
   /**
-   * 设置编辑器内容，通过节点列表
-   * @param nodeList
+   * Sets the editor content using a list of nodes.
+   *
+   * @param nodeList - The list of nodes to set as the editor content.
    */
   setContent(nodeList: Node[]) {
     this._editor.current.children = nodeList;
@@ -404,9 +461,10 @@ export class EditorStore {
   }
 
   /**
-   * 更新节点列表
-   * @param nodeList 新的节点列表
-   * @returns 操作队列
+   * Updates the node list and returns the operations performed.
+   *
+   * @param nodeList - The new node list to update to.
+   * @returns The operations performed to update the node list.
    */
   updateNodeList(nodeList: Node[]) {
     const childrenList = this._editor.current.children;
@@ -659,6 +717,7 @@ export class EditorStore {
    * @param oldNode 旧节点
    * @param path 当前路径
    * @param operations 操作队列
+   * @private
    */
   private compareNodes(
     newNode: Node,
@@ -744,6 +803,12 @@ export class EditorStore {
 
   /**
    * 特殊处理表格节点的比较
+   *
+   * @param newTable - 新的表格节点
+   * @param oldTable - 旧的表格节点
+   * @param path - 表格节点的路径
+   * @param operations - 要填充的操作队列
+   * @private
    */
   private compareTableNodes(
     newTable: Node,
@@ -935,6 +1000,12 @@ export class EditorStore {
 
   /**
    * 比较和更新表格单元格
+   *
+   * @param newCell - 新的单元格节点
+   * @param oldCell - 旧的单元格节点
+   * @param path - 单元格的路径
+   * @param operations - 要填充的操作队列
+   * @private
    */
   private compareCells(
     newCell: Node,
@@ -1034,7 +1105,8 @@ export class EditorStore {
 
   /**
    * 执行操作队列
-   * @param operations 操作队列
+   *
+   * @param operations - 要执行的操作队列
    */
   executeOperations(operations: UpdateOperation[]): void {
     const editor = this._editor.current;
@@ -1091,7 +1163,8 @@ export class EditorStore {
 
   /**
    * 优化的更新节点列表方法，使用差异检测和操作队列
-   * @param nodeList 新的节点列表
+   *
+   * @param nodeList - 新的节点列表
    */
   updateNodeListOptimized(nodeList: Node[]): void {
     if (!nodeList || !Array.isArray(nodeList)) return;
