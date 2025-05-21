@@ -6,7 +6,6 @@
 } from '@ant-design/md-editor';
 import React from 'react';
 
-
 const defaultValue = `
 <!--{"MarkdownType":"section","id":"51212","order":"3","report_id":"126","section_id":"51212"}-->
 ## 紧急功能

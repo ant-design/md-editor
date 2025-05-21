@@ -17,7 +17,6 @@ const fileMap = new Map<string, IEditor>();
  */
 export const FloatBar = (props: { readonly: boolean }) => {
   const {
-    store,
     domRect,
     setDomRect,
     markdownContainerRef,

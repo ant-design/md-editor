@@ -40,8 +40,7 @@ export function useOnchange(
     onChange?.(parserSlateNodeToMarkdown(editor.children), editor.children);
   }, 16);
 
-  const { setRefreshFloatBar, domRect, setDomRect, refreshFloatBar, store } =
-    useEditorStore();
+  const { setRefreshFloatBar, setDomRect, refreshFloatBar } = useEditorStore();
 
   return React.useMemo(() => {
     return (_value: any, _operations: BaseOperation[]) => {
