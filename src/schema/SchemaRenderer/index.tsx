@@ -49,7 +49,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   // 应用主题样式
   const containerStyle = {
     padding: `${schema.theme?.spacing?.base ?? 16}px`,
-    background: schema.theme?.colorPalette?.primary,
     color: undefined,
     borderRadius: '16px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',

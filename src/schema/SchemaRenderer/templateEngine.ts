@@ -32,7 +32,17 @@ export class TemplateEngine {
 
     // 使用 DOMPurify 清理最终的 HTML
     return DOMPurify.sanitize(rendered, {
-      ALLOWED_TAGS: ['div', 'span', 'p', 'strong', 'em', 'b', 'i'],
+      ALLOWED_TAGS: [
+        'div',
+        'span',
+        'p',
+        'strong',
+        'em',
+        'b',
+        'i',
+        'style',
+        'script',
+      ],
       ALLOWED_ATTR: ['class', 'style'],
     });
   }
