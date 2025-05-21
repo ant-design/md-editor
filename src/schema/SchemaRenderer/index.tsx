@@ -120,9 +120,13 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       scripts.forEach((script) => {
         // 通过eval执行内联脚本
         if (!script.src && script.textContent) {
-          const scriptFn = new Function('shadowRoot', script.textContent);
+          const scriptFn = new Function(
+            'shadowRoot',
+            'window',
+            script.textContent,
+          );
           try {
-            scriptFn(shadowRoot);
+            scriptFn(shadowRoot, null);
           } catch (error) {
             console.error('执行脚本错误:', error);
           }

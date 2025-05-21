@@ -1,9 +1,8 @@
-import DOMPurify from 'dompurify';
-
 interface TemplateData {
   [key: string]: string | number | boolean;
 }
 
+import DOMPurify from 'dompurify';
 export class TemplateEngine {
   private static escapeHtml(unsafe: string): string {
     return unsafe
@@ -42,22 +41,28 @@ export class TemplateEngine {
     );
 
     // 使用 DOMPurify 清理最终的 HTML
-    return DOMPurify.sanitize(rendered, {
-      ALLOWED_TAGS: config?.ALLOWED_TAGS || [
-        'div',
-        'span',
-        'p',
-        'strong',
-        'em',
-        'b',
-        'i',
-        'style',
-        'img',
-        'a',
-        'canvas',
-        'svg',
-      ],
-      ALLOWED_ATTR: config?.ALLOWED_ATTR || ['class', 'id', 'style', 'src'],
-    });
+
+    console.log('rendered', rendered);
+
+    console.log(
+      DOMPurify.sanitize(rendered, {
+        ALLOWED_TAGS: config?.ALLOWED_TAGS || [
+          'div',
+          'span',
+          'p',
+          'strong',
+          'em',
+          'b',
+          'i',
+          'style',
+          'img',
+          'a',
+          'canvas',
+          'svg',
+        ],
+        ALLOWED_ATTR: config?.ALLOWED_ATTR || ['class', 'id', 'style', 'src'],
+      }),
+    );
+    return rendered;
   }
 }
