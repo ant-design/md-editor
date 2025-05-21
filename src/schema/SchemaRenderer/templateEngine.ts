@@ -57,7 +57,7 @@ export class TemplateEngine {
         'canvas',
         'svg',
       ],
-      ALLOWED_ATTR: config?.ALLOWED_ATTR || ['class', 'style'],
+      ALLOWED_ATTR: config?.ALLOWED_ATTR || ['class', 'id', 'style', 'src'],
     });
   }
 }
