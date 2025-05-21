@@ -23,6 +23,7 @@ import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
+import { markdownToHtmlSync } from './utils/markdownToHtml';
 
 export const EditorStoreContext = createContext<{
   store: EditorStore;
@@ -321,6 +322,16 @@ export class EditorStore {
     const nodeList = this._editor.current.children;
     const md = parserSlateNodeToMarkdown(nodeList);
     return md;
+  }
+
+  /**
+   * Gets the current editor content as an HTML string.
+   *
+   * @returns The current editor content converted to HTML.
+   */
+  getHtmlContent() {
+    const markdown = this.getMDContent();
+    return markdownToHtmlSync(markdown);
   }
 
   /**

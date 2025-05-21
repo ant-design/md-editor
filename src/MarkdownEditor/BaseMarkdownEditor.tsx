@@ -41,6 +41,7 @@ import { ElementProps, Elements, ListItemNode, SchemaNode } from './el';
 import './index.css';
 import { MarkdownEditorPlugin, PluginContext } from './plugin';
 import { useStyle } from './style';
+import { exportHtml } from './utils/exportHtml';
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
@@ -105,6 +106,7 @@ export interface MarkdownEditorInstance {
   markdownEditorRef: React.MutableRefObject<
     BaseEditor & ReactEditor & HistoryEditor
   >;
+  exportHtml: (filename?: string) => void;
 }
 
 /**
@@ -433,6 +435,10 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       store,
       markdownContainerRef,
       markdownEditorRef,
+      exportHtml: (filename?: string) => {
+        const htmlContent = store.getHtmlContent();
+        exportHtml(htmlContent, filename);
+      },
     } as MarkdownEditorInstance;
   }, []);
 
@@ -445,6 +451,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       store: instance.store,
       markdownContainerRef,
       markdownEditorRef,
+      exportHtml: instance.exportHtml,
     };
   }, [instance, editorMountStatus]);
 
