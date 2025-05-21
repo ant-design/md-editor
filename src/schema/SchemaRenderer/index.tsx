@@ -48,10 +48,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
 
   // 应用主题样式
   const containerStyle = {
-    padding: `${schema.theme?.spacing?.base ?? 16}px`,
-    color: undefined,
-    borderRadius: '16px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
     fontFamily: schema.theme?.typography?.fontFamily,
     fontSize: `${schema.theme?.typography?.fontSizes?.[2] ?? '14'}px`, // 使用中等大小的字体
     lineHeight: schema.theme?.typography?.lineHeights?.normal ?? 1.6,
