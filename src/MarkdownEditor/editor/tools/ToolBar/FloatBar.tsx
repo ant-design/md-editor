@@ -53,9 +53,11 @@ export const FloatBar = (props: { readonly: boolean }) => {
           left: Math.max(left, 4),
           top: Math.max(top, 4),
         });
+      } else {
+        setState({ open: false });
       }
     },
-    [props.readonly, state.open],
+    [props.readonly, state.open, domRect, markdownContainerRef],
   );
 
   useEffect(() => {

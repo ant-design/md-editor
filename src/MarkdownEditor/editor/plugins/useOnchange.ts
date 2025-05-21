@@ -73,6 +73,7 @@ export function useOnchange(
             node,
           });
         });
+
         if (
           _operations.some((o) => o.type === 'set_selection') &&
           sel &&
@@ -92,8 +93,10 @@ export function useOnchange(
           const rect = domRange?.getBoundingClientRect();
           if (rect) {
             setDomRect?.(rect);
+          } else {
+            setDomRect?.(null);
           }
-        } else if (domRect) {
+        } else {
           rangeContent.current = '';
           setDomRect?.(null);
         }

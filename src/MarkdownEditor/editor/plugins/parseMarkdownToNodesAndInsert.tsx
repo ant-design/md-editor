@@ -16,7 +16,6 @@ export const parseMarkdownToNodesAndInsert = (
   if (nodes.length === 0) {
     nodes.push({ type: 'paragraph', children: [{ text: '' }] });
   }
-
   const fragment = nodes;
   const sel = editor.selection;
   if (sel && Editor.hasPath(editor, sel.anchor.path)) {
