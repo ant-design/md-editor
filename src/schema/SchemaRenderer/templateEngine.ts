@@ -51,6 +51,11 @@ export class TemplateEngine {
         'em',
         'b',
         'i',
+        'style',
+        'img',
+        'a',
+        'canvas',
+        'svg',
       ],
       ALLOWED_ATTR: config?.ALLOWED_ATTR || ['class', 'style'],
     });
