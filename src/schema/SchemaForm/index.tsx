@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber, Select } from 'antd';
 import type { Rule } from 'antd/es/form';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LowCodeSchema, SchemaProperty } from '../../schema/types';
 
 interface SchemaFormProps {
@@ -98,6 +98,19 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
 
     return rules;
   };
+
+  useEffect(() => {
+    form.setFieldsValue(
+      initialValues ||
+        Object.entries(properties).reduce(
+          (acc, [key, prop]) => {
+            acc[key] = prop.default;
+            return acc;
+          },
+          {} as Record<string, any>,
+        ),
+    );
+  }, [initialValues, properties, form]);
 
   return (
     <Form
