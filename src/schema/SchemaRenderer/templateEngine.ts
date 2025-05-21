@@ -14,10 +14,21 @@ export class TemplateEngine {
       .replace(/'/g, '&#039;');
   }
 
-  static render(template: string, data: TemplateData): string {
+  static render(
+    template: string,
+    data: TemplateData,
+    config?: {
+      ALLOWED_TAGS?: string[];
+      ALLOWED_ATTR?: string[];
+    },
+  ): string {
     // 首先转义所有的数据值
     const escapedData = Object.entries(data).reduce((acc, [key, value]) => {
       acc[key] = typeof value === 'string' ? this.escapeHtml(value) : value;
+
+      if (typeof value === 'object' && value !== null && value !== undefined) {
+        acc[key] = JSON.stringify(value);
+      }
       return acc;
     }, {} as TemplateData);
 
@@ -32,7 +43,7 @@ export class TemplateEngine {
 
     // 使用 DOMPurify 清理最终的 HTML
     return DOMPurify.sanitize(rendered, {
-      ALLOWED_TAGS: [
+      ALLOWED_TAGS: config?.ALLOWED_TAGS || [
         'div',
         'span',
         'p',
@@ -40,10 +51,8 @@ export class TemplateEngine {
         'em',
         'b',
         'i',
-        'style',
-        'script',
       ],
-      ALLOWED_ATTR: ['class', 'style'],
+      ALLOWED_ATTR: config?.ALLOWED_ATTR || ['class', 'style'],
     });
   }
 }

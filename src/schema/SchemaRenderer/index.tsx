@@ -9,11 +9,16 @@ export * from './templateEngine';
 export interface SchemaRendererProps {
   schema: LowCodeSchema;
   values: Record<string, any>;
+  config?: {
+    ALLOWED_TAGS?: string[];
+    ALLOWED_ATTR?: string[];
+  };
 }
 
 export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   schema,
   values,
+  config,
 }) => {
   // 验证 schema
   const validationResult = validator.validate(schema);
@@ -44,7 +49,11 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   );
 
   // 使用模板引擎渲染
-  const renderedHtml = TemplateEngine.render(templateHtml, templateData);
+  const renderedHtml = TemplateEngine.render(
+    templateHtml,
+    templateData,
+    config,
+  );
 
   // 应用主题样式
   const containerStyle = {
