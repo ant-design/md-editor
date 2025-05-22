@@ -1,9 +1,9 @@
 import { merge } from 'lodash';
-import React, { useEffect, useRef } from 'react';
+import Mustache from 'mustache';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { LowCodeSchema } from '../../schema/types';
 import { validator } from '../../schema/validator';
 import { TemplateEngine } from './templateEngine';
-
 export * from './templateEngine';
 
 export interface SchemaRendererProps {
@@ -24,7 +24,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   const validationResult = validator.validate(schema);
 
   // 从 schema 中提取数据和模板
-  const { properties } = schema.component;
+  const { properties, type } = schema.component;
   const templateHtml = schema.component.schema;
 
   // 准备模板数据
@@ -40,11 +40,15 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   );
 
   // 使用模板引擎渲染
-  const renderedHtml = TemplateEngine.render(
-    templateHtml,
-    templateData,
-    config,
-  );
+  const renderedHtml = useMemo(() => {
+    if (type === 'html') {
+      return TemplateEngine.render(templateHtml, templateData, config);
+    }
+    if (type === 'mustache') {
+      return Mustache.render(templateHtml, templateData);
+    }
+    return templateHtml;
+  }, [templateHtml, templateData, config]);
 
   // 应用主题样式
   const containerStyle = {
