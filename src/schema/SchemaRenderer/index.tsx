@@ -41,12 +41,18 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
 
   // 使用模板引擎渲染
   const renderedHtml = useMemo(() => {
-    if (type === 'html') {
-      return TemplateEngine.render(templateHtml, templateData, config);
+    try {
+      if (type === 'html') {
+        return TemplateEngine.render(templateHtml, templateData, config);
+      }
+      if (type === 'mustache') {
+        return Mustache.render(templateHtml, templateData);
+      }
+    } catch (error) {
+      console.error('模板渲染错误:', error);
+      return '';
     }
-    if (type === 'mustache') {
-      return Mustache.render(templateHtml, templateData);
-    }
+
     return templateHtml;
   }, [templateHtml, templateData, config]);
 
@@ -91,52 +97,56 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       `;
       shadowRoot.appendChild(style);
 
-      // 提取所有的script标签
-      const scripts: HTMLScriptElement[] = [];
-      const scriptElements = tempContainer.querySelectorAll('script');
-      scriptElements.forEach((oldScript) => {
-        // 移除原始script标签
-        oldScript.parentNode?.removeChild(oldScript);
+      try {
+        // 提取所有的script标签
+        const scripts: HTMLScriptElement[] = [];
+        const scriptElements = tempContainer.querySelectorAll('script');
+        scriptElements.forEach((oldScript) => {
+          // 移除原始script标签
+          oldScript.parentNode?.removeChild(oldScript);
 
-        // 创建新的script标签
-        const newScript = document.createElement('script');
+          // 创建新的script标签
+          const newScript = document.createElement('script');
 
-        // 复制属性
-        Array.from(oldScript.attributes).forEach((attr) => {
-          newScript.setAttribute(attr.name, attr.value);
+          // 复制属性
+          Array.from(oldScript.attributes).forEach((attr) => {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+
+          // 复制内容
+          newScript.textContent = oldScript.textContent;
+          scripts.push(newScript);
         });
 
-        // 复制内容
-        newScript.textContent = oldScript.textContent;
-        scripts.push(newScript);
-      });
+        // 将其他内容添加到Shadow DOM
+        Array.from(tempContainer.childNodes).forEach((node) => {
+          shadowRoot.appendChild(node.cloneNode(true));
+        });
 
-      // 将其他内容添加到Shadow DOM
-      Array.from(tempContainer.childNodes).forEach((node) => {
-        shadowRoot.appendChild(node.cloneNode(true));
-      });
-
-      // 添加并执行脚本
-      scripts.forEach((script) => {
-        // 通过eval执行内联脚本
-        if (!script.src && script.textContent) {
-          const scriptFn = new Function(
-            'shadowRoot',
-            'window',
-            script.textContent,
-          );
-          try {
-            scriptFn(shadowRoot, {
-              devicePixelRatio: window.devicePixelRatio,
-            });
-          } catch (error) {
-            console.error('执行脚本错误:', error);
+        // 添加并执行脚本
+        scripts.forEach((script) => {
+          // 通过eval执行内联脚本
+          if (!script.src && script.textContent) {
+            const scriptFn = new Function(
+              'shadowRoot',
+              'window',
+              script.textContent,
+            );
+            try {
+              scriptFn(shadowRoot, {
+                devicePixelRatio: window.devicePixelRatio,
+              });
+            } catch (error) {
+              console.error('执行脚本错误:', error);
+            }
+          } else if (script.src) {
+            // 对于外部脚本，需要重新添加到DOM中
+            shadowRoot.appendChild(script);
           }
-        } else if (script.src) {
-          // 对于外部脚本，需要重新添加到DOM中
-          shadowRoot.appendChild(script);
-        }
-      });
+        });
+      } catch (error) {
+        console.error('脚本执行错误:', error);
+      }
     }
   }, [renderedHtml, schema.theme]);
 

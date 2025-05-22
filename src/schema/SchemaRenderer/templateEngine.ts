@@ -42,8 +42,6 @@ export class TemplateEngine {
 
     // 使用 DOMPurify 清理最终的 HTML
 
-    console.log('rendered', rendered);
-
     console.log(
       DOMPurify.sanitize(rendered, {
         ALLOWED_TAGS: config?.ALLOWED_TAGS || [
