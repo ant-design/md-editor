@@ -129,6 +129,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
                 getElementById: document.getElementById.bind(document),
                 querySelector: document.querySelector.bind(document),
                 querySelectorAll: document.querySelectorAll.bind(document),
+                createElement: document.createElement.bind(document),
               },
             });
           } catch (error) {

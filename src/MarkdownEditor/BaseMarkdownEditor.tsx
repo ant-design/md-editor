@@ -484,6 +484,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             insertCompletionText$,
             openInsertLink$,
             openInsertCompletion,
+            setOpenInsertCompletion,
             openLinkPanel,
             setOpenLinkPanel,
             setRefreshFloatBar,
