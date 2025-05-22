@@ -147,7 +147,7 @@
         },
         "type": {
           "type": "string",
-          "enum": ["html"]
+          "enum": ["html", "mustache"]
         },
         "schema": {
           "type": "string"
@@ -203,7 +203,6 @@
         },
         "spacing": {
           "type": "object",
-          "required": ["base", "multiplier"],
           "properties": {
             "base": {
               "type": "number"
@@ -215,7 +214,6 @@
         },
         "typography": {
           "type": "object",
-          "required": ["fontFamily", "fontSizes", "lineHeights"],
           "properties": {
             "fontFamily": {
               "type": "string"
@@ -241,7 +239,6 @@
         },
         "breakpoints": {
           "type": "object",
-          "required": ["xs", "sm", "md", "lg", "xl"],
           "properties": {
             "xs": {
               "type": "number"
