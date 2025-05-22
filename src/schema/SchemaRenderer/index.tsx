@@ -119,20 +119,12 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
           const scriptFn = new Function(
             'shadowRoot',
             'window',
-            'document',
             script.textContent,
           );
           try {
-            scriptFn(
-              shadowRoot,
-              {
-                devicePixelRatio: window.devicePixelRatio,
-              },
-              {
-                ...document,
-                cookie: '',
-              },
-            );
+            scriptFn(shadowRoot, {
+              devicePixelRatio: window.devicePixelRatio,
+            });
           } catch (error) {
             console.error('执行脚本错误:', error);
           }
