@@ -126,10 +126,8 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
             scriptFn(shadowRoot, {
               devicePixelRatio: window.devicePixelRatio,
               document: {
-                getElementById: document.getElementById.bind(document),
-                querySelector: document.querySelector.bind(document),
-                querySelectorAll: document.querySelectorAll.bind(document),
-                createElement: document.createElement.bind(document),
+                ...document,
+                cookie: '',
               },
             });
           } catch (error) {
