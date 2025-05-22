@@ -119,10 +119,18 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
           const scriptFn = new Function(
             'shadowRoot',
             'window',
+            'document',
             script.textContent,
           );
           try {
-            scriptFn(shadowRoot, null);
+            scriptFn(shadowRoot, {
+              devicePixelRatio: window.devicePixelRatio,
+              document: {
+                getElementById: document.getElementById.bind(document),
+                querySelector: document.querySelector.bind(document),
+                querySelectorAll: document.querySelectorAll.bind(document),
+              },
+            });
           } catch (error) {
             console.error('执行脚本错误:', error);
           }
