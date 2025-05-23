@@ -23,7 +23,25 @@ export interface NumberProperty extends BaseProperty {
   unit?: string;
 }
 
-export type SchemaProperty = StringProperty | NumberProperty;
+export interface ArrayProperty extends BaseProperty {
+  type: 'array';
+  default: any[];
+  items?: SchemaProperty;
+  minItems?: number;
+  maxItems?: number;
+}
+
+export interface ObjectProperty extends BaseProperty {
+  type: 'object';
+  default: Record<string, any>;
+  properties?: ComponentProperties;
+}
+
+export type SchemaProperty =
+  | StringProperty
+  | NumberProperty
+  | ArrayProperty
+  | ObjectProperty;
 
 export interface ComponentProperties {
   [key: string]: SchemaProperty;

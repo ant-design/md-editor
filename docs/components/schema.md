@@ -937,6 +937,95 @@ const AdvancedSchemaEditor: React.FC = () => {
 export default SchemaEditor;
 ```
 
+### 嵌套对象
+
+```tsx
+import React, { useState } from 'react';
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
+
+const CompleteExample: React.FC = () => {
+  const [formValues, setFormValues] = useState({});
+
+  const schema = {
+    version: '1.0.0',
+    name: '动物介绍卡片',
+    description: '展示单个动物详细信息的卡片组件',
+    author: 'Wildlife Info',
+    createTime: '2025-05-23T08:00:00Z',
+    updateTime: '2025-05-23T08:00:00Z',
+    component: {
+      properties: {
+        animal: {
+          title: '动物信息',
+          type: 'object',
+          required: true,
+          properties: {
+            name: { type: 'string', description: '中文名' },
+            latinName: { type: 'string', description: '拉丁学名' },
+            image: {
+              type: 'string',
+              format: 'uri',
+              description: '动物图片 URL',
+            },
+            habitat: { type: 'string', description: '栖息地' },
+            diet: { type: 'string', description: '食性' },
+            behavior: { type: 'string', description: '习性/特征' },
+            conservationStatus: { type: 'string', description: '保护等级' },
+            description: { type: 'string', description: '简要介绍' },
+            lastUpdated: {
+              type: 'string',
+              format: 'date',
+              description: '信息更新时间',
+            },
+          },
+          default: {
+            name: '大熊猫',
+            latinName: 'Ailuropoda melanoleuca',
+            image: 'https://example.com/giant_panda.jpg',
+            habitat: '中国四川、陕西、甘肃的高山竹林',
+            diet: '主要以竹子为食，偶尔也会吃小型动物和果实',
+            behavior: '性情温顺，多为独居，活动区域广泛，嗅觉灵敏',
+            conservationStatus: '易危（IUCN Red List）',
+            description:
+              '大熊猫是中国特有的哺乳动物，以其独特的黑白毛色和憨态可掬的形象广受喜爱，被誉为“国宝”。',
+            lastUpdated: '2025-04-15',
+          },
+        },
+      },
+      type: 'mustache',
+      schema:
+        "<div style='background: linear-gradient(135deg, #2c3e50, #4ca1af); padding: 2rem; border-radius: 16px; color: white; max-width: 800px; margin: auto;'><div style='display: flex; flex-direction: column; align-items: center;'><img src='{{animal.image}}' alt='{{animal.name}}' style='width: 180px; height: 180px; object-fit: cover; border-radius: 12px; border: 3px solid white;'><h2 style='margin-top: 1rem;'>{{animal.name}} <span style='font-size: 1rem; font-weight: normal;'>({{animal.latinName}})</span></h2></div><hr style='margin: 1rem 0; border-color: rgba(255,255,255,0.2);'><div><strong>📍 栖息地：</strong> {{animal.habitat}}</div><div><strong>🍽️ 食性：</strong> {{animal.diet}}</div><div><strong>🧠 习性：</strong> {{animal.behavior}}</div><div><strong>🛡️ 保护状态：</strong> {{animal.conservationStatus}}</div><div style='margin-top: 1rem;'><strong>📋 简介：</strong><p style='margin-top: 0.5rem; opacity: 0.9;'>{{animal.description}}</p></div><div style='margin-top: 1rem; text-align: right; font-size: 0.85rem; opacity: 0.6;'>🕒 更新时间：{{animal.lastUpdated}}</div></div>",
+    },
+  };
+  const handleValuesChange = (_, values: Record<string, any>) => {
+    console.log(values);
+    // 验证数据
+    const validationResult = validator.validate(schema);
+    if (validationResult?.valid) {
+      setFormValues(values);
+    } else {
+      console.error('Schema 验证失败：', validationResult.errors);
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: '20px' }}>
+      <div style={{ flex: 1 }}>
+        <h2>编辑表单</h2>
+        <SchemaForm schema={schema} onValuesChange={handleValuesChange} />
+      </div>
+      <div style={{ flex: 1 }}>
+        <div>
+          <h2>预览效果</h2>
+          <SchemaRenderer schema={schema} values={formValues} />
+        </div>
+      </div>
+    </div>
+  );
+};
+export default CompleteExample;
+```
+
 这个示例展示了：
 
 1. 如何定义不同类型的文本输入字段（普通文本、密码、邮箱、文本域、URL等）

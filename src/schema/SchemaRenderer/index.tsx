@@ -108,7 +108,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
             }
             return data;
           },
-          {} as Record<string, string | number | boolean>,
+          {} as Record<string, any>,
         ),
         values || {},
       );
