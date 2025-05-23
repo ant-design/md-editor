@@ -511,7 +511,22 @@ export default () => {
           });
         },
       }}
-      initValue={defaultValue}
+      initValue={
+        process.env.NODE_ENV === 'test'
+          ? defaultValue
+          : defaultValue +
+            `## 公式
+
+Lift($$L$$) can be determined by Lift Coefficient ($$C_L$$) like the following
+equation.
+
+$$
+L = \frac{1}{2} \rho v^2 S C_L
+$$
+
+$x^3+x^9+x^y$
+`
+      }
     />
   );
 };

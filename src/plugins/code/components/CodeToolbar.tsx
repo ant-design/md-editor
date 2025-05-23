@@ -81,7 +81,6 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
     onCloseClick,
     onRunHtml,
     onFullScreenToggle,
-    isFullScreen,
     languageSelectorProps,
   } = props;
 
@@ -122,7 +121,9 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             cursor: 'pointer',
             gap: 2,
             color: 'rgba(0, 0, 0, 0.8)',
+            userSelect: 'none',
           }}
+          contentEditable={false}
         >
           {/* 语言图标（如果存在且不是公式） */}
           {langIconMap.get(element.language?.toLowerCase() || '') &&

@@ -10,6 +10,7 @@ import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../../i18n';
 import { langIconMap } from '../langIconMap';
 import { langOptions } from '../utils/langOptions';
+import { LoadImage } from './LoadImage';
 
 /**
  * 语言选择器组件的属性接口
@@ -90,7 +91,6 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
         <AutoComplete
           value={keyword}
           options={langOptions}
-          placeholder={'Search'}
           autoFocus={true}
           style={{ width: 200 }}
           filterOption={(text, item) => {
@@ -144,16 +144,10 @@ export const LanguageSelector = (props: LanguageSelectorProps) => {
                 marginRight: '0.25em',
               }}
             >
-              <img
-                style={{
-                  height: '1em',
-                  width: '1em',
-                }}
-                src={
-                  langIconMap.get(props.element.language?.toLowerCase() || '')
-                    ?.src ||
-                  langIconMap.get(props.element.language?.toLowerCase() || '')
-                }
+              <LoadImage
+                src={langIconMap.get(
+                  props.element.language?.toLowerCase() || 'html',
+                )}
               />
             </div>
           )

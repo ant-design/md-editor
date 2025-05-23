@@ -25,9 +25,18 @@ import React, { useState } from 'react';
  * />
  * ```
  */
-export const LoadImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+export const LoadImage = (
+  props: Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
+    src?: React.ComponentType<any> | string;
+  },
+) => {
   // 控制图片显示状态，默认隐藏直到加载成功
   const [show, setShow] = useState(false);
+
+  if (typeof props.src !== 'string' && props.src) {
+    const C = props.src;
+    return <C size={16} />;
+  }
 
   return (
     <img

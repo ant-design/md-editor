@@ -1,13 +1,13 @@
 ﻿import { ChartElement } from './chart';
-import { CodeElement, InlineKatex } from './code';
+import { CodeElement } from './code';
+import { InlineKatex, KatexElement } from './katex';
 
 export const standardPlugins = [
   {
     elements: {
       code: CodeElement,
-
       chart: ChartElement,
-      katex: CodeElement,
+      katex: KatexElement,
       'inline-katex': InlineKatex,
     },
   },

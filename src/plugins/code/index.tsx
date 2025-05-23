@@ -18,7 +18,6 @@ import { EditorUtils } from '../../MarkdownEditor/editor/utils/editorUtils';
 import { CodeNode, ElementProps } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
 import { useFullScreenHandle } from '../../MarkdownEditor/hooks/useFullScreenHandle';
-import { Katex } from './CodeUI/Katex/Katex';
 import { CodeToolbar, LanguageSelectorProps } from './components';
 
 /**
@@ -29,8 +28,6 @@ import { CodeToolbar, LanguageSelectorProps } from './components';
  * - 支持 100+ 种编程语言语法高亮
  * - 支持代码复制、全屏编辑
  * - 支持 HTML 代码实时预览
- * - 支持数学公式（KaTeX）渲染
- * - 支持 Mermaid 图表渲染
  * - 支持拖拽排序
  * - 响应式布局适配
  *
@@ -67,7 +64,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
   const [state, setState] = useGetSetState({
     showBorder: false, // 是否显示选中边框
     htmlStr: '', // HTML 预览内容
-    hide: !!props.element.katex || props.element.language === 'mermaid', // 是否隐藏编辑器
+    hide: false, // 是否隐藏编辑器
     lang: props.element.language || '', // 当前语言
   });
 
@@ -141,9 +138,9 @@ export function CodeElement(props: ElementProps<CodeNode>) {
   // 工具栏事件处理器
   const handleCloseClick = useCallback(() => {
     setState({
-      hide: props.element.katex || props.element.language === 'mermaid',
+      hide: false,
     });
-  }, [props.element.katex, props.element.language]);
+  }, []);
 
   const handleRunHtml = useCallback(() => {
     try {
@@ -438,11 +435,6 @@ export function CodeElement(props: ElementProps<CodeNode>) {
           </div>
         </div>
 
-        {/* KaTeX 数学公式渲染 */}
-        {!!props.element.katex && process.env.NODE_ENV !== 'test' ? (
-          <Katex el={props.element} />
-        ) : null}
-
         {/* HTML 预览模态框 */}
         <Modal
           open={!!state().htmlStr}
@@ -488,6 +480,3 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     path,
   ]);
 }
-
-// 导出内联 KaTeX 组件
-export { InlineKatex } from './CodeUI/Katex/InlineKatex';
