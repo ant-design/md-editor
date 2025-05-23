@@ -50,4 +50,4 @@ export class SchemaValidator {
 }
 
 // 导出单例实例
-export const validator = new SchemaValidator();
+export const mdDataSchemaValidator = new SchemaValidator();

@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 import { LowCodeSchema } from '../../schema/types';
-import { validator } from '../../schema/validator';
+import { mdDataSchemaValidator } from '../../schema/validator';
 import { TemplateEngine } from './templateEngine';
 export * from './templateEngine';
 
@@ -83,7 +83,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   // 验证 schema
   const validationResult = useMemo(() => {
     try {
-      return validator.validate(safeSchema);
+      return mdDataSchemaValidator.validate(safeSchema);
     } catch (error) {
       console.error('Schema validation error:', error);
       return {

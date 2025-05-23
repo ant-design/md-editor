@@ -1,7 +1,7 @@
 import { SchemaForm } from './SchemaForm';
 import { SchemaRenderer, TemplateEngine } from './SchemaRenderer';
 import { LowCodeSchema } from './types';
-import { SchemaValidator, validator } from './validator';
+import { SchemaValidator, mdDataSchemaValidator } from './validator';
 
 export {
   LowCodeSchema,
@@ -9,5 +9,5 @@ export {
   SchemaRenderer,
   SchemaValidator,
   TemplateEngine,
-  validator,
+  mdDataSchemaValidator as validator,
 };
