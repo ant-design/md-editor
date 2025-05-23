@@ -379,7 +379,6 @@ const CompleteExample: React.FC = () => {
     },
   };
   const handleValuesChange = (_, values: Record<string, any>) => {
-    console.log(values);
     // 验证数据
     const validationResult = validator.validate(schema);
     if (validationResult?.valid) {
@@ -594,14 +593,357 @@ const CompleteExample: React.FC = () => {
 export default CompleteExample;
 ```
 
-这个完整示例展示了：
+## 输入 json 直接渲染
 
-1. 如何定义和使用 schema
-2. 如何使用 SchemaForm 创建表单
-3. 如何使用 SchemaRenderer 渲染内容
-4. 如何使用 validator 进行数据验证
-5. 如何处理表单值的变化
-6. 如何实现实时预览功能
+```tsx
+import React, { useState, useEffect } from 'react';
+import { SchemaRenderer, validator } from '@ant-design/md-editor';
+import { Input, Button, message, Spin, Tabs } from 'antd';
+
+const { TextArea } = Input;
+
+const SchemaEditor: React.FC = () => {
+  const [jsonInput, setJsonInput] = useState('');
+  const [schema, setSchema] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // 提供默认示例
+  const defaultSchema = {
+    version: '1.0.0',
+    name: 'Simple Card Component',
+    description: '可自定义的卡片组件',
+    author: 'Schema Team',
+    createTime: '2024-03-30T10:00:00Z',
+    updateTime: '2024-03-30T10:00:00Z',
+    component: {
+      properties: {
+        title: {
+          title: '标题',
+          type: 'string',
+          default: '卡片标题',
+        },
+        content: {
+          title: '内容',
+          type: 'string',
+          format: 'textarea',
+          default: '这是卡片的内容区域，可以输入任意文本。',
+        },
+        bgColor: {
+          title: '背景颜色',
+          type: 'string',
+          default: '#f5f5f5',
+          format: 'color',
+        },
+      },
+      type: 'html',
+      schema: `
+        <div style="background-color: {{bgColor}}; border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 400px;">
+          <h2 style="margin-top: 0; color: #333;">{{title}}</h2>
+          <div style="color: #666;">{{content}}</div>
+        </div>
+      `,
+    },
+  };
+
+  useEffect(() => {
+    // 初始化默认示例
+    setJsonInput(JSON.stringify(defaultSchema, null, 2));
+  }, []);
+
+  const parseAndValidate = () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      // 解析 JSON
+      const parsedSchema = JSON.parse(jsonInput);
+
+      // 验证 schema
+      const validationResult = validator.validate(parsedSchema);
+
+      if (validationResult?.valid) {
+        setSchema(parsedSchema);
+        message.success('Schema 解析成功');
+      } else {
+        setError(
+          `Schema 验证失败: ${JSON.stringify(validationResult?.errors)}`,
+        );
+        message.error('Schema 验证失败');
+      }
+    } catch (err) {
+      setError(`JSON 解析错误: ${err.message}`);
+      message.error('JSON 解析错误');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setJsonInput(e.target.value);
+  };
+
+  const loadExample = () => {
+    setJsonInput(JSON.stringify(defaultSchema, null, 2));
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ marginBottom: '8px' }}>
+        <Button onClick={loadExample} style={{ marginRight: '8px' }}>
+          加载示例
+        </Button>
+        <Button type="primary" onClick={parseAndValidate}>
+          渲染预览
+        </Button>
+      </div>
+
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 400px', minWidth: '350px' }}>
+          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
+            Schema JSON:
+          </div>
+          <TextArea
+            value={jsonInput}
+            onChange={handleInputChange}
+            style={{ fontFamily: 'monospace', height: '500px' }}
+            placeholder="在这里输入 JSON Schema..."
+          />
+          {error && (
+            <div
+              style={{
+                marginTop: '10px',
+                color: 'red',
+                whiteSpace: 'pre-wrap',
+              }}
+            >
+              {error}
+            </div>
+          )}
+        </div>
+
+        <div style={{ flex: '1 1 400px', minWidth: '350px' }}>
+          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
+            渲染结果:
+          </div>
+          <div
+            style={{
+              border: '1px solid #d9d9d9',
+              padding: '16px',
+              borderRadius: '2px',
+              minHeight: '500px',
+            }}
+          >
+            {loading ? (
+              <Spin
+                tip="正在渲染..."
+                style={{ width: '100%', marginTop: '100px' }}
+              />
+            ) : schema ? (
+              <SchemaRenderer schema={schema} />
+            ) : (
+              <div
+                style={{
+                  color: '#999',
+                  textAlign: 'center',
+                  marginTop: '100px',
+                }}
+              >
+                点击"渲染预览"按钮查看渲染结果
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// 高级示例，支持多个 Schema 渲染和代码/预览切换
+const AdvancedSchemaEditor: React.FC = () => {
+  const { TabPane } = Tabs;
+  const [activeTab, setActiveTab] = useState('1');
+  const [schemas, setSchemas] = useState([
+    {
+      id: '1',
+      json: JSON.stringify(defaultSchema, null, 2),
+      schema: defaultSchema,
+      error: '',
+    },
+  ]);
+
+  // 同样的默认示例
+  const defaultSchema = {
+    version: '1.0.0',
+    name: 'Simple Card Component',
+    description: '可自定义的卡片组件',
+    component: {
+      properties: {
+        title: {
+          title: '标题',
+          type: 'string',
+          default: '卡片标题',
+        },
+        content: {
+          title: '内容',
+          type: 'string',
+          default: '这是卡片的内容区域',
+        },
+        bgColor: {
+          title: '背景颜色',
+          type: 'string',
+          default: '#f5f5f5',
+        },
+      },
+      type: 'html',
+      schema: `
+        <div style="background-color: {{bgColor}}; border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 400px;">
+          <h2 style="margin-top: 0; color: #333;">{{title}}</h2>
+          <div style="color: #666;">{{content}}</div>
+        </div>
+      `,
+    },
+  };
+
+  const parseSchema = (id, json) => {
+    try {
+      const parsedSchema = JSON.parse(json);
+      const validationResult = validator.validate(parsedSchema);
+
+      setSchemas((prev) =>
+        prev.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              json,
+              schema: validationResult?.valid ? parsedSchema : null,
+              error: validationResult?.valid
+                ? ''
+                : `Schema 验证失败: ${JSON.stringify(validationResult?.errors)}`,
+            };
+          }
+          return item;
+        }),
+      );
+
+      if (validationResult?.valid) {
+        message.success('Schema 解析成功');
+      } else {
+        message.error('Schema 验证失败');
+      }
+    } catch (err) {
+      setSchemas((prev) =>
+        prev.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              json,
+              schema: null,
+              error: `JSON 解析错误: ${err.message}`,
+            };
+          }
+          return item;
+        }),
+      );
+      message.error('JSON 解析错误');
+    }
+  };
+
+  const handleInputChange = (id, e) => {
+    const json = e.target.value;
+    setSchemas((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, json };
+        }
+        return item;
+      }),
+    );
+  };
+
+  const renderTabContent = (item) => {
+    return (
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 400px', minWidth: '350px' }}>
+          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
+            Schema JSON:
+          </div>
+          <TextArea
+            value={item.json}
+            onChange={(e) => handleInputChange(item.id, e)}
+            style={{ fontFamily: 'monospace', height: '500px' }}
+            placeholder="在这里输入 JSON Schema..."
+          />
+          <Button
+            type="primary"
+            onClick={() => parseSchema(item.id, item.json)}
+            style={{ marginTop: '8px' }}
+          >
+            渲染预览
+          </Button>
+          {item.error && (
+            <div
+              style={{
+                marginTop: '10px',
+                color: 'red',
+                whiteSpace: 'pre-wrap',
+              }}
+            >
+              {item.error}
+            </div>
+          )}
+        </div>
+
+        <div style={{ flex: '1 1 400px', minWidth: '350px' }}>
+          <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
+            渲染结果:
+          </div>
+          <div
+            style={{
+              border: '1px solid #d9d9d9',
+              padding: '16px',
+              borderRadius: '2px',
+              minHeight: '500px',
+            }}
+          >
+            {item.schema ? (
+              <SchemaRenderer schema={item.schema} />
+            ) : (
+              <div
+                style={{
+                  color: '#999',
+                  textAlign: 'center',
+                  marginTop: '100px',
+                }}
+              >
+                {item.error
+                  ? '存在错误，无法渲染'
+                  : '点击"渲染预览"按钮查看渲染结果'}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <SchemaEditor />
+    </div>
+  );
+};
+
+export default SchemaEditor;
+```
+
+这个示例展示了：
+
+1. 如何定义不同类型的文本输入字段（普通文本、密码、邮箱、文本域、URL等）
+2. 如何为文本字段设置验证规则（必填、长度限制、正则表达式等）
+3. 如何添加辅助信息（占位符、描述等）
+4. 如何将输入值渲染到预览界面
+5. 如何处理特殊格式的输入（如标签字符串转换为数组）
 
 ## 调试技巧
 
