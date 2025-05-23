@@ -140,7 +140,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       {Object.entries(properties).map(([key, property]) => (
         <Form.Item
           key={key}
-          label={property.title}
+          label={property.title || property.description || key}
           name={key}
           rules={generateRules(property)}
         >
