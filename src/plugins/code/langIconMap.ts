@@ -1,207 +1,184 @@
-import abap from './langIcons/abap.svg';
-import actionscript from './langIcons/actionscript.svg';
-import ada from './langIcons/ada.svg';
-import apache from './langIcons/apache.svg';
-import apex from './langIcons/apex.svg';
-import applescript from './langIcons/applescript.svg';
-import astro from './langIcons/astro.svg';
-import c from './langIcons/c.svg';
-import clojure from './langIcons/clojure.svg';
-import cobol from './langIcons/cobol.svg';
-import coffee from './langIcons/coffee.svg';
-import shell from './langIcons/console.svg';
-import cpp from './langIcons/cpp.svg';
-import crystal from './langIcons/crystal.svg';
-import csharp from './langIcons/csharp.svg';
-import css from './langIcons/css.svg';
-import d from './langIcons/d.svg';
-import dart from './langIcons/dart.svg';
-import sql from './langIcons/database.svg';
-import diff from './langIcons/diff.svg';
-import docker from './langIcons/docker.svg';
-import elixir from './langIcons/elixir.svg';
-import elm from './langIcons/elm.svg';
-import erlang from './langIcons/erlang.svg';
-import fsharp from './langIcons/fsharp.svg';
-import glsl from './langIcons/glsl.svg';
-import go from './langIcons/go.svg';
-import graphql from './langIcons/graphql.svg';
-import groovy from './langIcons/groovy.svg';
-import haml from './langIcons/haml.svg';
-import handlebars from './langIcons/handlebars.svg';
-import haskell from './langIcons/haskell.svg';
-import hjson from './langIcons/hjson.svg';
-import html from './langIcons/html.svg';
-import ini from './langIcons/ini.svg';
-import java from './langIcons/java.svg';
-import js from './langIcons/javascript.svg';
-import json from './langIcons/json.svg';
-import json5 from './langIcons/json5.svg';
-import julia from './langIcons/julia.svg';
-import kotlin from './langIcons/kotlin.svg';
-import less from './langIcons/less.svg';
-import liquid from './langIcons/liquid.svg';
-import lisp from './langIcons/lisp.svg';
-import lua from './langIcons/lua.svg';
-import make from './langIcons/makefile.svg';
-import md from './langIcons/markdown.svg';
-import matlab from './langIcons/matlab.svg';
-import mermaid from './langIcons/mermaid.svg';
-import nginx from './langIcons/nginx.svg';
-import nim from './langIcons/nim.svg';
-import nix from './langIcons/nix.svg';
-import oc from './langIcons/objective-c.svg';
-import ocaml from './langIcons/ocaml.svg';
-import pascal from './langIcons/pascal.svg';
-import perl from './langIcons/perl.svg';
-import perl6 from './langIcons/perl6.svg';
-import php from './langIcons/php.svg';
-import powershell from './langIcons/powershell.svg';
-import prisma from './langIcons/prisma.svg';
-import prolog from './langIcons/prolog.svg';
-import proto from './langIcons/proto.svg';
-import pug from './langIcons/pug.svg';
-import puppet from './langIcons/puppet.svg';
-import python from './langIcons/python.svg';
-import r from './langIcons/r.svg';
-import razor from './langIcons/razor.svg';
-import jsx from './langIcons/react.svg';
-import tsx from './langIcons/react_ts.svg';
-import ruby from './langIcons/ruby.svg';
-import rust from './langIcons/rust.svg';
-import sass from './langIcons/sass.svg';
-import scala from './langIcons/scala.svg';
-import scheme from './langIcons/scheme.svg';
-import sparql from './langIcons/sparql.svg';
-import stylus from './langIcons/stylus.svg';
-import swift from './langIcons/swift.svg';
-import tcl from './langIcons/tcl.svg';
-import tex from './langIcons/tex.svg';
-import toml from './langIcons/toml.svg';
-import twig from './langIcons/twig.svg';
-import ts from './langIcons/typescript.svg';
-import verilog from './langIcons/verilog.svg';
-import vhdl from './langIcons/vhdl.svg';
-import vue from './langIcons/vue.svg';
-import xml from './langIcons/xml.svg';
-import yaml from './langIcons/yaml.svg';
-import zig from './langIcons/zig.svg';
-export const langIconMap = new Map([
-  ['zig', zig],
-  ['yml', yaml],
-  ['yaml', yaml],
-  ['xml', xml],
-  ['vue', vue],
-  ['vhdl', vhdl],
-  ['verilog', verilog],
-  ['ts', ts],
-  ['typescript', ts],
-  ['twig', twig],
-  ['tsx', tsx],
-  ['toml', toml],
-  ['tcl', tcl],
-  ['swift', swift],
-  ['styl', stylus],
-  ['stylus', stylus],
-  ['sparql', sparql],
-  ['shell', shell],
-  ['shellscript', shell],
-  ['bash', shell],
-  ['sh', shell],
-  ['zsh', shell],
-  ['scheme', scheme],
-  ['scala', scala],
-  ['scss', sass],
-  ['sass', sass],
-  ['rust', rust],
-  ['ruby', ruby],
-  ['razor', razor],
-  ['raku', perl6],
-  ['r', r],
-  ['py', python],
-  ['python', python],
-  ['puppet', puppet],
-  ['jade', pug],
-  ['proto', proto],
-  ['prolog', prolog],
-  ['prisma', prisma],
-  ['powershell', powershell],
-  ['ps', powershell],
-  ['sql', sql],
-  ['php', php],
-  ['perl', perl],
-  ['pascal', pascal],
-  ['ocaml', ocaml],
-  ['objective-c', oc],
-  ['objc', oc],
-  ['nix', nix],
-  ['nim', nim],
-  ['nginx', nginx],
-  ['mermaid', mermaid],
-  ['matlab', matlab],
-  ['markdown', md],
-  ['md', md],
-  ['makefile', make],
-  ['make', make],
-  ['lua', lua],
-  ['lisp', lisp],
-  ['liquid', liquid],
-  ['less', less],
-  ['latex', tex],
-  ['tex', tex],
-  ['js', js],
-  ['javascript', js],
-  ['jsx', jsx],
-  ['abap', abap],
-  ['actionscript', actionscript],
-  ['ada', ada],
-  ['applescript', applescript],
-  ['astro', astro],
-  ['apex', apex],
-  ['apache', apache],
-  ['c', c],
-  ['clojure', clojure],
-  ['cjl', clojure],
-  ['cobol', cobol],
-  ['coffee', coffee],
-  ['cpp', cpp],
-  ['c++', cpp],
-  ['crystal', crystal],
-  ['csharp', csharp],
-  ['c#', csharp],
-  ['cs', csharp],
-  ['d', d],
-  ['dart', dart],
-  ['diff', diff],
-  ['css', css],
-  ['docker', docker],
-  ['dockerfile', docker],
-  ['elixir', elixir],
-  ['elm', elm],
-  ['erlang', erlang],
-  ['erl', erlang],
-  ['fsharp', fsharp],
-  ['f#', fsharp],
-  ['fs', fsharp],
-  ['glsl', glsl],
-  ['go', go],
-  ['golang', go],
-  ['graphql', graphql],
-  ['groovy', groovy],
-  ['haml', haml],
-  ['handlebars', handlebars],
-  ['hbs', handlebars],
-  ['haskell', haskell],
-  ['hs', haskell],
-  ['hjson', hjson],
-  ['html', html],
-  ['ini', ini],
-  ['properties', ini],
-  ['java', java],
-  ['json', json],
-  ['json5', json5],
-  ['julia', julia],
-  ['kotlin', kotlin],
-  ['kt', kotlin],
-  ['kts', kotlin],
+import React from 'react';
+
+// 只导入现有的图标组件
+import AbapIcon from './langIcons/AbapIcon';
+import ActionscriptIcon from './langIcons/ActionscriptIcon';
+import AdaIcon from './langIcons/AdaIcon';
+import ApacheIcon from './langIcons/ApacheIcon';
+import AstroIcon from './langIcons/AstroIcon';
+import ClojureIcon from './langIcons/ClojureIcon';
+import CobolIcon from './langIcons/CobolIcon';
+import CppIcon from './langIcons/CppIcon';
+import { default as CsharpIcon } from './langIcons/CsharpIcon';
+import { default as CssIcon } from './langIcons/CssIcon';
+import DartIcon from './langIcons/DartIcon';
+import DatabaseIcon from './langIcons/DatabaseIcon';
+import DiffIcon from './langIcons/DiffIcon';
+import ElixirIcon from './langIcons/ElixirIcon';
+import GlslIcon from './langIcons/GlslIcon';
+import GoIcon from './langIcons/GoIcon';
+import GraphqlIcon from './langIcons/GraphqlIcon';
+import HjsonIcon from './langIcons/HjsonIcon';
+import { default as HtmlIcon } from './langIcons/HtmlIcon';
+import IniIcon from './langIcons/IniIcon';
+import JavaIcon from './langIcons/JavaIcon';
+import { default as JavascriptIcon } from './langIcons/JavascriptIcon';
+import Json5Icon from './langIcons/Json5Icon';
+import { default as JsonIcon } from './langIcons/JsonIcon';
+import JuliaIcon from './langIcons/JuliaIcon';
+import KotlinIcon from './langIcons/KotlinIcon';
+import LessIcon from './langIcons/LessIcon';
+import LiquidIcon from './langIcons/LiquidIcon';
+import LispIcon from './langIcons/LispIcon';
+import LuaIcon from './langIcons/LuaIcon';
+import MakefileIcon from './langIcons/MakefileIcon';
+import MarkdownIcon from './langIcons/MarkdownIcon';
+import MatlabIcon from './langIcons/MatlabIcon';
+import MermaidIcon from './langIcons/MermaidIcon';
+import NginxIcon from './langIcons/NginxIcon';
+import NimIcon from './langIcons/NimIcon';
+import NixIcon from './langIcons/NixIcon';
+import ObjectiveCIcon from './langIcons/ObjectiveCIcon';
+import OcamlIcon from './langIcons/OcamlIcon';
+import PascalIcon from './langIcons/PascalIcon';
+import Perl6Icon from './langIcons/Perl6Icon';
+import PerlIcon from './langIcons/PerlIcon';
+import PhpIcon from './langIcons/PhpIcon';
+import {
+  default as PowershellIcon,
+  default as ShellIcon,
+} from './langIcons/PowershellIcon';
+import PrismaIcon from './langIcons/PrismaIcon';
+import PrologIcon from './langIcons/PrologIcon';
+import ProtoIcon from './langIcons/ProtoIcon';
+import PugIcon from './langIcons/PugIcon';
+import PuppetIcon from './langIcons/PuppetIcon';
+import PythonIcon from './langIcons/PythonIcon';
+import RIcon from './langIcons/RIcon';
+import RazorIcon from './langIcons/RazorIcon';
+import ReactIcon from './langIcons/ReactIcon';
+import ReactTsIcon from './langIcons/ReactTsIcon';
+import RubyIcon from './langIcons/RubyIcon';
+import RustIcon from './langIcons/RustIcon';
+import SassIcon from './langIcons/SassIcon';
+import ScalaIcon from './langIcons/ScalaIcon';
+import SchemeIcon from './langIcons/SchemeIcon';
+import SparqlIcon from './langIcons/SparqlIcon';
+import StylusIcon from './langIcons/StylusIcon';
+import SwiftIcon from './langIcons/SwiftIcon';
+import TclIcon from './langIcons/TclIcon';
+import TexIcon from './langIcons/TexIcon';
+import TomlIcon from './langIcons/TomlIcon';
+import TwigIcon from './langIcons/TwigIcon';
+import TypescriptIcon from './langIcons/TypescriptIcon';
+import VerilogIcon from './langIcons/VerilogIcon';
+import VhdlIcon from './langIcons/VhdlIcon';
+import VueIcon from './langIcons/VueIcon';
+import XmlIcon from './langIcons/XmlIcon';
+import YamlIcon from './langIcons/YamlIcon';
+import ZigIcon from './langIcons/ZigIcon';
+
+// 定义图标组件类型
+type IconComponent = React.ComponentType<any>;
+
+export const langIconMap: Map<string, IconComponent> = new Map([
+  ['zig', ZigIcon],
+  ['yml', YamlIcon],
+  ['yaml', YamlIcon],
+  ['apache', ApacheIcon],
+  ['xml', XmlIcon],
+  ['vue', VueIcon],
+  ['vhdl', VhdlIcon],
+  ['verilog', VerilogIcon],
+  ['ts', TypescriptIcon],
+  ['typescript', TypescriptIcon],
+  ['twig', TwigIcon],
+  ['tsx', ReactTsIcon],
+  ['toml', TomlIcon],
+  ['tcl', TclIcon],
+  ['swift', SwiftIcon],
+  ['styl', StylusIcon],
+  ['java', JavaIcon],
+  ['stylus', StylusIcon],
+  ['sparql', SparqlIcon],
+  ['shell', ShellIcon],
+  ['shellscript', ShellIcon],
+  ['bash', ShellIcon],
+  ['sh', ShellIcon],
+  ['zsh', ShellIcon],
+  ['scheme', SchemeIcon],
+  ['scala', ScalaIcon],
+  ['scss', SassIcon],
+  ['sass', SassIcon],
+  ['rust', RustIcon],
+  ['ruby', RubyIcon],
+  ['razor', RazorIcon],
+  ['raku', Perl6Icon],
+  ['r', RIcon],
+  ['py', PythonIcon],
+  ['python', PythonIcon],
+  ['puppet', PuppetIcon],
+  ['jade', PugIcon],
+  ['proto', ProtoIcon],
+  ['prolog', PrologIcon],
+  ['prisma', PrismaIcon],
+  ['powershell', PowershellIcon],
+  ['ps', PowershellIcon],
+  ['sql', DatabaseIcon],
+  ['php', PhpIcon],
+  ['perl', PerlIcon],
+  ['pascal', PascalIcon],
+  ['ocaml', OcamlIcon],
+  ['objective-c', ObjectiveCIcon],
+  ['objc', ObjectiveCIcon],
+  ['nix', NixIcon],
+  ['nim', NimIcon],
+  ['nginx', NginxIcon],
+  ['mermaid', MermaidIcon],
+  ['matlab', MatlabIcon],
+  ['markdown', MarkdownIcon],
+  ['md', MarkdownIcon],
+  ['makefile', MakefileIcon],
+  ['make', MakefileIcon],
+  ['lua', LuaIcon],
+  ['lisp', LispIcon],
+  ['liquid', LiquidIcon],
+  ['less', LessIcon],
+  ['latex', TexIcon],
+  ['tex', TexIcon],
+  ['js', JavascriptIcon],
+  ['javascript', JavascriptIcon],
+  ['jsx', ReactIcon],
+  ['abap', AbapIcon],
+  ['actionscript', ActionscriptIcon],
+  ['ada', AdaIcon],
+  ['astro', AstroIcon],
+  ['c', TypescriptIcon],
+  ['clojure', ClojureIcon],
+  ['cjl', ClojureIcon],
+  ['cobol', CobolIcon],
+  ['cpp', CppIcon],
+  ['c++', CppIcon],
+  ['csharp', CsharpIcon],
+  ['c#', CsharpIcon],
+  ['cs', CsharpIcon],
+  ['dart', DartIcon],
+  ['diff', DiffIcon],
+  ['css', CssIcon],
+  ['elixir', ElixirIcon],
+  ['glsl', GlslIcon],
+  ['go', GoIcon],
+  ['golang', GoIcon],
+  ['graphql', GraphqlIcon],
+  ['hjson', HjsonIcon],
+  ['html', HtmlIcon],
+  ['ini', IniIcon],
+  ['properties', IniIcon],
+  ['java', JavaIcon],
+  ['json', JsonIcon],
+  ['json5', Json5Icon],
+  ['julia', JuliaIcon],
+  ['kotlin', KotlinIcon],
+  ['kt', KotlinIcon],
+  ['kts', KotlinIcon],
 ]);
