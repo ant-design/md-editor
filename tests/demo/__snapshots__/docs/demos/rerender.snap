@@ -13051,33 +13051,23 @@
                     style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
                       <div
                         style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <img
-                          src="({ size = 24, ...props }) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M2 21h18v-2H2M20 8h-2V5h2m0-2H4v10a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-3h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z",
-        fill: "#f44336"
-      }
-    )
-  );
-}"
-                          style="height: 1em; width: 1em; display: none;"
-                        />
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 21h18v-2H2M20 8h-2V5h2m0-2H4v10a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-3h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"
+                            fill="#f44336"
+                          />
+                        </svg>
                       </div>
                       <div>
                         <span>
@@ -13402,39 +13392,23 @@
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z",
-        style: {
-          "fill": "#03a9f4",
-          "strokeWidth": ".99517"
-        }
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z"
+                                  style="fill: #03a9f4; stroke-width: .99517;"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -13725,36 +13699,23 @@ yarn add antd
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z",
-        fill: "#ffca28"
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                                  fill="#ffca28"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -13973,39 +13934,23 @@ yarn add antd
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z",
-        style: {
-          "fill": "#03a9f4",
-          "strokeWidth": ".99517"
-        }
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z"
+                                  style="fill: #03a9f4; stroke-width: .99517;"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -14188,36 +14133,23 @@ yarn add antd
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z",
-        fill: "#ffca28"
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                                  fill="#ffca28"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -14446,36 +14378,23 @@ yarn add antd
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z",
-        fill: "#ffca28"
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                                  fill="#ffca28"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -14707,36 +14626,23 @@ function App() {
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z",
-        fill: "#ffca28"
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                                  fill="#ffca28"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -15009,39 +14915,23 @@ import zhCN from 'antd/lib/locale/zh_CN';
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z",
-        style: {
-          "fill": "#03a9f4",
-          "strokeWidth": ".99517"
-        }
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z"
+                                  style="fill: #03a9f4; stroke-width: .99517;"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
@@ -15297,36 +15187,23 @@ npm install ant-design-vue --save
                           style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
                             <div
                               style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <img
-                                src="({
-  size = 24,
-  ...props
-}) => {
-  return /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-    "svg",
-    {
-      width: size,
-      height: size,
-      ...props,
-      viewBox: "0 0 24 24",
-      xmlns: "http://www.w3.org/2000/svg"
-    },
-    /* @__PURE__ */ __vite_ssr_import_0__.default.createElement(
-      "path",
-      {
-        d: "M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z",
-        fill: "#ffca28"
-      }
-    )
-  );
-}"
-                                style="height: 1em; width: 1em; display: none;"
-                              />
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                                  fill="#ffca28"
+                                />
+                              </svg>
                             </div>
                             <div>
                               <span>
