@@ -18,7 +18,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   initialValues,
 }) => {
   const [form] = Form.useForm();
-  const { properties } = schema.component;
+  const { properties = {} } = schema?.component || {};
 
   // 根据属性类型返回对应的表单组件
   const renderFormItem = (key: string, property: SchemaProperty) => {

@@ -24,12 +24,12 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   const validationResult = validator.validate(schema);
 
   // 从 schema 中提取数据和模板
-  const { properties, type } = schema.component;
-  const templateHtml = schema.component.schema;
+  const { properties = {}, type = 'html' } = schema?.component || {};
+  const templateHtml = schema?.component?.schema || '';
 
   // 准备模板数据
   const templateData = merge(
-    Object.entries(properties).reduce(
+    Object.entries(properties || {}).reduce(
       (data, [key, value]) => {
         data[key] = value.default;
         return data;
@@ -52,7 +52,6 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       console.error('模板渲染错误:', error);
       return '';
     }
-
     return templateHtml;
   }, [templateHtml, templateData, config]);
 

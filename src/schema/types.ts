@@ -117,9 +117,9 @@ export interface PreviewSettings {
 }
 
 export interface ComponentConfig {
-  properties: ComponentProperties;
-  type: 'html';
-  schema: string;
+  properties?: ComponentProperties;
+  type?: 'html' | 'mustache';
+  schema?: string;
 }
 
 export interface LowCodeSchema {
@@ -131,7 +131,7 @@ export interface LowCodeSchema {
   updateTime: string;
   pageConfig: PageConfig;
   dataSources: DataSourceConfig;
-  component: ComponentConfig;
-  theme: ThemeConfig;
-  previewSettings: PreviewSettings;
+  component?: ComponentConfig;
+  theme?: ThemeConfig;
+  previewSettings?: PreviewSettings;
 }
