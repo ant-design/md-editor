@@ -293,15 +293,59 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
       fallbackContent || (
         <div
           style={{
-            padding: '10px',
+            padding: '16px',
             border: '1px solid #f5c2c7',
-            borderRadius: '4px',
+            borderRadius: '8px',
             background: '#f8d7da',
             color: '#842029',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            margin: '10px 0',
           }}
         >
-          <p>渲染错误:</p>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>{renderError}</pre>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '8px',
+            }}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ marginRight: '8px' }}
+            >
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="#842029"
+                strokeWidth="2"
+              />
+              <path
+                d="M12 8V12"
+                stroke="#842029"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <circle cx="12" cy="16" r="1" fill="#842029" />
+            </svg>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>
+              渲染错误
+            </h3>
+          </div>
+          <pre
+            style={{
+              whiteSpace: 'pre-wrap',
+              background: 'rgba(255,255,255,0.5)',
+              padding: '8px',
+              borderRadius: '4px',
+              fontSize: '14px',
+              margin: 0,
+            }}
+          >
+            {renderError}
+          </pre>
         </div>
       )
     );
@@ -310,21 +354,110 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   // Schema 验证失败，显示错误信息
   if (!validationResult?.valid) {
     console.error('Schema validation failed:', validationResult.errors);
+
     return (
       fallbackContent || (
         <div
           style={{
-            padding: '10px',
+            padding: '16px',
             border: '1px solid #f5c2c7',
-            borderRadius: '4px',
+            borderRadius: '8px',
             background: '#f8d7da',
             color: '#842029',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            margin: '10px 0',
           }}
         >
-          <p>Schema 验证失败：</p>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>
-            {JSON.stringify(validationResult.errors, null, 2)}
-          </pre>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '12px',
+            }}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ marginRight: '8px' }}
+            >
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="#842029"
+                strokeWidth="2"
+              />
+              <path
+                d="M12 8V12"
+                stroke="#842029"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <circle cx="12" cy="16" r="1" fill="#842029" />
+            </svg>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>
+              Schema 验证失败
+            </h3>
+          </div>
+
+          <div
+            style={{
+              background: 'rgba(255,255,255,0.5)',
+              padding: '12px',
+              borderRadius: '6px',
+              fontSize: '14px',
+            }}
+          >
+            {Array.isArray(validationResult.errors) ? (
+              <ul
+                style={{
+                  margin: '0',
+                  paddingLeft: '20px',
+                  listStyleType: 'circle',
+                }}
+              >
+                {validationResult.errors.map((error: any, index) => (
+                  <li key={index} style={{ marginBottom: '8px' }}>
+                    <div style={{ fontWeight: 500 }}>
+                      {error.property || error.path ? (
+                        <span style={{ color: '#d63939' }}>
+                          {(error.property || error.path)
+                            .toString()
+                            .replace('instance.', '')}
+                          :
+                        </span>
+                      ) : null}
+                      <span
+                        style={{
+                          marginLeft:
+                            error.property || error.path ? '4px' : '0',
+                        }}
+                      >
+                        {error.message}
+                      </span>
+                    </div>
+                    {error.schema ? (
+                      <div
+                        style={{
+                          fontSize: '13px',
+                          color: '#5c636a',
+                          marginTop: '4px',
+                          paddingLeft: '12px',
+                        }}
+                      >
+                        预期: {JSON.stringify(error.schema)}
+                      </div>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                {JSON.stringify(validationResult.errors, null, 2)}
+              </pre>
+            )}
+          </div>
         </div>
       )
     );
