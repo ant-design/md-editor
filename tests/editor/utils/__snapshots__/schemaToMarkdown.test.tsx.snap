@@ -3930,40 +3930,22 @@ exports[`should convert markdown to schema in # 5.1 插件系统 chunk 1`] = `
     "type": "head",
   },
   {
-    "block": false,
     "children": [
       {
-        "children": [
-          {
-            "text": "",
-          },
-        ],
-        "type": "card-before",
-      },
-      {
-        "alt": "插件系统架构图",
-        "block": null,
-        "children": [
-          {
-            "text": "",
-          },
-        ],
-        "height": undefined,
-        "mediaType": "image",
-        "type": "image",
-        "url": "placeholder://plugins-architecture.png",
-        "width": undefined,
-      },
-      {
-        "children": [
-          {
-            "text": "",
-          },
-        ],
-        "type": "card-after",
+        "text": "graph TD
+    A[开始] --> B[处理]
+    B --> C[完成]
+    C --> D[结束]",
       },
     ],
-    "type": "card",
+    "isConfig": false,
+    "language": "mermaid",
+    "render": false,
+    "type": "mermaid",
+    "value": "graph TD
+    A[开始] --> B[处理]
+    B --> C[完成]
+    C --> D[结束]",
   },
 ]
 `;
@@ -4785,10 +4767,6 @@ class FileBuffer:
 
 exports[`should convert schema to markdown in # 5.1 插件系统 chunk 1`] = `
 "## # 5.1 插件系统架构
-
-
-
-![插件系统架构图](placeholder://plugins-architecture.png)
 
 "
 `;

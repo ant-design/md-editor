@@ -116,7 +116,14 @@ class FileBuffer:
 
 ## 5. 扩展功能开发指南
 ### 5.1 插件系统架构
-![插件系统架构图](placeholder://plugins-architecture.png)
+
+\`\`\`mermaid
+graph TD
+    A[开始] --> B[处理]
+    B --> C[完成]
+    C --> D[结束]
+\`\`\`
+
 
 ### 5.2 API接口设计
 \`\`\`typescript

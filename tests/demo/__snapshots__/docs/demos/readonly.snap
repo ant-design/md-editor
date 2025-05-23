@@ -2855,143 +2855,110 @@ class FileBuffer:
             </span>
           </h3>
           <div
-            data-be="card"
+            class="ace-el drag-el"
+            contenteditable="false"
+            data-be="mermaid"
+            data-lang="mermaid"
             data-slate-node="element"
-            style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+            tabindex="-1"
           >
-            <span
-              data-be="card-before"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
-                  >
-                    ﻿
-                    <br />
-                  </span>
-                </span>
-              </span>
-            </span>
             <div
-              class="ant-md-editor-drag-el"
-              data-be="image"
-              data-slate-node="element"
-              draggable="false"
-              style="cursor: pointer; position: relative;"
+              style="padding: 0px; margin-bottom: 0px; box-sizing: border-box; background-color: transparent; max-height: 400px; overflow: auto; position: relative; height: 0px; opacity: 0;"
             >
               <div
-                aria-describedby="test-id"
-                class="md-editor-media"
                 contenteditable="false"
-                draggable="false"
-                style="padding: 4px; display: flex;"
-                tabindex="-1"
+                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; user-select: none;"
               >
                 <div
-                  class="ant-image"
-                  crossorigin="anonymous"
-                  draggable="false"
-                  referrerpolicy="no-referrer"
-                  style="width: 400px;"
-                >
-                  <img
-                    alt="image"
-                    class="ant-image-img"
-                    crossorigin="anonymous"
-                    draggable="false"
-                    referrerpolicy="no-referrer"
-                    src="placeholder://plugins-architecture.png"
-                    style="max-width: 800px;"
-                    width="400"
-                  />
-                  <div
-                    class="ant-image-mask"
-                  >
-                    <div
-                      class="ant-image-mask-info"
-                    >
-                      <span
-                        aria-label="eye"
-                        class="anticon anticon-eye"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="eye"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
-                          />
-                        </svg>
-                      </span>
-                      Preview
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style="display: none;"
+                  style="display: flex; gap: 5px;"
                 >
                   <span
-                    data-slate-node="text"
+                    aria-describedby="test-id"
+                    class="ant-md-editor-action-icon-box"
                   >
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      aria-label="close-circle"
+                      class="anticon anticon-close-circle"
+                      role="img"
+                      tabindex="-1"
                     >
-                      <span
-                        data-slate-length="0"
-                        data-slate-zero-width="n"
+                      <svg
+                        aria-hidden="true"
+                        data-icon="close-circle"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
                       >
-                        ﻿
-                        <br />
-                      </span>
+                        <path
+                          d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm0 76c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm128.01 198.83c.03 0 .05.01.09.06l45.02 45.01a.2.2 0 01.05.09.12.12 0 010 .07c0 .02-.01.04-.05.08L557.25 512l127.87 127.86a.27.27 0 01.05.06v.02a.12.12 0 010 .07c0 .03-.01.05-.05.09l-45.02 45.02a.2.2 0 01-.09.05.12.12 0 01-.07 0c-.02 0-.04-.01-.08-.05L512 557.25 384.14 685.12c-.04.04-.06.05-.08.05a.12.12 0 01-.07 0c-.03 0-.05-.01-.09-.05l-45.02-45.02a.2.2 0 01-.05-.09.12.12 0 010-.07c0-.02.01-.04.06-.08L466.75 512 338.88 384.14a.27.27 0 01-.05-.06l-.01-.02a.12.12 0 010-.07c0-.03.01-.05.05-.09l45.02-45.02a.2.2 0 01.09-.05.12.12 0 01.07 0c.02 0 .04.01.08.06L512 466.75l127.86-127.86c.04-.05.06-.06.08-.06a.12.12 0 01.07 0z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    aria-describedby="test-id"
+                    class="ant-md-editor-action-icon-box"
+                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  >
+                    <span
+                      aria-label="copy"
+                      class="anticon anticon-copy"
+                      role="img"
+                      tabindex="-1"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="copy"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                        />
+                      </svg>
                     </span>
                   </span>
                 </div>
               </div>
-            </div>
-            <span
-              data-be="card-after"
-              data-slate-node="element"
-              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
-            >
-              <span
-                data-slate-node="text"
+              <div
+                class="ant-md-editor-hidden"
               >
                 <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
-                    ﻿
-                    <br />
+                    <span
+                      data-slate-string="true"
+                    >
+                      graph TD
+    A[开始] --&gt; B[处理]
+    B --&gt; C[完成]
+    C --&gt; D[结束]
+                    </span>
                   </span>
                 </span>
-              </span>
-            </span>
+              </div>
+            </div>
+            <div
+              contenteditable="false"
+              style="margin-bottom: 0.75em; cursor: default; user-select: none; padding: 0.75rem 0px; background-color: rgba(15, 17, 20, 0.05); border-radius: 0.25em; display: flex; justify-content: center;"
+            >
+              <div
+                contenteditable="false"
+                style="width: 100%; display: flex; justify-content: center; visibility: visible;"
+              />
+            </div>
           </div>
           <h3
             class="ant-md-editor-drag-el"

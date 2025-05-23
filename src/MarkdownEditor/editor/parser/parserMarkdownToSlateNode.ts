@@ -27,6 +27,59 @@ import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import parser from './remarkParse';
 
+// 类型定义
+type CodeElement = {
+  type: string;
+  language?: string | null;
+  render?: boolean;
+  value: any;
+  isConfig?: boolean;
+  children: Array<{ text: string }>;
+};
+
+type LanguageHandler = (element: CodeElement, value: string) => CodeElement;
+
+// 处理schema类型语言的辅助函数
+const processSchemaLanguage = (
+  element: CodeElement,
+  value: string,
+): CodeElement => {
+  let json = [];
+  try {
+    json = json5.parse(value || '[]');
+  } catch (error) {
+    try {
+      json = partialJsonParse(value || '[]');
+    } catch (error) {
+      json = value as any;
+      console.error('parse schema error', error);
+    }
+  }
+  console.log('json', json);
+  return {
+    ...element,
+    type: 'apaasify',
+    value: json,
+    children: [{ text: value }],
+  };
+};
+
+// 语言类型处理策略配置
+const LANGUAGE_HANDLERS: Record<string, LanguageHandler> = {
+  mermaid: (element) => ({
+    ...element,
+    type: 'mermaid',
+  }),
+  schema: processSchemaLanguage,
+  apaasify: processSchemaLanguage,
+  apassify: processSchemaLanguage,
+  katex: (element) => ({
+    ...element,
+    type: 'katex',
+  }),
+  'agentar-card': processSchemaLanguage,
+};
+
 const advancedNumericCheck = (value: string | number) => {
   const numericPattern = /^[-+]?[0-9,]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
   return (
@@ -751,7 +804,8 @@ const parserBlock = (
         el = { type: 'hr', children: [{ text: '' }] };
         break;
       case 'code':
-        el = {
+        // 创建基础的代码块元素
+        const baseCodeElement = {
           type: 'code',
           language:
             currentElement.lang === 'apassify'
@@ -760,36 +814,19 @@ const parserBlock = (
           render: currentElement.meta === 'render',
           value: currentElement.value,
           isConfig: currentElement?.value.trim()?.startsWith('<!--'),
-          children: [
-            {
-              text: currentElement.value,
-            },
-          ],
+          children: [{ text: currentElement.value }],
         };
-        const isSchema =
-          currentElement.lang === 'schema' ||
-          currentElement.lang === 'apaasify' ||
-          currentElement.lang === 'apassify';
 
-        if (currentElement.lang === 'mermaid') {
-          el.type = 'mermaid';
-        } else if (isSchema) {
-          let json = [];
-          try {
-            json = json5.parse(currentElement.value || '[]');
-          } catch (error) {
-            try {
-              json = partialJsonParse(currentElement.value || '[]');
-            } catch (error) {
-              json = currentElement.value as any;
-            }
-          }
-          el.type = 'apaasify';
-          el.value = json;
-          el.children = [{ text: currentElement.value }];
-        } else if (currentElement.lang === 'katex') {
-          el.type = 'katex';
-        }
+        // 获取处理函数并应用，如果没有匹配的处理函数则返回基础元素
+        const handler =
+          LANGUAGE_HANDLERS[
+            currentElement.lang as keyof typeof LANGUAGE_HANDLERS
+          ];
+
+        el = handler
+          ? handler(baseCodeElement, currentElement.value)
+          : baseCodeElement;
+
         break;
       case 'yaml':
         el = {

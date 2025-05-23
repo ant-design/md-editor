@@ -1,8 +1,10 @@
-﻿import React, { useMemo } from 'react';
+﻿import { SchemaRenderer } from '@ant-design/md-editor/schema';
+import React, { useMemo } from 'react';
+import { CodeNode } from '../../el';
 import { RenderElementProps } from '../slate-react';
 import { useEditorStore } from '../store';
 
-export const Schema: React.FC<RenderElementProps> = (props) => {
+export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
   const { element: node } = props;
   const { editorProps } = useEditorStore();
   return useMemo(() => {
@@ -27,6 +29,19 @@ export const Schema: React.FC<RenderElementProps> = (props) => {
           >
             {JSON.stringify(props.element.value, null, 2)}
           </div>
+        </div>
+      );
+    }
+
+    if (node.language === 'agentar-card') {
+      return (
+        <div
+          style={{
+            padding: '0.5em',
+          }}
+          className="md-editor-agentar-card"
+        >
+          <SchemaRenderer schema={props.element.value} values={{}} />
         </div>
       );
     }
