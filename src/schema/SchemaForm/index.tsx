@@ -303,8 +303,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       layout="vertical"
       initialValues={defaultValues}
       onValuesChange={(_, allValues) => {
-        console.log('allValues', _, allValues);
-        // onValuesChange?.(_, allValues);
+        onValuesChange?.(_, allValues);
       }}
       style={{
         maxWidth: 400,
