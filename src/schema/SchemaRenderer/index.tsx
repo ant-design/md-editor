@@ -80,6 +80,8 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   const safeSchema = schema || {};
   const safeComponent = safeSchema.component || {};
 
+  const initialValues = safeSchema.initialValues || {};
+
   // 验证 schema
   const validationResult = useMemo(() => {
     try {
@@ -110,6 +112,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
           },
           {} as Record<string, any>,
         ),
+        initialValues || {},
         values || {},
       );
     } catch (error) {

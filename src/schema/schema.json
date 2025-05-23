@@ -75,6 +75,13 @@
     "type": "html",
     "schema": "<div style= \"min-height: 200px;display: grid;max-width: 400px;place-items: center;background: linear-gradient(160deg, #2c3e50, #3498db); \"><div style= \" background: linear-gradient(160deg, #2c3e50, #3498db); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); color: white; width: 100%; position: relative; overflow: hidden; \"><!--天气图标--><div style= \"  font-size: 4rem;  text-align: center;  margin-bottom: 1rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  animation: float 3s ease-in-out infinite;  \">{{weather}}</div><!--温度显示--><div style= \"  font-size: 3rem;  font-weight: bold;  text-align: center;  margin-bottom: 1.5rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  \">{{temperature}}°C</div><!--数据网格--><div style= \"  display: grid;  grid-template-columns: repeat(2, 1fr);  gap: 1rem;  \"><div style= \" background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;\"><div style= \"font-size: 1.5rem \">💧</div><div style= \"font-size: 0.9rem; opacity: 0.8 \">湿度</div><div style= \"font-size: 1.2rem; font-weight: bold \">{{humidity}}%</div></div><div style= \"background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;\"><div style= \"font-size: 1.5rem \">🌪️</div><div style= \"font-size: 0.9rem; opacity: 0.8 \">风速</div><div style= \"font-size: 1.2rem; font-weight: bold \">{{windSpeed}}m/s</div></div><div style= \"background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;\"><div style= \"font-size: 1.5rem \">🧭</div><div style= \"font-size: 0.9rem; opacity: 0.8 \">风向</div><div style= \"font-size: 1.2rem; font-weight: bold \">{{windSpeed}}</div></div><div style= \"background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;\"><div style= \"font-size: 1.5rem \">📉</div><div style= \"font-size: 0.9rem; opacity: 0.8 \">气压</div><div style= \"font-size: 1.2rem; font-weight: bold \">{{pa}}hPa</div></div></div><!--装饰元素--><div style= \"  position: absolute;  width: 150px;  height: 150px;  background: rgba(255,255,255,0.05);  border-radius: 50%;  top: -50px;  right: -50px;  \"></div><style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style></div></div>"
   },
+  "initialValues": {
+    "weather": "☀️ 晴",
+    "temperature": 25,
+    "humidity": 65,
+    "windSpeed": 15,
+    "pa": 1
+  },
   "theme": { "spacing": { "base": 0, "multiplier": 0, "width": 400 } },
   "previewSettings": {
     "viewport": {

@@ -1,0 +1,26 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div>
+      <h2>
+        Validator 验证示例
+      </h2>
+      <div>
+        <div
+          style="margin: 8px 0px;"
+        >
+          ✅ Schema 验证通过
+        </div>
+        <div
+          style="margin: 8px 0px;"
+        >
+          ❌ 验证过程出错：TypeError: __vite_ssr_import_0__.validator.validateValue is not a function
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

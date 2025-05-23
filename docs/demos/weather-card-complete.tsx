@@ -1,0 +1,129 @@
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
+import React, { useState } from 'react';
+
+const WeatherCardComplete: React.FC = () => {
+  const [formValues, setFormValues] = useState({});
+
+  const schema = {
+    version: '1.0.0',
+    name: 'Weather Card Component',
+    description: 'A beautiful weather display card component',
+    author: 'Weather Team',
+    createTime: '2024-03-20T10:00:00Z',
+    updateTime: '2024-03-20T10:00:00Z',
+    pageConfig: {
+      layout: 'flex',
+      router: { mode: 'hash', basePath: '/weather' },
+      globalVariables: {
+        colors: { sunny: '#FFB300', rainy: '#2196F3', cloudy: '#90A4AE' },
+        constants: { refreshInterval: 300000 },
+      },
+    },
+    dataSources: {
+      restAPI: {
+        baseURL: 'https://api.weatherapi.com/v1',
+        defaultHeaders: { 'Content-Type': 'application/json' },
+        timeout: 3000,
+        interceptors: { request: true, response: true },
+      },
+      mock: {
+        enable: true,
+        responseDelay: 100,
+        dataPath: '/mock/weather',
+      },
+    },
+    component: {
+      properties: {
+        weather: {
+          title: '天气',
+          type: 'string' as const,
+          required: true,
+          enum: ['☀️ 晴', '☁️ 多云', '☁️ 阴', '🌧️ 雨', '❄️ 雪'],
+          default: '☀️ 晴',
+        },
+        temperature: {
+          title: '温度',
+          type: 'number' as const,
+          required: true,
+          minimum: -50,
+          maximum: 50,
+          step: 0.1,
+          default: 25,
+        },
+        humidity: {
+          title: '湿度',
+          type: 'number' as const,
+          required: true,
+          minimum: 0,
+          maximum: 100,
+          step: 1,
+          default: 65,
+        },
+        windSpeed: {
+          title: '风速',
+          type: 'number' as const,
+          required: true,
+          minimum: 0,
+          maximum: 200,
+          step: 0.1,
+          default: 15,
+        },
+        pa: {
+          title: '气压',
+          type: 'number' as const,
+          required: true,
+          minimum: 0,
+          maximum: 10,
+          step: 0.1,
+          default: 1,
+        },
+      },
+      type: 'html' as const,
+      schema:
+        '<div style= "min-height: 200px;display: grid;max-width: 400px;place-items: center;background: linear-gradient(160deg, #2c3e50, #3498db); "><div style= " background: linear-gradient(160deg, #2c3e50, #3498db); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); color: white; width: 100%; position: relative; overflow: hidden; "><!--天气图标--><div style= "  font-size: 4rem;  text-align: center;  margin-bottom: 1rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  animation: float 3s ease-in-out infinite;  ">{{weather}}</div><!--温度显示--><div style= "  font-size: 3rem;  font-weight: bold;  text-align: center;  margin-bottom: 1.5rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  ">{{temperature}}°C</div><!--数据网格--><div style= "  display: grid;  grid-template-columns: repeat(2, 1fr);  gap: 1rem;  "><div style= " background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">💧</div><div style= "font-size: 0.9rem; opacity: 0.8 ">湿度</div><div style= "font-size: 1.2rem; font-weight: bold ">{{humidity}}%</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🌪️</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风速</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}m/s</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🧭</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风向</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">📉</div><div style= "font-size: 0.9rem; opacity: 0.8 ">气压</div><div style= "font-size: 1.2rem; font-weight: bold ">{{pa}}hPa</div></div></div><!--装饰元素--><div style= "  position: absolute;  width: 150px;  height: 150px;  background: rgba(255,255,255,0.05);  border-radius: 50%;  top: -50px;  right: -50px;  "></div><style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style></div></div>',
+    },
+    theme: { spacing: { base: 0, multiplier: 0, width: 400 } },
+    previewSettings: {
+      viewport: {
+        defaultDevice: 'desktop',
+        responsive: true,
+        customSizes: [
+          { name: 'Mobile Portrait', width: 375, height: 667 },
+          { name: 'Mobile Landscape', width: 667, height: 375 },
+        ],
+      },
+      environment: {
+        mockData: true,
+        networkThrottle: 'fast-3g',
+        debugMode: true,
+      },
+    },
+  };
+
+  const handleValuesChange = (_, values: Record<string, any>) => {
+    // 验证数据
+    const validationResult = validator.validate(schema);
+    if (validationResult?.valid) {
+      setFormValues(values);
+    } else {
+      console.error('Schema 验证失败：', validationResult?.errors);
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: '20px' }}>
+      <div style={{ flex: 1 }}>
+        <h2>编辑表单</h2>
+        <SchemaForm schema={schema} onValuesChange={handleValuesChange} />
+      </div>
+      <div style={{ flex: 1 }}>
+        <div>
+          <h2>预览效果</h2>
+          <SchemaRenderer schema={schema} values={formValues} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WeatherCardComplete;

@@ -152,4 +152,5 @@ export interface LowCodeSchema {
   component?: ComponentConfig;
   theme?: ThemeConfig;
   previewSettings?: PreviewSettings;
+  initialValues?: Record<string, any>;
 }
