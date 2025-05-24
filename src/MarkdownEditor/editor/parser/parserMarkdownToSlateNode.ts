@@ -17,7 +17,6 @@ import {
   DescriptionNode,
   Elements,
   InlineKatexNode,
-  LinkCardNode,
   TableNode,
   TableRowNode,
 } from '../../el';
@@ -388,12 +387,628 @@ const parserTableToDescription = (children: TableRowNode[]) => {
   return node;
 };
 
+// 处理heading节点
+const handleHeading = (currentElement: any) => {
+  return {
+    type: 'head',
+    level: currentElement.depth,
+    children: currentElement.children?.length
+      ? parserBlock(currentElement.children, false, currentElement)
+      : [{ text: '' }],
+  };
+};
+
+// 处理HTML节点
+const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
+  const value =
+    currentElement?.value?.replace('<!--', '').replace('-->', '').trim() ||
+    '{}';
+
+  let contextProps = {};
+  if (
+    value &&
+    currentElement?.value?.trim()?.endsWith('-->') &&
+    currentElement?.value.trim()?.startsWith('<!--')
+  ) {
+    try {
+      contextProps = json5.parse(value);
+    } catch (e) {
+      try {
+        contextProps = partialJsonParse(value);
+      } catch (error) {}
+      console.log('parse html error', e);
+    }
+  }
+
+  let el: any;
+  if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
+    const img = findImageElement(currentElement.value);
+    if (img) {
+      el = EditorUtils.createMediaNode(
+        decodeURIComponent(img?.url || '')!,
+        'image',
+        { align: img.align, alt: img.alt, height: img?.height },
+      );
+    } else {
+      if (currentElement.value === '<br/>') {
+        el = { type: 'paragraph', children: [{ text: '' }] };
+      } else {
+        el = currentElement.value.match(
+          /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
+        )
+          ? htmlToFragmentList(currentElement.value, '')
+          : {
+              type: 'code',
+              language: 'html',
+              render: true,
+              value: currentElement.value,
+              children: [
+                {
+                  text: currentElement.value,
+                },
+              ],
+            };
+      }
+    }
+  } else {
+    el = processInlineHtml(currentElement, htmlTag);
+  }
+
+  if (el && !Array.isArray(el)) {
+    el.isConfig = currentElement?.value.trim()?.startsWith('<!--');
+    el.otherProps = contextProps;
+  }
+
+  return { el, contextProps };
+};
+
+// 处理内联HTML
+const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
+  const breakMatch = currentElement.value.match(/<br\/?>/);
+  if (breakMatch) {
+    return { type: 'break', children: [{ text: '\n' }] };
+  }
+
+  const htmlMatch = currentElement.value.match(
+    /<\/?(b|i|del|font|code|span|sup|sub|strong|a)[^\n>]*?>/,
+  );
+
+  if (htmlMatch) {
+    const [str, tag] = htmlMatch;
+    if (
+      str.startsWith('</') &&
+      htmlTag.length &&
+      htmlTag[htmlTag.length - 1].tag === tag
+    ) {
+      htmlTag.pop();
+    }
+    if (!str.startsWith('</')) {
+      processHtmlTag(str, tag, htmlTag);
+    }
+    return null;
+  } else {
+    const img = findImageElement(currentElement.value);
+    if (img) {
+      return EditorUtils.createMediaNode(img?.url, 'image', img);
+    } else {
+      return { text: currentElement.value };
+    }
+  }
+};
+
+// 处理HTML标签
+const processHtmlTag = (str: string, tag: string, htmlTag: any[]) => {
+  if (tag === 'span') {
+    try {
+      const styles = str.match(/style="([^"\n]+)"/);
+      if (styles) {
+        const stylesMap = new Map(
+          styles[1]
+            .split(';')
+            .map((item: string) =>
+              item.split(':').map((item: string) => item.trim()),
+            ) as [string, string][],
+        );
+        if (stylesMap.get('color')) {
+          htmlTag.push({
+            tag: tag,
+            color: stylesMap.get('color') as string,
+          });
+        }
+      }
+    } catch (e) {
+      // Handle error silently
+    }
+  } else if (tag === 'a') {
+    const url = str.match(/href="([\w:./_\-#\\]+)"/);
+    if (url) {
+      htmlTag.push({
+        tag: tag,
+        url: url[1],
+      });
+    }
+  } else if (tag === 'font') {
+    let color = str.match(/color="([^"\n]+)"/);
+    if (!color) {
+      color = str.match(/color=([^"\n]+)/);
+    }
+    if (color) {
+      htmlTag.push({
+        tag: tag,
+        color: color[1].replaceAll('>', ''),
+      });
+    }
+  } else {
+    htmlTag.push({ tag: tag });
+  }
+};
+
+// 处理图片节点
+const handleImage = (currentElement: any) => {
+  return EditorUtils.createMediaNode(
+    decodeURIComponent(currentElement?.url),
+    'image',
+    {
+      alt: currentElement.alt,
+    },
+  );
+};
+
+// 处理内联数学公式
+const handleInlineMath = (currentElement: any) => {
+  return {
+    type: 'inline-katex',
+    children: [{ text: currentElement.value }],
+  } as InlineKatexNode;
+};
+
+// 处理数学公式块
+const handleMath = (currentElement: any) => {
+  return {
+    type: 'katex',
+    language: 'latex',
+    katex: true,
+    value: currentElement.value,
+    children: [{ text: '' }],
+  };
+};
+
+// 处理列表
+const handleList = (currentElement: any) => {
+  const el: any = {
+    type: 'list',
+    order: currentElement.ordered,
+    start: currentElement.start,
+    children: parserBlock(currentElement.children, false, currentElement),
+  };
+  el.task = el.children?.some((s: any) => typeof s.checked === 'boolean');
+  return el;
+};
+
+// 处理脚注引用
+const handleFootnoteReference = (currentElement: any) => {
+  return {
+    text: `${currentElement.identifier?.toUpperCase()}`,
+    identifier: currentElement.identifier,
+    type: 'footnoteReference',
+  };
+};
+
+// 处理脚注定义
+const handleFootnoteDefinition = (currentElement: any) => {
+  const linkNode = parserBlock(
+    currentElement.children,
+    false,
+    currentElement,
+  )?.at(0) as any;
+
+  const cellNode = linkNode?.children?.at(0) as any;
+
+  return {
+    value: cellNode?.text,
+    url: cellNode?.url,
+    type: 'footnoteDefinition',
+    identifier: currentElement.identifier,
+    children: [cellNode],
+  };
+};
+
+// 处理列表项
+const handleListItem = (currentElement: any) => {
+  const children = currentElement.children?.length
+    ? parserBlock(currentElement.children, false, currentElement)
+    : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
+
+  let mentions = undefined;
+  if (
+    currentElement.children?.[0]?.children?.[0]?.type === 'link' &&
+    currentElement.children?.[0]?.children?.length > 1
+  ) {
+    const item = children?.[0]?.children?.[0] as any;
+    const label = item?.text;
+    if (label) {
+      mentions = [
+        {
+          avatar: item?.url,
+          name: label,
+          id:
+            new URLSearchParams('?' + item?.url?.split('?')[1]).get('id') ||
+            undefined,
+        },
+      ];
+      delete children?.[0]?.children?.[0];
+      if (children?.[0]?.children) {
+        children[0].children = children?.[0]?.children?.filter(Boolean);
+      }
+    }
+  }
+
+  if (children[0].type === 'paragraph' && children[0].children[0]?.text) {
+    const text = children[0].children[0]?.text;
+    const m = text.match(/^\[([x\s])]/);
+
+    if (m) {
+      children[0].children[0].text = text.replace(/^\[([x\s])]/, '');
+      return {
+        type: 'list-item',
+        checked: m ? m[1] === 'x' : undefined,
+        children: children,
+        mentions,
+      };
+    }
+  }
+
+  return {
+    type: 'list-item',
+    checked: currentElement.checked,
+    children: children,
+    mentions,
+  };
+};
+
+// 处理段落
+const handleParagraph = (currentElement: any, config: any) => {
+  // 检查是否是附件链接
+  if (
+    currentElement.children?.[0].type === 'html' &&
+    currentElement.children[0].value.startsWith('<a')
+  ) {
+    const text = currentElement.children
+      .map((n: any) => (n as any).value || '')
+      .join('');
+    const attach = findAttachment(text);
+
+    if (attach) {
+      const name = text.match(/>(.*)<\/a>/);
+      return {
+        type: 'attach',
+        url: decodeURIComponent(attach?.url),
+        size: attach.size,
+        children: [
+          {
+            type: 'card-before',
+            children: [{ text: '' }],
+          },
+          {
+            type: 'card-after',
+            children: [{ text: '' }],
+          },
+        ],
+        name: name ? name[1] : attach?.url,
+      };
+    }
+  }
+
+  // 检查是否是链接卡片
+  if (
+    currentElement?.children?.at(0)?.type === 'link' &&
+    config.type === 'card'
+  ) {
+    const link = currentElement?.children?.at(0) as {
+      type: 'link';
+      url: string;
+      title: string;
+    };
+
+    return {
+      ...config,
+      type: 'link-card',
+      url: decodeURIComponent(link?.url),
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+      name: link.title,
+    };
+  }
+
+  // 处理混合内容段落
+  const elements = [];
+  let textNodes: any[] = [];
+
+  for (let currentChild of currentElement.children || []) {
+    if (currentChild.type === 'image') {
+      if (textNodes.length) {
+        elements.push({
+          type: 'paragraph',
+          children: parserBlock(textNodes, false, currentElement),
+        });
+        textNodes = [];
+      }
+      elements.push(
+        EditorUtils.createMediaNode(
+          decodeURIComponent(currentChild?.url),
+          'image',
+          {
+            alt: currentChild.alt,
+          },
+        ),
+      );
+    } else if (currentChild.type === 'html') {
+      const img = findImageElement(currentChild.value);
+      if (img) {
+        elements.push(
+          EditorUtils.createMediaNode(
+            decodeURIComponent(img?.url || ''),
+            'image',
+            {
+              alt: img.alt,
+              height: img.height,
+            },
+          ),
+        );
+      } else {
+        textNodes.push({ type: 'html', value: currentChild.value });
+      }
+    } else {
+      textNodes.push(currentChild);
+    }
+  }
+
+  if (textNodes.length) {
+    elements.push({
+      type: 'paragraph',
+      children: parserBlock(textNodes, false, currentElement),
+    });
+  }
+
+  return elements;
+};
+
+// 处理内联代码
+const handleInlineCode = (currentElement: any) => {
+  const hasPlaceHolder = currentElement.value?.match(/\$\{(.*?)\}/);
+  const values = hasPlaceHolder
+    ? hasPlaceHolder[1]
+        .split(';')
+        .map((item: string) => {
+          const values = item?.split(':');
+          return {
+            [values?.at(0) || '']: values?.at(1),
+          };
+        })
+        .reduce((acc: any, item: any) => {
+          return {
+            ...acc,
+            ...item,
+          };
+        }, {})
+    : undefined;
+
+  return {
+    text: values ? values?.initialValue || ' ' : currentElement.value,
+    tag: currentElement.value?.startsWith('${'),
+    placeholder: values?.placeholder || undefined,
+    initialValue: values?.initialValue || undefined,
+    code: true,
+  };
+};
+
+// 处理分割线
+const handleThematicBreak = () => {
+  return { type: 'hr', children: [{ text: '' }] };
+};
+
+// 处理代码块
+const handleCode = (currentElement: any) => {
+  const baseCodeElement = {
+    type: 'code',
+    language:
+      currentElement.lang === 'apassify' ? 'apaasify' : currentElement.lang,
+    render: currentElement.meta === 'render',
+    value: currentElement.value,
+    isConfig: currentElement?.value.trim()?.startsWith('<!--'),
+    children: [{ text: currentElement.value }],
+  };
+
+  const handler =
+    LANGUAGE_HANDLERS[currentElement.lang as keyof typeof LANGUAGE_HANDLERS];
+
+  return handler
+    ? handler(baseCodeElement, currentElement.value)
+    : baseCodeElement;
+};
+
+// 处理YAML
+const handleYaml = (currentElement: any) => {
+  return {
+    type: 'code',
+    language: 'yaml',
+    value: currentElement.value,
+    frontmatter: true,
+    children: [{ text: currentElement.value }],
+  };
+};
+
+// 处理引用块
+const handleBlockquote = (currentElement: any) => {
+  return {
+    type: 'blockquote',
+    children: currentElement.children?.length
+      ? parserBlock(currentElement.children, false, currentElement)
+      : [{ type: 'paragraph', children: [{ text: '' }] }],
+  };
+};
+
+// 处理定义
+const handleDefinition = (currentElement: any) => {
+  return {
+    type: 'paragraph',
+    children: [
+      {
+        text:
+          `[${currentElement.label}]: ` +
+          (currentElement.url ? `${currentElement.url}` : ''),
+      },
+    ],
+  };
+};
+
+// 处理文本和内联元素
+const handleTextAndInlineElements = (currentElement: any, htmlTag: any[]) => {
+  if (currentElement.type === 'text' && htmlTag.length) {
+    const el = { text: currentElement.value };
+    if (currentElement.value) {
+      applyHtmlTagsToElement(el, htmlTag);
+    }
+    return el;
+  }
+
+  if (
+    ['strong', 'link', 'text', 'emphasis', 'delete', 'inlineCode'].includes(
+      currentElement.type,
+    )
+  ) {
+    if (currentElement.type === 'text') {
+      return { text: currentElement.value };
+    }
+
+    const leaf: CustomLeaf = {};
+    applyInlineFormatting(leaf, currentElement);
+    applyHtmlTagsToElement(leaf, htmlTag);
+
+    if (
+      (currentElement as any)?.children?.some((n: any) => n.type === 'html')
+    ) {
+      return {
+        ...parserBlock(
+          (currentElement as any)?.children,
+          false,
+          currentElement,
+        )?.at(0),
+        url: leaf.url,
+      };
+    } else {
+      return parseText(
+        currentElement.children?.length
+          ? currentElement.children
+          : [{ value: leaf?.url || '' }],
+        leaf,
+      );
+    }
+  }
+
+  if (currentElement.type === 'break') {
+    return { text: '\n' };
+  }
+
+  return { text: '' };
+};
+
+// 应用内联格式
+const applyInlineFormatting = (leaf: CustomLeaf, currentElement: any) => {
+  if (currentElement.type === 'strong') leaf.bold = true;
+  if (currentElement.type === 'emphasis') leaf.italic = true;
+  if (currentElement.type === 'delete') leaf.strikethrough = true;
+  if (currentElement.type === 'link') {
+    try {
+      leaf.url = decodeURIComponent(currentElement?.url);
+    } catch (error) {
+      leaf.url = currentElement?.url;
+    }
+  }
+};
+
+// 应用HTML标签到元素
+const applyHtmlTagsToElement = (el: any, htmlTag: any[]) => {
+  for (let t of htmlTag) {
+    if (t.tag === 'font') {
+      el.color = t.color;
+    }
+    if (t.tag === 'sup') el.identifier = el.text;
+    if (t.tag === 'sub') el.identifier = el.text;
+    if (t.tag === 'code') el.code = true;
+    if (t.tag === 'i') el.italic = true;
+    if (t.tag === 'b' || t.tag === 'strong') el.bold = true;
+    if (t.tag === 'del') el.strikethrough = true;
+    if ((t.tag === 'span' || t.tag === 'font') && t.color)
+      el.highColor = t.color;
+    if (t.tag === 'a' && t?.url) {
+      el.url = t?.url;
+    }
+  }
+};
+
+// 应用上下文属性和配置
+const applyContextPropsAndConfig = (
+  el: any,
+  contextProps: any,
+  config: any,
+) => {
+  if (Array.isArray(el)) {
+    return (el as Element[]).map((item) => {
+      if (Object.keys(contextProps || {}).length) {
+        item.contextProps = contextProps;
+      }
+      if (Object.keys(config || {}).length && !item.otherProps) {
+        item.otherProps = config;
+      }
+      return item;
+    }) as Element[];
+  } else {
+    if (Object.keys(contextProps || {}).length) {
+      el.contextProps = contextProps;
+    }
+    if (Object.keys(config || {}).length && !el.otherProps) {
+      el.otherProps = config;
+    }
+    return el;
+  }
+};
+
+// 添加空行（如果需要）
+const addEmptyLinesIfNeeded = (
+  els: any[],
+  preNode: any,
+  currentElement: any,
+  top: boolean,
+) => {
+  if (preNode && top) {
+    const distance =
+      (currentElement.position?.start.line || 0) -
+      (preNode.position?.end.line || 0);
+    if (distance >= 4) {
+      const lines = Math.floor((distance - 2) / 2);
+      Array.from(new Array(lines)).forEach(() => {
+        els.push({ type: 'paragraph', children: [{ text: '' }] });
+      });
+    }
+  }
+};
+
 const parserBlock = (
   nodes: RootContent[],
   top = false,
   parent?: RootContent,
 ) => {
   if (!nodes?.length) return [{ type: 'paragraph', children: [{ text: '' }] }];
+
   let els: (Elements | Text)[] = [];
   let el: Element | null | Element[] = null;
   let preNode: null | RootContent = null;
@@ -412,588 +1027,76 @@ const parserBlock = (
 
     switch (currentElement.type) {
       case 'heading':
-        el = {
-          type: 'head',
-          level: currentElement.depth,
-          children: currentElement.children?.length
-            ? parserBlock(currentElement.children, false, currentElement)
-            : [{ text: '' }],
-        };
+        el = handleHeading(currentElement);
         break;
       case 'html':
-        const value =
-          currentElement?.value
-            ?.replace('<!--', '')
-            .replace('-->', '')
-            .trim() || '{}';
-
-        if (
-          value &&
-          currentElement?.value?.trim()?.endsWith('-->') &&
-          currentElement?.value.trim()?.startsWith('<!--')
-        ) {
-          try {
-            contextProps = json5.parse(value);
-          } catch (e) {
-            try {
-              contextProps = partialJsonParse(value);
-            } catch (error) {}
-            console.log('parse html error', e);
-          }
+        const htmlResult = handleHtml(currentElement, parent, htmlTag);
+        el = htmlResult.el;
+        if (htmlResult.contextProps) {
+          contextProps = { ...contextProps, ...htmlResult.contextProps };
         }
-
-        if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
-          const img = findImageElement(currentElement.value);
-          if (img) {
-            el = EditorUtils.createMediaNode(
-              decodeURIComponent(img?.url || '')!,
-              'image',
-              { align: img.align, alt: img.alt, height: img?.height },
-            );
-          } else {
-            if (currentElement.value === '<br/>') {
-              el = { type: 'paragraph', children: [{ text: '' }] };
-            } else {
-              el = currentElement.value.match(
-                /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
-              )
-                ? htmlToFragmentList(currentElement.value, '')
-                : {
-                    type: 'code',
-                    language: 'html',
-                    render: true,
-                    value: currentElement.value,
-                    children: [
-                      {
-                        text: currentElement.value,
-                      },
-                    ],
-                  };
-            }
-          }
-        } else {
-          const breakMatch = currentElement.value.match(/<br\/?>/);
-          if (breakMatch) {
-            el = { type: 'break', children: [{ text: '\n' }] };
-          } else {
-            const htmlMatch = currentElement.value.match(
-              /<\/?(b|i|del|font|code|span|sup|sub|strong|a)[^\n>]*?>/,
-            );
-            if (htmlMatch) {
-              const [str, tag] = htmlMatch;
-              if (
-                str.startsWith('</') &&
-                htmlTag.length &&
-                htmlTag[htmlTag.length - 1].tag === tag
-              ) {
-                htmlTag.pop();
-              }
-              if (!str.startsWith('</')) {
-                if (tag === 'span') {
-                  try {
-                    const styles = str.match(/style="([^"\n]+)"/);
-
-                    if (styles) {
-                      // @ts-ignore
-                      const stylesMap = new Map(
-                        styles[1]
-                          .split(';')
-                          .map((item: string) =>
-                            item.split(':').map((item: string) => item.trim()),
-                          ) as [string, string][],
-                      );
-                      if (stylesMap.get('color')) {
-                        htmlTag.push({
-                          tag: tag,
-                          color: stylesMap.get('color') as string,
-                        });
-                      }
-                    }
-                  } catch (e) {
-                    el = { text: currentElement.value };
-                  }
-                } else if (tag === 'a') {
-                  const url = str.match(/href="([\w:./_\-#\\]+)"/);
-                  if (url) {
-                    htmlTag.push({
-                      tag: tag,
-                      url: url[1],
-                    });
-                  }
-                } else if (tag === 'font') {
-                  let color = str.match(/color="([^"\n]+)"/);
-                  if (!color) {
-                    color = str.match(/color=([^"\n]+)/);
-                  }
-                  if (color) {
-                    htmlTag.push({
-                      tag: tag,
-                      color: color[1].replaceAll('>', ''),
-                    });
-                  }
-                } else {
-                  htmlTag.push({ tag: tag });
-                }
-              }
-            } else {
-              const img = findImageElement(currentElement.value);
-              if (img) {
-                el = EditorUtils.createMediaNode(img?.url, 'image', img);
-              } else {
-                el = { text: currentElement.value };
-              }
-            }
-          }
-        }
-
-        if (el) {
-          el.isConfig = currentElement?.value.trim()?.startsWith('<!--');
-          el.otherProps = contextProps;
-        }
-
         break;
       case 'image':
-        el = EditorUtils.createMediaNode(
-          decodeURIComponent(currentElement?.url),
-          'image',
-          {
-            alt: currentElement.alt,
-          },
-        );
-
+        el = handleImage(currentElement);
         break;
       case 'inlineMath':
-        el = {
-          type: 'inline-katex',
-          children: [{ text: currentElement.value }],
-        } as InlineKatexNode;
+        el = handleInlineMath(currentElement);
         break;
       case 'math':
-        el = {
-          // @ts-ignore
-          type: 'katex',
-          language: 'latex',
-          katex: true,
-          value: currentElement.value,
-          children: [{ text: '' }],
-        };
+        el = handleMath(currentElement);
         break;
       case 'list':
-        el = {
-          type: 'list',
-          order: currentElement.ordered,
-          start: currentElement.start,
-          children: parserBlock(currentElement.children, false, currentElement),
-        };
-        el.task = el.children?.some((s: any) => typeof s.checked === 'boolean');
+        el = handleList(currentElement);
         break;
       case 'footnoteReference':
-        el = {
-          text: `${currentElement.identifier?.toUpperCase()}`,
-          identifier: currentElement.identifier,
-          type: 'footnoteReference',
-        };
+        el = handleFootnoteReference(currentElement);
         break;
       case 'footnoteDefinition':
-        const linkNode = parserBlock(
-          currentElement.children,
-          false,
-          currentElement,
-        )
-          ?.at(0)
-          // @ts-ignore
-          ?.children?.at(0) as any;
-        el = {
-          value: linkNode.text,
-          url: linkNode?.url,
-          type: 'footnoteDefinition',
-          identifier: currentElement.identifier,
-          children: [linkNode],
-        };
-
+        el = handleFootnoteDefinition(currentElement);
         break;
       case 'listItem':
-        const children = currentElement.children?.length
-          ? parserBlock(currentElement.children, false, currentElement)
-          : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
-        let mentions = undefined;
-        if (
-          // @ts-ignore
-          currentElement.children?.[0]?.children?.[0]?.type === 'link' &&
-          // @ts-ignore
-          currentElement.children?.[0]?.children?.length > 1
-        ) {
-          const item = // @ts-ignore
-            children?.[0]?.children?.[0] as LinkCardNode;
-          // @ts-ignore
-          const label = item.text;
-          if (label) {
-            mentions = [
-              {
-                avatar: item?.url,
-                name: label,
-                id:
-                  new URLSearchParams('?' + item?.url?.split('?')[1]).get(
-                    'id',
-                  ) || undefined,
-              },
-            ];
-            delete children?.[0]?.children?.[0];
-            if (children?.[0]?.children) {
-              children[0].children = children?.[0]?.children?.filter(Boolean);
-            }
-          }
-        }
-        if (children[0].type === 'paragraph' && children[0].children[0]?.text) {
-          const text = children[0].children[0]?.text;
-          const m = text.match(/^\[([x\s])]/);
-
-          if (m) {
-            el = {
-              type: 'list-item',
-              checked: m ? m[1] === 'x' : undefined,
-              children: children,
-              mentions,
-            };
-            children[0].children[0].text = text.replace(/^\[([x\s])]/, '');
-            break;
-          }
-        }
-        el = {
-          type: 'list-item',
-          checked: currentElement.checked,
-          children: children,
-          mentions,
-        };
+        el = handleListItem(currentElement);
         break;
       case 'paragraph':
-        if (
-          currentElement.children?.[0].type === 'html' &&
-          currentElement.children[0].value.startsWith('<a')
-        ) {
-          const text = currentElement.children
-            .map((n: any) => (n as any).value || '')
-            .join('');
-          const attach = findAttachment(text);
-
-          if (attach) {
-            const name = text.match(/>(.*)<\/a>/);
-            el = {
-              type: 'attach',
-              url: decodeURIComponent(attach?.url),
-              size: attach.size,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-              name: name ? name[1] : attach?.url,
-            };
-            break;
-          }
-        }
-
-        if (
-          currentElement?.children?.at(0)?.type === 'link' &&
-          config.type === 'card'
-        ) {
-          const link = currentElement?.children?.at(0) as {
-            type: 'link';
-            url: string;
-            title: string;
-          };
-
-          el = {
-            ...config,
-            type: 'link-card',
-            url: decodeURIComponent(link?.url),
-            children: [
-              {
-                type: 'card-before',
-                children: [{ text: '' }],
-              },
-              {
-                type: 'card-after',
-                children: [{ text: '' }],
-              },
-            ],
-            name: link.title,
-          };
-          break;
-        }
-        el = [];
-        let textNodes: any[] = [];
-        for (let currentChild of currentElement.children || []) {
-          if (currentChild.type === 'image') {
-            if (textNodes.length) {
-              el.push({
-                type: 'paragraph',
-                children: parserBlock(textNodes, false, currentElement),
-              });
-              textNodes = [];
-            }
-            el.push(
-              EditorUtils.createMediaNode(
-                decodeURIComponent(currentChild?.url),
-                'image',
-                {
-                  alt: currentChild.alt,
-                },
-              ),
-            );
-          } else if (currentChild.type === 'html') {
-            const img = findImageElement(currentChild.value);
-            if (img) {
-              el.push(
-                EditorUtils.createMediaNode(
-                  decodeURIComponent(img?.url || ''),
-                  'image',
-                  {
-                    alt: img.alt,
-                    height: img.height,
-                  },
-                ),
-              );
-            } else {
-              textNodes.push({ type: 'html', value: currentChild.value });
-            }
-          } else {
-            textNodes.push(currentChild);
-          }
-        }
-        if (textNodes.length) {
-          el.push({
-            type: 'paragraph',
-            children: parserBlock(textNodes, false, currentElement),
-          });
-        }
+        el = handleParagraph(currentElement, config);
         break;
       case 'inlineCode':
-        const hasPlaceHolder = currentElement.value?.match(/\$\{(.*?)\}/);
-        const values = hasPlaceHolder
-          ? hasPlaceHolder[1]
-              .split(';')
-              .map((item) => {
-                const values = item?.split(':');
-                return {
-                  [values?.at(0) || '']: values?.at(1),
-                };
-              })
-              .reduce((acc, item) => {
-                return {
-                  ...acc,
-                  ...item,
-                };
-              }, {})
-          : undefined;
-
-        el = {
-          text: values ? values?.initialValue || ' ' : currentElement.value,
-          tag: currentElement.value?.startsWith('${'),
-          placeholder: values?.placeholder || undefined,
-          initialValue: values?.initialValue || undefined,
-          code: true,
-        };
+        el = handleInlineCode(currentElement);
         break;
       case 'thematicBreak':
-        el = { type: 'hr', children: [{ text: '' }] };
+        el = handleThematicBreak();
         break;
       case 'code':
-        // 创建基础的代码块元素
-        const baseCodeElement = {
-          type: 'code',
-          language:
-            currentElement.lang === 'apassify'
-              ? 'apaasify'
-              : currentElement.lang,
-          render: currentElement.meta === 'render',
-          value: currentElement.value,
-          isConfig: currentElement?.value.trim()?.startsWith('<!--'),
-          children: [{ text: currentElement.value }],
-        };
-
-        // 获取处理函数并应用，如果没有匹配的处理函数则返回基础元素
-        const handler =
-          LANGUAGE_HANDLERS[
-            currentElement.lang as keyof typeof LANGUAGE_HANDLERS
-          ];
-
-        el = handler
-          ? handler(baseCodeElement, currentElement.value)
-          : baseCodeElement;
-
+        el = handleCode(currentElement);
         break;
       case 'yaml':
-        el = {
-          type: 'code',
-          language: 'yaml',
-          value: currentElement.value,
-          frontmatter: true,
-          children: [{ text: currentElement.value }],
-        };
+        el = handleYaml(currentElement);
         break;
       case 'blockquote':
-        el = {
-          type: 'blockquote',
-          children: currentElement.children?.length
-            ? parserBlock(currentElement.children, false, currentElement)
-            : [{ type: 'paragraph', children: [{ text: '' }] }],
-        };
+        el = handleBlockquote(currentElement);
         break;
       case 'table':
         el = parseTableOrChart(currentElement, preElement);
         break;
       case 'definition':
-        el = {
-          type: 'paragraph',
-          children: [
-            {
-              text:
-                `[${currentElement.label}]: ` +
-                (currentElement.url ? `${currentElement.url}` : ''),
-            },
-          ],
-        };
+        el = handleDefinition(currentElement);
         break;
       default:
-        if (currentElement.type === 'text' && htmlTag.length) {
-          el = { text: currentElement.value };
-          if (currentElement.value) {
-            for (let t of htmlTag) {
-              if (t.tag === 'font') {
-                el.color = t.color;
-              }
-              if (t.tag === 'sup') el.identifier = el.text;
-              if (t.tag === 'sub') el.identifier = el.text;
-              if (t.tag === 'code') el.code = true;
-              if (t.tag === 'i') el.italic = true;
-              if (t.tag === 'b' || t.tag === 'strong') el.bold = true;
-              if (t.tag === 'del') el.strikethrough = true;
-              if ((t.tag === 'span' || t.tag === 'font') && t.color)
-                el.highColor = t.color;
-              if (t.tag === 'a' && t?.url) {
-                el.url = t?.url;
-              }
-            }
-          }
-          break;
-        } else if (
-          [
-            'strong',
-            'link',
-            'text',
-            'emphasis',
-            'delete',
-            'inlineCode',
-          ].includes(currentElement.type)
-        ) {
-          if (currentElement.type === 'text') {
-            el = { text: currentElement.value };
-          } else {
-            const leaf: CustomLeaf = {};
-
-            if (currentElement.type === 'strong') leaf.bold = true;
-            if (currentElement.type === 'emphasis') leaf.italic = true;
-            if (currentElement.type === 'delete') leaf.strikethrough = true;
-            if (currentElement.type === 'link') {
-              try {
-                leaf.url = decodeURIComponent(currentElement?.url);
-              } catch (error) {
-                leaf.url = currentElement?.url;
-              }
-            }
-            if (leaf) {
-              for (let t of htmlTag) {
-                if (t.tag === 'font') {
-                  leaf.color = t.color;
-                }
-                if (t.tag === 'sup') leaf.identifier = el.text;
-                if (t.tag === 'sub') leaf.identifier = el.text;
-                if (t.tag === 'code') leaf.code = true;
-                if (t.tag === 'i') leaf.italic = true;
-                if (t.tag === 'b' || t.tag === 'strong') leaf.bold = true;
-                if (t.tag === 'del') leaf.strikethrough = true;
-                if ((t.tag === 'span' || t.tag === 'font') && t.color)
-                  leaf.highColor = t.color;
-              }
-            }
-            if (
-              (currentElement as any)?.children?.some(
-                (n: any) => n.type === 'html',
-              )
-            ) {
-              el = {
-                ...parserBlock(
-                  (currentElement as any)?.children,
-                  false,
-                  currentElement,
-                )?.at(0),
-                url: leaf.url,
-              };
-            } else {
-              el = parseText(
-                // @ts-ignore
-                currentElement.children?.length
-                  ? // @ts-ignore
-                    currentElement.children
-                  : [{ value: leaf?.url || '' }],
-                leaf,
-              );
-            }
-          }
-        } else if (currentElement.type === 'break') {
-          el = { text: '\n' };
-        } else {
-          el = { text: '' };
-        }
+        el = handleTextAndInlineElements(currentElement, htmlTag);
     }
 
-    if (preNode && top) {
-      const distance =
-        (currentElement.position?.start.line || 0) -
-        (preNode.position?.end.line || 0);
-      if (distance >= 4) {
-        const lines = Math.floor((distance - 2) / 2);
-        Array.from(new Array(lines)).forEach(() => {
-          els.push({ type: 'paragraph', children: [{ text: '' }] });
-        });
-      }
-    }
+    addEmptyLinesIfNeeded(els, preNode, currentElement, top);
 
     if (el) {
-      if (Array.isArray(el)) {
-        el = (el as Element[]).map((item) => {
-          if (Object.keys(contextProps || {}).length) {
-            item.contextProps = contextProps;
-          }
-          if (Object.keys(config || {}).length && !el.otherProps) {
-            item.otherProps = config;
-          }
-          return item;
-        }) as Element[];
-      } else {
-        if (Object.keys(contextProps || {}).length) {
-          el.contextProps = contextProps;
-        }
-        if (Object.keys(config || {}).length && !el.otherProps) {
-          el.otherProps = config;
-        }
-      }
-
+      el = applyContextPropsAndConfig(el, contextProps, config);
       Array.isArray(el) ? els.push(...el) : els.push(el);
     }
 
     preNode = currentElement;
-
     preElement = el;
-
     el = null;
   }
+
   return els;
 };
 
