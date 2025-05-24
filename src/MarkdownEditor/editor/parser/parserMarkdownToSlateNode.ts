@@ -387,7 +387,11 @@ const parserTableToDescription = (children: TableRowNode[]) => {
   return node;
 };
 
-// 处理heading节点
+/**
+ * 处理标题节点
+ * @param currentElement - 当前处理的标题元素，包含depth和children属性
+ * @returns 返回格式化的标题节点对象
+ */
 const handleHeading = (currentElement: any) => {
   return {
     type: 'head',
@@ -398,7 +402,13 @@ const handleHeading = (currentElement: any) => {
   };
 };
 
-// 处理HTML节点
+/**
+ * 处理HTML节点
+ * @param currentElement - 当前处理的HTML元素
+ * @param parent - 父级元素，用于判断上下文
+ * @param htmlTag - HTML标签栈，用于跟踪嵌套的HTML标签
+ * @returns 返回包含解析后元素和上下文属性的对象
+ */
 const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
   const value =
     currentElement?.value?.replace('<!--', '').replace('-->', '').trim() ||
@@ -462,7 +472,12 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
   return { el, contextProps };
 };
 
-// 处理内联HTML
+/**
+ * 处理内联HTML元素
+ * @param currentElement - 当前处理的HTML元素
+ * @param htmlTag - HTML标签栈
+ * @returns 返回处理后的元素对象，如果是标签则返回null
+ */
 const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
   const breakMatch = currentElement.value.match(/<br\/?>/);
   if (breakMatch) {
@@ -496,7 +511,12 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
   }
 };
 
-// 处理HTML标签
+/**
+ * 处理HTML标签并添加到标签栈中
+ * @param str - HTML标签字符串
+ * @param tag - 标签名称
+ * @param htmlTag - HTML标签栈
+ */
 const processHtmlTag = (str: string, tag: string, htmlTag: any[]) => {
   if (tag === 'span') {
     try {
@@ -543,7 +563,11 @@ const processHtmlTag = (str: string, tag: string, htmlTag: any[]) => {
   }
 };
 
-// 处理图片节点
+/**
+ * 处理图片节点
+ * @param currentElement - 当前处理的图片元素，包含url和alt属性
+ * @returns 返回格式化的图片节点对象
+ */
 const handleImage = (currentElement: any) => {
   return EditorUtils.createMediaNode(
     decodeURIComponent(currentElement?.url),
@@ -554,7 +578,11 @@ const handleImage = (currentElement: any) => {
   );
 };
 
-// 处理内联数学公式
+/**
+ * 处理内联数学公式
+ * @param currentElement - 当前处理的内联数学公式元素
+ * @returns 返回格式化的内联KaTeX节点对象
+ */
 const handleInlineMath = (currentElement: any) => {
   return {
     type: 'inline-katex',
@@ -562,7 +590,11 @@ const handleInlineMath = (currentElement: any) => {
   } as InlineKatexNode;
 };
 
-// 处理数学公式块
+/**
+ * 处理数学公式块
+ * @param currentElement - 当前处理的数学公式块元素
+ * @returns 返回格式化的KaTeX块节点对象
+ */
 const handleMath = (currentElement: any) => {
   return {
     type: 'katex',
@@ -573,7 +605,11 @@ const handleMath = (currentElement: any) => {
   };
 };
 
-// 处理列表
+/**
+ * 处理列表节点
+ * @param currentElement - 当前处理的列表元素，包含ordered、start等属性
+ * @returns 返回格式化的列表节点对象
+ */
 const handleList = (currentElement: any) => {
   const el: any = {
     type: 'list',
@@ -585,7 +621,11 @@ const handleList = (currentElement: any) => {
   return el;
 };
 
-// 处理脚注引用
+/**
+ * 处理脚注引用
+ * @param currentElement - 当前处理的脚注引用元素
+ * @returns 返回格式化的脚注引用节点对象
+ */
 const handleFootnoteReference = (currentElement: any) => {
   return {
     text: `${currentElement.identifier?.toUpperCase()}`,
@@ -594,7 +634,11 @@ const handleFootnoteReference = (currentElement: any) => {
   };
 };
 
-// 处理脚注定义
+/**
+ * 处理脚注定义
+ * @param currentElement - 当前处理的脚注定义元素
+ * @returns 返回格式化的脚注定义节点对象
+ */
 const handleFootnoteDefinition = (currentElement: any) => {
   const linkNode = parserBlock(
     currentElement.children,
@@ -613,7 +657,11 @@ const handleFootnoteDefinition = (currentElement: any) => {
   };
 };
 
-// 处理列表项
+/**
+ * 处理列表项节点
+ * @param currentElement - 当前处理的列表项元素
+ * @returns 返回格式化的列表项节点对象，包含复选框状态和提及信息
+ */
 const handleListItem = (currentElement: any) => {
   const children = currentElement.children?.length
     ? parserBlock(currentElement.children, false, currentElement)
@@ -666,7 +714,12 @@ const handleListItem = (currentElement: any) => {
   };
 };
 
-// 处理段落
+/**
+ * 处理段落节点
+ * @param currentElement - 当前处理的段落元素
+ * @param config - 配置对象，包含样式和行为设置
+ * @returns 返回格式化的段落节点对象或元素数组
+ */
 const handleParagraph = (currentElement: any, config: any) => {
   // 检查是否是附件链接
   if (
@@ -781,7 +834,11 @@ const handleParagraph = (currentElement: any, config: any) => {
   return elements;
 };
 
-// 处理内联代码
+/**
+ * 处理内联代码节点
+ * @param currentElement - 当前处理的内联代码元素
+ * @returns 返回格式化的内联代码节点对象，支持占位符和初始值
+ */
 const handleInlineCode = (currentElement: any) => {
   const hasPlaceHolder = currentElement.value?.match(/\$\{(.*?)\}/);
   const values = hasPlaceHolder
@@ -810,12 +867,19 @@ const handleInlineCode = (currentElement: any) => {
   };
 };
 
-// 处理分割线
+/**
+ * 处理分割线节点
+ * @returns 返回格式化的分割线节点对象
+ */
 const handleThematicBreak = () => {
   return { type: 'hr', children: [{ text: '' }] };
 };
 
-// 处理代码块
+/**
+ * 处理代码块节点
+ * @param currentElement - 当前处理的代码块元素，包含语言和内容
+ * @returns 返回格式化的代码块节点对象，根据语言类型进行特殊处理
+ */
 const handleCode = (currentElement: any) => {
   const baseCodeElement = {
     type: 'code',
@@ -835,7 +899,11 @@ const handleCode = (currentElement: any) => {
     : baseCodeElement;
 };
 
-// 处理YAML
+/**
+ * 处理YAML节点
+ * @param currentElement - 当前处理的YAML元素
+ * @returns 返回格式化的YAML代码块节点对象
+ */
 const handleYaml = (currentElement: any) => {
   return {
     type: 'code',
@@ -846,7 +914,11 @@ const handleYaml = (currentElement: any) => {
   };
 };
 
-// 处理引用块
+/**
+ * 处理引用块节点
+ * @param currentElement - 当前处理的引用块元素
+ * @returns 返回格式化的引用块节点对象
+ */
 const handleBlockquote = (currentElement: any) => {
   return {
     type: 'blockquote',
@@ -856,7 +928,11 @@ const handleBlockquote = (currentElement: any) => {
   };
 };
 
-// 处理定义
+/**
+ * 处理定义节点
+ * @param currentElement - 当前处理的定义元素，包含标签和URL
+ * @returns 返回格式化的定义段落节点对象
+ */
 const handleDefinition = (currentElement: any) => {
   return {
     type: 'paragraph',
@@ -870,7 +946,12 @@ const handleDefinition = (currentElement: any) => {
   };
 };
 
-// 处理文本和内联元素
+/**
+ * 处理文本和内联元素节点
+ * @param currentElement - 当前处理的文本或内联元素
+ * @param htmlTag - HTML标签栈，用于应用样式
+ * @returns 返回格式化的文本或内联元素节点对象
+ */
 const handleTextAndInlineElements = (currentElement: any, htmlTag: any[]) => {
   if (currentElement.type === 'text' && htmlTag.length) {
     const el = { text: currentElement.value };
@@ -921,7 +1002,11 @@ const handleTextAndInlineElements = (currentElement: any, htmlTag: any[]) => {
   return { text: '' };
 };
 
-// 应用内联格式
+/**
+ * 应用内联格式到叶子节点
+ * @param leaf - 目标叶子节点对象
+ * @param currentElement - 当前处理的元素，包含格式信息
+ */
 const applyInlineFormatting = (leaf: CustomLeaf, currentElement: any) => {
   if (currentElement.type === 'strong') leaf.bold = true;
   if (currentElement.type === 'emphasis') leaf.italic = true;
@@ -935,7 +1020,11 @@ const applyInlineFormatting = (leaf: CustomLeaf, currentElement: any) => {
   }
 };
 
-// 应用HTML标签到元素
+/**
+ * 应用HTML标签样式到元素
+ * @param el - 目标元素对象
+ * @param htmlTag - HTML标签数组，包含样式信息
+ */
 const applyHtmlTagsToElement = (el: any, htmlTag: any[]) => {
   for (let t of htmlTag) {
     if (t.tag === 'font') {
@@ -955,7 +1044,13 @@ const applyHtmlTagsToElement = (el: any, htmlTag: any[]) => {
   }
 };
 
-// 应用上下文属性和配置
+/**
+ * 应用上下文属性和配置到元素
+ * @param el - 目标元素或元素数组
+ * @param contextProps - 上下文属性对象
+ * @param config - 配置对象
+ * @returns 返回应用了属性和配置的元素
+ */
 const applyContextPropsAndConfig = (
   el: any,
   contextProps: any,
@@ -982,7 +1077,13 @@ const applyContextPropsAndConfig = (
   }
 };
 
-// 添加空行（如果需要）
+/**
+ * 根据行间距添加空行元素
+ * @param els - 目标元素数组
+ * @param preNode - 前一个节点
+ * @param currentElement - 当前处理的元素
+ * @param top - 是否为顶级解析
+ */
 const addEmptyLinesIfNeeded = (
   els: any[],
   preNode: any,
@@ -1002,6 +1103,24 @@ const addEmptyLinesIfNeeded = (
   }
 };
 
+/**
+ * 解析Markdown节点块为Slate节点数组
+ * 这是核心的解析函数，负责将各种类型的Markdown节点转换为对应的Slate编辑器节点
+ *
+ * @param nodes - 要解析的Markdown节点数组
+ * @param top - 是否为顶级解析，影响空行处理逻辑
+ * @param parent - 父级节点，用于上下文判断
+ * @returns 返回解析后的Slate节点数组
+ *
+ * @example
+ * ```typescript
+ * const markdownNodes = [
+ *   { type: 'heading', depth: 1, children: [...] },
+ *   { type: 'paragraph', children: [...] }
+ * ];
+ * const slateNodes = parserBlock(markdownNodes, true);
+ * ```
+ */
 const parserBlock = (
   nodes: RootContent[],
   top = false,
