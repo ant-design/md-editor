@@ -79,18 +79,23 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       str += parserSlateNodeToMarkdown(node.children, preString, newParent);
       break;
     case 'image':
-      let nodeImageUrl = new URL(node?.url);
-      if (node.width) {
-        nodeImageUrl.searchParams.set('width', node.width);
+      try {
+        let nodeImageUrl = new URL(node?.url);
+        if (node.width) {
+          nodeImageUrl.searchParams.set('width', node.width);
+        }
+        if (node.height) {
+          nodeImageUrl.searchParams.set('height', node.height);
+        }
+        if (node.block) {
+          nodeImageUrl.searchParams.set('block', node.block);
+        }
+        str += `![${node.alt || ''}](${nodeImageUrl.toString()})`;
+        break;
+      } catch (e) {
+        str += `![${node.alt || ''}](${encodeURI(node?.url)})`;
       }
-      if (node.height) {
-        nodeImageUrl.searchParams.set('height', node.height);
-      }
-      if (node.block) {
-        nodeImageUrl.searchParams.set('block', node.block);
-      }
-      str += `![${node.alt || ''}](${nodeImageUrl.toString()})`;
-      break;
+
     case 'media':
       let nodeUrl = node?.url;
       let type = getMediaType(nodeUrl, node?.alt);

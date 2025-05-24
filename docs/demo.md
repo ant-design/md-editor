@@ -61,3 +61,4 @@ nav:
 <code src="./demos/li-code.tsx" debug background="var(--main-bg-color)" title="li 嵌套 icode" iframe=540 ></code>
 
 <code src="./demos/same-render.tsx" debug background="var(--main-bg-color)" title="相同渲染" iframe=540 ></code>
+<code src="./demos/table_line.tsx" debug background="var(--main-bg-color)" title="table \n 换行" iframe=540 ></code>

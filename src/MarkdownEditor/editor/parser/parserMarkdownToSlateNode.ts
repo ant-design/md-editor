@@ -1008,6 +1008,27 @@ const parseWithPlugins = (root: Root, plugins: MarkdownEditorPlugin[]) => {
   });
 };
 
+const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
+function preprocessMarkdownTableNewlines(markdown: string) {
+  // 检查是否包含表格
+  if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
+  // 如果包含表格，处理换行符
+  return markdown
+    ?.split('\n\n')
+    .map((line) => {
+      if (line.includes('```')) return line; // 如果包含代码块，直接返回原始字符串
+      // 检查是否包含表格
+      if (!tableRegex.test(line)) return line; // 如果没有表格，直接返回原始字符串
+      // 匹配所有表格的行（确保我们在表格行内匹配换行符）
+      return line.replace(/\|([^|]+)\|/g, (match) => {
+        if (match.replaceAll('\n', '')?.length < 5) return match; // 如果匹配的长度小于5，直接返回原始字符串
+        // 只替换每个表格单元格内的换行符
+        return match.split('\n').join('<br>');
+      });
+    })
+    .join('\n\n');
+}
+
 /**
  * 解析Markdown字符串并返回解析后的结构和链接信息。
  *
@@ -1025,7 +1046,7 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  const markdownRoot = parser.parse(md);
+  const markdownRoot = parser.parse(preprocessMarkdownTableNewlines(md || ''));
   const root =
     (plugins || [])?.length > 0
       ? parseWithPlugins(markdownRoot, plugins || [])
