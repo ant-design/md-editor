@@ -348,7 +348,7 @@ export const SlateMarkdownEditor = ({
             fragment?.at(0).type === 'paragraph' &&
             currentTextSelection
           ) {
-            const text = event.clipboardData.getData('text/plain');
+            const text = Node.string(fragment.at(0));
             if (text) {
               Transforms.insertText(markdownEditorRef.current, text, {
                 at: currentTextSelection.focus,
@@ -367,6 +367,7 @@ export const SlateMarkdownEditor = ({
       }
       return;
     }
+    console.log('types', types);
     if (types.includes('text/html')) {
       try {
         const html = await event.clipboardData.getData('text/html');

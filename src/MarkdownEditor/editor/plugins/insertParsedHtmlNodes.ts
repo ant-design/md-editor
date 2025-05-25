@@ -362,6 +362,22 @@ export const insertParsedHtmlNodes = async (
   // 如果当前选中的是代码块或者表格单元格，则不进行插入
   if (inner && ['code', 'table-cell'].includes(node?.[0].type)) return true;
 
+  /**
+   * 如果当前选中的是段落，并且插入的内容是一个段落，则直接插入文本
+   */
+  if (
+    fragmentList.length === 1 &&
+    (fragmentList?.at(0).type === 'paragraph' || !fragmentList?.at(0).type) &&
+    node
+  ) {
+    const text = Node.string(fragmentList.at(0));
+    if (text) {
+      Transforms.insertText(editor, text, {
+        at: selection!,
+      });
+      return;
+    }
+  }
   EditorUtils.replaceSelectedNode(
     editor,
     fragmentList?.map((item) => {
