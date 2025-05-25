@@ -8625,7 +8625,7 @@
                     <div
                       aria-describedby="test-id"
                       class="ant-md-editor-content-table"
-                      style="flex: 1; min-width: min(190px,436px);"
+                      style="flex: 1; min-width: min(190px,444px);"
                     >
                       <table
                         class="ant-md-editor-content-table-editor-table"
@@ -8638,7 +8638,7 @@
                             style="width: 84px; min-width: 84px; max-width: 84px;"
                           />
                           <col
-                            style="width: 84px; min-width: 84px; max-width: 84px;"
+                            style="width: 92px; min-width: 92px; max-width: 92px;"
                           />
                           <col
                             style="width: 84px; min-width: 84px; max-width: 84px;"
@@ -8699,7 +8699,6 @@
                             <th
                               data-be="th"
                               data-slate-node="element"
-                              style="text-align: right;"
                             >
                               <span
                                 data-slate-node="text"
@@ -8813,7 +8812,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -8829,6 +8828,19 @@
                                   >
                                     138,259
                                   </span>
+                                </span>
+                              </span>
+                              <span
+                                data-slate-node="text"
+                              >
+                                <span
+                                  class=" "
+                                  data-be="text"
+                                  data-fnc="fnc"
+                                  data-slate-leaf="true"
+                                  draggable="false"
+                                >
+                                  2
                                 </span>
                               </span>
                             </td>
@@ -8927,7 +8939,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -9041,7 +9053,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -9155,7 +9167,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -9269,7 +9281,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -9383,7 +9395,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -9497,7 +9509,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"
@@ -9611,7 +9623,7 @@
                             <td
                               data-be="td"
                               data-slate-node="element"
-                              style="text-align: right; overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                              style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                             >
                               <span
                                 data-slate-node="text"

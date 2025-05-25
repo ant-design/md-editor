@@ -1,5 +1,4 @@
-﻿import { EyeOutlined } from '@ant-design/icons';
-import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ElementProps, LinkCardNode } from '../../../el';
@@ -55,6 +54,9 @@ export function LinkCard({
           ref={htmlRef}
           style={{
             flex: 1,
+          }}
+          onClick={() => {
+            window.open(element?.url);
           }}
           className={classNames(`${baseCls}-container`, hashId)}
         >
@@ -142,22 +144,6 @@ export function LinkCard({
                 ) : null}
               </div>
             </div>
-          </div>
-          <div
-            className={classNames(
-              `${baseCls}-container-editor-icon-box`,
-              hashId,
-            )}
-          >
-            <EyeOutlined
-              onClick={() => {
-                window.open(element?.url);
-              }}
-              style={{
-                fontSize: 16,
-                cursor: 'pointer',
-              }}
-            />
           </div>
         </div>
         <div
