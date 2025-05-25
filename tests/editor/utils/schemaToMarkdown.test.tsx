@@ -8,16 +8,25 @@ const input = `<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 
 # Umi 研究报告
 
 <!-- {"MarkdownType": "section", "id": "15" } -->
-
 ## html
 
 <font color="red">Umi 科技（深圳）有限公司</font>
+
+
 <font color=#FE0300>哈哈哈</font>
-<sup>Umi 科技（深圳）有限公司</sup>
+
+
+
+<sup>1</sup>
+
+
 <sub>Umi 科技（深圳）有限公司</sub>
 
+
 #  <font color=#FE0300>*我是一个正经人*</font>
+
 ##  <font color=#70AD48>*我是一个正经人*</font>
+
 ###  <font color=#F6CCAC>*我是一个正经人*</font>
 
 [知乎](https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10)
@@ -344,7 +353,7 @@ mindmap
 `;
 
 input
-  ?.split('##')
+  ?.split('\n\n')
   .filter(Boolean)
   .forEach((char) => {
     it(`should convert schema to markdown in ${char.slice(
@@ -393,6 +402,18 @@ it(`多个空格转为一个`, () => {
 3. 下午交易时段，上证指数继续小幅下跌，最终以3393.35点收盘                                                              [^DOC_1]                                                              [^DOC_2]                                                              [^DOC_7]。
 
 因此，今日（2024年12月25日）上证指数收盘报3393.35点，微跌0.01%。`;
+  const schema = parserMdToSchema(md).schema;
+  expect(schema).toMatchSnapshot();
+  const markdown = parserSlateNodeToMarkdown(schema);
+  expect(markdown).toMatchSnapshot();
+});
+
+it(`引用`, () => {
+  const md = `DeepSeek，宣称找到了一种更高效的人工智能模型创建方法，这对微软及其合作伙伴OpenAI构成了挑战[^1]。
+*** Reference Sources ***
+
+[^1]: [微软(MSFT)股价陷低谷，AI投入何时兑现增加承诺？ - 美股投资网](https://www.tradesmax.com/component/k2/item/22075-microsoft)
+;`;
   const schema = parserMdToSchema(md).schema;
   expect(schema).toMatchSnapshot();
   const markdown = parserSlateNodeToMarkdown(schema);

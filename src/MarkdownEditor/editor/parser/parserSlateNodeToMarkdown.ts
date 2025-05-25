@@ -180,6 +180,9 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
     case 'break':
       str += preString + '<br/>';
       break;
+    case 'footnoteDefinition':
+      str += `[^${node.identifier}]: [${node.value}](${node.url})\n`;
+      break;
     default:
       if (node.text) str += composeText(node, parent);
       break;
@@ -368,6 +371,7 @@ const textHtml = (t: Text) => {
   if (t.bold) str = `<b>${str}</b>`;
   if (t.strikethrough) str = `<del>${str}</del>`;
   if (t?.url) str = `<a href="${t?.url}">${str}</a>`;
+  if (t?.identifier || t?.fnc) str = `[^${str}]`;
   return str;
 };
 
@@ -418,7 +422,12 @@ const textStyle = (t: Text) => {
  */
 const composeText = (t: Text, parent: any[]) => {
   if (!t.text) return '';
-  if (t.highColor || (t.strikethrough && (t.bold || t.italic || t.code)))
+  if (
+    t.highColor ||
+    t.identifier ||
+    t.fnc ||
+    (t.strikethrough && (t.bold || t.italic || t.code))
+  )
     return textHtml(t);
   const siblings = parent[parent.length - 1]?.children;
   // @ts-ignore
