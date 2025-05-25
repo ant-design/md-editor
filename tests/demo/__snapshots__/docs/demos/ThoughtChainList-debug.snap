@@ -124,7 +124,6 @@
               >
                 <div
                   class="ant-thought-chain-list-content-list-item"
-                  style="opacity: 1; transform: none;"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -655,7 +654,6 @@
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
-                  style="opacity: 1; transform: none;"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -875,7 +873,6 @@
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
-                  style="opacity: 1; transform: none;"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -1045,7 +1042,6 @@
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
-                  style="opacity: 1; transform: none;"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
