@@ -307,15 +307,13 @@ export const MLeaf = (
           onDragStart={dragStart}
           data-url={leaf?.url}
           onClick={(e) => {
-            if (readonly) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (e.metaKey || e.ctrlKey || readonly) {
-                if (!leaf?.url) return;
-                window.open(leaf?.url);
-              } else if (e.detail === 2) {
-                selectFormat();
-              }
+            e.stopPropagation();
+            e.preventDefault();
+            if (e.metaKey || e.ctrlKey || readonly) {
+              if (!leaf?.url) return;
+              window.open(leaf?.url);
+            } else if (e.detail === 2) {
+              selectFormat();
             }
           }}
           id={leaf?.url}
