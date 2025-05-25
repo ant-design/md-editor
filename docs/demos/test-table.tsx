@@ -1,4 +1,8 @@
-import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/md-editor';
+import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  parserMdToSchema,
+} from '@ant-design/md-editor';
 import { ConfigProvider, Divider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import React from 'react';
@@ -6,7 +10,7 @@ import React from 'react';
 const defaultValue = `<!--{"mergeCells":[{"row":1,"col":0,"rowspan":13,"colspan":1}],"colWidths":[152,373,300,88]}-->
 | 大类别   | 子问题                          | 详情 | 是否符合 |
 |--------|-----------------------------|----|------|
-| **商业模式** | 要求行业空间大，至少得是千亿rmb利润规模以上，<br/>最好是万亿规模 | 中国游戏行业2023年市场规模超3000亿，网易作为头部企业直接受益 | 符合 |
+| **商业模式** | 要求行业空间大，至少得是千亿rmb利润规模以上，<br/>最好是万亿规模 [^1] | 中国游戏行业2023年市场规模超3000亿，网易作为头部企业直接受益 | 符合 |
 |        | 行业规>模会随着时间上升             | 移动游戏、云音乐等细分领域持续增长 | 符合 |
 |        | 显性进入壁垒：政策、牌照             | 游戏版号审批制形成政策壁垒 | 符合 |
 |        | 隐性进入壁垒                     | 长期积累的IP资源（如《梦幻西游》）和用户生态 | 优秀 |
@@ -81,7 +85,7 @@ export default () => {
           tableConfig={{
             excelMode: true,
           }}
-          initValue={defaultValue}
+          initSchemaValue={parserMdToSchema(defaultValue).schema}
         />
         <Divider
           style={{

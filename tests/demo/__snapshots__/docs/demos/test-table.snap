@@ -280,8 +280,20 @@
                                 <span
                                   data-slate-string="true"
                                 >
-                                  最好是万亿规模
+                                  最好是万亿规模 
                                 </span>
+                              </span>
+                              <span
+                                class="  ant-md-editor-content-fnc"
+                                contenteditable="false"
+                                data-be="text"
+                                data-fnc="fnc"
+                                data-fnc-name="1"
+                                data-slate-leaf="true"
+                                draggable="false"
+                                style="font-size: 10px;"
+                              >
+                                1
                               </span>
                             </span>
                           </td>
@@ -3402,37 +3414,6 @@
                 </span>
               </span>
             </div>
-            <div
-              class="ant-md-editor-drag-el empty"
-              data-be="paragraph"
-              data-slate-node="element"
-              data-slate-placeholder="请输入内容..."
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-length="0"
-                    data-slate-zero-width="n"
-                  >
-                    ﻿
-                    <br />
-                  </span>
-                </span>
-              </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
-            </div>
           </div>
         </div>
         <div
@@ -3714,8 +3695,20 @@
                                 <span
                                   data-slate-string="true"
                                 >
-                                  最好是万亿规模
+                                  最好是万亿规模 
                                 </span>
+                              </span>
+                              <span
+                                class="  ant-md-editor-content-fnc"
+                                contenteditable="false"
+                                data-be="text"
+                                data-fnc="fnc"
+                                data-fnc-name="1"
+                                data-slate-leaf="true"
+                                draggable="false"
+                                style="font-size: 10px;"
+                              >
+                                1
                               </span>
                             </span>
                           </td>
