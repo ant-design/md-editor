@@ -154,7 +154,7 @@ export const Table = (props: RenderElementProps<TableNode>) => {
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
-  const [selectedTable, tablePath] = useSelStatus(props.element);
+  const [, tablePath] = useSelStatus(props.element);
 
   const overflowShadowContainerRef = React.useRef<HTMLTableElement>(null);
 

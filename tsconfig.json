@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "incremental": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
       "@ant-design/md-editor": ["./src"],
