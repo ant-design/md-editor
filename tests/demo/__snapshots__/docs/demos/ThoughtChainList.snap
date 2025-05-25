@@ -5988,7 +5988,7 @@ URL:
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
-                  style="opacity: 0.9318559473904315; transform: translateY(0.5451524208765477px);"
+                  style="opacity: 1; transform: none;"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-loading"
@@ -6191,7 +6191,7 @@ URL:
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
-                  style="opacity: 0.6372095345577691; transform: translateY(2.9023237235378474px);"
+                  style="opacity: 1; transform: none;"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"

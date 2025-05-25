@@ -29,6 +29,7 @@ const HeatTextMap = {
   2: '段落标题',
   3: '小标题',
   4: '正文',
+  Text: '正文',
 };
 
 const ClearIcon = () => {
@@ -140,7 +141,6 @@ export const BaseToolBar = (props: {
   const { hashId } = props;
 
   const {
-    store,
     setOpenLinkPanel,
     markdownEditorRef,
     keyTask$,
