@@ -107,20 +107,24 @@ export const ThoughtChainListItem: React.FC<{
         `${props.prefixCls}-content-list-item`,
         props.hashId,
       )}
-      variants={{
-        hidden: {
-          y: 8,
-          opacity: 0,
-        },
-        visible: {
-          y: 0,
-          opacity: 1,
-          transition: {
-            delay: 0.1 * props.index,
-            duration: 0.3,
-          },
-        },
-      }}
+      variants={
+        process.env.NODE_ENV !== 'test'
+          ? {
+              hidden: {
+                y: 8,
+                opacity: 0,
+              },
+              visible: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                  delay: 0.1 * props.index,
+                  duration: 0.3,
+                },
+              },
+            }
+          : {}
+      }
     >
       <motion.div
         className={classNames(
