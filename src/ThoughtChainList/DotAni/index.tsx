@@ -2,5 +2,7 @@
 import './index.css';
 
 export const DotLoading = () => {
-  return <div className="md-editor-loader" />;
+  return (
+    <div className="md-editor-loader" role="progressbar" aria-label="Loading" />
+  );
 };

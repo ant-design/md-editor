@@ -173,6 +173,7 @@ export interface ThoughtChainListProps {
     taskFinished: string;
     taskCost: string;
   };
+  onDocMetaClick?: (docMeta: DocMeta | null) => void;
 }
 
 /**
@@ -297,6 +298,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
         open={!!docMeta}
         onClose={() => {
           setDocMeta(null);
+          props.onDocMetaClick?.(null);
         }}
         width={'40vw'}
       >
@@ -416,6 +418,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                   ref={containerRef}
                 >
                   <motion.div
+                    role="list"
                     className={classNames(`${prefixCls}-content-list`, hashId)}
                     variants={{
                       hidden: {
@@ -523,7 +526,10 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                               item.isFinished ||
                               (!props.loading && !!chatItem?.endTime)
                             }
-                            setDocMeta={setDocMeta}
+                            setDocMeta={(docMeta) => {
+                              setDocMeta(docMeta);
+                              props.onDocMetaClick?.(docMeta);
+                            }}
                             prefixCls={prefixCls}
                           />
                         </ErrorBoundary>

@@ -103,6 +103,7 @@ export const ThoughtChainListItem: React.FC<{
 
   return (
     <motion.div
+      role="listitem"
       className={classNames(
         `${props.prefixCls}-content-list-item`,
         props.hashId,

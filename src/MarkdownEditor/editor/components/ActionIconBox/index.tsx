@@ -37,6 +37,9 @@ export const ActionIconBox: React.FC<{
   return wrapSSR(
     <Tooltip title={props.title} {...props.tooltipProps}>
       <span
+        role="button"
+        tabIndex={0}
+        aria-label={props.title}
         className={cx(prefixCls, hashId, props.className, {
           [`${prefixCls}-danger`]: props.type === 'danger',
           [`${prefixCls}-primary`]: props.type === 'primary',
@@ -52,6 +55,14 @@ export const ActionIconBox: React.FC<{
           setLoading(true);
           await props.onClick?.(e as any);
           setLoading(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (!props.onClick) return;
+            if (loading) return;
+            props.onClick(e as any);
+          }
         }}
         style={props.style}
       >
