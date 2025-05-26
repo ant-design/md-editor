@@ -105,7 +105,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
               {(() => {
                 // 内联渲染逻辑避免循环依赖
                 const commonProps = {
-                  placeholder: `请输入${objProperty.title}`,
+                  placeholder: `请输入${objProperty.title || objProperty.description || objKey || ''}`,
                 };
 
                 switch (objProperty.type) {
@@ -275,7 +275,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   }, [JSON.stringify(properties)]);
 
   useEffect(() => {
-    form.setFieldsValue(merge(defaultValues, initialValues));
+    form.setFieldsValue(merge(initialValues || defaultValues));
   }, [initialValues]);
 
   const formItems = useMemo(() => {

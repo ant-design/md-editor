@@ -66,6 +66,7 @@ export interface SchemaRendererProps {
     ALLOWED_ATTR?: string[];
   };
   fallbackContent?: React.ReactNode;
+  useDefaultValues?: boolean;
 }
 
 export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
@@ -73,6 +74,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   values,
   config,
   fallbackContent,
+  useDefaultValues = true,
 }) => {
   const [renderError, setRenderError] = useState<string | null>(null);
 
@@ -102,24 +104,24 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   // 准备模板数据
   const templateData = useMemo(() => {
     try {
-      return merge(
-        Object.entries(properties || {}).reduce(
-          (data, [key, value]) => {
-            if (value && 'default' in value) {
-              data[key] = value.default;
-            }
-            return data;
-          },
-          {} as Record<string, any>,
-        ),
-        initialValues || {},
-        values || {},
-      );
+      const defaultValues = useDefaultValues
+        ? Object.entries(properties || {}).reduce(
+            (data, [key, value]) => {
+              if (value && 'default' in value) {
+                data[key] = value.default;
+              }
+              return data;
+            },
+            {} as Record<string, any>,
+          )
+        : {};
+
+      return merge(defaultValues, initialValues || {}, values || {});
     } catch (error) {
       console.error('Error preparing template data:', error);
       return values || {};
     }
-  }, [properties, values]);
+  }, [properties, values, useDefaultValues, initialValues]);
 
   // 使用模板引擎渲染
   const renderedHtml = useMemo(() => {
