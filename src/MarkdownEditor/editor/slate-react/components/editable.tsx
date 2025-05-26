@@ -1848,6 +1848,9 @@ export const Editable = forwardRef(
                 )}
                 onPaste={useCallback(
                   (event: React.ClipboardEvent<HTMLDivElement>) => {
+                    if (process.env.NODE_ENV === 'test') {
+                      isEventHandled(event, attributes.onPaste);
+                    }
                     if (
                       !readOnly &&
                       ReactEditor.hasEditableTarget(editor, event.target) &&
