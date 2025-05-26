@@ -17,3 +17,7 @@ export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
 export * from './schema';
 export * from './ThoughtChainList';
+
+// 导出增强表格功能
+export type { TableOperation } from './MarkdownEditor/editor/elements/Table/enhanced/EnhancedTable';
+export { TableToolbar } from './MarkdownEditor/editor/elements/Table/enhanced/TableToolbar';

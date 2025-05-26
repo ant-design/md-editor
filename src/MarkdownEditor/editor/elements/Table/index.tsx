@@ -17,6 +17,7 @@ import { useSelStatus } from '../../../hooks/editor';
 import { parserMarkdownToSlateNode } from '../../parser/parserMarkdownToSlateNode';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
+import { TableToolbar } from './enhanced/TableToolbar';
 import { ReadonlyTable } from './ReadonlyTable';
 import { useTableStyle } from './style';
 import './table.css';
@@ -145,7 +146,9 @@ export const TablePropsContext = React.createContext<{
  *
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
-export const Table = (props: RenderElementProps<TableNode>) => {
+export const Table = (
+  props: RenderElementProps<TableNode> & { enableEnhancedOperations?: boolean },
+) => {
   const { markdownEditorRef, editorProps, markdownContainerRef, readonly } =
     useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -153,6 +156,9 @@ export const Table = (props: RenderElementProps<TableNode>) => {
   const baseCls = getPrefixCls('md-editor-content-table');
 
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
+
+  // 从props中获取是否启用增强操作，默认为true
+  const { enableEnhancedOperations = true } = props;
 
   const [, tablePath] = useSelStatus(props.element);
 
@@ -692,7 +698,12 @@ export const Table = (props: RenderElementProps<TableNode>) => {
             hashId,
           )}
           tabIndex={0}
+          style={{ position: 'relative' }}
         >
+          {/* 增强表格工具栏 */}
+          {enableEnhancedOperations && !readonly && (
+            <TableToolbar element={props.element} />
+          )}
           {!readonly && process.env.NODE_ENV !== 'test' ? (
             <div
               ref={tableContainerRef}
