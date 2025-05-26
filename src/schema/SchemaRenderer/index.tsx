@@ -67,6 +67,7 @@ export interface SchemaRendererProps {
   };
   fallbackContent?: React.ReactNode;
   useDefaultValues?: boolean;
+  debug?: boolean;
 }
 
 export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
@@ -74,6 +75,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   values,
   config,
   fallbackContent,
+  debug = true,
   useDefaultValues = true,
 }) => {
   const [renderError, setRenderError] = useState<string | null>(null);
@@ -116,7 +118,42 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
           )
         : {};
 
-      return merge(defaultValues, initialValues || {}, values || {});
+      const mergedData = merge(
+        defaultValues,
+        initialValues || {},
+        values || {},
+      );
+
+      // 添加 fallback 值：如果数据在 properties 定义但是 mergedData 中没有
+      const dataWithFallbacks = { ...mergedData };
+
+      Object.entries(properties || {}).forEach(([key, property]) => {
+        if (
+          !(key in dataWithFallbacks) ||
+          dataWithFallbacks[key] === undefined ||
+          dataWithFallbacks[key] === null
+        ) {
+          switch (property.type) {
+            case 'array':
+              dataWithFallbacks[key] = [];
+              break;
+            case 'string':
+              dataWithFallbacks[key] = '-';
+              break;
+            case 'number':
+              dataWithFallbacks[key] = '-';
+              break;
+            case 'object':
+              dataWithFallbacks[key] = {};
+              break;
+            default:
+              dataWithFallbacks[key] = '-';
+              break;
+          }
+        }
+      });
+
+      return dataWithFallbacks;
     } catch (error) {
       console.error('Error preparing template data:', error);
       return values || {};
@@ -293,7 +330,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   }, [renderedHtml, safeSchema.theme]);
 
   // 如果渲染过程中出现错误，显示错误信息
-  if (renderError) {
+  if (renderError && debug) {
     return (
       fallbackContent || (
         <div
@@ -357,7 +394,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   }
 
   // Schema 验证失败，显示错误信息
-  if (!validationResult?.valid) {
+  if (!validationResult?.valid && debug) {
     console.error('Schema validation failed:', validationResult.errors);
 
     return (

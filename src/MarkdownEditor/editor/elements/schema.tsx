@@ -42,6 +42,8 @@ export const Schema: React.FC<RenderElementProps<CodeNode>> = (props) => {
           className="md-editor-agentar-card"
         >
           <SchemaRenderer
+            debug={false}
+            fallbackContent={null}
             schema={props.element.value}
             values={props.element.value?.initialValues || {}}
             useDefaultValues={false}

@@ -34,7 +34,6 @@
     },
     "pageConfig": {
       "type": "object",
-      "required": ["layout", "router", "globalVariables"],
       "properties": {
         "layout": {
           "type": "string",
@@ -43,7 +42,6 @@
         },
         "router": {
           "type": "object",
-          "required": ["mode", "basePath"],
           "properties": {
             "mode": {
               "type": "string",
@@ -58,7 +56,6 @@
         },
         "globalVariables": {
           "type": "object",
-          "required": ["colors", "constants"],
           "properties": {
             "colors": {
               "type": "object",
@@ -91,11 +88,9 @@
     },
     "dataSources": {
       "type": "object",
-      "required": ["restAPI", "mock"],
       "properties": {
         "restAPI": {
           "type": "object",
-          "required": ["baseURL", "defaultHeaders", "timeout", "interceptors"],
           "properties": {
             "baseURL": {
               "type": "string",
@@ -122,7 +117,6 @@
         },
         "mock": {
           "type": "object",
-          "required": ["enable", "responseDelay", "dataPath"],
           "properties": {
             "enable": {
               "type": "boolean"
@@ -159,14 +153,6 @@
       "properties": {
         "colorPalette": {
           "type": "object",
-          "required": [
-            "primary",
-            "secondary",
-            "success",
-            "warning",
-            "error",
-            "text"
-          ],
           "properties": {
             "primary": {
               "type": "string",
@@ -261,11 +247,9 @@
     },
     "previewSettings": {
       "type": "object",
-      "required": ["viewport", "environment"],
       "properties": {
         "viewport": {
           "type": "object",
-          "required": ["defaultDevice", "responsive", "customSizes"],
           "properties": {
             "defaultDevice": {
               "type": "string"
@@ -277,7 +261,6 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["name", "width", "height"],
                 "properties": {
                   "name": {
                     "type": "string"
@@ -295,7 +278,6 @@
         },
         "environment": {
           "type": "object",
-          "required": ["mockData", "networkThrottle", "debugMode"],
           "properties": {
             "mockData": {
               "type": "boolean"
