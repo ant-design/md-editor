@@ -1220,14 +1220,125 @@ const parserBlock = (
 };
 
 // Markdown 转 Slate
-const parseWithPlugins = (root: Root, plugins: MarkdownEditorPlugin[]) => {
-  return root.children.map((node) => {
+const parseWithPlugins = (
+  nodes: RootContent[],
+  plugins: MarkdownEditorPlugin[],
+  top = false,
+  parent?: RootContent,
+): (Elements | Text)[] => {
+  if (!nodes?.length) return [{ type: 'paragraph', children: [{ text: '' }] }];
+
+  let els: (Elements | Text)[] = [];
+  let preNode: null | RootContent = null;
+  let preElement: Element = null;
+  let htmlTag: { tag: string; color?: string; url?: string }[] = [];
+  let contextProps = {};
+
+  for (let i = 0; i < nodes.length; i++) {
+    const currentElement = nodes[i];
+    let el: Element | null | Element[] = null;
+    let pluginHandled = false;
+
+    // 首先尝试使用插件处理
     for (const plugin of plugins) {
-      const rule = plugin.parseMarkdown?.find((r) => r.match(node));
-      if (rule) return rule.convert(node);
+      const rule = plugin.parseMarkdown?.find((r) => r.match(currentElement));
+      if (rule) {
+        const converted = rule.convert(currentElement);
+        // 检查转换结果是否为 NodeEntry<Text> 格式
+        if (Array.isArray(converted) && converted.length === 2) {
+          // NodeEntry<Text> 格式: [node, path]
+          el = converted[0] as Element;
+        } else {
+          // Elements 格式
+          el = converted as Element;
+        }
+        pluginHandled = true;
+        break;
+      }
     }
-    return node; // 默认转换逻辑
-  });
+
+    // 如果插件没有处理，使用默认处理逻辑
+    if (!pluginHandled) {
+      const config =
+        preElement?.type === 'code' &&
+        preElement?.language === 'html' &&
+        preElement?.otherProps
+          ? preElement?.otherProps
+          : {};
+
+      switch (currentElement.type) {
+        case 'heading':
+          el = handleHeading(currentElement);
+          break;
+        case 'html':
+          const htmlResult = handleHtml(currentElement, parent, htmlTag);
+          el = htmlResult.el;
+          if (htmlResult.contextProps) {
+            contextProps = { ...contextProps, ...htmlResult.contextProps };
+          }
+          break;
+        case 'image':
+          el = handleImage(currentElement);
+          break;
+        case 'inlineMath':
+          el = handleInlineMath(currentElement);
+          break;
+        case 'math':
+          el = handleMath(currentElement);
+          break;
+        case 'list':
+          el = handleList(currentElement);
+          break;
+        case 'footnoteReference':
+          el = handleFootnoteReference(currentElement);
+          break;
+        case 'footnoteDefinition':
+          el = handleFootnoteDefinition(currentElement);
+          break;
+        case 'listItem':
+          el = handleListItem(currentElement);
+          break;
+        case 'paragraph':
+          el = handleParagraph(currentElement, config);
+          break;
+        case 'inlineCode':
+          el = handleInlineCode(currentElement);
+          break;
+        case 'thematicBreak':
+          el = handleThematicBreak();
+          break;
+        case 'code':
+          el = handleCode(currentElement);
+          break;
+        case 'yaml':
+          el = handleYaml(currentElement);
+          break;
+        case 'blockquote':
+          el = handleBlockquote(currentElement);
+          break;
+        case 'table':
+          el = parseTableOrChart(currentElement, preElement);
+          break;
+        case 'definition':
+          el = handleDefinition(currentElement);
+          break;
+        default:
+          el = handleTextAndInlineElements(currentElement, htmlTag);
+      }
+    }
+
+    addEmptyLinesIfNeeded(els, preNode, currentElement, top);
+
+    if (el) {
+      el = applyContextPropsAndConfig(el, contextProps, {});
+      Array.isArray(el) ? els.push(...el) : els.push(el);
+    }
+
+    preNode = currentElement;
+    preElement = el;
+  }
+
+  return els;
 };
 
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
@@ -1269,11 +1380,14 @@ export const parserMarkdownToSlateNode = (
   links: { path: number[]; target: string }[];
 } => {
   const markdownRoot = parser.parse(preprocessMarkdownTableNewlines(md || ''));
-  const root =
+  const schema =
     (plugins || [])?.length > 0
-      ? parseWithPlugins(markdownRoot, plugins || [])
-      : markdownRoot.children;
-  const schema = parserBlock(root as any[], true) as Elements[];
+      ? (parseWithPlugins(
+          markdownRoot.children,
+          plugins || [],
+          true,
+        ) as Elements[])
+      : (parserBlock(markdownRoot.children as any[], true) as Elements[]);
 
   return { schema, links: [] };
 };

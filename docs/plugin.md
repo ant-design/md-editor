@@ -23,6 +23,7 @@ elements?: Record<string, React.ComponentType<ElementProps<any>>>
 此属性允许你为特定节点类型定义自定义的 React 组件。通过这个属性，你可以自定义 Markdown 元素在编辑器中的渲染方式。
 
 示例：
+
 ```typescript | pure
 const customBlockquotePlugin: MarkdownEditorPlugin = {
   elements: {
@@ -49,17 +50,24 @@ parseMarkdown?: {
 ```
 
 示例：
+
 ```typescript | pure
 const customCodeBlockPlugin: MarkdownEditorPlugin = {
-  parseMarkdown: [{
-    match: (node) => node.type === 'code',
-    convert: (node) => ({
-      type: 'code-block',
-      language: node.lang || 'text',
-      children: [{ text: node.value }]
-    })
-  }]
-}
+  parseMarkdown: [
+    {
+      match: (node) => node.type === 'code' && (node as any).lang === 'alert',
+      convert: (node) => {
+        const codeNode = node as any;
+        return {
+          type: 'code',
+          language: 'text',
+          value: `🚨 警告: ${codeNode.value}`,
+          children: [{ text: `🚨 警告: ${codeNode.value}` }],
+        };
+      },
+    },
+  ],
+};
 ```
 
 #### 转换为 Markdown (`toMarkdown`)
@@ -74,17 +82,20 @@ toMarkdown?: {
 ```
 
 示例：
+
 ```typescript | pure
 const customCodeBlockPlugin: MarkdownEditorPlugin = {
-  toMarkdown: [{
-    match: (node) => node.type === 'code-block',
-    convert: (node) => ({
-      type: 'code',
-      lang: node.language,
-      value: node.children[0].text
-    })
-  }]
-}
+  toMarkdown: [
+    {
+      match: (node) => node.type === 'code-block',
+      convert: (node) => ({
+        type: 'code',
+        lang: node.language,
+        value: node.children[0].text,
+      }),
+    },
+  ],
+};
 ```
 
 ### 编辑器扩展
@@ -98,6 +109,7 @@ withEditor?: (editor: Editor) => Editor
 ```
 
 示例：
+
 ```typescript | pure
 const customVoidNodePlugin: MarkdownEditorPlugin = {
   withEditor: (editor) => {
@@ -106,8 +118,8 @@ const customVoidNodePlugin: MarkdownEditorPlugin = {
       return element.type === 'custom-void' ? true : isVoid(element);
     };
     return editor;
-  }
-}
+  },
+};
 ```
 
 #### 快捷键
@@ -119,15 +131,16 @@ hotkeys?: Record<string, (editor: Editor) => void>
 ```
 
 示例：
+
 ```typescript | pure
 const customHotkeyPlugin: MarkdownEditorPlugin = {
   hotkeys: {
     'mod+shift+c': (editor) => {
       // 处理自定义快捷键
       // mod 在 Windows 上是 Ctrl，在 Mac 上是 Command
-    }
-  }
-}
+    },
+  },
+};
 ```
 
 #### 自定义粘贴处理 (`onPaste`)
@@ -139,6 +152,7 @@ onPaste?: (text: string) => boolean
 ```
 
 示例：
+
 ```typescript | pure
 const customPastePlugin: MarkdownEditorPlugin = {
   onPaste: (text) => {
@@ -147,8 +161,8 @@ const customPastePlugin: MarkdownEditorPlugin = {
       return true; // 阻止默认粘贴行为
     }
     return false; // 使用默认粘贴行为
-  }
-}
+  },
+};
 ```
 
 ## 使用方法
@@ -183,4 +197,4 @@ function MarkdownEditorWithPlugins({ children }) {
 
 4. **错误处理**：插件应该优雅地处理异常情况，不应该因为单个插件的错误而影响整个编辑器的功能。
 
-5. **类型安全**：建议使用 TypeScript 来开发插件，这样可以获得更好的类型提示和错误检查。 
+5. **类型安全**：建议使用 TypeScript 来开发插件，这样可以获得更好的类型提示和错误检查。
