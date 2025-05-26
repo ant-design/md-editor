@@ -12,12 +12,14 @@ interface SchemaFormProps {
     values: Record<string, any>,
   ) => void;
   initialValues?: Record<string, any>;
+  readonly?: boolean;
 }
 
 export const SchemaForm: React.FC<SchemaFormProps> = ({
   schema,
   onValuesChange,
   initialValues,
+  readonly = false,
 }) => {
   const [form] = Form.useForm();
   const { properties = {} } = schema?.component || {};
@@ -106,6 +108,8 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
                 // 内联渲染逻辑避免循环依赖
                 const commonProps = {
                   placeholder: `请输入${objProperty.title || objProperty.description || objKey || ''}`,
+                  readOnly: readonly,
+                  disabled: readonly,
                 };
 
                 switch (objProperty.type) {
@@ -143,7 +147,11 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
     } else {
       return (
         <Form.Item name={baseName} style={{ margin: 0 }}>
-          <Input placeholder="请输入值" />
+          <Input
+            placeholder="请输入值"
+            readOnly={readonly}
+            disabled={readonly}
+          />
         </Form.Item>
       );
     }
@@ -156,6 +164,8 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   ): React.ReactNode {
     const commonProps = {
       placeholder: `请输入${property.title}`,
+      readOnly: readonly,
+      disabled: readonly,
     };
 
     switch (property.type) {
@@ -193,13 +203,15 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
                     size="small"
                     style={{ marginBottom: 8 }}
                     extra={
-                      <Button
-                        type="link"
-                        danger
-                        size="small"
-                        icon={<MinusCircleOutlined />}
-                        onClick={() => remove(name)}
-                      />
+                      !readonly && (
+                        <Button
+                          type="link"
+                          danger
+                          size="small"
+                          icon={<MinusCircleOutlined />}
+                          onClick={() => remove(name)}
+                        />
+                      )
                     }
                   >
                     {property.items ? (
@@ -210,21 +222,27 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
                         name={name}
                         style={{ margin: 0 }}
                       >
-                        <Input placeholder="请输入值" />
+                        <Input
+                          placeholder="请输入值"
+                          readOnly={readonly}
+                          disabled={readonly}
+                        />
                       </Form.Item>
                     )}
                   </Card>
                 ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => add()}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    添加 {property.title}
-                  </Button>
-                </Form.Item>
+                {!readonly && (
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      block
+                      icon={<PlusOutlined />}
+                    >
+                      添加 {property.title}
+                    </Button>
+                  </Form.Item>
+                )}
               </>
             )}
           </Form.List>
