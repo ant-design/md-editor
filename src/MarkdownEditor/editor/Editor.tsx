@@ -713,7 +713,7 @@ export const SlateMarkdownEditor = ({
       }
 
       if (isMarkdown(text)) {
-        parseMarkdownToNodesAndInsert(markdownEditorRef.current, text);
+        parseMarkdownToNodesAndInsert(markdownEditorRef.current, text, plugins);
         return;
       }
 

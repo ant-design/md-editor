@@ -216,8 +216,11 @@
                     >
                       <span
                         aria-describedby="test-id"
+                        aria-label="复制"
                         class="ant-md-editor-action-icon-box"
+                        role="button"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
                         <span
                           aria-label="copy"
@@ -242,8 +245,11 @@
                       </span>
                       <span
                         aria-describedby="test-id"
+                        aria-label="全屏"
                         class="ant-md-editor-action-icon-box"
+                        role="button"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
                         <span
                           aria-label="fullscreen"
@@ -402,8 +408,11 @@ alert("它会被特殊渲染！");
                     >
                       <span
                         aria-describedby="test-id"
+                        aria-label="复制"
                         class="ant-md-editor-action-icon-box"
+                        role="button"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
                         <span
                           aria-label="copy"
@@ -428,8 +437,11 @@ alert("它会被特殊渲染！");
                       </span>
                       <span
                         aria-describedby="test-id"
+                        aria-label="全屏"
                         class="ant-md-editor-action-icon-box"
+                        role="button"
                         style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
                         <span
                           aria-label="fullscreen"

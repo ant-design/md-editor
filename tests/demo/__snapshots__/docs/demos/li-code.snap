@@ -335,8 +335,11 @@
                         >
                           <span
                             aria-describedby="test-id"
+                            aria-label="复制"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="copy"
@@ -361,8 +364,11 @@
                           </span>
                           <span
                             aria-describedby="test-id"
+                            aria-label="全屏"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="fullscreen"
@@ -670,8 +676,11 @@ for num in arr:
                         >
                           <span
                             aria-describedby="test-id"
+                            aria-label="复制"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="copy"
@@ -696,8 +705,11 @@ for num in arr:
                           </span>
                           <span
                             aria-describedby="test-id"
+                            aria-label="全屏"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="fullscreen"
@@ -977,8 +989,11 @@ for num in arr:
                         >
                           <span
                             aria-describedby="test-id"
+                            aria-label="复制"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="copy"
@@ -1003,8 +1018,11 @@ for num in arr:
                           </span>
                           <span
                             aria-describedby="test-id"
+                            aria-label="全屏"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="fullscreen"
@@ -1364,8 +1382,11 @@ for num in arr:
                         >
                           <span
                             aria-describedby="test-id"
+                            aria-label="复制"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="copy"
@@ -1390,8 +1411,11 @@ for num in arr:
                           </span>
                           <span
                             aria-describedby="test-id"
+                            aria-label="全屏"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="fullscreen"
@@ -1652,8 +1676,11 @@ while i &lt; len(arr):
                         >
                           <span
                             aria-describedby="test-id"
+                            aria-label="复制"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="copy"
@@ -1678,8 +1705,11 @@ while i &lt; len(arr):
                           </span>
                           <span
                             aria-describedby="test-id"
+                            aria-label="全屏"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="fullscreen"
@@ -1999,8 +2029,11 @@ while i &lt; len(arr):
                         >
                           <span
                             aria-describedby="test-id"
+                            aria-label="复制"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="copy"
@@ -2025,8 +2058,11 @@ while i &lt; len(arr):
                           </span>
                           <span
                             aria-describedby="test-id"
+                            aria-label="全屏"
                             class="ant-md-editor-action-icon-box"
+                            role="button"
                             style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                            tabindex="0"
                           >
                             <span
                               aria-label="fullscreen"
@@ -2248,8 +2284,11 @@ while i &lt; len(arr):
                   >
                     <span
                       aria-describedby="test-id"
+                      aria-label="复制"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="copy"
@@ -2274,8 +2313,11 @@ while i &lt; len(arr):
                     </span>
                     <span
                       aria-describedby="test-id"
+                      aria-label="全屏"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="fullscreen"
@@ -2623,8 +2665,11 @@ for fruit in fruits:
                   >
                     <span
                       aria-describedby="test-id"
+                      aria-label="复制"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="copy"
@@ -2649,8 +2694,11 @@ for fruit in fruits:
                     </span>
                     <span
                       aria-describedby="test-id"
+                      aria-label="全屏"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="fullscreen"
@@ -2901,8 +2949,11 @@ for fruit in fruits:
                   >
                     <span
                       aria-describedby="test-id"
+                      aria-label="复制"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="copy"
@@ -2927,8 +2978,11 @@ for fruit in fruits:
                     </span>
                     <span
                       aria-describedby="test-id"
+                      aria-label="全屏"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="fullscreen"
@@ -3205,8 +3259,11 @@ while i &lt; len(fruits):
                   >
                     <span
                       aria-describedby="test-id"
+                      aria-label="复制"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="copy"
@@ -3231,8 +3288,11 @@ while i &lt; len(fruits):
                     </span>
                     <span
                       aria-describedby="test-id"
+                      aria-label="全屏"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="fullscreen"
@@ -3482,8 +3542,11 @@ while i &lt; len(fruits):
                   >
                     <span
                       aria-describedby="test-id"
+                      aria-label="复制"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="copy"
@@ -3508,8 +3571,11 @@ while i &lt; len(fruits):
                     </span>
                     <span
                       aria-describedby="test-id"
+                      aria-label="全屏"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="fullscreen"
@@ -3887,8 +3953,11 @@ while i &lt; len(fruits):
                   >
                     <span
                       aria-describedby="test-id"
+                      aria-label="复制"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="copy"
@@ -3913,8 +3982,11 @@ while i &lt; len(fruits):
                     </span>
                     <span
                       aria-describedby="test-id"
+                      aria-label="全屏"
                       class="ant-md-editor-action-icon-box"
+                      role="button"
                       style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
                       <span
                         aria-label="fullscreen"

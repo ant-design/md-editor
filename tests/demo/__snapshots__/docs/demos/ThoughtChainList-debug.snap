@@ -33,7 +33,10 @@
             </div>
             <span
               aria-describedby="test-id"
+              aria-label="收起"
               class="ant-md-editor-action-icon-box"
+              role="button"
+              tabindex="0"
             >
               <svg
                 fill="none"
@@ -120,10 +123,12 @@
             >
               <div
                 class="ant-thought-chain-list-content-list"
+                role="list"
                 style="opacity: 1;"
               >
                 <div
                   class="ant-thought-chain-list-content-list-item"
+                  role="listitem"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -197,7 +202,10 @@
                       >
                         <span
                           aria-describedby="test-id"
+                          aria-label="收起"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
+                          tabindex="0"
                         >
                           <svg
                             fill="none"
@@ -295,8 +303,11 @@
                             >
                               <span
                                 aria-describedby="test-id"
+                                aria-label="修改"
                                 class="ant-md-editor-action-icon-box"
+                                role="button"
                                 style="cursor: pointer;"
+                                tabindex="0"
                               >
                                 <span
                                   aria-label="edit"
@@ -321,7 +332,10 @@
                               </span>
                               <span
                                 aria-describedby="test-id"
+                                aria-label="复制"
                                 class="ant-md-editor-action-icon-box"
+                                role="button"
+                                tabindex="0"
                               >
                                 <span
                                   aria-label="copy"
@@ -430,7 +444,10 @@
                             </div>
                             <span
                               aria-describedby="test-id"
+                              aria-label="复制"
                               class="ant-md-editor-action-icon-box"
+                              role="button"
+                              tabindex="0"
                             >
                               <span
                                 aria-label="copy"
@@ -654,6 +671,7 @@
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
+                  role="listitem"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -727,7 +745,10 @@
                       >
                         <span
                           aria-describedby="test-id"
+                          aria-label="收起"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
+                          tabindex="0"
                         >
                           <svg
                             fill="none"
@@ -873,6 +894,7 @@
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
+                  role="listitem"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -918,7 +940,10 @@
                       >
                         <span
                           aria-describedby="test-id"
+                          aria-label="收起"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
+                          tabindex="0"
                         >
                           <svg
                             fill="none"
@@ -1042,6 +1067,7 @@
                 </div>
                 <div
                   class="ant-thought-chain-list-content-list-item"
+                  role="listitem"
                 >
                   <div
                     class="ant-thought-chain-list-content-list-item-icon ant-thought-chain-list-content-list-item-icon-success"
@@ -1115,7 +1141,10 @@
                       >
                         <span
                           aria-describedby="test-id"
+                          aria-label="收起"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
+                          tabindex="0"
                         >
                           <svg
                             fill="none"
@@ -1213,7 +1242,10 @@
                             >
                               <span
                                 aria-describedby="test-id"
+                                aria-label="修改"
                                 class="ant-md-editor-action-icon-box"
+                                role="button"
+                                tabindex="0"
                               >
                                 <span
                                   aria-label="edit"
@@ -1238,7 +1270,10 @@
                               </span>
                               <span
                                 aria-describedby="test-id"
+                                aria-label="复制"
                                 class="ant-md-editor-action-icon-box"
+                                role="button"
+                                tabindex="0"
                               >
                                 <span
                                   aria-label="copy"
@@ -1351,7 +1386,10 @@
                             </div>
                             <span
                               aria-describedby="test-id"
+                              aria-label="复制"
                               class="ant-md-editor-action-icon-box"
+                              role="button"
+                              tabindex="0"
                             >
                               <span
                                 aria-label="copy"

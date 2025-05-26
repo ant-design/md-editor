@@ -18,13 +18,16 @@ export const MarkdownEditorUpdate = (
   const editorRef = React.useRef<MarkdownEditorInstance>();
   useEffect(() => {
     editorRef.current?.store?.updateNodeList(
-      parserMdToSchema(toListMarkdown(props.initValue || '').trim()).schema,
+      parserMdToSchema(
+        toListMarkdown(props.initValue || '').trim(),
+        props.plugins,
+      ).schema,
     );
   }, [props.initValue]);
 
   useEffect(() => {
     if (props.isFinished) {
-      editorRef.current?.store?.setMDContent(props.initValue);
+      editorRef.current?.store?.setMDContent(props.initValue, props.plugins);
     }
   }, [props.isFinished]);
 

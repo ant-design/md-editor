@@ -1,4 +1,5 @@
 import { CodeNode, Elements } from '../../el';
+import { MarkdownEditorPlugin } from '../../plugin';
 import { parserMarkdownToSlateNode } from './parserMarkdownToSlateNode';
 
 export type ParserResult = {
@@ -21,6 +22,9 @@ const transformResult = (result: ParserResult) => {
   };
 };
 
-export const parserMdToSchema = (code: string): ParserResult => {
-  return transformResult(parserMarkdownToSlateNode(code));
+export const parserMdToSchema = (
+  code: string,
+  plugins?: MarkdownEditorPlugin[],
+): ParserResult => {
+  return transformResult(parserMarkdownToSlateNode(code, plugins));
 };

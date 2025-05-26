@@ -174,8 +174,11 @@
                       >
                         <span
                           aria-describedby="test-id"
+                          aria-label="复制"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                          tabindex="0"
                         >
                           <span
                             aria-label="copy"
@@ -200,8 +203,11 @@
                         </span>
                         <span
                           aria-describedby="test-id"
+                          aria-label="全屏"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                          tabindex="0"
                         >
                           <span
                             aria-label="fullscreen"
@@ -340,8 +346,11 @@
                       >
                         <span
                           aria-describedby="test-id"
+                          aria-label="复制"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                          tabindex="0"
                         >
                           <span
                             aria-label="copy"
@@ -366,8 +375,11 @@
                         </span>
                         <span
                           aria-describedby="test-id"
+                          aria-label="全屏"
                           class="ant-md-editor-action-icon-box"
+                          role="button"
                           style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                          tabindex="0"
                         >
                           <span
                             aria-label="fullscreen"

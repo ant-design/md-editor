@@ -294,11 +294,12 @@ export class EditorStore {
    * @param md - Markdown string to set as the editor content.
    *             If undefined, the method returns without making any changes.
    *             If the markdown is the same as the current content, no changes are made.
+   * @param plugins - Optional plugins for custom markdown parsing
    */
-  setMDContent(md?: string) {
+  setMDContent(md?: string, plugins?: MarkdownEditorPlugin[]) {
     if (md === undefined) return;
     if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
-    const nodeList = parserMdToSchema(md).schema;
+    const nodeList = parserMdToSchema(md, plugins).schema;
     this.setContent(nodeList);
     this._editor.current.children = nodeList;
     ReactEditor.deselect(this._editor.current);

@@ -407,7 +407,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
    * 初始化 schema
    */
   const initSchemaValue = useMemo(() => {
-    let list = parserMdToSchema(initValue!)?.schema;
+    let list = parserMdToSchema(initValue!, props.plugins)?.schema;
     if (!props.readonly) {
       list.push(EditorUtils.p);
     }

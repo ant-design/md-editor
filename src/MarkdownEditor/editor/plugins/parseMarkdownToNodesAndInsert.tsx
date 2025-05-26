@@ -1,4 +1,5 @@
 ﻿import { Editor, Transforms } from 'slate';
+import { MarkdownEditorPlugin } from '../../plugin';
 import { parserMdToSchema } from '../parser/parserMdToSchema';
 
 /**
@@ -6,13 +7,17 @@ import { parserMdToSchema } from '../parser/parserMdToSchema';
  *
  * @param editor - 编辑器实例
  * @param markdown - 要解析的Markdown字符串
+ * @param plugins - 可选的Markdown编辑器插件数组，用于扩展解析功能
  * @returns 如果插入成功则返回true
  */
 export const parseMarkdownToNodesAndInsert = (
   editor: Editor,
   markdown: string,
+  plugins?: MarkdownEditorPlugin[],
 ) => {
-  const nodes = JSON.parse(JSON.stringify(parserMdToSchema(markdown).schema));
+  const nodes = JSON.parse(
+    JSON.stringify(parserMdToSchema(markdown, plugins).schema),
+  );
   if (nodes.length === 0) {
     nodes.push({ type: 'paragraph', children: [{ text: '' }] });
   }
