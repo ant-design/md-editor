@@ -298,7 +298,7 @@
               class="ace-el drag-el"
               contenteditable="false"
               data-be="code"
-              data-lang="alert"
+              data-lang="text"
               data-slate-node="element"
               tabindex="-1"
             >
@@ -324,7 +324,7 @@
                       <span>
                         <div>
                           <span>
-                            alert
+                            text
                           </span>
                         </div>
                       </span>
@@ -398,7 +398,7 @@
                   <div
                     style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
-                    这是一个重要的警告信息！ 请注意这个内容会被特殊处理。
+                    🚨 警告: 这是一个重要的警告信息！ 请注意这个内容会被特殊处理。
                     <span
                       data-slate-node="text"
                     >
@@ -411,7 +411,7 @@
                         <span
                           data-slate-string="true"
                         >
-                          这是一个重要的警告信息！
+                          🚨 警告: 这是一个重要的警告信息！
 请注意这个内容会被特殊处理。
                         </span>
                       </span>
