@@ -254,13 +254,17 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
       if (time > 0) {
         return (
           <FlipText
-            word={`${i18n.locale?.taskComplete || '任务完成'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${time.toFixed(
+            word={`${i18n.locale?.taskComplete || props.locale?.taskFinished || '任务完成'}, ${i18n?.locale?.totalTimeUsed || props.locale?.taskCost || '共耗时'} ${time.toFixed(
               2,
             )}s`}
           />
         );
       }
-      return <FlipText word={`${i18n.locale?.taskComplete || '任务完成'} `} />;
+      return (
+        <FlipText
+          word={`${i18n.locale?.taskComplete || props.locale?.taskFinished || '任务完成'} `}
+        />
+      );
     }
 
     return (
