@@ -401,7 +401,10 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     withErrorReporting(markdownEditorRef.current);
   }, []);
 
-  const store = useMemo(() => new EditorStore(markdownEditorRef), []);
+  const store = useMemo(
+    () => new EditorStore(markdownEditorRef, props.plugins),
+    [props.plugins],
+  );
 
   /**
    * 初始化 schema

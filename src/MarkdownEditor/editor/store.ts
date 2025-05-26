@@ -100,6 +100,7 @@ export class EditorStore {
   draggedElement: null | HTMLElement = null;
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   inputComposition = false;
+  plugins?: MarkdownEditorPlugin[];
 
   /**
    * Sets the manual flag to true temporarily to prevent automatic behavior.
@@ -123,9 +124,11 @@ export class EditorStore {
 
   constructor(
     _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>,
+    plugins?: MarkdownEditorPlugin[],
   ) {
     this.dragStart = this.dragStart.bind(this);
     this._editor = _editor;
+    this.plugins = plugins;
   }
 
   /**
@@ -299,7 +302,7 @@ export class EditorStore {
   setMDContent(md?: string, plugins?: MarkdownEditorPlugin[]) {
     if (md === undefined) return;
     if (md === parserSlateNodeToMarkdown(this._editor.current.children)) return;
-    const nodeList = parserMdToSchema(md, plugins).schema;
+    const nodeList = parserMdToSchema(md, plugins || this.plugins).schema;
     this.setContent(nodeList);
     this._editor.current.children = nodeList;
     ReactEditor.deselect(this._editor.current);
@@ -327,7 +330,7 @@ export class EditorStore {
       nodeList,
       '',
       [{ root: true }],
-      plugins,
+      plugins || this.plugins,
     );
     return md;
   }
