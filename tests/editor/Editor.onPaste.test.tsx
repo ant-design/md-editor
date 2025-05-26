@@ -986,4 +986,472 @@ function hello() {
       fireEvent.paste(editableElement, event);
     }).not.toThrow();
   });
+
+  it('should handle complex mixed Markdown and HTML paste scenarios', async () => {
+    const { container: editorContainer } = render(
+      <MarkdownEditor
+        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+      />,
+    );
+
+    const editableElement = editorContainer.querySelector(
+      '[contenteditable="true"]',
+    ) as HTMLElement;
+
+    await waitFor(() => {
+      expect(editableElement).toBeInTheDocument();
+    });
+
+    // Test complex HTML with nested structures
+    const complexHtml = `
+      <div>
+        <h1>Complex Document</h1>
+        <p>This is a <strong>bold</strong> paragraph with <em>italic</em> text and <code>inline code</code>.</p>
+        <blockquote>
+          <p>This is a blockquote with <a href="https://example.com">a link</a>.</p>
+          <ul>
+            <li>Nested list item 1</li>
+            <li>Nested list item 2 with <strong>bold text</strong></li>
+          </ul>
+        </blockquote>
+        <table>
+          <thead>
+            <tr>
+              <th>Header 1</th>
+              <th>Header 2</th>
+              <th>Header 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cell with <em>italic</em></td>
+              <td><code>code cell</code></td>
+              <td><a href="https://test.com">Link cell</a></td>
+            </tr>
+            <tr>
+              <td colspan="2">Merged cell content</td>
+              <td>Regular cell</td>
+            </tr>
+          </tbody>
+        </table>
+        <pre><code class="language-javascript">
+function complexFunction() {
+  const data = {
+    name: "test",
+    values: [1, 2, 3]
+  };
+  return data.values.map(v => v * 2);
+}
+        </code></pre>
+        <div class="custom-container">
+          <p>Custom container with <span style="color: red;">styled text</span></p>
+        </div>
+      </div>
+    `;
+
+    const correspondingMarkdown = `# Complex Document
+
+This is a **bold** paragraph with *italic* text and \`inline code\`.
+
+> This is a blockquote with [a link](https://example.com).
+> 
+> - Nested list item 1
+> - Nested list item 2 with **bold text**
+
+| Header 1 | Header 2 | Header 3 |
+|:----------------|:---------------:|----------------:|-------------|
+| Cell with *italic* | \`code cell\` | [Link cell](https://test.com) |
+| Merged cell content | | Regular cell |
+
+\`\`\`javascript
+function complexFunction() {
+  const data = {
+    name: "test",
+    values: [1, 2, 3]
+  };
+  return data.values.map(v => v * 2);
+}
+\`\`\`
+
+Custom container with styled text`;
+
+    // Test HTML paste
+    const htmlEvent = createClipboardEvent(
+      {
+        'text/html': complexHtml,
+        'text/plain': 'Complex Document fallback text',
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, htmlEvent);
+
+    await waitFor(() => {
+      expect(screen.getByText('Complex Document')).toBeInTheDocument();
+    });
+
+    // Clear editor for next test
+    fireEvent.keyDown(editableElement, { key: 'a', ctrlKey: true });
+    fireEvent.keyDown(editableElement, { key: 'Delete' });
+
+    // Test Markdown paste
+    const markdownEvent = createClipboardEvent(
+      {
+        'text/plain': correspondingMarkdown,
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, markdownEvent);
+
+    expect(() => {
+      fireEvent.paste(editableElement, markdownEvent);
+    }).not.toThrow();
+  });
+
+  it('should handle malformed HTML and fallback to text', async () => {
+    const { container: editorContainer } = render(
+      <MarkdownEditor
+        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+      />,
+    );
+
+    const editableElement = editorContainer.querySelector(
+      '[contenteditable="true"]',
+    ) as HTMLElement;
+
+    await waitFor(() => {
+      expect(editableElement).toBeInTheDocument();
+    });
+
+    // Test malformed HTML
+    const malformedHtml = `
+      <div>
+        <h1>Unclosed header
+        <p>Paragraph without closing tag
+        <ul>
+          <li>List item 1
+          <li>List item 2</li>
+        </ul>
+        <table>
+          <tr>
+            <td>Cell without closing
+          </tr>
+        </table>
+      </div>
+    `;
+
+    const event = createClipboardEvent(
+      {
+        'text/html': malformedHtml,
+        'text/plain': 'Fallback text for malformed HTML',
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, event);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText((content, element) => {
+          return (
+            content.includes('Fallback text') ||
+            content.includes('Unclosed header')
+          );
+        }),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('should handle HTML with embedded media and scripts', async () => {
+    const { container: editorContainer } = render(
+      <MarkdownEditor
+        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+      />,
+    );
+
+    const editableElement = editorContainer.querySelector(
+      '[contenteditable="true"]',
+    ) as HTMLElement;
+
+    await waitFor(() => {
+      expect(editableElement).toBeInTheDocument();
+    });
+
+    // Test HTML with media and potentially dangerous content
+    const htmlWithMedia = `
+      <div>
+        <h2>Document with Media</h2>
+        <p>Text before image</p>
+        <img src="https://example.com/image.jpg" alt="Test Image" width="300" height="200">
+        <p>Text between media</p>
+        <video src="https://example.com/video.mp4" controls></video>
+        <p>Text after video</p>
+        <audio src="https://example.com/audio.mp3" controls></audio>
+        <script>alert('This should be stripped');</script>
+        <iframe src="https://example.com/embed" width="500" height="300"></iframe>
+        <p>Final paragraph</p>
+      </div>
+    `;
+
+    const event = createClipboardEvent(
+      {
+        'text/html': htmlWithMedia,
+        'text/plain':
+          'Document with Media - Text before image - Text between media - Text after video - Final paragraph',
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, event);
+
+    await waitFor(() => {
+      expect(screen.getByText('Document with Media')).toBeInTheDocument();
+    });
+
+    // Verify that script tags are not executed/included
+    expect(
+      screen.queryByText('This should be stripped'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should handle Markdown with complex nested structures and edge cases', async () => {
+    const { container: editorContainer } = render(
+      <MarkdownEditor
+        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+      />,
+    );
+
+    const editableElement = editorContainer.querySelector(
+      '[contenteditable="true"]',
+    ) as HTMLElement;
+
+    await waitFor(() => {
+      expect(editableElement).toBeInTheDocument();
+    });
+
+    // Test complex Markdown with edge cases
+    const complexMarkdown = `# Main Title with *italic* and **bold**
+
+## Subtitle with \`inline code\`
+
+This paragraph has **bold with *nested italic* text** and \`code with **bold** inside\`.
+
+### Lists with complex nesting
+
+1. First ordered item
+   - Unordered sub-item
+   - Another sub-item with **bold**
+     1. Nested ordered item
+     2. Another nested item with [link](https://example.com)
+2. Second ordered item
+   > Blockquote inside list
+   > 
+   > With multiple lines
+3. Third item with code block:
+   
+   \`\`\`python
+   def nested_function():
+       return "code in list"
+   \`\`\`
+
+### Complex table with formatting
+
+| **Bold Header** | *Italic Header* | \`Code Header\` | Link Header |
+|:----------------|:---------------:|----------------:|-------------|
+| **Bold cell**   | *Italic cell*   | \`code cell\`   | [Link](https://example.com) |
+| Multi-line<br>cell content | Cell with \`inline code\` | **Bold** and *italic* | Normal cell |
+| \`\`\`<br>code<br>block<br>\`\`\` | > Blockquote<br>> in cell | - List<br>- In cell | ![Image](https://example.com/img.jpg) |
+
+### Blockquotes with nesting
+
+> This is a blockquote
+> 
+> > This is a nested blockquote
+> > 
+> > With **bold** and *italic* text
+> 
+> Back to first level with:
+> 
+> - List in blockquote
+> - Another item
+> 
+> \`\`\`javascript
+> // Code block in blockquote
+> console.log("nested code");
+> \`\`\`
+
+### Code blocks with different languages
+
+\`\`\`typescript
+interface ComplexType {
+  name: string;
+  values: number[];
+  nested: {
+    prop: boolean;
+  };
+}
+\`\`\`
+
+\`\`\`bash
+# Shell commands
+echo "Hello World"
+ls -la | grep "test"
+\`\`\`
+
+### Links and images with complex syntax
+
+[Simple link](https://example.com)
+
+[Link with title](https://example.com "This is a title")
+
+[Reference link][ref1]
+
+![Image with alt text](https://example.com/image.jpg "Image title")
+
+![Reference image][img1]
+
+### Horizontal rules and breaks
+
+---
+
+Text after horizontal rule
+
+***
+
+Another horizontal rule style
+
+### Escape characters and special cases
+
+This has \\*escaped asterisks\\* and \\[escaped brackets\\].
+
+\`\`\`
+Code block with \`backticks\` inside
+\`\`\`
+
+### Footnotes and references
+
+This text has a footnote[^1] and another[^note].
+
+[^1]: This is the first footnote.
+[^note]: This is a named footnote with **formatting**.
+
+### Reference definitions
+
+[ref1]: https://example.com/reference "Reference title"
+[img1]: https://example.com/ref-image.jpg "Reference image"
+
+### HTML mixed with Markdown
+
+<div align="center">
+
+**Centered content** with HTML wrapper
+
+</div>
+
+<details>
+<summary>Collapsible section</summary>
+
+Content inside collapsible section with **markdown** formatting.
+
+\`\`\`javascript
+console.log("Code in collapsible");
+\`\`\`
+
+</details>`;
+
+    const event = createClipboardEvent(
+      {
+        'text/plain': complexMarkdown,
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, event);
+
+    expect(() => {
+      fireEvent.paste(editableElement, event);
+    }).not.toThrow();
+
+    // Verify some key content is processed
+    await waitFor(() => {
+      expect(screen.getByText('Main Title with')).toBeTruthy();
+    });
+
+    expect(editableElement).matchSnapshot();
+  });
+
+  it('should handle simultaneous HTML and Markdown with conflicting formats', async () => {
+    const { container: editorContainer } = render(
+      <MarkdownEditor
+        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+      />,
+    );
+
+    const editableElement = editorContainer.querySelector(
+      '[contenteditable="true"]',
+    ) as HTMLElement;
+
+    await waitFor(() => {
+      expect(editableElement).toBeInTheDocument();
+    });
+
+    // Test case where HTML and plain text have different formatting
+    const htmlContent = `
+      <div>
+        <h1>HTML Title</h1>
+        <p>This is <strong>HTML bold</strong> and <em>HTML italic</em>.</p>
+        <ul>
+          <li>HTML list item 1</li>
+          <li>HTML list item 2</li>
+        </ul>
+      </div>
+    `;
+
+    const markdownContent = `# Markdown Title
+
+This is **Markdown bold** and *Markdown italic*.
+
+- Markdown list item 1
+- Markdown list item 2`;
+
+    // HTML should take precedence over plain text
+    const event = createClipboardEvent(
+      {
+        'text/html': htmlContent,
+        'text/plain': markdownContent,
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, event);
+
+    await waitFor(() => {
+      expect(screen.getByText('HTML Title')).toBeInTheDocument();
+    });
+
+    // Clear and test plain text only
+    fireEvent.keyDown(editableElement, { key: 'a', ctrlKey: true });
+    fireEvent.keyDown(editableElement, { key: 'Delete' });
+
+    const plainTextEvent = createClipboardEvent(
+      {
+        'text/plain': markdownContent,
+      },
+      [],
+      editableElement,
+    );
+
+    fireEvent.paste(editableElement, plainTextEvent);
+
+    expect(() => {
+      fireEvent.paste(editableElement, plainTextEvent);
+    }).not.toThrow();
+  });
 });
