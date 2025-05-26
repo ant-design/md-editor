@@ -54,7 +54,6 @@ const processSchemaLanguage = (
       console.error('parse schema error', error);
     }
   }
-  console.log('json', json);
   return {
     ...element,
     type: 'apaasify',

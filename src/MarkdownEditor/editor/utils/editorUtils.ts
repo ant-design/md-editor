@@ -227,7 +227,6 @@ export class EditorUtils {
         editor,
         selectNodes as any,
       );
-      console.log('paragraphNode', paragraphNode);
       Transforms.insertNodes(editor, paragraphNode, { at: editor.selection });
       return;
     }
