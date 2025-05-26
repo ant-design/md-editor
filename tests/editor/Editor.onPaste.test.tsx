@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MarkdownEditor } from '../../src';
@@ -85,9 +86,15 @@ describe('Editor onPaste function', () => {
   // Add a basic test to verify the editor renders and can receive paste events
   it('should render editor and handle basic paste event', async () => {
     const { container: editorContainer } = render(
-      <MarkdownEditor
-        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
-      />,
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <MarkdownEditor
+          initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+        />
+      </ConfigProvider>,
     );
 
     const editableElement = editorContainer.querySelector(
@@ -1221,9 +1228,15 @@ Custom container with styled text`;
 
   it('should handle Markdown with complex nested structures and edge cases', async () => {
     const { container: editorContainer } = render(
-      <MarkdownEditor
-        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
-      />,
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <MarkdownEditor
+          initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
+        />
+      </ConfigProvider>,
     );
 
     const editableElement = editorContainer.querySelector(
