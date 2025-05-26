@@ -2960,7 +2960,7 @@ Description: **Full-Year 2024 Diluted EPS Up 24% to 15.88 and Adjusted Diluted E
 exports[`should convert schema to markdown in   parse(te chunk 1`] = `
 "## parse(text) {
 
-\`\`\`\`
+\`\`\`
 let currentState = 'initial';
 const tokens = [];
 
@@ -2984,14 +2984,13 @@ while (text.length > 0) {
   }
 }
 return tokens;
-\`\`\`\`
+\`\`\`
 
 }  
 }
 
-\`\`\`\`
-
-\`\`\`\`"
+\`\`\`
+\`\`\`"
 `;
 
 exports[`should convert schema to markdown in ![](https: chunk 1`] = `
@@ -3146,7 +3145,7 @@ exports[`should convert schema to markdown in ### 一、基础遍历 chunk 1`] =
 
    \`\`\`python
 arr = [1, 2, 3, 4]
-for num in arr:
+   for num in arr:
     print(num)  # 输出每个元素的值
    \`\`\`
 
@@ -3174,8 +3173,8 @@ exports[`should convert schema to markdown in ### 二、其他遍历 chunk 1`] =
 
    \`\`\`python
 i = 0
-while i < len(arr):
-    print(arr[i])
+   while i < len(arr):
+       print(arr[i])
     i += 1  # 必须手动递增
    \`\`\`
 
@@ -3238,9 +3237,8 @@ A[开始] --> B[处理]
 B --> C[完成]  
 C --> D[结束]
 
-\`\`\`\`
-
-\`\`\`\`"
+\`\`\`
+\`\`\`"
 `;
 
 exports[`should convert schema to markdown in \`\`\`mermaid chunk 2`] = `
@@ -3264,9 +3262,8 @@ Tools
 Pen and paper  
 Mermaid
 
-\`\`\`\`
-
-\`\`\`\`"
+\`\`\`
+\`\`\`"
 `;
 
 exports[`should convert schema to markdown in \`\`\`schema
@@ -3284,9 +3281,8 @@ exports[`should convert schema to markdown in \`\`\`schema
 }  
 ]
 
-\`\`\`\`
-
-\`\`\`\`"
+\`\`\`
+\`\`\`"
 `;
 
 exports[`should convert schema to markdown in | 业务       chunk 1`] = `
@@ -3393,9 +3389,8 @@ registerPlugin(plugin: EditorPlugin): boolean {
 // 其他核心方法...  
 }
 
-\`\`\`\`
-
-\`\`\`\`"
+\`\`\`
+\`\`\`"
 `;
 
 exports[`should convert schema to markdown in 上上任的武汉大学校长 chunk 1`] = `"## 上上任的武汉大学校长是李晓红。[^DOC_1][^DOC_2]"`;

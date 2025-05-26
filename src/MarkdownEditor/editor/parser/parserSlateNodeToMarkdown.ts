@@ -5,6 +5,7 @@
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
 import { ChartNode, ColumnNode, DescriptionNode, TableNode } from '../../el';
+import type { MarkdownEditorPlugin } from '../../plugin';
 import { getMediaType } from '../utils/dom';
 
 const space = '  ';
@@ -16,6 +17,7 @@ const inlineNode = new Set(['break']);
  * @param node - 要解析的 Slate 节点，包含 type、children、value 等属性
  * @param preString - 前缀字符串，用于处理缩进和格式化，默认为空字符串
  * @param parent - 父节点数组，用于上下文信息和嵌套处理，默认为空数组
+ * @param plugins - 可选的插件数组，用于自定义转换逻辑
  * @returns 解析后的 Markdown 字符串
  *
  * @description
@@ -77,10 +79,81 @@ const inlineNode = new Set(['break']);
  * // 输出: "```javascript\nconsole.log(\"hello\");\n```"
  * ```
  */
-const parserNode = (node: any, preString = '', parent: any[]) => {
+const parserNode = (
+  node: any,
+  preString = '',
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
   let str = '';
   const newParent = [...parent, node];
   if (!node) return str;
+
+  // 首先尝试使用插件处理
+  if (plugins?.length) {
+    for (const plugin of plugins) {
+      const rule = plugin.toMarkdown?.find((r) => r.match(node));
+      if (rule) {
+        const converted = rule.convert(node);
+        // 将转换后的 Markdown AST 节点转换为字符串
+        if (converted.type === 'code') {
+          const codeNode = converted as any;
+          const language = codeNode.lang || '';
+          const value = codeNode.value || '';
+          if (!value.trim()) {
+            return `${preString}\`\`\`${language}\n${preString}\`\`\``;
+          }
+          const codeLines = value.split('\n');
+          const indentedCode = codeLines
+            .map((line: string, index: number) => {
+              if (index === 0 || index === codeLines.length - 1) {
+                return line;
+              }
+              return preString + line;
+            })
+            .join('\n');
+          return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+        } else if (converted.type === 'blockquote') {
+          const blockquoteNode = converted as any;
+          // 递归处理 blockquote 的子节点
+          return parserSlateNodeToMarkdown(
+            blockquoteNode.children || [],
+            preString + '> ',
+            newParent,
+            plugins,
+          );
+        } else if (converted.type === 'paragraph') {
+          const paragraphNode = converted as any;
+          return (
+            preString +
+            parserSlateNodeToMarkdown(
+              paragraphNode.children || [],
+              preString,
+              newParent,
+              plugins,
+            )
+          );
+        } else if (converted.type === 'heading') {
+          const headingNode = converted as any;
+          const level = headingNode.depth || 1;
+          return (
+            '#'.repeat(level) +
+            ' ' +
+            parserSlateNodeToMarkdown(
+              headingNode.children || [],
+              preString,
+              newParent,
+              plugins,
+            )
+          );
+        } else if (converted.type === 'text') {
+          return (converted as any).value || '';
+        }
+        // 对于其他类型，返回空字符串或基本处理
+        return '';
+      }
+    }
+  }
 
   switch (node.type) {
     case 'card-before':
@@ -88,18 +161,33 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
     case 'card-after':
       break;
     case 'card':
-      str += parserSlateNodeToMarkdown(node?.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(
+        node?.children,
+        preString,
+        newParent,
+        plugins,
+      );
       break;
     case 'paragraph':
       str +=
         preString +
-        parserSlateNodeToMarkdown(node?.children, preString, newParent);
+        parserSlateNodeToMarkdown(
+          node?.children,
+          preString,
+          newParent,
+          plugins,
+        );
       break;
     case 'head':
       str +=
         '#'.repeat(node.level) +
         ' ' +
-        parserSlateNodeToMarkdown(node?.children, preString, newParent);
+        parserSlateNodeToMarkdown(
+          node?.children,
+          preString,
+          newParent,
+          plugins,
+        );
       break;
     case 'code':
       const code = node?.value || '';
@@ -150,7 +238,12 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }">${node.name}</a>`;
       break;
     case 'blockquote':
-      str += parserSlateNodeToMarkdown(node.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(
+        node.children,
+        preString,
+        newParent,
+        plugins,
+      );
       break;
     case 'image':
       try {
@@ -200,19 +293,29 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
       }
       break;
     case 'list':
-      str += parserSlateNodeToMarkdown(node.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(
+        node.children,
+        preString,
+        newParent,
+        plugins,
+      );
       break;
     case 'list-item':
-      str += parserSlateNodeToMarkdown(node.children, preString, newParent);
+      str += parserSlateNodeToMarkdown(
+        node.children,
+        preString,
+        newParent,
+        plugins,
+      );
       break;
     case 'table':
-      str += table(node, preString, newParent);
+      str += table(node, preString, newParent, plugins);
       break;
     case 'chart':
-      str += table(node, preString, newParent);
+      str += table(node, preString, newParent, plugins);
       break;
     case 'column-group':
-      str += table(node, preString, newParent);
+      str += table(node, preString, newParent, plugins);
       break;
     case 'description':
       const header: any[] = [];
@@ -240,6 +343,7 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
         },
         preString,
         newParent,
+        plugins,
       );
       break;
     case 'schema':
@@ -280,6 +384,7 @@ export const parserSlateNodeToMarkdown = (
   tree: any[],
   preString = '',
   parent: any[] = [{ root: true }],
+  plugins?: MarkdownEditorPlugin[],
 ) => {
   let str = '';
   for (let i = 0; i < tree.length; i++) {
@@ -341,12 +446,12 @@ export const parserSlateNodeToMarkdown = (
             })`;
           });
         }
-        const nodeStr = parserNode(node, '', parent);
+        const nodeStr = parserNode(node, '', parent, plugins);
         const lines = nodeStr.split('\n');
         // 处理table多行组件问题
         if (lines.length > 1) {
           str += lines
-            .map((l, i) => {
+            .map((l: string, i: number) => {
               if (i > 0) {
                 l = pre + l;
               }
@@ -371,18 +476,21 @@ export const parserSlateNodeToMarkdown = (
             str +=
               '\n\n' +
               pre +
-              parserNode(node, preString, parent)?.replace(/^[\s\t]+/g, '') +
+              parserNode(node, preString, parent, plugins)?.replace(
+                /^[\s\t]+/g,
+                '',
+              ) +
               '\n\n';
           }
         } else {
-          str += parserNode(node, pre, parent) + '\n';
+          str += parserNode(node, pre, parent, plugins) + '\n';
           if (tree.length - 1 !== i) {
             str += '\n';
           }
         }
       }
     } else if (p.type === 'blockquote') {
-      str += parserNode(node, preString + '> ', parent);
+      str += parserNode(node, preString + '> ', parent, plugins);
       if (node.type && i !== tree.length - 1) {
         str += `\n${preString}> `;
         if (p.type !== 'list') {
@@ -399,11 +507,14 @@ export const parserSlateNodeToMarkdown = (
       } else {
         str +=
           preString +
-          parserNode(node, preString, parent)?.replace(/^[\s\t]+/g, '') +
+          parserNode(node, preString, parent, plugins)?.replace(
+            /^[\s\t]+/g,
+            '',
+          ) +
           '\n\n';
       }
     } else {
-      str += parserNode(node, preString, parent);
+      str += parserNode(node, preString, parent, plugins);
       if (node.type && !inlineNode.has(node.type) && i !== tree.length - 1) {
         str += '\n';
         if (p.type !== 'list') {
@@ -530,6 +641,7 @@ const table = (
   el: TableNode | ColumnNode | DescriptionNode | ChartNode,
   preString = '',
   parent: any[],
+  plugins?: MarkdownEditorPlugin[],
 ) => {
   const children = el.children;
   const head = children[0]?.children;
@@ -542,7 +654,8 @@ const table = (
       if (n.type === 'column-cell') {
         if (!n?.children) continue;
         row.push(
-          parserSlateNodeToMarkdown(n?.children, '', [...parent, n]) || 'xxx',
+          parserSlateNodeToMarkdown(n?.children, '', [...parent, n], plugins) ||
+            'xxx',
         );
       }
     }
@@ -556,12 +669,21 @@ const table = (
         if (!c?.children) continue;
         for (let n of c?.children || []) {
           if (n.type === 'table-cell') {
-            row.push(parserSlateNodeToMarkdown(n.children, '', [...parent, n]));
+            row.push(
+              parserSlateNodeToMarkdown(
+                n.children,
+                '',
+                [...parent, n],
+                plugins,
+              ),
+            );
           }
         }
       }
       if (c.type === 'table-cell') {
-        row.push(parserSlateNodeToMarkdown(c.children, '', [...parent, c]));
+        row.push(
+          parserSlateNodeToMarkdown(c.children, '', [...parent, c], plugins),
+        );
       }
       if (row?.every((r) => !r)) continue;
       data.push(row);

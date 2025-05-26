@@ -19,6 +19,7 @@ import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
 import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
 import { Elements, FootnoteDefinitionNode, ListNode } from '../el';
+import type { MarkdownEditorPlugin } from '../plugin';
 import { parserMdToSchema } from './parser/parserMdToSchema';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
@@ -316,11 +317,17 @@ export class EditorStore {
   /**
    * Gets the current editor content as a markdown string.
    *
+   * @param plugins - Optional plugins for custom toMarkdown conversion
    * @returns The current editor content converted to markdown.
    */
-  getMDContent() {
+  getMDContent(plugins?: MarkdownEditorPlugin[]) {
     const nodeList = this._editor.current.children;
-    const md = parserSlateNodeToMarkdown(nodeList);
+    const md = parserSlateNodeToMarkdown(
+      nodeList,
+      '',
+      [{ root: true }],
+      plugins,
+    );
     return md;
   }
 
