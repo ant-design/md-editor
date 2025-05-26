@@ -113,18 +113,107 @@ export const SlateMarkdownEditor = ({
   instance,
   ...editorProps
 }: MEditorProps) => {
+  // 所有hooks必须在组件顶部按固定顺序调用
   const { store, markdownEditorRef, markdownContainerRef, readonly } =
     useEditorStore();
 
   const changedMark = useRef(false);
   const value = useRef<any[]>([EditorUtils.p]);
   const nodeRef = useRef<MarkdownEditorInstance>();
-  const { prefixCls = '$' } = editorProps.tagInputProps || {};
+  const first = useRef(true);
+
+  const plugins = useContext(PluginContext);
 
   const onKeyDown = useKeyboard(store, markdownEditorRef, editorProps);
   const onChange = useOnchange(markdownEditorRef.current, editorProps.onChange);
   const high = useHighlight(store);
-  const first = useRef(true);
+
+  const childrenIsEmpty = useMemo(() => {
+    if (!markdownEditorRef.current.children) return false;
+    if (!Array.isArray(markdownEditorRef.current.children)) return;
+    if (markdownEditorRef.current.children.length === 0) return false;
+    return (
+      value.current.filter(
+        (v) => v.type === 'paragraph' && v.children?.at?.(0)?.text === '',
+      ).length < 1
+    );
+  }, [markdownEditorRef.current.children]);
+
+  const readonlyCls = useMemo(() => {
+    if (readonly) return 'readonly';
+    return store.focus || !childrenIsEmpty ? 'focus' : '';
+  }, [readonly, store.focus, !childrenIsEmpty]);
+
+  const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
+    placeholderContent:
+      editorProps?.textAreaProps?.placeholder || editorProps?.placeholder,
+  });
+
+  const commentMap = useMemo(() => {
+    const map = new Map<string, Map<string, CommentDataType[]>>();
+    editorProps?.comment?.commentList?.forEach((c) => {
+      c.updateTime = Date.now();
+      const path = c.path.join(',');
+      if (map.has(path)) {
+        const childrenMap = map.get(path);
+        const selection = JSON.stringify(c.selection);
+        if (childrenMap?.has(selection)) {
+          childrenMap.set(selection, [
+            ...(childrenMap.get(selection) || []),
+            c,
+          ]);
+          map.set(path, childrenMap);
+          return;
+        } else if (childrenMap) {
+          childrenMap?.set(selection, [c]);
+          map.set(path, childrenMap);
+          return;
+        }
+      }
+      const childrenMap = new Map<string, CommentDataType[]>();
+      childrenMap.set(JSON.stringify(c.selection), [c]);
+      map.set(path, childrenMap);
+    });
+    return map;
+  }, [editorProps?.comment?.commentList]);
+
+  const handleSelectionChange = useDebounceFn(async () => {
+    if (store.focus) {
+      // 选中时，更新选区,并且触发选区变化事件
+      const event = new CustomEvent<BaseSelection>(
+        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+        {
+          detail: markdownEditorRef.current.selection,
+        },
+      );
+      markdownContainerRef?.current?.dispatchEvent(event);
+    }
+  }, 160);
+
+  useEffect(() => {
+    if (nodeRef.current !== instance) {
+      initialNote();
+    }
+  }, [instance, markdownEditorRef.current]);
+
+  useEffect(() => {
+    const footnoteDefinitionList = markdownEditorRef.current.children
+      .filter((item) => item.type === 'footnoteDefinition')
+      .map((item, index) => {
+        return {
+          id: item.id || index,
+          placeholder: item.identifier,
+          origin_text: item.value,
+          url: item.url,
+          origin_url: item.url,
+        };
+      });
+    editorProps?.fncProps?.onFootnoteDefinitionChange?.(footnoteDefinitionList);
+  }, [markdownEditorRef.current.children]);
+
+  // 非hook变量声明
+  const { prefixCls = '$' } = editorProps.tagInputProps || {};
+  const baseClassName = `${editorProps.prefixCls}-content`;
 
   const handleKeyDown = useRefFunction(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -281,9 +370,11 @@ export const SlateMarkdownEditor = ({
    * @param {React.ClipboardEvent<HTMLDivElement>} e
    */
   const onPaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
+    const currentTextSelection = markdownEditorRef.current.selection;
+
     event.stopPropagation();
     event.preventDefault();
-    const currentTextSelection = markdownEditorRef.current.selection;
+
     if (
       currentTextSelection &&
       currentTextSelection.anchor &&
@@ -632,59 +723,6 @@ export const SlateMarkdownEditor = ({
     console.log('Editor error', e);
   };
 
-  const childrenIsEmpty = useMemo(() => {
-    if (!markdownEditorRef.current.children) return false;
-    if (!Array.isArray(markdownEditorRef.current.children)) return;
-    if (markdownEditorRef.current.children.length === 0) return false;
-    return (
-      value.current.filter(
-        (v) => v.type === 'paragraph' && v.children?.at?.(0)?.text === '',
-      ).length < 1
-    );
-  }, [markdownEditorRef.current.children]);
-
-  const readonlyCls = useMemo(() => {
-    if (readonly) return 'readonly';
-    return store.focus || !childrenIsEmpty ? 'focus' : '';
-  }, [readonly, store.focus, !childrenIsEmpty]);
-
-  const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
-    placeholderContent:
-      editorProps?.textAreaProps?.placeholder || editorProps?.placeholder,
-  });
-
-  const baseClassName = `${editorProps.prefixCls}-content`;
-
-  const commentMap = useMemo(() => {
-    const map = new Map<string, Map<string, CommentDataType[]>>();
-    editorProps?.comment?.commentList?.forEach((c) => {
-      c.updateTime = Date.now();
-      const path = c.path.join(',');
-      if (map.has(path)) {
-        const childrenMap = map.get(path);
-        const selection = JSON.stringify(c.selection);
-        if (childrenMap?.has(selection)) {
-          childrenMap.set(selection, [
-            ...(childrenMap.get(selection) || []),
-            c,
-          ]);
-          map.set(path, childrenMap);
-          return;
-        } else if (childrenMap) {
-          childrenMap?.set(selection, [c]);
-          map.set(path, childrenMap);
-          return;
-        }
-      }
-      const childrenMap = new Map<string, CommentDataType[]>();
-      childrenMap.set(JSON.stringify(c.selection), [c]);
-      map.set(path, childrenMap);
-    });
-    return map;
-  }, [editorProps?.comment?.commentList]);
-
-  const plugins = useContext(PluginContext);
-
   const elementRenderElement = (props: RenderElementProps) => {
     const defaultDom = (
       <ErrorBoundary
@@ -795,19 +833,6 @@ export const SlateMarkdownEditor = ({
     }
   };
 
-  const handleSelectionChange = useDebounceFn(async () => {
-    if (store.focus) {
-      // 选中时，更新选区,并且触发选区变化事件
-      const event = new CustomEvent<BaseSelection>(
-        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-        {
-          detail: markdownEditorRef.current.selection,
-        },
-      );
-      markdownContainerRef?.current?.dispatchEvent(event);
-    }
-  }, 160);
-
   /**
    * 处理复制和剪切的共享逻辑
    * @param event 剪贴板事件
@@ -897,21 +922,6 @@ export const SlateMarkdownEditor = ({
       return false;
     },
   );
-
-  useEffect(() => {
-    const footnoteDefinitionList = markdownEditorRef.current.children
-      .filter((item) => item.type === 'footnoteDefinition')
-      .map((item, index) => {
-        return {
-          id: item.id || index,
-          placeholder: item.identifier,
-          origin_text: item.value,
-          url: item.url,
-          origin_url: item.url,
-        };
-      });
-    editorProps?.fncProps?.onFootnoteDefinitionChange?.(footnoteDefinitionList);
-  }, [markdownEditorRef.current.children]);
 
   return wrapSSR(
     <>

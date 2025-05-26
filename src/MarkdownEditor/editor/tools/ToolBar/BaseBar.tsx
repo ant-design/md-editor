@@ -767,6 +767,7 @@ export const BaseToolBar = (props: {
       </>
     );
   }, [insertOptions, props.min, node]);
+
   return (
     <div
       style={{
