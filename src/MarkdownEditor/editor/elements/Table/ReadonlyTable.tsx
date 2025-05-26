@@ -337,7 +337,7 @@ export const ReadonlyTable = ({
           open={previewOpen}
           closable
           footer={null}
-          onClose={() => {
+          afterClose={() => {
             setPreviewOpen(false);
           }}
           width="80vw"

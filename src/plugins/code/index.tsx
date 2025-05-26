@@ -452,7 +452,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
           onCancel={() => {
             setState({ htmlStr: '' });
           }}
-          onClose={() => {
+          afterClose={() => {
             setState({ htmlStr: '' });
           }}
         >

@@ -168,7 +168,7 @@ export const InsertLink = () => {
 
   return (
     <Modal
-      onClose={() => {
+      afterClose={() => {
         close(state().oldUrl);
       }}
       open={state().open}
