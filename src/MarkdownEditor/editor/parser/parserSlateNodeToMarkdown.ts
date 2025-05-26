@@ -11,28 +11,71 @@ const space = '  ';
 const inlineNode = new Set(['break']);
 
 /**
- * Parses a node and its children into a Markdown string representation.
+ * 解析单个 Slate 节点并转换为对应的 Markdown 字符串
  *
- * @param node - The current node to parse.
- * @param preString - A prefix string to prepend to the parsed content.
- * @param parent - An array of parent nodes.
- * @returns The Markdown string representation of the node and its children.
+ * @param node - 要解析的 Slate 节点，包含 type、children、value 等属性
+ * @param preString - 前缀字符串，用于处理缩进和格式化，默认为空字符串
+ * @param parent - 父节点数组，用于上下文信息和嵌套处理，默认为空数组
+ * @returns 解析后的 Markdown 字符串
  *
- * The function handles various node types:
- * - `paragraph`: Converts the children nodes to Markdown.
- * - `head`: Converts the node to a Markdown header.
- * - `code`: Converts the node to a Markdown code block.
- * - `attach`: Converts the node to a downloadable link.
- * - `blockquote`: Converts the children nodes to a blockquote.
- * - `media`: Converts the node to an appropriate media tag (image, video, iframe).
- * - `list`: Converts the children nodes to a list.
- * - `list-item`: Converts the children nodes to a list item.
- * - `table`, `chart`, `column-group`, `description`: Converts the node to a table.
- * - `schema`: Converts the node to a schema code block.
- * - `link-card`: Converts the node to a Markdown link.
- * - `hr`: Converts the node to a horizontal rule.
- * - `break`: Converts the node to a line break.
- * - Default: Converts the node to text if it has a `text` property.
+ * @description
+ * 该函数是 Slate 节点到 Markdown 转换的核心处理器，支持以下节点类型：
+ *
+ * **容器节点：**
+ * - `card`: 卡片容器，递归处理子节点
+ * - `paragraph`: 段落节点，添加前缀并处理子节点
+ * - `blockquote`: 引用块，递归处理子节点
+ * - `list`: 列表容器，递归处理列表项
+ * - `list-item`: 列表项，递归处理子节点
+ *
+ * **标题节点：**
+ * - `head`: 标题节点，根据 level 生成对应级别的 Markdown 标题
+ *
+ * **代码节点：**
+ * - `code`: 代码块，支持三种模式：
+ *   - HTML 渲染模式（language='html' && render=true）
+ *   - Frontmatter 模式（frontmatter=true）
+ *   - 普通代码块模式（默认）
+ *
+ * **媒体节点：**
+ * - `image`: 图片节点，支持 width、height、block 参数，URL 参数化
+ * - `media`: 多媒体节点，根据类型生成 video、img 或 iframe 标签
+ * - `attach`: 附件节点，生成下载链接
+ *
+ * **表格节点：**
+ * - `table`: 表格节点，调用 table 函数处理
+ * - `chart`: 图表节点，以表格形式渲染
+ * - `column-group`: 列组节点，以表格形式渲染
+ * - `description`: 描述列表，转换为表格格式
+ *
+ * **其他节点：**
+ * - `schema`: 模式定义，生成 schema 代码块
+ * - `link-card`: 链接卡片，生成 Markdown 链接格式
+ * - `hr`: 水平分割线，生成 `***`
+ * - `break`: 换行节点，生成 `<br/>` 标签
+ * - `footnoteDefinition`: 脚注定义，生成脚注引用格式
+ * - 文本节点：调用 composeText 函数处理文本样式
+ *
+ * **空节点：**
+ * - `card-before`, `card-after`: 卡片前后占位符，不输出内容
+ *
+ * @example
+ * ```typescript
+ * // 解析段落节点
+ * const paragraphNode = { type: 'paragraph', children: [{ text: 'Hello' }] };
+ * const result = parserNode(paragraphNode, '', []);
+ * // 输出: "Hello"
+ *
+ * // 解析标题节点
+ * const headNode = { type: 'head', level: 2, children: [{ text: 'Title' }] };
+ * const result = parserNode(headNode, '', []);
+ * // 输出: "## Title"
+ *
+ * // 解析代码块
+ * const codeNode = { type: 'code', language: 'javascript', value: 'console.log("hello");' };
+ * const result = parserNode(codeNode, '', []);
+ * // 输出: "```javascript\nconsole.log(\"hello\");\n```"
+ * ```
  */
 const parserNode = (node: any, preString = '', parent: any[]) => {
   let str = '';
@@ -59,16 +102,47 @@ const parserNode = (node: any, preString = '', parent: any[]) => {
         parserSlateNodeToMarkdown(node?.children, preString, newParent);
       break;
     case 'code':
-      const code = node?.value;
+      const code = node?.value || '';
+
+      /**
+       * 处理代码节点，支持三种模式：
+       * 1. HTML渲染模式：直接输出HTML内容，不进行Markdown包装
+       * 2. Frontmatter模式：使用YAML frontmatter格式（用---包围）
+       * 3. 普通代码块模式：使用Markdown代码块格式（用```包围）
+       */
       if (node.language === 'html' && node.render) {
-        str += `${preString}\n${code}\n${preString}`;
-      } else if (node.frontmatter) {
-        str += `${preString}---\n${code}\n${preString}---`;
-      } else {
-        str += `${preString}\`\`\`${
-          node.language || '`'
-        }\n${code}\n${preString}\`\`\`${!node.language ? '`' : ''}`;
+        str += code;
+        break;
       }
+
+      // Frontmatter 模式：YAML前言格式
+      if (node.frontmatter) {
+        str += `${preString}---\n${code}\n${preString}---`;
+        break;
+      }
+
+      // 普通代码块模式
+      const language = node.language || '';
+
+      // 如果代码内容为空，生成空的代码块
+      if (!code.trim()) {
+        str += `${preString}\`\`\`${language}\n${preString}\`\`\``;
+        break;
+      }
+
+      // 处理多行代码的缩进
+      const codeLines = code.split('\n');
+      const indentedCode = codeLines
+        .map((line: string, index: number) => {
+          // 第一行和最后一行不需要额外缩进
+          if (index === 0 || index === codeLines.length - 1) {
+            return line;
+          }
+          return preString + line;
+        })
+        .join('\n');
+
+      str += `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
       break;
     case 'attach':
       str += `<a href="${encodeURI(node?.url)}" download data-size="${
