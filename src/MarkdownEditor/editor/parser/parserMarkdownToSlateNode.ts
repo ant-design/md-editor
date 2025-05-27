@@ -5,9 +5,16 @@
 import json5 from 'json5';
 import type { Root, RootContent, Table } from 'mdast';
 //@ts-ignore
+import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
 import { remark } from 'remark';
+import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
 import { Element } from 'slate';
+
 import {
   CardNode,
   ChartNode,
@@ -141,7 +148,14 @@ const getColumnAlignment = (
   });
 };
 
-const stringifyObj = remark().use(remarkGfm);
+const stringifyObj = remark()
+  .use(remarkParse)
+  .use(remarkMath as any)
+  .use(remarkRehype as any, { allowDangerousHtml: true })
+  .use(rehypeRaw)
+  .use(rehypeKatex as any)
+  .use(remarkGfm)
+  .use(remarkFrontmatter, ['yaml']);
 
 const myRemark = {
   stringify: (obj: Root) => {
@@ -1344,8 +1358,15 @@ const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
 function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
   if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
+
+  // 处理表格结尾的换行符：将表格结尾的一个 \n 修改成两个 \n\n
+  let processedMarkdown = markdown.replace(
+    /(\|[^|\n]*\|)\n(?!\|)/g, // 匹配表格行后面跟着单个换行符，但下一行不是表格行
+    '$1\n\n', // 替换为两个换行符
+  );
+
   // 如果包含表格，处理换行符
-  return markdown
+  return processedMarkdown
     ?.split('\n\n')
     .map((line) => {
       if (line.includes('```')) return line; // 如果包含代码块，直接返回原始字符串
@@ -1379,6 +1400,8 @@ export const parserMarkdownToSlateNode = (
   links: { path: number[]; target: string }[];
 } => {
   const markdownRoot = parser.parse(preprocessMarkdownTableNewlines(md || ''));
+
+  console.log(markdownRoot);
   const schema =
     (plugins || [])?.length > 0
       ? (parseWithPlugins(
