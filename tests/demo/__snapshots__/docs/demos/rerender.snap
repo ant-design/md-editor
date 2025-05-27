@@ -13090,7 +13090,6 @@
                           aria-label="copy"
                           class="anticon anticon-copy"
                           role="img"
-                          tabindex="-1"
                         >
                           <svg
                             aria-hidden="true"
@@ -13119,7 +13118,6 @@
                           aria-label="fullscreen"
                           class="anticon anticon-fullscreen"
                           role="img"
-                          tabindex="-1"
                         >
                           <svg
                             aria-hidden="true"
@@ -13437,7 +13435,6 @@
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -13466,7 +13463,6 @@
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -13750,7 +13746,6 @@ yarn add antd
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -13779,7 +13774,6 @@ yarn add antd
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -13991,7 +13985,6 @@ yarn add antd
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14020,7 +14013,6 @@ yarn add antd
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14196,7 +14188,6 @@ yarn add antd
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14225,7 +14216,6 @@ yarn add antd
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14447,7 +14437,6 @@ yarn add antd
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14476,7 +14465,6 @@ yarn add antd
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14701,7 +14689,6 @@ function App() {
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14730,7 +14717,6 @@ function App() {
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -14996,7 +14982,6 @@ import zhCN from 'antd/lib/locale/zh_CN';
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -15025,7 +15010,6 @@ import zhCN from 'antd/lib/locale/zh_CN';
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -15274,7 +15258,6 @@ npm install ant-design-vue --save
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -15303,7 +15286,6 @@ npm install ant-design-vue --save
                                 aria-label="fullscreen"
                                 class="anticon anticon-fullscreen"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"

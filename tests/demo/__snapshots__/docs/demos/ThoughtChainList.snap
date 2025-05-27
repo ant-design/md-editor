@@ -313,7 +313,6 @@
                                   aria-label="edit"
                                   class="anticon anticon-edit"
                                   role="img"
-                                  tabindex="-1"
                                 >
                                   <svg
                                     aria-hidden="true"
@@ -341,7 +340,6 @@
                                   aria-label="copy"
                                   class="anticon anticon-copy"
                                   role="img"
-                                  tabindex="-1"
                                 >
                                   <svg
                                     aria-hidden="true"
@@ -453,7 +451,6 @@
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"
@@ -1270,7 +1267,6 @@
                                   aria-label="edit"
                                   class="anticon anticon-edit"
                                   role="img"
-                                  tabindex="-1"
                                 >
                                   <svg
                                     aria-hidden="true"
@@ -1298,7 +1294,6 @@
                                   aria-label="copy"
                                   class="anticon anticon-copy"
                                   role="img"
-                                  tabindex="-1"
                                 >
                                   <svg
                                     aria-hidden="true"
@@ -1414,7 +1409,6 @@
                                 aria-label="copy"
                                 class="anticon anticon-copy"
                                 role="img"
-                                tabindex="-1"
                               >
                                 <svg
                                   aria-hidden="true"

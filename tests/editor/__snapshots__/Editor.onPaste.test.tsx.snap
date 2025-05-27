@@ -792,7 +792,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                       aria-label="copy"
                       class="anticon anticon-copy"
                       role="img"
-                      tabindex="-1"
                     >
                       <svg
                         aria-hidden="true"
@@ -821,7 +820,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                       aria-label="fullscreen"
                       class="anticon anticon-fullscreen"
                       role="img"
-                      tabindex="-1"
                     >
                       <svg
                         aria-hidden="true"
@@ -2169,7 +2167,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                   aria-label="copy"
                   class="anticon anticon-copy"
                   role="img"
-                  tabindex="-1"
                 >
                   <svg
                     aria-hidden="true"
@@ -2198,7 +2195,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                   aria-label="fullscreen"
                   class="anticon anticon-fullscreen"
                   role="img"
-                  tabindex="-1"
                 >
                   <svg
                     aria-hidden="true"
@@ -2344,7 +2340,6 @@ console.log("nested code");
                 aria-label="copy"
                 class="anticon anticon-copy"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -2373,7 +2368,6 @@ console.log("nested code");
                 aria-label="fullscreen"
                 class="anticon anticon-fullscreen"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -2494,7 +2488,6 @@ console.log("nested code");
                 aria-label="copy"
                 class="anticon anticon-copy"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -2523,7 +2516,6 @@ console.log("nested code");
                 aria-label="fullscreen"
                 class="anticon anticon-fullscreen"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -3084,7 +3076,6 @@ ls -la | grep "test"
                 aria-label="copy"
                 class="anticon anticon-copy"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -3113,7 +3104,6 @@ ls -la | grep "test"
                 aria-label="fullscreen"
                 class="anticon anticon-fullscreen"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -3627,7 +3617,6 @@ ls -la | grep "test"
                 aria-label="copy"
                 class="anticon anticon-copy"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"
@@ -3656,7 +3645,6 @@ ls -la | grep "test"
                 aria-label="fullscreen"
                 class="anticon anticon-fullscreen"
                 role="img"
-                tabindex="-1"
               >
                 <svg
                   aria-hidden="true"

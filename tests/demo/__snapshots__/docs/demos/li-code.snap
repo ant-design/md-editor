@@ -345,7 +345,6 @@
                               aria-label="copy"
                               class="anticon anticon-copy"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -374,7 +373,6 @@
                               aria-label="fullscreen"
                               class="anticon anticon-fullscreen"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -686,7 +684,6 @@ for num in arr:
                               aria-label="copy"
                               class="anticon anticon-copy"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -715,7 +712,6 @@ for num in arr:
                               aria-label="fullscreen"
                               class="anticon anticon-fullscreen"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -999,7 +995,6 @@ for num in arr:
                               aria-label="copy"
                               class="anticon anticon-copy"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -1028,7 +1023,6 @@ for num in arr:
                               aria-label="fullscreen"
                               class="anticon anticon-fullscreen"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -1392,7 +1386,6 @@ for num in arr:
                               aria-label="copy"
                               class="anticon anticon-copy"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -1421,7 +1414,6 @@ for num in arr:
                               aria-label="fullscreen"
                               class="anticon anticon-fullscreen"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -1686,7 +1678,6 @@ while i &lt; len(arr):
                               aria-label="copy"
                               class="anticon anticon-copy"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -1715,7 +1706,6 @@ while i &lt; len(arr):
                               aria-label="fullscreen"
                               class="anticon anticon-fullscreen"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -2039,7 +2029,6 @@ while i &lt; len(arr):
                               aria-label="copy"
                               class="anticon anticon-copy"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -2068,7 +2057,6 @@ while i &lt; len(arr):
                               aria-label="fullscreen"
                               class="anticon anticon-fullscreen"
                               role="img"
-                              tabindex="-1"
                             >
                               <svg
                                 aria-hidden="true"
@@ -2294,7 +2282,6 @@ while i &lt; len(arr):
                         aria-label="copy"
                         class="anticon anticon-copy"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -2323,7 +2310,6 @@ while i &lt; len(arr):
                         aria-label="fullscreen"
                         class="anticon anticon-fullscreen"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -2675,7 +2661,6 @@ for fruit in fruits:
                         aria-label="copy"
                         class="anticon anticon-copy"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -2704,7 +2689,6 @@ for fruit in fruits:
                         aria-label="fullscreen"
                         class="anticon anticon-fullscreen"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -2959,7 +2943,6 @@ for fruit in fruits:
                         aria-label="copy"
                         class="anticon anticon-copy"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -2988,7 +2971,6 @@ for fruit in fruits:
                         aria-label="fullscreen"
                         class="anticon anticon-fullscreen"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -3269,7 +3251,6 @@ while i &lt; len(fruits):
                         aria-label="copy"
                         class="anticon anticon-copy"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -3298,7 +3279,6 @@ while i &lt; len(fruits):
                         aria-label="fullscreen"
                         class="anticon anticon-fullscreen"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -3552,7 +3532,6 @@ while i &lt; len(fruits):
                         aria-label="copy"
                         class="anticon anticon-copy"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -3581,7 +3560,6 @@ while i &lt; len(fruits):
                         aria-label="fullscreen"
                         class="anticon anticon-fullscreen"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -3963,7 +3941,6 @@ while i &lt; len(fruits):
                         aria-label="copy"
                         class="anticon anticon-copy"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
@@ -3992,7 +3969,6 @@ while i &lt; len(fruits):
                         aria-label="fullscreen"
                         class="anticon anticon-fullscreen"
                         role="img"
-                        tabindex="-1"
                       >
                         <svg
                           aria-hidden="true"
