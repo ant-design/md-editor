@@ -50,6 +50,8 @@ export const ActionIconBox: React.FC<{
           [`${prefixCls}-noPadding`]: props.noPadding,
         })}
         onClick={async (e) => {
+          e.stopPropagation();
+          e.preventDefault();
           if (!props.onClick) return;
           if (loading) return;
           setLoading(true);
@@ -70,7 +72,6 @@ export const ActionIconBox: React.FC<{
           <LoadingOutlined />
         ) : (
           React.cloneElement(props.children as any, {
-            onClick: props.onClick,
             // @ts-ignore
             ...props?.children?.props,
           })
