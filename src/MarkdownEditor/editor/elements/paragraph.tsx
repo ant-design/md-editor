@@ -67,6 +67,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
     readonly,
     selected,
     isLatest,
+    markdownEditorRef.current?.children.length,
     editorProps.titlePlaceholderContent,
     typewriter,
   ]);
