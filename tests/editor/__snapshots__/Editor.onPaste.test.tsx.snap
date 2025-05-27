@@ -17,6 +17,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
   <div
     class="ant-md-editor-drag-el empty"
     data-be="paragraph"
+    data-empty="true"
     data-slate-node="element"
     data-slate-placeholder="请输入内容..."
   >
@@ -2635,10 +2636,9 @@ ls -la | grep "test"
     </span>
   </div>
   <div
-    class="ant-md-editor-drag-el empty"
+    class="ant-md-editor-drag-el"
     data-be="paragraph"
     data-slate-node="element"
-    data-slate-placeholder="请输入内容..."
   >
     <span
       data-slate-node="text"
@@ -2827,10 +2827,9 @@ ls -la | grep "test"
     </span>
   </div>
   <div
-    class="ant-md-editor-drag-el empty"
+    class="ant-md-editor-drag-el"
     data-be="paragraph"
     data-slate-node="element"
-    data-slate-placeholder="请输入内容..."
   >
     <span
       data-slate-node="text"
@@ -3837,6 +3836,7 @@ exports[`Editor onPaste function > should render editor and handle basic paste e
   <div
     class="ant-md-editor-drag-el empty"
     data-be="paragraph"
+    data-empty="true"
     data-slate-node="element"
     data-slate-placeholder="请输入内容..."
   >

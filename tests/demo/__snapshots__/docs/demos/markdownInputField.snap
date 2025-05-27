@@ -154,6 +154,7 @@
                 <div
                   class="ant-md-editor-drag-el empty"
                   data-be="paragraph"
+                  data-empty="true"
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >
@@ -621,6 +622,7 @@
                 <div
                   class="ant-md-editor-drag-el empty"
                   data-be="paragraph"
+                  data-empty="true"
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >
@@ -851,6 +853,7 @@
                 <div
                   class="ant-md-editor-drag-el empty"
                   data-be="paragraph"
+                  data-empty="true"
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >
@@ -1180,6 +1183,7 @@
                 <div
                   class="ant-md-editor-drag-el empty"
                   data-be="paragraph"
+                  data-empty="true"
                   data-slate-node="element"
                   data-slate-placeholder="请输入内容"
                 >

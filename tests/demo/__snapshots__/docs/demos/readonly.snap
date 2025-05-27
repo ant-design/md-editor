@@ -408,10 +408,9 @@
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el empty"
+            class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
-            data-slate-placeholder="请输入内容..."
           >
             <span
               data-slate-node="text"
@@ -810,10 +809,9 @@
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el empty"
+            class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
-            data-slate-placeholder="请输入内容..."
           >
             <span
               data-slate-node="text"
@@ -841,10 +839,9 @@
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el empty"
+            class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
-            data-slate-placeholder="请输入内容..."
           >
             <span
               data-slate-node="text"
@@ -5496,10 +5493,9 @@ class EditorCore {
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el empty"
+            class="ant-md-editor-drag-el"
             data-be="paragraph"
             data-slate-node="element"
-            data-slate-placeholder="请输入内容..."
           >
             <span
               data-slate-node="text"
