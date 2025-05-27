@@ -1409,7 +1409,6 @@ export const parserMarkdownToSlateNode = (
 } => {
   const markdownRoot = parser.parse(preprocessMarkdownTableNewlines(md || ''));
 
-  console.log(markdownRoot);
   const schema =
     (plugins || [])?.length > 0
       ? (parseWithPlugins(

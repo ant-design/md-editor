@@ -88,232 +88,247 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
     return rules;
   }, []);
 
-  // 渲染嵌套表单项（用于数组内的对象）
-  function renderNestedFormItem(
-    baseName: string,
-    property: SchemaProperty,
-  ): React.ReactNode {
-    if (property.type === 'object' && property.properties) {
+  // 获取属性标题
+  const getPropertyTitle = useCallback(
+    (property: SchemaProperty, key: string) => {
+      return property.title || property.description || key;
+    },
+    [],
+  );
+
+  // 获取通用输入框属性
+  const getCommonInputProps = useCallback(
+    (property: SchemaProperty) => ({
+      placeholder: `请输入${property.title || property.description || ''}`,
+      readOnly: readonly,
+      disabled: readonly,
+    }),
+    [readonly],
+  );
+
+  // 渲染基础表单项
+  const renderBasicFormItem = useCallback(
+    (property: SchemaProperty): React.ReactNode => {
+      const commonProps = getCommonInputProps(property);
+
+      switch (property.type) {
+        case 'number':
+          return (
+            <InputNumber
+              {...commonProps}
+              style={{ width: '100%' }}
+              min={property.minimum}
+              max={property.maximum}
+              step={property.step || 1}
+            />
+          );
+        case 'string':
+          if (property.enum) {
+            return (
+              <Select {...commonProps}>
+                {property.enum.map((option) => (
+                  <Select.Option key={option} value={option}>
+                    {option}
+                  </Select.Option>
+                ))}
+              </Select>
+            );
+          }
+          return <Input {...commonProps} />;
+        default:
+          return <Input {...commonProps} />;
+      }
+    },
+    [getCommonInputProps],
+  );
+
+  // 渲染数组项内容
+  const renderArrayItemContent = useCallback(
+    (
+      name: string | number,
+      items: SchemaProperty | undefined,
+      isNested: boolean = false,
+    ): React.ReactNode => {
+      if (!items) {
+        return (
+          <Form.Item name={name} style={{ margin: 0 }}>
+            <Input
+              placeholder="请输入值"
+              readOnly={readonly}
+              disabled={readonly}
+            />
+          </Form.Item>
+        );
+      }
+
+      if (items.type === 'object' && items.properties) {
+        return (
+          <Space direction="vertical" style={{ width: '100%' }}>
+            {Object.entries(items.properties).map(([objKey, objProperty]) => (
+              <Form.Item
+                key={objKey}
+                label={getPropertyTitle(objProperty, objKey)}
+                name={isNested ? [name, objKey] : [name, objKey]}
+                rules={generateRules(objProperty)}
+                style={{ margin: 0 }}
+              >
+                {renderFormItem(objKey, objProperty)}
+              </Form.Item>
+            ))}
+          </Space>
+        );
+      }
+
       return (
-        <Space direction="vertical" style={{ width: '100%' }}>
+        <Form.Item name={name} style={{ margin: 0 }}>
+          {renderBasicFormItem(items)}
+        </Form.Item>
+      );
+    },
+    [readonly, getPropertyTitle, generateRules, renderBasicFormItem],
+  );
+
+  // 渲染数组表单项
+  const renderArrayFormItem = useCallback(
+    (
+      key: string,
+      property: SchemaProperty & { type: 'array' },
+      baseName?: string | number,
+    ): React.ReactNode => {
+      const fieldName = baseName !== undefined ? [baseName, key] : key;
+
+      return (
+        <Form.List name={fieldName}>
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key: fieldKey, name }) => (
+                <Card
+                  key={fieldKey}
+                  size="small"
+                  style={{ marginBottom: 8 }}
+                  extra={
+                    !readonly && (
+                      <Button
+                        type="link"
+                        danger
+                        size="small"
+                        icon={<MinusCircleOutlined />}
+                        onClick={() => remove(name)}
+                      />
+                    )
+                  }
+                >
+                  {renderArrayItemContent(name, property.items, true)}
+                </Card>
+              ))}
+              {!readonly && (
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    添加 {getPropertyTitle(property, key)}
+                  </Button>
+                </Form.Item>
+              )}
+            </>
+          )}
+        </Form.List>
+      );
+    },
+    [readonly, renderArrayItemContent, getPropertyTitle],
+  );
+
+  // 渲染对象表单项
+  const renderObjectFormItem = useCallback(
+    (
+      key: string,
+      property: SchemaProperty & { type: 'object' },
+      baseName?: string | number,
+    ): React.ReactNode => {
+      if (!property.properties) {
+        return <Input placeholder="对象配置为空" disabled />;
+      }
+
+      return (
+        <Card size="small" style={{ marginTop: 8 }}>
           {Object.entries(property.properties).map(([objKey, objProperty]) => (
             <Form.Item
               key={objKey}
-              label={objProperty.title || objProperty.description || objKey}
-              name={[baseName, objKey]}
+              label={getPropertyTitle(objProperty, objKey)}
+              name={
+                baseName !== undefined ? [baseName, key, objKey] : [key, objKey]
+              }
               rules={generateRules(objProperty)}
-              style={{ margin: 0 }}
+              style={{ marginBottom: 16 }}
             >
-              {(() => {
-                // 内联渲染逻辑避免循环依赖
-                const commonProps = {
-                  placeholder: `请输入${objProperty.title || objProperty.description || objKey || ''}`,
-                  readOnly: readonly,
-                  disabled: readonly,
-                };
-
-                switch (objProperty.type) {
-                  case 'number':
-                    return (
-                      <InputNumber
-                        {...commonProps}
-                        style={{ width: '100%' }}
-                        min={objProperty.minimum}
-                        max={objProperty.maximum}
-                        step={objProperty.step || 1}
-                      />
-                    );
-                  case 'string':
-                    if (objProperty.enum) {
-                      return (
-                        <Select {...commonProps}>
-                          {objProperty.enum.map((option) => (
-                            <Select.Option key={option} value={option}>
-                              {option}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      );
-                    }
-                    return <Input {...commonProps} />;
-                  default:
-                    return <Input {...commonProps} />;
-                }
-              })()}
+              {renderFormItem(objKey, objProperty)}
             </Form.Item>
           ))}
-        </Space>
+        </Card>
       );
-    } else {
-      return (
-        <Form.Item name={baseName} style={{ margin: 0 }}>
-          <Input
-            placeholder="请输入值"
-            readOnly={readonly}
-            disabled={readonly}
-          />
-        </Form.Item>
-      );
-    }
-  }
+    },
+    [getPropertyTitle, generateRules],
+  );
 
   // 根据属性类型返回对应的表单组件
-  function renderFormItem(
-    key: string,
-    property: SchemaProperty,
-  ): React.ReactNode {
-    const commonProps = {
-      placeholder: `请输入${property.title}`,
-      readOnly: readonly,
-      disabled: readonly,
-    };
+  const renderFormItem = useCallback(
+    (
+      key: string,
+      property: SchemaProperty,
+      baseName?: string | number,
+    ): React.ReactNode => {
+      switch (property.type) {
+        case 'array':
+          return renderArrayFormItem(key, property, baseName);
+        case 'object':
+          return renderObjectFormItem(key, property, baseName);
+        default:
+          return renderBasicFormItem(property);
+      }
+    },
+    [renderArrayFormItem, renderObjectFormItem, renderBasicFormItem],
+  );
 
-    switch (property.type) {
-      case 'number':
-        return (
-          <InputNumber
-            {...commonProps}
-            style={{ width: '100%' }}
-            min={property.minimum}
-            max={property.maximum}
-            step={property.step || 1}
-          />
-        );
-      case 'string':
-        if (property.enum) {
-          return (
-            <Select {...commonProps}>
-              {property.enum.map((option) => (
-                <Select.Option key={option} value={option}>
-                  {option}
-                </Select.Option>
-              ))}
-            </Select>
-          );
-        }
-        return <Input {...commonProps} />;
-      case 'array':
-        return (
-          <Form.List name={key}>
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key: fieldKey, name, ...restField }) => (
-                  <Card
-                    key={fieldKey}
-                    size="small"
-                    style={{ marginBottom: 8 }}
-                    extra={
-                      !readonly && (
-                        <Button
-                          type="link"
-                          danger
-                          size="small"
-                          icon={<MinusCircleOutlined />}
-                          onClick={() => remove(name)}
-                        />
-                      )
-                    }
-                  >
-                    {property.items ? (
-                      renderNestedFormItem(`${name}`, property.items)
-                    ) : (
-                      <Form.Item
-                        {...restField}
-                        name={name}
-                        style={{ margin: 0 }}
-                      >
-                        <Input
-                          placeholder="请输入值"
-                          readOnly={readonly}
-                          disabled={readonly}
-                        />
-                      </Form.Item>
-                    )}
-                  </Card>
-                ))}
-                {!readonly && (
-                  <Form.Item>
-                    <Button
-                      type="dashed"
-                      onClick={() => add()}
-                      block
-                      icon={<PlusOutlined />}
-                    >
-                      添加 {property.title}
-                    </Button>
-                  </Form.Item>
-                )}
-              </>
-            )}
-          </Form.List>
-        );
-      case 'object':
-        console.log(
-          'property',
-          property.properties &&
-            Object.entries(property.properties).map(([objKey, objProperty]) => [
-              key,
-              objKey,
-            ]),
-        );
-
-        return (
-          <Card size="small" style={{ marginTop: 8 }}>
-            {property.properties &&
-              Object.entries(property.properties).map(
-                ([objKey, objProperty]) => (
-                  <Form.Item
-                    key={objKey}
-                    label={
-                      objProperty.title || objProperty.description || objKey
-                    }
-                    name={[key, objKey]}
-                    rules={generateRules(objProperty)}
-                    style={{ marginBottom: 16 }}
-                  >
-                    {renderFormItem(objKey, objProperty)}
-                  </Form.Item>
-                ),
-              )}
-          </Card>
-        );
-      default:
-        return <Input {...commonProps} />;
-    }
-  }
-
+  // 计算默认值
   const defaultValues = useMemo(() => {
     return Object.entries(properties).reduce(
       (acc, [key, prop]) => {
-        acc[key] = prop.default;
+        if (prop.default !== undefined) {
+          acc[key] = prop.default;
+        }
         return acc;
       },
       {} as Record<string, any>,
     );
-  }, [JSON.stringify(properties)]);
+  }, [properties]);
 
+  // 设置初始值
   useEffect(() => {
-    form.setFieldsValue(merge(initialValues || defaultValues));
-  }, [initialValues]);
+    const mergedValues = merge({}, defaultValues, initialValues);
+    form.setFieldsValue(mergedValues);
+  }, [form, defaultValues, initialValues]);
 
+  // 生成表单项
   const formItems = useMemo(() => {
     return Object.entries(properties).map(([key, property]) => {
+      const shouldUseFormItemName =
+        property.type !== 'object' && property.type !== 'array';
+
       return (
         <Form.Item
           key={key}
-          label={property.title || property.description || key}
-          name={
-            property?.type === 'object' || property?.type === 'array'
-              ? undefined
-              : key
-          }
+          label={getPropertyTitle(property, key)}
+          name={shouldUseFormItemName ? key : undefined}
           rules={generateRules(property)}
         >
           {renderFormItem(key, property)}
         </Form.Item>
       );
     });
-  }, [JSON.stringify(properties)]);
+  }, [properties, getPropertyTitle, generateRules, renderFormItem]);
 
   return (
     <Form

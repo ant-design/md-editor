@@ -5,101 +5,152 @@ const WeatherCardComplete: React.FC = () => {
   const [formValues, setFormValues] = useState({});
 
   const schema = {
-    version: '1.0.0',
-    name: 'Weather Card Component',
-    description: 'A beautiful weather display card component',
-    author: 'Weather Team',
-    createTime: '2024-03-20T10:00:00Z',
-    updateTime: '2024-03-20T10:00:00Z',
+    version: '1.2.0',
+    name: '七日天气预报',
+    description: '七日天气预报组件',
+    author: 'Forecast Team',
+    createTime: '2024-03-22T08:00:00Z',
+    updateTime: '2024-03-22T08:00:00Z',
     pageConfig: {
       layout: 'flex',
-      router: { mode: 'hash', basePath: '/weather' },
+      router: { mode: 'hash', basePath: '/7days-weather' },
       globalVariables: {
-        colors: { sunny: '#FFB300', rainy: '#2196F3', cloudy: '#90A4AE' },
-        constants: { refreshInterval: 300000 },
+        colors: {
+          sunny: '#FFD700',
+          cloudy: '#A9A9A9',
+          rainy: '#4682B4',
+          snow: '#87CEEB',
+        },
+        constants: { refreshInterval: 3600000 },
       },
     },
     dataSources: {
       restAPI: {
-        baseURL: 'https://api.weatherapi.com/v1',
+        baseURL: 'https://api.7days-weather.com/v3',
         defaultHeaders: { 'Content-Type': 'application/json' },
-        timeout: 3000,
+        timeout: 5000,
         interceptors: { request: true, response: true },
       },
       mock: {
         enable: true,
-        responseDelay: 100,
-        dataPath: '/mock/weather',
+        responseDelay: 150,
+        dataPath: '/mock/7days-weather',
       },
     },
     component: {
       properties: {
-        weather: {
-          title: '天气',
-          type: 'string' as const,
+        sevenDaysWeather: {
+          title: '七日天气',
+          type: 'array',
           required: true,
-          enum: ['☀️ 晴', '☁️ 多云', '☁️ 阴', '🌧️ 雨', '❄️ 雪'],
-          default: '☀️ 晴',
-        },
-        temperature: {
-          title: '温度',
-          type: 'number' as const,
-          required: true,
-          minimum: -50,
-          maximum: 50,
-          step: 0.1,
-          default: 25,
-        },
-        humidity: {
-          title: '湿度',
-          type: 'number' as const,
-          required: true,
-          minimum: 0,
-          maximum: 100,
-          step: 1,
-          default: 65,
-        },
-        windSpeed: {
-          title: '风速',
-          type: 'number' as const,
-          required: true,
-          minimum: 0,
-          maximum: 200,
-          step: 0.1,
-          default: 15,
-        },
-        pa: {
-          title: '气压',
-          type: 'number' as const,
-          required: true,
-          minimum: 0,
-          maximum: 10,
-          step: 0.1,
-          default: 1,
+          items: {
+            type: 'object',
+            properties: {
+              date: {
+                type: 'string',
+                format: 'date',
+                description: '日期（格式：YYYY-MM-DD）',
+              },
+              weather: {
+                type: 'string',
+                enum: ['☀️ 晴', '⛅ 晴间多云', '🌧️ 雨', '❄️ 雪', '🌩️ 雷暴'],
+              },
+              temperatureRange: {
+                type: 'object',
+                required: ['min', 'max'],
+                properties: {
+                  min: { type: 'number', description: '最低温度 (°C)' },
+                  max: { type: 'number', description: '最高温度 (°C)' },
+                },
+              },
+              precipitation: {
+                type: 'number',
+                minimum: 0,
+                maximum: 100,
+                description: '降水概率 (%)',
+              },
+            },
+            required: ['date', 'weather', 'temperatureRange'],
+          },
+          default: [
+            {
+              date: '2024-03-22',
+              weather: '☀️ 晴',
+              temperatureRange: { min: 12, max: 24 },
+              precipitation: 5,
+            },
+            {
+              date: '2024-03-23',
+              weather: '⛅ 晴间多云',
+              temperatureRange: { min: 10, max: 22 },
+              precipitation: 15,
+            },
+            {
+              date: '2024-03-24',
+              weather: '🌧️ 雨',
+              temperatureRange: { min: 8, max: 18 },
+              precipitation: 90,
+            },
+            {
+              date: '2024-03-25',
+              weather: '⛅ 晴间多云',
+              temperatureRange: { min: 9, max: 20 },
+              precipitation: 20,
+            },
+            {
+              date: '2024-03-26',
+              weather: '☀️ 晴',
+              temperatureRange: { min: 11, max: 25 },
+              precipitation: 0,
+            },
+            {
+              date: '2024-03-27',
+              weather: '❄️ 雪',
+              temperatureRange: { min: -3, max: 2 },
+              precipitation: 80,
+            },
+            {
+              date: '2024-03-28',
+              weather: '🌩️ 雷暴',
+              temperatureRange: { min: 15, max: 28 },
+              precipitation: 70,
+            },
+          ],
         },
       },
-      type: 'html' as const,
+      type: 'mustache',
       schema:
-        '<div style= "min-height: 200px;display: grid;max-width: 400px;place-items: center;background: linear-gradient(160deg, #2c3e50, #3498db); "><div style= " background: linear-gradient(160deg, #2c3e50, #3498db); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); color: white; width: 100%; position: relative; overflow: hidden; "><!--天气图标--><div style= "  font-size: 4rem;  text-align: center;  margin-bottom: 1rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  animation: float 3s ease-in-out infinite;  ">{{weather}}</div><!--温度显示--><div style= "  font-size: 3rem;  font-weight: bold;  text-align: center;  margin-bottom: 1.5rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  ">{{temperature}}°C</div><!--数据网格--><div style= "  display: grid;  grid-template-columns: repeat(2, 1fr);  gap: 1rem;  "><div style= " background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">💧</div><div style= "font-size: 0.9rem; opacity: 0.8 ">湿度</div><div style= "font-size: 1.2rem; font-weight: bold ">{{humidity}}%</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🌪️</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风速</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}m/s</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🧭</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风向</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">📉</div><div style= "font-size: 0.9rem; opacity: 0.8 ">气压</div><div style= "font-size: 1.2rem; font-weight: bold ">{{pa}}hPa</div></div></div><!--装饰元素--><div style= "  position: absolute;  width: 150px;  height: 150px;  background: rgba(255,255,255,0.05);  border-radius: 50%;  top: -50px;  right: -50px;  "></div><style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style></div></div>',
+        '<div style="background: linear-gradient(135deg, #1e3c72, #2a5298); padding: 2rem; border-radius: 16px; color: white;"><h2 style="text-align: center; margin-bottom: 1.5rem;">七日天气预报</h2><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">{{#sevenDaysWeather}}<div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;"><div style="font-size: 1.2rem;">{{date}}</div><div style="font-size: 2rem; margin: 0.5rem 0;">{{weather}}</div><div style="opacity: 0.8;">{{temperatureRange.min}}°C ~ {{temperatureRange.max}}°C</div><div style="margin-top: 0.5rem;">💧 {{precipitation}}%</div></div>{{/sevenDaysWeather}}</div></div>',
     },
-    theme: { spacing: { base: 0, multiplier: 0, width: 400 } },
+    theme: {
+      colorPalette: {
+        primary: '#1e3c72',
+        secondary: '#2a5298',
+        success: '#4CAF50',
+        warning: '#FFC107',
+        error: '#F44336',
+        text: { primary: '#FFFFFF', secondary: '#CCCCCC' },
+      },
+      spacing: { base: 8, multiplier: 2 },
+      typography: {
+        fontFamily: 'Arial',
+        fontSizes: [12, 14, 16, 20],
+        lineHeights: { normal: 1.5, heading: 1.2 },
+      },
+    },
     previewSettings: {
       viewport: {
         defaultDevice: 'desktop',
         responsive: true,
-        customSizes: [
-          { name: 'Mobile Portrait', width: 375, height: 667 },
-          { name: 'Mobile Landscape', width: 667, height: 375 },
-        ],
+        customSizes: [{ name: 'Desktop Wide', width: 1440, height: 900 }],
       },
       environment: {
         mockData: true,
         networkThrottle: 'fast-3g',
-        debugMode: true,
+        debugMode: false,
       },
     },
   };
-
   const handleValuesChange = (_, values: Record<string, any>) => {
     // 验证数据
     const validationResult = validator.validate(schema);

@@ -284,105 +284,149 @@ const CompleteExample: React.FC = () => {
   const [formValues, setFormValues] = useState({});
 
   const schema = {
-    initialValues: {
-      chartData: [
-        { asset: '稳健资产', value: 70 },
-        { asset: '进取资产', value: 20 },
-        { asset: '现金流', value: 10 },
-      ],
-      configDescription: '根据您的风险承受能力，建议采用此种资产配置模型。',
-      suggestions:
-        '此配置模型在保持一定流动性的同时，追求稳健的长期收益，适合风险偏好较低的投资者。',
-      configTitle: '资产配置示例',
+    version: '1.2.0',
+    name: '七日天气预报',
+    description: '七日天气预报组件',
+    author: 'Forecast Team',
+    createTime: '2024-03-22T08:00:00Z',
+    updateTime: '2024-03-22T08:00:00Z',
+    pageConfig: {
+      layout: 'flex',
+      router: { mode: 'hash', basePath: '/7days-weather' },
+      globalVariables: {
+        colors: {
+          sunny: '#FFD700',
+          cloudy: '#A9A9A9',
+          rainy: '#4682B4',
+          snow: '#87CEEB',
+        },
+        constants: { refreshInterval: 3600000 },
+      },
+    },
+    dataSources: {
+      restAPI: {
+        baseURL: 'https://api.7days-weather.com/v3',
+        defaultHeaders: { 'Content-Type': 'application/json' },
+        timeout: 5000,
+        interceptors: { request: true, response: true },
+      },
+      mock: {
+        enable: true,
+        responseDelay: 150,
+        dataPath: '/mock/7days-weather',
+      },
     },
     component: {
-      schema:
-        "<div class='container'><canvas id='chart' class='chart'></canvas><style>.container{width:328px;display:flex;flex-direction:column;justify-content:space-between;background:#FFFFFF;}.chart{width:100%;height:128px;margin:0 auto;}.content{display:flex;flex-direction:column;justify-content:center;padding:12px;border-radius:12px;}.content-title{display:flex;flex-direction:row;margin-bottom:4px;height:44px;}.content-title-text{font-size:16px;font-weight:500;line-height:44px;letter-spacing:normal;color:#1F1F1F;margin-right:8px;}.content-desc{font-size:12px;font-weight:normal;line-height:16px;letter-spacing:normal;color:#888888;}.chart-bottom-img{width:100%;max-width:100%;height:28px;margin-left:12px;}.chart-axises{display:flex;flex-direction:row;justify-content:center;margin-top:8px;}.chart-axises-text{font-size:14px;font-weight:500;line-height:normal;text-align:center;letter-spacing:normal;color:#1F1F1F;margin-right:84px;}</style><img class='chart-bottom-img' src='https://mdn.alipayobjects.com/huamei_6h3hvd/afts/img/HdBISa30r8gAAAAAAAAAAAAADs48AQFr/original'><div class='content'><div class='content-title'><span class='content-title-text'>{{configTitle}}</span><span class='content-title-text'>{{configDescription}}</span></div><span class='content-desc'>{{suggestions}}</span></div></div><script>const data={{chartData}};function loadF2Library(){const f2Script=document.createElement('script');f2Script.src='https://gw.alipayobjects.com/os/lib/antv/f2/3.8.1/dist/f2.min.js';document.head.appendChild(f2Script);return f2Script;}const f2Script=loadF2Library();f2Script.onload=function(){const chartContainer=shadowRoot.getElementById('chart');const chart=new F2.Chart({el:chartContainer,width:315,pixelRatio:window.devicePixelRatio});chart.source(data);chart.interval().position('asset*value').color('asset',['#548DFD','#90B6FF']).style({radius:[10,10,0,0]});if(data.length>0){chart.guide().text({position:function(xScale,yScale){return[data[0].asset,data[0].value+3];},content:data[0].value+'%',style:{textAlign:'center',textBaseline:'bottom',fill:'#162987',fontSize:14}});}if(data.length>1){chart.guide().text({position:function(xScale,yScale){return[data[1].asset,data[1].value+3];},content:data[1].value+'%',style:{textAlign:'center',textBaseline:'bottom',fill:'#162987',fontSize:14}});}chart.render();};</script> ",
-      type: 'html',
       properties: {
-        chartData: {
+        sevenDaysWeather: {
+          title: '七日天气',
+          type: 'array',
+          required: true,
+          items: {
+            type: 'object',
+            properties: {
+              date: {
+                type: 'string',
+                format: 'date',
+                description: '日期（格式：YYYY-MM-DD）',
+              },
+              weather: {
+                type: 'string',
+                enum: ['☀️ 晴', '⛅ 晴间多云', '🌧️ 雨', '❄️ 雪', '🌩️ 雷暴'],
+              },
+              temperatureRange: {
+                type: 'object',
+                required: ['min', 'max'],
+                properties: {
+                  min: { type: 'number', description: '最低温度 (°C)' },
+                  max: { type: 'number', description: '最高温度 (°C)' },
+                },
+              },
+              precipitation: {
+                type: 'number',
+                minimum: 0,
+                maximum: 100,
+                description: '降水概率 (%)',
+              },
+            },
+            required: ['date', 'weather', 'temperatureRange'],
+          },
           default: [
-            { asset: '稳健资产', value: 84.78 },
-            { asset: '进取资产', value: 15.22 },
+            {
+              date: '2024-03-22',
+              weather: '☀️ 晴',
+              temperatureRange: { min: 12, max: 24 },
+              precipitation: 5,
+            },
+            {
+              date: '2024-03-23',
+              weather: '⛅ 晴间多云',
+              temperatureRange: { min: 10, max: 22 },
+              precipitation: 15,
+            },
+            {
+              date: '2024-03-24',
+              weather: '🌧️ 雨',
+              temperatureRange: { min: 8, max: 18 },
+              precipitation: 90,
+            },
+            {
+              date: '2024-03-25',
+              weather: '⛅ 晴间多云',
+              temperatureRange: { min: 9, max: 20 },
+              precipitation: 20,
+            },
+            {
+              date: '2024-03-26',
+              weather: '☀️ 晴',
+              temperatureRange: { min: 11, max: 25 },
+              precipitation: 0,
+            },
+            {
+              date: '2024-03-27',
+              weather: '❄️ 雪',
+              temperatureRange: { min: -3, max: 2 },
+              precipitation: 80,
+            },
+            {
+              date: '2024-03-28',
+              weather: '🌩️ 雷暴',
+              temperatureRange: { min: 15, max: 28 },
+              precipitation: 70,
+            },
           ],
-          description: '资产配置的图表数据',
-          type: 'array',
-          title: '图表数据',
         },
-        configDescription: {
-          default: '配置均衡',
-          description: '资产配置的描述',
-          type: 'string',
-          title: '配置描述',
-        },
-        suggestions: {
-          default: '您目前持仓比例配置均衡，产品分布合理',
-          description: '资产配置的建议内容',
-          type: 'string',
-          title: '建议',
-        },
-        configTitle: {
-          default: '持仓比例',
-          description: '资产配置的标题',
-          type: 'array',
-          title: '配置标题',
-        },
+      },
+      type: 'mustache',
+      schema:
+        '<div style="background: linear-gradient(135deg, #1e3c72, #2a5298); padding: 2rem; border-radius: 16px; color: white;"><h2 style="text-align: center; margin-bottom: 1.5rem;">七日天气预报</h2><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">{{#sevenDaysWeather}}<div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;"><div style="font-size: 1.2rem;">{{date}}</div><div style="font-size: 2rem; margin: 0.5rem 0;">{{weather}}</div><div style="opacity: 0.8;">{{temperatureRange.min}}°C ~ {{temperatureRange.max}}°C</div><div style="margin-top: 0.5rem;">💧 {{precipitation}}%</div></div>{{/sevenDaysWeather}}</div></div>',
+    },
+    theme: {
+      colorPalette: {
+        primary: '#1e3c72',
+        secondary: '#2a5298',
+        success: '#4CAF50',
+        warning: '#FFC107',
+        error: '#F44336',
+        text: { primary: '#FFFFFF', secondary: '#CCCCCC' },
+      },
+      spacing: { base: 8, multiplier: 2 },
+      typography: {
+        fontFamily: 'Arial',
+        fontSizes: [12, 14, 16, 20],
+        lineHeights: { normal: 1.5, heading: 1.2 },
       },
     },
     previewSettings: {
-      environment: {
-        networkThrottle: 'fast3g',
-        mockData: true,
-        debugMode: true,
-      },
       viewport: {
-        defaultDevice: 'iPhone X',
+        defaultDevice: 'desktop',
         responsive: true,
-        customSizes: [
-          { name: 'Mobile Small', width: 320, height: 568 },
-          { name: 'Mobile Medium', width: 375, height: 667 },
-        ],
+        customSizes: [{ name: 'Desktop Wide', width: 1440, height: 900 }],
       },
-    },
-    pageConfig: {
-      layout: 'flex',
-      globalVariables: {
-        constants: { refreshInterval: 5000 },
-        colors: { rainy: '#2196F3', cloudy: '#9E9E9E', sunny: '#FFC107' },
-      },
-      router: { mode: 'hash', basePath: '/' },
-    },
-    createTime: '2023-01-01T00:00:00Z',
-    author: 'Alipay',
-    name: 'abandon-scene-asset-allocation-infographic',
-    description: '资产配置 图+文',
-    updateTime: '2023-01-01T00:00:00Z',
-    theme: {
-      typography: {
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-        lineHeights: { normal: 1.5, heading: 1.2 },
-        fontSizes: [12, 14, 16, 20, 24, 32],
-      },
-      spacing: { multiplier: 2, base: 4 },
-      breakpoints: { xl: 1200, md: 768, sm: 576, xs: 0, lg: 992 },
-      colorPalette: {
-        secondary: '#54C7EC',
-        success: '#52C41A',
-        warning: '#FAAD14',
-        text: { secondary: '#666666', primary: '#000000' },
-        error: '#FF4D4F',
-        primary: '#1677FF',
-      },
-    },
-    version: '1.0.0',
-    dataSources: {
-      mock: { enable: true, responseDelay: 300, dataPath: './mock.json' },
-      restAPI: {
-        baseURL: 'https://api.example.com',
-        defaultHeaders: { 'Content-Type': 'application/json' },
-        timeout: 10000,
-        interceptors: { request: true, response: true },
+      environment: {
+        mockData: true,
+        networkThrottle: 'fast-3g',
+        debugMode: false,
       },
     },
   };
@@ -477,6 +521,7 @@ const CompleteExample: React.FC = () => {
               },
               temperatureRange: {
                 type: 'object',
+                title: '温度范围',
                 required: ['min', 'max'],
                 properties: {
                   min: { type: 'number', description: '最低温度 (°C)' },

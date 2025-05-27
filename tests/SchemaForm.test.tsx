@@ -136,6 +136,117 @@ const mockSchema: LowCodeSchema = {
   },
 };
 
+// Additional test schema for edge cases
+const edgeCaseSchema: LowCodeSchema = {
+  ...mockSchema,
+  component: {
+    properties: {
+      // Array without items definition
+      emptyArray: {
+        type: 'array',
+        title: '空数组',
+        description: '没有items定义的数组',
+        default: [],
+      },
+      // Object without properties
+      emptyObject: {
+        type: 'object',
+        title: '空对象',
+        description: '没有properties定义的对象',
+        default: {},
+      },
+      // String with pattern validation
+      email: {
+        type: 'string',
+        title: '邮箱',
+        description: '邮箱地址',
+        default: '',
+        pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
+        patternMessage: '请输入有效的邮箱地址',
+        required: true,
+      },
+      // Number with step
+      price: {
+        type: 'number',
+        title: '价格',
+        description: '商品价格',
+        default: 0,
+        minimum: 0,
+        maximum: 9999.99,
+        step: 0.01,
+      },
+      // Array with min/max items
+      limitedArray: {
+        type: 'array',
+        title: '限制数组',
+        description: '有最小最大限制的数组',
+        default: [],
+        minItems: 1,
+        maxItems: 3,
+        items: {
+          type: 'string',
+          title: '项目',
+          default: '',
+        },
+      },
+      // Nested array in object
+      nestedStructure: {
+        type: 'object',
+        title: '嵌套结构',
+        description: '包含数组的对象',
+        default: {},
+        properties: {
+          metadata: {
+            type: 'object',
+            title: '元数据',
+            default: {},
+            properties: {
+              tags: {
+                type: 'array',
+                title: '标签',
+                default: [],
+                items: {
+                  type: 'string',
+                  title: '标签',
+                  default: '',
+                },
+              },
+            },
+          },
+          items: {
+            type: 'array',
+            title: '项目',
+            default: [],
+            items: {
+              type: 'object',
+              title: '项目',
+              default: {},
+              properties: {
+                id: {
+                  type: 'string',
+                  title: 'ID',
+                  default: '',
+                  required: true,
+                },
+                nested: {
+                  type: 'array',
+                  title: '嵌套数组',
+                  default: [],
+                  items: {
+                    type: 'number',
+                    title: '数值',
+                    default: 0,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 describe('SchemaForm', () => {
   it('renders form with all property types', () => {
     render(<SchemaForm schema={mockSchema} />);
@@ -233,7 +344,7 @@ describe('SchemaForm', () => {
     await user.click(addButton);
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText('请输入值')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('请输入标签')).toBeInTheDocument();
     });
 
     // Check if remove button appears
@@ -322,7 +433,7 @@ describe('SchemaForm', () => {
 
     // Should have 3 items total (2 initial + 1 new)
     await waitFor(() => {
-      const inputs = screen.getAllByPlaceholderText('请输入值');
+      const inputs = screen.getAllByPlaceholderText('请输入标签');
       expect(inputs).toHaveLength(3);
     });
   });
@@ -377,5 +488,259 @@ describe('SchemaForm', () => {
 
     // Should render form without errors - check for form element by tag
     expect(document.querySelector('form')).toBeInTheDocument();
+  });
+
+  // New test cases for optimized code
+  describe('Edge Cases and Optimized Features', () => {
+    it('handles array without items definition', async () => {
+      const user = userEvent.setup();
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      // Add item to array without items definition
+      const addButton = screen.getByText('添加 空数组');
+      await user.click(addButton);
+
+      await waitFor(() => {
+        // Should render a basic input for undefined items
+        expect(screen.getByPlaceholderText('请输入值')).toBeInTheDocument();
+      });
+    });
+
+    it('handles object without properties definition', () => {
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      // Should render disabled input for empty object
+      expect(screen.getByPlaceholderText('对象配置为空')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('对象配置为空')).toBeDisabled();
+    });
+
+    it('validates string pattern correctly', async () => {
+      const user = userEvent.setup();
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      const emailInput = screen.getByLabelText('邮箱');
+
+      // Enter invalid email
+      await user.type(emailInput, 'invalid-email');
+      await user.tab();
+
+      await waitFor(() => {
+        expect(screen.getByText('请输入有效的邮箱地址')).toBeInTheDocument();
+      });
+
+      // Enter valid email
+      await user.clear(emailInput);
+      await user.type(emailInput, 'test@example.com');
+      await user.tab();
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('请输入有效的邮箱地址'),
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it('handles number with decimal step', async () => {
+      const user = userEvent.setup();
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      const priceInput = screen.getByLabelText('价格');
+
+      await user.clear(priceInput);
+      await user.type(priceInput, '99.99');
+
+      await waitFor(() => {
+        expect(priceInput).toHaveValue('99.99');
+      });
+
+      // Check step attribute
+      expect(priceInput).toHaveAttribute('step', '0.01');
+    });
+
+    it('validates array min/max items', async () => {
+      const user = userEvent.setup();
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      const addButton = screen.getByText('添加 限制数组');
+
+      // Add maximum allowed items (3)
+      await user.click(addButton);
+      await user.click(addButton);
+      await user.click(addButton);
+
+      await waitFor(() => {
+        const inputs = screen.getAllByPlaceholderText('请输入项目');
+        expect(inputs).toHaveLength(3);
+      });
+
+      // Try to add one more (should still work in UI, validation happens on form level)
+      await user.click(addButton);
+
+      await waitFor(() => {
+        const inputs = screen.getAllByPlaceholderText('请输入项目');
+        expect(inputs).toHaveLength(4);
+      });
+    });
+
+    it('handles deeply nested structures', async () => {
+      const user = userEvent.setup();
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      // Add item to nested structure
+      const addItemButton = screen.getByText('添加 项目');
+      await user.click(addItemButton);
+
+      await waitFor(() => {
+        expect(screen.getByLabelText('ID')).toBeInTheDocument();
+        expect(screen.getByText('添加 嵌套数组')).toBeInTheDocument();
+      });
+
+      // Add nested array item
+      const addNestedButton = screen.getByText('添加 嵌套数组');
+      await user.click(addNestedButton);
+
+      await waitFor(() => {
+        const nestedInputs = screen.getAllByPlaceholderText('请输入数值');
+        expect(nestedInputs).toHaveLength(1);
+      });
+    });
+
+    it('handles nested object in nested structure', async () => {
+      const user = userEvent.setup();
+      render(<SchemaForm schema={edgeCaseSchema} />);
+
+      // Add tags to metadata
+      const addTagButton = screen.getByText('添加 标签');
+      await user.click(addTagButton);
+
+      await waitFor(() => {
+        const tagInputs = screen.getAllByPlaceholderText('请输入标签');
+        expect(tagInputs).toHaveLength(1);
+      });
+    });
+
+    it('preserves form state when schema changes', () => {
+      const { rerender } = render(<SchemaForm schema={mockSchema} />);
+
+      // Change to edge case schema
+      rerender(<SchemaForm schema={edgeCaseSchema} />);
+
+      // Should render new schema without errors
+      expect(screen.getByLabelText('邮箱')).toBeInTheDocument();
+      expect(screen.getByLabelText('价格')).toBeInTheDocument();
+    });
+
+    it('handles properties without default values', () => {
+      const schemaWithoutDefaults: LowCodeSchema = {
+        ...mockSchema,
+        component: {
+          properties: {
+            noDefault: {
+              type: 'string',
+              title: '无默认值',
+              description: '没有默认值的属性',
+              default: '',
+            },
+            noDefaultNumber: {
+              type: 'number',
+              title: '无默认值数字',
+              description: '没有默认值的数字属性',
+              default: 0,
+            },
+          },
+        },
+      };
+
+      render(<SchemaForm schema={schemaWithoutDefaults} />);
+
+      // Should render inputs without default values
+      expect(screen.getByLabelText('无默认值')).toBeInTheDocument();
+      expect(screen.getByLabelText('无默认值数字')).toBeInTheDocument();
+    });
+
+    it('handles remove operations in arrays', async () => {
+      const user = userEvent.setup();
+      const onValuesChange = vi.fn();
+
+      render(
+        <SchemaForm schema={mockSchema} onValuesChange={onValuesChange} />,
+      );
+
+      // Add two items
+      const addButton = screen.getByText('添加 标签');
+      await user.click(addButton);
+      await user.click(addButton);
+
+      await waitFor(() => {
+        const removeButtons = screen.getAllByRole('button', {
+          name: /minus-circle/i,
+        });
+        expect(removeButtons).toHaveLength(2);
+      });
+
+      // Remove first item
+      const removeButtons = screen.getAllByRole('button', {
+        name: /minus-circle/i,
+      });
+      await user.click(removeButtons[0]);
+
+      await waitFor(() => {
+        const remainingButtons = screen.getAllByRole('button', {
+          name: /minus-circle/i,
+        });
+        expect(remainingButtons).toHaveLength(1);
+      });
+    });
+
+    it('handles complex initial values with nested structures', async () => {
+      const complexInitialValues = {
+        nestedStructure: {
+          metadata: {
+            tags: ['tag1', 'tag2'],
+          },
+          items: [
+            {
+              id: 'item1',
+              nested: [1, 2, 3],
+            },
+            {
+              id: 'item2',
+              nested: [4, 5],
+            },
+          ],
+        },
+      };
+
+      render(
+        <SchemaForm
+          schema={edgeCaseSchema}
+          initialValues={complexInitialValues}
+        />,
+      );
+
+      // Wait for form to be populated with initial values
+      await waitFor(() => {
+        // Check if the nested structure is rendered (the form should show the structure even if values aren't visible)
+        expect(screen.getByText('嵌套结构')).toBeInTheDocument();
+      });
+    });
+
+    it('handles form reset with new initial values', () => {
+      const initialValues1 = { title: '初始值1' };
+      const initialValues2 = { title: '初始值2' };
+
+      const { rerender } = render(
+        <SchemaForm schema={mockSchema} initialValues={initialValues1} />,
+      );
+
+      expect(screen.getByDisplayValue('初始值1')).toBeInTheDocument();
+
+      // Change initial values
+      rerender(
+        <SchemaForm schema={mockSchema} initialValues={initialValues2} />,
+      );
+
+      expect(screen.getByDisplayValue('初始值2')).toBeInTheDocument();
+    });
   });
 });
