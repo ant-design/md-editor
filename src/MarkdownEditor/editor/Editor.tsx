@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/no-children-prop */
 import { message } from 'antd';
 import classNames from 'classnames';
@@ -459,11 +460,12 @@ export const SlateMarkdownEditor = ({
     }
 
     if (currentTextSelection) {
-      const [curNode] = Editor?.node(
+      const nodeList = Editor?.node(
         markdownEditorRef.current,
         currentTextSelection.focus.path!,
       );
-      if (curNode.tag) {
+      const curNode = nodeList?.at(0);
+      if (curNode?.tag) {
         const text = event.clipboardData.getData('text/plain');
         if (text) {
           Transforms.insertText(markdownEditorRef.current, text, {

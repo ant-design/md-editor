@@ -4,18 +4,6 @@ export const inlineNode = new Set(['break']);
 
 const voidNode = new Set(['hr', 'break']);
 
-const TableInlineNode = new Set([
-  'inline-code',
-  'inline-katex',
-  'paragraph',
-  'footnoteDefinition',
-  'table-row',
-  'break',
-  'html',
-  'table-cell',
-  'media',
-]);
-
 function hasRange(editor: Editor, range: { anchor: any; focus: any }): boolean {
   const { anchor, focus } = range;
   return (
@@ -288,6 +276,12 @@ const handleCodeTagOperation = (
     }
   }
 
+  if (operation.type === 'split_node') {
+    const node = Node.get(editor, operation.path);
+    if (node?.tag || node?.code) {
+      return true;
+    }
+  }
   return false;
 };
 
