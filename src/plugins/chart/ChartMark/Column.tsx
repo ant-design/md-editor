@@ -1,88 +1,173 @@
-﻿import { Chart } from '@antv/g2';
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+﻿import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from 'chart.js';
+import React, { useImperativeHandle, useRef } from 'react';
+import { Bar as ChartBar } from 'react-chartjs-2';
 import { stringFormatNumber } from '../utils';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
+// 注册 Chart.js 组件
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
+
 export const Column: React.FC<ChartProps> = (props) => {
-  const chartRef = React.useRef<Chart>(undefined);
+  const chartRef = React.useRef<ChartJS>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
+  const barChartRef = useRef<any>(null);
 
   useImperativeHandle(props.chartRef, () => chartRef.current, [
     chartRef.current,
   ]);
 
-  const initChart = () => {
-    if (!htmlRef.current) return;
-    if (chartRef.current) return;
-    const chart = new Chart({
-      container: htmlRef.current!,
-      autoFit: true,
-      theme: 'agent',
-    });
+  // 处理数据格式
+  const processData = () => {
+    if (!props.data || props.data.length === 0) {
+      return {
+        labels: [],
+        datasets: [],
+      };
+    }
 
-    const chartIn = chart
-      .interval()
-      .data(props.data)
-      .encode('x', props.xField)
-      .encode('y', props.yField)
-      .axis('x', {
-        label: { autoHide: false },
-        labelFormatter: (value: number | string) => {
-          return stringFormatNumber(value);
-        },
-      })
-      .axis('y', {
-        label: { autoHide: true },
-        labelFormatter: (value: number | string) => {
-          return stringFormatNumber(value);
-        },
-        tickLineWidth: 0,
-        tickCount: 5,
-      })
-      .style({
-        maxWidth: 20, // 圆角样式
-        radiusTopLeft: 4,
-        fillOpacity: 0.85,
-        radiusTopRight: 4,
-      });
+    // 获取所有唯一的 x 值作为标签
+    const labels = [
+      ...new Set(props.data.map((item: any) => item[props.xField])),
+    ];
 
     if (props.colorLegend) {
-      chartIn.encode('color', props.colorLegend).transform({ type: 'dodgeX' });
-    }
-    chartRef.current = chart;
-    chart.render();
+      // 如果有颜色图例，按颜色分组数据
+      const groupedData = props.data.reduce((acc: any, item: any) => {
+        const group = item[props.colorLegend!];
+        if (!acc[group]) {
+          acc[group] = [];
+        }
+        acc[group].push(item);
+        return acc;
+      }, {});
 
-    return () => {
-      if (!chart) return;
-      chart.clear();
-      chart.destroy();
-    };
+      const datasets = Object.keys(groupedData).map((group, index) => {
+        const groupData = groupedData[group];
+        const data = labels.map((label: any) => {
+          const item = groupData.find((d: any) => d[props.xField] === label);
+          return item ? item[props.yField] : null;
+        });
+
+        const colors = [
+          'rgba(54, 162, 235, 0.85)',
+          'rgba(255, 99, 132, 0.85)',
+          'rgba(255, 206, 86, 0.85)',
+          'rgba(75, 192, 192, 0.85)',
+          'rgba(153, 102, 255, 0.85)',
+        ];
+
+        const borderColors = [
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+        ];
+
+        return {
+          label: group,
+          data,
+          backgroundColor: colors[index % colors.length],
+          borderColor: borderColors[index % borderColors.length],
+          borderWidth: 1,
+          borderRadius: 4,
+          maxBarThickness: 20,
+        };
+      });
+
+      return { labels, datasets };
+    } else {
+      // 单一数据集
+      const data = labels.map((label: any) => {
+        const item = props.data.find((d: any) => d[props.xField] === label);
+        return item ? item[props.yField] : null;
+      });
+
+      return {
+        labels,
+        datasets: [
+          {
+            label: props.yField,
+            data,
+            backgroundColor: 'rgba(54, 162, 235, 0.85)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+            borderRadius: 4,
+            maxBarThickness: 20,
+          },
+        ],
+      };
+    }
   };
 
-  useEffect(() => {
-    const chart = chartRef.current;
-    if (!chart) return;
-    chart.changeData(props.data);
-    chart.render();
-  }, [props.data]);
+  const chartData = processData();
 
-  useEffect(() => {
-    if (!chartRef.current) return;
-    const chart = chartRef.current;
-    chart.clear();
-    chart.destroy();
-    initChart();
-  }, [props.xField, props.yField, props.colorLegend]);
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: !!props.colorLegend,
+        position: 'top' as const,
+      },
+      title: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: false,
+        },
+        ticks: {
+          callback: function (value: any, index: number) {
+            const label = chartData.labels[index];
+            return stringFormatNumber(label);
+          },
+        },
+      },
+      y: {
+        display: true,
+        title: {
+          display: false,
+        },
+        ticks: {
+          callback: function (value: any) {
+            return stringFormatNumber(value);
+          },
+          maxTicksLimit: 5,
+        },
+      },
+    },
+  };
+
+  // 更新 chartRef 当 Bar 组件的 ref 改变时
+  React.useEffect(() => {
+    if (barChartRef.current) {
+      chartRef.current = barChartRef.current;
+    }
+  }, [barChartRef.current]);
+
   return (
-    <Container
-      index={props.index}
-      chartRef={chartRef}
-      htmlRef={htmlRef}
-      onShow={() => {
-        initChart();
-      }}
-      onHidden={() => {}}
-    />
+    <Container index={props.index} chartRef={chartRef} htmlRef={htmlRef}>
+      <ChartBar ref={barChartRef} data={chartData} options={options} />
+    </Container>
   );
 };

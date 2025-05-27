@@ -1,4 +1,4 @@
-﻿import { Chart } from '@antv/g2';
+﻿import { Chart } from 'chart.js';
 
 export type ChartProps = {
   data: any[];

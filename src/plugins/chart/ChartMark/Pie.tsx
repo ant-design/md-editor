@@ -1,77 +1,77 @@
-﻿import { Chart } from '@antv/g2';
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+﻿import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
+import React, { useImperativeHandle, useRef } from 'react';
+import { Doughnut } from 'react-chartjs-2';
 import { defaultColorList } from '../const';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
+// 注册 Chart.js 组件
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 export const Pie: React.FC<ChartProps> = (props) => {
-  const chartRef = React.useRef<Chart>(undefined);
+  const chartRef = React.useRef<ChartJS>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
+  const pieChartRef = useRef<any>(null);
 
   useImperativeHandle(props.chartRef, () => chartRef.current, [
     chartRef.current,
   ]);
 
-  const initChart = () => {
-    if (!htmlRef.current) return;
-    if (chartRef.current) return;
-    const chart = new Chart({
-      container: htmlRef.current!,
-      autoFit: true,
-      theme: 'agent',
-    });
+  // 处理数据格式
+  const processData = () => {
+    if (!props.data || props.data.length === 0) {
+      return {
+        labels: [],
+        datasets: [],
+      };
+    }
 
-    chart
-      .interval()
-      .data(props.data)
-      .legend('color', {
-        position: 'bottom',
-        layout: { justifyContent: 'center' },
-      })
-      .coordinate({ type: 'theta', outerRadius: 0.8, innerRadius: 0.5 })
-      .encode('y', props.yField)
-      .encode('color', props.xField)
-      .scale('color', {
-        range: defaultColorList,
-      });
+    // 获取标签和数据
+    const labels = props.data.map((item: any) => item[props.xField]);
+    const data = props.data.map((item: any) => item[props.yField]);
 
-    chartRef.current = chart;
-
-    setTimeout(() => {
-      chart.render();
-    }, 16);
-
-    return () => {
-      if (!chart) return;
-      chart.clear();
-      chart.destroy();
+    return {
+      labels,
+      datasets: [
+        {
+          data,
+          backgroundColor: defaultColorList.slice(0, data.length),
+          borderColor: defaultColorList
+            .slice(0, data.length)
+            .map((color) => color),
+          borderWidth: 1,
+        },
+      ],
     };
   };
 
-  useEffect(() => {
-    const chart = chartRef.current;
-    if (!chart) return;
-    chart.changeData(props.data);
-    chart.render();
-  }, [props.data]);
+  const chartData = processData();
 
-  useEffect(() => {
-    if (!chartRef.current) return;
-    const chart = chartRef.current;
-    chart.clear();
-    chart.destroy();
-    initChart();
-  }, [props.xField, props.yField, props.colorLegend]);
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom' as const,
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+    cutout: '50%', // 创建环形图效果，类似原来的 innerRadius: 0.5
+  };
+
+  // 更新 chartRef 当 Doughnut 组件的 ref 改变时
+  React.useEffect(() => {
+    if (pieChartRef.current) {
+      chartRef.current = pieChartRef.current;
+    }
+  }, [pieChartRef.current]);
 
   return (
-    <Container
-      index={props.index}
-      chartRef={chartRef}
-      htmlRef={htmlRef}
-      onShow={() => {
-        initChart();
-      }}
-      onHidden={() => {}}
-    />
+    <Container index={props.index} chartRef={chartRef} htmlRef={htmlRef}>
+      <Doughnut ref={pieChartRef} data={chartData} options={options} />
+    </Container>
   );
 };

@@ -280,7 +280,7 @@ ThoughtChainList 支持多种不同的 category 类型，每种类型都有其�
 
 **数据结构：**
 
-```tsx
+```tsx | pure
 {
   category: 'TableSql',
   info: '查询用户表数据',
@@ -302,7 +302,7 @@ ThoughtChainList 支持多种不同的 category 类型，每种类型都有其�
 
 **使用示例：**
 
-```tsx
+```tsx | pure
 const sqlThoughtChain = [
   {
     category: 'TableSql',
@@ -337,7 +337,7 @@ const sqlThoughtChain = [
 
 **数据结构：**
 
-```tsx
+```tsx | pure
 {
   category: 'ToolCall',
   info: '调用用户信息接口',
@@ -366,7 +366,7 @@ const sqlThoughtChain = [
 
 **使用示例：**
 
-```tsx
+```tsx | pure
 const toolCallThoughtChain = [
   {
     category: 'ToolCall',
@@ -411,7 +411,7 @@ const toolCallThoughtChain = [
 
 **数据结构：**
 
-```tsx
+```tsx | pure
 {
   category: 'RagRetrieval',
   info: '检索产品文档',
@@ -437,7 +437,7 @@ const toolCallThoughtChain = [
 
 **使用示例：**
 
-```tsx
+```tsx | pure
 const ragThoughtChain = [
   {
     category: 'RagRetrieval',
@@ -488,7 +488,7 @@ const ragThoughtChain = [
 
 **数据结构：**
 
-```tsx
+```tsx | pure
 {
   category: 'DeepThink',
   info: '分析市场趋势',
@@ -501,7 +501,7 @@ const ragThoughtChain = [
 
 **使用示例：**
 
-```tsx
+```tsx | pure
 const deepThinkChain = [
   {
     category: 'DeepThink',
@@ -541,7 +541,7 @@ const deepThinkChain = [
 
 **数据结构：**
 
-```tsx
+```tsx | pure
 {
   category: 'WebSearch',
   info: '搜索最新技术资讯',
@@ -566,7 +566,7 @@ const deepThinkChain = [
 
 **使用示例：**
 
-```tsx
+```tsx | pure
 const webSearchChain = [
   {
     category: 'WebSearch',
@@ -596,7 +596,7 @@ const webSearchChain = [
 
 所有 category 类型都支持错误状态的展示：
 
-```tsx
+```tsx | pure
 {
   category: 'ToolCall',
   info: '调用支付接口',
@@ -611,7 +611,7 @@ const webSearchChain = [
 
 支持显示正在执行的状态：
 
-```tsx
+```tsx | pure
 {
   category: 'DeepThink',
   info: '正在分析数据...',
@@ -634,7 +634,7 @@ const webSearchChain = [
 
 **2. 提供清晰的信息描述**
 
-```tsx
+```tsx | pure
 // ✅ 好的做法
 info: '查询用户订单数据';
 
@@ -644,7 +644,7 @@ info: '查询数据';
 
 **3. 合理使用加载状态**
 
-```tsx
+```tsx | pure
 // 正在执行的任务
 {
   category: 'ToolCall',
@@ -663,7 +663,7 @@ info: '查询数据';
 
 **4. 错误处理**
 
-```tsx
+```tsx | pure
 {
   category: 'ToolCall',
   info: '调用支付接口失败',

@@ -6,9 +6,9 @@
   SettingOutlined,
 } from '@ant-design/icons';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
-import { Chart } from '@antv/g2';
 import { ConfigProvider, Descriptions, Dropdown, Popover, Table } from 'antd';
 import { DescriptionsItemType } from 'antd/es/descriptions';
+import { Chart } from 'chart.js';
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { I18nContext } from '../../i18n';
 import { ActionIconBox } from '../../MarkdownEditor/editor/components';
