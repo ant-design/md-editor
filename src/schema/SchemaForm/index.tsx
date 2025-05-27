@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, InputNumber, Select, Space } from 'antd';
 import type { Rule } from 'antd/es/form';
