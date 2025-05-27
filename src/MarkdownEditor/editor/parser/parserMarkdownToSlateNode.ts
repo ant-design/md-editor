@@ -1359,11 +1359,19 @@ function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
   if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
 
-  // 处理表格结尾的换行符：将表格结尾的一个 \n 修改成两个 \n\n
-  let processedMarkdown = markdown.replace(
-    /(\|[^|\n]*\|)\n(?!\|)/g, // 匹配表格行后面跟着单个换行符，但下一行不是表格行
-    '$1\n\n', // 替换为两个换行符
-  );
+  // 处理表格结尾的换行符：
+  // 1. 如果只有一个换行符，改成两个
+  // 2. 如果有两个以上换行符，改成两个
+  // 3. 如果已经是两个换行符，保持不变
+  let processedMarkdown = markdown
+    .replace(
+      /(\|[^|\n]*\|)\n(?!\n|\|)/g, // 匹配表格行后面跟着单个换行符（不是两个），但下一行不是表格行
+      '$1\n\n', // 替换为两个换行符
+    )
+    .replace(
+      /(\|[^|\n]*\|)\n{3,}(?!\|)/g, // 匹配表格行后面跟着3个或更多换行符，但下一行不是表格行
+      '$1\n\n', // 替换为两个换行符
+    );
 
   // 如果包含表格，处理换行符
   return processedMarkdown
