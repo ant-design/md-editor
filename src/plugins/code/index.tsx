@@ -470,6 +470,7 @@ export function CodeElement(props: ElementProps<CodeNode>) {
     );
   }, [
     props.element,
+    state().htmlStr,
     props.element.children,
     props.element.value,
     state().showBorder,
