@@ -29,17 +29,25 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
 
   return React.useMemo(() => {
     const str = Node.string(props.element).trim();
-    const isEmpty = !str && selected ? 'true' : undefined;
+    const isEmpty =
+      !str &&
+      markdownEditorRef.current?.children.length === 1 &&
+      props.element?.children?.every?.(
+        (child: any) => !child.type && !child.code && !child.tag,
+      )
+        ? true
+        : undefined;
+
     return (
       <div
         {...props.attributes}
         data-be={'paragraph'}
         className={classNames('ant-md-editor-drag-el', {
-          empty: !str,
+          empty: isEmpty,
           typewriter: isLatest && typewriter,
         })}
         data-slate-placeholder={
-          !str
+          isEmpty
             ? editorProps.titlePlaceholderContent || '请输入内容...'
             : undefined
         }

@@ -284,97 +284,105 @@ const CompleteExample: React.FC = () => {
   const [formValues, setFormValues] = useState({});
 
   const schema = {
-    version: '1.0.0',
-    name: 'Weather Card Component',
-    description: 'A beautiful weather display card component',
-    author: 'Weather Team',
-    createTime: '2024-03-20T10:00:00Z',
-    updateTime: '2024-03-20T10:00:00Z',
-    pageConfig: {
-      layout: 'flex',
-      router: { mode: 'hash', basePath: '/weather' },
-      globalVariables: {
-        colors: { sunny: '#FFB300', rainy: '#2196F3', cloudy: '#90A4AE' },
-        constants: { refreshInterval: 300000 },
-      },
-    },
-    dataSources: {
-      restAPI: {
-        baseURL: 'https://api.weatherapi.com/v1',
-        defaultHeaders: { 'Content-Type': 'application/json' },
-        timeout: 3000,
-        interceptors: { request: true, response: true },
-      },
-      mock: {
-        enable: true,
-        responseDelay: 100,
-        dataPath: '/mock/weather',
-      },
+    initialValues: {
+      chartData: [
+        { asset: '稳健资产', value: 70 },
+        { asset: '进取资产', value: 20 },
+        { asset: '现金流', value: 10 },
+      ],
+      configDescription: '根据您的风险承受能力，建议采用此种资产配置模型。',
+      suggestions:
+        '此配置模型在保持一定流动性的同时，追求稳健的长期收益，适合风险偏好较低的投资者。',
+      configTitle: '资产配置示例',
     },
     component: {
+      schema:
+        "<div class='container'><canvas id='chart' class='chart'></canvas><style>.container{width:328px;display:flex;flex-direction:column;justify-content:space-between;background:#FFFFFF;}.chart{width:100%;height:128px;margin:0 auto;}.content{display:flex;flex-direction:column;justify-content:center;padding:12px;border-radius:12px;}.content-title{display:flex;flex-direction:row;margin-bottom:4px;height:44px;}.content-title-text{font-size:16px;font-weight:500;line-height:44px;letter-spacing:normal;color:#1F1F1F;margin-right:8px;}.content-desc{font-size:12px;font-weight:normal;line-height:16px;letter-spacing:normal;color:#888888;}.chart-bottom-img{width:100%;max-width:100%;height:28px;margin-left:12px;}.chart-axises{display:flex;flex-direction:row;justify-content:center;margin-top:8px;}.chart-axises-text{font-size:14px;font-weight:500;line-height:normal;text-align:center;letter-spacing:normal;color:#1F1F1F;margin-right:84px;}</style><img class='chart-bottom-img' src='https://mdn.alipayobjects.com/huamei_6h3hvd/afts/img/HdBISa30r8gAAAAAAAAAAAAADs48AQFr/original'><div class='content'><div class='content-title'><span class='content-title-text'>{{configTitle}}</span><span class='content-title-text'>{{configDescription}}</span></div><span class='content-desc'>{{suggestions}}</span></div></div><script>const data={{chartData}};function loadF2Library(){const f2Script=document.createElement('script');f2Script.src='https://gw.alipayobjects.com/os/lib/antv/f2/3.8.1/dist/f2.min.js';document.head.appendChild(f2Script);return f2Script;}const f2Script=loadF2Library();f2Script.onload=function(){const chartContainer=shadowRoot.getElementById('chart');const chart=new F2.Chart({el:chartContainer,width:315,pixelRatio:window.devicePixelRatio});chart.source(data);chart.interval().position('asset*value').color('asset',['#548DFD','#90B6FF']).style({radius:[10,10,0,0]});if(data.length>0){chart.guide().text({position:function(xScale,yScale){return[data[0].asset,data[0].value+3];},content:data[0].value+'%',style:{textAlign:'center',textBaseline:'bottom',fill:'#162987',fontSize:14}});}if(data.length>1){chart.guide().text({position:function(xScale,yScale){return[data[1].asset,data[1].value+3];},content:data[1].value+'%',style:{textAlign:'center',textBaseline:'bottom',fill:'#162987',fontSize:14}});}chart.render();};</script> ",
+      type: 'html',
       properties: {
-        weather: {
-          title: '天气',
+        chartData: {
+          default: [
+            { asset: '稳健资产', value: 84.78 },
+            { asset: '进取资产', value: 15.22 },
+          ],
+          description: '资产配置的图表数据',
+          type: 'array',
+          title: '图表数据',
+        },
+        configDescription: {
+          default: '配置均衡',
+          description: '资产配置的描述',
           type: 'string',
-          required: true,
-          enum: ['☀️ 晴', '☁️ 多云', '☁️ 阴', '🌧️ 雨', '❄️ 雪'],
-          default: '☀️ 晴',
+          title: '配置描述',
         },
-        temperature: {
-          title: '温度',
-          type: 'number',
-          required: true,
-          minimum: -50,
-          maximum: 50,
-          step: 0.1,
-          default: 25,
+        suggestions: {
+          default: '您目前持仓比例配置均衡，产品分布合理',
+          description: '资产配置的建议内容',
+          type: 'string',
+          title: '建议',
         },
-        humidity: {
-          title: '湿度',
-          type: 'number',
-          required: true,
-          minimum: 0,
-          maximum: 100,
-          step: 1,
-          default: 65,
-        },
-        windSpeed: {
-          title: '风速',
-          type: 'number',
-          required: true,
-          minimum: 0,
-          maximum: 200,
-          step: 0.1,
-          default: 15,
-        },
-        pa: {
-          title: '气压',
-          type: 'number',
-          required: true,
-          minimum: 0,
-          maximum: 10,
-          step: 0.1,
-          default: 1,
+        configTitle: {
+          default: '持仓比例',
+          description: '资产配置的标题',
+          type: 'array',
+          title: '配置标题',
         },
       },
-      type: 'html',
-      schema:
-        '<div style= "min-height: 200px;display: grid;max-width: 400px;place-items: center;background: linear-gradient(160deg, #2c3e50, #3498db); "><div style= " background: linear-gradient(160deg, #2c3e50, #3498db); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); color: white; width: 100%; position: relative; overflow: hidden; "><!--天气图标--><div style= "  font-size: 4rem;  text-align: center;  margin-bottom: 1rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  animation: float 3s ease-in-out infinite;  ">{{weather}}</div><!--温度显示--><div style= "  font-size: 3rem;  font-weight: bold;  text-align: center;  margin-bottom: 1.5rem;  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  ">{{temperature}}°C</div><!--数据网格--><div style= "  display: grid;  grid-template-columns: repeat(2, 1fr);  gap: 1rem;  "><div style= " background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">💧</div><div style= "font-size: 0.9rem; opacity: 0.8 ">湿度</div><div style= "font-size: 1.2rem; font-weight: bold ">{{humidity}}%</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🌪️</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风速</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}m/s</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">🧭</div><div style= "font-size: 0.9rem; opacity: 0.8 ">风向</div><div style= "font-size: 1.2rem; font-weight: bold ">{{windSpeed}}</div></div><div style= "background: rgba(255, 255, 255, 0.1);padding: 1rem;border-radius: 12px;text-align: center;"><div style= "font-size: 1.5rem ">📉</div><div style= "font-size: 0.9rem; opacity: 0.8 ">气压</div><div style= "font-size: 1.2rem; font-weight: bold ">{{pa}}hPa</div></div></div><!--装饰元素--><div style= "  position: absolute;  width: 150px;  height: 150px;  background: rgba(255,255,255,0.05);  border-radius: 50%;  top: -50px;  right: -50px;  "></div><style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style></div></div>',
     },
-    theme: { spacing: { base: 0, multiplier: 0, width: 400 } },
     previewSettings: {
+      environment: {
+        networkThrottle: 'fast3g',
+        mockData: true,
+        debugMode: true,
+      },
       viewport: {
-        defaultDevice: 'desktop',
+        defaultDevice: 'iPhone X',
         responsive: true,
         customSizes: [
-          { name: 'Mobile Portrait', width: 375, height: 667 },
-          { name: 'Mobile Landscape', width: 667, height: 375 },
+          { name: 'Mobile Small', width: 320, height: 568 },
+          { name: 'Mobile Medium', width: 375, height: 667 },
         ],
       },
-      environment: {
-        mockData: true,
-        networkThrottle: 'fast-3g',
-        debugMode: true,
+    },
+    pageConfig: {
+      layout: 'flex',
+      globalVariables: {
+        constants: { refreshInterval: 5000 },
+        colors: { rainy: '#2196F3', cloudy: '#9E9E9E', sunny: '#FFC107' },
+      },
+      router: { mode: 'hash', basePath: '/' },
+    },
+    createTime: '2023-01-01T00:00:00Z',
+    author: 'Alipay',
+    name: 'abandon-scene-asset-allocation-infographic',
+    description: '资产配置 图+文',
+    updateTime: '2023-01-01T00:00:00Z',
+    theme: {
+      typography: {
+        fontFamily:
+          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        lineHeights: { normal: 1.5, heading: 1.2 },
+        fontSizes: [12, 14, 16, 20, 24, 32],
+      },
+      spacing: { multiplier: 2, base: 4 },
+      breakpoints: { xl: 1200, md: 768, sm: 576, xs: 0, lg: 992 },
+      colorPalette: {
+        secondary: '#54C7EC',
+        success: '#52C41A',
+        warning: '#FAAD14',
+        text: { secondary: '#666666', primary: '#000000' },
+        error: '#FF4D4F',
+        primary: '#1677FF',
+      },
+    },
+    version: '1.0.0',
+    dataSources: {
+      mock: { enable: true, responseDelay: 300, dataPath: './mock.json' },
+      restAPI: {
+        baseURL: 'https://api.example.com',
+        defaultHeaders: { 'Content-Type': 'application/json' },
+        timeout: 10000,
+        interceptors: { request: true, response: true },
       },
     },
   };
