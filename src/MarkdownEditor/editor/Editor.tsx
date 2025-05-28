@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/no-children-prop */
-import { message } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -9,7 +8,6 @@ import {
   BaseSelection,
   Editor,
   Node,
-  Path,
   Range,
   Transforms,
 } from 'slate';
@@ -20,12 +18,20 @@ import {
   MarkdownEditorProps,
 } from '../BaseMarkdownEditor';
 import { MElement, MLeaf } from './elements';
-import { insertParsedHtmlNodes } from './plugins/insertParsedHtmlNodes';
-import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { PluginContext } from '../plugin';
+import {
+  handleFilesPaste,
+  handleHtmlPaste,
+  handleHttpLinkPaste,
+  handlePlainTextPaste,
+  handleSlateMarkdownFragment,
+  handleSpecialTextPaste,
+  handleTagNodePaste,
+  shouldInsertTextDirectly,
+} from './plugins/handlePaste';
 import { useHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
@@ -37,8 +43,7 @@ import {
 } from './slate-react';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
-import { isMarkdown, MARKDOWN_EDITOR_EVENTS } from './utils';
-import { getMediaType } from './utils/dom';
+import { MARKDOWN_EDITOR_EVENTS } from './utils';
 import {
   EditorUtils,
   findLeafPath,
@@ -47,7 +52,6 @@ import {
   isEventHandled,
   isPath,
 } from './utils/editorUtils';
-import { toUnixPath } from './utils/path';
 
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
@@ -97,7 +101,7 @@ const genTableMinSize = (
  * @param {Object} [props.tableConfig] - 表格相关配置
  * @param {Object} [props.image] - 图片相关配置
  * @param {Function} [props.image.upload] - 图片上传函数
- * @param {Object} [props.fncProps] - 脚注相关配置
+ * @param {Function} [props.fncProps] - 脚注相关配置
  * @param {Function} [props.fncProps.onFootnoteDefinitionChange] - 脚注定义变化回调
  * @param {Object} [props.comment] - 注释相关配置
  * @param {boolean} [props.comment.enable] - 是否启用注释功能
@@ -465,14 +469,15 @@ export const SlateMarkdownEditor = ({
         currentTextSelection.focus.path!,
       );
       const curNode = nodeList?.at(0);
-      if (curNode?.tag) {
-        const text = event.clipboardData.getData('text/plain');
-        if (text) {
-          Transforms.insertText(markdownEditorRef.current, text, {
-            at: currentTextSelection.focus,
-          });
-          return;
-        }
+      if (
+        handleTagNodePaste(
+          markdownEditorRef.current,
+          currentTextSelection,
+          event.clipboardData,
+          curNode,
+        )
+      ) {
+        return;
       }
     }
 
@@ -480,126 +485,41 @@ export const SlateMarkdownEditor = ({
 
     // 1. 首先尝试处理 slate-md-fragment
     if (types.includes('application/x-slate-md-fragment')) {
-      try {
-        const encoded = event.clipboardData.getData(
-          'application/x-slate-md-fragment',
-        );
-        const fragment = JSON.parse(encoded).map((node: any) => {
-          if (node.type === 'card') {
-            return {
-              ...node,
-              children: [
-                {
-                  type: 'card-before',
-                  children: [{ text: '' }],
-                },
-                ...node.children,
-                {
-                  type: 'card-after',
-                  children: [{ text: '' }],
-                },
-              ],
-            };
-          }
-          return node;
-        });
-
-        if (editorProps.textAreaProps?.enable) {
-          if (
-            fragment.length === 1 &&
-            fragment?.at(0).type === 'paragraph' &&
-            currentTextSelection
-          ) {
-            const text = Node.string(fragment.at(0));
-            if (text) {
-              Transforms.insertText(markdownEditorRef.current, text, {
-                at: currentTextSelection.focus,
-              });
-              return;
-            }
-            return;
-          }
-        }
-
-        if (fragment.length === 0) return;
-        EditorUtils.replaceSelectedNode(markdownEditorRef.current, fragment);
+      if (
+        handleSlateMarkdownFragment(
+          markdownEditorRef.current,
+          event.clipboardData,
+          currentTextSelection,
+          editorProps,
+        )
+      ) {
         return;
-      } catch (error) {
-        console.log('error', error);
       }
     }
 
     // 2. 然后尝试处理 HTML
     if (types.includes('text/html')) {
-      try {
-        const html = await event.clipboardData.getData('text/html');
-        const rtf = await event.clipboardData.getData('text/rtf');
-
-        if (html) {
-          const success = await insertParsedHtmlNodes(
-            markdownEditorRef.current,
-            html,
-            editorProps,
-            rtf,
-          );
-          if (success) {
-            return;
-          }
-        }
-      } catch (error) {
-        console.log('error', error);
+      if (
+        await handleHtmlPaste(
+          markdownEditorRef.current,
+          event.clipboardData,
+          editorProps,
+        )
+      ) {
+        return;
       }
     }
 
     // 3. 处理文件
     if (types.includes('Files')) {
-      try {
-        const fileList = event.clipboardData.files;
-        if (fileList.length > 0) {
-          const hideLoading = message.loading('上传中...');
-          try {
-            const url = [];
-            for await (const file of fileList) {
-              const serverUrl = await editorProps.image?.upload?.([file]);
-              url.push(serverUrl);
-            }
-            const selection = markdownEditorRef.current?.selection?.focus?.path;
-            const node = Node.get(
-              markdownEditorRef.current,
-              Path.parent(selection!)!,
-            );
-
-            const at = selection
-              ? EditorUtils.findNext(markdownEditorRef.current, selection)!
-              : undefined;
-
-            [url].flat(2).forEach((u) => {
-              if (!u) return null;
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                EditorUtils.createMediaNode(u, 'image'),
-                {
-                  at: [
-                    ...(node.type === 'table-cell' ||
-                    node.type === 'column-cell'
-                      ? selection!
-                      : at
-                        ? at
-                        : [markdownEditorRef.current.children.length - 1]),
-                  ],
-                },
-              );
-            });
-            message.success('上传成功');
-            hideLoading();
-            return;
-          } catch (error) {
-            console.log('error', error);
-            hideLoading();
-          }
-        }
-      } catch (error) {
-        console.log('error', error);
+      if (
+        await handleFilesPaste(
+          markdownEditorRef.current,
+          event.clipboardData,
+          editorProps,
+        )
+      ) {
+        return;
       }
     }
 
@@ -611,130 +531,37 @@ export const SlateMarkdownEditor = ({
       const selection = markdownEditorRef.current.selection;
 
       // 如果是表格或者代码块，直接插入文本
-      if (selection?.focus) {
-        const rangeNodes = Editor?.node(markdownEditorRef.current, [
-          selection.focus.path.at(0)!,
-        ]);
-        if (!rangeNodes) return;
-        const rangeNode = rangeNodes.at(0) as Elements;
-        if (
-          rangeNode.type === 'table-cell' ||
-          rangeNode.type === 'table-row' ||
-          rangeNode.type === 'table' ||
-          rangeNode.type === 'code' ||
-          rangeNode.type === 'schema' ||
-          rangeNode.type === 'apaasify' ||
-          rangeNode.type === 'description'
-        ) {
-          Transforms.insertText(markdownEditorRef.current, text);
-          return;
-        }
+      if (shouldInsertTextDirectly(markdownEditorRef.current, selection)) {
+        Transforms.insertText(markdownEditorRef.current, text);
+        return;
       }
 
       try {
-        if (text.startsWith('media://') || text.startsWith('attach://')) {
-          const path = EditorUtils.findMediaInsertPath(
-            markdownEditorRef.current,
-          );
-          const urlObject = new URL(text);
-          let url = urlObject.searchParams.get('url');
-          if (url && !url.startsWith('http') && !url.startsWith('blob:http')) {
-            url = toUnixPath(url);
-          }
-          if (path && url) {
-            if (text.startsWith('media://')) {
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                EditorUtils.createMediaNode(url!, 'image'),
-                { select: true, at: path },
-              );
-              event.preventDefault();
-              const next = Editor.next(markdownEditorRef.current, {
-                at: path,
-              });
-              if (
-                next &&
-                next[0].type === 'paragraph' &&
-                !Node.string(next[0])
-              ) {
-                Transforms.delete(markdownEditorRef.current, {
-                  at: selection!,
-                });
-              }
-              return;
-            }
-            if (text.startsWith('attach://')) {
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                {
-                  type: 'attach',
-                  name: urlObject.searchParams.get('name'),
-                  size: Number(urlObject.searchParams.get('size') || 0),
-                  url: url || undefined,
-                },
-                { select: true, at: path },
-              );
-              event.preventDefault();
-              const next = Editor.next(markdownEditorRef.current, {
-                at: path,
-              });
-              if (
-                next &&
-                next[0].type === 'paragraph' &&
-                !Node.string(next[0])
-              ) {
-                Transforms.delete(markdownEditorRef.current, {
-                  at: selection!,
-                });
-              }
-              return;
-            }
-          }
-        }
-
-        if (text.startsWith('http')) {
-          if (['image', 'video', 'audio'].includes(getMediaType(text))) {
-            if (text.startsWith('http')) {
-              const path = EditorUtils.findMediaInsertPath(
-                markdownEditorRef.current,
-              );
-              if (!path) return;
-              Transforms.insertNodes(
-                markdownEditorRef.current,
-                EditorUtils.createMediaNode(text, 'image'),
-                { select: true, at: selection! },
-              );
-              return;
-            }
-          } else {
-            store.insertLink(text);
-            return;
-          }
-        }
-
-        if (isMarkdown(text)) {
-          parseMarkdownToNodesAndInsert(
-            markdownEditorRef.current,
-            text,
-            plugins,
-          );
+        // 处理特殊文本格式（media:// 和 attach:// 链接）
+        if (
+          handleSpecialTextPaste(markdownEditorRef.current, text, selection)
+        ) {
           return;
         }
 
-        // 普通文本的插入
-        if (selection) {
-          Transforms.insertText(markdownEditorRef.current, text, {
-            at: selection,
-          });
-        } else {
-          Transforms.insertNodes(markdownEditorRef.current, [
-            {
-              type: 'paragraph',
-              children: [{ text }],
-            },
-          ]);
+        // 处理 HTTP 链接
+        if (
+          handleHttpLinkPaste(markdownEditorRef.current, text, selection, store)
+        ) {
+          return;
         }
-        return;
+
+        // 处理普通文本
+        if (
+          handlePlainTextPaste(
+            markdownEditorRef.current,
+            text,
+            selection,
+            plugins,
+          )
+        ) {
+          return;
+        }
       } catch (e) {
         console.log('insert error', e);
       }

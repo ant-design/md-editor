@@ -2996,13 +2996,13 @@ return tokens;
 exports[`should convert schema to markdown in ![](https: chunk 1`] = `
 "## 
 
-<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
 
 
 
 
 
-<iframe src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"/>
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
 
 "
 `;
@@ -3010,7 +3010,7 @@ exports[`should convert schema to markdown in ![](https: chunk 1`] = `
 exports[`should convert schema to markdown in ![attachme chunk 1`] = `
 "## 
 
-<iframe src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>
+![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
 "
 `;
@@ -3018,7 +3018,7 @@ exports[`should convert schema to markdown in ![attachme chunk 1`] = `
 exports[`should convert schema to markdown in ![video:视频 chunk 1`] = `
 "## 
 
-<video src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"/>
+![video:视频名](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
 
 "
 `;
