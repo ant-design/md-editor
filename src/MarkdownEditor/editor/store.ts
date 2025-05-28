@@ -101,6 +101,7 @@ export class EditorStore {
   footnoteDefinitionMap: Map<string, FootnoteDefinitionNode> = new Map();
   inputComposition = false;
   plugins?: MarkdownEditorPlugin[];
+  domRect: DOMRect | null = null;
 
   /**
    * Sets the manual flag to true temporarily to prevent automatic behavior.

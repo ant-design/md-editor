@@ -119,8 +119,13 @@ export const SlateMarkdownEditor = ({
   ...editorProps
 }: MEditorProps) => {
   // 所有hooks必须在组件顶部按固定顺序调用
-  const { store, markdownEditorRef, markdownContainerRef, readonly } =
-    useEditorStore();
+  const {
+    store,
+    markdownEditorRef,
+    markdownContainerRef,
+    readonly,
+    setDomRect,
+  } = useEditorStore();
 
   const changedMark = useRef(false);
   const value = useRef<any[]>([EditorUtils.p]);
@@ -183,17 +188,85 @@ export const SlateMarkdownEditor = ({
   }, [editorProps?.comment?.commentList]);
 
   const handleSelectionChange = useDebounceFn(async () => {
-    if (store.focus) {
-      // 选中时，更新选区,并且触发选区变化事件
-      const event = new CustomEvent<BaseSelection>(
-        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-        {
-          detail: markdownEditorRef.current.selection,
-        },
-      );
-      markdownContainerRef?.current?.dispatchEvent(event);
+    if (!readonly) {
+      // 非只读模式下的选区处理
+      if (store.focus) {
+        const event = new CustomEvent<BaseSelection>(
+          MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+          {
+            detail: markdownEditorRef.current.selection,
+          },
+        );
+        markdownContainerRef?.current?.dispatchEvent(event);
+      }
+      return;
     }
-  }, 160);
+
+    // 只读模式下的选区处理
+    const domSelection = window.getSelection();
+    if (!domSelection) {
+      setDomRect?.(null);
+      return;
+    }
+
+    try {
+      const selection = getSelectionFromDomSelection(
+        markdownEditorRef.current,
+        domSelection,
+      );
+
+      if (selection) {
+        // 更新编辑器的选区
+        markdownEditorRef.current.selection = selection;
+
+        // 触发选区变化事件
+        const event = new CustomEvent<BaseSelection>(
+          MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+          {
+            detail: selection,
+          },
+        );
+        markdownContainerRef?.current?.dispatchEvent(event);
+
+        // 只有在有实际选中文本时才显示工具栏
+        if (!Range.isCollapsed(selection)) {
+          const range = ReactEditor.toDOMRange(
+            markdownEditorRef.current,
+            selection,
+          );
+          const rect = range?.getBoundingClientRect();
+          if (rect) {
+            setDomRect?.(rect);
+          } else {
+            setDomRect?.(null);
+          }
+        } else {
+          setDomRect?.(null);
+        }
+      } else {
+        setDomRect?.(null);
+      }
+    } catch (error) {
+      console.error('Selection change error:', error);
+    }
+  }, 100);
+
+  // 添加选区变化的监听
+  useEffect(() => {
+    const container = markdownContainerRef?.current;
+    if (!container) return;
+
+    const handleMouseUp = () => {
+      handleSelectionChange.run();
+    };
+
+    container.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      container.removeEventListener('mouseup', handleMouseUp);
+      handleSelectionChange.cancel();
+    };
+  }, [readonly, markdownContainerRef?.current]);
 
   useEffect(() => {
     if (nodeRef.current !== instance) {
@@ -245,7 +318,11 @@ export const SlateMarkdownEditor = ({
   const checkEnd = useRefFunction((e: React.MouseEvent) => {
     // 如果启用打字机模式或为只读模式，不处理定位逻辑
     if (editorProps?.typewriter) return;
-    if (readonly) return;
+    if (readonly) {
+      // 点击时清除工具栏
+      setDomRect?.(null);
+      return;
+    }
 
     // 当编辑器失去焦点时，清除选区
     if (!store.focus) {
@@ -435,6 +512,7 @@ export const SlateMarkdownEditor = ({
     store.setState((state) => {
       state.focus = false;
     });
+    setDomRect?.(null);
   };
 
   /**
@@ -777,10 +855,7 @@ export const SlateMarkdownEditor = ({
                   ...editorProps.style,
                 }
           }
-          onSelect={() => {
-            handleSelectionChange?.cancel();
-            handleSelectionChange?.run();
-          }}
+          onSelect={handleSelectionChange.run}
           onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
             const handled = handleClipboardCopy(event, 'cut');
             if (!handled) {
