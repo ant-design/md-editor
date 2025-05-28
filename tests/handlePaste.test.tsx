@@ -32,6 +32,20 @@ vi.mock('../src/MarkdownEditor/editor/utils/editorUtils', () => ({
       children: [{ text: '' }],
     })),
     findNext: vi.fn(),
+    wrapperCardNode: vi.fn((node) => ({
+      type: 'card',
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        node,
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    })),
   },
 }));
 
@@ -192,6 +206,178 @@ describe('handlePaste utilities', () => {
         {},
       );
       expect(result).toBe(false);
+    });
+
+    it('should handle HTML with nested lists and tables', async () => {
+      const complexHtml = `
+        <div>
+          <h1>Complex Document</h1>
+          <p>This is a <strong>bold</strong> paragraph with <em>italic</em> text.</p>
+          <ul>
+            <li>First level item
+              <ul>
+                <li>Nested item 1</li>
+                <li>Nested item 2 with <strong>bold</strong></li>
+              </ul>
+            </li>
+            <li>Another first level item</li>
+          </ul>
+          <table>
+            <thead>
+              <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cell with <em>italic</em></td>
+                <td>Cell with <code>code</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      mockClipboardData.getData.mockImplementation((format: string) => {
+        if (format === 'text/html') return complexHtml;
+        return '';
+      });
+
+      const result = await handleHtmlPaste(
+        editor,
+        mockClipboardData as unknown as DataTransfer,
+        {},
+      );
+      expect(result).toBe(true);
+    });
+
+    it('should handle HTML with code blocks and special characters', async () => {
+      const codeHtml = `
+        <div>
+          <pre><code class="language-javascript">
+            function example() {
+              const x = 1;
+              return x + 2;
+            }
+          </code></pre>
+          <p>Special characters: &amp; &lt; &gt; &quot; &#39;</p>
+          <p>Emoji: 👋 🎉 🚀</p>
+        </div>
+      `;
+
+      mockClipboardData.getData.mockImplementation((format: string) => {
+        if (format === 'text/html') return codeHtml;
+        return '';
+      });
+
+      const result = await handleHtmlPaste(
+        editor,
+        mockClipboardData as unknown as DataTransfer,
+        {},
+      );
+      expect(result).toBe(true);
+    });
+
+    it('should handle HTML with mixed content types', async () => {
+      const mixedHtml = `
+        <div>
+          <h2>Mixed Content</h2>
+          <blockquote>
+            <p>This is a quote with <a href="https://example.com">a link</a></p>
+          </blockquote>
+          <div class="custom-class" style="color: red;">
+            <p>Styled text with <mark>highlighted</mark> content</p>
+          </div>
+          <hr>
+          <details>
+            <summary>Expandable section</summary>
+            <p>Hidden content</p>
+          </details>
+          <figure>
+            <img src="example.jpg" alt="Example image">
+            <figcaption>Image caption</figcaption>
+          </figure>
+        </div>
+      `;
+
+      mockClipboardData.getData.mockImplementation((format: string) => {
+        if (format === 'text/html') return mixedHtml;
+        return '';
+      });
+
+      const result = await handleHtmlPaste(
+        editor,
+        mockClipboardData as unknown as DataTransfer,
+        {},
+      );
+      expect(result).toBe(true);
+    });
+
+    it('should handle HTML with mathematical and scientific content', async () => {
+      const mathHtml = `
+        <div>
+          <h3>Mathematical Content</h3>
+          <p>The quadratic formula: <span class="math">x = (-b ± √(b² - 4ac)) / (2a)</span></p>
+          <p>Chemical equation: <span class="chemistry">2H₂ + O₂ → 2H₂O</span></p>
+          <table>
+            <tr>
+              <td>Temperature (°C)</td>
+              <td>Pressure (kPa)</td>
+            </tr>
+            <tr>
+              <td>25.5</td>
+              <td>101.3</td>
+            </tr>
+          </table>
+          <p>Greek symbols: α β γ δ</p>
+        </div>
+      `;
+
+      mockClipboardData.getData.mockImplementation((format: string) => {
+        if (format === 'text/html') return mathHtml;
+        return '';
+      });
+
+      const result = await handleHtmlPaste(
+        editor,
+        mockClipboardData as unknown as DataTransfer,
+        {},
+      );
+      expect(result).toBe(true);
+    });
+
+    it('should handle HTML with form elements and interactive content', async () => {
+      const formHtml = `
+        <div>
+          <form>
+            <label>Name:</label>
+            <input type="text" value="John Doe">
+            <select>
+              <option>Option 1</option>
+              <option selected>Option 2</option>
+            </select>
+            <textarea>Some text here</textarea>
+          </form>
+          <div class="interactive">
+            <button>Click me</button>
+            <progress value="70" max="100">70%</progress>
+            <meter value="0.6">60%</meter>
+          </div>
+        </div>
+      `;
+
+      mockClipboardData.getData.mockImplementation((format: string) => {
+        if (format === 'text/html') return formHtml;
+        return '';
+      });
+
+      const result = await handleHtmlPaste(
+        editor,
+        mockClipboardData as unknown as DataTransfer,
+        {},
+      );
+      expect(result).toBe(true);
     });
   });
 
