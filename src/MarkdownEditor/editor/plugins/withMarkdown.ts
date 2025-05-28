@@ -262,13 +262,12 @@ const handleCodeTagOperation = (
   }
 
   if (operation.type === 'insert_text') {
-    const node = Node.get(editor, operation.path);
     const currentNode = Node.get(editor, operation.path);
 
     if (
       currentNode?.tag &&
       operation.text === ' ' &&
-      editor.selection?.focus.offset === node.text.length
+      editor.selection?.focus.offset === currentNode.text.length
     ) {
       // 如果当前节点是代码块，且输入的是空格，则插入一个空格到 code 节点外
       Transforms.insertNodes(editor, [{ text: ' ' }]);
@@ -278,6 +277,7 @@ const handleCodeTagOperation = (
 
   if (operation.type === 'split_node') {
     const node = Node.get(editor, operation.path);
+    console.log(node);
     if (node?.tag || node?.code) {
       return true;
     }
