@@ -477,11 +477,13 @@ export const SlateMarkdownEditor = ({
     }
 
     const types = event.clipboardData?.types || ['text/plain'];
+
+    // 1. 首先尝试处理 slate-md-fragment
     if (types.includes('application/x-slate-md-fragment')) {
-      const encoded = event.clipboardData.getData(
-        'application/x-slate-md-fragment',
-      );
       try {
+        const encoded = event.clipboardData.getData(
+          'application/x-slate-md-fragment',
+        );
         const fragment = JSON.parse(encoded).map((node: any) => {
           if (node.type === 'card') {
             return {
@@ -526,6 +528,8 @@ export const SlateMarkdownEditor = ({
         console.log('error', error);
       }
     }
+
+    // 2. 然后尝试处理 HTML
     if (types.includes('text/html')) {
       try {
         const html = await event.clipboardData.getData('text/html');
@@ -547,6 +551,7 @@ export const SlateMarkdownEditor = ({
       }
     }
 
+    // 3. 处理文件
     if (types.includes('Files')) {
       try {
         const fileList = event.clipboardData.files;
@@ -586,26 +591,23 @@ export const SlateMarkdownEditor = ({
               );
             });
             message.success('上传成功');
+            hideLoading();
+            return;
           } catch (error) {
             console.log('error', error);
-          } finally {
             hideLoading();
           }
-
-          event.preventDefault();
-          event.stopPropagation();
-          return;
         }
       } catch (error) {
         console.log('error', error);
       }
-      return;
     }
 
+    // 4. 处理纯文本
     if (types.includes('text/plain')) {
-      const text = event.clipboardData?.getData?.('text/plain') || '';
-
+      const text = event.clipboardData?.getData?.('text/plain')?.trim() || '';
       if (!text) return;
+
       const selection = markdownEditorRef.current.selection;
 
       // 如果是表格或者代码块，直接插入文本
@@ -689,9 +691,8 @@ export const SlateMarkdownEditor = ({
             }
           }
         }
+
         if (text.startsWith('http')) {
-          event.preventDefault();
-          event.stopPropagation();
           if (['image', 'video', 'audio'].includes(getMediaType(text))) {
             if (text.startsWith('http')) {
               const path = EditorUtils.findMediaInsertPath(
@@ -703,43 +704,46 @@ export const SlateMarkdownEditor = ({
                 EditorUtils.createMediaNode(text, 'image'),
                 { select: true, at: selection! },
               );
+              return;
             }
           } else {
             store.insertLink(text);
+            return;
           }
+        }
+
+        if (isMarkdown(text)) {
+          parseMarkdownToNodesAndInsert(
+            markdownEditorRef.current,
+            text,
+            plugins,
+          );
           return;
         }
+
+        // 普通文本的插入
+        if (selection) {
+          Transforms.insertText(markdownEditorRef.current, text, {
+            at: selection,
+          });
+        } else {
+          Transforms.insertNodes(markdownEditorRef.current, [
+            {
+              type: 'paragraph',
+              children: [{ text }],
+            },
+          ]);
+        }
+        return;
       } catch (e) {
         console.log('insert error', e);
-        return;
       }
-
-      if (isMarkdown(text)) {
-        parseMarkdownToNodesAndInsert(markdownEditorRef.current, text, plugins);
-        return;
-      }
-
-      if (selection) {
-        Transforms.insertText(markdownEditorRef.current, text, {
-          at: selection!,
-        });
-      } else {
-        Transforms.insertNodes(markdownEditorRef.current, [
-          {
-            type: 'paragraph',
-            children: [{ text: text }],
-          },
-        ]);
-      }
-
-      return;
     }
 
+    // 5. 如果前面的处理都失败了，才使用默认的插入行为
     if (hasEditableTarget(markdownEditorRef.current, event.target)) {
       ReactEditor.insertData(markdownEditorRef.current, event.clipboardData);
-      return;
     }
-    return;
   };
 
   /**
@@ -959,7 +963,11 @@ export const SlateMarkdownEditor = ({
           onMouseDown={checkEnd}
           onFocus={onFocus}
           onBlur={onBlur}
-          onPaste={onPaste}
+          onPaste={(event: React.ClipboardEvent<HTMLDivElement>) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onPaste(event);
+          }}
           onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
             handleClipboardCopy(event, 'copy');
           }}

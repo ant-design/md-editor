@@ -49,6 +49,9 @@ export default () => {
           },
         }}
         initValue={defaultValue}
+        onChange={(e, value) => {
+          console.log(e, value);
+        }}
       />
       <MarkdownEditor
         readonly

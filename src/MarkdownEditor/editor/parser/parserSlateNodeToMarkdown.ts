@@ -265,13 +265,13 @@ const parserNode = (
 
     case 'media':
       let nodeUrl = node?.url;
-      let type = getMediaType(nodeUrl, node?.alt);
+      let type = node.mediaType || getMediaType(nodeUrl, node?.alt);
       if (node.height) {
         if (type === 'video') {
           str += `<video src="${encodeURI(nodeUrl)}" alt="" height="${
             node.height || ''
           }"/>`;
-        } else if (type === 'image') {
+        } else if (type === 'image' || type === 'media') {
           str += `<img src="${encodeURI(nodeUrl)}" alt="" height="${
             node.height || ''
           }" ${node.align ? `data-align="${node.align}"` : ''}/>`;
@@ -279,7 +279,7 @@ const parserNode = (
       } else {
         if (type === 'video') {
           str += `<video src="${encodeURI(nodeUrl)}"/>`;
-        } else if (type === 'image') {
+        } else if (type === 'image' || type === 'media') {
           if (node.align) {
             str += `<img src="${encodeURI(nodeUrl)}" alt="" ${
               node.align ? `data-align="${node.align}"` : ''

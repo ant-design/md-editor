@@ -231,160 +231,192 @@ export const insertParsedHtmlNodes = async (
   editorProps: any,
   rtl: string,
 ) => {
+  // 1. 基础检查
   if (
     html.startsWith('<html>\r\n<body>\r\n\x3C!--StartFragment--><img src="')
   ) {
     return false;
   }
+
+  // 2. 解析 HTML
   const hideLoading = message.loading('parsing...', 0);
   const parsed = new DOMParser().parseFromString(html, 'text/html').body;
   const inner = !!parsed.querySelector('[data-be]');
   const sel = editor.selection;
 
   let fragmentList = docxDeserializer(rtl, html.trim());
-
   await upLoadFile(fragmentList, editorProps);
-
   debugLog('wordFragmentList', fragmentList);
-
   hideLoading();
 
-  if (!fragmentList?.length) return false;
+  if (!fragmentList?.length) {
+    return false;
+  }
 
+  // 3. 获取当前节点
   let [node] = Editor.nodes<Element>(editor, {
     match: (n) => Element.isElement(n),
   });
 
   const selection = editor.selection;
 
-  if (sel && Editor.hasPath(editor, sel.anchor.path)) {
-    if (!Range.isCollapsed(sel)) {
-      const back = new BackspaceKey(editor);
-      back.range();
-      Transforms.select(editor, Range.start(sel));
-      setTimeout(() => {
-        const node = Editor?.node(editor, [0]);
-        if (
-          editor.children.length > 1 &&
-          node[0].type === 'paragraph' &&
-          !Node.string(node[0])
-        ) {
-          Transforms.delete(editor, { at: [0] });
+  // 4. 如果没有选区或路径无效，直接插入
+  if (!sel || !Editor.hasPath(editor, sel.anchor.path)) {
+    EditorUtils.replaceSelectedNode(
+      editor,
+      fragmentList?.map((item) => {
+        if (!item.type) {
+          return { type: 'paragraph', children: [item] };
         }
-      });
+        return item;
+      }),
+    );
+    return true;
+  }
+
+  // 5. 处理非折叠选区
+  if (!Range.isCollapsed(sel)) {
+    const back = new BackspaceKey(editor);
+    back.range();
+    Transforms.select(editor, Range.start(sel));
+    setTimeout(() => {
+      const node = Editor?.node(editor, [0]);
+      if (
+        editor.children.length > 1 &&
+        node[0].type === 'paragraph' &&
+        !Node.string(node[0])
+      ) {
+        Transforms.delete(editor, { at: [0] });
+      }
+    });
+  }
+
+  // 6. 获取特殊节点类型
+  const [specialNode] = Editor.nodes<Element>(editor, {
+    match: (n) =>
+      Element.isElement(n) &&
+      ['code', 'table-cell', 'head', 'list-item'].includes(n.type),
+    at: Range.isCollapsed(sel) ? sel.anchor.path : Range.start(sel).path,
+  });
+
+  if (specialNode) {
+    node = specialNode;
+  }
+
+  // 7. 处理代码块和表格单元格
+  if (inner && ['code', 'table-cell'].includes(node?.[0].type)) {
+    return true;
+  }
+
+  // 8. 处理列表项
+  if (node?.[0].type === 'list-item' && fragmentList[0].type === 'list') {
+    const children = fragmentList[0].children || [];
+    if (!children.length) {
+      return false;
     }
-    const [n] = Editor.nodes<Element>(editor, {
-      match: (n) =>
-        Element.isElement(n) &&
-        ['code', 'table-cell', 'head', 'list-item'].includes(n.type),
+
+    const [p] = Editor.nodes<Element>(editor, {
+      match: (n) => Element.isElement(n) && n.type === 'paragraph',
       at: Range.isCollapsed(sel) ? sel.anchor.path : Range.start(sel).path,
     });
-    if (n) node = n;
-    if (node) {
-      if (node[0].type === 'list-item' && fragmentList[0].type === 'list') {
-        const children = fragmentList[0].children || [];
-        if (!children.length) return false;
-        const [p] = Editor.nodes<Element>(editor, {
-          match: (n) => Element.isElement(n) && n.type === 'paragraph',
-          at: Range.isCollapsed(sel) ? sel.anchor.path : Range.start(sel).path,
+
+    if (specialNode && !Path.hasPrevious(p[1])) {
+      if (!Node.string(p[0])) {
+        Transforms.insertNodes(editor, children, {
+          at: Path.next(specialNode[1]),
         });
-        if (n && !Path.hasPrevious(p[1])) {
-          if (!Node.string(p[0])) {
-            Transforms.insertNodes(editor, children, { at: Path.next(n[1]) });
-            const parent = Node.parent(editor, p[1]);
-            const nextPath = [
-              ...n[1].slice(0, -1),
-              n[1][n[1].length - 1] + children.length,
-            ];
-            if (parent.children.length > 1) {
-              Transforms.moveNodes(editor, {
-                at: {
-                  anchor: { path: Path.next(p[1]), offset: 0 },
-                  focus: {
-                    path: [...p[1].slice(0, -1), parent.children.length - 1],
-                    offset: 0,
-                  },
-                },
-                to: [...nextPath, 1],
-              });
-            }
-            Transforms.delete(editor, { at: selection! });
-          } else {
-            Transforms.insertNodes(editor, children, {
-              at: selection!,
-              select: true,
-            });
-          }
-          if (fragmentList.length > 1) {
-            Transforms.insertNodes(editor, fragmentList.slice(1), {
-              at: selection!,
-              select: true,
-            });
-          }
-          return true;
-        }
-      }
-      if (node[0].type === 'table-cell') {
-        Transforms.insertFragment(editor, getTextsNode(fragmentList), {
-          at: selection!,
-        });
-        return true;
-      }
-      if (node[0].type === 'head') {
-        if (fragmentList[0].type) {
-          if (fragmentList[0].type !== 'paragraph') {
-            Transforms.insertNodes(
-              editor,
-              {
-                type: 'paragraph',
-                children: [{ text: '' }],
+        const parent = Node.parent(editor, p[1]);
+        const nextPath = [
+          ...specialNode[1].slice(0, -1),
+          specialNode[1][specialNode[1].length - 1] + children.length,
+        ];
+        if (parent.children.length > 1) {
+          Transforms.moveNodes(editor, {
+            at: {
+              anchor: { path: Path.next(p[1]), offset: 0 },
+              focus: {
+                path: [...p[1].slice(0, -1), parent.children.length - 1],
+                offset: 0,
               },
-              { at: selection!, select: true },
-            );
-            return false;
-          } else {
-            return false;
-          }
-        } else {
-          const texts = fragmentList.filter((c) => c.text);
-          if (texts.length) {
-            Transforms.insertNodes(editor, texts, {
-              at: selection!,
-            });
-            return true;
-          }
+            },
+            to: [...nextPath, 1],
+          });
         }
-        return false;
+        Transforms.delete(editor, { at: selection! });
+      } else {
+        Transforms.insertNodes(editor, children, {
+          at: selection!,
+          select: true,
+        });
       }
+
+      if (fragmentList.length > 1) {
+        Transforms.insertNodes(editor, fragmentList.slice(1), {
+          at: selection!,
+          select: true,
+        });
+      }
+      return true;
     }
   }
 
-  // 如果当前选中的是代码块或者表格单元格，则不进行插入
-  if (inner && ['code', 'table-cell'].includes(node?.[0].type)) return true;
+  // 9. 处理表格单元格
+  if (node?.[0].type === 'table-cell') {
+    Transforms.insertFragment(editor, getTextsNode(fragmentList), {
+      at: selection!,
+    });
+    return true;
+  }
 
-  /**
-   * 如果当前选中的是段落，并且插入的内容是一个段落，则直接插入文本
-   */
+  // 10. 处理标题
+  if (node?.[0].type === 'head') {
+    if (fragmentList[0].type) {
+      if (fragmentList[0].type !== 'paragraph') {
+        Transforms.insertNodes(
+          editor,
+          {
+            type: 'paragraph',
+            children: [{ text: '' }],
+          },
+          { at: selection!, select: true },
+        );
+        return true;
+      }
+      return false;
+    }
+
+    const texts = fragmentList.filter((c) => c.text);
+    if (texts.length) {
+      Transforms.insertNodes(editor, texts, {
+        at: selection!,
+      });
+      return true;
+    }
+    return false;
+  }
+
+  // 11. 处理单个段落的特殊情况
   if (
     fragmentList.length === 1 &&
-    (fragmentList?.at(0).type === 'paragraph' || !fragmentList?.at(0).type) &&
+    (fragmentList[0].type === 'paragraph' || !fragmentList[0].type) &&
     node
   ) {
-    const text = Node.string(fragmentList.at(0));
+    const text = Node.string(fragmentList[0]);
     if (text) {
       Transforms.insertText(editor, text, {
         at: selection!,
       });
-      return;
+      return true;
     }
   }
+
+  // 12. 默认情况：替换选中节点
   EditorUtils.replaceSelectedNode(
     editor,
     fragmentList?.map((item) => {
       if (!item.type) {
         return { type: 'paragraph', children: [item] };
       }
-
       return item;
     }),
   );

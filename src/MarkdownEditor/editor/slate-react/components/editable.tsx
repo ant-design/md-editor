@@ -1849,7 +1849,12 @@ export const Editable = forwardRef(
                 onPaste={useCallback(
                   (event: React.ClipboardEvent<HTMLDivElement>) => {
                     if (process.env.NODE_ENV === 'test') {
-                      isEventHandled(event, attributes.onPaste);
+                      if (isEventHandled(event, attributes.onPaste)) {
+                        return;
+                      }
+                      event.preventDefault();
+                      ReactEditor.insertData(editor, event.clipboardData);
+                      return;
                     }
                     if (
                       !readOnly &&
