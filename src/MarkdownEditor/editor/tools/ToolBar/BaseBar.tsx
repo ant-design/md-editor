@@ -18,9 +18,12 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
+import type { BaseEditor } from 'slate';
 import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
+import type { HistoryEditor } from 'slate-history';
 import { I18nContext } from '../../../../i18n';
 import { MarkdownFormatter } from '../../../../plugins/formatter';
+import type { ReactEditor } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import { getSelRect } from '../../utils/dom';
 import { EditorUtils } from '../../utils/editorUtils';
@@ -123,6 +126,14 @@ export type ToolsKeyType =
   | 'H2'
   | 'H3'
   | 'link';
+
+const isCodeNode = (editor: BaseEditor & ReactEditor & HistoryEditor) => {
+  const [node] = Editor.nodes(editor, {
+    match: (n: any) => Element.isElement(n),
+    mode: 'lowest',
+  });
+  return node && node[0].type === 'code';
+};
 
 /**
  * 基础工具栏
@@ -292,9 +303,13 @@ export const BaseToolBar = (props: {
           role="button"
           key="clear"
           className={classnames(`${baseClassName}-item`, hashId)}
-          onClick={() => {
-            EditorUtils.clearMarks(markdownEditorRef.current, true);
-            EditorUtils.highColor(markdownEditorRef.current);
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!isCodeNode(markdownEditorRef.current)) {
+              EditorUtils.clearMarks(markdownEditorRef.current, true);
+              EditorUtils.highColor(markdownEditorRef.current);
+            }
           }}
         >
           <ClearIcon />
@@ -431,10 +446,15 @@ export const BaseToolBar = (props: {
               },
             ]}
             onChange={(e) => {
-              localStorage.setItem('high-color', e.toHexString());
-              EditorUtils.highColor(markdownEditorRef.current, e.toHexString());
-              setHighColor(e.toHexString());
-              setRefresh((r) => !r);
+              if (!isCodeNode(markdownEditorRef.current)) {
+                localStorage.setItem('high-color', e.toHexString());
+                EditorUtils.highColor(
+                  markdownEditorRef.current,
+                  e.toHexString(),
+                );
+                setHighColor(e.toHexString());
+                setRefresh((r) => !r);
+              }
             }}
           />
           <div
@@ -455,19 +475,21 @@ export const BaseToolBar = (props: {
             }}
             role="button"
             onMouseEnter={(e) => e.stopPropagation()}
-            onClick={() => {
-              if (
-                EditorUtils.isFormatActive(
-                  markdownEditorRef.current,
-                  'highColor',
-                )
-              ) {
-                EditorUtils.highColor(markdownEditorRef.current);
-              } else {
-                EditorUtils.highColor(
-                  markdownEditorRef.current,
-                  highColor || '#10b981',
-                );
+            onClick={(e) => {
+              if (!isCodeNode(markdownEditorRef.current)) {
+                if (
+                  EditorUtils.isFormatActive(
+                    markdownEditorRef.current,
+                    'highColor',
+                  )
+                ) {
+                  EditorUtils.highColor(markdownEditorRef.current);
+                } else {
+                  EditorUtils.highColor(
+                    markdownEditorRef.current,
+                    highColor || '#10b981',
+                  );
+                }
               }
             }}
           >
@@ -492,7 +514,9 @@ export const BaseToolBar = (props: {
             key={tool.key}
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => {
-              EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
+              if (!isCodeNode(markdownEditorRef.current)) {
+                EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
+              }
             }}
             className={classnames(`${baseClassName}-item`, hashId)}
             style={{
@@ -596,8 +620,10 @@ export const BaseToolBar = (props: {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            EditorUtils.clearMarks(markdownEditorRef.current, true);
-            EditorUtils.highColor(markdownEditorRef.current);
+            if (!isCodeNode(markdownEditorRef.current)) {
+              EditorUtils.clearMarks(markdownEditorRef.current, true);
+              EditorUtils.highColor(markdownEditorRef.current);
+            }
           }}
         >
           <ClearIcon />
@@ -678,10 +704,12 @@ export const BaseToolBar = (props: {
             },
           ]}
           onChange={(e) => {
-            localStorage.setItem('high-color', e.toHexString());
-            EditorUtils.highColor(markdownEditorRef.current, e.toHexString());
-            setHighColor(e.toHexString());
-            setRefresh((r) => !r);
+            if (!isCodeNode(markdownEditorRef.current)) {
+              localStorage.setItem('high-color', e.toHexString());
+              EditorUtils.highColor(markdownEditorRef.current, e.toHexString());
+              setHighColor(e.toHexString());
+              setRefresh((r) => !r);
+            }
           }}
         />
         <Tooltip title="字体颜色">
@@ -705,20 +733,20 @@ export const BaseToolBar = (props: {
             role="button"
             onMouseEnter={(e) => e.stopPropagation()}
             onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              if (
-                EditorUtils.isFormatActive(
-                  markdownEditorRef.current,
-                  'highColor',
-                )
-              ) {
-                EditorUtils.highColor(markdownEditorRef.current);
-              } else {
-                EditorUtils.highColor(
-                  markdownEditorRef.current,
-                  highColor || '#10b981',
-                );
+              if (!isCodeNode(markdownEditorRef.current)) {
+                if (
+                  EditorUtils.isFormatActive(
+                    markdownEditorRef.current,
+                    'highColor',
+                  )
+                ) {
+                  EditorUtils.highColor(markdownEditorRef.current);
+                } else {
+                  EditorUtils.highColor(
+                    markdownEditorRef.current,
+                    highColor || '#10b981',
+                  );
+                }
               }
             }}
           >
@@ -739,9 +767,12 @@ export const BaseToolBar = (props: {
               key={tool.key}
               onMouseDown={(e) => e.preventDefault()}
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
+                if (!isCodeNode(markdownEditorRef.current)) {
+                  EditorUtils.toggleFormat(
+                    markdownEditorRef.current,
+                    tool.type,
+                  );
+                }
               }}
               className={classnames(`${baseClassName}-item`, hashId)}
               style={{

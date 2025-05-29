@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { Subject } from 'rxjs';
 import type { BaseEditor, BaseSelection } from 'slate';
+import { Editor, Element } from 'slate';
 import type { HistoryEditor } from 'slate-history';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nContext, cnLabels } from '../../../../../i18n';
@@ -24,9 +25,42 @@ const HeatTextMap = {
 // Mock EditorUtils
 vi.mock('../../../utils/editorUtils', () => ({
   EditorUtils: {
-    toggleFormat: vi.fn(),
-    clearMarks: vi.fn(),
-    highColor: vi.fn(),
+    toggleFormat: vi.fn((editor: BaseEditor & ReactEditor & HistoryEditor) => {
+      // 检查当前节点是否为代码节点
+      const [node] = Editor.nodes(editor, {
+        match: (n: any) => Element.isElement(n),
+        mode: 'lowest',
+      });
+      if (node && node[0].type === 'code') {
+        return;
+      }
+      // 如果不是代码节点，执行格式化
+      return true;
+    }),
+    clearMarks: vi.fn((editor: BaseEditor & ReactEditor & HistoryEditor) => {
+      // 检查当前节点是否为代码节点
+      const [node] = Editor.nodes(editor, {
+        match: (n: any) => Element.isElement(n),
+        mode: 'lowest',
+      });
+      if (node && node[0].type === 'code') {
+        return;
+      }
+      // 如果不是代码节点，执行清除格式
+      return true;
+    }),
+    highColor: vi.fn((editor: BaseEditor & ReactEditor & HistoryEditor) => {
+      // 检查当前节点是否为代码节点
+      const [node] = Editor.nodes(editor, {
+        match: (n: any) => Element.isElement(n),
+        mode: 'lowest',
+      });
+      if (node && node[0].type === 'code') {
+        return;
+      }
+      // 如果不是代码节点，执行颜色修改
+      return true;
+    }),
     isFormatActive: vi.fn().mockReturnValue(false),
   },
 }));
@@ -123,7 +157,14 @@ const mockEditorStore = {
 vi.mock('slate', () => {
   return {
     Editor: {
-      nodes: () => [[{ type: 'paragraph', children: [], level: 1 }, [0]]],
+      nodes: (editor: any) => {
+        if (editor.selection?.focus?.path?.[0] === 1) {
+          return [
+            [{ type: 'code', children: [], language: 'javascript' }, [1]],
+          ];
+        }
+        return [[{ type: 'paragraph', children: [], level: 1 }, [0]]];
+      },
       parent: () => [{ type: 'paragraph', children: [] }, [0]],
     },
     Element: {
@@ -150,6 +191,7 @@ const defaultProps = {
 describe('BaseToolBar', () => {
   beforeEach(() => {
     vi.mocked(useEditorStore).mockReturnValue(mockEditorStore);
+    vi.clearAllMocks();
   });
 
   it('renders basic tools when showEditor is true', () => {
@@ -314,5 +356,70 @@ describe('BaseToolBar', () => {
       expect.anything(),
       true,
     );
+  });
+
+  it('handles code node operations', () => {
+    vi.clearAllMocks(); // 确保在这个测试开始前重置所有 mock
+
+    // 创建一个包含代码节点的编辑器内容
+    const initialValue = [
+      {
+        type: 'paragraph',
+        children: [{ text: 'Some text before code' }],
+      },
+      {
+        type: 'code',
+        language: 'javascript',
+        children: [{ text: 'const x = 42;' }],
+      },
+      {
+        type: 'paragraph',
+        children: [{ text: 'Some text after code' }],
+      },
+    ];
+
+    const mockEditor = {
+      ...mockEditorRef.current,
+      children: initialValue,
+      selection: { focus: { path: [1, 0], offset: 0 } },
+    };
+
+    const mockStoreWithEditor = {
+      ...mockEditorStore,
+      markdownEditorRef: {
+        current: mockEditor,
+      } as unknown as React.MutableRefObject<
+        BaseEditor & ReactEditor & HistoryEditor
+      >,
+    };
+
+    vi.mocked(useEditorStore).mockReturnValue(mockStoreWithEditor);
+
+    const { container } = render(
+      <I18nContext.Provider value={{ locale: cnLabels }}>
+        <BaseToolBar {...defaultProps} />
+      </I18nContext.Provider>,
+    );
+
+    // 测试代码节点中的格式化操作
+    const boldButton = screen.getByLabelText('bold');
+    fireEvent.click(boldButton);
+    expect(EditorUtils.toggleFormat).not.toHaveBeenCalled(); // 在代码节点中不应该应用格式化
+
+    // 测试代码节点中的清除格式操作
+    const clearButtons = container.querySelectorAll('[role="button"]');
+    const clearButton = Array.from(clearButtons).find(
+      (button) =>
+        button.querySelector('svg') && !button.querySelector('.anticon'),
+    );
+    fireEvent.click(clearButton!);
+    expect(EditorUtils.clearMarks).not.toHaveBeenCalled(); // 在代码节点中不应该清除格式
+
+    // 测试代码节点中的颜色修改
+    const colorButton = container.querySelector(
+      '[role="button"] .anticon-highlight',
+    );
+    fireEvent.click(colorButton!.parentElement!);
+    expect(EditorUtils.highColor).not.toHaveBeenCalled(); // 在代码节点中不应该修改颜色
   });
 });
