@@ -16,25 +16,16 @@ export class MarkdownFormatter {
     // 清理开头和结尾的空白字符
     normalizedText = normalizedText.trim();
 
-    // 将文本按行分割并处理每一行
-    const lines = normalizedText.split('\n').map((line) => line.trim());
-    const result: string[] = [];
+    // 将连续的空白行（包括只包含空格的行）替换为单个换行符
+    normalizedText = normalizedText.replace(/\n[\s\n]+/g, '\n');
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
+    // 确保段落之间有一个空行
+    normalizedText = normalizedText.replace(/\n(?!\n)/g, '\n\n');
 
-      // 跳过空行
-      if (!line) continue;
+    // 移除末尾多余的换行符
+    normalizedText = normalizedText.replace(/\n+$/, '');
 
-      // 如果不是第一个非空行，添加空行
-      if (result.length > 0) {
-        result.push('');
-      }
-
-      result.push(line);
-    }
-
-    return result.join('\n');
+    return normalizedText;
   }
 
   /**
@@ -64,9 +55,12 @@ export class MarkdownFormatter {
 
     // 添加空格
     let spacedText = preservedText
-      // 在中文和英文字母/数字之间添加空格
-      .replace(/([\u4e00-\u9fa5])([A-Za-z0-9])/g, '$1 $2')
-      .replace(/([A-Za-z0-9])([\u4e00-\u9fa5])/g, '$1 $2')
+      // 在中文和英文之间添加空格
+      .replace(/([\u4e00-\u9fa5])([A-Za-z])/g, '$1 $2')
+      .replace(/([A-Za-z])([\u4e00-\u9fa5])/g, '$1 $2')
+      // 在中文和数字之间添加空格
+      .replace(/([\u4e00-\u9fa5])(\d+)/g, '$1 $2')
+      .replace(/(\d+)([\u4e00-\u9fa5])/g, '$1 $2')
       // 修复可能出现的多余空格，但保留换行符
       .replace(/([^\s\n])\s+([^\s\n])/g, '$1 $2');
 
@@ -99,8 +93,10 @@ export class MarkdownFormatter {
     // 首先处理段落格式
     const paragraphsFixed = this.normalizeParagraphs(text);
 
-    // 然后添加盘古之白
-    return this.addPanguSpacing(paragraphsFixed);
+    // 然后添加盘古之白，按行处理以保持换行格式
+    const lines = paragraphsFixed.split('\n');
+    const formattedLines = lines.map((line) => this.addPanguSpacing(line));
+    return formattedLines.join('\n');
   }
 }
 
