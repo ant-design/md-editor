@@ -149,6 +149,7 @@ export const BaseToolBar = (props: {
     editorProps,
     openInsertLink$,
     domRect,
+    store,
     setDomRect,
     refreshFloatBar,
   } = useEditorStore();
@@ -317,6 +318,15 @@ export const BaseToolBar = (props: {
               });
               if (node) {
                 const content = Node.string(node.at(0));
+                if (content.trim() === '') {
+                  const markdown = store.getMDContent();
+                  if (markdown) {
+                    const formatted = MarkdownFormatter.format(markdown);
+                    store.setMDContent(formatted);
+                    setRefresh((r) => !r);
+                  }
+                  return;
+                }
                 const formatted = MarkdownFormatter.format(content);
                 const selection = editor.selection;
                 if (!selection) return;
