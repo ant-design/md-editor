@@ -57,20 +57,20 @@
             >
               <div
                 class="ant-anchor-wrapper"
-                style="max-height: calc(100vh - 64px); min-width: 200px;"
+                style="max-height: 300px; min-width: 200px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"
               >
                 <div
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#markdowntype-section-id-51212-order-3-report-id-126-section-id-51212"
                       title=""
                     >
@@ -1701,20 +1701,20 @@
             >
               <div
                 class="ant-anchor-wrapper"
-                style="max-height: calc(100vh - 64px); min-width: 200px;"
+                style="max-height: 300px; min-width: 200px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"
               >
                 <div
                   class="ant-anchor"
                 >
                   <span
-                    class="ant-anchor-ink ant-anchor-ink-visible"
+                    class="ant-anchor-ink"
                     style="top: 0px; height: 0px;"
                   />
                   <div
-                    class="ant-anchor-link ant-anchor-link-active"
+                    class="ant-anchor-link"
                   >
                     <a
-                      class="ant-anchor-link-title ant-anchor-link-title-active"
+                      class="ant-anchor-link-title"
                       href="#紧急功能"
                       title=""
                     >
