@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /**
  * 格式化 Markdown 文本
  * 1. 规范化段落之间的换行符（确保段落之间只有两个换行符）

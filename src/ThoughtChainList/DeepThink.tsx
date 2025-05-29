@@ -100,7 +100,7 @@ export const DeepThink = (
                   isFinished={
                     props.isFinished || props.output?.type !== 'TOKEN'
                   }
-                  initValue={props.output?.data}
+                  initValue={props.output?.data || ''}
                 />
               </div>
             </div>

@@ -5,6 +5,7 @@ import {
   MarkdownEditorProps,
   parserMdToSchema,
 } from '../MarkdownEditor';
+import { MarkdownFormatter } from '../plugins/formatter';
 
 const toListMarkdown = (content: string) => {
   return content;
@@ -19,7 +20,9 @@ export const MarkdownEditorUpdate = (
   useEffect(() => {
     editorRef.current?.store?.updateNodeList(
       parserMdToSchema(
-        toListMarkdown(props.initValue || '').trim(),
+        toListMarkdown(
+          MarkdownFormatter.format(props.initValue || '') || '',
+        ).trim(),
         props.plugins,
       ).schema,
     );
@@ -27,7 +30,10 @@ export const MarkdownEditorUpdate = (
 
   useEffect(() => {
     if (props.isFinished) {
-      editorRef.current?.store?.setMDContent(props.initValue, props.plugins);
+      editorRef.current?.store?.setMDContent(
+        MarkdownFormatter.format(props.initValue || ''),
+        props.plugins,
+      );
     }
   }, [props.isFinished]);
 
