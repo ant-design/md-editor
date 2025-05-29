@@ -1,5 +1,6 @@
 ﻿import {
   BoldOutlined,
+  FormatPainterOutlined,
   HighlightOutlined,
   ItalicOutlined,
   LinkOutlined,
@@ -17,8 +18,9 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { Editor, Element, NodeEntry } from 'slate';
+import { Editor, Element, Node, NodeEntry, Text, Transforms } from 'slate';
 import { I18nContext } from '../../../../i18n';
+import { MarkdownFormatter } from '../../../../plugins/formatter';
 import { useEditorStore } from '../../store';
 import { getSelRect } from '../../utils/dom';
 import { EditorUtils } from '../../utils/editorUtils';
@@ -295,6 +297,41 @@ export const BaseToolBar = (props: {
           }}
         >
           <ClearIcon />
+        </div>
+      </Tooltip>,
+    );
+
+    // 添加格式化按钮
+    list.push(
+      <Tooltip title="格式化" key="format">
+        <div
+          role="button"
+          key="format"
+          className={classnames(`${baseClassName}-item`, hashId)}
+          onClick={() => {
+            const editor = markdownEditorRef.current;
+            if (editor) {
+              const [node] = Editor.nodes(editor, {
+                match: (n) => Text.isText(n),
+                mode: 'all',
+              });
+              if (node) {
+                const content = Node.string(node.at(0));
+                const formatted = MarkdownFormatter.format(content);
+                const selection = editor.selection;
+                if (!selection) return;
+
+                Transforms.insertText(editor, formatted, {
+                  at: node[1],
+                });
+
+                // 恢复选区到文档开头
+                Transforms.select(editor, node[1]);
+              }
+            }
+          }}
+        >
+          <FormatPainterOutlined />
         </div>
       </Tooltip>,
     );
