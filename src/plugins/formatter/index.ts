@@ -34,18 +34,41 @@ export class MarkdownFormatter {
    * @returns 格式化后的文本
    */
   static addPanguSpacing(text: string): string {
-    // 保存 Markdown 特殊语法
+    // 保存 HTML 内容、Markdown 特殊语法
     const placeholders: { [key: string]: string } = {};
     let counter = 0;
 
-    // 临时替换 Markdown 链接和行内代码
+    // 临时替换需要保护的内容
     const preservedText = text
+      // 保存 HTML 注释
+      .replace(/(<!--[\s\S]*?-->)/g, (match) => {
+        const placeholder = `__COMMENT_${counter}__`;
+        placeholders[placeholder] = match;
+        counter++;
+        return placeholder;
+      })
+      // 保存 Markdown 链接（包含 HTML 标签的情况）
+      .replace(/\[([^\]]*<[^>]+>[^\]]*)\]\([^)]+\)/g, (match) => {
+        const placeholder = `__LINK_HTML_${counter}__`;
+        placeholders[placeholder] = match;
+        counter++;
+        return placeholder;
+      })
+      // 保存完整的 HTML 标签块（包括内容）
+      .replace(/(<[^>]+>.*?<\/[^>]+>|<[^>]+>)/g, (match) => {
+        const placeholder = `__HTML_${counter}__`;
+        placeholders[placeholder] = match;
+        counter++;
+        return placeholder;
+      })
+      // 保存普通 Markdown 链接
       .replace(/(\[([^\]]+)\]\([^)]+\))/g, (match) => {
         const placeholder = `__LINK_${counter}__`;
         placeholders[placeholder] = match;
         counter++;
         return placeholder;
       })
+      // 保存行内代码
       .replace(/(`[^`]+`)/g, (match) => {
         const placeholder = `__CODE_${counter}__`;
         placeholders[placeholder] = match;
@@ -61,10 +84,13 @@ export class MarkdownFormatter {
       // 在中文和数字之间添加空格
       .replace(/([\u4e00-\u9fa5])(\d+)/g, '$1 $2')
       .replace(/(\d+)([\u4e00-\u9fa5])/g, '$1 $2')
+      // 在中文和括号之间添加空格
+      .replace(/([\u4e00-\u9fa5])([\(\)])/g, '$1 $2')
+      .replace(/([\(\)])([\u4e00-\u9fa5])/g, '$1 $2')
       // 修复可能出现的多余空格，但保留换行符
       .replace(/([^\s\n])\s+([^\s\n])/g, '$1 $2');
 
-    // 还原 Markdown 特殊语法，同时处理其周围的空格
+    // 还原所有保护的内容
     Object.entries(placeholders).forEach(([placeholder, original]) => {
       spacedText = spacedText.replace(
         new RegExp(`(\\s*)${placeholder}(\\s*)`),
