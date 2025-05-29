@@ -1,6 +1,6 @@
 import { Anchor, AnchorProps } from 'antd';
 import { nanoid } from 'nanoid';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { Node } from 'slate';
 import {
@@ -11,44 +11,56 @@ import {
 import { useEditorStore } from '../store';
 import { getOffsetTop, slugify } from '../utils/dom';
 
-type Leading = {
+interface Leading {
   title: string;
   level: number;
   id: string;
   key: string;
   dom?: HTMLElement;
   schema: object;
-};
+}
+
+interface TreeNode {
+  title: string;
+  version?: string;
+  children: TreeNode[];
+  id: string;
+  key: string;
+  level?: number;
+}
 
 const cache = new Map<object, Leading>();
 
-function buildTree(headers: any[]) {
+function buildTree(headers: Leading[]): TreeNode {
   // 创建虚拟根节点，用于统一处理顶级节点
-  const root = {
+  const root: TreeNode = {
     title: '',
-    version: '',
-    children: [] as any[],
+    children: [],
     id: '',
     key: nanoid(),
   };
-  const stack = [{ node: root, level: 0, key: nanoid() }]; // 使用栈维护路径
+
+  if (!headers.length) return root;
+
+  const stack: { node: TreeNode; level: number }[] = [{ node: root, level: 0 }];
 
   for (const header of headers) {
-    // 解构层级、标题、版本（假设输入数据包含 level 字段）
-    const { level, title, version } = header;
-
-    // 创建新节点
-    const newNode = {
-      title: title,
-      version: version,
-      children: [] as any[],
-      id: title,
-      Key: nanoid(),
-    } as any;
+    const newNode: TreeNode = {
+      title: header.title,
+      children: [],
+      id: header.id,
+      key: nanoid(),
+      level: header.level,
+    };
 
     // 关键逻辑：找到合适的父节点
-    while (stack.length > 0 && stack[stack.length - 1].level >= level) {
-      stack.pop(); // 弹出层级大于等于当前节点的元素
+    while (stack.length > 0 && stack[stack.length - 1].level >= header.level) {
+      stack.pop();
+    }
+
+    if (stack.length === 0) {
+      // 安全检查：如果栈为空，重置为根节点
+      stack.push({ node: root, level: 0 });
     }
 
     // 当前栈顶即为父节点
@@ -56,45 +68,48 @@ function buildTree(headers: any[]) {
     parent.children.push(newNode);
 
     // 将新节点压入栈
-    stack.push({ node: newNode, level: level, key: nanoid() });
+    stack.push({ node: newNode, level: header.level });
   }
 
-  // 返回真实根节点的子节点（去除虚拟根节点）
   return root;
 }
 
-export const schemaToHeading = (schema: any) => {
-  const headings: Leading[] = [];
-  for (let s of schema) {
-    if (s.type === 'head' && s.level <= 4) {
-      const title = Node.string(s);
-      const id = slugify(title);
-      if (title) {
-        headings.push({
-          title,
-          level: s.level,
-          id,
-          key: nanoid(),
-          schema: s,
-        });
-      }
-    }
-  }
+interface AnchorItem {
+  id: string;
+  key: string;
+  href: string;
+  title: React.ReactNode;
+  children?: AnchorItem[];
+  level?: number;
+}
 
-  return buildTree(headings)?.children?.map((h: any) => ({
-    id: h.id,
-    key: h.key,
-    href: `#${h.id}`,
-    children: h?.children?.map((subH: any) => ({
-      id: subH.id,
-      key: subH.key,
-      href: `#${subH.id}`,
-      title: subH.title,
+function convertToAnchorItems(node: TreeNode): AnchorItem[] {
+  if (!node.children?.length) return [];
+
+  return node.children.map((child) => ({
+    id: child.id,
+    key: child.key,
+    href: `#${slugify(child.id)}`,
+    title: <TocTitle key={`title-${child.id}`}>{child.title}</TocTitle>,
+    children: child.children?.map((subChild) => ({
+      id: subChild.id,
+      key: subChild.key,
+      href: `#${slugify(subChild.id)}`,
+      title: <TocTitle key={`title-${subChild.id}`}>{subChild.title}</TocTitle>,
+      children: subChild.children?.map((subSubChild) => ({
+        id: subSubChild.id,
+        key: subSubChild.key,
+        href: `#${slugify(subSubChild.id)}`,
+        title: (
+          <TocTitle key={`title-${subSubChild.id}`}>
+            {subSubChild.title}
+          </TocTitle>
+        ),
+      })),
     })),
-    title: h.title,
-    level: h.level,
+    level: child.level,
   }));
-};
+}
 
 interface TocHeadingProps {
   schema: Elements[];
@@ -124,104 +139,160 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
   schema,
   anchorProps,
 }) => {
-  const { store, markdownEditorRef, markdownContainerRef } = useEditorStore();
+  const { markdownContainerRef } = useEditorStore();
   const [state, setState] = useGetSetState({
     headings: [] as Leading[],
     active: '',
   });
   const box = useRef<HTMLElement>();
+
+  const isScrollingInternally = useRef(false);
+
   const getHeading = useCallback(() => {
-    if (schema?.length) {
-      const headings: Leading[] = [];
-      for (let s of schema) {
-        if (s.type === 'head' && s.level <= 4) {
-          if (cache.get(s)) {
-            headings.push(cache.get(s)!);
-            continue;
-          }
-          const title = Node.string(s);
-          const id = slugify(title);
-          if (title) {
-            cache.set(s, {
-              title,
-              level: s.level,
-              id,
-              key: nanoid(),
-              schema: s,
-            });
-            headings.push(cache.get(s)!);
-          }
-        }
-      }
-      setState({ headings });
-    } else {
+    if (!schema?.length) {
       setState({ headings: [] });
+      return;
     }
-  }, [schema]);
+
+    const headings: Leading[] = [];
+    for (const s of schema) {
+      if (s.type === 'head' && s.level <= 4) {
+        const title = Node.string(s);
+        const id = slugify(title);
+        if (!title) continue;
+
+        const cached = cache.get(s);
+        if (cached) {
+          headings.push(cached);
+          continue;
+        }
+
+        const heading: Leading = {
+          title,
+          level: s.level,
+          id,
+          key: nanoid(),
+          schema: s,
+        };
+        cache.set(s, heading);
+        headings.push(heading);
+      }
+    }
+    setState({ headings });
+  }, [schema, setState]);
 
   useEffect(() => {
     cache.clear();
     getHeading();
-    if (state().active) {
-      setState({ active: '' });
-    }
-  }, [markdownEditorRef.current.children]);
+  }, [schema, getHeading]);
 
-  useDebounce(getHeading, 100, [markdownEditorRef.current.children]);
+  useDebounce(getHeading, 100, [schema]);
 
+  // 处理内部滚动
   useEffect(() => {
     const div = box.current;
-    if (div) {
-      const scroll = (e: Event) => {
-        const top = (e.target as HTMLElement).scrollTop;
-        const container = markdownContainerRef.current;
-        if (!container) return;
-        const heads = state().headings.slice().reverse();
-        for (let h of heads) {
-          if (h.dom && top > getOffsetTop(h.dom, container) - 20) {
+    if (!div) return;
+
+    const scroll = (e: Event) => {
+      if (!isScrollingInternally.current) return;
+
+      const top = (e.target as HTMLElement).scrollTop;
+      const container = markdownContainerRef.current;
+      if (!container) return;
+
+      const heads = state().headings.slice().reverse();
+      for (const h of heads) {
+        if (h.dom && top > getOffsetTop(h.dom, container) - 20) {
+          setState({ active: h.id });
+          return;
+        }
+      }
+      setState({ active: '' });
+    };
+
+    div.addEventListener('scroll', scroll, { passive: true });
+    return () => div.removeEventListener('scroll', scroll);
+  }, [markdownContainerRef, setState]);
+
+  // 处理 body 滚动
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isScrollingInternally.current) return;
+
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const heads = state().headings.slice().reverse();
+
+      for (const h of heads) {
+        const element = document.getElementById(h.id);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + scrollTop;
+          if (scrollTop >= offsetTop - 100) {
             setState({ active: h.id });
             return;
           }
         }
-        setState({ active: '' });
-      };
-      div.addEventListener('scroll', scroll, { passive: true });
-      return () => div.removeEventListener('scroll', scroll);
-    }
-    return () => {};
-  }, []);
+      }
+      setState({ active: '' });
+    };
 
-  if (!buildTree(state().headings).children?.length) {
-    return null as React.ReactNode;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [setState, state]);
+
+  // 处理锚点点击
+  const handleAnchorClick = useCallback(
+    (
+      e: React.MouseEvent<HTMLElement>,
+      link: { title: React.ReactNode; href: string },
+    ) => {
+      e.preventDefault();
+      const targetId = link.href.split('#')[1];
+      const targetElement = document.getElementById(targetId);
+
+      if (!targetElement) return;
+
+      const container = markdownContainerRef.current;
+      if (container && container.contains(targetElement)) {
+        // 如果目标元素在容器内部，使用内部滚动
+        isScrollingInternally.current = true;
+        container.scrollTo({
+          top: getOffsetTop(targetElement, container) - 20,
+          behavior: 'smooth',
+        });
+      } else {
+        // 否则使用 body 滚动
+        isScrollingInternally.current = false;
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        window.scrollBy(0, -100); // 补偿顶部固定导航的高度
+      }
+    },
+    [markdownContainerRef],
+  );
+
+  const treeData = useMemo(
+    () => buildTree(state().headings),
+    [state().headings],
+  );
+  const items = useMemo(() => convertToAnchorItems(treeData), [treeData]);
+
+  if (!items.length) {
+    return null;
   }
 
   return (
     <Anchor
       style={{
         minWidth: 200,
+        maxHeight: 300,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        paddingRight: 4,
       }}
       offsetTop={64}
+      onClick={handleAnchorClick}
       {...anchorProps}
-      items={buildTree(state().headings).children?.map((h: any) => ({
-        id: h.id,
-        key: h.key,
-        href: `#${slugify(h.id)}`,
-        children: h?.children?.map((subH: any) => ({
-          id: subH.id,
-          key: subH.key,
-          href: `#${slugify(subH.id)}`,
-          title: <TocTitle>{subH.title}</TocTitle>,
-          children:
-            subH?.children?.map((subSubH: any) => ({
-              id: subSubH.id,
-              key: subSubH.key,
-              href: `#${slugify(subSubH.id)}`,
-              title: <TocTitle>{subSubH.title}</TocTitle>,
-            })) || undefined,
-        })),
-        title: <TocTitle>{h.title}</TocTitle>,
-        level: h.level,
-      }))}
+      items={items}
     />
   );
 };

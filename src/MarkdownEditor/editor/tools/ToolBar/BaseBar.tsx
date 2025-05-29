@@ -279,10 +279,9 @@ export const BaseToolBar = (props: {
       );
 
       list.push(
-        <Tooltip title={i18n?.locale?.['redo'] || '重做'} key="重做">
+        <Tooltip title={i18n?.locale?.['redo'] || '重做'} key="redo">
           <div
             role="button"
-            key="redo"
             className={classnames(`${baseClassName}-item`, hashId)}
             onClick={() => {
               keyTask$.next({
@@ -366,21 +365,23 @@ export const BaseToolBar = (props: {
         <Dropdown
           key="head"
           menu={{
-            items: ['H1', 'H2', 'H3', 'Text'].map((item, index) => {
-              if (props.hideTools && props.hideTools.includes(item as 'H1')) {
-                return null;
-              }
-              return {
-                label: HeatTextMap[item.replace('H', '') as '1'] || item,
-                key: item,
-                onClick: () => {
-                  keyTask$.next({
-                    key: 'head',
-                    args: [index + 1],
-                  });
-                },
-              };
-            }),
+            items: ['H1', 'H2', 'H3', 'Text']
+              .map((item, index) => {
+                if (props.hideTools && props.hideTools.includes(item as 'H1')) {
+                  return null;
+                }
+                return {
+                  label: HeatTextMap[item.replace('H', '') as '1'] || item,
+                  key: `head-${item}`,
+                  onClick: () => {
+                    keyTask$.next({
+                      key: 'head',
+                      args: [index + 1],
+                    });
+                  },
+                };
+              })
+              .filter(Boolean),
           }}
         >
           <div
@@ -816,12 +817,13 @@ export const BaseToolBar = (props: {
                         alignItems: 'center',
                         gap: 8,
                       }}
+                      key={`dropdown-item-${t.key}`}
                     >
                       {t.icon}
                       {t.label?.at(0)}
                     </div>
                   ),
-                  key: t.key,
+                  key: `min-${t.key}`,
                   onClick: () => {
                     insert(t);
                   },
@@ -858,39 +860,39 @@ export const BaseToolBar = (props: {
       {props.min ? minTools : listDom}
 
       {props.extra ? (
-        <>
-          <div
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
-            {props.extra?.map((item, index) => {
-              if (React.isValidElement(item)) {
-                if (item.type === 'span') {
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          {props.extra?.map((item, index) => {
+            if (React.isValidElement(item)) {
+              if (item.type === 'span') {
+                return (
                   <div
                     className={classnames(`${baseClassName}-item`, hashId)}
-                    key={index}
+                    key={`extra-span-${index}`}
                   >
                     {item}
-                  </div>;
-                }
-                return item;
+                  </div>
+                );
               }
-              return (
-                <div
-                  className={classnames(`${baseClassName}-item`, hashId)}
-                  key={index}
-                >
-                  {item}
-                </div>
-              );
-            })}
-          </div>
-        </>
+              return React.cloneElement(item, { key: `extra-item-${index}` });
+            }
+            return (
+              <div
+                className={classnames(`${baseClassName}-item`, hashId)}
+                key={`extra-div-${index}`}
+              >
+                {item}
+              </div>
+            );
+          })}
+        </div>
       ) : null}
     </div>
   );
