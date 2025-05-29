@@ -132,7 +132,7 @@ const isCodeNode = (editor: BaseEditor & ReactEditor & HistoryEditor) => {
     match: (n: any) => Element.isElement(n),
     mode: 'lowest',
   });
-  return node && node[0].type === 'code';
+  return node && ((node as any)[0] as any).type === 'code';
 };
 
 /**
