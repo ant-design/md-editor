@@ -10,7 +10,6 @@ import { useSelStatus } from '../../hooks/editor';
 import { ActionIconBox } from '../components/ActionIconBox';
 import { AvatarList } from '../components/ContributorAvatar';
 import { useEditorStore } from '../store';
-import { DragHandle } from '../tools/DragHandle';
 import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';
 import { ImageAndError } from './image';
@@ -32,7 +31,6 @@ export const ResizeImage = ({
     width: number | string;
     height: number | string;
   }) => void;
-  supportResize?: boolean;
   defaultSize?: {
     width?: number;
     height?: number;
@@ -108,6 +106,12 @@ export const ResizeImage = ({
         }}
         size={size}
         disableDragging
+        style={{
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+        }}
         onResize={(_, dir, ele) => {
           imgRef.current?.style.setProperty('width', `${ele.clientWidth}px`);
           imgRef.current?.style.setProperty(
@@ -154,6 +158,11 @@ export const ResizeImage = ({
             boxShadow: selected ? '0 0 0 2px #1890ff' : 'none',
             minHeight: 20,
             display: loading ? 'none' : 'block',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            pointerEvents: 'none',
           }}
           {...props}
         />
@@ -229,7 +238,6 @@ export function Media({
           height: element.height,
         }}
         selected={state().selected}
-        supportResize={state().selected}
         src={state()?.url}
         onResizeStart={() => {
           setState({ selected: true });
@@ -414,6 +422,10 @@ export function Media({
           position: 'relative',
           display: 'flex',
           alignItems: 'flex-end',
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
         }}
         draggable={false}
         onContextMenu={(e) => {
@@ -422,8 +434,11 @@ export function Media({
         onMouseDown={(e) => {
           e.stopPropagation();
         }}
+        onDragStart={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
       >
-        <DragHandle />
         <Popover
           arrow={false}
           styles={{

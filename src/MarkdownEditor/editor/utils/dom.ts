@@ -79,7 +79,7 @@ export const getMediaType = (name?: string, alt?: string) => {
       if (alt.startsWith('attachment:')) return 'attachment';
       if (alt === 'image') return 'image';
     }
-    return 'other';
+    return 'image';
   }
   if (typeof name !== 'string') return 'other';
   if (alt) {
@@ -90,8 +90,9 @@ export const getMediaType = (name?: string, alt?: string) => {
   }
   name = name || '';
   if (name?.startsWith?.('data:')) return 'image';
-  name = name.split('?')[0];
-  const ext = name.toLowerCase().match(/\.\w+$/)?.[0];
+  const originName = name.split('?')[0];
+  const ext = originName.toLowerCase().match(/\.\w+$/)?.[0];
+  if (!ext && originName !== name) return 'image';
   if (!ext) return 'other';
   if (['.md', '.markdown'].includes(ext)) return 'markdown';
   if (['.png', '.jpg', '.gif', '.svg', '.jpeg', '.webp'].includes(ext))

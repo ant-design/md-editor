@@ -1012,7 +1012,6 @@ const handleTextAndInlineElements = (currentElement: any, htmlTag: any[]) => {
       );
     }
   }
-
   if (currentElement.type === 'break') {
     return { text: '\n' };
   }
@@ -1414,20 +1413,25 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  const markdownRoot = parser.parse(preprocessMarkdownTableNewlines(md || ''));
+  const markdownRoot = parser.parse(
+    preprocessMarkdownTableNewlines(md || ''),
+  ).children;
 
   const schema =
     (plugins || [])?.length > 0
-      ? (parseWithPlugins(
-          markdownRoot.children,
-          plugins || [],
-          true,
-        ) as Elements[])
-      : (parserBlock(
-          markdownRoot.children as any[],
-          true,
-          undefined,
-          [],
-        ) as Elements[]);
-  return { schema, links: [] };
+      ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
+      : (parserBlock(markdownRoot as any[], true, undefined, []) as Elements[]);
+
+  return {
+    schema: schema?.filter((item) => {
+      if (item.type === 'paragraph' && item.children?.length === 1) {
+        if (!item.children[0].value?.trim()) {
+          return false;
+        }
+        return true;
+      }
+      return true;
+    }),
+    links: [],
+  };
 };
