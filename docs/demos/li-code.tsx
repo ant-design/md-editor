@@ -1,4 +1,8 @@
-﻿import { MarkdownEditor, MarkdownEditorInstance,parserMarkdownToSlateNode } from '@ant-design/md-editor';
+﻿import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  parserMarkdownToSlateNode,
+} from '@ant-design/md-editor';
 import React, { useEffect, useRef } from 'react';
 
 const defaultValue =

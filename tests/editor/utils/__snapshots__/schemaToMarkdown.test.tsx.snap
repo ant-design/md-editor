@@ -6,15 +6,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "color": "#FE0300",
         "highColor": "#FE0300",
         "italic": true,
@@ -33,15 +24,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "Description",
       },
     ],
@@ -54,15 +36,6 @@ exports[`should convert markdown to schema in
 exports[`should convert markdown to schema in 
 ## 图表 chunk 1`] = `
 [
-  {
-    "children": [
-      {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
   {
     "children": [
       {
@@ -81,15 +54,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "思维图",
       },
     ],
@@ -105,15 +69,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "附件",
       },
     ],
@@ -126,15 +81,6 @@ exports[`should convert markdown to schema in
 exports[`should convert markdown to schema in 
 ### 5.2 A chunk 1`] = `
 [
-  {
-    "children": [
-      {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
   {
     "children": [
       {
@@ -173,15 +119,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "color": "#FE0300",
         "highColor": "#FE0300",
         "text": "哈哈哈",
@@ -198,15 +135,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "identifier": "Umi 科技（深圳）有限公司",
         "text": "Umi 科技（深圳）有限公司",
       },
@@ -219,15 +147,6 @@ exports[`should convert markdown to schema in
 exports[`should convert markdown to schema in 
 [^1]:rema chunk 1`] = `
 [
-  {
-    "children": [
-      {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
   {
     "children": [
       {
@@ -259,15 +178,6 @@ exports[`should convert markdown to schema in
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "Umi 官网",
         "url": "https://www.zhihu.com/question/665438199/answer/3625311124",
       },
@@ -280,15 +190,6 @@ exports[`should convert markdown to schema in
 exports[`should convert markdown to schema in 
 | 业务      chunk 1`] = `
 [
-  {
-    "children": [
-      {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
   {
     "children": [
       {
@@ -636,15 +537,6 @@ Descripti chunk 1`] = `
   {
     "children": [
       {
-        "text": "",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "Description: ",
       },
       {
@@ -665,19 +557,17 @@ exports[`should convert markdown to schema in   parse(te chunk 1`] = `
   {
     "children": [
       {
-        "text": "parse(text) {",
+        "text": "parse(text) {
+let currentState = 'initial';
+const tokens = [];",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
   {
     "children": [
       {
-        "text": "let currentState = 'initial';
-const tokens = [];
-
-while (text.length > 0) {
+        "text": "while (text.length > 0) {
   let matched = false;
   for (const rule of this.rules[currentState]) {
     const match = text.match(rule.regex);
@@ -703,10 +593,7 @@ return tokens;",
     "language": null,
     "render": false,
     "type": "code",
-    "value": "let currentState = 'initial';
-const tokens = [];
-
-while (text.length > 0) {
+    "value": "while (text.length > 0) {
   let matched = false;
   for (const rule of this.rules[currentState]) {
     const match = text.match(rule.regex);
@@ -758,38 +645,41 @@ exports[`should convert markdown to schema in ![](https: chunk 1`] = `
       {
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "",
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "mediaType": "image",
-            "type": "media",
-            "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "",
           },
         ],
-        "type": "card",
+        "type": "card-before",
+      },
+      {
+        "alt": "",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "mediaType": "image",
+        "type": "media",
+        "url": "https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "card",
+  },
+  {
+    "children": [
+      {
+        "text": "
+",
+      },
+    ],
+    "type": "paragraph",
   },
   {
     "children": [
@@ -833,38 +723,32 @@ exports[`should convert markdown to schema in ![attachme chunk 1`] = `
       {
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "attachment:测试附件.pdf",
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "mediaType": "image",
-            "type": "media",
-            "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "",
           },
         ],
-        "type": "card",
+        "type": "card-before",
+      },
+      {
+        "alt": "attachment:测试附件.pdf",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "mediaType": "image",
+        "type": "media",
+        "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "card",
   },
 ]
 `;
@@ -876,38 +760,32 @@ exports[`should convert markdown to schema in ![video:视频 chunk 1`] = `
       {
         "children": [
           {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-before",
-          },
-          {
-            "alt": "video:视频名",
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "mediaType": "image",
-            "type": "media",
-            "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
-          },
-          {
-            "children": [
-              {
-                "text": "",
-              },
-            ],
-            "type": "card-after",
+            "text": "",
           },
         ],
-        "type": "card",
+        "type": "card-before",
+      },
+      {
+        "alt": "video:视频名",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "mediaType": "image",
+        "type": "media",
+        "url": "https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "card",
   },
 ]
 `;
@@ -917,10 +795,10 @@ exports[`should convert markdown to schema in # 现代代码编辑器技 chunk 1
   {
     "children": [
       {
-        "text": "# 现代代码编辑器技术解析与实现示例",
+        "text": "现代代码编辑器技术解析与实现示例",
       },
     ],
-    "level": 2,
+    "level": 1,
     "type": "head",
   },
 ]
@@ -930,9 +808,6 @@ exports[`should convert markdown to schema in ##  <font  chunk 1`] = `
 [
   {
     "children": [
-      {
-        "text": "##  ",
-      },
       {
         "color": "#70AD48",
         "highColor": "#70AD48",
@@ -951,7 +826,7 @@ exports[`should convert markdown to schema in ## 1. 编辑器核 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 1. 编辑器核心功能架构",
+        "text": "1. 编辑器核心功能架构",
       },
     ],
     "level": 2,
@@ -1118,7 +993,7 @@ exports[`should convert markdown to schema in ## 2. 关键技术 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 2. 关键技术方案对比",
+        "text": "2. 关键技术方案对比",
       },
     ],
     "level": 2,
@@ -1132,7 +1007,7 @@ exports[`should convert markdown to schema in ## 3. 语法高亮 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 3. 语法高亮实现示例",
+        "text": "3. 语法高亮实现示例",
       },
     ],
     "level": 2,
@@ -1146,7 +1021,7 @@ exports[`should convert markdown to schema in ## 4. 性能优化 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 4. 性能优化策略",
+        "text": "4. 性能优化策略",
       },
     ],
     "level": 2,
@@ -1283,7 +1158,7 @@ exports[`should convert markdown to schema in ## 5. 扩展功能 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 5. 扩展功能开发指南",
+        "text": "5. 扩展功能开发指南",
       },
     ],
     "level": 2,
@@ -1307,7 +1182,7 @@ exports[`should convert markdown to schema in ## 删除线
   {
     "children": [
       {
-        "text": "## 删除线",
+        "text": "删除线",
       },
     ],
     "level": 2,
@@ -1330,7 +1205,7 @@ exports[`should convert markdown to schema in ## 图片 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 图片",
+        "text": "图片",
       },
     ],
     "level": 2,
@@ -1344,7 +1219,7 @@ exports[`should convert markdown to schema in ## 引用 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 引用",
+        "text": "引用",
       },
     ],
     "level": 2,
@@ -1359,7 +1234,7 @@ exports[`should convert markdown to schema in ## 结语
   {
     "children": [
       {
-        "text": "## 结语",
+        "text": "结语",
       },
     ],
     "level": 2,
@@ -1390,7 +1265,7 @@ exports[`should convert markdown to schema in ## 表单 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 表单",
+        "text": "表单",
       },
     ],
     "level": 2,
@@ -1404,7 +1279,7 @@ exports[`should convert markdown to schema in ## 视频 chunk 1`] = `
   {
     "children": [
       {
-        "text": "## 视频",
+        "text": "视频",
       },
     ],
     "level": 2,
@@ -1418,16 +1293,13 @@ exports[`should convert markdown to schema in ###  <font chunk 1`] = `
   {
     "children": [
       {
-        "text": "###  ",
-      },
-      {
         "color": "#F6CCAC",
         "highColor": "#F6CCAC",
         "italic": true,
         "text": "我是一个正经人",
       },
     ],
-    "level": 2,
+    "level": 3,
     "type": "head",
   },
 ]
@@ -1438,10 +1310,10 @@ exports[`should convert markdown to schema in ### 1.2 高级 chunk 1`] = `
   {
     "children": [
       {
-        "text": "### 1.2 高级功能实现",
+        "text": "1.2 高级功能实现",
       },
     ],
-    "level": 2,
+    "level": 3,
     "type": "head",
   },
   {
@@ -1520,10 +1392,10 @@ exports[`should convert markdown to schema in ### 4.2 内存 chunk 1`] = `
   {
     "children": [
       {
-        "text": "### 4.2 内存管理方案",
+        "text": "4.2 内存管理方案",
       },
     ],
-    "level": 2,
+    "level": 3,
     "type": "head",
   },
   {
@@ -1588,10 +1460,10 @@ exports[`should convert markdown to schema in ### 一、基础遍历 chunk 1`] =
   {
     "children": [
       {
-        "text": "### 一、基础遍历方法",
+        "text": "一、基础遍历方法",
       },
     ],
-    "level": 2,
+    "level": 3,
     "type": "head",
   },
   {
@@ -1667,10 +1539,10 @@ exports[`should convert markdown to schema in ### 三、特殊场景 chunk 1`] =
   {
     "children": [
       {
-        "text": "### 三、特殊场景方法",
+        "text": "三、特殊场景方法",
       },
     ],
-    "level": 2,
+    "level": 3,
     "type": "head",
   },
   {
@@ -1724,10 +1596,10 @@ exports[`should convert markdown to schema in ### 二、其他遍历 chunk 1`] =
   {
     "children": [
       {
-        "text": "### 二、其他遍历方式",
+        "text": "二、其他遍历方式",
       },
     ],
-    "level": 2,
+    "level": 3,
     "type": "head",
   },
   {
@@ -1808,30 +1680,20 @@ exports[`should convert markdown to schema in <!-- {"Mar chunk 1`] = `
   {
     "children": [
       {
-        "contextProps": {
-          "MarkdownType": "report",
-          "id": "8",
-          "section_ids": " [15, 16, 17] ",
-        },
-        "isConfig": true,
-        "otherProps": {
-          "MarkdownType": "report",
-          "id": "8",
-          "section_ids": " [15, 16, 17] ",
-        },
-        "text": "<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "Umi 研究报告",
       },
     ],
+    "contextProps": {
+      "MarkdownType": "report",
+      "id": "8",
+      "section_ids": " [15, 16, 17] ",
+    },
     "level": 1,
+    "otherProps": {
+      "MarkdownType": "report",
+      "id": "8",
+      "section_ids": " [15, 16, 17] ",
+    },
     "type": "head",
   },
 ]
@@ -1842,90 +1704,64 @@ exports[`should convert markdown to schema in <!-- {"Mar chunk 2`] = `
   {
     "children": [
       {
-        "contextProps": {
-          "MarkdownType": "section",
-          "id": "15",
-        },
-        "isConfig": true,
-        "otherProps": {
-          "MarkdownType": "section",
-          "id": "15",
-        },
-        "text": "<!-- {"MarkdownType": "section", "id": "15" } -->",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "html",
       },
     ],
+    "contextProps": {
+      "MarkdownType": "section",
+      "id": "15",
+    },
     "level": 2,
+    "otherProps": {
+      "MarkdownType": "section",
+      "id": "15",
+    },
     "type": "head",
   },
 ]
 `;
 
-exports[`should convert markdown to schema in <!-- {"cha chunk 1`] = `
-[
-  {
-    "children": [
-      {
-        "contextProps": {
-          "chartType": "bar",
-          "x": "业务",
-          "y": "2021Q1",
-        },
-        "isConfig": true,
-        "otherProps": {
-          "chartType": "bar",
-          "x": "业务",
-          "y": "2021Q1",
-        },
-        "text": "<!-- {"chartType": "bar", "x":"业务", "y":"2021Q1"} -->",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-]
-`;
+exports[`should convert markdown to schema in <!-- {"cha chunk 1`] = `[]`;
 
 exports[`should convert markdown to schema in <!-- {"typ chunk 1`] = `
 [
   {
     "children": [
       {
-        "contextProps": {
-          "description": "这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…",
-          "icon": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
-          "title": "《影之刃零》发售销量会破五百万吗？ - 知乎",
-          "type": "card",
-        },
-        "isConfig": true,
-        "otherProps": {
-          "description": "这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…",
-          "icon": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
-          "title": "《影之刃零》发售销量会破五百万吗？ - 知乎",
-          "type": "card",
-        },
-        "text": "<!-- {"type": "card","icon":"https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10","title":"《影之刃零》发售销量会破五百万吗？ - 知乎","description":"这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…" } -->",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
       },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
       {
-        "text": "Umi 官网",
-        "url": "https://www.zhihu.com/question/665438199/answer/3625311124",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "type": "paragraph",
+    "contextProps": {
+      "description": "这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…",
+      "icon": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
+      "title": "《影之刃零》发售销量会破五百万吗？ - 知乎",
+      "type": "card",
+    },
+    "description": "这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…",
+    "icon": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
+    "name": "Umi 官网",
+    "otherProps": {
+      "description": "这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…",
+      "icon": "https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10",
+      "title": "《影之刃零》发售销量会破五百万吗？ - 知乎",
+      "type": "card",
+    },
+    "title": "《影之刃零》发售销量会破五百万吗？ - 知乎",
+    "type": "link-card",
+    "url": "https://www.zhihu.com/question/665438199/answer/3625311124",
   },
 ]
 `;
@@ -1940,8 +1776,7 @@ exports[`should convert markdown to schema in <font colo chunk 1`] = `
         "text": "Umi 科技（深圳）有限公司",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
@@ -1951,234 +1786,144 @@ exports[`should convert markdown to schema in <html><tab chunk 1`] = `
   {
     "children": [
       {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<html>",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
       },
       {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<table>",
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "序号",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "问题",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "答案",
+                  },
+                ],
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "0.0",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "世界上最小的鸟是什么?",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "蜂鸟（Hummingbird）。蜂鸟是世界上最小的鸟类，其中最小的种类是蜂鸟科中的蜂鸟属（Melli",
+                  },
+                ],
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "1.0",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "地球上最高的山峰是哪座?",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "珠穆朗玛峰（Mount Everest）。珠穆朗玛峰位于喜马拉雅山脉，海拔8848.86米，是地球上最",
+                  },
+                ],
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "2.0",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "哪种动物的睡眠时间最长?",
+                  },
+                ],
+                "type": "table-cell",
+              },
+              {
+                "children": [
+                  {
+                    "text": "考拉（Koala）。考拉每天大约睡18-22小时，是已知睡眠时间最长的动物之一。",
+                  },
+                ],
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "type": "table",
       },
       {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<tbody>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "序号",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "问题",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "答案",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "0.0",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "世界上最小的鸟是什么?",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "蜂鸟（Hummingbird）。蜂鸟是世界上最小的鸟类，其中最小的种类是蜂鸟科中的蜂鸟属（Melli",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "1.0",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "地球上最高的山峰是哪座?",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "珠穆朗玛峰（Mount Everest）。珠穆朗玛峰位于喜马拉雅山脉，海拔8848.86米，是地球上最",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "2.0",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "哪种动物的睡眠时间最长?",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "<td>",
-      },
-      {
-        "text": "考拉（Koala）。考拉每天大约睡18-22小时，是已知睡眠时间最长的动物之一。",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</td>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</tr>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</tbody>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</table>",
-      },
-      {
-        "isConfig": false,
-        "otherProps": {},
-        "text": "</html>",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "card",
   },
 ]
 `;
@@ -2192,8 +1937,7 @@ exports[`should convert markdown to schema in <sup>1</su chunk 1`] = `
         "text": "1",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
@@ -2209,8 +1953,7 @@ exports[`should convert markdown to schema in [<font col chunk 1`] = `
         "url": "https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
@@ -2224,8 +1967,7 @@ exports[`should convert markdown to schema in [知乎](https chunk 1`] = `
         "url": "https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
@@ -2235,24 +1977,24 @@ exports[`should convert markdown to schema in \`\`\`javascr chunk 1`] = `
   {
     "children": [
       {
-        "text": "\`\`\`javascript",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "// 使用有限状态机实现基础语法高亮
 class SyntaxHighlighter {
-constructor(rules) {
-this.states = [];
-this.rules = rules;
-}",
+ constructor(rules) {
+   this.states = [];
+   this.rules = rules;
+ }",
       },
     ],
-    "type": "paragraph",
+    "isConfig": false,
+    "language": "javascript",
+    "render": false,
+    "type": "code",
+    "value": "// 使用有限状态机实现基础语法高亮
+class SyntaxHighlighter {
+ constructor(rules) {
+   this.states = [];
+   this.rules = rules;
+ }",
   },
 ]
 `;
@@ -2262,34 +2004,20 @@ exports[`should convert markdown to schema in \`\`\`mermaid chunk 1`] = `
   {
     "children": [
       {
-        "text": "\`\`\`mermaid",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "graph TD
-A[开始] --> B[处理]
-B --> C[完成]
-C --> D[结束]",
-      },
-    ],
-    "type": "paragraph",
-  },
-  {
-    "children": [
-      {
-        "text": "",
+   A[开始] --> B[处理]
+   B --> C[完成]
+   C --> D[结束]",
       },
     ],
     "isConfig": false,
-    "language": null,
+    "language": "mermaid",
     "render": false,
-    "type": "code",
-    "value": "",
+    "type": "mermaid",
+    "value": "graph TD
+   A[开始] --> B[处理]
+   B --> C[完成]
+   C --> D[结束]",
   },
 ]
 `;
@@ -2299,61 +2027,46 @@ exports[`should convert markdown to schema in \`\`\`mermaid chunk 2`] = `
   {
     "children": [
       {
-        "text": "\`\`\`mermaid",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "mindmap
-root((mindmap))
-Origins
-Long history
-::icon(fa fa-book)
-Popularisation
-British popular psychology author Tony Buzan
-Research
-On effectiveness",
-      },
-      {
-        "children": [
-          {
-            "text": "
-",
-          },
-        ],
-        "isConfig": false,
-        "otherProps": {},
-        "type": "break",
-      },
-      {
-        "text": "and features
-On Automatic creation
-Uses
-Creative techniques
-Strategic planning
-Argument mapping
-Tools
-Pen and paper
-Mermaid",
-      },
-    ],
-    "type": "paragraph",
-  },
-  {
-    "children": [
-      {
-        "text": "",
+ root((mindmap))
+   Origins
+     Long history
+     ::icon(fa fa-book)
+     Popularisation
+       British popular psychology author Tony Buzan
+   Research
+     On effectiveness<br/>and features
+     On Automatic creation
+       Uses
+           Creative techniques
+           Strategic planning
+           Argument mapping
+   Tools
+     Pen and paper
+     Mermaid",
       },
     ],
     "isConfig": false,
-    "language": null,
+    "language": "mermaid",
     "render": false,
-    "type": "code",
-    "value": "",
+    "type": "mermaid",
+    "value": "mindmap
+ root((mindmap))
+   Origins
+     Long history
+     ::icon(fa fa-book)
+     Popularisation
+       British popular psychology author Tony Buzan
+   Research
+     On effectiveness<br/>and features
+     On Automatic creation
+       Uses
+           Creative techniques
+           Strategic planning
+           Argument mapping
+   Tools
+     Pen and paper
+     Mermaid",
   },
 ]
 `;
@@ -2364,40 +2077,37 @@ exports[`should convert markdown to schema in \`\`\`schema
   {
     "children": [
       {
-        "text": "\`\`\`schema",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
         "text": "[
-{
-"title": "标题",
-"dataIndex": "title",
-"formItemProps": {
-"rules": [{ "required": true, "message": "此项为必填项" }]
-},
-"width": "md"
-}
+ {
+   "title": "标题",
+   "dataIndex": "title",
+   "formItemProps": {
+     "rules": [{ "required": true, "message": "此项为必填项" }]
+   },
+   "width": "md"
+ }
 ]",
       },
     ],
-    "type": "paragraph",
-  },
-  {
-    "children": [
+    "isConfig": false,
+    "language": "schema",
+    "render": false,
+    "type": "apaasify",
+    "value": [
       {
-        "text": "",
+        "dataIndex": "title",
+        "formItemProps": {
+          "rules": [
+            {
+              "message": "此项为必填项",
+              "required": true,
+            },
+          ],
+        },
+        "title": "标题",
+        "width": "md",
       },
     ],
-    "isConfig": false,
-    "language": null,
-    "render": false,
-    "type": "code",
-    "value": "",
   },
 ]
 `;
@@ -2407,27 +2117,830 @@ exports[`should convert markdown to schema in | 业务       chunk 1`] = `
   {
     "children": [
       {
-        "text": "| 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  |",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
       },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
       {
-        "text": "| ------------- | ------- | ------- | ------- | ------- | ------- |
-| 收入          | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 |
-| 增值服务      | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  |
-| 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  |
-| 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  |
-| 云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   |",
+        "children": [
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "cols": 0,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "cols": 1,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "cols": 2,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "cols": 3,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "cols": 4,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2022Q1",
+                  },
+                ],
+                "cols": 5,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "cols": 0,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "135,303",
+                  },
+                ],
+                "cols": 1,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "cols": 2,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "cols": 3,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "cols": 4,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "135,471",
+                  },
+                ],
+                "cols": 5,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "cols": 0,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "cols": 1,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "cols": 2,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "cols": 3,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "cols": 4,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "72,738",
+                  },
+                ],
+                "cols": 5,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "cols": 0,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "cols": 1,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "cols": 2,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "cols": 3,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "cols": 4,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "cols": 5,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "cols": 0,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "cols": 1,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "cols": 2,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "cols": 3,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "cols": 4,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "cols": 5,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "cols": 0,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "cols": 1,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "cols": 2,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "cols": 3,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "cols": 4,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "17,988",
+                  },
+                ],
+                "cols": 5,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "cols": 0,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "cols": 1,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "cols": 2,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "cols": 3,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "cols": 4,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "44,745",
+                  },
+                ],
+                "cols": 5,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "cols": 0,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "cols": 1,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "cols": 2,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "cols": 3,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "cols": 4,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "42,768",
+                  },
+                ],
+                "cols": 5,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "cols": 0,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "cols": 1,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "cols": 2,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "cols": 3,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "cols": 4,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "111,977",
+                  },
+                ],
+                "cols": 5,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+            {
+              "dataIndex": "2022Q1",
+              "key": "2022Q1",
+              "title": "2022Q1",
+            },
+          ],
+          "dataSource": [
+            {
+              "2021Q1": "135,303",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "2022Q1": "135,471",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "2022Q1": "72,738",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "2022Q1": "43,600",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "2022Q1": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "2022Q1": "17,988",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "2022Q1": "44,745",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "2022Q1": "42,768",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "2022Q1": "111,977",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "table",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "type": "paragraph",
+    "type": "card",
   },
 ]
 `;
@@ -2437,27 +2950,830 @@ exports[`should convert markdown to schema in | 业务       chunk 2`] = `
   {
     "children": [
       {
-        "text": "| 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  |",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
       },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
       {
-        "text": "| ------------- | ------- | ------- | ------- | ------- | ------- |
-| 收入          | 135,303 [^DOC_1] | 138,259 | 142,368 | 144,188 | 135,471 |
-| 增值服务      | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  |
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  |
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  |
-| 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  |
-| 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  |
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  |
-| 云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   |",
+        "children": [
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "业务",
+                  },
+                ],
+                "cols": 0,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "2021Q1",
+                  },
+                ],
+                "cols": 1,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q2",
+                  },
+                ],
+                "cols": 2,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q3",
+                  },
+                ],
+                "cols": 3,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2021Q4",
+                  },
+                ],
+                "cols": 4,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "2022Q1",
+                  },
+                ],
+                "cols": 5,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "收入",
+                  },
+                ],
+                "cols": 0,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "135,303 [^DOC_1]",
+                  },
+                ],
+                "cols": 1,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "138,259",
+                  },
+                ],
+                "cols": 2,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "142,368",
+                  },
+                ],
+                "cols": 3,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "144,188",
+                  },
+                ],
+                "cols": 4,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "135,471",
+                  },
+                ],
+                "cols": 5,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "增值服务",
+                  },
+                ],
+                "cols": 0,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "72,443",
+                  },
+                ],
+                "cols": 1,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "72,013",
+                  },
+                ],
+                "cols": 2,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "75,203",
+                  },
+                ],
+                "cols": 3,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "71,913",
+                  },
+                ],
+                "cols": 4,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "72,738",
+                  },
+                ],
+                "cols": 5,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络游戏",
+                  },
+                ],
+                "cols": 0,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "cols": 1,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,000",
+                  },
+                ],
+                "cols": 2,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "44,900",
+                  },
+                ],
+                "cols": 3,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "42,800",
+                  },
+                ],
+                "cols": 4,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,600",
+                  },
+                ],
+                "cols": 5,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "社交网络收入",
+                  },
+                ],
+                "cols": 0,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "28,800",
+                  },
+                ],
+                "cols": 1,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "29,000",
+                  },
+                ],
+                "cols": 2,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "30,300",
+                  },
+                ],
+                "cols": 3,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "cols": 4,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "29,100",
+                  },
+                ],
+                "cols": 5,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": "right",
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "网络广告",
+                  },
+                ],
+                "cols": 0,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "21,820",
+                  },
+                ],
+                "cols": 1,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "22,833",
+                  },
+                ],
+                "cols": 2,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "22,495",
+                  },
+                ],
+                "cols": 3,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "21,518",
+                  },
+                ],
+                "cols": 4,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "17,988",
+                  },
+                ],
+                "cols": 5,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "其他",
+                  },
+                ],
+                "cols": 0,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "41,040",
+                  },
+                ],
+                "cols": 1,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,413",
+                  },
+                ],
+                "cols": 2,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "44,670",
+                  },
+                ],
+                "cols": 3,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "50,757",
+                  },
+                ],
+                "cols": 4,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "44,745",
+                  },
+                ],
+                "cols": 5,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "金融科技",
+                  },
+                ],
+                "cols": 0,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "39,028",
+                  },
+                ],
+                "cols": 1,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "41,892",
+                  },
+                ],
+                "cols": 2,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "43,317",
+                  },
+                ],
+                "cols": 3,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "47,958",
+                  },
+                ],
+                "cols": 4,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "42,768",
+                  },
+                ],
+                "cols": 5,
+                "rows": 7,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "云",
+                  },
+                ],
+                "cols": 0,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "162,012",
+                  },
+                ],
+                "cols": 1,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "111,521",
+                  },
+                ],
+                "cols": 2,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "111,353",
+                  },
+                ],
+                "cols": 3,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "112,799",
+                  },
+                ],
+                "cols": 4,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": "right",
+                "children": [
+                  {
+                    "text": "111,977",
+                  },
+                ],
+                "cols": 5,
+                "rows": 8,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "业务",
+              "key": "业务",
+              "title": "业务",
+            },
+            {
+              "dataIndex": "2021Q1",
+              "key": "2021Q1",
+              "title": "2021Q1",
+            },
+            {
+              "dataIndex": "2021Q2",
+              "key": "2021Q2",
+              "title": "2021Q2",
+            },
+            {
+              "dataIndex": "2021Q3",
+              "key": "2021Q3",
+              "title": "2021Q3",
+            },
+            {
+              "dataIndex": "2021Q4",
+              "key": "2021Q4",
+              "title": "2021Q4",
+            },
+            {
+              "dataIndex": "2022Q1",
+              "key": "2022Q1",
+              "title": "2022Q1",
+            },
+          ],
+          "dataSource": [
+            {
+              "2021Q1": "135,303 \\[^DOC1]",
+              "2021Q2": "138,259",
+              "2021Q3": "142,368",
+              "2021Q4": "144,188",
+              "2022Q1": "135,471",
+              "业务": "收入",
+            },
+            {
+              "2021Q1": "72,443",
+              "2021Q2": "72,013",
+              "2021Q3": "75,203",
+              "2021Q4": "71,913",
+              "2022Q1": "72,738",
+              "业务": "增值服务",
+            },
+            {
+              "2021Q1": "43,600",
+              "2021Q2": "43,000",
+              "2021Q3": "44,900",
+              "2021Q4": "42,800",
+              "2022Q1": "43,600",
+              "业务": "网络游戏",
+            },
+            {
+              "2021Q1": "28,800",
+              "2021Q2": "29,000",
+              "2021Q3": "30,300",
+              "2021Q4": "29,100",
+              "2022Q1": "29,100",
+              "业务": "社交网络收入",
+            },
+            {
+              "2021Q1": "21,820",
+              "2021Q2": "22,833",
+              "2021Q3": "22,495",
+              "2021Q4": "21,518",
+              "2022Q1": "17,988",
+              "业务": "网络广告",
+            },
+            {
+              "2021Q1": "41,040",
+              "2021Q2": "43,413",
+              "2021Q3": "44,670",
+              "2021Q4": "50,757",
+              "2022Q1": "44,745",
+              "业务": "其他",
+            },
+            {
+              "2021Q1": "39,028",
+              "2021Q2": "41,892",
+              "2021Q3": "43,317",
+              "2021Q4": "47,958",
+              "2022Q1": "42,768",
+              "业务": "金融科技",
+            },
+            {
+              "2021Q1": "162,012",
+              "2021Q2": "111,521",
+              "2021Q3": "111,353",
+              "2021Q4": "112,799",
+              "2022Q1": "111,977",
+              "业务": "云",
+            },
+          ],
+        },
+        "type": "table",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "type": "paragraph",
+    "type": "card",
   },
   {
     "children": [
@@ -2480,25 +3796,468 @@ exports[`should convert markdown to schema in | 技术方向     chunk 1`] = `
   {
     "children": [
       {
-        "text": "| 技术方向       | 实现方案                | 优点                 | 缺点                  |",
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-before",
       },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
       {
-        "text": "|----------------|-------------------------|----------------------|-----------------------|
-| 语法高亮       | 正则表达式匹配          | 实现简单             | 性能较差              |
-|                | 语法树分析              | 高准确性             | 实现复杂              |
-| 文件管理       | 内存映射文件            | 大文件处理优势       | 内存消耗较大          |
-|                | 分块加载机制            | 内存效率高           | 需要复杂索引          |
-| 渲染引擎       | Canvas 绘制             | 高性能渲染           | 兼容性要求高          |
-|                | DOM 元素渲染            | 天然支持文字样式     | 大数据量性能瓶颈      |",
+        "children": [
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "技术方向",
+                  },
+                ],
+                "cols": 0,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "实现方案",
+                  },
+                ],
+                "cols": 1,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "优点",
+                  },
+                ],
+                "cols": 2,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "缺点",
+                  },
+                ],
+                "cols": 3,
+                "rows": 0,
+                "title": true,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "语法高亮",
+                  },
+                ],
+                "cols": 0,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "正则表达式匹配",
+                  },
+                ],
+                "cols": 1,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "实现简单",
+                  },
+                ],
+                "cols": 2,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "性能较差",
+                  },
+                ],
+                "cols": 3,
+                "rows": 1,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "",
+                  },
+                ],
+                "cols": 0,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "语法树分析",
+                  },
+                ],
+                "cols": 1,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "高准确性",
+                  },
+                ],
+                "cols": 2,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "实现复杂",
+                  },
+                ],
+                "cols": 3,
+                "rows": 2,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "文件管理",
+                  },
+                ],
+                "cols": 0,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "内存映射文件",
+                  },
+                ],
+                "cols": 1,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "大文件处理优势",
+                  },
+                ],
+                "cols": 2,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "内存消耗较大",
+                  },
+                ],
+                "cols": 3,
+                "rows": 3,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "",
+                  },
+                ],
+                "cols": 0,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "分块加载机制",
+                  },
+                ],
+                "cols": 1,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "内存效率高",
+                  },
+                ],
+                "cols": 2,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "需要复杂索引",
+                  },
+                ],
+                "cols": 3,
+                "rows": 4,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "渲染引擎",
+                  },
+                ],
+                "cols": 0,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "Canvas 绘制",
+                  },
+                ],
+                "cols": 1,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "高性能渲染",
+                  },
+                ],
+                "cols": 2,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "兼容性要求高",
+                  },
+                ],
+                "cols": 3,
+                "rows": 5,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+          {
+            "align": undefined,
+            "children": [
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "",
+                  },
+                ],
+                "cols": 0,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "DOM 元素渲染",
+                  },
+                ],
+                "cols": 1,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "天然支持文字样式",
+                  },
+                ],
+                "cols": 2,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+              {
+                "align": undefined,
+                "children": [
+                  {
+                    "text": "大数据量性能瓶颈",
+                  },
+                ],
+                "cols": 3,
+                "rows": 6,
+                "title": false,
+                "type": "table-cell",
+              },
+            ],
+            "type": "table-row",
+          },
+        ],
+        "otherProps": {
+          "columns": [
+            {
+              "dataIndex": "技术方向",
+              "key": "技术方向",
+              "title": "技术方向",
+            },
+            {
+              "dataIndex": "实现方案",
+              "key": "实现方案",
+              "title": "实现方案",
+            },
+            {
+              "dataIndex": "优点",
+              "key": "优点",
+              "title": "优点",
+            },
+            {
+              "dataIndex": "缺点",
+              "key": "缺点",
+              "title": "缺点",
+            },
+          ],
+          "dataSource": [
+            {
+              "优点": "实现简单",
+              "实现方案": "正则表达式匹配",
+              "技术方向": "语法高亮",
+              "缺点": "性能较差",
+            },
+            {
+              "优点": "高准确性",
+              "实现方案": "语法树分析",
+              "技术方向": "",
+              "缺点": "实现复杂",
+            },
+            {
+              "优点": "大文件处理优势",
+              "实现方案": "内存映射文件",
+              "技术方向": "文件管理",
+              "缺点": "内存消耗较大",
+            },
+            {
+              "优点": "内存效率高",
+              "实现方案": "分块加载机制",
+              "技术方向": "",
+              "缺点": "需要复杂索引",
+            },
+            {
+              "优点": "高性能渲染",
+              "实现方案": "Canvas 绘制",
+              "技术方向": "渲染引擎",
+              "缺点": "兼容性要求高",
+            },
+            {
+              "优点": "天然支持文字样式",
+              "实现方案": "DOM 元素渲染",
+              "技术方向": "",
+              "缺点": "大数据量性能瓶颈",
+            },
+          ],
+        },
+        "type": "table",
+      },
+      {
+        "children": [
+          {
+            "text": "",
+          },
+        ],
+        "type": "card-after",
       },
     ],
-    "type": "paragraph",
+    "type": "card",
   },
 ]
 `;
@@ -2508,11 +4267,10 @@ exports[`should convert markdown to schema in --- chunk 1`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2522,11 +4280,10 @@ exports[`should convert markdown to schema in --- chunk 2`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2536,11 +4293,10 @@ exports[`should convert markdown to schema in --- chunk 3`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2550,11 +4306,10 @@ exports[`should convert markdown to schema in --- chunk 4`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2564,11 +4319,10 @@ exports[`should convert markdown to schema in --- chunk 5`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2578,11 +4332,10 @@ exports[`should convert markdown to schema in --- chunk 6`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2592,11 +4345,10 @@ exports[`should convert markdown to schema in --- chunk 7`] = `
   {
     "children": [
       {
-        "text": "---",
+        "text": "",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "hr",
   },
 ]
 `;
@@ -2609,8 +4361,7 @@ exports[`should convert markdown to schema in ---SW chunk 1`] = `
         "text": "---SW",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
@@ -2620,33 +4371,43 @@ exports[`should convert markdown to schema in 2. **通过索引遍 chunk 1`] = `
   {
     "children": [
       {
-        "text": "2. ",
-      },
-      {
-        "bold": true,
-        "text": "通过索引遍历",
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "bold": true,
+                "text": "通过索引遍历",
+              },
+              {
+                "text": "
+",
+              },
+              {
+                "text": "结合 ",
+              },
+              {
+                "code": true,
+                "initialValue": undefined,
+                "placeholder": undefined,
+                "tag": false,
+                "text": "range(len())",
+              },
+              {
+                "text": " 获取索引：",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
       },
     ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
-        "text": "结合 ",
-      },
-      {
-        "code": true,
-        "initialValue": undefined,
-        "placeholder": undefined,
-        "tag": false,
-        "text": "range(len())",
-      },
-      {
-        "text": " 获取索引：",
-      },
-    ],
-    "type": "paragraph",
+    "order": true,
+    "start": 2,
+    "task": false,
+    "type": "list",
   },
   {
     "children": [
@@ -2678,28 +4439,39 @@ exports[`should convert markdown to schema in 3. **同时获取索 chunk 1`] = `
   {
     "children": [
       {
-        "text": "3. ",
-      },
-      {
-        "bold": true,
-        "text": "同时获取索引和值（",
-      },
-      {
-        "bold": true,
-        "code": true,
-        "text": "enumerate",
-      },
-      {
-        "bold": true,
-        "text": "enumerate",
-      },
-      {
-        "bold": true,
-        "text": "）",
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "bold": true,
+                "text": "同时获取索引和值（",
+              },
+              {
+                "bold": true,
+                "code": true,
+                "text": "enumerate",
+              },
+              {
+                "bold": true,
+                "text": "enumerate",
+              },
+              {
+                "bold": true,
+                "text": "）",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "order": true,
+    "start": 3,
+    "task": false,
+    "type": "list",
   },
   {
     "children": [
@@ -2731,23 +4503,33 @@ exports[`should convert markdown to schema in 5. **列表推导式 chunk 1`] = `
   {
     "children": [
       {
-        "text": "5. ",
-      },
-      {
-        "bold": true,
-        "text": "列表推导式",
+        "checked": null,
+        "children": [
+          {
+            "children": [
+              {
+                "bold": true,
+                "text": "列表推导式",
+              },
+              {
+                "text": "
+",
+              },
+              {
+                "text": "快速生成新列表的同时遍历：",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "mentions": undefined,
+        "type": "list-item",
       },
     ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
-        "text": "快速生成新列表的同时遍历：",
-      },
-    ],
-    "type": "paragraph",
+    "order": true,
+    "start": 5,
+    "task": false,
+    "type": "list",
   },
   {
     "children": [
@@ -2777,16 +4559,8 @@ exports[`should convert markdown to schema in class Edit chunk 1`] = `
   {
     "children": [
       {
-        "text": "class EditorCore {",
-      },
-    ],
-    "level": 2,
-    "type": "head",
-  },
-  {
-    "children": [
-      {
-        "text": "registerPlugin(plugin: EditorPlugin): boolean {
+        "text": "class EditorCore {
+registerPlugin(plugin: EditorPlugin): boolean {
 // 实现插件注册逻辑
 }",
       },
@@ -2825,8 +4599,7 @@ exports[`should convert markdown to schema in 上上任的武汉大学校长 chu
         "text": "上上任的武汉大学校长是李晓红。[^DOC_1][^DOC_2]",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
@@ -2849,52 +4622,29 @@ exports[`should convert markdown to schema in 在 Python 中 chunk 1`] = `
         "text": "）有以下常用方法：",
       },
     ],
-    "level": 2,
-    "type": "head",
+    "type": "paragraph",
   },
 ]
 `;
 
 exports[`should convert schema to markdown in 
-#  <font  chunk 1`] = `
-"## 
-
-# <i><span style="color:#FE0300">我是一个正经人</span></i>"
-`;
+#  <font  chunk 1`] = `"# <i><span style="color:#FE0300">我是一个正经人</span></i>"`;
 
 exports[`should convert schema to markdown in 
-## Descri chunk 1`] = `
-"## 
-
-## Description"
-`;
+## Descri chunk 1`] = `"## Description"`;
 
 exports[`should convert schema to markdown in 
-## 图表 chunk 1`] = `
-"## 
-
-## 图表"
-`;
+## 图表 chunk 1`] = `"## 图表"`;
 
 exports[`should convert schema to markdown in 
-## 思维图 chunk 1`] = `
-"## 
-
-## 思维图"
-`;
+## 思维图 chunk 1`] = `"## 思维图"`;
 
 exports[`should convert schema to markdown in 
-## 附件 chunk 1`] = `
-"## 
-
-## 附件"
-`;
+## 附件 chunk 1`] = `"## 附件"`;
 
 exports[`should convert schema to markdown in 
 ### 5.2 A chunk 1`] = `
-"## 
-
-### 5.2 API接口设计
+"### 5.2 API接口设计
 
 \`\`\`typescript
 interface EditorPlugin {
@@ -2906,64 +4656,39 @@ interface EditorPlugin {
 `;
 
 exports[`should convert schema to markdown in 
-<font col chunk 1`] = `
-"## 
-
-<span style="color:#FE0300">哈哈哈</span>"
-`;
+<font col chunk 1`] = `"<span style="color:#FE0300">哈哈哈</span>"`;
 
 exports[`should convert schema to markdown in 
-<sub>Umi  chunk 1`] = `
-"## 
-
-[^Umi 科技（深圳）有限公司]"
-`;
+<sub>Umi  chunk 1`] = `"[^Umi 科技（深圳）有限公司]"`;
 
 exports[`should convert schema to markdown in 
 [^1]:rema chunk 1`] = `
-"## 
+"[^1]: [remarkjs.md](undefined)
 
-[^1]: [remarkjs.md](undefined)
-
-
-[^2]: [remarkjs.md](undefined)
-"
+[^2]: [remarkjs.md](undefined)"
 `;
 
 exports[`should convert schema to markdown in 
-[Umi 官网]( chunk 1`] = `
-"## 
-
-[Umi 官网](https://www.zhihu.com/question/665438199/answer/3625311124)"
-`;
+[Umi 官网]( chunk 1`] = `"[Umi 官网](https://www.zhihu.com/question/665438199/answer/3625311124)"`;
 
 exports[`should convert schema to markdown in 
 | 业务      chunk 1`] = `
-"## 
-
-
-
-| 业务 |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |  2022Q1 |  2022Q2 |  2022Q3 |  2022Q4 |  2023Q1 |  2023Q2 |  2023Q3 |  2023Q4 |
-| ---: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: | ------: |
-| 收入 | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |
-
 "
+
+| 业务 | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  | 2022Q2  | 2022Q3  | 2022Q4  | 2023Q1  | 2023Q2  | 2023Q3  | 2023Q4  |
+| :--- | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ | :------ |
+| 收入 | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 | 134,034 | 140,093 | 144,954 | 149,986 | 149,208 | 154,625 | 155,200 |"
 `;
 
 exports[`should convert schema to markdown in 
-Descripti chunk 1`] = `
-"## 
-
-Description: **Full-Year 2024 Diluted EPS Up 24% to 15.88 and Adjusted Diluted EPS Up 9% to 13.17** Expects 2025 To Be Another Year of Positive Revenue Growth for Crocs, Inc., Led by the Crocs Brand Upsizes Share Repurchase Authorization by 1 Billion Resulting in Total Authorization Outstanding of Approximately ..."
-`;
+Descripti chunk 1`] = `"Description: **Full-Year 2024 Diluted EPS Up 24% to 15.88 and Adjusted Diluted EPS Up 9% to 13.17** Expects 2025 To Be Another Year of Positive Revenue Growth for Crocs, Inc., Led by the Crocs Brand Upsizes Share Repurchase Authorization by 1 Billion Resulting in Total Authorization Outstanding of Approximately ..."`;
 
 exports[`should convert schema to markdown in   parse(te chunk 1`] = `
-"## parse(text) {
-
-\`\`\`
-let currentState = 'initial';
+"parse(text) {  
+let currentState = 'initial';  
 const tokens = [];
 
+\`\`\`
 while (text.length > 0) {
   let matched = false;
   for (const rule of this.rules[currentState]) {
@@ -2994,122 +4719,120 @@ return tokens;
 `;
 
 exports[`should convert schema to markdown in ![](https: chunk 1`] = `
-"## 
-
-![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
-
-
-
-
-
-![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
-
 "
+
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
+
+  
+
+![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)"
 `;
 
 exports[`should convert schema to markdown in ![attachme chunk 1`] = `
-"## 
-
-![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
-
 "
+
+![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)"
 `;
 
 exports[`should convert schema to markdown in ![video:视频 chunk 1`] = `
-"## 
-
-![video:视频名](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
-
 "
+
+![video:视频名](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)"
 `;
 
-exports[`should convert schema to markdown in # 现代代码编辑器技 chunk 1`] = `"## # 现代代码编辑器技术解析与实现示例"`;
+exports[`should convert schema to markdown in # 现代代码编辑器技 chunk 1`] = `"# 现代代码编辑器技术解析与实现示例"`;
 
-exports[`should convert schema to markdown in ##  <font  chunk 1`] = `"## ##  <i><span style="color:#70AD48">我是一个正经人</span></i>"`;
+exports[`should convert schema to markdown in ##  <font  chunk 1`] = `"## <i><span style="color:#70AD48">我是一个正经人</span></i>"`;
 
 exports[`should convert schema to markdown in ## 1. 编辑器核 chunk 1`] = `
-"## ## 1. 编辑器核心功能架构
+"## 1. 编辑器核心功能架构
 
 ### 1.1 基础功能模块
 
 - 文本处理系统
 
-  - 行缓冲区管理
-  - 字符编码转换
-  - 撤销/重做堆栈
+行缓冲区管理
+
+字符编码转换
+
+撤销/重做堆栈
 
 - 用户界面组件
 
-  - 多标签页管理
-  - 分屏视图
-  - 状态栏集成
+多标签页管理
+
+分屏视图
+
+状态栏集成
 "
 `;
 
-exports[`should convert schema to markdown in ## 2. 关键技术 chunk 1`] = `"## ## 2. 关键技术方案对比"`;
+exports[`should convert schema to markdown in ## 2. 关键技术 chunk 1`] = `"## 2. 关键技术方案对比"`;
 
-exports[`should convert schema to markdown in ## 3. 语法高亮 chunk 1`] = `"## ## 3. 语法高亮实现示例"`;
+exports[`should convert schema to markdown in ## 3. 语法高亮 chunk 1`] = `"## 3. 语法高亮实现示例"`;
 
 exports[`should convert schema to markdown in ## 4. 性能优化 chunk 1`] = `
-"## ## 4. 性能优化策略
+"## 4. 性能优化策略
 
 ### 4.1 渲染优化技巧
 
 1. 视窗区域计算
 
-   - 动态加载可见区域内容
-   - 使用图层化渲染策略
+动态加载可见区域内容
+
+使用图层化渲染策略
 
 2. 增量更新机制
 
-   - 差异对比算法
-   - 局部重绘技术
+差异对比算法
+
+局部重绘技术
 "
 `;
 
 exports[`should convert schema to markdown in ## 5. 扩展功能 chunk 1`] = `
-"## ## 5. 扩展功能开发指南
-
+"## 5. 扩展功能开发指南
 ### 5.1 插件系统架构"
 `;
 
 exports[`should convert schema to markdown in ## 删除线
 ~~插 chunk 1`] = `
-"## ## 删除线
+"## 删除线
 
 ~~插件系统架构~~"
 `;
 
-exports[`should convert schema to markdown in ## 图片 chunk 1`] = `"## ## 图片"`;
+exports[`should convert schema to markdown in ## 图片 chunk 1`] = `"## 图片"`;
 
-exports[`should convert schema to markdown in ## 引用 chunk 1`] = `"## ## 引用"`;
+exports[`should convert schema to markdown in ## 引用 chunk 1`] = `"## 引用"`;
 
 exports[`should convert schema to markdown in ## 结语
 本文展示 chunk 1`] = `
-"## ## 结语
+"## 结语
 
 本文展示了现代代码编辑器的核心技术实现方案，涵盖从基础架构到高级功能的完整技术栈。实际开发中需要根据具体需求在性能、扩展性和易用性之间进行权衡。建议通过开源项目（如VS Code、Atom）研究更多实现细节，持续优化编辑器的人机交互体验。
 
 ## 链接"
 `;
 
-exports[`should convert schema to markdown in ## 表单 chunk 1`] = `"## ## 表单"`;
+exports[`should convert schema to markdown in ## 表单 chunk 1`] = `"## 表单"`;
 
-exports[`should convert schema to markdown in ## 视频 chunk 1`] = `"## ## 视频"`;
+exports[`should convert schema to markdown in ## 视频 chunk 1`] = `"## 视频"`;
 
-exports[`should convert schema to markdown in ###  <font chunk 1`] = `"## ###  <i><span style="color:#F6CCAC">我是一个正经人</span></i>"`;
+exports[`should convert schema to markdown in ###  <font chunk 1`] = `"### <i><span style="color:#F6CCAC">我是一个正经人</span></i>"`;
 
 exports[`should convert schema to markdown in ### 1.2 高级 chunk 1`] = `
-"## ### 1.2 高级功能实现
-
+"### 1.2 高级功能实现
 - 智能代码补全
 - 实时语法检查
 - 版本控制集成
-- 插件扩展系统"
+- 插件扩展系统
+
+"
 `;
 
 exports[`should convert schema to markdown in ### 4.2 内存 chunk 1`] = `
-"## ### 4.2 内存管理方案
+"### 4.2 内存管理方案
 
 \`\`\`python
 # 文件分块加载示例
@@ -3138,24 +4861,22 @@ class FileBuffer:
 `;
 
 exports[`should convert schema to markdown in ### 一、基础遍历 chunk 1`] = `
-"## ### 一、基础遍历方法
-
+"### 一、基础遍历方法
 1. **直接遍历元素**  
-   使用 \`for-in\` 循环直接访问每个元素：
 
-   \`\`\`python
+使用 \`for-in\` 循环直接访问每个元素：
+\`\`\`python
 arr = [1, 2, 3, 4]
-   for num in arr:
+for num in arr:
     print(num)  # 输出每个元素的值
-   \`\`\`
+\`\`\`
+这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7]。
 
-   这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7]。
 "
 `;
 
 exports[`should convert schema to markdown in ### 三、特殊场景 chunk 1`] = `
-"## ### 三、特殊场景方法
-
+"### 三、特殊场景方法
 6. **递归遍历**（不常用）
 
 \`\`\`python
@@ -3166,185 +4887,140 @@ exports[`should convert schema to markdown in ### 三、特殊场景 chunk 1`] =
 `;
 
 exports[`should convert schema to markdown in ### 二、其他遍历 chunk 1`] = `
-"## ### 二、其他遍历方式
-
+"### 二、其他遍历方式
 4. **使用** **\`while\`** **while** **循环**  
-   通过计数器手动控制遍历：
 
-   \`\`\`python
+通过计数器手动控制遍历：
+\`\`\`python
 i = 0
-   while i < len(arr):
-       print(arr[i])
+while i < len(arr):
+    print(arr[i])
     i += 1  # 必须手动递增
-   \`\`\`
+\`\`\`
+灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10]。
 
-   灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10]。
 "
 `;
 
 exports[`should convert schema to markdown in <!-- {"Mar chunk 1`] = `
-"## <!--{"MarkdownType":"report","id":"8","section_ids":" [15, 16, 17] "}-->
-<!-- {"MarkdownType": "report", "id": "8", "section_ids": " [15, 16, 17] "} -->
-
+"<!--{"MarkdownType":"report","id":"8","section_ids":" [15, 16, 17] "}-->
 # Umi 研究报告"
 `;
 
 exports[`should convert schema to markdown in <!-- {"Mar chunk 2`] = `
-"## <!--{"MarkdownType":"section","id":"15"}-->
-<!-- {"MarkdownType": "section", "id": "15" } -->
-
+"<!--{"MarkdownType":"section","id":"15"}-->
 ## html"
 `;
 
-exports[`should convert schema to markdown in <!-- {"cha chunk 1`] = `
-"## <!--{"chartType":"bar","x":"业务","y":"2021Q1"}-->
-<!-- {"chartType": "bar", "x":"业务", "y":"2021Q1"} -->"
-`;
+exports[`should convert schema to markdown in <!-- {"cha chunk 1`] = `""`;
 
 exports[`should convert schema to markdown in <!-- {"typ chunk 1`] = `
-"## <!--{"type":"card","icon":"https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10","title":"《影之刃零》发售销量会破五百万吗？ - 知乎","description":"这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…"}-->
-<!-- {"type": "card","icon":"https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10","title":"《影之刃零》发售销量会破五百万吗？ - 知乎","description":"这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…" } -->
-
-[Umi 官网](https://www.zhihu.com/question/665438199/answer/3625311124)"
+"<!--{"type":"card","icon":"https://www.zhihu.com/favicon.ico?x-oss-process=image%2Fquality%2Cq_10","title":"《影之刃零》发售销量会破五百万吗？ - 知乎","description":"这游戏的名字就直接扣2分，什么日系玩意。这游戏又是古龙风格的，作为金庸粉，不减分就不错了。看了下预…","url":"https://www.zhihu.com/question/665438199/answer/3625311124","name":"Umi 官网"}-->
+[Umi 官网](https://www.zhihu.com/question/665438199/answer/3625311124 "Umi 官网")"
 `;
 
-exports[`should convert schema to markdown in <font colo chunk 1`] = `"## <span style="color:red">Umi 科技（深圳）有限公司</span>"`;
+exports[`should convert schema to markdown in <font colo chunk 1`] = `"<span style="color:red">Umi 科技（深圳）有限公司</span>"`;
 
-exports[`should convert schema to markdown in <html><tab chunk 1`] = `"## <html><table><tbody><tr><td>序号</td><td>问题</td><td>答案</td></tr><tr><td>0.0</td><td>世界上最小的鸟是什么?</td><td>蜂鸟（Hummingbird）。蜂鸟是世界上最小的鸟类，其中最小的种类是蜂鸟科中的蜂鸟属（Melli</td></tr><tr><td>1.0</td><td>地球上最高的山峰是哪座?</td><td>珠穆朗玛峰（Mount Everest）。珠穆朗玛峰位于喜马拉雅山脉，海拔8848.86米，是地球上最</td></tr><tr><td>2.0</td><td>哪种动物的睡眠时间最长?</td><td>考拉（Koala）。考拉每天大约睡18-22小时，是已知睡眠时间最长的动物之一。</td></tr></tbody></table></html>"`;
+exports[`should convert schema to markdown in <html><tab chunk 1`] = `
+"
 
-exports[`should convert schema to markdown in <sup>1</su chunk 1`] = `"## [^1]"`;
+| 序号 | 问题                    | 答案                                                                                 |
+| ---- | ----------------------- | ------------------------------------------------------------------------------------ |
+| 0.0  | 世界上最小的鸟是什么?   | 蜂鸟（Hummingbird）。蜂鸟是世界上最小的鸟类，其中最小的种类是蜂鸟科中的蜂鸟属（Melli |
+| 1.0  | 地球上最高的山峰是哪座? | 珠穆朗玛峰（Mount Everest）。珠穆朗玛峰位于喜马拉雅山脉，海拔8848.86米，是地球上最   |
+| 2.0  | 哪种动物的睡眠时间最长? | 考拉（Koala）。考拉每天大约睡18-22小时，是已知睡眠时间最长的动物之一。               |"
+`;
 
-exports[`should convert schema to markdown in [<font col chunk 1`] = `"## <a href="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"><span style="color:red">知乎</span></a>"`;
+exports[`should convert schema to markdown in <sup>1</su chunk 1`] = `"[^1]"`;
 
-exports[`should convert schema to markdown in [知乎](https chunk 1`] = `"## [知乎](https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10)"`;
+exports[`should convert schema to markdown in [<font col chunk 1`] = `"<a href="https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10"><span style="color:red">知乎</span></a>"`;
+
+exports[`should convert schema to markdown in [知乎](https chunk 1`] = `"[知乎](https://www.zhihu.com/favicon.ico?x-oss-process=image/quality,q_10)"`;
 
 exports[`should convert schema to markdown in \`\`\`javascr chunk 1`] = `
-"## \`\`\`javascript
-
-// 使用有限状态机实现基础语法高亮  
-class SyntaxHighlighter {  
-constructor(rules) {  
-this.states = [];  
-this.rules = rules;  
-}"
-`;
-
-exports[`should convert schema to markdown in \`\`\`mermaid chunk 1`] = `
-"## \`\`\`mermaid
-
-graph TD  
-A[开始] --> B[处理]  
-B --> C[完成]  
-C --> D[结束]
-
-\`\`\`
+"\`\`\`javascript
+// 使用有限状态机实现基础语法高亮
+class SyntaxHighlighter {
+ constructor(rules) {
+   this.states = [];
+   this.rules = rules;
+ }
 \`\`\`"
 `;
 
-exports[`should convert schema to markdown in \`\`\`mermaid chunk 2`] = `
-"## \`\`\`mermaid
+exports[`should convert schema to markdown in \`\`\`mermaid chunk 1`] = `""`;
 
-mindmap  
-root((mindmap))  
-Origins  
-Long history  
-::icon(fa fa-book)  
-Popularisation  
-British popular psychology author Tony Buzan  
-Research  
-On effectiveness<br/>and features  
-On Automatic creation  
-Uses  
-Creative techniques  
-Strategic planning  
-Argument mapping  
-Tools  
-Pen and paper  
-Mermaid
-
-\`\`\`
-\`\`\`"
-`;
+exports[`should convert schema to markdown in \`\`\`mermaid chunk 2`] = `""`;
 
 exports[`should convert schema to markdown in \`\`\`schema
- chunk 1`] = `
-"## \`\`\`schema
-
-[  
-{  
-"title": "标题",  
-"dataIndex": "title",  
-"formItemProps": {  
-"rules": [{ "required": true, "message": "此项为必填项" }]  
-},  
-"width": "md"  
-}  
-]
-
-\`\`\`
-\`\`\`"
-`;
+ chunk 1`] = `""`;
 
 exports[`should convert schema to markdown in | 业务       chunk 1`] = `
-"## | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  |
+"
 
-| ------------- | ------- | ------- | ------- | ------- | ------- |  
-| 收入          | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 |  
-| 增值服务      | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  |  
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  |  
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  |  
-| 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  |  
-| 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  |  
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  |  
-| 云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   |"
+<!--{}-->
+| 业务         |  2021Q1 |  2021Q2 |  2021Q3 |  2021Q4 |  2022Q1 |
+| ------------ | ------: | ------: | ------: | ------: | ------: |
+| 收入         | 135,303 | 138,259 | 142,368 | 144,188 | 135,471 |
+| 增值服务     |  72,443 |  72,013 |  75,203 |  71,913 |  72,738 |
+| 网络游戏     |  43,600 |  43,000 |  44,900 |  42,800 |  43,600 |
+| 社交网络收入 |  28,800 |  29,000 |  30,300 |  29,100 |  29,100 |
+| 网络广告     |  21,820 |  22,833 |  22,495 |  21,518 |  17,988 |
+| 其他         |  41,040 |  43,413 |  44,670 |  50,757 |  44,745 |
+| 金融科技     |  39,028 |  41,892 |  43,317 |  47,958 |  42,768 |
+| 云           | 162,012 | 111,521 | 111,353 | 112,799 | 111,977 |"
 `;
 
 exports[`should convert schema to markdown in | 业务       chunk 2`] = `
-"## | 业务          | 2021Q1  | 2021Q2  | 2021Q3  | 2021Q4  | 2022Q1  |
+"
 
-| ------------- | ------- | ------- | ------- | ------- | ------- |  
-| 收入          | 135,303 [^DOC_1] | 138,259 | 142,368 | 144,188 | 135,471 |  
-| 增值服务      | 72,443  | 72,013  | 75,203  | 71,913  | 72,738  |  
-| 网络游戏     | 43,600  | 43,000  | 44,900  | 42,800  | 43,600  |  
-| 社交网络收入 | 28,800  | 29,000  | 30,300  | 29,100  | 29,100  |  
-| 网络广告      | 21,820  | 22,833  | 22,495  | 21,518  | 17,988  |  
-| 其他          | 41,040  | 43,413  | 44,670  | 50,757  | 44,745  |  
-| 金融科技     | 39,028  | 41,892  | 43,317  | 47,958  | 42,768  |  
-| 云           | 162,012   | 111,521   | 111,353   | 112,799   | 111,977   |
+<!--{}-->
+| 业务         | 2021Q1           |  2021Q2 |  2021Q3 |  2021Q4 |  2022Q1 |
+| ------------ | ---------------- | ------: | ------: | ------: | ------: |
+| 收入         | 135,303 [^DOC_1] | 138,259 | 142,368 | 144,188 | 135,471 |
+| 增值服务     | 72,443           |  72,013 |  75,203 |  71,913 |  72,738 |
+| 网络游戏     | 43,600           |  43,000 |  44,900 |  42,800 |  43,600 |
+| 社交网络收入 | 28,800           |  29,000 |  30,300 |  29,100 |  29,100 |
+| 网络广告     | 21,820           |  22,833 |  22,495 |  21,518 |  17,988 |
+| 其他         | 41,040           |  43,413 |  44,670 |  50,757 |  44,745 |
+| 金融科技     | 39,028           |  41,892 |  43,317 |  47,958 |  42,768 |
+| 云           | 162,012          | 111,521 | 111,353 | 112,799 | 111,977 |
 
 > 数据来自 [^3]"
 `;
 
 exports[`should convert schema to markdown in | 技术方向     chunk 1`] = `
-"## | 技术方向       | 实现方案                | 优点                 | 缺点                  |
+"
 
-|----------------|-------------------------|----------------------|-----------------------|  
-| 语法高亮       | 正则表达式匹配          | 实现简单             | 性能较差              |  
-|                | 语法树分析              | 高准确性             | 实现复杂              |  
-| 文件管理       | 内存映射文件            | 大文件处理优势       | 内存消耗较大          |  
-|                | 分块加载机制            | 内存效率高           | 需要复杂索引          |  
-| 渲染引擎       | Canvas 绘制             | 高性能渲染           | 兼容性要求高          |  
-|                | DOM 元素渲染            | 天然支持文字样式     | 大数据量性能瓶颈      |"
+<!--{}-->
+| 技术方向     | 实现方案         | 优点             | 缺点         |
+| ------------ | ---------------- | ---------------- | ------------ |
+| 语法高亮     | 正则表达式匹配   | 实现简单         | 性能较差     |
+| 语法树分析   | 高准确性         | 实现复杂         |              |
+| 文件管理     | 内存映射文件     | 大文件处理优势   | 内存消耗较大 |
+| 分块加载机制 | 内存效率高       | 需要复杂索引     |              |
+| 渲染引擎     | Canvas 绘制      | 高性能渲染       | 兼容性要求高 |
+| DOM 元素渲染 | 天然支持文字样式 | 大数据量性能瓶颈 |              |"
 `;
 
-exports[`should convert schema to markdown in --- chunk 1`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 1`] = `"***"`;
 
-exports[`should convert schema to markdown in --- chunk 2`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 2`] = `"***"`;
 
-exports[`should convert schema to markdown in --- chunk 3`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 3`] = `"***"`;
 
-exports[`should convert schema to markdown in --- chunk 4`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 4`] = `"***"`;
 
-exports[`should convert schema to markdown in --- chunk 5`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 5`] = `"***"`;
 
-exports[`should convert schema to markdown in --- chunk 6`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 6`] = `"***"`;
 
-exports[`should convert schema to markdown in --- chunk 7`] = `"## ---"`;
+exports[`should convert schema to markdown in --- chunk 7`] = `"***"`;
 
-exports[`should convert schema to markdown in ---SW chunk 1`] = `"## ---SW"`;
+exports[`should convert schema to markdown in ---SW chunk 1`] = `"---SW"`;
 
 exports[`should convert schema to markdown in 2. **通过索引遍 chunk 1`] = `
-"## 2. **通过索引遍历**
+"2. **通过索引遍历**  
 
 结合 \`range(len())\` 获取索引：
 
@@ -3353,22 +5029,24 @@ for i in range(len(arr)):
     print(arr[i])  # 通过索引访问元素
 \`\`\`
 
-适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8]。"
+适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8]。
+"
 `;
 
 exports[`should convert schema to markdown in 3. **同时获取索 chunk 1`] = `
-"## 3. **同时获取索引和值（****\`enumerate\`** **enumerate****）**
+"3. **同时获取索引和值（****\`enumerate\`** **enumerate****）**
 
 \`\`\`python
 for index, value in enumerate(arr):
     print(f"索引 {index} 的值是 {value}")
 \`\`\`
 
-适合需要索引和元素的场景 [^DOC_5] [^DOC_8]。"
+适合需要索引和元素的场景 [^DOC_5] [^DOC_8]。
+"
 `;
 
 exports[`should convert schema to markdown in 5. **列表推导式 chunk 1`] = `
-"## 5. **列表推导式**
+"5. **列表推导式**  
 
 快速生成新列表的同时遍历：
 
@@ -3376,12 +5054,12 @@ exports[`should convert schema to markdown in 5. **列表推导式 chunk 1`] = `
 squared = [x**2 for x in arr]  # 遍历并计算平方
 \`\`\`
 
-适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9]。"
+适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9]。
+"
 `;
 
 exports[`should convert schema to markdown in class Edit chunk 1`] = `
-"## class EditorCore {
-
+"class EditorCore {  
 registerPlugin(plugin: EditorPlugin): boolean {  
 // 实现插件注册逻辑  
 }
@@ -3393,9 +5071,9 @@ registerPlugin(plugin: EditorPlugin): boolean {
 \`\`\`"
 `;
 
-exports[`should convert schema to markdown in 上上任的武汉大学校长 chunk 1`] = `"## 上上任的武汉大学校长是李晓红。[^DOC_1][^DOC_2]"`;
+exports[`should convert schema to markdown in 上上任的武汉大学校长 chunk 1`] = `"上上任的武汉大学校长是李晓红。[^DOC_1][^DOC_2]"`;
 
-exports[`should convert schema to markdown in 在 Python 中 chunk 1`] = `"## 在 Python 中遍历数组（通常指列表 \`list\`）有以下常用方法："`;
+exports[`should convert schema to markdown in 在 Python 中 chunk 1`] = `"在 Python 中遍历数组（通常指列表 \`list\`）有以下常用方法："`;
 
 exports[`多个空格转为一个 1`] = `
 [
@@ -3481,14 +5159,12 @@ exports[`多个空格转为一个 1`] = `
 
 exports[`多个空格转为一个 2`] = `
 "根据证据，2024年12月25日上证指数的收盘情况如下：
-
-
-
 1. 上证指数最终收于3393.35点，下跌0.01%                                                              [^DOC_1]                                                              [^DOC_2]                                                              [^DOC_7]。
 2. 早盘时，上证指数曾高开0.05%，但随后震荡走弱，午盘时下跌0.31%，报3383.01点                                                              [^DOC_5]                                                              [^DOC_13]                                                              [^DOC_15]。
 3. 下午交易时段，上证指数继续小幅下跌，最终以3393.35点收盘                                                              [^DOC_1]                                                              [^DOC_2]                                                              [^DOC_7]。
 
-因此，今日（2024年12月25日）上证指数收盘报3393.35点，微跌0.01%。"
+因此，今日（2024年12月25日）上证指数收盘报3393.35点，微跌0.01%。
+"
 `;
 
 exports[`引用 1`] = `
@@ -3531,8 +5207,7 @@ exports[`引用 2`] = `
 。  
 *** Reference Sources ***
 
-[^1]: [微软(MSFT)股价陷低谷，AI投入何时兑现增加承诺？ - 美股投资网](https://www.tradesmax.com/component/k2/item/22075-microsoft)
-"
+[^1]: [微软(MSFT)股价陷低谷，AI投入何时兑现增加承诺？ - 美股投资网](https://www.tradesmax.com/component/k2/item/22075-microsoft)"
 `;
 
 exports[`忽略card，并且只生成一次 1`] = `
@@ -4260,7 +5935,5 @@ exports[`忽略card，并且只生成一次 2`] = `
 | 网络广告     |  21,820 |  22,833 |  22,495 |  21,518 |
 | 其他         |  41,040 |  43,413 |  44,670 |  50,757 |
 | 金融科技     |  39,028 |  41,892 |  43,317 |  47,958 |
-| 云           | 162,012 | 111,521 | 111,353 | 112,799 |
-
-"
+| 云           | 162,012 | 111,521 | 111,353 | 112,799 |"
 `;

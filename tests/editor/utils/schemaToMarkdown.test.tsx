@@ -360,7 +360,7 @@ input
       0,
       10,
     )} chunk`, () => {
-      const schema = parserMdToSchema('## ' + char).schema;
+      const schema = parserMdToSchema(' ' + char).schema;
       const markdown = parserSlateNodeToMarkdown(schema);
       expect(markdown).toMatchSnapshot();
     });
@@ -368,7 +368,7 @@ input
       0,
       10,
     )} chunk`, () => {
-      const schema = parserMdToSchema('## ' + char).schema;
+      const schema = parserMdToSchema(' ' + char).schema;
       expect(schema).toMatchSnapshot();
     });
   });

@@ -8,7 +8,6 @@ import { ChartNode, ColumnNode, DescriptionNode, TableNode } from '../../el';
 import type { MarkdownEditorPlugin } from '../../plugin';
 import { getMediaType } from '../utils/dom';
 
-const space = '  ';
 const inlineNode = new Set(['break']);
 
 /**
@@ -119,7 +118,7 @@ const parserNode = (
           return parserSlateNodeToMarkdown(
             blockquoteNode.children || [],
             preString + '> ',
-            newParent,
+            [...parent, { ...blockquoteNode, converted: true }],
             plugins,
           );
         } else if (converted.type === 'paragraph') {
@@ -129,23 +128,20 @@ const parserNode = (
             parserSlateNodeToMarkdown(
               paragraphNode.children || [],
               preString,
-              newParent,
+              [...parent, { ...paragraphNode, converted: true }],
               plugins,
             )
           );
         } else if (converted.type === 'heading') {
           const headingNode = converted as any;
           const level = headingNode.depth || 1;
-          return (
-            '#'.repeat(level) +
-            ' ' +
-            parserSlateNodeToMarkdown(
-              headingNode.children || [],
-              preString,
-              newParent,
-              plugins,
-            )
+          const content = parserSlateNodeToMarkdown(
+            headingNode.children || [],
+            preString,
+            [...parent, { ...headingNode, converted: true }],
+            plugins,
           );
+          return '#'.repeat(level) + ' ' + content.replace(/\n+$/, '');
         } else if (converted.type === 'text') {
           return (converted as any).value || '';
         }
@@ -273,80 +269,53 @@ export const parserSlateNodeToMarkdown = (
       str += `<!--${JSON.stringify(configProps)}-->\n`;
     }
     const p = parent[parent.length - 1];
-    if (p.type === 'list-item') {
-      const list = parent[parent.length - 2];
-      let pre = preString + (list.order ? space + ' ' : space);
 
-      // @ts-ignore
-      let index = list.children.findIndex((c) => c === p);
-      if (list.start) index += list.start - 1;
-      if (i === 0) {
-        str += preString;
-        str += list.order ? `${index + 1}. ` : '- ';
-        if (typeof p.checked === 'boolean')
-          str += `[${p.checked ? 'x' : ' '}] `;
-        if (p.mentions && p.mentions.length) {
-          p.mentions.forEach((mention: any) => {
-            const url = mention?.avatar || '';
-            const params = new URLSearchParams('?' + (url.split('?')[1] || ''));
-            params.set('id', mention.id);
-            str += `[${mention.name}](${
-              (url.split('?')[0] || '') + params?.size > 0
-                ? '?' + params.toString()
-                : ''
-            })`;
-          });
-        }
-        const nodeStr = parserNode(node, '', parent, plugins);
-        const lines = nodeStr.split('\n');
-        // 处理table多行组件问题
-        if (lines.length > 1) {
-          str += lines
-            .map((l: string, i: number) => {
-              if (i > 0) {
-                l = pre + l;
-              }
-              return l;
-            })
-            .join('\n');
-        } else {
-          str += nodeStr;
-        }
-        if (tree.length > 1) {
-          str += '\n\n';
-        }
-      } else {
-        if (
-          node.type === 'paragraph' &&
-          tree[i - 1]?.type === 'list' &&
-          tree[i + 1]?.type === 'list'
-        ) {
-          if (!Node.string(node)?.replace(/\s|\t/g, '')) {
-            str += `\n\n${pre}<br/>\n\n`;
-          } else {
-            str +=
-              '\n\n' +
-              pre +
-              parserNode(node, preString, parent, plugins)?.replace(
-                /^[\s\t]+/g,
-                '',
-              ) +
-              '\n\n';
-          }
-        } else {
-          str += parserNode(node, pre, parent, plugins) + '\n';
-          if (tree.length - 1 !== i) {
-            str += '\n';
-          }
-        }
+    if (p.type === 'list-item') {
+      str += parserNode(node, '', parent, plugins);
+      if (i !== tree.length - 1) {
+        str += '\n';
       }
     } else if (p.type === 'blockquote') {
       str += parserNode(node, preString + '> ', parent, plugins);
-      if (node.type && i !== tree.length - 1) {
-        str += `\n${preString}> `;
-        if (p.type !== 'list') {
-          str += '\n';
-        }
+      if (i !== tree.length - 1) {
+        str += '\n' + preString + '> ';
+      }
+    } else if (node.type === 'blockquote') {
+      // Handle blockquotes
+      const blockquoteContent = node.children
+        .map((child: any, index: number) => {
+          if (child.type === 'blockquote') {
+            // For nested blockquotes, increase the level
+            return parserNode(child, '> ', [...parent, node], plugins);
+          } else {
+            // For regular content, maintain the current level
+            const content = parserNode(child, '', [...parent, node], plugins);
+            if (!content.trim()) {
+              // For empty lines, just add the blockquote marker
+              return '>';
+            }
+            // For regular content, add blockquote marker and handle multi-line content
+            return content
+              .split('\n')
+              .map((line: string) => '> ' + line)
+              .join('\n');
+          }
+        })
+        .join('\n');
+      str += blockquoteContent;
+    } else if (node.type === 'list') {
+      // Handle lists
+      const listItems = node.children
+        .map((item: any, index: number) => {
+          const prefix = node.order ? `${index + (node.start || 1)}.` : '-';
+          return (
+            prefix + ' ' + parserNode(item, '', [...parent, node], plugins)
+          );
+        })
+        .join('\n');
+      str += listItems;
+      if (i !== tree.length - 1) {
+        str += '\n\n';
       }
     } else if (
       node.type === 'paragraph' &&
@@ -366,14 +335,129 @@ export const parserSlateNodeToMarkdown = (
       }
     } else {
       str += parserNode(node, preString, parent, plugins);
-      if (node.type && !inlineNode.has(node.type) && i !== tree.length - 1) {
-        str += '\n';
-        if (p.type !== 'list') {
+
+      // Special handling for different node types
+      if (node.type && !inlineNode.has(node.type)) {
+        // Tables should not have extra newlines between rows
+        if (node.type === 'table-row') {
           str += '\n';
+        }
+        // Code blocks should have double newlines
+        else if (node.type === 'code' || node.type === 'media') {
+          str += '\n\n';
+        }
+        // Lists should have double newlines after them
+        else if (node.type === 'list') {
+          str += '\n\n';
+        }
+        // Most block elements should have double newlines
+        else if (i !== tree.length - 1) {
+          str += '\n\n';
         }
       }
     }
   }
+
+  // Clean up trailing newlines and handle special cases
+  if (str) {
+    // Remove all trailing newlines first
+    str = str.replace(/\n+$/, '');
+
+    // Only add newlines in specific cases
+    const lastNode = tree[tree.length - 1];
+    const isRoot = parent.length === 1 && parent[0].root;
+    const isConverted = lastNode?.converted;
+    const parentType = parent[parent.length - 1]?.type;
+    const nextNode = tree[tree.indexOf(lastNode) + 1];
+    const isLastNodeInParent = !nextNode;
+
+    if (lastNode && lastNode.type && !isConverted) {
+      if (parentType === 'blockquote') {
+        // Only add trailing blockquote marker if this is not the last node in a nested blockquote
+        if (
+          !isLastNodeInParent ||
+          parent.some(
+            (p) => p.type === 'blockquote' && p !== parent[parent.length - 1],
+          )
+        ) {
+          str += '\n> ';
+        }
+      } else if (lastNode.type === 'table' || lastNode.type === 'description') {
+        // Do not add any newlines for tables and description lists
+        str = str.replace(/\n+$/, '');
+      } else if (lastNode.type === 'code' || lastNode.type === 'media') {
+        // Add double newlines for code blocks and media, but not if it's the last node
+        if (!isLastNodeInParent) {
+          str += '\n\n';
+        }
+      } else if (
+        !inlineNode.has(lastNode.type) &&
+        !isRoot &&
+        !['list-item', 'table-row'].includes(lastNode.type)
+      ) {
+        // Don't add newlines for list items and table rows
+        // Only add newlines if the next node is not a heading
+        if (!(lastNode.type === 'head' && nextNode?.type === 'head')) {
+          str += '\n\n';
+        }
+      }
+    }
+  }
+
+  // Clean up multiple consecutive newlines
+  str = str.replace(/\n{3,}/g, '\n\n');
+
+  // Special handling for consecutive headings
+  if (tree.length > 1) {
+    const allHeadings = tree.every((node) => node.type === 'head');
+    if (allHeadings) {
+      str = str.replace(/\n+/g, '\n');
+    }
+  }
+
+  // Special handling for lists and paragraphs
+  if (tree.length > 1) {
+    const hasLists = tree.some((node) => node.type === 'list');
+    if (hasLists) {
+      // First, ensure there's only one newline between list items of the same type
+      str = str.replace(/\n{2,}(?=[-\d])/g, '\n');
+
+      // Then, ensure there's a double newline between lists and paragraphs
+      str = str.replace(/(?<=-\s[^\n]+)\n(?=[^\n-])/g, '\n\n');
+      str = str.replace(/(?<=\d+\.\s[^\n]+)\n(?=[^\n\d])/g, '\n\n');
+
+      // Ensure double newlines between different types of lists
+      str = str.replace(/(?<=- [^\n]+)(?!\n\n)(?=\d+\.\s)/g, '\n\n');
+      str = str.replace(/(?<=\d+\. [^\n]+)(?!\n\n)(?=- )/g, '\n\n');
+
+      // Remove extra newlines before list items
+      str = str.replace(/\n{3,}(?=[-\d])/g, '\n\n');
+
+      // Remove extra newlines between ordered list items
+      str = str.replace(/(?<=\d+\.\s[^\n]+)\n\n(?=\d+\.)/g, '\n');
+
+      // Add a single newline after the last list item if it's not already there
+      if (str.match(/[-\d].*?$/)) {
+        str = str.replace(/\n*$/, '\n');
+      }
+
+      // Add an extra newline at the end if this is the root node and the last node is a list
+      const lastNode = tree[tree.length - 1];
+      if (parent.length === 1 && parent[0].root && lastNode.type === 'list') {
+        str += '\n';
+      }
+
+      // Clean up multiple consecutive newlines
+      str = str.replace(/\n{3,}/g, '\n\n');
+
+      // Ensure there's a double newline between paragraphs and lists
+      str = str.replace(/(?<=\n[^\n-].*?)\n(?=[-\d])/g, '\n\n');
+
+      // Remove extra newlines between ordered list items
+      str = str.replace(/(?<=\d+\.\s[^\n]+)\n+(?=\d+\.)/g, '\n');
+    }
+  }
+
   return str;
 };
 
@@ -433,18 +517,37 @@ const textStyle = (t: Text) => {
   let str = t.text.replace(/(?<!\\)\\/g, '\\').replace(/\n/g, '  \n');
   let preStr = '',
     afterStr = '';
+
+  // Extract whitespace
   if (t.code || t.bold || t.strikethrough || t.italic) {
     preStr = str.match(/^\s+/)?.[0] || '';
     afterStr = str.match(/\s+$/)?.[0] || '';
     str = str.trim();
   }
-  if (t.code && !t.tag) str = `\`${str}\``;
-  if (t.tag)
+
+  // Apply formats in a consistent order:
+  // 1. Code (most specific)
+  // 2. Bold (strong emphasis)
+  // 3. Italic (emphasis)
+  // 4. Strikethrough (modification)
+  if (t.code && !t.tag) {
+    str = `\`${str}\``;
+  } else if (t.tag) {
     str = `\`${str || `\${placeholder:${(t as any)?.placeholder}}` || ''}\``;
-  if (t.italic) str = `*${str}*`;
-  if (t.bold) str = `**${str}**`;
+  }
+
+  // For mixed formats, we want to ensure proper nesting
+  if (t.bold && t.italic) {
+    str = `***${str}***`; // Combined bold and italic
+  } else {
+    if (t.bold) str = `**${str}**`;
+    if (t.italic) str = `*${str}*`;
+  }
+
   if (t.strikethrough) str = `~~${str}~~`;
-  return `${preStr}${str}${afterStr}`;
+
+  // Preserve exact whitespace
+  return preStr + str + afterStr;
 };
 
 /**
@@ -636,12 +739,12 @@ const table = (
     default: (str: string, diff: number) => str + ' '.repeat(diff),
   };
 
-  // 分隔符策略表
+  // 修改分隔符策略表
   const separatorStrategies = {
-    left: (str: string) => ':' + str,
-    center: (str: string) => ':' + str.slice(1) + ':',
-    right: (str: string) => str + ':',
-    default: (str: string) => str,
+    left: (length: number) => ':' + '-'.repeat(Math.max(3, length - 1)),
+    center: (length: number) => ':' + '-'.repeat(Math.max(3, length - 2)) + ':',
+    right: (length: number) => '-'.repeat(Math.max(3, length - 1)) + ':',
+    default: (length: number) => '-'.repeat(Math.max(3, length)),
   };
 
   const output: string[] = [];
@@ -656,7 +759,7 @@ const table = (
     for (let j = 0; j < maxColumns; j++) {
       let str = row[j] || '';
       const strLength = stringWidth(str);
-      const length = colLength[j];
+      const length = Math.max(3, colLength[j]);
       const diff = length - strLength;
 
       str =
@@ -670,29 +773,24 @@ const table = (
       cells[j] = str.replace(/\|/g, '\\|');
     }
 
-    output.push(
-      `${preString}|${separator}${cells.join(separator)}${separator}|`,
-    );
+    output.push(`| ${cells.join(' | ')} |`);
 
     // 处理分隔行
     if (i === 0) {
       const separators = new Array(maxColumns);
       for (let j = 0; j < maxColumns; j++) {
-        const len = Math.max(colLength[j], 2);
-        const baseStr = '-'.repeat(len);
+        const minLength = Math.max(3, colLength[j]); // 确保至少有3个字符的长度
         separators[j] = (
           separatorStrategies[
             head[j]?.align as keyof typeof separatorStrategies
           ] || separatorStrategies.default
-        )(baseStr);
+        )(minLength);
       }
-      output.push(
-        `${preString}|${separator}${separators.join(separator)}${separator}|`,
-      );
+      output.push(`| ${separators.join(' | ')} |`);
     }
   }
 
-  return output.join('\n') + (data.length === 1 ? '\n' : '');
+  return output.join('\n');
 };
 
 /**
@@ -827,12 +925,39 @@ const handleBlockquote = (
   parent: any[],
   plugins?: MarkdownEditorPlugin[],
 ) => {
-  return parserSlateNodeToMarkdown(
-    node.children,
-    preString,
-    [...parent, node],
-    plugins,
-  );
+  // Handle empty blockquotes
+  if (!node.children || node.children.length === 0) {
+    return '> ';
+  }
+
+  // Process each child node
+  const blockquoteContent = node.children
+    .map((child: any, index: number) => {
+      if (child.type === 'blockquote') {
+        // For nested blockquotes, increase the level
+        const nestedContent = parserNode(child, '', [...parent, node], plugins);
+        return nestedContent
+          .split('\n')
+          .map((line: string) => '> > ' + line)
+          .join('\n');
+      } else {
+        // For regular content
+        const content = parserNode(child, '', [...parent, node], plugins);
+        if (!content.trim()) {
+          // For empty lines, add the blockquote marker with a space
+          return '> ';
+        }
+        // For regular content, add blockquote marker and handle multi-line content
+        return content
+          .split('\n')
+          .map((line: string) => '> ' + line)
+          .join('\n');
+      }
+    })
+    .join('\n');
+
+  // Add empty line between blockquote paragraphs
+  return blockquoteContent.replace(/\n>\s*\n/g, '\n> \n');
 };
 
 /**
@@ -946,28 +1071,56 @@ const handleDescription = (
   parent: any[],
   plugins?: MarkdownEditorPlugin[],
 ) => {
-  const header: any[] = [];
-  const rows: any[] = [];
+  if (!node.children || node.children.length === 0) {
+    return '';
+  }
+
+  // 将描述列表分组为标题和描述对
+  const pairs: { title: any[]; description: any[] }[] = [];
+  let currentPair: { title: any[]; description: any[] } | null = null;
+
   node.children.forEach((n: any) => {
     if (n.title) {
-      header.push(n);
-      return;
+      if (currentPair) {
+        pairs.push(currentPair);
+      }
+      currentPair = { title: [n], description: [] };
+    } else if (currentPair) {
+      currentPair.description.push(n);
     }
-    rows.push(n);
   });
+
+  if (currentPair) {
+    pairs.push(currentPair);
+  }
+
+  if (pairs.length === 0) {
+    return '';
+  }
+
+  // 创建表格行
+  const tableRows = [
+    {
+      type: 'table-row',
+      children: pairs.map((pair) => ({
+        type: 'table-cell',
+        align: 'left',
+        children: pair.title[0].children,
+      })),
+    },
+    {
+      type: 'table-row',
+      children: pairs.map((pair) => ({
+        type: 'table-cell',
+        children: pair.description[0].children,
+      })),
+    },
+  ];
+
   return table(
     {
       ...node,
-      children: [
-        {
-          children: header,
-          type: 'table-row',
-        },
-        {
-          children: rows,
-          type: 'table-row',
-        },
-      ],
+      children: tableRows,
     },
     preString,
     parent,
