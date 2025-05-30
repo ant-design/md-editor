@@ -3430,7 +3430,7 @@ function greet(user: User): string {
                 data-be="image"
                 data-slate-node="element"
                 draggable="false"
-                style="cursor: pointer; position: relative;"
+                style="cursor: pointer; position: relative; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"
@@ -3536,36 +3536,6 @@ function greet(user: User): string {
               </span>
             </div>
             <div
-              class="ant-md-editor-drag-el"
-              data-be="paragraph"
-              data-slate-node="element"
-            >
-              <span
-                data-slate-node="text"
-              >
-                <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
-                >
-                  <span
-                    data-slate-string="true"
-                  >
-                    
-
-
-                  </span>
-                </span>
-              </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; line-height: 0; display: inline-block;"
-              >
-                 
-              </span>
-            </div>
-            <div
               data-be="card"
               data-slate-node="element"
               style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
@@ -3599,7 +3569,7 @@ function greet(user: User): string {
                 data-be="image"
                 data-slate-node="element"
                 draggable="false"
-                style="cursor: pointer; position: relative;"
+                style="cursor: pointer; position: relative; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"
@@ -3765,7 +3735,7 @@ function greet(user: User): string {
                   class="ant-md-editor-drag-el"
                   data-be="media"
                   draggable="false"
-                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
                   <div
                     aria-describedby="test-id"
@@ -3891,7 +3861,7 @@ function greet(user: User): string {
                   class="ant-md-editor-drag-el"
                   data-be="media"
                   draggable="false"
-                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
                   <div
                     aria-describedby="test-id"

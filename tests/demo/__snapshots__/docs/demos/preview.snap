@@ -3532,7 +3532,7 @@ function greet(user: User): string {
               data-be="image"
               data-slate-node="element"
               draggable="false"
-              style="cursor: pointer; position: relative;"
+              style="cursor: pointer; position: relative; user-select: none;"
             >
               <div
                 aria-describedby="test-id"
@@ -3571,7 +3571,7 @@ function greet(user: User): string {
                   </div>
                   <div
                     class="react-draggable"
-                    style="position: absolute; user-select: auto; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
+                    style="position: absolute; user-select: none; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
                   >
                     <img
                       alt="image"
@@ -3579,7 +3579,7 @@ function greet(user: User): string {
                       draggable="false"
                       referrerpolicy="no-referrer"
                       src="https://example.com/image.jpg"
-                      style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none;"
+                      style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none; user-select: none; pointer-events: none;"
                       width="min(400px, 100%)"
                     />
                     <div>
@@ -3660,36 +3660,6 @@ function greet(user: User): string {
             </span>
           </div>
           <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
-                  
-
-
-                </span>
-              </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
-          </div>
-          <div
             data-be="card"
             data-slate-node="element"
             style="display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end;"
@@ -3723,7 +3693,7 @@ function greet(user: User): string {
               data-be="image"
               data-slate-node="element"
               draggable="false"
-              style="cursor: pointer; position: relative;"
+              style="cursor: pointer; position: relative; user-select: none;"
             >
               <div
                 aria-describedby="test-id"
@@ -3762,7 +3732,7 @@ function greet(user: User): string {
                   </div>
                   <div
                     class="react-draggable"
-                    style="position: absolute; user-select: auto; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
+                    style="position: absolute; user-select: none; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
                   >
                     <img
                       alt="image"
@@ -3770,7 +3740,7 @@ function greet(user: User): string {
                       draggable="false"
                       referrerpolicy="no-referrer"
                       src="https://example.com/image.jpg"
-                      style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none;"
+                      style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none; user-select: none; pointer-events: none;"
                       width="min(400px, 100%)"
                     />
                     <div>
@@ -3911,7 +3881,7 @@ function greet(user: User): string {
                 class="ant-md-editor-drag-el"
                 data-be="media"
                 draggable="false"
-                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"
@@ -4037,7 +4007,7 @@ function greet(user: User): string {
                 class="ant-md-editor-drag-el"
                 data-be="media"
                 draggable="false"
-                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"

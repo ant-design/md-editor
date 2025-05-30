@@ -1962,7 +1962,7 @@ class EditorCore {
                 class="ant-md-editor-drag-el"
                 data-be="media"
                 draggable="false"
-                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"
@@ -2001,7 +2001,7 @@ class EditorCore {
                     </div>
                     <div
                       class="react-draggable"
-                      style="position: absolute; user-select: auto; width: 400px; height: 0px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
+                      style="position: absolute; user-select: none; width: 400px; height: 0px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
                     >
                       <img
                         alt="image"
@@ -2009,7 +2009,7 @@ class EditorCore {
                         draggable="false"
                         referrerpolicy="no-referrer"
                         src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original"
-                        style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none;"
+                        style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none; user-select: none; pointer-events: none;"
                         width="min(400px, 100%)"
                       />
                       <div>
@@ -2151,7 +2151,7 @@ class EditorCore {
                 class="ant-md-editor-drag-el"
                 data-be="media"
                 draggable="false"
-                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"
@@ -2277,7 +2277,7 @@ class EditorCore {
                 class="ant-md-editor-drag-el"
                 data-be="media"
                 draggable="false"
-                style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"

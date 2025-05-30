@@ -675,15 +675,6 @@ exports[`should convert markdown to schema in ![](https: chunk 1`] = `
   {
     "children": [
       {
-        "text": "
-",
-      },
-    ],
-    "type": "paragraph",
-  },
-  {
-    "children": [
-      {
         "children": [
           {
             "text": "",
@@ -4722,8 +4713,6 @@ exports[`should convert schema to markdown in ![](https: chunk 1`] = `
 "
 
 ![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)
-
-  
 
 ![](https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original)"
 `;

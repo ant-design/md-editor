@@ -1660,7 +1660,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                       data-be="image"
                       data-slate-node="element"
                       draggable="false"
-                      style="cursor: pointer; position: relative;"
+                      style="cursor: pointer; position: relative; user-select: none;"
                     >
                       <div
                         aria-describedby="test-id"
@@ -1699,7 +1699,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                           </div>
                           <div
                             class="react-draggable"
-                            style="position: absolute; user-select: auto; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
+                            style="position: absolute; user-select: none; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
                           >
                             <img
                               alt="image"
@@ -1707,7 +1707,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                               draggable="false"
                               referrerpolicy="no-referrer"
                               src="https://example.com/img.jpg"
-                              style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none;"
+                              style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none; user-select: none; pointer-events: none;"
                               width="min(400px, 100%)"
                             />
                             <div>
@@ -2697,7 +2697,7 @@ ls -la | grep "test"
       data-be="image"
       data-slate-node="element"
       draggable="false"
-      style="cursor: pointer; position: relative;"
+      style="cursor: pointer; position: relative; user-select: none;"
     >
       <div
         aria-describedby="test-id"
@@ -2736,7 +2736,7 @@ ls -la | grep "test"
           </div>
           <div
             class="react-draggable"
-            style="position: absolute; user-select: auto; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
+            style="position: absolute; user-select: none; width: 400px; height: 400px; display: inline-block; top: 0px; left: 0px; cursor: auto; transform: translate(0px,0px); max-width: 9007199254740991px; max-height: 9007199254740991px; box-sizing: border-box; flex-shrink: 0;"
           >
             <img
               alt="image"
@@ -2744,7 +2744,7 @@ ls -la | grep "test"
               draggable="false"
               referrerpolicy="no-referrer"
               src="https://example.com/image.jpg"
-              style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none;"
+              style="width: 100%; height: auto; position: relative; z-index: 99; outline: none; box-shadow: none; min-height: 20px; display: none; user-select: none; pointer-events: none;"
               width="min(400px, 100%)"
             />
             <div>

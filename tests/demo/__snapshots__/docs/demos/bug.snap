@@ -1173,7 +1173,7 @@
                   class="ant-md-editor-drag-el"
                   data-be="media"
                   draggable="false"
-                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end;"
+                  style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
                 >
                   <div
                     aria-describedby="test-id"
@@ -3282,7 +3282,7 @@
                 data-be="image"
                 data-slate-node="element"
                 draggable="false"
-                style="cursor: pointer; position: relative;"
+                style="cursor: pointer; position: relative; user-select: none;"
               >
                 <div
                   aria-describedby="test-id"

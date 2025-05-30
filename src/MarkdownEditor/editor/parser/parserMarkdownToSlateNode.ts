@@ -1425,7 +1425,7 @@ export const parserMarkdownToSlateNode = (
   return {
     schema: schema?.filter((item) => {
       if (item.type === 'paragraph' && item.children?.length === 1) {
-        if (!item.children[0].value?.trim()) {
+        if (item.children[0].text === '\n') {
           return false;
         }
         return true;
