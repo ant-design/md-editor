@@ -243,6 +243,7 @@ export const parserSlateNodeToMarkdown = (
 
       delete configProps['columns'];
       delete configProps['dataSource'];
+
       if (node.type === 'link-card') {
         configProps.type = 'card';
         configProps.url = encodeURI(node?.url);
@@ -266,7 +267,10 @@ export const parserSlateNodeToMarkdown = (
         }
       });
 
-      str += `<!--${JSON.stringify(configProps)}-->\n`;
+      // 只有当 configProps 不为空对象时才生成注释
+      if (Object.keys(configProps).length > 0) {
+        str += `<!--${JSON.stringify(configProps)}-->\n`;
+      }
     }
     const p = parent[parent.length - 1];
 
