@@ -29,12 +29,12 @@ export const useKeyboard = (
   >,
   props: MarkdownEditorProps,
 ) => {
+  const {
+    openInsertCompletion,
+    insertCompletionText$,
+    setOpenInsertCompletion,
+  } = useEditorStore();
   return useMemo(() => {
-    const {
-      openInsertCompletion,
-      insertCompletionText$,
-      setOpenInsertCompletion,
-    } = useEditorStore();
     const tab = new TabKey(markdownEditorRef.current);
     const backspace = new BackspaceKey(markdownEditorRef.current);
     const enter = new EnterKey(store, backspace);
