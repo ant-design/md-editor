@@ -85,16 +85,37 @@
                 <span
                   data-slate-string="true"
                 >
-                  789
+                  789 123
                 </span>
               </span>
             </span>
-          </div>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+            <span
+              contenteditable="false"
+              data-slate-node="element"
+              style="color: red; display: inline-block; user-select: none;"
+            >
+              <div
+                style="display: none;"
+              >
+                <span
+                  data-slate-node="text"
+                >
+                  <span
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
+                  >
+                    <span
+                      data-slate-string="true"
+                    >
+                        
+                    </span>
+                  </span>
+                </span>
+              </div>
+              ^
+            </span>
             <span
               data-slate-node="text"
             >
@@ -105,19 +126,11 @@
                 draggable="false"
               >
                 <span
-                  data-slate-length="0"
-                  data-slate-zero-width="n"
+                  data-slate-string="true"
                 >
-                  ﻿
-                  <br />
+                  789
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </div>
         </div>
