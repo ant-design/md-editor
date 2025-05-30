@@ -731,9 +731,14 @@ const handleListItem = (currentElement: any) => {
  * 处理段落节点
  * @param currentElement - 当前处理的段落元素
  * @param config - 配置对象，包含样式和行为设置
+ * @param plugins - 插件数组
  * @returns 返回格式化的段落节点对象或元素数组
  */
-const handleParagraph = (currentElement: any, config: any) => {
+const handleParagraph = (
+  currentElement: any,
+  config: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
   // 检查是否是附件链接
   if (
     currentElement.children?.[0].type === 'html' &&
@@ -803,7 +808,7 @@ const handleParagraph = (currentElement: any, config: any) => {
       if (textNodes.length) {
         elements.push({
           type: 'paragraph',
-          children: parserBlock(textNodes, false, currentElement),
+          children: parseWithPlugins(textNodes, plugins, false, currentElement),
         });
         textNodes = [];
       }
@@ -840,7 +845,7 @@ const handleParagraph = (currentElement: any, config: any) => {
   if (textNodes.length) {
     elements.push({
       type: 'paragraph',
-      children: parserBlock(textNodes, false, currentElement),
+      children: parseWithPlugins(textNodes, plugins, false, currentElement),
     });
   }
 
@@ -1138,6 +1143,7 @@ const parserBlock = (
   nodes: RootContent[],
   top = false,
   parent?: RootContent,
+  plugins?: MarkdownEditorPlugin[],
 ) => {
   if (!nodes?.length) return [{ type: 'paragraph', children: [{ text: '' }] }];
 
@@ -1190,7 +1196,7 @@ const parserBlock = (
         el = handleListItem(currentElement);
         break;
       case 'paragraph':
-        el = handleParagraph(currentElement, config);
+        el = handleParagraph(currentElement, config, plugins || []);
         break;
       case 'inlineCode':
         el = handleInlineCode(currentElement);
@@ -1248,7 +1254,7 @@ const parseWithPlugins = (
   let contextProps = {};
 
   for (let i = 0; i < nodes.length; i++) {
-    const currentElement = nodes[i];
+    const currentElement = nodes[i] as any;
     let el: Element | null | Element[] = null;
     let pluginHandled = false;
 
@@ -1312,7 +1318,8 @@ const parseWithPlugins = (
           el = handleListItem(currentElement);
           break;
         case 'paragraph':
-          el = handleParagraph(currentElement, config);
+          el = handleParagraph(currentElement, config, plugins);
+
           break;
         case 'inlineCode':
           el = handleInlineCode(currentElement);
@@ -1348,7 +1355,7 @@ const parseWithPlugins = (
     }
 
     preNode = currentElement;
-    preElement = el;
+    preElement = el as Element;
   }
 
   return els;
@@ -1416,7 +1423,11 @@ export const parserMarkdownToSlateNode = (
           plugins || [],
           true,
         ) as Elements[])
-      : (parserBlock(markdownRoot.children as any[], true) as Elements[]);
-
+      : (parserBlock(
+          markdownRoot.children as any[],
+          true,
+          undefined,
+          [],
+        ) as Elements[]);
   return { schema, links: [] };
 };
