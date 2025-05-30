@@ -157,212 +157,63 @@ const parserNode = (
 
   switch (node.type) {
     case 'card-before':
-      break;
     case 'card-after':
       break;
     case 'card':
-      str += parserSlateNodeToMarkdown(
-        node?.children,
-        preString,
-        newParent,
-        plugins,
-      );
+      str += handleCard(node, preString, parent, plugins);
       break;
     case 'paragraph':
-      str +=
-        preString +
-        parserSlateNodeToMarkdown(
-          node?.children,
-          preString,
-          newParent,
-          plugins,
-        );
+      str += handleParagraph(node, preString, parent, plugins);
       break;
     case 'head':
-      str +=
-        '#'.repeat(node.level) +
-        ' ' +
-        parserSlateNodeToMarkdown(
-          node?.children,
-          preString,
-          newParent,
-          plugins,
-        );
+      str += handleHead(node, preString, parent, plugins);
       break;
     case 'code':
-      const code = node?.value || '';
-
-      /**
-       * 处理代码节点，支持三种模式：
-       * 1. HTML渲染模式：直接输出HTML内容，不进行Markdown包装
-       * 2. Frontmatter模式：使用YAML frontmatter格式（用---包围）
-       * 3. 普通代码块模式：使用Markdown代码块格式（用```包围）
-       */
-      if (node.language === 'html' && node.render) {
-        str += code;
-        break;
-      }
-
-      // Frontmatter 模式：YAML前言格式
-      if (node.frontmatter) {
-        str += `${preString}---\n${code}\n${preString}---`;
-        break;
-      }
-
-      // 普通代码块模式
-      const language = node.language || '';
-
-      // 如果代码内容为空，生成空的代码块
-      if (!code.trim()) {
-        str += `${preString}\`\`\`${language}\n${preString}\`\`\``;
-        break;
-      }
-
-      // 处理多行代码的缩进
-      const codeLines = code.split('\n');
-      const indentedCode = codeLines
-        .map((line: string, index: number) => {
-          // 第一行和最后一行不需要额外缩进
-          if (index === 0 || index === codeLines.length - 1) {
-            return line;
-          }
-          return preString + line;
-        })
-        .join('\n');
-
-      str += `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+      str += handleCode(node, preString);
       break;
     case 'attach':
-      str += `<a href="${encodeURI(node?.url)}" download data-size="${
-        node.size
-      }">${node.name}</a>`;
+      str += handleAttach(node);
       break;
     case 'blockquote':
-      str += parserSlateNodeToMarkdown(
-        node.children,
-        preString,
-        newParent,
-        plugins,
-      );
+      str += handleBlockquote(node, preString, parent, plugins);
       break;
     case 'image':
-      try {
-        let nodeImageUrl = new URL(node?.url);
-        if (node.width) {
-          nodeImageUrl.searchParams.set('width', node.width);
-        }
-        if (node.height) {
-          nodeImageUrl.searchParams.set('height', node.height);
-        }
-        if (node.block) {
-          nodeImageUrl.searchParams.set('block', node.block);
-        }
-        str += `![${node.alt || ''}](${nodeImageUrl.toString()})`;
-        break;
-      } catch (e) {
-        str += `![${node.alt || ''}](${encodeURI(node?.url)})`;
-      }
-
+      str += handleImage(node);
+      break;
     case 'media':
-      let nodeUrl = node?.url;
-      let type = node.mediaType || getMediaType(nodeUrl, node?.alt);
-      if (node.height) {
-        if (type === 'video') {
-          str += `<video src="${encodeURI(nodeUrl)}" alt="" height="${
-            node.height || ''
-          }"/>`;
-        } else if (type === 'image' || type === 'media') {
-          str += `<img src="${encodeURI(nodeUrl)}" alt="" height="${
-            node.height || ''
-          }" ${node.align ? `data-align="${node.align}"` : ''}/>`;
-        }
-      } else {
-        if (type === 'video') {
-          str += `<video src="${encodeURI(nodeUrl)}"/>`;
-        } else if (type === 'image' || type === 'media') {
-          if (node.align) {
-            str += `<img src="${encodeURI(nodeUrl)}" alt="" ${
-              node.align ? `data-align="${node.align}"` : ''
-            }/>`;
-          } else {
-            str += `![${node.alt || ''}](${encodeURI(nodeUrl)})`;
-          }
-        } else {
-          str += `<iframe src="${encodeURI(nodeUrl)}"/>`;
-        }
-      }
+      str += handleMedia(node);
       break;
     case 'list':
-      str += parserSlateNodeToMarkdown(
-        node.children,
-        preString,
-        newParent,
-        plugins,
-      );
+      str += handleList(node, preString, parent, plugins);
       break;
     case 'list-item':
-      str += parserSlateNodeToMarkdown(
-        node.children,
-        preString,
-        newParent,
-        plugins,
-      );
+      str += handleListItem(node, preString, parent, plugins);
       break;
     case 'table':
-      str += table(node, preString, newParent, plugins);
-      break;
     case 'chart':
-      str += table(node, preString, newParent, plugins);
-      break;
     case 'column-group':
-      str += table(node, preString, newParent, plugins);
+      str += table(node, preString, parent, plugins);
       break;
     case 'description':
-      const header: any[] = [];
-      const rows: any[] = [];
-      node.children.forEach((n: any) => {
-        if (n.title) {
-          header.push(n);
-          return;
-        }
-        rows.push(n);
-      });
-      str += table(
-        {
-          ...node,
-          children: [
-            {
-              children: header,
-              type: 'table-row',
-            },
-            {
-              children: rows,
-              type: 'table-row',
-            },
-          ],
-        },
-        preString,
-        newParent,
-        plugins,
-      );
+      str += handleDescription(node, preString, parent, plugins);
       break;
     case 'schema':
-      str += '```schema\n' + JSON.stringify(node.otherProps, null, 2) + '\n```';
+      str += handleSchema(node);
       break;
     case 'link-card':
-      str += `[${node.name}](${node?.url} "${node.name}")`;
+      str += handleLinkCard(node);
       break;
     case 'hr':
-      str += preString + '***';
+      str += handleHr(preString);
       break;
     case 'break':
-      str += preString + '<br/>';
+      str += handleBreak(preString);
       break;
     case 'footnoteDefinition':
-      str += `[^${node.identifier}]: [${node.value}](${node.url})\n`;
+      str += handleFootnoteDefinition(node);
       break;
     default:
-      if (node.text) str += composeText(node, parent);
+      str += handleDefault(node, parent);
       break;
   }
   return str;
@@ -561,18 +412,21 @@ const textHtml = (t: Text) => {
 };
 
 /**
- * Formats a given text object into a Markdown string with appropriate styles.
+ * 将文本对象格式化为带有适当样式的 Markdown 字符串
  *
- * @param t - The text object to be formatted.
- * @returns The formatted Markdown string.
+ * @param t - 要格式化的文本对象
+ * @returns 格式化后的 Markdown 字符串
  *
- * The function applies the following Markdown styles based on the properties of the text object:
- * - `code`: Wraps the text in backticks (`).
- * - `italic`: Wraps the text in asterisks (*).
- * - `bold`: Wraps the text in double asterisks (**).
- * - `strikethrough`: Wraps the text in double tildes (~~).
+ * 该函数根据文本对象的属性应用以下 Markdown 样式：
+ * - `code`: 使用反引号(`)包裹文本
+ * - `italic`: 使用单个星号(*)包裹文本
+ * - `bold`: 使用双星号(**)包裹文本
+ * - `strikethrough`: 使用双波浪线(~~)包裹文本
  *
- * Additionally, it escapes backslashes and replaces newline characters with Markdown line breaks.
+ * 此外，还会：
+ * - 转义反斜杠
+ * - 将换行符转换为 Markdown 换行符
+ * - 保留文本前后的空白字符
  */
 const textStyle = (t: Text) => {
   if (!t.text) return '';
@@ -594,16 +448,21 @@ const textStyle = (t: Text) => {
 };
 
 /**
- * Composes a text string from a given Text node and its parent nodes.
+ * 根据给定的文本节点及其父节点生成格式化的文本字符串
  *
- * @param t - The Text node to compose the string from.
- * @param parent - An array representing the parent nodes of the Text node.
- * @returns The composed text string. If the Text node has no text, returns an empty string.
+ * @param t - 要处理的文本节点
+ * @param parent - 父节点数组，用于上下文信息
+ * @returns 处理后的文本字符串。如果文本节点没有内容，返回空字符串
  *
- * The function handles different text styles and formats:
- * - If the text has highColor or a combination of strikethrough with bold, italic, or code, it returns HTML formatted text.
- * - If the text has a URL, it returns the text as a markdown link.
- * - If the text is mixed and not at the end of a sentence, it ensures proper spacing between words.
+ * 该函数处理不同的文本样式和格式：
+ * - 如果文本有 highColor 属性或者同时具有删除线和其他样式（粗体、斜体、代码），返回 HTML 格式的文本
+ * - 如果文本有 URL，返回 Markdown 链接格式
+ * - 如果文本有多种样式且不在句子末尾，确保单词之间有适当的空格
+ *
+ * 特殊处理：
+ * - 高亮颜色：使用 span 标签和 style 属性
+ * - 脚注标识：使用 [^] 语法
+ * - 混合样式：确保相邻文本之间的空格正确
  */
 const composeText = (t: Text, parent: any[]) => {
   if (!t.text) return '';
@@ -630,12 +489,41 @@ const composeText = (t: Text, parent: any[]) => {
 };
 
 /**
- * Converts a table-like node structure into a Markdown table string.
+ * 将类表格节点结构转换为 Markdown 表格字符串
  *
- * @param el - The table node which can be of type `TableNode`, `ColumnNode`, `DescriptionNode`, or `ChartNode`.
- * @param preString - A prefix string to prepend to each line of the output Markdown table.
- * @param parent - An array representing the parent nodes of the current node.
- * @returns A string representing the Markdown table.
+ * @param el - 表格节点，可以是 TableNode、ColumnNode、DescriptionNode 或 ChartNode 类型
+ * @param preString - 前缀字符串，用于在表格每行前添加缩进
+ * @param parent - 父节点数组，用于提供上下文信息
+ * @param plugins - 可选的插件数组，用于自定义转换逻辑
+ * @returns 格式化后的 Markdown 表格字符串
+ *
+ * 该函数支持以下功能：
+ * 1. 列宽处理
+ *    - 自动计算每列的最大宽度
+ *    - 使用空格填充单元格以对齐
+ *
+ * 2. 对齐方式
+ *    - 左对齐：`:---`
+ *    - 居中对齐：`:---:`
+ *    - 右对齐：`---:`
+ *
+ * 3. 特殊节点处理
+ *    - column-group：生成带有默认列标题的表格
+ *    - table/chart：处理标准表格数据
+ *    - description：将描述列表转换为两行表格
+ *
+ * 4. 格式化细节
+ *    - 转义表格分隔符 |
+ *    - 保持单元格间距一致
+ *    - 处理空行和空单元格
+ *
+ * @example
+ * 生成的表格格式如下：
+ * ```markdown
+ * | 列1 | 列2 | 列3 |
+ * |:--- |:---:| ---:|
+ * | 左对齐 | 居中 | 右对齐 |
+ * ```
  */
 const table = (
   el: TableNode | ColumnNode | DescriptionNode | ChartNode,
@@ -646,107 +534,499 @@ const table = (
   const children = el.children;
   const head = children[0]?.children;
   if (!children.length || !head.length) return '';
-  let data: string[][] = [];
 
-  if (el.type === 'column-group') {
-    const row: string[] = [];
-    for (let n of children) {
-      if (n.type === 'column-cell') {
-        if (!n?.children) continue;
-        row.push(
-          parserSlateNodeToMarkdown(n?.children, '', [...parent, n], plugins) ||
-            'xxx',
-        );
+  const data: string[][] = new Array(children.length);
+  let maxColumns = 0;
+
+  // 使用策略模式处理不同类型的表格
+  const tableProcessors = {
+    'column-group': () => {
+      const row: string[] = new Array(children.length);
+      let validColumnCount = 0;
+
+      for (let i = 0; i < children.length; i++) {
+        const n = children[i];
+        const isValidCell = n.type === 'column-cell' && n?.children;
+        validColumnCount += Number(isValidCell);
+        row[validColumnCount - 1] = isValidCell
+          ? parserSlateNodeToMarkdown(
+              n?.children,
+              '',
+              [...parent, n],
+              plugins,
+            ) || 'xxx'
+          : '';
       }
-    }
-    data.push(new Array(row.length).fill('x').map((_, i) => `column${i + 1}`));
-    data.push(row);
-  } else {
-    for (let c of children) {
-      if (!c) continue;
-      const row: string[] = [];
-      if (c?.type === 'table-row') {
-        if (!c?.children) continue;
-        for (let n of c?.children || []) {
-          if (n.type === 'table-cell') {
-            row.push(
-              parserSlateNodeToMarkdown(
-                n.children,
+
+      const validRow = row.slice(0, validColumnCount);
+      data[0] = Array.from(
+        { length: validColumnCount },
+        (_, i) => `column${i + 1}`,
+      );
+      data[1] = validRow;
+      maxColumns = validColumnCount;
+      return 2; // 返回实际行数
+    },
+    default: () => {
+      let rowIndex = 0;
+      for (const c of children) {
+        if (!c) continue;
+
+        const processRow = (
+          cells: any[],
+          processCell: (cell: any) => string,
+        ) => {
+          const row: string[] = new Array(cells.length);
+          let validCellCount = 0;
+
+          for (const cell of cells) {
+            const content = processCell(cell);
+            validCellCount += Number(!!content);
+            row[validCellCount - 1] = content;
+          }
+
+          const hasContent = validCellCount > 0 && row.some(Boolean);
+          if (hasContent) {
+            data[rowIndex] = row.slice(0, validCellCount);
+            maxColumns = Math.max(maxColumns, validCellCount);
+            rowIndex++;
+          }
+        };
+
+        const cellProcessor = (cell: any) =>
+          cell.type === 'table-cell'
+            ? parserSlateNodeToMarkdown(
+                cell.children,
                 '',
-                [...parent, n],
+                [...parent, cell],
                 plugins,
-              ),
-            );
-          }
-        }
+              )
+            : '';
+
+        c.type === 'table-row' && c?.children
+          ? processRow(c.children, cellProcessor)
+          : c.type === 'table-cell' && processRow([c], cellProcessor);
       }
-      if (c.type === 'table-cell') {
-        row.push(
-          parserSlateNodeToMarkdown(c.children, '', [...parent, c], plugins),
-        );
-      }
-      if (row?.every((r) => !r)) continue;
-      data.push(row);
+      return rowIndex;
+    },
+  };
+
+  const processor =
+    tableProcessors[el.type as keyof typeof tableProcessors] ||
+    tableProcessors.default;
+  const rowCount = processor();
+  data.length = rowCount;
+
+  // 计算列宽
+  const colLength = new Array(maxColumns).fill(0);
+  for (const row of data) {
+    for (let i = 0; i < row.length; i++) {
+      colLength[i] = Math.max(colLength[i], stringWidth(row[i] || ''));
     }
   }
-  let output = '',
-    colLength = new Map<number, number>();
 
-  for (let i = 0; i < data?.[0]?.length; i++) {
-    colLength.set(
-      i,
-      data.map((d) => stringWidth(d[i])).sort((a, b) => b - a)[0],
-    );
-  }
+  // 对齐策略表
+  const alignStrategies = {
+    right: (str: string, diff: number) => ' '.repeat(diff) + str,
+    center: (str: string, diff: number) => {
+      const pre = Math.floor(diff / 2);
+      return ' '.repeat(pre) + str + ' '.repeat(diff - pre);
+    },
+    left: (str: string, diff: number) => str + ' '.repeat(diff),
+    default: (str: string, diff: number) => str + ' '.repeat(diff),
+  };
 
+  // 分隔符策略表
+  const separatorStrategies = {
+    left: (str: string) => ':' + str,
+    center: (str: string) => ':' + str.slice(1) + ':',
+    right: (str: string) => str + ':',
+    default: (str: string) => str,
+  };
+
+  const output: string[] = [];
+  const separator = ' | ';
+
+  // 构建表格内容
   for (let i = 0; i < data.length; i++) {
-    let cells: string[] = [];
-    for (let j = 0; j < data[i].length; j++) {
-      let str = data[i][j];
+    const cells = new Array(maxColumns);
+    const row = data[i];
+
+    // 处理单元格
+    for (let j = 0; j < maxColumns; j++) {
+      let str = row[j] || '';
       const strLength = stringWidth(str);
-      const length = colLength.get(j) || 2;
-      if (length > strLength) {
-        if (head[j]?.align === 'right') {
-          str = ' '.repeat(length - strLength) + str;
-        } else if (head[j]?.align === 'center') {
-          const spaceLength = length - strLength;
-          const pre = Math.floor(spaceLength / 2);
-          if (pre > 0) str = ' '.repeat(pre) + str;
-          const next = spaceLength - pre;
-          if (next > 0) str = str + ' '.repeat(next);
-        } else {
-          str += ' '.repeat(length - strLength);
-        }
-      }
-      str = str.replace(/\|/g, '\\|');
-      cells.push(str);
+      const length = colLength[j];
+      const diff = length - strLength;
+
+      str =
+        diff > 0
+          ? (
+              alignStrategies[head[j]?.align as keyof typeof alignStrategies] ||
+              alignStrategies.default
+            )(str, diff)
+          : str;
+
+      cells[j] = str.replace(/\|/g, '\\|');
     }
-    output += `${preString}| ${cells.join(' | ')} |`;
-    if (i !== data.length - 1 || data.length === 1) output += '\n';
+
+    output.push(
+      `${preString}|${separator}${cells.join(separator)}${separator}|`,
+    );
+
+    // 处理分隔行
     if (i === 0) {
-      output += `${preString}| ${cells
-        .map((_, i) => {
-          const removeLength = head[i]?.align
-            ? head[i]?.align === 'center'
-              ? 2
-              : 1
-            : 0;
-          let str = '-'.repeat(Math.max(colLength.get(i)! - removeLength, 2));
-          switch (head[i]?.align) {
-            case 'left':
-              str = `:${str}`;
-              break;
-            case 'center':
-              str = `:${str}:`;
-              break;
-            case 'right':
-              str = `${str}:`;
-              break;
-          }
-          return str;
-        })
-        .join(' | ')} |\n`;
+      const separators = new Array(maxColumns);
+      for (let j = 0; j < maxColumns; j++) {
+        const len = Math.max(colLength[j], 2);
+        const baseStr = '-'.repeat(len);
+        separators[j] = (
+          separatorStrategies[
+            head[j]?.align as keyof typeof separatorStrategies
+          ] || separatorStrategies.default
+        )(baseStr);
+      }
+      output.push(
+        `${preString}|${separator}${separators.join(separator)}${separator}|`,
+      );
     }
   }
-  return output;
+
+  return output.join('\n') + (data.length === 1 ? '\n' : '');
+};
+
+/**
+ * 处理卡片节点，递归处理其子节点
+ * @param node - 卡片节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 字符串
+ */
+const handleCard = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  return parserSlateNodeToMarkdown(
+    node?.children,
+    preString,
+    [...parent, node],
+    plugins,
+  );
+};
+
+/**
+ * 处理段落节点，添加前缀并处理其子节点
+ * @param node - 段落节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 字符串
+ */
+const handleParagraph = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  return (
+    preString +
+    parserSlateNodeToMarkdown(
+      node?.children,
+      preString,
+      [...parent, node],
+      plugins,
+    )
+  );
+};
+
+/**
+ * 处理标题节点，根据级别生成对应的 Markdown 标题
+ * @param node - 标题节点，包含 level 属性
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 标题字符串
+ */
+const handleHead = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  return (
+    '#'.repeat(node.level) +
+    ' ' +
+    parserSlateNodeToMarkdown(
+      node?.children,
+      preString,
+      [...parent, node],
+      plugins,
+    )
+  );
+};
+
+/**
+ * 处理代码节点，支持三种模式：HTML渲染、Frontmatter、普通代码块
+ * @param node - 代码节点，包含 language、value、render、frontmatter 等属性
+ * @param preString - 前缀字符串，用于处理缩进
+ * @returns 处理后的代码块字符串
+ */
+const handleCode = (node: any, preString: string) => {
+  const code = node?.value || '';
+
+  if (node.language === 'html' && node.render) {
+    return code;
+  }
+
+  if (node.frontmatter) {
+    return `${preString}---\n${code}\n${preString}---`;
+  }
+
+  const language = node.language || '';
+
+  if (!code.trim()) {
+    return `${preString}\`\`\`${language}\n${preString}\`\`\``;
+  }
+
+  const codeLines = code.split('\n');
+  const indentedCode = codeLines
+    .map((line: string, index: number) => {
+      if (index === 0 || index === codeLines.length - 1) {
+        return line;
+      }
+      return preString + line;
+    })
+    .join('\n');
+
+  return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+};
+
+/**
+ * 处理附件节点，生成带下载属性的链接标签
+ * @param node - 附件节点，包含 url、size、name 属性
+ * @returns 处理后的 HTML 链接标签字符串
+ */
+const handleAttach = (node: any) => {
+  return `<a href="${encodeURI(node?.url)}" download data-size="${node.size}">${node.name}</a>`;
+};
+
+/**
+ * 处理引用块节点，递归处理其子节点
+ * @param node - 引用块节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 引用字符串
+ */
+const handleBlockquote = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  return parserSlateNodeToMarkdown(
+    node.children,
+    preString,
+    [...parent, node],
+    plugins,
+  );
+};
+
+/**
+ * 处理图片节点，支持宽度、高度和块级显示参数
+ * @param node - 图片节点，包含 url、width、height、block、alt 属性
+ * @returns 处理后的 Markdown 图片字符串
+ */
+const handleImage = (node: any) => {
+  try {
+    let nodeImageUrl = new URL(node?.url);
+    if (node.width) {
+      nodeImageUrl.searchParams.set('width', node.width);
+    }
+    if (node.height) {
+      nodeImageUrl.searchParams.set('height', node.height);
+    }
+    if (node.block) {
+      nodeImageUrl.searchParams.set('block', node.block);
+    }
+    return `![${node.alt || ''}](${nodeImageUrl.toString()})`;
+  } catch (e) {
+    return `![${node.alt || ''}](${encodeURI(node?.url)})`;
+  }
+};
+
+/**
+ * 处理媒体节点，支持视频、图片和 iframe
+ * @param node - 媒体节点，包含 url、mediaType、height、align、alt 属性
+ * @returns 处理后的 HTML 媒体标签或 Markdown 图片字符串
+ */
+const handleMedia = (node: any) => {
+  let nodeUrl = node?.url;
+  let type = node.mediaType || getMediaType(nodeUrl, node?.alt);
+  if (node.height) {
+    if (type === 'video') {
+      return `<video src="${encodeURI(nodeUrl)}" alt="" height="${node.height || ''}"/>`;
+    } else if (type === 'image' || type === 'media') {
+      return `<img src="${encodeURI(nodeUrl)}" alt="" height="${node.height || ''}" ${node.align ? `data-align="${node.align}"` : ''}/>`;
+    }
+  } else {
+    if (type === 'video') {
+      return `<video src="${encodeURI(nodeUrl)}"/>`;
+    } else if (type === 'image' || type === 'media') {
+      if (node.align) {
+        return `<img src="${encodeURI(nodeUrl)}" alt="" ${node.align ? `data-align="${node.align}"` : ''}/>`;
+      } else {
+        return `![${node.alt || ''}](${encodeURI(nodeUrl)})`;
+      }
+    } else {
+      return `<iframe src="${encodeURI(nodeUrl)}"/>`;
+    }
+  }
+  return '';
+};
+
+/**
+ * 处理列表节点，递归处理其子节点
+ * @param node - 列表节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 列表字符串
+ */
+const handleList = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  return parserSlateNodeToMarkdown(
+    node.children,
+    preString,
+    [...parent, node],
+    plugins,
+  );
+};
+
+/**
+ * 处理列表项节点，递归处理其子节点
+ * @param node - 列表项节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 列表项字符串
+ */
+const handleListItem = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  return parserSlateNodeToMarkdown(
+    node.children,
+    preString,
+    [...parent, node],
+    plugins,
+  );
+};
+
+/**
+ * 处理描述列表节点，将其转换为表格格式
+ * @param node - 描述列表节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @param parent - 父节点数组
+ * @param plugins - 可选的插件数组
+ * @returns 处理后的 Markdown 表格字符串
+ */
+const handleDescription = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+) => {
+  const header: any[] = [];
+  const rows: any[] = [];
+  node.children.forEach((n: any) => {
+    if (n.title) {
+      header.push(n);
+      return;
+    }
+    rows.push(n);
+  });
+  return table(
+    {
+      ...node,
+      children: [
+        {
+          children: header,
+          type: 'table-row',
+        },
+        {
+          children: rows,
+          type: 'table-row',
+        },
+      ],
+    },
+    preString,
+    parent,
+    plugins,
+  );
+};
+
+/**
+ * 处理模式定义节点，生成 schema 代码块
+ * @param node - 模式定义节点，包含 otherProps 属性
+ * @returns 处理后的 schema 代码块字符串
+ */
+const handleSchema = (node: any) => {
+  return '```schema\n' + JSON.stringify(node.otherProps, null, 2) + '\n```';
+};
+
+/**
+ * 处理链接卡片节点，生成 Markdown 链接格式
+ * @param node - 链接卡片节点，包含 name、url 属性
+ * @returns 处理后的 Markdown 链接字符串
+ */
+const handleLinkCard = (node: any) => {
+  return `[${node.name}](${node?.url} "${node.name}")`;
+};
+
+/**
+ * 处理水平分割线节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @returns 处理后的 Markdown 分割线字符串
+ */
+const handleHr = (preString: string) => {
+  return preString + '***';
+};
+
+/**
+ * 处理换行节点
+ * @param preString - 前缀字符串，用于处理缩进
+ * @returns 处理后的 HTML 换行标签字符串
+ */
+const handleBreak = (preString: string) => {
+  return preString + '<br/>';
+};
+
+/**
+ * 处理脚注定义节点
+ * @param node - 脚注定义节点，包含 identifier、value、url 属性
+ * @returns 处理后的 Markdown 脚注字符串
+ */
+const handleFootnoteDefinition = (node: any) => {
+  return `[^${node.identifier}]: [${node.value}](${node.url})\n`;
+};
+
+/**
+ * 处理默认文本节点
+ * @param node - 文本节点
+ * @param parent - 父节点数组
+ * @returns 处理后的文本字符串
+ */
+const handleDefault = (node: any, parent: any[]) => {
+  if (node.text) return composeText(node, parent);
+  return '';
 };

@@ -1,5 +1,7 @@
-﻿import { BaseMarkdownEditor } from '@ant-design/md-editor';
-import { MarkdownEditorPlugin } from '@ant-design/md-editor/dist/MarkdownEditor/plugin';
+﻿import {
+  BaseMarkdownEditor,
+  MarkdownEditorPlugin,
+} from '@ant-design/md-editor';
 import React, { useMemo } from 'react';
 
 const useCreateComponentPlugin = (tagName: string, targetType: string) => {
