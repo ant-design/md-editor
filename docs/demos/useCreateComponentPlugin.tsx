@@ -1,8 +1,9 @@
 ﻿import {
   BaseMarkdownEditor,
   MarkdownEditorPlugin,
+  parserMdToSchema,
 } from '@ant-design/md-editor';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 const useCreateComponentPlugin = (tagName: string, targetType: string) => {
   const matchStr = `<${tagName}`;
@@ -93,9 +94,18 @@ const useCreateComponentPlugin = (tagName: string, targetType: string) => {
 
 export default () => {
   const mdTagPlugin = useCreateComponentPlugin('md-tag', 'customTag');
+  const markdownRef = useRef<any>(null);
+  useEffect(() => {
+    const schema = parserMdToSchema(
+      '123<md-tag context="时间"/>789 123<md-tag context="s"/>789',
+      [mdTagPlugin],
+    ).schema;
+    markdownRef?.current?.store?.setContent(schema);
+  }, []);
   return (
     <BaseMarkdownEditor
-      initValue="123<md-tag context='时间'/>789"
+      initValue='123<md-tag context="时间"/>789'
+      editorRef={markdownRef}
       onChange={(value) => console.log(value)}
       width="100%"
       plugins={[mdTagPlugin]}
