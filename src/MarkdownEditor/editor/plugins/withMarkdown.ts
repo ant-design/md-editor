@@ -329,7 +329,6 @@ export const withMarkdown = (editor: Editor) => {
         return;
       }
     }
-
     apply(operation);
   };
 

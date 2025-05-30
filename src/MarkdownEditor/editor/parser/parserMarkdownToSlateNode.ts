@@ -731,9 +731,14 @@ const handleListItem = (currentElement: any) => {
  * 处理段落节点
  * @param currentElement - 当前处理的段落元素
  * @param config - 配置对象，包含样式和行为设置
+ * @param plugins - 插件数组
  * @returns 返回格式化的段落节点对象或元素数组
  */
-const handleParagraph = (currentElement: any, config: any) => {
+const handleParagraph = (
+  currentElement: any,
+  config: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
   // 检查是否是附件链接
   if (
     currentElement.children?.[0].type === 'html' &&
@@ -803,7 +808,7 @@ const handleParagraph = (currentElement: any, config: any) => {
       if (textNodes.length) {
         elements.push({
           type: 'paragraph',
-          children: parserBlock(textNodes, false, currentElement),
+          children: parseWithPlugins(textNodes, plugins, false, currentElement),
         });
         textNodes = [];
       }
@@ -840,7 +845,7 @@ const handleParagraph = (currentElement: any, config: any) => {
   if (textNodes.length) {
     elements.push({
       type: 'paragraph',
-      children: parserBlock(textNodes, false, currentElement),
+      children: parseWithPlugins(textNodes, plugins, false, currentElement),
     });
   }
 
@@ -1190,7 +1195,7 @@ const parserBlock = (
         el = handleListItem(currentElement);
         break;
       case 'paragraph':
-        el = handleParagraph(currentElement, config);
+        el = handleParagraph(currentElement, config, []);
         break;
       case 'inlineCode':
         el = handleInlineCode(currentElement);
@@ -1248,7 +1253,7 @@ const parseWithPlugins = (
   let contextProps = {};
 
   for (let i = 0; i < nodes.length; i++) {
-    const currentElement = nodes[i];
+    const currentElement = nodes[i] as any;
     let el: Element | null | Element[] = null;
     let pluginHandled = false;
 
@@ -1281,7 +1286,16 @@ const parseWithPlugins = (
 
       switch (currentElement.type) {
         case 'heading':
-          el = handleHeading(currentElement);
+          el = {
+            type: 'head',
+            level: currentElement.depth,
+            children: parseWithPlugins(
+              currentElement.children || [],
+              plugins,
+              false,
+              currentElement,
+            ),
+          };
           break;
         case 'html':
           const htmlResult = handleHtml(currentElement, parent, htmlTag);
@@ -1300,19 +1314,126 @@ const parseWithPlugins = (
           el = handleMath(currentElement);
           break;
         case 'list':
-          el = handleList(currentElement);
+          el = {
+            type: 'list',
+            order: currentElement.ordered,
+            start: currentElement.start,
+            children: parseWithPlugins(
+              currentElement.children || [],
+              plugins,
+              false,
+              currentElement,
+            ),
+            task: currentElement.children?.some(
+              (s: any) => typeof s.checked === 'boolean',
+            ),
+          };
           break;
         case 'footnoteReference':
           el = handleFootnoteReference(currentElement);
           break;
         case 'footnoteDefinition':
-          el = handleFootnoteDefinition(currentElement);
+          const linkNode = parseWithPlugins(
+            currentElement.children || [],
+            plugins,
+            false,
+            currentElement,
+          )?.at(0) as any;
+          const cellNode = linkNode?.children?.at(0) as any;
+          el = {
+            value: cellNode?.text,
+            url: cellNode?.url,
+            type: 'footnoteDefinition',
+            identifier: currentElement.identifier,
+            children: [cellNode],
+          };
           break;
         case 'listItem':
-          el = handleListItem(currentElement);
+          const children = parseWithPlugins(
+            currentElement.children || [],
+            plugins,
+            false,
+            currentElement,
+          );
+          let mentions = undefined;
+          if (
+            currentElement.children?.[0]?.children?.[0]?.type === 'link' &&
+            currentElement.children?.[0]?.children?.length > 1
+          ) {
+            const item = (children?.[0] as any)?.children?.[0];
+            const label = item?.text;
+            if (label) {
+              mentions = [
+                {
+                  avatar: item?.url,
+                  name: label,
+                  id:
+                    new URLSearchParams('?' + item?.url?.split('?')[1]).get(
+                      'id',
+                    ) || undefined,
+                },
+              ];
+              delete (children[0] as any).children[0];
+              if ((children[0] as any).children) {
+                (children[0] as any).children = (
+                  children[0] as any
+                ).children.filter(Boolean);
+              }
+            }
+          }
+
+          if (
+            (children[0] as any).type === 'paragraph' &&
+            (children[0] as any).children?.[0]?.text
+          ) {
+            const text = (children[0] as any).children[0]?.text;
+            const m = text.match(/^\[([x\s])]/);
+
+            if (m) {
+              (children[0] as any).children[0].text = text.replace(
+                /^\[([x\s])]/,
+                '',
+              );
+              el = {
+                type: 'list-item',
+                checked: m ? m[1] === 'x' : undefined,
+                children: children,
+                mentions,
+              };
+              break;
+            }
+          }
+
+          el = {
+            type: 'list-item',
+            checked: currentElement.checked,
+            children: children,
+            mentions,
+          };
           break;
         case 'paragraph':
-          el = handleParagraph(currentElement, config);
+          el = handleParagraph(currentElement, config, plugins);
+          // If el is an array of elements, process their children with plugins
+          if (Array.isArray(el)) {
+            el = el.map((item) => {
+              if ((item as any).children) {
+                return {
+                  ...item,
+                  children:
+                    Array.isArray((item as any).children) &&
+                    (item as any).children[0]?.type
+                      ? parseWithPlugins(
+                          (item as any).children,
+                          plugins,
+                          false,
+                          item,
+                        )
+                      : (item as any).children,
+                };
+              }
+              return item;
+            });
+          }
           break;
         case 'inlineCode':
           el = handleInlineCode(currentElement);
@@ -1327,7 +1448,15 @@ const parseWithPlugins = (
           el = handleYaml(currentElement);
           break;
         case 'blockquote':
-          el = handleBlockquote(currentElement);
+          el = {
+            type: 'blockquote',
+            children: parseWithPlugins(
+              currentElement.children || [],
+              plugins,
+              false,
+              currentElement,
+            ),
+          };
           break;
         case 'table':
           el = parseTableOrChart(currentElement, preElement);
@@ -1348,7 +1477,7 @@ const parseWithPlugins = (
     }
 
     preNode = currentElement;
-    preElement = el;
+    preElement = el as Element;
   }
 
   return els;
@@ -1417,6 +1546,5 @@ export const parserMarkdownToSlateNode = (
           true,
         ) as Elements[])
       : (parserBlock(markdownRoot.children as any[], true) as Elements[]);
-
   return { schema, links: [] };
 };

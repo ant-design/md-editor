@@ -12,6 +12,7 @@ import {
   Range,
 } from 'slate';
 import { Elements } from '../../el';
+import { MarkdownEditorPlugin } from '../../plugin';
 import { useEditorStore } from '../store';
 import { parserSlateNodeToMarkdown } from '../utils';
 
@@ -33,11 +34,15 @@ const floatBarIgnoreNode = new Set(['code']);
 export function useOnchange(
   editor: Editor,
   onChange?: (value: string, schema: Elements[]) => void,
+  plugins?: MarkdownEditorPlugin[],
 ) {
   const rangeContent = useRef('');
   const onChangeDebounce = useDebounceFn(async () => {
     if (!onChange) return;
-    onChange?.(parserSlateNodeToMarkdown(editor.children), editor.children);
+    onChange?.(
+      parserSlateNodeToMarkdown(editor.children, undefined, undefined, plugins),
+      editor.children,
+    );
   }, 16);
 
   const { setRefreshFloatBar, setDomRect, refreshFloatBar } = useEditorStore();
@@ -49,7 +54,10 @@ export function useOnchange(
         _operations.some((o) => o.type !== 'set_selection')
       ) {
         onChangeDebounce.cancel();
-        onChangeDebounce?.run(parserSlateNodeToMarkdown(_value), _value);
+        onChangeDebounce?.run(
+          parserSlateNodeToMarkdown(_value, undefined, undefined, plugins),
+          _value,
+        );
       }
       const sel = editor.selection;
 

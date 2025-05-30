@@ -135,7 +135,11 @@ export const SlateMarkdownEditor = ({
   const plugins = useContext(PluginContext);
 
   const onKeyDown = useKeyboard(store, markdownEditorRef, editorProps);
-  const onChange = useOnchange(markdownEditorRef.current, editorProps.onChange);
+  const onChange = useOnchange(
+    markdownEditorRef.current,
+    editorProps.onChange,
+    plugins,
+  );
   const high = useHighlight(store);
 
   const childrenIsEmpty = useMemo(() => {
