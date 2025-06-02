@@ -596,10 +596,10 @@ describe('parserSlateNodeToMarkdown alignment tests', () => {
       );
     });
 
-    it('should handle paragraph with legacy aligen property', () => {
+    it('should handle paragraph with legacy align property', () => {
       const node = {
         type: 'paragraph',
-        aligen: 'left',
+        align: 'left',
         children: [{ text: 'This is a left-aligned paragraph' }],
       };
 

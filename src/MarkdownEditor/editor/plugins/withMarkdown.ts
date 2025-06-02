@@ -277,7 +277,6 @@ const handleCodeTagOperation = (
 
   if (operation.type === 'split_node') {
     const node = Node.get(editor, operation.path);
-    console.log(node);
     if (node?.tag || node?.code) {
       return true;
     }

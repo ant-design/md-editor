@@ -840,7 +840,7 @@ const handleParagraph = (
 
   // 处理对齐注释
   if (node.align) {
-    str += `<!--${JSON.stringify({ align: node.aligen || node.align })}-->\n${preString}`;
+    str += `<!--${JSON.stringify({ align: node.align })}-->\n${preString}`;
   }
 
   str += parserSlateNodeToMarkdown(

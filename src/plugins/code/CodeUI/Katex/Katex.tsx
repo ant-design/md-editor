@@ -32,9 +32,7 @@ export const Katex = (props: { el: CodeNode }) => {
                 },
               });
             }
-          } catch (e) {
-            console.log('err', e);
-          }
+          } catch (e) {}
         } else {
           setState({ error: '' });
         }

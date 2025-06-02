@@ -268,13 +268,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       "h2 + [data-be='list'] ol": {
         marginTop: '0',
       },
-      '[data-aligen="left"]': {
+      '[data-align="left"]': {
         textAlign: 'left',
       },
-      '[data-aligen="center"]': {
+      '[data-align="center"]': {
         textAlign: 'center',
       },
-      '[data-aligen="right"]': {
+      '[data-align="right"]': {
         textAlign: 'right',
       },
     },
