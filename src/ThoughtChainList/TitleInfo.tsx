@@ -114,20 +114,6 @@ export const TitleInfo = (props: {
                             origin_text: item.description,
                           });
                         }}
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          justifyContent: 'flex-start',
-                          padding: '1px 10px',
-                          gap: '6px',
-                          borderRadius: '12px',
-                          height: '2em',
-                          fontSize: '1em',
-                          wordBreak: 'break-all',
-                          wordWrap: 'break-word',
-                          maxWidth: '100%',
-                        }}
                       >
                         <img
                           width={22}
