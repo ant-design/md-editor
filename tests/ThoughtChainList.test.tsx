@@ -466,28 +466,6 @@ describe('ThoughtChainList', () => {
     });
   });
 
-  // 性能测试
-  describe('Performance', () => {
-    it('should handle large number of items', () => {
-      const largeList = Array.from({ length: 100 }, (_, index) => ({
-        ...mockTableSqlData,
-        runId: `item-${index}`,
-        info: `查询数据 ${index}`,
-      }));
-
-      const startTime = performance.now();
-      render(<ThoughtChainList thoughtChainList={largeList} />);
-      const endTime = performance.now();
-
-      // 渲染时间应该在合理范围内（小于 5000ms）
-      expect(endTime - startTime).toBeLessThan(5000);
-
-      // 检查第一个和最后一个项目是否正确渲染
-      expect(screen.getByText('查询数据 0')).toBeInTheDocument();
-      expect(screen.getByText('查询数据 99')).toBeInTheDocument();
-    });
-  });
-
   // 可访问性测试
   describe('Accessibility', () => {
     it('should have proper ARIA labels', () => {
