@@ -337,7 +337,7 @@ export const ToolCall = (
                   }}
                 >
                   <span>{i18n.locale?.executionResult || '执行结果'}</span>
-                  <CostMillis costMillis={props.costMillis} />
+                  <CostMillis costMillis={props.executionTimeMillis} />
                 </div>
                 <ActionIconBox
                   title="复制"
@@ -461,7 +461,7 @@ export const ToolCall = (
     JSON.stringify(props.info),
     JSON.stringify(props.output),
     JSON.stringify(props.input),
-    props.costMillis,
+    props.executionTimeMillis,
     editor,
   ]);
 };

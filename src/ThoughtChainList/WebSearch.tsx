@@ -156,5 +156,9 @@ export const WebSearch = (
         </div>
       </>
     );
-  }, [props.category, JSON.stringify(props.output?.data), props.costMillis]);
+  }, [
+    props.category,
+    JSON.stringify(props.output?.data),
+    props.executionTimeMillis,
+  ]);
 };

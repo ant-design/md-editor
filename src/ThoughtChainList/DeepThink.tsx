@@ -159,5 +159,5 @@ export const DeepThink = (
         </div>
       </>
     );
-  }, [props.category, JSON.stringify(props.output), props.costMillis]);
+  }, [props.category, JSON.stringify(props.output), props.executionTimeMillis]);
 };

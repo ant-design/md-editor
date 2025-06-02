@@ -153,7 +153,7 @@ export const ThoughtChainListItem: React.FC<{
       >
         <TitleInfo
           title={thoughtChainListItem.info!}
-          costMillis={thoughtChainListItem.costMillis}
+          costMillis={thoughtChainListItem.executionTimeMillis}
           category={thoughtChainListItem.category!}
           prefixCls={prefixCls}
           hashId={hashId}

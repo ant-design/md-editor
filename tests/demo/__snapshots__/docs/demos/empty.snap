@@ -124,11 +124,6 @@
                   </svg>
                 </div>
                 <div
-                  class="ant-divider ant-divider-vertical"
-                  role="separator"
-                  style="margin: 0px 4px; height: 18px; border-color: rgba(0, 0, 0, 0.15);"
-                />
-                <div
                   aria-describedby="test-id"
                   class="ant-md-editor-toolbar-item ant-dropdown-trigger"
                   role="button"

@@ -331,7 +331,7 @@ export const TableSql = (
                   }}
                 >
                   <span>{i18n.locale?.queryResults || '查询结果'}</span>
-                  <CostMillis costMillis={props.costMillis} />
+                  <CostMillis costMillis={props.executionTimeMillis} />
                 </div>
                 <ActionIconBox
                   title={i18n.locale?.copy || '复制'}
@@ -478,7 +478,7 @@ export const TableSql = (
     JSON.stringify(props.info),
     JSON.stringify(props.output),
     JSON.stringify(props.input),
-    props.costMillis,
+    props.executionTimeMillis,
     editor,
   ]);
 };
