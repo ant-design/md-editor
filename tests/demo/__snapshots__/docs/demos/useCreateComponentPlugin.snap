@@ -133,6 +133,733 @@
               </span>
             </span>
           </div>
+          <div
+            class="relative"
+            data-be="list"
+            data-slate-node="element"
+          >
+            <ol
+              class="ant-md-editor-list ol"
+              start="1"
+            >
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        在
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        为
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        的情况下，
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        的数量达到了
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        ，远高于其他
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        的值，例如
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        仅有一个
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        ，这表明
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        的数据分布不均。
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li
+                class="ant-md-editor-list-item"
+                data-be="list-item"
+                data-slate-node="element"
+              >
+                <div
+                  class="ant-md-editor-drag-el"
+                  data-be="paragraph"
+                  data-slate-node="element"
+                >
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        数据显示
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        为
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        时存在
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    contenteditable="false"
+                    data-slate-node="element"
+                    style="color: red; display: inline-block; user-select: none;"
+                  >
+                    <div
+                      style="display: none;"
+                    >
+                      <span
+                        data-slate-node="text"
+                      >
+                        <span
+                          class=" "
+                          data-be="text"
+                          data-slate-leaf="true"
+                          draggable="false"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                              
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                    ^
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-length="0"
+                        data-slate-zero-width="z"
+                      >
+                        ﻿
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        的情况，可能需要进一步调查原因。
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
       <div

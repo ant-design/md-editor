@@ -7,7 +7,7 @@ exports[`TocHeading Component > applies custom anchor props 1`] = `
       class=""
     >
       <div
-        class="css-dev-only-do-not-override-vrrzze ant-anchor-wrapper"
+        class="ant-anchor-wrapper"
         style="max-height: calc(100vh - 100px); background-color: red;"
       >
         <div
@@ -60,7 +60,7 @@ exports[`TocHeading Component > applies max height and scrollbar styles 1`] = `
       class=""
     >
       <div
-        class="css-dev-only-do-not-override-vrrzze ant-anchor-wrapper"
+        class="ant-anchor-wrapper"
         style="max-height: 300px; min-width: 200px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"
       >
         <div

@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Elements } from '../../../BaseMarkdownEditor';
@@ -40,7 +41,15 @@ describe('TocHeading Component', () => {
   ] as Elements[];
 
   it('renders table of contents correctly', () => {
-    const { container } = render(<TocHeading schema={mockSchema} />);
+    const { container } = render(
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <TocHeading schema={mockSchema} />
+      </ConfigProvider>,
+    );
     const titles = container.querySelectorAll('.ant-anchor-link-title');
     expect(titles.length).toBe(2);
     expect(titles[0].textContent).toBe('Introduction');
@@ -48,7 +57,15 @@ describe('TocHeading Component', () => {
   });
 
   it('renders nothing when no headers are present', () => {
-    const { container } = render(<TocHeading schema={[]} />);
+    const { container } = render(
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <TocHeading schema={[]} />
+      </ConfigProvider>,
+    );
     expect(container.firstChild).toBeNull();
   });
 
@@ -76,7 +93,15 @@ describe('TocHeading Component', () => {
       },
     ] as Elements[];
 
-    const { container } = render(<TocHeading schema={nestedSchema} />);
+    const { container } = render(
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <TocHeading schema={nestedSchema} />
+      </ConfigProvider>,
+    );
     const titles = container.querySelectorAll('.ant-anchor-link-title');
     expect(titles.length).toBe(4);
     expect(titles[0].textContent).toBe('Chapter 1');
@@ -92,7 +117,13 @@ describe('TocHeading Component', () => {
     };
 
     const { container } = render(
-      <TocHeading schema={mockSchema} anchorProps={customProps} />,
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <TocHeading schema={mockSchema} anchorProps={customProps} />
+      </ConfigProvider>,
     );
 
     const anchor = container.querySelector('.ant-anchor');
@@ -109,7 +140,15 @@ describe('TocHeading Component', () => {
         children: [{ text: `Section ${index + 1}` }],
       })) as Elements[];
 
-    const { container } = render(<TocHeading schema={longSchema} />);
+    const { container } = render(
+      <ConfigProvider
+        theme={{
+          hashed: false,
+        }}
+      >
+        <TocHeading schema={longSchema} />
+      </ConfigProvider>,
+    );
     const anchor = container.querySelector('.ant-anchor');
     expect(anchor).toBeDefined();
     expect(container).toMatchSnapshot();

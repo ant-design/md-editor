@@ -229,7 +229,11 @@ const parseText = (
   return leafs;
 };
 
-const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
+const parseTableOrChart = (
+  table: Table,
+  preNode: RootContent,
+  plugins: MarkdownEditorPlugin[],
+): CardNode => {
   const keyMap = new Map<string, string>();
 
   // @ts-ignore
@@ -316,7 +320,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
         return {
           type: 'column-cell',
           children: c.children?.length
-            ? parserBlock(c.children as any, false, c as any)
+            ? parserBlock(c.children as any, false, c as any, plugins)
             : [{ text: '' }],
         };
       }) as ColumnCellNode[];
@@ -344,7 +348,7 @@ const parseTableOrChart = (table: Table, preNode: RootContent): CardNode => {
             rows: l,
             cols: i,
             children: c.children?.length
-              ? parserBlock(c.children as any, false, c as any)
+              ? parserBlock(c.children as any, false, c as any, plugins)
               : [{ text: '' }],
           };
         },
@@ -405,12 +409,15 @@ const parserTableToDescription = (children: TableRowNode[]) => {
  * @param currentElement - 当前处理的标题元素，包含depth和children属性
  * @returns 返回格式化的标题节点对象
  */
-const handleHeading = (currentElement: any) => {
+const handleHeading = (
+  currentElement: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
   return {
     type: 'head',
     level: currentElement.depth,
     children: currentElement.children?.length
-      ? parserBlock(currentElement.children, false, currentElement)
+      ? parserBlock(currentElement.children, false, currentElement, plugins)
       : [{ text: '' }],
   };
 };
@@ -623,12 +630,17 @@ const handleMath = (currentElement: any) => {
  * @param currentElement - 当前处理的列表元素，包含ordered、start等属性
  * @returns 返回格式化的列表节点对象
  */
-const handleList = (currentElement: any) => {
+const handleList = (currentElement: any, plugins: MarkdownEditorPlugin[]) => {
   const el: any = {
     type: 'list',
     order: currentElement.ordered,
     start: currentElement.start,
-    children: parserBlock(currentElement.children, false, currentElement),
+    children: parserBlock(
+      currentElement.children,
+      false,
+      currentElement,
+      plugins,
+    ),
   };
   el.task = el.children?.some((s: any) => typeof s.checked === 'boolean');
   return el;
@@ -652,11 +664,15 @@ const handleFootnoteReference = (currentElement: any) => {
  * @param currentElement - 当前处理的脚注定义元素
  * @returns 返回格式化的脚注定义节点对象
  */
-const handleFootnoteDefinition = (currentElement: any) => {
+const handleFootnoteDefinition = (
+  currentElement: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
   const linkNode = parserBlock(
     currentElement.children,
     false,
     currentElement,
+    plugins,
   )?.at(0) as any;
 
   const cellNode = linkNode?.children?.at(0) as any;
@@ -675,9 +691,12 @@ const handleFootnoteDefinition = (currentElement: any) => {
  * @param currentElement - 当前处理的列表项元素
  * @returns 返回格式化的列表项节点对象，包含复选框状态和提及信息
  */
-const handleListItem = (currentElement: any) => {
+const handleListItem = (
+  currentElement: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
   const children = currentElement.children?.length
-    ? parserBlock(currentElement.children, false, currentElement)
+    ? parserBlock(currentElement.children, false, currentElement, plugins)
     : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
 
   let mentions = undefined;
@@ -937,11 +956,14 @@ const handleYaml = (currentElement: any) => {
  * @param currentElement - 当前处理的引用块元素
  * @returns 返回格式化的引用块节点对象
  */
-const handleBlockquote = (currentElement: any) => {
+const handleBlockquote = (
+  currentElement: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
   return {
     type: 'blockquote',
     children: currentElement.children?.length
-      ? parserBlock(currentElement.children, false, currentElement)
+      ? parserBlock(currentElement.children, false, currentElement, plugins)
       : [{ type: 'paragraph', children: [{ text: '' }] }],
   };
 };
@@ -970,7 +992,11 @@ const handleDefinition = (currentElement: any) => {
  * @param htmlTag - HTML标签栈，用于应用样式
  * @returns 返回格式化的文本或内联元素节点对象
  */
-const handleTextAndInlineElements = (currentElement: any, htmlTag: any[]) => {
+const handleTextAndInlineElements = (
+  currentElement: any,
+  htmlTag: any[],
+  plugins: MarkdownEditorPlugin[],
+) => {
   if (currentElement.type === 'text' && htmlTag.length) {
     const el = { text: currentElement.value };
     if (currentElement.value) {
@@ -1000,6 +1026,7 @@ const handleTextAndInlineElements = (currentElement: any, htmlTag: any[]) => {
           (currentElement as any)?.children,
           false,
           currentElement,
+          plugins,
         )?.at(0),
         url: leaf.url,
       };
@@ -1141,8 +1168,8 @@ const addEmptyLinesIfNeeded = (
 const parserBlock = (
   nodes: RootContent[],
   top = false,
-  parent?: RootContent,
-  plugins?: MarkdownEditorPlugin[],
+  parent: RootContent | undefined = undefined,
+  plugins: MarkdownEditorPlugin[],
 ) => {
   if (!nodes?.length) return [{ type: 'paragraph', children: [{ text: '' }] }];
 
@@ -1164,7 +1191,7 @@ const parserBlock = (
 
     switch (currentElement.type) {
       case 'heading':
-        el = handleHeading(currentElement);
+        el = handleHeading(currentElement, plugins || []);
         break;
       case 'html':
         const htmlResult = handleHtml(currentElement, parent, htmlTag);
@@ -1183,16 +1210,16 @@ const parserBlock = (
         el = handleMath(currentElement);
         break;
       case 'list':
-        el = handleList(currentElement);
+        el = handleList(currentElement, plugins || []);
         break;
       case 'footnoteReference':
         el = handleFootnoteReference(currentElement);
         break;
       case 'footnoteDefinition':
-        el = handleFootnoteDefinition(currentElement);
+        el = handleFootnoteDefinition(currentElement, plugins || []);
         break;
       case 'listItem':
-        el = handleListItem(currentElement);
+        el = handleListItem(currentElement, plugins || []);
         break;
       case 'paragraph':
         el = handleParagraph(currentElement, config, plugins || []);
@@ -1210,16 +1237,20 @@ const parserBlock = (
         el = handleYaml(currentElement);
         break;
       case 'blockquote':
-        el = handleBlockquote(currentElement);
+        el = handleBlockquote(currentElement, plugins || []);
         break;
       case 'table':
-        el = parseTableOrChart(currentElement, preElement);
+        el = parseTableOrChart(currentElement, preElement, plugins || []);
         break;
       case 'definition':
         el = handleDefinition(currentElement);
         break;
       default:
-        el = handleTextAndInlineElements(currentElement, htmlTag);
+        el = handleTextAndInlineElements(
+          currentElement,
+          htmlTag,
+          plugins || [],
+        );
     }
 
     addEmptyLinesIfNeeded(els, preNode, currentElement, top);
@@ -1286,7 +1317,7 @@ const parseWithPlugins = (
 
       switch (currentElement.type) {
         case 'heading':
-          el = handleHeading(currentElement);
+          el = handleHeading(currentElement, plugins || []);
           break;
         case 'html':
           const htmlResult = handleHtml(currentElement, parent, htmlTag);
@@ -1305,16 +1336,16 @@ const parseWithPlugins = (
           el = handleMath(currentElement);
           break;
         case 'list':
-          el = handleList(currentElement);
+          el = handleList(currentElement, plugins || []);
           break;
         case 'footnoteReference':
           el = handleFootnoteReference(currentElement);
           break;
         case 'footnoteDefinition':
-          el = handleFootnoteDefinition(currentElement);
+          el = handleFootnoteDefinition(currentElement, plugins || []);
           break;
         case 'listItem':
-          el = handleListItem(currentElement);
+          el = handleListItem(currentElement, plugins || []);
           break;
         case 'paragraph':
           el = handleParagraph(currentElement, config, plugins);
@@ -1333,16 +1364,20 @@ const parseWithPlugins = (
           el = handleYaml(currentElement);
           break;
         case 'blockquote':
-          el = handleBlockquote(currentElement);
+          el = handleBlockquote(currentElement, plugins || []);
           break;
         case 'table':
-          el = parseTableOrChart(currentElement, preElement);
+          el = parseTableOrChart(currentElement, preElement, plugins || []);
           break;
         case 'definition':
           el = handleDefinition(currentElement);
           break;
         default:
-          el = handleTextAndInlineElements(currentElement, htmlTag);
+          el = handleTextAndInlineElements(
+            currentElement,
+            htmlTag,
+            plugins || [],
+          );
       }
     }
 
