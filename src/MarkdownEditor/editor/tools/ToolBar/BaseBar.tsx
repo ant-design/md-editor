@@ -322,6 +322,9 @@ export const BaseToolBar = (props: {
         <div
           role="button"
           key="format"
+          style={{
+            fontSize: '0.9em',
+          }}
           className={classnames(`${baseClassName}-item`, hashId)}
           onClick={() => {
             const editor = markdownEditorRef.current;
@@ -405,19 +408,6 @@ export const BaseToolBar = (props: {
         </Dropdown>,
       );
     }
-    if (list.length > 0) {
-      list.push(
-        <Divider
-          key="divider1"
-          type="vertical"
-          style={{
-            margin: '0 4px',
-            height: '18px',
-            borderColor: 'rgba(0,0,0,0.15)',
-          }}
-        />,
-      );
-    }
 
     list.push(
       <Tooltip title={i18n?.locale?.['font-color'] || '字体颜色'} key="color">
@@ -477,6 +467,8 @@ export const BaseToolBar = (props: {
             role="button"
             onMouseEnter={(e) => e.stopPropagation()}
             onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
               if (!isCodeNode(markdownEditorRef.current)) {
                 if (
                   EditorUtils.isFormatActive(
@@ -534,18 +526,6 @@ export const BaseToolBar = (props: {
         </Tooltip>,
       );
     });
-
-    list.push(
-      <Divider
-        key="divider2"
-        type="vertical"
-        style={{
-          margin: '0 4px',
-          height: '18px',
-          borderColor: 'rgba(0,0,0,0.15)',
-        }}
-      />,
-    );
     list.push(
       <Tooltip title={i18n?.locale?.insertLink || '插入链接'} key="link">
         <div
@@ -630,15 +610,6 @@ export const BaseToolBar = (props: {
           <ClearIcon />
         </div>
       </Tooltip>
-      <Divider
-        type="vertical"
-        style={{
-          margin: '0 4px',
-          height: '18px',
-          borderColor: 'rgba(0,0,0,0.15)',
-        }}
-        key={'divider'}
-      />
       <Dropdown
         menu={{
           items: ['H1', 'H2', 'H3'].map((item, index) => {
@@ -734,6 +705,8 @@ export const BaseToolBar = (props: {
             role="button"
             onMouseEnter={(e) => e.stopPropagation()}
             onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
               if (!isCodeNode(markdownEditorRef.current)) {
                 if (
                   EditorUtils.isFormatActive(
@@ -768,6 +741,8 @@ export const BaseToolBar = (props: {
               key={tool.key}
               onMouseDown={(e) => e.preventDefault()}
               onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
                 if (!isCodeNode(markdownEditorRef.current)) {
                   EditorUtils.toggleFormat(
                     markdownEditorRef.current,
