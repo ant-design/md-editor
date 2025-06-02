@@ -39,7 +39,7 @@ export interface WhiteBoxProcessInterface {
   /** 执行耗时（毫秒）
    * @example 1500
    */
-  executionTimeMillis?: number;
+  costMillis?: number;
   input?: {
     /** SQL 查询语句
      * @example "SELECT * FROM users WHERE id = 1"

@@ -1,4 +1,7 @@
 ﻿import {
+  AlignCenterOutlined,
+  AlignLeftOutlined,
+  AlignRightOutlined,
   BoldOutlined,
   FormatPainterOutlined,
   HighlightOutlined,
@@ -90,6 +93,44 @@ const tools = [
     type: 'code',
     icon: <LineCode />,
   },
+  {
+    key: 'align-left',
+    title: '左对齐',
+    type: 'align-left',
+    icon: <AlignLeftOutlined />,
+    onClick: (editor: any) => {
+      if (!isCodeNode(editor)) {
+        EditorUtils.setAlignment(editor, 'left');
+      }
+    },
+    isActive: (editor: any) => EditorUtils?.isAlignmentActive?.(editor, 'left'),
+  },
+  {
+    key: 'align-center',
+    title: '居中对齐',
+    type: 'align-center',
+    icon: <AlignCenterOutlined />,
+    onClick: (editor: any) => {
+      if (!isCodeNode(editor)) {
+        EditorUtils.setAlignment(editor, 'center');
+      }
+    },
+    isActive: (editor: any) =>
+      EditorUtils?.isAlignmentActive?.(editor, 'center'),
+  },
+  {
+    key: 'align-right',
+    title: '右对齐',
+    type: 'align-right',
+    icon: <AlignRightOutlined />,
+    onClick: (editor: any) => {
+      if (!isCodeNode(editor)) {
+        EditorUtils.setAlignment(editor, 'right');
+      }
+    },
+    isActive: (editor: any) =>
+      EditorUtils?.isAlignmentActive?.(editor, 'right'),
+  },
 ];
 
 const colors = [
@@ -125,7 +166,10 @@ export type ToolsKeyType =
   | 'H1'
   | 'H2'
   | 'H3'
-  | 'link';
+  | 'link'
+  | 'align-left'
+  | 'align-center'
+  | 'align-right';
 
 const isCodeNode = (editor: BaseEditor & ReactEditor & HistoryEditor) => {
   const [node] = Editor.nodes(editor, {
@@ -506,19 +550,32 @@ export const BaseToolBar = (props: {
             role="button"
             key={tool.key}
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
               if (!isCodeNode(markdownEditorRef.current)) {
-                EditorUtils.toggleFormat(markdownEditorRef.current, tool.type);
+                if (tool.onClick) {
+                  tool.onClick(markdownEditorRef.current);
+                } else {
+                  EditorUtils.toggleFormat(
+                    markdownEditorRef.current,
+                    tool.type,
+                  );
+                }
               }
             }}
             className={classnames(`${baseClassName}-item`, hashId)}
             style={{
-              color: EditorUtils.isFormatActive(
-                markdownEditorRef.current,
-                tool.type,
-              )
-                ? '#1677ff'
-                : undefined,
+              color: tool.isActive
+                ? tool.isActive(markdownEditorRef.current)
+                  ? '#1677ff'
+                  : undefined
+                : EditorUtils.isFormatActive(
+                      markdownEditorRef.current,
+                      tool.type,
+                    )
+                  ? '#1677ff'
+                  : undefined,
             }}
           >
             {tool.icon}
@@ -744,20 +801,28 @@ export const BaseToolBar = (props: {
                 e.stopPropagation();
                 e.preventDefault();
                 if (!isCodeNode(markdownEditorRef.current)) {
-                  EditorUtils.toggleFormat(
-                    markdownEditorRef.current,
-                    tool.type,
-                  );
+                  if (tool.onClick) {
+                    tool.onClick(markdownEditorRef.current);
+                  } else {
+                    EditorUtils.toggleFormat(
+                      markdownEditorRef.current,
+                      tool.type,
+                    );
+                  }
                 }
               }}
               className={classnames(`${baseClassName}-item`, hashId)}
               style={{
-                color: EditorUtils.isFormatActive(
-                  markdownEditorRef.current,
-                  tool.type,
-                )
-                  ? '#1677ff'
-                  : undefined,
+                color: tool.isActive
+                  ? tool.isActive(markdownEditorRef.current)
+                    ? '#1677ff'
+                    : undefined
+                  : EditorUtils.isFormatActive(
+                        markdownEditorRef.current,
+                        tool.type,
+                      )
+                    ? '#1677ff'
+                    : undefined,
               }}
             >
               {tool.icon}

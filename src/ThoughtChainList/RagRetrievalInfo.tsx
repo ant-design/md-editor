@@ -101,7 +101,7 @@ export const RagRetrievalInfo = (
               }}
             >
               <span>{i18n?.locale?.searchResults || '检索结果'} </span>
-              <CostMillis costMillis={props.executionTimeMillis} />
+              <CostMillis costMillis={props.costMillis} />
             </div>
             <div
               style={{
@@ -162,7 +162,7 @@ export const RagRetrievalInfo = (
       JSON.stringify(props.info),
       JSON.stringify(props.output),
       JSON.stringify(props.input),
-      props.executionTimeMillis,
+      props.costMillis,
       props.isFinished,
     ],
   );

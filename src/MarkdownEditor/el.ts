@@ -34,6 +34,7 @@ export type ParagraphNode<T = Record<string, any>> = {
   contextProps?: T;
   otherProps?: T;
   type: 'paragraph';
+  align?: Align;
   children: BaseElement['children'];
   h?: number;
 };
@@ -187,6 +188,7 @@ export type HeadNode<T = Record<string, any>> = {
   children: BaseElement['children'];
   level: number;
   h?: number;
+  align?: Align;
 };
 
 export type HrNode<T = Record<string, any>> = {

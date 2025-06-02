@@ -155,7 +155,7 @@ describe('parserSlateNodeToMarkdown', () => {
         ],
       };
       const result = parserSlateNodeToMarkdown([node]);
-      expect(result).toBe('> First level\n> Second level\n> > > Third level');
+      expect(result).toBe('> First level\n> Second level\n> > Third level');
     });
 
     it('should handle blockquote with empty lines', () => {

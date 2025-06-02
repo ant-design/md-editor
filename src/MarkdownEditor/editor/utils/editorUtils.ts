@@ -490,6 +490,32 @@ export class EditorUtils {
     );
   }
 
+  /**
+   * 设置文本对齐方式
+   * @param editor - 编辑器实例
+   * @param alignment - 对齐方式：'left', 'center', 或 'right'
+   */
+  static setAlignment(editor: Editor, alignment: 'left' | 'center' | 'right') {
+    Transforms.setNodes(
+      editor,
+      { align: alignment },
+      { match: (n) => Element.isElement(n) && !Editor.isEditor(n) },
+    );
+  }
+
+  /**
+   * 检查当前选中块的对齐方式
+   * @param editor - 编辑器实例
+   * @param alignment - 要检查的对齐方式
+   * @returns 是否处于指定的对齐方式
+   */
+  static isAlignmentActive(editor: Editor, alignment: string) {
+    const [match] = Editor.nodes(editor, {
+      match: (n) => Element.isElement(n) && (n as any).align === alignment,
+    });
+    return !!match;
+  }
+
   static checkEnd(editor: Editor) {
     const [node] = Editor.nodes<any>(editor, {
       at: [],

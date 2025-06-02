@@ -46,6 +46,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
           empty: isEmpty,
           typewriter: isLatest && typewriter,
         })}
+        data-align={props.element.align}
         data-slate-placeholder={
           isEmpty
             ? editorProps.titlePlaceholderContent || '请输入内容...'
@@ -64,6 +65,7 @@ export const Paragraph = (props: ElementProps<ParagraphNode>) => {
     );
   }, [
     props.element.children,
+    props.element.align,
     readonly,
     selected,
     isLatest,

@@ -42,6 +42,7 @@ export function Head({
         ['data-title']: path?.[0] === 0,
         onDragStart: (e) => store.dragStart(e, markdownContainerRef.current!),
         ['data-empty']: !str && selected ? 'true' : undefined,
+        ['data-align']: element.align,
         className: classNames('ant-md-editor-drag-el', {
           empty: !str,
           typewriter: isLatest && typewriter,

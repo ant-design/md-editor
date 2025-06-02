@@ -115,11 +115,14 @@ const parserNode = (
         } else if (converted.type === 'blockquote') {
           const blockquoteNode = converted as any;
           // 递归处理 blockquote 的子节点
-          return parserSlateNodeToMarkdown(
-            blockquoteNode.children || [],
-            preString + '> ',
-            [...parent, { ...blockquoteNode, converted: true }],
-            plugins,
+          return (
+            '> ' +
+            parserSlateNodeToMarkdown(
+              blockquoteNode.children || [],
+              preString,
+              [...parent, { ...blockquoteNode, converted: true }],
+              plugins,
+            )
           );
         } else if (converted.type === 'paragraph') {
           const paragraphNode = converted as any;
@@ -833,15 +836,21 @@ const handleParagraph = (
   parent: any[],
   plugins?: MarkdownEditorPlugin[],
 ) => {
-  return (
-    preString +
-    parserSlateNodeToMarkdown(
-      node?.children,
-      preString,
-      [...parent, node],
-      plugins,
-    )
+  let str = '';
+
+  // 处理对齐注释
+  if (node.aligen) {
+    str += `<!--${JSON.stringify({ align: node.aligen })}-->\n${preString}`;
+  }
+
+  str += parserSlateNodeToMarkdown(
+    node?.children,
+    preString,
+    [...parent, node],
+    plugins,
   );
+
+  return str;
 };
 
 /**
@@ -936,22 +945,21 @@ const handleBlockquote = (
 
   // Process each child node
   const blockquoteContent = node.children
-    .map((child: any, index: number) => {
+    .map((child: any) => {
       if (child.type === 'blockquote') {
         // For nested blockquotes, increase the level
         const nestedContent = parserNode(child, '', [...parent, node], plugins);
         return nestedContent
           .split('\n')
-          .map((line: string) => '> > ' + line)
+          .map((line: string) => '> ' + line)
           .join('\n');
       } else {
         // For regular content
         const content = parserNode(child, '', [...parent, node], plugins);
         if (!content.trim()) {
-          // For empty lines, add the blockquote marker with a space
           return '> ';
         }
-        // For regular content, add blockquote marker and handle multi-line content
+        // Add blockquote marker and handle multi-line content
         return content
           .split('\n')
           .map((line: string) => '> ' + line)
@@ -960,8 +968,7 @@ const handleBlockquote = (
     })
     .join('\n');
 
-  // Add empty line between blockquote paragraphs
-  return blockquoteContent.replace(/\n>\s*\n/g, '\n> \n');
+  return blockquoteContent;
 };
 
 /**
