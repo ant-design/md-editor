@@ -839,8 +839,8 @@ const handleParagraph = (
   let str = '';
 
   // 处理对齐注释
-  if (node.aligen) {
-    str += `<!--${JSON.stringify({ align: node.aligen })}-->\n${preString}`;
+  if (node.align) {
+    str += `<!--${JSON.stringify({ align: node.aligen || node.align })}-->\n${preString}`;
   }
 
   str += parserSlateNodeToMarkdown(
@@ -867,7 +867,14 @@ const handleHead = (
   parent: any[],
   plugins?: MarkdownEditorPlugin[],
 ) => {
-  return (
+  let str = '';
+
+  // 处理对齐注释
+  if (node.align) {
+    str += `<!--${JSON.stringify({ align: node.align })}-->\n${preString}`;
+  }
+
+  str +=
     '#'.repeat(node.level) +
     ' ' +
     parserSlateNodeToMarkdown(
@@ -875,8 +882,9 @@ const handleHead = (
       preString,
       [...parent, node],
       plugins,
-    )
-  );
+    );
+
+  return str;
 };
 
 /**

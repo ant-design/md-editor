@@ -567,3 +567,149 @@ describe('parserSlateNodeToMarkdown', () => {
     });
   });
 });
+
+describe('parserSlateNodeToMarkdown alignment tests', () => {
+  describe('Paragraph alignment', () => {
+    it('should handle paragraph with center alignment', () => {
+      const node = {
+        type: 'paragraph',
+        align: 'center',
+        children: [{ text: 'This is a centered paragraph' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe(
+        '<!--{"align":"center"}-->\nThis is a centered paragraph',
+      );
+    });
+
+    it('should handle paragraph with right alignment', () => {
+      const node = {
+        type: 'paragraph',
+        align: 'right',
+        children: [{ text: 'This is a right-aligned paragraph' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe(
+        '<!--{"align":"right"}-->\nThis is a right-aligned paragraph',
+      );
+    });
+
+    it('should handle paragraph with legacy aligen property', () => {
+      const node = {
+        type: 'paragraph',
+        aligen: 'left',
+        children: [{ text: 'This is a left-aligned paragraph' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe(
+        '<!--{"align":"left"}-->\nThis is a left-aligned paragraph',
+      );
+    });
+
+    it('should handle paragraph without alignment', () => {
+      const node = {
+        type: 'paragraph',
+        children: [{ text: 'This is a normal paragraph' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe('This is a normal paragraph');
+    });
+  });
+
+  describe('Heading alignment', () => {
+    it('should handle heading with center alignment', () => {
+      const node = {
+        type: 'head',
+        level: 2,
+        align: 'center',
+        children: [{ text: 'Centered Heading' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe('<!--{"align":"center"}-->\n## Centered Heading');
+    });
+
+    it('should handle heading with right alignment', () => {
+      const node = {
+        type: 'head',
+        level: 1,
+        align: 'right',
+        children: [{ text: 'Right Aligned Heading' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe('<!--{"align":"right"}-->\n# Right Aligned Heading');
+    });
+
+    it('should handle heading with left alignment', () => {
+      const node = {
+        type: 'head',
+        level: 3,
+        align: 'left',
+        children: [{ text: 'Left Aligned Heading' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe('<!--{"align":"left"}-->\n### Left Aligned Heading');
+    });
+
+    it('should handle heading without alignment', () => {
+      const node = {
+        type: 'head',
+        level: 2,
+        children: [{ text: 'Normal Heading' }],
+      };
+
+      const result = parserSlateNodeToMarkdown([node]);
+      expect(result).toBe('## Normal Heading');
+    });
+  });
+
+  describe('Mixed content alignment', () => {
+    it('should handle multiple aligned elements', () => {
+      const nodes = [
+        {
+          type: 'head',
+          level: 1,
+          align: 'center',
+          children: [{ text: 'Centered Title' }],
+        },
+        {
+          type: 'paragraph',
+          align: 'right',
+          children: [{ text: 'Right aligned paragraph' }],
+        },
+        {
+          type: 'paragraph',
+          children: [{ text: 'Normal paragraph' }],
+        },
+        {
+          type: 'head',
+          level: 2,
+          align: 'left',
+          children: [{ text: 'Left aligned subtitle' }],
+        },
+      ];
+
+      const result = parserSlateNodeToMarkdown(nodes);
+      const expected = [
+        '<!--{"align":"center"}-->',
+        '# Centered Title',
+        '',
+        '<!--{"align":"right"}-->',
+        'Right aligned paragraph',
+        '',
+        'Normal paragraph',
+        '',
+        '<!--{"align":"left"}-->',
+        '## Left aligned subtitle',
+      ].join('\n');
+
+      expect(result).toBe(expected);
+    });
+  });
+});
