@@ -156,6 +156,20 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               wordWrap: 'break-word',
               maxWidth: '100%',
               flexWrap: 'wrap',
+              '&-tag': {
+                padding: '0px 6px',
+                background:
+                  'radial-gradient(22% 66% at 96% 113%, rgba(255, 255, 245, 0.52) 0%, rgba(230, 238, 255, 0) 100%), radial-gradient(14% 234% at 100% 50%, rgba(162, 255, 255, 0.28) 0%, rgba(153, 202, 255, 0.1193) 13%, rgba(229, 189, 255, 0.0826) 38%, rgba(235, 255, 245, 0) 100%), #FFFFFF',
+                border: '1px solid rgba(227, 230, 234, 0.65)',
+                lineHeight: '26px',
+              },
+              '&-tag-text': {
+                overflow: 'hidden',
+                textWrap: 'nowrap',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                lineHeight: '26px',
+              },
               '&-title': {
                 display: 'flex',
                 flexDirection: 'row',

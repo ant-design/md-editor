@@ -170,15 +170,14 @@
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-thought-chain-list-content-list-item-info"
-                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; background: rgb(255, 255, 255); border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
+                          class="ant-thought-chain-list-content-list-item-info ant-thought-chain-list-content-list-item-info-tag"
                         >
                           <img
                             src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Np4tQ6SDSEsAAAAAAAAAAAAADkN6AQ/original"
                             width="18"
                           />
                           <span
-                            style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; line-height: 26px;"
+                            class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
                             <div
                               class="flex justify-center space-x-2"
@@ -710,15 +709,14 @@
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-thought-chain-list-content-list-item-info"
-                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; background: rgb(255, 255, 255); border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
+                          class="ant-thought-chain-list-content-list-item-info ant-thought-chain-list-content-list-item-info-tag"
                         >
                           <img
                             src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*TzR2R6uohL0AAAAAAAAAAAAADkN6AQ/original"
                             width="18"
                           />
                           <span
-                            style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; line-height: 26px;"
+                            class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
                             <div
                               class="flex justify-center space-x-2"
@@ -1125,15 +1123,14 @@
                         </span>
                         <span
                           aria-describedby="test-id"
-                          class="ant-thought-chain-list-content-list-item-info"
-                          style="display: flex; flex-direction: row; align-items: center; padding: 0px 6px; gap: 6px; border-radius: 12px; height: 2em; word-break: break-all; word-wrap: break-word; max-width: 100%; background: rgb(255, 255, 255); border: 1px solid rgba(227, 230, 234, 0.65); line-height: 26px;"
+                          class="ant-thought-chain-list-content-list-item-info ant-thought-chain-list-content-list-item-info-tag"
                         >
                           <img
                             src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*owExQ60sdmAAAAAAAAAAAAAADkN6AQ/original"
                             width="18"
                           />
                           <span
-                            style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap; line-height: 26px;"
+                            class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
                             <div
                               class="flex justify-center space-x-2"

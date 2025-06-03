@@ -143,24 +143,9 @@ export const TitleInfo = (props: {
               key={index}
               className={classNames(
                 `${props.prefixCls}-content-list-item-info`,
+                `${props.prefixCls}-content-list-item-info-tag`,
                 props.hashId,
               )}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: '0px 6px',
-                gap: '6px',
-                borderRadius: '12px',
-                height: '2em',
-                wordBreak: 'break-all',
-                wordWrap: 'break-word',
-                maxWidth: '100%',
-                background:
-                  'radial-gradient(22% 66% at 96% 113%, rgba(255, 255, 245, 0.52) 0%, rgba(230, 238, 255, 0) 100%), radial-gradient(14% 234% at 100% 50%, rgba(162, 255, 255, 0.28) 0%, rgba(153, 202, 255, 0.1193) 13%, rgba(229, 189, 255, 0.0826) 38%, rgba(235, 255, 245, 0) 100%), #FFFFFF',
-                border: '1px solid rgba(227, 230, 234, 0.65)',
-                lineHeight: '26px',
-              }}
             >
               {props.category === 'ToolCall' ? (
                 <img
@@ -181,13 +166,10 @@ export const TitleInfo = (props: {
                 />
               ) : null}
               <span
-                style={{
-                  overflow: 'hidden',
-                  textWrap: 'nowrap',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  lineHeight: '26px',
-                }}
+                className={classNames(
+                  `${props.prefixCls}-content-list-item-info-tag-text`,
+                  props.hashId,
+                )}
               >
                 <FlipText word={infoTitle || tag} />
               </span>

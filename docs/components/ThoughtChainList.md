@@ -142,13 +142,14 @@ export default function ProgressDemo() {
     // 模拟随时间添加思维链步骤
     const steps = [
       {
+        runId: '1',
         category: 'WebSearch',
         info: '搜索最新市场趋势',
         input: {
           searchQueries: ['2023年市场趋势', '行业预测'],
         },
         output: {
-          type: 'RUNNING',
+          data: '2023年市场趋势：科技行业增长15%，行业预测：未来5年行业将保持20%增长',
         },
       },
       {
@@ -167,6 +168,7 @@ export default function ProgressDemo() {
       {
         category: 'DeepThink',
         info: '分析市场数据',
+        runId: '2',
         output: {
           type: 'TOKEN',
           data: '分析显示科技行业增长15%',
@@ -912,3 +914,7 @@ export default function CompactDemo() {
   );
 }
 ````
+
+### 复杂demo
+
+<code src="./thought-chain-list/big.tsx" background="var(--main-bg-color)"  title="复杂demo" iframe="540"></code>
