@@ -213,7 +213,10 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             try {
               const code = element.value || '';
               // 优先使用现代 Clipboard API
-              if (navigator.clipboard?.writeText) {
+              if (
+                navigator.clipboard?.writeText &&
+                location.protocol === 'https:'
+              ) {
                 navigator.clipboard.writeText(code);
               } else {
                 // 降级到传统方式
