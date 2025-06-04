@@ -229,6 +229,14 @@ export const ReadonlyTable = ({
                 <ActionIconBox
                   title={i18n?.locale?.copy || '复制'}
                   onClick={() => {
+                    if (location.protocol !== 'https:') {
+                      document.execCommand(
+                        'copy',
+                        false,
+                        parserSlateNodeToMarkdown([props.element]),
+                      );
+                      return;
+                    }
                     const clipboardItems: ClipboardItems = [];
                     navigator?.clipboard.write([
                       new ClipboardItem({
@@ -276,6 +284,7 @@ export const ReadonlyTable = ({
                         ),
                       });
                     }
+
                     try {
                       navigator?.clipboard.write(clipboardItems);
                     } catch (error) {}
@@ -285,7 +294,7 @@ export const ReadonlyTable = ({
                 </ActionIconBox>
               ) : null}
 
-              {actions.download ? (
+              {actions.download && location.protocol === 'https:' ? (
                 <ActionIconBox
                   title="下载"
                   onClick={() => {
