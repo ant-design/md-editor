@@ -138,6 +138,25 @@ export type MarkdownInputFieldProps = {
     enable?: boolean;
   } & AttachmentButtonProps;
 
+  /**
+   * 自定义操作按钮渲染函数
+   * @description 用于自定义渲染输入框右侧的操作按钮区域
+   * @param {Object} props - 包含组件所有属性以及当前状态的对象
+   * @param {boolean} props.isHover - 当前是否处于悬停状态
+   * @param {boolean} props.isLoading - 当前是否处于加载状态
+   * @param {'uploading' | 'done' | 'error'} props.fileUploadStatus - 文件上传状态
+   * @param {React.ReactNode[]} defaultActions - 默认的操作按钮列表
+   * @returns {React.ReactNode[]} 返回要渲染的操作按钮节点数组
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   actionsRender={(props, defaultActions) => [
+   *     <CustomButton key="custom" />,
+   *     ...defaultActions
+   *   ]}
+   * />
+   * ```
+   */
   actionsRender?: (
     props: MarkdownInputFieldProps &
       MarkdownInputFieldProps['attachment'] & {
@@ -148,7 +167,25 @@ export type MarkdownInputFieldProps = {
     defaultActions: React.ReactNode[],
   ) => React.ReactNode[];
 
-  beforeActionsRender?: (
+  /**
+   * 自定义工具栏渲染函数
+   * @description 用于自定义渲染输入框左侧的工具栏区域
+   * @param {Object} props - 包含组件所有属性以及当前状态的对象
+   * @param {boolean} props.isHover - 当前是否处于悬停状态
+   * @param {boolean} props.isLoading - 当前是否处于加载状态
+   * @param {'uploading' | 'done' | 'error'} props.fileUploadStatus - 文件上传状态
+   * @returns {React.ReactNode[]} 返回要渲染的工具栏节点数组
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   toolsRender={(props) => [
+   *     <FormatButton key="format" />,
+   *     <EmojiPicker key="emoji" />
+   *   ]}
+   * />
+   * ```
+   */
+  toolsRender?: (
     props: MarkdownInputFieldProps &
       MarkdownInputFieldProps['attachment'] & {
         isHover: boolean;
@@ -156,6 +193,23 @@ export type MarkdownInputFieldProps = {
         fileUploadStatus: 'uploading' | 'done' | 'error';
       },
   ) => React.ReactNode[];
+
+  /**
+   * Markdown 编辑器实例的引用
+   * @description 用于获取编辑器实例，可以通过该实例调用编辑器的方法
+   * @type {React.MutableRefObject<MarkdownEditorInstance | undefined>}
+   * @example
+   * ```tsx
+   * const editorRef = useRef<MarkdownEditorInstance>();
+   *
+   * <MarkdownInputField
+   *   inputRef={editorRef}
+   * />
+   *
+   * // 使用编辑器实例
+   * editorRef.current?.store?.clearContent();
+   * ```
+   */
   inputRef?: React.MutableRefObject<MarkdownEditorInstance | undefined>;
 };
 /**
@@ -638,8 +692,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
             }}
             className={classNames(`${baseCls}-send-before-actions`, hashId)}
           >
-            {props.beforeActionsRender
-              ? props.beforeActionsRender({
+            {props.toolsRender
+              ? props.toolsRender({
                   value,
                   fileMap,
                   onFileMapChange: setFileMap,

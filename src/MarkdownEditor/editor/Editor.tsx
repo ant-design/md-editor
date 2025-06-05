@@ -494,28 +494,6 @@ export const SlateMarkdownEditor = ({
   }, [instance, markdownEditorRef.current]);
 
   /**
-   * 处理焦点事件, 隐藏所有的range
-   * @description focus event
-   */
-  const onFocus = () => {
-    if (readonly) return;
-    store.setState((state) => (state.focus = true));
-  };
-
-  /**
-   * 处理失去焦点事件,关掉所有的浮层
-   * @description blur event
-   * @param {React.FocusEvent<HTMLDivElement>} e
-   */
-  const onBlur = () => {
-    if (readonly) return;
-    store.setState((state) => {
-      state.focus = false;
-    });
-    setDomRect?.(null);
-  };
-
-  /**
    * 处理粘贴事件，会把粘贴的内容转换为对应的节点
    * @description paste event
    * @param {React.ClipboardEvent<HTMLDivElement>} e
@@ -863,8 +841,6 @@ export const SlateMarkdownEditor = ({
             }
           }}
           onMouseDown={checkEnd}
-          onFocus={onFocus}
-          onBlur={onBlur}
           onPaste={(event: React.ClipboardEvent<HTMLDivElement>) => {
             event.preventDefault();
             event.stopPropagation();

@@ -104,8 +104,8 @@ export class EditorStore {
   domRect: DOMRect | null = null;
 
   /**
-   * Sets the manual flag to true temporarily to prevent automatic behavior.
-   * Resets the flag to false after a short delay.
+   * 临时设置手动标志为 true 以防止自动行为。
+   * 短暂延迟后将标志重置为 false。
    */
   doManual() {
     this.manual = true;
@@ -115,9 +115,9 @@ export class EditorStore {
   _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
 
   /**
-   * Gets the current editor instance.
+   * 获取当前编辑器实例。
    *
-   * @returns The current Slate editor instance.
+   * @returns 当前的 Slate 编辑器实例。
    */
   get editor() {
     return this._editor.current;
@@ -139,7 +139,7 @@ export class EditorStore {
    * @param index - 当前索引路径。
    * @returns 最新节点的索引路径。
    */
-  findLatest(node: Elements, index: number[]): number[] {
+  private findLatest(node: Elements, index: number[]): number[] {
     if (Array.isArray((node as ListNode).children)) {
       if (
         (node as ListNode).children.length === 1 &&
@@ -232,41 +232,6 @@ export class EditorStore {
   }
 
   /**
-   * Inserts text at the current selection or at a specified path.
-   *
-   * @param text - The text to insert.
-   * @param options - Optional configuration for text insertion.
-   */
-  insertText(
-    text: string,
-    options?: {
-      at?: Path;
-      select?: boolean;
-      voids?: boolean;
-      match?: (n: Node) => boolean;
-      mode?: 'highest' | 'lowest';
-    },
-  ) {
-    Transforms.insertText(this._editor.current, text, options);
-  }
-
-  /**
-   * Updates the state of the editor store.
-   *
-   * @param value - A function that modifies the store state, or an object with new values.
-   */
-  setState(value: (state: EditorStore) => void) {
-    if (value instanceof Function) {
-      value(this);
-    } else {
-      for (let key of Object.keys(value)) {
-        // @ts-ignore
-        this[key] = value[key];
-      }
-    }
-  }
-
-  /**
    * Converts an HTML element to a Slate path and node.
    *
    * @param el - The HTML element to convert.
@@ -293,12 +258,12 @@ export class EditorStore {
   }
 
   /**
-   * Sets the editor content from markdown text.
+   * 从 markdown 文本设置编辑器内容
    *
-   * @param md - Markdown string to set as the editor content.
-   *             If undefined, the method returns without making any changes.
-   *             If the markdown is the same as the current content, no changes are made.
-   * @param plugins - Optional plugins for custom markdown parsing
+   * @param md - 要设置为编辑器内容的 Markdown 字符串
+   *             如果为 undefined，方法将直接返回不做任何更改
+   *             如果 markdown 与当前内容相同，则不做任何更改
+   * @param plugins - 可选的自定义 markdown 解析插件
    */
   setMDContent(md?: string, plugins?: MarkdownEditorPlugin[]) {
     if (md === undefined) return;
@@ -310,9 +275,9 @@ export class EditorStore {
   }
 
   /**
-   * Gets the current editor content as a node list.
+   * 获取当前编辑器内容作为节点列表
    *
-   * @returns The current editor content as a node list.
+   * @returns 当前编辑器内容的节点列表
    */
   getContent() {
     const nodeList = this._editor.current.children;
@@ -320,10 +285,10 @@ export class EditorStore {
   }
 
   /**
-   * Gets the current editor content as a markdown string.
+   * 获取当前编辑器内容作为 markdown 字符串
    *
-   * @param plugins - Optional plugins for custom toMarkdown conversion
-   * @returns The current editor content converted to markdown.
+   * @param plugins - 可选的自定义 markdown 转换插件
+   * @returns 转换为 markdown 的当前编辑器内容
    */
   getMDContent(plugins?: MarkdownEditorPlugin[]) {
     const nodeList = this._editor.current.children;
@@ -337,9 +302,9 @@ export class EditorStore {
   }
 
   /**
-   * Gets the current editor content as an HTML string.
+   * 获取当前编辑器内容作为 HTML 字符串
    *
-   * @returns The current editor content converted to HTML.
+   * @returns 转换为 HTML 的当前编辑器内容
    */
   getHtmlContent() {
     const markdown = this.getMDContent();
@@ -347,9 +312,9 @@ export class EditorStore {
   }
 
   /**
-   * Sets the editor content using a list of nodes.
+   * 使用节点列表设置编辑器内容
    *
-   * @param nodeList - The list of nodes to set as the editor content.
+   * @param nodeList - 要设置为编辑器内容的节点列表
    */
   setContent(nodeList: Node[]) {
     this._editor.current.children = nodeList;
@@ -358,210 +323,87 @@ export class EditorStore {
   }
 
   /**
-   * Updates the node list and returns the operations performed.
+   * 使用差异检测和操作队列优化更新节点列表。
    *
-   * @param nodeList - The new node list to update to.
-   * @returns The operations performed to update the node list.
+   * @param nodeList - 新的节点列表
+   *
+   * 优化步骤：
+   * 1. 过滤无效节点
+   * 2. 生成差异操作
+   * 3. 执行优化后的操作
+   * 4. 处理可能的错误情况
+   *
+   * 过滤规则：
+   * - 移除空的段落节点
+   * - 移除空的列表节点
+   * - 移除空的列表项节点
+   * - 移除无效的代码块节点
+   * - 移除无源的图片节点
+   *
+   * 错误处理：
+   * - 如果优化更新失败，会回退到直接替换整个节点列表
+   * - 错误信息会被记录到控制台
    */
-  updateNodeList(nodeList: Node[]) {
-    const childrenList = this._editor.current.children;
-    const operations = this.generateDiffOperations(nodeList, childrenList);
-    this.executeOperations(operations);
-    return operations;
-  }
+  updateNodeListOptimized(nodeList: Node[]): void {
+    if (!nodeList || !Array.isArray(nodeList)) return;
 
-  /**
-   * 处理拖拽开始事件。
-   *
-   * @param e - React 拖拽事件对象。
-   *
-   * 此方法会在拖拽开始时调用，主要功能包括：
-   * - 阻止事件传播。
-   * - 初始化拖拽相关的元素和位置数据。
-   * - 添加拖拽过程中和拖拽结束时的事件监听器。
-   *
-   * 内部步骤：
-   * 1. 根据拖拽元素的数据集，确定哪些元素可以作为拖拽目标。
-   * 2. 遍历所有符合条件的元素，计算它们的位置信息并存储。
-   * 3. 在拖拽过程中，根据鼠标位置动态更新拖拽标记的位置。
-   * 4. 在拖拽结束时，移除事件监听器和拖拽标记，并根据拖拽目标位置更新编辑器内容。
-   */
-  dragStart(e: any, container: HTMLDivElement) {
-    e.stopPropagation();
-    const img = document.createElement('img');
-    img.src =
-      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    e.dataTransfer.setDragImage(img, 1, 1);
-    type MovePoint = {
-      el: HTMLDivElement;
-      direction: 'top' | 'bottom';
-      top: number;
-      left: number;
-    };
-    const ableToEnter =
-      this.draggedElement?.dataset?.be === 'list-item'
-        ? new Set([
-            'paragraph',
-            'head',
-            'blockquote',
-            'code',
-            'table',
-            'list',
-            'list-item',
-            'media',
-            'attach',
-          ])
-        : this.ableToEnter;
-    let mark: null | HTMLDivElement = null;
-    const els = document.querySelectorAll<HTMLDivElement>('[data-be]');
-    const points: MovePoint[] = [];
-    // @ts-ignore
-    for (let el of els) {
-      if (!ableToEnter.has(el.dataset.be!)) continue;
-      if (el.classList.contains('frontmatter')) continue;
-      const pre = el.previousSibling as HTMLElement;
+    // 过滤无效节点
+    const filteredNodes = nodeList.filter((item) => {
+      if (!item) return false;
+      if (item.type === 'p' && (!item.children || item.children.length === 0))
+        return false;
       if (
-        el.dataset.be === 'paragraph' &&
-        this.draggedElement?.dataset.be === 'list-item' &&
-        (!pre || pre.classList.contains('check-item'))
-      ) {
-        continue;
-      }
-      if (el === this.draggedElement) continue;
-      const top = getOffsetTop(el, container!);
-      const left = getOffsetLeft(el, container!);
-      points.push({
-        el: el,
-        direction: 'top',
-        left: left,
-        top: top,
-      });
-      points.push({
-        el: el,
-        left: left,
-        direction: 'bottom',
-        top: top + el.clientHeight + 2,
-      });
-    }
-    let last: MovePoint | null = null;
-    const dragover = (e: DragEvent) => {
-      e.preventDefault();
-      const top = e.clientY - 40 + container!.scrollTop;
-      let distance = 1000000;
-      let cur: MovePoint | null = null;
-      for (let p of points) {
-        let curDistance = Math.abs(p.top - top);
-        if (curDistance < distance) {
-          cur = p;
-          distance = curDistance;
-        }
-      }
-      if (cur) {
-        const rect = container!.getBoundingClientRect();
-        const scrollTop = container!.scrollTop;
-        const scrollLeft = container!.scrollLeft;
-        last = cur;
-        const width =
-          last.el.dataset.be === 'list-item'
-            ? last.el.clientWidth + 20 + 'px'
-            : last.el.clientWidth + 'px';
-        if (!mark) {
-          mark = document.createElement('div');
-          mark.classList.add('move-mark');
-          mark.style.width = width;
-          mark.style.height = '2px';
+        item.type === 'list' &&
+        (!item.children || item.children.length === 0)
+      )
+        return false;
+      if (
+        item.type === 'listItem' &&
+        (!item.children || item.children.length === 0)
+      )
+        return false;
+      if (
+        item.type === 'code' &&
+        item.language === 'code' &&
+        (!item.otherProps || item.otherProps.length === 0)
+      )
+        return false;
+      if (item.type === 'image' && !item.src) return false;
+      return true;
+    });
 
-          mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
-          container?.parentElement!.append(mark);
-        } else {
-          mark.style.width = width;
-          mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
-        }
+    try {
+      // 生成差异操作
+      const operations = this.generateDiffOperations(
+        filteredNodes,
+        this._editor.current.children,
+      );
+
+      // 执行差异操作
+      if (operations.length > 0) {
+        this.executeOperations(operations);
       }
-    };
-    window.addEventListener('dragover', dragover);
-    window.addEventListener(
-      'dragend',
-      () => {
-        try {
-          window.removeEventListener('dragover', dragover);
-          if (mark) container?.parentElement!.removeChild(mark);
-          if (last && this.draggedElement) {
-            let [dragPath, dragNode] = this.toPath(this.draggedElement);
-            let [targetPath] = this.toPath(last.el);
-            let toPath =
-              last.direction === 'top' ? targetPath : Path.next(targetPath);
-            if (!Path.equals(targetPath, dragPath)) {
-              const parent = Node.parent(this._editor.current, dragPath);
-              if (
-                Path.equals(Path.parent(targetPath), Path.parent(dragPath)) &&
-                Path.compare(dragPath, targetPath) === -1
-              ) {
-                toPath = Path.previous(toPath);
-              }
-              let delPath = Path.parent(dragPath);
-              const targetNode = Node.get(this._editor.current, targetPath);
-              if (dragNode.type === 'list-item') {
-                if (targetNode.type !== 'list-item') {
-                  Transforms.delete(this._editor.current, { at: dragPath });
-                  Transforms.insertNodes(
-                    this._editor.current,
-                    {
-                      ...parent,
-                      children: [EditorUtils.copy(dragNode)],
-                    },
-                    { at: toPath, select: true },
-                  );
-                  if (parent.children?.length === 1) {
-                    if (
-                      EditorUtils.isNextPath(Path.parent(dragPath), targetPath)
-                    ) {
-                      delPath = Path.next(Path.parent(dragPath));
-                    } else {
-                      delPath = Path.parent(dragPath);
-                    }
-                  }
-                } else {
-                  Transforms.moveNodes(this._editor.current, {
-                    at: dragPath,
-                    to: toPath,
-                  });
-                }
-              } else {
-                Transforms.moveNodes(this._editor.current, {
-                  at: dragPath,
-                  to: toPath,
-                });
-              }
-              if (parent.children?.length === 1) {
-                if (
-                  Path.equals(Path.parent(toPath), Path.parent(delPath)) &&
-                  Path.compare(toPath, delPath) !== 1
-                ) {
-                  delPath = Path.next(delPath);
-                }
-                Transforms.delete(this._editor.current, { at: delPath });
-              }
-            }
-            if (dragNode?.type !== 'media')
-              this.draggedElement!.draggable = false;
-          }
-          this.draggedElement = null;
-        } catch (error) {
-          console.error(error);
-        }
-      },
-      { once: true },
-    );
+    } catch (error) {
+      console.error('Failed to update nodes with optimized method:', error);
+      // 回退：如果优化方法失败，使用直接替换
+      this._editor.current.children = nodeList;
+    }
   }
 
   /**
-   * 找出两个节点列表之间的最小差异，并生成执行队列
-   * @param newNodes 新的节点列表
-   * @param oldNodes 旧的节点列表
-   * @returns 操作队列
+   * 生成两个节点列表之间的差异操作队列。
+   *
+   * @param newNodes - 新的节点列表
+   * @param oldNodes - 旧的节点列表
+   * @returns 包含所有需要执行的操作的队列
+   *
+   * 该方法通过以下步骤生成差异：
+   * 1. 处理节点数量不同的情况
+   * 2. 对共有节点进行深度比较
+   * 3. 生成最小化的操作序列
+   * 4. 根据优先级排序操作
    */
-  generateDiffOperations(
+  private generateDiffOperations(
     newNodes: Node[],
     oldNodes: Node[],
   ): UpdateOperation[] {
@@ -608,11 +450,19 @@ export class EditorStore {
   }
 
   /**
-   * 递归比较两个节点及其子节点
-   * @param newNode 新节点
-   * @param oldNode 旧节点
-   * @param path 当前路径
-   * @param operations 操作队列
+   * 递归比较两个节点及其子节点的差异。
+   *
+   * @param newNode - 新节点
+   * @param oldNode - 旧节点
+   * @param path - 当前节点的路径
+   * @param operations - 操作队列，用于存储发现的差异操作
+   *
+   * 比较过程包括：
+   * 1. 检查节点类型是否相同
+   * 2. 特殊处理表格节点
+   * 3. 比较文本节点内容
+   * 4. 比较节点属性
+   * 5. 递归比较子节点
    * @private
    */
   private compareNodes(
@@ -698,12 +548,19 @@ export class EditorStore {
   }
 
   /**
-   * 特殊处理表格节点的比较
+   * 特殊处理表格节点的比较。
    *
    * @param newTable - 新的表格节点
    * @param oldTable - 旧的表格节点
    * @param path - 表格节点的路径
-   * @param operations - 要填充的操作队列
+   * @param operations - 操作队列
+   *
+   * 处理步骤：
+   * 1. 检查表格结构是否相同
+   * 2. 比较表格属性
+   * 3. 逐行比较和更新
+   * 4. 处理行数变化
+   * 5. 必要时进行整表替换
    * @private
    */
   private compareTableNodes(
@@ -895,12 +752,18 @@ export class EditorStore {
   }
 
   /**
-   * 比较和更新表格单元格
+   * 比较和更新表格单元格。
    *
    * @param newCell - 新的单元格节点
    * @param oldCell - 旧的单元格节点
    * @param path - 单元格的路径
-   * @param operations - 要填充的操作队列
+   * @param operations - 操作队列
+   *
+   * 处理步骤：
+   * 1. 检查单元格属性变化
+   * 2. 处理简单文本单元格
+   * 3. 处理复杂单元格内容
+   * 4. 生成适当的更新操作
    * @private
    */
   private compareCells(
@@ -1000,11 +863,17 @@ export class EditorStore {
   }
 
   /**
-   * 执行操作队列
+   * 执行操作队列中的所有操作。
    *
    * @param operations - 要执行的操作队列
+   *
+   * 执行过程：
+   * 1. 使用批处理模式执行所有操作
+   * 2. 按照操作类型分别处理
+   * 3. 处理可能的错误情况
+   * 4. 保证操作的原子性
    */
-  executeOperations(operations: UpdateOperation[]): void {
+  private executeOperations(operations: UpdateOperation[]): void {
     const editor = this._editor.current;
     if (!editor) return;
 
@@ -1058,53 +927,221 @@ export class EditorStore {
   }
 
   /**
-   * 优化的更新节点列表方法，使用差异检测和操作队列
+   * 处理拖拽开始事件。
    *
-   * @param nodeList - 新的节点列表
+   * @param e - React 拖拽事件对象
+   * @param container - 容器 div 元素
+   *
+   * 此方法会在拖拽开始时调用，主要功能包括：
+   * 1. 阻止事件传播
+   * 2. 设置拖拽图像
+   * 3. 初始化拖拽相关的元素和位置数据
+   * 4. 添加拖拽过程中和拖拽结束时的事件监听器
+   * 5. 计算可拖拽目标的位置
+   * 6. 处理拖拽过程中的视觉反馈
+   * 7. 在拖拽结束时更新编辑器内容
    */
-  updateNodeListOptimized(nodeList: Node[]): void {
-    if (!nodeList || !Array.isArray(nodeList)) return;
-
-    // 过滤无效节点
-    const filteredNodes = nodeList.filter((item) => {
-      if (!item) return false;
-      if (item.type === 'p' && (!item.children || item.children.length === 0))
-        return false;
+  dragStart(e: any, container: HTMLDivElement) {
+    e.stopPropagation();
+    const img = document.createElement('img');
+    img.src =
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    e.dataTransfer.setDragImage(img, 1, 1);
+    type MovePoint = {
+      el: HTMLDivElement;
+      direction: 'top' | 'bottom';
+      top: number;
+      left: number;
+    };
+    const ableToEnter =
+      this.draggedElement?.dataset?.be === 'list-item'
+        ? new Set([
+            'paragraph',
+            'head',
+            'blockquote',
+            'code',
+            'table',
+            'list',
+            'list-item',
+            'media',
+            'attach',
+          ])
+        : this.ableToEnter;
+    let mark: null | HTMLDivElement = null;
+    const els = document.querySelectorAll<HTMLDivElement>('[data-be]');
+    const points: MovePoint[] = [];
+    // @ts-ignore
+    for (let el of els) {
+      if (!ableToEnter.has(el.dataset.be!)) continue;
+      if (el.classList.contains('frontmatter')) continue;
+      const pre = el.previousSibling as HTMLElement;
       if (
-        item.type === 'list' &&
-        (!item.children || item.children.length === 0)
-      )
-        return false;
-      if (
-        item.type === 'listItem' &&
-        (!item.children || item.children.length === 0)
-      )
-        return false;
-      if (
-        item.type === 'code' &&
-        item.language === 'code' &&
-        (!item.otherProps || item.otherProps.length === 0)
-      )
-        return false;
-      if (item.type === 'image' && !item.src) return false;
-      return true;
-    });
-
-    try {
-      // 生成差异操作
-      const operations = this.generateDiffOperations(
-        filteredNodes,
-        this._editor.current.children,
-      );
-
-      // 执行差异操作
-      if (operations.length > 0) {
-        this.executeOperations(operations);
+        el.dataset.be === 'paragraph' &&
+        this.draggedElement?.dataset.be === 'list-item' &&
+        (!pre || pre.classList.contains('check-item'))
+      ) {
+        continue;
       }
-    } catch (error) {
-      console.error('Failed to update nodes with optimized method:', error);
-      // 回退：如果优化方法失败，使用直接替换
-      this._editor.current.children = nodeList;
+      if (el === this.draggedElement) continue;
+      const top = getOffsetTop(el, container!);
+      const left = getOffsetLeft(el, container!);
+      points.push({
+        el: el,
+        direction: 'top',
+        left: left,
+        top: top,
+      });
+      points.push({
+        el: el,
+        left: left,
+        direction: 'bottom',
+        top: top + el.clientHeight + 2,
+      });
+    }
+    let last: MovePoint | null = null;
+    const dragover = (e: DragEvent) => {
+      e.preventDefault();
+      const top = e.clientY - 40 + container!.scrollTop;
+      let distance = 1000000;
+      let cur: MovePoint | null = null;
+      for (let p of points) {
+        let curDistance = Math.abs(p.top - top);
+        if (curDistance < distance) {
+          cur = p;
+          distance = curDistance;
+        }
+      }
+      if (cur) {
+        const rect = container!.getBoundingClientRect();
+        const scrollTop = container!.scrollTop;
+        const scrollLeft = container!.scrollLeft;
+        last = cur;
+        const width =
+          last.el.dataset.be === 'list-item'
+            ? last.el.clientWidth + 20 + 'px'
+            : last.el.clientWidth + 'px';
+        if (!mark) {
+          mark = document.createElement('div');
+          mark.classList.add('move-mark');
+          mark.style.width = width;
+          mark.style.height = '2px';
+
+          mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
+          container?.parentElement!.append(mark);
+        } else {
+          mark.style.width = width;
+          mark.style.transform = `translate(${last.left - rect.left - scrollLeft}px, ${last.top - rect.top - scrollTop}px)`;
+        }
+      }
+    };
+    window.addEventListener('dragover', dragover);
+    window.addEventListener(
+      'dragend',
+      () => {
+        try {
+          window.removeEventListener('dragover', dragover);
+          if (mark) container?.parentElement!.removeChild(mark);
+          if (last && this.draggedElement) {
+            let [dragPath, dragNode] = this.toPath(this.draggedElement);
+            let [targetPath] = this.toPath(last.el);
+            let toPath =
+              last.direction === 'top' ? targetPath : Path.next(targetPath);
+            if (!Path.equals(targetPath, dragPath)) {
+              const parent = Node.parent(this._editor.current, dragPath);
+              if (
+                Path.equals(Path.parent(targetPath), Path.parent(dragPath)) &&
+                Path.compare(dragPath, targetPath) === -1
+              ) {
+                toPath = Path.previous(toPath);
+              }
+              let delPath = Path.parent(dragPath);
+              const targetNode = Node.get(this._editor.current, targetPath);
+              if (dragNode.type === 'list-item') {
+                if (targetNode.type !== 'list-item') {
+                  Transforms.delete(this._editor.current, { at: dragPath });
+                  Transforms.insertNodes(
+                    this._editor.current,
+                    {
+                      ...parent,
+                      children: [EditorUtils.copy(dragNode)],
+                    },
+                    { at: toPath, select: true },
+                  );
+                  if (parent.children?.length === 1) {
+                    if (
+                      EditorUtils.isNextPath(Path.parent(dragPath), targetPath)
+                    ) {
+                      delPath = Path.next(Path.parent(dragPath));
+                    } else {
+                      delPath = Path.parent(dragPath);
+                    }
+                  }
+                } else {
+                  Transforms.moveNodes(this._editor.current, {
+                    at: dragPath,
+                    to: toPath,
+                  });
+                }
+              } else {
+                Transforms.moveNodes(this._editor.current, {
+                  at: dragPath,
+                  to: toPath,
+                });
+              }
+              if (parent.children?.length === 1) {
+                if (
+                  Path.equals(Path.parent(toPath), Path.parent(delPath)) &&
+                  Path.compare(toPath, delPath) !== 1
+                ) {
+                  delPath = Path.next(delPath);
+                }
+                Transforms.delete(this._editor.current, { at: delPath });
+              }
+            }
+            if (dragNode?.type !== 'media')
+              this.draggedElement!.draggable = false;
+          }
+          this.draggedElement = null;
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      { once: true },
+    );
+  }
+
+  /**
+   * 更新编辑器的状态数据
+   *
+   * @param value - 状态更新器，可以是函数或对象
+   *
+   * 该方法提供两种更新状态的方式：
+   * 1. 函数式更新：传入一个函数，可以直接修改状态
+   * 2. 对象式更新：传入一个对象，直接覆盖对应的状态值
+   *
+   * @example
+   * ```ts
+   * // 函数式更新 - 可以访问当前状态
+   * setState((state) => {
+   *   state.focus = true;
+   *   state.manual = false;
+   * });
+   *
+   * // 对象式更新 - 直接设置新值
+   * setState({
+   *   focus: true,
+   *   manual: false
+   * });
+   * ```
+   */
+  setState(value: (state: EditorStore) => void) {
+    if (value instanceof Function) {
+      value(this);
+    } else {
+      for (let key of Object.keys(value)) {
+        // @ts-ignore
+        this[key] = value[key];
+      }
     }
   }
 }

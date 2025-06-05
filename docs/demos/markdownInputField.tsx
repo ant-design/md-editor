@@ -196,7 +196,7 @@ export default () => {
       <h2>自定义的 Tag</h2>
       <MarkdownInputField
         inputRef={markdownRef}
-        beforeActionsRender={() => {
+        toolsRender={() => {
           return [
             <span
               key="test"

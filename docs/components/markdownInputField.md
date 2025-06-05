@@ -38,25 +38,25 @@ export default () => {
 
 ## API
 
-| 属性名                | 类型                                             | 默认值    | 描述                               |
-| --------------------- | ------------------------------------------------ | --------- | ---------------------------------- |
-| `value`               | `string`                                         | -         | 当前的 markdown 文本值             |
-| `onChange`            | `(value: string) => void`                        | -         | 当输入值改变时触发的回调函数       |
-| `placeholder`         | `string`                                         | -         | 输入字段的占位文本                 |
-| `style`               | `React.CSSProperties`                            | -         | 应用于输入字段的内联样式           |
-| `className`           | `string`                                         | -         | 应用于输入字段的 CSS 类名          |
-| `disabled`            | `boolean`                                        | -         | 是否禁用输入字段                   |
-| `typing`              | `boolean`                                        | -         | 用户是否正在输入的状态标志         |
-| `triggerSendKey`      | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
-| `onSend`              | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
-| `onStop`              | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
-| `tagInputProps`       | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
-| `bgColorList`         | `[string, string, string, string]`               | -         | 背景颜色列表                       |
-| `borderRadius`        | `number`                                         | `12`      | 边框圆角大小                       |
-| `attachment`          | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
-| `actionsRender`       | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
-| `beforeActionsRender` | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
-| `inputRef`            | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
+| 属性名           | 类型                                             | 默认值    | 描述                               |
+| ---------------- | ------------------------------------------------ | --------- | ---------------------------------- |
+| `value`          | `string`                                         | -         | 当前的 markdown 文本值             |
+| `onChange`       | `(value: string) => void`                        | -         | 当输入值改变时触发的回调函数       |
+| `placeholder`    | `string`                                         | -         | 输入字段的占位文本                 |
+| `style`          | `React.CSSProperties`                            | -         | 应用于输入字段的内联样式           |
+| `className`      | `string`                                         | -         | 应用于输入字段的 CSS 类名          |
+| `disabled`       | `boolean`                                        | -         | 是否禁用输入字段                   |
+| `typing`         | `boolean`                                        | -         | 用户是否正在输入的状态标志         |
+| `triggerSendKey` | `'Enter' \| 'Mod+Enter'`                         | `'Enter'` | 触发发送操作的键盘快捷键           |
+| `onSend`         | `(value: string) => Promise<void>`               | -         | 当内容发送时触发的异步回调函数     |
+| `onStop`         | `() => void`                                     | -         | 正在输入中时点击发送按钮的回调函数 |
+| `tagInputProps`  | `MarkdownEditorProps['tagInputProps']`           | -         | 标签输入的相关属性                 |
+| `bgColorList`    | `[string, string, string, string]`               | -         | 背景颜色列表                       |
+| `borderRadius`   | `number`                                         | `12`      | 边框圆角大小                       |
+| `attachment`     | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
+| `actionsRender`  | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
+| `toolsRender`    | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
+| `inputRef`       | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
 
 ## 示例
 
@@ -178,10 +178,13 @@ const App = () => {
         onClick={() => {
           // 获取编辑器内容
           console.log(editorRef.current?.store?.getMDContent());
+          document.getElementById('test').innerHTML =
+            editorRef.current?.store?.getMDContent();
         }}
       >
         获取内容
       </button>
+      <div id="test" />
     </>
   );
 };
