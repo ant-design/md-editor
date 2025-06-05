@@ -55,6 +55,7 @@ import {
 
 export type MEditorProps = {
   eleItemRender?: MarkdownEditorProps['eleItemRender'];
+  leafRender?: MarkdownEditorProps['leafRender'];
   onChange?: MarkdownEditorProps['onChange'];
   instance: MarkdownEditorInstance;
   className?: string;
@@ -114,6 +115,7 @@ const genTableMinSize = (
  */
 export const SlateMarkdownEditor = ({
   eleItemRender,
+  leafRender,
   reportMode,
   instance,
   ...editorProps
@@ -712,7 +714,7 @@ export const SlateMarkdownEditor = ({
   };
 
   const renderMarkdownLeaf = (props: any) => {
-    return (
+    const defaultDom = (
       <MLeaf
         {...props}
         fncProps={editorProps.fncProps}
@@ -722,6 +724,19 @@ export const SlateMarkdownEditor = ({
         tagInputProps={editorProps.tagInputProps}
       />
     );
+
+    if (!leafRender) return defaultDom;
+
+    return leafRender(
+      {
+        ...props,
+        fncProps: editorProps.fncProps,
+        comment: editorProps?.comment,
+        hashId: hashId,
+        tagInputProps: editorProps.tagInputProps,
+      },
+      defaultDom,
+    ) as React.ReactElement;
   };
 
   const decorateFn = (e: any) => {

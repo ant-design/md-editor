@@ -20,7 +20,7 @@ import { TagPopupProps } from './editor/elements/code/TagPopup';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
-import { ReactEditor, withReact } from './editor/slate-react';
+import { ReactEditor, RenderLeafProps, withReact } from './editor/slate-react';
 import { EditorStore, EditorStoreContext } from './editor/store';
 import {
   InsertAutocomplete,
@@ -202,6 +202,34 @@ export type MarkdownEditorProps = {
    */
   eleItemRender?: (
     props: ElementProps,
+    defaultDom: React.ReactNode,
+  ) => React.ReactElement;
+
+  /**
+   * 自定义渲染叶子节点
+   * @description 用于自定义 MLeaf 的渲染，可以控制文本节点的样式和行为
+   * @param props - 叶子节点渲染属性，包含 leaf、children 等信息
+   * @param defaultDom - 默认的叶子节点渲染结果
+   * @returns 自定义的叶子节点渲染结果
+   * @example
+   * ```tsx
+   * <MarkdownEditor
+   *   leafRender={(props, defaultDom) => {
+   *     if (props.leaf.customStyle) {
+   *       return <span style={{ color: 'red' }}>{props.children}</span>;
+   *     }
+   *     return defaultDom;
+   *   }}
+   * />
+   * ```
+   */
+  leafRender?: (
+    props: RenderLeafProps & {
+      hashId: string;
+      comment: MarkdownEditorProps['comment'];
+      fncProps: MarkdownEditorProps['fncProps'];
+      tagInputProps: MarkdownEditorProps['tagInputProps'];
+    },
     defaultDom: React.ReactNode,
   ) => React.ReactElement;
 

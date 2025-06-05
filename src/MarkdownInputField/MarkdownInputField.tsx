@@ -211,6 +211,26 @@ export type MarkdownInputFieldProps = {
    * ```
    */
   inputRef?: React.MutableRefObject<MarkdownEditorInstance | undefined>;
+
+  /**
+   * 自定义叶子节点渲染函数
+   * @description 用于自定义文本节点的渲染方式，可以控制文本的样式和行为
+   * @param props - 叶子节点渲染属性
+   * @param defaultDom - 默认的叶子节点渲染结果
+   * @returns 自定义的叶子节点渲染结果
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   leafRender={(props, defaultDom) => {
+   *     if (props.leaf.bold) {
+   *       return <strong style={{ color: 'red' }}>{props.children}</strong>;
+   *     }
+   *     return defaultDom;
+   *   }}
+   * />
+   * ```
+   */
+  leafRender?: MarkdownEditorProps['leafRender'];
 };
 /**
  * 根据提供的颜色数组生成边缘颜色序列。
@@ -646,6 +666,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
 
             <BaseMarkdownEditor
               editorRef={markdownEditorRef}
+              leafRender={props.leafRender}
               style={
                 props.toolsRender
                   ? {
