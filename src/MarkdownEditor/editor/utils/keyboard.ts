@@ -47,15 +47,10 @@ export class KeyboardTask {
    * 否则选中编辑器中的所有内容
    */
   selectAll() {
-    const [node] = this.curNodes;
-    if (node?.[0]?.type === 'table-cell') {
-      Transforms.select(this.editor, Path.parent(Path.parent(node[1])));
-    } else {
-      Transforms.select(this.editor, {
-        anchor: Editor.start(this.editor, []),
-        focus: Editor.end(this.editor, []),
-      });
-    }
+    Transforms.select(this.editor, {
+      anchor: Editor.start(this.editor, []),
+      focus: Editor.end(this.editor, []),
+    });
   }
 
   /**
@@ -73,8 +68,6 @@ export class KeyboardTask {
         this.editor,
         Path.parent(this.editor.selection.anchor.path),
       );
-      const text =
-        Node.leaf(this.editor, this.editor.selection.anchor.path).text || '';
     }
   }
 

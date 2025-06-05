@@ -64,9 +64,19 @@ export function isMarkdown(text: string): boolean {
   }
 
   // Simplified table check
-  if (/[^\|]\|[^\|][\r\n]+[-|]+[\r\n]+[^\|]\|[^\|]/.test(text)) {
+  if (/[^\\|]\|[^\\|][\r\n]+[-|]+[\r\n]+[^\\|]\|[^\\|]/.test(text)) {
     return true;
   }
 
   return false;
+}
+
+export function isHtml(text: string): boolean {
+  if (!text || text.trim() === '') {
+    return false;
+  }
+
+  // Check for basic HTML tags
+  const htmlTags = /<\/?[a-z][\s\S]*>/i;
+  return htmlTags.test(text);
 }

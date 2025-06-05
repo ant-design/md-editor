@@ -420,7 +420,7 @@ export const SlateMarkdownEditor = ({
           'application/x-slate-md-fragment',
           JSON.stringify(editor?.getFragment() || []),
         );
-
+        console.log('handleClipboardCopy', event.clipboardData);
         // 4. 设置剪贴板的片段数据
         ReactEditor.setFragmentData(
           markdownEditorRef.current,
@@ -540,7 +540,6 @@ export const SlateMarkdownEditor = ({
     }
 
     const types = event.clipboardData?.types || ['text/plain'];
-
     // 1. 首先尝试处理 slate-md-fragment
     if (types.includes('application/x-slate-md-fragment')) {
       if (
@@ -611,7 +610,7 @@ export const SlateMarkdownEditor = ({
 
         // 处理普通文本
         if (
-          handlePlainTextPaste(
+          await handlePlainTextPaste(
             markdownEditorRef.current,
             text,
             selection,

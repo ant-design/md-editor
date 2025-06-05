@@ -4,6 +4,7 @@ import { Elements, MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { isMarkdown } from '../utils';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
+import { isHtml } from '../utils/isMarkdown';
 import { toUnixPath } from '../utils/path';
 import { insertParsedHtmlNodes } from './insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './parseMarkdownToNodesAndInsert';
@@ -78,6 +79,7 @@ export const handleHtmlPaste = async (
     const rtf = await clipboardData.getData('text/rtf');
 
     if (html) {
+      console.log('html', html);
       return await insertParsedHtmlNodes(editor, html, editorProps, rtf);
     }
     return false;
@@ -230,15 +232,19 @@ export const handleHttpLinkPaste = (
 /**
  * 处理普通文本粘贴
  */
-export const handlePlainTextPaste = (
+export const handlePlainTextPaste = async (
   editor: Editor,
   text: string,
   selection: any,
   plugins: any,
 ) => {
   if (isMarkdown(text)) {
-    parseMarkdownToNodesAndInsert(editor, text, plugins);
+    await parseMarkdownToNodesAndInsert(editor, text, plugins);
     return true;
+  }
+  if (isHtml(text)) {
+    const success = await insertParsedHtmlNodes(editor, text, plugins, '');
+    if (success) return true;
   }
 
   if (selection) {
