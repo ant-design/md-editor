@@ -153,8 +153,8 @@ export const SlateMarkdownEditor = ({
 
   const readonlyCls = useMemo(() => {
     if (readonly) return 'readonly';
-    return store.focus || !childrenIsEmpty ? 'focus' : '';
-  }, [readonly, store.focus, !childrenIsEmpty]);
+    return !childrenIsEmpty ? 'focus' : '';
+  }, [readonly, !childrenIsEmpty]);
 
   const { wrapSSR, hashId } = useStyle(`${editorProps.prefixCls}-content`, {
     placeholderContent:
@@ -192,15 +192,13 @@ export const SlateMarkdownEditor = ({
   const handleSelectionChange = useDebounceFn(async () => {
     if (!readonly) {
       // 非只读模式下的选区处理
-      if (store.focus) {
-        const event = new CustomEvent<BaseSelection>(
-          MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-          {
-            detail: markdownEditorRef.current.selection,
-          },
-        );
-        markdownContainerRef?.current?.dispatchEvent(event);
-      }
+      const event = new CustomEvent<BaseSelection>(
+        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+        {
+          detail: markdownEditorRef.current.selection,
+        },
+      );
+      markdownContainerRef?.current?.dispatchEvent(event);
       return;
     }
 
@@ -324,11 +322,6 @@ export const SlateMarkdownEditor = ({
       // 点击时清除工具栏
       setDomRect?.(null);
       return;
-    }
-
-    // 当编辑器失去焦点时，清除选区
-    if (!store.focus) {
-      markdownEditorRef.current.selection = null;
     }
 
     // 获取目标元素

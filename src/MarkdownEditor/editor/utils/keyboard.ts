@@ -865,7 +865,6 @@ export const useSystemKeyboard = (
     }
 
     if (isHotkey('backspace', e)) {
-      if (!store.focus) return;
       const [node] = task.curNodes;
       if (node?.[0].type === 'media') {
         e.preventDefault();

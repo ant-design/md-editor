@@ -1,12 +1,12 @@
 export interface BaseProperty {
-  title: string;
+  title?: string;
   required?: boolean;
   description?: string;
 }
 
 export interface StringProperty extends BaseProperty {
   type: 'string';
-  default: string;
+  default?: string;
   enum?: string[];
   pattern?: string;
   patternMessage?: string;
@@ -16,7 +16,7 @@ export interface StringProperty extends BaseProperty {
 
 export interface NumberProperty extends BaseProperty {
   type: 'number';
-  default: number;
+  default?: number;
   minimum?: number;
   maximum?: number;
   step?: number;
@@ -25,7 +25,7 @@ export interface NumberProperty extends BaseProperty {
 
 export interface ArrayProperty extends BaseProperty {
   type: 'array';
-  default: any[];
+  default?: any[];
   items?: SchemaProperty;
   minItems?: number;
   maxItems?: number;
@@ -33,7 +33,7 @@ export interface ArrayProperty extends BaseProperty {
 
 export interface ObjectProperty extends BaseProperty {
   type: 'object';
-  default: Record<string, any>;
+  default?: Record<string, any>;
   properties?: ComponentProperties;
 }
 
@@ -83,7 +83,7 @@ export interface ThemeConfig {
 }
 
 export interface PageConfig {
-  layout: 'flex';
+  layout: string;
   router: {
     mode: 'hash';
     basePath: string;

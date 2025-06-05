@@ -23,7 +23,7 @@ const SevenDaysWeatherMustache: React.FC = () => {
         },
         constants: { refreshInterval: 3600000 },
       },
-    },
+    } as const,
     dataSources: {
       restAPI: {
         baseURL: 'https://api.7days-weather.com/v3',
@@ -36,7 +36,7 @@ const SevenDaysWeatherMustache: React.FC = () => {
         responseDelay: 150,
         dataPath: '/mock/7days-weather',
       },
-    },
+    } as const,
     component: {
       properties: {
         sevenDaysWeather: {

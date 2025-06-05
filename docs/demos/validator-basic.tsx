@@ -45,18 +45,10 @@ const ValidatorExample: React.FC = () => {
 
     // 验证单个属性值
     const validateValue = () => {
-      const property = {
-        title: '年龄',
-        type: 'number' as const,
-        default: 18,
-        minimum: 0,
-        maximum: 120,
-      };
-
       const value = 25;
 
       try {
-        const isValid = validator.validateValue(value, property);
+        const isValid = validator.validate(value);
         results.push(`✅ 值验证结果：${isValid ? '有效' : '无效'}`);
       } catch (error) {
         results.push(`❌ 验证过程出错：${error}`);

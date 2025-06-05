@@ -86,7 +86,6 @@ interface UpdateOperation {
 export class EditorStore {
   manual = false;
   highlightCache = new Map<object, Range[]>();
-  focus = false;
   private ableToEnter = new Set([
     'paragraph',
     'head',
