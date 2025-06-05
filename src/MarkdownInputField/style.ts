@@ -23,6 +23,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       backdropFilter: 'blur(5.44px)',
       position: 'relative',
       transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
+      '> * ': {
+        boxSizing: 'border-box',
+      },
       '&:hover': {
         boxShadow:
           '0px 2px 9px 0px rgba(202, 218, 255, 0.3671),0px 1px 7px 0px rgba(51, 0, 123, 0.07),0px 0px 1px 0px rgba(74, 0, 255, 0.0806),inset 0px 1px 4px 0px rgba(225, 235, 240, 0.5),inset 0px 1px 1px 0px rgba(204, 214, 220, 0.5)',
@@ -32,6 +35,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       '&-background': {
+        boxSizing: 'border-box',
         transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
         opacity: 0,
         position: 'absolute',
@@ -44,6 +48,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: 'inherit',
       },
       '&-editor': {
+        boxSizing: 'border-box',
         backgroundColor: '#FFF',
         width: '100%',
         zIndex: 9,
@@ -72,12 +77,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
         },
       },
-      '&-send-before-actions': {
-        position: 'absolute',
-        userSelect: 'none',
-        left: 4,
-        zIndex: 99,
-        bottom: 8,
+      '&-send-tools': {
+        boxSizing: 'border-box',
         display: 'flex',
         gap: '8px',
         alignItems: 'center',
@@ -86,11 +87,20 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'absolute',
         userSelect: 'none',
         right: 4,
+        boxSizing: 'border-box',
         zIndex: 99,
         bottom: 8,
         display: 'flex',
         gap: '8px',
         alignItems: 'center',
+      },
+      '&-send-has-tools': {
+        boxSizing: 'border-box',
+        position: 'relative',
+        left: 'inherit',
+        right: 'inherit',
+        bottom: 'inherit',
+        top: 'inherit',
       },
     },
   };

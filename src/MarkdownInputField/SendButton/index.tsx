@@ -85,13 +85,9 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
     return null;
   }
 
-  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
-    // 测试环境下不渲染
-    return null;
-  }
-
   return wrapSSR(
     <div
+      data-testid="send-button"
       onClick={() => {
         if (!disabled) {
           onClick();
@@ -104,12 +100,6 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
         [`${baseCls}-typing`]: typing,
       })}
     >
-      {/* 使用 ErrorBoundary 包裹 SendIcon 组件 */}
-      {/* 这样可以捕获 SendIcon 组件中的错误并防止整个应用崩溃 */}
-      {/* 你可以在这里自定义错误边界的 fallback UI */}
-      {/* 例如：<div>Something went wrong</div> */}
-      {/* 你可以根据需要传递其他 props 给 ErrorBoundary */}
-      {/* 例如：<ErrorBoundary FallbackComponent={MyFallbackComponent} /> */}
       <ErrorBoundary fallback={<div />}>
         <SendIcon
           hover={isHover && !disabled}

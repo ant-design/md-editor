@@ -145,16 +145,27 @@ import { MarkdownInputField } from '@ant-design/md-editor';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
-    <MarkdownInputField
-      value={value}
-      onChange={setValue}
-      actionsRender={(props, defaultActions) => [
-        <button key="custom" onClick={() => console.log('自定义按钮')}>
-          自定义
-        </button>,
-        ...defaultActions,
-      ]}
-    />
+    <div
+      style={{
+        padding: 20,
+      }}
+    >
+      <MarkdownInputField
+        value={value}
+        onChange={setValue}
+        toolsRender={(props) => [
+          <button key="custom" onClick={() => console.log('自定义按钮')}>
+            自定义
+          </button>,
+        ]}
+        actionsRender={(props, defaultActions) => [
+          <button key="custom" onClick={() => console.log('自定义按钮')}>
+            自定义
+          </button>,
+          ...defaultActions,
+        ]}
+      />
+    </div>
   );
 };
 ```

@@ -274,7 +274,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
   });
 
   const [rightPadding, setRightPadding] = useState(64);
-  const [leftPadding, setLeftPadding] = useState(0);
 
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
@@ -608,137 +607,222 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
         </div>
         <div
           style={{
-            borderRadius: (props.borderRadius || 12) - 2 || 10,
-            maxHeight: `max(${props.style?.maxHeight || 120 + (props.attachment?.enable ? 90 : 0)}px,100%)`,
             flex: 1,
+            backgroundColor: '#fff',
+            width: '100%',
+            display: 'flex',
+            zIndex: 9,
+            flexDirection: 'column',
+            boxSizing: 'border-box',
+            borderRadius: (props.borderRadius || 12) - 2 || 10,
+            cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+            opacity: isLoading || props.disabled ? 0.5 : 1,
           }}
-          className={classNames(`${baseCls}-editor`, hashId, {
-            [`${baseCls}-editor-hover`]: isHover,
-            [`${baseCls}-editor-disabled`]: props.disabled,
-          })}
         >
-          {useMemo(() => {
-            return props.attachment?.enable ? (
-              <AttachmentFileList
-                fileMap={fileMap}
-                onDelete={handleFileRemoval}
-                onClearFileMap={() => {
-                  updateAttachmentFiles(new Map());
-                }}
-              />
-            ) : null;
-          }, [fileMap?.values(), props.attachment?.enable])}
-          <BaseMarkdownEditor
-            editorRef={markdownEditorRef}
+          <div
             style={{
-              width: '100%',
-              minHeight: '32px',
-              height: '100%',
-              cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-              opacity: isLoading || props.disabled ? 0.5 : 1,
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: (props.borderRadius || 12) - 2 || 10,
+              maxHeight: `max(${(Number(props.style?.maxHeight) || 180) + (props.attachment?.enable ? 90 : 0)}px,100%)`,
+              flex: 1,
             }}
-            readonly={isLoading}
-            contentStyle={{
-              padding: '12px',
-              paddingRight: rightPadding || '52px',
-              paddingLeft: leftPadding || '12px',
-            }}
-            textAreaProps={{
-              enable: true,
-              placeholder: props.placeholder,
-              triggerSendKey: props.triggerSendKey || 'Enter',
-            }}
-            tagInputProps={
-              props.tagInputProps || {
-                enable: true,
-                items: [
-                  {
-                    key: 'Bold',
-                    label: 'Bold',
-                  },
-                ],
+            className={classNames(`${baseCls}-editor`, hashId, {
+              [`${baseCls}-editor-hover`]: isHover,
+              [`${baseCls}-editor-disabled`]: props.disabled,
+            })}
+          >
+            {useMemo(() => {
+              return props.attachment?.enable ? (
+                <AttachmentFileList
+                  fileMap={fileMap}
+                  onDelete={handleFileRemoval}
+                  onClearFileMap={() => {
+                    updateAttachmentFiles(new Map());
+                  }}
+                />
+              ) : null;
+            }, [fileMap?.values(), props.attachment?.enable])}
+
+            <BaseMarkdownEditor
+              editorRef={markdownEditorRef}
+              style={
+                props.toolsRender
+                  ? {
+                      width: '100%',
+                      flex: 1,
+                      padding: 4,
+                    }
+                  : {
+                      width: '100%',
+                      flex: 1,
+                      padding: 4,
+                      paddingRight: rightPadding || 52,
+                    }
               }
-            }
-            initValue={props.value}
-            onChange={(value) => {
-              setValue(value);
-              props.onChange?.(value);
-            }}
-            titlePlaceholderContent={props.placeholder}
-            toc={false}
-            toolBar={{
-              enable: false,
-            }}
-            floatBar={{
-              enable: false,
-            }}
-          />
-        </div>
-        <RcResizeObserver
-          onResize={(e) => {
-            setLeftPadding(e.offsetWidth);
-          }}
-        >
-          <div
-            ref={actionsRef}
-            contentEditable={false}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            onKeyDown={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            className={classNames(`${baseCls}-send-before-actions`, hashId)}
-          >
-            {props.toolsRender
-              ? props.toolsRender({
-                  value,
-                  fileMap,
-                  onFileMapChange: setFileMap,
-                  ...props,
-                  isHover,
-                  isLoading,
-                  fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                })
-              : []}
+              readonly={isLoading}
+              contentStyle={{
+                padding: '8px',
+              }}
+              textAreaProps={{
+                enable: true,
+                placeholder: props.placeholder,
+                triggerSendKey: props.triggerSendKey || 'Enter',
+              }}
+              tagInputProps={
+                props.tagInputProps || {
+                  enable: true,
+                  items: [
+                    {
+                      key: 'Bold',
+                      label: 'Bold',
+                    },
+                  ],
+                }
+              }
+              initValue={props.value}
+              onChange={(value) => {
+                setValue(value);
+                props.onChange?.(value);
+              }}
+              titlePlaceholderContent={props.placeholder}
+              toc={false}
+              toolBar={{
+                enable: false,
+              }}
+              floatBar={{
+                enable: false,
+              }}
+            />
           </div>
-        </RcResizeObserver>
-        <RcResizeObserver
-          onResize={(e) => {
-            setRightPadding(e.offsetWidth);
-          }}
-        >
-          <div
-            ref={actionsRef}
-            contentEditable={false}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            onKeyDown={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            className={classNames(`${baseCls}-send-actions`, hashId)}
-          >
-            {props.actionsRender
-              ? props.actionsRender(
+          {props.toolsRender ? (
+            <div
+              style={{
+                display: 'flex',
+                boxSizing: 'border-box',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 8,
+                width: '100%',
+                minHeight: 42,
+                paddingRight: 8,
+                paddingLeft: 8,
+              }}
+            >
+              {props.toolsRender ? (
+                <div
+                  ref={actionsRef}
+                  contentEditable={false}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  className={classNames(`${baseCls}-send-tools`, hashId)}
+                >
+                  {props.toolsRender
+                    ? props.toolsRender({
+                        value,
+                        fileMap,
+                        onFileMapChange: setFileMap,
+                        ...props,
+                        isHover,
+                        isLoading,
+                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                      })
+                    : []}
+                </div>
+              ) : null}
+              <RcResizeObserver
+                onResize={(e) => {
+                  setRightPadding(e.offsetWidth);
+                }}
+              >
+                <div
+                  ref={actionsRef}
+                  contentEditable={false}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  className={classNames(
+                    `${baseCls}-send-actions`,
+                    {
+                      [`${baseCls}-send-has-tools`]: props.toolsRender,
+                    },
+                    hashId,
+                  )}
+                >
+                  {props.actionsRender
+                    ? props.actionsRender(
+                        {
+                          value,
+                          ...props,
+                          fileMap,
+                          onFileMapChange: setFileMap,
+                          isHover,
+                          isLoading,
+                          fileUploadStatus: fileUploadDone
+                            ? 'done'
+                            : 'uploading',
+                        },
+                        defaultSendActions,
+                      )
+                    : defaultSendActions}
+                </div>
+              </RcResizeObserver>
+            </div>
+          ) : (
+            <RcResizeObserver
+              onResize={(e) => {
+                setRightPadding(e.offsetWidth);
+              }}
+            >
+              <div
+                ref={actionsRef}
+                contentEditable={false}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                className={classNames(
+                  `${baseCls}-send-actions`,
                   {
-                    value,
-                    ...props,
-                    fileMap,
-                    onFileMapChange: setFileMap,
-                    isHover,
-                    isLoading,
-                    fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                    [`${baseCls}-send-has-tools`]: props.toolsRender,
                   },
-                  defaultSendActions,
-                )
-              : defaultSendActions}
-          </div>
-        </RcResizeObserver>
+                  hashId,
+                )}
+              >
+                {props.actionsRender
+                  ? props.actionsRender(
+                      {
+                        value,
+                        ...props,
+                        fileMap,
+                        onFileMapChange: setFileMap,
+                        isHover,
+                        isLoading,
+                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                      },
+                      defaultSendActions,
+                    )
+                  : defaultSendActions}
+              </div>
+            </RcResizeObserver>
+          )}
+        </div>
       </div>
     </Suggestion>,
   );
