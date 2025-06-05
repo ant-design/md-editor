@@ -3,7 +3,7 @@ import { useMergedState } from 'rc-util';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRefFunction } from '../../hooks/useRefFunction';
 import { MarkdownEditorProps } from '../../MarkdownEditor';
-import { TagPopupProps } from '../../MarkdownEditor/editor/elements/code/TagPopup';
+import { TagPopupProps } from '../../MarkdownEditor/editor/elements/TagPopup';
 
 /**
  * 建议面板状态的 React 上下文
