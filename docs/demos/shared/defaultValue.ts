@@ -146,13 +146,13 @@ extensions:
 ## 4. 多媒体集成增强
 
 ### 4.1 视频嵌入优化
-\`\`\`video
-source: https://example.com/editor-demo.mp4
-poster: https://example.com/poster.jpg
-controls: true
-autoplay: false
-loop: false
-\`\`\`
+
+![video:视频名](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
+
+### 4.1.1 附件展示
+<!-- {"updateTime":"2014-07-29","collaborators":[{"Chen Shuai":33},{"Chen Shuai":33},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"ivan.cseeing":32},{"InvRet Sales Team":34},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33},{"Rui Ma":39},{"Rui Ma":39},{"Chen Shuai":33}]} -->
+![attachment:测试附件.pdf](https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ)
+
 
 ### 4.2 3D模型展示
 \`\`\`model
@@ -223,25 +223,22 @@ response:
 \`\`\`
 
 ### 6.2 数据可视化
-\`\`\`chart
-type: bar
-title: 编辑器性能对比
-data:
-  - name: Ace
-    loadTime: 120
-    memory: 85
-  - name: Monaco
-    loadTime: 420
-    memory: 210
-  - name: ProseMirror
-    loadTime: 180
-    memory: 150
-options:
-  xAxis: name
-  yAxis: 
-    - loadTime(ms)
-    - memory(MB)
-\`\`\`
+
+<!-- [{"chartType": "bar","title":"样本数据", "x": "sens_type", "y": "count"},{"chartType": "column", "x": "sens_type", "y": "count"}, {"chartType": "pie", "x": "sens_type", "y": "percentage"}, {"chartType": "line", "x": "sens_type", "y": "percentage"},{"chartType": "area", "x": "sens_type", "y": "percentage"}] -->
+|    | sens_type        |   count |   percentage |
+|---:|:-----------------|--------:|-------------:|
+|  0 | 12312322         |       4 |       2.439  |
+|  1 | 邮箱             |      28 |      17.0732 |
+|  2 | 身份证号2级      |       5 |       3.0488 |
+|  3 | 姓名             |      26 |      15.8537 |
+|  4 | 自定义-手机号01  |      41 |      25      |
+|  5 | 性别             |       4 |       2.439  |
+|  6 | 公司名           |       4 |       2.439  |
+|  7 | 样本中英文       |       7 |       4.2683 |
+|  8 | 正则中文         |       2 |       1.2195 |
+
+
+
 
 ## 7. 文档安全与权限
 

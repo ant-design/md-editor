@@ -15,7 +15,6 @@ import { EditorUtils } from '../utils/editorUtils';
 import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
-import { TagPopup } from './code/TagPopup';
 import { ColumnCell, ColumnGroup } from './column';
 import { CommentView } from './Comment';
 import { Description } from './description';
@@ -29,6 +28,7 @@ import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
 import { Table, TableCell } from './Table/index';
+import { TagPopup } from './TagPopup';
 
 const dragStart = (e: React.DragEvent) => {
   e.preventDefault();
@@ -74,6 +74,10 @@ export const MElement = (
           <br />
         </span>
       );
+    case 'mermaid':
+      return <code>{props.children}</code>;
+    case 'code':
+      return <code>{props.children}</code>;
     case 'list-item':
       return <ListItem {...props} />;
     case 'list':

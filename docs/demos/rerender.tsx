@@ -5,6 +5,9 @@ import {
   parserMarkdownToSlateNode,
   useAutoScroll,
 } from '@ant-design/md-editor';
+import { ChartElement } from '@ant-design/md-editor/plugins/chart';
+import { CodeElement } from '@ant-design/md-editor/plugins/code';
+import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
 import React, { useEffect, useRef } from 'react';
 import { defaultValue } from './shared/defaultValue';
 
@@ -959,6 +962,15 @@ export default () => {
       <MarkdownEditor
         editorRef={instance}
         toc={false}
+        plugins={[
+          {
+            elements: {
+              code: CodeElement,
+              chart: ChartElement,
+              mermaid: MermaidElement,
+            },
+          },
+        ]}
         width={'100%'}
         typewriter
         height={'auto'}

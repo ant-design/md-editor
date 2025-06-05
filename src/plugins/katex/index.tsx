@@ -46,7 +46,6 @@ export function KatexElement(props: ElementProps<CodeNode>) {
     if (!props.element.katex) {
       return null;
     }
-
     // 只读模式下的简化渲染
     if (readonly) {
       return (

@@ -344,7 +344,7 @@ export class EditorStore {
    * - 如果优化更新失败，会回退到直接替换整个节点列表
    * - 错误信息会被记录到控制台
    */
-  updateNodeListOptimized(nodeList: Node[]): void {
+  updateNodeList(nodeList: Node[]): void {
     if (!nodeList || !Array.isArray(nodeList)) return;
 
     // 过滤无效节点

@@ -2,8 +2,8 @@ import { runFunction } from '@ant-design/pro-components';
 import { MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, { ReactNode, useContext, useEffect, useRef } from 'react';
-import { SuggestionConnext } from '../../../../../MarkdownInputField/Suggestion';
-import { ReactEditor, useSlate } from '../../../slate-react';
+import { SuggestionConnext } from '../../../../MarkdownInputField/Suggestion';
+import { ReactEditor, useSlate } from '../../slate-react';
 
 type TagPopupItem = Array<{
   label: string;

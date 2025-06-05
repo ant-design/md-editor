@@ -16,7 +16,7 @@ import { HistoryEditor, withHistory } from 'slate-history';
 import { I18nProvide } from '../i18n';
 import { CommentList } from './editor/components/CommentList';
 import { SlateMarkdownEditor } from './editor/Editor';
-import { TagPopupProps } from './editor/elements/code/TagPopup';
+import { TagPopupProps } from './editor/elements/TagPopup';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
