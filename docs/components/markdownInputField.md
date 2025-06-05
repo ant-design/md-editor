@@ -56,6 +56,7 @@ export default () => {
 | `attachment`     | `{ enable?: boolean } & AttachmentButtonProps`   | -         | 附件配置                           |
 | `actionsRender`  | `(props, defaultActions) => React.ReactNode[]`   | -         | 自定义渲染操作按钮的函数           |
 | `toolsRender`    | `(props) => React.ReactNode[]`                   | -         | 自定义渲染操作按钮前内容的函数     |
+| `leafRender`     | `(props, defaultDom) => React.ReactElement`      | -         | 自定义叶子节点渲染函数             |
 | `inputRef`       | `React.MutableRefObject<MarkdownEditorInstance>` | -         | 输入框引用                         |
 
 ## 示例
@@ -200,4 +201,82 @@ const App = () => {
   );
 };
 export default App;
+```
+
+### 自定义叶子节点渲染
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+
+export default () => {
+  const [value, setValue] = React.useState('**粗体文本** *斜体文本* `代码`');
+
+  return (
+    <MarkdownInputField
+      value={value}
+      onChange={setValue}
+      placeholder="尝试输入 **粗体**、*斜体* 或 `代码`..."
+      leafRender={(props, defaultDom) => {
+        const { leaf, children } = props;
+
+        // 自定义粗体样式
+        if (leaf.bold) {
+          return (
+            <strong
+              style={{
+                color: '#1890ff',
+                backgroundColor: '#e6f7ff',
+                padding: '2px 4px',
+                borderRadius: '4px',
+              }}
+            >
+              {children}
+            </strong>
+          );
+        }
+
+        // 自定义斜体样式
+        if (leaf.italic) {
+          return (
+            <em
+              style={{
+                color: '#722ed1',
+                backgroundColor: '#f9f0ff',
+                padding: '2px 4px',
+                borderRadius: '4px',
+              }}
+            >
+              {children}
+            </em>
+          );
+        }
+
+        // 自定义代码样式
+        if (leaf.code) {
+          return (
+            <code
+              style={{
+                color: '#d83931',
+                backgroundColor: '#fff2f0',
+                padding: '2px 6px',
+                borderRadius: '6px',
+                border: '1px solid #ffccc7',
+                fontFamily: 'Monaco, Consolas, monospace',
+              }}
+            >
+              {children}
+            </code>
+          );
+        }
+
+        // 返回默认渲染
+        return defaultDom;
+      }}
+      onSend={async (text) => {
+        console.log('发送内容:', text);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }}
+    />
+  );
+};
 ```
