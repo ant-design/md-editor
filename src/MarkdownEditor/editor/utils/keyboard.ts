@@ -902,7 +902,6 @@ export const useSystemKeyboard = (
       if (isHotkey(key[0], e)) {
         e.preventDefault();
         e.stopPropagation();
-        if (!key[3] && !store.focus) return;
         // @ts-ignore
         task[key[1]](...(key[2] || []));
         break;

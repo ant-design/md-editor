@@ -396,13 +396,10 @@ export const SlateMarkdownEditor = ({
         // 阻止默认行为和事件冒泡
         event.preventDefault();
         event.stopPropagation();
-
         const editor = markdownEditorRef.current;
-        const data = event?.clipboardData;
-
         // 复制纯文本内容
         const selectedText = Editor.string(editor, editor.selection!);
-        data.setData('text/plain', selectedText || '');
+        event?.clipboardData.setData('text/plain', selectedText || '');
 
         // 复制HTML内容
         const tempDiv = document.createElement('div');
@@ -412,15 +409,14 @@ export const SlateMarkdownEditor = ({
         );
         const selectedHtml = domRange.cloneContents();
         tempDiv.appendChild(selectedHtml);
-        data.setData('text/html', tempDiv.innerHTML);
+        event?.clipboardData.setData('text/html', tempDiv.innerHTML);
         tempDiv?.remove();
 
         // 设置Slate编辑器特定的片段数据，用于保留格式信息
-        data.setData(
+        event?.clipboardData.setData(
           'application/x-slate-md-fragment',
           JSON.stringify(editor?.getFragment() || []),
         );
-        console.log('handleClipboardCopy', event.clipboardData);
         // 4. 设置剪贴板的片段数据
         ReactEditor.setFragmentData(
           markdownEditorRef.current,
