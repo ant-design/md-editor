@@ -2059,11 +2059,7 @@ class FileBuffer:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2083,7 +2079,7 @@ class FileBuffer:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"

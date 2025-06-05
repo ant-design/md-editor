@@ -2092,126 +2092,280 @@ extensions:
             </span>
           </h3>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="video"
+            data-be="card"
             data-slate-node="element"
-            tabindex="-1"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
+            <span
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
             <div
-              contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-slate-node="element"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                class="ant-md-editor-drag-el"
+                data-be="media"
+                draggable="false"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
               >
                 <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
                   contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  draggable="false"
+                  style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                  tabindex="-1"
+                >
+                  <video
+                    controls=""
+                    src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
+                    style="width: 100%; height: auto; max-width: 600px;"
+                  />
+                  <div
+                    style="display: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_4-1-1-附件展示"
+            data-slate-node="element"
+            data-title="false"
+            id="_4-1-1-附件展示"
+          >
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  4.1.1 附件展示
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            data-be="card"
+            data-slate-node="element"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+          >
+            <span
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+            <div
+              data-slate-node="element"
+            >
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="media"
+                draggable="false"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
+                  draggable="false"
+                  style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                  tabindex="-1"
                 >
                   <div
-                    contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="padding: 12px; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
                   >
-                    <div>
-                      <span>
-                        video
+                    <div
+                      style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
+                    >
+                      <img
+                        src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
+                        width="56"
+                      />
+                      <div
+                        style="flex: 1; min-width: 0;"
+                      >
+                        <a
+                          download="测试附件.pdf"
+                          href="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
+                          style="overflow: ellipsis; text-overflow: ellipsis; text-wrap: nowrap; text-decoration: none; display: block; color: rgb(38, 38, 38);"
+                        >
+                          测试附件.pdf
+                        </a>
+                        <div
+                          style="flex: 1; min-width: 0; display: flex; justify-content: space-between;"
+                        >
+                          <div />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="editor-icon-box"
+                      style="padding: 0px 18px;"
+                    >
+                      <span
+                        aria-label="eye"
+                        class="anticon anticon-eye"
+                        role="img"
+                        style="font-size: 16px; cursor: pointer;"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="eye"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="display: none;"
                   >
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          ﻿
+                          <br />
+                        </span>
                       </span>
                     </span>
                   </div>
                 </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  source: https://example.com/editor-demo.mp4 poster: https://example.com/poster.jpg controls: true autoplay: false loop: false
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        source: https://example.com/editor-demo.mp4
-poster: https://example.com/poster.jpg
-controls: true
-autoplay: false
-loop: false
-                      </span>
-                    </span>
-                  </span>
-                </div>
               </div>
             </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
           </div>
           <h3
             class="ant-md-editor-drag-el"
@@ -3511,138 +3665,745 @@ response:
             </span>
           </h3>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="chart"
+            data-be="card"
             data-slate-node="element"
-            tabindex="-1"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
+            <span
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
             <div
-              contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              class="ant-md-editor-drag-el"
+              data-be="chart"
+              data-slate-node="element"
+              style="flex: 1; min-width: min(256px, 100%); max-width: 100%;"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                class="ant-md-editor-chart-box"
+                style="display: flex; flex-direction: column; border-radius: 0.5em;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid #eee; padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  style="position: relative;"
                 >
+                  <div
+                    style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 1; width: 100%; opacity: 0; height: 100%; overflow: hidden; pointer-events: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          sens_type
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          count
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          percentage
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          0
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          12312322
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          4
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          2.439
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          1
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          邮箱
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          28
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          17.0732
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          2
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          身份证号2级
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          5
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          3.0488
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          3
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          姓名
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          26
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          15.8537
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          4
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          自定义-手机号01
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          41
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          25
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          5
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          性别
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          4
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          2.439
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          6
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          公司名
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          4
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          2.439
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          7
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          样本中英文
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          7
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          4.2683
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          8
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          正则中文
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          2
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-string="true"
+                        >
+                          1.2195
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="display: flex; flex-wrap: wrap; flex-direction: column; gap: 8px; user-select: none;"
                   >
-                    <div>
-                      <span>
-                        chart
-                      </span>
-                    </div>
+                    <div
+                      contenteditable="false"
+                      style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                    />
+                    <div
+                      contenteditable="false"
+                      style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                    />
+                    <div
+                      contenteditable="false"
+                      style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                    />
+                    <div
+                      contenteditable="false"
+                      style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                    />
+                    <div
+                      contenteditable="false"
+                      style="user-select: none; border: 1px solid rgb(238, 238, 238); border-radius: 0.5em; margin: auto; min-width: max(calc(100% - 16px), 256px); flex: 1;"
+                    />
                   </div>
-                  <div
-                    style="display: flex; gap: 5px;"
-                  >
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  type: bar title: 编辑器性能对比 data:   - name: Ace     loadTime: 120     memory: 85   - name: Monaco     loadTime: 420     memory: 210   - name: ProseMirror     loadTime: 180     memory: 150 options:   xAxis: name   yAxis:      - loadTime(ms)     - memory(MB)
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        type: bar
-title: 编辑器性能对比
-data:
-  - name: Ace
-    loadTime: 120
-    memory: 85
-  - name: Monaco
-    loadTime: 420
-    memory: 210
-  - name: ProseMirror
-    loadTime: 180
-    memory: 150
-options:
-  xAxis: name
-  yAxis: 
-    - loadTime(ms)
-    - memory(MB)
-                      </span>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: none;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
           </div>
           <h2
             class="ant-md-editor-drag-el"
@@ -5224,6 +5985,21 @@ dark:
                           style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                         >
                           4.1 视频嵌入优化
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_4-1-1-附件展示"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          4.1.1 附件展示
                         </span>
                       </a>
                     </div>

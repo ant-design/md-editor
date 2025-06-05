@@ -100,11 +100,7 @@
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -131,7 +127,7 @@ x^2^ 上标
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -157,11 +153,7 @@ x^2^ 上标
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -188,7 +180,7 @@ x^2^ 上标
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -214,11 +206,7 @@ x^2^ 上标
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -237,7 +225,7 @@ Font Awesome图标：:fa-solid fa-rocket:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1018,11 +1006,7 @@ Font Awesome图标：:fa-solid fa-rocket:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1047,7 +1031,7 @@ Font Awesome图标：:fa-solid fa-rocket:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1073,11 +1057,7 @@ Font Awesome图标：:fa-solid fa-rocket:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1106,7 +1086,7 @@ function Counter() {
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1157,11 +1137,7 @@ function Counter() {
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1179,7 +1155,7 @@ maxLevel: 3
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1205,11 +1181,7 @@ maxLevel: 3
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1237,7 +1209,7 @@ extensions:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1377,9 +1349,113 @@ extensions:
             </span>
           </h3>
           <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
+            data-be="card"
             data-slate-node="element"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+          >
+            <span
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+            <div
+              data-slate-node="element"
+            >
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="media"
+                draggable="false"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
+                  draggable="false"
+                  style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                  tabindex="-1"
+                >
+                  <video
+                    controls=""
+                    src="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
+                    style="width: 100%; height: auto; max-width: 600px;"
+                  />
+                  <div
+                    style="display: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+          </div>
+          <h3
+            class="ant-md-editor-drag-el"
+            data-be="head"
+            data-head="_4-1-1-附件展示"
+            data-slate-node="element"
+            data-title="false"
+            id="_4-1-1-附件展示"
           >
             <span
               data-slate-node="text"
@@ -1393,11 +1469,157 @@ extensions:
                 <span
                   data-slate-string="true"
                 >
-                  source: https://example.com/editor-demo.mp4
-poster: https://example.com/poster.jpg
-controls: true
-autoplay: false
-loop: false
+                  4.1.1 附件展示
+                </span>
+              </span>
+            </span>
+          </h3>
+          <div
+            data-be="card"
+            data-slate-node="element"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+          >
+            <span
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+            <div
+              data-slate-node="element"
+            >
+              <div
+                class="ant-md-editor-drag-el"
+                data-be="media"
+                draggable="false"
+                style="cursor: pointer; position: relative; display: flex; align-items: flex-end; user-select: none;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  class="md-editor-media"
+                  contenteditable="false"
+                  draggable="false"
+                  style="color: transparent; padding: 4px; user-select: none; display: flex; flex-direction: column; width: 100%;"
+                  tabindex="-1"
+                >
+                  <div
+                    style="padding: 12px; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
+                  >
+                    <div
+                      style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
+                    >
+                      <img
+                        src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
+                        width="56"
+                      />
+                      <div
+                        style="flex: 1; min-width: 0;"
+                      >
+                        <a
+                          download="测试附件.pdf"
+                          href="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/A*NudQQry0ERwAAAAAAAAAAAAADtN3AQ"
+                          style="overflow: ellipsis; text-overflow: ellipsis; text-wrap: nowrap; text-decoration: none; display: block; color: rgb(38, 38, 38);"
+                        >
+                          测试附件.pdf
+                        </a>
+                        <div
+                          style="flex: 1; min-width: 0; display: flex; justify-content: space-between;"
+                        >
+                          <div />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="editor-icon-box"
+                      style="padding: 0px 18px;"
+                    >
+                      <span
+                        aria-label="eye"
+                        class="anticon anticon-eye"
+                        role="img"
+                        style="font-size: 16px; cursor: pointer;"
+                        tabindex="-1"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="eye"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style="display: none;"
+                  >
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                      >
+                        <span
+                          data-slate-length="0"
+                          data-slate-zero-width="n"
+                        >
+                          ﻿
+                          <br />
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
                 </span>
               </span>
             </span>
@@ -1427,11 +1649,7 @@ loop: false
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1452,7 +1670,7 @@ camera:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1478,11 +1696,7 @@ camera:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1500,7 +1714,7 @@ title: 功能说明
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1551,11 +1765,7 @@ title: 功能说明
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1576,7 +1786,7 @@ function calculate(a, b) {
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1602,11 +1812,7 @@ function calculate(a, b) {
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -1629,7 +1835,7 @@ deadline: 2023-12-31
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2143,11 +2349,7 @@ deadline: 2023-12-31
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2178,7 +2380,7 @@ response:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2205,39 +2407,703 @@ response:
             </span>
           </h3>
           <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
+            data-be="card"
             data-slate-node="element"
+            style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
           >
             <span
-              data-slate-node="text"
+              data-be="card-before"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
             >
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  type: bar
-title: 编辑器性能对比
-data:
-  - name: Ace
-    loadTime: 120
-    memory: 85
-  - name: Monaco
-    loadTime: 420
-    memory: 210
-  - name: ProseMirror
-    loadTime: 180
-    memory: 150
-options:
-  xAxis: name
-  yAxis: 
-    - loadTime(ms)
-    - memory(MB)
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </span>
+            <div
+              class="ant-md-editor-drag-el"
+              data-be="paragraph"
+              data-slate-node="element"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    sens_type
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    count
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    percentage
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    0
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    12312322
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    4
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    2.439
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    1
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    邮箱
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    28
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    17.0732
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    2
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    身份证号2级
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    5
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    3.0488
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    3
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    姓名
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    26
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    15.8537
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    4
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    自定义-手机号01
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    41
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    25
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    5
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    性别
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    4
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    2.439
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    6
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    公司名
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    4
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    2.439
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    7
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    样本中英文
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    7
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    4.2683
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    8
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    正则中文
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    2
+                  </span>
+                </span>
+              </span>
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    1.2195
+                  </span>
+                </span>
+              </span>
+            </div>
+            <span
+              data-be="card-after"
+              data-slate-node="element"
+              style="min-width: 4px; height: 100%; position: relative; line-height: 1; z-index: 99; font-size: 2em; overflow: hidden; display: inline-block;"
+            >
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
                 </span>
               </span>
             </span>
@@ -2292,11 +3158,7 @@ options:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2316,7 +3178,7 @@ options:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2342,11 +3204,7 @@ options:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2364,7 +3222,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2415,11 +3273,7 @@ apiKey: sk_live_•••••••••••••••••••••�
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2444,7 +3298,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2470,11 +3324,7 @@ apiKey: sk_live_•••••••••••••••••••••�
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2496,7 +3346,7 @@ dark:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2547,11 +3397,7 @@ dark:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2572,7 +3418,7 @@ dark:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2598,11 +3444,7 @@ dark:
               </span>
             </span>
           </h3>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
+          <code>
             <span
               data-slate-node="text"
             >
@@ -2622,7 +3464,7 @@ dark:
                 </span>
               </span>
             </span>
-          </div>
+          </code>
           <div
             class="select-none"
             contenteditable="false"
@@ -3276,6 +4118,21 @@ dark:
                           style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
                         >
                           4.1 视频嵌入优化
+                        </span>
+                      </a>
+                    </div>
+                    <div
+                      class="ant-anchor-link"
+                    >
+                      <a
+                        class="ant-anchor-link-title"
+                        href="#_4-1-1-附件展示"
+                        title=""
+                      >
+                        <span
+                          style="max-width: 200px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px;"
+                        >
+                          4.1.1 附件展示
                         </span>
                       </a>
                     </div>
