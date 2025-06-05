@@ -243,7 +243,15 @@ export const TableSql = (
                   onClick={async (e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    navigator.clipboard.writeText(props.input?.sql || '');
+                    if (navigator.clipboard.writeText) {
+                      navigator.clipboard.writeText(props.input?.sql || '');
+                    } else {
+                      document.execCommand(
+                        'copy',
+                        false,
+                        props.input?.sql || '',
+                      );
+                    }
                   }}
                 >
                   <CopyOutlined />
@@ -338,9 +346,17 @@ export const TableSql = (
                   onClick={async (e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    await navigator.clipboard.writeText(
-                      JSON.stringify(dataSource, null, 2),
-                    );
+                    if (navigator.clipboard.writeText) {
+                      navigator.clipboard.writeText(
+                        JSON.stringify(dataSource, null, 2) || '',
+                      );
+                    } else {
+                      document.execCommand(
+                        'copy',
+                        false,
+                        JSON.stringify(dataSource, null, 2),
+                      );
+                    }
                   }}
                 >
                   <CopyOutlined />

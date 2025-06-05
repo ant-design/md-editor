@@ -239,9 +239,25 @@ export const ToolCall = (
                     e.stopPropagation();
                     e.preventDefault();
                     try {
-                      navigator.clipboard.writeText(
-                        JSON.stringify(props.input?.inputArgs || {}, null, 2),
-                      );
+                      if (navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(
+                          JSON.stringify(
+                            props.input?.inputArgs || {},
+                            null,
+                            2,
+                          ) || '',
+                        );
+                      } else {
+                        document.execCommand(
+                          'copy',
+                          false,
+                          JSON.stringify(
+                            props.input?.inputArgs || {},
+                            null,
+                            2,
+                          ) || '',
+                        );
+                      }
                     } catch (error) {}
                   }}
                 >
@@ -345,9 +361,17 @@ export const ToolCall = (
                     e.stopPropagation();
                     e.preventDefault();
                     try {
-                      await navigator.clipboard.writeText(
-                        JSON.stringify(props.output?.response, null, 2),
-                      );
+                      if (navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(
+                          JSON.stringify(props.output?.response, null, 2) || '',
+                        );
+                      } else {
+                        document.execCommand(
+                          'copy',
+                          false,
+                          JSON.stringify(props.output?.response, null, 2) || '',
+                        );
+                      }
                     } catch (error) {}
                   }}
                 >
