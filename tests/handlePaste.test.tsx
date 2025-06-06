@@ -614,9 +614,9 @@ describe('handlePaste utilities', () => {
       Transforms.select(editor, { path: [0, 0], offset: 0 });
     });
 
-    it('should handle markdown text', () => {
+    it('should handle markdown text', async () => {
       const markdownText = '# Heading\n\nParagraph';
-      const result = handlePlainTextPaste(
+      const result = await handlePlainTextPaste(
         editor,
         markdownText,
         { path: [0, 0], offset: 0 },
@@ -626,9 +626,9 @@ describe('handlePaste utilities', () => {
       expect(result).toBe(true);
     });
 
-    it('should handle plain text with selection', () => {
+    it('should handle plain text with selection', async () => {
       const plainText = 'Simple text';
-      const result = handlePlainTextPaste(
+      const result = await handlePlainTextPaste(
         editor,
         plainText,
         { path: [0, 0], offset: 0 },
@@ -638,9 +638,9 @@ describe('handlePaste utilities', () => {
       expect(result).toBe(true);
     });
 
-    it('should handle plain text without selection', () => {
+    it('should handle plain text without selection', async () => {
       const plainText = 'Simple text';
-      const result = handlePlainTextPaste(editor, plainText, null, []);
+      const result = await handlePlainTextPaste(editor, plainText, null, []);
 
       expect(result).toBe(true);
     });
