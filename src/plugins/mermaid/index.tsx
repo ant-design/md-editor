@@ -122,7 +122,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
                   e.stopPropagation();
                   try {
                     const code = props.element.value || '';
-                    if (navigator.clipboard?.writeText) {
+                    if (location.protocol === 'https:') {
                       navigator.clipboard.writeText(code);
                     } else {
                       //@ts-ignore

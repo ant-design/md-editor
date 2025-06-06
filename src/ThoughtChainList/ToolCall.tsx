@@ -239,7 +239,7 @@ export const ToolCall = (
                     e.stopPropagation();
                     e.preventDefault();
                     try {
-                      if (navigator.clipboard.writeText) {
+                      if (location.protocol === 'https:') {
                         navigator.clipboard.writeText(
                           JSON.stringify(
                             props.input?.inputArgs || {},
@@ -361,7 +361,7 @@ export const ToolCall = (
                     e.stopPropagation();
                     e.preventDefault();
                     try {
-                      if (navigator.clipboard.writeText) {
+                      if (location.protocol === 'https:') {
                         navigator.clipboard.writeText(
                           JSON.stringify(props.output?.response, null, 2) || '',
                         );

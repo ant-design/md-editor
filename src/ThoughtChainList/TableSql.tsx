@@ -243,7 +243,7 @@ export const TableSql = (
                   onClick={async (e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    if (navigator.clipboard.writeText) {
+                    if (location.protocol === 'https:') {
                       navigator.clipboard.writeText(props.input?.sql || '');
                     } else {
                       document.execCommand(
@@ -346,7 +346,7 @@ export const TableSql = (
                   onClick={async (e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    if (navigator.clipboard.writeText) {
+                    if (location.protocol === 'https:') {
                       navigator.clipboard.writeText(
                         JSON.stringify(dataSource, null, 2) || '',
                       );
