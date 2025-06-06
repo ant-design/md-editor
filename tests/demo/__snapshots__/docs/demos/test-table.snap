@@ -58,7 +58,7 @@
                 </span>
               </span>
               <div
-                class="ant-md-editor-content-table-container ant-md-editor-content-table-container-editable"
+                class="ant-md-editor-content-table-container"
                 data-be="table"
                 data-slate-node="element"
                 draggable="false"
@@ -184,10 +184,8 @@
                           data-slate-node="element"
                         >
                           <td
-                            colspan="1"
                             data-be="td"
                             data-slate-node="element"
-                            rowspan="13"
                             style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
@@ -360,6 +358,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   行业规&gt;模会随着时间上升
@@ -415,6 +437,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -500,6 +546,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   隐性进入壁垒
@@ -555,6 +625,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -640,6 +734,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   专利、技术优势
@@ -695,6 +813,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -780,6 +922,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   毛利率 &gt; 40%
@@ -835,6 +1001,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -920,6 +1110,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   净利润 &gt; 15%
@@ -975,6 +1189,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -1060,6 +1298,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   成本优势
@@ -1115,6 +1377,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -3166,7 +3452,7 @@
                 </span>
               </span>
               <div
-                class="ant-md-editor-content-table-container ant-md-editor-content-table-container-editable"
+                class="ant-md-editor-content-table-container"
                 data-be="table"
                 data-slate-node="element"
                 draggable="false"
@@ -3599,10 +3885,8 @@
                           data-slate-node="element"
                         >
                           <td
-                            colspan="1"
                             data-be="td"
                             data-slate-node="element"
-                            rowspan="13"
                             style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                           >
                             <span
@@ -3775,6 +4059,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   行业规&gt;模会随着时间上升
@@ -3830,6 +4138,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -3915,6 +4247,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   隐性进入壁垒
@@ -3970,6 +4326,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -4055,6 +4435,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   专利、技术优势
@@ -4110,6 +4514,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -4195,6 +4623,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   毛利率 &gt; 40%
@@ -4250,6 +4702,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -4335,6 +4811,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   净利润 &gt; 15%
@@ -4390,6 +4890,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"
@@ -4475,6 +4999,30 @@
                                 draggable="false"
                               >
                                 <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
                                   data-slate-string="true"
                                 >
                                   成本优势
@@ -4530,6 +5078,30 @@
                         <tr
                           data-slate-node="element"
                         >
+                          <td
+                            data-be="td"
+                            data-slate-node="element"
+                            style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                          >
+                            <span
+                              data-slate-node="text"
+                            >
+                              <span
+                                class=" "
+                                data-be="text"
+                                data-slate-leaf="true"
+                                draggable="false"
+                              >
+                                <span
+                                  data-slate-length="0"
+                                  data-slate-zero-width="n"
+                                >
+                                  ﻿
+                                  <br />
+                                </span>
+                              </span>
+                            </span>
+                          </td>
                           <td
                             data-be="td"
                             data-slate-node="element"

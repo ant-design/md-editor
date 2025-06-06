@@ -678,7 +678,7 @@ Font Awesome图标：:fa-solid fa-rocket:
               </span>
             </span>
             <div
-              class="ant-md-editor-content-table-container ant-md-editor-content-table-container-editable"
+              class="ant-md-editor-content-table-container"
               data-be="table"
               data-slate-node="element"
               draggable="false"
@@ -3109,7 +3109,7 @@ deadline: 2023-12-31
               </span>
             </span>
             <div
-              class="ant-md-editor-content-table-container ant-md-editor-content-table-container-editable"
+              class="ant-md-editor-content-table-container"
               data-be="table"
               data-slate-node="element"
               draggable="false"
