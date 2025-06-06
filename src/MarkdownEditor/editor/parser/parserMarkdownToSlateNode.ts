@@ -1396,6 +1396,7 @@ const parseWithPlugins = (
 };
 
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
+
 function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
   if (!tableRegex.test(markdown)) return markdown; // 如果没有表格，直接返回原始字符串
@@ -1451,11 +1452,13 @@ export const parserMarkdownToSlateNode = (
   const markdownRoot = parser.parse(
     preprocessMarkdownTableNewlines(md || ''),
   ).children;
-
+  console.log(markdownRoot);
   const schema =
     (plugins || [])?.length > 0
       ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
       : (parserBlock(markdownRoot as any[], true, undefined, []) as Elements[]);
+
+  console.log(schema);
 
   return {
     schema: schema?.filter((item) => {

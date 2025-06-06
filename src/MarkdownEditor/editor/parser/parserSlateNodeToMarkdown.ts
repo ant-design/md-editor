@@ -290,7 +290,7 @@ export const parserSlateNodeToMarkdown = (
     } else if (node.type === 'blockquote') {
       // Handle blockquotes
       const blockquoteContent = node.children
-        .map((child: any, index: number) => {
+        .map((child: any) => {
           if (child.type === 'blockquote') {
             // For nested blockquotes, increase the level
             return parserNode(child, '> ', [...parent, node], plugins);
@@ -998,6 +998,7 @@ const handleImage = (node: any) => {
     }
     return `![${node.alt || ''}](${nodeImageUrl.toString()})`;
   } catch (e) {
+    console.warn('Invalid image URL:', node?.url, e);
     return `![${node.alt || ''}](${encodeURI(node?.url)})`;
   }
 };

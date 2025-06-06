@@ -15,5 +15,6 @@ export * from './MarkdownEditor/plugin';
 export * from './MarkdownInputField/AttachmentButton';
 export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
+export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
 export * from './ThoughtChainList';
