@@ -149,7 +149,7 @@ export const ReadonlyTable = ({
       const dom = tableRef.current as HTMLDivElement;
       if (dom) {
         setTimeout(() => {
-          dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px)`;
+          dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px,300px)`;
         }, 200);
       }
     };

@@ -25,16 +25,9 @@ export const SimpleTable = (props: RenderElementProps<TableNode>) => {
         className={classNames(`${baseCls}-container`, hashId)}
         tabIndex={0}
       >
-        <div
-          style={{
-            maxWidth: '100%',
-            width: '100%',
-          }}
-        >
-          <ReadonlyTable {...props} hashId={hashId}>
-            {props.children}
-          </ReadonlyTable>
-        </div>
+        <ReadonlyTable {...props} hashId={hashId}>
+          {props.children}
+        </ReadonlyTable>
       </div>
     </TablePropsContext.Provider>,
   );
