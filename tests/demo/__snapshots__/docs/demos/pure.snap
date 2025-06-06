@@ -100,20 +100,24 @@
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  普通文本  
+                  <span
+                    data-slate-string="true"
+                  >
+                    普通文本  
 **粗体文本**  
 *斜体文本*  
 ~~删除线文本~~  
@@ -124,10 +128,11 @@ x^2^ 上标
 &gt; 引用文本  
 [超链接](https://example.com)  
 👉 特殊符号支持
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -153,20 +158,24 @@ x^2^ 上标
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  首行缩进可通过CSS实现，或使用特殊空格：  缩进文本
+                  <span
+                    data-slate-string="true"
+                  >
+                    首行缩进可通过CSS实现，或使用特殊空格：  缩进文本
 
 有序列表：
 1. 一级项目
@@ -177,10 +186,11 @@ x^2^ 上标
 任务列表：
 - [x] 已完成任务
 - [ ] 待完成任务
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -206,26 +216,31 @@ x^2^ 上标
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  原生支持emoji：🚀 ✅ ❤️  
+                  <span
+                    data-slate-string="true"
+                  >
+                    原生支持emoji：🚀 ✅ ❤️  
 Font Awesome图标：:fa-solid fa-rocket:  
 自定义图标：:custom-icon:
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -906,28 +921,31 @@ Font Awesome图标：:fa-solid fa-rocket:
                 </span>
               </span>
             </span>
-            <div
-              class="ant-md-editor-drag-el"
-              data-be="paragraph"
+            <code
               data-slate-node="element"
+              style="display: inline-block;"
             >
-              <span
-                data-slate-node="text"
+              <div
+                style="display: none;"
               >
                 <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-string="true"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
-                    E = mc^2
+                    <span
+                      data-slate-string="true"
+                    >
+                      E = mc^2
+                    </span>
                   </span>
                 </span>
-              </span>
-            </div>
+              </div>
+            </code>
           </div>
           <div
             class="ant-md-editor-drag-el"
@@ -951,36 +969,49 @@ Font Awesome图标：:fa-solid fa-rocket:
               </span>
             </span>
           </div>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
+          <pre
             data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
           >
-            <span
-              data-slate-node="text"
+            <code>
+              egin{bmatrix}
+a & b \
+c & d
+end{bmatrix}
+	imes
+egin{bmatrix}
+x \
+y
+end{bmatrix}
+=
+egin{bmatrix}
+ax + by \
+cx + dy
+end{bmatrix}
+            </code>
+            <div
+              style="display: none;"
             >
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-length="0"
-                  data-slate-zero-width="n"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  ﻿
-                  <br />
+                  <span
+                    data-slate-length="0"
+                    data-slate-zero-width="n"
+                  >
+                    ﻿
+                    <br />
+                  </span>
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
-          </div>
+            </div>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1006,20 +1037,24 @@ Font Awesome图标：:fa-solid fa-rocket:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  sequenceDiagram
+                  <span
+                    data-slate-string="true"
+                  >
+                    sequenceDiagram
     participant 用户
     participant 编辑器核心
     participant 语法分析器
@@ -1028,10 +1063,11 @@ Font Awesome图标：:fa-solid fa-rocket:
     编辑器核心-&gt;&gt;语法分析器: 请求语法解析
     语法分析器--&gt;&gt;编辑器核心: 返回Token流
     编辑器核心-&gt;&gt;用户: 实时高亮显示
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1057,20 +1093,24 @@ Font Awesome图标：:fa-solid fa-rocket:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  // 可交互代码组件
+                  <span
+                    data-slate-string="true"
+                  >
+                    // 可交互代码组件
 function Counter() {
   const [count, setCount] = useState(0);
   
@@ -1083,10 +1123,11 @@ function Counter() {
     &lt;/div&gt;
   );
 }
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1137,25 +1178,30 @@ function Counter() {
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  [生成目录]
+                  <span
+                    data-slate-string="true"
+                  >
+                    [生成目录]
 maxLevel: 3
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1181,20 +1227,24 @@ maxLevel: 3
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  # 编辑器配置示例
+                  <span
+                    data-slate-string="true"
+                  >
+                    # 编辑器配置示例
 render:
   strategy: incremental
   maxLines: 10000
@@ -1206,10 +1256,11 @@ extensions:
     version: 2.3.1
   - name: git-integration
     version: 1.8.2
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1649,28 +1700,33 @@ extensions:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  format: glb
+                  <span
+                    data-slate-string="true"
+                  >
+                    format: glb
 source: https://example.com/3d/editor.glb
 camera:
   position: [0, 2, 5]
   target: [0, 0, 0]
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1696,25 +1752,30 @@ camera:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  source: https://example.com/audio/note.mp3
+                  <span
+                    data-slate-string="true"
+                  >
+                    source: https://example.com/audio/note.mp3
 title: 功能说明
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1765,28 +1826,33 @@ title: 功能说明
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  // 代码变更示例
+                  <span
+                    data-slate-string="true"
+                  >
+                    // 代码变更示例
 function calculate(a, b) {
 -   return a + b;
 +   return a * b;
 }
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -1812,30 +1878,35 @@ function calculate(a, b) {
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  status: in-progress
+                  <span
+                    data-slate-string="true"
+                  >
+                    status: in-progress
 reviewers:
   - name: 张三
     role: 技术主管
   - name: 李四
     role: 产品经理
 deadline: 2023-12-31
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -2349,20 +2420,24 @@ deadline: 2023-12-31
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  method: GET
+                  <span
+                    data-slate-string="true"
+                  >
+                    method: GET
 path: /api/v1/document/{id}
 description: 获取文档内容
 parameters:
@@ -2377,10 +2452,11 @@ response:
       type: string
     content:
       type: string
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -3158,27 +3234,32 @@ response:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  levels:
+                  <span
+                    data-slate-string="true"
+                  >
+                    levels:
   - PUBLIC: 所有用户可见
   - INTERNAL: 仅内部成员可见
   - CONFIDENTIAL: 仅核心团队可见
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -3204,25 +3285,30 @@ response:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  creditCard: **** **** **** 1234
+                  <span
+                    data-slate-string="true"
+                  >
+                    creditCard: **** **** **** 1234
 apiKey: sk_live_••••••••••••••••••••••••••••••
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -3273,20 +3359,24 @@ apiKey: sk_live_•••••••••••••••••••••�
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  breakpoints:
+                  <span
+                    data-slate-string="true"
+                  >
+                    breakpoints:
   - viewport: &lt; 768px
     components:
       - hide: sidebar
@@ -3295,10 +3385,11 @@ apiKey: sk_live_•••••••••••••••••••••�
     components:
       - hide: footer
       - resize: images(80%)
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -3324,29 +3415,34 @@ apiKey: sk_live_•••••••••••••••••••••�
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  light:
+                  <span
+                    data-slate-string="true"
+                  >
+                    light:
   background: #ffffff
   text: #333333
 dark:
   background: #1e1e1e
   text: #f0f0f0
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h2
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -3397,28 +3493,33 @@ dark:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  metrics:
+                  <span
+                    data-slate-string="true"
+                  >
+                    metrics:
   completeness: 85%
   freshness: 92% 
   brokenLinks: 2
   readability: Grade 10
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
@@ -3444,27 +3545,32 @@ dark:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  [核心架构] --&gt; [扩展系统]
+                  <span
+                    data-slate-string="true"
+                  >
+                    [核心架构] --&gt; [扩展系统]
 [扩展系统] --&gt; [插件API]
 [性能优化] --&gt; [核心架构]
 [用户手册] --&gt; [所有模块]
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <div
             class="select-none"
             contenteditable="false"

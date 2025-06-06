@@ -20,7 +20,7 @@ export const handleSlateMarkdownFragment = (
 ) => {
   try {
     const encoded = clipboardData.getData('application/x-slate-md-fragment');
-    const fragment = JSON.parse(encoded).map((node: any) => {
+    const fragment = JSON.parse(encoded || '[]').map((node: any) => {
       if (node.type === 'card') {
         return {
           ...node,

@@ -196,28 +196,6 @@ export default () => {
       <h2>自定义的 Tag</h2>
       <MarkdownInputField
         inputRef={markdownRef}
-        toolsRender={() => {
-          return [
-            <span
-              key="test"
-              onClick={() => {
-                markdownRef.current?.store?.setMDContent(
-                  '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。',
-                );
-              }}
-              style={{
-                color: 'red',
-                padding: 4,
-                fontSize: 14,
-                borderRadius: 4,
-              }}
-            >
-              模板
-            </span>,
-          ];
-        }}
-        bgColorList={colorList}
-        borderRadius={borderRadius}
         tagInputProps={{
           dropdownRender: () => {
             return null;

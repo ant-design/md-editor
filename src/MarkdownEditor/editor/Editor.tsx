@@ -16,6 +16,7 @@ import {
   Elements,
   MarkdownEditorInstance,
   MarkdownEditorProps,
+  parserMdToSchema,
 } from '../BaseMarkdownEditor';
 import { MElement, MLeaf } from './elements';
 
@@ -43,7 +44,7 @@ import {
 } from './slate-react';
 import { useEditorStore } from './store';
 import { useStyle } from './style';
-import { MARKDOWN_EDITOR_EVENTS } from './utils';
+import { MARKDOWN_EDITOR_EVENTS, parserSlateNodeToMarkdown } from './utils';
 import {
   EditorUtils,
   findLeafPath,
@@ -386,14 +387,8 @@ export const SlateMarkdownEditor = ({
 
       // 3. 处理复制/剪切选中内容
       if (markdownEditorRef.current?.selection) {
-        // 阻止默认行为和事件冒泡
-        event.preventDefault();
-        event.stopPropagation();
+        event.clipboardData?.clearData();
         const editor = markdownEditorRef.current;
-        // 复制纯文本内容
-        const selectedText = Editor.string(editor, editor.selection!);
-        event?.clipboardData.setData('text/plain', selectedText || '');
-
         // 复制HTML内容
         const tempDiv = document.createElement('div');
         const domRange = ReactEditor.toDOMRange(
@@ -402,14 +397,23 @@ export const SlateMarkdownEditor = ({
         );
         const selectedHtml = domRange.cloneContents();
         tempDiv.appendChild(selectedHtml);
-        event?.clipboardData.setData('text/html', tempDiv.innerHTML);
+        event.clipboardData.setData('text/html', tempDiv.innerHTML);
         tempDiv?.remove();
 
         // 设置Slate编辑器特定的片段数据，用于保留格式信息
-        event?.clipboardData.setData(
+        event.clipboardData.setData(
           'application/x-slate-md-fragment',
           JSON.stringify(editor?.getFragment() || []),
         );
+        event.clipboardData.setData(
+          'text/plain',
+          parserSlateNodeToMarkdown(editor?.getFragment()),
+        );
+        event.clipboardData.setData(
+          'text/markdown',
+          parserSlateNodeToMarkdown(editor?.getFragment()),
+        );
+
         // 4. 设置剪贴板的片段数据
         ReactEditor.setFragmentData(
           markdownEditorRef.current,
@@ -423,6 +427,9 @@ export const SlateMarkdownEditor = ({
             at: markdownEditorRef.current.selection!,
           });
         }
+
+        // 阻止默认行为和事件冒泡
+        event.preventDefault();
 
         return true;
       }
@@ -527,7 +534,6 @@ export const SlateMarkdownEditor = ({
         return;
       }
     }
-
     const types = event.clipboardData?.types || ['text/plain'];
     // 1. 首先尝试处理 slate-md-fragment
     if (types.includes('application/x-slate-md-fragment')) {
@@ -569,6 +575,18 @@ export const SlateMarkdownEditor = ({
       }
     }
 
+    if (types.includes('text/markdown')) {
+      const text =
+        event.clipboardData?.getData?.('text/markdown')?.trim() || '';
+      if (text) {
+        Transforms.insertFragment(
+          markdownEditorRef.current,
+          parserMdToSchema(text, plugins).schema,
+        );
+      }
+
+      return;
+    }
     // 4. 处理纯文本
     if (types.includes('text/plain')) {
       const text = event.clipboardData?.getData?.('text/plain')?.trim() || '';

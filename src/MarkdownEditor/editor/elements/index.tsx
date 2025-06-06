@@ -74,10 +74,97 @@ export const MElement = (
           <br />
         </span>
       );
+    case 'katex':
+      return (
+        <pre
+          {...props.attributes}
+          style={{
+            background: 'rgb(242, 241, 241)',
+            color: 'rgb(27, 27, 27)',
+            padding: '1em',
+            borderRadius: '0.5em',
+            margin: '1em 0',
+            fontSize: '0.8em',
+            fontFamily: 'monospace',
+            lineHeight: '1.5',
+            overflowX: 'auto',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-all',
+            wordWrap: 'break-word',
+          }}
+        >
+          <code>{props.element.value}</code>
+          <div
+            style={{
+              display: 'none',
+            }}
+          >
+            {props.children}
+          </div>
+        </pre>
+      );
+    case 'inline-katex':
+      return (
+        <code
+          {...props.attributes}
+          style={{
+            display: 'inline-block',
+          }}
+        >
+          {props.element.value}
+          <div
+            style={{
+              display: 'none',
+            }}
+          >
+            {props.children}
+          </div>
+        </code>
+      );
     case 'mermaid':
-      return <code>{props.children}</code>;
+      return (
+        <pre
+          {...props.attributes}
+          style={{
+            background: 'rgb(242, 241, 241)',
+            color: 'rgb(27, 27, 27)',
+            padding: '1em',
+            borderRadius: '0.5em',
+            margin: '1em 0',
+            fontSize: '0.8em',
+            fontFamily: 'monospace',
+            lineHeight: '1.5',
+            overflowX: 'auto',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-all',
+            wordWrap: 'break-word',
+          }}
+        >
+          <code>{props.children}</code>
+        </pre>
+      );
     case 'code':
-      return <code>{props.children}</code>;
+      return (
+        <pre
+          {...props.attributes}
+          style={{
+            background: 'rgb(242, 241, 241)',
+            color: 'rgb(27, 27, 27)',
+            padding: '1em',
+            borderRadius: '0.5em',
+            margin: '1em 0',
+            fontSize: '0.8em',
+            fontFamily: 'monospace',
+            lineHeight: '1.5',
+            overflowX: 'auto',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-all',
+            wordWrap: 'break-word',
+          }}
+        >
+          <code>{props.children}</code>
+        </pre>
+      );
     case 'list-item':
       return <ListItem {...props} />;
     case 'list':

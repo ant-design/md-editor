@@ -1327,20 +1327,24 @@ end{bmatrix}
                 </span>
               </span>
             </h3>
-            <code>
-              <span
-                data-slate-node="text"
-              >
+            <pre
+              data-slate-node="element"
+              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            >
+              <code>
                 <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-string="true"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
-                    sequenceDiagram
+                    <span
+                      data-slate-string="true"
+                    >
+                      sequenceDiagram
     participant 用户
     participant 编辑器核心
     participant 语法分析器
@@ -1349,10 +1353,11 @@ end{bmatrix}
     编辑器核心-&gt;&gt;语法分析器: 请求语法解析
     语法分析器--&gt;&gt;编辑器核心: 返回Token流
     编辑器核心-&gt;&gt;用户: 实时高亮显示
+                    </span>
                   </span>
                 </span>
-              </span>
-            </code>
+              </code>
+            </pre>
             <h3
               class="ant-md-editor-drag-el"
               data-be="head"
@@ -7505,20 +7510,24 @@ end{bmatrix}
                 </span>
               </span>
             </h3>
-            <code>
-              <span
-                data-slate-node="text"
-              >
+            <pre
+              data-slate-node="element"
+              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+            >
+              <code>
                 <span
-                  class=" "
-                  data-be="text"
-                  data-slate-leaf="true"
-                  draggable="false"
+                  data-slate-node="text"
                 >
                   <span
-                    data-slate-string="true"
+                    class=" "
+                    data-be="text"
+                    data-slate-leaf="true"
+                    draggable="false"
                   >
-                    sequenceDiagram
+                    <span
+                      data-slate-string="true"
+                    >
+                      sequenceDiagram
     participant 用户
     participant 编辑器核心
     participant 语法分析器
@@ -7527,10 +7536,11 @@ end{bmatrix}
     编辑器核心-&gt;&gt;语法分析器: 请求语法解析
     语法分析器--&gt;&gt;编辑器核心: 返回Token流
     编辑器核心-&gt;&gt;用户: 实时高亮显示
+                    </span>
                   </span>
                 </span>
-              </span>
-            </code>
+              </code>
+            </pre>
             <h3
               class="ant-md-editor-drag-el"
               data-be="head"

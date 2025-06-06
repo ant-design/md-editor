@@ -2059,27 +2059,32 @@ class FileBuffer:
               </span>
             </span>
           </h3>
-          <code>
-            <span
-              data-slate-node="text"
-            >
+          <pre
+            data-slate-node="element"
+            style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+          >
+            <code>
               <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
+                data-slate-node="text"
               >
                 <span
-                  data-slate-string="true"
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
                 >
-                  graph TD
+                  <span
+                    data-slate-string="true"
+                  >
+                    graph TD
     A[开始] --&gt; B[处理]
     B --&gt; C[完成]
     C --&gt; D[结束]
+                  </span>
                 </span>
               </span>
-            </span>
-          </code>
+            </code>
+          </pre>
           <h3
             class="ant-md-editor-drag-el"
             data-be="head"
