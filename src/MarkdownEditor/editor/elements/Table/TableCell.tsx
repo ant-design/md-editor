@@ -1,11 +1,10 @@
 ﻿import { Popover, Typography } from 'antd';
 import { default as React, useContext, useMemo } from 'react';
 import { Node } from 'slate';
-import { TablePropsContext } from '.';
 import { useSelStatus } from '../../../hooks/editor';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
-import './table.css';
+import { TablePropsContext } from './TableContext';
 
 /**
  * TableThCell 组件用于渲染表格标题单元格。
