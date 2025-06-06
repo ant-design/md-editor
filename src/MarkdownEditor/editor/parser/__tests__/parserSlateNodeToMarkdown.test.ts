@@ -881,7 +881,7 @@ describe('parse table', () => {
     ];
     const result = parserSlateNodeToMarkdown(nodeList);
     expect(result).toBe(
-      '| 1111 | 111 | 111 |\n| :--- | :--- | :--- |\n| 111 | 1 | 1 |\n| 111 | 111 | 111 |',
+      '<!--{"colWidths":[200,200,200]}-->\n| 1111 | 111 | 111 |\n| :--- | :--- | :--- |\n| 111 | 1 | 1 |\n| 111 | 111 | 111 |',
     );
   });
 });
