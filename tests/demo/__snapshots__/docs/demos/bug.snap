@@ -3461,276 +3461,272 @@
               tabindex="0"
             >
               <div
-                style="max-width: 100%; width: 100%;"
+                aria-describedby="test-id"
+                class="ant-md-editor-content-table"
+                style="flex: 1; min-width: min(190px,272px,300px);"
               >
-                <div
-                  aria-describedby="test-id"
-                  class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: min(190px,272px);"
+                <table
+                  class="ant-md-editor-content-table-editor-table"
                 >
-                  <table
-                    class="ant-md-editor-content-table-editor-table"
+                  <colgroup>
+                    <col
+                      style="width: 84px; min-width: 84px; max-width: 84px;"
+                    />
+                    <col
+                      style="width: 60px; min-width: 60px; max-width: 60px;"
+                    />
+                    <col
+                      style="width: 60px; min-width: 60px; max-width: 60px;"
+                    />
+                    <col
+                      style="width: 60px; min-width: 60px; max-width: 60px;"
+                    />
+                  </colgroup>
+                  <tbody
+                    data-slate-node="element"
                   >
-                    <colgroup>
-                      <col
-                        style="width: 84px; min-width: 84px; max-width: 84px;"
-                      />
-                      <col
-                        style="width: 60px; min-width: 60px; max-width: 60px;"
-                      />
-                      <col
-                        style="width: 60px; min-width: 60px; max-width: 60px;"
-                      />
-                      <col
-                        style="width: 60px; min-width: 60px; max-width: 60px;"
-                      />
-                    </colgroup>
-                    <tbody
+                    <tr
                       data-slate-node="element"
                     >
-                      <tr
+                      <td
+                        data-be="td"
                         data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                       >
-                        <td
-                          data-be="td"
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
                           data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
+                          <span
+                            data-slate-node="text"
                           >
                             <span
-                              data-slate-node="text"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
                               <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-string="true"
                               >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  1
-                                </span>
+                                1
                               </span>
                             </span>
-                          </div>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
-                          >
-                            <span
-                              data-slate-node="text"
-                            >
-                              <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
-                              >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  2
-                                </span>
-                              </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
-                          >
-                            <span
-                              data-slate-node="text"
-                            >
-                              <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
-                              >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  3
-                                </span>
-                              </span>
-                            </span>
-                          </div>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
-                          >
-                            <span
-                              data-slate-node="text"
-                            >
-                              <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
-                              >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  4
-                                </span>
-                              </span>
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
+                          </span>
+                        </div>
+                      </td>
+                      <td
+                        data-be="td"
                         data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                       >
-                        <td
-                          data-be="td"
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
                           data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
+                          <span
+                            data-slate-node="text"
                           >
                             <span
-                              data-slate-node="text"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
                               <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-string="true"
                               >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  Ewqrqew
-                                </span>
+                                2
                               </span>
                             </span>
-                          </div>
-                        </td>
-                        <td
-                          data-be="td"
+                          </span>
+                        </div>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
                           data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
+                          <span
+                            data-slate-node="text"
                           >
                             <span
-                              data-slate-node="text"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
                               <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-string="true"
                               >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  qewr
-                                </span>
+                                3
                               </span>
                             </span>
-                          </div>
-                        </td>
-                        <td
-                          data-be="td"
+                          </span>
+                        </div>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
                           data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
+                          <span
+                            data-slate-node="text"
                           >
                             <span
-                              data-slate-node="text"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
                               <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-string="true"
                               >
-                                <span
-                                  data-slate-string="true"
-                                >
-                                  qewr
-                                </span>
+                                4
                               </span>
                             </span>
-                          </div>
-                        </td>
-                        <td
-                          data-be="td"
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
                           data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                         >
-                          <div
-                            class="ant-md-editor-drag-el"
-                            data-be="paragraph"
-                            data-slate-node="element"
+                          <span
+                            data-slate-node="text"
                           >
                             <span
-                              data-slate-node="text"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
                               <span
-                                class=" "
-                                data-be="text"
-                                data-slate-leaf="true"
-                                draggable="false"
+                                data-slate-string="true"
                               >
-                                <span
-                                  data-slate-length="0"
-                                  data-slate-zero-width="n"
-                                >
-                                  ﻿
-                                  <br />
-                                </span>
+                                Ewqrqew
                               </span>
                             </span>
+                          </span>
+                        </div>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
+                          data-slate-node="element"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
                             <span
-                              contenteditable="false"
-                              style="font-size: 0px; line-height: 0; display: inline-block;"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                               
+                              <span
+                                data-slate-string="true"
+                              >
+                                qewr
+                              </span>
                             </span>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                          </span>
+                        </div>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
+                          data-slate-node="element"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                qewr
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
+                          data-slate-node="element"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-length="0"
+                                data-slate-zero-width="n"
+                              >
+                                ﻿
+                                <br />
+                              </span>
+                            </span>
+                          </span>
+                          <span
+                            contenteditable="false"
+                            style="font-size: 0px; line-height: 0; display: inline-block;"
+                          >
+                             
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <span

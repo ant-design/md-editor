@@ -590,682 +590,678 @@
               tabindex="0"
             >
               <div
-                style="max-width: 100%; width: 100%;"
+                aria-describedby="test-id"
+                class="ant-md-editor-content-table"
+                style="flex: 1; min-width: min(190px,376px,300px);"
               >
-                <div
-                  aria-describedby="test-id"
-                  class="ant-md-editor-content-table"
-                  style="flex: 1; min-width: min(190px,376px);"
+                <table
+                  class="ant-md-editor-content-table-editor-table"
                 >
-                  <table
-                    class="ant-md-editor-content-table-editor-table"
+                  <colgroup>
+                    <col
+                      style="width: 92px; min-width: 92px; max-width: 92px;"
+                    />
+                    <col
+                      style="width: 92px; min-width: 92px; max-width: 92px;"
+                    />
+                    <col
+                      style="width: 92px; min-width: 92px; max-width: 92px;"
+                    />
+                    <col
+                      style="width: 92px; min-width: 92px; max-width: 92px;"
+                    />
+                  </colgroup>
+                  <tbody
+                    data-slate-node="element"
                   >
-                    <colgroup>
-                      <col
-                        style="width: 92px; min-width: 92px; max-width: 92px;"
-                      />
-                      <col
-                        style="width: 92px; min-width: 92px; max-width: 92px;"
-                      />
-                      <col
-                        style="width: 92px; min-width: 92px; max-width: 92px;"
-                      />
-                      <col
-                        style="width: 92px; min-width: 92px; max-width: 92px;"
-                      />
-                    </colgroup>
-                    <tbody
+                    <tr
                       data-slate-node="element"
                     >
-                      <tr
+                      <th
+                        data-be="th"
                         data-slate-node="element"
                       >
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                技术方向
-                              </span>
+                              技术方向
                             </span>
                           </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                实现方案
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                优点
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                        <th
-                          data-be="th"
-                          data-slate-node="element"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                缺点
-                              </span>
-                            </span>
-                          </span>
-                        </th>
-                      </tr>
-                      <tr
+                        </span>
+                      </th>
+                      <th
+                        data-be="th"
                         data-slate-node="element"
                       >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                语法高亮
-                              </span>
+                              实现方案
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                正则表达式匹配
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                实现简单
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                性能较差
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
+                        </span>
+                      </th>
+                      <th
+                        data-be="th"
                         data-slate-node="element"
                       >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-length="0"
-                                data-slate-zero-width="n"
-                              >
-                                ﻿
-                                <br />
-                              </span>
+                              优点
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                语法树分析
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                高准确性
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                实现复杂
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
+                        </span>
+                      </th>
+                      <th
+                        data-be="th"
                         data-slate-node="element"
                       >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                文件管理
-                              </span>
+                              缺点
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                内存映射文件
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                大文件处理优势
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                内存消耗较大
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
+                        </span>
+                      </th>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
                         data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                       >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-length="0"
-                                data-slate-zero-width="n"
-                              >
-                                ﻿
-                                <br />
-                              </span>
+                              语法高亮
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                分块加载机制
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                内存效率高
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                需要复杂索引
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
                         data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                       >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                渲染引擎
-                              </span>
+                              正则表达式匹配
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                Canvas 绘制
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                高性能渲染
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
-                        >
-                          <span
-                            data-slate-node="text"
-                          >
-                            <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
-                            >
-                              <span
-                                data-slate-string="true"
-                              >
-                                兼容性要求高
-                              </span>
-                            </span>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
                         data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
                       >
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-length="0"
-                                data-slate-zero-width="n"
-                              >
-                                ﻿
-                                <br />
-                              </span>
+                              实现简单
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                DOM 元素渲染
-                              </span>
+                              性能较差
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-length="0"
+                              data-slate-zero-width="n"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                天然支持文字样式
-                              </span>
+                              ﻿
+                              <br />
                             </span>
                           </span>
-                        </td>
-                        <td
-                          data-be="td"
-                          data-slate-node="element"
-                          style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                大数据量性能瓶颈
-                              </span>
+                              语法树分析
                             </span>
                           </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              高准确性
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              实现复杂
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              文件管理
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              内存映射文件
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              大文件处理优势
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              内存消耗较大
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-length="0"
+                              data-slate-zero-width="n"
+                            >
+                              ﻿
+                              <br />
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              分块加载机制
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              内存效率高
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              需要复杂索引
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              渲染引擎
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              Canvas 绘制
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              高性能渲染
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              兼容性要求高
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      data-slate-node="element"
+                    >
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-length="0"
+                              data-slate-zero-width="n"
+                            >
+                              ﻿
+                              <br />
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              DOM 元素渲染
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              天然支持文字样式
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                      <td
+                        data-be="td"
+                        data-slate-node="element"
+                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              大数据量性能瓶颈
+                            </span>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <span
