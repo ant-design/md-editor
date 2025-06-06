@@ -713,3 +713,279 @@ describe('parserSlateNodeToMarkdown alignment tests', () => {
     });
   });
 });
+
+describe('parse table', () => {
+  it('should handle table', () => {
+    const nodeList = [
+      {
+        type: 'card',
+        children: [
+          {
+            type: 'card-before',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+          {
+            type: 'table',
+            otherProps: {
+              colWidths: [200, 200, 200],
+            },
+            children: [
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '1111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '1',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '1',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          {
+                            text: '111',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'card-after',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const result = parserSlateNodeToMarkdown(nodeList);
+    expect(result).toBe(
+      '| 1111 | 111 | 111 |\n| :--- | :--- | :--- |\n| 111 | 1 | 1 |\n| 111 | 111 | 111 |',
+    );
+  });
+});
+
+describe('parse image', () => {
+  it('should handle image', () => {
+    const nodeList = [
+      {
+        type: 'card',
+        children: [
+          {
+            type: 'card-before',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+          {
+            type: 'image',
+            url: 'http://example.com/image.jpg',
+            alt: 'Sample image',
+            width: 800,
+            height: 600,
+          },
+          {
+            type: 'card-after',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const result = parserSlateNodeToMarkdown(nodeList);
+    expect(result).toBe(
+      '![Sample image](http://example.com/image.jpg?width=800&height=600)',
+    );
+  });
+
+  it('should handle two image', () => {
+    const nodeList = [
+      {
+        type: 'card',
+        children: [
+          {
+            type: 'card-before',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+          {
+            type: 'image',
+            url: 'http://example.com/image.jpg',
+            alt: 'Sample image',
+            width: 800,
+            height: 600,
+          },
+          {
+            type: 'card-after',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: 'card',
+        children: [
+          {
+            type: 'card-before',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+          {
+            type: 'image',
+            url: 'http://example.com/image.jpg',
+            alt: 'Sample image',
+            width: 800,
+            height: 600,
+          },
+          {
+            type: 'card-after',
+            children: [
+              {
+                text: '',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const result = parserSlateNodeToMarkdown(nodeList);
+    expect(result).toBe(
+      '![Sample image](http://example.com/image.jpg?width=800&height=600)\n\n![Sample image](http://example.com/image.jpg?width=800&height=600)',
+    );
+  });
+});

@@ -1452,13 +1452,10 @@ export const parserMarkdownToSlateNode = (
   const markdownRoot = parser.parse(
     preprocessMarkdownTableNewlines(md || ''),
   ).children;
-  console.log(markdownRoot);
   const schema =
     (plugins || [])?.length > 0
       ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
       : (parserBlock(markdownRoot as any[], true, undefined, []) as Elements[]);
-
-  console.log(schema);
 
   return {
     schema: schema?.filter((item) => {

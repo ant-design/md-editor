@@ -189,7 +189,11 @@ const parserNode = (
       str += handleListItem(node, preString, parent, plugins);
       break;
     case 'table':
+      str += table(node, preString, parent, plugins);
+      break;
     case 'chart':
+      str += table(node, preString, parent, plugins);
+      break;
     case 'column-group':
       str += table(node, preString, parent, plugins);
       break;
@@ -246,6 +250,8 @@ export const parserSlateNodeToMarkdown = (
 
       delete configProps['columns'];
       delete configProps['dataSource'];
+      delete configProps['colWidths'];
+      delete configProps['mergeCells'];
 
       if (node.type === 'link-card') {
         configProps.type = 'card';
@@ -359,7 +365,10 @@ export const parserSlateNodeToMarkdown = (
         }
         // Most block elements should have double newlines
         else if (i !== tree.length - 1) {
-          str += '\n\n';
+          // Card 节点不添加额外的换行符，让其子节点自行处理
+          if (node.type !== 'card') {
+            str += '\n\n';
+          }
         }
       }
     }
@@ -413,6 +422,11 @@ export const parserSlateNodeToMarkdown = (
 
   // Clean up multiple consecutive newlines
   str = str.replace(/\n{3,}/g, '\n\n');
+
+  // Remove leading newlines for root level content
+  if (parent.length === 1 && parent[0].root) {
+    str = str.replace(/^\n+/, '');
+  }
 
   // Special handling for consecutive headings
   if (tree.length > 1) {
@@ -703,15 +717,31 @@ const table = (
           }
         };
 
-        const cellProcessor = (cell: any) =>
-          cell.type === 'table-cell'
-            ? parserSlateNodeToMarkdown(
-                cell.children,
+        const cellProcessor = (cell: any) => {
+          if (cell.type !== 'table-cell') return '';
+
+          // 对于表格单元格，直接提取文本内容，避免段落格式化
+          return cell.children
+            .map((child: any) => {
+              if (child.type === 'paragraph') {
+                // 对于段落，直接处理其文本内容
+                return parserSlateNodeToMarkdown(
+                  child.children,
+                  '',
+                  [...parent, cell, child],
+                  plugins,
+                );
+              }
+              return parserSlateNodeToMarkdown(
+                [child],
                 '',
                 [...parent, cell],
                 plugins,
-              )
-            : '';
+              );
+            })
+            .join('')
+            .trim();
+        };
 
         c.type === 'table-row' && c?.children
           ? processRow(c.children, cellProcessor)
@@ -751,7 +781,7 @@ const table = (
     left: (length: number) => ':' + '-'.repeat(Math.max(3, length - 1)),
     center: (length: number) => ':' + '-'.repeat(Math.max(3, length - 2)) + ':',
     right: (length: number) => '-'.repeat(Math.max(3, length - 1)) + ':',
-    default: (length: number) => '-'.repeat(Math.max(3, length)),
+    default: (length: number) => ':' + '-'.repeat(Math.max(3, length - 1)), // 默认使用左对齐
   };
 
   const output: string[] = [];
@@ -769,8 +799,11 @@ const table = (
       const length = Math.max(3, colLength[j]);
       const diff = length - strLength;
 
+      // 检查是否有明确的对齐信息
+      const hasExplicitAlignment = head[j]?.align !== undefined;
+
       str =
-        diff > 0
+        diff > 0 && hasExplicitAlignment
           ? (
               alignStrategies[head[j]?.align as keyof typeof alignStrategies] ||
               alignStrategies.default
