@@ -250,8 +250,6 @@ export const parserSlateNodeToMarkdown = (
 
       delete configProps['columns'];
       delete configProps['dataSource'];
-      delete configProps['colWidths'];
-      delete configProps['mergeCells'];
 
       if (node.type === 'link-card') {
         configProps.type = 'card';
