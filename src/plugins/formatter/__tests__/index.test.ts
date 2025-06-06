@@ -131,5 +131,11 @@ describe('MarkdownFormatter', () => {
 [链接Link说明](url)`;
       expect(MarkdownFormatter.format(input)).toBe(expected);
     });
+
+    it('should use set table content', () => {
+      const input = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
+      const expected = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
+      expect(MarkdownFormatter.format(input)).toBe(expected);
+    });
   });
 });

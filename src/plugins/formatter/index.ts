@@ -20,13 +20,35 @@ export class MarkdownFormatter {
     // 将连续的空白行（包括只包含空格的行）替换为单个换行符
     normalizedText = normalizedText.replace(/\n[\s\n]+/g, '\n');
 
-    // 确保段落之间有一个空行
-    normalizedText = normalizedText.replace(/\n(?!\n)/g, '\n\n');
+    // 保护表格内容：识别表格行并保持它们的单行换行符
+    const lines = normalizedText.split('\n');
+    const result: string[] = [];
 
-    // 移除末尾多余的换行符
-    normalizedText = normalizedText.replace(/\n+$/, '');
+    for (let i = 0; i < lines.length; i++) {
+      const currentLine = lines[i];
+      result.push(currentLine);
 
-    return normalizedText;
+      // 如果不是最后一行，决定添加什么样的换行符
+      if (i < lines.length - 1) {
+        const nextLine = lines[i + 1];
+
+        // 检查当前行和下一行是否是表格行
+        const isCurrentTableRow = /^\s*\|.*\|\s*$/.test(currentLine);
+        const isNextTableRow = /^\s*\|.*\|\s*$/.test(nextLine);
+
+        // 如果当前行和下一行都是表格行，只添加一个换行符
+        // 否则添加两个换行符（段落分隔）
+        if (isCurrentTableRow && isNextTableRow) {
+          // 表格行之间保持单换行符
+          // 不添加额外的换行符，join会自动添加一个
+        } else {
+          // 段落之间添加额外的空行
+          result.push('');
+        }
+      }
+    }
+
+    return result.join('\n').replace(/\n+$/, '');
   }
 
   /**
