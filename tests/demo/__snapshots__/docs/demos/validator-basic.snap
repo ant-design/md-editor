@@ -18,7 +18,7 @@
         <div
           style="margin: 8px 0px;"
         >
-          ❌ 验证过程出错：TypeError: __vite_ssr_import_0__.validator.validateValue is not a function
+          ✅ 值验证结果：有效
         </div>
       </div>
     </div>
