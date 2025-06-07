@@ -48,6 +48,7 @@ const isCardEmpty = (cardNode: any): boolean => {
  *
  * @param editor - Slate编辑器实例
  * @param operation - 要处理的操作
+ * @param apply - 原始的apply函数
  * @returns 如果操作被处理则返回true，否则返回false
  *
  * @description
@@ -57,7 +58,7 @@ const isCardEmpty = (cardNode: any): boolean => {
  * - 在卡片内插入节点 (insert_node)
  * - 检查并删除空卡片
  */
-const handleCardOperation = (editor: Editor, operation: Operation): boolean => {
+const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: Operation) => void): boolean => {
   if (operation.type === 'remove_node') {
     const { node } = operation;
     const selectPath = editor.selection?.anchor?.path;
@@ -67,9 +68,8 @@ const handleCardOperation = (editor: Editor, operation: Operation): boolean => {
 
     // 删除card时，直接删除整个卡片
     if (node.type === 'card') {
-      Transforms.removeNodes(editor, {
-        at: operation.path,
-      });
+      // 直接执行原始操作，避免递归
+      apply(operation);
       return true;
     }
     
@@ -177,6 +177,7 @@ const handleCardOperation = (editor: Editor, operation: Operation): boolean => {
  *
  * @param editor - Slate编辑器实例
  * @param operation - 要处理的操作
+ * @param apply - 原始的apply函数
  * @returns 如果操作被处理则返回true，否则返回false
  *
  * @description
@@ -187,6 +188,7 @@ const handleCardOperation = (editor: Editor, operation: Operation): boolean => {
 const handleLinkAndMediaOperation = (
   editor: Editor,
   operation: Operation,
+  apply: (op: Operation) => void,
 ): boolean => {
   if (
     operation.type === 'split_node' &&
@@ -230,6 +232,7 @@ const handleLinkAndMediaOperation = (
  *
  * @param editor - Slate编辑器实例
  * @param operation - 要处理的操作
+ * @param apply - 原始的apply函数
  * @returns 如果操作被处理则返回true，否则返回false
  *
  * @description
@@ -239,6 +242,7 @@ const handleLinkAndMediaOperation = (
 const handleSchemaOperation = (
   editor: Editor,
   operation: Operation,
+  apply: (op: Operation) => void,
 ): boolean => {
   if (
     operation.type === 'split_node' &&
@@ -271,6 +275,7 @@ const handleSchemaOperation = (
  *
  * @param editor - Slate编辑器实例
  * @param operation - 要处理的操作
+ * @param apply - 原始的apply函数
  * @returns 如果操作被处理则返回true，否则返回false
  *
  * @description
@@ -282,6 +287,7 @@ const handleSchemaOperation = (
 const handleCodeTagOperation = (
   editor: Editor,
   operation: Operation,
+  apply: (op: Operation) => void,
 ): boolean => {
   if (operation.type === 'remove_text') {
     const currentNode = Node.get(editor, operation.path);
@@ -332,7 +338,7 @@ const handleCodeTagOperation = (
       Transforms.removeNodes(editor, {
         at: prePath,
       });
-      editor.apply(operation);
+      apply(operation);
       return true;
     }
   }
@@ -400,7 +406,7 @@ export const withMarkdown = (editor: Editor) => {
   editor.apply = (operation: Operation) => {
     // 依次尝试每个处理函数
     for (const handler of operationHandlers) {
-      if (handler(editor, operation)) {
+      if (handler(editor, operation, apply)) {
         return;
       }
     }
