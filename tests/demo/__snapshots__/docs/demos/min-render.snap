@@ -181,9 +181,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -2981,9 +2985,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -3508,9 +3516,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -4388,9 +4400,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -5268,9 +5284,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -6148,9 +6168,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -7028,9 +7052,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -7908,9 +7936,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -8127,9 +8159,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -8305,9 +8341,13 @@
                 </span>
               </h2>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"
@@ -8351,7 +8391,7 @@
                       tabindex="-1"
                     >
                       <div
-                        style="padding: 12px; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
+                        style="padding: 12px; box-sizing: border-box; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
                       >
                         <div
                           style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
@@ -8580,9 +8620,13 @@
                 </span>
               </div>
               <div
+                aria-label="可选择的卡片元素"
+                aria-selected="false"
                 data-be="card"
                 data-slate-node="element"
-                style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+                role="button"
+                style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                tabindex="0"
               >
                 <span
                   data-be="card-before"

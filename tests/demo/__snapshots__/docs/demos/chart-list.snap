@@ -26,9 +26,13 @@
             zindex="-1"
           >
             <div
+              aria-label="可选择的卡片元素"
+              aria-selected="false"
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+              role="button"
+              style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              tabindex="0"
             >
               <span
                 data-be="card-before"
@@ -792,9 +796,13 @@
               </span>
             </h2>
             <div
+              aria-label="可选择的卡片元素"
+              aria-selected="false"
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+              role="button"
+              style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              tabindex="0"
             >
               <span
                 data-be="card-before"
@@ -5636,9 +5644,13 @@
               </span>
             </h2>
             <div
+              aria-label="可选择的卡片元素"
+              aria-selected="false"
               data-be="card"
               data-slate-node="element"
-              style="display: flex; gap: 4px; max-width: 100%; align-items: flex-end;"
+              role="button"
+              style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+              tabindex="0"
             >
               <span
                 data-be="card-before"
