@@ -108,7 +108,30 @@ export const cnLabels = {
   seconds: '秒',
   minutes: '分钟',
   hours: '小时',
-  days: '天'
+  days: '天',
+  inputPlaceholder: '请输入值',
+  emptyObjectConfig: '对象配置为空',
+  close: '关闭',
+  runCode: '运行代码',
+  rerender: '重新渲染',
+  download: '下载',
+  dragToMove: '拖拽移动',
+  format: '格式化',
+  removeLink: '移除链接',
+  largeTitle: '大标题',
+  paragraphTitle: '段落标题',
+  smallTitle: '小标题',
+  bodyText: '正文',
+  leftAlign: '左对齐',
+  centerAlign: '居中对齐',
+  rightAlign: '右对齐',
+  inlineImage: '行内图片',
+  blockImage: '单独一行',
+  quickSettings: '快捷设置',
+  elements: '元素',
+  media: '媒体',
+  list: '列表',
+  heading: '标题'
 };
 
 // 英文 key-label 映射
@@ -218,7 +241,30 @@ export const enLabels: typeof cnLabels = {
   seconds: 'seconds',
   minutes: 'minutes',
   hours: 'hours',
-  days: 'days'
+  days: 'days',
+  inputPlaceholder: 'Please input',
+  emptyObjectConfig: 'Empty object configuration',
+  close: 'Close',
+  runCode: 'Run Code',
+  rerender: 'Rerender',
+  download: 'Download',
+  dragToMove: 'Drag to Move',
+  format: 'Format',
+  removeLink: 'Remove Link',
+  largeTitle: 'Large Title',
+  paragraphTitle: 'Paragraph Title',
+  smallTitle: 'Small Title',
+  bodyText: 'Body Text',
+  leftAlign: 'Left Align',
+  centerAlign: 'Center Align',
+  rightAlign: 'Right Align',
+  inlineImage: 'Inline Image',
+  blockImage: 'Block Image',
+  quickSettings: 'Quick Settings',
+  elements: 'Elements',
+  media: 'Media',
+  list: 'List',
+  heading: 'Heading'
 };
 
 export type LocalKeys = typeof cnLabels;

@@ -363,7 +363,7 @@ export const BaseToolBar = (props: {
 
     // 添加格式化按钮
     list.push(
-      <Tooltip title="格式化" key="format">
+      <Tooltip title={i18n.locale?.format || '格式化'} key="format">
         <div
           role="button"
           key="format"

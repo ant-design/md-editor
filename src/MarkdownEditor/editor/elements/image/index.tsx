@@ -3,9 +3,10 @@
   LoadingOutlined,
   PicCenterOutlined,
   PicLeftOutlined,
+  BlockOutlined,
 } from '@ant-design/icons';
 import { Image, ImageProps, Modal, Popover, Space } from 'antd';
-import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useContext } from 'react';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
@@ -16,6 +17,8 @@ import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { useGetSetState } from '../../utils';
 import { getMediaType } from '../../utils/dom';
+import { I18nContext } from '../../../../i18n';
+import { Tooltip } from 'antd';
 
 /**
  * 图片组件，带有错误处理功能
@@ -34,6 +37,7 @@ import { getMediaType } from '../../utils/dom';
 export const ImageAndError: React.FC<ImageProps> = (props) => {
   const { editorProps } = useEditorStore();
   const [error, setError] = React.useState(false);
+  const { locale } = useContext(I18nContext);
   if (error) {
     return (
       <a href={props.src} target="_blank" rel="noopener noreferrer">
@@ -249,6 +253,7 @@ export function EditorImage({
     },
     [path],
   );
+  const { locale } = useContext(I18nContext);
 
   const initial = useCallback(async () => {
     let type = getMediaType(element?.url, element.alt);
@@ -355,13 +360,13 @@ export function EditorImage({
         content={
           <Space>
             <ActionIconBox
-              title="删除"
+              title={locale?.delete || '删除'}
               type="danger"
               onClick={(e) => {
                 e.stopPropagation();
                 Modal.confirm({
-                  title: '删除媒体',
-                  content: '确定删除该媒体吗？',
+                  title: locale?.deleteMedia || '删除媒体',
+                  content: locale?.confirmDelete || '确定删除该媒体吗？',
                   onOk: () => {
                     Transforms.removeNodes(markdownEditorRef.current, {
                       at: path,
@@ -373,7 +378,7 @@ export function EditorImage({
               <DeleteFilled />
             </ActionIconBox>
             <ActionIconBox
-              title={element?.block ? '行内图片' : '"单独一行"'}
+              title={element?.block ? locale?.blockImage : locale?.inlineImage}
               onClick={(e) => {
                 e.stopPropagation();
                 Transforms.setNodes(
@@ -396,7 +401,7 @@ export function EditorImage({
                 );
               }}
             >
-              {element.block ? <PicLeftOutlined /> : <PicCenterOutlined />}
+              <BlockOutlined />
             </ActionIconBox>
           </Space>
         }

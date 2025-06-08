@@ -3,8 +3,9 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, InputNumber, Select, Space } from 'antd';
 import type { Rule } from 'antd/es/form';
 import { merge } from 'lodash';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useContext } from 'react';
 import { LowCodeSchema, SchemaProperty } from '../../schema/types';
+import { I18nContext } from '../../i18n';
 
 interface SchemaFormProps {
   schema: LowCodeSchema;
@@ -24,6 +25,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
 }) => {
   const [form] = Form.useForm();
   const { properties = {} } = schema?.component || {};
+  const { locale } = useContext(I18nContext);
 
   // 生成表单验证规则
   const generateRules = useCallback((property: SchemaProperty): Rule[] => {
@@ -100,11 +102,11 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   // 获取通用输入框属性
   const getCommonInputProps = useCallback(
     (property: SchemaProperty) => ({
-      placeholder: `请输入${property.title || property.description || ''}`,
+      placeholder: locale?.inputPlaceholder,
       readOnly: readonly,
       disabled: readonly,
     }),
-    [readonly],
+    [readonly, locale],
   );
 
   // 渲染基础表单项
@@ -140,7 +142,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
           return <Input {...commonProps} />;
       }
     },
-    [getCommonInputProps],
+    [getCommonInputProps, locale],
   );
 
   // 渲染数组项内容
@@ -250,7 +252,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       baseName?: string | number,
     ): React.ReactNode => {
       if (!property.properties) {
-        return <Input placeholder="对象配置为空" disabled />;
+        return <Input placeholder={locale?.emptyObjectConfig} disabled />;
       }
 
       return (
@@ -271,7 +273,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
         </Card>
       );
     },
-    [getPropertyTitle, generateRules],
+    [getPropertyTitle, generateRules, locale],
   );
 
   // 根据属性类型返回对应的表单组件
