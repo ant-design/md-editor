@@ -49,12 +49,13 @@ export const ToolCall = (
 ) => {
   const [editor, setEditor] = React.useState<boolean>(false);
   const editorRef = React.useRef<MarkdownEditorInstance | undefined>(undefined);
+  const { locale } = useContext(I18nContext);
 
   const errorMsg =
     props.output?.errorMsg ||
     props.output?.response?.error ||
     props.output?.response?.errorMsg;
-  const i18n = useContext(I18nContext);
+
   return useMemo(() => {
     if (editor) {
       return (
@@ -90,7 +91,7 @@ export const ToolCall = (
                 justifyContent: 'space-between',
               }}
             >
-              {i18n.locale?.executionParameters || '执行入参'}
+              {locale.executionParameters}
             </div>
             <div
               style={{
@@ -152,7 +153,7 @@ export const ToolCall = (
                 );
               }}
             >
-              {i18n.locale?.cancel || '取消'}
+              {locale.cancel}
             </Button>
             <Button
               style={{
@@ -175,7 +176,7 @@ export const ToolCall = (
                 });
               }}
             >
-              {i18n.locale?.retry || '重试'}
+              {locale.retry}
             </Button>
           </div>
         </div>
@@ -216,72 +217,55 @@ export const ToolCall = (
                 justifyContent: 'space-between',
               }}
             >
-              {i18n.locale?.executionParameters || '执行入参'}
+              {locale.executionParameters}
               <div
                 style={{
                   display: 'flex',
-                  gap: '8px',
+                  flexDirection: 'row',
+                  gap: '10px',
+                  alignItems: 'center',
                 }}
               >
-                {!errorMsg ? (
-                  <ActionIconBox
-                    onClick={() => {
-                      setEditor(true);
-                    }}
-                    title={'修改'}
-                  >
-                    <EditOutlined />
-                  </ActionIconBox>
+                {props.costMillis ? (
+                  <CostMillis costMillis={props.costMillis} />
                 ) : null}
                 <ActionIconBox
-                  title="复制"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    try {
-                      if (location.protocol === 'https:') {
-                        navigator.clipboard.writeText(
-                          JSON.stringify(
-                            props.input?.inputArgs || {},
-                            null,
-                            2,
-                          ) || '',
-                        );
-                      } else {
-                        document.execCommand(
-                          'copy',
-                          false,
-                          JSON.stringify(
-                            props.input?.inputArgs || {},
-                            null,
-                            2,
-                          ) || '',
-                        );
-                      }
-                    } catch (error) {}
+                  title={locale.copy}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      JSON.stringify(props.input?.inputArgs || {}, null, 2),
+                    );
                   }}
                 >
                   <CopyOutlined />
                 </ActionIconBox>
+                {props.onChangeItem ? (
+                  <ActionIconBox
+                    title={locale.edit}
+                    onClick={() => {
+                      setEditor(true);
+                    }}
+                  >
+                    <EditOutlined />
+                  </ActionIconBox>
+                ) : null}
               </div>
             </div>
             <div
               style={{
                 display: 'flex',
-                gap: '10px',
                 borderRadius: '12px',
-                opacity: 1,
-                flexDirection: 'column',
                 alignSelf: 'stretch',
+                background: '#FFFFFF',
               }}
               className="code-view"
             >
               <MarkdownEditor
+                {...props.markdownRenderProps}
                 style={{
                   padding: 0,
                   width: '100%',
                 }}
-                {...props.markdownRenderProps}
                 toc={false}
                 readonly
                 contentStyle={{
@@ -296,41 +280,111 @@ export const ToolCall = (
               />
             </div>
           </div>
-          {!props.output && !props?.isFinished ? (
+          {!props.isFinished ? (
             <div
               style={{
                 display: 'flex',
+                flexDirection: 'row',
+                gap: '10px',
                 alignItems: 'center',
-                height: '38px',
-                borderRadius: '12px',
-                opacity: 1,
+                justifyContent: 'center',
+                padding: '8px 12px',
+                alignSelf: 'stretch',
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
-                flexDirection: 'row',
-                padding: '8px',
-                gap: '10px',
-                alignSelf: 'stretch',
                 background: '#FBFCFD',
-                zIndex: 2,
+                zIndex: 1,
+                borderRadius: '12px',
               }}
             >
-              <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
-              {i18n.locale?.apiCalling || 'API调用中'}
+              {locale.apiCalling}
               <DotLoading />
             </div>
           ) : null}
-          {!errorMsg && props.output ? (
+          {props.isFinished && !errorMsg ? (
             <div
               style={{
-                flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                gap: '10px',
+                padding: '8px 12px',
+                alignSelf: 'stretch',
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
-                padding: '8px 12px',
+                background: '#FBFCFD',
+                zIndex: 1,
+                borderRadius: '12px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '10px',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {locale.executionResult}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px',
+                    alignItems: 'center',
+                  }}
+                >
+                  <ActionIconBox
+                    title={locale.copy}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        JSON.stringify(props.output?.response || {}, null, 2),
+                      );
+                    }}
+                  >
+                    <CopyOutlined />
+                  </ActionIconBox>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  borderRadius: '12px',
+                  alignSelf: 'stretch',
+                  background: '#FFFFFF',
+                }}
+              >
+                <MarkdownEditor
+                  {...props.markdownRenderProps}
+                  style={{
+                    padding: 0,
+                    width: '100%',
+                  }}
+                  toc={false}
+                  readonly
+                  contentStyle={{
+                    padding: 0,
+                    width: '100%',
+                  }}
+                  initValue={`\`\`\`json\n${JSON.stringify(
+                    props.output?.response || {},
+                    null,
+                    2,
+                  ).trim()}\n\`\`\``.trim()}
+                />
+              </div>
+            </div>
+          ) : null}
+          {props.isFinished && errorMsg ? (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
                 gap: '10px',
+                padding: '8px 12px',
                 alignSelf: 'stretch',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
                 background: '#FBFCFD',
                 zIndex: 1,
                 borderRadius: '12px',
@@ -348,144 +402,46 @@ export const ToolCall = (
                 <div
                   style={{
                     display: 'flex',
+                    flexDirection: 'row',
                     gap: '10px',
                     alignItems: 'center',
                   }}
                 >
-                  <span>{i18n.locale?.executionResult || '执行结果'}</span>
-                  <CostMillis costMillis={props.costMillis} />
+                  <CloseCircleFilled style={{ color: '#ff4d4f' }} />
+                  {locale.taskExecutionFailed}
                 </div>
-                <ActionIconBox
-                  title="复制"
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    try {
-                      if (location.protocol === 'https:') {
-                        navigator.clipboard.writeText(
-                          JSON.stringify(props.output?.response, null, 2) || '',
-                        );
-                      } else {
-                        document.execCommand(
-                          'copy',
-                          false,
-                          JSON.stringify(props.output?.response, null, 2) || '',
-                        );
-                      }
-                    } catch (error) {}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px',
+                    alignItems: 'center',
                   }}
                 >
-                  <CopyOutlined />
-                </ActionIconBox>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '10px',
-                  borderRadius: '12px',
-                  opacity: 1,
-                  wordBreak: 'break-all',
-                  wordWrap: 'break-word',
-                  flexDirection: 'column',
-                  alignSelf: 'stretch',
-                }}
-                className="code-view"
-              >
-                <MarkdownEditor
-                  style={{
-                    padding: 0,
-                    width: '100%',
-                  }}
-                  {...props.markdownRenderProps}
-                  toc={false}
-                  readonly
-                  contentStyle={{
-                    padding: 0,
-                    width: '100%',
-                  }}
-                  initValue={`\`\`\`json\n${JSON.stringify(
-                    props.output?.response,
-                    null,
-                    2,
-                  )}\n\`\`\``}
-                />
-              </div>
-            </div>
-          ) : null}
-          {errorMsg ? (
-            <div
-              style={{
-                borderRadius: '12px',
-                opacity: 1,
-                display: 'flex',
-                padding: '12px 12px',
-                alignSelf: 'stretch',
-                background: '#FFEDEC',
-                wordBreak: 'break-all',
-                minHeight: 18,
-                wordWrap: 'break-word',
-                zIndex: 2,
-                backgroundColor: '#FFEDEC',
-                border: '1px solid rgba(244, 244, 247, 0.7473)',
-                gap: 8,
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 12,
-                }}
-              >
-                <div>
-                  <CloseCircleFilled
-                    style={{
-                      color: '#FF4141',
-                      marginRight: 8,
+                  <ActionIconBox
+                    title={locale.copy}
+                    onClick={() => {
+                      navigator.clipboard.writeText(errorMsg);
                     }}
-                  />
-                  <Typography.Text>
-                    {i18n.locale?.taskExecutionFailed ||
-                      '任务执行失败，需要修改'}
-                  </Typography.Text>
+                  >
+                    <CopyOutlined />
+                  </ActionIconBox>
                 </div>
-                <Typography
-                  style={{
-                    color: '#FF4141',
-                    wordBreak: 'break-all',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {JSON.stringify(errorMsg)}
-                </Typography>
               </div>
-              {props.onChangeItem ? (
-                <Button
-                  style={{
-                    border: '1px solid #F0F2F5',
-                    background: '#FFFFFF',
-                    borderRadius: '12px 12px 12px 12px',
-                  }}
-                  onClick={() => {
-                    setEditor(true);
-                  }}
-                >
-                  {i18n.locale?.edit || '修改'}
-                </Button>
-              ) : null}
+              <div
+                style={{
+                  display: 'flex',
+                  borderRadius: '12px',
+                  alignSelf: 'stretch',
+                  background: '#FFFFFF',
+                }}
+              >
+                <Typography.Text type="danger">{errorMsg}</Typography.Text>
+              </div>
             </div>
           ) : null}
         </div>
       </>
     );
-  }, [
-    props.category,
-    JSON.stringify(props.info),
-    JSON.stringify(props.output),
-    JSON.stringify(props.input),
-    props.costMillis,
-    editor,
-  ]);
+  }, [editor, props.input?.inputArgs, props.output, props.isFinished, props.costMillis]);
 };

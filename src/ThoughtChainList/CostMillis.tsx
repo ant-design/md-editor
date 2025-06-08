@@ -1,8 +1,9 @@
 ﻿import { FieldTimeOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { I18nContext } from '../i18n';
 
-const msToTimes = (ms: number | undefined) => {
+const msToTimes = (ms: number | undefined, locale: any) => {
   if (!ms) {
     return '';
   }
@@ -11,20 +12,18 @@ const msToTimes = (ms: number | undefined) => {
   }
   let s = ms / 1000;
   if (s < 60) {
-    return `${s.toFixed(0)}s`;
+    return `${s.toFixed(0)}${locale.seconds}`;
   }
   let m = s / 60;
   if (m < 60) {
-    return `${m.toFixed(0)}分钟 ${s.toFixed(0)}秒`;
+    return `${m.toFixed(0)}${locale.minutes} ${s.toFixed(0)}${locale.seconds}`;
   }
   let h = m / 60;
   if (h < 24) {
-    return `${h.toFixed(0)}小时 ${m.toFixed(0)}分钟 ${s.toFixed(0)}秒`;
+    return `${h.toFixed(0)}${locale.hours} ${m.toFixed(0)}${locale.minutes} ${s.toFixed(0)}${locale.seconds}`;
   }
   let d = h / 24;
-  return `${d.toFixed(0)}天${h.toFixed(0)}小时${m.toFixed(0)}分钟${s.toFixed(
-    0,
-  )}秒`;
+  return `${d.toFixed(0)}${locale.days} ${h.toFixed(0)}${locale.hours} ${m.toFixed(0)}${locale.minutes} ${s.toFixed(0)}${locale.seconds}`;
 };
 
 /**
@@ -39,6 +38,8 @@ const msToTimes = (ms: number | undefined) => {
  * @returns 如果 `costMillis` 存在，返回一个包含时间成本信息的 `Tooltip` 组件；否则返回 `null`。
  */
 export const CostMillis = (props: { costMillis?: number }) => {
+  const { locale } = useContext(I18nContext);
+  
   return useMemo(() => {
     if (!props.costMillis) {
       return null;
@@ -65,9 +66,9 @@ export const CostMillis = (props: { costMillis?: number }) => {
           }}
         >
           <FieldTimeOutlined />
-          {msToTimes(props.costMillis)}
+          {msToTimes(props.costMillis, locale)}
         </span>
       </Tooltip>
     );
-  }, [props.costMillis]);
+  }, [props.costMillis, locale]);
 };

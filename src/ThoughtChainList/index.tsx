@@ -2,10 +2,13 @@
 import { ConfigProvider, Descriptions, Drawer, Typography } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { motion } from 'framer-motion';
+
+dayjs.extend(duration);
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { compileTemplate, I18nContext } from '../i18n';
+import { compileTemplate, I18nContext, LocalKeys } from '../i18n';
 import { FinishedIcon } from '../icons/FinishedIcon';
 import { LoadingIcon } from '../icons/LoadingIcon';
 import { ActionIconBox, MarkdownEditorProps, useAutoScroll } from '../index';
@@ -17,20 +20,11 @@ import { ThoughtChainListItem } from './ThoughtChainListItem';
 
 import { merge } from 'lodash-es';
 
-const CategoryTextMap = {
-  TableSql: '表查询',
-  ToolCall: '工具查询',
-  RagRetrieval: '文档查询',
-  DeepThink: '深度思考',
-  WebSearch: '联网搜索',
-  other: '',
-} as const;
-
 export interface WhiteBoxProcessInterface {
   /** 分类类型
    * @example "TableSql"
    */
-  category?: keyof typeof CategoryTextMap;
+  category?: 'TableSql' | 'ToolCall' | 'RagRetrieval' | 'DeepThink' | 'WebSearch' | 'other';
   isLoading?: boolean;
   /** 信息描述
    * @example "正在查询用户表数据"
@@ -172,6 +166,9 @@ export interface ThoughtChainListProps {
     thinking: string;
     taskFinished: string;
     taskCost: string;
+    taskAborted: string;
+    totalTimeUsed: string;
+    taskComplete: string;
   };
   onDocMetaClick?: (docMeta: DocMeta | null) => void;
 }
@@ -210,18 +207,22 @@ export interface ThoughtChainListProps {
  * @returns {ReactNode} 渲染的思维链列表组件
  */
 export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
+  const { locale } = useContext(I18nContext);
+  const {
+    thoughtChainList,
+    loading,
+    chatItem,
+    style,
+    compact,
+    markdownRenderProps,
+    finishAutoCollapse = true,
+    onDocMetaClick,
+  } = props;
   const context = useContext(ConfigProvider.ConfigContext);
   const [collapse, setCollapse] = React.useState<boolean>(false);
   const prefixCls = context.getPrefixCls('thought-chain-list');
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [docMeta, setDocMeta] = React.useState<Partial<DocMeta> | null>(null);
-  const {
-    chatItem = {
-      isFinished: true,
-      isAborted: false,
-    } as ThoughtChainListProps['chatItem'],
-    finishAutoCollapse = false,
-  } = props;
   const { containerRef } = useAutoScroll({
     SCROLL_TOLERANCE: 30,
   });
@@ -232,77 +233,100 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
     }
   }, [chatItem?.isFinished]);
 
-  const i18n = useContext(I18nContext);
-
   const endStatusDisplay = useMemo(() => {
     const time = ((chatItem?.endTime || 0) - (chatItem?.createAt || 0)) / 1000;
 
-    if (!props.loading && chatItem?.isAborted) {
+    if (!loading && chatItem?.isAborted) {
       if (time > 0) {
         return (
           <FlipText
-            word={`${i18n.locale?.taskAborted || '任务已取消'}, ${i18n?.locale?.totalTimeUsed || '共耗时'} ${time.toFixed(
-              2,
-            )}s`}
+            word={`${locale.taskAborted}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
           />
         );
       }
-      return <FlipText word={`${i18n.locale?.taskAborted || '任务已取消'}`} />;
+      return <FlipText word={locale.taskAborted} />;
     }
 
-    if (!props.loading && chatItem?.isFinished) {
+    if (!loading && chatItem?.isFinished) {
       if (time > 0) {
         return (
           <FlipText
-            word={`${i18n.locale?.taskComplete || props.locale?.taskFinished || '任务完成'}, ${i18n?.locale?.totalTimeUsed || props.locale?.taskCost || '共耗时'} ${time.toFixed(
-              2,
-            )}s`}
+            word={`${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
           />
         );
       }
-      return (
-        <FlipText
-          word={`${i18n.locale?.taskComplete || props.locale?.taskFinished || '任务完成'} `}
-        />
-      );
+      return <FlipText word={locale.taskComplete} />;
     }
 
     return (
       <div>
-        {props.thoughtChainList.at(-1) && collapse ? (
-          compileTemplate(i18n.locale?.inProgressTask, {
-            taskName:
-              i18n.locale?.[
-                props.thoughtChainList.at(-1)?.category || 'other'
-              ] ||
-              CategoryTextMap[
-                props.thoughtChainList.at(-1)?.category || 'other'
-              ],
+        {thoughtChainList.at(-1) && collapse ? (
+          compileTemplate(locale.inProgressTask, {
+            taskName: locale[thoughtChainList.at(-1)?.category || 'other'] || '',
           })
         ) : (
           <div>
-            {props.locale?.thinking || i18n.locale?.thinking || '思考中'}
+            {locale.thinking}
             <DotLoading />
           </div>
         )}
       </div>
     );
   }, [
-    props.loading,
-    props.thoughtChainList?.at?.(-1)?.category,
+    loading,
+    thoughtChainList?.at?.(-1)?.category,
     chatItem?.isFinished,
     chatItem?.isAborted,
+    chatItem?.endTime,
+    chatItem?.createAt,
     collapse,
   ]);
+
+  const renderTimeInfo = () => {
+    if (!chatItem?.endTime || !chatItem?.createAt) return null;
+    const duration = dayjs.duration(chatItem.endTime - chatItem.createAt);
+    const hours = duration.hours();
+    const minutes = duration.minutes();
+    const seconds = duration.seconds();
+    
+    const timeStr = [
+      hours > 0 ? `${hours}${locale.hours}` : '',
+      minutes > 0 ? `${minutes}${locale.minutes}` : '',
+      `${seconds}${locale.seconds}`,
+    ].filter(Boolean).join(' ');
+
+    return (
+      <div className="time-info">
+        <span>{locale.timeUsed}: {timeStr}</span>
+      </div>
+    );
+  };
+
+  const renderStatus = () => {
+    if (chatItem?.isAborted) {
+      return <span className="status-text">{locale.aborted}</span>;
+    }
+    if (chatItem?.isFinished) {
+      return <span className="status-text">{locale.finished}</span>;
+    }
+    if (loading) {
+      return <span className="status-text">{locale.loading}</span>;
+    }
+    return null;
+  };
+
+  const getCategoryText = (category: WhiteBoxProcessInterface['category']) => {
+    return category ? locale[category] || '' : '';
+  };
 
   return wrapSSR(
     <>
       <Drawer
-        title={i18n.locale?.preview + ' ' + docMeta?.doc_name}
+        title={locale?.preview + ' ' + docMeta?.doc_name}
         open={!!docMeta}
         onClose={() => {
           setDocMeta(null);
-          props.onDocMetaClick?.(null);
+          onDocMetaClick?.(null);
         }}
         width={'40vw'}
       >
@@ -343,19 +367,19 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
         return (
           <div
             className={classNames(`${prefixCls}`, hashId)}
-            style={props.style}
+            style={style}
           >
             <motion.div
               transition={{ duration: 0.3 }}
               className={classNames(`${prefixCls}-container`, hashId, {
                 [`${prefixCls}-container-loading`]:
-                  !props?.chatItem?.isFinished,
+                  !chatItem?.isFinished,
               })}
             >
               <motion.div
                 className={classNames(`${prefixCls}-title`, hashId, {
                   [`${prefixCls}-title-collapse`]: collapse,
-                  [`${prefixCls}-title-compact`]: props.compact,
+                  [`${prefixCls}-title-compact`]: compact,
                 })}
               >
                 <div>
@@ -377,13 +401,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                       fontSize: '1em',
                     }}
                   >
-                    {props?.chatItem ? (
+                    {chatItem ? (
                       endStatusDisplay
                     ) : (
                       <div>
-                        {props.locale?.taskFinished ||
-                          i18n?.locale?.taskComplete ||
-                          '任务完成'}
+                        {renderStatus()}
                       </div>
                     )}
                   </span>
@@ -392,8 +414,8 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                 <ActionIconBox
                   title={
                     collapse
-                      ? i18n?.locale?.expand || '展开'
-                      : i18n?.locale?.collapse || '收起'
+                      ? locale?.expand || '展开'
+                      : locale?.collapse || '收起'
                   }
                   onClick={() => {
                     setCollapse(!collapse);
@@ -415,7 +437,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                     `${prefixCls}-content`,
                     {
                       [`${prefixCls}-content-collapse`]: collapse,
-                      [`${prefixCls}-content-compact`]: props.compact,
+                      [`${prefixCls}-content-compact`]: compact,
                     },
                     hashId,
                   )}
@@ -445,12 +467,12 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                   >
                     {(collapse
                       ? []
-                      : (props.thoughtChainList.map((item, index) => {
+                      : (thoughtChainList.map((item, index) => {
                           let info = item.info;
                           let icon = <LoadingIcon />;
                           let isFinished = false;
                           if (
-                            (item.output || props?.chatItem?.isFinished) &&
+                            (item.output || chatItem?.isFinished) &&
                             item.output?.type !== 'TOKEN' &&
                             item.output?.type !== 'RUNNING'
                           ) {
@@ -497,7 +519,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                               <pre>
                                 <code>
                                   {JSON.stringify(
-                                    props.thoughtChainList.at(index) || {
+                                    thoughtChainList.at(index) || {
                                       message: 'error',
                                     },
                                     null,
@@ -512,7 +534,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                           <ThoughtChainListItem
                             index={index}
                             markdownRenderProps={merge(
-                              props.markdownRenderProps,
+                              markdownRenderProps,
                               {
                                 codeProps: {
                                   hideToolBar: true,
@@ -528,11 +550,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                             hashId={hashId}
                             isFinished={
                               item.isFinished ||
-                              (!props.loading && !!chatItem?.endTime)
+                              (!loading && !!chatItem?.endTime)
                             }
                             setDocMeta={(docMeta) => {
                               setDocMeta(docMeta);
-                              props.onDocMetaClick?.(docMeta);
+                              onDocMetaClick?.(docMeta);
                             }}
                             prefixCls={prefixCls}
                           />
@@ -547,13 +569,13 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
         );
       }, [
         collapse,
-        props?.style,
+        style,
         chatItem?.isFinished,
         chatItem?.endTime,
         chatItem?.createAt,
         chatItem?.isAborted,
-        props?.loading,
-        JSON.stringify(props.thoughtChainList),
+        loading,
+        JSON.stringify(thoughtChainList),
       ])}
     </>,
   );

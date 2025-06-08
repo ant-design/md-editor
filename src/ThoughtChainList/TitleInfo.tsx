@@ -44,7 +44,7 @@ export const TitleInfo = (props: {
   >;
 }) => {
   const { collapse, setCollapse } = props;
-  const i18n = useContext(I18nContext);
+  const { locale } = useContext(I18nContext);
   const titleDom = useMemo(() => {
     const titleSegments = props.title.split(/(\$\{.*})/);
 
@@ -58,19 +58,13 @@ export const TitleInfo = (props: {
         if (Array.isArray(metaList)) {
           if (metaList.length > 1) {
             if (props.category === 'RagRetrieval') {
-              infoTitle = i18n.locale?.multipleKnowledgeBases || '多个知识库';
+              infoTitle = locale.multipleKnowledgeBases;
             } else if (props.category === 'TableSql') {
-              infoTitle =
-                metaList.at(0)?.name +
-                (i18n.locale?.multipleTables || '多个表格');
+              infoTitle = metaList.at(0)?.name + locale.multipleTables;
             } else if (props.category === 'ToolCall') {
-              infoTitle =
-                metaList.at(0)?.name +
-                (i18n.locale?.multipleTools || '等多个工具');
+              infoTitle = metaList.at(0)?.name + locale.multipleTools;
             } else {
-              infoTitle =
-                metaList.at(0)?.name +
-                (i18n.locale?.multipleData || '等多个数据');
+              infoTitle = metaList.at(0)?.name + locale.multipleData;
             }
           }
           if (metaList.length === 1) {
@@ -219,8 +213,8 @@ export const TitleInfo = (props: {
           <ActionIconBox
             title={
               collapse
-                ? i18n?.locale?.expand || '展开'
-                : i18n?.locale?.collapse || '收起'
+                ? locale.expand
+                : locale.collapse
             }
             onClick={() => {
               setCollapse?.(!collapse);

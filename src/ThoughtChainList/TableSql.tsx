@@ -47,7 +47,7 @@ export const TableSql = (
     markdownRenderProps?: MarkdownEditorProps;
   } & WhiteBoxProcessInterface,
 ) => {
-  const i18n = useContext(I18nContext);
+  const { locale } = useContext(I18nContext);
   const [editor, setEditor] = React.useState<boolean>(false);
   const editorRef = React.useRef<MarkdownEditorInstance | undefined>(undefined);
 
@@ -86,7 +86,7 @@ export const TableSql = (
                 justifyContent: 'space-between',
               }}
             >
-              {i18n.locale?.executeSQL || '查询 SQL'}
+              {locale.executeSQL}
             </div>
             <div
               style={{
@@ -136,7 +136,7 @@ export const TableSql = (
                 );
               }}
             >
-              {i18n.locale?.cancel || '取消'}
+              {locale.cancel}
             </Button>
             <Button
               style={{
@@ -159,12 +159,13 @@ export const TableSql = (
                 });
               }}
             >
-              {i18n.locale?.retry || '重试'}
+              {locale.retry}
             </Button>
           </div>
         </div>
       );
     }
+
     const sourceData = props.output?.tableData as any;
     const keys = Object.keys(sourceData || {});
     let fistKey = keys[0];
@@ -184,6 +185,7 @@ export const TableSql = (
       Object.keys(dataSource?.at(0) || {})) as string[];
 
     const errorMsg = props.output?.errorMsg || props.output?.response?.errorMsg;
+
     return (
       <>
         <div
@@ -218,44 +220,36 @@ export const TableSql = (
                 justifyContent: 'space-between',
               }}
             >
-              {i18n.locale?.executeSQL || '查询 SQL'}
+              {locale.executeSQL}
               <div
                 style={{
                   display: 'flex',
-                  gap: 8,
+                  flexDirection: 'row',
+                  gap: '10px',
+                  alignItems: 'center',
                 }}
               >
-                {!errorMsg ? (
-                  <ActionIconBox
-                    style={{
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => {
-                      setEditor(true);
-                    }}
-                    title={'修改'}
-                  >
-                    <EditOutlined />
-                  </ActionIconBox>
+                {props.costMillis ? (
+                  <CostMillis costMillis={props.costMillis} />
                 ) : null}
                 <ActionIconBox
-                  title="复制"
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    if (location.protocol === 'https:') {
-                      navigator.clipboard.writeText(props.input?.sql || '');
-                    } else {
-                      document.execCommand(
-                        'copy',
-                        false,
-                        props.input?.sql || '',
-                      );
-                    }
+                  title={locale.copy}
+                  onClick={() => {
+                    navigator.clipboard.writeText(props.input?.sql || '');
                   }}
                 >
                   <CopyOutlined />
                 </ActionIconBox>
+                {props.onChangeItem ? (
+                  <ActionIconBox
+                    title={locale.edit}
+                    onClick={() => {
+                      setEditor(true);
+                    }}
+                  >
+                    <EditOutlined />
+                  </ActionIconBox>
+                ) : null}
               </div>
             </div>
             <div
@@ -283,40 +277,105 @@ export const TableSql = (
               />
             </div>
           </div>
-          {!props.output && !props?.isFinished ? (
+          {!props.isFinished ? (
             <div
               style={{
                 display: 'flex',
+                flexDirection: 'row',
+                gap: '10px',
                 alignItems: 'center',
-                height: '38px',
-                borderRadius: '12px',
-                opacity: 1,
+                justifyContent: 'center',
+                padding: '8px 12px',
+                alignSelf: 'stretch',
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
-                flexDirection: 'row',
-                padding: '8px',
-                gap: '10px',
-                alignSelf: 'stretch',
                 background: '#FBFCFD',
-                zIndex: 2,
+                zIndex: 1,
+                borderRadius: '12px',
               }}
             >
-              <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
-              {i18n.locale?.executing || 'SQL 执行中...'}
+              {locale.executing}
             </div>
           ) : null}
-          {!errorMsg && props.output ? (
+          {props.isFinished && !errorMsg ? (
             <div
               style={{
-                flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                gap: '10px',
+                padding: '8px 12px',
+                alignSelf: 'stretch',
                 wordBreak: 'break-all',
                 wordWrap: 'break-word',
-                padding: '8px 12px',
+                background: '#FBFCFD',
+                zIndex: 1,
+                borderRadius: '12px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '10px',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {locale.queryResults}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px',
+                    alignItems: 'center',
+                  }}
+                >
+                  <ActionIconBox
+                    title={locale.copy}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        JSON.stringify(props.output?.tableData || {}, null, 2),
+                      );
+                    }}
+                  >
+                    <CopyOutlined />
+                  </ActionIconBox>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  borderRadius: '12px',
+                  alignSelf: 'stretch',
+                  background: '#FFFFFF',
+                }}
+              >
+                <Table
+                  style={{
+                    width: '100%',
+                  }}
+                  size="small"
+                  pagination={false}
+                  dataSource={dataSource}
+                  columns={columns?.map((item) => ({
+                    title: item,
+                    dataIndex: item,
+                    key: item,
+                  }))}
+                />
+              </div>
+            </div>
+          ) : null}
+          {props.isFinished && errorMsg ? (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
                 gap: '10px',
+                padding: '8px 12px',
                 alignSelf: 'stretch',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
                 background: '#FBFCFD',
                 zIndex: 1,
                 borderRadius: '12px',
@@ -334,167 +393,46 @@ export const TableSql = (
                 <div
                   style={{
                     display: 'flex',
+                    flexDirection: 'row',
                     gap: '10px',
                     alignItems: 'center',
                   }}
                 >
-                  <span>{i18n.locale?.queryResults || '查询结果'}</span>
-                  <CostMillis costMillis={props.costMillis} />
+                  <CloseCircleFilled style={{ color: '#ff4d4f' }} />
+                  {locale.queryFailed}
                 </div>
-                <ActionIconBox
-                  title={i18n.locale?.copy || '复制'}
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    if (location.protocol === 'https:') {
-                      navigator.clipboard.writeText(
-                        JSON.stringify(dataSource, null, 2) || '',
-                      );
-                    } else {
-                      document.execCommand(
-                        'copy',
-                        false,
-                        JSON.stringify(dataSource, null, 2),
-                      );
-                    }
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: '10px',
+                    alignItems: 'center',
                   }}
                 >
-                  <CopyOutlined />
-                </ActionIconBox>
+                  <ActionIconBox
+                    title={locale.copy}
+                    onClick={() => {
+                      navigator.clipboard.writeText(errorMsg);
+                    }}
+                  >
+                    <CopyOutlined />
+                  </ActionIconBox>
+                </div>
               </div>
-
-              <Table
-                size="small"
-                bordered
-                pagination={
-                  dataSource?.length > 5
-                    ? {
-                        pageSize: 5,
-                        hideOnSinglePage: true,
-                        showSizeChanger: true,
-                        showQuickJumper: true,
-                      }
-                    : false
-                }
-                scroll={{ x: 'max-content' }}
-                dataSource={dataSource as Record<string, any>[]}
-                columns={(columns || []).map((key) => ({
-                  title: key,
-                  dataIndex: key,
-                  key: key,
-                  render: (text: any) => {
-                    return (
-                      <Popover
-                        trigger="click"
-                        title={
-                          <div
-                            style={{
-                              maxWidth: 400,
-                              maxHeight: 400,
-                              fontWeight: 400,
-                              fontSize: '1em',
-                              overflow: 'auto',
-                            }}
-                          >
-                            <Typography.Text copyable={{ text: text }}>
-                              {text}
-                            </Typography.Text>
-                          </div>
-                        }
-                      >
-                        <div
-                          style={{
-                            maxWidth: 200,
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            display: '-webkit-box',
-                            WebkitBoxOrient: 'vertical',
-                            WebkitLineClamp: 2,
-                            maxHeight: 40,
-                          }}
-                        >
-                          {text}
-                        </div>
-                      </Popover>
-                    );
-                  },
-                }))}
-              />
-            </div>
-          ) : null}
-          {errorMsg ? (
-            <div
-              style={{
-                borderRadius: '12px',
-                opacity: 1,
-                display: 'flex',
-                padding: '12px 12px',
-                alignSelf: 'stretch',
-                background: '#FFEDEC',
-                wordBreak: 'break-all',
-                minHeight: 18,
-                wordWrap: 'break-word',
-                zIndex: 2,
-                backgroundColor: '#FFEDEC',
-                border: '1px solid rgba(244, 244, 247, 0.7473)',
-                gap: 8,
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
               <div
                 style={{
                   display: 'flex',
-                  flexDirection: 'column',
-                  gap: 12,
+                  borderRadius: '12px',
+                  alignSelf: 'stretch',
+                  background: '#FFFFFF',
                 }}
               >
-                <div>
-                  <CloseCircleFilled
-                    style={{
-                      color: '#FF4141',
-                      marginRight: 8,
-                    }}
-                  />
-                  <Typography.Text>
-                    {i18n.locale?.queryFailed || '查询失败，需要修改'}
-                  </Typography.Text>
-                </div>
-                <Typography
-                  style={{
-                    color: '#FF4141',
-                    wordBreak: 'break-all',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {JSON.stringify(errorMsg)}
-                </Typography>
+                <Typography.Text type="danger">{errorMsg}</Typography.Text>
               </div>
-              {props.onChangeItem ? (
-                <Button
-                  style={{
-                    border: '1px solid #F0F2F5',
-                    background: '#FFFFFF',
-                    borderRadius: '12px 12px 12px 12px',
-                  }}
-                  onClick={() => {
-                    setEditor(true);
-                  }}
-                >
-                  {i18n.locale?.edit || '修改'}
-                </Button>
-              ) : null}
             </div>
           ) : null}
         </div>
       </>
     );
-  }, [
-    props.category,
-    JSON.stringify(props.info),
-    JSON.stringify(props.output),
-    JSON.stringify(props.input),
-    props.costMillis,
-    editor,
-  ]);
+  }, [editor, props.input?.sql, props.output, props.isFinished, props.costMillis]);
 };
