@@ -300,6 +300,7 @@ export function Media({
         <div
           style={{
             padding: 12,
+            boxSizing: 'border-box',
             border: '1px solid #f0f0f0',
             borderRadius: '0.5em',
             width: '100%',

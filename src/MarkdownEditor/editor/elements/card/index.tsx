@@ -6,11 +6,17 @@ import { RenderElementProps, useSlate } from '../../slate-react';
 export const WarpCard = (props: RenderElementProps) => {
   const [selected, path] = useSelStatus(props.element);
   const editor = useSlate();
+  const [isHovered, setIsHovered] = React.useState(false);
+  
   return React.useMemo(() => {
     return (
       <div
         {...props.attributes}
         data-be={'card'}
+        role="button"
+        tabIndex={0}
+        aria-selected={selected}
+        aria-label="可选择的卡片元素"
         onClick={(e) => {
           e.stopPropagation();
           const start = Editor.start(editor, path);
@@ -21,16 +27,41 @@ export const WarpCard = (props: RenderElementProps) => {
           });
           e.preventDefault();
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const start = Editor.start(editor, path);
+            const end = Editor.end(editor, path);
+            Transforms.select(editor, {
+              anchor: start,
+              focus: end,
+            });
+          }
+        }}
         style={{
           ...props.element.style,
+          padding: 12,
+          borderRadius:6,
           display: props.element.block === false ? 'inline-flex' : 'flex',
           gap: 4,
           maxWidth: '100%',
           alignItems: 'flex-end',
+          position: 'relative',
+          width:"max-content",
+          cursor: 'pointer',
+          backgroundColor: selected 
+            ? 'rgba(24, 144, 255, 0.05)' 
+            : isHovered 
+              ? 'rgba(64, 169, 255, 0.03)' 
+              : 'transparent',
+          transition: 'all 0.2s ease-in-out',
+          outline:selected ? '2px solid #1890ff' : 'none',
         }}
       >
         {props.children}
       </div>
     );
-  }, [props.element.children, selected, path, props.element.block]);
+  }, [props.element.children, selected, path, props.element.block, editor, isHovered]);
 };
