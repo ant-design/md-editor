@@ -19,12 +19,9 @@ export const WarpCard = (props: RenderElementProps) => {
         aria-label="可选择的卡片元素"
         onClick={(e) => {
           e.stopPropagation();
-          const start = Editor.start(editor, path);
-          const end = Editor.end(editor, path);
-          Transforms.select(editor, {
-            anchor: start,
-            focus: end,
-          });
+          // 直接选中卡片节点，避免默认选中card-before
+          // 我们的normalizeCardSelection会自动将其重定向到card-after
+          Transforms.select(editor, path);
           e.preventDefault();
         }}
         onMouseEnter={() => setIsHovered(true)}
@@ -32,12 +29,7 @@ export const WarpCard = (props: RenderElementProps) => {
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            const start = Editor.start(editor, path);
-            const end = Editor.end(editor, path);
-            Transforms.select(editor, {
-              anchor: start,
-              focus: end,
-            });
+            Transforms.select(editor, path);
           }
         }}
         style={{

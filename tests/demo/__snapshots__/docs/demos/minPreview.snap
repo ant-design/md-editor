@@ -668,6 +668,8 @@ Font Awesome图标：:fa-solid fa-rocket:
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    contenteditable="false"
+                    style="user-select: none;"
                   >
                     <colgroup>
                       <col
@@ -2992,6 +2994,8 @@ deadline: 2023-12-31
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    contenteditable="false"
+                    style="user-select: none;"
                   >
                     <colgroup>
                       <col
@@ -6856,6 +6860,8 @@ Font Awesome图标：:fa-solid fa-rocket:
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    contenteditable="false"
+                    style="user-select: none;"
                   >
                     <colgroup>
                       <col
@@ -9210,6 +9216,8 @@ deadline: 2023-12-31
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
+                    contenteditable="false"
+                    style="user-select: none;"
                   >
                     <colgroup>
                       <col

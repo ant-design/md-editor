@@ -940,6 +940,8 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       >
         <table
           class="ant-md-editor-content-table-editor-table"
+          contenteditable="false"
+          style="user-select: none;"
         >
           <colgroup>
             <col

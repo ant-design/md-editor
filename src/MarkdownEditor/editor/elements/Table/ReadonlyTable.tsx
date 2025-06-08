@@ -173,6 +173,10 @@ export const ReadonlyTable = ({
     const dom = (
       <table
         ref={tableTargetRef}
+        style={{
+          userSelect: 'none',
+        }}
+        contentEditable={false}
         className={classNames(`${baseCls}-editor-table`, hashId)}
       >
         <colgroup>
