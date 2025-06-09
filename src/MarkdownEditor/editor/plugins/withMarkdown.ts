@@ -164,12 +164,10 @@ const moveToCardAfter = (editor: Editor, cardAfterPath: Path) => {
 const clearCardAreaText = (editor: Editor, path: Path) => {
   try {
     const node = Node.get(editor, path);
-    console.log('Setting zero-width char for:', node);
     if (node ) {
       // 尝试直接DOM操作，设置为零宽字符
       try {
         const domNode = ReactEditor.toDOMNode(editor, node);
-        console.log('Setting zero-width char for:', domNode);
         
         if (domNode) {
           const zeroWidthNode = domNode?.querySelector('[data-slate-zero-width]');
