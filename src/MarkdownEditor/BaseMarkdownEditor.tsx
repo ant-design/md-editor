@@ -422,6 +422,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   } = props;
   // 是否挂载
   const [editorMountStatus, setMountedStatus] = useState(false);
+  const [isEditorFocused, setIsEditorFocused] = useState(false);
   // 键盘事件
   const keyTask$ = useMemo(
     () =>
@@ -451,8 +452,10 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   useEffect(() => {
     if (!rest?.onBlur) return;
     if (readonly) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
+        isEditorFocused &&
         markdownContainerRef.current &&
         !markdownContainerRef.current.contains(event.target as Node)
       ) {
@@ -466,6 +469,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
           ),
           markdownEditorRef.current?.children,
         );
+        setIsEditorFocused(false);
       }
     };
 
@@ -473,7 +477,24 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [readonly, rest?.onBlur, props.plugins]);
+  }, [readonly, rest?.onBlur, props.plugins, isEditorFocused]);
+
+  // 监听编辑器焦点
+  useEffect(() => {
+    const handleEditorFocus = () => {
+      if (
+        markdownContainerRef.current?.contains(document.activeElement) ||
+        markdownContainerRef.current === document.activeElement
+      ) {
+        setIsEditorFocused(true);
+      }
+    };
+
+    markdownContainerRef.current?.addEventListener('focusin', handleEditorFocus);
+    return () => {
+      markdownContainerRef.current?.removeEventListener('focusin', handleEditorFocus);
+    };
+  }, []);
 
   const store = useMemo(
     () => new EditorStore(markdownEditorRef, props.plugins),
@@ -630,12 +651,14 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                   !readonly && toolBar?.enable ? `calc(100% - 56px)` : '100%',
                 position: 'relative',
                 gap: 24,
+                outline: 'none',
                 ...contentStyle,
               }}
               ref={(dom) => {
                 markdownContainerRef.current = dom;
                 setMountedStatus(true);
               }}
+             tabIndex={-1}
             >
               <SlateMarkdownEditor
                 prefixCls={baseClassName}

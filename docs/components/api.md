@@ -32,7 +32,8 @@ import { BaseMarkdownEditor } from '@ant-design/md-editor';
 export default () => {
   return (
     <BaseMarkdownEditor
-      initValue="# Hello World"
+      initValue="# Hello World"   
+      onBlur={(e)=>console.log(e)}
       onChange={(value, schema) => console.log(value)}
       width="100%"
       height="400px"

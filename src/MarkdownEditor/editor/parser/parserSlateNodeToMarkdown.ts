@@ -279,7 +279,7 @@ export const parserSlateNodeToMarkdown = (
         str += `<!--${JSON.stringify(configProps)}-->\n`;
       }
     }
-    const p = parent[parent.length - 1];
+    const p = parent.at(-1) || ({} as any);
 
     if (p.type === 'list-item') {
       str += parserNode(node, '', parent, plugins);
