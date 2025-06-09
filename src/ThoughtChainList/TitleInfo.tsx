@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { DocMeta } from '.';
 import { RagIcon, ToolCallIcon } from '../components/icons';
+import { DatabaseIcon } from '../components/icons/DatabaseIcon';
+import { DocumentIcon } from '../components/icons/DocumentIcon';
 import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
 import { CollapseIcon, ExpandIcon } from './Collapse';
@@ -110,12 +112,11 @@ export const TitleInfo = (props: {
                           });
                         }}
                       >
-                        <img
-                          width={22}
-                          src={
-                            item.icon ||
-                            'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*owExQ60sdmAAAAAAAAAAAAAADkN6AQ/original'
-                          }
+                        <DocumentIcon
+                          size={22}
+                          style={{
+                            minWidth: 22,
+                          }}
                         />
                         <span
                           style={{
@@ -149,10 +150,7 @@ export const TitleInfo = (props: {
                 <RagIcon width={18} height={18} />
               )}
               {props.category === 'TableSql' ? (
-                <img
-                  width={18}
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Np4tQ6SDSEsAAAAAAAAAAAAADkN6AQ/original"
-                />
+                <DatabaseIcon size={18} />
               ) : null}
               <span
                 className={classNames(

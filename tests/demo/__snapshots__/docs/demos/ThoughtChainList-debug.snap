@@ -267,10 +267,20 @@
                           aria-describedby="test-id"
                           class="ant-thought-chain-list-content-list-item-info ant-thought-chain-list-content-list-item-info-tag"
                         >
-                          <img
-                            src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*Np4tQ6SDSEsAAAAAAAAAAAAADkN6AQ/original"
+                          <svg
+                            fill="none"
+                            height="18"
+                            viewBox="0 0 18 18"
                             width="18"
-                          />
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M9 2C5.13401 2 2 3.34315 2 5V13C2 14.6569 5.13401 16 9 16C12.866 16 16 14.6569 16 13V5C16 3.34315 12.866 2 9 2ZM4 5C4 4.44772 6.23858 4 9 4C11.7614 4 14 4.44772 14 5C14 5.55228 11.7614 6 9 6C6.23858 6 4 5.55228 4 5ZM4 7.72V10C4 10.5523 6.23858 11 9 11C11.7614 11 14 10.5523 14 10V7.72C12.7435 8.19 10.9317 8.4 9 8.4C7.06831 8.4 5.25651 8.19 4 7.72ZM4 12.72V13C4 13.5523 6.23858 14 9 14C11.7614 14 14 13.5523 14 13V12.72C12.7435 13.19 10.9317 13.4 9 13.4C7.06831 13.4 5.25651 13.19 4 12.72Z"
+                              fill="#4E5969"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
                           <span
                             class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
@@ -951,11 +961,27 @@
                           <div
                             style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content;"
                           >
-                            <img
-                              src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*1vi5SZ5lqbsAAAAAAAAAAAAADkN6AQ/original"
+                            <svg
+                              fill="none"
+                              height="16"
                               style="min-width: 16px;"
+                              viewBox="0 0 16 16"
                               width="16"
-                            />
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M3.33333 1.33333C2.59695 1.33333 2 1.93028 2 2.66667V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V5.33333L10 1.33333H3.33333ZM3.33333 2.66667H9.33333V6H12.6667V13.3333H3.33333V2.66667Z"
+                                fill="#4E5969"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                clip-rule="evenodd"
+                                d="M5.33333 8H10.6667V9.33333H5.33333V8ZM5.33333 10.6667H10.6667V12H5.33333V10.6667Z"
+                                fill="#4E5969"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
                             <span>
                               产品手册
                             </span>
@@ -963,11 +989,27 @@
                           <div
                             style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content;"
                           >
-                            <img
-                              src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*1vi5SZ5lqbsAAAAAAAAAAAAADkN6AQ/original"
+                            <svg
+                              fill="none"
+                              height="16"
                               style="min-width: 16px;"
+                              viewBox="0 0 16 16"
                               width="16"
-                            />
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M3.33333 1.33333C2.59695 1.33333 2 1.93028 2 2.66667V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V5.33333L10 1.33333H3.33333ZM3.33333 2.66667H9.33333V6H12.6667V13.3333H3.33333V2.66667Z"
+                                fill="#4E5969"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                clip-rule="evenodd"
+                                d="M5.33333 8H10.6667V9.33333H5.33333V8ZM5.33333 10.6667H10.6667V12H5.33333V10.6667Z"
+                                fill="#4E5969"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
                             <span>
                               产品使用说明
                             </span>

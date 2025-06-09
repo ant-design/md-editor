@@ -1,5 +1,6 @@
 ﻿import React, { useContext, useMemo } from 'react';
 import { DocMeta, WhiteBoxProcessInterface } from '.';
+import { DocIcon } from '../components/icons/DocIcon';
 import { I18nContext } from '../i18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { CostMillis } from './CostMillis';
@@ -141,9 +142,7 @@ export const RagRetrievalInfo = (
                       props.onMetaClick?.(chunk.docMeta);
                     }}
                   >
-                    <img
-                      src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*1vi5SZ5lqbsAAAAAAAAAAAAADkN6AQ/original"
-                      width={16}
+                    <DocIcon
                       style={{
                         minWidth: 16,
                       }}

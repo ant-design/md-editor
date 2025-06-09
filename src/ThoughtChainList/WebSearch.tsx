@@ -2,6 +2,7 @@
 import { Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
+import { LoadingSpinnerIcon } from '../components/icons/LoadingSpinnerIcon';
 import { I18nContext } from '../i18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
@@ -54,7 +55,7 @@ export const WebSearch = (
                 zIndex: 2,
               }}
             >
-              <img src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original" />
+              <LoadingSpinnerIcon size={24} />
               {i18n?.locale?.networkQuerying}
               <DotLoading />
             </div>
