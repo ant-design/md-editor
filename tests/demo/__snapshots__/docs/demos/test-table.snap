@@ -13,7 +13,8 @@
         style="width: 100vw; height: calc(50vh - 16px); display: flex; flex-direction: column; max-height: 100%; padding: 0px;"
       >
         <div
-          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; margin: 0px;"
+          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; margin: 0px;"
+          tabindex="-1"
         >
           <div
             aria-multiline="true"
@@ -3721,7 +3722,8 @@
         style="width: 100vw; height: calc(50vh - 16px); display: flex; flex-direction: column; max-height: 100%; padding: 0px;"
       >
         <div
-          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; margin: 0px;"
+          style="padding: 0px 0px 0px 0px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; margin: 0px;"
+          tabindex="-1"
         >
           <div
             autocapitalize="false"

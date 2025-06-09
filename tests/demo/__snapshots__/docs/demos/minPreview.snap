@@ -13,7 +13,8 @@
         style="width: 50vw; height: 100vh; display: flex; flex-direction: column; max-height: 100%; margin: 0px auto; border: 1px solid rgb(229, 229, 233);"
       >
         <div
-          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
+          style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+          tabindex="-1"
         >
           <div
             autocapitalize="false"
@@ -6204,7 +6205,8 @@ dark:
           </div>
         </div>
         <div
-          style="padding: 12px 20px; overflow: auto; display: flex; height: calc(100% - 56px); position: relative; gap: 24px;"
+          style="padding: 12px 20px; overflow: auto; display: flex; height: calc(100% - 56px); position: relative; gap: 24px; outline: none;"
+          tabindex="-1"
         >
           <div
             aria-multiline="true"
