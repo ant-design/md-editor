@@ -24,11 +24,10 @@ const normalizeCardSelection = (editor: Editor, selection: Range) => {
 
   // 调试信息
   const isDebug = process.env.NODE_ENV === 'development';
-  
+
   try {
     const { anchor, focus } = selection;
 
-    
     // 情况1: 折叠选择（单点选择）
     if (Range.isCollapsed(selection)) {
       // 检查是否选中卡片节点或其子节点
@@ -65,14 +64,12 @@ const normalizeCardSelection = (editor: Editor, selection: Range) => {
         }
         return false;
       };
-      
+
       checkCardSelection(anchor.path);
     }
-    
+
     // 情况2: 范围选择
     else {
-  
-      
       // 检查是否选中了整个卡片
       if (anchor.path.length === 1 && focus.path.length === 1) {
         if (Path.equals(anchor.path, focus.path)) {
@@ -87,13 +84,17 @@ const normalizeCardSelection = (editor: Editor, selection: Range) => {
           }
         }
       }
-      
+
       // 检查是否选中了卡片内的所有内容
       if (anchor.path.length >= 2 && focus.path.length >= 2) {
         const anchorCardPath = findCardPath(editor, anchor.path);
         const focusCardPath = findCardPath(editor, focus.path);
-        
-        if (anchorCardPath && focusCardPath && Path.equals(anchorCardPath, focusCardPath)) {
+
+        if (
+          anchorCardPath &&
+          focusCardPath &&
+          Path.equals(anchorCardPath, focusCardPath)
+        ) {
           const cardAfterPath = [...anchorCardPath, 2, 0];
           moveToCardAfter(editor, cardAfterPath);
           return;
@@ -164,13 +165,15 @@ const moveToCardAfter = (editor: Editor, cardAfterPath: Path) => {
 const clearCardAreaText = (editor: Editor, path: Path) => {
   try {
     const node = Node.get(editor, path);
-    if (node ) {
+    if (node) {
       // 尝试直接DOM操作，设置为零宽字符
       try {
         const domNode = ReactEditor.toDOMNode(editor, node);
-        
+
         if (domNode) {
-          const zeroWidthNode = domNode?.querySelector('[data-slate-zero-width]');
+          const zeroWidthNode = domNode?.querySelector(
+            '[data-slate-zero-width]',
+          );
           if (zeroWidthNode) {
             zeroWidthNode.textContent = '\uFEFF';
           }
@@ -185,8 +188,6 @@ const clearCardAreaText = (editor: Editor, path: Path) => {
   }
 };
 
-
-
 /**
  * 检查卡片是否为空
  * @param cardNode - 卡片节点
@@ -196,17 +197,17 @@ const isCardEmpty = (cardNode: any): boolean => {
   if (!cardNode || cardNode.type !== 'card' || !cardNode.children) {
     return false;
   }
-  
+
   // 查找实际内容节点（非card-before和card-after的节点）
   const contentNodes = cardNode.children.filter(
-    (child: any) => child.type !== 'card-before' && child.type !== 'card-after'
+    (child: any) => child.type !== 'card-before' && child.type !== 'card-after',
   );
-  
+
   // 如果没有内容节点，则为空
   if (contentNodes.length === 0) {
     return true;
   }
-  
+
   // 检查内容节点是否为空
   return contentNodes.every((node: any) => {
     if (!node.children || node.children.length === 0) {
@@ -234,7 +235,11 @@ const isCardEmpty = (cardNode: any): boolean => {
  * - 在卡片内插入节点 (insert_node)
  * - 检查并删除空卡片
  */
-const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: Operation) => void): boolean => {
+const handleCardOperation = (
+  editor: Editor,
+  operation: Operation,
+  apply: (op: Operation) => void,
+): boolean => {
   if (operation.type === 'remove_node') {
     const { node } = operation;
     const selectPath = editor.selection?.anchor?.path;
@@ -248,7 +253,7 @@ const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: O
       apply(operation);
       return true;
     }
-    
+
     // 删除card-after时，删除整个卡片
     if (node.type === 'card-after') {
       Transforms.removeNodes(editor, {
@@ -256,18 +261,22 @@ const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: O
       });
       return true;
     }
-    
+
     // 删除card-before时，阻止操作
     if (node.type === 'card-before') {
       return true;
     }
-    
+
     // 检查操作后的父级是否为空卡片，如果是则删除
     if (operation.path && operation.path.length > 0) {
       try {
         const parentPath = Path.parent(operation.path);
         const parentNode = Node.get(editor, parentPath);
-        if (parentNode && parentNode.type === 'card' && isCardEmpty(parentNode)) {
+        if (
+          parentNode &&
+          parentNode.type === 'card' &&
+          isCardEmpty(parentNode)
+        ) {
           Transforms.removeNodes(editor, {
             at: parentPath,
           });
@@ -282,18 +291,18 @@ const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: O
   if (operation.type === 'insert_text') {
     try {
       const parentNode = Node.get(editor, Path.parent(operation.path));
-      
+
       // card-before 不允许任何文本输入
       if (parentNode.type === 'card-before') {
         return true; // 阻止输入
       }
-      
+
       // card-after 的输入会插入到卡片后面的新段落中
       if (parentNode.type === 'card-after') {
         try {
           const grandParentPath = Path.parent(Path.parent(operation.path));
           const grandParentNode = Node.get(editor, grandParentPath);
-          
+
           if (grandParentNode.type === 'card') {
             // 使用 Editor.withoutNormalizing 确保操作的原子性
             Editor.withoutNormalizing(editor, () => {
@@ -308,15 +317,15 @@ const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: O
                   at: Path.next(grandParentPath),
                 },
               );
-               // 然后选中新创建的段落
-                const newParagraphPath = Path.next(grandParentPath);
-                const textPath = [...newParagraphPath, 0];
-                Transforms.select(editor, {
-                  anchor: { path: textPath, offset: operation.text.length },
-                  focus: { path: textPath, offset: operation.text.length },
-                });
-                clearCardAreaText(editor, operation.path);
+              // 然后选中新创建的段落
+              const newParagraphPath = Path.next(grandParentPath);
+              const textPath = [...newParagraphPath, 0];
+              Transforms.select(editor, {
+                anchor: { path: textPath, offset: operation.text.length },
+                focus: { path: textPath, offset: operation.text.length },
               });
+              clearCardAreaText(editor, operation.path);
+            });
             return true;
           }
         } catch (error) {
@@ -331,12 +340,12 @@ const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: O
 
   if (operation.type === 'insert_node') {
     const parentNode = Node.get(editor, Path.parent(operation.path));
-    
+
     // card-before 不允许任何节点插入
     if (parentNode.type === 'card-before') {
       return true; // 阻止插入
     }
-    
+
     // card-after 的节点插入会放到卡片后面
     if (parentNode.type === 'card-after') {
       if (
@@ -355,8 +364,6 @@ const handleCardOperation = (editor: Editor, operation: Operation, apply: (op: O
       return true;
     }
   }
-
-
 
   // 对于删除文本操作，我们需要在操作执行后检查卡片是否变空
   // 这将在 editor.apply 的最后处理
@@ -585,7 +592,14 @@ const operationHandlers = [
  * 3. 否则，调用原始的apply方法处理操作
  */
 export const withMarkdown = (editor: Editor) => {
-  const { isInline, isVoid, apply, deleteBackward, insertText, insertFragment } = editor;
+  const {
+    isInline,
+    isVoid,
+    apply,
+    deleteBackward,
+    insertText,
+    insertFragment,
+  } = editor;
 
   editor.isInline = (element) => {
     return inlineNode.has(element.type) || isInline(element);
@@ -605,7 +619,7 @@ export const withMarkdown = (editor: Editor) => {
 
     // 记录操作前可能涉及的卡片路径，用于操作后检查
     let cardPathsToCheck: Path[] = [];
-    
+
     if (operation.type === 'remove_text' || operation.type === 'insert_text') {
       if (operation.path && operation.path.length > 0) {
         try {
@@ -644,7 +658,12 @@ export const withMarkdown = (editor: Editor) => {
 
     // 处理选择规范化 - 当选中整个卡片时自动定位到 card-after
     // 在测试环境中不执行自动选择规范化，避免干扰测试用例
-    if (operation.type === 'set_selection' && operation.newProperties && editor.selection && typeof window !== 'undefined') {
+    if (
+      operation.type === 'set_selection' &&
+      operation.newProperties &&
+      editor.selection &&
+      typeof window !== 'undefined'
+    ) {
       normalizeCardSelection(editor, editor.selection);
     }
   };
@@ -654,17 +673,19 @@ export const withMarkdown = (editor: Editor) => {
     if (selection && Range.isCollapsed(selection)) {
       try {
         const node = Node.get(editor, Path.parent(selection.anchor.path));
-        
+
         // card-before 不允许任何文本输入
         if (node.type === 'card-before') {
           return; // 阻止输入
         }
-        
+
         // card-after 的输入会插入到卡片后面的新段落中
         if (node.type === 'card-after') {
-          const grandParentPath = Path.parent(Path.parent(selection.anchor.path));
+          const grandParentPath = Path.parent(
+            Path.parent(selection.anchor.path),
+          );
           const grandParent = Node.get(editor, grandParentPath);
-          
+
           if (grandParent.type === 'card') {
             Editor.withoutNormalizing(editor, () => {
               Transforms.insertNodes(
@@ -686,8 +707,6 @@ export const withMarkdown = (editor: Editor) => {
               });
               const cardAfterPath = [...grandParentPath, 2, 0];
               clearCardAreaText(editor, cardAfterPath);
-              
-          
             });
             return;
           }
@@ -696,7 +715,7 @@ export const withMarkdown = (editor: Editor) => {
         // 如果无法获取节点，继续原有逻辑
       }
     }
-    
+
     insertText(text);
   };
 
@@ -705,17 +724,19 @@ export const withMarkdown = (editor: Editor) => {
     if (selection && Range.isCollapsed(selection)) {
       try {
         const node = Node.get(editor, Path.parent(selection.anchor.path));
-        
+
         // card-before 不允许任何片段插入
         if (node.type === 'card-before') {
           return; // 阻止插入
         }
-        
+
         // card-after 的片段插入会放到卡片后面
         if (node.type === 'card-after') {
-          const grandParentPath = Path.parent(Path.parent(selection.anchor.path));
+          const grandParentPath = Path.parent(
+            Path.parent(selection.anchor.path),
+          );
           const grandParent = Node.get(editor, grandParentPath);
-          
+
           if (grandParent.type === 'card') {
             // 将片段内容插入到卡片后面
             Transforms.insertNodes(editor, fragment, {
@@ -729,7 +750,7 @@ export const withMarkdown = (editor: Editor) => {
         // 如果无法获取节点，继续原有逻辑
       }
     }
-    
+
     insertFragment(fragment);
   };
 

@@ -109,7 +109,7 @@ export const cnLabels = {
   minutes: '分钟',
   hours: '小时',
   days: '天',
-  inputPlaceholder: '请输入值',
+  inputPlaceholder: '请输入',
   emptyObjectConfig: '对象配置为空',
   close: '关闭',
   runCode: '运行代码',

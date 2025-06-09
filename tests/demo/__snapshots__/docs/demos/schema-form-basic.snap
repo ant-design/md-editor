@@ -39,7 +39,7 @@
                   aria-required="true"
                   class="ant-input ant-input-outlined ant-input-status-success"
                   id="name"
-                  placeholder="请输入姓名"
+                  placeholder="请输入 姓名"
                   type="text"
                   value="张三"
                 />
@@ -146,7 +146,7 @@
                       autocomplete="off"
                       class="ant-input-number-input"
                       id="age"
-                      placeholder="请输入年龄"
+                      placeholder="请输入 年龄"
                       role="spinbutton"
                       step="1"
                       value="25"

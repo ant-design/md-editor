@@ -27,6 +27,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   const { properties = {} } = schema?.component || {};
   const { locale } = useContext(I18nContext);
 
+
   // 生成表单验证规则
   const generateRules = useCallback((property: SchemaProperty): Rule[] => {
     const rules: Rule[] = [];
@@ -34,7 +35,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
     if (property.required) {
       rules.push({
         required: true,
-        message: `请输入${property.title || property.description || ''}`,
+        message: `${locale.inputPlaceholder} ${property.title || property.description || ''}`,
       });
     }
 
@@ -102,7 +103,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   // 获取通用输入框属性
   const getCommonInputProps = useCallback(
     (property: SchemaProperty) => ({
-      placeholder: `请输入${property.title || property.description}`,
+      placeholder: `${locale.inputPlaceholder} ${property.title || property.description}`,
       readOnly: readonly,
       disabled: readonly,
     }),
@@ -156,7 +157,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
         return (
           <Form.Item name={name} style={{ margin: 0 }}>
             <Input
-              placeholder="请输入值"
+              placeholder={locale.inputPlaceholder}
               readOnly={readonly}
               disabled={readonly}
             />
@@ -254,7 +255,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       if (!property.properties) {
         return (
           <Input
-            placeholder={`请输入${property.title || property.description}`}
+            placeholder={`${locale.inputPlaceholder} ${property.title || property.description}`}
             disabled
           />
         );

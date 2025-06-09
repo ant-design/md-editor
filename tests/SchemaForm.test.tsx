@@ -162,7 +162,7 @@ const edgeCaseSchema: LowCodeSchema = {
         description: '邮箱地址',
         default: '',
         pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
-        patternMessage: '请输入有效的邮箱地址',
+        patternMessage: '请输入 有效的邮箱地址',
         required: true,
       },
       // Number with step
@@ -296,7 +296,7 @@ describe('SchemaForm', () => {
     await user.tab(); // This will blur the field and trigger validation
 
     await waitFor(() => {
-      expect(screen.getByText('请输入标题')).toBeInTheDocument();
+      expect(screen.getByText('请输入 标题')).toBeInTheDocument();
     });
   });
 
@@ -344,7 +344,7 @@ describe('SchemaForm', () => {
     await user.click(addButton);
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText('请输入标签')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('请输入 标签')).toBeInTheDocument();
     });
 
     // Check if remove button appears
@@ -433,7 +433,7 @@ describe('SchemaForm', () => {
 
     // Should have 3 items total (2 initial + 1 new)
     await waitFor(() => {
-      const inputs = screen.getAllByPlaceholderText('请输入标签');
+      const inputs = screen.getAllByPlaceholderText('请输入 标签');
       expect(inputs).toHaveLength(3);
     });
   });
@@ -502,7 +502,7 @@ describe('SchemaForm', () => {
 
       await waitFor(() => {
         // Should render a basic input for undefined items
-        expect(screen.getByPlaceholderText('请输入值')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('请输入')).toBeInTheDocument();
       });
     });
 
@@ -517,7 +517,7 @@ describe('SchemaForm', () => {
       await user.tab();
 
       await waitFor(() => {
-        expect(screen.getByText('请输入有效的邮箱地址')).toBeInTheDocument();
+        expect(screen.getByText('请输入 有效的邮箱地址')).toBeInTheDocument();
       });
 
       // Enter valid email
@@ -527,7 +527,7 @@ describe('SchemaForm', () => {
 
       await waitFor(() => {
         expect(
-          screen.queryByText('请输入有效的邮箱地址'),
+          screen.queryByText('请输入 有效的邮箱地址'),
         ).not.toBeInTheDocument();
       });
     });
@@ -561,7 +561,7 @@ describe('SchemaForm', () => {
       await user.click(addButton);
 
       await waitFor(() => {
-        const inputs = screen.getAllByPlaceholderText('请输入项目');
+        const inputs = screen.getAllByPlaceholderText('请输入 项目');
         expect(inputs).toHaveLength(3);
       });
 
@@ -569,7 +569,7 @@ describe('SchemaForm', () => {
       await user.click(addButton);
 
       await waitFor(() => {
-        const inputs = screen.getAllByPlaceholderText('请输入项目');
+        const inputs = screen.getAllByPlaceholderText('请输入 项目');
         expect(inputs).toHaveLength(4);
       });
     });
@@ -592,7 +592,7 @@ describe('SchemaForm', () => {
       await user.click(addNestedButton);
 
       await waitFor(() => {
-        const nestedInputs = screen.getAllByPlaceholderText('请输入数值');
+        const nestedInputs = screen.getAllByPlaceholderText('请输入 数值');
         expect(nestedInputs).toHaveLength(1);
       });
     });
@@ -606,7 +606,7 @@ describe('SchemaForm', () => {
       await user.click(addTagButton);
 
       await waitFor(() => {
-        const tagInputs = screen.getAllByPlaceholderText('请输入标签');
+        const tagInputs = screen.getAllByPlaceholderText('请输入 标签');
         expect(tagInputs).toHaveLength(1);
       });
     });
