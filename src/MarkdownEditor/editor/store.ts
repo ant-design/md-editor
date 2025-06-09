@@ -11,6 +11,7 @@ import {
   Path,
   Range,
   Selection,
+  Text,
   Transforms,
 } from 'slate';
 import { ReactEditor } from './slate-react';
@@ -318,7 +319,27 @@ export class EditorStore {
   setContent(nodeList: Node[]) {
     this._editor.current.children = nodeList;
     this._editor.current.onChange();
-    this._editor.current.insertText('\n');
+
+    // 检查最后一个节点是否以换行符结尾
+    const lastNode = nodeList[nodeList.length - 1];
+    if (lastNode && Text.isText(lastNode)) {
+      const text = Node.string(lastNode);
+      if (!text.endsWith('\n')) {
+        this._editor.current.insertText('\n', {
+          at: [nodeList.length - 1],
+        });
+      }
+    } else if (lastNode && Element.isElement(lastNode)) {
+      const lastTextNode = Node.last(lastNode, [nodeList.length - 1]);
+      if (lastTextNode && Text.isText(lastTextNode[0])) {
+        const text = Node.string(lastTextNode[0]);
+        if (!text.endsWith('\n')) {
+          this._editor.current.insertText('\n', {
+            at: [nodeList.length - 1],
+          });
+        }
+      }
+    }
   }
 
   /**
