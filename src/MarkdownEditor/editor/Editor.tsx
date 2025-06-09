@@ -864,26 +864,6 @@ export const SlateMarkdownEditor = ({
           onBlur={() => {
             // 失去焦点时清除工具栏
             setDomRect?.(null);
-            editorProps?.onBlur?.(
-              parserSlateNodeToMarkdown(
-                markdownEditorRef.current?.children || [],
-                '',
-                [],
-                plugins,
-              ),
-              markdownEditorRef.current?.children,
-            );
-          }}
-          onFocus={() => {
-            editorProps?.onFocus?.(
-              parserSlateNodeToMarkdown(
-                markdownEditorRef.current?.children || [],
-                '',
-                [],
-                plugins,
-              ),
-              markdownEditorRef.current?.children,
-            );
           }}
           onMouseDown={checkEnd}
           onPaste={(event: React.ClipboardEvent<HTMLDivElement>) => {
