@@ -248,6 +248,23 @@ export type MarkdownEditorProps = {
   onChange?: (value: string, schema: Elements[]) => void;
 
   /**
+   * 焦点事件回调
+   * @description 当编辑器失去焦点时触发
+   * @param value
+   * @param schema
+   * @returns
+   */
+  onBlur?: (value: string, schema: Elements[]) => void;
+  /**
+   * 焦点事件回调
+   * @description 当编辑器获得焦点时触发
+   * @param value
+   * @param schema
+   * @returns
+   */
+  onFocus?: (value: string, schema: Elements[]) => void;
+
+  /**
    * 是否开启报告模式,展示效果会发生变化
    * @default false
    */

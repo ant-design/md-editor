@@ -8,8 +8,10 @@ import {
   Editor,
   Element,
   Node,
+  NodeMatch,
   Path,
   Range,
+  RangeMode,
   Selection,
   Text,
   Transforms,
@@ -18,6 +20,7 @@ import { ReactEditor } from './slate-react';
 
 import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
+import { T } from 'vitest/dist/chunks/environment.LoooBwUu.js';
 import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
 import { Elements, FootnoteDefinitionNode, ListNode } from '../el';
 import type { MarkdownEditorPlugin } from '../plugin';
@@ -273,6 +276,20 @@ export class EditorStore {
     this._editor.current.children = nodeList;
     ReactEditor.deselect(this._editor.current);
   }
+
+  /**
+   * 移除节点
+   * @param options
+   */
+  removeNodes: (options?: {
+    at?: Location;
+    match?: NodeMatch<T>;
+    mode?: RangeMode;
+    hanging?: boolean;
+    voids?: boolean;
+  }) => void = (options) => {
+    Transforms.removeNodes(this._editor.current, options as any);
+  };
 
   /**
    * 获取当前编辑器内容作为节点列表

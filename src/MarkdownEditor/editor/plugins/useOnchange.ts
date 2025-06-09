@@ -48,6 +48,7 @@ export function useOnchange(
         onChangeDebounce &&
         _operations.some((o) => o.type !== 'set_selection')
       ) {
+        // 如果有 onChange 函数，且操作类型不是 set_selection，则执行 onChangeDebounce
         onChangeDebounce.cancel();
         onChangeDebounce?.run(parserSlateNodeToMarkdown(_value), _value);
       }
