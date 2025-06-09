@@ -23,8 +23,8 @@ export const AstroIcon: React.FC<AstroIconProps> = ({
         fill="#ff6d00"
         fillRule="evenodd"
         style={{
-  'strokeWidth': '.93414'
-}}
+          strokeWidth: '.93414',
+        }}
       />
     </svg>
   );

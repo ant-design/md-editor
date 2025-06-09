@@ -213,9 +213,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             try {
               const code = element.value || '';
               // 优先使用现代 Clipboard API
-              if (
-                location.protocol === 'https:'
-              ) {
+              if (location.protocol === 'https:') {
                 navigator.clipboard.writeText(code);
               } else {
                 // 降级到传统方式

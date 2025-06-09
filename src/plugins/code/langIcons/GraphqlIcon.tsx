@@ -16,11 +16,13 @@ export const GraphqlIcon: React.FC<GraphqlIconProps> = ({
       viewBox="0 0 400 400"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g style={{
-  'fill': '#ec407a',
-  'strokeWidth': '6.8031',
-  'stroke': '#ec407a'
-}}>
+      <g
+        style={{
+          fill: '#ec407a',
+          strokeWidth: '6.8031',
+          stroke: '#ec407a',
+        }}
+      >
         <path d="m75.308 289.808-12.577-7.261L202.844 39.872l12.577 7.261z" />
         <path d="M59.851 263.158h280.215v14.523H59.851z" />
         <path d="m205.557 352.247-140.16-80.925 7.26-12.576 140.161 80.924zm121.758-210.915-140.16-80.924 7.261-12.577 140.16 80.925z" />

@@ -17,15 +17,21 @@ export const TomlIcon: React.FC<TomlIconProps> = ({ size = 24, ...props }) => {
       <path
         d="M22.76,6.83v3.25h-5V25.17H14.26V10.08h-5V6.83Z"
         style={{
-  'fill': '#7f7f7f'
-}}
+          fill: '#7f7f7f',
+        }}
       />
-      <path d="M2,2H8.2V5.09H5.34v21.8H8.2V30H2Z" style={{
-  'fill': '#bfbfbf'
-}} />
-      <path d="M30,30H23.8V26.91h2.86V5.11H23.8V2H30Z" style={{
-  'fill': '#bfbfbf'
-}} />
+      <path
+        d="M2,2H8.2V5.09H5.34v21.8H8.2V30H2Z"
+        style={{
+          fill: '#bfbfbf',
+        }}
+      />
+      <path
+        d="M30,30H23.8V26.91h2.86V5.11H23.8V2H30Z"
+        style={{
+          fill: '#bfbfbf',
+        }}
+      />
     </svg>
   );
 };

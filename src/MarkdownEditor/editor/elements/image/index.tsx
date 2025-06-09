@@ -1,24 +1,27 @@
 ﻿import {
+  BlockOutlined,
   DeleteFilled,
   LoadingOutlined,
-  PicCenterOutlined,
-  PicLeftOutlined,
-  BlockOutlined,
 } from '@ant-design/icons';
 import { Image, ImageProps, Modal, Popover, Space } from 'antd';
-import React, { useCallback, useLayoutEffect, useMemo, useRef, useContext } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Path, Transforms } from 'slate';
+import { I18nContext } from '../../../../i18n';
 import { ElementProps, MediaNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
 import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { useGetSetState } from '../../utils';
 import { getMediaType } from '../../utils/dom';
-import { I18nContext } from '../../../../i18n';
-import { Tooltip } from 'antd';
 
 /**
  * 图片组件，带有错误处理功能

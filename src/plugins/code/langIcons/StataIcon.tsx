@@ -39,8 +39,8 @@ export const StataIcon: React.FC<StataIconProps> = ({
         rx="1.556"
         ry="1.556"
         style={{
-  'fill': 'url(#a)'
-}}
+          fill: 'url(#a)',
+        }}
       />
       <rect
         x="13.171"

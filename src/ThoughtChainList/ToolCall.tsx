@@ -443,5 +443,11 @@ export const ToolCall = (
         </div>
       </>
     );
-  }, [editor, props.input?.inputArgs, props.output, props.isFinished, props.costMillis]);
+  }, [
+    editor,
+    props.input?.inputArgs,
+    props.output,
+    props.isFinished,
+    props.costMillis,
+  ]);
 };

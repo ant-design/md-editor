@@ -12,4 +12,4 @@ export interface LowCodeSchema {
   };
   required: string[];
   uiSchema: Record<string, any>;
-} 
+}

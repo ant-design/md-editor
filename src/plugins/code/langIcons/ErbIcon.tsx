@@ -17,8 +17,8 @@ export const ErbIcon: React.FC<ErbIconProps> = ({ size = 24, ...props }) => {
       <path
         d="M7.25,24.75h17.5L12.5,12.5,7.25,17.75ZM2,30H30V2H16L2,16Zm25.375-2.625H4.625v-10.5l12.25-12.25h10.5Z"
         style={{
-  'fill': '#921a1e'
-}}
+          fill: '#921a1e',
+        }}
       />
     </svg>
   );

@@ -18,6 +18,7 @@ import { CommentList } from './editor/components/CommentList';
 import { SlateMarkdownEditor } from './editor/Editor';
 import { TagPopupProps } from './editor/elements/TagPopup';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
+import { parserSlateNodeToMarkdown } from './editor/parser/parserSlateNodeToMarkdown';
 import { withMarkdown } from './editor/plugins';
 import { withErrorReporting } from './editor/plugins/catchError';
 import { ReactEditor, RenderLeafProps, withReact } from './editor/slate-react';
@@ -445,6 +446,34 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   useEffect(() => {
     withErrorReporting(markdownEditorRef.current);
   }, []);
+
+  // 处理点击外部区域
+  useEffect(() => {
+    if (!rest?.onBlur) return;
+    if (readonly) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        markdownContainerRef.current &&
+        !markdownContainerRef.current.contains(event.target as Node)
+      ) {
+        EditorUtils.blur(markdownEditorRef.current);
+        rest?.onBlur?.(
+          parserSlateNodeToMarkdown(
+            markdownEditorRef.current?.children || [],
+            '',
+            [],
+            props.plugins,
+          ),
+          markdownEditorRef.current?.children,
+        );
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [readonly, rest?.onBlur, props.plugins]);
 
   const store = useMemo(
     () => new EditorStore(markdownEditorRef, props.plugins),
