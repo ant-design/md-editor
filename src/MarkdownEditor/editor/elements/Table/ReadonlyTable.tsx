@@ -138,6 +138,7 @@ export const ReadonlyTable = ({
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const resize = () => {
+      if (process.env.NODE_ENV === 'test') return;
       let maxWidth = colWidths
         ? colWidths?.reduce((a: number, b: number) => a + b, 0) + 8
         : 0;

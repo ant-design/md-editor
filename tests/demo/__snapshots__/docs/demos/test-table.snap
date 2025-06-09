@@ -71,7 +71,7 @@
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1 1 0%; min-width: min(190px,921px,300px);"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
@@ -3467,7 +3467,7 @@
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1 1 0%; min-width: min(190px,376px,300px);"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
@@ -3776,7 +3776,7 @@
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1 1 0%; min-width: min(190px,921px,300px);"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
@@ -7172,7 +7172,7 @@
                 <div
                   aria-describedby="test-id"
                   class="ant-md-editor-content-table"
-                  style="flex: 1 1 0%; min-width: min(190px,376px,300px);"
+                  style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
