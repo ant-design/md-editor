@@ -1069,7 +1069,7 @@ export const Editable = forwardRef(
                     if (
                       !HAS_BEFORE_INPUT_SUPPORT &&
                       !readOnly &&
-                      !isEventHandled(event, attributes.onBeforeInput) &&
+                      !isEventHandled(event as any, attributes.onBeforeInput) &&
                       ReactEditor.hasSelectableTarget(editor, event.target)
                     ) {
                       event.preventDefault();
