@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useMemo } from 'react';
 import { DocMeta } from '.';
+import { RagIcon, ToolCallIcon } from '../components/icons';
 import { I18nContext } from '../i18n';
 import { ActionIconBox } from '../index';
 import { CollapseIcon, ExpandIcon } from './Collapse';
@@ -141,18 +142,12 @@ export const TitleInfo = (props: {
                 props.hashId,
               )}
             >
-              {props.category === 'ToolCall' ? (
-                <img
-                  width={18}
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*owExQ60sdmAAAAAAAAAAAAAADkN6AQ/original"
-                />
-              ) : null}
-              {props.category === 'RagRetrieval' ? (
-                <img
-                  width={18}
-                  src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*TzR2R6uohL0AAAAAAAAAAAAADkN6AQ/original"
-                />
-              ) : null}
+              {props.category === 'ToolCall' && (
+                <ToolCallIcon width={18} height={18} />
+              )}
+              {props.category === 'RagRetrieval' && (
+                <RagIcon width={18} height={18} />
+              )}
               {props.category === 'TableSql' ? (
                 <img
                   width={18}
@@ -211,11 +206,7 @@ export const TitleInfo = (props: {
           )}
         >
           <ActionIconBox
-            title={
-              collapse
-                ? locale.expand
-                : locale.collapse
-            }
+            title={collapse ? locale.expand : locale.collapse}
             onClick={() => {
               setCollapse?.(!collapse);
             }}

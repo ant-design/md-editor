@@ -4,6 +4,15 @@ import { glob } from 'glob';
 import React, { useEffect } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
+// Mock console.log to ignore act warnings
+const originalConsoleLog = console.log;
+console.log = (...args: any[]) => {
+  if (typeof args[0] === 'string' && args[0].includes('inside an act')) {
+    return;
+  }
+  originalConsoleLog(...args);
+};
+
 const waitTime = (time: number) =>
   new Promise((resolve) => {
     setTimeout(resolve, time);
@@ -35,8 +44,6 @@ function demoTest() {
     nodir: true,
   });
 
-  console.log(files);
-
   files.forEach((file) => {
     describe(`Rendering demo: ${file}`, () => {
       it(`renders ${file} correctly`, async () => {
@@ -65,7 +72,7 @@ function demoTest() {
           expect(fn).toHaveBeenCalled();
         });
 
-        expect(wrapper.asFragment()).toMatchFileSnapshot(
+        await expect(wrapper.asFragment()).toMatchFileSnapshot(
           './__snapshots__/' + file.replace(/\.tsx$/, '.snap'),
         );
       });

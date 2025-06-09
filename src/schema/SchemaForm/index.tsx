@@ -3,9 +3,9 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, InputNumber, Select, Space } from 'antd';
 import type { Rule } from 'antd/es/form';
 import { merge } from 'lodash';
-import React, { useCallback, useEffect, useMemo, useContext } from 'react';
-import { LowCodeSchema, SchemaProperty } from '../../schema/types';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { I18nContext } from '../../i18n';
+import { LowCodeSchema, SchemaProperty } from '../../schema/types';
 
 interface SchemaFormProps {
   schema: LowCodeSchema;
@@ -102,7 +102,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   // 获取通用输入框属性
   const getCommonInputProps = useCallback(
     (property: SchemaProperty) => ({
-      placeholder: locale?.inputPlaceholder,
+      placeholder: `请输入${property.title || property.description}`,
       readOnly: readonly,
       disabled: readonly,
     }),
@@ -252,7 +252,12 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       baseName?: string | number,
     ): React.ReactNode => {
       if (!property.properties) {
-        return <Input placeholder={locale?.emptyObjectConfig} disabled />;
+        return (
+          <Input
+            placeholder={`请输入${property.title || property.description}`}
+            disabled
+          />
+        );
       }
 
       return (

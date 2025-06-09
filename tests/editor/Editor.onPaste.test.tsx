@@ -1,8 +1,23 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MarkdownEditor } from '../../src';
+
+// Mock console.log to ignore act warnings
+const originalConsoleLog = console.log;
+console.log = (...args: any[]) => {
+  if (typeof args[0] === 'string' && args[0].includes('inside an act')) {
+    return;
+  }
+  originalConsoleLog(...args);
+};
 
 // Mock URL constructor for testing
 global.URL = class URL {
@@ -57,6 +72,7 @@ describe('Editor onPaste function', () => {
 
   afterEach(() => {
     document.body.removeChild(container);
+    console.log = originalConsoleLog;
   });
 
   const createClipboardEvent = (
@@ -117,9 +133,9 @@ describe('Editor onPaste function', () => {
     );
 
     // Fire the paste event - this should not throw an error
-    expect(() => {
+    await act(async () => {
       fireEvent.paste(editableElement, event);
-    }).not.toThrow();
+    });
 
     // Verify that the editor is still functional after the paste event
     expect(editableElement).toBeInTheDocument();
@@ -161,7 +177,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Pasted from Slate')).toBeInTheDocument();
@@ -195,7 +213,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     await waitFor(() => {
       expect(
@@ -245,7 +265,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     await waitFor(() => {
       expect(mockUpload).toHaveBeenCalledWith([imageFile]);
@@ -275,7 +297,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     // The URL should be handled as a link
     expect(() => {
@@ -306,7 +330,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     expect(() => {
       fireEvent.paste(editableElement, event);
@@ -336,7 +362,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     expect(() => {
       fireEvent.paste(editableElement, event);
@@ -367,7 +395,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     expect(() => {
       fireEvent.paste(editableElement, event);
@@ -400,7 +430,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     expect(() => {
       fireEvent.paste(editableElement, event);
@@ -458,7 +490,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     expect(() => {
       fireEvent.paste(editableElement, event);
@@ -489,6 +523,9 @@ describe('Editor onPaste function', () => {
       editableElement,
     );
 
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
     fireEvent.paste(editableElement, event);
 
     await waitFor(() => {
@@ -1092,15 +1129,19 @@ Custom container with styled text`;
       editableElement,
     );
 
-    fireEvent.paste(editableElement, htmlEvent);
+    await act(async () => {
+      fireEvent.paste(editableElement, htmlEvent);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Complex Document')).toBeInTheDocument();
     });
 
     // Clear editor for next test
-    fireEvent.keyDown(editableElement, { key: 'a', ctrlKey: true });
-    fireEvent.keyDown(editableElement, { key: 'Delete' });
+    await act(async () => {
+      fireEvent.keyDown(editableElement, { key: 'a', ctrlKey: true });
+      fireEvent.keyDown(editableElement, { key: 'Delete' });
+    });
 
     // Test Markdown paste
     const markdownEvent = createClipboardEvent(
@@ -1111,11 +1152,13 @@ Custom container with styled text`;
       editableElement,
     );
 
-    fireEvent.paste(editableElement, markdownEvent);
-
-    expect(() => {
+    await act(async () => {
       fireEvent.paste(editableElement, markdownEvent);
-    }).not.toThrow();
+    });
+
+    await act(async () => {
+      fireEvent.paste(editableElement, markdownEvent);
+    });
   });
 
   it('should handle malformed HTML and fallback to text', async () => {
@@ -1159,7 +1202,9 @@ Custom container with styled text`;
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     await waitFor(() => {
       expect(
@@ -1214,13 +1259,14 @@ Custom container with styled text`;
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Document with Media')).toBeInTheDocument();
     });
 
-    // Verify that script tags are not executed/included
     expect(
       screen.queryByText('This should be stripped'),
     ).not.toBeInTheDocument();
@@ -1385,13 +1431,14 @@ console.log("Code in collapsible");
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
-
-    expect(() => {
+    await act(async () => {
       fireEvent.paste(editableElement, event);
-    }).not.toThrow();
+    });
 
-    // Verify some key content is processed
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
+
     await waitFor(() => {
       expect(screen.getByText('Main Title with')).toBeTruthy();
     });
@@ -1443,15 +1490,19 @@ This is **Markdown bold** and *Markdown italic*.
       editableElement,
     );
 
-    fireEvent.paste(editableElement, event);
+    await act(async () => {
+      fireEvent.paste(editableElement, event);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('HTML Title')).toBeInTheDocument();
     });
 
     // Clear and test plain text only
-    fireEvent.keyDown(editableElement, { key: 'a', ctrlKey: true });
-    fireEvent.keyDown(editableElement, { key: 'Delete' });
+    await act(async () => {
+      fireEvent.keyDown(editableElement, { key: 'a', ctrlKey: true });
+      fireEvent.keyDown(editableElement, { key: 'Delete' });
+    });
 
     const plainTextEvent = createClipboardEvent(
       {
@@ -1461,10 +1512,12 @@ This is **Markdown bold** and *Markdown italic*.
       editableElement,
     );
 
-    fireEvent.paste(editableElement, plainTextEvent);
-
-    expect(() => {
+    await act(async () => {
       fireEvent.paste(editableElement, plainTextEvent);
-    }).not.toThrow();
+    });
+
+    await act(async () => {
+      fireEvent.paste(editableElement, plainTextEvent);
+    });
   });
 });

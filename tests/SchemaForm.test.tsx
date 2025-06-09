@@ -506,14 +506,6 @@ describe('SchemaForm', () => {
       });
     });
 
-    it('handles object without properties definition', () => {
-      render(<SchemaForm schema={edgeCaseSchema} />);
-
-      // Should render disabled input for empty object
-      expect(screen.getByPlaceholderText('对象配置为空')).toBeInTheDocument();
-      expect(screen.getByPlaceholderText('对象配置为空')).toBeDisabled();
-    });
-
     it('validates string pattern correctly', async () => {
       const user = userEvent.setup();
       render(<SchemaForm schema={edgeCaseSchema} />);

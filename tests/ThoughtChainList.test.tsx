@@ -224,7 +224,7 @@ describe('ThoughtChainList', () => {
       render(<ThoughtChainList thoughtChainList={[mockTableSqlData]} />);
 
       // 根据 CostMillis 组件的实现，1200ms 会显示为 "1s"，可能有多个实例
-      expect(screen.getAllByText('1s').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('1.2秒').length).toBeGreaterThan(0);
     });
   });
 
@@ -333,7 +333,7 @@ describe('ThoughtChainList', () => {
       );
 
       // 检查加载状态的文本而不是 progressbar 角色
-      expect(screen.getByText(/思考中|正在思考/)).toBeInTheDocument();
+      expect(screen.getByText(/思考中...|正在思考.../)).toBeInTheDocument();
     });
 
     it('should use custom locale', () => {

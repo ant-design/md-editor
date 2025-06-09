@@ -297,7 +297,7 @@ Font Awesome图标：:fa-solid fa-rocket:
             data-be="card"
             data-slate-node="element"
             role="button"
-            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
             tabindex="0"
           >
             <span
@@ -334,7 +334,7 @@ Font Awesome图标：:fa-solid fa-rocket:
               <div
                 aria-describedby="test-id"
                 class="ant-md-editor-content-table"
-                style="flex: 1; min-width: min(190px,284px,300px);"
+                style="flex: 1 1 0%; min-width: min(190px,284px,300px);"
               >
                 <table
                   class="ant-md-editor-content-table-editor-table"
@@ -1407,7 +1407,7 @@ extensions:
             data-be="card"
             data-slate-node="element"
             role="button"
-            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
             tabindex="0"
           >
             <span
@@ -1537,7 +1537,7 @@ extensions:
             data-be="card"
             data-slate-node="element"
             role="button"
-            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
             tabindex="0"
           >
             <span
@@ -1582,17 +1582,46 @@ extensions:
                   tabindex="-1"
                 >
                   <div
-                    style="padding: 12px; box-sizing: border-box; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
+                    style="padding: 12px; box-sizing: border-box; border: 1px solid rgb(240, 240, 240); border-radius: 0.5em; width: 100%; background-image: linear-gradient(rgb(249, 251, 255) 0%, rgb(243, 248, 255) 100%); flex: 1 1 0%; display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); justify-content: space-between;"
                   >
                     <div
-                      style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1; min-width: 0;"
+                      style="display: flex; align-items: center; gap: 12px; color: rgb(38, 38, 38); font-size: 16px; flex: 1 1 0%; min-width: 0;"
                     >
-                      <img
-                        src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
-                        width="56"
-                      />
+                      <svg
+                        fill="none"
+                        height="24"
+                        style="width: 56px; height: 56px;"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <clippath
+                            id="master_svg0_663_049136"
+                          >
+                            <rect
+                              height="24"
+                              rx="0"
+                              width="24"
+                              x="0"
+                              y="0"
+                            />
+                          </clippath>
+                        </defs>
+                        <g
+                          clip-path="url(#master_svg0_663_049136)"
+                        >
+                          <g>
+                            <path
+                              d="M7.50066,19.7929C11.80467,22.2778,17.3081,20.8032,19.7929,16.499299999999998C22.2778,12.19536,20.8032,6.6919699999999995,16.499200000000002,4.20701C12.19534,1.72223,6.691940000000001,3.196862,4.2070799999999995,7.50078C1.72221,11.80469,3.1968389999999998,17.3081,7.50066,19.7929ZM12.07032,18.7496C13.2424,17.8643,14.416,16.584400000000002,15.4272,15.0178L17.3432,16.1241C16.0563,17.7959,14.0912,18.726599999999998,12.07032,18.7496ZM16.5277,13.0556L18.4027,14.1381C19.0176,12.30289,18.7992,10.32012,17.880499999999998,8.686160000000001C17.7145,10.025590000000001,17.2605,11.53272,16.5277,13.0556ZM11.92933,5.25044C10.05505,5.271850000000001,8.22884,6.07409,6.94708,7.52419L8.82183,8.606580000000001C9.774180000000001,7.21054,10.852360000000001,6.06387,11.92933,5.25044ZM10.77135,9.732140000000001Q12.09107,7.81575,13.6657,6.776120000000001Q14.4779,6.23984,15.0765,6.15175Q15.309,6.11753,15.3743,6.15524Q15.4397,6.192959999999999,15.5263,6.41142Q15.7493,6.97389,15.691,7.94545Q15.5779,9.8289,14.5782,11.93L10.77135,9.732140000000001ZM9.62115,11.66571Q8.432690000000001,13.9907,8.30882,16.0544Q8.25051,17.026,8.47352,17.5885Q8.56015,17.8069,8.62547,17.8446Q8.69079,17.8823,8.923300000000001,17.848100000000002Q9.52191,17.759999999999998,10.334150000000001,17.2238Q12.05944,16.084600000000002,13.4787,13.8929L9.62115,11.66571ZM7.67272,10.54078C6.821680000000001,12.19973,6.29998,13.856,6.11937,15.3136C5.12896,13.5521,4.95256,11.38504,5.75686,9.434660000000001L7.67272,10.54078Z"
+                              fill="#0055CC"
+                              fill-rule="evenodd"
+                            />
+                          </g>
+                        </g>
+                      </svg>
                       <div
-                        style="flex: 1; min-width: 0;"
+                        style="flex: 1 1 0%; min-width: 0;"
                       >
                         <a
                           download="测试附件.pdf"
@@ -1602,7 +1631,7 @@ extensions:
                           测试附件.pdf
                         </a>
                         <div
-                          style="flex: 1; min-width: 0; display: flex; justify-content: space-between;"
+                          style="flex: 1 1 0%; min-width: 0; display: flex; justify-content: space-between;"
                         >
                           <div />
                         </div>
@@ -1948,7 +1977,7 @@ deadline: 2023-12-31
             data-be="card"
             data-slate-node="element"
             role="button"
-            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
             tabindex="0"
           >
             <span
@@ -1985,7 +2014,7 @@ deadline: 2023-12-31
               <div
                 aria-describedby="test-id"
                 class="ant-md-editor-content-table"
-                style="flex: 1; min-width: min(190px,264px,300px);"
+                style="flex: 1 1 0%; min-width: min(190px,264px,300px);"
               >
                 <table
                   class="ant-md-editor-content-table-editor-table"
@@ -2500,7 +2529,7 @@ response:
             data-be="card"
             data-slate-node="element"
             role="button"
-            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+            style="padding: 12px; border-radius: 6px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
             tabindex="0"
           >
             <span

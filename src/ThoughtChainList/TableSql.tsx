@@ -3,7 +3,7 @@
   CopyOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import { Button, Popover, Table, Typography } from 'antd';
+import { Button, Table, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
 import { I18nContext } from '../i18n';
@@ -434,5 +434,11 @@ export const TableSql = (
         </div>
       </>
     );
-  }, [editor, props.input?.sql, props.output, props.isFinished, props.costMillis]);
+  }, [
+    editor,
+    props.input?.sql,
+    props.output,
+    props.isFinished,
+    props.costMillis,
+  ]);
 };

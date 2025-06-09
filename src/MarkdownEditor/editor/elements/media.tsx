@@ -5,6 +5,7 @@ import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Transforms } from 'slate';
+import { EarthIcon } from '../../../components/icons/Earth';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
 import { ActionIconBox } from '../components/ActionIconBox';
@@ -325,9 +326,11 @@ export function Media({
               minWidth: 0,
             }}
           >
-            <img
-              width={56}
-              src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*DPzkQ5dfwDQAAAAAAAAAAAAADkN6AQ/original"
+            <EarthIcon
+              style={{
+                width: 56,
+                height: 56,
+              }}
             />
             <div
               style={{

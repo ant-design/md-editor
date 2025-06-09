@@ -329,16 +329,6 @@ export class EditorStore {
           at: [nodeList.length - 1],
         });
       }
-    } else if (lastNode && Element.isElement(lastNode)) {
-      const lastTextNode = Node.last(lastNode, [nodeList.length - 1]);
-      if (lastTextNode && Text.isText(lastTextNode[0])) {
-        const text = Node.string(lastTextNode[0]);
-        if (!text.endsWith('\n')) {
-          this._editor.current.insertText('\n', {
-            at: [nodeList.length - 1],
-          });
-        }
-      }
     }
   }
 

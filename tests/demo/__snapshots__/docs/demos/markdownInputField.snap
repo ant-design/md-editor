@@ -128,15 +128,15 @@
           </svg>
         </div>
         <div
-          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
+          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
@@ -295,15 +295,15 @@
           </svg>
         </div>
         <div
-          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
+          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
@@ -614,15 +614,15 @@
           </svg>
         </div>
         <div
-          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
+          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
@@ -781,11 +781,11 @@
           </svg>
         </div>
         <div
-          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
+          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(270px,100%); flex: 1;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(270px,100%); flex: 1 1 0%;"
           >
             <div
               class="ant-md-editor-attachment-list"
@@ -856,7 +856,7 @@
             </div>
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
@@ -1038,15 +1038,15 @@
           </svg>
         </div>
         <div
-          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
+          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: auto; opacity: 1;"
         >
           <div
             class="ant-md-input-field-editor"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"
@@ -1225,15 +1225,15 @@
           </svg>
         </div>
         <div
-          style="flex: 1; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: not-allowed; opacity: 0.5;"
+          style="flex: 1 1 0%; background-color: rgb(255, 255, 255); width: 100%; display: flex; z-index: 9; flex-direction: column; box-sizing: border-box; border-radius: 10px; cursor: not-allowed; opacity: 0.5;"
         >
           <div
             class="ant-md-input-field-editor ant-md-input-field-editor-disabled"
-            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1;"
+            style="display: flex; flex-direction: column; border-radius: 10px; max-height: max(180px,100%); flex: 1 1 0%;"
           >
             <div
               class="markdown-editor ant-md-editor ant-md-editor-edit"
-              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1; padding: 4px 64px 4px 4px;"
+              style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; flex: 1 1 0%; padding: 4px 64px 4px 4px;"
             >
               <div
                 style="padding: 8px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px;"

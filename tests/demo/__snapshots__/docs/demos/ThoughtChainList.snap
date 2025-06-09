@@ -18,17 +18,112 @@
             class="ant-thought-chain-list-title"
           >
             <div>
-              <img
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*WldfRZoyDxMAAAAAAAAAAAAADkN6AQ/original"
+              <svg
+                fill="none"
+                height="24"
                 style="width: 15px; height: 15px;"
-              />
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <lineargradient
+                    id="master_svg0_55_07971"
+                    x1="1.0711805820465088"
+                    x2="-0.10435748845338823"
+                    y1="1.2556250095367432"
+                    y2="0.6474400758743286"
+                  >
+                    <stop
+                      offset="3.1535394489765167%"
+                      stop-color="#0CE0AD"
+                      stop-opacity="1"
+                    />
+                    <stop
+                      offset="18.80498379468918%"
+                      stop-color="#58CCFF"
+                      stop-opacity="1"
+                    />
+                    <stop
+                      offset="50.54115653038025%"
+                      stop-color="#006EFF"
+                      stop-opacity="1"
+                    />
+                    <stop
+                      offset="78.08561325073242%"
+                      stop-color="#1E50FF"
+                      stop-opacity="0.845061182975769"
+                    />
+                    <stop
+                      offset="100%"
+                      stop-color="#3500FF"
+                      stop-opacity="0.8295727968215942"
+                    />
+                  </lineargradient>
+                  <lineargradient
+                    id="master_svg1_55_07972"
+                    x1="0.23266714811325073"
+                    x2="0.022545708343386636"
+                    y1="0.9682043194770813"
+                    y2="0.18969909846782684"
+                  >
+                    <stop
+                      offset="0%"
+                      stop-color="#FF00DD"
+                      stop-opacity="0"
+                    />
+                    <stop
+                      offset="43.69531571865082%"
+                      stop-color="#E654D3"
+                      stop-opacity="0.3131555914878845"
+                    />
+                    <stop
+                      offset="100%"
+                      stop-color="#FC00FF"
+                      stop-opacity="0.740876317024231"
+                    />
+                  </lineargradient>
+                </defs>
+                <g>
+                  <g
+                    style="opacity: 0;"
+                  >
+                    <path
+                      d="M0 0C0 0 0 0 0 0L24 0C24 0 24 0 24 0L24 24C24 24 24 24 24 24L0 24C0 24 0 24 0 24Z"
+                      fill="url(#master_svg0_55_07971)"
+                      fill-opacity="1"
+                    />
+                    <path
+                      d="M0 0C0 0 0 0 0 0L24 0C24 0 24 0 24 0L24 24C24 24 24 24 24 24L0 24C0 24 0 24 0 24Z"
+                      fill="url(#master_svg1_55_07972)"
+                      fill-opacity="1"
+                    />
+                  </g>
+                  <g
+                    transform="matrix(0.9848077297210693,-0.1736481934785843,0.1736481934785843,0.9848077297210693,-0.9516076462989673,0.2582323480503419)"
+                  >
+                    <path
+                      d="M4.31701,12.95088409696158C3.50649,13.137514096961581,3.50649,14.29179409696158,4.31701,14.47842409696158L5.25991,14.69552409696158C7.41836,15.19252409696158,9.09489,16.89260409696158,9.56178,19.05770409696158C9.70219,19.708904096961582,10.63114,19.708904096961582,10.77155,19.05770409696158C11.2384,16.89260409696158,12.915,15.19252409696158,15.0734,14.69552409696158L16.0163,14.47842409696158C16.8268,14.29179409696158,16.8268,13.137514096961581,16.0163,12.95088409696158L15.0734,12.73377409696158C12.915,12.23678409696158,11.2384,10.536734096961581,10.77155,8.37157409696158C10.63114,7.720444096961581,9.70219,7.720444096961581,9.56178,8.37157409696158C9.09489,10.536734096961581,7.41836,12.23678409696158,5.25991,12.73377409696158L4.31701,12.95088409696158Z"
+                      fill="url(#master_svg5_2273_38144)"
+                      fill-opacity="1"
+                    />
+                  </g>
+                  <g
+                    transform="matrix(0.9396925568580627,-0.3420201241970062,0.3420201241970062,0.9396925568580627,-0.4579207480273908,4.64518478539685)"
+                  >
+                    <path
+                      d="M14.13737951172166,6.27947375C13.84558751172166,6.34665375,13.84558751172166,6.76219375,14.13737951172166,6.82938375L14.476819511721661,6.90754375C15.25385951172166,7.08646375,15.85740951172166,7.69847375,16.02548951172166,8.47793375C16.07603951172166,8.712343749999999,16.410459511721662,8.712343749999999,16.46100951172166,8.47793375C16.62908951172166,7.69847375,17.23263951172166,7.08646375,18.00967951172166,6.90754375L18.34912951172166,6.82938375C18.64090951172166,6.76219375,18.64090951172166,6.34665375,18.34912951172166,6.27947375L18.00967951172166,6.201313750000001C17.23263951172166,6.02239375,16.62908951172166,5.41037375,16.46100951172166,4.63092375C16.410459511721662,4.39651075,16.07603951172166,4.39651075,16.02548951172166,4.63092375C15.85740951172166,5.41037375,15.25385951172166,6.02239375,14.476819511721661,6.201313750000001L14.13737951172166,6.27947375Z"
+                      fill="url(#master_svg1i_2273_38144)"
+                      fill-opacity="1"
+                    />
+                  </g>
+                </g>
+              </svg>
               <span
                 class="ant-thought-chain-list-title-progress"
                 style="font-size: 1em;"
               >
-                <div>
-                  任务完成
-                </div>
+                <div />
               </span>
             </div>
             <span
@@ -285,49 +380,21 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; gap: 10px; align-self: stretch; word-break: break-all; word-wrap: break-word; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; gap: 10px; align-self: stretch; word-break: break-all; word-wrap: break-word; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: space-between;"
                           >
                             查询 SQL
                             <div
-                              style="display: flex; gap: 8px;"
+                              style="display: flex; flex-direction: row; gap: 10px; align-items: center;"
                             >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="修改"
-                                class="ant-md-editor-action-icon-box"
-                                role="button"
-                                style="cursor: pointer;"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="edit"
-                                  class="anticon anticon-edit"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="edit"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
                               <span
                                 aria-describedby="test-id"
                                 aria-label="复制"
@@ -427,233 +494,157 @@
                           </div>
                         </div>
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="display: flex; flex-direction: column; gap: 10px; padding: 8px 12px; align-self: stretch; word-break: break-all; word-wrap: break-word; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: space-between;"
                           >
+                            查询结果
                             <div
-                              style="display: flex; gap: 10px; align-items: center;"
-                            >
-                              <span>
-                                查询结果
-                              </span>
-                            </div>
-                            <span
-                              aria-describedby="test-id"
-                              aria-label="复制"
-                              class="ant-md-editor-action-icon-box"
-                              role="button"
-                              tabindex="0"
+                              style="display: flex; flex-direction: row; gap: 10px; align-items: center;"
                             >
                               <span
-                                aria-label="copy"
-                                class="anticon anticon-copy"
-                                role="img"
+                                aria-describedby="test-id"
+                                aria-label="复制"
+                                class="ant-md-editor-action-icon-box"
+                                role="button"
+                                tabindex="0"
                               >
-                                <svg
-                                  aria-hidden="true"
-                                  data-icon="copy"
-                                  fill="currentColor"
-                                  focusable="false"
-                                  height="1em"
-                                  viewBox="64 64 896 896"
-                                  width="1em"
+                                <span
+                                  aria-label="copy"
+                                  class="anticon anticon-copy"
+                                  role="img"
                                 >
-                                  <path
-                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                  />
-                                </svg>
+                                  <svg
+                                    aria-hidden="true"
+                                    data-icon="copy"
+                                    fill="currentColor"
+                                    focusable="false"
+                                    height="1em"
+                                    viewBox="64 64 896 896"
+                                    width="1em"
+                                  >
+                                    <path
+                                      d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                    />
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
+                            </div>
                           </div>
                           <div
-                            class="ant-table-wrapper"
+                            style="display: flex; border-radius: 12px; align-self: stretch; background: rgb(255, 255, 255);"
                           >
                             <div
-                              class="ant-spin-nested-loading"
+                              class="ant-table-wrapper"
+                              style="width: 100%;"
                             >
                               <div
-                                class="ant-spin-container"
+                                class="ant-spin-nested-loading"
                               >
                                 <div
-                                  class="ant-table ant-table-small ant-table-bordered ant-table-scroll-horizontal"
+                                  class="ant-spin-container"
                                 >
                                   <div
-                                    class="ant-table-container"
+                                    class="ant-table ant-table-small"
                                   >
                                     <div
-                                      class="ant-table-content"
-                                      style="overflow-x: auto; overflow-y: hidden;"
+                                      class="ant-table-container"
                                     >
-                                      <table
-                                        style="min-width: 100%; table-layout: auto;"
+                                      <div
+                                        class="ant-table-content"
                                       >
-                                        <colgroup />
-                                        <thead
-                                          class="ant-table-thead"
+                                        <table
+                                          style="table-layout: auto;"
                                         >
-                                          <tr>
-                                            <th
-                                              class="ant-table-cell"
-                                              scope="col"
-                                            >
-                                              name
-                                            </th>
-                                            <th
-                                              class="ant-table-cell"
-                                              scope="col"
-                                            >
-                                              age
-                                            </th>
-                                            <th
-                                              class="ant-table-cell"
-                                              scope="col"
-                                            >
-                                              address
-                                            </th>
-                                          </tr>
-                                        </thead>
-                                        <tbody
-                                          class="ant-table-tbody"
-                                        >
-                                          <tr
-                                            aria-hidden="true"
-                                            class="ant-table-measure-row"
-                                            style="height: 0px; font-size: 0px;"
+                                          <colgroup />
+                                          <thead
+                                            class="ant-table-thead"
                                           >
-                                            <td
-                                              style="padding: 0px; border: 0px; height: 0px;"
-                                            >
-                                              <div
-                                                style="height: 0px; overflow: hidden;"
+                                            <tr>
+                                              <th
+                                                class="ant-table-cell"
+                                                scope="col"
                                               >
-                                                 
-                                              </div>
-                                            </td>
-                                            <td
-                                              style="padding: 0px; border: 0px; height: 0px;"
-                                            >
-                                              <div
-                                                style="height: 0px; overflow: hidden;"
+                                                name
+                                              </th>
+                                              <th
+                                                class="ant-table-cell"
+                                                scope="col"
                                               >
-                                                 
-                                              </div>
-                                            </td>
-                                            <td
-                                              style="padding: 0px; border: 0px; height: 0px;"
-                                            >
-                                              <div
-                                                style="height: 0px; overflow: hidden;"
+                                                age
+                                              </th>
+                                              <th
+                                                class="ant-table-cell"
+                                                scope="col"
                                               >
-                                                 
-                                              </div>
-                                            </td>
-                                          </tr>
-                                          <tr
-                                            class="ant-table-row ant-table-row-level-0"
+                                                address
+                                              </th>
+                                            </tr>
+                                          </thead>
+                                          <tbody
+                                            class="ant-table-tbody"
                                           >
-                                            <td
-                                              class="ant-table-cell"
+                                            <tr
+                                              class="ant-table-row ant-table-row-level-0"
                                             >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 Tom
-                                              </div>
-                                            </td>
-                                            <td
-                                              class="ant-table-cell"
-                                            >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              </td>
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 18
-                                              </div>
-                                            </td>
-                                            <td
-                                              class="ant-table-cell"
-                                            >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              </td>
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 Shanghai
-                                              </div>
-                                            </td>
-                                          </tr>
-                                          <tr
-                                            class="ant-table-row ant-table-row-level-0"
-                                          >
-                                            <td
-                                              class="ant-table-cell"
+                                              </td>
+                                            </tr>
+                                            <tr
+                                              class="ant-table-row ant-table-row-level-0"
                                             >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 Jim
-                                              </div>
-                                            </td>
-                                            <td
-                                              class="ant-table-cell"
-                                            >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              </td>
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 20
-                                              </div>
-                                            </td>
-                                            <td
-                                              class="ant-table-cell"
-                                            >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              </td>
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 Beijing
-                                              </div>
-                                            </td>
-                                          </tr>
-                                          <tr
-                                            class="ant-table-row ant-table-row-level-0"
-                                          >
-                                            <td
-                                              class="ant-table-cell"
+                                              </td>
+                                            </tr>
+                                            <tr
+                                              class="ant-table-row ant-table-row-level-0"
                                             >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 Lucy
-                                              </div>
-                                            </td>
-                                            <td
-                                              class="ant-table-cell"
-                                            >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              </td>
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 22
-                                              </div>
-                                            </td>
-                                            <td
-                                              class="ant-table-cell"
-                                            >
-                                              <div
-                                                aria-describedby="test-id"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; max-height: 40px;"
+                                              </td>
+                                              <td
+                                                class="ant-table-cell"
                                               >
                                                 Hangzhou
-                                              </div>
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -711,10 +702,109 @@
                           aria-describedby="test-id"
                           class="ant-thought-chain-list-content-list-item-info ant-thought-chain-list-content-list-item-info-tag"
                         >
-                          <img
-                            src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*TzR2R6uohL0AAAAAAAAAAAAADkN6AQ/original"
+                          <svg
+                            fill="none"
+                            height="18"
+                            viewBox="0 0 24 24"
                             width="18"
-                          />
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <defs>
+                              <clippath
+                                id="clip0"
+                              >
+                                <rect
+                                  height="18"
+                                  rx="0"
+                                  width="18"
+                                  x="3"
+                                  y="3"
+                                />
+                              </clippath>
+                              <lineargradient
+                                id="gradient1"
+                                x1="0.818"
+                                x2="0.135"
+                                y1="-0.603"
+                                y2="0.980"
+                              >
+                                <stop
+                                  offset="0%"
+                                  stop-color="#00FF8F"
+                                />
+                                <stop
+                                  offset="34.21%"
+                                  stop-color="#7BD7FF"
+                                />
+                                <stop
+                                  offset="63.95%"
+                                  stop-color="#008EFF"
+                                />
+                                <stop
+                                  offset="100%"
+                                  stop-color="#0059FF"
+                                />
+                              </lineargradient>
+                              <lineargradient
+                                id="gradient2"
+                                x1="0.274"
+                                x2="0.038"
+                                y1="1.385"
+                                y2="0"
+                              >
+                                <stop
+                                  offset="0%"
+                                  stop-color="#FFFFFF"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="75.55%"
+                                  stop-color="#E654D3"
+                                  stop-opacity="0.42"
+                                />
+                                <stop
+                                  offset="100%"
+                                  stop-color="#ED00B6"
+                                />
+                              </lineargradient>
+                              <lineargradient
+                                id="gradient3"
+                                x1="0.857"
+                                x2="0.851"
+                                y1="0.677"
+                                y2="1.711"
+                              >
+                                <stop
+                                  offset="1.46%"
+                                  stop-color="#FFFFFF"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="39.70%"
+                                  stop-color="#04FF00"
+                                />
+                              </lineargradient>
+                            </defs>
+                            <g
+                              clip-path="url(#clip0)"
+                            >
+                              <path
+                                d="M7.54 4.946H5.757q-0.336 0-0.574 0.238q-0.237 0.237-0.237 0.573v1.784c0 0.537-0.436 0.973-0.973 0.973C3.436 8.514 3 8.078 3 7.54V5.757q0-1.142 0.807-1.95Q4.615 3 5.757 3h1.783c0.538 0 0.973 0.436 0.973 0.973 0 0.537-0.435 0.973-0.973 0.973zM16.46 3h1.783q1.142 0 1.95 0.807Q21 4.615 21 5.757v1.784c0 0.258-0.103 0.505-0.285 0.688-0.183 0.182-0.43 0.285-0.688 0.285-0.537 0-0.973-0.436-0.973-0.973V5.757q0-0.336-0.238-0.574q-0.237-0.237-0.573-0.237H16.46c-0.537 0-0.973-0.436-0.973-0.973C15.487 3.436 15.923 3 16.46 3zM15.649 12c0 0.654-0.172 1.268-0.474 1.799l1.081 1.081c0.182 0.183 0.285 0.43 0.285 0.688 0 0.537-0.436 0.973-0.973 0.973-0.258 0-0.506-0.102-0.688-0.285l-1.081-1.081c-0.531 0.302-1.145 0.474-1.799 0.474-2.015 0-3.648-1.634-3.648-3.649s1.633-3.648 3.648-3.648c2.015 0 3.649 1.633 3.649 3.648zM12 13.703c0.405 0 0.777-0.141 1.069-0.377 0.069-0.101 0.156-0.188 0.257-0.257 0.236-0.292 0.377-0.664 0.377-1.069 0-0.94-0.762-1.703-1.703-1.703s-1.703 0.763-1.703 1.703 0.762 1.703 1.703 1.703zM3 16.46c0-0.537 0.436-0.973 0.973-0.973 0.537 0 0.973 0.436 0.973 0.973v1.783q0 0.336 0.237 0.574q0.238 0.237 0.574 0.237h1.783c0.538 0 0.973 0.436 0.973 0.973 0 0.537-0.435 0.973-0.973 0.973H5.757q-1.142 0-1.95-0.807Q3 19.385 3 18.243V16.46zM21 16.46v1.783q0 1.142-0.807 1.95Q19.385 21 18.243 21H16.46c-0.258 0-0.506-0.103-0.688-0.285-0.183-0.183-0.285-0.43-0.285-0.688 0-0.537 0.436-0.973 0.973-0.973h1.783q0.336 0 0.574-0.237q0.237-0.238 0.237-0.574V16.46c0-0.537 0.436-0.973 0.973-0.973 0.537 0 0.973 0.436 0.973 0.973z"
+                                fill="url(#gradient1)"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                d="M7.54 4.946H5.757q-0.336 0-0.574 0.238q-0.237 0.237-0.237 0.573v1.784c0 0.537-0.436 0.973-0.973 0.973C3.436 8.514 3 8.078 3 7.54V5.757q0-1.142 0.807-1.95Q4.615 3 5.757 3h1.783c0.538 0 0.973 0.436 0.973 0.973 0 0.537-0.435 0.973-0.973 0.973zM16.46 3h1.783q1.142 0 1.95 0.807Q21 4.615 21 5.757v1.784c0 0.258-0.103 0.505-0.285 0.688-0.183 0.182-0.43 0.285-0.688 0.285-0.537 0-0.973-0.436-0.973-0.973V5.757q0-0.336-0.238-0.574q-0.237-0.237-0.573-0.237H16.46c-0.537 0-0.973-0.436-0.973-0.973C15.487 3.436 15.923 3 16.46 3zM15.649 12c0 0.654-0.172 1.268-0.474 1.799l1.081 1.081c0.182 0.183 0.285 0.43 0.285 0.688 0 0.537-0.436 0.973-0.973 0.973-0.258 0-0.506-0.102-0.688-0.285l-1.081-1.081c-0.531 0.302-1.145 0.474-1.799 0.474-2.015 0-3.648-1.634-3.648-3.649s1.633-3.648 3.648-3.648c2.015 0 3.649 1.633 3.649 3.648zM12 13.703c0.405 0 0.777-0.141 1.069-0.377 0.069-0.101 0.156-0.188 0.257-0.257 0.236-0.292 0.377-0.664 0.377-1.069 0-0.94-0.762-1.703-1.703-1.703s-1.703 0.763-1.703 1.703 0.762 1.703 1.703 1.703zM3 16.46c0-0.537 0.436-0.973 0.973-0.973 0.537 0 0.973 0.436 0.973 0.973v1.783q0 0.336 0.237 0.574q0.238 0.237 0.574 0.237h1.783c0.538 0 0.973 0.436 0.973 0.973 0 0.537-0.435 0.973-0.973 0.973H5.757q-1.142 0-1.95-0.807Q3 19.385 3 18.243V16.46zM21 16.46v1.783q0 1.142-0.807 1.95Q19.385 21 18.243 21H16.46c-0.258 0-0.506-0.103-0.688-0.285-0.183-0.183-0.285-0.43-0.285-0.688 0-0.537 0.436-0.973 0.973-0.973h1.783q0.336 0 0.574-0.237q0.237-0.238 0.237-0.574V16.46c0-0.537 0.436-0.973 0.973-0.973 0.537 0 0.973 0.436 0.973 0.973z"
+                                fill="url(#gradient2)"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                d="M7.54 4.946H5.757q-0.336 0-0.574 0.238q-0.237 0.237-0.237 0.573v1.784c0 0.537-0.436 0.973-0.973 0.973C3.436 8.514 3 8.078 3 7.54V5.757q0-1.142 0.807-1.95Q4.615 3 5.757 3h1.783c0.538 0 0.973 0.436 0.973 0.973 0 0.537-0.435 0.973-0.973 0.973zM16.46 3h1.783q1.142 0 1.95 0.807Q21 4.615 21 5.757v1.784c0 0.258-0.103 0.505-0.285 0.688-0.183 0.182-0.43 0.285-0.688 0.285-0.537 0-0.973-0.436-0.973-0.973V5.757q0-0.336-0.238-0.574q-0.237-0.237-0.573-0.237H16.46c-0.537 0-0.973-0.436-0.973-0.973C15.487 3.436 15.923 3 16.46 3zM15.649 12c0 0.654-0.172 1.268-0.474 1.799l1.081 1.081c0.182 0.183 0.285 0.43 0.285 0.688 0 0.537-0.436 0.973-0.973 0.973-0.258 0-0.506-0.102-0.688-0.285l-1.081-1.081c-0.531 0.302-1.145 0.474-1.799 0.474-2.015 0-3.648-1.634-3.648-3.649s1.633-3.648 3.648-3.648c2.015 0 3.649 1.633 3.649 3.648zM12 13.703c0.405 0 0.777-0.141 1.069-0.377 0.069-0.101 0.156-0.188 0.257-0.257 0.236-0.292 0.377-0.664 0.377-1.069 0-0.94-0.762-1.703-1.703-1.703s-1.703 0.763-1.703 1.703 0.762 1.703 1.703 1.703zM3 16.46c0-0.537 0.436-0.973 0.973-0.973 0.537 0 0.973 0.436 0.973 0.973v1.783q0 0.336 0.237 0.574q0.238 0.237 0.574 0.237h1.783c0.538 0 0.973 0.436 0.973 0.973 0 0.537-0.435 0.973-0.973 0.973H5.757q-1.142 0-1.95-0.807Q3 19.385 3 18.243V16.46zM21 16.46v1.783q0 1.142-0.807 1.95Q19.385 21 18.243 21H16.46c-0.258 0-0.506-0.103-0.688-0.285-0.183-0.183-0.285-0.43-0.285-0.688 0-0.537 0.436-0.973 0.973-0.973h1.783q0.336 0 0.574-0.237q0.237-0.238 0.237-0.574V16.46c0-0.537 0.436-0.973 0.973-0.973 0.537 0 0.973 0.436 0.973 0.973z"
+                                fill="url(#gradient3)"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </svg>
                           <span
                             class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
@@ -824,10 +914,10 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
-                        style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px; flex-wrap: wrap;"
+                        style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px; flex-wrap: wrap;"
                       >
                         查询关键词
                         <div
@@ -859,7 +949,7 @@
                           style="display: flex; flex-direction: row; gap: 4px; flex-wrap: wrap; border-radius: 12px;"
                         >
                           <div
-                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0;"
+                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content;"
                           >
                             <img
                               src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*1vi5SZ5lqbsAAAAAAAAAAAAADkN6AQ/original"
@@ -871,7 +961,7 @@
                             </span>
                           </div>
                           <div
-                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0;"
+                            style="height: 32px; border-radius: 6px; opacity: 1; display: flex; flex-direction: row; align-items: center; padding: 4px 10px; gap: 8px; background: rgb(255, 255, 255); z-index: 0; width: max-content;"
                           >
                             <img
                               src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*1vi5SZ5lqbsAAAAAAAAAAAAADkN6AQ/original"
@@ -1019,13 +1109,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -1125,10 +1215,91 @@
                           aria-describedby="test-id"
                           class="ant-thought-chain-list-content-list-item-info ant-thought-chain-list-content-list-item-info-tag"
                         >
-                          <img
-                            src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*owExQ60sdmAAAAAAAAAAAAAADkN6AQ/original"
+                          <svg
+                            fill="none"
+                            height="18"
+                            viewBox="0 0 24 24"
                             width="18"
-                          />
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <defs>
+                              <lineargradient
+                                id="gradient1"
+                                x1="0.818"
+                                x2="0.135"
+                                y1="-0.603"
+                                y2="0.980"
+                              >
+                                <stop
+                                  offset="0%"
+                                  stop-color="#00FF8F"
+                                />
+                                <stop
+                                  offset="34.21%"
+                                  stop-color="#7BD7FF"
+                                />
+                                <stop
+                                  offset="63.95%"
+                                  stop-color="#008EFF"
+                                />
+                                <stop
+                                  offset="100%"
+                                  stop-color="#0059FF"
+                                />
+                              </lineargradient>
+                              <lineargradient
+                                id="gradient2"
+                                x1="0.274"
+                                x2="0.038"
+                                y1="1.385"
+                                y2="0"
+                              >
+                                <stop
+                                  offset="0%"
+                                  stop-color="#FFFFFF"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="75.55%"
+                                  stop-color="#E654D3"
+                                  stop-opacity="0.42"
+                                />
+                                <stop
+                                  offset="100%"
+                                  stop-color="#ED00B6"
+                                />
+                              </lineargradient>
+                              <lineargradient
+                                id="gradient3"
+                                x1="0.857"
+                                x2="0.851"
+                                y1="0.677"
+                                y2="1.711"
+                              >
+                                <stop
+                                  offset="1.46%"
+                                  stop-color="#FFFFFF"
+                                  stop-opacity="0"
+                                />
+                                <stop
+                                  offset="39.70%"
+                                  stop-color="#04FF00"
+                                />
+                              </lineargradient>
+                            </defs>
+                            <path
+                              d="M2.7 18.792V5.208C2.7 4.169 3.435 3.435 4.17 2.7C4.17 2.7 5.208 2.7 5.208 2.7H18.793C19.831 2.7 20.566 3.435 21.3 4.169C21.3 4.169 21.3 5.208 21.3 5.208V18.792C21.3 19.831 20.566 20.565 19.831 21.3C19.831 21.3 18.793 21.3 18.793 21.3H5.208C4.17 21.3 3.435 20.565 2.7 19.831C2.7 19.831 2.7 18.792 2.7 18.792ZM4.372 18.792C4.372 19.138 4.617 19.383 4.862 19.628C4.862 19.628 5.208 19.628 5.208 19.628H18.793C19.139 19.628 19.384 19.383 19.629 19.138C19.629 19.138 19.629 18.792 19.629 18.792V5.208C19.629 4.862 19.384 4.617 19.139 4.372C19.139 4.372 18.793 4.372 18.793 4.372H5.208C4.862 4.372 4.617 4.617 4.372 4.862C4.372 4.862 4.372 5.208 4.372 5.208V18.792ZM14.964 7.797C13.784 7.636 13.246 8.186 12.709 8.736C12.709 8.736 12.709 9.978 12.709 9.978V10.298H14.779V10.3C15.283 10.3 15.692 10.709 15.692 11.213C15.692 11.717 15.283 12.125 14.779 12.125V12.128H12.709V14.3C12.709 16.094 11.79 17.065 10.812 18.097C10.812 18.097 8.913 18.097 8.913 18.097V18.095C8.409 18.095 8 17.686 8 17.182C8 16.678 8.409 16.269 8.913 16.269V16.267C10.025 16.267 10.461 15.807 10.88 15.365C10.88 15.365 10.88 14.3 10.88 14.3V12.128H8.913V12.125C8.409 12.125 8 11.717 8 11.213C8 10.709 8.409 10.3 8.913 10.3V10.298H10.88V9.978C10.88 7.99 11.938 6.907 13.118 5.699C13.118 5.699 15.211 5.984 15.211 5.984V5.986C15.663 6.048 16 6.434 16 6.89C16 7.394 15.592 7.803 15.088 7.803C15.046 7.803 15.005 7.8 14.964 7.795V7.797Z"
+                              fill="url(#gradient1)"
+                            />
+                            <path
+                              d="M2.7 18.792V5.208C2.7 4.169 3.435 3.435 4.17 2.7C4.17 2.7 5.208 2.7 5.208 2.7H18.793C19.831 2.7 20.566 3.435 21.3 4.169C21.3 4.169 21.3 5.208 21.3 5.208V18.792C21.3 19.831 20.566 20.565 19.831 21.3C19.831 21.3 18.793 21.3 18.793 21.3H5.208C4.17 21.3 3.435 20.565 2.7 19.831C2.7 19.831 2.7 18.792 2.7 18.792ZM4.372 18.792C4.372 19.138 4.617 19.383 4.862 19.628C4.862 19.628 5.208 19.628 5.208 19.628H18.793C19.139 19.628 19.384 19.383 19.629 19.138C19.629 19.138 19.629 18.792 19.629 18.792V5.208C19.629 4.862 19.384 4.617 19.139 4.372C19.139 4.372 18.793 4.372 18.793 4.372H5.208C4.862 4.372 4.617 4.617 4.372 4.862C4.372 4.862 4.372 5.208 4.372 5.208V18.792ZM14.964 7.797C13.784 7.636 13.246 8.186 12.709 8.736C12.709 8.736 12.709 9.978 12.709 9.978V10.298H14.779V10.3C15.283 10.3 15.692 10.709 15.692 11.213C15.692 11.717 15.283 12.125 14.779 12.125V12.128H12.709V14.3C12.709 16.094 11.79 17.065 10.812 18.097C10.812 18.097 8.913 18.097 8.913 18.097V18.095C8.409 18.095 8 17.686 8 17.182C8 16.678 8.409 16.269 8.913 16.269V16.267C10.025 16.267 10.461 15.807 10.88 15.365C10.88 15.365 10.88 14.3 10.88 14.3V12.128H8.913V12.125C8.409 12.125 8 11.717 8 11.213C8 10.709 8.409 10.3 8.913 10.3V10.298H10.88V9.978C10.88 7.99 11.938 6.907 13.118 5.699C13.118 5.699 15.211 5.984 15.211 5.984V5.986C15.663 6.048 16 6.434 16 6.89C16 7.394 15.592 7.803 15.088 7.803C15.046 7.803 15.005 7.8 14.964 7.795V7.797Z"
+                              fill="url(#gradient2)"
+                            />
+                            <path
+                              d="M2.7 18.792V5.208C2.7 4.169 3.435 3.435 4.17 2.7C4.17 2.7 5.208 2.7 5.208 2.7H18.793C19.831 2.7 20.566 3.435 21.3 4.169C21.3 4.169 21.3 5.208 21.3 5.208V18.792C21.3 19.831 20.566 20.565 19.831 21.3C19.831 21.3 18.793 21.3 18.793 21.3H5.208C4.17 21.3 3.435 20.565 2.7 19.831C2.7 19.831 2.7 18.792 2.7 18.792ZM4.372 18.792C4.372 19.138 4.617 19.383 4.862 19.628C4.862 19.628 5.208 19.628 5.208 19.628H18.793C19.139 19.628 19.384 19.383 19.629 19.138C19.629 19.138 19.629 18.792 19.629 18.792V5.208C19.629 4.862 19.384 4.617 19.139 4.372C19.139 4.372 18.793 4.372 18.793 4.372H5.208C4.862 4.372 4.617 4.617 4.372 4.862C4.372 4.862 4.372 5.208 4.372 5.208V18.792ZM14.964 7.797C13.784 7.636 13.246 8.186 12.709 8.736C12.709 8.736 12.709 9.978 12.709 9.978V10.298H14.779V10.3C15.283 10.3 15.692 10.709 15.692 11.213C15.692 11.717 15.283 12.125 14.779 12.125V12.128H12.709V14.3C12.709 16.094 11.79 17.065 10.812 18.097C10.812 18.097 8.913 18.097 8.913 18.097V18.095C8.409 18.095 8 17.686 8 17.182C8 16.678 8.409 16.269 8.913 16.269V16.267C10.025 16.267 10.461 15.807 10.88 15.365C10.88 15.365 10.88 14.3 10.88 14.3V12.128H8.913V12.125C8.409 12.125 8 11.717 8 11.213C8 10.709 8.409 10.3 8.913 10.3V10.298H10.88V9.978C10.88 7.99 11.938 6.907 13.118 5.699C13.118 5.699 15.211 5.984 15.211 5.984V5.986C15.663 6.048 16 6.434 16 6.89C16 7.394 15.592 7.803 15.088 7.803C15.046 7.803 15.005 7.8 14.964 7.795V7.797Z"
+                              fill="url(#gradient3)"
+                            />
+                          </svg>
                           <span
                             class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
@@ -1238,48 +1409,21 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; gap: 10px; align-self: stretch; word-break: break-all; word-wrap: break-word; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; gap: 10px; align-self: stretch; word-break: break-all; word-wrap: break-word; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: space-between;"
                           >
                             执行入参
                             <div
-                              style="display: flex; gap: 8px;"
+                              style="display: flex; flex-direction: row; gap: 10px; align-items: center;"
                             >
-                              <span
-                                aria-describedby="test-id"
-                                aria-label="修改"
-                                class="ant-md-editor-action-icon-box"
-                                role="button"
-                                tabindex="0"
-                              >
-                                <span
-                                  aria-label="edit"
-                                  class="anticon anticon-edit"
-                                  role="img"
-                                >
-                                  <svg
-                                    aria-hidden="true"
-                                    data-icon="edit"
-                                    fill="currentColor"
-                                    focusable="false"
-                                    height="1em"
-                                    viewBox="64 64 896 896"
-                                    width="1em"
-                                  >
-                                    <path
-                                      d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
-                                    />
-                                  </svg>
-                                </span>
-                              </span>
                               <span
                                 aria-describedby="test-id"
                                 aria-label="复制"
@@ -1311,7 +1455,7 @@
                           </div>
                           <div
                             class="code-view"
-                            style="display: flex; gap: 10px; border-radius: 12px; opacity: 1; flex-direction: column; align-self: stretch;"
+                            style="display: flex; border-radius: 12px; align-self: stretch; background: rgb(255, 255, 255);"
                           >
                             <div
                               class="markdown-editor ant-md-editor ant-md-editor-readonly"
@@ -1383,49 +1527,46 @@
                           </div>
                         </div>
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="display: flex; flex-direction: column; gap: 10px; padding: 8px 12px; align-self: stretch; word-break: break-all; word-wrap: break-word; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: space-between;"
                           >
+                            执行结果
                             <div
-                              style="display: flex; gap: 10px; align-items: center;"
-                            >
-                              <span>
-                                执行结果
-                              </span>
-                            </div>
-                            <span
-                              aria-describedby="test-id"
-                              aria-label="复制"
-                              class="ant-md-editor-action-icon-box"
-                              role="button"
-                              tabindex="0"
+                              style="display: flex; flex-direction: row; gap: 10px; align-items: center;"
                             >
                               <span
-                                aria-label="copy"
-                                class="anticon anticon-copy"
-                                role="img"
+                                aria-describedby="test-id"
+                                aria-label="复制"
+                                class="ant-md-editor-action-icon-box"
+                                role="button"
+                                tabindex="0"
                               >
-                                <svg
-                                  aria-hidden="true"
-                                  data-icon="copy"
-                                  fill="currentColor"
-                                  focusable="false"
-                                  height="1em"
-                                  viewBox="64 64 896 896"
-                                  width="1em"
+                                <span
+                                  aria-label="copy"
+                                  class="anticon anticon-copy"
+                                  role="img"
                                 >
-                                  <path
-                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                  />
-                                </svg>
+                                  <svg
+                                    aria-hidden="true"
+                                    data-icon="copy"
+                                    fill="currentColor"
+                                    focusable="false"
+                                    height="1em"
+                                    viewBox="64 64 896 896"
+                                    width="1em"
+                                  >
+                                    <path
+                                      d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                    />
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
+                            </div>
                           </div>
                           <div
-                            class="code-view"
-                            style="display: flex; gap: 10px; border-radius: 12px; opacity: 1; word-break: break-all; word-wrap: break-word; flex-direction: column; align-self: stretch;"
+                            style="display: flex; border-radius: 12px; align-self: stretch; background: rgb(255, 255, 255);"
                           >
                             <div
                               class="markdown-editor ant-md-editor ant-md-editor-readonly"
@@ -1514,17 +1655,112 @@
             class="ant-thought-chain-list-title"
           >
             <div>
-              <img
-                src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*WldfRZoyDxMAAAAAAAAAAAAADkN6AQ/original"
+              <svg
+                fill="none"
+                height="24"
                 style="width: 15px; height: 15px;"
-              />
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <lineargradient
+                    id="master_svg0_55_07971"
+                    x1="1.0711805820465088"
+                    x2="-0.10435748845338823"
+                    y1="1.2556250095367432"
+                    y2="0.6474400758743286"
+                  >
+                    <stop
+                      offset="3.1535394489765167%"
+                      stop-color="#0CE0AD"
+                      stop-opacity="1"
+                    />
+                    <stop
+                      offset="18.80498379468918%"
+                      stop-color="#58CCFF"
+                      stop-opacity="1"
+                    />
+                    <stop
+                      offset="50.54115653038025%"
+                      stop-color="#006EFF"
+                      stop-opacity="1"
+                    />
+                    <stop
+                      offset="78.08561325073242%"
+                      stop-color="#1E50FF"
+                      stop-opacity="0.845061182975769"
+                    />
+                    <stop
+                      offset="100%"
+                      stop-color="#3500FF"
+                      stop-opacity="0.8295727968215942"
+                    />
+                  </lineargradient>
+                  <lineargradient
+                    id="master_svg1_55_07972"
+                    x1="0.23266714811325073"
+                    x2="0.022545708343386636"
+                    y1="0.9682043194770813"
+                    y2="0.18969909846782684"
+                  >
+                    <stop
+                      offset="0%"
+                      stop-color="#FF00DD"
+                      stop-opacity="0"
+                    />
+                    <stop
+                      offset="43.69531571865082%"
+                      stop-color="#E654D3"
+                      stop-opacity="0.3131555914878845"
+                    />
+                    <stop
+                      offset="100%"
+                      stop-color="#FC00FF"
+                      stop-opacity="0.740876317024231"
+                    />
+                  </lineargradient>
+                </defs>
+                <g>
+                  <g
+                    style="opacity: 0;"
+                  >
+                    <path
+                      d="M0 0C0 0 0 0 0 0L24 0C24 0 24 0 24 0L24 24C24 24 24 24 24 24L0 24C0 24 0 24 0 24Z"
+                      fill="url(#master_svg0_55_07971)"
+                      fill-opacity="1"
+                    />
+                    <path
+                      d="M0 0C0 0 0 0 0 0L24 0C24 0 24 0 24 0L24 24C24 24 24 24 24 24L0 24C0 24 0 24 0 24Z"
+                      fill="url(#master_svg1_55_07972)"
+                      fill-opacity="1"
+                    />
+                  </g>
+                  <g
+                    transform="matrix(0.9848077297210693,-0.1736481934785843,0.1736481934785843,0.9848077297210693,-0.9516076462989673,0.2582323480503419)"
+                  >
+                    <path
+                      d="M4.31701,12.95088409696158C3.50649,13.137514096961581,3.50649,14.29179409696158,4.31701,14.47842409696158L5.25991,14.69552409696158C7.41836,15.19252409696158,9.09489,16.89260409696158,9.56178,19.05770409696158C9.70219,19.708904096961582,10.63114,19.708904096961582,10.77155,19.05770409696158C11.2384,16.89260409696158,12.915,15.19252409696158,15.0734,14.69552409696158L16.0163,14.47842409696158C16.8268,14.29179409696158,16.8268,13.137514096961581,16.0163,12.95088409696158L15.0734,12.73377409696158C12.915,12.23678409696158,11.2384,10.536734096961581,10.77155,8.37157409696158C10.63114,7.720444096961581,9.70219,7.720444096961581,9.56178,8.37157409696158C9.09489,10.536734096961581,7.41836,12.23678409696158,5.25991,12.73377409696158L4.31701,12.95088409696158Z"
+                      fill="url(#master_svg5_2273_38144)"
+                      fill-opacity="1"
+                    />
+                  </g>
+                  <g
+                    transform="matrix(0.9396925568580627,-0.3420201241970062,0.3420201241970062,0.9396925568580627,-0.4579207480273908,4.64518478539685)"
+                  >
+                    <path
+                      d="M14.13737951172166,6.27947375C13.84558751172166,6.34665375,13.84558751172166,6.76219375,14.13737951172166,6.82938375L14.476819511721661,6.90754375C15.25385951172166,7.08646375,15.85740951172166,7.69847375,16.02548951172166,8.47793375C16.07603951172166,8.712343749999999,16.410459511721662,8.712343749999999,16.46100951172166,8.47793375C16.62908951172166,7.69847375,17.23263951172166,7.08646375,18.00967951172166,6.90754375L18.34912951172166,6.82938375C18.64090951172166,6.76219375,18.64090951172166,6.34665375,18.34912951172166,6.27947375L18.00967951172166,6.201313750000001C17.23263951172166,6.02239375,16.62908951172166,5.41037375,16.46100951172166,4.63092375C16.410459511721662,4.39651075,16.07603951172166,4.39651075,16.02548951172166,4.63092375C15.85740951172166,5.41037375,15.25385951172166,6.02239375,14.476819511721661,6.201313750000001L14.13737951172166,6.27947375Z"
+                      fill="url(#master_svg1i_2273_38144)"
+                      fill-opacity="1"
+                    />
+                  </g>
+                </g>
+              </svg>
               <span
                 class="ant-thought-chain-list-title-progress"
                 style="font-size: 1em;"
               >
-                <div>
-                  任务完成
-                </div>
+                <div />
               </span>
             </div>
             <span
@@ -1754,13 +1990,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -2008,13 +2244,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -2763,13 +2999,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -2877,7 +3113,7 @@
                                       </div>
                                       <div
                                         class="ant-md-editor-link-card-container"
-                                        style="flex: 1;"
+                                        style="flex: 1 1 0%;"
                                       >
                                         <div
                                           class="ant-md-editor-link-card-container-content"
@@ -2889,7 +3125,7 @@
                                             width="56"
                                           />
                                           <div
-                                            style="flex: 1; min-width: 0;"
+                                            style="flex: 1 1 0%; min-width: 0;"
                                           >
                                             <a
                                               class="ant-md-editor-link-card-container-content-title"
@@ -3082,13 +3318,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -3196,7 +3432,7 @@
                                       </div>
                                       <div
                                         class="ant-md-editor-link-card-container"
-                                        style="flex: 1;"
+                                        style="flex: 1 1 0%;"
                                       >
                                         <div
                                           class="ant-md-editor-link-card-container-content"
@@ -3208,7 +3444,7 @@
                                             width="56"
                                           />
                                           <div
-                                            style="flex: 1; min-width: 0;"
+                                            style="flex: 1 1 0%; min-width: 0;"
                                           >
                                             <a
                                               class="ant-md-editor-link-card-container-content-title"
@@ -3401,13 +3637,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -4678,13 +4914,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -4894,13 +5130,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -5627,13 +5863,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -5865,13 +6101,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -7093,13 +7329,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"
@@ -7375,11 +7611,25 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
-                      />
+                      >
+                        <div
+                          style="display: flex; align-items: center; height: 38px; border-radius: 12px; opacity: 1; word-break: break-all; word-wrap: break-word; flex-direction: row; padding: 8px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 2;"
+                        >
+                          <img
+                            src="https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*diUaQrwVBVYAAAAAAAAAAAAADkN6AQ/original"
+                          />
+                          深度思考中
+                          <div
+                            aria-label="Loading"
+                            class="md-editor-loader"
+                            role="progressbar"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -7515,13 +7765,13 @@
                       </div>
                     </div>
                     <div
-                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                      style="display: flex; flex-direction: column; height: auto; overflow: hidden; gap: 8px; transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1); transition-behavior: allow-discrete;"
                     >
                       <div
                         style="display: flex; gap: 10px; flex-direction: column;"
                       >
                         <div
-                          style="flex: 1; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
+                          style="flex: 1 1 0%; display: flex; flex-direction: column; justify-content: center; word-break: break-all; word-wrap: break-word; padding: 8px 12px; gap: 10px; align-self: stretch; background: rgb(251, 252, 253); z-index: 1; border-radius: 12px;"
                         >
                           <div
                             class="code-view"

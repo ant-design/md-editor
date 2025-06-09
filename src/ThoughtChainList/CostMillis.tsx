@@ -1,9 +1,9 @@
 ﻿import { FieldTimeOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import React, { useContext, useMemo } from 'react';
-import { I18nContext } from '../i18n';
+import { I18nContext, LocalKeys } from '../i18n';
 
-const msToTimes = (ms: number | undefined, locale: any) => {
+const msToTimes = (ms: number | undefined, locale: LocalKeys) => {
   if (!ms) {
     return '';
   }
@@ -12,7 +12,7 @@ const msToTimes = (ms: number | undefined, locale: any) => {
   }
   let s = ms / 1000;
   if (s < 60) {
-    return `${s.toFixed(0)}${locale.seconds}`;
+    return `${s.toFixed(1)}${locale.seconds}`;
   }
   let m = s / 60;
   if (m < 60) {
@@ -39,7 +39,7 @@ const msToTimes = (ms: number | undefined, locale: any) => {
  */
 export const CostMillis = (props: { costMillis?: number }) => {
   const { locale } = useContext(I18nContext);
-  
+
   return useMemo(() => {
     if (!props.costMillis) {
       return null;

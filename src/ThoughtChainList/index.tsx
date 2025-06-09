@@ -4,11 +4,10 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { motion } from 'framer-motion';
-
-dayjs.extend(duration);
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { compileTemplate, I18nContext, LocalKeys } from '../i18n';
+import { MagicIcon } from '../components/icons/MagicIcon';
+import { compileTemplate, I18nContext } from '../i18n';
 import { FinishedIcon } from '../icons/FinishedIcon';
 import { LoadingIcon } from '../icons/LoadingIcon';
 import { ActionIconBox, MarkdownEditorProps, useAutoScroll } from '../index';
@@ -18,13 +17,21 @@ import { FlipText } from './FlipText';
 import { useStyle } from './style';
 import { ThoughtChainListItem } from './ThoughtChainListItem';
 
+dayjs.extend(duration);
+
 import { merge } from 'lodash-es';
 
 export interface WhiteBoxProcessInterface {
   /** 分类类型
    * @example "TableSql"
    */
-  category?: 'TableSql' | 'ToolCall' | 'RagRetrieval' | 'DeepThink' | 'WebSearch' | 'other';
+  category?:
+    | 'TableSql'
+    | 'ToolCall'
+    | 'RagRetrieval'
+    | 'DeepThink'
+    | 'WebSearch'
+    | 'other';
   isLoading?: boolean;
   /** 信息描述
    * @example "正在查询用户表数据"
@@ -163,12 +170,12 @@ export interface ThoughtChainListProps {
   markdownRenderProps?: MarkdownEditorProps;
   finishAutoCollapse?: boolean;
   locale?: {
-    thinking: string;
-    taskFinished: string;
-    taskCost: string;
-    taskAborted: string;
-    totalTimeUsed: string;
-    taskComplete: string;
+    thinking?: string;
+    taskFinished?: string;
+    taskCost?: string;
+    taskAborted?: string;
+    totalTimeUsed?: string;
+    taskComplete?: string;
   };
   onDocMetaClick?: (docMeta: DocMeta | null) => void;
 }
@@ -262,7 +269,8 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
       <div>
         {thoughtChainList.at(-1) && collapse ? (
           compileTemplate(locale.inProgressTask, {
-            taskName: locale[thoughtChainList.at(-1)?.category || 'other'] || '',
+            taskName:
+              locale[thoughtChainList.at(-1)?.category || 'other'] || '',
           })
         ) : (
           <div>
@@ -288,16 +296,20 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
     const hours = duration.hours();
     const minutes = duration.minutes();
     const seconds = duration.seconds();
-    
+
     const timeStr = [
       hours > 0 ? `${hours}${locale.hours}` : '',
       minutes > 0 ? `${minutes}${locale.minutes}` : '',
       `${seconds}${locale.seconds}`,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div className="time-info">
-        <span>{locale.timeUsed}: {timeStr}</span>
+        <span>
+          {locale.timeUsed}: {timeStr}
+        </span>
       </div>
     );
   };
@@ -365,15 +377,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
 
       {useMemo(() => {
         return (
-          <div
-            className={classNames(`${prefixCls}`, hashId)}
-            style={style}
-          >
+          <div className={classNames(`${prefixCls}`, hashId)} style={style}>
             <motion.div
               transition={{ duration: 0.3 }}
               className={classNames(`${prefixCls}-container`, hashId, {
-                [`${prefixCls}-container-loading`]:
-                  !chatItem?.isFinished,
+                [`${prefixCls}-container-loading`]: !chatItem?.isFinished,
               })}
             >
               <motion.div
@@ -383,14 +391,11 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                 })}
               >
                 <div>
-                  <img
+                  <MagicIcon
                     style={{
                       width: 15,
                       height: 15,
                     }}
-                    src={
-                      'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*WldfRZoyDxMAAAAAAAAAAAAADkN6AQ/original'
-                    }
                   />
                   <span
                     className={classNames(
@@ -401,13 +406,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                       fontSize: '1em',
                     }}
                   >
-                    {chatItem ? (
-                      endStatusDisplay
-                    ) : (
-                      <div>
-                        {renderStatus()}
-                      </div>
-                    )}
+                    {chatItem ? endStatusDisplay : <div>{renderStatus()}</div>}
                   </span>
                 </div>
 
@@ -533,17 +532,14 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                         >
                           <ThoughtChainListItem
                             index={index}
-                            markdownRenderProps={merge(
-                              markdownRenderProps,
-                              {
-                                codeProps: {
-                                  hideToolBar: true,
-                                  showLineNumbers: false,
-                                  showGutter: false,
-                                  fontSize: 12,
-                                },
+                            markdownRenderProps={merge(markdownRenderProps, {
+                              codeProps: {
+                                hideToolBar: true,
+                                showLineNumbers: false,
+                                showGutter: false,
+                                fontSize: 12,
                               },
-                            )}
+                            })}
                             chatItem={chatItem}
                             key={(item.runId || '') + '' + index}
                             thoughtChainListItem={item}
