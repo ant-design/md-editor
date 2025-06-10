@@ -767,7 +767,7 @@ export const withMarkdown = (editor: Editor) => {
 
         const isBeforeTag = selection && selection.anchor.offset <= 1;
 
-        if (previousNode?.tag && previousPath && isBeforeTag) {
+        if ((previousNode as any)?.tag && previousPath && isBeforeTag) {
           // 如果前一个节点是 tag，直接删除整个 tag
           Editor.withoutNormalizing(editor, () => {
             const parent = Node.get(editor, Path.parent(previousPath));
