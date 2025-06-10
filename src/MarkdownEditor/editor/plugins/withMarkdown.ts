@@ -490,37 +490,23 @@ const handleCodeTagOperation = (
 ): boolean => {
   if (operation.type === 'remove_text') {
     const currentNode = Node.get(editor, operation.path);
+
     if (currentNode?.tag) {
-      if (
-        currentNode.triggerText &&
-        operation.text === currentNode.triggerText
-      ) {
-        Transforms.setNodes(
-          editor,
-          { tag: false, code: false, text: ' ' },
-          { at: operation.path },
-        );
-        Transforms.delete(editor, {
-          at: {
-            anchor: { path: operation.path, offset: 0 },
-            focus: { path: operation.path, offset: operation.text.length },
-          },
+      // 处理空标签的删除
+      if (currentNode.text?.trim() === '') {
+        Editor.withoutNormalizing(editor, () => {
+          Transforms.setNodes(
+            editor,
+            { tag: false, code: false, text: ' ', triggerText: undefined },
+            { at: operation.path },
+          );
         });
         return true;
       }
 
-      if (
-        currentNode.text?.trim() === '' &&
-        editor?.children?.at(0)?.children?.length === 1 &&
-        editor?.children?.at(0)?.children?.at(0)?.tag
-      ) {
-        Transforms.setNodes(
-          editor,
-          { tag: false, code: false, text: ' ' },
-          { at: operation.path },
-        );
-        return true;
-      }
+      // 光标在 tag 内部，执行原始的删除操作
+      apply(operation);
+      return true;
     }
   }
 
@@ -771,6 +757,61 @@ export const withMarkdown = (editor: Editor) => {
         });
         return;
       }
+
+      // 检查前一个节点是否是 tag
+      try {
+        const [previousNode, previousPath] =
+          Editor.previous(editor, {
+            at: selection.anchor.path,
+          }) || [];
+
+        const isBeforeTag = selection && selection.anchor.offset <= 1;
+
+        if (previousNode?.tag && previousPath && isBeforeTag) {
+          // 如果前一个节点是 tag，直接删除整个 tag
+          Editor.withoutNormalizing(editor, () => {
+            const parent = Node.get(editor, Path.parent(previousPath));
+            const index = previousPath[previousPath.length - 1];
+
+            if (parent.children.length === 1) {
+              // 如果是唯一的节点，转换为普通文本
+              Transforms.setNodes(
+                editor,
+                { tag: false, code: false, text: ' ', triggerText: undefined },
+                { at: previousPath },
+              );
+            } else if (index === 0) {
+              // 如果是第一个节点，删除并合并下一个节点
+              Transforms.removeNodes(editor, { at: previousPath });
+            } else {
+              // 如果是中间或最后节点，先合并再删除
+              Transforms.removeNodes(editor, { at: previousPath });
+            }
+          });
+          return;
+        }
+      } catch (error) {
+        // 如果获取前一个节点失败，继续执行原始删除操作
+      }
+      try {
+        const node = Node.get(editor, selection.anchor.path);
+
+        if (node.tag && selection.anchor.offset <= 1) {
+          const text = node?.text?.replace(node.triggerText || '', '');
+          Transforms.setNodes(
+            editor,
+            {
+              tag: false,
+              code: false,
+            },
+            { at: selection.anchor.path },
+          );
+          Transforms.insertText(editor, text, {
+            at: selection.anchor.path,
+          });
+          return;
+        }
+      } catch {}
     }
 
     deleteBackward(unit);
