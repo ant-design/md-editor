@@ -11,6 +11,7 @@ import {
   MarkdownEditorInstance,
   ParagraphNode,
 } from '../../BaseMarkdownEditor';
+import { PluginContext } from '../../plugin';
 import { SlateMarkdownEditor } from '../Editor';
 import { ReactEditor, withReact } from '../slate-react';
 import { EditorStore, EditorStoreContext } from '../store';
@@ -52,22 +53,47 @@ describe('SlateMarkdownEditor', () => {
   // Test plugin that handles code blocks
   const codeBlockPlugin = {
     elements: {
-      code: (props: ElementProps<CodeNode>) => (
-        <pre>
-          <code data-testid="plugin-code-block">{props.children}</code>
-        </pre>
-      ),
+      code: (props: ElementProps<CodeNode>) => {
+        const defaultDom = (
+          <pre
+            style={{
+              background: '#f2f1f1',
+              color: '#1b1b1b',
+              padding: '1em',
+              borderRadius: '0.5em',
+              margin: '1em 0',
+              fontSize: '0.8em',
+              fontFamily: 'monospace',
+              lineHeight: 1.5,
+              overflowX: 'auto',
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-all',
+              wordWrap: 'break-word',
+            }}
+          >
+            <code data-testid="plugin-code-block">{props.children}</code>
+          </pre>
+        );
+        return defaultDom;
+      },
     },
   };
 
   // Test plugin that handles custom blocks
   const customBlockPlugin = {
     elements: {
-      paragraph: (props: ElementProps<ParagraphNode>) => (
-        <div data-testid="plugin-custom-block" className="custom-block">
-          {props.children}
-        </div>
-      ),
+      paragraph: (props: ElementProps<ParagraphNode>) => {
+        const defaultDom = (
+          <div className="ant-md-editor-drag-el" data-be="paragraph">
+            {props.children}
+          </div>
+        );
+        return (
+          <div data-testid="plugin-custom-block" className="custom-block">
+            {defaultDom}
+          </div>
+        );
+      },
     },
   };
 
@@ -95,15 +121,12 @@ describe('SlateMarkdownEditor', () => {
     return defaultDom as React.ReactElement;
   };
 
-  it('should render default elements when no plugins or eleItemRender provided', () => {
-    const initValue: Elements[] = [
-      {
-        type: 'paragraph',
-        children: [{ text: 'Hello World' }],
-      } as ParagraphNode,
-    ];
-
-    render(
+  const renderEditor = (props: {
+    initValue?: Elements[];
+    plugins?: any[];
+    eleItemRender?: typeof customEleItemRender;
+  }) => {
+    return render(
       <EditorStoreContext.Provider
         value={{
           store: mockStore,
@@ -120,13 +143,27 @@ describe('SlateMarkdownEditor', () => {
           setShowComment: () => {},
         }}
       >
-        <SlateMarkdownEditor
-          instance={mockInstance}
-          initSchemaValue={initValue}
-        />
+        <PluginContext.Provider value={props.plugins || []}>
+          <SlateMarkdownEditor
+            instance={mockInstance}
+            initSchemaValue={props.initValue}
+            plugins={props.plugins}
+            eleItemRender={props.eleItemRender}
+          />
+        </PluginContext.Provider>
       </EditorStoreContext.Provider>,
     );
+  };
 
+  it('should render default elements when no plugins or eleItemRender provided', () => {
+    const initValue: Elements[] = [
+      {
+        type: 'paragraph',
+        children: [{ text: 'Hello World' }],
+      } as ParagraphNode,
+    ];
+
+    renderEditor({ initValue });
     expect(screen.getByText('Hello World')).toBeDefined();
   });
 
@@ -140,30 +177,7 @@ describe('SlateMarkdownEditor', () => {
       } as CodeNode,
     ];
 
-    render(
-      <EditorStoreContext.Provider
-        value={{
-          store: mockStore,
-          typewriter: false,
-          readonly: false,
-          keyTask$: new Subject(),
-          insertCompletionText$: new Subject(),
-          openInsertLink$: new Subject(),
-          domRect: null,
-          setDomRect: () => {},
-          editorProps: {},
-          markdownEditorRef: mockEditorRef,
-          markdownContainerRef: mockContainerRef,
-          setShowComment: () => {},
-        }}
-      >
-        <SlateMarkdownEditor
-          instance={mockInstance}
-          initSchemaValue={initValue}
-          plugins={[codeBlockPlugin]}
-        />
-      </EditorStoreContext.Provider>,
-    );
+    renderEditor({ initValue, plugins: [codeBlockPlugin] });
 
     const codeBlock = screen.getByTestId('plugin-code-block');
     expect(codeBlock).toBeDefined();
@@ -180,31 +194,11 @@ describe('SlateMarkdownEditor', () => {
       } as CodeNode,
     ];
 
-    render(
-      <EditorStoreContext.Provider
-        value={{
-          store: mockStore,
-          typewriter: false,
-          readonly: false,
-          keyTask$: new Subject(),
-          insertCompletionText$: new Subject(),
-          openInsertLink$: new Subject(),
-          domRect: null,
-          setDomRect: () => {},
-          editorProps: {},
-          markdownEditorRef: mockEditorRef,
-          markdownContainerRef: mockContainerRef,
-          setShowComment: () => {},
-        }}
-      >
-        <SlateMarkdownEditor
-          instance={mockInstance}
-          initSchemaValue={initValue}
-          plugins={[codeBlockPlugin]}
-          eleItemRender={customEleItemRender}
-        />
-      </EditorStoreContext.Provider>,
-    );
+    renderEditor({
+      initValue,
+      plugins: [codeBlockPlugin],
+      eleItemRender: customEleItemRender,
+    });
 
     const wrapper = screen.getByTestId('custom-code-wrapper');
     const pluginBlock = screen.getByTestId('plugin-code-block');
@@ -229,31 +223,11 @@ describe('SlateMarkdownEditor', () => {
       } as ParagraphNode,
     ];
 
-    render(
-      <EditorStoreContext.Provider
-        value={{
-          store: mockStore,
-          typewriter: false,
-          readonly: false,
-          keyTask$: new Subject(),
-          insertCompletionText$: new Subject(),
-          openInsertLink$: new Subject(),
-          domRect: null,
-          setDomRect: () => {},
-          editorProps: {},
-          markdownEditorRef: mockEditorRef,
-          markdownContainerRef: mockContainerRef,
-          setShowComment: () => {},
-        }}
-      >
-        <SlateMarkdownEditor
-          instance={mockInstance}
-          initSchemaValue={initValue}
-          plugins={[codeBlockPlugin, customBlockPlugin]}
-          eleItemRender={customEleItemRender}
-        />
-      </EditorStoreContext.Provider>,
-    );
+    renderEditor({
+      initValue,
+      plugins: [codeBlockPlugin, customBlockPlugin],
+      eleItemRender: customEleItemRender,
+    });
 
     // Check code block rendering
     expect(screen.getByTestId('custom-code-wrapper')).toBeDefined();
@@ -279,32 +253,46 @@ describe('SlateMarkdownEditor', () => {
       },
     ];
 
-    render(
-      <EditorStoreContext.Provider
-        value={{
-          store: mockStore,
-          typewriter: false,
-          readonly: false,
-          keyTask$: new Subject(),
-          insertCompletionText$: new Subject(),
-          openInsertLink$: new Subject(),
-          domRect: null,
-          setDomRect: () => {},
-          editorProps: {},
-          markdownEditorRef: mockEditorRef,
-          markdownContainerRef: mockContainerRef,
-          setShowComment: () => {},
-        }}
-      >
-        <SlateMarkdownEditor
-          instance={mockInstance}
-          initSchemaValue={initValue}
-          eleItemRender={customEleItemRender}
-        />
-      </EditorStoreContext.Provider>,
-    );
+    renderEditor({ initValue, eleItemRender: customEleItemRender });
 
     expect(screen.getByText('Cell content')).toBeDefined();
     expect(screen.queryByTestId('custom-block-wrapper')).toBeNull();
+  });
+
+  it('should preserve plugin output when no eleItemRender is provided', () => {
+    const initValue: Elements[] = [
+      {
+        type: 'code',
+        children: [{ text: 'const x = 1;' }],
+        value: 'const x = 1;',
+        lang: 'javascript',
+      } as CodeNode,
+    ];
+
+    renderEditor({ initValue, plugins: [codeBlockPlugin] });
+
+    const pluginBlock = screen.getByTestId('plugin-code-block');
+    expect(pluginBlock).toBeDefined();
+    expect(pluginBlock.textContent).toBe('const x = 1;');
+    expect(screen.queryByTestId('custom-code-wrapper')).toBeNull();
+  });
+
+  it('should handle plugin and eleItemRender for non-table elements', () => {
+    const initValue: Elements[] = [
+      {
+        type: 'paragraph',
+        children: [{ text: 'Custom content' }],
+      } as ParagraphNode,
+    ];
+
+    renderEditor({
+      initValue,
+      plugins: [customBlockPlugin],
+      eleItemRender: customEleItemRender,
+    });
+
+    expect(screen.getByTestId('custom-block-wrapper')).toBeDefined();
+    expect(screen.getByTestId('plugin-custom-block')).toBeDefined();
+    expect(screen.getByText('★')).toBeDefined();
   });
 });

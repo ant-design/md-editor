@@ -118,9 +118,8 @@ export default function Home() {
           },
         ]}
         markdownRenderProps={{
-          eleItemRender: (ele) => {
-            console.log(ele);
-            return <div>ele</div>;
+          eleItemRender: (ele, defaultDom) => {
+            return <div>ele-{defaultDom}</div>;
           },
         }}
       />
