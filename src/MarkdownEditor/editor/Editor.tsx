@@ -142,15 +142,15 @@ export const SlateMarkdownEditor = ({
   const high = useHighlight(store);
 
   const childrenIsEmpty = useMemo(() => {
-    if (!markdownEditorRef.current.children) return false;
-    if (!Array.isArray(markdownEditorRef.current.children)) return;
+    if (!markdownEditorRef.current?.children) return false;
+    if (!Array.isArray(markdownEditorRef.current.children)) return false;
     if (markdownEditorRef.current.children.length === 0) return false;
     return (
       value.current.filter(
         (v) => v.type === 'paragraph' && v.children?.at?.(0)?.text === '',
       ).length < 1
     );
-  }, [markdownEditorRef.current.children]);
+  }, [markdownEditorRef.current?.children]);
 
   const readonlyCls = useMemo(() => {
     if (readonly) return 'readonly';
@@ -288,7 +288,7 @@ export const SlateMarkdownEditor = ({
         };
       });
     editorProps?.fncProps?.onFootnoteDefinitionChange?.(footnoteDefinitionList);
-  }, [markdownEditorRef.current.children]);
+  }, [markdownEditorRef.current?.children]);
 
   // 非hook变量声明
   const { prefixCls = '$' } = editorProps.tagInputProps || {};
@@ -707,16 +707,23 @@ export const SlateMarkdownEditor = ({
       </ErrorBoundary>
     );
 
+    let renderedDom = defaultDom;
+
+    // First check for plugin components
     for (const plugin of plugins) {
       const Component = plugin.elements?.[props.element.type];
-      if (Component) return <Component {...props} />;
+      if (Component) {
+        renderedDom = <Component {...props} />;
+        break;
+      }
     }
 
-    if (!eleItemRender) return defaultDom;
-    if (props.element.type === 'table-cell') return defaultDom;
-    if (props.element.type === 'table-row') return defaultDom;
+    // Then allow eleItemRender to process the result
+    if (!eleItemRender) return renderedDom;
+    if (props.element.type === 'table-cell') return renderedDom;
+    if (props.element.type === 'table-row') return renderedDom;
 
-    return eleItemRender(props, defaultDom) as React.ReactElement;
+    return eleItemRender(props, renderedDom) as React.ReactElement;
   };
 
   const renderMarkdownLeaf = (props: any) => {
