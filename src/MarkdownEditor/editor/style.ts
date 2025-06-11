@@ -34,6 +34,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             display: 'inline-block',
             position: 'absolute',
             width: 'max-content',
+            maxWidth: '100%',
+            fontSize: '1em',
+            lineHeight: 1.7,
+            wordBreak: 'break-word',
+            whiteSpace: 'wrap',
           },
         },
         '> div.empty:first-child [data-slate-node="text"]': {
