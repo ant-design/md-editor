@@ -1,8 +1,4 @@
-﻿import {
-  CopyOutlined,
-  DownloadOutlined,
-  FullscreenOutlined,
-} from '@ant-design/icons';
+﻿import { CopyOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -296,34 +292,6 @@ export const ReadonlyTable = ({
                   }}
                 >
                   <CopyOutlined />
-                </ActionIconBox>
-              ) : null}
-
-              {actions.download && location.protocol === 'https:' ? (
-                <ActionIconBox
-                  title="下载"
-                  onClick={() => {
-                    let csv =
-                      props.element?.otherProps?.columns
-                        .map((col: Record<string, any>) => col.title)
-                        .join(',') + '\n';
-                    csv += props.element?.otherProps?.dataSource
-                      .map((row: Record<string, any>) =>
-                        Object.values(row).join(','),
-                      )
-                      .join('\n');
-                    const blob = new Blob([csv], {
-                      type: 'text/csv;charset=utf-8;',
-                    });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'table.csv';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                  }}
-                >
-                  <DownloadOutlined />
                 </ActionIconBox>
               ) : null}
             </div>
