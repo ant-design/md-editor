@@ -15,6 +15,7 @@ export type AttachmentButtonPopoverProps = {
     maxSize: number;
     extensions: string[];
     icon: React.ReactNode;
+    content?: React.ReactNode;
   }[];
 };
 
@@ -65,7 +66,9 @@ export const AttachmentSupportedFormatsContent = (
       return props.supportedFormats;
     }
     return SupportedFileFormats;
-  }, [props.supportedFormats]);
+  }, [
+    props.supportedFormats,
+  ]) as AttachmentButtonPopoverProps['supportedFormats'];
 
   if (!supportedFormats?.length) return null;
 
@@ -113,24 +116,28 @@ export const AttachmentSupportedFormatsContent = (
                 {format.type}:
               </div>
             </div>
-            <div
-              style={{
-                maxWidth: 180,
-                textWrap: 'wrap',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-              }}
-            >
-              <div>单个最大 {kbToSize(format.maxSize)}</div>
+            {format?.content ? (
+              format.content
+            ) : (
               <div
                 style={{
-                  color: 'rgba(0, 0, 0, 0.45)',
+                  maxWidth: 180,
+                  textWrap: 'wrap',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
                 }}
               >
-                {format.extensions.join(', ')}
+                <div>单个最大 {kbToSize(format.maxSize)}</div>
+                <div
+                  style={{
+                    color: 'rgba(0, 0, 0, 0.45)',
+                  }}
+                >
+                  {format.extensions.join(', ')}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ))}
       </div>
