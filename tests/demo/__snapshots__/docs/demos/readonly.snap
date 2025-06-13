@@ -16,7 +16,7 @@
         <div
           autocapitalize="false"
           autocorrect="false"
-          class="ant-md-editor-content-readonly ant-md-editor-content ant-md-editor-content-report"
+          class="ant-md-editor-content-readonly ant-md-editor-content ant-md-editor-content-report ant-md-editor-content-compact"
           data-slate-editor="true"
           data-slate-node="value"
           spellcheck="false"
@@ -5458,7 +5458,7 @@ dark:
             </span>
           </div>
           <div
-            class="relative"
+            class="ant-md-editor-list-container relative"
             data-be="list"
             data-slate-node="element"
           >

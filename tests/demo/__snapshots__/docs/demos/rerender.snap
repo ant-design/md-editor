@@ -5806,7 +5806,7 @@ dark:
               </span>
             </div>
             <div
-              class="relative"
+              class="ant-md-editor-list-container relative"
               data-be="list"
               data-slate-node="element"
             >

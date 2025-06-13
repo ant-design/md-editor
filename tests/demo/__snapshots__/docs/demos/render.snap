@@ -6581,7 +6581,7 @@ dark:
               class="ant-card-body"
             >
               <div
-                class="relative"
+                class="ant-md-editor-list-container relative"
                 data-be="list"
                 data-slate-node="element"
               >

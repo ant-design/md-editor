@@ -399,7 +399,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
     </span>
   </h3>
   <div
-    class="relative"
+    class="ant-md-editor-list-container relative"
     data-be="list"
     data-slate-node="element"
   >
@@ -435,7 +435,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
           </span>
         </div>
         <div
-          class="relative"
+          class="ant-md-editor-list-container relative"
           data-be="list"
           data-slate-node="element"
         >
@@ -527,7 +527,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                 </span>
               </div>
               <div
-                class="relative"
+                class="ant-md-editor-list-container relative"
                 data-be="list"
                 data-slate-node="element"
               >
@@ -2038,7 +2038,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       </span>
     </div>
     <div
-      class="relative"
+      class="ant-md-editor-list-container relative"
       data-be="list"
       data-slate-node="element"
     >
