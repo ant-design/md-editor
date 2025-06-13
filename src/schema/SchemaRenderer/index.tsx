@@ -191,6 +191,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
         fontSize: `${safeTypography.fontSizes?.[2] ?? '14'}px`,
         lineHeight: safeTypography.lineHeights?.normal ?? 1.6,
         width: safeSpacing.width ?? 'max-content',
+        margin: '1em',
       };
     } catch (error) {
       console.error('Error applying theme styles:', error);
@@ -507,7 +508,11 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
 
   return (
     <ErrorBoundary fallback={fallbackContent}>
-      <div ref={containerRef} style={containerStyle} />
+      <div
+        ref={containerRef}
+        className="schemaRenderer"
+        style={containerStyle}
+      />
     </ErrorBoundary>
   );
 };
