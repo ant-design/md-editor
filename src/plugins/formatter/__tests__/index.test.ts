@@ -137,5 +137,87 @@ describe('MarkdownFormatter', () => {
       const expected = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
       expect(MarkdownFormatter.format(input)).toBe(expected);
     });
+
+    it('should preserve JSON code blocks', () => {
+      const input = `这是一个测试 JSON 的例子：
+
+\`\`\`json
+{
+  "name": "test",
+  "description": "这是一个测试",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^18.0.0",
+    "typescript": "~4.9.0"
+  }
+}
+\`\`\`
+
+这是代码块后的内容。`;
+
+      const expected = `这是一个测试 JSON 的例子：
+
+\`\`\`json
+{
+  "name": "test",
+  "description": "这是一个测试",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^18.0.0",
+    "typescript": "~4.9.0"
+  }
+}
+\`\`\`
+
+这是代码块后的内容。`;
+
+      expect(MarkdownFormatter.format(input)).toBe(expected);
+    });
+
+    it('should handle multiple JSON code blocks', () => {
+      const input = `第一个 JSON 块：
+
+\`\`\`json
+{
+  "key": "value"
+}
+\`\`\`
+
+第二个 JSON 块：
+
+\`\`\`json
+{
+  "array": [1, 2, 3],
+  "nested": {
+    "field": "test"
+  }
+}
+\`\`\`
+
+这是最后的内容。`;
+
+      const expected = `第一个 JSON 块：
+
+\`\`\`json
+{
+  "key": "value"
+}
+\`\`\`
+
+第二个 JSON 块：
+
+\`\`\`json
+{
+  "array": [1, 2, 3],
+  "nested": {
+    "field": "test"
+  }
+}
+\`\`\`
+
+这是最后的内容。`;
+
+      expect(MarkdownFormatter.format(input)).toBe(expected);
+    });
   });
 });
