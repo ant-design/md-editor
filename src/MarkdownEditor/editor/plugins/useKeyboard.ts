@@ -104,7 +104,7 @@ export const useKeyboard = (
                 const [prevNode] =
                   Editor.previous(markdownEditorRef.current, { at: tagPath }) ||
                   [];
-                if (!prevNode || !prevNode.text?.endsWith(' ')) {
+                if (!prevNode || !(prevNode as any).text?.endsWith(' ')) {
                   e.preventDefault();
                   Transforms.insertNodes(
                     markdownEditorRef.current,
