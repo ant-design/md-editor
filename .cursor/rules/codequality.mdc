@@ -1,6 +1,7 @@
 ﻿---
 description: Code Quality Guidelines
 globs: 
+alwaysApply: false
 ---
 # Code Quality Guidelines
 
