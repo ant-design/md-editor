@@ -258,70 +258,81 @@ export const MLeaf = (
     const { enable, tagTextRender } = props.tagInputProps || {};
     if (enable && tag) {
       children = (
-        <TagPopup
-          {...props}
-          autoOpen={autoOpen}
-          {...props.tagInputProps}
-          text={text}
-          onSelect={(v, path) => {
-            if (!v) return;
-            if (!path?.length) return;
-            if (!markdownEditorRef.current) return;
-
-            Editor.withoutNormalizing(markdownEditorRef.current, () => {
-              const newText =
-                tagTextRender?.(
-                  {
-                    ...props,
-                    ...props.tagInputProps,
-                    text: v,
-                  },
-                  `${triggerText ?? '$'}${v}`,
-                ) || `${triggerText ?? '$'}${v}`;
-
-              Transforms.insertText(markdownEditorRef.current, newText, {
-                at: path,
-              });
-
-              Transforms.setNodes(
-                markdownEditorRef.current,
-                { text: newText, tag: true, code: true, placeholder },
-                { at: path },
-              );
-            });
-
-            const focusElement = markdownContainerRef.current?.querySelector(
-              'div[data-slate-node="value"]',
-            ) as HTMLDivElement;
-
-            if (focusElement) {
-              focusElement?.focus();
-            }
-
-            setTimeout(() => {
-              if (!markdownEditorRef.current) return;
+        <>
+          <InlineChromiumBugfix />
+          <TagPopup
+            {...props}
+            autoOpen={autoOpen}
+            {...props.tagInputProps}
+            text={text}
+            onSelect={(v, path) => {
+              if (!v) return;
               if (!path?.length) return;
-              const nextPath = Path.next(path);
-              if (!Editor.hasPath(markdownEditorRef.current, nextPath)) {
+              if (!markdownEditorRef.current) return;
+
+              Editor.withoutNormalizing(markdownEditorRef.current, () => {
+                const newText =
+                  tagTextRender?.(
+                    {
+                      ...props,
+                      ...props.tagInputProps,
+                      text: v,
+                    },
+                    `${triggerText ?? '$'}${v}`,
+                  ) || `${triggerText ?? '$'}${v}`;
+
+                Transforms.insertText(markdownEditorRef.current, newText, {
+                  at: path,
+                });
+
+                Transforms.setNodes(
+                  markdownEditorRef.current,
+                  { text: newText, tag: true, code: true, placeholder },
+                  { at: path },
+                );
                 Transforms.insertNodes(
                   markdownEditorRef.current,
-                  [{ text: ' ' }],
+                  [{ text: '\uFEFF' }],
                   {
-                    select: true,
+                    at: Path.previous(path),
                   },
                 );
-              } else {
-                Transforms.select(markdownEditorRef.current, {
-                  anchor: Editor.end(markdownEditorRef.current, path),
-                  focus: Editor.end(markdownEditorRef.current, path),
-                });
+              });
+
+              const focusElement = markdownContainerRef.current?.querySelector(
+                'div[data-slate-node="value"]',
+              ) as HTMLDivElement;
+
+              if (focusElement) {
+                focusElement?.focus();
               }
-            }, 0);
-          }}
-          placeholder={placeholder || '请输入'}
-        >
-          {children}
-        </TagPopup>
+
+              setTimeout(() => {
+                if (!markdownEditorRef.current) return;
+                if (!path?.length) return;
+                const nextPath = Path.next(path);
+                if (!Editor.hasPath(markdownEditorRef.current, nextPath)) {
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    [{ text: ' ' }],
+                    {
+                      select: true,
+                    },
+                  );
+                } else {
+                  Transforms.select(markdownEditorRef.current, {
+                    anchor: Editor.end(markdownEditorRef.current, path),
+                    focus: Editor.end(markdownEditorRef.current, path),
+                  });
+                }
+              }, 0);
+            }}
+            placeholder={placeholder || '请输入'}
+          >
+            {children}
+          </TagPopup>
+          <InlineChromiumBugfix />
+        </>
       );
     } else {
       children = (

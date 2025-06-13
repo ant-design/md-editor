@@ -86,6 +86,41 @@ export const useKeyboard = (
 
       if (e.key.toLowerCase().startsWith('arrow')) {
         if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;
+
+        // 处理 tag 前的空格插入
+        if (e.key === 'ArrowLeft') {
+          const selection = markdownEditorRef.current.selection;
+          if (selection && Range.isCollapsed(selection)) {
+            const [node] = Editor.nodes(markdownEditorRef.current, {
+              at: selection.focus.path,
+              match: (n) => n.tag === true,
+            });
+
+            if (node) {
+              const [tagNode, tagPath] = node;
+              const offset = selection.focus.offset;
+              // 当光标在 tag 开始位置时，检查前面是否需要插入空格
+              if (offset === 0) {
+                const [prevNode] =
+                  Editor.previous(markdownEditorRef.current, { at: tagPath }) ||
+                  [];
+                if (!prevNode || !prevNode.text?.endsWith(' ')) {
+                  e.preventDefault();
+                  Transforms.insertNodes(
+                    markdownEditorRef.current,
+                    [{ text: '\uFEFF' }],
+                    {
+                      at: tagPath,
+                      select: true,
+                    },
+                  );
+                  return;
+                }
+              }
+            }
+          }
+        }
+
         return;
         keyArrow(store, e);
       } else {
