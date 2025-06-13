@@ -1179,7 +1179,7 @@ Custom container with styled text`;
     // Test malformed HTML
     const malformedHtml = `
       <div>
-        <h1>Unclosed header
+        <h1>Unclosed header</h1>
         <p>Paragraph without closing tag
         <ul>
           <li>List item 1
