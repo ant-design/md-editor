@@ -132,6 +132,7 @@ export const cnLabels = {
   media: '媒体',
   list: '列表',
   heading: '标题',
+  clickToPreview: '点击可查看预览',
 };
 
 // 英文 key-label 映射
@@ -265,6 +266,7 @@ export const enLabels: typeof cnLabels = {
   media: 'Media',
   list: 'List',
   heading: 'Heading',
+  clickToPreview: 'Click to preview',
 };
 
 export type LocalKeys = typeof cnLabels;

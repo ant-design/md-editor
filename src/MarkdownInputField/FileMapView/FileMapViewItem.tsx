@@ -2,7 +2,8 @@
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { I18nContext } from '../../i18n';
 import {
   AttachmentFile,
   kbToSize,
@@ -18,12 +19,13 @@ export const FileMapViewItem: React.FC<{
   hashId?: string;
 }> = (props) => {
   const file = props.file;
+  const { locale } = useContext(I18nContext);
   return useMemo(
     () => (
       <Tooltip
         title={
           <div>
-            <EyeFilled /> 点击可查看预览
+            <EyeFilled /> {locale?.clickToPreview}
           </div>
         }
         placement="topLeft"
