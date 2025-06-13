@@ -9,6 +9,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
     [token.componentCls]: {
       listStyle: 'disc',
       marginBottom: '0',
+      marginTop: '0',
+      '&-container': {
+        marginTop: '0.5em',
+        marginBottom: '0.5em',
+      },
       'li::marker': {
         color: 'rgb(107 114 128 /1)',
       },

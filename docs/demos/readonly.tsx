@@ -168,6 +168,7 @@ export default () => {
           });
         },
       }}
+      compact
       initValue={
         process.env.NODE_ENV === 'test'
           ? defaultValue

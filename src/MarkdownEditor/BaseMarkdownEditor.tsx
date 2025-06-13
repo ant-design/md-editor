@@ -390,6 +390,12 @@ export type MarkdownEditorProps = {
   tagInputProps?: {
     enable: boolean;
   } & TagPopupProps;
+
+  /**
+   * 紧凑模式
+   * @default false
+   */
+  compact?: boolean;
 };
 
 // 组合器函数
@@ -490,9 +496,15 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       }
     };
 
-    markdownContainerRef.current?.addEventListener('focusin', handleEditorFocus);
+    markdownContainerRef.current?.addEventListener(
+      'focusin',
+      handleEditorFocus,
+    );
     return () => {
-      markdownContainerRef.current?.removeEventListener('focusin', handleEditorFocus);
+      markdownContainerRef.current?.removeEventListener(
+        'focusin',
+        handleEditorFocus,
+      );
     };
   }, []);
 
@@ -658,7 +670,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                 markdownContainerRef.current = dom;
                 setMountedStatus(true);
               }}
-             tabIndex={-1}
+              tabIndex={-1}
             >
               <SlateMarkdownEditor
                 prefixCls={baseClassName}

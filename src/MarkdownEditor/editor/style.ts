@@ -119,6 +119,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: '0.9em',
         wordWrap: 'normal',
       },
+
       'div[data-be="paragraph"]': {
         position: 'relative',
         paddingTop: '.25em',
@@ -281,6 +282,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '[data-align="right"]': {
         textAlign: 'right',
+      },
+    },
+    [`${token.componentCls}-compact`]: {
+      'div[data-be="paragraph"]': {
+        paddingTop: '0px',
+        paddingBottom: '0px',
+        marginBottom: '0px',
+      },
+      '[data-be="list"]': {
+        marginTop: '0.3em',
+        marginBottom: '0.3em',
       },
     },
   };

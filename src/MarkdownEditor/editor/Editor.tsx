@@ -847,6 +847,7 @@ export const SlateMarkdownEditor = ({
             {
               [`${baseClassName}-report`]: reportMode,
               [`${baseClassName}-edit`]: !readonly,
+              [`${baseClassName}-compact`]: editorProps.compact,
             },
             hashId,
           )}

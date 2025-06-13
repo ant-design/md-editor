@@ -43,7 +43,7 @@ export const List = ({
         }}
       >
         <div
-          className={'relative'}
+          className={classNames(`${baseCls}-container`, hashId, 'relative')}
           data-be={'list'}
           {...attributes}
           onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
