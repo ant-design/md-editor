@@ -63,6 +63,13 @@ export class MarkdownFormatter {
 
     // 临时替换需要保护的内容
     const preservedText = text
+      // 保存代码块
+      .replace(/```[\s\S]*?```/g, (match) => {
+        const placeholder = `__CODEBLOCK_${counter}__`;
+        placeholders[placeholder] = match;
+        counter++;
+        return placeholder;
+      })
       // 保存 HTML 注释
       .replace(/(<!--[\s\S]*?-->)/g, (match) => {
         const placeholder = `__COMMENT_${counter}__`;
@@ -139,13 +146,32 @@ export class MarkdownFormatter {
    * @returns 格式化后的文本
    */
   static format(text: string): string {
-    // 首先处理段落格式
-    const paragraphsFixed = this.normalizeParagraphs(text);
+    // 首先保存代码块内容
+    const codeBlocks: { [key: string]: string } = {};
+    let counter = 0;
 
-    // 然后添加盘古之白，按行处理以保持换行格式
+    // 保存代码块内容
+    const textWithoutCodeBlocks = text.replace(/```[\s\S]*?```/g, (match) => {
+      const placeholder = `__CODEBLOCK_${counter}__`;
+      codeBlocks[placeholder] = match;
+      counter++;
+      return placeholder;
+    });
+
+    // 处理段落格式
+    const paragraphsFixed = this.normalizeParagraphs(textWithoutCodeBlocks);
+
+    // 添加盘古之白，按行处理以保持换行格式
     const lines = paragraphsFixed.split('\n');
     const formattedLines = lines.map((line) => this.addPanguSpacing(line));
-    return formattedLines.join('\n');
+    let result = formattedLines.join('\n');
+
+    // 还原代码块内容
+    Object.entries(codeBlocks).forEach(([placeholder, original]) => {
+      result = result.replace(placeholder, original);
+    });
+
+    return result;
   }
 }
 
