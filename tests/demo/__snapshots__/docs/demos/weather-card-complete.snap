@@ -4165,7 +4165,8 @@
             预览效果
           </h2>
           <div
-            style="font-family: Arial; font-size: 16px; line-height: 1.5; width: max-content;"
+            class="schemaRenderer"
+            style="font-family: Arial; font-size: 16px; line-height: 1.5; width: max-content; margin: 1em;"
           />
         </div>
       </div>

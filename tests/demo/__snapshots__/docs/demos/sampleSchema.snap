@@ -9,7 +9,8 @@
       style="min-height: 100vh; background: rgb(240, 242, 245); display: flex; justify-content: center; align-items: center;"
     >
       <div
-        style="font-size: 16px; line-height: 1.5; width: max-content;"
+        class="schemaRenderer"
+        style="font-size: 16px; line-height: 1.5; width: max-content; margin: 1em;"
       />
     </div>
   </div>
