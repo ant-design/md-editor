@@ -89,7 +89,25 @@ describe('handlePaste utilities', () => {
       const fragment = [
         {
           type: 'paragraph',
-          children: [{ text: 'Test content' }],
+          children: [
+            { text: 'Test content' },
+            {
+              text: 'code',
+              code: true,
+            },
+            { text: 'Test content' },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            { text: 'Test content' },
+            {
+              text: 'code',
+              code: true,
+            },
+            { text: 'Test content' },
+          ],
         },
       ];
       mockClipboardData.getData.mockReturnValue(JSON.stringify(fragment));

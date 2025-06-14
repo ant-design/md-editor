@@ -40,21 +40,19 @@ export const handleSlateMarkdownFragment = (
       return node;
     });
 
-    if (editorProps.textAreaProps?.enable) {
-      if (
-        fragment.length === 1 &&
-        fragment?.at(0).type === 'paragraph' &&
-        currentTextSelection
-      ) {
-        const text = Node.string(fragment.at(0));
-        if (text) {
-          Transforms.insertText(editor, text, {
-            at: currentTextSelection.focus,
-          });
-          return true;
-        }
+    if (
+      fragment.length === 1 &&
+      fragment?.at(0).type === 'paragraph' &&
+      currentTextSelection
+    ) {
+      const text = Node.string(fragment.at(0));
+      if (text) {
+        Transforms.insertText(editor, text, {
+          at: currentTextSelection.focus,
+        });
         return true;
       }
+      return true;
     }
 
     if (fragment.length === 0) return true;

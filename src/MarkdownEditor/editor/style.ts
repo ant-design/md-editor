@@ -36,7 +36,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: 'max-content',
             maxWidth: '100%',
             fontSize: '1em',
-            lineHeight: 1.7,
+            lineHeight: 1.25,
             wordBreak: 'break-word',
             whiteSpace: 'wrap',
           },
@@ -124,11 +124,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         paddingTop: '.25em',
         display: 'block',
-        paddingBottom: '.25em',
         fontSize: '1em',
-        lineHeight: 1.7,
+        lineHeight: 1.5,
         marginTop: '0',
-        marginBottom: '0.5em',
+        marginBottom: '0.25em',
         '&:first-child': {
           marginTop: 0,
           paddingTop: 0,
@@ -141,8 +140,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',
         textWrap: 'balance',
-        marginTop: '1.5em',
-        marginBottom: '1em',
+        marginTop: '0.25em',
+        marginBottom: '0.25em',
         fontWeight: 600,
         lineHeight: 1.25,
         '.ant-md-editor-drag-handle': {
@@ -151,12 +150,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       h1: {
         fontWeight: 600,
-        paddingBottom: '.3em',
         fontSize: '2em',
       },
       h2: {
         fontWeight: 600,
-        paddingBottom: '0.3em',
         fontSize: '1.5em',
       },
       h3: { fontWeight: 600, fontSize: '1.25em' },
