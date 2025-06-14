@@ -7212,12 +7212,6 @@
                   data-slate-leaf="true"
                   draggable="false"
                 >
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                   <s>
                     <span
                       data-slate-string="true"
@@ -7225,12 +7219,6 @@
                       插件系统架构
                     </span>
                   </s>
-                  <span
-                    contenteditable="false"
-                    style="font-size: 0px; line-height: 0; display: inline-block;"
-                  >
-                     
-                  </span>
                 </span>
               </span>
             </div>

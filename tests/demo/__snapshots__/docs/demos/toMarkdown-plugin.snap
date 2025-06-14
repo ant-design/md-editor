@@ -497,12 +497,6 @@
                           data-slate-leaf="true"
                           draggable="false"
                         >
-                          <span
-                            contenteditable="false"
-                            style="font-size: 0px; line-height: 0; display: inline-block;"
-                          >
-                             
-                          </span>
                           <code
                             class="ant-md-editor-content-inline-code"
                           >
@@ -512,12 +506,6 @@
                               warning
                             </span>
                           </code>
-                          <span
-                            contenteditable="false"
-                            style="font-size: 0px; line-height: 0; display: inline-block;"
-                          >
-                             
-                          </span>
                         </span>
                       </span>
                       <span
@@ -646,12 +634,6 @@
                       <br />
                     </span>
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; line-height: 0; display: inline-block;"
-                >
-                   
                 </span>
               </div>
             </div>

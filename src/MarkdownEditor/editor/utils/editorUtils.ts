@@ -110,11 +110,7 @@ export class EditorUtils {
   static findNext(editor: Editor, path: Path) {
     while (path.length) {
       if (Editor.hasPath(editor, Path.next(path))) {
-        if (Node.get(editor, Path.next(path))?.type === 'hr') {
-          path = Path.next(path);
-        } else {
-          return Path.next(path);
-        }
+        return Path.next(path);
       } else {
         path = Path.parent(path);
       }
@@ -531,10 +527,6 @@ export class EditorUtils {
     ) {
       Transforms.insertNodes(editor, EditorUtils.p, {
         at: Path.next(node[1]),
-      });
-      setTimeout(() => {
-        ReactEditor.focus(editor);
-        Transforms.select(editor, Path.next(node[1]));
       });
       return true;
     } else {

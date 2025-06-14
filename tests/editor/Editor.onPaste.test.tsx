@@ -1011,7 +1011,7 @@ function hello() {
     );
 
     const editableElement = editorContainer.querySelector(
-      '[contenteditable="false"]',
+      'ant-md-editor-content-readonly',
     ) as HTMLElement;
 
     await waitFor(() => {

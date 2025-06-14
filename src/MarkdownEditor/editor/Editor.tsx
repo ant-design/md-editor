@@ -576,15 +576,6 @@ export const SlateMarkdownEditor = ({
       const text =
         event.clipboardData?.getData?.('text/markdown')?.trim() || '';
       if (text) {
-        if (currentTextSelection) {
-          console.log(
-            'currentTextSelection',
-            text,
-            parserMdToSchema(text, plugins).schema,
-            currentTextSelection,
-          );
-          return;
-        }
         Transforms.insertFragment(
           markdownEditorRef.current,
           parserMdToSchema(text, plugins).schema,

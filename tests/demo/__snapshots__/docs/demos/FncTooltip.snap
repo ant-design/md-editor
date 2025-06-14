@@ -78,21 +78,9 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         股价表现不佳
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -165,21 +153,9 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         财报表现
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -252,21 +228,9 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         人工智能投入
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -339,21 +303,9 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         竞争压力
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -502,12 +454,6 @@
                   <br />
                 </span>
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </div>
         </div>

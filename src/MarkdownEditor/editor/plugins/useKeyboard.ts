@@ -14,7 +14,6 @@ import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { ReactEditor } from '../slate-react';
 import { EditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
-import { keyArrow } from './hotKeyCommands/arrow';
 import { BackspaceKey } from './hotKeyCommands/backspace';
 import { EnterKey } from './hotKeyCommands/enter';
 import { MatchKey } from './hotKeyCommands/match';
@@ -120,9 +119,7 @@ export const useKeyboard = (
             }
           }
         }
-
         return;
-        keyArrow(store, e);
       } else {
         if (e.key === 'Tab') tab.run(e);
         if (props.textAreaProps?.triggerSendKey === 'Enter') {

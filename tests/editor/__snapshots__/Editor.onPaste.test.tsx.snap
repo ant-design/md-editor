@@ -37,12 +37,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         </span>
       </span>
     </span>
-    <span
-      contenteditable="false"
-      style="font-size: 0px; line-height: 0; display: inline-block;"
-    >
-       
-    </span>
   </div>
   <h1
     class="ant-md-editor-drag-el"
@@ -79,21 +73,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-style: italic;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
           italic
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -124,21 +106,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
           bold
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -176,12 +146,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         data-slate-leaf="true"
         draggable="false"
       >
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
         <code
           class="ant-md-editor-content-inline-code"
         >
@@ -191,12 +155,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             inline code
           </span>
         </code>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
       </span>
     </span>
   </h2>
@@ -232,21 +190,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
           bold with 
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -261,21 +207,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold; font-style: italic;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
           nested italic
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -290,21 +224,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
            text
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -333,12 +255,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         data-slate-leaf="true"
         draggable="false"
       >
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
         <code
           class="ant-md-editor-content-inline-code"
         >
@@ -348,12 +264,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             code with **bold** inside
           </span>
         </code>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
       </span>
     </span>
     <span
@@ -507,21 +417,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       bold
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -979,21 +877,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       Bold Header
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -1014,21 +900,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-style: italic;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       Italic Header
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -1047,12 +921,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     data-slate-leaf="true"
                     draggable="false"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <code
                       class="ant-md-editor-content-inline-code"
                     >
@@ -1062,12 +930,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         Code Header
                       </span>
                     </code>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </span>
                 </span>
               </th>
@@ -1112,21 +974,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       Bold cell
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -1147,21 +997,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-style: italic;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       Italic cell
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -1180,12 +1018,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     data-slate-leaf="true"
                     draggable="false"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <code
                       class="ant-md-editor-content-inline-code"
                     >
@@ -1195,12 +1027,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         code cell
                       </span>
                     </code>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </span>
                 </span>
               </td>
@@ -1326,12 +1152,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     data-slate-leaf="true"
                     draggable="false"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <code
                       class="ant-md-editor-content-inline-code"
                     >
@@ -1341,12 +1161,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         inline code
                       </span>
                     </code>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </span>
                 </span>
               </td>
@@ -1366,21 +1180,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       Bold
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -1411,21 +1213,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-style: italic;"
                   >
                     <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
-                    <span
                       data-slate-string="true"
                     >
                       italic
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </span>
                 </span>
@@ -1470,12 +1260,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     data-slate-leaf="true"
                     draggable="false"
                   >
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                     <code
                       class="ant-md-editor-content-inline-code"
                     >
@@ -1485,12 +1269,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         &lt;br&gt;code&lt;br&gt;block&lt;br&gt;
                       </span>
                     </code>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </span>
                 </span>
               </td>
@@ -1934,21 +1712,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             style="font-weight: bold;"
           >
             <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
-            <span
               data-slate-string="true"
             >
               bold
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </span>
         </span>
@@ -1979,21 +1745,9 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             style="font-style: italic;"
           >
             <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
-            </span>
-            <span
               data-slate-string="true"
             >
               italic
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; line-height: 0; display: inline-block;"
-            >
-               
             </span>
           </span>
         </span>
@@ -2662,12 +2416,6 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-    <span
-      contenteditable="false"
-      style="font-size: 0px; line-height: 0; display: inline-block;"
-    >
-       
-    </span>
   </div>
   <div
     aria-label="可选择的卡片元素"
@@ -2856,12 +2604,6 @@ ls -la | grep "test"
           <br />
         </span>
       </span>
-    </span>
-    <span
-      contenteditable="false"
-      style="font-size: 0px; line-height: 0; display: inline-block;"
-    >
-       
     </span>
   </div>
   <h3
@@ -3453,21 +3195,9 @@ ls -la | grep "test"
         style="font-weight: bold;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
           Centered content
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -3520,21 +3250,9 @@ ls -la | grep "test"
         style="font-weight: bold;"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
-        </span>
-        <span
           data-slate-string="true"
         >
           markdown
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; line-height: 0; display: inline-block;"
-        >
-           
         </span>
       </span>
     </span>
@@ -3863,12 +3581,6 @@ exports[`Editor onPaste function > should render editor and handle basic paste e
           <br />
         </span>
       </span>
-    </span>
-    <span
-      contenteditable="false"
-      style="font-size: 0px; line-height: 0; display: inline-block;"
-    >
-       
     </span>
   </div>
   <div

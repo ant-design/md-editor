@@ -71,9 +71,7 @@ export const InlineKatex = ({
           }}
           className={selected ? 'inline-code-input' : ''}
         >
-          <InlineChromiumBugfix />
           {children}
-          <InlineChromiumBugfix />
         </span>
         <span
           contentEditable={false}

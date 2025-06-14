@@ -180,12 +180,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </div>
               </div>
@@ -353,18 +347,6 @@
                         data-slate-leaf="true"
                         draggable="false"
                       >
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
                         <div
                           class="tag-popup-input-warp"
                           style="background: rgb(238, 241, 255); color: rgb(76, 75, 223); line-height: 22px; border-width: 0px; display: inline-flex; position: relative;"
@@ -380,18 +362,6 @@
                             </span>
                           </div>
                         </div>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
                       </span>
                     </span>
                     <span
@@ -419,18 +389,6 @@
                         data-slate-leaf="true"
                         draggable="false"
                       >
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
                         <div
                           class="tag-popup-input-warp"
                           style="background: rgb(238, 241, 255); color: rgb(76, 75, 223); line-height: 22px; border-width: 0px; display: inline-flex; position: relative;"
@@ -446,18 +404,6 @@
                             </span>
                           </div>
                         </div>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
                       </span>
                     </span>
                     <span
@@ -485,18 +431,6 @@
                         data-slate-leaf="true"
                         draggable="false"
                       >
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
                         <div
                           class="tag-popup-input-warp"
                           style="background: rgb(238, 241, 255); color: rgb(76, 75, 223); line-height: 22px; border-width: 0px; display: inline-flex; position: relative;"
@@ -512,18 +446,6 @@
                             </span>
                           </div>
                         </div>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; line-height: 0; display: inline-block;"
-                        >
-                           
-                        </span>
                       </span>
                     </span>
                     <span
@@ -703,12 +625,6 @@
                           <br />
                         </span>
                       </span>
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </div>
                 </div>
@@ -939,12 +855,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </div>
               </div>
@@ -1150,12 +1060,6 @@
                         </span>
                       </span>
                     </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
-                    </span>
                   </div>
                 </div>
               </div>
@@ -1317,12 +1221,6 @@
                           <br />
                         </span>
                       </span>
-                    </span>
-                    <span
-                      contenteditable="false"
-                      style="font-size: 0px; line-height: 0; display: inline-block;"
-                    >
-                       
                     </span>
                   </div>
                 </div>

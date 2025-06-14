@@ -5487,21 +5487,9 @@ dark:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         动态交互
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -5544,21 +5532,9 @@ dark:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         智能分析
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -5601,21 +5577,9 @@ dark:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         多终端适配
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -5658,21 +5622,9 @@ dark:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         协作管理
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -5715,21 +5667,9 @@ dark:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         安全管控
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>

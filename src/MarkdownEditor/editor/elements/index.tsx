@@ -12,7 +12,6 @@ import {
 } from '../slate-react';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
-import { InlineChromiumBugfix } from '../utils/InlineChromiumBugfix';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
 import { ColumnCell, ColumnGroup } from './column';
@@ -259,7 +258,6 @@ export const MLeaf = (
     if (enable && tag) {
       children = (
         <>
-          <InlineChromiumBugfix />
           <TagPopup
             {...props}
             autoOpen={autoOpen}
@@ -331,7 +329,6 @@ export const MLeaf = (
           >
             {children}
           </TagPopup>
-          <InlineChromiumBugfix />
         </>
       );
     } else {
@@ -431,9 +428,7 @@ export const MLeaf = (
           }}
           {...props.attributes}
         >
-          {!!props.text?.text && <InlineChromiumBugfix />}
           {children}
-          {!!props.text?.text && <InlineChromiumBugfix />}
         </span>
       </Popover>
     );
@@ -482,14 +477,12 @@ export const MLeaf = (
           : style),
       }}
     >
-      {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
       {leaf.fnc || leaf.identifier
         ? leaf.text
             ?.replaceAll(']', '')
             ?.replaceAll('[^DOC_', '')
             ?.replaceAll('[^', '')
         : children}
-      {!!dirty && !!leaf.text && <InlineChromiumBugfix />}
     </span>
   );
   if (props.fncProps?.render && (leaf.fnc || leaf.identifier)) {

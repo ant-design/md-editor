@@ -76,12 +76,6 @@
                 data-slate-leaf="true"
                 draggable="false"
               >
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; line-height: 0; display: inline-block;"
-                >
-                   
-                </span>
                 <code
                   class="ant-md-editor-content-inline-code"
                 >
@@ -91,12 +85,6 @@
                     list
                   </span>
                 </code>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; line-height: 0; display: inline-block;"
-                >
-                   
-                </span>
               </span>
             </span>
             <span
@@ -198,21 +186,9 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         直接遍历元素
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -242,12 +218,6 @@
                       data-slate-leaf="true"
                       draggable="false"
                     >
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                       <code
                         class="ant-md-editor-content-inline-code"
                       >
@@ -257,12 +227,6 @@
                           for-in
                         </span>
                       </code>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                     </span>
                   </span>
                   <span
@@ -537,21 +501,9 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         通过索引遍历
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -581,12 +533,6 @@ for num in arr:
                       data-slate-leaf="true"
                       draggable="false"
                     >
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                       <code
                         class="ant-md-editor-content-inline-code"
                       >
@@ -596,12 +542,6 @@ for num in arr:
                           range(len())
                         </span>
                       </code>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                     </span>
                   </span>
                   <span
@@ -851,21 +791,9 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         同时获取索引和值（
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -879,12 +807,6 @@ for num in arr:
                       draggable="false"
                       style="font-weight: bold;"
                     >
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                       <code
                         class="ant-md-editor-content-inline-code"
                       >
@@ -894,12 +816,6 @@ for num in arr:
                           enumerate
                         </span>
                       </code>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                     </span>
                   </span>
                   <span
@@ -913,21 +829,9 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         enumerate）
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -1225,21 +1129,9 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         使用 
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -1253,12 +1145,6 @@ for num in arr:
                       draggable="false"
                       style="font-weight: bold;"
                     >
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                       <code
                         class="ant-md-editor-content-inline-code"
                       >
@@ -1268,12 +1154,6 @@ for num in arr:
                           while
                         </span>
                       </code>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                     </span>
                   </span>
                   <span
@@ -1287,21 +1167,9 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         while 循环
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -1579,21 +1447,9 @@ while i &lt; len(arr):
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         列表推导式
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -1931,21 +1787,9 @@ while i &lt; len(arr):
                       style="font-weight: bold;"
                     >
                       <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
-                      <span
                         data-slate-string="true"
                       >
                         递归遍历
-                      </span>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
                       </span>
                     </span>
                   </span>
@@ -2559,12 +2403,6 @@ for fruit in fruits:
                 data-slate-leaf="true"
                 draggable="false"
               >
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; line-height: 0; display: inline-block;"
-                >
-                   
-                </span>
                 <code
                   class="ant-md-editor-content-inline-code"
                 >
@@ -2574,12 +2412,6 @@ for fruit in fruits:
                     enumerate()
                   </span>
                 </code>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; line-height: 0; display: inline-block;"
-                >
-                   
-                </span>
               </span>
             </span>
             <span
@@ -3796,12 +3628,6 @@ while i &lt; len(fruits):
                       data-slate-leaf="true"
                       draggable="false"
                     >
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                       <code
                         class="ant-md-editor-content-inline-code"
                       >
@@ -3811,12 +3637,6 @@ while i &lt; len(fruits):
                           while
                         </span>
                       </code>
-                      <span
-                        contenteditable="false"
-                        style="font-size: 0px; line-height: 0; display: inline-block;"
-                      >
-                         
-                      </span>
                     </span>
                   </span>
                   <span
