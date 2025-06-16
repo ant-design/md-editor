@@ -46,7 +46,7 @@ export const ReadonlyTable = ({
   children: React.ReactNode;
   hashId: string;
 } & RenderElementProps<TableNode>) => {
-  const { editorProps, markdownContainerRef } = useEditorStore();
+  const { editorProps, readonly, markdownContainerRef } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const {
     actions = {
@@ -173,7 +173,6 @@ export const ReadonlyTable = ({
         style={{
           userSelect: 'none',
         }}
-        contentEditable={false}
         className={classNames(`${baseCls}-editor-table`, hashId)}
       >
         <colgroup>
@@ -193,6 +192,25 @@ export const ReadonlyTable = ({
         <tbody data-slate-node="element">{children}</tbody>
       </table>
     );
+    if (!readonly)
+      return (
+        <div
+          className={classNames(baseCls, hashId)}
+          ref={tableRef}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            boxShadow: `
+                      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtStart ? 'inset 0 8px 8px -8px rgba(0,0,0,0.1)' : ''}
+                      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtEnd ? 'inset 0 -8px 8px -8px rgba(0,0,0,0.1)' : ''}
+                      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtStart ? 'inset 8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
+                      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtEnd ? 'inset -8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
+                    `,
+          }}
+        >
+          {dom}
+        </div>
+      );
     return (
       <>
         <Popover

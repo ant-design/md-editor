@@ -24,6 +24,10 @@ export const SimpleTable = (props: RenderElementProps<TableNode>) => {
         draggable={false}
         className={classNames(`${baseCls}-container`, hashId)}
         tabIndex={0}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
       >
         <ReadonlyTable {...props} hashId={hashId}>
           {props.children}
