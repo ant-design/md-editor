@@ -5691,7 +5691,6 @@
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    contenteditable="false"
                     style="user-select: none;"
                   >
                     <colgroup>

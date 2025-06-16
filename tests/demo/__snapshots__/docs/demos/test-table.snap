@@ -70,13 +70,11 @@
                 tabindex="0"
               >
                 <div
-                  aria-describedby="test-id"
                   class="ant-md-editor-content-table"
                   style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    contenteditable="false"
                     style="user-select: none;"
                   >
                     <colgroup>
@@ -3394,13 +3392,11 @@
                 tabindex="0"
               >
                 <div
-                  aria-describedby="test-id"
                   class="ant-md-editor-content-table"
                   style="flex: 1 1 0%; min-width: 0;"
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    contenteditable="false"
                     style="user-select: none;"
                   >
                     <colgroup>
@@ -3710,7 +3706,6 @@
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    contenteditable="false"
                     style="user-select: none;"
                   >
                     <colgroup>
@@ -7034,7 +7029,6 @@
                 >
                   <table
                     class="ant-md-editor-content-table-editor-table"
-                    contenteditable="false"
                     style="user-select: none;"
                   >
                     <colgroup>

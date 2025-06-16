@@ -841,13 +841,11 @@ Font Awesome图标：:fa-solid fa-rocket:
                       tabindex="0"
                     >
                       <div
-                        aria-describedby="test-id"
                         class="ant-md-editor-content-table"
                         style="flex: 1 1 0%; min-width: 0;"
                       >
                         <table
                           class="ant-md-editor-content-table-editor-table"
-                          contenteditable="false"
                           style="user-select: none;"
                         >
                           <colgroup>
@@ -3814,13 +3812,11 @@ deadline: 2023-12-31
                       tabindex="0"
                     >
                       <div
-                        aria-describedby="test-id"
                         class="ant-md-editor-content-table"
                         style="flex: 1 1 0%; min-width: 0;"
                       >
                         <table
                           class="ant-md-editor-content-table-editor-table"
-                          contenteditable="false"
                           style="user-select: none;"
                         >
                           <colgroup>
