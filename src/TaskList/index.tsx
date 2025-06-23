@@ -1,13 +1,13 @@
 import {
-  ChevronDown,
-  ChevronUp,
-  CircleDashed,
+  CheckCircleFilled,
+  DownOutlined,
   InfoOutlined,
-  SuccessFill,
+  LoadingOutlined,
+  UpOutlined,
 } from '@ant-design/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { Loading } from '../components/Loading';
-import styles from './index.module.less';
+import { useStyle } from './style';
 
 type ThoughtChainProps = {
   items: {
@@ -18,88 +18,103 @@ type ThoughtChainProps = {
   }[];
   className?: string;
 };
+
 export default ({ items, className }: ThoughtChainProps) => {
+  const prefixCls = 'task-list';
+  const { wrapSSR, hashId } = useStyle(prefixCls);
   const [reFresh, setReFresh] = useState(false);
-  const itemsCollpaseStatus = useRef(new Map());
+  const itemsCollapseStatus = useRef(new Map());
+
   useEffect(() => {
     return () => {
-      itemsCollpaseStatus.current.clear();
+      itemsCollapseStatus.current.clear();
     };
   }, []);
+
   useEffect(() => {
-    console.log(itemsCollpaseStatus.current.size);
     let flag = false;
     items.forEach((item) => {
-      const oldStatus = itemsCollpaseStatus.current.has(item.key);
+      const oldStatus = itemsCollapseStatus.current.has(item.key);
       if (oldStatus) {
-        // 如果旧状态存在，则设置为旧状态
-        itemsCollpaseStatus.current.set(
+        itemsCollapseStatus.current.set(
           item.key,
-          !!itemsCollpaseStatus.current.get(item.key),
+          !!itemsCollapseStatus.current.get(item.key),
         );
       } else {
         flag = true;
-        itemsCollpaseStatus.current.set(item.key, true);
+        itemsCollapseStatus.current.set(item.key, true);
       }
     });
     if (flag) {
       setReFresh(!reFresh);
     }
   }, [items]);
+
   const OnClickArrow = (key: string) => {
-    itemsCollpaseStatus.current.set(key, !itemsCollpaseStatus.current.get(key));
+    itemsCollapseStatus.current.set(key, !itemsCollapseStatus.current.get(key));
     setReFresh(!reFresh);
   };
-  return (
+
+  return wrapSSR(
     <div className={className}>
       {items.map((item, index) => (
-        <div key={item.key} className={styles.thoughtChainItem}>
-          <div className={styles.left}>
-            <div className={styles.status}>
+        <div
+          key={item.key}
+          className={`${prefixCls}-thoughtChainItem ${hashId}`}
+        >
+          <div className={`${prefixCls}-left ${hashId}`}>
+            <div className={`${prefixCls}-status ${hashId}`}>
               {item.status === 'success' ? (
-                <SuccessFill />
+                <CheckCircleFilled />
               ) : item.status === 'error' ? (
                 <InfoOutlined />
               ) : (
-                <CircleDashed />
+                <LoadingOutlined />
               )}
             </div>
-            <div className={styles['content-left']}>
+            <div className={`${prefixCls}-content-left ${hashId}`}>
               {index !== items.length - 1 && (
-                <div className={styles['dash-line']}></div>
+                <div className={`${prefixCls}-dash-line ${hashId}`}></div>
               )}
             </div>
           </div>
-          <div className={styles.right}>
-            <div className={styles.top} onClick={() => OnClickArrow(item.key)}>
-              <div className={styles.title}>{item.title}</div>
+          <div className={`${prefixCls}-right ${hashId}`}>
+            <div
+              className={`${prefixCls}-top ${hashId}`}
+              onClick={() => OnClickArrow(item.key)}
+            >
+              <div className={`${prefixCls}-title ${hashId}`}>{item.title}</div>
               {item.status === 'pending' ? (
-                <div className={styles.loading}>
+                <div className={`${prefixCls}-loading ${hashId}`}>
                   <Loading />
                 </div>
               ) : null}
               {item.content
-                ? typeof item.content === 'object' &&
+                ? Array.isArray(item.content) &&
                   item.content.length > 0 &&
-                  (itemsCollpaseStatus.current.get(item.key) ? (
-                    <div className={styles.arrowContainer}>
-                      <ChevronUp className={styles.arrow} />
+                  (itemsCollapseStatus.current.get(item.key) ? (
+                    <div className={`${prefixCls}-arrowContainer ${hashId}`}>
+                      <UpOutlined className={`${prefixCls}-arrow ${hashId}`} />
                     </div>
                   ) : (
-                    <div className={styles.arrowContainer}>
-                      <ChevronDown className={styles.arrow} />
+                    <div className={`${prefixCls}-arrowContainer ${hashId}`}>
+                      <DownOutlined
+                        className={`${prefixCls}-arrow ${hashId}`}
+                      />
                     </div>
                   ))
                 : null}
             </div>
-            {itemsCollpaseStatus.current.get(item.key) && (
-              <div className={styles.body}>
-                <div className={styles.content}>{item.content}</div>
+            {itemsCollapseStatus.current.get(item.key) && (
+              <div className={`${prefixCls}-body ${hashId}`}>
+                <div className={`${prefixCls}-content ${hashId}`}>
+                  {item.content}
+                </div>
               </div>
             )}
           </div>
         </div>
       ))}
-    </div>
+    </div>,
   );
 };
