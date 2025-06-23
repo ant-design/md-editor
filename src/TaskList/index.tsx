@@ -1,7 +1,6 @@
 import {
   CheckCircleFilled,
-  DownOutlined,
-  InfoOutlined,
+  CloseCircleFilled,
   LoadingOutlined,
   UpOutlined,
 } from '@ant-design/icons';
@@ -67,7 +66,7 @@ export default ({ items, className }: ThoughtChainProps) => {
               {item.status === 'success' ? (
                 <CheckCircleFilled />
               ) : item.status === 'error' ? (
-                <InfoOutlined />
+                <CloseCircleFilled />
               ) : (
                 <LoadingOutlined />
               )}
@@ -91,18 +90,18 @@ export default ({ items, className }: ThoughtChainProps) => {
               ) : null}
               {item.content
                 ? Array.isArray(item.content) &&
-                  item.content.length > 0 &&
-                  (itemsCollapseStatus.current.get(item.key) ? (
+                  item.content.length > 0 && (
                     <div className={`${prefixCls}-arrowContainer ${hashId}`}>
-                      <UpOutlined className={`${prefixCls}-arrow ${hashId}`} />
-                    </div>
-                  ) : (
-                    <div className={`${prefixCls}-arrowContainer ${hashId}`}>
-                      <DownOutlined
+                      <UpOutlined
+                        style={{
+                          transform: itemsCollapseStatus.current.get(item.key)
+                            ? 'rotate(180deg)'
+                            : 'rotate(0deg)',
+                        }}
                         className={`${prefixCls}-arrow ${hashId}`}
                       />
                     </div>
-                  ))
+                  )
                 : null}
             </div>
             {itemsCollapseStatus.current.get(item.key) && (

@@ -92,7 +92,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: 16,
           color: 'rgba(0, 3, 9, 45%)',
           cursor: 'pointer',
-
+          transition: 'all 0.3s ease',
           '&:hover': {
             backgroundColor: 'var(--icon-hover-bg)',
             borderRadius: 'var(--icon-hover-border-radius)',
