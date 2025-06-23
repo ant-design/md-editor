@@ -1,3 +1,4 @@
+export { Loading } from './components/Loading';
 export * from './hooks/useAutoScroll';
 export * from './hooks/useRefFunction';
 export * from './hooks/useStyle';
