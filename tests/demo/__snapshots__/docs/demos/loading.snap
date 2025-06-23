@@ -1,0 +1,54 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="padding: 24px;"
+    >
+      <h3>
+        基础用法
+      </h3>
+      <div
+        class="loading-container "
+      >
+        <div
+          class="loading-container-item "
+        />
+        <div
+          class="loading-container-item "
+        />
+        <div
+          class="loading-container-item "
+        />
+      </div>
+      <h3
+        style="margin-top: 24px;"
+      >
+        在文本中使用
+      </h3>
+      <div
+        style="display: flex; align-items: center; gap: 8px;"
+      >
+        <span>
+          加载中
+        </span>
+        <div
+          class="loading-container "
+        >
+          <div
+            class="loading-container-item "
+          />
+          <div
+            class="loading-container-item "
+          />
+          <div
+            class="loading-container-item "
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

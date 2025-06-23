@@ -1,3 +1,4 @@
+export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './hooks/useAutoScroll';
 export * from './hooks/useRefFunction';
@@ -25,4 +26,6 @@ export * from './MarkdownInputField/FileMapView';
 export * from './MarkdownInputField/MarkdownInputField';
 export { MarkdownFormatter } from './plugins/formatter';
 export * from './schema';
+export * from './TaskList';
 export * from './ThoughtChainList';
+export * from './ToolUseBar';

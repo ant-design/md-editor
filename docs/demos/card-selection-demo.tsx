@@ -1,5 +1,5 @@
+import { BaseMarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
-import { BaseMarkdownEditor } from '../../src/MarkdownEditor/BaseMarkdownEditor';
 
 const CardSelectionDemo = () => {
   // 创建包含多个卡片的演示内容
@@ -103,12 +103,24 @@ const CardSelectionDemo = () => {
         >
           <h3>功能特性：</h3>
           <ul style={{ margin: 0, paddingLeft: '20px' }}>
-            <li>🔵 <strong>边框高亮</strong>：选中时显示蓝色边框</li>
-            <li>🎨 <strong>背景提示</strong>：淡蓝色背景表示选中状态</li>
-            <li>📍 <strong>顶部指示条</strong>：醒目的蓝色指示条</li>
-            <li>✅ <strong>选中角标</strong>：带有勾选图标的圆形角标</li>
-            <li>🛠️ <strong>工具栏</strong>：显示操作选项和删除按钮</li>
-            <li>✨ <strong>平滑动画</strong>：0.2s 的过渡动画效果</li>
+            <li>
+              🔵 <strong>边框高亮</strong>：选中时显示蓝色边框
+            </li>
+            <li>
+              🎨 <strong>背景提示</strong>：淡蓝色背景表示选中状态
+            </li>
+            <li>
+              📍 <strong>顶部指示条</strong>：醒目的蓝色指示条
+            </li>
+            <li>
+              ✅ <strong>选中角标</strong>：带有勾选图标的圆形角标
+            </li>
+            <li>
+              🛠️ <strong>工具栏</strong>：显示操作选项和删除按钮
+            </li>
+            <li>
+              ✨ <strong>平滑动画</strong>：0.2s 的过渡动画效果
+            </li>
           </ul>
         </div>
 
@@ -160,7 +172,13 @@ const CardSelectionDemo = () => {
         }}
       >
         <h3>🔧 技术实现：</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '16px',
+          }}
+        >
           <div>
             <h4>视觉效果：</h4>
             <ul style={{ fontSize: '14px', margin: 0, paddingLeft: '20px' }}>
@@ -185,4 +203,4 @@ const CardSelectionDemo = () => {
   );
 };
 
-export default CardSelectionDemo; 
+export default CardSelectionDemo;

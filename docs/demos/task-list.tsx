@@ -1,5 +1,5 @@
+import { TaskList } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import TaskList from '../../src/TaskList';
 
 type TaskStatus = 'success' | 'error' | 'pending';
 

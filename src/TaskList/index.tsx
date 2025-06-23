@@ -18,7 +18,7 @@ type ThoughtChainProps = {
   className?: string;
 };
 
-export default ({ items, className }: ThoughtChainProps) => {
+export const TaskList = ({ items, className }: ThoughtChainProps) => {
   const prefixCls = 'task-list';
   const { wrapSSR, hashId } = useStyle(prefixCls);
   const [reFresh, setReFresh] = useState(false);

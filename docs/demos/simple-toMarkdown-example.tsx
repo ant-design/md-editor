@@ -1,7 +1,9 @@
+import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  MarkdownEditorPlugin,
+} from '@ant-design/md-editor';
 import React, { useRef } from 'react';
-import { MarkdownEditor } from '../../src';
-import { MarkdownEditorInstance } from '../../src/MarkdownEditor/BaseMarkdownEditor';
-import { MarkdownEditorPlugin } from '../../src/MarkdownEditor/plugin';
 
 // 简单的自定义代码块插件
 const customCodePlugin: MarkdownEditorPlugin = {

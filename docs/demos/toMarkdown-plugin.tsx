@@ -1,6 +1,5 @@
+import { MarkdownEditor, MarkdownEditorPlugin } from '@ant-design/md-editor';
 import React, { useState } from 'react';
-import { MarkdownEditor } from '../../src';
-import { MarkdownEditorPlugin } from '../../src/MarkdownEditor/plugin';
 
 // 自定义代码块插件 - 将特殊的代码块转换为警告格式
 const customCodeBlockPlugin: MarkdownEditorPlugin = {

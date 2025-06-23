@@ -1,5 +1,5 @@
+import { BaseMarkdownEditor } from '@ant-design/md-editor';
 import React from 'react';
-import { BaseMarkdownEditor } from '../../src/MarkdownEditor/BaseMarkdownEditor';
 
 const CardIMEDemo = () => {
   // 使用简单的markdown初始化
@@ -35,7 +35,7 @@ const CardIMEDemo = () => {
             <li>验证在 card-before 区域无法输入任何内容</li>
           </ol>
         </div>
-        
+
         <div
           style={{
             backgroundColor: '#fff3cd',
@@ -65,9 +65,15 @@ const CardIMEDemo = () => {
         >
           <strong>🔧 技术说明：</strong>
           <ul style={{ margin: '12px 0 0 0', paddingLeft: '20px' }}>
-            <li>修复了中文输入法通过 <code>Editor.insertText</code> 绕过拦截的问题</li>
-            <li>在操作层面拦截 <code>insert_text</code> 操作</li>
-            <li>使用 <code>Editor.withoutNormalizing</code> 确保操作的原子性</li>
+            <li>
+              修复了中文输入法通过 <code>Editor.insertText</code> 绕过拦截的问题
+            </li>
+            <li>
+              在操作层面拦截 <code>insert_text</code> 操作
+            </li>
+            <li>
+              使用 <code>Editor.withoutNormalizing</code> 确保操作的原子性
+            </li>
             <li>支持所有类型的输入法和 composition 事件</li>
           </ul>
         </div>
@@ -93,7 +99,9 @@ const CardIMEDemo = () => {
       </div>
 
       <div style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
-        <p><strong>测试提示：</strong></p>
+        <p>
+          <strong>测试提示：</strong>
+        </p>
         <ul>
           <li>尝试在不同的卡片中使用中文输入法</li>
           <li>测试输入汉字、标点符号等</li>
@@ -105,4 +113,4 @@ const CardIMEDemo = () => {
   );
 };
 
-export default CardIMEDemo; 
+export default CardIMEDemo;
