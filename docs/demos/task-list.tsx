@@ -1,4 +1,4 @@
-import { TaskList } from '@ant-design/md-editor';
+import { TaskList, ToolUseBar } from '@ant-design/md-editor';
 import React, { useState } from 'react';
 
 type TaskStatus = 'success' | 'error' | 'pending';
@@ -17,6 +17,28 @@ export default () => {
       content: [
         <div key="1">这是一个进行中的任务内容</div>,
         <div key="2">可以包含多个内容项</div>,
+        <ToolUseBar
+          tools={[
+            {
+              id: '1',
+              toolName: 'Search Code',
+              toolTarget: 'baidu.com',
+              time: '1.3s',
+            },
+            {
+              id: '2',
+              toolName: 'Read File',
+              toolTarget: 'xxx.docx',
+              time: '2.3s',
+            },
+            {
+              id: '3',
+              toolName: 'Edit File',
+              toolTarget: 'xx.md',
+              time: '2.3s',
+            },
+          ]}
+        />,
       ],
       status: 'pending' as TaskStatus,
     },
@@ -29,7 +51,7 @@ export default () => {
   ]);
 
   return (
-    <div style={{ padding: 24, backgroundColor: '#f5f5f5' }}>
+    <div style={{ padding: 24 }}>
       <h3>基础用法</h3>
       <TaskList items={items} />
     </div>
