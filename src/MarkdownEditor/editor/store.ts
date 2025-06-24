@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable no-param-reassign */
 import isEqual from 'lodash-es/isEqual';
+import { parse } from 'querystring';
 import React, { createContext, useContext } from 'react';
 import { Subject } from 'rxjs';
 import {
@@ -16,15 +17,13 @@ import {
   Text,
   Transforms,
 } from 'slate';
-import { ReactEditor } from './slate-react';
-
-import { parse } from 'querystring';
 import { HistoryEditor } from 'slate-history';
 import { T } from 'vitest/dist/chunks/environment.LoooBwUu.js';
 import { CommentDataType, MarkdownEditorProps } from '../BaseMarkdownEditor';
 import { Elements, FootnoteDefinitionNode, ListNode } from '../el';
 import type { MarkdownEditorPlugin } from '../plugin';
 import { parserMdToSchema } from './parser/parserMdToSchema';
+import { ReactEditor } from './slate-react';
 import { KeyboardTask, Methods, parserSlateNodeToMarkdown } from './utils';
 import { getOffsetLeft, getOffsetTop } from './utils/dom';
 import { EditorUtils } from './utils/editorUtils';
@@ -88,7 +87,6 @@ interface UpdateOperation {
 }
 
 export class EditorStore {
-  manual = false;
   highlightCache = new Map<object, Range[]>();
   private ableToEnter = new Set([
     'paragraph',
@@ -105,15 +103,6 @@ export class EditorStore {
   inputComposition = false;
   plugins?: MarkdownEditorPlugin[];
   domRect: DOMRect | null = null;
-
-  /**
-   * 临时设置手动标志为 true 以防止自动行为。
-   * 短暂延迟后将标志重置为 false。
-   */
-  doManual() {
-    this.manual = true;
-    setTimeout(() => (this.manual = false), 30);
-  }
 
   _editor: React.MutableRefObject<BaseEditor & ReactEditor & HistoryEditor>;
 
@@ -133,6 +122,33 @@ export class EditorStore {
     this.dragStart = this.dragStart.bind(this);
     this._editor = _editor;
     this.plugins = plugins;
+  }
+
+  /**
+   * 聚焦到编辑器
+   */
+  focus() {
+    const editor = this._editor.current;
+    try {
+      // 1. 确保编辑器获得焦点
+      setTimeout(() => ReactEditor.focus(editor), 0);
+      // 2. 处理空文档情况
+      if (editor.children.length === 0) {
+        const defaultNode = { type: 'paragraph', children: [{ text: '' }] };
+        Transforms.insertNodes(editor, defaultNode, { at: [0] });
+      }
+
+      // 3. 获取文档末尾位置
+      const end = Editor.end(editor, []);
+
+      // 4. 设置光标位置
+      Transforms.select(editor, {
+        anchor: end,
+        focus: end,
+      });
+    } catch (error) {
+      console.error('移动光标失败:', error);
+    }
   }
 
   /**
