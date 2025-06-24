@@ -61,7 +61,7 @@ exports[`TocHeading Component > applies max height and scrollbar styles 1`] = `
     >
       <div
         class="ant-anchor-wrapper"
-        style="max-height: 300px; min-width: 200px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"
+        style="max-height: min(calc(100vh - 180px), 300px); min-width: 200px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"
       >
         <div
           class="ant-anchor"
