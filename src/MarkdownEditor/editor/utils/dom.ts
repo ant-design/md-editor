@@ -123,6 +123,7 @@ export const getMediaType = (name?: string, alt?: string) => {
  * @returns The bounding rectangle of the selection, or null if no selection exists.
  */
 export const getSelRect = () => {
+  if (typeof window === 'undefined') return null;
   const domSelection = window.getSelection();
   const domRange = domSelection?.getRangeAt(0);
   return domRange?.getBoundingClientRect() || null;

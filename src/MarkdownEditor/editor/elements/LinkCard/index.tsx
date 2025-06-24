@@ -56,6 +56,7 @@ export function LinkCard({
             flex: 1,
           }}
           onClick={() => {
+            if (typeof window === 'undefined') return;
             window.open(element?.url);
           }}
           className={classNames(`${baseCls}-container`, hashId)}
@@ -89,6 +90,7 @@ export function LinkCard({
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
+                  if (typeof window === 'undefined') return;
                   window.open(element?.url);
                 }}
                 download={element.title || element.name || 'no title'}

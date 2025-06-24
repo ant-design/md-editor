@@ -217,6 +217,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
   // 处理 body 滚动
   useEffect(() => {
     const handleScroll = () => {
+      if (typeof window === 'undefined') return;
       if (isScrollingInternally.current) return;
 
       const scrollTop =

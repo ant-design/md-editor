@@ -349,6 +349,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = (
       insertAttachment: false,
       insertUrl: '',
     });
+    if (typeof window === 'undefined') return;
     window.removeEventListener('click', clickClose);
   }, []);
 
@@ -658,11 +659,13 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = (
     };
 
     const setupEventListeners = () => {
+      if (typeof window === 'undefined') return;
       window.addEventListener('keydown', keydown);
       window.addEventListener('click', clickClose);
     };
 
     const removeEventListeners = () => {
+      if (typeof window === 'undefined') return;
       window.removeEventListener('keydown', keydown);
       window.removeEventListener('click', clickClose);
     };

@@ -394,6 +394,7 @@ export const MLeaf = (
             <ExportOutlined
               onClick={() => {
                 if (!leaf?.url) return;
+                if (typeof window === 'undefined') return;
                 window.open(leaf?.url);
               }}
             />
@@ -410,6 +411,7 @@ export const MLeaf = (
             e.preventDefault();
             if (e.metaKey || e.ctrlKey || readonly) {
               if (!leaf?.url) return;
+              if (typeof window === 'undefined') return;
               window.open(leaf?.url);
             } else if (e.detail === 2) {
               selectFormat();

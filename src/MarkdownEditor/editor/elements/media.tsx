@@ -402,6 +402,7 @@ export function Media({
           >
             <EyeOutlined
               onClick={() => {
+                if (typeof window === 'undefined') return;
                 window.open(state()?.url);
               }}
               style={{

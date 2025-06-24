@@ -909,6 +909,7 @@ export const useSystemKeyboard = (
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     window.addEventListener('keydown', keydown);
     return () => {
       window.removeEventListener('keydown', keydown);

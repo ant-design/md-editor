@@ -202,7 +202,7 @@ export const SlateMarkdownEditor = ({
       markdownContainerRef?.current?.dispatchEvent(event);
       return;
     }
-
+    if (typeof window === 'undefined') return;
     // 只读模式下的选区处理
     const domSelection = window.getSelection();
     if (!domSelection) {

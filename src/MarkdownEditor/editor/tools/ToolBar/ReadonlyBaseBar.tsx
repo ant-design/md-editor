@@ -49,6 +49,7 @@ export const ReadonlyBaseBar = (props: {
           key="comment"
           className={classnames(`${baseClassName}-item`, hashId)}
           onClick={() => {
+            if (typeof window === 'undefined') return;
             const domSelection = window.getSelection();
             const editor = markdownEditorRef.current;
             let selection = editor.selection;

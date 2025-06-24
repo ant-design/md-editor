@@ -123,6 +123,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
                   setImgSrc(file.previewUrl || file.url);
                   return;
                 }
+                if (typeof window === 'undefined') return;
                 window.open(file.previewUrl || file.url, '_blank');
               }}
               onDownload={() => props.onDownload?.(file)}

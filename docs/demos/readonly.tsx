@@ -66,6 +66,7 @@ export default () => {
     },
   ]);
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     // @ts-ignore
     window.editorRef = editorRef;
     editorRef.current?.markdownContainerRef?.current?.addEventListener(

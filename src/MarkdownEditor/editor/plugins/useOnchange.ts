@@ -81,6 +81,7 @@ export function useOnchange(
           !Range.isCollapsed(sel) &&
           Path.equals(Path.parent(sel.focus.path), Path.parent(sel.anchor.path))
         ) {
+          if (typeof window === 'undefined') return;
           const domSelection = window.getSelection();
           const domRange = domSelection?.getRangeAt(0);
 

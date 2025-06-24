@@ -156,6 +156,7 @@ export const FileMapView: React.FC<FileMapViewProps> = (props) => {
                   setImgSrc(file.previewUrl || file.url);
                   return;
                 }
+                if (typeof window === 'undefined') return;
                 window.open(file.previewUrl || file.url, '_blank');
               }}
               onDownload={() => {

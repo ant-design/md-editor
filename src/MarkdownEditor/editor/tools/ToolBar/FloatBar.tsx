@@ -70,6 +70,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
   }, [domRect]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const close = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && !openLinkPanel) {
         e.preventDefault();
