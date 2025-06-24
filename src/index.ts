@@ -1,3 +1,5 @@
+
+export * from './AgentRunBar';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './hooks/useAutoScroll';
