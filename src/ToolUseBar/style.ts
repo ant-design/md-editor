@@ -7,30 +7,30 @@ import {
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+      '*': {
+        boxSizing: 'border-box',
+      },
       '&-tool': {
         borderRadius: '200px',
-        maxWidth: '100%',
-        marginBottom: 12,
-        background: 'var(--color-bg-container)',
+        background: 'rgba(0, 37, 110, 0.03)',
         boxSizing: 'border-box',
-        border: `1px solid var(--color-border-secondary)`,
-        boxShadow: 'inset 0 0 1px 0 rgba(0, 0, 0, 15%)',
-        padding: '2px 3px',
-        color: 'rgba(0, 5, 27, 45%)',
+        border: '0px solid rgba(0, 30, 75, 0.07)',
+        boxShadow: 'inset 0px 0px 1px 0px rgba(0, 0, 0, 0.15)',
+        maxWidth: '800px',
         display: 'flex',
-        gap: 8,
+        alignItems: 'center',
+        padding: '4px 6px',
+        width: 'max-content',
+        gap: '8px',
+        zIndex: 2,
       },
 
       '&-tool-arrow': {
-        color: 'var(--color-text-secondary)',
-      },
-
-      '&-tool-collapse': {
-        marginBottom: 12,
-        borderRadius: 12,
-        background: 'var(--color-bg-container)',
-        boxShadow: 'inset 0 0 1px 0 rgba(0, 0, 0, 15%)',
-        padding: 12,
+        color: 'rgba(0, 4, 15, 27%)',
+        transition: 'transform 0.3s ease',
       },
 
       '&-tool-header': {
@@ -43,21 +43,46 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-tool-header-left': {
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
+        gap: 4,
       },
 
       '&-tool-name': {
-        fontSize: 14,
-        fontWeight: 500,
-        lineHeight: '22px',
+        fontSize: '12px',
+        fontWeight: 600,
+        lineHeight: '20px',
         letterSpacing: 'normal',
-        color: 'var(--color-text)',
+        color: 'rgba(0, 2, 7, 0.61)',
       },
 
-      '&-tool-result': {
-        padding: 8,
-        lineHeight: '160%',
-        backgroundColor: '#f5f5f5',
+      '&-tool-image-wrapper': {
+        width: '24px',
+        height: '24px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '4px',
+        gap: '0px 8px',
+        flexWrap: 'wrap',
+        alignContent: 'center',
+        borderRadius: '200px',
+        boxSizing: 'border-box',
+        border: '1px solid rgba(0, 16, 40, 0.13)',
+        zIndex: 0,
+      },
+
+      '&-tool-target': {
+        fontSize: '12px',
+        fontWeight: 'normal',
+        lineHeight: '20px',
+        letterSpacing: 'normal',
+        color: 'rgba(0, 5, 27, 0.45)',
+      },
+      '&-tool-time': {
+        fontSize: '12px',
+        fontWeight: 'normal',
+        lineHeight: '12px',
+        letterSpacing: '0.04em',
+        color: 'rgba(0, 4, 15, 0.27)',
       },
     },
   };

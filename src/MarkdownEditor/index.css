@@ -270,4 +270,5 @@ div.composition .ant-md-editor-content-edit > div.empty:first-child::before {
 * {
   scrollbar-width: thin;
   scrollbar-color: hsl(240 5.9% 90%) transparent;
+  box-sizing: border-box;
 }
