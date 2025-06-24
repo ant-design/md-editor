@@ -43,9 +43,6 @@ export const useKeyboard = (
         e.preventDefault();
         return;
       }
-      if (isHotkey('mod+z', e) || isHotkey('mod+shift+z', e)) {
-        store.doManual();
-      }
       if (isHotkey('mod+ArrowDown', e)) {
         e.preventDefault();
         Transforms.select(
