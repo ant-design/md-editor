@@ -140,8 +140,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       'h1,h2,h3,h4,h5,h6': {
         position: 'relative',
         textWrap: 'balance',
-        marginTop: '0.25em',
-        marginBottom: '0.25em',
+        marginTop: '1em',
+        marginBottom: '1em',
         fontWeight: 600,
         lineHeight: 1.25,
         '.ant-md-editor-drag-handle': {
