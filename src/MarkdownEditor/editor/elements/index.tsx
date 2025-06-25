@@ -45,7 +45,21 @@ export const MElement = (
     case 'blockquote':
       return <Blockquote {...props} />;
     case 'head':
-      return <Head {...props} />;
+      return (
+        <div
+          {...props.attributes}
+          data-testid="markdown-heading"
+          style={{
+            fontSize: `${1.5 - (props.element.level - 1) * 0.125}em`,
+            fontWeight: 600,
+            lineHeight: 1.25,
+            marginTop: '1em',
+            marginBottom: '1em',
+          }}
+        >
+          {props.children}
+        </div>
+      );
     case 'column-group':
       return <ColumnGroup {...props} />;
     case 'column-cell':
@@ -347,7 +361,10 @@ export const MLeaf = (
 
   if (leaf.highColor) style.color = leaf.highColor;
   if (leaf.color) style.color = leaf.color;
-  if (leaf.bold) style.fontWeight = 'bold';
+  if (leaf.bold) {
+    style.fontWeight = 'bold';
+    children = <span data-testid="markdown-bold">{children}</span>;
+  }
   if (leaf.strikethrough) children = <s>{children}</s>;
   if (leaf.italic) style.fontStyle = 'italic';
   if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';

@@ -56,6 +56,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -93,6 +94,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -130,6 +132,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -167,6 +170,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -257,6 +261,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -350,6 +355,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -443,6 +449,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -531,6 +538,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -619,6 +627,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -682,6 +691,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -752,6 +762,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -815,6 +826,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -946,6 +958,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -983,6 +996,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -1020,6 +1034,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div
@@ -1057,6 +1072,7 @@
         <div
           aria-describedby="test-id"
           class="ant-md-editor-file-view-list-item"
+          data-testid="file-item"
           style="opacity: 1; transform: none;"
         >
           <div

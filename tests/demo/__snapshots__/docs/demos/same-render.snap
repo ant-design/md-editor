@@ -26,13 +26,10 @@
           style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
           zindex="-1"
         >
-          <h1
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="现代代码编辑器技术解析与实现示例"
+          <div
             data-slate-node="element"
-            data-title="true"
-            id="现代代码编辑器技术解析与实现示例"
+            data-testid="markdown-heading"
+            style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -50,14 +47,11 @@
                 </span>
               </span>
             </span>
-          </h1>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_1-编辑器核心功能架构"
+          </div>
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_1-编辑器核心功能架构"
+            data-testid="markdown-heading"
+            style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -75,14 +69,11 @@
                 </span>
               </span>
             </span>
-          </h2>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_1-1-基础功能模块"
+          </div>
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_1-1-基础功能模块"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -100,7 +91,7 @@
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-list-container relative"
             data-be="list"
@@ -355,13 +346,10 @@
               </li>
             </ul>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_1-2-高级功能实现"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_1-2-高级功能实现"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -379,7 +367,7 @@
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-list-container relative"
             data-be="list"
@@ -529,13 +517,10 @@
               </span>
             </div>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_2-关键技术方案对比"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_2-关键技术方案对比"
+            data-testid="markdown-heading"
+            style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -553,7 +538,7 @@
                 </span>
               </span>
             </span>
-          </h2>
+          </div>
           <div
             aria-label="可选择的卡片元素"
             aria-selected="false"
@@ -1321,13 +1306,10 @@
               </span>
             </div>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_3-语法高亮实现示例"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_3-语法高亮实现示例"
+            data-testid="markdown-heading"
+            style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -1345,7 +1327,7 @@
                 </span>
               </span>
             </span>
-          </h2>
+          </div>
           <div
             class="ace-el drag-el"
             contenteditable="false"
@@ -1547,13 +1529,10 @@ class SyntaxHighlighter {
               </span>
             </div>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_4-性能优化策略"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_4-性能优化策略"
+            data-testid="markdown-heading"
+            style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -1571,14 +1550,11 @@ class SyntaxHighlighter {
                 </span>
               </span>
             </span>
-          </h2>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_4-1-渲染优化技巧"
+          </div>
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_4-1-渲染优化技巧"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -1596,7 +1572,7 @@ class SyntaxHighlighter {
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-list-container relative"
             data-be="list"
@@ -1796,13 +1772,10 @@ class SyntaxHighlighter {
               </li>
             </ol>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_4-2-内存管理方案"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_4-2-内存管理方案"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -1820,7 +1793,7 @@ class SyntaxHighlighter {
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ace-el drag-el"
             contenteditable="false"
@@ -2010,13 +1983,10 @@ class FileBuffer:
               </span>
             </span>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_5-扩展功能开发指南"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_5-扩展功能开发指南"
+            data-testid="markdown-heading"
+            style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2034,14 +2004,11 @@ class FileBuffer:
                 </span>
               </span>
             </span>
-          </h2>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_5-1-插件系统架构"
+          </div>
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_5-1-插件系统架构"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2059,7 +2026,7 @@ class FileBuffer:
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <pre
             data-slate-node="element"
             style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
@@ -2086,13 +2053,10 @@ class FileBuffer:
               </span>
             </code>
           </pre>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="_5-2-api接口设计"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="_5-2-api接口设计"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2110,7 +2074,7 @@ class FileBuffer:
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ace-el drag-el"
             contenteditable="false"
@@ -2296,13 +2260,10 @@ class EditorCore {
               </span>
             </div>
           </div>
-          <h2
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="结语"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="结语"
+            data-testid="markdown-heading"
+            style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2320,7 +2281,7 @@ class EditorCore {
                 </span>
               </span>
             </span>
-          </h2>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -2357,7 +2318,6 @@ class EditorCore {
               >
                 <span
                   class="ant-anchor-ink"
-                  style="top: 0px; height: 0px;"
                 />
                 <div
                   class="ant-anchor-link"

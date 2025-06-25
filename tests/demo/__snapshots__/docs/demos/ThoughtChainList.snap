@@ -2360,9 +2360,13 @@
                                         style="font-weight: bold;"
                                       >
                                         <span
-                                          data-slate-string="true"
+                                          data-testid="markdown-bold"
                                         >
-                                          知乎
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            知乎
+                                          </span>
                                         </span>
                                       </span>
                                     </span>
@@ -2480,9 +2484,13 @@
                                         style="font-weight: bold;"
                                       >
                                         <span
-                                          data-slate-string="true"
+                                          data-testid="markdown-bold"
                                         >
-                                          知乎
+                                          <span
+                                            data-slate-string="true"
+                                          >
+                                            知乎
+                                          </span>
                                         </span>
                                       </span>
                                     </span>

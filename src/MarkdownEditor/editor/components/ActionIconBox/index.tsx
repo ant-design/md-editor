@@ -19,6 +19,7 @@ export type ActionIconBoxProps = {
   scale?: boolean;
   active?: boolean;
   onInit?: () => void;
+  'data-testid'?: string;
   noPadding?: boolean;
 };
 /**
@@ -38,6 +39,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
   return wrapSSR(
     <Tooltip title={props.title} {...props.tooltipProps}>
       <span
+        data-testid={props['data-testid']}
         role="button"
         tabIndex={0}
         aria-label={props.title}

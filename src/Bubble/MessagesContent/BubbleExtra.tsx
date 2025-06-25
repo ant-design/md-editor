@@ -221,11 +221,12 @@ export const BubbleExtra = ({
     !readonly &&
     (props.onDisLike || originalData?.feedback) &&
     originalData?.feedback !== 'thumbsUp';
+
   const like = useMemo(
     () =>
       shouldShowLike ? (
         <ActionIconBox
-          data-testid="chat-item-like-button"
+          data-testid="like-button"
           scale
           style={{
             color: '#666F8D',
@@ -259,7 +260,7 @@ export const BubbleExtra = ({
     () =>
       shouldShowDisLike ? (
         <ActionIconBox
-          data-testid="chat-item-dislike-button"
+          data-testid="dislike-button"
           style={{
             color: '#666F8D',
           }}
@@ -421,10 +422,17 @@ export const BubbleExtra = ({
 
     return (
       <ActionIconBox
-        data-testid="chat-item-reply-button"
+        data-testid="reply-button"
         borderLess
         style={{
           color: '#666F8D',
+        }}
+        onClick={async () => {
+          onReply?.(
+            bubble.originData?.extra?.preMessage?.content ||
+              context?.locale?.['chat.message.retrySend'] ||
+              '重新生成',
+          );
         }}
         title={context?.locale?.['chat.message.retrySend'] || '重新生成'}
       >
@@ -435,13 +443,6 @@ export const BubbleExtra = ({
             cursor: 'pointer',
             alignItems: 'center',
             color: '#666F8D',
-          }}
-          onClick={async () => {
-            onReply?.(
-              bubble.originData?.extra?.preMessage?.content ||
-                context?.locale?.['chat.message.retrySend'] ||
-                '重新生成',
-            );
           }}
         >
           <ReloadIcon />

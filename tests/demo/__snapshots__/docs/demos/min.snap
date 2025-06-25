@@ -26,13 +26,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="创始人"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="创始人"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -50,7 +47,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -87,7 +84,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -132,13 +128,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="表格"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="表格"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -156,7 +149,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -2899,7 +2892,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -2944,13 +2936,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="description"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="description"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -2968,7 +2957,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -3677,7 +3666,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -3722,13 +3710,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="图表"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="图表"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -3746,7 +3731,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -4712,7 +4697,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -4757,13 +4741,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="图片"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="图片"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -4781,7 +4762,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -4942,7 +4923,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -4987,13 +4967,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="视频"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="视频"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -5011,7 +4988,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -5131,7 +5108,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -5176,13 +5152,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="附件"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="附件"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -5200,7 +5173,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -5398,7 +5371,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -5443,13 +5415,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="引用"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="引用"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -5467,7 +5436,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -6989,7 +6958,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -7034,13 +7002,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="表单"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="表单"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -7058,7 +7023,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               style="display: flex; flex-direction: column; width: 100%;"
             >
@@ -7126,7 +7091,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"
@@ -7171,13 +7135,10 @@
             style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
             zindex="-1"
           >
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="删除线"
+            <div
               data-slate-node="element"
-              data-title="true"
-              id="删除线"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -7195,7 +7156,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               class="ant-md-editor-drag-el"
               data-be="paragraph"
@@ -7234,7 +7195,6 @@
                 >
                   <span
                     class="ant-anchor-ink"
-                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"

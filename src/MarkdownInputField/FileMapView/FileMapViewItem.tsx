@@ -48,6 +48,7 @@ export const FileMapViewItem: React.FC<{
           }}
           exit={{ opacity: 0, x: -20 }}
           className={props.className}
+          data-testid="file-item"
         >
           <div
             className={classNames(`${props.prefixCls}-file-icon`, props.hashId)}
@@ -69,7 +70,7 @@ export const FileMapViewItem: React.FC<{
                   props.hashId,
                 )}
               >
-                {file.name.split('.').slice(0, -1).join('.')}
+                {file?.name?.split('.').slice(0, -1).join('.')}
               </span>
               <span
                 className={classNames(
@@ -77,7 +78,7 @@ export const FileMapViewItem: React.FC<{
                   props.hashId,
                 )}
               >
-                .{file.name.split('.').slice(-1)}
+                .{file?.name?.split('.').slice(-1)}
               </span>
             </div>
             <div

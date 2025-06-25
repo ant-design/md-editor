@@ -131,13 +131,10 @@
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="一、基础遍历方法"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="一、基础遍历方法"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -155,7 +152,7 @@
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-list-container relative"
             data-be="list"
@@ -186,9 +183,13 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        直接遍历元素
+                        <span
+                          data-slate-string="true"
+                        >
+                          直接遍历元素
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -501,9 +502,13 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        通过索引遍历
+                        <span
+                          data-slate-string="true"
+                        >
+                          通过索引遍历
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -791,9 +796,13 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        同时获取索引和值（
+                        <span
+                          data-slate-string="true"
+                        >
+                          同时获取索引和值（
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -807,15 +816,19 @@ for num in arr:
                       draggable="false"
                       style="font-weight: bold;"
                     >
-                      <code
-                        class="ant-md-editor-content-inline-code"
+                      <span
+                        data-testid="markdown-bold"
                       >
-                        <span
-                          data-slate-string="true"
+                        <code
+                          class="ant-md-editor-content-inline-code"
                         >
-                          enumerate
-                        </span>
-                      </code>
+                          <span
+                            data-slate-string="true"
+                          >
+                            enumerate
+                          </span>
+                        </code>
+                      </span>
                     </span>
                   </span>
                   <span
@@ -829,9 +842,13 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        enumerate）
+                        <span
+                          data-slate-string="true"
+                        >
+                          enumerate）
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -1074,13 +1091,10 @@ for num in arr:
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="二、其他遍历方式"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="二、其他遍历方式"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -1098,7 +1112,7 @@ for num in arr:
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-list-container relative"
             data-be="list"
@@ -1129,9 +1143,13 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        使用 
+                        <span
+                          data-slate-string="true"
+                        >
+                          使用 
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -1145,15 +1163,19 @@ for num in arr:
                       draggable="false"
                       style="font-weight: bold;"
                     >
-                      <code
-                        class="ant-md-editor-content-inline-code"
+                      <span
+                        data-testid="markdown-bold"
                       >
-                        <span
-                          data-slate-string="true"
+                        <code
+                          class="ant-md-editor-content-inline-code"
                         >
-                          while
-                        </span>
-                      </code>
+                          <span
+                            data-slate-string="true"
+                          >
+                            while
+                          </span>
+                        </code>
+                      </span>
                     </span>
                   </span>
                   <span
@@ -1167,9 +1189,13 @@ for num in arr:
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        while 循环
+                        <span
+                          data-slate-string="true"
+                        >
+                          while 循环
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -1447,9 +1473,13 @@ while i &lt; len(arr):
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        列表推导式
+                        <span
+                          data-slate-string="true"
+                        >
+                          列表推导式
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -1732,13 +1762,10 @@ while i &lt; len(arr):
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="三、特殊场景方法"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="三、特殊场景方法"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -1756,7 +1783,7 @@ while i &lt; len(arr):
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-list-container relative"
             data-be="list"
@@ -1787,9 +1814,13 @@ while i &lt; len(arr):
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        递归遍历
+                        <span
+                          data-slate-string="true"
+                        >
+                          递归遍历
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -2017,13 +2048,10 @@ while i &lt; len(arr):
               </span>
             </span>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="一、基础-for-循环（推荐）"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="一、基础-for-循环（推荐）"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2041,7 +2069,7 @@ while i &lt; len(arr):
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -2348,13 +2376,10 @@ for fruit in fruits:
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="二、带索引的循环"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="二、带索引的循环"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2372,7 +2397,7 @@ for fruit in fruits:
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -2666,13 +2691,10 @@ for fruit in fruits:
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="三、while-循环"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="三、while-循环"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2690,7 +2712,7 @@ for fruit in fruits:
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -2974,13 +2996,10 @@ while i &lt; len(fruits):
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="四、列表推导式"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="四、列表推导式"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -2998,7 +3017,7 @@ while i &lt; len(fruits):
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -3255,13 +3274,10 @@ while i &lt; len(fruits):
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="五、range-len-组合"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="五、range-len-组合"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -3279,7 +3295,7 @@ while i &lt; len(fruits):
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -3537,13 +3553,10 @@ while i &lt; len(fruits):
               </span>
             </div>
           </div>
-          <h3
-            class="ant-md-editor-drag-el"
-            data-be="head"
-            data-head="修改列表时的注意事项"
+          <div
             data-slate-node="element"
-            data-title="false"
-            id="修改列表时的注意事项"
+            data-testid="markdown-heading"
+            style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
               data-slate-node="text"
@@ -3561,7 +3574,7 @@ while i &lt; len(fruits):
                 </span>
               </span>
             </span>
-          </h3>
+          </div>
           <div
             class="ant-md-editor-drag-el"
             data-be="paragraph"
@@ -3874,7 +3887,6 @@ while i &lt; len(fruits):
               >
                 <span
                   class="ant-anchor-ink"
-                  style="top: 0px; height: 0px;"
                 />
                 <div
                   class="ant-anchor-link"

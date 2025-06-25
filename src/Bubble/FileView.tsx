@@ -30,5 +30,7 @@ export const BubbleFileView: React.FC<BubbleBeforeNodeProps> = (props) => {
   if (!_.originData?.fileMap || _.originData?.fileMap.size === 0) {
     return null;
   }
-  return <FileMapView fileMap={_.originData?.fileMap} />;
+  return (
+    <FileMapView fileMap={_.originData?.fileMap} data-testid="file-item" />
+  );
 };

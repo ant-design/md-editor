@@ -771,13 +771,10 @@
                 </span>
               </span>
             </div>
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="图表"
+            <div
               data-slate-node="element"
-              data-title="false"
-              id="图表"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -795,7 +792,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"
@@ -5619,13 +5616,10 @@
                 </span>
               </span>
             </div>
-            <h2
-              class="ant-md-editor-drag-el"
-              data-be="head"
-              data-head="表格"
+            <div
               data-slate-node="element"
-              data-title="false"
-              id="表格"
+              data-testid="markdown-heading"
+              style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
                 data-slate-node="text"
@@ -5643,7 +5637,7 @@
                   </span>
                 </span>
               </span>
-            </h2>
+            </div>
             <div
               aria-label="可选择的卡片元素"
               aria-selected="false"

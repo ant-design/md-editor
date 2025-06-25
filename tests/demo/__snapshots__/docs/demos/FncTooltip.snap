@@ -78,9 +78,13 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        股价表现不佳
+                        <span
+                          data-slate-string="true"
+                        >
+                          股价表现不佳
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -153,9 +157,13 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        财报表现
+                        <span
+                          data-slate-string="true"
+                        >
+                          财报表现
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -228,9 +236,13 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        人工智能投入
+                        <span
+                          data-slate-string="true"
+                        >
+                          人工智能投入
+                        </span>
                       </span>
                     </span>
                   </span>
@@ -303,9 +315,13 @@
                       style="font-weight: bold;"
                     >
                       <span
-                        data-slate-string="true"
+                        data-testid="markdown-bold"
                       >
-                        竞争压力
+                        <span
+                          data-slate-string="true"
+                        >
+                          竞争压力
+                        </span>
                       </span>
                     </span>
                   </span>

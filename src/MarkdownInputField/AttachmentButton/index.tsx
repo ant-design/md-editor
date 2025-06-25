@@ -83,37 +83,37 @@ export type AttachmentButtonProps = {
 };
 
 export const isImageFile = (file: AttachmentFile) => {
-  if (file.name.includes('.svg')) {
+  if (file?.name?.includes('.svg')) {
     return true;
   }
-  if (file.type?.includes('.png')) {
+  if (file?.type?.includes('.png')) {
     return true;
   }
-  if (file.type?.includes('jpg') || file.type?.includes('jpeg')) {
+  if (file?.type?.includes('jpg') || file?.type?.includes('jpeg')) {
     return true;
   }
-  if (file.type?.includes('gif')) {
+  if (file?.type?.includes('gif')) {
     return true;
   }
-  if (file.type?.includes('webp')) {
+  if (file?.type?.includes('webp')) {
     return true;
   }
-  if (file.type?.includes('bmp')) {
+  if (file?.type?.includes('bmp')) {
     return true;
   }
-  if (file.type?.includes('tiff')) {
+  if (file?.type?.includes('tiff')) {
     return true;
   }
-  if (file.type?.includes('webp')) {
+  if (file?.type?.includes('webp')) {
     return true;
   }
-  if (file.type?.includes('bmp')) {
+  if (file?.type?.includes('bmp')) {
     return true;
   }
-  if (file.type?.includes('tiff')) {
+  if (file?.type?.includes('tiff')) {
     return true;
   }
-  return file.type?.startsWith('image/');
+  return file?.type?.startsWith('image/');
 };
 
 const waitTime = (time: number) => {

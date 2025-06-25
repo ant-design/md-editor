@@ -46,13 +46,6 @@ const runRender = (
  *   avatar={avatarData}
  *   style={itemStyle}
  *   time={messageTime}
- *   messageExtra={extraContent}
- *   bubbleListItemContentStyle={contentStyle}
- *   bubbleListItemTitleStyle={titleStyle}
- *   bubbleRenderConfig={renderConfig}
- *   bubbleListItemAvatarStyle={avatarStyle}
- *   bubbleListItemExtraStyle={extraStyle}
- *   onDoubleClick={handleDoubleClick}
  * >
  *   {messageContent}
  * </Bubble>
@@ -156,7 +149,7 @@ export const Bubble: React.FC<
       slidesModeProps={props.slidesModeProps}
       onReply={props.onReply}
       id={props.id}
-      isLast={props.isLast}
+      isLast={props.isLast ?? true}
       originData={props.originData}
       placement={props.originData?.role === 'user' ? 'right' : 'left'}
       time={props.originData?.updateAt || props.originData?.createAt}
@@ -284,6 +277,9 @@ export const Bubble: React.FC<
             className={cx(
               `${prefixClass}-bubble-container`,
               `${prefixClass}-bubble-container-${placement}`,
+              {
+                [`${prefixClass}-bubble-container-pure`]: props.pure,
+              },
               hashId,
             )}
             data-testid="chat-message"
@@ -334,6 +330,7 @@ export const Bubble: React.FC<
                 },
                 hashId,
               )}
+              onDoubleClick={props.onDoubleClick}
               data-testid="message-content"
             >
               {childrenDom}

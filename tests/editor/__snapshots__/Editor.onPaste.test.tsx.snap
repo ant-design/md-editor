@@ -38,13 +38,10 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       </span>
     </span>
   </div>
-  <h1
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="main-title-with-italic-and-bold"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="main-title-with-italic-and-bold"
+    data-testid="markdown-heading"
+    style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -106,20 +103,21 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold;"
       >
         <span
-          data-slate-string="true"
+          data-testid="markdown-bold"
         >
-          bold
+          <span
+            data-slate-string="true"
+          >
+            bold
+          </span>
         </span>
       </span>
     </span>
-  </h1>
-  <h2
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="subtitle-with-inline-code"
+  </div>
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="subtitle-with-inline-code"
+    data-testid="markdown-heading"
+    style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -157,7 +155,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         </code>
       </span>
     </span>
-  </h2>
+  </div>
   <div
     class="ant-md-editor-drag-el"
     data-be="paragraph"
@@ -190,9 +188,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold;"
       >
         <span
-          data-slate-string="true"
+          data-testid="markdown-bold"
         >
-          bold with 
+          <span
+            data-slate-string="true"
+          >
+            bold with 
+          </span>
         </span>
       </span>
     </span>
@@ -207,9 +209,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold; font-style: italic;"
       >
         <span
-          data-slate-string="true"
+          data-testid="markdown-bold"
         >
-          nested italic
+          <span
+            data-slate-string="true"
+          >
+            nested italic
+          </span>
         </span>
       </span>
     </span>
@@ -224,9 +230,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         style="font-weight: bold;"
       >
         <span
-          data-slate-string="true"
+          data-testid="markdown-bold"
         >
-           text
+          <span
+            data-slate-string="true"
+          >
+             text
+          </span>
         </span>
       </span>
     </span>
@@ -283,13 +293,10 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       </span>
     </span>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="lists-with-complex-nesting"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="lists-with-complex-nesting"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -307,7 +314,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ant-md-editor-list-container relative"
     data-be="list"
@@ -417,9 +424,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      data-slate-string="true"
+                      data-testid="markdown-bold"
                     >
-                      bold
+                      <span
+                        data-slate-string="true"
+                      >
+                        bold
+                      </span>
                     </span>
                   </span>
                 </span>
@@ -766,13 +777,10 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       </li>
     </ol>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="complex-table-with-formatting"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="complex-table-with-formatting"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -790,7 +798,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     aria-label="可选择的卡片元素"
     aria-selected="false"
@@ -875,9 +883,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      data-slate-string="true"
+                      data-testid="markdown-bold"
                     >
-                      Bold Header
+                      <span
+                        data-slate-string="true"
+                      >
+                        Bold Header
+                      </span>
                     </span>
                   </span>
                 </span>
@@ -972,9 +984,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      data-slate-string="true"
+                      data-testid="markdown-bold"
                     >
-                      Bold cell
+                      <span
+                        data-slate-string="true"
+                      >
+                        Bold cell
+                      </span>
                     </span>
                   </span>
                 </span>
@@ -1178,9 +1194,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     style="font-weight: bold;"
                   >
                     <span
-                      data-slate-string="true"
+                      data-testid="markdown-bold"
                     >
-                      Bold
+                      <span
+                        data-slate-string="true"
+                      >
+                        Bold
+                      </span>
                     </span>
                   </span>
                 </span>
@@ -1601,13 +1621,10 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       </span>
     </span>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="blockquotes-with-nesting"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="blockquotes-with-nesting"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -1625,7 +1642,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <blockquote
     data-be="blockquote"
     data-slate-node="element"
@@ -1710,9 +1727,13 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             style="font-weight: bold;"
           >
             <span
-              data-slate-string="true"
+              data-testid="markdown-bold"
             >
-              bold
+              <span
+                data-slate-string="true"
+              >
+                bold
+              </span>
             </span>
           </span>
         </span>
@@ -1999,13 +2020,10 @@ console.log("nested code");
       </div>
     </div>
   </blockquote>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="code-blocks-with-different-languages"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="code-blocks-with-different-languages"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -2023,7 +2041,7 @@ console.log("nested code");
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ace-el drag-el"
     contenteditable="false"
@@ -2320,13 +2338,10 @@ ls -la | grep "test"
       </div>
     </div>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="links-and-images-with-complex-syntax"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="links-and-images-with-complex-syntax"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -2344,7 +2359,7 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ant-md-editor-drag-el"
     data-be="paragraph"
@@ -2604,13 +2619,10 @@ ls -la | grep "test"
       </span>
     </span>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="horizontal-rules-and-breaks"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="horizontal-rules-and-breaks"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -2628,7 +2640,7 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="select-none"
     contenteditable="false"
@@ -2727,13 +2739,10 @@ ls -la | grep "test"
       </span>
     </span>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="escape-characters-and-special-cases"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="escape-characters-and-special-cases"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -2751,7 +2760,7 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ant-md-editor-drag-el"
     data-be="paragraph"
@@ -2896,13 +2905,10 @@ ls -la | grep "test"
       </div>
     </div>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="footnotes-and-references"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="footnotes-and-references"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -2920,7 +2926,7 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ant-md-editor-drag-el"
     data-be="paragraph"
@@ -3059,13 +3065,10 @@ ls -la | grep "test"
       </span>
     </span>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="reference-definitions"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="reference-definitions"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -3083,7 +3086,7 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ant-md-editor-drag-el"
     data-be="paragraph"
@@ -3152,13 +3155,10 @@ ls -la | grep "test"
       </span>
     </span>
   </div>
-  <h3
-    class="ant-md-editor-drag-el"
-    data-be="head"
-    data-head="html-mixed-with-markdown"
+  <div
     data-slate-node="element"
-    data-title="false"
-    id="html-mixed-with-markdown"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
       data-slate-node="text"
@@ -3176,7 +3176,7 @@ ls -la | grep "test"
         </span>
       </span>
     </span>
-  </h3>
+  </div>
   <div
     class="ant-md-editor-drag-el"
     data-be="paragraph"
@@ -3193,9 +3193,13 @@ ls -la | grep "test"
         style="font-weight: bold;"
       >
         <span
-          data-slate-string="true"
+          data-testid="markdown-bold"
         >
-          Centered content
+          <span
+            data-slate-string="true"
+          >
+            Centered content
+          </span>
         </span>
       </span>
     </span>
@@ -3248,9 +3252,13 @@ ls -la | grep "test"
         style="font-weight: bold;"
       >
         <span
-          data-slate-string="true"
+          data-testid="markdown-bold"
         >
-          markdown
+          <span
+            data-slate-string="true"
+          >
+            markdown
+          </span>
         </span>
       </span>
     </span>

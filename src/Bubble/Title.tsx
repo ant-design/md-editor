@@ -108,10 +108,14 @@ export const BubbleTitle: React.FC<TitleProps> = ({
         ...style,
       }}
       gap={8}
+      data-testid="bubble-title"
     >
       {title}
       {time && (
-        <time className={cx(`${prefixClass}-time`, hashId)}>
+        <time
+          className={cx(`${prefixClass}-time`, hashId)}
+          data-testid="bubble-time"
+        >
           {formatTime(time)}
         </time>
       )}

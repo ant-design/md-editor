@@ -83,9 +83,16 @@ export const BubbleAvatar: React.FC<BubbleAvatarProps> = ({
       src={isBase64 ? avatar : <img src={avatar} alt="avatar" />}
       {...avatarProps}
       {...props}
+      onClick={onClick}
+      data-testid="bubble-avatar"
     />
   ) : (
-    <Avatar {...avatarProps} {...props}>
+    <Avatar
+      {...avatarProps}
+      {...props}
+      onClick={onClick}
+      data-testid="bubble-avatar"
+    >
       {text?.toUpperCase().slice(0, 2)}
     </Avatar>
   );

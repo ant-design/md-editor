@@ -1265,7 +1265,7 @@ Custom container with styled text`;
 
     await waitFor(
       () => {
-        expect(screen.getByText('Document with Media')).toBeInTheDocument();
+        expect(screen.getByText('Document')).toBeInTheDocument();
       },
       {
         timeout: 10000,

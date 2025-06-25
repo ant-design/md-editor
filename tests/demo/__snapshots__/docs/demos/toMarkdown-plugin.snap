@@ -44,13 +44,10 @@
               style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
               zindex="-1"
             >
-              <h1
-                class="ant-md-editor-drag-el"
-                data-be="head"
-                data-head="tomarkdown-插件演示"
+              <div
                 data-slate-node="element"
-                data-title="true"
-                id="tomarkdown-插件演示"
+                data-testid="markdown-heading"
+                style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -68,7 +65,7 @@
                     </span>
                   </span>
                 </span>
-              </h1>
+              </div>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -91,13 +88,10 @@
                   </span>
                 </span>
               </div>
-              <h2
-                class="ant-md-editor-drag-el"
-                data-be="head"
-                data-head="警告代码块"
+              <div
                 data-slate-node="element"
-                data-title="false"
-                id="警告代码块"
+                data-testid="markdown-heading"
+                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -115,7 +109,7 @@
                     </span>
                   </span>
                 </span>
-              </h2>
+              </div>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -173,13 +167,10 @@
                   </span>
                 </span>
               </div>
-              <h2
-                class="ant-md-editor-drag-el"
-                data-be="head"
-                data-head="提示引用块"
+              <div
                 data-slate-node="element"
-                data-title="false"
-                id="提示引用块"
+                data-testid="markdown-heading"
+                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -197,7 +188,7 @@
                     </span>
                   </span>
                 </span>
-              </h2>
+              </div>
               <span
                 data-slate-node="text"
               >
@@ -212,13 +203,10 @@
                   />
                 </span>
               </span>
-              <h2
-                class="ant-md-editor-drag-el"
-                data-be="head"
-                data-head="普通内容"
+              <div
                 data-slate-node="element"
-                data-title="false"
-                id="普通内容"
+                data-testid="markdown-heading"
+                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -236,7 +224,7 @@
                     </span>
                   </span>
                 </span>
-              </h2>
+              </div>
               <div
                 class="ant-md-editor-drag-el"
                 data-be="paragraph"
@@ -429,13 +417,10 @@
                   </span>
                 </div>
               </blockquote>
-              <h2
-                class="ant-md-editor-drag-el"
-                data-be="head"
-                data-head="说明"
+              <div
                 data-slate-node="element"
-                data-title="false"
-                id="说明"
+                data-testid="markdown-heading"
+                style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
               >
                 <span
                   data-slate-node="text"
@@ -453,7 +438,7 @@
                     </span>
                   </span>
                 </span>
-              </h2>
+              </div>
               <div
                 class="ant-md-editor-list-container relative"
                 data-be="list"
@@ -650,7 +635,6 @@
                   >
                     <span
                       class="ant-anchor-ink"
-                      style="top: 0px; height: 0px;"
                     />
                     <div
                       class="ant-anchor-link"

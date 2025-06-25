@@ -201,9 +201,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                商业模式
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  商业模式
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -1477,9 +1481,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                企业文化
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  企业文化
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -2416,9 +2424,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                估值
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  估值
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -2603,9 +2615,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                杂项
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  杂项
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -3192,9 +3208,13 @@
                   style="font-weight: bold;"
                 >
                   <span
-                    data-slate-string="true"
+                    data-testid="markdown-bold"
                   >
-                    关键亮点
+                    <span
+                      data-slate-string="true"
+                    >
+                      关键亮点
+                    </span>
                   </span>
                 </span>
               </span>
@@ -3327,9 +3347,13 @@
                   style="font-weight: bold;"
                 >
                   <span
-                    data-slate-string="true"
+                    data-testid="markdown-bold"
                   >
-                    潜在风险
+                    <span
+                      data-slate-string="true"
+                    >
+                      潜在风险
+                    </span>
                   </span>
                 </span>
               </span>
@@ -3832,9 +3856,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                商业模式
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  商业模式
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -5108,9 +5136,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                企业文化
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  企业文化
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -6047,9 +6079,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                估值
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  估值
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -6234,9 +6270,13 @@
                               style="font-weight: bold;"
                             >
                               <span
-                                data-slate-string="true"
+                                data-testid="markdown-bold"
                               >
-                                杂项
+                                <span
+                                  data-slate-string="true"
+                                >
+                                  杂项
+                                </span>
                               </span>
                             </span>
                           </span>
@@ -6823,9 +6863,13 @@
                   style="font-weight: bold;"
                 >
                   <span
-                    data-slate-string="true"
+                    data-testid="markdown-bold"
                   >
-                    关键亮点
+                    <span
+                      data-slate-string="true"
+                    >
+                      关键亮点
+                    </span>
                   </span>
                 </span>
               </span>
@@ -6958,9 +7002,13 @@
                   style="font-weight: bold;"
                 >
                   <span
-                    data-slate-string="true"
+                    data-testid="markdown-bold"
                   >
-                    潜在风险
+                    <span
+                      data-slate-string="true"
+                    >
+                      潜在风险
+                    </span>
                   </span>
                 </span>
               </span>

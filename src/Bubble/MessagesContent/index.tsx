@@ -163,6 +163,7 @@ export const BubbleMessageDisplay: React.FC<
               gap: 8,
             }}
             className="agent-item-default-content"
+            data-testid="message-content"
           >
             <LoadingIcon />
             {context?.locale?.['chat.message.thinking'] || '正在思考中...'}
@@ -185,6 +186,8 @@ export const BubbleMessageDisplay: React.FC<
             lineHeight: '24px',
           }}
           className="agent-item-default-content"
+          data-testid="message-content"
+          onDoubleClick={props.onDoubleClick}
         >
           <MarkdownPreview
             {...props.markdownRenderConfig}
