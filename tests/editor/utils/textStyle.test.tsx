@@ -192,7 +192,7 @@ describe('textStyle function - tag and value handling', () => {
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
-    expect(markdown).toBe('`${placeholder:,value:测试值}`');
+    expect(markdown).toBe('`${placeholder:-,value:测试值}`');
   });
 
   it('should handle text node with tag and undefined placeholder', () => {
@@ -211,7 +211,7 @@ describe('textStyle function - tag and value handling', () => {
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
-    expect(markdown).toBe('`${placeholder:undefined,value:测试值}`');
+    expect(markdown).toBe('`${placeholder:-,value:测试值}`');
   });
 
   it('should handle text node with tag and null placeholder', () => {
@@ -230,7 +230,7 @@ describe('textStyle function - tag and value handling', () => {
     ];
 
     const markdown = parserSlateNodeToMarkdown(schema);
-    expect(markdown).toBe('`${placeholder:null,value:测试值}`');
+    expect(markdown).toBe('`${placeholder:-,value:测试值}`');
   });
 
   it('should handle text node with tag and numeric value', () => {
