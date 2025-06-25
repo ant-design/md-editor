@@ -189,7 +189,7 @@ export const MessageComponent: React.FC<
             {...props.markdownRenderConfig}
             isFinished={true}
             style={
-              props.originData?.role === 'bot'
+              props.originData?.role === 'bot' || props.pure
                 ? {}
                 : {
                     color: '#FFF',

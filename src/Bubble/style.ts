@@ -86,6 +86,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           minHeight: '38px',
           padding: '0px',
         },
+        '&&-pure': {
+          boxShadow: 'none',
+          backgroundColor: 'transparent',
+          color: token.colorText,
+        },
         '&-standalone': {
           maxWidth: 'min(860px,100%)',
         },
@@ -129,6 +134,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           'linear-gradient(0deg, #1677FF, #1677FF), linear-gradient(0deg, #00315D, #00315D), #FFFFFF',
         color: '#fff',
         borderRadius: '12px 6px 12px 12px',
+        '&&-pure': {
+          background: '#1677FF',
+        },
       },
     },
   };

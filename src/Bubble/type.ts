@@ -1,4 +1,5 @@
 import { TooltipProps } from 'antd';
+import type { MotionProps } from 'framer-motion';
 import { ReactNode } from 'react';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { AttachmentFile } from '../MarkdownInputField/FileMapView';
@@ -217,6 +218,12 @@ export type WithFalse<T> = T | false;
  */
 export interface BubbleProps<T = Record<string, any>> {
   /**
+   * 动画配置
+   * @description framer-motion 动画配置
+   */
+  animation?: MotionProps;
+
+  /**
    * 消息内容
    * @description 可以是字符串或 React 节点
    */
@@ -228,6 +235,13 @@ export interface BubbleProps<T = Record<string, any>> {
    * @required
    */
   avatar: BubbleMetaData;
+
+  /**
+   * 是否启用纯净模式
+   * @description 启用后将移除阴影和边框，适用于需要更简洁界面的场景
+   * @default false
+   */
+  pure?: boolean;
 
   /**
    * 聊天项组件的自定义渲染配置
@@ -428,13 +442,6 @@ export interface BubbleProps<T = Record<string, any>> {
    * @optional
    */
   chatListItemAvatarClassName?: string;
-
-  /**
-   * 是否启用动画效果
-   * @description 控制聊天项是否显示动画效果
-   * @optional
-   */
-  animation?: boolean;
 
   /**
    * 是否为最后一条消息

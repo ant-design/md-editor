@@ -168,6 +168,7 @@ export const Bubble: React.FC<
       onDisLike={props.onDisLike}
       onLike={props.onLike}
       customConfig={props?.bubbleRenderConfig?.customConfig}
+      pure={props.pure}
     />
   );
 
@@ -333,6 +334,9 @@ export const Bubble: React.FC<
               className={cx(
                 `${prefixClass}-bubble-content`,
                 `${prefixClass}-bubble-content-${placement}`,
+                {
+                  [`${prefixClass}-bubble-content-pure`]: props.pure,
+                },
                 hashId,
               )}
               data-testid="message-content"

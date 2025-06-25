@@ -29,26 +29,33 @@ Bubble 组件是一个用于显示聊天消息的气泡组件，支持多种消�
 
 <code src="../demos/bubble/file-view.tsx"></code>
 
+### Pure 模式
+
+展示如何使用 pure 模式，移除阴影和边框，适用于需要更简洁界面的场景。
+
+<code src="../demos/bubble/pure.tsx"></code>
+
 ## API
 
 ### Bubble
 
-| 参数                     | 说明                              | 类型                  | 默认值   |
-| ------------------------ | --------------------------------- | --------------------- | -------- |
-| avatar                   | 头像的元数据，包含头像URL、名称等 | `BubbleMetaData`      | -        |
-| className                | 聊天项的自定义 CSS 类名           | `string`              | -        |
-| loading                  | 聊天项是否处于加载状态            | `boolean`             | `false`  |
-| onAvatarClick            | 头像点击事件的回调函数            | `() => void`          | -        |
-| onDoubleClick            | 双击事件的回调函数                | `() => void`          | -        |
-| placement                | 聊天项的放置位置                  | `'left' \| 'right'`   | `'left'` |
-| time                     | 聊天项的时间戳                    | `number`              | -        |
-| style                    | 聊天项组件的自定义 CSS 样式       | `React.CSSProperties` | -        |
-| chatListItemContentStyle | 聊天项内容的自定义 CSS 样式       | `React.CSSProperties` | -        |
-| chatListItemTitleStyle   | 聊天项标题的自定义 CSS 样式       | `React.CSSProperties` | -        |
-| chatListItemAvatarStyle  | 聊天项头像的自定义 CSS 样式       | `React.CSSProperties` | -        |
-| originData               | 消息的原始数据                    | `ChatMessage`         | -        |
-| deps                     | 依赖项数组                        | `any[]`               | -        |
-| chatRef                  | 聊天列表的引用                    | `MutableRefObject`    | -        |
+| 参数                     | 说明                              | 类型                               | 默认值   |
+| ------------------------ | --------------------------------- | ---------------------------------- | -------- |
+| avatar                   | 头像的元数据，包含头像URL、名称等 | `BubbleMetaData`                   | -        |
+| className                | 聊天项的自定义 CSS 类名           | `string`                           | -        |
+| loading                  | 聊天项是否处于加载状态            | `boolean`                          | `false`  |
+| onAvatarClick            | 头像点击事件的回调函数            | `(avatar: BubbleMetaData) => void` | -        |
+| onDoubleClick            | 双击事件的回调函数                | `() => void`                       | -        |
+| placement                | 聊天项的放置位置                  | `'left' \| 'right'`                | `'left'` |
+| pure                     | 是否启用纯净模式，移除阴影和边框  | `boolean`                          | `false`  |
+| time                     | 聊天项的时间戳                    | `number`                           | -        |
+| style                    | 聊天项组件的自定义 CSS 样式       | `React.CSSProperties`              | -        |
+| chatListItemContentStyle | 聊天项内容的自定义 CSS 样式       | `React.CSSProperties`              | -        |
+| chatListItemTitleStyle   | 聊天项标题的自定义 CSS 样式       | `React.CSSProperties`              | -        |
+| chatListItemAvatarStyle  | 聊天项头像的自定义 CSS 样式       | `React.CSSProperties`              | -        |
+| originData               | 消息的原始数据                    | `ChatMessage`                      | -        |
+| deps                     | 依赖项数组                        | `any[]`                            | -        |
+| chatRef                  | 聊天列表的引用                    | `MutableRefObject`                 | -        |
 
 ### BubbleMetaData
 
