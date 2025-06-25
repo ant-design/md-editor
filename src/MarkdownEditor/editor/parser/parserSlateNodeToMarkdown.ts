@@ -532,8 +532,8 @@ const textHtml = (t: Text) => {
  * - 保留文本前后的空白字符
  */
 const textStyle = (t: Text) => {
-  if (!t.text) return '';
-  let str = t.text.replace(/(?<!\\)\\/g, '\\').replace(/\n/g, '  \n');
+  if (!t.text && !t.tag) return '';
+  let str = t?.text?.replace(/(?<!\\)\\/g, '\\').replace(/\n/g, '  \n') || '';
   let preStr = '',
     afterStr = '';
 
@@ -553,9 +553,9 @@ const textStyle = (t: Text) => {
     str = `\`${str}\``;
   } else if (t.tag) {
     if ((t as any).value) {
-      str = `\`${`\${placeholder:${(t as any)?.placeholder}},value:${(t as any).value}` || ''}\``;
+      str = `\`${`\${placeholder:${(t as any)?.placeholder || '-'},value:${(t as any).value}}` || ''}\``;
     } else {
-      str = `\`${str || `\${placeholder:${(t as any)?.placeholder}}` || ''}\``;
+      str = `\`${str || `\${placeholder:${(t as any)?.placeholder || '-'}}` || ''}\``;
     }
   }
 
@@ -591,7 +591,7 @@ const textStyle = (t: Text) => {
  * - 混合样式：确保相邻文本之间的空格正确
  */
 const composeText = (t: Text, parent: any[]) => {
-  if (!t.text) return '';
+  if (!t.text && !t.tag) return '';
   if (
     t.highColor ||
     t.identifier ||
@@ -1235,6 +1235,6 @@ const handleFootnoteDefinition = (node: any) => {
  * @returns 处理后的文本字符串
  */
 const handleDefault = (node: any, parent: any[]) => {
-  if (node.text) return composeText(node, parent);
+  if (node.text || node.tag) return composeText(node, parent);
   return '';
 };

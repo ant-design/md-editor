@@ -87,7 +87,12 @@ export type TagPopupProps = {
    * @param defaultDom 默认渲染的DOM
    * @returns 自定义渲染的React节点
    */
-  tagRender?: (props: RenderProps, defaultDom: ReactNode) => React.ReactNode;
+  tagRender?: (
+    props: Omit<RenderProps, 'onSelect'> & {
+      onSelect: (value: string, tagNode?: Record<string, any>) => void;
+    },
+    defaultDom: ReactNode,
+  ) => React.ReactNode;
   /**
    * 自定义标签文本渲染函数
    * @param props 组件属性

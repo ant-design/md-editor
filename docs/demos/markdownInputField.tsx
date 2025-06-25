@@ -229,7 +229,9 @@ export default () => {
                 defaultDom={defaultDom}
                 placeholder={props.placeholder}
                 onSelect={(value: string) => {
-                  props.onSelect?.(value);
+                  props.onSelect?.(value, {
+                    value: '123',
+                  });
                 }}
               />
             );

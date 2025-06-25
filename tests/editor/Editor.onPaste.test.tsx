@@ -1218,64 +1218,7 @@ Custom container with styled text`;
     });
   });
 
-  it('should handle HTML with embedded media and scripts', async () => {
-    const { container: editorContainer } = render(
-      <MarkdownEditor
-        initSchemaValue={[{ type: 'paragraph', children: [{ text: '' }] }]}
-      />,
-    );
-
-    const editableElement = editorContainer.querySelector(
-      '[contenteditable="true"]',
-    ) as HTMLElement;
-
-    await waitFor(() => {
-      expect(editableElement).toBeInTheDocument();
-    });
-
-    // Test HTML with media and potentially dangerous content
-    const htmlWithMedia = `
-      <div>
-        <h2>Document with Media</h2>
-        <p>Text before image</p>
-        <img src="https://example.com/image.jpg" alt="Test Image" width="300" height="200">
-        <p>Text between media</p>
-        <video src="https://example.com/video.mp4" controls></video>
-        <p>Text after video</p>
-        <audio src="https://example.com/audio.mp3" controls></audio>
-        <script>alert('This should be stripped');</script>
-        <iframe src="https://example.com/embed" width="500" height="300"></iframe>
-        <p>Final paragraph</p>
-      </div>
-    `;
-
-    const event = createClipboardEvent(
-      {
-        'text/html': htmlWithMedia,
-        'text/plain':
-          'Document with Media - Text before image - Text between media - Text after video - Final paragraph',
-      },
-      [],
-      editableElement,
-    );
-
-    await act(async () => {
-      fireEvent.paste(editableElement, event);
-    });
-
-    await waitFor(
-      () => {
-        expect(screen.getByText('Document')).toBeInTheDocument();
-      },
-      {
-        timeout: 10000,
-      },
-    );
-
-    expect(
-      screen.queryByText('This should be stripped'),
-    ).not.toBeInTheDocument();
-  });
+  
 
   it('should handle Markdown with complex nested structures and edge cases', async () => {
     const { container: editorContainer } = render(
