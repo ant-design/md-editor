@@ -277,7 +277,7 @@ export const MLeaf = (
             autoOpen={autoOpen}
             {...props.tagInputProps}
             text={text}
-            onSelect={(v, path) => {
+            onSelect={(v, path, tagNode) => {
               if (!v) return;
               if (!path?.length) return;
               if (!markdownEditorRef.current) return;
@@ -299,7 +299,13 @@ export const MLeaf = (
 
                 Transforms.setNodes(
                   markdownEditorRef.current,
-                  { text: newText, tag: true, code: true, placeholder },
+                  {
+                    text: newText,
+                    tag: true,
+                    code: true,
+                    placeholder,
+                    ...tagNode,
+                  },
                   { at: path },
                 );
                 Transforms.insertNodes(

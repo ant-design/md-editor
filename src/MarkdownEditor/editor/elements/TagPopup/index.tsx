@@ -15,7 +15,11 @@ type RenderProps = TagPopupProps & {
   text?: string;
   placeholder?: string;
   autoOpen?: boolean;
-  onSelect?: (value: string, path?: number[]) => void;
+  onSelect?: (
+    value: string,
+    path?: number[],
+    tagNode?: Record<string, any>,
+  ) => void;
 };
 
 export type TagPopupProps = {
@@ -221,8 +225,8 @@ export const TagPopup = (props: RenderProps) => {
         {
           ...props,
           text: props.text,
-          onSelect: (value: string) => {
-            onSelect?.(value, currentNodePath.current || []);
+          onSelect: (value: string, tagNode?: Record<string, any>) => {
+            onSelect?.(value, currentNodePath.current || [], tagNode);
           },
         },
         defaultDom,

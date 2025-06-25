@@ -552,7 +552,11 @@ const textStyle = (t: Text) => {
   if (t.code && !t.tag) {
     str = `\`${str}\``;
   } else if (t.tag) {
-    str = `\`${str || `\${placeholder:${(t as any)?.placeholder}}` || ''}\``;
+    if ((t as any).value) {
+      str = `\`${`\${placeholder:${(t as any)?.placeholder}},value:${(t as any).value}` || ''}\``;
+    } else {
+      str = `\`${str || `\${placeholder:${(t as any)?.placeholder}}` || ''}\``;
+    }
   }
 
   // For mixed formats, we want to ensure proper nesting
