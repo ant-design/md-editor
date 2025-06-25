@@ -121,7 +121,7 @@ export type MarkdownInputFieldProps = {
    * @description 配置附件功能，可以启用或禁用附件上传，并自定义附件按钮的属性
    * @example
    * ```tsx
-   * <AgentChat
+   * <BubbleChat
    *   attachment={{
    *     enable: true,
    *     accept: '.pdf,.doc,.docx',

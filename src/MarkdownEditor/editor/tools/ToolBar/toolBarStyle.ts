@@ -42,7 +42,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 /**
- * AgentChat
+ * BubbleChat
  * @param prefixCls
  * @returns
  */

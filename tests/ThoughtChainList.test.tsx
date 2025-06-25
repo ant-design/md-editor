@@ -347,7 +347,7 @@ describe('ThoughtChainList', () => {
         <ThoughtChainList
           thoughtChainList={[mockTableSqlData]}
           locale={customLocale}
-          chatItem={{ isFinished: true }}
+          bubble={{ isFinished: true }}
         />,
       );
 
@@ -355,8 +355,8 @@ describe('ThoughtChainList', () => {
       expect(screen.getByText(/任务已完成|任务完成/)).toBeInTheDocument();
     });
 
-    it('should handle chatItem states', () => {
-      const chatItem = {
+    it('should handle bubble states', () => {
+      const bubble = {
         isFinished: true,
         endTime: Date.now(),
         createAt: Date.now() - 5000,
@@ -366,7 +366,7 @@ describe('ThoughtChainList', () => {
       render(
         <ThoughtChainList
           thoughtChainList={[mockTableSqlData]}
-          chatItem={chatItem}
+          bubble={bubble}
         />,
       );
 
@@ -379,7 +379,7 @@ describe('ThoughtChainList', () => {
         <ThoughtChainList
           thoughtChainList={[mockTableSqlData]}
           finishAutoCollapse={true}
-          chatItem={{ isFinished: false }}
+          bubble={{ isFinished: false }}
         />,
       );
 
@@ -394,7 +394,7 @@ describe('ThoughtChainList', () => {
         <ThoughtChainList
           thoughtChainList={[mockTableSqlData]}
           finishAutoCollapse={true}
-          chatItem={{ isFinished: true }}
+          bubble={{ isFinished: true }}
         />,
       );
 

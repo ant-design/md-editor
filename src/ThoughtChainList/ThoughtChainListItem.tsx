@@ -19,7 +19,7 @@ import { WebSearch } from './WebSearch';
  * @returns {JSX.Element} 任务列表组件
  */
 export const ThoughtChainListItem: React.FC<{
-  chatItem?: {
+  bubble?: {
     isFinished?: boolean;
     endTime?: number;
     createAt?: number;
@@ -54,14 +54,14 @@ export const ThoughtChainListItem: React.FC<{
               setDocMeta(meta);
             }}
             key={thoughtChainListItem.runId}
-            isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            isFinished={!!props?.bubble?.isFinished || !!props.isFinished}
             markdownRenderProps={markdownRenderProps}
           />
         ) : null}
         {thoughtChainListItem.category === 'TableSql' ? (
           <TableSql
             {...thoughtChainListItem}
-            isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            isFinished={!!props?.bubble?.isFinished || !!props.isFinished}
             key={thoughtChainListItem.runId}
             markdownRenderProps={markdownRenderProps}
           />
@@ -71,14 +71,14 @@ export const ThoughtChainListItem: React.FC<{
             {...thoughtChainListItem}
             key={thoughtChainListItem.runId}
             markdownRenderProps={markdownRenderProps}
-            isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            isFinished={!!props?.bubble?.isFinished || !!props.isFinished}
           />
         ) : null}
 
         {thoughtChainListItem.category === 'DeepThink' ? (
           <DeepThink
             {...thoughtChainListItem}
-            isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            isFinished={!!props?.bubble?.isFinished || !!props.isFinished}
             key={thoughtChainListItem.runId}
             markdownRenderProps={markdownRenderProps}
           />
@@ -88,7 +88,7 @@ export const ThoughtChainListItem: React.FC<{
           <WebSearch
             {...thoughtChainListItem}
             key={thoughtChainListItem.runId}
-            isFinished={!!props?.chatItem?.isFinished || !!props.isFinished}
+            isFinished={!!props?.bubble?.isFinished || !!props.isFinished}
             markdownRenderProps={markdownRenderProps}
           />
         ) : null}
@@ -98,7 +98,7 @@ export const ThoughtChainListItem: React.FC<{
     thoughtChainListItem.category,
     thoughtChainListItem.input,
     thoughtChainListItem.output,
-    props.chatItem?.isFinished,
+    props.bubble?.isFinished,
   ]);
 
   return (

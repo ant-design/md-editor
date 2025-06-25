@@ -4,12 +4,7 @@ import cx from 'classnames';
 import React, { useContext, useEffect } from 'react';
 import { useStyle } from './style';
 
-/**
- * Represents an icon item component.
- * @param {React.ReactNode} children - The content of the icon item.
- * @param {() => void} onClick - The callback function to be called when the icon item is clicked.
- */
-export const ActionIconBox: React.FC<{
+export type ActionIconBoxProps = {
   children: React.ReactNode;
   showTitle?: boolean;
   onClick?: (e: any) => void;
@@ -25,7 +20,13 @@ export const ActionIconBox: React.FC<{
   active?: boolean;
   onInit?: () => void;
   noPadding?: boolean;
-}> = (props) => {
+};
+/**
+ * Represents an icon item component.
+ * @param {React.ReactNode} children - The content of the icon item.
+ * @param {() => void} onClick - The callback function to be called when the icon item is clicked.
+ */
+export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
   const [loading, setLoading] = React.useState(false);
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('md-editor-action-icon-box');

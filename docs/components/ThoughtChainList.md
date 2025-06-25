@@ -70,11 +70,11 @@ export default App;
 | --------------------- | ---------------------------- | ---- | ----------------------------- |
 | `thoughtChainList`    | `WhiteBoxProcessInterface[]` | 是   | 思维链项目数组                |
 | `loading`             | `boolean`                    | 否   | 表示组件是否处于加载状态      |
-| `chatItem`            | `object`                     | 否   | 聊天状态信息                  |
-| `chatItem.isFinished` | `boolean`                    | 否   | 聊天/任务是否已完成           |
-| `chatItem.endTime`    | `number`                     | 否   | 聊天结束的时间戳              |
-| `chatItem.createAt`   | `number`                     | 否   | 聊天创建的时间戳              |
-| `chatItem.isAborted`  | `boolean`                    | 否   | 聊天/任务是否被中止           |
+| `bubble`              | `object`                     | 否   | 聊天状态信息                  |
+| `bubble.isFinished`   | `boolean`                    | 否   | 聊天/任务是否已完成           |
+| `bubble.endTime`      | `number`                     | 否   | 聊天结束的时间戳              |
+| `bubble.createAt`     | `number`                     | 否   | 聊天创建的时间戳              |
+| `bubble.isAborted`    | `boolean`                    | 否   | 聊天/任务是否被中止           |
 | `style`               | `React.CSSProperties`        | 否   | 自定义 CSS 样式               |
 | `compact`             | `boolean`                    | 否   | 启用紧凑显示模式              |
 | `markdownRenderProps` | `MarkdownEditorProps`        | 否   | Markdown 渲染属性             |
@@ -117,10 +117,7 @@ const chatState = {
 
 export default function BasicDemo() {
   return (
-    <ThoughtChainList
-      thoughtChainList={basicThoughtChain}
-      chatItem={chatState}
-    />
+    <ThoughtChainList thoughtChainList={basicThoughtChain} bubble={chatState} />
   );
 }
 ```
@@ -212,7 +209,7 @@ export default function ProgressDemo() {
   return (
     <ThoughtChainList
       thoughtChainList={thoughtChain}
-      chatItem={chatState}
+      bubble={chatState}
       loading={!chatState.isFinished}
     />
   );
@@ -244,7 +241,7 @@ export default function ErrorDemo() {
   return (
     <ThoughtChainList
       thoughtChainList={errorThoughtChain}
-      chatItem={{
+      bubble={{
         isFinished: true,
         isAborted: false,
         endTime: Date.now(),

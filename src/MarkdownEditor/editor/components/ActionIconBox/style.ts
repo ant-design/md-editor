@@ -81,7 +81,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (
 };
 
 /**
- * ProchatItem
+ * Probubble
  * @param prefixCls
  * @returns
  */

@@ -159,7 +159,7 @@ export interface DocMeta {
 export interface ThoughtChainListProps {
   thoughtChainList: WhiteBoxProcessInterface[];
   loading?: boolean;
-  chatItem?: {
+  bubble?: {
     isFinished?: boolean;
     endTime?: number;
     createAt?: number;
@@ -196,17 +196,17 @@ export interface ThoughtChainListProps {
  * @component
  * @param {object} props - 组件属性
  * @param {Array<WhiteBoxProcessInterface>} props.thoughtChainList - 思维链数据列表
- * @param {object} props.chatItem - 聊天项数据，包含状态信息
- * @param {boolean} props.chatItem.isFinished - 聊天是否已完成
- * @param {number} props.chatItem.endTime - 聊天结束时间戳
- * @param {number} props.chatItem.createAt - 聊天创建时间戳
+ * @param {object} props.bubble - 聊天项数据，包含状态信息
+ * @param {boolean} props.bubble.isFinished - 聊天是否已完成
+ * @param {number} props.bubble.endTime - 聊天结束时间戳
+ * @param {number} props.bubble.createAt - 聊天创建时间戳
  * @param {boolean} props.loading - 是否正在加载中
  * @param {CSSProperties} props.style - 自定义样式
  *
  * @example
  * <ThoughtChainList
  *   thoughtChainList={thoughtChainData}
- *   chatItem={currentChatItem}
+ *   bubble={currentBubble}
  *   loading={isLoading}
  *   style={{ marginBottom: 16 }}
  * />
@@ -218,7 +218,8 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   const {
     thoughtChainList,
     loading,
-    chatItem,
+    //@ts-ignore
+    bubble = props.chatItem,
     style,
     compact,
     markdownRenderProps,
@@ -235,15 +236,15 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   });
 
   useEffect(() => {
-    if (chatItem?.isFinished && finishAutoCollapse !== false) {
+    if (bubble?.isFinished && finishAutoCollapse !== false) {
       setCollapse(true);
     }
-  }, [chatItem?.isFinished]);
+  }, [bubble?.isFinished]);
 
   const endStatusDisplay = useMemo(() => {
-    const time = ((chatItem?.endTime || 0) - (chatItem?.createAt || 0)) / 1000;
+    const time = ((bubble?.endTime || 0) - (bubble?.createAt || 0)) / 1000;
 
-    if (!loading && chatItem?.isAborted) {
+    if (!loading && bubble?.isAborted) {
       if (time > 0) {
         return (
           <FlipText
@@ -254,7 +255,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
       return <FlipText word={locale.taskAborted} />;
     }
 
-    if (!loading && chatItem?.isFinished) {
+    if (!loading && bubble?.isFinished) {
       if (time > 0) {
         return (
           <FlipText
@@ -283,16 +284,16 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   }, [
     loading,
     thoughtChainList?.at?.(-1)?.category,
-    chatItem?.isFinished,
-    chatItem?.isAborted,
-    chatItem?.endTime,
-    chatItem?.createAt,
+    bubble?.isFinished,
+    bubble?.isAborted,
+    bubble?.endTime,
+    bubble?.createAt,
     collapse,
   ]);
 
   const renderTimeInfo = () => {
-    if (!chatItem?.endTime || !chatItem?.createAt) return null;
-    const duration = dayjs.duration(chatItem.endTime - chatItem.createAt);
+    if (!bubble?.endTime || !bubble?.createAt) return null;
+    const duration = dayjs.duration(bubble.endTime - bubble.createAt);
     const hours = duration.hours();
     const minutes = duration.minutes();
     const seconds = duration.seconds();
@@ -315,10 +316,10 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
   };
 
   const renderStatus = () => {
-    if (chatItem?.isAborted) {
+    if (bubble?.isAborted) {
       return <span className="status-text">{locale.aborted}</span>;
     }
-    if (chatItem?.isFinished) {
+    if (bubble?.isFinished) {
       return <span className="status-text">{locale.finished}</span>;
     }
     if (loading) {
@@ -381,7 +382,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
             <motion.div
               transition={{ duration: 0.3 }}
               className={classNames(`${prefixCls}-container`, hashId, {
-                [`${prefixCls}-container-loading`]: !chatItem?.isFinished,
+                [`${prefixCls}-container-loading`]: !bubble?.isFinished,
               })}
             >
               <motion.div
@@ -406,7 +407,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                       fontSize: '1em',
                     }}
                   >
-                    {chatItem ? endStatusDisplay : <div>{renderStatus()}</div>}
+                    {bubble ? endStatusDisplay : <div>{renderStatus()}</div>}
                   </span>
                 </div>
 
@@ -471,7 +472,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                           let icon = <LoadingIcon />;
                           let isFinished = false;
                           if (
-                            (item.output || chatItem?.isFinished) &&
+                            (item.output || bubble?.isFinished) &&
                             item.output?.type !== 'TOKEN' &&
                             item.output?.type !== 'RUNNING'
                           ) {
@@ -540,13 +541,12 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
                                 fontSize: 12,
                               },
                             })}
-                            chatItem={chatItem}
+                            bubble={bubble}
                             key={(item.runId || '') + '' + index}
                             thoughtChainListItem={item}
                             hashId={hashId}
                             isFinished={
-                              item.isFinished ||
-                              (!loading && !!chatItem?.endTime)
+                              item.isFinished || (!loading && !!bubble?.endTime)
                             }
                             setDocMeta={(docMeta) => {
                               setDocMeta(docMeta);
@@ -566,10 +566,10 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
       }, [
         collapse,
         style,
-        chatItem?.isFinished,
-        chatItem?.endTime,
-        chatItem?.createAt,
-        chatItem?.isAborted,
+        bubble?.isFinished,
+        bubble?.endTime,
+        bubble?.createAt,
+        bubble?.isAborted,
         loading,
         JSON.stringify(thoughtChainList),
       ])}
