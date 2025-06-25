@@ -11,8 +11,8 @@ import {
   parserMdToSchema,
 } from '../../';
 import { Slides } from '../../Slides';
-import { ChatConfigContext } from '../BubbleConfigProvide';
-import { ChatMessage } from '../type';
+import { BubbleConfigContext } from '../BubbleConfigProvide';
+import { MessageBubbleData } from '../type';
 import { MessagesContext } from './BubbleContext';
 
 /**
@@ -51,7 +51,7 @@ export interface MarkdownPreviewProps {
   /** 关闭幻灯片模式的回调函数，例如: () => setSlideMode(false) */
   onCloseSlides?: () => void;
   style?: React.CSSProperties;
-  originData?: ChatMessage;
+  originData?: MessageBubbleData;
   markdownRenderConfig?: MarkdownEditorProps;
 }
 
@@ -111,7 +111,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   const { hidePadding, message, setMessage } =
     useContext(MessagesContext) || {};
 
-  const { locale, standalone } = useContext(ChatConfigContext) || {};
+  const { locale, standalone } = useContext(BubbleConfigContext) || {};
   const { token } = theme.useToken();
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 ﻿import { theme } from 'antd';
 import React from 'react';
-import { ChatMessage } from '../type';
+import { MessageBubbleData } from '../type';
 
 export const EXCEPTION = ({
   extra,
@@ -9,7 +9,7 @@ export const EXCEPTION = ({
 }: {
   extra: React.ReactNode;
   content: string;
-  originData?: Record<string, any> & ChatMessage<Record<string, any>>;
+  originData?: Record<string, any> & MessageBubbleData<Record<string, any>>;
 }) => {
   const { token } = theme.useToken();
   return (

@@ -8,8 +8,8 @@ import { ConfigProvider, Divider } from 'antd';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ActionIconBox } from '../../index';
-import { ChatConfigContext } from '../BubbleConfigProvide';
-import { BubbleProps, ChatMessage } from '../type';
+import { BubbleConfigContext } from '../BubbleConfigProvide';
+import { BubbleProps, MessageBubbleData } from '../type';
 import { CopyButton } from './CopyButton';
 import { ReloadIcon } from './icons';
 
@@ -118,7 +118,7 @@ export type BubbleExtraProps = {
     /** 是否启用幻灯片模式 */
     enable?: boolean;
     /** 幻灯片切换后的回调 */
-    afterOpenChange?: (message: ChatMessage<Record<string, any>>) => void;
+    afterOpenChange?: (message: MessageBubbleData<Record<string, any>>) => void;
   };
 
   /**
@@ -196,7 +196,7 @@ export const BubbleExtra = ({
   ...props
 }: BubbleExtraProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const context = useContext(ChatConfigContext);
+  const context = useContext(BubbleConfigContext);
 
   // 获取聊天项的原始数据
   const originalData = bubble?.originData;

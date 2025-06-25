@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { ActionIconBox, Chunk, DocMeta, MarkdownEditor } from '../../index';
-import { ChatConfigContext } from '../BubbleConfigProvide';
+import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { useStyle } from './docInfoStyle';
 
 /**
@@ -60,7 +60,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
   const [expanded, setExpanded] = React.useState(true);
   const configContext = useContext(ConfigProvider.ConfigContext);
   const baseCls = configContext.getPrefixCls(`agent-doc-info`);
-  const chatContext = useContext(ChatConfigContext);
+  const chatContext = useContext(BubbleConfigContext);
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   const docInfoList = props.options?.filter((item) => item) || [];

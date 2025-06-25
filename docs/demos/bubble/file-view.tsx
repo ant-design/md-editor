@@ -1,4 +1,4 @@
-import type { AttachmentFile, ChatMessage } from '@ant-design/md-editor';
+import type { AttachmentFile, MessageBubbleData } from '@ant-design/md-editor';
 import { Bubble } from '@ant-design/md-editor';
 import React, { useRef } from 'react';
 
@@ -22,11 +22,11 @@ const createMockFile = (
 });
 
 export default () => {
-  const chatRef = useRef<any>();
+  const bubbleRef = useRef<any>();
   const deps: any[] = [];
 
   // Mock message with different types of files
-  const mockMessage: ChatMessage = {
+  const mockMessage: MessageBubbleData = {
     id: '1',
     role: 'assistant',
     content: '这里是一些不同类型的文件：',
@@ -69,7 +69,7 @@ export default () => {
   };
 
   // Mock message with a single image
-  const mockImageMessage: ChatMessage = {
+  const mockImageMessage: MessageBubbleData = {
     id: '2',
     role: 'assistant',
     content: '这是一张图片：',
@@ -100,7 +100,7 @@ export default () => {
         avatar={mockMessage.meta!}
         placement="left"
         deps={deps}
-        chatRef={chatRef}
+        bubbleRef={bubbleRef}
         originData={mockMessage}
       />
 
@@ -109,7 +109,7 @@ export default () => {
         avatar={mockImageMessage.meta!}
         placement="left"
         deps={deps}
-        chatRef={chatRef}
+        bubbleRef={bubbleRef}
         originData={mockImageMessage}
       />
     </div>

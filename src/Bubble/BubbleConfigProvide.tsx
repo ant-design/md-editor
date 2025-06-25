@@ -105,12 +105,9 @@ export const enUS: ChatConfigType['locale'] = {
   'chat.message.thinking': 'thinking',
 };
 
-export const ChatConfigContext = React.createContext<
+export const BubbleConfigContext = React.createContext<
   ChatConfigType | undefined
 >({
-  tracert: {
-    enable: false,
-  },
   standalone: false,
   locale: zhCN,
 });

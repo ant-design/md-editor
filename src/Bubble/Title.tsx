@@ -9,7 +9,7 @@ import {
   useEditorStyleRegister,
 } from '../hooks/useStyle';
 import { formatTime } from '../utils/formatTime';
-import { BubbleProps, ChatMessage } from './type';
+import { BubbleProps, MessageBubbleData } from './type';
 
 /**
  * Props for the BubbleChatTitle component.
@@ -28,7 +28,7 @@ export interface TitleProps {
   /**
    * The time of the chat item.
    */
-  time?: ChatMessage['updateAt'] | ChatMessage['createAt'];
+  time?: MessageBubbleData['updateAt'] | MessageBubbleData['createAt'];
 
   /**
    * Additional class name for the component.

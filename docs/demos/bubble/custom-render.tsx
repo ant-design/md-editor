@@ -1,14 +1,14 @@
-import type { BubbleProps, ChatMessage } from '@ant-design/md-editor';
+import type { BubbleProps, MessageBubbleData } from '@ant-design/md-editor';
 import { Bubble } from '@ant-design/md-editor';
 import { Tag } from 'antd';
 import React, { useRef } from 'react';
 
 export default () => {
-  const chatRef = useRef<any>();
+  const bubbleRef = useRef<any>();
   const deps: any[] = [];
 
   // Mock message data
-  const mockMessage: ChatMessage = {
+  const mockMessage: MessageBubbleData = {
     id: '1',
     role: 'assistant',
     content: '这是一条带有自定义渲染的消息。',
@@ -80,7 +80,7 @@ export default () => {
         avatar={mockMessage.meta!}
         placement="left"
         deps={deps}
-        chatRef={chatRef}
+        bubbleRef={bubbleRef}
         originData={mockMessage}
         bubbleRenderConfig={bubbleRenderConfig}
       />

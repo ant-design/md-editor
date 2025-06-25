@@ -16,7 +16,7 @@ type BubbleBeforeNodeProps = {
      */
     uuid: number;
   }>;
-  chatListRef: any;
+  bubbleListRef: any;
 };
 
 /**

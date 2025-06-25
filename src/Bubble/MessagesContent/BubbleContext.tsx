@@ -1,14 +1,14 @@
 ﻿import React from 'react';
-import { ChatMessage } from '../type';
+import { MessageBubbleData } from '../type';
 
 export const MessagesContext = React.createContext<{
-  setMessage: (message: Partial<ChatMessage>) => void;
-  message?: ChatMessage;
+  setMessage: (message: Partial<MessageBubbleData>) => void;
+  message?: MessageBubbleData;
   hidePadding?: boolean;
   setHidePadding?: (hide: boolean) => void;
 }>({
   setMessage: () => {},
-  message: {} as ChatMessage,
+  message: {} as MessageBubbleData,
   hidePadding: false,
   setHidePadding: () => {},
 });

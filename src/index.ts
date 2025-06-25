@@ -1,6 +1,12 @@
 export * from './AgentRunBar';
 export * from './Bubble';
-export type * from './Bubble/type';
+export { Bubble } from './Bubble';
+export { BubbleList } from './Bubble/List';
+export type {
+  BubbleMetaData,
+  BubbleProps,
+  MessageBubbleData,
+} from './Bubble/type';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './hooks/useAutoScroll';

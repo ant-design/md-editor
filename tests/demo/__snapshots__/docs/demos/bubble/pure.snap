@@ -1,0 +1,211 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="display: flex; flex-direction: column; gap: 16px;"
+    >
+      <div
+        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+        style="gap: 12px;"
+      >
+        <div
+          class="ant-agent-list-bubble-container"
+          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; opacity: 1; transform: none;"
+        >
+          <div
+            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+          >
+            <span
+              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+            >
+              <img
+                alt="avatar"
+                src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+              />
+            </span>
+            <span>
+              LUI Chat
+            </span>
+            <div
+              class="ant-agent-list-bubble-title ant-flex"
+              style="flex-direction: row; gap: 8px;"
+            >
+              Ant Design
+            </div>
+          </div>
+          <div
+            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+            data-testid="chat-message"
+            style="display: flex; gap: 4px; flex-direction: column; opacity: 1; transform: none;"
+          >
+            <div
+              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+              data-testid="message-before"
+              style="opacity: 1; transform: none;"
+            />
+            <div
+              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
+              data-testid="message-content"
+              style="min-width: 0px; opacity: 1; transform: none;"
+            >
+              <div
+                aria-describedby="test-id"
+                style="display: flex; flex-direction: column; max-width: 100%; min-width: 0;"
+              >
+                <div
+                  class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%);"
+                >
+                  <div
+                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                    tabindex="-1"
+                  >
+                    <div
+                      autocapitalize="false"
+                      autocorrect="false"
+                      class="ant-md-editor-content-readonly ant-md-editor-content"
+                      data-slate-editor="true"
+                      data-slate-node="value"
+                      spellcheck="false"
+                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                      zindex="-1"
+                    >
+                      <div
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
+                      >
+                        <span
+                          data-slate-node="text"
+                        >
+                          <span
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
+                          >
+                            <span
+                              data-slate-string="true"
+                            >
+                              这是一条使用 pure 模式的消息，没有阴影和边框。
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+        style="gap: 12px;"
+      >
+        <div
+          class="ant-agent-list-bubble-container"
+          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; opacity: 1; transform: none;"
+        >
+          <div
+            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+          >
+            <span
+              class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+              style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+            >
+              <img
+                alt="avatar"
+                src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+              />
+            </span>
+            <span>
+              LUI Chat
+            </span>
+            <div
+              class="ant-agent-list-bubble-title ant-flex"
+              style="flex-direction: row; gap: 8px;"
+            >
+              用户
+            </div>
+          </div>
+          <div
+            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+            data-testid="chat-message"
+            style="display: flex; gap: 4px; flex-direction: column; opacity: 1; transform: none;"
+          >
+            <div
+              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+              data-testid="message-before"
+              style="opacity: 1; transform: none;"
+            />
+            <div
+              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left ant-agent-list-bubble-content-pure"
+              data-testid="message-content"
+              style="min-width: 0px; opacity: 1; transform: none;"
+            >
+              <div
+                class="agent-item-default-content"
+                style="line-height: 24px;"
+              >
+                <div
+                  style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                >
+                  <div
+                    class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%);"
+                  >
+                    <div
+                      style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                      tabindex="-1"
+                    >
+                      <div
+                        autocapitalize="false"
+                        autocorrect="false"
+                        class="ant-md-editor-content-readonly ant-md-editor-content"
+                        data-slate-editor="true"
+                        data-slate-node="value"
+                        spellcheck="false"
+                        style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                        zindex="-1"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
+                          data-slate-node="element"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                这是一条用户发送的 pure 模式消息。
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

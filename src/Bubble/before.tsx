@@ -3,7 +3,7 @@ import {
   ThoughtChainList,
   WhiteBoxProcessInterface,
 } from '../ThoughtChainList';
-import { ChatConfigContext } from './BubbleConfigProvide';
+import { BubbleConfigContext } from './BubbleConfigProvide';
 import { BubbleProps } from './type';
 
 type BubbleBeforeNodeProps = {
@@ -35,7 +35,7 @@ type BubbleBeforeNodeProps = {
       };
     };
   }>;
-  chatListRef: any;
+  bubbleListRef: any;
 };
 
 /**
@@ -55,7 +55,7 @@ type BubbleBeforeNodeProps = {
  */
 export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = (props) => {
   const _ = props.bubble;
-  const context = useContext(ChatConfigContext);
+  const context = useContext(BubbleConfigContext);
   if (_.placement !== 'left') return null;
   if (_.originData?.role === 'bot') return null;
 
@@ -72,7 +72,7 @@ export const BubbleBeforeNode: React.FC<BubbleBeforeNodeProps> = (props) => {
   if (context?.thoughtChain?.enable === false) return null;
 
   if (context?.thoughtChain?.render) {
-    return context?.thoughtChain.render(_, taskList.join(','));
+    return (context?.thoughtChain.render as any)(_, taskList.join(','));
   }
 
   return (

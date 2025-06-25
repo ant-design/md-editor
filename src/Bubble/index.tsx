@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
-import { ChatConfigContext } from './BubbleConfigProvide';
+import { BubbleConfigContext } from './BubbleConfigProvide';
 import { BubbleFileView } from './FileView';
-import { MessageComponent } from './MessagesContent';
+import { BubbleMessageDisplay } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { useStyle } from './style';
 import { BubbleTitle } from './Title';
@@ -47,11 +47,11 @@ const runRender = (
  *   style={itemStyle}
  *   time={messageTime}
  *   messageExtra={extraContent}
- *   chatListItemContentStyle={contentStyle}
- *   chatListItemTitleStyle={titleStyle}
+ *   bubbleListItemContentStyle={contentStyle}
+ *   bubbleListItemTitleStyle={titleStyle}
  *   bubbleRenderConfig={renderConfig}
- *   chatListItemAvatarStyle={avatarStyle}
- *   chatListItemExtraStyle={extraStyle}
+ *   bubbleListItemAvatarStyle={avatarStyle}
+ *   bubbleListItemExtraStyle={extraStyle}
  *   onDoubleClick={handleDoubleClick}
  * >
  *   {messageContent}
@@ -64,7 +64,7 @@ const runRender = (
 export const Bubble: React.FC<
   BubbleProps & {
     deps: any[];
-    chatRef: MutableRefObject<any | undefined>;
+    bubbleRef: MutableRefObject<any | undefined>;
   }
 > = memo((props) => {
   const {
@@ -75,21 +75,16 @@ export const Bubble: React.FC<
     style,
     time,
     animation,
-    chatListItemAvatarClassName,
-    chatListItemContentClassName,
-    chatListItemTitleClassName,
-    chatListItemContentStyle,
-    chatListItemTitleStyle,
     bubbleRenderConfig,
-    chatListItemAvatarStyle,
-    chatListItemExtraStyle,
+    classNames,
+    styles,
   } = props;
 
   const [hidePadding, setHidePadding] = React.useState(false);
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
-  const { compact, standalone } = useContext(ChatConfigContext) || {};
+  const { compact, standalone } = useContext(BubbleConfigContext) || {};
 
   const prefixClass = getPrefixCls('agent-list');
 
@@ -101,8 +96,8 @@ export const Bubble: React.FC<
         bubbleRenderConfig?.titleRender,
         props,
         <BubbleTitle
-          className={chatListItemTitleClassName}
-          style={chatListItemTitleStyle}
+          className={classNames?.bubbleListItemTitleClassName}
+          style={styles?.bubbleListItemTitleStyle}
           prefixClass={cx(`${prefixClass}-bubble-title`)}
           title={avatar?.title}
           placement={placement}
@@ -111,10 +106,10 @@ export const Bubble: React.FC<
       ),
     [
       bubbleRenderConfig?.titleRender,
-      chatListItemTitleClassName,
+      classNames?.bubbleListItemTitleClassName,
       props.originData?.updateAt,
       time,
-      chatListItemTitleStyle,
+      styles?.bubbleListItemTitleStyle,
       avatar?.title,
       placement,
     ],
@@ -126,13 +121,13 @@ export const Bubble: React.FC<
         bubbleRenderConfig?.avatarRender,
         props,
         <BubbleAvatar
-          className={chatListItemAvatarClassName}
+          className={classNames?.bubbleListItemAvatarClassName}
           avatar={avatar?.avatar}
           background={avatar?.backgroundColor}
           title={avatar?.title}
           onClick={onAvatarClick}
           prefixCls={`${prefixClass}-bubble-avatar`}
-          style={chatListItemAvatarStyle}
+          style={styles?.bubbleListItemAvatarStyle}
         />,
       ),
     [
@@ -140,19 +135,19 @@ export const Bubble: React.FC<
       avatar?.title,
       props.originData?.updateAt,
       avatar?.avatar,
-      chatListItemAvatarClassName,
-      chatListItemAvatarStyle,
+      classNames?.bubbleListItemAvatarClassName,
+      styles?.bubbleListItemAvatarStyle,
     ],
   );
 
   const messageContent = (
-    <MessageComponent
+    <BubbleMessageDisplay
       markdownRenderConfig={props.markdownRenderConfig}
       docListProps={props.docListProps}
-      chatListRef={props.chatListRef}
+      bubbleListRef={props.bubbleListRef}
       extraRender={props.bubbleRenderConfig?.extraRender}
-      chatListItemExtraStyle={props.chatListItemExtraStyle}
-      chatRef={props.chatRef}
+      bubbleListItemExtraStyle={styles?.bubbleListItemExtraStyle}
+      bubbleRef={props.bubbleRef}
       content={props?.originData?.content}
       key={props?.originData?.id}
       data-id={props?.originData?.id}
@@ -189,7 +184,7 @@ export const Bubble: React.FC<
         bubbleRenderConfig?.contentBeforeRender,
         props,
         <BubbleBeforeNode
-          chatListRef={props.chatListRef}
+          bubbleListRef={props.bubbleListRef}
           bubble={props as any}
         />,
       ),
@@ -305,7 +300,7 @@ export const Bubble: React.FC<
                     },
                   },
                 }}
-                style={chatListItemExtraStyle}
+                style={styles?.bubbleListItemExtraStyle}
                 className={cx(
                   `${prefixClass}-bubble-before`,
                   `${prefixClass}-bubble-before-${placement}`,
@@ -329,7 +324,7 @@ export const Bubble: React.FC<
               }}
               style={{
                 minWidth: standalone ? 'min(16px,100%)' : '0px',
-                ...chatListItemContentStyle,
+                ...styles?.bubbleListItemContentStyle,
               }}
               className={cx(
                 `${prefixClass}-bubble-content`,
@@ -357,7 +352,7 @@ export const Bubble: React.FC<
                 }}
                 style={{
                   minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  ...chatListItemExtraStyle,
+                  ...styles?.bubbleListItemExtraStyle,
                 }}
                 className={cx(
                   `${prefixClass}-bubble-after`,
@@ -367,7 +362,7 @@ export const Bubble: React.FC<
                 data-testid="message-after"
               >
                 <BubbleFileView
-                  chatListRef={props.chatListRef}
+                  bubbleListRef={props.bubbleListRef}
                   bubble={props as any}
                 />
                 {contentAfterDom}
@@ -383,9 +378,9 @@ export const Bubble: React.FC<
     childrenDom,
     contentBeforeDom,
     contentAfterDom,
-    chatListItemContentClassName,
-    chatListItemContentStyle,
-    chatListItemExtraStyle,
+    classNames?.bubbleListItemContentClassName,
+    styles?.bubbleListItemContentStyle,
+    styles?.bubbleListItemExtraStyle,
     className,
     hashId,
     placement,
@@ -404,7 +399,7 @@ export const Bubble: React.FC<
         hidePadding,
         setHidePadding,
         setMessage: (message) => {
-          props.chatRef.current?.setMessageItem(props.id!, message as any);
+          props.bubbleRef.current?.setMessageItem(props.id!, message as any);
         },
       }}
     >

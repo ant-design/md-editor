@@ -9,8 +9,8 @@ import {
   useRefFunction,
   WhiteBoxProcessInterface,
 } from '../../index';
-import { ChatConfigContext } from '../BubbleConfigProvide';
-import { BubbleProps, ChatMessage } from '../type';
+import { BubbleConfigContext } from '../BubbleConfigProvide';
+import { BubbleProps, MessageBubbleData } from '../type';
 import { BubbleExtra } from './BubbleExtra';
 import { DocInfoList } from './DocInfo';
 import { EXCEPTION } from './EXCEPTION';
@@ -34,7 +34,7 @@ export const LOADING_FLAT = '...';
  * ```tsx
  * <MessageComponent
  *   content="Hello World"
- *   chatRef={chatRef}
+ *    bubbleRef={ bubbleRef}
  *   readonly={false}
  * />
  * ```
@@ -44,7 +44,7 @@ export const LOADING_FLAT = '...';
  * ```tsx
  * <MessageComponent
  *   content="# 标题\n这是**加粗**的文本"
- *   chatRef={chatRef}
+ *    bubbleRef={ bubbleRef}
  *   markdownRenderConfig={{
  *     fncProps: {
  *       enableCopy: true,
@@ -59,7 +59,7 @@ export const LOADING_FLAT = '...';
  * ```tsx
  * <MessageComponent
  *   content="相关文档："
- *   chatRef={chatRef}
+ *    bubbleRef={ bubbleRef}
  *   docListProps={{
  *     enable: true,
  *     docList: [
@@ -75,7 +75,7 @@ export const LOADING_FLAT = '...';
  * ```tsx
  * <MessageComponent
  *   content="自定义消息"
- *   chatRef={chatRef}
+ *    bubbleRef={ bubbleRef}
  *   extraRender={(props, defaultDom) => (
  *     <div>
  *       {defaultDom}
@@ -87,7 +87,7 @@ export const LOADING_FLAT = '...';
  *
  * @param {MessageComponentProps} props - 组件属性
  * @param {string | ReactNode} props.content - 消息内容，可以是字符串或 React 节点
- * @param {MutableRefObject<BubbleChatInstance>} props.chatRef - 聊天实例的引用
+ * @param {MutableRefObject<BubbleChatInstance>} props. bubbleRef - 聊天实例的引用
  * @param {boolean} [props.readonly] - 是否为只读模式，默认为 false
  * @param {BaseChatProps['markdownRenderConfig']} [props.markdownRenderConfig] - Markdown 渲染配置
  * @param {CustomConfig} [props.customConfig] - 自定义配置
@@ -98,7 +98,7 @@ export const LOADING_FLAT = '...';
  * @param {BaseChatProps['slidesModeProps']} props.slidesModeProps - 幻灯片模式的配置属性
  * @param {BaseChatProps['docListProps']} [props.docListProps] - 文档列表的属性
  * @param {WithFalse<(props: BubbleProps, defaultDom: ReactNode) => ReactNode>} [props.extraRender] - 额外内容的渲染函数
- * @param {React.CSSProperties} [props.chatListItemExtraStyle] - 聊天项额外操作区域的样式
+ * @param {React.CSSProperties} [props.bubbleListItemExtraStyle] - 聊天项额外操作区域的样式
  *
  * @returns {JSX.Element} 返回渲染后的消息组件
  *
@@ -112,16 +112,17 @@ export const LOADING_FLAT = '...';
  * @see {@link BubbleProps} 了解更多关于聊天项属性的信息
  * @see {@link BaseChatProps} 了解更多关于基础聊天属性的信息
  */
-export const MessageComponent: React.FC<
+export const BubbleMessageDisplay: React.FC<
   BubbleProps & {
-    content: ChatMessage['content'];
+    content: MessageBubbleData['content'];
+    bubbleListItemExtraStyle?: React.CSSProperties;
   }
-> = ({ content, chatRef, readonly, extraRender, ...props }) => {
+> = ({ content, bubbleRef, readonly, extraRender, ...props }) => {
   /**
    * 获取聊天配置上下文
    * @type {ChatConfigContext}
    */
-  const context = useContext(ChatConfigContext);
+  const context = useContext(BubbleConfigContext);
 
   /**
    * 幻灯片模式状态
@@ -207,7 +208,7 @@ export const MessageComponent: React.FC<
 
     const defaultExtra = (
       <BubbleExtra
-        style={props.chatListItemExtraStyle}
+        style={props.bubbleListItemExtraStyle}
         readonly={readonly}
         render={props?.bubbleRenderConfig?.bubbleRightExtraRender}
         bubble={props as any}
@@ -217,7 +218,7 @@ export const MessageComponent: React.FC<
             ? async () => {
                 try {
                   await props.onDisLike?.(props.originData as any);
-                  chatRef.current?.setMessageItem(props.id!, {
+                  bubbleRef.current?.setMessageItem(props.id!, {
                     feedback: 'thumbsDown',
                   } as any);
                 } catch (error) {}
@@ -232,7 +233,7 @@ export const MessageComponent: React.FC<
             ? async () => {
                 try {
                   await props.onLike?.(props.originData as any);
-                  chatRef.current?.setMessageItem(props.id!, {
+                  bubbleRef.current?.setMessageItem(props.id!, {
                     feedback: 'thumbsUp',
                   } as any);
                 } catch (error) {}
@@ -442,7 +443,7 @@ export const MessageComponent: React.FC<
         isLatest={!!props.isLast}
         docListNode={docInfoDom}
         extra={isExtraNull ? null : extra}
-        htmlRef={props.chatListRef}
+        htmlRef={props.bubbleListRef}
         content={
           props.originData?.isFinished
             ? (props.originData?.content as string) ||

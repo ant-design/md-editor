@@ -7,7 +7,94 @@ import { WhiteBoxProcessInterface } from '../ThoughtChainList';
 import { BubbleExtraProps } from './MessagesContent/BubbleExtra';
 import { DocInfoListProps } from './MessagesContent/DocInfo';
 
-export interface ChatMessage<
+/**
+ * 基础样式属性
+ */
+export interface BubbleStyleProps {
+  /**
+   * 自定义 CSS 类名
+   */
+  className?: string;
+
+  /**
+   * 自定义 CSS 样式
+   */
+  style?: React.CSSProperties;
+}
+
+/**
+ * 气泡项样式属性
+ */
+export interface BubbleItemStyleProps extends BubbleStyleProps {
+  styles?: {
+    /**
+     * 内容的自定义样式
+     */
+    bubbleListItemContentStyle?: React.CSSProperties;
+
+    /**
+     * 标题的自定义样式
+     */
+    bubbleListItemTitleStyle?: React.CSSProperties;
+
+    /**
+     * 头像的自定义样式
+     */
+    bubbleListItemAvatarStyle?: React.CSSProperties;
+
+    /**
+     * 额外内容的自定义样式
+     */
+    bubbleListItemExtraStyle?: React.CSSProperties;
+  };
+
+  classNames?: {
+    /**
+     * 内容的自定义类名
+     */
+    bubbleListItemContentClassName?: string;
+
+    /**
+     * 标题的自定义类名
+     */
+    bubbleListItemTitleClassName?: string;
+
+    /**
+     * 头像的自定义类名
+     */
+    bubbleListItemAvatarClassName?: string;
+  };
+}
+
+/**
+ * 气泡元数据
+ */
+export interface BubbleMetaData {
+  /**
+   * 角色头像
+   */
+  avatar?: string;
+
+  /**
+   * 背景色
+   */
+  backgroundColor?: string;
+
+  /**
+   * 名称
+   */
+  title?: string;
+
+  /**
+   * 其他元数据
+   */
+  [key: string]: any;
+}
+
+/**
+ * 消息数据
+ */
+export interface MessageBubbleData<
   T extends Record<string, any> = Record<string, any>,
 > {
   /**
@@ -180,294 +267,136 @@ export interface ChatMessage<
   fileMap?: Map<string, AttachmentFile>;
 }
 
-export interface BubbleMetaData {
+/**
+ * 自定义配置
+ */
+export interface CustomConfig {
   /**
-   * 角色头像
-   * @description 可选参数，如果不传则使用默认头像
+   * 提示框配置
    */
-  avatar?: string;
-  /**
-   *  背景色
-   * @description 可选参数，如果不传则使用默认背景色
-   */
-  backgroundColor?: string;
-  /**
-   * 名称
-   * @description 可选参数，如果不传则使用默认名称
-   */
-  title?: string;
+  TooltipProps?: TooltipProps;
 
   /**
-   * 附加数据
-   * @description 可选参数，如果不传则使用默认名称
+   * 弹出框配置
    */
-  [key: string]: any;
+  PopoverProps?: {
+    titleStyle?: React.CSSProperties;
+    contentStyle?: React.CSSProperties;
+  };
 }
-/**
- * 将类型 T 与 false 联合的类型
- * @template T 任意类型
- * @example
- * type Result = WithFalse<string>; // string | false
- */
+
 export type WithFalse<T> = T | false;
 
 /**
- * 聊天项组件的属性接口
- * @template T 扩展的额外数据类型，默认为 Record<string, any>
- * @interface BubbleProps
+ * 气泡渲染配置
  */
-export interface BubbleProps<T = Record<string, any>> {
+export interface BubbleRenderConfig<T = Record<string, any>> {
+  titleRender?: WithFalse<
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
+  >;
+  contentRender?: WithFalse<
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
+  >;
+  contentAfterRender?: WithFalse<
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
+  >;
+  contentBeforeRender?: WithFalse<
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
+  >;
+  avatarRender?: WithFalse<
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
+  >;
+  customConfig?: CustomConfig;
+  render?: WithFalse<
+    (
+      props: BubbleProps<T>,
+      domsMap: {
+        avatar: ReactNode;
+        title: ReactNode;
+        messageContent: ReactNode;
+        itemDom: ReactNode;
+      },
+      defaultDom: ReactNode,
+    ) => ReactNode
+  >;
+  extraRender?: WithFalse<
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
+  >;
+  bubbleRightExtraRender?: BubbleExtraProps['render'];
+}
+
+/**
+ * 气泡组件属性
+ */
+export interface BubbleProps<T = Record<string, any>>
+  extends BubbleItemStyleProps {
   /**
    * 动画配置
-   * @description framer-motion 动画配置
    */
   animation?: MotionProps;
 
   /**
-   * 消息内容
-   * @description 可以是字符串或 React 节点
+   * 消息时间
    */
   time?: number;
 
   /**
-   * 头像的元数据
-   * @description 包含头像相关的所有信息，如头像URL、名称等
-   * @required
+   * 头像元数据
    */
   avatar: BubbleMetaData;
 
   /**
    * 是否启用纯净模式
-   * @description 启用后将移除阴影和边框，适用于需要更简洁界面的场景
-   * @default false
    */
   pure?: boolean;
 
   /**
-   * 聊天项组件的自定义渲染配置
-   * @description 提供各个子组件的自定义渲染函数
+   * 渲染配置
    */
-  bubbleRenderConfig?: {
-    /**
-     * 标题组件的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param defaultDom - 默认的标题 DOM 节点
-     * @returns 自定义的标题 React 节点
-     */
-    titleRender?: WithFalse<
-      (props: BubbleProps, defaultDom: ReactNode) => ReactNode
-    >;
-
-    /**
-     * 内容组件的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param defaultDom - 默认的内容 DOM 节点
-     * @returns 自定义的内容 React 节点
-     */
-    contentRender?: WithFalse<
-      (props: BubbleProps, defaultDom: ReactNode) => ReactNode
-    >;
-
-    /**
-     * 操作组件的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param defaultDom - 默认的操作区域 DOM 节点
-     * @returns 自定义的操作区域 React 节点
-     */
-    contentAfterRender?: WithFalse<
-      (props: BubbleProps, defaultDom: ReactNode) => ReactNode
-    >;
-
-    /**
-     * 前置组件的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param defaultDom - 默认的前置内容 DOM 节点
-     * @returns 自定义的前置内容 React 节点
-     */
-    contentBeforeRender?: WithFalse<
-      (props: BubbleProps, defaultDom: ReactNode) => ReactNode
-    >;
-
-    /**
-     * 头像组件的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param defaultDom - 默认的头像 DOM 节点
-     * @returns 自定义的头像 React 节点
-     */
-    avatarRender?: WithFalse<
-      (props: BubbleProps, defaultDom: ReactNode) => ReactNode
-    >;
-
-    /**
-     * 聊天项的自定义配置
-     * @description 包含提示框、弹出框等配置项
-     */
-    customConfig?: CustomConfig;
-
-    /**
-     * 聊天项组件的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param domsMap - 包含所有子组件的 DOM 节点映射
-     * @param defaultDom - 默认的聊天项 DOM 节点
-     * @returns 自定义的聊天项 React 节点
-     */
-    render?: WithFalse<
-      (
-        props: BubbleProps,
-        domsMap: {
-          avatar: ReactNode;
-          title: ReactNode;
-          messageContent: ReactNode;
-          itemDom: ReactNode;
-        },
-        defaultDom: ReactNode,
-      ) => ReactNode
-    >;
-
-    /**
-     * 额外内容的自定义渲染函数
-     * @param props - 聊天项的所有属性
-     * @param defaultDom - 默认的额外内容 DOM 节点
-     * @returns 自定义的额外内容 React 节点
-     */
-    extraRender?: WithFalse<
-      (props: BubbleProps, defaultDom: ReactNode) => ReactNode
-    >;
-
-    /**
-     * 右侧额外内容的自定义渲染函数
-     * @description 用于渲染聊天项右侧的额外内容
-     */
-    bubbleRightExtraRender?: BubbleExtraProps['render'];
-  };
+  bubbleRenderConfig?: BubbleRenderConfig<T>;
 
   /**
-   * 聊天项的自定义 CSS 类名
-   * @description 用于自定义聊天项容器的样式类名
-   * @optional
-   */
-  className?: string;
-
-  /**
-   * 聊天项是否处于加载状态
-   * @description 当设置为 true 时，显示加载动画
-   * @default false
-   * @optional
+   * 是否加载中
    */
   loading?: boolean;
 
   /**
-   * 头像点击事件的回调函数
-   * @description 当用户点击头像时触发
-   * @callback
-   * @optional
+   * 头像点击事件
    */
   onAvatarClick?: () => void;
 
   /**
-   * 双击事件的回调函数
-   * @description 当用户双击聊天项时触发
-   * @callback
-   * @optional
+   * 双击事件
    */
   onDoubleClick?: () => void;
 
   /**
-   * 聊天项的放置位置
-   * @description 控制聊天项在对话中的显示位置
-   * @default 'left'
-   * @optional
+   * 放置位置
    */
   placement?: 'left' | 'right';
 
   /**
-   * 聊天项组件的自定义 CSS 样式
-   * @description 用于自定义聊天项容器的样式
-   * @optional
+   * 原始数据
    */
-  style?: React.CSSProperties;
-
-  /**
-   * 与聊天项关联的额外数据
-   * @description 包含消息的原始数据和其他扩展信息
-   * @optional
-   */
-  originData?: T & ChatMessage;
-
-  /**
-   * 聊天项内容的自定义 CSS 样式
-   * @description 用于自定义消息内容的样式
-   * @optional
-   */
-  chatListItemContentStyle?: React.CSSProperties;
-
-  /**
-   * 聊天项标题的自定义 CSS 样式
-   * @description 用于自定义标题的样式
-   * @optional
-   */
-  chatListItemTitleStyle?: React.CSSProperties;
-
-  /**
-   * 聊天项头像的自定义 CSS 样式
-   * @description 用于自定义头像的样式
-   * @optional
-   */
-  chatListItemAvatarStyle?: React.CSSProperties;
-
-  /**
-   * 聊天项额外内容的自定义 CSS 样式
-   * @description 用于自定义额外内容的样式
-   * @optional
-   */
-  chatListItemExtraStyle?: React.CSSProperties;
-
-  /**
-   * 聊天项内容的自定义 CSS 类名
-   * @description 用于自定义消息内容的样式类名
-   * @optional
-   */
-  chatListItemContentClassName?: string;
-
-  /**
-   * 聊天项标题的自定义 CSS 类名
-   * @description 用于自定义标题的样式类名
-   * @optional
-   */
-  chatListItemTitleClassName?: string;
-
-  /**
-   * 聊天项头像的自定义 CSS 类名
-   * @description 用于自定义头像的样式类名
-   * @optional
-   */
-  chatListItemAvatarClassName?: string;
+  originData?: T & MessageBubbleData;
 
   /**
    * 是否为最后一条消息
-   * @description 用于标识当前消息是否为对话中的最后一条
-   * @optional
    */
   isLast?: boolean;
 
   /**
-   * 聊天项的唯一标识
-   * @description 用于标识和定位特定的聊天项
-   * @optional
+   * 消息ID
    */
   id?: string;
 
   /**
-   * 聊天列表的引用
-   * @description 用于访问聊天列表的 DOM 元素
-   * @optional
+   * 列表引用
    */
-  chatListRef?: any;
+  bubbleListRef?: any;
 
   /**
-   * 是否为只读模式
-   * @description 当设置为 true 时，所有操作按钮将被禁用
-   * @default false
+   * 是否只读
    */
   readonly?: boolean;
 
@@ -486,69 +415,126 @@ export interface BubbleProps<T = Record<string, any>> {
    */
   deps?: any[];
 
-  /** 点击不喜欢按钮时的回调, 异步时通过抛出异常保持按钮的状态不变 */
+  /**
+   * 不喜欢回调
+   */
   onDisLike?: (
-    bubble: ChatMessage<Record<string, any>>,
+    bubble: MessageBubbleData<Record<string, any>>,
   ) => Promise<void> | void;
-  /** 点击喜欢按钮时的回调, 异步时通过抛出异常保持按钮的状态不变 */
-  onLike?: (bubble: ChatMessage<Record<string, any>>) => Promise<void> | void;
-  /** 回复消息的回调 */
+
+  /**
+   * 喜欢回调
+   */
+  onLike?: (
+    bubble: MessageBubbleData<Record<string, any>>,
+  ) => Promise<void> | void;
+
+  /**
+   * 回复回调
+   */
   onReply?: (message: string) => void;
 
+  /**
+   * 幻灯片模式配置
+   */
   slidesModeProps?: {
-    /** 是否启用幻灯片模式 */
     enable?: boolean;
-    /** 幻灯片切换后的回调 */
-    afterOpenChange?: (message: ChatMessage<Record<string, any>>) => void;
+    afterOpenChange?: (message: MessageBubbleData<Record<string, any>>) => void;
   };
 
   /**
    * 文档列表配置
-   * @example
-   * <BubbleChat docListProps={{ enable: true, onOriginUrlClick:()=> window.open() }} />
    */
   docListProps?: DocInfoListProps & {
     enable?: boolean;
   };
+
   /**
-   * 额外内容的渲染函数
+   * 额外内容渲染
    */
   extraRender?: WithFalse<
-    (props: BubbleProps, defaultDom: ReactNode) => ReactNode
+    (props: BubbleProps<T>, defaultDom: ReactNode) => ReactNode
   >;
 
-  chatRef?: any;
+  /**
+   * 气泡引用
+   */
+  bubbleRef?: any;
 }
 
 /**
- * 聊天项的自定义配置接口
- * @interface CustomConfig
+ * 气泡列表组件属性
  */
-export interface CustomConfig {
+export interface BubbleListProps extends BubbleItemStyleProps {
   /**
-   * 提示框配置
-   * @description 用于配置聊天项中的提示框属性
-   * @optional
+   * 消息列表数据
    */
-  TooltipProps?: TooltipProps;
+  bubbleList: MessageBubbleData[];
 
   /**
-   * 弹出框配置
-   * @description 用于配置聊天项中的弹出框属性
+   * 列表容器引用
    */
-  PopoverProps?: {
-    /**
-     * 弹出框标题的样式
-     * @description 用于自定义弹出框标题的样式
-     * @optional
-     */
-    titleStyle?: React.CSSProperties;
+  bubbleListRef: React.MutableRefObject<HTMLDivElement | null>;
 
-    /**
-     * 弹出框内容的样式
-     * @description 用于自定义弹出框内容的样式
-     * @optional
-     */
-    contentStyle?: React.CSSProperties;
+  /**
+   * 气泡引用
+   */
+  bubbleRef: React.MutableRefObject<any>;
+
+  /**
+   * 是否加载中
+   */
+  loading: boolean;
+
+  /**
+   * 用户元数据
+   */
+  userMeta?: BubbleMetaData;
+
+  /**
+   * 助手元数据
+   */
+  assistantMeta?: BubbleMetaData;
+
+  /**
+   * 是否只读
+   */
+  readonly?: boolean;
+
+  /**
+   * 渲染配置
+   */
+  bubbleRenderConfig?: BubbleRenderConfig;
+
+  /**
+   * Markdown 渲染配置
+   */
+  markdownRenderConfig?: MarkdownEditorProps;
+
+  /**
+   * 文档列表配置
+   */
+  docListProps?: DocInfoListProps & {
+    enable?: boolean;
   };
+
+  /**
+   * 不喜欢回调
+   */
+  onDisLike?: BubbleProps['onDisLike'];
+
+  /**
+   * 喜欢回调
+   */
+  onLike?: BubbleProps['onLike'];
+
+  /**
+   * 回复回调
+   */
+  onReply?: BubbleProps['onReply'];
+
+  /**
+   * 幻灯片模式配置
+   */
+  slidesModeProps?: BubbleProps['slidesModeProps'];
 }

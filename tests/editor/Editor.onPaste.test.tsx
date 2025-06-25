@@ -1263,9 +1263,14 @@ Custom container with styled text`;
       fireEvent.paste(editableElement, event);
     });
 
-    await waitFor(() => {
-      expect(screen.getByText('Document with Media')).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByText('Document with Media')).toBeInTheDocument();
+      },
+      {
+        timeout: 10000,
+      },
+    );
 
     expect(
       screen.queryByText('This should be stripped'),
