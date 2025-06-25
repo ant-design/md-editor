@@ -59,7 +59,7 @@ export const DocInfoList: React.FC<DocInfoListProps> = ({
 }) => {
   const [expanded, setExpanded] = React.useState(true);
   const configContext = useContext(ConfigProvider.ConfigContext);
-  const baseCls = configContext.getPrefixCls(`agent-chat-doc-info`);
+  const baseCls = configContext.getPrefixCls(`agent-doc-info`);
   const chatContext = useContext(ChatConfigContext);
   const { wrapSSR, hashId } = useStyle(baseCls);
 

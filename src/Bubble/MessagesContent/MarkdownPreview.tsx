@@ -1,5 +1,4 @@
 ﻿import { CloseCircleFilled } from '@ant-design/icons';
-import { Slides } from '@ant-design/md-editor/dist/Slides';
 import { ConfigProvider, Popover, theme } from 'antd';
 import React, { useContext, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
@@ -11,6 +10,7 @@ import {
   MarkdownEditorProps,
   parserMdToSchema,
 } from '../../';
+import { Slides } from '../../Slides';
 import { ChatConfigContext } from '../BubbleConfigProvide';
 import { ChatMessage } from '../type';
 import { MessagesContext } from './BubbleContext';
@@ -95,7 +95,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   const {
     content,
     extra,
-    isLatest,
+    isLatest = false,
     typing,
     htmlRef,
     fncProps,

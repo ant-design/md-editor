@@ -8,10 +8,11 @@ import { BubbleAvatar } from './Avatar';
 import { BubbleBeforeNode } from './before';
 import { ChatConfigContext } from './BubbleConfigProvide';
 import { BubbleFileView } from './FileView';
+import { MessageComponent } from './MessagesContent';
 import { MessagesContext } from './MessagesContent/BubbleContext';
 import { useStyle } from './style';
 import { BubbleTitle } from './Title';
-import type { BubbleProps } from './type';
+import type { BubbleMetaData, BubbleProps } from './type';
 
 const runRender = (
   render: any,
@@ -69,7 +70,6 @@ export const Bubble: React.FC<
   const {
     onAvatarClick,
     className,
-    children,
     placement = 'left',
     avatar,
     style,
@@ -91,7 +91,7 @@ export const Bubble: React.FC<
 
   const { compact, standalone } = useContext(ChatConfigContext) || {};
 
-  const prefixClass = getPrefixCls('agent-chat-list-item');
+  const prefixClass = getPrefixCls('agent-list');
 
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
@@ -103,7 +103,7 @@ export const Bubble: React.FC<
         <BubbleTitle
           className={chatListItemTitleClassName}
           style={chatListItemTitleStyle}
-          prefixClass={cx(`${prefixClass}-message-title`)}
+          prefixClass={cx(`${prefixClass}-bubble-title`)}
           title={avatar?.title}
           placement={placement}
           time={time}
@@ -131,7 +131,7 @@ export const Bubble: React.FC<
           background={avatar?.backgroundColor}
           title={avatar?.title}
           onClick={onAvatarClick}
-          prefixCls={`${prefixClass}-message-avatar`}
+          prefixCls={`${prefixClass}-bubble-avatar`}
           style={chatListItemAvatarStyle}
         />,
       ),
@@ -145,8 +145,34 @@ export const Bubble: React.FC<
     ],
   );
 
+  const messageContent = (
+    <MessageComponent
+      markdownRenderConfig={props.markdownRenderConfig}
+      docListProps={props.docListProps}
+      chatListRef={props.chatListRef}
+      extraRender={props.bubbleRenderConfig?.extraRender}
+      chatListItemExtraStyle={props.chatListItemExtraStyle}
+      chatRef={props.chatRef}
+      content={props?.originData?.content}
+      key={props?.originData?.id}
+      data-id={props?.originData?.id}
+      avatar={props?.originData?.meta as BubbleMetaData}
+      readonly={props.readonly}
+      slidesModeProps={props.slidesModeProps}
+      onReply={props.onReply}
+      id={props.id}
+      isLast={props.isLast}
+      originData={props.originData}
+      placement={props.originData?.role === 'user' ? 'right' : 'left'}
+      time={props.originData?.updateAt || props.originData?.createAt}
+      onDisLike={props.onDisLike}
+      onLike={props.onLike}
+      customConfig={props?.bubbleRenderConfig?.customConfig}
+    />
+  );
+
   const childrenDom = useMemo(() => {
-    return runRender(bubbleRenderConfig?.contentRender, props, children);
+    return runRender(bubbleRenderConfig?.contentRender, props, messageContent);
   }, [
     props.originData?.content,
     props.originData?.feedback,
@@ -223,13 +249,13 @@ export const Bubble: React.FC<
             alignItems: 'flex-start',
             ...style,
           }}
-          className={cx(`${prefixClass}-message-container`, hashId)}
+          className={cx(`${prefixClass}-bubble-container`, hashId)}
         >
           {placement === 'right' ? null : (
             <motion.div
               className={cx(
-                `${prefixClass}-message-avatar-title`,
-                `${prefixClass}-message-avatar-title-${placement}`,
+                `${prefixClass}-bubble-avatar-title`,
+                `${prefixClass}-bubble-avatar-title-${placement}`,
                 hashId,
               )}
             >
@@ -260,8 +286,8 @@ export const Bubble: React.FC<
               },
             }}
             className={cx(
-              `${prefixClass}-message-container`,
-              `${prefixClass}-message-container-${placement}`,
+              `${prefixClass}-bubble-container`,
+              `${prefixClass}-bubble-container-${placement}`,
               hashId,
             )}
             data-testid="chat-message"
@@ -278,15 +304,10 @@ export const Bubble: React.FC<
                     },
                   },
                 }}
-                style={{
-                  width: '100%',
-                  minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  maxWidth: 'min(860px,100%)',
-                  ...chatListItemExtraStyle,
-                }}
+                style={chatListItemExtraStyle}
                 className={cx(
-                  `${prefixClass}-message-before`,
-                  `${prefixClass}-message-before-${placement}`,
+                  `${prefixClass}-bubble-before`,
+                  `${prefixClass}-bubble-before-${placement}`,
                   hashId,
                 )}
                 data-testid="message-before"
@@ -306,14 +327,12 @@ export const Bubble: React.FC<
                 },
               }}
               style={{
-                width: 'max-content',
                 minWidth: standalone ? 'min(16px,100%)' : '0px',
-                maxWidth: 'min(860px,100%)',
                 ...chatListItemContentStyle,
               }}
               className={cx(
-                `${prefixClass}-message-content`,
-                `${prefixClass}-message-content-${placement}`,
+                `${prefixClass}-bubble-content`,
+                `${prefixClass}-bubble-content-${placement}`,
                 hashId,
               )}
               data-testid="message-content"
@@ -333,14 +352,12 @@ export const Bubble: React.FC<
                   },
                 }}
                 style={{
-                  width: '100%',
                   minWidth: standalone ? 'min(296px,100%)' : '0px',
-                  maxWidth: 'min(860px,100%)',
                   ...chatListItemExtraStyle,
                 }}
                 className={cx(
-                  `${prefixClass}-message-after`,
-                  `${prefixClass}-message-after-${placement}`,
+                  `${prefixClass}-bubble-after`,
+                  `${prefixClass}-bubble-after-${placement}`,
                   hashId,
                 )}
                 data-testid="message-after"
@@ -398,10 +415,10 @@ export const Bubble: React.FC<
               <BubbleTitle
                 title={avatar?.title}
                 time={time}
-                prefixClass={cx(`${prefixClass}-message-title`)}
+                prefixClass={cx(`${prefixClass}-bubble-title`)}
               />
             ),
-            messageContent: children,
+            messageContent: messageContent,
             itemDom,
           },
           itemDom,

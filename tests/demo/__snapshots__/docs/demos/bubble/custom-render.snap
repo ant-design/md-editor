@@ -1,0 +1,140 @@
+<DocumentFragment>
+  <div
+    class="ant-app"
+  >
+    <div>
+      test
+    </div>
+    <div
+      style="display: flex; flex-direction: column; gap: 16px;"
+    >
+      <div
+        class="ant-agent-list ant-agent-list-left ant-flex ant-flex-align-stretch ant-flex-vertical"
+        style="gap: 12px;"
+      >
+        <div
+          class="ant-agent-list-bubble-container"
+          style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; opacity: 1; transform: none;"
+        >
+          <div
+            class="ant-agent-list-bubble-avatar-title ant-agent-list-bubble-avatar-title-left"
+          >
+            <div
+              style="position: relative;"
+            >
+              <span
+                class="ant-avatar ant-avatar-circle ant-avatar-image ant-agent-list-bubble-avatar"
+                style="width: 24px; height: 24px; font-size: 18px; cursor: default;"
+              >
+                <img
+                  alt="avatar"
+                  src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+                />
+              </span>
+              <div
+                style="position: absolute; bottom: -2px; right: -2px; width: 10px; height: 10px; background: rgb(82, 196, 26); border-radius: 50%; border: 2px solid rgb(255, 255, 255);"
+              />
+            </div>
+            <span>
+              LUI Chat
+            </span>
+            <div
+              style="display: flex; align-items: center; gap: 8px;"
+            >
+              <div
+                class="ant-agent-list-bubble-title ant-flex"
+                style="flex-direction: row; gap: 8px;"
+              >
+                Ant Design
+              </div>
+              <span
+                class="ant-tag ant-tag-blue"
+              >
+                重要
+              </span>
+              <span
+                class="ant-tag ant-tag-blue"
+              >
+                紧急
+              </span>
+            </div>
+          </div>
+          <div
+            class="ant-agent-list-bubble-container ant-agent-list-bubble-container-left"
+            data-testid="chat-message"
+            style="display: flex; gap: 4px; flex-direction: column; opacity: 1; transform: none;"
+          >
+            <div
+              class="ant-agent-list-bubble-before ant-agent-list-bubble-before-left"
+              data-testid="message-before"
+              style="opacity: 1; transform: none;"
+            />
+            <div
+              class="ant-agent-list-bubble-content ant-agent-list-bubble-content-left"
+              data-testid="message-content"
+              style="min-width: 0px; opacity: 1; transform: none;"
+            >
+              <div
+                style="padding: 12px 16px; background: rgb(245, 245, 245); border-radius: 8px;"
+              >
+                <div
+                  aria-describedby="test-id"
+                  style="display: flex; flex-direction: column; max-width: 100%; min-width: 0;"
+                >
+                  <div
+                    class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%);"
+                  >
+                    <div
+                      style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                      tabindex="-1"
+                    >
+                      <div
+                        autocapitalize="false"
+                        autocorrect="false"
+                        class="ant-md-editor-content-readonly ant-md-editor-content"
+                        data-slate-editor="true"
+                        data-slate-node="value"
+                        spellcheck="false"
+                        style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                        zindex="-1"
+                      >
+                        <div
+                          class="ant-md-editor-drag-el"
+                          data-be="paragraph"
+                          data-slate-node="element"
+                        >
+                          <span
+                            data-slate-node="text"
+                          >
+                            <span
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
+                            >
+                              <span
+                                data-slate-string="true"
+                              >
+                                这是一条带有自定义渲染的消息。
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="margin-top: 8px; color: rgb(82, 196, 26);"
+                >
+                  状态：success
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>

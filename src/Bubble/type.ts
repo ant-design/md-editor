@@ -1,8 +1,10 @@
 import { TooltipProps } from 'antd';
 import { ReactNode } from 'react';
+import { MarkdownEditorProps } from '../MarkdownEditor';
 import { AttachmentFile } from '../MarkdownInputField/FileMapView';
 import { WhiteBoxProcessInterface } from '../ThoughtChainList';
 import { BubbleExtraProps } from './MessagesContent/BubbleExtra';
+import { DocInfoListProps } from './MessagesContent/DocInfo';
 
 export interface ChatMessage<
   T extends Record<string, any> = Record<string, any>,
@@ -215,64 +217,17 @@ export type WithFalse<T> = T | false;
  */
 export interface BubbleProps<T = Record<string, any>> {
   /**
+   * 消息内容
+   * @description 可以是字符串或 React 节点
+   */
+  time?: number;
+
+  /**
    * 头像的元数据
    * @description 包含头像相关的所有信息，如头像URL、名称等
    * @required
    */
   avatar: BubbleMetaData;
-
-  /**
-   * 聊天项的自定义 CSS 类名
-   * @description 用于自定义聊天项容器的样式类名
-   * @optional
-   */
-  className?: string;
-
-  /**
-   * 聊天项是否处于加载状态
-   * @description 当设置为 true 时，显示加载动画
-   * @default false
-   * @optional
-   */
-  loading?: boolean;
-
-  /**
-   * 聊天项的消息内容
-   * @description 可以是文本、图片、链接等任意 React 节点
-   * @optional
-   */
-  children?: ReactNode;
-
-  /**
-   * 头像点击事件的回调函数
-   * @description 当用户点击头像时触发
-   * @callback
-   * @optional
-   */
-  onAvatarClick?: () => void;
-
-  /**
-   * 双击事件的回调函数
-   * @description 当用户双击聊天项时触发
-   * @callback
-   * @optional
-   */
-  onDoubleClick?: () => void;
-
-  /**
-   * 聊天项的放置位置
-   * @description 控制聊天项在对话中的显示位置
-   * @default 'left'
-   * @optional
-   */
-  placement?: 'left' | 'right';
-
-  /**
-   * 聊天项的时间戳
-   * @description 消息发送的时间，用于显示时间信息
-   * @optional
-   */
-  time?: number;
 
   /**
    * 聊天项组件的自定义渲染配置
@@ -373,6 +328,45 @@ export interface BubbleProps<T = Record<string, any>> {
   };
 
   /**
+   * 聊天项的自定义 CSS 类名
+   * @description 用于自定义聊天项容器的样式类名
+   * @optional
+   */
+  className?: string;
+
+  /**
+   * 聊天项是否处于加载状态
+   * @description 当设置为 true 时，显示加载动画
+   * @default false
+   * @optional
+   */
+  loading?: boolean;
+
+  /**
+   * 头像点击事件的回调函数
+   * @description 当用户点击头像时触发
+   * @callback
+   * @optional
+   */
+  onAvatarClick?: () => void;
+
+  /**
+   * 双击事件的回调函数
+   * @description 当用户双击聊天项时触发
+   * @callback
+   * @optional
+   */
+  onDoubleClick?: () => void;
+
+  /**
+   * 聊天项的放置位置
+   * @description 控制聊天项在对话中的显示位置
+   * @default 'left'
+   * @optional
+   */
+  placement?: 'left' | 'right';
+
+  /**
    * 聊天项组件的自定义 CSS 样式
    * @description 用于自定义聊天项容器的样式
    * @optional
@@ -462,6 +456,61 @@ export interface BubbleProps<T = Record<string, any>> {
    * @optional
    */
   chatListRef?: any;
+
+  /**
+   * 是否为只读模式
+   * @description 当设置为 true 时，所有操作按钮将被禁用
+   * @default false
+   */
+  readonly?: boolean;
+
+  /**
+   * Markdown 渲染配置
+   */
+  markdownRenderConfig?: MarkdownEditorProps;
+
+  /**
+   * 自定义配置
+   */
+  customConfig?: CustomConfig;
+
+  /**
+   * 依赖项数组
+   */
+  deps?: any[];
+
+  /** 点击不喜欢按钮时的回调, 异步时通过抛出异常保持按钮的状态不变 */
+  onDisLike?: (
+    bubble: ChatMessage<Record<string, any>>,
+  ) => Promise<void> | void;
+  /** 点击喜欢按钮时的回调, 异步时通过抛出异常保持按钮的状态不变 */
+  onLike?: (bubble: ChatMessage<Record<string, any>>) => Promise<void> | void;
+  /** 回复消息的回调 */
+  onReply?: (message: string) => void;
+
+  slidesModeProps?: {
+    /** 是否启用幻灯片模式 */
+    enable?: boolean;
+    /** 幻灯片切换后的回调 */
+    afterOpenChange?: (message: ChatMessage<Record<string, any>>) => void;
+  };
+
+  /**
+   * 文档列表配置
+   * @example
+   * <BubbleChat docListProps={{ enable: true, onOriginUrlClick:()=> window.open() }} />
+   */
+  docListProps?: DocInfoListProps & {
+    enable?: boolean;
+  };
+  /**
+   * 额外内容的渲染函数
+   */
+  extraRender?: WithFalse<
+    (props: BubbleProps, defaultDom: ReactNode) => ReactNode
+  >;
+
+  chatRef?: any;
 }
 
 /**

@@ -10,11 +10,11 @@ import {
   WhiteBoxProcessInterface,
 } from '../../index';
 import { ChatConfigContext } from '../BubbleConfigProvide';
+import { BubbleProps, ChatMessage } from '../type';
 import { BubbleExtra } from './BubbleExtra';
 import { DocInfoList } from './DocInfo';
 import { EXCEPTION } from './EXCEPTION';
 import { MarkdownPreview } from './MarkdownPreview';
-import { MessageComponentProps } from './types';
 
 export const LOADING_FLAT = '...';
 
@@ -112,13 +112,11 @@ export const LOADING_FLAT = '...';
  * @see {@link BubbleProps} 了解更多关于聊天项属性的信息
  * @see {@link BaseChatProps} 了解更多关于基础聊天属性的信息
  */
-export const MessageComponent: React.FC<MessageComponentProps> = ({
-  content,
-  chatRef,
-  readonly,
-  extraRender,
-  ...props
-}) => {
+export const MessageComponent: React.FC<
+  BubbleProps & {
+    content: ChatMessage['content'];
+  }
+> = ({ content, chatRef, readonly, extraRender, ...props }) => {
   /**
    * 获取聊天配置上下文
    * @type {ChatConfigContext}
@@ -163,7 +161,7 @@ export const MessageComponent: React.FC<MessageComponentProps> = ({
               alignItems: 'center',
               gap: 8,
             }}
-            className="agent-chat-item-default-content"
+            className="agent-item-default-content"
           >
             <LoadingIcon />
             {context?.locale?.['chat.message.thinking'] || '正在思考中...'}
@@ -185,7 +183,7 @@ export const MessageComponent: React.FC<MessageComponentProps> = ({
           style={{
             lineHeight: '24px',
           }}
-          className="agent-chat-item-default-content"
+          className="agent-item-default-content"
         >
           <MarkdownPreview
             {...props.markdownRenderConfig}

@@ -9,7 +9,7 @@ import {
   useEditorStyleRegister,
 } from '../hooks/useStyle';
 import { formatTime } from '../utils/formatTime';
-import { BubbleProps } from './type';
+import { BubbleProps, ChatMessage } from './type';
 
 /**
  * Props for the BubbleChatTitle component.
@@ -28,7 +28,7 @@ export interface TitleProps {
   /**
    * The time of the chat item.
    */
-  time?: BubbleProps['time'];
+  time?: ChatMessage['updateAt'] | ChatMessage['createAt'];
 
   /**
    * Additional class name for the component.
@@ -81,7 +81,7 @@ function useStyle(prefixCls?: string) {
       ...token,
       componentCls: `.${prefixCls}`,
     };
-    return [genStyle(proChatToken), resetComponent(proChatToken)];
+    return [resetComponent(proChatToken), genStyle(proChatToken)];
   });
 }
 

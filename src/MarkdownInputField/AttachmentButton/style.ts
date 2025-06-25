@@ -109,6 +109,6 @@ export function useStyle(prefixCls?: string) {
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(proChatToken), resetComponent(proChatToken)];
+    return [resetComponent(proChatToken), genStyle(proChatToken)];
   });
 }

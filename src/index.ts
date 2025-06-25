@@ -1,5 +1,6 @@
-
 export * from './AgentRunBar';
+export * from './Bubble';
+export type * from './Bubble/type';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
 export * from './hooks/useAutoScroll';

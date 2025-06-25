@@ -22,7 +22,7 @@
   },
   "include": [
     ".dumirc.ts",
-    "docs/demos/*",
+    "docs/demos/**/*",
     "docs/components/**/*",
     "src/**/**/*",
     "src/MarkDown/demos/.tsx",

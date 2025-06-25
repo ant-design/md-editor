@@ -1,5 +1,5 @@
-﻿import { ThoughtChainListProps } from '@ant-design/md-editor';
-import React from 'react';
+﻿import React from 'react';
+import { ThoughtChainListProps } from '../index';
 import { BubbleProps } from './type';
 
 export type ChatConfigType = {

@@ -24,17 +24,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: '12px 12px',
       },
       '&:hover': {
-        [`${token.componentCls}-message-title-time`]: {
+        [`${token.componentCls}-bubble-title-time`]: {
           visibility: 'visible',
           opacity: 1,
           fontWeight: 400,
         },
       },
-      '&-message-avatar': {
+      '&-bubble-avatar': {
         width: 40,
         height: 40,
       },
-      '&-message-avatar-title': {
+      '&-bubble-avatar-title': {
         fontSize: '1em',
         lineHeight: '24px',
         color: '#666F8D',
@@ -48,15 +48,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
         },
       },
-      '&-message-avatar-title-right': {
+      '&-bubble-avatar-title-right': {
         display: 'none',
       },
-      '&-message-avatar-emoji': {
+      '&-bubble-avatar-emoji': {
         fontSize: 24,
         textAlign: 'center',
         lineHeight: '36px',
       },
-      '&-message-container': {
+      '&-bubble-container': {
         width: '100%',
         display: 'flex',
         '&-right': {
@@ -66,13 +66,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'flex-start',
         },
       },
-      '&-message-content': {
+      '&-bubble-content': {
         fontSize: '1em',
-        maxWidth: '100%',
         borderRadius: '6px 12px 12px 12px',
         display: 'flex',
         minHeight: '2em',
         width: 'max-content',
+        maxWidth: 'min(860px,100%)',
         flexDirection: 'column',
         justifyContent: 'center',
         gap: 0,
@@ -107,7 +107,24 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           overflow: 'auto',
         },
       },
-      '&-message-content-right': {
+      '&-bubble-after': {
+        width: 'max-content',
+        minWidth: '0px',
+        display: 'flex',
+        maxWidth: 'min(860px,100%)',
+        '&-left': {
+          justifyContent: 'flex-start',
+        },
+        '&-right': {
+          justifyContent: 'flex-end',
+        },
+      },
+      '&-bubble-before': {
+        width: 'max-content',
+        minWidth: '0px',
+        maxWidth: 'min(860px,100%)',
+      },
+      '&-bubble-content-right': {
         background:
           'linear-gradient(0deg, #1677FF, #1677FF), linear-gradient(0deg, #00315D, #00315D), #FFFFFF',
         color: '#fff',
@@ -129,6 +146,6 @@ export function useStyle(prefixCls?: string) {
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(proChatToken), resetComponent(proChatToken)];
+    return [resetComponent(proChatToken), genStyle(proChatToken)];
   });
 }
