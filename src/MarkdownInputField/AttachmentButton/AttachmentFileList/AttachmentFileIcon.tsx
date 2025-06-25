@@ -130,7 +130,7 @@ export const AttachmentFileIcon: React.FC<{
       return (
         <img
           className={props.className}
-          src={file.previewUrl}
+          src={file.previewUrl || file.url}
           style={{
             borderRadius: '6px',
             width: '100%',
