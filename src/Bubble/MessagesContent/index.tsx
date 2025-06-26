@@ -221,7 +221,7 @@ export const BubbleMessageDisplay: React.FC<
             ? async () => {
                 try {
                   await props.onDisLike?.(props.originData as any);
-                  bubbleRef.current?.setMessageItem(props.id!, {
+                  bubbleRef.current?.setMessageItem?.(props.id!, {
                     feedback: 'thumbsDown',
                   } as any);
                 } catch (error) {}
@@ -236,7 +236,7 @@ export const BubbleMessageDisplay: React.FC<
             ? async () => {
                 try {
                   await props.onLike?.(props.originData as any);
-                  bubbleRef.current?.setMessageItem(props.id!, {
+                  bubbleRef.current?.setMessageItem?.(props.id!, {
                     feedback: 'thumbsUp',
                   } as any);
                 } catch (error) {}

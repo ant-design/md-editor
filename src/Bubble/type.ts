@@ -343,7 +343,7 @@ export interface BubbleProps<T = Record<string, any>>
   /**
    * 头像元数据
    */
-  avatar: BubbleMetaData;
+  avatar?: BubbleMetaData;
 
   /**
    * 是否启用纯净模式

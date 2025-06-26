@@ -67,7 +67,6 @@ const mockFileMessage: MessageBubbleData = {
 
 export default () => {
   const bubbleRef = useRef<any>();
-  const deps: any[] = [];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -75,7 +74,6 @@ export default () => {
       <Bubble
         avatar={mockMessage.meta!}
         placement="left"
-        deps={deps}
         bubbleRef={bubbleRef}
         originData={mockMessage}
       />
@@ -84,7 +82,6 @@ export default () => {
       <Bubble
         avatar={mockUserMessage.meta!}
         placement="right"
-        deps={deps}
         bubbleRef={bubbleRef}
         originData={mockUserMessage}
       />
@@ -93,7 +90,6 @@ export default () => {
       <Bubble
         avatar={mockFileMessage.meta!}
         placement="left"
-        deps={deps}
         bubbleRef={bubbleRef}
         originData={mockFileMessage}
       />
@@ -103,7 +99,6 @@ export default () => {
         avatar={mockMessage.meta!}
         placement="left"
         loading={true}
-        deps={deps}
         bubbleRef={bubbleRef}
         originData={{
           ...mockMessage,

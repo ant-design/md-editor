@@ -56,8 +56,8 @@ const runRender = (
  */
 export const Bubble: React.FC<
   BubbleProps & {
-    deps: any[];
-    bubbleRef: MutableRefObject<any | undefined>;
+    deps?: any[];
+    bubbleRef?: MutableRefObject<any | undefined>;
   }
 > = memo((props) => {
   const {
@@ -145,7 +145,7 @@ export const Bubble: React.FC<
       key={props?.originData?.id}
       data-id={props?.originData?.id}
       avatar={props?.originData?.meta as BubbleMetaData}
-      readonly={props.readonly}
+      readonly={props.readonly ?? true}
       slidesModeProps={props.slidesModeProps}
       onReply={props.onReply}
       id={props.id}
@@ -249,7 +249,7 @@ export const Bubble: React.FC<
               )}
             >
               {avatarDom}
-              <span>{avatar.name ?? 'LUI Chat'}</span>
+              <span>{avatar?.name ?? 'Agentar'}</span>
               {titleDom}
             </motion.div>
           )}
@@ -385,7 +385,7 @@ export const Bubble: React.FC<
     props.id,
     style,
     animation,
-    avatar.name,
+    avatar?.name,
   ]);
 
   if (bubbleRenderConfig?.render === false) return null;
@@ -396,7 +396,7 @@ export const Bubble: React.FC<
         hidePadding,
         setHidePadding,
         setMessage: (message) => {
-          props.bubbleRef.current?.setMessageItem(props.id!, message as any);
+          props.bubbleRef.current?.setMessageItem?.(props.id!, message as any);
         },
       }}
     >
