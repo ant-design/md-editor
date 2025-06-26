@@ -58,10 +58,9 @@ interface TaskRunningProps {
   onReplay: () => void;
   /** 查看任务结果的回调函数 */
   onViewResult: () => void;
-
+  className?: string;
   style?: React.CSSProperties;
-  /** 其他属性 */
-  [key: string]: any;
+  icon?: React.ReactNode;
 }
 
 /**
@@ -109,6 +108,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
       <div className={`${baseCls}-left ${hashId}`}>
         <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
           <Robot
+            icon={rest.icon}
             status={
               taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE
                 ? 'dazing'

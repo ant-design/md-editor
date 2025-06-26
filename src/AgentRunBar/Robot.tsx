@@ -12,10 +12,12 @@ export interface RobotProps {
   className?: string;
   /** 自定义样式 */
   style?: React.CSSProperties;
+  icon?: React.ReactNode;
 }
 
 const Robot: React.FC<RobotProps> = ({
   status = 'default',
+  icon,
   size = 30,
   className,
   style,
@@ -33,14 +35,21 @@ const Robot: React.FC<RobotProps> = ({
         ...style,
       }}
     >
-      <img
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        src="https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original"
-        alt="robot"
-      />
+      {React.isValidElement(icon) ? (
+        icon
+      ) : (
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          src={
+            (icon as string) ||
+            'https://mdn.alipayobjects.com/huamei_re70wt/afts/img/A*R2VDRJQuQd4AAAAAAAAAAAAADmuEAQ/original'
+          }
+          alt="robot"
+        />
+      )}
     </div>
   );
 };
