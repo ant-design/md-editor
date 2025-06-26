@@ -58,6 +58,8 @@ interface TaskRunningProps {
   onReplay: () => void;
   /** 查看任务结果的回调函数 */
   onViewResult: () => void;
+
+  style?: React.CSSProperties;
   /** 其他属性 */
   [key: string]: any;
 }
@@ -103,7 +105,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   return wrapSSR(
-    <div className={classNames(baseCls, hashId, className)}>
+    <div className={classNames(baseCls, hashId, className)} style={rest.style}>
       <div className={`${baseCls}-left ${hashId}`}>
         <div className={`${baseCls}-left-icon-wrapper ${hashId}`}>
           <Robot
