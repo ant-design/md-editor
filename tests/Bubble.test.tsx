@@ -125,8 +125,9 @@ describe('Bubble Component', () => {
     const onLike = vi.fn();
     const onDisLike = vi.fn();
 
+    let containerDom;
     await act(async () => {
-      render(
+      const { container } = render(
         <Bubble
           {...defaultProps}
           isLast={true}
@@ -134,6 +135,7 @@ describe('Bubble Component', () => {
           onDisLike={onDisLike}
         />,
       );
+      containerDom = container;
     });
 
     const [likeButton, dislikeButton] = await waitFor(() => [
@@ -144,6 +146,7 @@ describe('Bubble Component', () => {
     await act(async () => {
       fireEvent.click(likeButton);
     });
+
     expect(onLike).toHaveBeenCalled();
 
     await act(async () => {

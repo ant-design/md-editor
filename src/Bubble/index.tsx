@@ -145,7 +145,7 @@ export const Bubble: React.FC<
       key={props?.originData?.id}
       data-id={props?.originData?.id}
       avatar={props?.originData?.meta as BubbleMetaData}
-      readonly={props.readonly ?? true}
+      readonly={props.readonly ?? false}
       slidesModeProps={props.slidesModeProps}
       onReply={props.onReply}
       id={props.id}
