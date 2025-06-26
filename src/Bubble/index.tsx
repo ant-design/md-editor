@@ -151,9 +151,7 @@ export const Bubble: React.FC<
       id={props.id}
       isLast={props.isLast ?? true}
       originData={props.originData}
-      placement={
-        props.placement || props.originData?.role === 'user' ? 'right' : 'left'
-      }
+      placement={props.originData?.role === 'user' ? 'right' : 'left'}
       time={props.originData?.updateAt || props.originData?.createAt}
       onDisLike={props.onDisLike}
       onLike={props.onLike}

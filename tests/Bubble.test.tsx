@@ -6,7 +6,6 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import type { MutableRefObject } from 'react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Bubble } from '../src/Bubble';
@@ -26,18 +25,13 @@ const mockMessage: MessageBubbleData = {
   },
 };
 
-const defaultProps: BubbleProps & {
-  deps: any[];
-  bubbleRef: MutableRefObject<any>;
-} = {
+const defaultProps: BubbleProps = {
   avatar: {
     title: 'Test Bot',
     avatar: 'https://example.com/avatar.png',
   },
   placement: 'left',
   originData: mockMessage,
-  deps: [],
-  bubbleRef: { current: null } as MutableRefObject<any>,
 };
 
 describe('Bubble Component', () => {
