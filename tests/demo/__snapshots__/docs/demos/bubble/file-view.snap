@@ -56,55 +56,93 @@
               style="min-width: 0px; opacity: 1; transform: none;"
             >
               <div
-                class="agent-item-default-content"
-                data-testid="message-content"
-                style="line-height: 24px;"
+                style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
               >
                 <div
-                  style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                  class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%); padding: 0px; margin: 0px;"
                 >
                   <div
-                    class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%);"
+                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                    tabindex="-1"
                   >
                     <div
-                      style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(255, 255, 255);"
-                      tabindex="-1"
+                      autocapitalize="false"
+                      autocorrect="false"
+                      class="ant-md-editor-content-readonly ant-md-editor-content"
+                      data-slate-editor="true"
+                      data-slate-node="value"
+                      spellcheck="false"
+                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                      zindex="-1"
                     >
                       <div
-                        autocapitalize="false"
-                        autocorrect="false"
-                        class="ant-md-editor-content-readonly ant-md-editor-content"
-                        data-slate-editor="true"
-                        data-slate-node="value"
-                        spellcheck="false"
-                        style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                        zindex="-1"
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
                       >
-                        <div
-                          class="ant-md-editor-drag-el"
-                          data-be="paragraph"
-                          data-slate-node="element"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                这里是一些不同类型的文件：
-                              </span>
+                              这里是一些不同类型的文件：
                             </span>
                           </span>
-                        </div>
+                        </span>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-chat-item-extra"
+                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: rgb(102, 111, 141); opacity: 1; transform: none;"
+                >
+                  <div
+                    style="opacity: 1; transform: none;"
+                  >
+                    <div />
+                  </div>
+                  <div
+                    class="ant-chat-item-extra-action-box"
+                    style="display: flex; gap: 8px; align-items: center; opacity: 1;"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      aria-label="复制"
+                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                      data-testid="chat-item-copy-button"
+                      role="button"
+                      style="color: rgb(102, 111, 141);"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -409,55 +447,93 @@
               style="min-width: 0px; opacity: 1; transform: none;"
             >
               <div
-                class="agent-item-default-content"
-                data-testid="message-content"
-                style="line-height: 24px;"
+                style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
               >
                 <div
-                  style="display: flex; flex-direction: column; min-width: 0; max-width: 100%;"
+                  class="markdown-editor ant-md-editor ant-md-editor-readonly"
+                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%); padding: 0px; margin: 0px;"
                 >
                   <div
-                    class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%);"
+                    style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
+                    tabindex="-1"
                   >
                     <div
-                      style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(255, 255, 255);"
-                      tabindex="-1"
+                      autocapitalize="false"
+                      autocorrect="false"
+                      class="ant-md-editor-content-readonly ant-md-editor-content"
+                      data-slate-editor="true"
+                      data-slate-node="value"
+                      spellcheck="false"
+                      style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
+                      zindex="-1"
                     >
                       <div
-                        autocapitalize="false"
-                        autocorrect="false"
-                        class="ant-md-editor-content-readonly ant-md-editor-content"
-                        data-slate-editor="true"
-                        data-slate-node="value"
-                        spellcheck="false"
-                        style="position: relative; white-space: pre-wrap; word-wrap: break-word; font-size: 14px;"
-                        zindex="-1"
+                        class="ant-md-editor-drag-el"
+                        data-be="paragraph"
+                        data-slate-node="element"
                       >
-                        <div
-                          class="ant-md-editor-drag-el"
-                          data-be="paragraph"
-                          data-slate-node="element"
+                        <span
+                          data-slate-node="text"
                         >
                           <span
-                            data-slate-node="text"
+                            class=" "
+                            data-be="text"
+                            data-slate-leaf="true"
+                            draggable="false"
                           >
                             <span
-                              class=" "
-                              data-be="text"
-                              data-slate-leaf="true"
-                              draggable="false"
+                              data-slate-string="true"
                             >
-                              <span
-                                data-slate-string="true"
-                              >
-                                这是一张图片：
-                              </span>
+                              这是一张图片：
                             </span>
                           </span>
-                        </div>
+                        </span>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-chat-item-extra"
+                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: rgb(102, 111, 141); opacity: 1; transform: none;"
+                >
+                  <div
+                    style="opacity: 1; transform: none;"
+                  >
+                    <div />
+                  </div>
+                  <div
+                    class="ant-chat-item-extra-action-box"
+                    style="display: flex; gap: 8px; align-items: center; opacity: 1;"
+                  >
+                    <span
+                      aria-describedby="test-id"
+                      aria-label="复制"
+                      class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
+                      data-testid="chat-item-copy-button"
+                      role="button"
+                      style="color: rgb(102, 111, 141);"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
                   </div>
                 </div>
               </div>
