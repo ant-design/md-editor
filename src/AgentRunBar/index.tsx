@@ -124,8 +124,8 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
           taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
             <div>
               <div>
-                <span>正在运行中…耗时</span>
-                <span>{minutes}</span>
+                <span>正在运行中，</span>
+                <span>已耗时 {minutes}</span>
               </div>
               <div className={`${baseCls}-left-text ${hashId}`}>正在调用</div>
             </div>
