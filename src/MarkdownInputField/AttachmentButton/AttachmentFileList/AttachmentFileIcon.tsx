@@ -1,4 +1,5 @@
 ﻿import {
+  CodeFilled,
   FileExcelFilled,
   FileTextFilled,
   FileZipFilled,
@@ -37,12 +38,14 @@ import { AttachmentFile } from './index';
  * // 返回默认文件图标
  * getFileIconByFileName({name: "unknown.xyz"})
  */
-export const getFileIconByFileName = (file: AttachmentFile) => {
+export const getFileIconByFileName = (file: Partial<AttachmentFile>) => {
   const fileName = file.name || '';
   const extension = fileName.split('.').pop()?.toLowerCase() || '';
 
   // Return appropriate icon based on file extension
   switch (extension) {
+    case 'py':
+      return <CodeFilled />;
     case 'md':
       return <MarkDownIcon />;
     case 'pdf':
