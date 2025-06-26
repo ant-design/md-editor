@@ -6,6 +6,7 @@ import {
 import { Button, ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
+import { I18nContext } from '../i18n';
 import Robot from './Robot';
 import { useStyle } from './style';
 
@@ -61,6 +62,27 @@ interface TaskRunningProps {
   className?: string;
   style?: React.CSSProperties;
   icon?: React.ReactNode;
+  /** 自定义文案配置，可选 */
+  messages?: {
+    /** 运行中文案 */
+    running?: string;
+    /** 已耗时前缀文案 */
+    timeUsedPrefix?: string;
+    /** 调用中文案 */
+    calling?: string;
+    /** 任务完成文案 */
+    taskCompleted?: string;
+    /** 任务停止文案 */
+    taskStopped?: string;
+    /** 任务回放中文案 */
+    taskReplaying?: string;
+    /** 创建新任务按钮文案 */
+    createNewTask?: string;
+    /** 查看结果按钮文案 */
+    viewResult?: string;
+    /** 重新回放按钮文案 */
+    replayTask?: string;
+  };
 }
 
 /**
@@ -97,11 +119,27 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
     onCreateNewTask,
     onViewResult,
     onReplay,
+    messages,
   } = rest;
 
   const context = useContext(ConfigProvider.ConfigContext);
+  const { locale } = useContext(I18nContext);
   const baseCls = context.getPrefixCls('task-running');
   const { wrapSSR, hashId } = useStyle(baseCls);
+
+  // 合并默认文案和自定义文案
+  const finalMessages = {
+    running: messages?.running || locale.agentRunBar.running,
+    timeUsedPrefix:
+      messages?.timeUsedPrefix || locale.agentRunBar.timeUsedPrefix,
+    calling: messages?.calling || locale.agentRunBar.calling,
+    taskCompleted: messages?.taskCompleted || locale.agentRunBar.taskCompleted,
+    taskStopped: messages?.taskStopped || locale.agentRunBar.taskStopped,
+    taskReplaying: messages?.taskReplaying || locale.agentRunBar.taskReplaying,
+    createNewTask: messages?.createNewTask || locale.agentRunBar.createNewTask,
+    viewResult: messages?.viewResult || locale.agentRunBar.viewResult,
+    replayTask: messages?.replayTask || locale.agentRunBar.replayTask,
+  };
 
   return wrapSSR(
     <div className={classNames(baseCls, hashId, className)} style={rest.style}>
@@ -124,33 +162,37 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
           taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
             <div>
               <div>
-                <span>正在运行中，</span>
-                <span>已耗时 {minutes}</span>
+                <span>{finalMessages.running}，</span>
+                <span>
+                  {finalMessages.timeUsedPrefix} {minutes}
+                </span>
               </div>
-              <div className={`${baseCls}-left-text ${hashId}`}>正在调用</div>
+              <div className={`${baseCls}-left-text ${hashId}`}>
+                {finalMessages.calling}
+              </div>
             </div>
           ) : taskRunningStatus === TASK_RUNNING_STATUS.COMPLETE ? (
             <div>
-              <span>任务已完成</span>
+              <span>{finalMessages.taskCompleted}</span>
             </div>
           ) : (
             <div>
-              <span>任务已停止</span>
+              <span>{finalMessages.taskStopped}</span>
             </div>
           )
         ) : taskStatus === TASK_STATUS.SUCCESS ? (
           taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
             <div>
-              <span>正在回放任务中</span>
+              <span>{finalMessages.taskReplaying}</span>
             </div>
           ) : (
             <div>
-              <span>任务已完成</span>
+              <span>{finalMessages.taskCompleted}</span>
             </div>
           )
         ) : (
           <div>
-            <span>任务已停止</span>
+            <span>{finalMessages.taskStopped}</span>
           </div>
         )}
       </div>
@@ -166,17 +208,17 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
             onClick={onCreateNewTask}
             icon={<PlusOutlined />}
           >
-            创建新任务
+            {finalMessages.createNewTask}
           </Button>
         )
       ) : taskStatus === TASK_STATUS.SUCCESS ? (
         taskRunningStatus === TASK_RUNNING_STATUS.RUNNING ? (
           <Button type="primary" onClick={onViewResult}>
-            查看结果
+            {finalMessages.viewResult}
           </Button>
         ) : (
           <Button type="primary" onClick={onReplay} icon={<UndoOutlined />}>
-            重新回放
+            {finalMessages.replayTask}
           </Button>
         )
       ) : (
@@ -185,7 +227,7 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
           onClick={onCreateNewTask}
           icon={<PlusOutlined />}
         >
-          创建新任务
+          {finalMessages.createNewTask}
         </Button>
       )}
     </div>,

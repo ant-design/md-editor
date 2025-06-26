@@ -133,6 +133,17 @@ export const cnLabels = {
   list: '列表',
   heading: '标题',
   clickToPreview: '点击可查看预览',
+  agentRunBar: {
+    running: '正在运行中',
+    timeUsedPrefix: '已耗时',
+    calling: '正在调用',
+    taskCompleted: '任务已完成',
+    taskStopped: '任务已停止',
+    taskReplaying: '正在回放任务中',
+    createNewTask: '创建新任务',
+    viewResult: '查看结果',
+    replayTask: '重新回放',
+  },
 };
 
 // 英文 key-label 映射
@@ -267,6 +278,17 @@ export const enLabels: typeof cnLabels = {
   list: 'List',
   heading: 'Heading',
   clickToPreview: 'Click to preview',
+  agentRunBar: {
+    running: 'Running',
+    timeUsedPrefix: 'Time used:',
+    calling: 'Calling',
+    taskCompleted: 'Task completed',
+    taskStopped: 'Task stopped',
+    taskReplaying: 'Replaying task',
+    createNewTask: 'Create new task',
+    viewResult: 'View result',
+    replayTask: 'Replay',
+  },
 };
 
 export type LocalKeys = typeof cnLabels;
