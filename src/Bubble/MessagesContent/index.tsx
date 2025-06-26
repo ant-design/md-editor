@@ -193,7 +193,7 @@ export const BubbleMessageDisplay: React.FC<
             {...props.markdownRenderConfig}
             isFinished={true}
             style={
-              props.originData?.role === 'bot' || props.pure
+              props.originData?.role === 'bot'
                 ? {}
                 : {
                     color: '#FFF',
