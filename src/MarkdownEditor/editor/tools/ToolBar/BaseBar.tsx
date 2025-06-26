@@ -543,7 +543,9 @@ export const BaseToolBar = (props: {
       list.push(
         <Tooltip
           title={
-            i18n?.locale?.[tool.key as keyof typeof i18n.locale] || tool.title
+            (i18n?.locale?.[
+              tool.key as keyof typeof i18n.locale
+            ] as 'string') || (tool.title as string)
           }
           key={tool.key}
         >
@@ -791,7 +793,9 @@ export const BaseToolBar = (props: {
           <Tooltip
             key={tool.key}
             title={
-              i18n?.locale?.[tool.key as keyof typeof i18n.locale] || tool.title
+              (i18n?.locale?.[
+                tool.key as keyof typeof i18n.locale
+              ] as string) || (tool.title as string)
             }
           >
             <div
