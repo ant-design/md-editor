@@ -166,13 +166,13 @@ export const Suggestion: React.FC<{
               }
         }
         forceRender
-        destroyPopupOnHide
+        destroyOnHidden={false}
         placement="top"
         onOpenChange={(isOpenChanged) => {
           if (isOpenChanged) return;
           setOpen(isOpenChanged);
         }}
-        dropdownRender={dropdownRenderRender}
+        popupRender={dropdownRenderRender}
       >
         {props.children}
       </Dropdown>
