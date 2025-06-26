@@ -18,7 +18,7 @@ export interface TitleProps {
   /**
    * The title of the chat item's avatar.
    */
-  title: BubbleProps['avatar']['title'];
+  title: React.ReactNode;
 
   /**
    * The placement of the chat item.
