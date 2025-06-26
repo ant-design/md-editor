@@ -22,13 +22,15 @@ export type BubbleListProps = {
   /**
    * 聊天列表的引用
    */
-  bubbleListRef: MutableRefObject<HTMLDivElement | null>;
+  bubbleListRef?: MutableRefObject<HTMLDivElement | null>;
 
-  bubbleRef: MutableRefObject<any | undefined>;
+  bubbleRef?: MutableRefObject<any | undefined>;
   /**
    * 是否正在加载
    */
-  loading: boolean;
+  loading?: boolean;
+
+  pure?: boolean;
 
   /**
    * 组件的类名
@@ -152,7 +154,6 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
   const bubbleListDom = useMemo(() => {
     return bubbleList.map((item, index) => {
       const isLast = bubbleList.length - 1 === index;
-
       //@ts-ignore
       item.isLast = isLast;
       return (
@@ -172,6 +173,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
           placement={item.role === 'user' ? 'right' : 'left'}
           time={item.updateAt || item.createAt}
           deps={deps}
+          pure={props.pure}
           bubbleListRef={bubbleListRef}
           bubbleRenderConfig={bubbleRenderConfig}
           classNames={classNames}
