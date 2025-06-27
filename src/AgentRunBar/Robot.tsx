@@ -15,25 +15,33 @@ export interface RobotProps {
   icon?: React.ReactNode;
 }
 
-const Robot: React.FC<RobotProps> = ({
-  status = 'default',
-  icon,
-  size = 30,
-  className,
-  style,
-}) => {
+const Robot: React.FC<RobotProps> = ({ icon, size = 42, className, style }) => {
   return (
     <div
       className={classNames(className)}
-      style={{
-        width: size,
-        height: size,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'relative',
-        ...style,
-      }}
+      style={
+        React.isValidElement(icon)
+          ? {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              marginRight: 8,
+              ...style,
+            }
+          : {
+              width: size,
+              height: size,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              marginRight: 8,
+              ...style,
+            }
+      }
     >
       {React.isValidElement(icon) ? (
         icon
