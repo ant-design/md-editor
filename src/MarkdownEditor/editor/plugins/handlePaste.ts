@@ -77,6 +77,7 @@ export const handleHtmlPaste = async (
     const rtf = await clipboardData.getData('text/rtf');
 
     if (html) {
+      console.log('html', html);
       return await insertParsedHtmlNodes(editor, html, editorProps, rtf);
     }
     return false;
