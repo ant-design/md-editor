@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import { I18nProvide, cnLabels, enLabels, compileTemplate } from '../src/i18n';
 import { ConfigProvider } from 'antd';
 import React from 'react';
+import { describe, expect, it } from 'vitest';
+import { I18nProvide, cnLabels, compileTemplate, enLabels } from '../src/i18n';
 
 describe('I18n Provider', () => {
   it('should provide Chinese labels by default', () => {
@@ -13,7 +13,7 @@ describe('I18n Provider', () => {
     render(
       <I18nProvide>
         <TestComponent />
-      </I18nProvide>
+      </I18nProvide>,
     );
 
     expect(screen.getByTestId('test')).toHaveTextContent('表格');
@@ -29,7 +29,7 @@ describe('I18n Provider', () => {
         <I18nProvide>
           <TestComponent />
         </I18nProvide>
-      </ConfigProvider>
+      </ConfigProvider>,
     );
 
     expect(screen.getByTestId('test')).toHaveTextContent('Table');
@@ -53,7 +53,7 @@ describe('I18n Provider', () => {
     render(
       <I18nProvide>
         <TestComponent />
-      </I18nProvide>
+      </I18nProvide>,
     );
 
     expect(screen.getByTestId('test')).toHaveTextContent('Table');
@@ -73,7 +73,7 @@ describe('I18n Provider', () => {
     render(
       <I18nProvide locale={enLabels}>
         <TestComponent />
-      </I18nProvide>
+      </I18nProvide>,
     );
 
     expect(screen.getByTestId('test')).toHaveTextContent('Table');
@@ -132,4 +132,4 @@ describe('Labels Consistency', () => {
       }
     });
   });
-}); 
+});

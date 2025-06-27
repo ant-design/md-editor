@@ -422,6 +422,15 @@ const handleHeading = (
   };
 };
 
+export const decodeURIComponentUrl = (url: string) => {
+  try {
+    return decodeURIComponent(url);
+  } catch (e) {
+    console.error('Failed to decode URI component:', e);
+    return url;
+  }
+};
+
 /**
  * 处理HTML节点
  * @param currentElement - 当前处理的HTML元素
@@ -455,7 +464,7 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
     const img = findImageElement(currentElement.value);
     if (img) {
       el = EditorUtils.createMediaNode(
-        decodeURIComponent(img?.url || '')!,
+        decodeURIComponentUrl(img?.url || '')!,
         'image',
         { align: img.align, alt: img.alt, height: img?.height },
       );
@@ -772,7 +781,7 @@ const handleParagraph = (
       const name = text.match(/>(.*)<\/a>/);
       return {
         type: 'attach',
-        url: decodeURIComponent(attach?.url),
+        url: decodeURIComponentUrl(attach?.url),
         size: attach.size,
         children: [
           {
@@ -803,7 +812,7 @@ const handleParagraph = (
     return {
       ...config,
       type: 'link-card',
-      url: decodeURIComponent(link?.url),
+      url: decodeURIComponentUrl(link?.url),
       children: [
         {
           type: 'card-before',
@@ -833,7 +842,7 @@ const handleParagraph = (
       }
       elements.push(
         EditorUtils.createMediaNode(
-          decodeURIComponent(currentChild?.url),
+          decodeURIComponentUrl(currentChild?.url),
           'image',
           {
             alt: currentChild.alt,
@@ -845,7 +854,7 @@ const handleParagraph = (
       if (img) {
         elements.push(
           EditorUtils.createMediaNode(
-            decodeURIComponent(img?.url || ''),
+            decodeURIComponentUrl(img?.url || ''),
             'image',
             {
               alt: img.alt,
@@ -1057,7 +1066,7 @@ const applyInlineFormatting = (leaf: CustomLeaf, currentElement: any) => {
   if (currentElement.type === 'delete') leaf.strikethrough = true;
   if (currentElement.type === 'link') {
     try {
-      leaf.url = decodeURIComponent(currentElement?.url);
+      leaf.url = decodeURIComponentUrl(currentElement?.url);
     } catch (error) {
       leaf.url = currentElement?.url;
     }

@@ -9,6 +9,7 @@ import {
   Transforms,
 } from 'slate';
 import { Elements, ListNode, TableRowNode } from '../../el';
+import { decodeURIComponentUrl } from '../parser/parserMarkdownToSlateNode';
 import { EditorUtils } from '../utils/editorUtils';
 
 export const insertAfter = (
@@ -186,7 +187,7 @@ export const MdElements: Record<string, MdNode> = {
       });
       Transforms.insertNodes(editor, [
         EditorUtils.createMediaNode(
-          decodeURIComponent(match[2] || ''),
+          decodeURIComponentUrl(match[2] || ''),
           'image',
           {
             alt: match[1],
