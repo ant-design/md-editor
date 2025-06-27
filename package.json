@@ -63,6 +63,7 @@
     "mermaid": "^11.6.0",
     "mustache": "^4.2.0",
     "nanoid": "^5.1.5",
+    "partial-json": "^0.1.7",
     "partial-json-parser": "^1.2.2",
     "querystring": "^0.2.1",
     "rc-resize-observer": "^1.4.3",

@@ -101,6 +101,9 @@ importers:
       nanoid:
         specifier: ^5.1.5
         version: 5.1.5
+      partial-json:
+        specifier: ^0.1.7
+        version: 0.1.7
       partial-json-parser:
         specifier: ^1.2.2
         version: 1.2.2
@@ -6669,6 +6672,9 @@ packages:
 
   partial-json-parser@1.2.2:
     resolution: {integrity: sha512-4LH14R2aykVDWefU2qJjL1Rli610fjKxOJQ3SjKwWzKYJvIkjflcGtsd1Ix09U7UP5G6V1GyHtbgPjknFD/G7w==}
+
+  partial-json@0.1.7:
+    resolution: {integrity: sha512-Njv/59hHaokb/hRUjce3Hdv12wd60MtM9Z5Olmn+nehe0QDAsRtRbJPvJ0Z91TusF0SuZRIvnM+S4l6EIP8leA==}
 
   pascal-case@3.1.2:
     resolution: {integrity: sha512-uWlGT3YSnK9x3BQJaOdcZwrnV6hPpd8jFH1/ucpiLRPh/2zCVJKS19E4GvYHvaCcACn3foXZ0cLB9Wrx1KGe5g==}
@@ -17379,6 +17385,8 @@ snapshots:
   parseurl@1.3.3: {}
 
   partial-json-parser@1.2.2: {}
+
+  partial-json@0.1.7: {}
 
   pascal-case@3.1.2:
     dependencies:
