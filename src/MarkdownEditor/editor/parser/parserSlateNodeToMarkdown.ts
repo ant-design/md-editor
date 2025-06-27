@@ -85,7 +85,6 @@ const parserNode = (
   plugins?: MarkdownEditorPlugin[],
 ) => {
   let str = '';
-  const newParent = [...parent, node];
   if (!node) return str;
 
   // 首先尝试使用插件处理
@@ -183,7 +182,7 @@ const parserNode = (
       str += handleMedia(node);
       break;
     case 'list':
-      str += handleList(node, preString, parent, plugins);
+      str += '\n' + handleList(node, preString, parent, plugins) + '\n';
       break;
     case 'list-item':
       str += handleListItem(node, preString, parent, plugins);
@@ -283,9 +282,10 @@ export const parserSlateNodeToMarkdown = (
 
     if (p.type === 'list-item') {
       str += parserNode(node, '', parent, plugins);
-      if (i !== tree.length - 1) {
-        str += '\n';
-      }
+
+      // if (i !== tree.length - 1) {
+      //   str += '\n';
+      // }
     } else if (p.type === 'blockquote') {
       str += parserNode(node, preString + '> ', parent, plugins);
       if (i !== tree.length - 1) {
@@ -320,13 +320,20 @@ export const parserSlateNodeToMarkdown = (
         .map((item: any, index: number) => {
           const prefix = node.order ? `${index + (node.start || 1)}.` : '-';
           return (
-            prefix + ' ' + parserNode(item, '', [...parent, node], plugins)
+            prefix +
+            ' ' +
+            parserNode(item, '', [...parent, node], plugins).trimEnd()
           );
         })
         .join('\n');
-      str += listItems;
-      if (i !== tree.length - 1) {
+
+      if (listItems.trim()) {
         str += '\n\n';
+        str += listItems;
+
+        if (i !== tree.length - 1) {
+          str += '\n\n';
+        }
       }
     } else if (
       node.type === 'paragraph' &&
@@ -425,58 +432,6 @@ export const parserSlateNodeToMarkdown = (
   if (parent.length === 1 && parent[0].root) {
     str = str.replace(/^\n+/, '');
   }
-
-  // Special handling for consecutive headings
-  if (tree.length > 1) {
-    const allHeadings = tree.every((node) => node.type === 'head');
-    if (allHeadings) {
-      str = str.replace(/\n+/g, '\n');
-    }
-  }
-
-  // Special handling for lists and paragraphs
-  if (tree.length > 1) {
-    const hasLists = tree.some((node) => node.type === 'list');
-    if (hasLists) {
-      // First, ensure there's only one newline between list items of the same type
-      str = str.replace(/\n{2,}(?=[-\d])/g, '\n');
-
-      // Then, ensure there's a double newline between lists and paragraphs
-      str = str.replace(/(?<=-\s[^\n]+)\n(?=[^\n-])/g, '\n\n');
-      str = str.replace(/(?<=\d+\.\s[^\n]+)\n(?=[^\n\d])/g, '\n\n');
-
-      // Ensure double newlines between different types of lists
-      str = str.replace(/(?<=- [^\n]+)(?!\n\n)(?=\d+\.\s)/g, '\n\n');
-      str = str.replace(/(?<=\d+\. [^\n]+)(?!\n\n)(?=- )/g, '\n\n');
-
-      // Remove extra newlines before list items
-      str = str.replace(/\n{3,}(?=[-\d])/g, '\n\n');
-
-      // Remove extra newlines between ordered list items
-      str = str.replace(/(?<=\d+\.\s[^\n]+)\n\n(?=\d+\.)/g, '\n');
-
-      // Add a single newline after the last list item if it's not already there
-      if (str.match(/[-\d].*?$/)) {
-        str = str.replace(/\n*$/, '\n');
-      }
-
-      // Add an extra newline at the end if this is the root node and the last node is a list
-      const lastNode = tree[tree.length - 1];
-      if (parent.length === 1 && parent[0].root && lastNode.type === 'list') {
-        str += '\n';
-      }
-
-      // Clean up multiple consecutive newlines
-      str = str.replace(/\n{3,}/g, '\n\n');
-
-      // Ensure there's a double newline between paragraphs and lists
-      str = str.replace(/(?<=\n[^\n-].*?)\n(?=[-\d])/g, '\n\n');
-
-      // Remove extra newlines between ordered list items
-      str = str.replace(/(?<=\d+\.\s[^\n]+)\n+(?=\d+\.)/g, '\n');
-    }
-  }
-
   return str;
 };
 
@@ -787,7 +742,6 @@ const table = (
   };
 
   const output: string[] = [];
-  const separator = ' | ';
 
   // 构建表格内容
   for (let i = 0; i < data.length; i++) {

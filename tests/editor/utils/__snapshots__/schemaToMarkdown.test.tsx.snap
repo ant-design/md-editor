@@ -4727,21 +4727,17 @@ exports[`should convert schema to markdown in ## 1. 编辑器核 chunk 1`] = `
 ### 1.1 基础功能模块
 
 - 文本处理系统
-
 行缓冲区管理
 
 字符编码转换
 
 撤销/重做堆栈
-
 - 用户界面组件
-
 多标签页管理
 
 分屏视图
 
-状态栏集成
-"
+状态栏集成"
 `;
 
 exports[`should convert schema to markdown in ## 2. 关键技术 chunk 1`] = `"## 2. 关键技术方案对比"`;
@@ -4754,21 +4750,18 @@ exports[`should convert schema to markdown in ## 4. 性能优化 chunk 1`] = `
 ### 4.1 渲染优化技巧
 
 1. 视窗区域计算
-
 动态加载可见区域内容
 
 使用图层化渲染策略
-
 2. 增量更新机制
-
 差异对比算法
 
-局部重绘技术
-"
+局部重绘技术"
 `;
 
 exports[`should convert schema to markdown in ## 5. 扩展功能 chunk 1`] = `
 "## 5. 扩展功能开发指南
+
 ### 5.1 插件系统架构"
 `;
 
@@ -4800,12 +4793,11 @@ exports[`should convert schema to markdown in ###  <font chunk 1`] = `"### <i><s
 
 exports[`should convert schema to markdown in ### 1.2 高级 chunk 1`] = `
 "### 1.2 高级功能实现
+
 - 智能代码补全
 - 实时语法检查
 - 版本控制集成
-- 插件扩展系统
-
-"
+- 插件扩展系统"
 `;
 
 exports[`should convert schema to markdown in ### 4.2 内存 chunk 1`] = `
@@ -4839,21 +4831,18 @@ class FileBuffer:
 
 exports[`should convert schema to markdown in ### 一、基础遍历 chunk 1`] = `
 "### 一、基础遍历方法
-1. **直接遍历元素**  
 
-使用 \`for-in\` 循环直接访问每个元素：
-\`\`\`python
+1. **直接遍历元素**  
+使用 \`for-in\` 循环直接访问每个元素：\`\`\`python
 arr = [1, 2, 3, 4]
 for num in arr:
     print(num)  # 输出每个元素的值
-\`\`\`
-这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7]。
-
-"
+\`\`\`这是最简洁直观的方式 [^DOC_1] [^DOC_2] [^DOC_7]。"
 `;
 
 exports[`should convert schema to markdown in ### 三、特殊场景 chunk 1`] = `
 "### 三、特殊场景方法
+
 6. **递归遍历**（不常用）
 
 \`\`\`python
@@ -4865,18 +4854,14 @@ exports[`should convert schema to markdown in ### 三、特殊场景 chunk 1`] =
 
 exports[`should convert schema to markdown in ### 二、其他遍历 chunk 1`] = `
 "### 二、其他遍历方式
-4. **使用** **\`while\`** **while** **循环**  
 
-通过计数器手动控制遍历：
-\`\`\`python
+4. **使用** **\`while\`** **while** **循环**  
+通过计数器手动控制遍历：\`\`\`python
 i = 0
 while i < len(arr):
     print(arr[i])
     i += 1  # 必须手动递增
-\`\`\`
-灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10]。
-
-"
+\`\`\`灵活性高但需注意避免无限循环 [^DOC_1] [^DOC_9] [^DOC_10]。"
 `;
 
 exports[`should convert schema to markdown in <!-- {"Mar chunk 1`] = `
@@ -4987,7 +4972,6 @@ exports[`should convert schema to markdown in ---SW chunk 1`] = `"---SW"`;
 
 exports[`should convert schema to markdown in 2. **通过索引遍 chunk 1`] = `
 "2. **通过索引遍历**  
-
 结合 \`range(len())\` 获取索引：
 
 \`\`\`python
@@ -4995,8 +4979,7 @@ for i in range(len(arr)):
     print(arr[i])  # 通过索引访问元素
 \`\`\`
 
-适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8]。
-"
+适用于需要修改元素或根据索引操作的情况 [^DOC_1] [^DOC_8]。"
 `;
 
 exports[`should convert schema to markdown in 3. **同时获取索 chunk 1`] = `
@@ -5007,21 +4990,18 @@ for index, value in enumerate(arr):
     print(f"索引 {index} 的值是 {value}")
 \`\`\`
 
-适合需要索引和元素的场景 [^DOC_5] [^DOC_8]。
-"
+适合需要索引和元素的场景 [^DOC_5] [^DOC_8]。"
 `;
 
 exports[`should convert schema to markdown in 5. **列表推导式 chunk 1`] = `
 "5. **列表推导式**  
-
 快速生成新列表的同时遍历：
 
 \`\`\`python
 squared = [x**2 for x in arr]  # 遍历并计算平方
 \`\`\`
 
-适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9]。
-"
+适用于需要转换元素的场景 [^DOC_4] [^DOC_7] [^DOC_9]。"
 `;
 
 exports[`should convert schema to markdown in class Edit chunk 1`] = `
@@ -5125,12 +5105,12 @@ exports[`多个空格转为一个 1`] = `
 
 exports[`多个空格转为一个 2`] = `
 "根据证据，2024年12月25日上证指数的收盘情况如下：
+
 1. 上证指数最终收于3393.35点，下跌0.01%                                                              [^DOC_1]                                                              [^DOC_2]                                                              [^DOC_7]。
 2. 早盘时，上证指数曾高开0.05%，但随后震荡走弱，午盘时下跌0.31%，报3383.01点                                                              [^DOC_5]                                                              [^DOC_13]                                                              [^DOC_15]。
 3. 下午交易时段，上证指数继续小幅下跌，最终以3393.35点收盘                                                              [^DOC_1]                                                              [^DOC_2]                                                              [^DOC_7]。
 
-因此，今日（2024年12月25日）上证指数收盘报3393.35点，微跌0.01%。
-"
+因此，今日（2024年12月25日）上证指数收盘报3393.35点，微跌0.01%。"
 `;
 
 exports[`引用 1`] = `
