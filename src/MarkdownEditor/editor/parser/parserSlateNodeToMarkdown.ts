@@ -182,7 +182,7 @@ const parserNode = (
       str += handleMedia(node);
       break;
     case 'list':
-      str += '\n' + handleList(node, preString, parent, plugins) + '\n';
+      str += '\n' + handleList(node, preString, parent, plugins) + '\n\n';
       break;
     case 'list-item':
       str += handleListItem(node, preString, parent, plugins);

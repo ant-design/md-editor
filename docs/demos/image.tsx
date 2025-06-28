@@ -21,7 +21,6 @@ export default () => {
                 fetch(file)
                   .then((res) => res.blob())
                   .then((blob) => {
-                    console.log(blob);
                     const url = URL.createObjectURL(blob);
                     resolve(url);
                   });
