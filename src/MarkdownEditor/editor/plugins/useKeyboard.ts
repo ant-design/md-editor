@@ -21,6 +21,17 @@ import { TabKey } from './hotKeyCommands/tab';
 
 import { useEditorStore } from '../store';
 
+/**
+ * 用于处理 Markdown 编辑器中的键盘事件的自定义 Hook。
+ *
+ * 该 Hook 负责拦截和处理各种键盘快捷键（如 Tab、Backspace、Enter、方向键等），
+ * 并根据编辑器状态和配置执行相应的操作，如移动光标、插入特殊字符、触发补全面板等。
+ *
+ * @param store 编辑器的全局状态管理对象
+ * @param markdownEditorRef 指向编辑器实例的 ref
+ * @param props 编辑器的属性配置
+ * @returns 返回一个用于绑定到编辑器组件的键盘事件处理函数
+ */
 export const useKeyboard = (
   store: EditorStore,
   markdownEditorRef: React.MutableRefObject<
@@ -62,9 +73,13 @@ export const useKeyboard = (
           if (backspace.run()) {
             e.stopPropagation();
             e.preventDefault();
+            return;
           }
-        } else {
-          if (backspace.range()) e.preventDefault();
+        }
+        if (backspace.range()) {
+          e.stopPropagation();
+          e.preventDefault();
+          return;
         }
       }
       if (isHotkey('mod+shift+v', e)) {
@@ -76,13 +91,14 @@ export const useKeyboard = (
       if (isHotkey('mod+shift+s', e)) {
         e.preventDefault();
       }
+
       if (props?.markdown?.matchInputToNode) {
         match.run(e);
+        return;
       }
 
       if (e.key.toLowerCase().startsWith('arrow')) {
         if (['ArrowUp', 'ArrowDown'].includes(e.key)) return;
-
         // 处理 tag 前的空格插入
         if (e.key === 'ArrowLeft') {
           const selection = markdownEditorRef.current.selection;
@@ -117,61 +133,66 @@ export const useKeyboard = (
           }
         }
         return;
-      } else {
-        if (e.key === 'Tab') tab.run(e);
-        if (props.textAreaProps?.triggerSendKey === 'Enter') {
-          if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-            e.stopPropagation();
-            e.preventDefault();
-            enter.run(e);
-          }
-        } else if (props.textAreaProps?.triggerSendKey === 'Mod+Enter') {
-          if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
-            e.stopPropagation();
-            e.preventDefault();
-            enter.run(e);
-          }
-        } else {
-          if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
-            e.stopPropagation();
-            e.preventDefault();
-            enter.run(e);
-          }
+      }
+
+      if (e.key === 'Tab') tab.run(e);
+
+      if (props.textAreaProps?.triggerSendKey === 'Enter') {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          e.stopPropagation();
+          e.preventDefault();
+          enter.run(e);
+          return;
         }
+      }
+      if (props.textAreaProps?.triggerSendKey === 'Mod+Enter') {
+        if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
+          e.stopPropagation();
+          e.preventDefault();
+          enter.run(e);
+          return;
+        }
+      }
+
+      if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
+        e.stopPropagation();
+        e.preventDefault();
+        enter.run(e);
+      }
+
+      const [node] = Editor.nodes<any>(markdownEditorRef.current, {
+        match: (n) => Element.isElement(n),
+        mode: 'lowest',
+      });
+      if (!node) return;
+      if (node[0].type === 'paragraph') {
         const [node] = Editor.nodes<any>(markdownEditorRef.current, {
-          match: (n) => Element.isElement(n),
+          match: (n) => Element.isElement(n) && n.type === 'paragraph',
           mode: 'lowest',
         });
-        if (!node) return;
-        if (node[0].type === 'paragraph') {
-          const [node] = Editor.nodes<any>(markdownEditorRef.current, {
-            match: (n) => Element.isElement(n) && n.type === 'paragraph',
-            mode: 'lowest',
-          });
-          if (
-            node &&
-            node[0].children.length === 1 &&
-            !EditorUtils.isDirtLeaf(node[0].children[0]) &&
-            (e.key === 'Backspace' || /^[^\n]$/.test(e.key))
-          ) {
-            let str = Node.string(node[0]) || '';
-            const codeMatch = str.match(/^```([\w+\-#]+)$/i);
-            if (codeMatch) {
-            } else {
-              const insertMatch = str.match(/^\/([^\n]+)?$/i);
-              if (
-                insertMatch &&
-                !(
-                  !Path.hasPrevious(node[1]) &&
-                  Node.parent(markdownEditorRef.current, node[1]).type ===
-                    'list-item'
-                )
-              ) {
-                setOpenInsertCompletion?.(true);
-                setTimeout(() => {
-                  insertCompletionText$.next(insertMatch[1]);
-                });
-              }
+        if (
+          node &&
+          node[0].children.length === 1 &&
+          !EditorUtils.isDirtLeaf(node[0].children[0]) &&
+          (e.key === 'Backspace' || /^[^\n]$/.test(e.key))
+        ) {
+          let str = Node.string(node[0]) || '';
+          const codeMatch = str.match(/^```([\w+\-#]+)$/i);
+          if (codeMatch) {
+          } else {
+            const insertMatch = str.match(/^\/([^\n]+)?$/i);
+            if (
+              insertMatch &&
+              !(
+                !Path.hasPrevious(node[1]) &&
+                Node.parent(markdownEditorRef.current, node[1]).type ===
+                  'list-item'
+              )
+            ) {
+              setOpenInsertCompletion?.(true);
+              setTimeout(() => {
+                insertCompletionText$.next(insertMatch[1]);
+              });
             }
           }
         }

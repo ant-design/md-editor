@@ -38,8 +38,11 @@ export class BackspaceKey {
       }),
     );
     const [node] = nodes;
-    this.clearStyle(sel);
     const [el, path] = node;
+    const parent = Editor.parent(this.editor, path);
+    if (el.type !== 'paragraph' && parent?.[0]?.type !== 'list-item') {
+      this.clearStyle(sel);
+    }
     if (el.type === 'head') {
       const str = Node.string(el);
       if (!str) {
@@ -94,6 +97,26 @@ export class BackspaceKey {
           });
         }
         return true;
+      }
+    }
+
+    if (el.type === 'paragraph') {
+      const parent = Editor.parent(this.editor, path);
+      if (parent?.[0]?.type === 'list-item') {
+        if (Node.string(parent[0]) !== '') {
+          return false;
+        }
+        if (Node.string(parent[0]) === '') {
+          const listPath = Path.parent(parent[1]);
+          const nextListItem = Path.next(listPath);
+          Transforms.delete(this.editor, { at: parent[1] });
+          Transforms.insertNodes(
+            this.editor,
+            { type: 'paragraph', children: [{ text: '' }] },
+            { at: nextListItem, select: true },
+          );
+          return true;
+        }
       }
     }
     /**
@@ -217,6 +240,7 @@ export class BackspaceKey {
         return false;
       }
     }
+
     return false;
   }
 }

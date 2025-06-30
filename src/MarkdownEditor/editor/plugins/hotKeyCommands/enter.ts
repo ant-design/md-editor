@@ -61,6 +61,38 @@ export class EnterKey {
         e.preventDefault();
         return;
       }
+      if (el.type === 'head') {
+        if (this.head(el as HeadNode, path, sel)) {
+          e.preventDefault();
+          return;
+        }
+      }
+      if (el.type === 'paragraph') {
+        if (this.paragraph(e, node as NodeEntry<ParagraphNode>, sel)) {
+          e.preventDefault();
+          return;
+        }
+      }
+      if (el.type === 'table-cell') {
+        const table = Editor.parent(this.editor, path);
+        if (table[0].type === 'table-row') {
+          this.table(table as NodeEntry<TableNode>, sel, e);
+          e.preventDefault();
+          return;
+        }
+      }
+      if (el.type === 'blockquote' || el.type === 'list-item') {
+        this.empty(e, path);
+        return;
+      }
+
+      if (el.type === 'break') {
+        Transforms.insertNodes(this.editor, {
+          type: 'paragraph',
+          children: [{ text: '' }],
+        });
+        e.preventDefault();
+      }
     }
     this.editor?.insertBreak();
   }
@@ -310,7 +342,7 @@ export class EnterKey {
           this.editor,
           {
             type: 'paragraph',
-            children: text,
+            children: text || ' ',
           },
           { at: Path.next(node[1]) },
         );
@@ -322,10 +354,17 @@ export class EnterKey {
             },
           });
         }
-        Transforms.select(
-          this.editor,
-          Editor.start(this.editor, Path.next(node[1])),
-        );
+        if (Editor.hasPath(this.editor, Path.next(node[1]))) {
+          Transforms.select(
+            this.editor,
+            Editor.start(this.editor, Path.next(node[1])),
+          );
+        } else {
+          Transforms.select(
+            this.editor,
+            Editor.start(this.editor, Path.next(node[1])),
+          );
+        }
         e.preventDefault();
         return true;
       } else {
@@ -356,15 +395,20 @@ export class EnterKey {
             checked = false;
           }
         }
-
         const text = Point.equals(Editor.end(this.editor, node[1]), sel.focus)
           ? [{ text: '' }]
           : EditorUtils.cutText(this.editor, sel.focus);
+
         Transforms.insertNodes(
           this.editor,
           {
             type: 'list-item',
-            children: [{ type: 'paragraph', children: text }],
+            children: [
+              {
+                type: 'paragraph',
+                children: text || [{ text: '' }],
+              },
+            ],
             checked,
           },
           { at: Path.next(parent[1]) },
@@ -379,14 +423,20 @@ export class EnterKey {
           });
         }
 
-        if (Point.equals(sel.anchor, Editor.start(this.editor, node[1]))) {
+        if (
+          Point.equals(sel.anchor, Editor.start(this.editor, node[1])) &&
+          Node.string(Node.get(this.editor, node[1])) !== ''
+        ) {
           EditorUtils.clearMarks(this.editor);
         }
 
-        Transforms.select(
-          this.editor,
-          Editor.start(this.editor, Path.next(parent[1])),
-        );
+        if (Editor.start(this.editor, Path.next(parent[1]))) {
+          Transforms.select(
+            this.editor,
+            Editor.start(this.editor, Path.next(parent[1])),
+          );
+        }
+
         if (Editor.hasPath(this.editor, Path.next(node[1]))) {
           EditorUtils.moveNodes(
             this.editor,
