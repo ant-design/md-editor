@@ -16,13 +16,8 @@ const fileMap = new Map<string, IEditor>();
  * 浮动工具栏,用于设置文本样式
  */
 export const FloatBar = (props: { readonly: boolean }) => {
-  const {
-    domRect,
-    setDomRect,
-    markdownContainerRef,
-    openLinkPanel,
-    markdownEditorRef,
-  } = useEditorStore();
+  const { domRect, setDomRect, markdownContainerRef, markdownEditorRef } =
+    useEditorStore();
   const [state, setState] = useLocalState({
     open: false,
     left: 0,
@@ -34,7 +29,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
 
   const resize = useCallback(
     (force = false) => {
-      if (domRect && !openLinkPanel) {
+      if (domRect) {
         let left = domRect.x;
         left = left - ((props.readonly ? 65 : 178) - domRect.width) / 2;
 
@@ -72,7 +67,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const close = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !openLinkPanel) {
+      if (e.key === 'Escape') {
         e.preventDefault();
         setState({ open: false });
         fileMap.clear();
