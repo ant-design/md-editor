@@ -1363,7 +1363,7 @@ end{bmatrix}
             </div>
             <pre
               data-slate-node="element"
-              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; font-family: monospace; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"
+              style="background: rgb(242, 241, 241); color: rgb(27, 27, 27); padding: 1em; border-radius: 0.5em; margin: 1em 0px; font-size: 0.8em; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; word-wrap: break-word;"
             >
               <code>
                 <span
