@@ -103,7 +103,7 @@
                 </div>
                 <div
                   class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: rgb(102, 111, 141); opacity: 1; transform: translateX(-0.005225582850714885px);"
+                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: rgb(102, 111, 141); opacity: 1; transform: none;"
                 >
                   <div
                     style="opacity: 1; transform: none;"
