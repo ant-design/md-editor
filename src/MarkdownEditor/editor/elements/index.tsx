@@ -145,11 +145,11 @@ export const MElement = (
             borderRadius: '0.5em',
             margin: '1em 0',
             fontSize: '0.8em',
-            fontFamily: 'monospace',
             lineHeight: '1.5',
             overflowX: 'auto',
             whiteSpace: 'pre-wrap',
             wordBreak: 'break-all',
+            fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
             wordWrap: 'break-word',
           }}
         >
@@ -163,11 +163,11 @@ export const MElement = (
           style={{
             background: 'rgb(242, 241, 241)',
             color: 'rgb(27, 27, 27)',
+            fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
             padding: '1em',
             borderRadius: '0.5em',
             margin: '1em 0',
             fontSize: '0.8em',
-            fontFamily: 'monospace',
             lineHeight: '1.5',
             overflowX: 'auto',
             whiteSpace: 'pre-wrap',

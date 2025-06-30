@@ -246,6 +246,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'inline',
         backgroundColor: '#0000000f',
         borderRadius: '4px',
+        fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
         border: '1px solid #e7e9e8',
         padding: '0 4px',
         margin: '1px 3px',
