@@ -10,7 +10,9 @@ const CardClickDemo = () => {
     },
     {
       type: 'paragraph',
-      children: [{ text: '点击下面的卡片，现在会直接定位到 card-after（可输入区域）：' }],
+      children: [
+        { text: '点击下面的卡片，现在会直接定位到 card-after（可输入区域）：' },
+      ],
     },
     {
       type: 'card',
@@ -114,23 +116,34 @@ const CardClickDemo = () => {
         >
           <h3>🔧 技术修复详情：</h3>
           <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
-            <p><strong>问题根源：</strong></p>
+            <p>
+              <strong>问题根源：</strong>
+            </p>
             <ul>
-              <li><code>Editor.start(editor, path)</code> 默认选中第一个可编辑位置</li>
+              <li>
+                <code>Editor.start(editor, path)</code> 默认选中第一个可编辑位置
+              </li>
               <li>卡片结构：card-before → content → card-after</li>
               <li>第一个位置就是 card-before，导致选中错误位置</li>
             </ul>
-            
-            <p><strong>解决方案：</strong></p>
+
+            <p>
+              <strong>解决方案：</strong>
+            </p>
             <ul>
               <li>修改 WarpCard 组件的点击逻辑</li>
-              <li>使用 <code>Transforms.select(editor, path)</code> 直接选中卡片节点</li>
-              <li>配合 <code>normalizeCardSelection</code> 自动重定向到 card-after</li>
+              <li>
+                使用 <code>Transforms.select(editor, path)</code>{' '}
+                直接选中卡片节点
+              </li>
+              <li>
+                配合 <code>normalizeCardSelection</code> 自动重定向到 card-after
+              </li>
             </ul>
           </div>
         </div>
       </div>
-      
+
       <BaseMarkdownEditor
         initValue={initValue}
         onChange={() => {}}
@@ -140,7 +153,7 @@ const CardClickDemo = () => {
           minHeight: '600px',
         }}
       />
-      
+
       <div
         style={{
           marginTop: '20px',
