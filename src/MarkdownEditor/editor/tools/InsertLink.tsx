@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { DeleteOutlined } from '@ant-design/icons';
+import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
 import { Input, InputRef, Modal, Tooltip } from 'antd';
 import React, { useCallback, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';
@@ -70,14 +71,8 @@ type DocItem = IEditor & { path: string; parentPath?: string };
  * @property {Function} focus - 聚焦输入框。
  */
 export const InsertLink = () => {
-  const {
-    store,
-    markdownContainerRef,
-    openInsertLink$,
-    setOpenLinkPanel,
-    domRect,
-    markdownEditorRef,
-  } = useEditorStore();
+  const { markdownContainerRef, openInsertLink$, domRect, markdownEditorRef } =
+    useEditorStore();
   const selRef = useRef<Selection>();
   const inputRef = useRef<InputRef>(null);
 
@@ -110,7 +105,7 @@ export const InsertLink = () => {
     }
   }, []);
 
-  useSubject(openInsertLink$, (sel) => {
+  const openInsertLink = useRefFunction((sel: Selection) => {
     if (domRect) {
       selRef.current = sel;
       markdownContainerRef.current!.parentElement?.addEventListener(
@@ -147,6 +142,8 @@ export const InsertLink = () => {
     }
   });
 
+  useSubject(openInsertLink$, openInsertLink);
+
   const close = useCallback((url?: string) => {
     markdownContainerRef.current!.parentElement?.removeEventListener(
       'wheel',
@@ -161,7 +158,6 @@ export const InsertLink = () => {
     );
     if (typeof window === 'undefined') return;
     if (typeof window.matchMedia === 'undefined') return;
-    setOpenLinkPanel?.(false);
   }, []);
 
   if (!state().open) return null;

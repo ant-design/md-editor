@@ -125,6 +125,7 @@ export const getMediaType = (name?: string, alt?: string) => {
 export const getSelRect = () => {
   if (typeof window === 'undefined') return null;
   const domSelection = window.getSelection();
+  if (domSelection?.rangeCount === 0) return null;
   const domRange = domSelection?.getRangeAt(0);
   return domRange?.getBoundingClientRect() || null;
 };

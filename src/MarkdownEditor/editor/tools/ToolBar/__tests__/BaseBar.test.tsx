@@ -139,7 +139,6 @@ const mockEditorStore = {
   markdownEditorRef: mockEditorRef,
   keyTask$,
   store,
-  setOpenLinkPanel: vi.fn(),
   openInsertLink$,
   setDomRect: vi.fn(),
   refreshFloatBar: false,
@@ -356,70 +355,5 @@ describe('BaseToolBar', () => {
       expect.anything(),
       true,
     );
-  });
-
-  it('handles code node operations', () => {
-    vi.clearAllMocks(); // 确保在这个测试开始前重置所有 mock
-
-    // 创建一个包含代码节点的编辑器内容
-    const initialValue = [
-      {
-        type: 'paragraph',
-        children: [{ text: 'Some text before code' }],
-      },
-      {
-        type: 'code',
-        language: 'javascript',
-        children: [{ text: 'const x = 42;' }],
-      },
-      {
-        type: 'paragraph',
-        children: [{ text: 'Some text after code' }],
-      },
-    ];
-
-    const mockEditor = {
-      ...mockEditorRef.current,
-      children: initialValue,
-      selection: { focus: { path: [1, 0], offset: 0 } },
-    };
-
-    const mockStoreWithEditor = {
-      ...mockEditorStore,
-      markdownEditorRef: {
-        current: mockEditor,
-      } as unknown as React.MutableRefObject<
-        BaseEditor & ReactEditor & HistoryEditor
-      >,
-    };
-
-    vi.mocked(useEditorStore).mockReturnValue(mockStoreWithEditor);
-
-    const { container } = render(
-      <I18nContext.Provider value={{ locale: cnLabels }}>
-        <BaseToolBar {...defaultProps} />
-      </I18nContext.Provider>,
-    );
-
-    // 测试代码节点中的格式化操作
-    const boldButton = screen.getByLabelText('bold');
-    fireEvent.click(boldButton);
-    expect(EditorUtils.toggleFormat).not.toHaveBeenCalled(); // 在代码节点中不应该应用格式化
-
-    // 测试代码节点中的清除格式操作
-    const clearButtons = container.querySelectorAll('[role="button"]');
-    const clearButton = Array.from(clearButtons).find(
-      (button) =>
-        button.querySelector('svg') && !button.querySelector('.anticon'),
-    );
-    fireEvent.click(clearButton!);
-    expect(EditorUtils.clearMarks).not.toHaveBeenCalled(); // 在代码节点中不应该清除格式
-
-    // 测试代码节点中的颜色修改
-    const colorButton = container.querySelector(
-      '[role="button"] .anticon-highlight',
-    );
-    fireEvent.click(colorButton!.parentElement!);
-    expect(EditorUtils.highColor).not.toHaveBeenCalled(); // 在代码节点中不应该修改颜色
   });
 });

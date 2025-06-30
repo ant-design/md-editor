@@ -577,7 +577,6 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // schema 数据
   const [schema, setSchema] = useState<Elements[]>(initSchemaValue);
   const [openInsertCompletion, setOpenInsertCompletion] = useState(false);
-  const [openLinkPanel, setOpenLinkPanel] = useState(false);
   const [refreshFloatBar, setRefreshFloatBar] = useState(false);
 
   const insertCompletionText$ = useMemo(() => new Subject<string>(), []);
@@ -595,8 +594,6 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
             openInsertLink$,
             openInsertCompletion,
             setOpenInsertCompletion,
-            openLinkPanel,
-            setOpenLinkPanel,
             setRefreshFloatBar,
             refreshFloatBar,
             rootContainer: props.rootContainer,

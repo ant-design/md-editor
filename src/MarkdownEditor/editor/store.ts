@@ -45,8 +45,6 @@ export const EditorStoreContext = createContext<{
   domRect: DOMRect | null;
   setDomRect: (rect: DOMRect | null) => void;
   setRefreshFloatBar?: (refresh: boolean) => void;
-  openLinkPanel?: boolean;
-  setOpenLinkPanel?: (open: boolean) => void;
   openInsertCompletion?: boolean;
   setOpenInsertCompletion?: (open: boolean) => void;
   editorProps: MarkdownEditorProps;

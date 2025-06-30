@@ -199,7 +199,6 @@ export const BaseToolBar = (props: {
   const { hashId } = props;
 
   const {
-    setOpenLinkPanel,
     markdownEditorRef,
     keyTask$,
     editorProps,
@@ -217,13 +216,12 @@ export const BaseToolBar = (props: {
 
   const openLink = useCallback(() => {
     const sel = markdownEditorRef.current?.selection;
-    setDomRect(getSelRect()!);
     if (!sel) return;
+    setDomRect(getSelRect()!);
     el.current = Editor.parent(markdownEditorRef.current, sel.focus.path);
-    openInsertLink$.next(sel);
     if (typeof window === 'undefined') return;
     if (typeof window.matchMedia === 'undefined') return;
-    setOpenLinkPanel?.(true);
+    openInsertLink$.next(sel);
   }, []);
 
   useEffect(() => {
@@ -586,28 +584,39 @@ export const BaseToolBar = (props: {
         </Tooltip>,
       );
     });
-    list.push(
-      <Tooltip title={i18n?.locale?.insertLink || '插入链接'} key="link">
-        <div
-          key="link"
-          role="button"
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            openLink();
-          }}
-          className={classnames(`${baseClassName}-item`, hashId)}
-          style={{
-            color: EditorUtils.isFormatActive(markdownEditorRef.current, 'url')
-              ? '#1677ff'
-              : undefined,
-          }}
-        >
-          <LinkOutlined />
-        </div>
-      </Tooltip>,
-    );
+    if (
+      node &&
+      ['head', 'paragraph', 'quote', 'b-list', 'n-list', 't-list'].includes(
+        node[0].type as ToolsKeyType,
+      )
+    ) {
+      list.push(
+        <Tooltip title={i18n?.locale?.insertLink || '插入链接'} key="link">
+          <div
+            key="link"
+            role="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              openLink();
+            }}
+            className={classnames(`${baseClassName}-item`, hashId)}
+            style={{
+              color: EditorUtils.isFormatActive(
+                markdownEditorRef.current,
+                'url',
+              )
+                ? '#1677ff'
+                : undefined,
+            }}
+          >
+            <LinkOutlined />
+          </div>
+        </Tooltip>,
+      );
+    }
+
     if (props.hideTools) {
       list = list.filter((l) => {
         return !props?.hideTools?.includes(l.key as ToolsKeyType);
