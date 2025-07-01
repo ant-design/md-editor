@@ -188,11 +188,171 @@ describe('BackspaceKey', () => {
       (Editor.parent as Mock).mockReturnValue([parentNode, [0]]);
       (Node.string as Mock).mockReturnValue('');
 
+      // 为新逻辑添加必要的mock
+      (Path.parent as Mock).mockReturnValue([1]); // listPath
+      const listNode = { type: 'ordered-list', children: [parentNode] };
+      (Editor.node as Mock).mockReturnValue([listNode, [1]]);
+      (EditorUtils.copy as Mock).mockReturnValue([{ text: '' }]);
+
       const result = backspaceKey.run();
 
       expect(result).toBe(true);
       expect(Transforms.delete).toHaveBeenCalled();
       expect(Transforms.insertNodes).toHaveBeenCalled();
+    });
+
+    // 新的测试用例：测试列表拆分逻辑
+    it('should delete last list item and replace with paragraph', () => {
+      editor.selection = { anchor: {}, focus: {} } as any;
+      const paragraphNode = { type: 'paragraph', children: [{ text: '' }] };
+      const path = [0, 0];
+      const listItemNode = { type: 'list-item', children: [paragraphNode] };
+      const listNode = {
+        type: 'ordered-list',
+        children: [listItemNode], // 只有一个item，所以是最后一个
+      };
+
+      (Editor.nodes as Mock).mockReturnValue([[paragraphNode, path]]);
+      (Editor.parent as Mock).mockReturnValue([listItemNode, [0]]);
+      (Node.string as Mock).mockReturnValue(''); // 空的list-item
+      (Path.parent as Mock).mockReturnValue([1]); // listPath
+      (Editor.node as Mock).mockReturnValue([listNode, [1]]); // listNode
+      (EditorUtils.copy as Mock).mockReturnValue([{ text: '' }]);
+
+      const result = backspaceKey.run();
+
+      expect(result).toBe(true);
+      expect(Transforms.delete).toHaveBeenCalledWith(editor, { at: [0] });
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        editor,
+        { type: 'paragraph', children: [{ text: '' }] },
+        { at: [0], select: true },
+      );
+    });
+
+    it('should split list when deleting non-last list item', () => {
+      editor.selection = { anchor: {}, focus: {} } as any;
+      const paragraphNode = { type: 'paragraph', children: [{ text: '' }] };
+      const path = [1, 0]; // 第二个list-item中的paragraph
+      const listItemNode1 = {
+        type: 'list-item',
+        children: [{ type: 'paragraph', children: [{ text: 'Item 1' }] }],
+      };
+      const listItemNode2 = { type: 'list-item', children: [paragraphNode] }; // 当前要删除的空item
+      const listItemNode3 = {
+        type: 'list-item',
+        children: [{ type: 'paragraph', children: [{ text: 'Item 3' }] }],
+      };
+      const listNode = {
+        type: 'unordered-list',
+        children: [listItemNode1, listItemNode2, listItemNode3], // 三个items，删除中间的
+      };
+
+      (Editor.nodes as Mock).mockReturnValue([[paragraphNode, path]]);
+      (Editor.parent as Mock).mockReturnValue([listItemNode2, [1]]);
+      (Node.string as Mock).mockReturnValue(''); // 空的list-item
+      (Path.parent as Mock).mockReturnValue([0]); // listPath
+      (Editor.node as Mock).mockReturnValue([listNode, [0]]); // listNode
+      (Path.next as Mock)
+        .mockReturnValueOnce([1]) // insertPath
+        .mockReturnValueOnce([2]); // newListPath
+      (EditorUtils.copy as Mock).mockReturnValue([{ text: '' }]);
+
+      const result = backspaceKey.run();
+
+      expect(result).toBe(true);
+
+      // 验证删除后续items (从后往前删除)
+      expect(Transforms.delete).toHaveBeenCalledWith(editor, { at: [0, 2] });
+
+      // 验证删除当前item
+      expect(Transforms.delete).toHaveBeenCalledWith(editor, { at: [1] });
+
+      // 验证插入paragraph
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        editor,
+        { type: 'paragraph', children: [{ text: '' }] },
+        { at: [1], select: true },
+      );
+
+      // 验证创建新列表包含剩余items
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        editor,
+        {
+          type: 'unordered-list',
+          children: [listItemNode3],
+        },
+        { at: [2] },
+      );
+    });
+
+    it('should handle splitting ordered list and preserve list type', () => {
+      editor.selection = { anchor: {}, focus: {} } as any;
+      const paragraphNode = { type: 'paragraph', children: [{ text: '' }] };
+      const path = [0, 0]; // 第一个list-item中的paragraph
+      const listItemNode1 = { type: 'list-item', children: [paragraphNode] }; // 当前要删除的空item
+      const listItemNode2 = {
+        type: 'list-item',
+        children: [{ type: 'paragraph', children: [{ text: 'Item 2' }] }],
+      };
+      const listNode = {
+        type: 'ordered-list',
+        children: [listItemNode1, listItemNode2], // 删除第一个item
+      };
+
+      (Editor.nodes as Mock).mockReturnValue([[paragraphNode, path]]);
+      (Editor.parent as Mock).mockReturnValue([listItemNode1, [0]]);
+      (Node.string as Mock).mockReturnValue(''); // 空的list-item
+      (Path.parent as Mock).mockReturnValue([1]); // listPath
+      (Editor.node as Mock).mockReturnValue([listNode, [1]]); // listNode
+      (Path.next as Mock)
+        .mockReturnValueOnce([2]) // insertPath
+        .mockReturnValueOnce([3]); // newListPath
+      (EditorUtils.copy as Mock).mockReturnValue([{ text: '' }]);
+
+      const result = backspaceKey.run();
+
+      expect(result).toBe(true);
+
+      // 验证新列表保持了ordered-list类型
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        editor,
+        {
+          type: 'ordered-list', // 应该保持原始类型
+          children: [listItemNode2],
+        },
+        { at: [3] },
+      );
+    });
+
+    it('should handle deleting only list item in list', () => {
+      editor.selection = { anchor: {}, focus: {} } as any;
+      const paragraphNode = { type: 'paragraph', children: [{ text: '' }] };
+      const path = [0, 0];
+      const listItemNode = { type: 'list-item', children: [paragraphNode] };
+      const listNode = {
+        type: 'unordered-list',
+        children: [listItemNode], // 只有一个item
+      };
+
+      (Editor.nodes as Mock).mockReturnValue([[paragraphNode, path]]);
+      (Editor.parent as Mock).mockReturnValue([listItemNode, [0]]);
+      (Node.string as Mock).mockReturnValue(''); // 空的list-item
+      (Path.parent as Mock).mockReturnValue([1]); // listPath
+      (Editor.node as Mock).mockReturnValue([listNode, [1]]); // listNode
+      (EditorUtils.copy as Mock).mockReturnValue([{ text: '' }]);
+
+      const result = backspaceKey.run();
+
+      expect(result).toBe(true);
+
+      // 验证删除当前item并替换成paragraph (因为是最后一个)
+      expect(Transforms.delete).toHaveBeenCalledWith(editor, { at: [0] });
+      expect(Transforms.insertNodes).toHaveBeenCalledWith(
+        editor,
+        { type: 'paragraph', children: [{ text: '' }] },
+        { at: [0], select: true },
+      );
     });
 
     it('should handle blockquote deletion', () => {
@@ -270,22 +430,21 @@ describe('BackspaceKey', () => {
         .mockReturnValueOnce([parentNode, [0]]) // first call for list-item check
         .mockReturnValueOnce([parentNode, [0]]); // second call for list-item logic
 
-      // Mock the previous calls in sequence
-      (Editor.previous as Mock)
-        .mockReturnValueOnce(null) // preInline check at focus path
-        .mockReturnValueOnce(null) // pre check at path
-        .mockReturnValueOnce(null) // previous check at anchor path
-        .mockReturnValueOnce([prevListItem, [0]]); // preListItem check
-
+      // Mock for empty list-item logic
       (Node.string as Mock).mockReturnValue('');
-      (Editor.hasPath as Mock).mockReturnValue(true); // for cur path check
-      (Path.next as Mock).mockReturnValue([0, 1]);
+
+      // 为新的拆分逻辑添加必要的mock
+      (Path.parent as Mock).mockReturnValue([1]); // listPath
+      const listNode = { type: 'ordered-list', children: [parentNode] };
+      (Editor.node as Mock).mockReturnValue([listNode, [1]]);
+      (EditorUtils.copy as Mock).mockReturnValue([{ text: '' }]);
 
       const result = backspaceKey.run();
 
       expect(result).toBe(true);
-      // 由于复杂的条件逻辑，我们主要验证函数正确返回了true，
-      // 表示它处理了列表项的场景
+      // 验证函数正确处理了列表项的场景
+      expect(Transforms.delete).toHaveBeenCalled();
+      expect(Transforms.insertNodes).toHaveBeenCalled();
     });
   });
 });

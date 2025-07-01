@@ -107,14 +107,60 @@ export class BackspaceKey {
           return false;
         }
         if (Node.string(parent[0]) === '') {
+          // 使用新的拆分逻辑处理空的list-item
           const listPath = Path.parent(parent[1]);
-          const nextListItem = Path.next(listPath);
-          Transforms.delete(this.editor, { at: parent[1] });
-          Transforms.insertNodes(
-            this.editor,
-            { type: 'paragraph', children: [{ text: '' }] },
-            { at: nextListItem, select: true },
-          );
+          const listNode = Editor.node(this.editor, listPath);
+          const currentItemIndex = parent[1][parent[1].length - 1];
+          const isLastItem =
+            currentItemIndex === listNode[0].children.length - 1;
+
+          if (isLastItem) {
+            // 如果是最后一个项目，删除list-item并替换成paragraph
+            Transforms.delete(this.editor, { at: parent[1] });
+            Transforms.insertNodes(
+              this.editor,
+              { type: 'paragraph', children: [{ text: '' }] },
+              { at: parent[1], select: true },
+            );
+          } else {
+            // 如果不是最后一个项目，拆分列表
+            const remainingItems = listNode[0].children.slice(
+              currentItemIndex + 1,
+            );
+
+            // 删除当前item之后的所有items
+            for (
+              let i = listNode[0].children.length - 1;
+              i > currentItemIndex;
+              i--
+            ) {
+              Transforms.delete(this.editor, { at: [...listPath, i] });
+            }
+
+            // 删除当前item
+            Transforms.delete(this.editor, { at: parent[1] });
+
+            // 插入paragraph
+            const insertPath = Path.next(listPath);
+            Transforms.insertNodes(
+              this.editor,
+              { type: 'paragraph', children: [{ text: '' }] },
+              { at: insertPath, select: true },
+            );
+
+            // 如果有剩余的items，创建新的列表
+            if (remainingItems.length > 0) {
+              const newListPath = Path.next(insertPath);
+              Transforms.insertNodes(
+                this.editor,
+                {
+                  type: listNode[0].type, // 保持原列表类型 (ordered/unordered)
+                  children: remainingItems,
+                },
+                { at: newListPath },
+              );
+            }
+          }
           return true;
         }
       }
@@ -179,50 +225,6 @@ export class BackspaceKey {
               this.editor,
               Editor.start(this.editor, parent[1]),
             );
-            return true;
-          }
-          if (parent[0].type === 'list-item') {
-            const preListItem = Editor.previous<any>(this.editor, {
-              at: parent[1],
-            });
-            if (!preListItem) {
-              const hasNext = Editor.hasPath(this.editor, Path.next(parent[1]));
-              const listPath = Path.parent(parent[1]);
-              if (hasNext) {
-                Transforms.delete(this.editor, { at: parent[1] });
-              } else {
-                Transforms.delete(this.editor, { at: listPath });
-              }
-              Transforms.insertNodes(
-                this.editor,
-                EditorUtils.copy(parent[0].children),
-                {
-                  at: listPath,
-                },
-              );
-              Transforms.select(
-                this.editor,
-                Editor.start(this.editor, listPath),
-              );
-            } else {
-              let cur = Path.next(path);
-              const moveIndex = preListItem[0].children.length;
-              if (Editor.hasPath(this.editor, cur)) {
-                EditorUtils.moveNodes(
-                  this.editor,
-                  cur,
-                  preListItem[1],
-                  moveIndex,
-                );
-              }
-              const movePath = [...preListItem[1], moveIndex];
-              Transforms.moveNodes(this.editor, {
-                at: path,
-                to: movePath,
-              });
-              // 删除list-item
-              Transforms.delete(this.editor, { at: parent[1] });
-            }
             return true;
           }
 
