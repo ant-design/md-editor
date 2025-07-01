@@ -180,6 +180,274 @@ export interface ThoughtChainListProps {
   onDocMetaClick?: (docMeta: DocMeta | null) => void;
 }
 
+// 思维链标题组件 - 独立 memo
+const ThoughtChainTitle = React.memo<{
+  prefixCls: string;
+  hashId: string;
+  collapse: boolean;
+  compact?: boolean;
+  endStatusDisplay: React.ReactNode;
+  onCollapseToggle: () => void;
+  locale: any;
+}>(
+  ({
+    prefixCls,
+    hashId,
+    collapse,
+    compact,
+    endStatusDisplay,
+    onCollapseToggle,
+    locale,
+  }) => {
+    return (
+      <motion.div
+        className={classNames(`${prefixCls}-title`, hashId, {
+          [`${prefixCls}-title-collapse`]: collapse,
+          [`${prefixCls}-title-compact`]: compact,
+        })}
+      >
+        <div>
+          <MagicIcon
+            style={{
+              width: 15,
+              height: 15,
+            }}
+          />
+          <span
+            className={classNames(`${prefixCls}-title-progress`, hashId)}
+            style={{
+              fontSize: '1em',
+            }}
+          >
+            {endStatusDisplay}
+          </span>
+        </div>
+
+        <ActionIconBox
+          title={
+            collapse ? locale?.expand || '展开' : locale?.collapse || '收起'
+          }
+          onClick={onCollapseToggle}
+        >
+          {!collapse ? <ExpandIcon /> : <CollapseIcon />}
+        </ActionIconBox>
+      </motion.div>
+    );
+  },
+);
+
+// 文档预览抽屉组件 - 独立 memo
+const DocumentDrawer = React.memo<{
+  docMeta: Partial<DocMeta> | null;
+  onClose: () => void;
+  locale: any;
+}>(({ docMeta, onClose, locale }) => {
+  return (
+    <Drawer
+      title={locale?.preview + ' ' + docMeta?.doc_name}
+      open={!!docMeta}
+      onClose={onClose}
+      width={'40vw'}
+    >
+      <Descriptions
+        column={1}
+        items={
+          [
+            {
+              label: '名称',
+              span: 1,
+              children: docMeta?.doc_name || docMeta?.answer,
+            },
+            {
+              label: '更新时间',
+              span: 1,
+              children: dayjs(docMeta?.upload_time).format(
+                'YYYY-MM-DD HH:mm:ss',
+              ),
+            },
+            {
+              label: '类型',
+              span: 1,
+              children: docMeta?.type,
+            },
+            docMeta?.origin_text
+              ? {
+                  label: '内容',
+                  span: 1,
+                  children: docMeta?.origin_text,
+                }
+              : null,
+          ].filter(Boolean) as any[]
+        }
+      />
+    </Drawer>
+  );
+});
+
+// 思维链列表内容组件 - 独立 memo
+const ThoughtChainContent = React.memo<{
+  prefixCls: string;
+  hashId: string;
+  collapse: boolean;
+  compact?: boolean;
+  thoughtChainList: WhiteBoxProcessInterface[];
+  bubble?: {
+    isFinished?: boolean;
+    endTime?: number;
+    createAt?: number;
+    isAborted?: boolean;
+  };
+  loading?: boolean;
+  markdownRenderProps?: MarkdownEditorProps;
+  onDocMetaClick: (docMeta: DocMeta) => void;
+}>(
+  ({
+    prefixCls,
+    hashId,
+    collapse,
+    compact,
+    thoughtChainList,
+    bubble,
+    loading,
+    markdownRenderProps,
+    onDocMetaClick,
+  }) => {
+    const { containerRef } = useAutoScroll({
+      SCROLL_TOLERANCE: 30,
+    });
+
+    const processedItems = useMemo(() => {
+      if (collapse) return [];
+
+      return thoughtChainList.map((item, index) => {
+        let info = item.info;
+        let icon = <LoadingIcon />;
+        let isFinished = false;
+
+        if (
+          (item.output || bubble?.isFinished) &&
+          item.output?.type !== 'TOKEN' &&
+          item.output?.type !== 'RUNNING'
+        ) {
+          isFinished = true;
+          icon = <FinishedIcon />;
+        }
+
+        if (item.output?.errorMsg) {
+          icon = (
+            <CloseCircleFilled
+              style={{
+                color: 'red',
+              }}
+            />
+          );
+        }
+
+        return {
+          key: index.toString(),
+          ...item,
+          info,
+          isFinished,
+          status:
+            !item.output ||
+            item.output?.type === 'RUNNING' ||
+            item.output?.type === 'TOKEN'
+              ? 'loading'
+              : 'success',
+          icon: icon,
+        } as WhiteBoxProcessInterface & {
+          icon: React.ReactNode;
+          isFinished?: boolean;
+        };
+      });
+    }, [thoughtChainList, bubble?.isFinished, collapse]);
+
+    return (
+      <motion.div
+        className={classNames(
+          `${prefixCls}-content`,
+          {
+            [`${prefixCls}-content-collapse`]: collapse,
+            [`${prefixCls}-content-compact`]: compact,
+          },
+          hashId,
+        )}
+        ref={containerRef}
+      >
+        <motion.div
+          role="list"
+          className={classNames(`${prefixCls}-content-list`, hashId)}
+          variants={{
+            hidden: {
+              opacity: 0,
+              transition: {
+                when: 'afterChildren',
+              },
+            },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.3,
+                when: 'beforeChildren',
+              },
+            },
+          }}
+          whileInView="visible"
+          initial="hidden"
+          animate="visible"
+        >
+          {processedItems.map((item, index) => {
+            const info = item.info?.split(/(\$\{\w+\})/);
+            if (!info) return null;
+
+            return (
+              <ErrorBoundary
+                fallback={
+                  <Typography.Paragraph code>
+                    <pre>
+                      <code>
+                        {JSON.stringify(
+                          thoughtChainList.at(index) || {
+                            message: 'error',
+                          },
+                          null,
+                          2,
+                        )}
+                      </code>
+                    </pre>
+                  </Typography.Paragraph>
+                }
+                key={(item.runId || '') + '' + index}
+              >
+                <ThoughtChainListItem
+                  index={index}
+                  markdownRenderProps={merge(markdownRenderProps, {
+                    codeProps: {
+                      hideToolBar: true,
+                      showLineNumbers: false,
+                      showGutter: false,
+                      fontSize: 12,
+                    },
+                  })}
+                  bubble={bubble}
+                  key={(item.runId || '') + '' + index}
+                  thoughtChainListItem={item}
+                  hashId={hashId}
+                  isFinished={
+                    item.isFinished || (!loading && !!bubble?.endTime)
+                  }
+                  setDocMeta={onDocMetaClick}
+                  prefixCls={prefixCls}
+                />
+              </ErrorBoundary>
+            );
+          })}
+        </motion.div>
+      </motion.div>
+    );
+  },
+);
+
 /**
  * 思维链展示组件
  *
@@ -192,6 +460,7 @@ export interface ThoughtChainListProps {
  * - 提供文档预览抽屉功能
  * - 思维链项状态可视化（加载中、完成、错误）
  * - 完成后自动折叠思维链
+ * - 细粒度性能优化，减少不必要的重新渲染
  *
  * @component
  * @param {object} props - 组件属性
@@ -213,366 +482,149 @@ export interface ThoughtChainListProps {
  *
  * @returns {ReactNode} 渲染的思维链列表组件
  */
-export const ThoughtChainList: React.FC<ThoughtChainListProps> = (props) => {
-  const { locale } = useContext(I18nContext);
-  const {
-    thoughtChainList,
-    loading,
-    //@ts-ignore
-    bubble = props.chatItem,
-    style,
-    compact,
-    markdownRenderProps,
-    finishAutoCollapse = true,
-    onDocMetaClick,
-  } = props;
-  const context = useContext(ConfigProvider.ConfigContext);
-  const [collapse, setCollapse] = React.useState<boolean>(false);
-  const prefixCls = context.getPrefixCls('thought-chain-list');
-  const { wrapSSR, hashId } = useStyle(prefixCls);
-  const [docMeta, setDocMeta] = React.useState<Partial<DocMeta> | null>(null);
-  const { containerRef } = useAutoScroll({
-    SCROLL_TOLERANCE: 30,
-  });
+export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
+  (props) => {
+    const { locale } = useContext(I18nContext);
+    const {
+      thoughtChainList,
+      loading,
+      //@ts-ignore
+      bubble = props.chatItem,
+      style,
+      compact,
+      markdownRenderProps,
+      finishAutoCollapse = true,
+      onDocMetaClick,
+    } = props;
+    const context = useContext(ConfigProvider.ConfigContext);
+    const [collapse, setCollapse] = React.useState<boolean>(false);
+    const prefixCls = context.getPrefixCls('thought-chain-list');
+    const { wrapSSR, hashId } = useStyle(prefixCls);
+    const [docMeta, setDocMeta] = React.useState<Partial<DocMeta> | null>(null);
 
-  useEffect(() => {
-    if (bubble?.isFinished && finishAutoCollapse !== false) {
-      setCollapse(true);
-    }
-  }, [bubble?.isFinished]);
-
-  const endStatusDisplay = useMemo(() => {
-    const time = ((bubble?.endTime || 0) - (bubble?.createAt || 0)) / 1000;
-
-    if (!loading && bubble?.isAborted) {
-      if (time > 0) {
-        return (
-          <FlipText
-            word={`${locale.taskAborted}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
-          />
-        );
+    useEffect(() => {
+      if (bubble?.isFinished && finishAutoCollapse !== false) {
+        setCollapse(true);
       }
-      return <FlipText word={locale.taskAborted} />;
-    }
+    }, [bubble?.isFinished, finishAutoCollapse]);
 
-    if (!loading && bubble?.isFinished) {
-      if (time > 0) {
-        return (
-          <FlipText
-            word={`${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
-          />
-        );
+    // memo 化的回调函数
+    const handleCollapseToggle = React.useCallback(() => {
+      setCollapse(!collapse);
+    }, [collapse]);
+
+    const handleDocMetaClose = React.useCallback(() => {
+      setDocMeta(null);
+      onDocMetaClick?.(null);
+    }, [onDocMetaClick]);
+
+    const handleDocMetaClick = React.useCallback(
+      (meta: DocMeta) => {
+        setDocMeta(meta);
+        onDocMetaClick?.(meta);
+      },
+      [onDocMetaClick],
+    );
+
+    const endStatusDisplay = useMemo(() => {
+      const time = ((bubble?.endTime || 0) - (bubble?.createAt || 0)) / 1000;
+
+      if (!loading && bubble?.isAborted) {
+        if (time > 0) {
+          return (
+            <FlipText
+              word={`${locale.taskAborted}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
+            />
+          );
+        }
+        return <FlipText word={locale.taskAborted} />;
       }
-      return <FlipText word={locale.taskComplete} />;
-    }
 
-    return (
-      <div>
-        {thoughtChainList.at(-1) && collapse ? (
-          compileTemplate(locale.inProgressTask, {
-            taskName:
-              locale[thoughtChainList.at(-1)?.category || 'other'] || '',
-          })
-        ) : (
-          <div>
-            {locale.thinking}
-            <DotLoading />
-          </div>
-        )}
-      </div>
-    );
-  }, [
-    loading,
-    thoughtChainList?.at?.(-1)?.category,
-    bubble?.isFinished,
-    bubble?.isAborted,
-    bubble?.endTime,
-    bubble?.createAt,
-    collapse,
-  ]);
+      if (!loading && bubble?.isFinished) {
+        if (time > 0) {
+          return (
+            <FlipText
+              word={`${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
+            />
+          );
+        }
+        return <FlipText word={locale.taskComplete} />;
+      }
 
-  const renderTimeInfo = () => {
-    if (!bubble?.endTime || !bubble?.createAt) return null;
-    const duration = dayjs.duration(bubble.endTime - bubble.createAt);
-    const hours = duration.hours();
-    const minutes = duration.minutes();
-    const seconds = duration.seconds();
+      return (
+        <div>
+          {thoughtChainList.at(-1) && collapse ? (
+            compileTemplate(locale.inProgressTask, {
+              taskName:
+                locale[thoughtChainList.at(-1)?.category || 'other'] || '',
+            })
+          ) : (
+            <div>
+              {locale.thinking}
+              <DotLoading />
+            </div>
+          )}
+        </div>
+      );
+    }, [
+      loading,
+      thoughtChainList?.at?.(-1)?.category,
+      bubble?.isFinished,
+      bubble?.isAborted,
+      bubble?.endTime,
+      bubble?.createAt,
+      collapse,
+      locale,
+    ]);
 
-    const timeStr = [
-      hours > 0 ? `${hours}${locale.hours}` : '',
-      minutes > 0 ? `${minutes}${locale.minutes}` : '',
-      `${seconds}${locale.seconds}`,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    return (
-      <div className="time-info">
-        <span>
-          {locale.timeUsed}: {timeStr}
-        </span>
-      </div>
-    );
-  };
-
-  const renderStatus = () => {
-    if (bubble?.isAborted) {
-      return <span className="status-text">{locale.aborted}</span>;
-    }
-    if (bubble?.isFinished) {
-      return <span className="status-text">{locale.finished}</span>;
-    }
-    if (loading) {
-      return <span className="status-text">{locale.loading}</span>;
-    }
-    return null;
-  };
-
-  const getCategoryText = (category: WhiteBoxProcessInterface['category']) => {
-    return category ? locale[category] || '' : '';
-  };
-
-  return wrapSSR(
-    <>
-      <Drawer
-        title={locale?.preview + ' ' + docMeta?.doc_name}
-        open={!!docMeta}
-        onClose={() => {
-          setDocMeta(null);
-          onDocMetaClick?.(null);
-        }}
-        width={'40vw'}
-      >
-        <Descriptions
-          column={1}
-          items={
-            [
-              {
-                label: '名称',
-                span: 1,
-                children: docMeta?.doc_name || docMeta?.answer,
-              },
-              {
-                label: '更新时间',
-                span: 1,
-                children: dayjs(docMeta?.upload_time).format(
-                  'YYYY-MM-DD HH:mm:ss',
-                ),
-              },
-              {
-                label: '类型',
-                span: 1,
-                children: docMeta?.type,
-              },
-              docMeta?.origin_text
-                ? {
-                    label: '内容',
-                    span: 1,
-                    children: docMeta?.origin_text,
-                  }
-                : null,
-            ].filter(Boolean) as any[]
-          }
+    return wrapSSR(
+      <>
+        <DocumentDrawer
+          docMeta={docMeta}
+          onClose={handleDocMetaClose}
+          locale={locale}
         />
-      </Drawer>
 
-      {useMemo(() => {
-        return (
-          <div className={classNames(`${prefixCls}`, hashId)} style={style}>
-            <motion.div
-              transition={{ duration: 0.3 }}
-              className={classNames(`${prefixCls}-container`, hashId, {
-                [`${prefixCls}-container-loading`]: !bubble?.isFinished,
-              })}
+        <div className={classNames(`${prefixCls}`, hashId)} style={style}>
+          <motion.div
+            transition={{ duration: 0.3 }}
+            className={classNames(`${prefixCls}-container`, hashId, {
+              [`${prefixCls}-container-loading`]: !bubble?.isFinished,
+            })}
+          >
+            <ThoughtChainTitle
+              prefixCls={prefixCls}
+              hashId={hashId}
+              collapse={collapse}
+              compact={compact}
+              endStatusDisplay={endStatusDisplay}
+              onCollapseToggle={handleCollapseToggle}
+              locale={locale}
+            />
+
+            <div
+              style={{
+                backgroundColor: '#FFF',
+                position: 'relative',
+                borderRadius: '6px 12px 12px 12px',
+                zIndex: 9,
+              }}
             >
-              <motion.div
-                className={classNames(`${prefixCls}-title`, hashId, {
-                  [`${prefixCls}-title-collapse`]: collapse,
-                  [`${prefixCls}-title-compact`]: compact,
-                })}
-              >
-                <div>
-                  <MagicIcon
-                    style={{
-                      width: 15,
-                      height: 15,
-                    }}
-                  />
-                  <span
-                    className={classNames(
-                      `${prefixCls}-title-progress`,
-                      hashId,
-                    )}
-                    style={{
-                      fontSize: '1em',
-                    }}
-                  >
-                    {bubble ? endStatusDisplay : <div>{renderStatus()}</div>}
-                  </span>
-                </div>
-
-                <ActionIconBox
-                  title={
-                    collapse
-                      ? locale?.expand || '展开'
-                      : locale?.collapse || '收起'
-                  }
-                  onClick={() => {
-                    setCollapse(!collapse);
-                  }}
-                >
-                  {!collapse ? <ExpandIcon /> : <CollapseIcon />}
-                </ActionIconBox>
-              </motion.div>
-              <div
-                style={{
-                  backgroundColor: '#FFF',
-                  position: 'relative',
-                  borderRadius: '6px 12px 12px 12px',
-                  zIndex: 9,
-                }}
-              >
-                <motion.div
-                  className={classNames(
-                    `${prefixCls}-content`,
-                    {
-                      [`${prefixCls}-content-collapse`]: collapse,
-                      [`${prefixCls}-content-compact`]: compact,
-                    },
-                    hashId,
-                  )}
-                  ref={containerRef}
-                >
-                  <motion.div
-                    role="list"
-                    className={classNames(`${prefixCls}-content-list`, hashId)}
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        transition: {
-                          when: 'afterChildren',
-                        },
-                      },
-                      visible: {
-                        opacity: 1,
-                        transition: {
-                          staggerChildren: 0.3,
-                          when: 'beforeChildren',
-                        },
-                      },
-                    }}
-                    whileInView="visible"
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    {(collapse
-                      ? []
-                      : (thoughtChainList.map((item, index) => {
-                          let info = item.info;
-                          let icon = <LoadingIcon />;
-                          let isFinished = false;
-                          if (
-                            (item.output || bubble?.isFinished) &&
-                            item.output?.type !== 'TOKEN' &&
-                            item.output?.type !== 'RUNNING'
-                          ) {
-                            isFinished = true;
-                            icon = <FinishedIcon />;
-                          }
-                          if (item.output?.errorMsg) {
-                            icon = (
-                              <CloseCircleFilled
-                                style={{
-                                  color: 'red',
-                                }}
-                              />
-                            );
-                          }
-                          return {
-                            key: index.toString(),
-                            ...item,
-                            info,
-                            isFinished,
-                            status:
-                              !item.output ||
-                              item.output?.type === 'RUNNING' ||
-                              item.output?.type === 'TOKEN'
-                                ? 'loading'
-                                : 'success',
-                            icon: icon,
-                          } as WhiteBoxProcessInterface & {
-                            icon: React.ReactNode;
-                            isFinished?: boolean;
-                          };
-                        }) as (WhiteBoxProcessInterface & {
-                          icon: React.ReactNode;
-                          isFinished?: boolean;
-                        })[])
-                    ).map((item, index) => {
-                      const info = item.info?.split(/(\$\{\w+\})/);
-                      if (!info) return null;
-
-                      return (
-                        <ErrorBoundary
-                          fallback={
-                            <Typography.Paragraph code>
-                              <pre>
-                                <code>
-                                  {JSON.stringify(
-                                    thoughtChainList.at(index) || {
-                                      message: 'error',
-                                    },
-                                    null,
-                                    2,
-                                  )}
-                                </code>
-                              </pre>
-                            </Typography.Paragraph>
-                          }
-                          key={(item.runId || '') + '' + index}
-                        >
-                          <ThoughtChainListItem
-                            index={index}
-                            markdownRenderProps={merge(markdownRenderProps, {
-                              codeProps: {
-                                hideToolBar: true,
-                                showLineNumbers: false,
-                                showGutter: false,
-                                fontSize: 12,
-                              },
-                            })}
-                            bubble={bubble}
-                            key={(item.runId || '') + '' + index}
-                            thoughtChainListItem={item}
-                            hashId={hashId}
-                            isFinished={
-                              item.isFinished || (!loading && !!bubble?.endTime)
-                            }
-                            setDocMeta={(docMeta) => {
-                              setDocMeta(docMeta);
-                              onDocMetaClick?.(docMeta);
-                            }}
-                            prefixCls={prefixCls}
-                          />
-                        </ErrorBoundary>
-                      );
-                    })}
-                  </motion.div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        );
-      }, [
-        collapse,
-        style,
-        bubble?.isFinished,
-        bubble?.endTime,
-        bubble?.createAt,
-        bubble?.isAborted,
-        loading,
-        JSON.stringify(thoughtChainList),
-      ])}
-    </>,
-  );
-};
+              <ThoughtChainContent
+                prefixCls={prefixCls}
+                hashId={hashId}
+                collapse={collapse}
+                compact={compact}
+                thoughtChainList={thoughtChainList}
+                bubble={bubble}
+                loading={loading}
+                markdownRenderProps={markdownRenderProps}
+                onDocMetaClick={handleDocMetaClick}
+              />
+            </div>
+          </motion.div>
+        </div>
+      </>,
+    );
+  },
+);

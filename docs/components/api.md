@@ -169,6 +169,7 @@ export default () => {
         hideTools: ['image', 'code'],
         extra: [<a key="custom">自定义按钮</a>],
       }}
+      onChange={(e, s) => console.log(e, s)}
       width="100%"
     />
   );

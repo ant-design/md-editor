@@ -188,13 +188,13 @@ const parserNode = (
       str += handleListItem(node, preString, parent, plugins);
       break;
     case 'table':
-      str += table(node, preString, parent, plugins);
+      str += table(node, parent, plugins);
       break;
     case 'chart':
-      str += table(node, preString, parent, plugins);
+      str += table(node, parent, plugins);
       break;
     case 'column-group':
-      str += table(node, preString, parent, plugins);
+      str += table(node, parent, plugins);
       break;
     case 'description':
       str += handleDescription(node, preString, parent, plugins);
@@ -608,7 +608,6 @@ const composeText = (t: Text, parent: any[]) => {
  */
 const table = (
   el: TableNode | ColumnNode | DescriptionNode | ChartNode,
-  preString = '',
   parent: any[],
   plugins?: MarkdownEditorPlugin[],
 ) => {
@@ -623,29 +622,32 @@ const table = (
   const tableProcessors = {
     'column-group': () => {
       const row: string[] = new Array(children.length);
-      let validColumnCount = 0;
 
+      // 处理每个子元素，包括空的 column-cell
       for (let i = 0; i < children.length; i++) {
         const n = children[i];
-        const isValidCell = n.type === 'column-cell' && n?.children;
-        validColumnCount += Number(isValidCell);
-        row[validColumnCount - 1] = isValidCell
-          ? parserSlateNodeToMarkdown(
-              n?.children,
-              '',
-              [...parent, n],
-              plugins,
-            ) || 'xxx'
-          : '';
+        if (n.type === 'column-cell') {
+          // 即使没有 children 也处理这个单元格
+          row[i] = n?.children
+            ? parserSlateNodeToMarkdown(
+                n.children,
+                '',
+                [...parent, n],
+                plugins,
+              ) || ''
+            : '';
+        } else {
+          row[i] = ''; // 非 column-cell 类型的元素设为空字符串
+        }
       }
 
-      const validRow = row.slice(0, validColumnCount);
+      // 生成列标题
       data[0] = Array.from(
-        { length: validColumnCount },
+        { length: children.length },
         (_, i) => `column${i + 1}`,
       );
-      data[1] = validRow;
-      maxColumns = validColumnCount;
+      data[1] = row;
+      maxColumns = children.length;
       return 2; // 返回实际行数
     },
     default: () => {
@@ -658,18 +660,18 @@ const table = (
           processCell: (cell: any) => string,
         ) => {
           const row: string[] = new Array(cells.length);
-          let validCellCount = 0;
 
-          for (const cell of cells) {
+          // 处理每个单元格，包括空单元格
+          for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
             const content = processCell(cell);
-            validCellCount += Number(!!content);
-            row[validCellCount - 1] = content;
+            row[i] = content; // 保持原始位置，不跳过空单元格
           }
 
-          const hasContent = validCellCount > 0 && row.some(Boolean);
-          if (hasContent) {
-            data[rowIndex] = row.slice(0, validCellCount);
-            maxColumns = Math.max(maxColumns, validCellCount);
+          // 只要有单元格存在就添加这一行，即使所有单元格都是空的
+          if (cells.length > 0) {
+            data[rowIndex] = row;
+            maxColumns = Math.max(maxColumns, cells.length);
             rowIndex++;
           }
         };
@@ -700,9 +702,11 @@ const table = (
             .trim();
         };
 
-        c.type === 'table-row' && c?.children
-          ? processRow(c.children, cellProcessor)
-          : c.type === 'table-cell' && processRow([c], cellProcessor);
+        if (c.type === 'table-row' && c?.children) {
+          processRow(c.children, cellProcessor);
+        } else if (c.type === 'table-cell') {
+          processRow([c], cellProcessor);
+        }
       }
       return rowIndex;
     },
@@ -1131,7 +1135,6 @@ const handleDescription = (
       ...node,
       children: tableRows,
     },
-    preString,
     parent,
     plugins,
   );
