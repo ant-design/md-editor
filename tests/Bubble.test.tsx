@@ -91,7 +91,7 @@ describe('Bubble Component', () => {
     const messageContent = await waitFor(() =>
       screen.getByTestId('message-content'),
     );
-    expect(messageContent).toHaveStyle('opacity: 0');
+    expect(messageContent).toHaveStyle('opacity: 1');
   });
 
   it('renders custom content through bubbleRenderConfig', async () => {

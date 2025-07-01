@@ -1,7 +1,11 @@
 import '@testing-library/jest-dom';
+import { MotionGlobalConfig } from 'framer-motion';
 import { JSDOM } from 'jsdom';
 import React from 'react';
 import { vi } from 'vitest';
+
+MotionGlobalConfig.skipAnimations = true;
+
 globalThis.React = React;
 
 //@ts-ignore
