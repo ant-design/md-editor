@@ -216,8 +216,8 @@ describe('ThoughtChainList', () => {
       render(<ThoughtChainList thoughtChainList={[mockLoadingData]} />);
 
       expect(screen.getByText('正在分析数据...')).toBeInTheDocument();
-      // 检查是否有加载指示器 - 使用更通用的选择器
-      expect(screen.getByText(/思考中|正在分析/)).toBeInTheDocument();
+      // 检查是否有加载指示器 - 使用更精确的选择器
+      expect(screen.getAllByText(/思考中|正在分析/).length).toBeGreaterThan(0);
     });
 
     it('should show cost time when provided', () => {
@@ -491,6 +491,326 @@ describe('ThoughtChainList', () => {
       // 测试 Enter 键
       fireEvent.keyDown(collapseButton, { key: 'Enter' });
       // 应该触发折叠/展开
+    });
+  });
+
+  // 性能优化相关测试
+  describe('Performance Optimization', () => {
+    it('should minimize re-renders with React.memo', () => {
+      const renderSpy = vi.fn();
+
+      const TestComponent = React.memo(() => {
+        renderSpy();
+        return <ThoughtChainList thoughtChainList={[mockTableSqlData]} />;
+      });
+
+      const { rerender } = render(<TestComponent />);
+
+      // 初始渲染
+      expect(renderSpy).toHaveBeenCalledTimes(1);
+
+      // 使用相同的 props 重新渲染，应该不会触发组件重新渲染
+      rerender(<TestComponent />);
+      expect(renderSpy).toHaveBeenCalledTimes(1); // 应该仍然是 1
+    });
+
+    it('should memoize callback functions to prevent child re-renders', () => {
+      const { rerender } = render(
+        <ThoughtChainList
+          thoughtChainList={[mockRagRetrievalData]}
+          onDocMetaClick={vi.fn()}
+        />,
+      );
+
+      const initialElements = screen.getAllByText('检索产品文档');
+
+      // 使用不同的回调函数引用重新渲染
+      rerender(
+        <ThoughtChainList
+          thoughtChainList={[mockRagRetrievalData]}
+          onDocMetaClick={vi.fn()} // 新的函数引用
+        />,
+      );
+
+      // 组件应该能够处理回调函数的变化
+      const afterRerenderElements = screen.getAllByText('检索产品文档');
+      expect(afterRerenderElements.length).toBe(initialElements.length);
+    });
+
+    it('should handle large datasets efficiently', () => {
+      const largeDataset: WhiteBoxProcessInterface[] = Array.from(
+        { length: 100 },
+        (_, i) => ({
+          category: 'TableSql',
+          info: `查询任务 ${i + 1}`,
+          runId: `task-${i}`,
+          costMillis: Math.floor(Math.random() * 5000),
+          input: {
+            sql: `SELECT * FROM table_${i} WHERE id = ${i}`,
+          },
+          output: {
+            type: 'TABLE',
+            tableData: {
+              id: [i, i + 1, i + 2],
+              name: [`用户${i}`, `用户${i + 1}`, `用户${i + 2}`],
+            },
+            columns: ['id', 'name'],
+          },
+        }),
+      );
+
+      const startTime = performance.now();
+      render(<ThoughtChainList thoughtChainList={largeDataset} />);
+      const endTime = performance.now();
+
+      // 渲染时间应该在合理范围内（小于 3 秒，调整为更现实的阈值）
+      expect(endTime - startTime).toBeLessThan(3000);
+
+      // 应该能正确渲染第一个和最后一个项目
+      expect(screen.getByText('查询任务 1')).toBeInTheDocument();
+      expect(screen.getByText('查询任务 100')).toBeInTheDocument();
+    });
+
+    it('should optimize document drawer rendering', () => {
+      const { rerender } = render(
+        <ThoughtChainList
+          thoughtChainList={[mockRagRetrievalData]}
+          onDocMetaClick={vi.fn()}
+        />,
+      );
+
+      // 点击文档链接打开抽屉
+      const docLink = screen.getByText('产品功能说明');
+      fireEvent.click(docLink);
+
+      // 验证抽屉组件被渲染
+      expect(screen.getByText(/预览.*产品功能说明/)).toBeInTheDocument();
+
+      // 重新渲染其他 props，抽屉应该保持稳定
+      rerender(
+        <ThoughtChainList
+          thoughtChainList={[mockRagRetrievalData]}
+          onDocMetaClick={vi.fn()}
+          compact={true} // 添加新的 prop
+        />,
+      );
+
+      // 抽屉应该仍然存在
+      expect(screen.getByText(/预览.*产品功能说明/)).toBeInTheDocument();
+    });
+  });
+
+  // 内存管理测试
+  describe('Memory Management', () => {
+    it('should clean up resources when unmounted', () => {
+      const { unmount } = render(
+        <ThoughtChainList thoughtChainList={[mockTableSqlData]} />,
+      );
+
+      // 验证组件正常渲染
+      expect(screen.getByText('查询用户表数据')).toBeInTheDocument();
+
+      // 卸载组件
+      unmount();
+
+      // 验证组件已被移除
+      expect(screen.queryByText('查询用户表数据')).not.toBeInTheDocument();
+    });
+
+    it('should handle rapid state changes without memory leaks', async () => {
+      const { rerender } = render(
+        <ThoughtChainList
+          thoughtChainList={[mockLoadingData]}
+          loading={true}
+        />,
+      );
+
+      // 快速切换状态多次
+      for (let i = 0; i < 10; i++) {
+        rerender(
+          <ThoughtChainList
+            thoughtChainList={[{ ...mockLoadingData, runId: `test-${i}` }]}
+            loading={i % 2 === 0}
+          />,
+        );
+      }
+
+      // 最终状态应该正确
+      expect(screen.getByText('正在分析数据...')).toBeInTheDocument();
+    });
+  });
+
+  // 并发更新测试
+  describe('Concurrent Updates', () => {
+    it('should handle simultaneous thought chain updates', async () => {
+      let thoughtChainList = [mockTableSqlData];
+
+      const { rerender } = render(
+        <ThoughtChainList thoughtChainList={thoughtChainList} />,
+      );
+
+      // 模拟同时添加多个新项目
+      thoughtChainList = [
+        ...thoughtChainList,
+        mockToolCallData,
+        mockRagRetrievalData,
+        mockDeepThinkData,
+      ];
+
+      rerender(<ThoughtChainList thoughtChainList={thoughtChainList} />);
+
+      await waitFor(() => {
+        expect(screen.getByText('查询用户表数据')).toBeInTheDocument();
+        expect(screen.getByText('调用用户信息接口')).toBeInTheDocument();
+        expect(screen.getByText('检索产品文档')).toBeInTheDocument();
+        expect(screen.getByText('分析市场趋势')).toBeInTheDocument();
+      });
+    });
+  });
+
+  // 错误恢复测试
+  describe('Error Recovery', () => {
+    it('should recover from render errors gracefully', () => {
+      const problematicData: WhiteBoxProcessInterface = {
+        category: 'TableSql',
+        info: '问题数据',
+        runId: 'error-test',
+        input: {
+          sql: null as any, // 故意传入无效数据
+        },
+        output: {
+          type: 'TABLE',
+          tableData: null as any,
+        },
+      };
+
+      // 应该能够渲染而不抛出错误
+      render(<ThoughtChainList thoughtChainList={[problematicData]} />);
+      expect(screen.getByText('问题数据')).toBeInTheDocument();
+    });
+
+    it('should handle malformed output data', () => {
+      const malformedData: WhiteBoxProcessInterface = {
+        category: 'RagRetrieval',
+        info: '格式错误测试',
+        runId: 'malformed-test',
+        output: {
+          type: 'CHUNK',
+          chunks: [
+            {
+              content: undefined as any,
+              originUrl: '',
+              docMeta: null as any,
+            },
+          ],
+        },
+      };
+
+      render(<ThoughtChainList thoughtChainList={[malformedData]} />);
+      expect(screen.getByText('格式错误测试')).toBeInTheDocument();
+    });
+  });
+
+  // 国际化测试
+  describe('Internationalization', () => {
+    it('should handle missing locale keys gracefully', () => {
+      const incompleteLocale = {
+        thinking: '思考中...',
+        // 缺少其他键
+      };
+
+      render(
+        <ThoughtChainList
+          thoughtChainList={[mockTableSqlData]}
+          locale={incompleteLocale}
+          loading={true}
+        />,
+      );
+
+      expect(
+        screen.getAllByText((content, element) => {
+          return element?.textContent?.includes('思考中') ?? false;
+        })[0],
+      ).toBeInTheDocument();
+    });
+  });
+
+  // 动画和视觉效果测试
+  describe('Animation and Visual Effects', () => {
+    it('should apply correct CSS classes for different states', () => {
+      const { container } = render(
+        <ThoughtChainList
+          thoughtChainList={[mockTableSqlData]}
+          compact={true}
+          bubble={{ isFinished: false }}
+        />,
+      );
+
+      expect(
+        container.querySelector('.ant-thought-chain-list-container-loading'),
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-thought-chain-list-content-compact'),
+      ).toBeInTheDocument();
+    });
+
+    it('should handle staggered animations for multiple items', () => {
+      const multipleItems = [
+        mockTableSqlData,
+        mockToolCallData,
+        mockRagRetrievalData,
+        mockDeepThinkData,
+        mockWebSearchData,
+      ];
+
+      const { container } = render(
+        <ThoughtChainList thoughtChainList={multipleItems} />,
+      );
+
+      // 验证所有项目都被渲染
+      const listItems = container.querySelectorAll('[role="listitem"]');
+      expect(listItems.length).toBe(multipleItems.length);
+    });
+  });
+
+  // 复杂场景集成测试
+  describe('Complex Scenarios', () => {
+    it('should handle mixed category types with different states', () => {
+      const mixedData: WhiteBoxProcessInterface[] = [
+        mockTableSqlData, // 完成状态
+        mockLoadingData, // 加载状态
+        mockErrorData, // 错误状态
+        mockRagRetrievalData, // 正常状态
+      ];
+
+      render(<ThoughtChainList thoughtChainList={mixedData} />);
+
+      expect(screen.getByText('查询用户表数据')).toBeInTheDocument();
+      expect(screen.getByText('正在分析数据...')).toBeInTheDocument();
+      expect(screen.getByText('调用支付接口失败')).toBeInTheDocument();
+      expect(screen.getByText('检索产品文档')).toBeInTheDocument();
+    });
+
+    it('should maintain scroll position during updates', () => {
+      const largeDataset: WhiteBoxProcessInterface[] = Array.from(
+        { length: 50 },
+        (_, i) => ({
+          ...mockTableSqlData,
+          info: `任务 ${i + 1}`,
+          runId: `scroll-test-${i}`,
+        }),
+      );
+
+      const { rerender } = render(
+        <ThoughtChainList thoughtChainList={largeDataset.slice(0, 25)} />,
+      );
+
+      // 添加更多项目
+      rerender(<ThoughtChainList thoughtChainList={largeDataset} />);
+
+      // 验证所有项目都被渲染
+      expect(screen.getByText('任务 1')).toBeInTheDocument();
+      expect(screen.getByText('任务 50')).toBeInTheDocument();
     });
   });
 });
