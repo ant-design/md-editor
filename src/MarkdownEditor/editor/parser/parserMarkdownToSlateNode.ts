@@ -249,15 +249,15 @@ const parseTableOrChart = (
   const tableHeader = table?.children?.at(0);
   const columns =
     tableHeader?.children
-      ?.map((node) =>
-        myRemark
+      ?.map((node) => {
+        return myRemark
           .stringify({
             type: 'root',
             children: [node],
           })
           ?.replace(/\n/g, '')
-          .trim(),
-      )
+          .trim();
+      })
       .map((title) => title?.replaceAll('\\', '') || ' ')
       .map((title, index) => {
         if (keyMap.has(title)) {
