@@ -144,16 +144,16 @@ export const useKeyboard = (
           enter.run(e);
           return;
         }
+        return;
       }
       if (props.textAreaProps?.triggerSendKey === 'Mod+Enter') {
         if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
           e.stopPropagation();
           e.preventDefault();
           enter.run(e);
-          return;
         }
+        return;
       }
-
       if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
         e.stopPropagation();
         e.preventDefault();
