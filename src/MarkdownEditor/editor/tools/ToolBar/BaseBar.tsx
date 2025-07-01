@@ -587,7 +587,7 @@ export const BaseToolBar = (props: {
     if (
       node &&
       ['head', 'paragraph', 'quote', 'b-list', 'n-list', 't-list'].includes(
-        node[0].type as ToolsKeyType,
+        node?.[0]?.type as ToolsKeyType,
       )
     ) {
       list.push(

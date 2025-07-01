@@ -32,7 +32,7 @@ export class TabKey {
       if (sel && Editor.hasPath(this.editor, sel.anchor.path)) {
         if (node) {
           const [el, path] = node;
-          switch (node[0].type as NodeTypes) {
+          switch (node?.[0]?.type as NodeTypes) {
             case 'table-cell':
               if (this.tableCell(el, path, e.shiftKey)) return;
               break;

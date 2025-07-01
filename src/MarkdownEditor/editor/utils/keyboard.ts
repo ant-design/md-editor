@@ -145,7 +145,7 @@ export class KeyboardTask {
     const text = await navigator.clipboard.readText();
     if (text) {
       const [node] = this.curNodes;
-      if (node[0].type === 'table-cell') {
+      if (node?.[0]?.type === 'table-cell') {
         Editor.insertText(this.editor, text.replace(/\n/g, ' '));
       } else {
         Editor.insertText(this.editor, text);
@@ -167,7 +167,7 @@ export class KeyboardTask {
     input.type = 'file';
     input.accept = 'image/*';
     const insertMedia = async (url: string) => {
-      if (node && ['column-cell'].includes(node[0].type)) {
+      if (node && ['column-cell'].includes(node?.[0]?.type)) {
         Transforms.insertNodes(
           this.editor,
           [EditorUtils.createMediaNode(url, 'image', {})],
@@ -239,7 +239,7 @@ export class KeyboardTask {
     }
     if (
       node &&
-      ['paragraph', 'head'].includes(node[0].type) &&
+      ['paragraph', 'head'].includes(node?.[0]?.type) &&
       EditorUtils.isTop(this.editor, node[1])
     ) {
       Transforms.setNodes(
@@ -257,7 +257,7 @@ export class KeyboardTask {
    */
   paragraph() {
     const [node] = this.curNodes;
-    if (node && ['head'].includes(node[0].type)) {
+    if (node && ['head'].includes(node?.[0]?.type)) {
       Transforms.setNodes(this.editor, { type: 'paragraph' }, { at: node[1] });
     }
   }
@@ -273,10 +273,10 @@ export class KeyboardTask {
     const [node] = this.curNodes;
     if (
       node &&
-      ['paragraph', 'head'].includes(node[0].type) &&
+      ['paragraph', 'head'].includes(node?.[0]?.type) &&
       EditorUtils.isTop(this.editor, node[1])
     ) {
-      if (node[0].type === 'paragraph') {
+      if (node?.[0]?.type === 'paragraph') {
         Transforms.setNodes(
           this.editor,
           { type: 'head', level: 4 },
@@ -309,10 +309,10 @@ export class KeyboardTask {
     const [node] = this.curNodes;
     if (
       node &&
-      ['paragraph', 'head'].includes(node[0].type) &&
+      ['paragraph', 'head'].includes(node?.[0]?.type) &&
       EditorUtils.isTop(this.editor, node[1])
     ) {
-      if (node[0].type === 'paragraph') {
+      if (node?.[0]?.type === 'paragraph') {
         Transforms.setNodes(
           this.editor,
           { type: 'head', level: 1 },
@@ -343,12 +343,12 @@ export class KeyboardTask {
    */
   insertQuote() {
     const [node] = this.curNodes;
-    if (!['paragraph', 'head'].includes(node[0].type)) return;
+    if (!['paragraph', 'head'].includes(node?.[0]?.type)) return;
     if (Node.parent(this.editor, node[1]).type === 'blockquote') {
       Transforms.unwrapNodes(this.editor, { at: Path.parent(node[1]) });
       return;
     }
-    if (node[0].type === 'head') {
+    if (node?.[0]?.type === 'head') {
       Transforms.setNodes(
         this.editor,
         {
@@ -372,9 +372,9 @@ export class KeyboardTask {
    */
   insertTable() {
     const [node] = this.curNodes;
-    if (node && ['paragraph', 'head'].includes(node[0].type)) {
+    if (node && ['paragraph', 'head'].includes(node?.[0]?.type)) {
       const path =
-        node[0].type === 'paragraph' && !Node.string(node[0])
+        node?.[0]?.type === 'paragraph' && !Node.string(node[0])
           ? node[1]
           : Path.next(node[1]);
       Transforms.insertNodes(
@@ -431,13 +431,13 @@ export class KeyboardTask {
         }),
         { at: path },
       );
-      if (node[0].type === 'paragraph' && !Node.string(node[0])) {
+      if (node?.[0]?.type === 'paragraph' && !Node.string(node[0])) {
         Transforms.delete(this.editor, { at: Path.next(path) });
       }
       Transforms.select(this.editor, Editor.start(this.editor, path));
     }
 
-    if (node && ['column-cell'].includes(node[0].type)) {
+    if (node && ['column-cell'].includes(node?.[0]?.type)) {
       Transforms.insertNodes(
         this.editor,
         {
@@ -493,8 +493,9 @@ export class KeyboardTask {
   insertColumn() {
     const [node] = this.curNodes;
     if (node) {
-      const path = node[0].type === 'paragraph' ? node[1] : Path.next(node[1]);
-      if (node[0].type === 'paragraph' && !Node.string(node[0])) {
+      const path =
+        node?.[0]?.type === 'paragraph' ? node[1] : Path.next(node[1]);
+      if (node?.[0]?.type === 'paragraph' && !Node.string(node[0])) {
         Transforms.delete(this.editor, { at: node[1] });
       }
       Transforms.insertNodes(
@@ -533,7 +534,7 @@ export class KeyboardTask {
    */
   insertCode(type?: 'mermaid' | 'html') {
     const [node] = this.curNodes;
-    if (node && ['column-cell'].includes(node[0].type)) {
+    if (node && ['column-cell'].includes(node?.[0]?.type)) {
       Transforms.insertNodes(
         this.editor,
         {
@@ -547,9 +548,9 @@ export class KeyboardTask {
       );
       return;
     }
-    if (node && ['paragraph', 'head'].includes(node[0].type)) {
+    if (node && ['paragraph', 'head'].includes(node?.[0]?.type)) {
       const path =
-        node[0].type === 'paragraph' && !Node.string(node[0])
+        node?.[0]?.type === 'paragraph' && !Node.string(node[0])
           ? node[1]
           : Path.next(node[1]);
       let lang = '';
@@ -584,9 +585,9 @@ export class KeyboardTask {
    */
   horizontalLine() {
     const [node] = this.curNodes;
-    if (node && ['paragraph', 'head'].includes(node[0].type)) {
+    if (node && ['paragraph', 'head'].includes(node?.[0]?.type)) {
       const path =
-        node[0].type === 'paragraph' && !Node.string(node[0])
+        node?.[0]?.type === 'paragraph' && !Node.string(node[0])
           ? node[1]
           : Path.next(node[1]);
       Transforms.insertNodes(
@@ -839,7 +840,7 @@ export const useSystemKeyboard = (
       if (!node) return;
       let readlUrl = node[0]?.url as string;
 
-      if (node[0].type === 'media') {
+      if (node?.[0]?.type === 'media') {
         const url = `media://file?url=${readlUrl}&height=${
           node[0].height || ''
         }`;
@@ -851,7 +852,7 @@ export const useSystemKeyboard = (
           ReactEditor.focus(store?.editor);
         }
       }
-      if (node[0].type === 'attach') {
+      if (node?.[0]?.type === 'attach') {
         const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
         try {
           navigator.clipboard.writeText(url);

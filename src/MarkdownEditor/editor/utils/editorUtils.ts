@@ -96,13 +96,13 @@ export class EditorUtils {
     });
     if (!cur) return null;
     let path = cur[1];
-    if (cur[0].type === 'table-cell') {
+    if (cur?.[0]?.type === 'table-cell') {
       path = Path.next(Path.parent(Path.parent(cur[1])));
     }
-    if (cur[0].type === 'head') {
+    if (cur?.[0]?.type === 'head') {
       path = Path.next(path);
     }
-    if (cur[0].type === 'paragraph' && Node.string(cur[0])) {
+    if (cur?.[0]?.type === 'paragraph' && Node.string(cur[0])) {
       path = Path.next(cur[1]);
     }
     return path;
@@ -520,7 +520,7 @@ export class EditorUtils {
       reverse: true,
     });
     if (
-      (node && node[0].type !== 'paragraph') ||
+      (node && node?.[0]?.type !== 'paragraph') ||
       Node.string(node[0]) ||
       (node?.[0]?.children?.length === 1 &&
         node?.[0]?.children[0]?.type === 'media')

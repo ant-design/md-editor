@@ -84,10 +84,10 @@ export const makeDeserializer = (jsx: any) => {
 
     if (
       nodeName === 'PRE' &&
-      el.childNodes[0] &&
-      el.childNodes[0].nodeName === 'CODE'
+      el.childNodes?.[0] &&
+      el.childNodes?.[0]?.nodeName === 'CODE'
     ) {
-      parent = el.childNodes[0];
+      parent = el.childNodes?.[0];
     }
 
     let children = Array.from(parent.childNodes)

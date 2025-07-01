@@ -128,7 +128,7 @@ export const MdElements: Record<string, MdNode> = {
     checkAllow: (ctx) => {
       return (
         EditorUtils.isTop(ctx.editor, ctx.node[1]) &&
-        ['paragraph', 'head'].includes(ctx.node[0].type) &&
+        ['paragraph', 'head'].includes(ctx.node?.[0]?.type) &&
         !Path.hasPrevious(ctx.sel.anchor.path)
       );
     },
@@ -201,7 +201,7 @@ export const MdElements: Record<string, MdNode> = {
     reg: /^\s*\[(x|\s)]\s+/,
     matchKey: ' ',
     checkAllow: (ctx) => {
-      if (ctx.node[0].type === 'paragraph') {
+      if (ctx.node?.[0]?.type === 'paragraph') {
         const list =
           Editor.parent(ctx.editor, ctx.node[1])[0].type === 'list-item';
         return !(list && !Path.hasPrevious(ctx.node[1]));
@@ -239,7 +239,7 @@ export const MdElements: Record<string, MdNode> = {
         return Path.hasPrevious(ctx.node[1]);
       }
       return (
-        ['paragraph'].includes(ctx.node[0].type) &&
+        ['paragraph'].includes(ctx.node?.[0]?.type) &&
         !Path.hasPrevious(ctx.sel.anchor.path)
       );
     },
@@ -279,7 +279,7 @@ export const MdElements: Record<string, MdNode> = {
   hr: {
     reg: /^\s*\*\*\*|___|---\s*/,
     checkAllow: (ctx) =>
-      ctx.node[0].type === 'paragraph' && ctx.node[1][0] !== 0,
+      ctx.node?.[0]?.type === 'paragraph' && ctx.node[1][0] !== 0,
     run: ({ editor, path }) => {
       Transforms.delete(editor, { at: path });
       Transforms.insertNodes(
@@ -295,7 +295,7 @@ export const MdElements: Record<string, MdNode> = {
     checkAllow: (ctx) => {
       return (
         !Path.hasPrevious(ctx.node[1]) &&
-        ctx.node[0].type === 'paragraph' &&
+        ctx.node?.[0]?.type === 'paragraph' &&
         EditorUtils.isTop(ctx.editor, ctx.node[1])
       );
     },
@@ -317,7 +317,7 @@ export const MdElements: Record<string, MdNode> = {
     matchKey: ' ',
     reg: /^\s*>\s+([^\n]+)?/,
     checkAllow: (ctx) => {
-      return ctx.node[0].type === 'paragraph';
+      return ctx.node?.[0]?.type === 'paragraph';
     },
     run: ({ sel, editor, path }) => {
       if (sel && Range.isCollapsed(sel)) {

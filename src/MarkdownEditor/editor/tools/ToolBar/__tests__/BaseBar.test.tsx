@@ -31,7 +31,7 @@ vi.mock('../../../utils/editorUtils', () => ({
         match: (n: any) => Element.isElement(n),
         mode: 'lowest',
       });
-      if (node && node[0].type === 'code') {
+      if (node && node?.[0]?.type === 'code') {
         return;
       }
       // 如果不是代码节点，执行格式化
@@ -43,7 +43,7 @@ vi.mock('../../../utils/editorUtils', () => ({
         match: (n: any) => Element.isElement(n),
         mode: 'lowest',
       });
-      if (node && node[0].type === 'code') {
+      if (node && node?.[0]?.type === 'code') {
         return;
       }
       // 如果不是代码节点，执行清除格式
@@ -55,7 +55,7 @@ vi.mock('../../../utils/editorUtils', () => ({
         match: (n: any) => Element.isElement(n),
         mode: 'lowest',
       });
-      if (node && node[0].type === 'code') {
+      if (node && node?.[0]?.type === 'code') {
         return;
       }
       // 如果不是代码节点，执行颜色修改

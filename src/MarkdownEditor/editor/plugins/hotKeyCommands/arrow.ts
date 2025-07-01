@@ -85,7 +85,7 @@ export const keyArrow = (
           match: (n) => n.type === 'media' || n.type === 'attach',
         });
         if (node) {
-          if (node[0].type === 'media' || node[0].type === 'attach') {
+          if (node?.[0]?.type === 'media' || node?.[0]?.type === 'attach') {
             Transforms.select(editor, Editor.start(editor, Path.next(node[1])));
           } else {
             EditorUtils.moveAfterSpace(editor, node[1]);

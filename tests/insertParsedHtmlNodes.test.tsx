@@ -225,7 +225,7 @@ describe('insertParsedHtmlNodes', () => {
     );
 
     expect(result).toBe(true);
-    expect(Node.string(editor.children[0].children[0].children[0])).toBe(
+    expect(Node.string(editor.children[0]?.children?.[0]?.children?.[0])).toBe(
       'Test content',
     );
   });

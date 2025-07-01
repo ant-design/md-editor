@@ -77,7 +77,7 @@ export function useOnchange(
         if (
           _operations.some((o) => o.type === 'set_selection') &&
           sel &&
-          !floatBarIgnoreNode.has(node[0].type) &&
+          !floatBarIgnoreNode.has(node?.[0]?.type) &&
           !Range.isCollapsed(sel) &&
           Path.equals(Path.parent(sel.focus.path), Path.parent(sel.anchor.path))
         ) {

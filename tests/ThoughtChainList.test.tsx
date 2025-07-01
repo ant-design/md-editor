@@ -253,7 +253,8 @@ describe('ThoughtChainList', () => {
           "SELECT * FROM users WHERE status = 'active'",
         );
         if (contentElements.length > 0) {
-          const parentElement = contentElements[0].closest('[style*="height"]');
+          const parentElement =
+            contentElements?.[0]?.closest('[style*="height"]');
           expect(parentElement).toHaveStyle('height: 0px');
         }
       });

@@ -85,7 +85,7 @@ export const ReadonlyTable = ({
     const maxColumnWidth = containerWidth / 4;
     const minColumnWidth = 60;
 
-    const columnCount = tableRows[0].children.length;
+    const columnCount = tableRows?.[0]?.children?.length || 0;
     const rowsToSample = Math.min(5, tableRows.length);
 
     // 一次性计算宽度

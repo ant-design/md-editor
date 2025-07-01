@@ -283,7 +283,7 @@ export const insertParsedHtmlNodes = async (
       const node = Editor?.node(editor, [0]);
       if (
         editor.children.length > 1 &&
-        node[0].type === 'paragraph' &&
+        node?.[0]?.type === 'paragraph' &&
         !Node.string(node[0])
       ) {
         Transforms.delete(editor, { at: [0] });

@@ -165,7 +165,7 @@ export const useKeyboard = (
         mode: 'lowest',
       });
       if (!node) return;
-      if (node[0].type === 'paragraph') {
+      if (node?.[0]?.type === 'paragraph') {
         const [node] = Editor.nodes<any>(markdownEditorRef.current, {
           match: (n) => Element.isElement(n) && n.type === 'paragraph',
           mode: 'lowest',

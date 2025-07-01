@@ -4,15 +4,6 @@ import { glob } from 'glob';
 import React, { useEffect } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
-// Mock console.log to ignore act warnings
-const originalConsoleLog = console.log;
-console.log = (...args: any[]) => {
-  if (typeof args[0] === 'string' && args[0].includes('inside an act')) {
-    return;
-  }
-  originalConsoleLog(...args);
-};
-
 const waitTime = (time: number) =>
   new Promise((resolve) => {
     setTimeout(resolve, time);
@@ -63,7 +54,7 @@ function demoTest() {
           </ConfigProvider>,
         );
 
-        await waitTime(1500);
+        await waitTime(1000);
         await waitFor(() => {
           return wrapper.findAllByText('test');
         });
