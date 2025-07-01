@@ -2,13 +2,22 @@
 import { Transforms } from 'slate';
 import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
 import { RenderElementProps, useSlate } from '../../slate-react';
+import { useEditorStore } from '../../store';
 
 export const WarpCard = (props: RenderElementProps) => {
   const [selected, path] = useSelStatus(props.element);
   const editor = useSlate();
+  const { readonly } = useEditorStore();
   const [isHovered, setIsHovered] = React.useState(false);
 
   return React.useMemo(() => {
+    if (readonly) {
+      return (
+        <div {...props.attributes} data-be={'card'} role="button">
+          {props.children}
+        </div>
+      );
+    }
     return (
       <div
         {...props.attributes}
