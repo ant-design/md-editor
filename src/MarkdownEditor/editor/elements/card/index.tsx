@@ -43,7 +43,7 @@ export const WarpCard = (props: RenderElementProps) => {
         }}
         style={{
           ...props.element.style,
-          padding: 12,
+          padding: 8,
           borderRadius: 6,
           display: props.element.block === false ? 'inline-flex' : 'flex',
           gap: 4,
