@@ -1,12 +1,15 @@
 import '@testing-library/jest-dom';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { BaseEditor, createEditor } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
-import { describe, expect, it, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { BaseMarkdownEditor } from '../../src/MarkdownEditor/BaseMarkdownEditor';
-import { ReactEditor, withReact } from '../../src/MarkdownEditor/editor/slate-react';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
+import {
+  ReactEditor,
+  withReact,
+} from '../../src/MarkdownEditor/editor/slate-react';
 import { EditorUtils } from '../../src/MarkdownEditor/editor/utils/editorUtils';
 
 describe('Card Visual Effects Tests', () => {
@@ -45,7 +48,9 @@ describe('Card Visual Effects Tests', () => {
         expect(cardElement).toBeTruthy();
       });
 
-      const cardElement = container.querySelector('[data-be="card"]') as HTMLElement;
+      const cardElement = container.querySelector(
+        '[data-be="card"]',
+      ) as HTMLElement;
 
       // 验证初始状态
       expect(cardElement.style.outline).toMatch(/^(|none)$/);
@@ -79,16 +84,18 @@ describe('Card Visual Effects Tests', () => {
         expect(cardElement).toBeTruthy();
       });
 
-      const cardElement = container.querySelector('[data-be="card"]') as HTMLElement;
+      const cardElement = container.querySelector(
+        '[data-be="card"]',
+      ) as HTMLElement;
 
       // 验证基本样式（注意 React 会将数字转换为字符串并添加 px）
       expect(cardElement.style.position).toBe('relative');
-      expect(cardElement.style.padding).toBe('12px');
+      expect(cardElement.style.padding).toBe('8px');
       expect(cardElement.style.borderRadius).toBe('6px');
       // width 可能被其他样式覆盖，只验证基本的样式存在
       expect(cardElement.style.cursor).toBe('pointer');
       expect(cardElement.style.transition).toContain('ease-in-out');
-      
+
       // 验证卡片具有正确的结构和属性
       expect(cardElement.getAttribute('data-be')).toBe('card');
       expect(cardElement.getAttribute('role')).toBe('button');
@@ -132,11 +139,13 @@ describe('Card Visual Effects Tests', () => {
         expect(cardElement).toBeTruthy();
       });
 
-      const cardElement = container.querySelector('[data-be="card"]') as HTMLElement;
+      const cardElement = container.querySelector(
+        '[data-be="card"]',
+      ) as HTMLElement;
 
       // 验证过渡效果始终存在
       expect(cardElement.style.transition).toContain('0.2s');
       expect(cardElement.style.transition).toContain('ease-in-out');
     });
   });
-}); 
+});
