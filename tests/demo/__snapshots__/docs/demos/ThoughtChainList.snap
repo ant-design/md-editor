@@ -123,7 +123,16 @@
                 class="ant-thought-chain-list-title-progress"
                 style="font-size: 1em;"
               >
-                <div />
+                <div>
+                  <div>
+                    思考中
+                    <div
+                      aria-label="Loading"
+                      class="md-editor-loader"
+                      role="progressbar"
+                    />
+                  </div>
+                </div>
               </span>
             </div>
             <span
@@ -1815,7 +1824,16 @@
                 class="ant-thought-chain-list-title-progress"
                 style="font-size: 1em;"
               >
-                <div />
+                <div>
+                  <div>
+                    思考中
+                    <div
+                      aria-label="Loading"
+                      class="md-editor-loader"
+                      role="progressbar"
+                    />
+                  </div>
+                </div>
               </span>
             </div>
             <span

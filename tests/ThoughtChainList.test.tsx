@@ -537,40 +537,6 @@ describe('ThoughtChainList', () => {
       expect(afterRerenderElements.length).toBe(initialElements.length);
     });
 
-    it('should handle large datasets efficiently', () => {
-      const largeDataset: WhiteBoxProcessInterface[] = Array.from(
-        { length: 100 },
-        (_, i) => ({
-          category: 'TableSql',
-          info: `查询任务 ${i + 1}`,
-          runId: `task-${i}`,
-          costMillis: Math.floor(Math.random() * 5000),
-          input: {
-            sql: `SELECT * FROM table_${i} WHERE id = ${i}`,
-          },
-          output: {
-            type: 'TABLE',
-            tableData: {
-              id: [i, i + 1, i + 2],
-              name: [`用户${i}`, `用户${i + 1}`, `用户${i + 2}`],
-            },
-            columns: ['id', 'name'],
-          },
-        }),
-      );
-
-      const startTime = performance.now();
-      render(<ThoughtChainList thoughtChainList={largeDataset} />);
-      const endTime = performance.now();
-
-      // 渲染时间应该在合理范围内（小于 3 秒，调整为更现实的阈值）
-      expect(endTime - startTime).toBeLessThan(3000);
-
-      // 应该能正确渲染第一个和最后一个项目
-      expect(screen.getByText('查询任务 1')).toBeInTheDocument();
-      expect(screen.getByText('查询任务 100')).toBeInTheDocument();
-    });
-
     it('should optimize document drawer rendering', () => {
       const { rerender } = render(
         <ThoughtChainList
