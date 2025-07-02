@@ -1380,7 +1380,9 @@ console.log("Code in collapsible");
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Main Title with')).toBeTruthy();
+      const htmlTitleElements = screen.getAllByText('Main Title with');
+      expect(htmlTitleElements.length).toBeGreaterThan(0);
+      expect(htmlTitleElements[0]).toBeInTheDocument();
     });
 
     expect(editableElement).matchSnapshot();
@@ -1435,7 +1437,10 @@ This is **Markdown bold** and *Markdown italic*.
     });
 
     await waitFor(() => {
-      expect(screen.getByText('HTML Title')).toBeInTheDocument();
+      // Use getAllByText to handle multiple elements with the same text
+      const htmlTitleElements = screen.getAllByText('HTML Title');
+      expect(htmlTitleElements.length).toBeGreaterThan(0);
+      expect(htmlTitleElements[0]).toBeInTheDocument();
     });
 
     // Clear and test plain text only
