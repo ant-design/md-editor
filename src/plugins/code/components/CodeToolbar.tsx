@@ -7,11 +7,12 @@
 import {
   CloseCircleOutlined,
   CopyOutlined,
+  DownOutlined,
   ForwardOutlined,
   FullscreenOutlined,
 } from '@ant-design/icons';
 import { message } from 'antd';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../../i18n';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
 import { CodeNode } from '../../../MarkdownEditor/el';
@@ -37,6 +38,10 @@ export interface CodeToolbarProps {
   isFullScreen: boolean;
   /** 语言选择器的属性 */
   languageSelectorProps: LanguageSelectorProps;
+  /** 代码块是否被选中 */
+  isSelected?: boolean;
+  /** 代码块选中状态变化回调 */
+  onSelectionChange?: (selected: boolean) => void;
 }
 
 /**
@@ -74,6 +79,9 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
   // 获取国际化上下文
   const i18n = useContext(I18nContext);
 
+  // 工具栏显示状态管理
+  const [isVisible, setIsVisible] = useState(false);
+
   // 解构 props 以提高代码可读性
   const {
     element,
@@ -82,19 +90,77 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
     onRunHtml,
     onFullScreenToggle,
     languageSelectorProps,
+    onSelectionChange,
+    isSelected = false,
   } = props;
+
+  // 隐藏工具栏
+  const hideToolbar = () => {
+    setIsVisible(false);
+  };
+
+  // 切换选中状态
+  const toggleSelection = () => {
+    setTimeout(() => {
+      onSelectionChange?.(true);
+    }, 300);
+    setIsVisible(true);
+  };
+
+  // 如果工具栏隐藏，只显示悬浮时的展开按钮
+  if (!isVisible) {
+    return (
+      <div
+        contentEditable={false}
+        style={{
+          height: '1px',
+          width: '100%',
+          position: 'sticky',
+          left: 0,
+          top: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          paddingRight: '0.375em',
+          zIndex: 50,
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* 选中状态下显示下拉按钮 */}
+        {isSelected ? (
+          <div
+            onClick={toggleSelection}
+            style={{
+              position: 'absolute',
+              backgroundColor: '#1890ff',
+              right: '50%',
+              zIndex: 100,
+              top: '0.25em',
+              transform: 'translateX(50%)',
+              padding: '0.25em',
+              borderRadius: '0.25em',
+              cursor: 'pointer',
+              fontSize: '0.8em',
+              color: '#fff',
+              transition: 'all 0.2s ease-in-out',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <DownOutlined />
+          </div>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <div
       contentEditable={false}
-      onClick={(e) => {
-        // 阻止事件冒泡，避免影响编辑器焦点
-        e.stopPropagation();
-      }}
       style={{
         height: '1.75em',
         backgroundColor: '#FFF',
-        borderBottom: '1px solid #eee',
         paddingLeft: '0.75em',
         paddingRight: '0.375em',
         display: 'flex',
@@ -109,6 +175,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         zIndex: 50,
         boxSizing: 'border-box',
         userSelect: 'none',
+        transition: 'border-color 0.2s ease-in-out',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}
@@ -244,6 +311,22 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
           }}
         >
           <FullscreenOutlined />
+        </ActionIconBox>
+
+        {/* 收起按钮 */}
+        <ActionIconBox
+          title="收起"
+          style={{
+            fontSize: '0.9em',
+            lineHeight: '1.75em',
+            marginLeft: '0.125em',
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            hideToolbar();
+          }}
+        >
+          <DownOutlined style={{ transform: 'rotate(180deg)' }} />
         </ActionIconBox>
       </div>
     </div>

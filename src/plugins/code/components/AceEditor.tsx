@@ -19,6 +19,8 @@ interface AceEditorProps {
   onShowBorderChange: (show: boolean) => void;
   onHideChange: (hide: boolean) => void;
   path: Path;
+  isSelected?: boolean;
+  onSelectionChange?: (selected: boolean) => void;
 }
 
 export function AceEditor({
@@ -27,6 +29,8 @@ export function AceEditor({
   onShowBorderChange,
   onHideChange,
   path,
+  isSelected = false,
+  onSelectionChange,
 }: AceEditorProps) {
   const { store, editorProps, readonly } = useEditorStore();
 
@@ -126,6 +130,14 @@ export function AceEditor({
           }, 60);
         }
       });
+      codeEditor.on('focus', () => {
+        onSelectionChange?.(true);
+      });
+      codeEditor.on('blur', () => {
+        setTimeout(() => {
+          onSelectionChange?.(false);
+        }, 160);
+      });
 
       // 键盘事件
       textarea?.addEventListener('keydown', handleKeyDown);
@@ -158,6 +170,9 @@ export function AceEditor({
       tabSize: 4,
       readOnly: readonly,
       showPrintMargin: false,
+      hideToolBar: true,
+      showLineNumbers: false,
+      showGutter: false,
       ...(editorProps.codeProps || {}),
     } as Ace.EditorOptions);
 
@@ -224,5 +239,7 @@ export function AceEditor({
     editorRef,
     setLanguage,
     focusEditor: () => editorRef.current?.focus(),
+    isSelected,
+    onSelectionChange,
   };
 }

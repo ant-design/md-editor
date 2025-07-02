@@ -15,6 +15,8 @@ interface UseToolbarConfigProps {
   onRunHtml: () => void;
   onFullScreenToggle: () => void;
   setLanguage: (lang: string) => void;
+  isSelected?: boolean;
+  onSelectionChange?: (selected: boolean) => void;
 }
 
 export function useToolbarConfig({
@@ -25,6 +27,8 @@ export function useToolbarConfig({
   onRunHtml,
   onFullScreenToggle,
   setLanguage,
+  isSelected,
+  onSelectionChange,
 }: UseToolbarConfigProps) {
   // 组装语言选择器属性
   const languageSelectorProps: LanguageSelectorProps = useCallback(
@@ -46,6 +50,8 @@ export function useToolbarConfig({
       onFullScreenToggle,
       isFullScreen,
       languageSelectorProps,
+      isSelected,
+      onSelectionChange,
     }),
     [
       element,
@@ -55,6 +61,8 @@ export function useToolbarConfig({
       onFullScreenToggle,
       isFullScreen,
       languageSelectorProps,
+      isSelected,
+      onSelectionChange,
     ],
   )();
 

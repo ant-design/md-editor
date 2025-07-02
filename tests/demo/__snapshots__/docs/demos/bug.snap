@@ -1994,101 +1994,12 @@
                 >
                   <div
                     class="ace-container drag-el "
-                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                    style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
-                    >
-                      <div
-                        contenteditable="false"
-                        style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
-                      >
-                        <div
-                          style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
-                        >
-                          <svg
-                            height="16"
-                            version="1.1"
-                            viewBox="0 0 24 24"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                             
-                            <path
-                              d="m10 15.97.41 2.44c-.26.14-.68.27-1.24.39-.57.13-1.24.2-2.01.2-2.21-.04-3.87-.7-4.98-1.96C1.06 15.77.5 14.16.5 12.21c.05-2.31.72-4.08 2-5.32C3.82 5.64 5.46 5 7.44 5c.75 0 1.4.07 1.94.19s.94.25 1.2.4L10 8.08l-1.06-.34c-.4-.1-.86-.15-1.39-.15-1.16-.01-2.12.36-2.87 1.1-.76.73-1.15 1.85-1.18 3.34 0 1.36.37 2.42 1.08 3.2.71.77 1.71 1.17 2.99 1.18l1.33-.12c.43-.08.79-.19 1.1-.32m.5-4.97h2V9h2v2h2v2h-2v2h-2v-2h-2v-2m7 0h2V9h2v2h2v2h-2v2h-2v-2h-2z"
-                              fill="#0288d1"
-                            />
-                             
-                          </svg>
-                        </div>
-                        <div>
-                          <span>
-                            cpp
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        style="display: flex; gap: 5px;"
-                      >
-                        <span
-                          aria-describedby="test-id"
-                          aria-label="复制"
-                          class="ant-md-editor-action-icon-box"
-                          role="button"
-                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                          tabindex="0"
-                        >
-                          <span
-                            aria-label="copy"
-                            class="anticon anticon-copy"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="copy"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                        <span
-                          aria-describedby="test-id"
-                          aria-label="全屏"
-                          class="ant-md-editor-action-icon-box"
-                          role="button"
-                          style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                          tabindex="0"
-                        >
-                          <span
-                            aria-label="fullscreen"
-                            class="anticon anticon-fullscreen"
-                            role="img"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              data-icon="fullscreen"
-                              fill="currentColor"
-                              focusable="false"
-                              height="1em"
-                              viewBox="64 64 896 896"
-                              width="1em"
-                            >
-                              <path
-                                d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                              />
-                            </svg>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
+                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                    />
                     <div
                       style="height: 200px; line-height: 22px;"
                     />

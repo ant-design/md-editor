@@ -31,6 +31,7 @@ import {
  * - 支持 HTML 代码实时预览
  * - 支持拖拽排序
  * - 响应式布局适配
+ * - 支持代码框选中状态管理
  */
 export function CodeRenderer(props: ElementProps<CodeNode>) {
   const { editorProps, readonly } = useEditorStore();
@@ -49,6 +50,9 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     handleHideChange,
   } = useCodeEditorState(props.element);
 
+  // 选中状态管理
+  const [isSelected, setIsSelected] = React.useState(false);
+
   // 使用Ace编辑器Hook
   const { dom, setLanguage, focusEditor } = AceEditor({
     element: props.element,
@@ -56,6 +60,8 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     onShowBorderChange: handleShowBorderChange,
     onHideChange: handleHideChange,
     path,
+    isSelected,
+    onSelectionChange: setIsSelected,
   });
 
   // 使用渲染条件Hook
@@ -74,6 +80,8 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     onRunHtml: handleRunHtml,
     onFullScreenToggle: handleFullScreenToggle,
     setLanguage,
+    isSelected,
+    onSelectionChange: setIsSelected,
   });
 
   // 渲染组件
@@ -99,6 +107,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
             onEditorClick={focusEditor}
             fullScreenNode={handle.node}
             isFullScreen={isFullScreen}
+            isSelected={isSelected}
           >
             {/* 工具栏 */}
             {!props.element.frontmatter &&
@@ -132,6 +141,7 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     state.showBorder,
     state.hide,
     state.htmlStr,
+    isSelected,
     focusEditor,
     editorProps.codeProps?.hideToolBar,
     toolbarProps,

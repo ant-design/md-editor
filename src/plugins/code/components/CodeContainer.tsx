@@ -16,6 +16,7 @@ interface CodeContainerProps {
   readonly?: boolean;
   fullScreenNode: RefObject<HTMLDivElement>;
   isFullScreen: boolean;
+  isSelected?: boolean;
 }
 
 export function CodeContainer({
@@ -26,9 +27,9 @@ export function CodeContainer({
   children,
   fullScreenNode,
   isFullScreen,
+  isSelected = false,
 }: CodeContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
   return (
     <div
       contentEditable={false}
@@ -73,7 +74,12 @@ export function CodeContainer({
             position: 'relative',
             height: hide ? 0 : 'auto',
             opacity: hide ? 0 : 1,
-            border: isFullScreen ? '1px solid #0000001a' : undefined,
+            border: isFullScreen
+              ? '1px solid #0000001a'
+              : isSelected
+                ? '1px solid #1890ff'
+                : '1px solid #E7E9E8',
+            transition: 'border-color 0.2s ease-in-out',
           }}
           className={`ace-container drag-el ${
             element.frontmatter ? 'frontmatter' : ''
