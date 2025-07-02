@@ -312,7 +312,7 @@ describe('ThoughtChainList Functional Scenarios', () => {
       fireEvent.keyDown(firstButton, { key: ' ' }); // Space key
     });
 
-    it('should provide clear visual feedback for different states', () => {
+    it('should provide clear visual feedback for different states', async () => {
       const thoughtChain: WhiteBoxProcessInterface[] = [
         {
           category: 'TableSql',
@@ -350,16 +350,23 @@ describe('ThoughtChainList Functional Scenarios', () => {
       const listItems = container.querySelectorAll('[role="listitem"]');
       expect(listItems.length).toBe(3);
 
-      // 验证成功状态
-      expect(screen.getByText('成功状态')).toBeInTheDocument();
-      expect(screen.getByText('success')).toBeInTheDocument();
+      await waitFor(
+        () => {
+          // 验证成功状态
+          expect(screen.getByText('成功状态')).toBeInTheDocument();
+          expect(screen.getByText('success')).toBeInTheDocument();
 
-      // 验证错误状态
-      expect(screen.getByText('错误状态')).toBeInTheDocument();
-      expect(screen.getByText('操作失败')).toBeInTheDocument();
+          // 验证错误状态
+          expect(screen.getByText('错误状态')).toBeInTheDocument();
+          expect(screen.getByText('操作失败')).toBeInTheDocument();
 
-      // 验证加载状态
-      expect(screen.getByText('加载状态')).toBeInTheDocument();
+          // 验证加载状态
+          expect(screen.getByText('加载状态')).toBeInTheDocument();
+        },
+        {
+          timeout: 5000,
+        },
+      );
     });
   });
 });
