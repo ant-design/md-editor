@@ -147,7 +147,6 @@ export const ResizeImage = ({
           }}
           alt={'image'}
           referrerPolicy={'no-referrer'}
-          crossOrigin={'anonymous'}
           width={`min(${size.width}px, 100%)`}
           ref={imgRef}
           style={{

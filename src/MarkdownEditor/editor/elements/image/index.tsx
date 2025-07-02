@@ -57,7 +57,6 @@ export const ImageAndError: React.FC<ImageProps> = (props) => {
       },
       <Image
         {...props}
-        crossOrigin={'anonymous'}
         width={Number(props.width) || props.width || 400}
         onError={() => {
           setError(true);
@@ -68,7 +67,6 @@ export const ImageAndError: React.FC<ImageProps> = (props) => {
   return (
     <Image
       {...props}
-      crossOrigin={'anonymous'}
       width={Number(props.width) || props.width || 400}
       onError={() => {
         setError(true);
@@ -208,7 +206,6 @@ export const ResizeImage = ({
           }}
           alt={'image'}
           referrerPolicy={'no-referrer'}
-          crossOrigin={'anonymous'}
           width={`min(${size.width}px, 100%)`}
           ref={imgRef}
           style={{
@@ -316,7 +313,6 @@ export function EditorImage({
           getContainer: () => document.body,
         }}
         referrerPolicy={'no-referrer'}
-        crossOrigin={'anonymous'}
         draggable={false}
         style={{
           maxWidth: 800,
