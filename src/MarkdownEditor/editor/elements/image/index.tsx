@@ -40,7 +40,6 @@ import { getMediaType } from '../../utils/dom';
 export const ImageAndError: React.FC<ImageProps> = (props) => {
   const { editorProps } = useEditorStore();
   const [error, setError] = React.useState(false);
-  const { locale } = useContext(I18nContext);
   if (error) {
     return (
       <a href={props.src} target="_blank" rel="noopener noreferrer">
@@ -58,6 +57,7 @@ export const ImageAndError: React.FC<ImageProps> = (props) => {
       },
       <Image
         {...props}
+        crossOrigin={'anonymous'}
         width={Number(props.width) || props.width || 400}
         onError={() => {
           setError(true);
@@ -68,6 +68,7 @@ export const ImageAndError: React.FC<ImageProps> = (props) => {
   return (
     <Image
       {...props}
+      crossOrigin={'anonymous'}
       width={Number(props.width) || props.width || 400}
       onError={() => {
         setError(true);
