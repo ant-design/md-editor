@@ -147,7 +147,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              padding: '1px 10px',
               gap: '6px',
               borderRadius: '12px',
               height: '2em',

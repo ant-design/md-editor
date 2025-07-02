@@ -2902,7 +2902,6 @@
                 >
                   <div
                     class="ant-image"
-                    crossorigin="anonymous"
                     draggable="false"
                     referrerpolicy="no-referrer"
                     style="width: 400px;"
@@ -2910,7 +2909,6 @@
                     <img
                       alt="image"
                       class="ant-image-img"
-                      crossorigin="anonymous"
                       draggable="false"
                       referrerpolicy="no-referrer"
                       src="https://dev.invret.co/api/spaces/images/3e415ec8-00e6-410b-bee8-3be83011c4a9.png"

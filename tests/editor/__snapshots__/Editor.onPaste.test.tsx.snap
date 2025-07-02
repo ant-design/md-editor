@@ -1410,7 +1410,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         >
                           <img
                             alt="image"
-                            crossorigin="anonymous"
                             draggable="false"
                             referrerpolicy="no-referrer"
                             src="https://example.com/img.jpg"
@@ -2135,7 +2134,6 @@ ls -la | grep "test"
           >
             <img
               alt="image"
-              crossorigin="anonymous"
               draggable="false"
               referrerpolicy="no-referrer"
               src="https://example.com/image.jpg"

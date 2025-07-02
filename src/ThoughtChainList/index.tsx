@@ -531,17 +531,16 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
 
       if (!loading && bubble?.isAborted) {
         if (time > 0) {
-          return (
-            <FlipText
-              word={`${locale.taskAborted}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
-            />
-          );
+          return `${locale.taskAborted}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`;
         }
-        return <FlipText word={locale.taskAborted} />;
+        return locale.taskAborted;
       }
 
       if (!loading && bubble?.isFinished) {
         if (time > 0) {
+          if (bubble?.isFinished) {
+            return `${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`;
+          }
           return (
             <FlipText
               word={`${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
@@ -601,7 +600,6 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
               onCollapseToggle={handleCollapseToggle}
               locale={locale}
             />
-
             <div
               style={{
                 backgroundColor: '#FFF',

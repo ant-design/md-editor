@@ -266,11 +266,7 @@
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                            查看 
-                          </div>
+                          查看 
                         </span>
                         <span
                           aria-describedby="test-id"
@@ -293,21 +289,13 @@
                           <span
                             class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
-                            <div
-                              class="flex justify-center space-x-2"
-                            >
-                              用户表
-                            </div>
+                            用户表
                           </span>
                         </span>
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                             数据
-                          </div>
+                           数据
                         </span>
                       </div>
                       <div
@@ -718,11 +706,7 @@
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                            查询 
-                          </div>
+                          查询 
                         </span>
                         <span
                           aria-describedby="test-id"
@@ -834,21 +818,13 @@
                           <span
                             class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
-                            <div
-                              class="flex justify-center space-x-2"
-                            >
-                              多个知识库
-                            </div>
+                            多个知识库
                           </span>
                         </span>
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                             相关文章
-                          </div>
+                           相关文章
                         </span>
                       </div>
                       <div
@@ -1071,11 +1047,7 @@
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                            如何解决工作效率问题
-                          </div>
+                          如何解决工作效率问题
                         </span>
                       </div>
                       <div
@@ -1267,11 +1239,7 @@
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                            调用 
-                          </div>
+                          调用 
                         </span>
                         <span
                           aria-describedby="test-id"
@@ -1365,21 +1333,13 @@
                           <span
                             class="ant-thought-chain-list-content-list-item-info-tag-text"
                           >
-                            <div
-                              class="flex justify-center space-x-2"
-                            >
-                              工具1等多个工具
-                            </div>
+                            工具1等多个工具
                           </span>
                         </span>
                         <span
                           style="overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; white-space: nowrap;"
                         >
-                          <div
-                            class="flex justify-center space-x-2"
-                          >
-                             工具
-                          </div>
+                           工具
                         </span>
                       </div>
                       <div

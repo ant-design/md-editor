@@ -34,6 +34,7 @@ export const TitleInfo = (props: {
   setCollapse: (collapse: boolean) => void;
   collapse: boolean;
   hashId: string;
+  isFinished?: boolean;
   onMetaClick?: (meta: Partial<DocMeta>) => void;
   meta: Record<
     string,
@@ -46,7 +47,7 @@ export const TitleInfo = (props: {
     }[]
   >;
 }) => {
-  const { collapse, setCollapse } = props;
+  const { collapse, isFinished, setCollapse } = props;
   const { locale } = useContext(I18nContext);
   const titleDom = useMemo(() => {
     const titleSegments = props.title.split(/(\$\{.*})/);
@@ -158,7 +159,11 @@ export const TitleInfo = (props: {
                   props.hashId,
                 )}
               >
-                <FlipText word={infoTitle || tag} />
+                {isFinished ? (
+                  infoTitle || tag
+                ) : (
+                  <FlipText word={infoTitle || tag} />
+                )}
               </span>
             </motion.span>
           </Popover>
@@ -174,7 +179,7 @@ export const TitleInfo = (props: {
             whiteSpace: 'nowrap',
           }}
         >
-          <FlipText word={tag} />
+          {isFinished ? tag : <FlipText word={tag} />}
         </span>
       );
     });
@@ -214,6 +219,6 @@ export const TitleInfo = (props: {
         </div>
       </div>
     ),
-    [titleDom, collapse, props.costMillis],
+    [titleDom, isFinished, collapse, props.costMillis],
   );
 };

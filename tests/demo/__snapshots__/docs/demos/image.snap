@@ -107,7 +107,6 @@
                   >
                     <img
                       alt="image"
-                      crossorigin="anonymous"
                       draggable="false"
                       referrerpolicy="no-referrer"
                       src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original?width=200&height=200"
@@ -272,7 +271,6 @@
                   >
                     <img
                       alt="image"
-                      crossorigin="anonymous"
                       draggable="false"
                       referrerpolicy="no-referrer"
                       src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/original?width=200&height=200"
@@ -437,7 +435,6 @@
                   >
                     <img
                       alt="image"
-                      crossorigin="anonymous"
                       draggable="false"
                       referrerpolicy="no-referrer"
                       src="https://mdn.alipayobjects.com/huamei_gcee1x/afts/img/A*9F0qRYV8EjUAAAAAAAAAAAAADml6AQ/origina?width=400&height=400"
@@ -616,7 +613,6 @@
               >
                 <img
                   alt="image"
-                  crossorigin="anonymous"
                   draggable="false"
                   height="200"
                   preview="[object Object]"
@@ -720,7 +716,6 @@
               >
                 <img
                   alt="image"
-                  crossorigin="anonymous"
                   draggable="false"
                   height="200"
                   preview="[object Object]"
@@ -824,7 +819,6 @@
               >
                 <img
                   alt="image"
-                  crossorigin="anonymous"
                   draggable="false"
                   height="400"
                   preview="[object Object]"

@@ -219,6 +219,7 @@ export const ThoughtChainListItem: React.FC<{
           category={thoughtChainListItem.category!}
           prefixCls={prefixCls}
           hashId={hashId}
+          isFinished={isFinished}
           setCollapse={handleCollapseChange}
           collapse={collapse}
           meta={thoughtChainListItem.meta?.data || {}}
