@@ -51,7 +51,6 @@ export const MarkdownEditorUpdate = (
         width: '100%',
       }}
       codeProps={{
-        hideToolBar: true,
         showLineNumbers: false,
       }}
       {...props}

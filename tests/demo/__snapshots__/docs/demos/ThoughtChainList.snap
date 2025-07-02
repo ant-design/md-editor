@@ -472,6 +472,10 @@
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
+                                          <div
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
@@ -598,6 +602,7 @@
                                           >
                                             <tr
                                               class="ant-table-row ant-table-row-level-0"
+                                              data-row-key="Tom-18-Shanghai"
                                             >
                                               <td
                                                 class="ant-table-cell"
@@ -617,6 +622,7 @@
                                             </tr>
                                             <tr
                                               class="ant-table-row ant-table-row-level-0"
+                                              data-row-key="Tom-18-Shanghai"
                                             >
                                               <td
                                                 class="ant-table-cell"
@@ -636,6 +642,7 @@
                                             </tr>
                                             <tr
                                               class="ant-table-row ant-table-row-level-0"
+                                              data-row-key="Tom-18-Shanghai"
                                             >
                                               <td
                                                 class="ant-table-cell"
@@ -1510,6 +1517,10 @@
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
+                                          <div
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
@@ -1624,6 +1635,10 @@
                                           class="ace-container drag-el "
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
+                                          <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
                                           <div
                                             style="height: 200px; line-height: 22px;"
                                           />
@@ -2067,6 +2082,10 @@
                                           class="ace-container drag-el "
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
+                                          <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
                                           <div
                                             style="height: 200px; line-height: 22px;"
                                           />
@@ -2983,6 +3002,10 @@
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
+                                          <div
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
@@ -3299,6 +3322,10 @@
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
+                                          <div
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
@@ -3614,6 +3641,10 @@
                                           class="ace-container drag-el "
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
+                                          <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
                                           <div
                                             style="height: 200px; line-height: 22px;"
                                           />
@@ -4757,6 +4788,10 @@
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
+                                          <div
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
@@ -4969,6 +5004,10 @@
                                           class="ace-container drag-el "
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
+                                          <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
                                           <div
                                             style="height: 200px; line-height: 22px;"
                                           />
@@ -5640,6 +5679,10 @@
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
                                           <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
+                                          <div
                                             style="height: 200px; line-height: 22px;"
                                           />
                                           <div
@@ -5874,6 +5917,10 @@
                                           class="ace-container drag-el "
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
+                                          <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
                                           <div
                                             style="height: 200px; line-height: 22px;"
                                           />
@@ -6979,6 +7026,10 @@
                                           class="ace-container drag-el "
                                           style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1; border: 1px solid rgb(231, 233, 232); transition: border-color 0.2s ease-in-out;"
                                         >
+                                          <div
+                                            contenteditable="false"
+                                            style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                                          />
                                           <div
                                             style="height: 200px; line-height: 22px;"
                                           />

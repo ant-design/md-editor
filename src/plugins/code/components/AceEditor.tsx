@@ -170,7 +170,6 @@ export function AceEditor({
       tabSize: 4,
       readOnly: readonly,
       showPrintMargin: false,
-      hideToolBar: true,
       showLineNumbers: false,
       showGutter: false,
       ...(editorProps.codeProps || {}),

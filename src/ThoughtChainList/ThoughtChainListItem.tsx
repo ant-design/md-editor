@@ -169,7 +169,6 @@ export const ThoughtChainListItem: React.FC<{
     return (
       props.markdownRenderProps || {
         codeProps: {
-          hideToolBar: true,
           showLineNumbers: false,
         },
       }

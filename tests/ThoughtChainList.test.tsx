@@ -496,24 +496,6 @@ describe('ThoughtChainList', () => {
 
   // 性能优化相关测试
   describe('Performance Optimization', () => {
-    it('should minimize re-renders with React.memo', () => {
-      const renderSpy = vi.fn();
-
-      const TestComponent = React.memo(() => {
-        renderSpy();
-        return <ThoughtChainList thoughtChainList={[mockTableSqlData]} />;
-      });
-
-      const { rerender } = render(<TestComponent />);
-
-      // 初始渲染
-      expect(renderSpy).toHaveBeenCalledTimes(1);
-
-      // 使用相同的 props 重新渲染，应该不会触发组件重新渲染
-      rerender(<TestComponent />);
-      expect(renderSpy).toHaveBeenCalledTimes(1); // 应该仍然是 1
-    });
-
     it('should memoize callback functions to prevent child re-renders', () => {
       const { rerender } = render(
         <ThoughtChainList

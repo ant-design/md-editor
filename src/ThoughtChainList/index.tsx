@@ -423,14 +423,12 @@ const ThoughtChainContent = React.memo<{
                   index={index}
                   markdownRenderProps={merge(markdownRenderProps, {
                     codeProps: {
-                      hideToolBar: true,
                       showLineNumbers: false,
                       showGutter: false,
                       fontSize: 12,
                     },
                   })}
                   bubble={bubble}
-                  key={(item.runId || '') + '' + index}
                   thoughtChainListItem={item}
                   hashId={hashId}
                   isFinished={
