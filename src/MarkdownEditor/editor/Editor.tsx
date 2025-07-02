@@ -857,10 +857,6 @@ export const SlateMarkdownEditor = ({
           spellCheck={false}
           autoCorrect="off"
           autoCapitalize="none"
-          onDOMBeforeInput={(event) => {
-            // 阻止默认行为以减少无效事件触发
-            event.preventDefault();
-          }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
           className={classNames(
