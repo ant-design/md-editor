@@ -6,10 +6,10 @@ import { MarkdownInputField } from '../MarkdownInputField';
 describe('MarkdownInputField - toolsRender', () => {
   it('should render custom tools when toolsRender is provided', () => {
     const toolsRender = () => [
-      <button key="custom-tool-1" data-testid="custom-tool-1">
+      <button key="custom-tool-1" data-testid="custom-tool-1" type="button">
         Tool 1
       </button>,
-      <button key="custom-tool-2" data-testid="custom-tool-2">
+      <button key="custom-tool-2" data-testid="custom-tool-2" type="button">
         Tool 2
       </button>,
     ];
@@ -21,9 +21,11 @@ describe('MarkdownInputField - toolsRender', () => {
   });
 
   it('should pass correct props to toolsRender function', () => {
-    const toolsRender = vi
-      .fn()
-      .mockReturnValue([<button key="custom-tool">Tool</button>]);
+    const toolsRender = vi.fn().mockReturnValue([
+      <button key="custom-tool" type="button">
+        Tool
+      </button>,
+    ]);
 
     render(
       <MarkdownInputField value="test content" toolsRender={toolsRender} />,
@@ -42,7 +44,7 @@ describe('MarkdownInputField - toolsRender', () => {
 
   it('should update tools when component state changes', async () => {
     const toolsRender = vi.fn().mockImplementation(({ isHover }) => [
-      <button key="custom-tool" data-testid="custom-tool">
+      <button key="custom-tool" data-testid="custom-tool" type="button">
         {isHover ? 'Hovered' : 'Not Hovered'}
       </button>,
     ]);
@@ -66,7 +68,12 @@ describe('MarkdownInputField - toolsRender', () => {
   it('should handle tool click events', () => {
     const onToolClick = vi.fn();
     const toolsRender = () => [
-      <button key="custom-tool" data-testid="custom-tool" onClick={onToolClick}>
+      <button
+        key="custom-tool"
+        data-testid="custom-tool"
+        onClick={onToolClick}
+        type="button"
+      >
         Tool
       </button>,
     ];
@@ -81,7 +88,7 @@ describe('MarkdownInputField - toolsRender', () => {
 
   it('should render tools with correct styles', () => {
     const toolsRender = () => [
-      <button key="custom-tool" data-testid="custom-tool">
+      <button key="custom-tool" data-testid="custom-tool" type="button">
         Tool
       </button>,
     ];
@@ -97,7 +104,7 @@ describe('MarkdownInputField - toolsRender', () => {
   it('should not interfere with send button functionality', () => {
     const onSend = vi.fn();
     const toolsRender = () => [
-      <button key="custom-tool" data-testid="custom-tool">
+      <button key="custom-tool" data-testid="custom-tool" type="button">
         Tool
       </button>,
     ];
@@ -119,7 +126,7 @@ describe('MarkdownInputField - toolsRender', () => {
 
   it('should handle disabled state correctly', () => {
     const toolsRender = () => [
-      <button key="custom-tool" data-testid="custom-tool">
+      <button key="custom-tool" data-testid="custom-tool" type="button">
         Tool
       </button>,
     ];
