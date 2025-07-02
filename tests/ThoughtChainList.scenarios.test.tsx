@@ -177,10 +177,11 @@ describe('ThoughtChainList Functional Scenarios', () => {
         });
       });
 
-      // 验证文档预览抽屉打开
-      expect(screen.getByText(/预览.*快速开始指南/)).toBeInTheDocument();
-      expect(screen.getByText('2024-01-15 18:30:00')).toBeInTheDocument(); // 时间格式化后的显示
-
+      await waitFor(() => {
+        // 验证文档预览抽屉打开
+        expect(screen.getByText(/预览.*快速开始指南/)).toBeInTheDocument();
+        expect(screen.getByText('2024-01-15 18:30:00')).toBeInTheDocument(); // 时间格式化后的显示
+      });
       // 点击第二个文档
       const apiRefLink = screen.getByText('API参考文档');
       fireEvent.click(apiRefLink);
