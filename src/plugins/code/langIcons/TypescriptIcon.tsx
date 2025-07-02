@@ -16,7 +16,7 @@ export const TypescriptIcon: React.FC<TypescriptIconProps> = ({
       clipRule="evenodd"
       fillRule="evenodd"
       strokeLinejoin="round"
-      stroke-miterlimit="1.414"
+      strokeMiterlimit="1.414"
       viewBox="0 0 500 500"
       xmlns="http://www.w3.org/2000/svg"
     >

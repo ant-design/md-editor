@@ -21,7 +21,7 @@ export const Perl6Icon: React.FC<Perl6IconProps> = ({
         <filter id="a" name="softGlow">
           <feGaussianBlur result="blur" stdDeviation="4" in="SourceAlpha" />
           <feOffset result="offsetBlur" dx="0.1" dy="0.1" in="blur" />
-          <feFlood result="offsetColor" flood-color="#C4C7CE" />
+          <feFlood result="offsetColor" floodColor="#C4C7CE" />
           <feComposite
             result="offsetBlur"
             operator="in"

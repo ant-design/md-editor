@@ -248,140 +248,143 @@
                   </span>
                 </div>
                 <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
                   data-slate-node="element"
-                  tabindex="-1"
                 >
                   <div
+                    class="ace-el drag-el"
                     contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    data-be="code"
+                    data-lang="python"
+                    tabindex="-1"
                   >
                     <div
-                      class="ace-container drag-el "
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                      contenteditable="false"
+                      style="background-color: transparent; user-select: none;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                        class="ace-container drag-el "
+                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                       >
                         <div
                           contenteditable="false"
-                          style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <path
-                                d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                                fill="#3c78aa"
-                              />
-                              <path
-                                d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                                fill="#fdd835"
-                              />
-                            </svg>
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                                  fill="#3c78aa"
+                                />
+                                <path
+                                  d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                                  fill="#fdd835"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <span>
+                                python
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <span>
-                              python
+                          <div
+                            style="display: flex; gap: 5px;"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="复制"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="copy"
+                                class="anticon anticon-copy"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="copy"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="全屏"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="fullscreen"
+                                class="anticon anticon-fullscreen"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="fullscreen"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           </div>
                         </div>
                         <div
-                          style="display: flex; gap: 5px;"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          arr = [1, 2, 3, 4] for num in arr:     print(num)  # 输出每个元素的值
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
+                            data-slate-node="text"
                           >
                             <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
+                              <span
+                                data-slate-string="true"
                               >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <span
-                            aria-describedby="test-id"
-                            aria-label="全屏"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
-                          >
-                            <span
-                              aria-label="fullscreen"
-                              class="anticon anticon-fullscreen"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="fullscreen"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                                />
-                              </svg>
+                                arr = [1, 2, 3, 4]
+for num in arr:
+    print(num)  # 输出每个元素的值
+                              </span>
                             </span>
                           </span>
                         </div>
-                      </div>
-                      <div
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        arr = [1, 2, 3, 4] for num in arr:     print(num)  # 输出每个元素的值
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              arr = [1, 2, 3, 4]
-for num in arr:
-    print(num)  # 输出每个元素的值
-                            </span>
-                          </span>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -567,139 +570,142 @@ for num in arr:
                   </span>
                 </div>
                 <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
                   data-slate-node="element"
-                  tabindex="-1"
                 >
                   <div
+                    class="ace-el drag-el"
                     contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    data-be="code"
+                    data-lang="python"
+                    tabindex="-1"
                   >
                     <div
-                      class="ace-container drag-el "
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                      contenteditable="false"
+                      style="background-color: transparent; user-select: none;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                        class="ace-container drag-el "
+                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                       >
                         <div
                           contenteditable="false"
-                          style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <path
-                                d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                                fill="#3c78aa"
-                              />
-                              <path
-                                d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                                fill="#fdd835"
-                              />
-                            </svg>
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                                  fill="#3c78aa"
+                                />
+                                <path
+                                  d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                                  fill="#fdd835"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <span>
+                                python
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <span>
-                              python
+                          <div
+                            style="display: flex; gap: 5px;"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="复制"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="copy"
+                                class="anticon anticon-copy"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="copy"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="全屏"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="fullscreen"
+                                class="anticon anticon-fullscreen"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="fullscreen"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           </div>
                         </div>
                         <div
-                          style="display: flex; gap: 5px;"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          for i in range(len(arr)):     print(arr[i])  # 通过索引访问元素
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
+                            data-slate-node="text"
                           >
                             <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
+                              <span
+                                data-slate-string="true"
                               >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <span
-                            aria-describedby="test-id"
-                            aria-label="全屏"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
-                          >
-                            <span
-                              aria-label="fullscreen"
-                              class="anticon anticon-fullscreen"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="fullscreen"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                                />
-                              </svg>
+                                for i in range(len(arr)):
+    print(arr[i])  # 通过索引访问元素
+                              </span>
                             </span>
                           </span>
                         </div>
-                      </div>
-                      <div
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        for i in range(len(arr)):     print(arr[i])  # 通过索引访问元素
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for i in range(len(arr)):
-    print(arr[i])  # 通过索引访问元素
-                            </span>
-                          </span>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -854,139 +860,142 @@ for num in arr:
                   </span>
                 </div>
                 <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
                   data-slate-node="element"
-                  tabindex="-1"
                 >
                   <div
+                    class="ace-el drag-el"
                     contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    data-be="code"
+                    data-lang="python"
+                    tabindex="-1"
                   >
                     <div
-                      class="ace-container drag-el "
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                      contenteditable="false"
+                      style="background-color: transparent; user-select: none;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                        class="ace-container drag-el "
+                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                       >
                         <div
                           contenteditable="false"
-                          style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <path
-                                d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                                fill="#3c78aa"
-                              />
-                              <path
-                                d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                                fill="#fdd835"
-                              />
-                            </svg>
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                                  fill="#3c78aa"
+                                />
+                                <path
+                                  d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                                  fill="#fdd835"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <span>
+                                python
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <span>
-                              python
+                          <div
+                            style="display: flex; gap: 5px;"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="复制"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="copy"
+                                class="anticon anticon-copy"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="copy"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="全屏"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="fullscreen"
+                                class="anticon anticon-fullscreen"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="fullscreen"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           </div>
                         </div>
                         <div
-                          style="display: flex; gap: 5px;"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          for index, value in enumerate(arr):     print(f"索引 {index} 的值是 {value}")
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
+                            data-slate-node="text"
                           >
                             <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
+                              <span
+                                data-slate-string="true"
                               >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <span
-                            aria-describedby="test-id"
-                            aria-label="全屏"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
-                          >
-                            <span
-                              aria-label="fullscreen"
-                              class="anticon anticon-fullscreen"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="fullscreen"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                                />
-                              </svg>
+                                for index, value in enumerate(arr):
+    print(f"索引 {index} 的值是 {value}")
+                              </span>
                             </span>
                           </span>
                         </div>
-                      </div>
-                      <div
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        for index, value in enumerate(arr):     print(f"索引 {index} 的值是 {value}")
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              for index, value in enumerate(arr):
-    print(f"索引 {index} 的值是 {value}")
-                            </span>
-                          </span>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -1218,141 +1227,144 @@ for num in arr:
                   </span>
                 </div>
                 <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
                   data-slate-node="element"
-                  tabindex="-1"
                 >
                   <div
+                    class="ace-el drag-el"
                     contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    data-be="code"
+                    data-lang="python"
+                    tabindex="-1"
                   >
                     <div
-                      class="ace-container drag-el "
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                      contenteditable="false"
+                      style="background-color: transparent; user-select: none;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                        class="ace-container drag-el "
+                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                       >
                         <div
                           contenteditable="false"
-                          style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <path
-                                d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                                fill="#3c78aa"
-                              />
-                              <path
-                                d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                                fill="#fdd835"
-                              />
-                            </svg>
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                                  fill="#3c78aa"
+                                />
+                                <path
+                                  d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                                  fill="#fdd835"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <span>
+                                python
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <span>
-                              python
+                          <div
+                            style="display: flex; gap: 5px;"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="复制"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="copy"
+                                class="anticon anticon-copy"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="copy"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="全屏"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="fullscreen"
+                                class="anticon anticon-fullscreen"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="fullscreen"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           </div>
                         </div>
                         <div
-                          style="display: flex; gap: 5px;"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          i = 0 while i &lt; len(arr):     print(arr[i])     i += 1  # 必须手动递增
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
+                            data-slate-node="text"
                           >
                             <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
+                              <span
+                                data-slate-string="true"
                               >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <span
-                            aria-describedby="test-id"
-                            aria-label="全屏"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
-                          >
-                            <span
-                              aria-label="fullscreen"
-                              class="anticon anticon-fullscreen"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="fullscreen"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        i = 0 while i &lt; len(arr):     print(arr[i])     i += 1  # 必须手动递增
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              i = 0
+                                i = 0
 while i &lt; len(arr):
     print(arr[i])
     i += 1  # 必须手动递增
+                              </span>
                             </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1502,138 +1514,141 @@ while i &lt; len(arr):
                   </span>
                 </div>
                 <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
                   data-slate-node="element"
-                  tabindex="-1"
                 >
                   <div
+                    class="ace-el drag-el"
                     contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    data-be="code"
+                    data-lang="python"
+                    tabindex="-1"
                   >
                     <div
-                      class="ace-container drag-el "
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                      contenteditable="false"
+                      style="background-color: transparent; user-select: none;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                        class="ace-container drag-el "
+                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                       >
                         <div
                           contenteditable="false"
-                          style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <path
-                                d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                                fill="#3c78aa"
-                              />
-                              <path
-                                d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                                fill="#fdd835"
-                              />
-                            </svg>
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                                  fill="#3c78aa"
+                                />
+                                <path
+                                  d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                                  fill="#fdd835"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <span>
+                                python
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <span>
-                              python
+                          <div
+                            style="display: flex; gap: 5px;"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="复制"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="copy"
+                                class="anticon anticon-copy"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="copy"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="全屏"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="fullscreen"
+                                class="anticon anticon-fullscreen"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="fullscreen"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           </div>
                         </div>
                         <div
-                          style="display: flex; gap: 5px;"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          squared = [x**2 for x in arr]  # 遍历并计算平方
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
+                            data-slate-node="text"
                           >
                             <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
+                              <span
+                                data-slate-string="true"
                               >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <span
-                            aria-describedby="test-id"
-                            aria-label="全屏"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
-                          >
-                            <span
-                              aria-label="fullscreen"
-                              class="anticon anticon-fullscreen"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="fullscreen"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                                />
-                              </svg>
+                                squared = [x**2 for x in arr]  # 遍历并计算平方
+                              </span>
                             </span>
                           </span>
                         </div>
-                      </div>
-                      <div
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        squared = [x**2 for x in arr]  # 遍历并计算平方
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              squared = [x**2 for x in arr]  # 遍历并计算平方
-                            </span>
-                          </span>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -1842,140 +1857,143 @@ while i &lt; len(arr):
                   </span>
                 </div>
                 <div
-                  class="ace-el drag-el"
-                  contenteditable="false"
-                  data-be="code"
-                  data-lang="python"
                   data-slate-node="element"
-                  tabindex="-1"
                 >
                   <div
+                    class="ace-el drag-el"
                     contenteditable="false"
-                    style="background-color: transparent; user-select: none;"
+                    data-be="code"
+                    data-lang="python"
+                    tabindex="-1"
                   >
                     <div
-                      class="ace-container drag-el "
-                      style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                      contenteditable="false"
+                      style="background-color: transparent; user-select: none;"
                     >
                       <div
-                        contenteditable="false"
-                        style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                        class="ace-container drag-el "
+                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                       >
                         <div
                           contenteditable="false"
-                          style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                         >
                           <div
-                            style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                            contenteditable="false"
+                            style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                           >
-                            <svg
-                              height="16"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <div
+                              style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                             >
-                              <path
-                                d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                                fill="#3c78aa"
-                              />
-                              <path
-                                d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                                fill="#fdd835"
-                              />
-                            </svg>
+                              <svg
+                                height="16"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                                  fill="#3c78aa"
+                                />
+                                <path
+                                  d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                                  fill="#fdd835"
+                                />
+                              </svg>
+                            </div>
+                            <div>
+                              <span>
+                                python
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <span>
-                              python
+                          <div
+                            style="display: flex; gap: 5px;"
+                          >
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="复制"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="copy"
+                                class="anticon anticon-copy"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="copy"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              aria-describedby="test-id"
+                              aria-label="全屏"
+                              class="ant-md-editor-action-icon-box"
+                              role="button"
+                              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                              tabindex="0"
+                            >
+                              <span
+                                aria-label="fullscreen"
+                                class="anticon anticon-fullscreen"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="fullscreen"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                                  />
+                                </svg>
+                              </span>
                             </span>
                           </div>
                         </div>
                         <div
-                          style="display: flex; gap: 5px;"
+                          style="height: 200px; line-height: 22px;"
+                        />
+                        <div
+                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                         >
+                          def traverse(arr, i=0):     if i &lt; len(arr):         print(arr[i])
                           <span
-                            aria-describedby="test-id"
-                            aria-label="复制"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
+                            data-slate-node="text"
                           >
                             <span
-                              aria-label="copy"
-                              class="anticon anticon-copy"
-                              role="img"
+                              class=" "
+                              data-be="text"
+                              data-slate-leaf="true"
+                              draggable="false"
                             >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="copy"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
+                              <span
+                                data-slate-string="true"
                               >
-                                <path
-                                  d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <span
-                            aria-describedby="test-id"
-                            aria-label="全屏"
-                            class="ant-md-editor-action-icon-box"
-                            role="button"
-                            style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                            tabindex="0"
-                          >
-                            <span
-                              aria-label="fullscreen"
-                              class="anticon anticon-fullscreen"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="fullscreen"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                                />
-                              </svg>
+                                def traverse(arr, i=0):
+    if i &lt; len(arr):
+        print(arr[i])
+                              </span>
                             </span>
                           </span>
                         </div>
-                      </div>
-                      <div
-                        style="height: 200px; line-height: 22px;"
-                      />
-                      <div
-                        style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                      >
-                        def traverse(arr, i=0):     if i &lt; len(arr):         print(arr[i])
-                        <span
-                          data-slate-node="text"
-                        >
-                          <span
-                            class=" "
-                            data-be="text"
-                            data-slate-leaf="true"
-                            draggable="false"
-                          >
-                            <span
-                              data-slate-string="true"
-                            >
-                              def traverse(arr, i=0):
-    if i &lt; len(arr):
-        print(arr[i])
-                            </span>
-                          </span>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -2093,140 +2111,143 @@ while i &lt; len(arr):
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="python"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="python"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        python
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    fruits = ["Apple", "Mango", "Banana"] for fruit in fruits:     print(fruit)
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-string="true"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          fruits = ["Apple", "Mango", "Banana"]
+for fruit in fruits:
+    print(fruit)
+                        </span>
                       </span>
                     </span>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  fruits = ["Apple", "Mango", "Banana"] for fruit in fruits:     print(fruit)
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        fruits = ["Apple", "Mango", "Banana"]
-for fruit in fruits:
-    print(fruit)
-                      </span>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -2457,139 +2478,142 @@ for fruit in fruits:
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="python"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="python"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        python
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    for index, fruit in enumerate(fruits):     print(f"第{index}个元素：{fruit}")
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-string="true"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          for index, fruit in enumerate(fruits):
+    print(f"第{index}个元素：{fruit}")
+                        </span>
                       </span>
                     </span>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  for index, fruit in enumerate(fruits):     print(f"第{index}个元素：{fruit}")
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for index, fruit in enumerate(fruits):
-    print(f"第{index}个元素：{fruit}")
-                      </span>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -2736,141 +2760,144 @@ for fruit in fruits:
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="python"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="python"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        python
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    i = 0 while i &lt; len(fruits):     print(fruits[i])     i += 1
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-string="true"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  i = 0 while i &lt; len(fruits):     print(fruits[i])     i += 1
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        i = 0
+                          i = 0
 while i &lt; len(fruits):
     print(fruits[i])
     i += 1
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3041,138 +3068,141 @@ while i &lt; len(fruits):
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="python"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="python"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        python
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    uppercase_fruits = [fruit.upper() for fruit in fruits]
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-string="true"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          uppercase_fruits = [fruit.upper() for fruit in fruits]
+                        </span>
                       </span>
                     </span>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  uppercase_fruits = [fruit.upper() for fruit in fruits]
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        uppercase_fruits = [fruit.upper() for fruit in fruits]
-                      </span>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -3319,139 +3349,142 @@ while i &lt; len(fruits):
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="python"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="python"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        python
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    for i in range(len(fruits)):     print(fruits[i])
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-string="true"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          for i in range(len(fruits)):
+    print(fruits[i])
+                        </span>
                       </span>
                     </span>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  for i in range(len(fruits)):     print(fruits[i])
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for i in range(len(fruits)):
-    print(fruits[i])
-                      </span>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -3713,140 +3746,143 @@ while i &lt; len(fruits):
             </ol>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="python"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="python"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
                   <div
                     contenteditable="false"
-                    style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
                     <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
+                      contenteditable="false"
+                      style="display: flex; align-items: center; cursor: pointer; gap: 2px; color: rgba(0, 0, 0, 0.8); user-select: none;"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; box-sizing: border-box; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <span>
-                        python
+                    <div
+                      style="display: flex; gap: 5px;"
+                    >
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
                       </span>
                     </div>
                   </div>
                   <div
-                    style="display: flex; gap: 5px;"
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    for fruit in fruits.copy():  # 创建副本     if "n" in fruit:         fruits.remove(fruit)
                     <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      data-slate-node="text"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          data-slate-string="true"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
-                      <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
-                        >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          for fruit in fruits.copy():  # 创建副本
+    if "n" in fruit:
+        fruits.remove(fruit)
+                        </span>
                       </span>
                     </span>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  for fruit in fruits.copy():  # 创建副本     if "n" in fruit:         fruits.remove(fruit)
-                  <span
-                    data-slate-node="text"
-                  >
-                    <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
-                    >
-                      <span
-                        data-slate-string="true"
-                      >
-                        for fruit in fruits.copy():  # 创建副本
-    if "n" in fruit:
-        fruits.remove(fruit)
-                      </span>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>

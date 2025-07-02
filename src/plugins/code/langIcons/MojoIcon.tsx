@@ -13,7 +13,7 @@ export const MojoIcon: React.FC<MojoIconProps> = ({ size = 24, ...props }) => {
       clipRule="evenodd"
       fillRule="evenodd"
       strokeLinejoin="round"
-      stroke-miterlimit="2"
+      strokeMiterlimit="2"
       version="1.1"
       viewBox="0 0 48 48"
       xmlSpace="preserve"

@@ -7,10 +7,10 @@ import { MarkdownInputField } from '../MarkdownInputField';
 describe('MarkdownInputField - actionsRender', () => {
   it('should render custom actions when actionsRender is provided', () => {
     const actionsRender = () => [
-      <button key="custom-action-1" data-testid="custom-action-1">
+      <button type="button" key="custom-action-1" data-testid="custom-action-1">
         Action 1
       </button>,
-      <button key="custom-action-2" data-testid="custom-action-2">
+      <button type="button" key="custom-action-2" data-testid="custom-action-2">
         Action 2
       </button>,
     ];
@@ -22,9 +22,11 @@ describe('MarkdownInputField - actionsRender', () => {
   });
 
   it('should pass correct props to actionsRender function', () => {
-    const actionsRender = vi
-      .fn()
-      .mockReturnValue([<button key="custom-action">Action</button>]);
+    const actionsRender = vi.fn().mockReturnValue([
+      <button type="button" key="custom-action">
+        Action
+      </button>,
+    ]);
 
     render(
       <MarkdownInputField value="test content" actionsRender={actionsRender} />,
@@ -44,7 +46,7 @@ describe('MarkdownInputField - actionsRender', () => {
 
   it('should include default actions in the render', () => {
     const actionsRender = (props: any, defaultActions: React.ReactNode[]) => [
-      <button key="custom-action" data-testid="custom-action">
+      <button type="button" key="custom-action" data-testid="custom-action">
         Action
       </button>,
       ...defaultActions,
@@ -60,7 +62,7 @@ describe('MarkdownInputField - actionsRender', () => {
     const actionsRender = vi
       .fn()
       .mockImplementation(({ isHover }, defaultActions) => [
-        <button key="custom-action" data-testid="custom-action">
+        <button type="button" key="custom-action" data-testid="custom-action">
           {isHover ? 'Hovered' : 'Not Hovered'}
         </button>,
         ...defaultActions,
@@ -87,6 +89,7 @@ describe('MarkdownInputField - actionsRender', () => {
     const onActionClick = vi.fn();
     const actionsRender = () => [
       <button
+        type="button"
         key="custom-action"
         data-testid="custom-action"
         onClick={onActionClick}
@@ -105,7 +108,7 @@ describe('MarkdownInputField - actionsRender', () => {
 
   it('should render actions with correct styles', () => {
     const actionsRender = () => [
-      <button key="custom-action" data-testid="custom-action">
+      <button type="button" key="custom-action" data-testid="custom-action">
         Action
       </button>,
     ];
@@ -119,9 +122,11 @@ describe('MarkdownInputField - actionsRender', () => {
   });
 
   it('should handle file upload status correctly', () => {
-    const actionsRender = vi
-      .fn()
-      .mockReturnValue([<button key="custom-action">Action</button>]);
+    const actionsRender = vi.fn().mockReturnValue([
+      <button type="button" key="custom-action">
+        Action
+      </button>,
+    ]);
 
     const uploadingFile = {
       name: 'test.txt',
@@ -156,11 +161,12 @@ describe('MarkdownInputField - actionsRender', () => {
   });
 
   it('should handle loading state correctly', async () => {
-    const onSend = vi
-      .fn()
-      .mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 100)),
-      );
+    const onSend = vi.fn().mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(resolve, 100);
+        }),
+    );
     const actionsRender = vi
       .fn()
       .mockImplementation((props, defaultActions) => defaultActions);
@@ -187,7 +193,7 @@ describe('MarkdownInputField - actionsRender', () => {
 
   it('should handle disabled state correctly', () => {
     const actionsRender = () => [
-      <button key="custom-action" data-testid="custom-action">
+      <button type="button" key="custom-action" data-testid="custom-action">
         Action
       </button>,
     ];
@@ -204,11 +210,11 @@ describe('MarkdownInputField - actionsRender', () => {
 
   it('should maintain action order', () => {
     const actionsRender = (props: any, defaultActions: React.ReactNode[]) => [
-      <button key="first" data-testid="first">
+      <button type="button" key="first" data-testid="first">
         First
       </button>,
       ...defaultActions,
-      <button key="last" data-testid="last">
+      <button type="button" key="last" data-testid="last">
         Last
       </button>,
     ];

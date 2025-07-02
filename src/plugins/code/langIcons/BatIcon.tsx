@@ -24,8 +24,8 @@ export const BatIcon: React.FC<BatIconProps> = ({ size = 24, ...props }) => {
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0" stopColor="#bedcdc" />
-          <stop offset="0.5" stopColor="#8e9e9e" stop-opacity="0.74" />
-          <stop offset="1" stopColor="#404f5c" stop-opacity="0.84" />
+          <stop offset="0.5" stopColor="#8e9e9e" stopOpacity="0.74" />
+          <stop offset="1" stopColor="#404f5c" stopOpacity="0.84" />
         </radialGradient>
         <radialGradient
           id="b"

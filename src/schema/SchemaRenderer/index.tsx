@@ -164,7 +164,7 @@ export const SchemaRenderer: React.FC<SchemaRendererProps> = ({
   const renderedHtml = useMemo(() => {
     try {
       if (type === 'html') {
-        return TemplateEngine.render(templateHtml, templateData, config);
+        return TemplateEngine.render(templateHtml, templateData);
       }
       if (type === 'mustache') {
         return Mustache.render(templateHtml, templateData);

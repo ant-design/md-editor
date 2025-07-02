@@ -457,44 +457,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="sql"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="sql"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          SELECT * FROM table_name
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            SELECT * FROM table_name
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                SELECT * FROM table_name
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  SELECT * FROM table_name
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -1520,48 +1523,51 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {   "params": {     "name": "参数"   } }
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {   "params": {     "name": "参数"   } }
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {
   "params": {
     "name": "参数"
   }
 }
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -1632,47 +1638,50 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {   "error": false,   "data": "调用工具成功" }
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {   "error": false,   "data": "调用工具成功" }
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {
   "error": false,
   "data": "调用工具成功"
 }
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -2067,44 +2076,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"query": "研究员提到拼多多风险点 知乎 CFRA", "count": 5}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -2987,44 +2999,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"symbol": "0700.HK"}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"symbol": "0700.HK"}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"symbol": "0700.HK"}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"symbol": "0700.HK"}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -3304,44 +3319,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"symbol": "NTES"}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"symbol": "NTES"}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"symbol": "NTES"}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"symbol": "NTES"}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -3621,44 +3639,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"query": "拼多多风险点 研究员报告 中金 华创 国泰君安", "count": 10}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"query": "拼多多风险点 研究员报告 中金 华创 国泰君安", "count": 10}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"query": "拼多多风险点 研究员报告 中金 华创 国泰君安", "count": 10}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"query": "拼多多风险点 研究员报告 中金 华创 国泰君安", "count": 10}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -4764,44 +4785,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"query": "腾讯 网易 对比 业务模式 收入结构", "limit": 5}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"query": "腾讯 网易 对比 业务模式 收入结构", "limit": 5}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"query": "腾讯 网易 对比 业务模式 收入结构", "limit": 5}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"query": "腾讯 网易 对比 业务模式 收入结构", "limit": 5}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -4978,44 +5002,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"query": "拼多多 风险点 招股书 SWOT", "count": 5}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"query": "拼多多 风险点 招股书 SWOT", "count": 5}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"query": "拼多多 风险点 招股书 SWOT", "count": 5}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"query": "拼多多 风险点 招股书 SWOT", "count": 5}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -5649,44 +5676,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"query": "腾讯业务模式", "company_id": 10, "limit": 5}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"query": "腾讯业务模式", "company_id": 10, "limit": 5}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"query": "腾讯业务模式", "company_id": 10, "limit": 5}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"query": "腾讯业务模式", "company_id": 10, "limit": 5}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -5885,44 +5915,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"query": "腾讯与网易业务模式收入结构对比分析", "count": 10}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"query": "腾讯与网易业务模式收入结构对比分析", "count": 10}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"query": "腾讯与网易业务模式收入结构对比分析", "count": 10}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"query": "腾讯与网易业务模式收入结构对比分析", "count": 10}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -6991,44 +7024,47 @@
                                   zindex="-1"
                                 >
                                   <div
-                                    class="ace-el drag-el"
-                                    contenteditable="false"
-                                    data-be="code"
-                                    data-lang="json"
                                     data-slate-node="element"
-                                    tabindex="-1"
                                   >
                                     <div
+                                      class="ace-el drag-el"
                                       contenteditable="false"
-                                      style="background-color: transparent; user-select: none;"
+                                      data-be="code"
+                                      data-lang="json"
+                                      tabindex="-1"
                                     >
                                       <div
-                                        class="ace-container drag-el "
-                                        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                                        contenteditable="false"
+                                        style="background-color: transparent; user-select: none;"
                                       >
                                         <div
-                                          style="height: 200px; line-height: 22px;"
-                                        />
-                                        <div
-                                          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                                          class="ace-container drag-el "
+                                          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                                         >
-                                          {"url": "https://www.21jingji.com/article/20240327/herald/a1e32b3c044c144ccfa60fa205c46ea1.html"}
-                                          <span
-                                            data-slate-node="text"
+                                          <div
+                                            style="height: 200px; line-height: 22px;"
+                                          />
+                                          <div
+                                            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                                           >
+                                            {"url": "https://www.21jingji.com/article/20240327/herald/a1e32b3c044c144ccfa60fa205c46ea1.html"}
                                             <span
-                                              class=" "
-                                              data-be="text"
-                                              data-slate-leaf="true"
-                                              draggable="false"
+                                              data-slate-node="text"
                                             >
                                               <span
-                                                data-slate-string="true"
+                                                class=" "
+                                                data-be="text"
+                                                data-slate-leaf="true"
+                                                draggable="false"
                                               >
-                                                {"url": "https://www.21jingji.com/article/20240327/herald/a1e32b3c044c144ccfa60fa205c46ea1.html"}
+                                                <span
+                                                  data-slate-string="true"
+                                                >
+                                                  {"url": "https://www.21jingji.com/article/20240327/herald/a1e32b3c044c144ccfa60fa205c46ea1.html"}
+                                                </span>
                                               </span>
                                             </span>
-                                          </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>

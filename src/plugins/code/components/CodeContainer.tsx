@@ -1,0 +1,87 @@
+/**
+ * @fileoverview 代码编辑器容器组件
+ * 负责代码编辑器的布局、样式和状态管理
+ */
+
+import React, { ReactNode, RefObject, useRef } from 'react';
+import { DragHandle } from '../../../MarkdownEditor/editor/tools/DragHandle';
+import { CodeNode } from '../../../MarkdownEditor/el';
+
+interface CodeContainerProps {
+  element: CodeNode;
+  showBorder: boolean;
+  hide: boolean;
+  onEditorClick: () => void;
+  children: ReactNode;
+  readonly?: boolean;
+  fullScreenNode: RefObject<HTMLDivElement>;
+  isFullScreen: boolean;
+}
+
+export function CodeContainer({
+  element,
+  showBorder,
+  hide,
+  onEditorClick,
+  children,
+  fullScreenNode,
+  isFullScreen,
+}: CodeContainerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      contentEditable={false}
+      className="ace-el drag-el"
+      data-be="code"
+      ref={containerRef}
+      tabIndex={-1}
+      onBlur={(e) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
+      data-lang={element.language}
+    >
+      {/* 拖拽手柄 */}
+      {!element.frontmatter && <DragHandle />}
+
+      {/* 全屏容器 */}
+      <div
+        contentEditable={false}
+        ref={fullScreenNode}
+        style={{
+          backgroundColor: isFullScreen ? 'rgb(252, 252, 252)' : 'transparent',
+          padding: isFullScreen ? '2em' : undefined,
+          userSelect: 'none',
+        }}
+      >
+        {/* 编辑器主容器 */}
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            onEditorClick();
+          }}
+          style={{
+            padding: hide ? 0 : undefined,
+            marginBottom: hide ? 0 : undefined,
+            boxSizing: 'border-box',
+            backgroundColor: showBorder
+              ? 'rgba(59, 130, 246, 0.1)'
+              : hide
+                ? 'transparent'
+                : 'rgb(252, 252, 252)',
+            maxHeight: 400,
+            overflow: 'auto',
+            position: 'relative',
+            height: hide ? 0 : 'auto',
+            opacity: hide ? 0 : 1,
+            border: isFullScreen ? '1px solid #0000001a' : undefined,
+          }}
+          className={`ace-container drag-el ${
+            element.frontmatter ? 'frontmatter' : ''
+          }`}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}

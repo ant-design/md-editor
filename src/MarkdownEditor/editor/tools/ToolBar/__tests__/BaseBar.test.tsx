@@ -14,14 +14,6 @@ import { EditorUtils } from '../../../utils/editorUtils';
 import type { KeyboardTask } from '../../../utils/keyboard';
 import { BaseToolBar } from '../BaseBar';
 
-const HeatTextMap = {
-  1: '大标题',
-  2: '段落标题',
-  3: '小标题',
-  4: '正文',
-  Text: '正文',
-};
-
 // Mock EditorUtils
 vi.mock('../../../utils/editorUtils', () => ({
   EditorUtils: {

@@ -4,9 +4,15 @@
  * @author Code Plugin Team
  */
 
+export { AceEditor } from './AceEditor';
+export { AceEditorContainer } from './AceEditorContainer';
+export { CodeContainer } from './CodeContainer';
+export { CodeRenderer } from './CodeRenderer';
 export { CodeToolbar, type CodeToolbarProps } from './CodeToolbar';
+export { HtmlPreview } from './HtmlPreview';
 export {
   LanguageSelector,
   type LanguageSelectorProps,
 } from './LanguageSelector';
 export { LoadImage } from './LoadImage';
+export { ThinkBlock } from './ThinkBlock';

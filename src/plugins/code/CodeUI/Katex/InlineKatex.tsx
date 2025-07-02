@@ -1,5 +1,5 @@
 import katex from 'katex';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Editor, Node, Transforms } from 'slate';
 import { useEditorStore } from '../../../../MarkdownEditor/editor/store';
 import { InlineChromiumBugfix } from '../../../../MarkdownEditor/editor/utils/InlineChromiumBugfix';
@@ -33,67 +33,61 @@ export const InlineKatex = ({
   }
 
   if (readonly) {
-    return useMemo(
-      () => (
-        <span
-          {...attributes}
-          data-be={'inline-katex'}
-          style={{
-            position: 'relative',
-          }}
-        >
-          <span contentEditable={false} ref={renderEl} />
-          <span
-            style={{
-              display: 'none',
-            }}
-          >
-            {children}
-          </span>
-        </span>
-      ),
-      [element, element.children],
-    );
-  }
-
-  return useMemo(
-    () => (
-      <span {...attributes} data-be={'inline-katex'} className={`relative`}>
+    return (
+      <span
+        {...attributes}
+        data-be={'inline-katex'}
+        style={{
+          position: 'relative',
+        }}
+      >
+        <span contentEditable={false} ref={renderEl} />
         <span
           style={{
-            display: 'inline-flex',
-            padding: selected ? '0.25rem' : '0',
-            visibility: selected ? 'visible' : 'hidden',
-            width: selected ? 'auto' : '0',
-            height: selected ? 'auto' : '0',
-            overflow: 'hidden',
-            position: selected ? 'static' : 'absolute',
+            display: 'none',
           }}
-          className={selected ? 'inline-code-input' : ''}
         >
           {children}
         </span>
-        <span
-          contentEditable={false}
-          ref={renderEl}
-          onClick={() => {
-            Transforms.select(
-              markdownEditorRef.current,
-              Editor.end(markdownEditorRef.current, path),
-            );
-          }}
-          style={{
-            margin: '0 0.25rem',
-            userSelect: 'none',
-            visibility: selected ? 'hidden' : 'visible',
-            width: selected ? '0' : 'auto',
-            height: selected ? '0' : 'auto',
-            overflow: selected ? 'hidden' : 'visible',
-            position: selected ? 'absolute' : 'static',
-          }}
-        />
       </span>
-    ),
-    [element, element.children, selected],
+    );
+  }
+
+  return (
+    <span {...attributes} data-be={'inline-katex'} className={`relative`}>
+      <span
+        style={{
+          display: 'inline-flex',
+          padding: selected ? '0.25rem' : '0',
+          visibility: selected ? 'visible' : 'hidden',
+          width: selected ? 'auto' : '0',
+          height: selected ? 'auto' : '0',
+          overflow: 'hidden',
+          position: selected ? 'static' : 'absolute',
+        }}
+        className={selected ? 'inline-code-input' : ''}
+      >
+        {children}
+      </span>
+      <span
+        contentEditable={false}
+        ref={renderEl}
+        onClick={() => {
+          Transforms.select(
+            markdownEditorRef.current,
+            Editor.end(markdownEditorRef.current, path),
+          );
+        }}
+        style={{
+          margin: '0 0.25rem',
+          userSelect: 'none',
+          visibility: selected ? 'hidden' : 'visible',
+          width: selected ? '0' : 'auto',
+          height: selected ? '0' : 'auto',
+          overflow: selected ? 'hidden' : 'visible',
+          position: selected ? 'absolute' : 'static',
+        }}
+      />
+    </span>
   );
 };

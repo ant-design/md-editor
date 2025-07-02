@@ -423,7 +423,6 @@ describe('BackspaceKey', () => {
       const paragraphNode = { type: 'paragraph', children: [] };
       const path = [0, 0];
       const parentNode = { type: 'list-item', children: [] };
-      const prevListItem = { type: 'list-item', children: [] };
 
       (Editor.nodes as Mock).mockReturnValue([[paragraphNode, path]]);
       (Editor.parent as Mock)

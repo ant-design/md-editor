@@ -49,168 +49,170 @@
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="html"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="html"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
-                  <button
-                    aria-describedby="test-id"
-                    class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-                    style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-                    title="切换语言"
-                    type="button"
-                  >
-                    <span
-                      class="ant-btn-icon"
-                    >
-                      <div
-                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="m12 17.56 4.07-1.13.55-6.1H9.38L9.2 8.3h7.6l.2-1.99H7l.56 6.01h6.89l-.23 2.58-2.22.6-2.22-.6-.14-1.66h-2l.29 3.19L12 17.56M4.07 3h15.86L18.5 19.2 12 21l-6.5-1.8L4.07 3z"
-                            fill="#e44d26"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                    <span>
-                      <div>
-                        <span>
-                          html
-                        </span>
-                      </div>
-                    </span>
-                  </button>
                   <div
-                    style="display: flex; gap: 5px;"
+                    contenteditable="false"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
-                    <span
+                    <button
                       aria-describedby="test-id"
-                      aria-label="运行代码"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+                      style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                      title="切换语言"
+                      type="button"
                     >
                       <span
-                        aria-label="forward"
-                        class="anticon anticon-forward"
-                        role="img"
+                        class="ant-btn-icon"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="forward"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="0 0 1024 1024"
-                          width="1em"
+                        <div
+                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                         >
-                          <path
-                            d="M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z"
-                          />
-                        </svg>
+                          <svg
+                            height="16"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="m12 17.56 4.07-1.13.55-6.1H9.38L9.2 8.3h7.6l.2-1.99H7l.56 6.01h6.89l-.23 2.58-2.22.6-2.22-.6-.14-1.66h-2l.29 3.19L12 17.56M4.07 3h15.86L18.5 19.2 12 21l-6.5-1.8L4.07 3z"
+                              fill="#e44d26"
+                            />
+                          </svg>
+                        </div>
                       </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      <span>
+                        <div>
+                          <span>
+                            html
+                          </span>
+                        </div>
+                      </span>
+                    </button>
+                    <div
+                      style="display: flex; gap: 5px;"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        aria-describedby="test-id"
+                        aria-label="运行代码"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          aria-label="forward"
+                          class="anticon anticon-forward"
+                          role="img"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
+                          <svg
+                            aria-hidden="true"
+                            data-icon="forward"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="0 0 1024 1024"
+                            width="1em"
+                          >
+                            <path
+                              d="M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z"
+                            />
+                          </svg>
+                        </span>
                       </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
-                    >
                       <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
                         >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
                       </span>
-                    </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt;     &lt;style&gt;         body {             margin: 0;             height: 100vh;             display: flex;             align-items: center;             justify-content: center;             background: #000;             overflow: hidden;         }          #color-wheel {             width: 150vmax;             height: 150vmax;             background: conic-gradient(                 #ff0000 0deg 51.4deg,                 #ff7f00 51.4deg 102.8deg,                 #ffff00 102.8deg 154.2deg,                 #00ff00 154.2deg 205.6deg,                 #0000ff 205.6deg 257deg,                 #4b0082 257deg 308.4deg,                 #8f00ff 308.4deg 360deg             );             animation: rotate 10s linear infinite;             position: fixed;             top: 50%;             left: 50%;             transform: translate(-50%, -50%);         }          @keyframes rotate {             from { transform: translate(-50%, -50%) rotate(0deg); }             to { transform: translate(-50%, -50%) rotate(360deg); }         }          #speed-control {             position: fixed;             bottom: 20px;             right: 20px;             z-index: 100;             width: 200px;             background: rgba(255, 255, 255, 0.2);             padding: 10px;             border-radius: 20px;         }          #speed-control input {             width: 100%;         }          #speed-label {             color: white;             font-family: Arial;             font-size: 14px;             text-align: center;             display: block;             margin-top: 5px;         }     &lt;/style&gt; &lt;/head&gt; &lt;body&gt;     &lt;div id="color-wheel"&gt;&lt;/div&gt;          &lt;div id="speed-control"&gt;         &lt;input type="range" id="speed" min="0.1" max="2" value="1" step="0.1"&gt;         &lt;span id="speed-label"&gt;速度: 1x&lt;/span&gt;     &lt;/div&gt;      &lt;script&gt;         const wheel = document.getElementById('color-wheel');         const speedControl = document.getElementById('speed');         const speedLabel = document.getElementById('speed-label');          function updateSpeed() {             const speed = speedControl.value;             wheel.style.animationDuration = `${2 / speed}s`;             speedLabel.textContent = `速度: ${speed}x`;         }          speedControl.addEventListener('input', updateSpeed);         updateSpeed(); // 初始化速度     &lt;/script&gt; &lt;/body&gt; &lt;/html&gt;
-                  <span
-                    data-slate-node="text"
+                  <div
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt;     &lt;style&gt;         body {             margin: 0;             height: 100vh;             display: flex;             align-items: center;             justify-content: center;             background: #000;             overflow: hidden;         }          #color-wheel {             width: 150vmax;             height: 150vmax;             background: conic-gradient(                 #ff0000 0deg 51.4deg,                 #ff7f00 51.4deg 102.8deg,                 #ffff00 102.8deg 154.2deg,                 #00ff00 154.2deg 205.6deg,                 #0000ff 205.6deg 257deg,                 #4b0082 257deg 308.4deg,                 #8f00ff 308.4deg 360deg             );             animation: rotate 10s linear infinite;             position: fixed;             top: 50%;             left: 50%;             transform: translate(-50%, -50%);         }          @keyframes rotate {             from { transform: translate(-50%, -50%) rotate(0deg); }             to { transform: translate(-50%, -50%) rotate(360deg); }         }          #speed-control {             position: fixed;             bottom: 20px;             right: 20px;             z-index: 100;             width: 200px;             background: rgba(255, 255, 255, 0.2);             padding: 10px;             border-radius: 20px;         }          #speed-control input {             width: 100%;         }          #speed-label {             color: white;             font-family: Arial;             font-size: 14px;             text-align: center;             display: block;             margin-top: 5px;         }     &lt;/style&gt; &lt;/head&gt; &lt;body&gt;     &lt;div id="color-wheel"&gt;&lt;/div&gt;          &lt;div id="speed-control"&gt;         &lt;input type="range" id="speed" min="0.1" max="2" value="1" step="0.1"&gt;         &lt;span id="speed-label"&gt;速度: 1x&lt;/span&gt;     &lt;/div&gt;      &lt;script&gt;         const wheel = document.getElementById('color-wheel');         const speedControl = document.getElementById('speed');         const speedLabel = document.getElementById('speed-label');          function updateSpeed() {             const speed = speedControl.value;             wheel.style.animationDuration = `${2 / speed}s`;             speedLabel.textContent = `速度: ${speed}x`;         }          speedControl.addEventListener('input', updateSpeed);         updateSpeed(); // 初始化速度     &lt;/script&gt; &lt;/body&gt; &lt;/html&gt;
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-string="true"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        &lt;!DOCTYPE html&gt;
+                        <span
+                          data-slate-string="true"
+                        >
+                          &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;style&gt;
@@ -297,9 +299,10 @@
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -695,140 +698,142 @@
             </span>
           </div>
           <div
-            class="ace-el drag-el"
-            contenteditable="false"
-            data-be="code"
-            data-lang="css"
             data-slate-node="element"
-            tabindex="-1"
           >
             <div
+              class="ace-el drag-el"
               contenteditable="false"
-              style="background-color: transparent; user-select: none;"
+              data-be="code"
+              data-lang="css"
+              tabindex="-1"
             >
               <div
-                class="ace-container drag-el "
-                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+                contenteditable="false"
+                style="background-color: transparent; user-select: none;"
               >
                 <div
-                  contenteditable="false"
-                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                  class="ace-container drag-el "
+                  style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
                 >
-                  <button
-                    aria-describedby="test-id"
-                    class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-                    style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-                    title="切换语言"
-                    type="button"
-                  >
-                    <span
-                      class="ant-btn-icon"
-                    >
-                      <div
-                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="m5 3-.65 3.34h13.59L17.5 8.5H3.92l-.66 3.33h13.59l-.76 3.81-5.48 1.81-4.75-1.81.33-1.64H2.85l-.79 4 7.85 3 9.05-3 1.2-6.03.24-1.21L21.94 3H5z"
-                            fill="#42a5f5"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                    <span>
-                      <div>
-                        <span>
-                          css
-                        </span>
-                      </div>
-                    </span>
-                  </button>
                   <div
-                    style="display: flex; gap: 5px;"
+                    contenteditable="false"
+                    style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                   >
-                    <span
+                    <button
                       aria-describedby="test-id"
-                      aria-label="复制"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+                      style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                      title="切换语言"
+                      type="button"
                     >
                       <span
-                        aria-label="copy"
-                        class="anticon anticon-copy"
-                        role="img"
+                        class="ant-btn-icon"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="copy"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <div
+                          style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                         >
-                          <path
-                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                          />
-                        </svg>
+                          <svg
+                            height="16"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="m5 3-.65 3.34h13.59L17.5 8.5H3.92l-.66 3.33h13.59l-.76 3.81-5.48 1.81-4.75-1.81.33-1.64H2.85l-.79 4 7.85 3 9.05-3 1.2-6.03.24-1.21L21.94 3H5z"
+                              fill="#42a5f5"
+                            />
+                          </svg>
+                        </div>
                       </span>
-                    </span>
-                    <span
-                      aria-describedby="test-id"
-                      aria-label="全屏"
-                      class="ant-md-editor-action-icon-box"
-                      role="button"
-                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                      tabindex="0"
+                      <span>
+                        <div>
+                          <span>
+                            css
+                          </span>
+                        </div>
+                      </span>
+                    </button>
+                    <div
+                      style="display: flex; gap: 5px;"
                     >
                       <span
-                        aria-label="fullscreen"
-                        class="anticon anticon-fullscreen"
-                        role="img"
+                        aria-describedby="test-id"
+                        aria-label="复制"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
                       >
-                        <svg
-                          aria-hidden="true"
-                          data-icon="fullscreen"
-                          fill="currentColor"
-                          focusable="false"
-                          height="1em"
-                          viewBox="64 64 896 896"
-                          width="1em"
+                        <span
+                          aria-label="copy"
+                          class="anticon anticon-copy"
+                          role="img"
                         >
-                          <path
-                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                          />
-                        </svg>
+                          <svg
+                            aria-hidden="true"
+                            data-icon="copy"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                            />
+                          </svg>
+                        </span>
                       </span>
-                    </span>
+                      <span
+                        aria-describedby="test-id"
+                        aria-label="全屏"
+                        class="ant-md-editor-action-icon-box"
+                        role="button"
+                        style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                        tabindex="0"
+                      >
+                        <span
+                          aria-label="fullscreen"
+                          class="anticon anticon-fullscreen"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="fullscreen"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div
-                  style="height: 200px; line-height: 22px;"
-                />
-                <div
-                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-                >
-                  background: conic-gradient(     #ff0000 0deg 51.4deg,        /* 红色 */     #ff7f00 51.4deg 102.8deg,    /* 橙色 */     #ffff00 102.8deg 154.2deg,   /* 黄色 */     #00ff00 154.2deg 205.6deg,   /* 绿色 */     #0000ff 205.6deg 257deg,     /* 蓝色 */     #4b0082 257deg 308.4deg,     /* 靛色 */     #8f00ff 308.4deg 360deg      /* 紫色 */ );
-                  <span
-                    data-slate-node="text"
+                  <div
+                    style="height: 200px; line-height: 22px;"
+                  />
+                  <div
+                    style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                   >
+                    background: conic-gradient(     #ff0000 0deg 51.4deg,        /* 红色 */     #ff7f00 51.4deg 102.8deg,    /* 橙色 */     #ffff00 102.8deg 154.2deg,   /* 黄色 */     #00ff00 154.2deg 205.6deg,   /* 绿色 */     #0000ff 205.6deg 257deg,     /* 蓝色 */     #4b0082 257deg 308.4deg,     /* 靛色 */     #8f00ff 308.4deg 360deg      /* 紫色 */ );
                     <span
-                      class=" "
-                      data-be="text"
-                      data-slate-leaf="true"
-                      draggable="false"
+                      data-slate-node="text"
                     >
                       <span
-                        data-slate-string="true"
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
-                        background: conic-gradient(
+                        <span
+                          data-slate-string="true"
+                        >
+                          background: conic-gradient(
     #ff0000 0deg 51.4deg,        /* 红色 */
     #ff7f00 51.4deg 102.8deg,    /* 橙色 */
     #ffff00 102.8deg 154.2deg,   /* 黄色 */
@@ -837,9 +842,10 @@
     #4b0082 257deg 308.4deg,     /* 靛色 */
     #8f00ff 308.4deg 360deg      /* 紫色 */
 );
+                        </span>
                       </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>

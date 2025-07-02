@@ -628,148 +628,151 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
           </span>
         </div>
         <div
-          class="ace-el drag-el"
-          contenteditable="false"
-          data-be="code"
-          data-lang="python"
           data-slate-node="element"
-          tabindex="-1"
         >
           <div
+            class="ace-el drag-el"
             contenteditable="false"
-            style="background-color: transparent; user-select: none;"
+            data-be="code"
+            data-lang="python"
+            tabindex="-1"
           >
             <div
-              class="ace-container drag-el "
-              style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+              contenteditable="false"
+              style="background-color: transparent; user-select: none;"
             >
               <div
-                contenteditable="false"
-                style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+                class="ace-container drag-el "
+                style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
               >
-                <button
-                  aria-describedby="test-id"
-                  class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-                  style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-                  title="切换语言"
-                  type="button"
-                >
-                  <span
-                    class="ant-btn-icon"
-                  >
-                    <div
-                      style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-                    >
-                      <svg
-                        height="16"
-                        viewBox="0 0 24 24"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
-                          fill="#3c78aa"
-                        />
-                        <path
-                          d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
-                          fill="#fdd835"
-                        />
-                      </svg>
-                    </div>
-                  </span>
-                  <span>
-                    <div>
-                      <span>
-                        python
-                      </span>
-                    </div>
-                  </span>
-                </button>
                 <div
-                  style="display: flex; gap: 5px;"
+                  contenteditable="false"
+                  style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
                 >
-                  <span
+                  <button
                     aria-describedby="test-id"
-                    aria-label="复制"
-                    class="ant-md-editor-action-icon-box"
-                    role="button"
-                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                    tabindex="0"
+                    class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+                    style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                    title="切换语言"
+                    type="button"
                   >
                     <span
-                      aria-label="copy"
-                      class="anticon anticon-copy"
-                      role="img"
+                      class="ant-btn-icon"
                     >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="copy"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
+                      <div
+                        style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                       >
-                        <path
-                          d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                        />
-                      </svg>
+                        <svg
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.86 2A2.86 2.86 0 0 0 7 4.86v1.68h4.29c.39 0 .71.57.71.96H4.86A2.86 2.86 0 0 0 2 10.36v3.781a2.86 2.86 0 0 0 2.86 2.86h1.18v-2.68a2.85 2.85 0 0 1 2.85-2.86h5.25c1.58 0 2.86-1.271 2.86-2.851V4.86A2.86 2.86 0 0 0 14.14 2zm-.72 1.61c.4 0 .72.12.72.71s-.32.891-.72.891c-.39 0-.71-.3-.71-.89s.32-.711.71-.711z"
+                            fill="#3c78aa"
+                          />
+                          <path
+                            d="M17.959 7v2.68a2.85 2.85 0 0 1-2.85 2.859H9.86A2.85 2.85 0 0 0 7 15.389v3.75a2.86 2.86 0 0 0 2.86 2.86h4.28A2.86 2.86 0 0 0 17 19.14v-1.68h-4.291c-.39 0-.709-.57-.709-.96h7.14A2.86 2.86 0 0 0 22 13.64V9.86A2.86 2.86 0 0 0 19.14 7zM8.32 11.513l-.004.004c.012-.002.025-.001.038-.004zm6.54 7.276c.39 0 .71.3.71.89a.71.71 0 0 1-.71.71c-.4 0-.72-.12-.72-.71s.32-.89.72-.89z"
+                            fill="#fdd835"
+                          />
+                        </svg>
+                      </div>
                     </span>
-                  </span>
-                  <span
-                    aria-describedby="test-id"
-                    aria-label="全屏"
-                    class="ant-md-editor-action-icon-box"
-                    role="button"
-                    style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-                    tabindex="0"
+                    <span>
+                      <div>
+                        <span>
+                          python
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    style="display: flex; gap: 5px;"
                   >
                     <span
-                      aria-label="fullscreen"
-                      class="anticon anticon-fullscreen"
-                      role="img"
+                      aria-describedby="test-id"
+                      aria-label="复制"
+                      class="ant-md-editor-action-icon-box"
+                      role="button"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
                     >
-                      <svg
-                        aria-hidden="true"
-                        data-icon="fullscreen"
-                        fill="currentColor"
-                        focusable="false"
-                        height="1em"
-                        viewBox="64 64 896 896"
-                        width="1em"
+                      <span
+                        aria-label="copy"
+                        class="anticon anticon-copy"
+                        role="img"
                       >
-                        <path
-                          d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                        />
-                      </svg>
+                        <svg
+                          aria-hidden="true"
+                          data-icon="copy"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      aria-describedby="test-id"
+                      aria-label="全屏"
+                      class="ant-md-editor-action-icon-box"
+                      role="button"
+                      style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-label="fullscreen"
+                        class="anticon anticon-fullscreen"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="fullscreen"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style="height: 200px; line-height: 22px;"
+                />
+                <div
+                  style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+                >
+                  def nested_function():     return "code in list"
+                  <span
+                    data-slate-node="text"
+                  >
+                    <span
+                      class=" "
+                      data-be="text"
+                      data-slate-leaf="true"
+                      draggable="false"
+                    >
+                      <span
+                        data-slate-string="true"
+                      >
+                        def nested_function():
+    return "code in list"
+                      </span>
                     </span>
                   </span>
                 </div>
-              </div>
-              <div
-                style="height: 200px; line-height: 22px;"
-              />
-              <div
-                style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-              >
-                def nested_function():     return "code in list"
-                <span
-                  data-slate-node="text"
-                >
-                  <span
-                    class=" "
-                    data-be="text"
-                    data-slate-leaf="true"
-                    draggable="false"
-                  >
-                    <span
-                      data-slate-string="true"
-                    >
-                      def nested_function():
-    return "code in list"
-                    </span>
-                  </span>
-                </span>
               </div>
             </div>
           </div>
@@ -1877,11 +1880,182 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       </ul>
     </div>
     <div
+      data-slate-node="element"
+    >
+      <div
+        class="ace-el drag-el"
+        contenteditable="false"
+        data-be="code"
+        data-lang="javascript"
+        tabindex="-1"
+      >
+        <div
+          contenteditable="false"
+          style="background-color: transparent; user-select: none;"
+        >
+          <div
+            class="ace-container drag-el "
+            style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+          >
+            <div
+              contenteditable="false"
+              style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+            >
+              <button
+                aria-describedby="test-id"
+                class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+                style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+                title="切换语言"
+                type="button"
+              >
+                <span
+                  class="ant-btn-icon"
+                >
+                  <div
+                    style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
+                  >
+                    <svg
+                      height="16"
+                      viewBox="0 0 24 24"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                        fill="#ffca28"
+                      />
+                    </svg>
+                  </div>
+                </span>
+                <span>
+                  <div>
+                    <span>
+                      javascript
+                    </span>
+                  </div>
+                </span>
+              </button>
+              <div
+                style="display: flex; gap: 5px;"
+              >
+                <span
+                  aria-describedby="test-id"
+                  aria-label="复制"
+                  class="ant-md-editor-action-icon-box"
+                  role="button"
+                  style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  tabindex="0"
+                >
+                  <span
+                    aria-label="copy"
+                    class="anticon anticon-copy"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="copy"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-describedby="test-id"
+                  aria-label="全屏"
+                  class="ant-md-editor-action-icon-box"
+                  role="button"
+                  style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                  tabindex="0"
+                >
+                  <span
+                    aria-label="fullscreen"
+                    class="anticon anticon-fullscreen"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="fullscreen"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div
+              style="height: 200px; line-height: 22px;"
+            />
+            <div
+              style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+            >
+              // Code block in blockquote console.log("nested code");
+              <span
+                data-slate-node="text"
+              >
+                <span
+                  class=" "
+                  data-be="text"
+                  data-slate-leaf="true"
+                  draggable="false"
+                >
+                  <span
+                    data-slate-string="true"
+                  >
+                    // Code block in blockquote
+console.log("nested code");
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </blockquote>
+  <div
+    data-slate-node="element"
+    data-testid="markdown-heading"
+    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
+  >
+    <span
+      data-slate-node="text"
+    >
+      <span
+        class=" "
+        data-be="text"
+        data-slate-leaf="true"
+        draggable="false"
+      >
+        <span
+          data-slate-string="true"
+        >
+          Code blocks with different languages
+        </span>
+      </span>
+    </span>
+  </div>
+  <div
+    data-slate-node="element"
+  >
+    <div
       class="ace-el drag-el"
       contenteditable="false"
       data-be="code"
-      data-lang="javascript"
-      data-slate-node="element"
+      data-lang="typescript"
       tabindex="-1"
     >
       <div
@@ -1910,14 +2084,18 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                   style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                 >
                   <svg
+                    clip-rule="evenodd"
+                    fill-rule="evenodd"
                     height="16"
-                    viewBox="0 0 24 24"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="1.414"
+                    viewBox="0 0 500 500"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
-                      fill="#ffca28"
+                      d="M46 46v408h408V46H46zm310.02 198.17v.006c3.912.012 8.359.213 11.703.576 13.619 1.473 24.225 7.349 33.248 18.416 4.493 5.513 6.03 7.925 5.703 8.957-.211.666-3.294 2.874-13.096 9.38-9.629 6.393-12.73 8.308-13.45 8.308-.731 0-2.253-1.566-4.446-4.573-4.225-5.789-8.538-8.431-15.205-9.312-7.17-.95-13.602 1.31-16.752 5.888-2.693 3.912-3.1 10.206-.96 14.78 2.48 5.297 6.968 8.226 24.167 15.767 19.836 8.698 29.888 14.651 37.209 22.04 7.884 7.956 11.878 17.142 13.105 30.136.599 6.334-.133 13.84-1.945 19.943-4.445 14.961-16.44 25.916-34.02 31.072-4.86 1.425-9.382 2.276-13.855 2.604-6.829.503-16.603.226-22.486-.63-14.884-2.169-31.686-10.83-40.064-20.65-4.113-4.821-9.364-12.755-9.364-14.15 0-.674.334-1.057 1.656-1.897 3.922-2.492 26.394-15.338 26.83-15.338.264 0 1.438 1.383 2.608 3.074 2.651 3.828 9.17 10.407 12.484 12.602 2.707 1.793 6.169 3.232 10.279 4.271 2.354.587 3.6.692 8.736.692 5.248-.002 6.324-.09 8.672-.721 6.21-1.671 11.057-5.13 13.111-9.354.9-1.825.918-2.053.918-6.48v-4.59l-1.104-2.19c-2.673-5.306-8.433-8.947-26.645-16.835-8.365-3.624-18.61-8.733-22.61-11.275-9.129-5.801-15.456-12.433-19.608-20.551-4.13-8.073-4.745-11.078-4.755-23.217-.01-9.503-.026-9.386 1.941-15.451 1.785-5.504 5.439-11.652 9.473-15.94 8.05-8.557 19.813-14.057 32.406-15.151 1.61-.153 3.768-.212 6.115-.205zm-108.36 1.877h.004c24.253.012 38.156.096 38.379.236.42.26.473 2.371.473 15.842v15.541l-24.201.088-24.201.088v68.713c0 37.793-.077 68.938-.182 69.213-.171.463-2.033.498-17.78.498h-17.587l-.182-.71c-.117-.39-.203-31.537-.205-69.214l-.006-68.504-24.2-.086-24.202-.088v-15.357c0-12.18.084-15.442.409-15.766.333-.343 12.684-.431 65.902-.484 10.26-.01 19.495-.015 27.58-.01z"
+                      fill="#0288d1"
                     />
                   </svg>
                 </div>
@@ -1925,7 +2103,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
               <span>
                 <div>
                   <span>
-                    javascript
+                    typescript
                   </span>
                 </div>
               </span>
@@ -1997,7 +2175,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
           <div
             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
           >
-            // Code block in blockquote console.log("nested code");
+            interface ComplexType {   name: string;   values: number[];   nested: {     prop: boolean;   }; }
             <span
               data-slate-node="text"
             >
@@ -2010,330 +2188,164 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                 <span
                   data-slate-string="true"
                 >
-                  // Code block in blockquote
-console.log("nested code");
-                </span>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </blockquote>
-  <div
-    data-slate-node="element"
-    data-testid="markdown-heading"
-    style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
-  >
-    <span
-      data-slate-node="text"
-    >
-      <span
-        class=" "
-        data-be="text"
-        data-slate-leaf="true"
-        draggable="false"
-      >
-        <span
-          data-slate-string="true"
-        >
-          Code blocks with different languages
-        </span>
-      </span>
-    </span>
-  </div>
-  <div
-    class="ace-el drag-el"
-    contenteditable="false"
-    data-be="code"
-    data-lang="typescript"
-    data-slate-node="element"
-    tabindex="-1"
-  >
-    <div
-      contenteditable="false"
-      style="background-color: transparent; user-select: none;"
-    >
-      <div
-        class="ace-container drag-el "
-        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
-      >
-        <div
-          contenteditable="false"
-          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
-        >
-          <button
-            aria-describedby="test-id"
-            class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-            style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-            title="切换语言"
-            type="button"
-          >
-            <span
-              class="ant-btn-icon"
-            >
-              <div
-                style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-              >
-                <svg
-                  clip-rule="evenodd"
-                  fill-rule="evenodd"
-                  height="16"
-                  stroke-linejoin="round"
-                  stroke-miterlimit="1.414"
-                  viewBox="0 0 500 500"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M46 46v408h408V46H46zm310.02 198.17v.006c3.912.012 8.359.213 11.703.576 13.619 1.473 24.225 7.349 33.248 18.416 4.493 5.513 6.03 7.925 5.703 8.957-.211.666-3.294 2.874-13.096 9.38-9.629 6.393-12.73 8.308-13.45 8.308-.731 0-2.253-1.566-4.446-4.573-4.225-5.789-8.538-8.431-15.205-9.312-7.17-.95-13.602 1.31-16.752 5.888-2.693 3.912-3.1 10.206-.96 14.78 2.48 5.297 6.968 8.226 24.167 15.767 19.836 8.698 29.888 14.651 37.209 22.04 7.884 7.956 11.878 17.142 13.105 30.136.599 6.334-.133 13.84-1.945 19.943-4.445 14.961-16.44 25.916-34.02 31.072-4.86 1.425-9.382 2.276-13.855 2.604-6.829.503-16.603.226-22.486-.63-14.884-2.169-31.686-10.83-40.064-20.65-4.113-4.821-9.364-12.755-9.364-14.15 0-.674.334-1.057 1.656-1.897 3.922-2.492 26.394-15.338 26.83-15.338.264 0 1.438 1.383 2.608 3.074 2.651 3.828 9.17 10.407 12.484 12.602 2.707 1.793 6.169 3.232 10.279 4.271 2.354.587 3.6.692 8.736.692 5.248-.002 6.324-.09 8.672-.721 6.21-1.671 11.057-5.13 13.111-9.354.9-1.825.918-2.053.918-6.48v-4.59l-1.104-2.19c-2.673-5.306-8.433-8.947-26.645-16.835-8.365-3.624-18.61-8.733-22.61-11.275-9.129-5.801-15.456-12.433-19.608-20.551-4.13-8.073-4.745-11.078-4.755-23.217-.01-9.503-.026-9.386 1.941-15.451 1.785-5.504 5.439-11.652 9.473-15.94 8.05-8.557 19.813-14.057 32.406-15.151 1.61-.153 3.768-.212 6.115-.205zm-108.36 1.877h.004c24.253.012 38.156.096 38.379.236.42.26.473 2.371.473 15.842v15.541l-24.201.088-24.201.088v68.713c0 37.793-.077 68.938-.182 69.213-.171.463-2.033.498-17.78.498h-17.587l-.182-.71c-.117-.39-.203-31.537-.205-69.214l-.006-68.504-24.2-.086-24.202-.088v-15.357c0-12.18.084-15.442.409-15.766.333-.343 12.684-.431 65.902-.484 10.26-.01 19.495-.015 27.58-.01z"
-                    fill="#0288d1"
-                  />
-                </svg>
-              </div>
-            </span>
-            <span>
-              <div>
-                <span>
-                  typescript
-                </span>
-              </div>
-            </span>
-          </button>
-          <div
-            style="display: flex; gap: 5px;"
-          >
-            <span
-              aria-describedby="test-id"
-              aria-label="复制"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
-            >
-              <span
-                aria-label="copy"
-                class="anticon anticon-copy"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="copy"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-describedby="test-id"
-              aria-label="全屏"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
-            >
-              <span
-                aria-label="fullscreen"
-                class="anticon anticon-fullscreen"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="fullscreen"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                  />
-                </svg>
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
-          style="height: 200px; line-height: 22px;"
-        />
-        <div
-          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-        >
-          interface ComplexType {   name: string;   values: number[];   nested: {     prop: boolean;   }; }
-          <span
-            data-slate-node="text"
-          >
-            <span
-              class=" "
-              data-be="text"
-              data-slate-leaf="true"
-              draggable="false"
-            >
-              <span
-                data-slate-string="true"
-              >
-                interface ComplexType {
+                  interface ComplexType {
   name: string;
   values: number[];
   nested: {
     prop: boolean;
   };
 }
+                </span>
               </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    class="ace-el drag-el"
-    contenteditable="false"
-    data-be="code"
-    data-lang="bash"
     data-slate-node="element"
-    tabindex="-1"
   >
     <div
+      class="ace-el drag-el"
       contenteditable="false"
-      style="background-color: transparent; user-select: none;"
+      data-be="code"
+      data-lang="bash"
+      tabindex="-1"
     >
       <div
-        class="ace-container drag-el "
-        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+        contenteditable="false"
+        style="background-color: transparent; user-select: none;"
       >
         <div
-          contenteditable="false"
-          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+          class="ace-container drag-el "
+          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
         >
-          <button
-            aria-describedby="test-id"
-            class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-            style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-            title="切换语言"
-            type="button"
-          >
-            <span
-              class="ant-btn-icon"
-            >
-              <div
-                style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 24 24"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z"
-                    style="fill: #03a9f4; stroke-width: .99517;"
-                  />
-                </svg>
-              </div>
-            </span>
-            <span>
-              <div>
-                <span>
-                  bash
-                </span>
-              </div>
-            </span>
-          </button>
           <div
-            style="display: flex; gap: 5px;"
+            contenteditable="false"
+            style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
           >
-            <span
+            <button
               aria-describedby="test-id"
-              aria-label="复制"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
+              class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+              style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+              title="切换语言"
+              type="button"
             >
               <span
-                aria-label="copy"
-                class="anticon anticon-copy"
-                role="img"
+                class="ant-btn-icon"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="copy"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <div
+                  style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                 >
-                  <path
-                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                  />
-                </svg>
+                  <svg
+                    height="16"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.783 4.039c.488 0 .796.398.667.885l-3.145 14.151c-.11.488-.587.886-1.075.886H2.218c-.487 0-.796-.398-.666-.886l3.144-14.15c.11-.488.587-.886 1.075-.886h16.012M15.812 15.98h-3.98a.832.832 0 0 0-.827.836c0 .467.369.845.826.845h3.981a.845.845 0 0 0 .846-.845.843.843 0 0 0-.846-.836m-10.001.278a.867.867 0 0 0-.209 1.214.884.884 0 0 0 1.234.23c7.315-5.146 7.364-5.205 7.414-5.235a.844.844 0 0 0 .279-.597.903.903 0 0 0-.16-.558L9.473 6.06a.863.863 0 0 0-1.244-.03.868.868 0 0 0-.05 1.234l4.13 4.418z"
+                      style="fill: #03a9f4; stroke-width: .99517;"
+                    />
+                  </svg>
+                </div>
               </span>
-            </span>
-            <span
-              aria-describedby="test-id"
-              aria-label="全屏"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
+              <span>
+                <div>
+                  <span>
+                    bash
+                  </span>
+                </div>
+              </span>
+            </button>
+            <div
+              style="display: flex; gap: 5px;"
             >
               <span
-                aria-label="fullscreen"
-                class="anticon anticon-fullscreen"
-                role="img"
+                aria-describedby="test-id"
+                aria-label="复制"
+                class="ant-md-editor-action-icon-box"
+                role="button"
+                style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                tabindex="0"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="fullscreen"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <span
+                  aria-label="copy"
+                  class="anticon anticon-copy"
+                  role="img"
                 >
-                  <path
-                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                  />
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    data-icon="copy"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span
+                aria-describedby="test-id"
+                aria-label="全屏"
+                class="ant-md-editor-action-icon-box"
+                role="button"
+                style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                tabindex="0"
+              >
+                <span
+                  aria-label="fullscreen"
+                  class="anticon anticon-fullscreen"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="fullscreen"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div
+            style="height: 200px; line-height: 22px;"
+          />
+          <div
+            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+          >
+            # Shell commands echo "Hello World" ls -la | grep "test"
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  # Shell commands
+echo "Hello World"
+ls -la | grep "test"
+                </span>
               </span>
             </span>
           </div>
-        </div>
-        <div
-          style="height: 200px; line-height: 22px;"
-        />
-        <div
-          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-        >
-          # Shell commands echo "Hello World" ls -la | grep "test"
-          <span
-            data-slate-node="text"
-          >
-            <span
-              class=" "
-              data-be="text"
-              data-slate-leaf="true"
-              draggable="false"
-            >
-              <span
-                data-slate-string="true"
-              >
-                # Shell commands
-echo "Hello World"
-ls -la | grep "test"
-              </span>
-            </span>
-          </span>
         </div>
       </div>
     </div>
@@ -2784,123 +2796,126 @@ ls -la | grep "test"
     </span>
   </div>
   <div
-    class="ace-el drag-el"
-    contenteditable="false"
-    data-be="code"
     data-slate-node="element"
-    tabindex="-1"
   >
     <div
+      class="ace-el drag-el"
       contenteditable="false"
-      style="background-color: transparent; user-select: none;"
+      data-be="code"
+      tabindex="-1"
     >
       <div
-        class="ace-container drag-el "
-        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+        contenteditable="false"
+        style="background-color: transparent; user-select: none;"
       >
         <div
-          contenteditable="false"
-          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+          class="ace-container drag-el "
+          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
         >
-          <button
-            aria-describedby="test-id"
-            class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-            style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-            title="切换语言"
-            type="button"
-          >
-            <span>
-              <div>
-                <span>
-                  plain text
-                </span>
-              </div>
-            </span>
-          </button>
           <div
-            style="display: flex; gap: 5px;"
+            contenteditable="false"
+            style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
           >
-            <span
+            <button
               aria-describedby="test-id"
-              aria-label="复制"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
+              class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+              style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+              title="切换语言"
+              type="button"
             >
-              <span
-                aria-label="copy"
-                class="anticon anticon-copy"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="copy"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                  />
-                </svg>
+              <span>
+                <div>
+                  <span>
+                    plain text
+                  </span>
+                </div>
               </span>
-            </span>
-            <span
-              aria-describedby="test-id"
-              aria-label="全屏"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
+            </button>
+            <div
+              style="display: flex; gap: 5px;"
             >
               <span
-                aria-label="fullscreen"
-                class="anticon anticon-fullscreen"
-                role="img"
+                aria-describedby="test-id"
+                aria-label="复制"
+                class="ant-md-editor-action-icon-box"
+                role="button"
+                style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                tabindex="0"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="fullscreen"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <span
+                  aria-label="copy"
+                  class="anticon anticon-copy"
+                  role="img"
                 >
-                  <path
-                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                  />
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    data-icon="copy"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span
+                aria-describedby="test-id"
+                aria-label="全屏"
+                class="ant-md-editor-action-icon-box"
+                role="button"
+                style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                tabindex="0"
+              >
+                <span
+                  aria-label="fullscreen"
+                  class="anticon anticon-fullscreen"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="fullscreen"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div
+            style="height: 200px; line-height: 22px;"
+          />
+          <div
+            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
+          >
+            Code block with \`backticks\` inside
+            <span
+              data-slate-node="text"
+            >
+              <span
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
+              >
+                <span
+                  data-slate-string="true"
+                >
+                  Code block with \`backticks\` inside
+                </span>
               </span>
             </span>
           </div>
-        </div>
-        <div
-          style="height: 200px; line-height: 22px;"
-        />
-        <div
-          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-        >
-          Code block with \`backticks\` inside
-          <span
-            data-slate-node="text"
-          >
-            <span
-              class=" "
-              data-be="text"
-              data-slate-leaf="true"
-              draggable="false"
-            >
-              <span
-                data-slate-string="true"
-              >
-                Code block with \`backticks\` inside
-              </span>
-            </span>
-          </span>
         </div>
       </div>
     </div>
@@ -3280,140 +3295,142 @@ ls -la | grep "test"
     </span>
   </div>
   <div
-    class="ace-el drag-el"
-    contenteditable="false"
-    data-be="code"
-    data-lang="javascript"
     data-slate-node="element"
-    tabindex="-1"
   >
     <div
+      class="ace-el drag-el"
       contenteditable="false"
-      style="background-color: transparent; user-select: none;"
+      data-be="code"
+      data-lang="javascript"
+      tabindex="-1"
     >
       <div
-        class="ace-container drag-el "
-        style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
+        contenteditable="false"
+        style="background-color: transparent; user-select: none;"
       >
         <div
-          contenteditable="false"
-          style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
+          class="ace-container drag-el "
+          style="box-sizing: border-box; background-color: rgb(252, 252, 252); max-height: 400px; overflow: auto; position: relative; height: auto; opacity: 1;"
         >
-          <button
-            aria-describedby="test-id"
-            class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
-            style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
-            title="切换语言"
-            type="button"
-          >
-            <span
-              class="ant-btn-icon"
-            >
-              <div
-                style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 24 24"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
-                    fill="#ffca28"
-                  />
-                </svg>
-              </div>
-            </span>
-            <span>
-              <div>
-                <span>
-                  javascript
-                </span>
-              </div>
-            </span>
-          </button>
           <div
-            style="display: flex; gap: 5px;"
+            contenteditable="false"
+            style="height: 1.75em; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(238, 238, 238); padding-left: 0.75em; padding-right: 0.375em; display: flex; align-items: center; width: 100%; position: sticky; left: 0px; top: 0px; font-size: 1em; color: rgba(0, 0, 0, 0.6); justify-content: space-between; z-index: 50; box-sizing: border-box; user-select: none;"
           >
-            <span
+            <button
               aria-describedby="test-id"
-              aria-label="复制"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
+              class="ant-btn ant-btn-text ant-btn-color-default ant-btn-variant-text ant-btn-sm"
+              style="display: flex; align-items: center; cursor: pointer; box-sizing: border-box; gap: 2px; color: rgba(0, 0, 0, 0.8);"
+              title="切换语言"
+              type="button"
             >
               <span
-                aria-label="copy"
-                class="anticon anticon-copy"
-                role="img"
+                class="ant-btn-icon"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="copy"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <div
+                  style="height: 1em; width: 1em; display: flex; align-items: center; justify-content: center; margin-right: 0.25em;"
                 >
-                  <path
-                    d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
-                  />
-                </svg>
+                  <svg
+                    height="16"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3 3h18v18H3V3m4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83m5.98-.18c.5.98 1.51 1.73 3.09 1.73 1.6 0 2.8-.83 2.8-2.36 0-1.41-.81-2.04-2.25-2.66l-.42-.18c-.73-.31-1.04-.52-1.04-1.02 0-.41.31-.73.81-.73.48 0 .8.21 1.09.73l1.31-.87c-.55-.96-1.33-1.33-2.4-1.33-1.51 0-2.48.96-2.48 2.23 0 1.38.81 2.03 2.03 2.55l.42.18c.78.34 1.24.55 1.24 1.13 0 .48-.45.83-1.15.83-.83 0-1.31-.43-1.67-1.03l-1.38.8z"
+                      fill="#ffca28"
+                    />
+                  </svg>
+                </div>
               </span>
-            </span>
-            <span
-              aria-describedby="test-id"
-              aria-label="全屏"
-              class="ant-md-editor-action-icon-box"
-              role="button"
-              style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
-              tabindex="0"
+              <span>
+                <div>
+                  <span>
+                    javascript
+                  </span>
+                </div>
+              </span>
+            </button>
+            <div
+              style="display: flex; gap: 5px;"
             >
               <span
-                aria-label="fullscreen"
-                class="anticon anticon-fullscreen"
-                role="img"
+                aria-describedby="test-id"
+                aria-label="复制"
+                class="ant-md-editor-action-icon-box"
+                role="button"
+                style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                tabindex="0"
               >
-                <svg
-                  aria-hidden="true"
-                  data-icon="fullscreen"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
+                <span
+                  aria-label="copy"
+                  class="anticon anticon-copy"
+                  role="img"
                 >
-                  <path
-                    d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
-                  />
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    data-icon="copy"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                    />
+                  </svg>
+                </span>
               </span>
-            </span>
+              <span
+                aria-describedby="test-id"
+                aria-label="全屏"
+                class="ant-md-editor-action-icon-box"
+                role="button"
+                style="font-size: 0.9em; line-height: 1.75em; margin-left: 0.125em;"
+                tabindex="0"
+              >
+                <span
+                  aria-label="fullscreen"
+                  class="anticon anticon-fullscreen"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="fullscreen"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M290 236.4l43.9-43.9a8.01 8.01 0 00-4.7-13.6L169 160c-5.1-.6-9.5 3.7-8.9 8.9L179 329.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L370 423.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L290 236.4zm352.7 187.3c3.1 3.1 8.2 3.1 11.3 0l133.7-133.6 43.7 43.7a8.01 8.01 0 0013.6-4.7L863.9 169c.6-5.1-3.7-9.5-8.9-8.9L694.8 179c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L600.3 370a8.03 8.03 0 000 11.3l42.4 42.4zM845 694.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L654 600.3a8.03 8.03 0 00-11.3 0l-42.4 42.3a8.03 8.03 0 000 11.3L734 787.6l-43.9 43.9a8.01 8.01 0 004.7 13.6L855 864c5.1.6 9.5-3.7 8.9-8.9L845 694.9zm-463.7-94.6a8.03 8.03 0 00-11.3 0L236.3 733.9l-43.7-43.7a8.01 8.01 0 00-13.6 4.7L160.1 855c-.6 5.1 3.7 9.5 8.9 8.9L329.2 845c6.6-.8 9.4-8.9 4.7-13.6L290 787.6 423.7 654c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.4z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
           </div>
-        </div>
-        <div
-          style="height: 200px; line-height: 22px;"
-        />
-        <div
-          style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
-        >
-          console.log("Code in collapsible");
-          <span
-            data-slate-node="text"
+          <div
+            style="height: 200px; line-height: 22px;"
+          />
+          <div
+            style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
           >
+            console.log("Code in collapsible");
             <span
-              class=" "
-              data-be="text"
-              data-slate-leaf="true"
-              draggable="false"
+              data-slate-node="text"
             >
               <span
-                data-slate-string="true"
+                class=" "
+                data-be="text"
+                data-slate-leaf="true"
+                draggable="false"
               >
-                console.log("Code in collapsible");# Main Title with *italic* and **bold**
+                <span
+                  data-slate-string="true"
+                >
+                  console.log("Code in collapsible");# Main Title with *italic* and **bold**
 
 ## Subtitle with \`inline code\`
 
@@ -3541,9 +3558,10 @@ console.log("Code in collapsible");
 \`\`\`
 
 &lt;/details&gt;
+                </span>
               </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
     </div>

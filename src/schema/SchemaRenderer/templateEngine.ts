@@ -12,14 +12,7 @@ export class TemplateEngine {
       .replace(/'/g, '&#039;');
   }
 
-  static render(
-    template: string,
-    data: TemplateData,
-    config?: {
-      ALLOWED_TAGS?: string[];
-      ALLOWED_ATTR?: string[];
-    },
-  ): string {
+  static render(template: string, data: TemplateData): string {
     // 首先转义所有的数据值
     const escapedData = Object.entries(data).reduce((acc, [key, value]) => {
       acc[key] = typeof value === 'string' ? this.escapeHtml(value) : value;

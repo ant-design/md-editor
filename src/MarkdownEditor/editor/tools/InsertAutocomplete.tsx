@@ -306,7 +306,6 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = (
   props,
 ) => {
   const {
-    store,
     markdownEditorRef,
     openInsertCompletion,
     setOpenInsertCompletion,

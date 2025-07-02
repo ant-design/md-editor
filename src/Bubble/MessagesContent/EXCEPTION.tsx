@@ -5,7 +5,6 @@ import { MessageBubbleData } from '../type';
 export const EXCEPTION = ({
   extra,
   content,
-  ...props
 }: {
   extra: React.ReactNode;
   content: string;

@@ -13,7 +13,7 @@ export const TexIcon: React.FC<TexIconProps> = ({ size = 24, ...props }) => {
       clipRule="evenodd"
       fillRule="evenodd"
       strokeLinejoin="round"
-      stroke-miterlimit="1.414"
+      strokeMiterlimit="1.414"
       viewBox="0 0 500 500"
       xmlSpace="preserve"
       xmlns="http://www.w3.org/2000/svg"

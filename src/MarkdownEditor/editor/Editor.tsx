@@ -547,7 +547,6 @@ export const SlateMarkdownEditor = ({
           markdownEditorRef.current,
           event.clipboardData,
           currentTextSelection,
-          editorProps,
         )
       ) {
         return;

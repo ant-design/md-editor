@@ -16,7 +16,6 @@ export const handleSlateMarkdownFragment = (
   editor: Editor,
   clipboardData: DataTransfer,
   currentTextSelection: any,
-  editorProps: MarkdownEditorProps,
 ) => {
   try {
     const encoded = clipboardData.getData('application/x-slate-md-fragment');

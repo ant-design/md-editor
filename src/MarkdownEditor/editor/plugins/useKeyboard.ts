@@ -109,7 +109,7 @@ export const useKeyboard = (
             });
 
             if (node) {
-              const [tagNode, tagPath] = node;
+              const [_, tagPath] = node;
               const offset = selection.focus.offset;
               // 当光标在 tag 开始位置时，检查前面是否需要插入空格
               if (offset === 0) {

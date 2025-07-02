@@ -106,7 +106,9 @@ describe('SlateMarkdownEditor', () => {
       return (
         <div data-testid="custom-code-wrapper" className="code-wrapper">
           {defaultDom}
-          <button className="copy-button">Copy</button>
+          <button className="copy-button" type="button">
+            Copy
+          </button>
         </div>
       );
     }
