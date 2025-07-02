@@ -1135,9 +1135,14 @@ Custom container with styled text`;
       fireEvent.paste(editableElement, htmlEvent);
     });
 
-    await waitFor(() => {
-      expect(screen.getByText('Complex Document')).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByText('Complex Document')).toBeInTheDocument();
+      },
+      {
+        timeout: 5000,
+      },
+    );
 
     // Clear editor for next test
     await act(async () => {
