@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/no-children-prop */
 import classNames from 'classnames';
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
   BaseRange,
@@ -695,61 +701,73 @@ export const SlateMarkdownEditor = ({
     console.log('Editor error', e);
   };
 
-  const elementRenderElement = (props: RenderElementProps) => {
-    const defaultDom = (
-      <ErrorBoundary
-        fallbackRender={() => {
-          return null;
-        }}
-      >
-        <MElement {...props} children={props.children} readonly={readonly} />
-      </ErrorBoundary>
-    );
+  const elementRenderElement = useCallback(
+    (props: RenderElementProps) => {
+      const defaultDom = (
+        <ErrorBoundary
+          fallbackRender={() => {
+            return null;
+          }}
+        >
+          <MElement {...props} children={props.children} readonly={readonly} />
+        </ErrorBoundary>
+      );
 
-    let renderedDom = defaultDom;
+      let renderedDom = defaultDom;
 
-    // First check for plugin components
-    for (const plugin of plugins) {
-      const Component = plugin.elements?.[props.element.type];
-      if (Component) {
-        renderedDom = <Component {...props} />;
-        break;
+      // First check for plugin components
+      for (const plugin of plugins) {
+        const Component = plugin.elements?.[props.element.type];
+        if (Component) {
+          renderedDom = <Component {...props} />;
+          break;
+        }
       }
-    }
 
-    // Then allow eleItemRender to process the result
-    if (!eleItemRender) return renderedDom;
-    if (props.element.type === 'table-cell') return renderedDom;
-    if (props.element.type === 'table-row') return renderedDom;
+      // Then allow eleItemRender to process the result
+      if (!eleItemRender) return renderedDom;
+      if (props.element.type === 'table-cell') return renderedDom;
+      if (props.element.type === 'table-row') return renderedDom;
 
-    return eleItemRender(props, renderedDom) as React.ReactElement;
-  };
+      return eleItemRender(props, renderedDom) as React.ReactElement;
+    },
+    [eleItemRender, plugins, readonly],
+  );
 
-  const renderMarkdownLeaf = (props: any) => {
-    const defaultDom = (
-      <MLeaf
-        {...props}
-        fncProps={editorProps.fncProps}
-        comment={editorProps?.comment}
-        children={props.children}
-        hashId={hashId}
-        tagInputProps={editorProps.tagInputProps}
-      />
-    );
+  const renderMarkdownLeaf = useCallback(
+    (props: any) => {
+      const defaultDom = (
+        <MLeaf
+          {...props}
+          fncProps={editorProps.fncProps}
+          comment={editorProps?.comment}
+          children={props.children}
+          hashId={hashId}
+          tagInputProps={editorProps.tagInputProps}
+        />
+      );
 
-    if (!leafRender) return defaultDom;
+      if (!leafRender) return defaultDom;
 
-    return leafRender(
-      {
-        ...props,
-        fncProps: editorProps.fncProps,
-        comment: editorProps?.comment,
-        hashId: hashId,
-        tagInputProps: editorProps.tagInputProps,
-      },
-      defaultDom,
-    ) as React.ReactElement;
-  };
+      return leafRender(
+        {
+          ...props,
+          fncProps: editorProps.fncProps,
+          comment: editorProps?.comment,
+          hashId: hashId,
+          tagInputProps: editorProps.tagInputProps,
+        },
+        defaultDom,
+      ) as React.ReactElement;
+    },
+    [
+      leafRender,
+      hashId,
+      editorProps.fncProps,
+      editorProps.tagInputProps,
+      editorProps.comment,
+    ],
+  );
 
   const decorateFn = (e: any) => {
     const decorateList: any[] | undefined = high(e) || [];
@@ -837,6 +855,13 @@ export const SlateMarkdownEditor = ({
           onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={readonly}
+          spellCheck={false}
+          autoCorrect="off"
+          autoCapitalize="none"
+          onDOMBeforeInput={(event) => {
+            // 阻止默认行为以减少无效事件触发
+            event.preventDefault();
+          }}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
           className={classNames(

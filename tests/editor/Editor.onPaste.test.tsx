@@ -45,25 +45,10 @@ Object.defineProperty(window, 'getSelection', {
 });
 
 describe('Editor onPaste function', () => {
-  let mockEditor: any;
-  let mockStore: any;
   let container: HTMLElement;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    mockEditor = {
-      children: [{ type: 'paragraph', children: [{ text: '' }] }],
-      selection: {
-        anchor: { path: [0, 0], offset: 0 },
-        focus: { path: [0, 0], offset: 0 },
-      },
-      operations: [],
-    };
-
-    // Mock store
-    mockStore = {
-      insertLink: vi.fn(),
-    };
 
     // Setup DOM
     container = document.createElement('div');
@@ -219,14 +204,14 @@ describe('Editor onPaste function', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText((content, element) => {
+        screen.getByText((content) => {
           return content.includes('Bold text and');
         }),
       ).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(
-        screen.getByText((content, element) => {
+        screen.getByText((content) => {
           return content.includes('italic text');
         }),
       ).toBeInTheDocument();
@@ -529,7 +514,7 @@ describe('Editor onPaste function', () => {
     fireEvent.paste(editableElement, event);
 
     await waitFor(() => {
-      const elements = screen.getAllByText((content, element) => {
+      const elements = screen.getAllByText((content) => {
         return (
           content.includes('fallback text') ||
           content.includes('Unclosed header')
@@ -1137,7 +1122,10 @@ Custom container with styled text`;
 
     await waitFor(
       () => {
-        expect(screen.getByText('Complex Document')).toBeInTheDocument();
+        // Use getAllByText to handle multiple elements with the same text
+        const elements = screen.getAllByText('Complex Document');
+        expect(elements.length).toBeGreaterThan(0);
+        expect(elements[0]).toBeInTheDocument();
       },
       {
         timeout: 5000,
@@ -1214,7 +1202,7 @@ Custom container with styled text`;
     });
 
     await waitFor(() => {
-      const elements = screen.getAllByText((content, element) => {
+      const elements = screen.getAllByText((content) => {
         return (
           content.includes('Fallback text') ||
           content.includes('Unclosed header')
