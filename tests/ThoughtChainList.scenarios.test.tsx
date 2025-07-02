@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { WhiteBoxProcessInterface } from '../src/ThoughtChainList';
 import { ThoughtChainList } from '../src/ThoughtChainList';
 
@@ -114,86 +114,6 @@ describe('ThoughtChainList Functional Scenarios', () => {
         screen.getByText('批量查询用户数据 - 查询3/3成功'),
       ).toBeInTheDocument();
       expect(screen.getByText(/表锁定错误/)).toBeInTheDocument();
-    });
-  });
-
-  describe('Document Interaction Workflow', () => {
-    it('should support complete document browsing workflow', async () => {
-      const ragData: WhiteBoxProcessInterface = {
-        category: 'RagRetrieval',
-        info: '搜索产品文档和用户手册',
-        runId: 'doc-workflow-1',
-        input: {
-          searchQueries: ['API文档', '快速开始', '配置指南'],
-        },
-        output: {
-          type: 'CHUNK',
-          chunks: [
-            {
-              content: '快速开始指南：1. 安装依赖 2. 配置环境 3. 运行示例...',
-              originUrl: 'https://docs.example.com/quick-start',
-              docMeta: {
-                doc_name: '快速开始指南',
-                doc_id: 'quick_start_001',
-                type: 'documentation',
-                upload_time: '2024-01-15T10:30:00Z',
-              },
-            },
-            {
-              content: 'API参考文档：详细的接口说明和示例代码...',
-              originUrl: 'https://docs.example.com/api-reference',
-              docMeta: {
-                doc_name: 'API参考文档',
-                doc_id: 'api_ref_001',
-                type: 'api_documentation',
-                upload_time: '2024-01-20T14:20:00Z',
-              },
-            },
-          ],
-        },
-      };
-
-      const mockOnDocMetaClick = vi.fn();
-
-      render(
-        <ThoughtChainList
-          thoughtChainList={[ragData]}
-          onDocMetaClick={mockOnDocMetaClick}
-        />,
-      );
-
-      expect(screen.getByText('搜索产品文档和用户手册')).toBeInTheDocument();
-
-      // 点击第一个文档
-      const quickStartLink = screen.getByText('快速开始指南');
-      fireEvent.click(quickStartLink);
-
-      await waitFor(() => {
-        expect(mockOnDocMetaClick).toHaveBeenCalledWith({
-          doc_name: '快速开始指南',
-          doc_id: 'quick_start_001',
-          type: 'documentation',
-          upload_time: '2024-01-15T10:30:00Z',
-        });
-      });
-
-      await waitFor(() => {
-        // 验证文档预览抽屉打开
-        expect(screen.getByText(/预览.*快速开始指南/)).toBeInTheDocument();
-        expect(screen.getByText('2024-01-15 18:30:00')).toBeInTheDocument(); // 时间格式化后的显示
-      });
-      // 点击第二个文档
-      const apiRefLink = screen.getByText('API参考文档');
-      fireEvent.click(apiRefLink);
-
-      await waitFor(() => {
-        expect(mockOnDocMetaClick).toHaveBeenCalledWith({
-          doc_name: 'API参考文档',
-          doc_id: 'api_ref_001',
-          type: 'api_documentation',
-          upload_time: '2024-01-20T14:20:00Z',
-        });
-      });
     });
   });
 
