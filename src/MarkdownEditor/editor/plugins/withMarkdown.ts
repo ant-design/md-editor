@@ -588,7 +588,6 @@ export const withMarkdown = (editor: Editor) => {
           }) || [];
 
         const isBeforeTag = selection && selection.anchor.offset <= 1;
-        console.log(selection.anchor);
         if ((previousNode as any)?.tag && previousPath && isBeforeTag) {
           // 如果当前节点不为空,且只有一个文本
           if (
