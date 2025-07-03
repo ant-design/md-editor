@@ -359,24 +359,6 @@ const handleCodeTagOperation = (
     }
   }
 
-  if (operation.type === 'remove_node') {
-    const { node } = operation;
-    const selectPath = editor.selection?.anchor?.path;
-    // 删除代码块时，删除空格
-    // 代码块的前一个节点是代码块时，删除前一个节点
-    const [preNode, prePath] =
-      Editor.previous(editor, { at: selectPath }) || [];
-
-    //@ts-ignore
-    if (preNode?.tag && node?.text === ' ') {
-      Transforms.removeNodes(editor, {
-        at: prePath,
-      });
-      apply(operation);
-      return true;
-    }
-  }
-
   if (operation.type === 'insert_text') {
     const currentNode = Node.get(editor, operation.path);
 
@@ -580,6 +562,7 @@ export const withMarkdown = (editor: Editor) => {
 
   editor.deleteBackward = (unit: any) => {
     const { selection } = editor;
+
     if (
       selection &&
       hasRange(editor, selection) &&
@@ -595,6 +578,7 @@ export const withMarkdown = (editor: Editor) => {
         });
         return;
       }
+      const curNode = Node.get(editor, selection.anchor.path);
 
       // 检查前一个节点是否是 tag
       try {
@@ -604,8 +588,31 @@ export const withMarkdown = (editor: Editor) => {
           }) || [];
 
         const isBeforeTag = selection && selection.anchor.offset <= 1;
-
+        console.log(selection.anchor);
         if ((previousNode as any)?.tag && previousPath && isBeforeTag) {
+          // 如果当前节点不为空,且只有一个文本
+          if (
+            curNode.text?.trim() &&
+            curNode.text.trimEnd().length === 1 &&
+            selection.anchor.offset > 0
+          ) {
+            Transforms.insertText(editor, '', { at: selection.anchor.path });
+            Transforms.insertNodes(
+              editor,
+              {
+                type: 'paragraph',
+                children: [{ text: ' ' }],
+              },
+              {
+                at: selection.anchor.path,
+                select: true,
+              },
+            );
+            return;
+          } else if (curNode.text?.trim() && selection.anchor.offset > 0) {
+            deleteBackward(unit);
+            return;
+          }
           // 如果前一个节点是 tag，直接删除整个 tag
           Editor.withoutNormalizing(editor, () => {
             const parent = Node.get(editor, Path.parent(previousPath));
@@ -651,7 +658,6 @@ export const withMarkdown = (editor: Editor) => {
         }
       } catch {}
     }
-
     deleteBackward(unit);
   };
 
