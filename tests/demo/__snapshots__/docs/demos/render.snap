@@ -29,6 +29,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="markdown-全功能技术文档优化版"
             style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -51,6 +52,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-基础文本格式增强"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -73,6 +75,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-1-文本样式扩展"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -186,6 +189,7 @@ x^2^ 上标
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-2-段落与列表优化"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -299,6 +303,7 @@ x^2^ 上标
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-3-表情符号与图标"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -404,6 +409,7 @@ Font Awesome图标：:fa-solid fa-rocket:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_2-技术文档增强实现"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -426,6 +432,7 @@ Font Awesome图标：:fa-solid fa-rocket:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_2-1-复杂表格（合并单元格）"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1094,6 +1101,7 @@ Font Awesome图标：:fa-solid fa-rocket:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_2-2-数学公式支持"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1287,6 +1295,7 @@ end{bmatrix}
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_2-3-高级图表支持"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1371,6 +1380,7 @@ end{bmatrix}
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_2-4-交互式组件"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1486,6 +1496,7 @@ function Counter() {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_3-文档结构化增强"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1508,6 +1519,7 @@ function Counter() {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_3-1-多级目录生成"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1612,6 +1624,7 @@ maxLevel: 3
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_3-2-章节折叠"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1726,6 +1739,7 @@ extensions:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_3-3-注释与批注"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1873,6 +1887,7 @@ extensions:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-多媒体集成增强"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1895,6 +1910,7 @@ extensions:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-1-视频嵌入优化"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2084,6 +2100,7 @@ extensions:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-1-1-附件展示"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2351,6 +2368,7 @@ extensions:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-2-3d模型展示"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2458,6 +2476,7 @@ camera:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-3-音频注释"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2562,6 +2581,7 @@ title: 功能说明
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-文档协作与管理"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2584,6 +2604,7 @@ title: 功能说明
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-1-版本对比"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2691,6 +2712,7 @@ function calculate(a, b) {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-2-审阅流程"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2800,6 +2822,7 @@ deadline: 2023-12-31
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-3-文档状态标记"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -3322,6 +3345,7 @@ deadline: 2023-12-31
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_6-自动化文档工具"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -3344,6 +3368,7 @@ deadline: 2023-12-31
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_6-1-api文档生成"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -3461,6 +3486,7 @@ response:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_6-2-数据可视化"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4290,6 +4316,7 @@ response:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_7-文档安全与权限"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4312,6 +4339,7 @@ response:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_7-1-权限控制标记"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4418,6 +4446,7 @@ response:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_7-2-敏感数据标记"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4522,6 +4551,7 @@ apiKey: sk_live_•••••••••••••••••••••�
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_8-响应式设计支持"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4544,6 +4574,7 @@ apiKey: sk_live_•••••••••••••••••••••�
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_8-1-移动端适配"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4655,6 +4686,7 @@ apiKey: sk_live_•••••••••••••••••••••�
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_8-2-深色模式支持"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4763,6 +4795,7 @@ dark:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_9-文档分析工具"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4785,6 +4818,7 @@ dark:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_9-1-文档健康度"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -4892,6 +4926,7 @@ dark:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_9-2-文档依赖图"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -5861,6 +5896,7 @@ dark:
               >
                 <span
                   class="ant-anchor-ink"
+                  style="top: 0px; height: 0px;"
                 />
                 <div
                   class="ant-anchor-link"

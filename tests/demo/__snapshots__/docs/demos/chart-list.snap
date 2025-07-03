@@ -770,6 +770,7 @@
             <div
               data-slate-node="element"
               data-testid="markdown-heading"
+              id="图表"
               style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
@@ -5611,6 +5612,7 @@
             <div
               data-slate-node="element"
               data-testid="markdown-heading"
+              id="表格"
               style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span

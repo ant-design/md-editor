@@ -134,6 +134,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="一、基础遍历方法"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -833,6 +834,7 @@ for num in arr:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="二、其他遍历方式"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1330,6 +1332,7 @@ while i &lt; len(arr):
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="三、特殊场景方法"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1529,6 +1532,7 @@ while i &lt; len(arr):
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="一、基础-for-循环（推荐）"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1770,6 +1774,7 @@ for fruit in fruits:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="二、带索引的循环"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1998,6 +2003,7 @@ for fruit in fruits:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="三、while-循环"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2216,6 +2222,7 @@ while i &lt; len(fruits):
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="四、列表推导式"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2407,6 +2414,7 @@ while i &lt; len(fruits):
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="五、range-len-组合"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2599,6 +2607,7 @@ while i &lt; len(fruits):
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="修改列表时的注意事项"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2843,6 +2852,7 @@ while i &lt; len(fruits):
               >
                 <span
                   class="ant-anchor-ink"
+                  style="top: 0px; height: 0px;"
                 />
                 <div
                   class="ant-anchor-link"

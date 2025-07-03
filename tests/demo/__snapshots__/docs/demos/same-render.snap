@@ -29,6 +29,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="现代代码编辑器技术解析与实现示例"
             style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -51,6 +52,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-编辑器核心功能架构"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -73,6 +75,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-1-基础功能模块"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -349,6 +352,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_1-2-高级功能实现"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -520,6 +524,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_2-关键技术方案对比"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1309,6 +1314,7 @@
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_3-语法高亮实现示例"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1440,6 +1446,7 @@ class SyntaxHighlighter {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-性能优化策略"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1462,6 +1469,7 @@ class SyntaxHighlighter {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-1-渲染优化技巧"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1683,6 +1691,7 @@ class SyntaxHighlighter {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_4-2-内存管理方案"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1798,6 +1807,7 @@ class FileBuffer:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-扩展功能开发指南"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1820,6 +1830,7 @@ class FileBuffer:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-1-插件系统架构"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1868,6 +1879,7 @@ class FileBuffer:
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="_5-2-api接口设计"
             style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -1979,6 +1991,7 @@ class EditorCore {
           <div
             data-slate-node="element"
             data-testid="markdown-heading"
+            id="结语"
             style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
           >
             <span
@@ -2058,6 +2071,7 @@ class EditorCore {
               >
                 <span
                   class="ant-anchor-ink"
+                  style="top: 0px; height: 0px;"
                 />
                 <div
                   class="ant-anchor-link"

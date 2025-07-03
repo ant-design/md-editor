@@ -41,6 +41,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="main-title-with-italic-and-bold"
     style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -117,6 +118,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="subtitle-with-inline-code"
     style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -296,6 +298,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="lists-with-complex-nesting"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -684,6 +687,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="complex-table-with-formatting"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -1527,6 +1531,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="blockquotes-with-nesting"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -1834,6 +1839,7 @@ console.log("nested code");
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="code-blocks-with-different-languages"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -1964,6 +1970,7 @@ ls -la | grep "test"
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="links-and-images-with-complex-syntax"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -2244,6 +2251,7 @@ ls -la | grep "test"
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="horizontal-rules-and-breaks"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -2364,6 +2372,7 @@ ls -la | grep "test"
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="escape-characters-and-special-cases"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -2457,6 +2466,7 @@ ls -la | grep "test"
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="footnotes-and-references"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -2617,6 +2627,7 @@ ls -la | grep "test"
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="reference-definitions"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span
@@ -2707,6 +2718,7 @@ ls -la | grep "test"
   <div
     data-slate-node="element"
     data-testid="markdown-heading"
+    id="html-mixed-with-markdown"
     style="font-size: 1.25em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
   >
     <span

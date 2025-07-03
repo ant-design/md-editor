@@ -35,6 +35,7 @@
             <div
               data-slate-node="element"
               data-testid="markdown-heading"
+              id="parsemarkdown-插件示例"
               style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
@@ -79,6 +80,7 @@
             <div
               data-slate-node="element"
               data-testid="markdown-heading"
+              id="普通代码块"
               style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
@@ -151,6 +153,7 @@
             <div
               data-slate-node="element"
               data-testid="markdown-heading"
+              id="自定义警告代码块"
               style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
@@ -246,6 +249,7 @@
             <div
               data-slate-node="element"
               data-testid="markdown-heading"
+              id="说明"
               style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
             >
               <span
@@ -433,6 +437,7 @@
                 >
                   <span
                     class="ant-anchor-ink"
+                    style="top: 0px; height: 0px;"
                   />
                   <div
                     class="ant-anchor-link"

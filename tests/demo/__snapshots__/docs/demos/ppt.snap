@@ -86,6 +86,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="umi-研究报告"
                   style="font-size: 1.5em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -136,6 +137,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="创始人"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -208,6 +210,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="部门"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -624,6 +627,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="战略"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -868,6 +872,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="表格"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -3633,6 +3638,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="链接"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -3813,6 +3819,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="description"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -4553,6 +4560,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="图表"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -5527,6 +5535,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="复杂图表"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -10373,6 +10382,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="图片"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -10565,6 +10575,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="视频"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -10716,6 +10727,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="附件"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -10945,6 +10957,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="引用"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -12356,6 +12369,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="表单"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
@@ -12459,6 +12473,7 @@
                 <div
                   data-slate-node="element"
                   data-testid="markdown-heading"
+                  id="删除线"
                   style="font-size: 1.375em; font-weight: 600; line-height: 1.25; margin-top: 1em; margin-bottom: 1em;"
                 >
                   <span
