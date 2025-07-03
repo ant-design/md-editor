@@ -1,13 +1,14 @@
 import '@testing-library/jest-dom';
 import {
   act,
+  cleanup,
   fireEvent,
   render,
   screen,
   waitFor,
 } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Bubble } from '../src/Bubble';
 import { BubbleProps, MessageBubbleData } from '../src/Bubble/type';
 import { AttachmentFile } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList';
@@ -35,15 +36,25 @@ const defaultProps: BubbleProps = {
 };
 
 describe('Bubble Component', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders basic message correctly', async () => {
+    let unmount: () => void;
+
     await act(async () => {
-      render(<Bubble {...defaultProps} />);
+      const result = render(<Bubble {...defaultProps} />);
+      unmount = result.unmount;
     });
 
     await waitFor(() => {
       expect(screen.getByTestId('message-content')).toBeInTheDocument();
       expect(screen.getByTestId('bubble-title')).toHaveTextContent('Test Bot');
     });
+
+    // 清理组件
+    unmount!();
   });
 
   it('handles avatar click event', async () => {
@@ -119,9 +130,8 @@ describe('Bubble Component', () => {
     const onLike = vi.fn();
     const onDisLike = vi.fn();
 
-    let containerDom;
     await act(async () => {
-      const { container } = render(
+      render(
         <Bubble
           {...defaultProps}
           isLast={true}
@@ -129,7 +139,6 @@ describe('Bubble Component', () => {
           onDisLike={onDisLike}
         />,
       );
-      containerDom = container;
     });
 
     const [likeButton, dislikeButton] = await waitFor(() => [

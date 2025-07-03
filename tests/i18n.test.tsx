@@ -1,10 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { I18nProvide, cnLabels, compileTemplate, enLabels } from '../src/i18n';
 
 describe('I18n Provider', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('should provide Chinese labels by default', () => {
     const TestComponent = () => {
       return <div data-testid="test">{cnLabels.table}</div>;

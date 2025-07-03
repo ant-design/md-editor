@@ -1,6 +1,12 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import type { WhiteBoxProcessInterface } from '../src/ThoughtChainList';
 import { ThoughtChainList } from '../src/ThoughtChainList';
 
@@ -11,6 +17,10 @@ import { ThoughtChainList } from '../src/ThoughtChainList';
  */
 
 describe('ThoughtChainList Functional Scenarios', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   describe('Error Handling and Recovery', () => {
     it('should handle API failures gracefully during thinking process', async () => {
       let thoughtChain: WhiteBoxProcessInterface[] = [

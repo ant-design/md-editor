@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { SchemaRenderer } from '../src/schema/SchemaRenderer';
 import type { LowCodeSchema } from '../src/schema/types';
 
@@ -141,6 +141,10 @@ const mockSchemaWithFallbacks: LowCodeSchema = {
 };
 
 describe('SchemaRenderer', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders with default values when no data provided', () => {
     const { container } = render(
       <SchemaRenderer schema={mockSchemaWithFallbacks} values={{}} />,

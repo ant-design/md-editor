@@ -15,7 +15,7 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
 - **高收益** 投资策略
 - 获得 **95%** 的满意度`;
 
-    render(
+    const { unmount } = render(
       <BaseMarkdownEditor
         initValue={markdownContent}
         readonly={true}
@@ -35,6 +35,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     expect(screen.getByText('得的利润')).toBeInTheDocument();
     expect(screen.getByText('投资策略')).toBeInTheDocument();
     expect(screen.getByText('的满意度')).toBeInTheDocument();
+
+    // 清理组件
+    unmount();
   });
 
   it('should handle readonly mode with api.md example format', () => {
@@ -42,7 +45,7 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     const apiExample = `# 只读模式 
 - **90%+** 得的利润`;
 
-    render(
+    const { unmount } = render(
       <BaseMarkdownEditor
         initValue={apiExample}
         readonly={true}
@@ -57,6 +60,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     // 验证粗体部分
     const boldElement = screen.getByTestId('markdown-bold');
     expect(boldElement).toHaveTextContent('90%+');
+
+    // 清理组件
+    unmount();
   });
 
   it('should handle mixed bold text formats in lists', () => {
@@ -66,7 +72,7 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
 - **ROI** 超过预期
 - 使用 **AI-driven** 策略`;
 
-    render(
+    const { unmount } = render(
       <BaseMarkdownEditor
         initValue={complexMarkdown}
         readonly={true}
@@ -84,6 +90,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     expect(screen.getByText('成功率达到')).toBeInTheDocument();
     expect(screen.getByText('超过预期')).toBeInTheDocument();
     expect(screen.getByText('策略')).toBeInTheDocument();
+
+    // 清理组件
+    unmount();
   });
 
   it('should handle percentage symbols with bold text in various formats', () => {
@@ -93,7 +102,7 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
 - 达到 **80%** 的效率
 - **Top 10%** 的表现`;
 
-    render(
+    const { unmount } = render(
       <BaseMarkdownEditor
         initValue={percentageFormats}
         readonly={true}
@@ -109,6 +118,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     expect(boldElements[1]).toHaveTextContent('95%-100%');
     expect(boldElements[2]).toHaveTextContent('80%');
     expect(boldElements[3]).toHaveTextContent('Top 10%');
+
+    // 清理组件
+    unmount();
   });
 
   it('should maintain proper spacing and formatting in readonly mode', () => {

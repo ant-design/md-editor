@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/react';
+import { cleanup, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { BaseEditor, createEditor, Editor, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { BaseMarkdownEditor } from '../../src/MarkdownEditor/BaseMarkdownEditor';
 import {
   ReactEditor,
@@ -12,6 +12,10 @@ import {
 import { EditorUtils } from '../../src/MarkdownEditor/editor/utils/editorUtils';
 
 describe('Editor Alignment Tests', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   const createTestEditor = () => {
     const editor = withHistory(withReact(createEditor())) as BaseEditor &
       ReactEditor &

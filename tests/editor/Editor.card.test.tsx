@@ -1,15 +1,20 @@
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/react';
-import React from 'react';
-import { BaseEditor, createEditor, Editor, Node, Path, Transforms } from 'slate';
+import { cleanup, waitFor } from '@testing-library/react';
+import { BaseEditor, createEditor, Node, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
-import { describe, expect, it, beforeEach } from 'vitest';
-import { BaseMarkdownEditor } from '../../src/MarkdownEditor/BaseMarkdownEditor';
-import { ReactEditor, withReact } from '../../src/MarkdownEditor/editor/slate-react';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
+import {
+  ReactEditor,
+  withReact,
+} from '../../src/MarkdownEditor/editor/slate-react';
 import { EditorUtils } from '../../src/MarkdownEditor/editor/utils/editorUtils';
 
 describe('Editor Card Tests', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   let editor: BaseEditor & ReactEditor & HistoryEditor;
 
   const createTestEditor = () => {
@@ -33,7 +38,7 @@ describe('Editor Card Tests', () => {
           children: [{ text: '' }],
         },
         {
-          type: 'card-after', 
+          type: 'card-after',
           children: [{ text: '' }],
         },
       ],
@@ -48,15 +53,15 @@ describe('Editor Card Tests', () => {
     it('should prevent text insertion in card-before', () => {
       // 创建包含卡片的编辑器内容
       editor.children = [createCardNode()];
-      
+
       // 选中 card-before 节点
       const cardBeforePath = [0, 0, 0]; // card > card-before > text
       Transforms.select(editor, { path: cardBeforePath, offset: 0 });
-      
+
       // 尝试插入文本
       const initialLength = Node.string(Node.get(editor, [0, 0])).length;
       editor.insertText('test text');
-      
+
       // 验证文本没有被插入到 card-before 中
       const finalLength = Node.string(Node.get(editor, [0, 0])).length;
       expect(finalLength).toBe(initialLength);
@@ -64,15 +69,15 @@ describe('Editor Card Tests', () => {
 
     it('should prevent node insertion in card-before', () => {
       editor.children = [createCardNode()];
-      
+
       // 选中 card-before 节点
       const cardBeforePath = [0, 0];
       Transforms.select(editor, { path: cardBeforePath, offset: 0 });
-      
+
       // 尝试插入节点
       const initialChildren = Node.get(editor, [0, 0]).children.length;
       Transforms.insertNodes(editor, { text: 'new node' });
-      
+
       // 验证节点没有被插入到 card-before 中
       const finalChildren = Node.get(editor, [0, 0]).children.length;
       expect(finalChildren).toBe(initialChildren);
@@ -83,14 +88,14 @@ describe('Editor Card Tests', () => {
     it('should redirect text insertion to new paragraph after card', () => {
       // 创建包含卡片的编辑器内容
       editor.children = [createCardNode()];
-      
+
       // 选中 card-after 节点
       const cardAfterPath = [0, 2, 0]; // card > card-after > text
       Transforms.select(editor, { path: cardAfterPath, offset: 0 });
-      
+
       // 插入文本
       editor.insertText('test text');
-      
+
       // 验证新的段落被创建在卡片后面
       expect(editor.children.length).toBe(2);
       expect(editor.children[1]).toEqual({
@@ -101,23 +106,26 @@ describe('Editor Card Tests', () => {
 
     it('should redirect node insertion to position after card', () => {
       editor.children = [createCardNode()];
-      
+
       // 选中 card-after 节点内的文本位置
       const cardAfterTextPath = [0, 2, 0];
       Transforms.select(editor, { path: cardAfterTextPath, offset: 0 });
-      
+
       // 使用编辑器的 insertNodes 方法插入节点
-      const testNode = { type: 'paragraph', children: [{ text: 'new paragraph' }] };
-      
+      const testNode = {
+        type: 'paragraph',
+        children: [{ text: 'new paragraph' }],
+      };
+
       // 验证初始状态
       expect(editor.children.length).toBe(1);
-      
+
       // 执行插入操作 - 这应该被我们的处理函数拦截并重定向
       try {
         Transforms.insertNodes(editor, testNode, {
           at: cardAfterTextPath,
         });
-        
+
         // 验证节点被插入到卡片后面
         expect(editor.children.length).toBe(2);
         expect(editor.children[1]).toEqual(testNode);
@@ -129,18 +137,18 @@ describe('Editor Card Tests', () => {
 
     it('should redirect fragment insertion to position after card', () => {
       editor.children = [createCardNode()];
-      
+
       // 选中 card-after 节点
       const cardAfterPath = [0, 2, 0];
       Transforms.select(editor, { path: cardAfterPath, offset: 0 });
-      
+
       // 插入片段（模拟粘贴操作）
       const fragment = [
         { type: 'paragraph', children: [{ text: 'First paragraph' }] },
         { type: 'paragraph', children: [{ text: 'Second paragraph' }] },
       ];
       editor.insertFragment(fragment);
-      
+
       // 验证片段被插入到卡片后面
       expect(editor.children.length).toBe(3);
       expect(editor.children[1]).toEqual(fragment[0]);
@@ -170,7 +178,7 @@ describe('Editor Card Tests', () => {
       };
 
       editor.children = [cardWithText];
-      
+
       // 删除卡片中的文本内容
       const contentPath = [0, 1, 0]; // card > paragraph > text
       Transforms.select(editor, {
@@ -178,7 +186,7 @@ describe('Editor Card Tests', () => {
         focus: { path: contentPath, offset: 17 }, // 'content to delete'.length
       });
       Transforms.delete(editor);
-      
+
       // 等待异步删除操作完成
       waitFor(() => {
         // 验证空卡片被删除
@@ -204,11 +212,11 @@ describe('Editor Card Tests', () => {
       };
 
       editor.children = [emptyCard];
-      
+
       // 触发一个操作来检查空卡片
       Transforms.insertText(editor, ' ');
       Transforms.delete(editor);
-      
+
       waitFor(() => {
         // 验证空卡片被删除
         expect(editor.children.length).toBe(1);
@@ -224,10 +232,10 @@ describe('Editor Card Tests', () => {
         createCardNode(),
         { type: 'paragraph', children: [{ text: 'after' }] },
       ];
-      
+
       // 删除卡片节点
       Transforms.removeNodes(editor, { at: [1] });
-      
+
       // 验证整个卡片被删除
       expect(editor.children.length).toBe(2);
       expect(editor.children[0].children[0].text).toBe('before');
@@ -240,12 +248,12 @@ describe('Editor Card Tests', () => {
         createCardNode(),
         { type: 'paragraph', children: [{ text: 'after' }] },
       ];
-      
+
       // 选中 card-after 并删除
       const cardAfterPath = [1, 2, 0];
       Transforms.select(editor, { path: cardAfterPath, offset: 0 });
       editor.deleteBackward('character');
-      
+
       // 验证整个卡片被删除
       expect(editor.children.length).toBe(2);
       expect(editor.children[0].children[0].text).toBe('before');
@@ -254,12 +262,12 @@ describe('Editor Card Tests', () => {
 
     it('should prevent deletion of card-before', () => {
       editor.children = [createCardNode()];
-      
+
       // 选中 card-before 并尝试删除
       const cardBeforePath = [0, 0, 0];
       Transforms.select(editor, { path: cardBeforePath, offset: 0 });
       editor.deleteBackward('character');
-      
+
       // 验证卡片仍然存在
       expect(editor.children.length).toBe(1);
       expect(editor.children[0].type).toBe('card');
@@ -270,13 +278,13 @@ describe('Editor Card Tests', () => {
     it('should auto-focus card-after when card is selected', async () => {
       // 创建包含卡片的编辑器内容
       editor.children = [createCardNode()];
-      
+
       // 选中整个卡片
       Transforms.select(editor, [0]);
-      
+
       // 等待下一个事件循环
-      await new Promise(resolve => setTimeout(resolve, 50));
-      
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       // 在测试环境中，自动选择功能可能不会触发，所以我们只验证基本功能
       try {
         if (editor.selection) {
@@ -292,13 +300,13 @@ describe('Editor Card Tests', () => {
     it('should not auto-move when card-before is selected', async () => {
       // 创建包含卡片的编辑器内容
       editor.children = [createCardNode()];
-      
+
       // 选中 card-before
       Transforms.select(editor, [0, 0, 0]); // card > card-before > text
-      
+
       // 等待下一个事件循环
-      await new Promise(resolve => setTimeout(resolve, 50));
-      
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       // 验证选择仍然在 card-before 中（没有自动移动）
       if (editor.selection) {
         const { anchor } = editor.selection;
@@ -313,14 +321,14 @@ describe('Editor Card Tests', () => {
       // 测试图片类型（会创建 'image' 节点）
       const imageCard = EditorUtils.createMediaNode('test.jpg', 'image');
       editor.children = [imageCard];
-      
+
       // 验证卡片结构正确
       expect(editor.children[0].type).toBe('card');
       expect(editor.children[0].children.length).toBe(3);
       expect(editor.children[0].children[0].type).toBe('card-before');
       expect(editor.children[0].children[1].type).toBe('image'); // 图片类型是 'image'
       expect(editor.children[0].children[2].type).toBe('card-after');
-      
+
       // 验证媒体节点的属性
       expect(editor.children[0].children[1].mediaType).toBe('image');
       expect(editor.children[0].children[1].url).toBe('test.jpg');
@@ -328,14 +336,14 @@ describe('Editor Card Tests', () => {
       // 测试其他媒体类型（会创建 'media' 节点）
       const videoCard = EditorUtils.createMediaNode('test.mp4', 'video');
       editor.children = [videoCard];
-      
+
       // 验证卡片结构正确
       expect(editor.children[0].type).toBe('card');
       expect(editor.children[0].children.length).toBe(3);
       expect(editor.children[0].children[0].type).toBe('card-before');
       expect(editor.children[0].children[1].type).toBe('media'); // 其他类型是 'media'
       expect(editor.children[0].children[2].type).toBe('card-after');
-      
+
       // 验证媒体节点的属性
       expect(editor.children[0].children[1].mediaType).toBe('video');
       expect(editor.children[0].children[1].url).toBe('test.mp4');
@@ -348,16 +356,16 @@ describe('Editor Card Tests', () => {
         createCardNode(),
         { type: 'paragraph', children: [{ text: 'Last paragraph' }] },
       ];
-      
+
       // 在 card-after 中输入文本
       const cardAfterPath = [1, 2, 0];
       Transforms.select(editor, { path: cardAfterPath, offset: 0 });
       editor.insertText('New content');
-      
+
       // 验证新段落被正确插入
       expect(editor.children.length).toBe(4);
       expect(editor.children[2].children[0].text).toBe('New content');
       expect(editor.children[3].children[0].text).toBe('Last paragraph');
     });
   });
-}); 
+});

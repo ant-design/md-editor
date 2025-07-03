@@ -41,7 +41,7 @@ describe('TocHeading Component', () => {
   ] as Elements[];
 
   it('renders table of contents correctly', () => {
-    const { container } = render(
+    const { container, unmount } = render(
       <ConfigProvider
         theme={{
           hashed: false,
@@ -54,10 +54,11 @@ describe('TocHeading Component', () => {
     expect(titles.length).toBe(2);
     expect(titles[0].textContent).toBe('Introduction');
     expect(titles[1].textContent).toBe('Getting Started');
+    unmount();
   });
 
   it('renders nothing when no headers are present', () => {
-    const { container } = render(
+    const { container, unmount } = render(
       <ConfigProvider
         theme={{
           hashed: false,
@@ -67,6 +68,7 @@ describe('TocHeading Component', () => {
       </ConfigProvider>,
     );
     expect(container.firstChild).toBeNull();
+    unmount();
   });
 
   it('handles nested headers correctly', () => {

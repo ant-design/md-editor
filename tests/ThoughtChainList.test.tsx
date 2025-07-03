@@ -1,6 +1,12 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { WhiteBoxProcessInterface } from '../src/ThoughtChainList';
 import { ThoughtChainList } from '../src/ThoughtChainList';
 
@@ -123,6 +129,10 @@ const mockLoadingData: WhiteBoxProcessInterface = {
 };
 
 describe('ThoughtChainList', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   // 基础渲染测试
   describe('Basic Rendering', () => {
     it('should render empty list correctly', () => {
@@ -309,7 +319,7 @@ describe('ThoughtChainList', () => {
     });
 
     it('should render in compact mode', () => {
-      const { container } = render(
+      const { container, unmount } = render(
         <ThoughtChainList
           thoughtChainList={[mockTableSqlData]}
           compact={true}
@@ -319,6 +329,7 @@ describe('ThoughtChainList', () => {
       expect(
         container.querySelector('.ant-thought-chain-list-content-compact'),
       ).toBeInTheDocument();
+      unmount();
     });
 
     it('should show loading state when loading prop is true', () => {

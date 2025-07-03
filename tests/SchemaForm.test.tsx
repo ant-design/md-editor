@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SchemaForm } from '../src/schema/SchemaForm';
 import type { LowCodeSchema } from '../src/schema/types';
 
@@ -248,6 +248,10 @@ const edgeCaseSchema: LowCodeSchema = {
 };
 
 describe('SchemaForm', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders form with all property types', () => {
     render(<SchemaForm schema={mockSchema} />);
 
