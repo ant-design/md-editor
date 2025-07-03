@@ -44,7 +44,7 @@ export function FlipText({
     <div className="flex justify-center space-x-2">
       {word.split('').map((char, i) => (
         <motion.span
-          key={i}
+          key={i + '_' + char}
           initial="hidden"
           animate="visible"
           exit="hidden"

@@ -356,7 +356,7 @@ export const TableSql = (
                   }}
                   size="small"
                   pagination={false}
-                  rowKey={() => Object.values(dataSource?.[0] || {}).join('-')}
+                  rowKey={(row) => Object.values(row || {}).join('-')}
                   dataSource={dataSource}
                   columns={columns?.map((item) => ({
                     title: item,

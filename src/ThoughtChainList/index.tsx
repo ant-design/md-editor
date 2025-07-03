@@ -300,6 +300,7 @@ const ThoughtChainContent = React.memo<{
   loading?: boolean;
   markdownRenderProps?: MarkdownEditorProps;
   onDocMetaClick: (docMeta: DocMeta) => void;
+  instanceId: string;
 }>(
   ({
     prefixCls,
@@ -311,6 +312,7 @@ const ThoughtChainContent = React.memo<{
     loading,
     markdownRenderProps,
     onDocMetaClick,
+    instanceId,
   }) => {
     const { containerRef } = useAutoScroll({
       SCROLL_TOLERANCE: 30,
@@ -417,7 +419,7 @@ const ThoughtChainContent = React.memo<{
                     </pre>
                   </Typography.Paragraph>
                 }
-                key={(item.runId || '') + '' + index}
+                key={`${instanceId}-${item.runId || 'no-runid'}-${index}`}
               >
                 <ThoughtChainListItem
                   index={index}
@@ -499,6 +501,9 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
     const prefixCls = context.getPrefixCls('thought-chain-list');
     const { wrapSSR, hashId } = useStyle(prefixCls);
     const [docMeta, setDocMeta] = React.useState<Partial<DocMeta> | null>(null);
+
+    // 为组件实例生成唯一ID，避免多个实例间的key冲突
+    const instanceId = 'ThoughtChainList';
 
     useEffect(() => {
       if (bubble?.isFinished && finishAutoCollapse !== false) {
@@ -616,6 +621,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
                 loading={loading}
                 markdownRenderProps={markdownRenderProps}
                 onDocMetaClick={handleDocMetaClick}
+                instanceId={instanceId}
               />
             </div>
           </motion.div>

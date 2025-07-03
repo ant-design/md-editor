@@ -36,6 +36,7 @@ export const TitleInfo = (props: {
   hashId: string;
   isFinished?: boolean;
   onMetaClick?: (meta: Partial<DocMeta>) => void;
+  instanceId?: string;
   meta: Record<
     string,
     {
@@ -99,7 +100,7 @@ export const TitleInfo = (props: {
                   .map((item, subIndex) => {
                     return (
                       <motion.span
-                        key={subIndex}
+                        key={`${index}-${subIndex}`}
                         className={classNames(
                           `${props.prefixCls}-content-list-item-info`,
                           props.hashId,

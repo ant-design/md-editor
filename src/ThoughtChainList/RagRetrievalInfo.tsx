@@ -57,7 +57,7 @@ export const RagRetrievalInfo = (
             {props.input?.searchQueries?.map((query, index) => {
               return (
                 <div
-                  key={index}
+                  key={query + index}
                   style={{
                     height: '24px',
                     borderRadius: '12px',
@@ -123,7 +123,7 @@ export const RagRetrievalInfo = (
                 );
                 return (
                   <div
-                    key={index}
+                    key={`${query}-${index}`}
                     style={{
                       height: '32px',
                       borderRadius: '6px',
