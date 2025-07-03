@@ -55,6 +55,7 @@ function demoTest() {
         );
 
         await waitTime(500);
+
         await waitFor(() => {
           return wrapper.findAllByText('test');
         });

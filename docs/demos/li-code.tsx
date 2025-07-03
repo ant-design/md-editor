@@ -1,4 +1,5 @@
-﻿import {
+﻿/* eslint-disable @typescript-eslint/no-loop-func */
+import {
   MarkdownEditor,
   MarkdownEditorInstance,
   parserMarkdownToSlateNode,

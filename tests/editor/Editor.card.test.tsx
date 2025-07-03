@@ -283,7 +283,9 @@ describe('Editor Card Tests', () => {
       Transforms.select(editor, [0]);
 
       // 等待下一个事件循环
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
 
       // 在测试环境中，自动选择功能可能不会触发，所以我们只验证基本功能
       try {
@@ -305,7 +307,9 @@ describe('Editor Card Tests', () => {
       Transforms.select(editor, [0, 0, 0]); // card > card-before > text
 
       // 等待下一个事件循环
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
 
       // 验证选择仍然在 card-before 中（没有自动移动）
       if (editor.selection) {

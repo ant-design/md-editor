@@ -25,7 +25,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     );
 
     // 检查标题是否正确渲染
-    expect(screen.getByText('只读模式测试')).toBeInTheDocument();
+    expect(screen.getByTestId('markdown-heading')).toHaveTextContent(
+      '只读模式测试',
+    );
 
     // 检查粗体文本是否被正确标记
     const boldElements = screen.getAllByTestId('markdown-bold');
@@ -54,7 +56,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     );
 
     // 验证内容是否正确渲染
-    expect(screen.getByText('只读模式')).toBeInTheDocument();
+    expect(screen.getByTestId('markdown-heading')).toHaveTextContent(
+      '只读模式',
+    );
     expect(screen.getByText('得的利润')).toBeInTheDocument();
 
     // 验证粗体部分
@@ -85,7 +89,9 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     expect(boldElements).toHaveLength(4); // 90%+, 95%, ROI, AI-driven
 
     // 检查特定内容
-    expect(screen.getByText('投资报告')).toBeInTheDocument();
+    expect(screen.getByTestId('markdown-heading')).toHaveTextContent(
+      '投资报告',
+    );
     expect(screen.getByText('得的利润率增长')).toBeInTheDocument();
     expect(screen.getByText('成功率达到')).toBeInTheDocument();
     expect(screen.getByText('超过预期')).toBeInTheDocument();
@@ -145,15 +151,13 @@ describe('BaseMarkdownEditor - Bold Text in Lists', () => {
     expect(boldElements).toHaveLength(3);
 
     // 验证文本内容
-    expect(screen.getByText('格式测试')).toBeInTheDocument();
+    expect(screen.getByTestId('markdown-heading')).toHaveTextContent(
+      '格式测试',
+    );
     expect(screen.getByText(': 这是一个测试')).toBeInTheDocument();
     expect(screen.getByText('满意度')).toBeInTheDocument();
     expect(screen.getByText('指标良好')).toBeInTheDocument();
 
     unmount();
-  });
-
-  afterEach(() => {
-    cleanup();
   });
 });

@@ -97,10 +97,6 @@ const handleCardOperation = (
 ): boolean => {
   if (operation.type === 'remove_node') {
     const { node } = operation;
-    const selectPath = editor.selection?.anchor?.path;
-    const selectionNode = selectPath
-      ? Node.get(editor, Path.parent(selectPath))
-      : null;
 
     // 删除card时，直接删除整个卡片
     if (node.type === 'card') {
@@ -242,7 +238,6 @@ const handleCardOperation = (
 const handleLinkAndMediaOperation = (
   editor: Editor,
   operation: Operation,
-  apply: (op: Operation) => void,
 ): boolean => {
   if (
     operation.type === 'split_node' &&
@@ -296,7 +291,6 @@ const handleLinkAndMediaOperation = (
 const handleSchemaOperation = (
   editor: Editor,
   operation: Operation,
-  apply: (op: Operation) => void,
 ): boolean => {
   if (
     operation.type === 'split_node' &&
