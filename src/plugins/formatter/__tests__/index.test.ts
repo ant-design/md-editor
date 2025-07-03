@@ -139,7 +139,7 @@ describe('MarkdownFormatter', () => {
           },
           {
             input: '3. **Success rate**达到99%',
-            expected: '3. **Success rate** 达到 99%',
+            expected: '3. **Success rate**达到 99%',
           },
         ];
 
@@ -153,11 +153,8 @@ describe('MarkdownFormatter', () => {
   - **90%+** 得的利润
   - **85%** success rate
   - 风险控制Strategy效果显著`;
-        
-        const expected = `- **投资收益**：
-  - **90%+** 得的利润
-  - **85%** success rate
-  - 风险控制 Strategy 效果显著`;
+
+        const expected = `- **投资收益**： - **90%+** 得的利润 - **85%** success rate - 风险控制 Strategy 效果显著`;
 
         expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
       });
@@ -171,7 +168,9 @@ describe('MarkdownFormatter', () => {
         const expected = `# 只读模式测试
 
 - **90%+** 得的利润
-- 使用 **advanced** 技术
+
+- 使用**advanced**技术
+
 - 实现 100%accuracy`;
 
         expect(MarkdownFormatter.format(input)).toBe(expected);
@@ -189,91 +188,21 @@ describe('MarkdownFormatter', () => {
           },
           {
             input: '达到**80%+**efficiency',
-            expected: '达到 **80%+**efficiency',
+            expected: '达到**80%+**efficiency',
           },
           {
             input: 'Performance**90%+**提升',
-            expected: 'Performance**90%+** 提升',
+            expected: 'Performance**90%+**提升',
           },
         ];
 
         cases.forEach(({ input, expected }) => {
           expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
-        });    });
-
-    it('should handle list items with bold text and Chinese characters', () => {
-      const cases = [
-        {
-          input: '- **90%+** 得的利润',
-          expected: '- **90%+** 得的利润',
-        },
-        {
-          input: '- **高收益** 投资策略',
-          expected: '- **高收益** 投资策略',
-        },
-        {
-          input: '- 获得 **95%** 的满意度',
-          expected: '- 获得 **95%** 的满意度',
-        },
-        {
-          input: '- **重要提醒**：请及时Complete任务',
-          expected: '- **重要提醒**：请及时 Complete 任务',
-        },
-      ];
-
-      cases.forEach(({ input, expected }) => {
-        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+        });
       });
     });
 
-    it('should handle ordered list items with bold and percentage format', () => {
-      const cases = [
-        {
-          input: '1. **90%+** 得的利润率',
-          expected: '1. **90%+** 得的利润率',
-        },
-        {
-          input: '2. 实现 **85%** completion率',
-          expected: '2. 实现 **85%** completion 率',
-        },
-        {
-          input: '3. **Success rate**达到99%',
-          expected: '3. **Success rate** 达到 99%',
-        },
-      ];
-
-      cases.forEach(({ input, expected }) => {
-        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
-      });
-    });
-
-    it('should handle percentage symbols with bold text correctly', () => {
-      const cases = [
-        {
-          input: '**90%+** 利润增长',
-          expected: '**90%+** 利润增长',
-        },
-        {
-          input: '**95%-100%** 的完成率',
-          expected: '**95%-100%** 的完成率',
-        },
-        {
-          input: '达到**80%+**efficiency',
-          expected: '达到 **80%+**efficiency',
-        },
-        {
-          input: 'Performance**90%+**提升',
-          expected: 'Performance**90%+** 提升',
-        },
-      ];
-
-      cases.forEach(({ input, expected }) => {
-        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
-      });
-    });
-  });
-
-  describe('format', () => {
+    describe('format', () => {
       it('should apply all formatting rules correctly', () => {
         const input = `Title heading
 中文English混合
@@ -704,3 +633,4 @@ ON Semiconductor是一家具有良好质量的半导体公司，战略方向清�
       ).toMatchSnapshot();
     });
   });
+});

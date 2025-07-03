@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`MarkdownFormatter > should format company analysis correctly 1`] = `
+exports[`MarkdownFormatter > addPanguSpacing > should format company analysis correctly 1`] = `
 "<TASK_RESULT>
 
 ## 1. ON Semiconductor 公司分析
@@ -424,7 +424,7 @@ ON Semiconductor 是一家具有良好质量的半导体公司，战略方向清
 </TASK_RESULT>"
 `;
 
-exports[`MarkdownFormatter > should format company analysis correctly 2`] = `
+exports[`MarkdownFormatter > addPanguSpacing > should format company analysis correctly 2`] = `
 "<TASK_RESULT>
 
 ## 1. ON Semiconductor 公司分析

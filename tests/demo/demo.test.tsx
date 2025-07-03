@@ -66,6 +66,7 @@ function demoTest() {
         await expect(wrapper.asFragment()).toMatchFileSnapshot(
           './__snapshots__/' + file.replace(/\.tsx$/, '.snap'),
         );
+        wrapper.unmount();
       });
 
       afterEach(() => {
