@@ -23,7 +23,7 @@ export function normalizeAttributes<T extends Editor>(
 
         return Transforms.unsetNodes(
           editor,
-          attributes.filter((attr) => node[attr] === 1),
+          attributes.filter((attr) => node[attr] === 1) as any,
           { at: path },
         );
       }

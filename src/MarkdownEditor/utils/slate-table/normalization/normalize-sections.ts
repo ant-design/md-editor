@@ -8,13 +8,13 @@ import { isElement } from '../utils';
  */
 export function normalizeSections<T extends Editor>(
   editor: T,
-  { blocks: { thead, tbody, tfoot, tr } }: WithTableOptions,
+  { blocks: { thead, tr } }: WithTableOptions,
 ): T {
   const { normalizeNode } = editor;
 
   editor.normalizeNode = (entry, options) => {
     const [node, path] = entry;
-    if (isElement(node) && [thead, tbody, tfoot].includes(node.type)) {
+    if (isElement(node) && [thead].includes(node.type)) {
       for (const [child, childPath] of Node.children(editor, path)) {
         if (!isElement(child) || child.type !== tr) {
           return Transforms.wrapNodes(

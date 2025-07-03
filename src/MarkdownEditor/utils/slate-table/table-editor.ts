@@ -24,7 +24,7 @@ export const TableEditor = {
     }
 
     const {
-      blocks: { content, table, tbody, td, tr },
+      blocks: { content, table, td, tr },
     } = editorOptions;
 
     const { rows, cols, at } = { ...DEFAULT_INSERT_TABLE_OPTIONS, ...options };
@@ -40,23 +40,18 @@ export const TableEditor = {
       editor,
       {
         type: table,
-        children: [
-          {
-            type: tbody,
-            children: Array.from({ length: clamp(rows) }).map<Node>(() => ({
-              type: tr,
-              children: Array.from({ length: clamp(cols) }).map<Node>(() => ({
-                type: td,
-                children: [
-                  {
-                    type: content,
-                    children: [{ text: '' }],
-                  },
-                ],
-              })),
-            })),
-          } as Node,
-        ],
+        children: Array.from({ length: clamp(rows) }).map<Node>(() => ({
+          type: tr,
+          children: Array.from({ length: clamp(cols) }).map<Node>(() => ({
+            type: td,
+            children: [
+              {
+                type: content,
+                children: [{ text: '' }],
+              },
+            ],
+          })),
+        })),
       } as Node,
       { at },
     );
@@ -103,8 +98,6 @@ export const TableEditor = {
         editor,
         'table', // current table
         'thead', // current section
-        'tbody',
-        'tfoot',
         'tr', // current row
         'td', // current cell
         'th',
@@ -179,7 +172,8 @@ export const TableEditor = {
           type: blocks.tr,
           children: Array.from({ length: colLen - increasedRowspan }).map(
             () => ({
-              type: section.type === blocks.thead ? blocks.th : blocks.td,
+              type:
+                (section as any).type === blocks.thead ? blocks.th : blocks.td,
               children: [
                 {
                   type: blocks.content,
@@ -212,8 +206,6 @@ export const TableEditor = {
         editor,
         'table', // table
         'thead', // section
-        'tbody',
-        'tfoot',
         'tr', // row
         'td', // cell
         'th',
@@ -420,7 +412,7 @@ export const TableEditor = {
 
         // section should always be present in the table
         const [[section]] = Editor.nodes(editor, {
-          match: isOfType(editor, 'thead', 'tbody', 'tfoot'),
+          match: isOfType(editor, 'thead'),
           at: path,
         });
 
@@ -428,7 +420,8 @@ export const TableEditor = {
           Transforms.insertNodes(
             editor,
             {
-              type: section.type === blocks.thead ? blocks.th : blocks.td,
+              type:
+                (section as any).type === blocks.thead ? blocks.th : blocks.td,
               children: [
                 {
                   type: blocks.content,
@@ -580,7 +573,7 @@ export const TableEditor = {
     const [[, firstPath]] = matrix[0][0];
 
     // cannot merge when selection is not in common section
-    if (!hasCommon(editor, [firstPath, lastPath], 'thead', 'tbody', 'tfoot')) {
+    if (!hasCommon(editor, [firstPath, lastPath], 'thead')) {
       return false;
     }
 
@@ -763,7 +756,7 @@ export const TableEditor = {
           }
 
           const [[section]] = Editor.nodes(editor, {
-            match: isOfType(editor, 'thead', 'tbody', 'tfoot'),
+            match: isOfType(editor, 'thead'),
             at: path,
           });
 
@@ -779,7 +772,10 @@ export const TableEditor = {
                 Transforms.insertNodes(
                   editor,
                   {
-                    type: section.type === blocks.thead ? blocks.th : blocks.td,
+                    type:
+                      (section as any).type === blocks.thead
+                        ? blocks.th
+                        : blocks.td,
                     children: [
                       {
                         type: blocks.content,
@@ -804,7 +800,10 @@ export const TableEditor = {
                 Transforms.insertNodes(
                   editor,
                   {
-                    type: section.type === blocks.thead ? blocks.th : blocks.td,
+                    type:
+                      (section as any).type === blocks.thead
+                        ? blocks.th
+                        : blocks.td,
                     children: [
                       {
                         type: blocks.content,
@@ -823,7 +822,10 @@ export const TableEditor = {
             Transforms.insertNodes(
               editor,
               {
-                type: section.type === blocks.thead ? blocks.th : blocks.td,
+                type:
+                  (section as any).type === blocks.thead
+                    ? blocks.th
+                    : blocks.td,
                 children: [
                   {
                     type: blocks.content,

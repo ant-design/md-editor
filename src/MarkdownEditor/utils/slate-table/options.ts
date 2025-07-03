@@ -9,8 +9,6 @@ export interface WithTableOptions {
     content: ElementType;
     tr: ElementType;
     table: ElementType;
-    tbody: ElementType;
-    tfoot: ElementType;
     thead: ElementType;
   };
   withDelete: boolean;
@@ -24,13 +22,11 @@ export interface WithTableOptions {
 export const DEFAULT_WITH_TABLE_OPTIONS = {
   blocks: {
     td: 'table-cell',
-    th: 'header-cell',
+    th: 'table-cell',
     content: 'paragraph',
     tr: 'table-row',
     table: 'table',
-    tbody: 'table-body',
-    tfoot: 'table-footer',
-    thead: 'table-head',
+    thead: 'table-cell',
   },
   withDelete: true,
   withFragments: true,

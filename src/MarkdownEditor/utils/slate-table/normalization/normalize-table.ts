@@ -5,7 +5,7 @@ import { isElement, isOfType } from '../utils';
 /** Normalizes the given `table` node by wrapping invalid nodes into a `tbody`. */
 export function normalizeTable<T extends Editor>(
   editor: T,
-  { blocks: { table, thead, tbody, tfoot } }: WithTableOptions,
+  { blocks: { table, thead } }: WithTableOptions,
 ): T {
   const { normalizeNode } = editor;
 
@@ -13,7 +13,7 @@ export function normalizeTable<T extends Editor>(
     const [node, path] = entry;
     if (isElement(node) && node.type === table) {
       for (const [child, childPath] of Node.children(editor, path)) {
-        if (isElement(child) && [thead, tbody, tfoot].includes(child.type)) {
+        if (isElement(child) && [thead].includes(child.type)) {
           continue;
         }
 
@@ -23,7 +23,7 @@ export function normalizeTable<T extends Editor>(
           return Transforms.wrapNodes(
             editor,
             {
-              type: tbody,
+              type: 'table',
               children: [child],
             } as Element,
             { at: childPath },
@@ -33,7 +33,7 @@ export function normalizeTable<T extends Editor>(
         const [tbodyElement, tbodyPath] = tbodyEntry;
 
         const elements = tbodyElement.children.filter(
-          (n) => isElement(n) && !editor.isInline(n),
+          (n: any) => isElement(n) && !editor.isInline(n),
         );
 
         return Transforms.moveNodes(editor, {
@@ -58,7 +58,7 @@ const immediateTbody = (
   tablePath: Path,
 ): NodeEntry<Element> | undefined => {
   const [tbody] = Editor.nodes(editor, {
-    match: isOfType(editor, 'tbody'),
+    match: isOfType(editor, 'table'),
     at: tablePath,
   });
 
