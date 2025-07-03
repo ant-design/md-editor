@@ -1,7 +1,7 @@
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { CSSProperties, useContext } from 'react';
-import { Editor, Path, Transforms } from 'slate';
+import { Editor, Node, Path, Transforms } from 'slate';
 
 import { ExportOutlined } from '@ant-design/icons';
 import { MarkdownEditorProps } from '../../BaseMarkdownEditor';
@@ -11,6 +11,7 @@ import {
   RenderLeafProps,
 } from '../slate-react';
 import { useEditorStore } from '../store';
+import { slugify } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { Blockquote } from './blockquote';
 import { WarpCard } from './card';
@@ -129,6 +130,7 @@ const MElementComponent = (
       return (
         <div
           {...props.attributes}
+          id={slugify(Node.string(props.element))}
           data-testid="markdown-heading"
           style={{
             fontSize: `${1.5 - (props.element.level - 1) * 0.125}em`,
