@@ -150,7 +150,17 @@ export default () => {
 import { BaseMarkdownEditor } from '@ant-design/md-editor';
 export default () => {
   return (
-    <BaseMarkdownEditor initValue="# 只读模式" readonly={true} width="100%" />
+    <BaseMarkdownEditor
+      initValue={`只读模式示例：
+
+- **90%+** 得的利润
+- **高效** performance  
+- **成功率** 达到 95%
+
+> **注意**：以上数据仅供参考`}
+      readonly={true}
+      width="100%"
+    />
   );
 };
 ```

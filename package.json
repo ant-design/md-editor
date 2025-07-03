@@ -91,7 +91,8 @@
     "slate-history": "0.110.3",
     "slate-hyperscript": "0.100.0",
     "string-width": "^7.2.0",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

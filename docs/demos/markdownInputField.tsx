@@ -134,6 +134,9 @@ export default () => {
         style={{
           minHeight: 66,
         }}
+        value={
+          '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
+        }
         inputRef={markdownRefTwo}
         bgColorList={colorList}
         borderRadius={borderRadius}
@@ -158,6 +161,9 @@ export default () => {
         style={{
           minHeight: 66,
         }}
+        value={
+          '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
+        }
         inputRef={markdownRefTwo}
         bgColorList={colorList}
         borderRadius={borderRadius}
@@ -196,11 +202,13 @@ export default () => {
       <h2>自定义的 Tag</h2>
       <MarkdownInputField
         inputRef={markdownRef}
+        value={
+          '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
+        }
         tagInputProps={{
           dropdownRender: () => {
             return null;
           },
-
           tagTextStyle: {
             background: '#EEF1FF',
             color: '#4C4BDF',
@@ -259,6 +267,9 @@ export default () => {
             URL.revokeObjectURL(file.previewUrl!);
           },
         }}
+        value={
+          '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
+        }
         tagInputProps={{
           enable: true,
           items: ['tag1', 'tag2', 'tag3'].map((item) => ({
@@ -290,6 +301,9 @@ export default () => {
         borderRadius={borderRadius}
         onSend={send}
         disabled
+        value={
+          '帮我查询`${placeholder:目标企业}` `${placeholder:近3年;initialValue:近6年}`的`${placeholder:资产总额}`。'
+        }
         placeholder="请输入内容"
       />
 

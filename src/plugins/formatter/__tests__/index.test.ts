@@ -100,31 +100,202 @@ describe('MarkdownFormatter', () => {
         expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
       });
     });
+
+    describe('mixed format tests', () => {
+      it('should handle list items with bold text and Chinese characters', () => {
+        const cases = [
+          {
+            input: '- **90%+** 得的利润',
+            expected: '- **90%+** 得的利润',
+          },
+          {
+            input: '- **高收益** 投资策略',
+            expected: '- **高收益** 投资策略',
+          },
+          {
+            input: '- 获得 **95%** 的满意度',
+            expected: '- 获得 **95%** 的满意度',
+          },
+          {
+            input: '- **重要提醒**：请及时Complete任务',
+            expected: '- **重要提醒**：请及时 Complete 任务',
+          },
+        ];
+
+        cases.forEach(({ input, expected }) => {
+          expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+        });
+      });
+
+      it('should handle ordered list items with bold and percentage format', () => {
+        const cases = [
+          {
+            input: '1. **90%+** 得的利润率',
+            expected: '1. **90%+** 得的利润率',
+          },
+          {
+            input: '2. 实现 **85%** completion率',
+            expected: '2. 实现 **85%** completion 率',
+          },
+          {
+            input: '3. **Success rate**达到99%',
+            expected: '3. **Success rate** 达到 99%',
+          },
+        ];
+
+        cases.forEach(({ input, expected }) => {
+          expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+        });
+      });
+
+      it('should handle nested lists with mixed formatting', () => {
+        const input = `- **投资收益**：
+  - **90%+** 得的利润
+  - **85%** success rate
+  - 风险控制Strategy效果显著`;
+        
+        const expected = `- **投资收益**：
+  - **90%+** 得的利润
+  - **85%** success rate
+  - 风险控制 Strategy 效果显著`;
+
+        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+      });
+
+      it('should preserve bold formatting in complex list structures', () => {
+        const input = `# 只读模式测试
+- **90%+** 得的利润
+- 使用**advanced**技术
+- 实现100%accuracy`;
+
+        const expected = `# 只读模式测试
+
+- **90%+** 得的利润
+- 使用 **advanced** 技术
+- 实现 100%accuracy`;
+
+        expect(MarkdownFormatter.format(input)).toBe(expected);
+      });
+
+      it('should handle percentage symbols with bold text correctly', () => {
+        const cases = [
+          {
+            input: '**90%+** 利润增长',
+            expected: '**90%+** 利润增长',
+          },
+          {
+            input: '**95%-100%** 的完成率',
+            expected: '**95%-100%** 的完成率',
+          },
+          {
+            input: '达到**80%+**efficiency',
+            expected: '达到 **80%+**efficiency',
+          },
+          {
+            input: 'Performance**90%+**提升',
+            expected: 'Performance**90%+** 提升',
+          },
+        ];
+
+        cases.forEach(({ input, expected }) => {
+          expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+        });    });
+
+    it('should handle list items with bold text and Chinese characters', () => {
+      const cases = [
+        {
+          input: '- **90%+** 得的利润',
+          expected: '- **90%+** 得的利润',
+        },
+        {
+          input: '- **高收益** 投资策略',
+          expected: '- **高收益** 投资策略',
+        },
+        {
+          input: '- 获得 **95%** 的满意度',
+          expected: '- 获得 **95%** 的满意度',
+        },
+        {
+          input: '- **重要提醒**：请及时Complete任务',
+          expected: '- **重要提醒**：请及时 Complete 任务',
+        },
+      ];
+
+      cases.forEach(({ input, expected }) => {
+        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+      });
+    });
+
+    it('should handle ordered list items with bold and percentage format', () => {
+      const cases = [
+        {
+          input: '1. **90%+** 得的利润率',
+          expected: '1. **90%+** 得的利润率',
+        },
+        {
+          input: '2. 实现 **85%** completion率',
+          expected: '2. 实现 **85%** completion 率',
+        },
+        {
+          input: '3. **Success rate**达到99%',
+          expected: '3. **Success rate** 达到 99%',
+        },
+      ];
+
+      cases.forEach(({ input, expected }) => {
+        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+      });
+    });
+
+    it('should handle percentage symbols with bold text correctly', () => {
+      const cases = [
+        {
+          input: '**90%+** 利润增长',
+          expected: '**90%+** 利润增长',
+        },
+        {
+          input: '**95%-100%** 的完成率',
+          expected: '**95%-100%** 的完成率',
+        },
+        {
+          input: '达到**80%+**efficiency',
+          expected: '达到 **80%+**efficiency',
+        },
+        {
+          input: 'Performance**90%+**提升',
+          expected: 'Performance**90%+** 提升',
+        },
+      ];
+
+      cases.forEach(({ input, expected }) => {
+        expect(MarkdownFormatter.addPanguSpacing(input)).toBe(expected);
+      });
+    });
   });
 
   describe('format', () => {
-    it('should apply all formatting rules correctly', () => {
-      const input = `Title heading
+      it('should apply all formatting rules correctly', () => {
+        const input = `Title heading
 中文English混合
 使用\`const x=123\`作为示例
 [测试Link说明](https://example.com)`;
-      const expected = `Title heading
+        const expected = `Title heading
 
 中文 English 混合
 
 使用 \`const x=123\` 作为示例
 
 [测试Link说明](https://example.com)`;
-      expect(MarkdownFormatter.format(input)).toBe(expected);
-    });
+        expect(MarkdownFormatter.format(input)).toBe(expected);
+      });
 
-    it('should handle complex mixed content', () => {
-      const input = `# 标题Title123
+      it('should handle complex mixed content', () => {
+        const input = `# 标题Title123
 代码示例code：
 \`const x=123\`
 价格是100元
 [链接Link说明](url)`;
-      const expected = `# 标题 Title123
+        const expected = `# 标题 Title123
 
 代码示例 code：
 
@@ -133,33 +304,17 @@ describe('MarkdownFormatter', () => {
 价格是 100 元
 
 [链接Link说明](url)`;
-      expect(MarkdownFormatter.format(input)).toBe(expected);
-    });
+        expect(MarkdownFormatter.format(input)).toBe(expected);
+      });
 
-    it('should use set table content', () => {
-      const input = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
-      const expected = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
-      expect(MarkdownFormatter.format(input)).toBe(expected);
-    });
+      it('should use set table content', () => {
+        const input = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
+        const expected = `| 111 | 111 | 1111 |\n| :--- | :--- | :--- |\n| 111 | 111 | 111 |\n| 111 | 111 | 111 |`;
+        expect(MarkdownFormatter.format(input)).toBe(expected);
+      });
 
-    it('should preserve JSON code blocks', () => {
-      const input = `这是一个测试 JSON 的例子：
-
-\`\`\`json
-{
-  "name": "test",
-  "description": "这是一个测试",
-  "version": "1.0.0",
-  "dependencies": {
-    "react": "^18.0.0",
-    "typescript": "~4.9.0"
-  }
-}
-\`\`\`
-
-这是代码块后的内容。`;
-
-      const expected = `这是一个测试 JSON 的例子：
+      it('should preserve JSON code blocks', () => {
+        const input = `这是一个测试 JSON 的例子：
 
 \`\`\`json
 {
@@ -175,11 +330,27 @@ describe('MarkdownFormatter', () => {
 
 这是代码块后的内容。`;
 
-      expect(MarkdownFormatter.format(input)).toBe(expected);
-    });
+        const expected = `这是一个测试 JSON 的例子：
 
-    it('should handle multiple JSON code blocks', () => {
-      const input = `第一个 JSON 块：
+\`\`\`json
+{
+  "name": "test",
+  "description": "这是一个测试",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^18.0.0",
+    "typescript": "~4.9.0"
+  }
+}
+\`\`\`
+
+这是代码块后的内容。`;
+
+        expect(MarkdownFormatter.format(input)).toBe(expected);
+      });
+
+      it('should handle multiple JSON code blocks', () => {
+        const input = `第一个 JSON 块：
 
 \`\`\`json
 {
@@ -200,7 +371,7 @@ describe('MarkdownFormatter', () => {
 
 这是最后的内容。`;
 
-      const expected = `第一个 JSON 块：
+        const expected = `第一个 JSON 块：
 
 \`\`\`json
 {
@@ -221,12 +392,12 @@ describe('MarkdownFormatter', () => {
 
 这是最后的内容。`;
 
-      expect(MarkdownFormatter.format(input)).toBe(expected);
+        expect(MarkdownFormatter.format(input)).toBe(expected);
+      });
     });
-  });
 
-  it('should format company analysis correctly', () => {
-    const input = `<TASK_RESULT>
+    it('should format company analysis correctly', () => {
+      const input = `<TASK_RESULT>
 
 
 ## 1. ON Semiconductor公司分析
@@ -524,12 +695,12 @@ ON Semiconductor (onsemi) 是一家质量较好的半导体公司，在电源管
 ON Semiconductor是一家具有良好质量的半导体公司，战略方向清晰，管理执行力强。尽管当前估值不低，但考虑到其在高增长市场的布局和技术优势，中长期投资价值值得关注。投资者应关注行业周期性风险，并以合理价格建立仓位。
 
 </TASK_RESULT>`;
-    expect(MarkdownFormatter.format(input)).toMatchSnapshot();
+      expect(MarkdownFormatter.format(input)).toMatchSnapshot();
 
-    expect(
-      MarkdownFormatter.format(
-        parserSlateNodeToMarkdown(parserMdToSchema(input).schema),
-      ),
-    ).toMatchSnapshot();
+      expect(
+        MarkdownFormatter.format(
+          parserSlateNodeToMarkdown(parserMdToSchema(input).schema),
+        ),
+      ).toMatchSnapshot();
+    });
   });
-});

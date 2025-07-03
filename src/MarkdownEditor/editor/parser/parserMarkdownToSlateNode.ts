@@ -1461,6 +1461,7 @@ export const parserMarkdownToSlateNode = (
   const markdownRoot = parser.parse(
     preprocessMarkdownTableNewlines(md || ''),
   ).children;
+
   const schema =
     (plugins || [])?.length > 0
       ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
