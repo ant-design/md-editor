@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["Agentar", "fprq"]
+  "cSpell.words": ["Agentar", "fprq"],
+  "yaml.schemas": {
+    "https://www.schemastore.org/github-workflow.json": "file:///e%3A/github/md-editor/.github/workflows/codecov.yml"
+  }
 }
