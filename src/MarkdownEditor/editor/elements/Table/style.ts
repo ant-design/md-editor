@@ -8,6 +8,7 @@
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
+      '--table-border-radius': '8px',
       overflow: 'auto',
       '&-container': {
         display: 'flex',
@@ -36,15 +37,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         outlineWidth: '0',
         overflow: 'auto',
         fontVariant: 'tabular-nums',
+        borderRadius: 'var(--table-border-radius)',
+        border: '1px solid #E7E9E8',
         th: {
           backgroundColor: '#f7f7f9',
-          borderBottom: '1px solid #e5e5e9',
+          borderBottom: '1px solid #E7E9E8',
           textWrap: 'nowrap',
           verticalAlign: 'top',
           padding: '12px 20px',
           textAlign: 'left',
           lineHeight: 1,
-          borderTop: '1px solid #e5e5e9',
+          borderTop: 'none',
         },
         td: {
           textWrap: 'nowrap',
@@ -56,26 +59,64 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
         tr: {
           '&:first-child td': {
-            borderTop: '1px solid #e5e5e9',
+            borderTop: 'none',
           },
           td: {
-            borderBottom: '1px solid #e5e5e9',
+            borderBottom: '1px solid #E7E9E8',
+          },
+          '&:last-child td': {
+            borderBottom: 'none',
           },
         },
+        // 只为真正的表格四个角添加圆角，避免合并单元格的问题
+        'tr:first-child th:first-child, tr:first-child td:first-child': {
+          borderTopLeftRadius: 'var(--table-border-radius)',
+        },
+        'tr:first-child th:last-child, tr:first-child td:last-child': {
+          borderTopRightRadius: 'var(--table-border-radius)',
+        },
+        'tr:last-child td:first-child, tr:last-child th:first-child': {
+          borderBottomLeftRadius: 'var(--table-border-radius)',
+        },
+        'tr:last-child td:last-child, tr:last-child th:last-child': {
+          borderBottomRightRadius: 'var(--table-border-radius)',
+        },
+        // 处理合并单元格的情况 - 重置所有内部单元格的圆角
+        'td[colspan], th[colspan], td[rowspan], th[rowspan]': {
+          borderRadius: 0,
+        },
+        // 确保合并单元格跨越边界时能正确显示圆角
+        'tr:first-child th[colspan]:first-child, tr:first-child td[colspan]:first-child':
+          {
+            borderTopLeftRadius: 'var(--table-border-radius)',
+            borderTopRightRadius: 0,
+          },
+        'tr:first-child th[colspan]:last-child, tr:first-child td[colspan]:last-child':
+          {
+            borderTopRightRadius: 'var(--table-border-radius)',
+            borderTopLeftRadius: 0,
+          },
+        'tr:last-child td[colspan]:first-child, tr:last-child th[colspan]:first-child':
+          {
+            borderBottomLeftRadius: 'var(--table-border-radius)',
+            borderBottomRightRadius: 0,
+          },
+        'tr:last-child td[colspan]:last-child, tr:last-child th[colspan]:last-child':
+          {
+            borderBottomRightRadius: 'var(--table-border-radius)',
+            borderBottomLeftRadius: 0,
+          },
         'th,td': {
           padding: '8px 12px',
           lineHeight: 1.7,
           textAlign: 'left',
-          borderLeft: '1px solid #e5e5e9',
+          borderLeft: 'none',
+        },
+        'th:not(:first-child),td:not(:first-child)': {
+          borderLeft: '1px solid #E7E9E8',
         },
         'th:last-child,td:last-child': {
-          borderRight: '1px solid #e5e5e9',
-        },
-        'th:last-child': {
-          borderTopRightRadius: 8,
-        },
-        'th:first-child': {
-          borderTopLeftRadius: 8,
+          borderRight: 'none',
         },
         '& tr:nth-child(odd) td': {
           backgroundColor: 'rgba(35,35,38,.04)',

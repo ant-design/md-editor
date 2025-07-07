@@ -401,8 +401,8 @@ export const TableEditor = {
         const [[{ colSpan = 1 }, path], { ltr, rtl, ttb, btt }] =
           matrix[x][tdIndex];
 
-        // when inserting left and the right-to-left is greater than 1, the colSpan is increased
-        // when inserting right and the left-to-right is greater than 1, the colSpan is increased
+        // when inserting left and the right-to-left is greater than 1, the colspan is increased
+        // when inserting right and the left-to-right is greater than 1, the colspan is increased
         if (options.before ? rtl > 1 : ltr > 1) {
           Transforms.setNodes<CellElement>(
             editor,
@@ -410,7 +410,7 @@ export const TableEditor = {
             { at: path },
           );
 
-          // skip increasing the colSpan for the same cell if it has a rowSpan
+          // skip increasing the colspan for the same cell if it has a rowSpan
           x += btt - 1;
           continue;
         }
@@ -610,10 +610,10 @@ export const TableEditor = {
       for (let x = selection.length - 1; x >= 0; x--, rowSpan++) {
         colSpan = 0;
         for (let y = selection[x].length - 1; y >= 0; y--, colSpan++) {
-          const [[, path], { rtl: colSpan, ttb }] = selection[x][y];
+          let [[, path], { rtl: colspan, ttb }] = selection[x][y];
 
-          y -= colSpan - 1;
-          colSpan += colSpan - 1;
+          y -= colspan - 1;
+          colSpan += colspan - 1;
 
           // skip first cell and "fake" cells which belong to a cell with a `rowSpan`
           if (Path.equals(basePath, path) || ttb > 1) {
@@ -676,7 +676,7 @@ export const TableEditor = {
         }
       }
 
-      // set the colSpan to 1 when merging columns that match the matrix size
+      // set the colspan to 1 when merging columns that match the matrix size
       if (selection.length === matrix.length) {
         colSpan = 1;
       }
@@ -723,7 +723,7 @@ export const TableEditor = {
           const { ltr: colSpan, rtl, btt: rowSpan, ttb } = context;
 
           if (rtl > 1) {
-            // get to the start of the colSpan
+            // get to the start of the colspan
             y -= rtl - 2;
             continue;
           }
