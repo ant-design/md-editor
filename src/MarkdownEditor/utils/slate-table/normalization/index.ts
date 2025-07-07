@@ -1,1 +1,1 @@
-export * from './with-normalization';
+export * from "./with-normalization";

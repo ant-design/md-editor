@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Editor, Range, Transforms } from 'slate';
 import { WithTableOptions } from './options';
 import { TableCursor } from './table-cursor';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { Editor, Location, Node, NodeEntry, Path, Transforms } from 'slate';
 import { DEFAULT_INSERT_TABLE_OPTIONS, InsertTableOptions } from './options';
 import { TableCursor } from './table-cursor';
@@ -98,6 +99,8 @@ export const TableEditor = {
         editor,
         'table', // current table
         'thead', // current section
+
+        'tfoot',
         'tr', // current row
         'td', // current cell
         'th',
@@ -172,8 +175,7 @@ export const TableEditor = {
           type: blocks.tr,
           children: Array.from({ length: colLen - increasedRowspan }).map(
             () => ({
-              type:
-                (section as any).type === blocks.thead ? blocks.th : blocks.td,
+              type: section.type === blocks.thead ? blocks.th : blocks.td,
               children: [
                 {
                   type: blocks.content,
@@ -206,6 +208,8 @@ export const TableEditor = {
         editor,
         'table', // table
         'thead', // section
+
+        'tfoot',
         'tr', // row
         'td', // cell
         'th',
@@ -412,7 +416,7 @@ export const TableEditor = {
 
         // section should always be present in the table
         const [[section]] = Editor.nodes(editor, {
-          match: isOfType(editor, 'thead'),
+          match: isOfType(editor, 'thead', 'tfoot'),
           at: path,
         });
 
@@ -420,8 +424,7 @@ export const TableEditor = {
           Transforms.insertNodes(
             editor,
             {
-              type:
-                (section as any).type === blocks.thead ? blocks.th : blocks.td,
+              type: section.type === blocks.thead ? blocks.th : blocks.td,
               children: [
                 {
                   type: blocks.content,
@@ -558,7 +561,7 @@ export const TableEditor = {
   /**
    * Checks if the current selection can be merged. Merging is not possible when any of the following conditions are met:
    * - The selection is empty.
-   * - The selection is not within the same "thead", "tbody," or "tfoot" section.
+   * - The selection is not within the same "thead" or "tfoot" section.
    * @returns {boolean} `true` if the selection can be merged, otherwise `false`.
    */
   canMerge(editor: Editor): boolean {
@@ -573,7 +576,7 @@ export const TableEditor = {
     const [[, firstPath]] = matrix[0][0];
 
     // cannot merge when selection is not in common section
-    if (!hasCommon(editor, [firstPath, lastPath], 'thead')) {
+    if (!hasCommon(editor, [firstPath, lastPath], 'thead', 'tfoot')) {
       return false;
     }
 
@@ -756,7 +759,7 @@ export const TableEditor = {
           }
 
           const [[section]] = Editor.nodes(editor, {
-            match: isOfType(editor, 'thead'),
+            match: isOfType(editor, 'thead', 'tfoot'),
             at: path,
           });
 
@@ -772,10 +775,7 @@ export const TableEditor = {
                 Transforms.insertNodes(
                   editor,
                   {
-                    type:
-                      (section as any).type === blocks.thead
-                        ? blocks.th
-                        : blocks.td,
+                    type: section.type === blocks.thead ? blocks.th : blocks.td,
                     children: [
                       {
                         type: blocks.content,
@@ -800,10 +800,7 @@ export const TableEditor = {
                 Transforms.insertNodes(
                   editor,
                   {
-                    type:
-                      (section as any).type === blocks.thead
-                        ? blocks.th
-                        : blocks.td,
+                    type: section.type === blocks.thead ? blocks.th : blocks.td,
                     children: [
                       {
                         type: blocks.content,
@@ -822,10 +819,7 @@ export const TableEditor = {
             Transforms.insertNodes(
               editor,
               {
-                type:
-                  (section as any).type === blocks.thead
-                    ? blocks.th
-                    : blocks.td,
+                type: section.type === blocks.thead ? blocks.th : blocks.td,
                 children: [
                   {
                     type: blocks.content,

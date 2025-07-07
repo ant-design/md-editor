@@ -12,41 +12,65 @@ export function filledMatrix(
   for (const matrix of matrices(editor, { at: options.at })) {
     const filledSection: NodeEntryWithContext[][] = [];
 
-    for (let x = 0; x < matrix.length; x++) {
-      if (!filledSection[x]) {
-        filledSection[x] = [];
-      }
+    // First pass: calculate the maximum dimensions needed
+    let maxRows = 0;
+    let maxCols = 0;
 
+    for (let x = 0; x < matrix.length; x++) {
+      maxRows = Math.max(maxRows, x + 1);
+      for (let y = 0; y < matrix[x].length; y++) {
+        const [{ rowSpan = 1, colSpan = 1 }] = matrix[x][y];
+        maxRows = Math.max(maxRows, x + rowSpan);
+        maxCols = Math.max(maxCols, y + colSpan);
+      }
+    }
+
+    // Initialize the filled matrix with proper dimensions
+    for (let x = 0; x < maxRows; x++) {
+      filledSection[x] = new Array(maxCols).fill(null);
+    }
+
+    // Second pass: fill the matrix
+    for (let x = 0; x < matrix.length; x++) {
       for (let y = 0, offset = 0; y < matrix[x].length; y++) {
         const [{ rowSpan = 1, colSpan = 1 }] = matrix[x][y];
 
-        for (let c = 0, occupied = 0; c < colSpan + occupied; c++) {
-          if (filledSection[x][y + c + offset]) {
-            occupied++;
-            continue;
-          }
+        // Find the next available position in this row
+        let startCol = y + offset;
+        while (startCol < maxCols && filledSection[x][startCol]) {
+          startCol++;
+        }
 
-          for (let r = 0; r < rowSpan; r++) {
+        // Fill the cells for this element
+        for (let r = 0; r < rowSpan && x + r < maxRows; r++) {
+          for (let c = 0; c < colSpan && startCol + c < maxCols; c++) {
             if (!filledSection[x + r]) {
-              filledSection[x + r] = [];
+              filledSection[x + r] = new Array(maxCols).fill(null);
             }
 
-            filledSection[x + r][y + c + offset] = [
+            filledSection[x + r][startCol + c] = [
               matrix[x][y], // entry
               {
-                rtl: c - occupied + 1,
-                ltr: colSpan - c + occupied,
+                rtl: c + 1,
+                ltr: colSpan - c,
                 ttb: r + 1,
                 btt: rowSpan - r,
               },
             ];
           }
         }
-        offset += colSpan - 1;
+
+        // Update offset for next iteration
+        offset = startCol + colSpan - y - 1;
       }
     }
 
-    filled.push(...filledSection);
+    // Filter out null entries and ensure consistent structure
+    const cleanedSection = filledSection
+      .map((row) => row.filter((cell) => cell !== null))
+      .filter((row) => row.length > 0);
+
+    filled.push(...cleanedSection);
   }
 
   return filled;

@@ -696,10 +696,6 @@ export const SlateMarkdownEditor = ({
     }
   };
 
-  const onError = (e: React.SyntheticEvent) => {
-    console.log('Editor error', e);
-  };
-
   const elementRenderElement = useCallback(
     (props: RenderElementProps) => {
       const defaultDom = (
@@ -851,7 +847,6 @@ export const SlateMarkdownEditor = ({
       >
         <Editable
           decorate={decorateFn}
-          onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={readonly}
           spellCheck={false}

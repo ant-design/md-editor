@@ -1,5 +1,6 @@
 import { BaseEditor, BaseElement } from 'slate';
 import { HistoryEditor } from 'slate-history';
+import { TableCustomElement } from './editor/elements/Table';
 import { ReactEditor, RenderElementProps } from './editor/slate-react';
 
 type Align = 'left' | 'center' | 'right';
@@ -65,66 +66,6 @@ export type CardAfterNode = {
   children: BaseElement['children'];
 };
 
-export type TableNode<T = Record<string, any>> = {
-  contextProps?: T;
-  type: 'table';
-  children: TableRowNode[];
-  otherProps?: {
-    showSource?: boolean;
-    config: ChartTypeConfig | ChartTypeConfig[];
-    columns: {
-      title: string;
-      dataIndex: string;
-      key: string;
-    }[];
-    mergeCells: DetailedSettings[];
-    dataSource: any[];
-    colWidths?: number[];
-  } & T;
-};
-
-export type DescriptionNode<T = Record<string, any>> = {
-  contextProps?: T;
-  otherProps?: T;
-  type: 'description';
-  children: TableCellNode[];
-};
-
-export type ColumnNode<T = Record<string, any>> = {
-  contextProps?: T;
-  type: 'column-group';
-  children: ColumnCellNode[];
-  otherProps?: {
-    elementType: string;
-  } & T;
-  style: Record<string, any>;
-};
-
-export type ColumnCellNode<T = Record<string, any>> = {
-  contextProps?: T;
-  otherProps?: T;
-  type: 'column-cell';
-  children: BaseElement['children'];
-};
-
-export type TableRowNode<T = Record<string, any>> = {
-  contextProps?: T;
-  otherProps?: T;
-  type: 'table-row';
-  children: TableCellNode[];
-};
-
-export type TableCellNode<T = Record<string, any>> = {
-  contextProps?: T;
-  otherProps?: T;
-  type: 'table-cell';
-  title?: boolean;
-  rows?: number;
-  cols?: number;
-  //@ts-ignore
-  children: BaseElement['children'];
-};
-
 export type BlockQuoteNode<T = Record<string, any>> = {
   contextProps?: T;
   otherProps?: T;
@@ -155,7 +96,6 @@ export type ChartTypeConfig<T = Record<string, any>> = {
 export type ChartNode<T = Record<string, any>> = {
   contextProps?: T;
   type: 'chart';
-  children: TableNode['children'];
   otherProps?: {
     showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];
@@ -264,15 +204,9 @@ export type SchemaNode<T = Record<string, any>> = {
 
 export type Elements<T = Record<string, any>> =
   | CodeNode<T>
-  | DescriptionNode<T>
   | FootnoteDefinitionNode<T>
   | SchemaNode<{ valueType: string } & T>
-  | ColumnCellNode<T>
-  | ColumnNode<T>
   | ParagraphNode<T>
-  | TableNode<T>
-  | TableRowNode<T>
-  | TableCellNode<T>
   | BlockQuoteNode<T>
   | ListNode<T>
   | ListItemNode<T>
@@ -285,7 +219,8 @@ export type Elements<T = Record<string, any>> =
   | LinkCardNode<T>
   | CardNode
   | CardBeforeNode
-  | CardAfterNode;
+  | CardAfterNode
+  | TableCustomElement;
 
 export type CustomLeaf<T = Record<string, any>> = {
   contextProps?: T;

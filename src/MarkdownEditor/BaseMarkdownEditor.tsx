@@ -43,6 +43,7 @@ import './index.css';
 import { MarkdownEditorPlugin, PluginContext } from './plugin';
 import { useStyle } from './style';
 import { exportHtml } from './utils/exportHtml';
+import { withTable } from './utils/slate-table/with-table';
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
@@ -442,7 +443,25 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // markdown 编辑器实例
   const markdownEditorRef = useRef(
     composeEditors(
-      withMarkdown(withReact(withHistory(createEditor()))),
+      withMarkdown(
+        withTable(withReact(withHistory(createEditor())), {
+          blocks: {
+            table: 'table',
+            thead: 'table-head',
+            tfoot: 'table-footer',
+            tr: 'table-row',
+            th: 'header-cell',
+            td: 'table-cell',
+            content: 'paragraph',
+          },
+          withDelete: true,
+          withFragments: true,
+          withInsertText: true,
+          withNormalization: true,
+          withSelection: true,
+          withSelectionAdjustment: true,
+        }),
+      ),
       props.plugins || [],
     ),
   );

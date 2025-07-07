@@ -2,7 +2,7 @@ import { Editor, Location, NodeEntry } from 'slate';
 import { isOfType } from './is-of-type';
 import { CellElement } from './types';
 
-/** Generates a matrix for each table section (`thead`, `tbody`, `tfoot`) */
+/** Generates a matrix for each table section (`thead`, `tfoot`) */
 export function* matrices(
   editor: Editor,
   options: { at?: Location } = {},
@@ -19,7 +19,7 @@ export function* matrices(
   const [, tablePath] = table;
 
   for (const [, path] of Editor.nodes(editor, {
-    match: isOfType(editor, 'thead'),
+    match: isOfType(editor, 'thead', 'tfoot'),
     at: tablePath,
   })) {
     const matrix: NodeEntry<CellElement>[][] = [];

@@ -4,13 +4,13 @@ import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Node } from 'slate';
 import stringWidth from 'string-width';
+import { TableNode } from '.';
 import { I18nContext } from '../../../../i18n';
-import { parserSlateNodeToMarkdown, TableNode } from '../../../index';
+import { parserSlateNodeToMarkdown } from '../../../index';
 import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
 import useScrollShadow from './useScrollShadow';
-export * from './TableCell';
 
 /**
  * 表格组

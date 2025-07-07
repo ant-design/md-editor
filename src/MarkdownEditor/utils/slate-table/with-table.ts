@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Editor } from 'slate';
 import { withNormalization } from './normalization';
 import { DEFAULT_WITH_TABLE_OPTIONS, WithTableOptions } from './options';
@@ -28,20 +29,13 @@ export function withTable<T extends Editor>(editor: T, options: Options): T {
     },
   } satisfies WithTableOptions;
 
-  //@ts-ignore
   EDITOR_TO_WITH_TABLE_OPTIONS.set(editor, optionsWithDefaults);
 
-  //@ts-ignore
   editor = withDelete(editor, optionsWithDefaults);
-  //@ts-ignore
   editor = withFragments(editor, optionsWithDefaults);
-  //@ts-ignore
   editor = withInsertText(editor, optionsWithDefaults);
-  //@ts-ignore
   editor = withNormalization(editor, optionsWithDefaults);
-  //@ts-ignore
   editor = withSelection(editor, optionsWithDefaults);
-  //@ts-ignore
   editor = withSelectionAdjustment(editor, optionsWithDefaults);
 
   return editor;

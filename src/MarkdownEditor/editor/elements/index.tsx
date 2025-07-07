@@ -27,7 +27,7 @@ import { List, ListItem } from './list';
 import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
-import { Table, TableCell } from './Table/index';
+import { tableRenderElement } from './Table';
 import { TagPopup } from './TagPopup';
 
 /**
@@ -125,6 +125,10 @@ const MElementComponent = (
     readonly?: boolean;
   },
 ) => {
+  const dom = tableRenderElement(props);
+  if (dom) {
+    return dom;
+  }
   switch (props.element.type) {
     case 'link-card':
       return <LinkCard {...props} />;
@@ -273,14 +277,8 @@ const MElementComponent = (
       return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
-    case 'table':
-      return <Table {...props}>{props.children}</Table>;
     case 'description':
       return <Description {...props}>{props.children}</Description>;
-    case 'table-row':
-      return <tr {...props.attributes}>{props.children}</tr>;
-    case 'table-cell':
-      return <TableCell {...props}>{props.children}</TableCell>;
     case 'image':
       return <EditorImage {...props} />;
     case 'media':
@@ -712,14 +710,4 @@ const MLeafComponent = (
 // 使用 React.memo 优化 MLeaf 组件的性能
 export const MLeaf = React.memo(MLeafComponent, areLeafPropsEqual);
 
-export {
-  Blockquote,
-  Head,
-  List,
-  ListItem,
-  Media,
-  Paragraph,
-  Schema,
-  Table,
-  TableCell,
-};
+export { Blockquote, Head, List, ListItem, Media, Paragraph, Schema };

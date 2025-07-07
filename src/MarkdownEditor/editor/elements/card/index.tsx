@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import { Transforms } from 'slate';
 import { useSelStatus } from '../../../../MarkdownEditor/hooks/editor';
 import { RenderElementProps, useSlate } from '../../slate-react';
 import { useEditorStore } from '../../store';
@@ -26,25 +25,12 @@ export const WarpCard = (props: RenderElementProps) => {
         tabIndex={0}
         aria-selected={selected}
         aria-label="可选择的卡片元素"
-        onClick={(e) => {
-          e.stopPropagation();
-          // 直接选中卡片节点，避免默认选中card-before
-          // 我们的normalizeCardSelection会自动将其重定向到card-after
-          Transforms.select(editor, path);
-          e.preventDefault();
-        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            Transforms.select(editor, path);
-          }
-        }}
         style={{
           ...props.element.style,
-          padding: 8,
-          borderRadius: 6,
+          padding: 4,
+          borderRadius: 4,
           display: props.element.block === false ? 'inline-flex' : 'flex',
           gap: 4,
           maxWidth: '100%',
