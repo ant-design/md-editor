@@ -639,8 +639,11 @@ export const withMarkdown = (editor: Editor) => {
       }
       try {
         const node = Node.get(editor, selection.anchor.path);
-
-        if (node.tag && selection.anchor.offset <= 1) {
+        if (
+          node?.tag &&
+          node?.text?.trim()?.length < 1 &&
+          selection?.anchor?.offset < 1
+        ) {
           const text = node?.text?.replace(node.triggerText || '', '');
           Transforms.setNodes(
             editor,
