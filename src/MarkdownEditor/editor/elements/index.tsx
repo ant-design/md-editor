@@ -55,15 +55,15 @@ const areElementPropsEqual = (
   prevProps: RenderElementProps & { readonly?: boolean },
   nextProps: RenderElementProps & { readonly?: boolean },
 ) => {
+  if (nextProps.element?.type === 'table-cell') {
+    return false;
+  }
   if (
     nextProps.element?.type === 'paragraph' &&
     nextProps.element.value === ''
   ) {
     // 如果是空段落，直接返回 true，避免不必要的渲染
     return true;
-  }
-  if (nextProps.element?.type === 'table-cell') {
-    return false;
   }
 
   // 首先进行引用比较，这是最快的
