@@ -140,24 +140,6 @@ export const keyArrow = (
         Transforms.select(editor, pre[1]);
         return;
       }
-      if (el.type === 'table-cell' && !Path.hasPrevious(sel.focus.path)) {
-        const row = Path.parent(path);
-        const table = Path.parent(row);
-        if (!Path.hasPrevious(row) && !Path.hasPrevious(Path.parent(row))) {
-          e.preventDefault();
-          Transforms.insertNodes(editor, EditorUtils.p, {
-            at: table,
-            select: true,
-          });
-        }
-        if (Path.hasPrevious(row)) {
-          Transforms.select(
-            editor,
-            Editor.end(editor, [...Path.previous(row), path[path.length - 1]]),
-          );
-          e.preventDefault();
-        }
-      }
       if (el.type === 'media' || el.type === 'attach') {
         e.preventDefault();
         const pre = EditorUtils.findPrev(editor, path);
@@ -177,27 +159,6 @@ export const keyArrow = (
         e.stopPropagation();
         Transforms.select(editor, next[1]);
         return;
-      }
-      if (
-        el.type === 'table-cell' &&
-        !Editor.hasPath(editor, Path.next(sel.focus.path))
-      ) {
-        const row = Path.parent(path);
-        const table = Path.parent(row);
-        if (!Editor.hasPath(editor, Path.next(row))) {
-          if (!Editor.hasPath(editor, Path.next(table))) {
-            Transforms.insertNodes(editor, EditorUtils.p, {
-              at: Path.next(table),
-              select: true,
-            });
-          }
-        } else {
-          e.preventDefault();
-          Transforms.select(
-            editor,
-            Editor.end(editor, [...Path.next(row), path[path.length - 1], 0]),
-          );
-        }
       }
 
       if (el.type === 'media' || el.type === 'attach') {

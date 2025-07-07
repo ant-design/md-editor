@@ -64,41 +64,6 @@ export class BackspaceKey {
       });
       return true;
     }
-    if (el.type === 'table-cell') {
-      const start = Range.start(sel);
-      if (start.offset === 0 && !Path.hasPrevious(start.path)) {
-        const pre = Path.hasPrevious(path);
-        if (pre) {
-          return true;
-          Transforms.select(
-            this.editor,
-            Editor.end(this.editor, Path.previous(path)),
-          );
-        } else {
-          const rowPath = Path.parent(path);
-          const preRow = Path.hasPrevious(rowPath);
-          if (preRow) {
-            Transforms.select(
-              this.editor,
-              Editor.end(this.editor, Path.previous(rowPath)),
-            );
-          }
-        }
-        const parent = Editor.parent(this.editor, Path.parent(node[1]));
-        if (
-          !Path.hasPrevious(path) &&
-          !Path.hasPrevious(Path.parent(path)) &&
-          parent[0].children?.every((c: any) => !Node.string(c))
-        ) {
-          Transforms.delete(this.editor, { at: parent[1] });
-          Transforms.insertNodes(this.editor, EditorUtils.p, {
-            select: true,
-            at: parent[1],
-          });
-        }
-        return true;
-      }
-    }
 
     if (el.type === 'paragraph') {
       const parent = Editor.parent(this.editor, path);

@@ -504,8 +504,23 @@ const parseTableOrChart = (
             // 如果是被合并的单元格，标记为隐藏
             ...(mergeInfo?.hidden ? { hidden: true } : {}),
             children: c.children?.length
-              ? parserBlock(c.children as any, false, c as any, plugins)
-              : [{ text: '' }],
+              ? [
+                  {
+                    type: 'paragraph',
+                    children: parserBlock(
+                      c.children as any,
+                      false,
+                      c as any,
+                      plugins,
+                    ),
+                  },
+                ]
+              : [
+                  {
+                    type: 'paragraph',
+                    children: [{ text: '' }],
+                  },
+                ],
           };
         },
       ),

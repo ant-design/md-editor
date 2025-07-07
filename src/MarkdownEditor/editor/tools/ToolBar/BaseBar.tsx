@@ -11,6 +11,7 @@ import { toolsConfig } from './config/toolsConfig';
 import { useToolBarLogic } from './hooks/useToolBarLogic';
 
 // Components
+import { Node } from 'slate';
 import { ClearFormatButton } from './components/ClearFormatButton';
 import { ColorPickerButton } from './components/ColorPickerButton';
 import { FormatButton } from './components/FormatButton';
@@ -21,6 +22,56 @@ import { ToolBarItem } from './components/ToolBarItem';
 import { UndoRedoButtons } from './components/UndoRedoButtons';
 
 export type ToolsKeyType = ConfigToolsKeyType;
+
+// 节点类型常量
+const TABLE_NODE_TYPES = [
+  'table-cell',
+  'table-row',
+  'table',
+  'thead',
+  'tbody',
+  'th',
+  'td',
+] as const;
+
+const LINK_ALLOWED_NODE_TYPES = [
+  'head',
+  'paragraph',
+  'quote',
+  'b-list',
+  'n-list',
+  't-list',
+] as const;
+
+const HEADING_ALLOWED_NODE_TYPES = ['head', 'paragraph'] as const;
+
+// 工具函数
+const isTableNode = (nodeType: string): boolean => {
+  return TABLE_NODE_TYPES.includes(nodeType as any);
+};
+
+const isNodeInTable = (
+  currentNode: any,
+  markdownEditorRef: React.MutableRefObject<any>,
+): boolean => {
+  if (!currentNode || !markdownEditorRef.current) {
+    return false;
+  }
+
+  // 检查当前节点是否为表格类型
+  if (isTableNode(currentNode[0]?.type)) {
+    return true;
+  }
+
+  // 检查父节点是否为表格类型
+  try {
+    const parentNode = Node.parent(markdownEditorRef.current, currentNode[1]);
+    return isTableNode(parentNode?.type);
+  } catch (error) {
+    // 如果获取父节点失败，假设不在表格内
+    return false;
+  }
+};
 
 /**
  * 基础工具栏
@@ -46,6 +97,7 @@ export const BaseToolBar = React.memo<{
     domRect,
     store,
     setDomRect,
+
     refreshFloatBar,
   } = useEditorStore();
 
@@ -82,17 +134,19 @@ export const BaseToolBar = React.memo<{
 
   // 插入选项
   const insertOptions = useMemo(() => {
-    const options = getInsertOptions({ isTop: false }, i18n.locale)
+    const filterOption = (option: any): boolean => {
+      // 过滤上传图片功能
+      if (!editorProps?.image && option.task === 'uploadImage') {
+        return false;
+      }
+      // 根据 showInsertAction 决定显示哪些选项
+      return props.showInsertAction || option.task === 'list';
+    };
+
+    return getInsertOptions({ isTop: false }, i18n.locale)
       .map((o) => o?.children)
       .flat()
-      .filter((o) => {
-        // 过滤上传图片功能
-        if (!editorProps?.image && o.task === 'uploadImage') return false;
-        // 根据 showInsertAction 决定显示哪些选项
-        return props.showInsertAction || o.task === 'list';
-      });
-
-    return options;
+      .filter(filterOption);
   }, [editorProps?.image, props.showInsertAction, i18n.locale]);
 
   // 插入选项元素
@@ -112,28 +166,18 @@ export const BaseToolBar = React.memo<{
 
   // 显示条件
   const showConditions = useMemo(() => {
-    // 检查是否在表格内 - 支持更多表格相关节点类型
-    const isInTable =
-      currentNode &&
-      [
-        'table-cell',
-        'table-row',
-        'table',
-        'thead',
-        'tbody',
-        'th',
-        'td',
-      ].includes(currentNode?.[0]?.type);
+    // 检查是否在表格内
+    const isInTable = isNodeInTable(currentNode, markdownEditorRef);
 
     return {
       linkButton:
         currentNode &&
-        ['head', 'paragraph', 'quote', 'b-list', 'n-list', 't-list'].includes(
-          currentNode?.[0]?.type as ToolsKeyType,
-        ) &&
+        LINK_ALLOWED_NODE_TYPES.includes(currentNode?.[0]?.type as any) &&
         !isInTable,
       headingDropdown:
-        ['head', 'paragraph'].includes(currentNode?.[0]?.type) && !isInTable,
+        currentNode &&
+        HEADING_ALLOWED_NODE_TYPES.includes(currentNode?.[0]?.type as any) &&
+        !isInTable,
       isInTable,
     };
   }, [currentNode]);

@@ -219,7 +219,15 @@ export class EnterKey {
         const insertRow = {
           type: 'table-row',
           children: row[0].children.map(() => {
-            return { type: 'table-cell', children: [{ text: '' }] };
+            return {
+              type: 'table-cell',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [{ text: '' }],
+                },
+              ],
+            };
           }),
         };
         Transforms.insertNodes(this.editor, insertRow, {
