@@ -126,7 +126,7 @@ export const ReadonlyTable = ({
 
     return calculatedWidths;
   }, [
-    props.element?.otherProps?.colWidths,
+      props.element?.otherProps?.colWidths,
     props.element?.children?.length,
     props.element?.children?.[0]?.children?.length,
   ]);

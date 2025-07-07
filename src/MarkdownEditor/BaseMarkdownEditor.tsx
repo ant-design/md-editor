@@ -29,9 +29,9 @@ import {
 } from './editor/tools/InsertAutocomplete';
 import { InsertLink } from './editor/tools/InsertLink';
 import { TocHeading } from './editor/tools/Leading';
-import { ToolBar } from './editor/tools/ToolBar';
 import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
 import { FloatBar } from './editor/tools/ToolBar/FloatBar';
+import ToolBar from './editor/tools/ToolBar/ToolBar';
 import { EditorUtils } from './editor/utils/editorUtils';
 import {
   KeyboardTask,

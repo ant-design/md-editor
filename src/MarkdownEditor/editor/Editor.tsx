@@ -82,8 +82,8 @@ const genTableMinSize = (
   if (!config) return elements;
 
   elements.forEach((element) => {
-    if (element.children) {
-      genTableMinSize(element.children, config);
+    if ((element as any).children) {
+      genTableMinSize((element as any).children, config);
     }
   });
 };

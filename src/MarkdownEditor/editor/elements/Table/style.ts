@@ -107,6 +107,6 @@ export function useTableStyle(
       componentCls: `.${prefixCls}`,
     };
 
-    return [genStyle(editorToken), resetComponent(editorToken)];
+    return [resetComponent(editorToken), genStyle(editorToken)];
   });
 }

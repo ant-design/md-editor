@@ -7,7 +7,7 @@ import { useStyle } from './toolBarStyle';
 /**
  * 浮动工具栏,用于设置文本样式
  */
-export const ToolBar = (props: {
+const ToolBar = (props: {
   prefix?: string;
   extra?: React.ReactNode[];
   min?: boolean;
@@ -35,3 +35,5 @@ export const ToolBar = (props: {
     </div>,
   ) as React.ReactNode;
 };
+
+export default React.memo(ToolBar);
