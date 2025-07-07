@@ -434,7 +434,7 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
     <Anchor
       style={{
         minWidth: 200,
-        maxHeight: 'min(calc(100vh - 180px), 300px)',
+        maxHeight: 'min(calc(100vh - 180px), 70vh)',
         overflowY: 'auto',
         overflowX: 'hidden',
         paddingRight: 4,
