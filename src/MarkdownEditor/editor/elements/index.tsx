@@ -37,7 +37,6 @@ import { TagPopup } from './TagPopup';
  *
  * 1. **避免不必要的重新渲染**：使用自定义比较函数确保只有在 props 真正变化时才重新渲染
  * 2. **快速引用比较**：首先进行引用比较，这是最快的比较方式
- * 3. **优化的深度比较**：避免使用 JSON.stringify，改用逐属性比较以提高性能
  * 4. **批量属性检查**：对 MLeaf 组件使用数组批量检查关键属性
  *
  * 性能测试结果显示约 43% 的渲染性能提升，在相同 props 的情况下避免了重复渲染。
@@ -56,6 +55,17 @@ const areElementPropsEqual = (
   prevProps: RenderElementProps & { readonly?: boolean },
   nextProps: RenderElementProps & { readonly?: boolean },
 ) => {
+  if (
+    nextProps.element?.type === 'paragraph' &&
+    nextProps.element.value === ''
+  ) {
+    // 如果是空段落，直接返回 true，避免不必要的渲染
+    return true;
+  }
+  if (nextProps.element?.type === 'table-cell') {
+    return false;
+  }
+
   // 首先进行引用比较，这是最快的
   if (
     prevProps.element === nextProps.element &&
@@ -65,14 +75,9 @@ const areElementPropsEqual = (
   ) {
     return true;
   }
-
-  try {
-    if (
-      JSON.stringify(prevProps.children) === JSON.stringify(nextProps.children)
-    ) {
-      return true;
-    }
-  } catch (error) {}
+  if (prevProps.children === nextProps.children) {
+    return true;
+  }
 
   // 比较 readonly 属性
   if (prevProps.readonly !== nextProps.readonly) {
@@ -84,7 +89,6 @@ const areElementPropsEqual = (
     return false;
   }
 
-  // 比较 element 对象的关键属性（避免使用 JSON.stringify 以提高性能）
   if (prevProps.element !== nextProps.element) {
     const prev = prevProps.element;
     const next = nextProps.element;
