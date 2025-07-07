@@ -98,7 +98,7 @@ describe('withMarkdown Plugin Tests', () => {
     describe('Card Deletion', () => {
       it('should handle card node removal operations', () => {
         editor.children = [createCardNode()];
-        
+
         try {
           // Try to remove the card node
           Transforms.removeNodes(editor, { at: [0] });
@@ -112,9 +112,9 @@ describe('withMarkdown Plugin Tests', () => {
 
       it('should delete entire card when removing card-after', () => {
         editor.children = [createCardNode()];
-        
+
         const initialLength = editor.children.length;
-        
+
         // Remove card-after node
         Transforms.removeNodes(editor, {
           at: [0, 2], // card > card-after
@@ -126,7 +126,7 @@ describe('withMarkdown Plugin Tests', () => {
 
       it('should prevent deletion of card-before', () => {
         editor.children = [createCardNode()];
-        
+
         const cardBeforeNode = Node.get(editor, [0, 0]);
         expect(cardBeforeNode.type).toBe('card-before');
 
@@ -146,7 +146,7 @@ describe('withMarkdown Plugin Tests', () => {
 
       it('should handle empty card cleanup', () => {
         editor.children = [createEmptyCardNode()];
-        
+
         // Remove the content inside the card
         try {
           Transforms.removeNodes(editor, {
@@ -164,25 +164,25 @@ describe('withMarkdown Plugin Tests', () => {
     describe('Card Text Insertion', () => {
       it('should prevent text insertion in card-before', () => {
         editor.children = [createCardNode()];
-        
+
         // Select card-before text node
         Transforms.select(editor, { path: [0, 0, 0], offset: 0 });
-        
+
         const beforeText = Node.string(Node.get(editor, [0, 0]));
         editor.insertText('test text');
         const afterText = Node.string(Node.get(editor, [0, 0]));
-        
+
         expect(afterText).toBe(beforeText);
       });
 
       it('should redirect text insertion from card-after to new paragraph', () => {
         editor.children = [createCardNode()];
-        
+
         // Select card-after text node
         Transforms.select(editor, { path: [0, 2, 0], offset: 0 });
-        
+
         editor.insertText('test text');
-        
+
         // Should create new paragraph after the card
         expect(editor.children.length).toBe(2);
         expect(editor.children[1]).toEqual({
@@ -195,39 +195,39 @@ describe('withMarkdown Plugin Tests', () => {
     describe('Card Node Insertion', () => {
       it('should prevent node insertion in card-before', () => {
         editor.children = [createCardNode()];
-        
+
         // Select card-before
         Transforms.select(editor, { path: [0, 0], offset: 0 });
-        
+
         const initialChildren = Node.get(editor, [0, 0]).children.length;
-        
+
         try {
           Transforms.insertNodes(editor, { text: 'new node' });
         } catch (error) {
           // Expected to be blocked
         }
-        
+
         const finalChildren = Node.get(editor, [0, 0]).children.length;
         expect(finalChildren).toBe(initialChildren);
       });
 
       it('should redirect node insertion from card-after to after card', () => {
         editor.children = [createCardNode()];
-        
+
         // Select card-after text node
         Transforms.select(editor, { path: [0, 2, 0], offset: 0 });
-        
+
         const testNode = {
           type: 'paragraph',
           children: [{ text: 'new paragraph' }],
         };
-        
+
         try {
           Transforms.insertNodes(editor, testNode);
         } catch (error) {
           // The operation might be intercepted
         }
-        
+
         // Check if operation was handled (new paragraph might be inserted)
         expect(editor.children.length).toBeGreaterThanOrEqual(1);
       });
@@ -241,16 +241,16 @@ describe('withMarkdown Plugin Tests', () => {
         url: 'https://example.com',
         children: [{ text: 'Link text' }],
       };
-      
+
       editor.children = [linkCardNode];
-      
+
       // Try to split the link-card node
       try {
         Transforms.splitNodes(editor, { at: [0] });
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       // Should handle the split operation
       expect(editor.children.length).toBeGreaterThanOrEqual(1);
     });
@@ -262,15 +262,15 @@ describe('withMarkdown Plugin Tests', () => {
         mediaType: 'image',
         children: [{ text: '' }],
       };
-      
+
       editor.children = [mediaNode];
-      
+
       try {
         Transforms.splitNodes(editor, { at: [0] });
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       expect(editor.children.length).toBeGreaterThan(0);
     });
 
@@ -280,15 +280,15 @@ describe('withMarkdown Plugin Tests', () => {
         url: 'https://example.com',
         children: [{ text: 'Link text' }],
       };
-      
+
       editor.children = [linkCardNode];
-      
+
       try {
         Transforms.removeNodes(editor, { at: [0, 0] });
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       // The operation should be handled
       expect(editor.children.length).toBeGreaterThanOrEqual(0);
     });
@@ -301,15 +301,15 @@ describe('withMarkdown Plugin Tests', () => {
         properties: {},
         children: [{ text: 'Schema content' }],
       };
-      
+
       editor.children = [schemaNode];
-      
+
       try {
         Transforms.splitNodes(editor, { at: [0] });
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       // Should handle the split operation
       expect(editor.children.length).toBeGreaterThanOrEqual(1);
     });
@@ -323,18 +323,18 @@ describe('withMarkdown Plugin Tests', () => {
         code: true,
         triggerText: '`',
       };
-      
+
       editor.children = [{ type: 'paragraph', children: [tagNode] }];
-      
+
       // Select the tag node
       Transforms.select(editor, { path: [0, 0], offset: 0 });
-      
+
       try {
         Transforms.delete(editor);
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       const node = Node.get(editor, [0, 0]);
       // Tag properties should still exist or be handled by the plugin
       expect(node).toBeDefined();
@@ -346,18 +346,18 @@ describe('withMarkdown Plugin Tests', () => {
         tag: true,
         code: true,
       };
-      
+
       editor.children = [{ type: 'paragraph', children: [tagNode] }];
-      
+
       // Select at end of tag
       Transforms.select(editor, { path: [0, 0], offset: 4 });
-      
+
       try {
         editor.insertText(' ');
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       // Should insert space outside the tag
       expect(editor.children[0].children.length).toBeGreaterThan(1);
     });
@@ -368,15 +368,15 @@ describe('withMarkdown Plugin Tests', () => {
         tag: true,
         code: true,
       };
-      
+
       editor.children = [{ type: 'paragraph', children: [tagNode] }];
-      
+
       try {
         Transforms.splitNodes(editor, { at: [0, 0] });
       } catch (error) {
         // Split should be prevented
       }
-      
+
       // Node should remain unsplit
       expect(editor.children[0].children.length).toBe(1);
     });
@@ -385,28 +385,28 @@ describe('withMarkdown Plugin Tests', () => {
   describe('Delete Backward Behavior', () => {
     it('should prevent deletion in card-before', () => {
       editor.children = [createCardNode()];
-      
+
       // Select card-before
       Transforms.select(editor, { path: [0, 0, 0], offset: 0 });
-      
+
       const beforeState = editor.children;
       editor.deleteBackward('character');
-      
+
       expect(editor.children).toEqual(beforeState);
     });
 
     it('should handle deletion in card-after', () => {
       editor.children = [createCardNode()];
-      
+
       // Select card-after
       Transforms.select(editor, { path: [0, 2, 0], offset: 0 });
-      
+
       try {
         editor.deleteBackward('character');
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       // Should handle the deletion operation
       expect(editor.children.length).toBeGreaterThanOrEqual(0);
     });
@@ -418,18 +418,18 @@ describe('withMarkdown Plugin Tests', () => {
         code: true,
         triggerText: '`',
       };
-      
+
       editor.children = [{ type: 'paragraph', children: [tagNode] }];
-      
+
       // Select at beginning of tag
       Transforms.select(editor, { path: [0, 0], offset: 1 });
-      
+
       try {
         editor.deleteBackward('character');
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       const node = Node.get(editor, [0, 0]);
       expect(node.tag).toBeFalsy();
       expect(node.code).toBeFalsy();
@@ -441,20 +441,20 @@ describe('withMarkdown Plugin Tests', () => {
         tag: true,
         code: true,
       };
-      
+
       const textNode = { text: 'a' };
-      
+
       editor.children = [{ type: 'paragraph', children: [tagNode, textNode] }];
-      
+
       // Select at beginning of text node
       Transforms.select(editor, { path: [0, 1], offset: 1 });
-      
+
       try {
         editor.deleteBackward('character');
       } catch (error) {
         // Operation might be handled by our custom logic
       }
-      
+
       // Tag node should be handled specially
       expect(editor.children[0].children.length).toBeGreaterThan(0);
     });
@@ -463,33 +463,33 @@ describe('withMarkdown Plugin Tests', () => {
   describe('Fragment Insertion', () => {
     it('should prevent fragment insertion in card-before', () => {
       editor.children = [createCardNode()];
-      
+
       // Select card-before
       Transforms.select(editor, { path: [0, 0, 0], offset: 0 });
-      
+
       const fragment = [
         { type: 'paragraph', children: [{ text: 'Fragment text' }] },
       ];
-      
+
       const beforeLength = editor.children.length;
       editor.insertFragment(fragment);
-      
+
       // Fragment should not be inserted in card-before
       expect(editor.children.length).toBe(beforeLength);
     });
 
     it('should redirect fragment insertion from card-after', () => {
       editor.children = [createCardNode()];
-      
+
       // Select card-after
       Transforms.select(editor, { path: [0, 2, 0], offset: 0 });
-      
+
       const fragment = [
         { type: 'paragraph', children: [{ text: 'Fragment text' }] },
       ];
-      
+
       editor.insertFragment(fragment);
-      
+
       // Fragment should be inserted after the card
       expect(editor.children.length).toBeGreaterThan(1);
     });
@@ -498,18 +498,18 @@ describe('withMarkdown Plugin Tests', () => {
   describe('Helper Functions', () => {
     it('should handle empty card scenarios', () => {
       const emptyCard = createEmptyCardNode();
-      
+
       // We need to access the internal isCardEmpty function
       // Since it's not exported, we'll test it indirectly through card removal behavior
       editor.children = [emptyCard];
-      
+
       // Remove the content to make it empty
       try {
         Transforms.removeNodes(editor, { at: [0, 1] });
       } catch (error) {
         // Operation might trigger empty card cleanup
       }
-      
+
       // Should handle the empty card scenario
       expect(editor.children.length).toBeGreaterThanOrEqual(0);
     });
@@ -517,7 +517,7 @@ describe('withMarkdown Plugin Tests', () => {
     it('should handle clearCardAreaText function', () => {
       // This function involves DOM manipulation which is mocked
       editor.children = [createCardNode()];
-      
+
       // The function should not throw even with mocked DOM
       expect(() => {
         // This would be called internally by the plugin
@@ -531,7 +531,7 @@ describe('withMarkdown Plugin Tests', () => {
   describe('Edge Cases and Error Handling', () => {
     it('should handle operations with invalid paths gracefully', () => {
       editor.children = [{ type: 'paragraph', children: [{ text: 'test' }] }];
-      
+
       // Try operations with invalid paths
       expect(() => {
         try {
@@ -546,7 +546,7 @@ describe('withMarkdown Plugin Tests', () => {
 
     it('should handle missing nodes gracefully', () => {
       editor.children = [{ type: 'paragraph', children: [{ text: 'test' }] }];
-      
+
       // Operations should not crash when nodes are missing
       expect(() => {
         try {
