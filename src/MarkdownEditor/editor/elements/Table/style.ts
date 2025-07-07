@@ -9,6 +9,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       '--table-border-radius': '8px',
+      '--table-border-color': '#E7E9E8',
+      '--table-header-bg': '#f7f7f9',
+      '--table-odd-row-bg': 'rgba(35,35,38,.04)',
       overflow: 'auto',
       '&-container': {
         display: 'flex',
@@ -38,10 +41,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         overflow: 'auto',
         fontVariant: 'tabular-nums',
         borderRadius: 'var(--table-border-radius)',
-        border: '1px solid #E7E9E8',
+        border: '1px solid var(--table-border-color)',
         th: {
-          backgroundColor: '#f7f7f9',
-          borderBottom: '1px solid #E7E9E8',
+          backgroundColor: 'var(--table-header-bg)',
+          borderBottom: '1px solid var(--table-border-color)',
           textWrap: 'nowrap',
           verticalAlign: 'top',
           padding: '12px 20px',
@@ -62,7 +65,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             borderTop: 'none',
           },
           td: {
-            borderBottom: '1px solid #E7E9E8',
+            borderBottom: '1px solid var(--table-border-color)',
           },
           '&:last-child td': {
             borderBottom: 'none',
@@ -113,13 +116,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderLeft: 'none',
         },
         'th:not(:first-child),td:not(:first-child)': {
-          borderLeft: '1px solid #E7E9E8',
+          borderLeft: '1px solid var(--table-border-color)',
         },
         'th:last-child,td:last-child': {
           borderRight: 'none',
         },
         '& tr:nth-child(odd) td': {
-          backgroundColor: 'rgba(35,35,38,.04)',
+          backgroundColor: 'var(--table-odd-row-bg)',
         },
       },
       'table.htCore': {
