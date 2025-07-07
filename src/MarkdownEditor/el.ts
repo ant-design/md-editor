@@ -16,8 +16,8 @@ type Align = 'left' | 'center' | 'right';
 export interface DetailedSettings {
   row: number;
   col: number;
-  rowspan: number;
-  colspan: number;
+  rowSpan: number;
+  colSpan: number;
 }
 
 export type CodeNode<T = Record<string, any>> = {

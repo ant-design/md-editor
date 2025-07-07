@@ -1060,7 +1060,7 @@ function hello() {
               <td><a href="https://test.com">Link cell</a></td>
             </tr>
             <tr>
-              <td colspan="2">Merged cell content</td>
+              <td colSpan="2">Merged cell content</td>
               <td>Regular cell</td>
             </tr>
           </tbody>

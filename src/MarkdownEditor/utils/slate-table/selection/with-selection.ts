@@ -94,7 +94,7 @@ export function withSelection<T extends Editor>(
     let start = Point.valueOf(Math.min(from.x, to.x), Math.min(from.y, to.y));
     let end = Point.valueOf(Math.max(from.x, to.x), Math.max(from.y, to.y));
 
-    // expand the selection based on rowspan and colspan
+    // expand the selection based on rowSpan and colSpan
     for (;;) {
       const nextStart = Point.valueOf(start.x, start.y);
       const nextEnd = Point.valueOf(end.x, end.y);

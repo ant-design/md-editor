@@ -127,7 +127,7 @@ export const TableEditor = {
 
         // When determining the exit condition, we consider two scenarios:
         // 1. If a row will be added above the current selection, we seek the first match.
-        // 2. Otherwise, if cells have a rowspan, we aim to find the last match.
+        // 2. Otherwise, if cells have a rowSpan, we aim to find the last match.
         if (options.before || btt < 2) {
           break outer;
         }
@@ -255,8 +255,8 @@ export const TableEditor = {
       }
     }
 
-    // Flags whether the tr has a cell with a rowspan attribute (greater than 1).
-    // If true, cells with a rowspan will be moved to the next tr.
+    // Flags whether the tr has a cell with a rowSpan attribute (greater than 1).
+    // If true, cells with a rowSpan will be moved to the next tr.
     let hasRowspan = false;
 
     // cells which span over multiple rows and have to be reduced
@@ -266,12 +266,12 @@ export const TableEditor = {
     for (let i = 0; i < matrix[trIndex].length; i++) {
       const [entry, { ltr: colSpan, ttb, btt }] = matrix[trIndex][i];
 
-      // checks if the cell marks the beginning of a rowspan.
+      // checks if the cell marks the beginning of a rowSpan.
       if (ttb === 1 && btt > 1) {
         hasRowspan = true;
       }
 
-      // check if the cell has a rowspan greater 1, indicating
+      // check if the cell has a rowSpan greater 1, indicating
       // it spans multiple rows.
       if (ttb > 1 || btt > 1) {
         toReduce.push(entry);
@@ -285,9 +285,9 @@ export const TableEditor = {
     for (let i = 0; hasRowspan && i < next?.length; i++) {
       const [entry, { ltr: colSpan, ttb }] = next[i];
 
-      // - If 1, it indicates the start of either a rowspan or a normal cell, and it can be carried over.
-      // - If 2, it signifies the start of a rowspan in the previous cell and should be carried over.
-      // - If greater than 2, the rowspan is above the current row and should not be carried over.
+      // - If 1, it indicates the start of either a rowSpan or a normal cell, and it can be carried over.
+      // - If 2, it signifies the start of a rowSpan in the previous cell and should be carried over.
+      // - If greater than 2, the rowSpan is above the current row and should not be carried over.
       if (ttb > 2) {
         continue;
       }
@@ -306,7 +306,7 @@ export const TableEditor = {
         );
       }
 
-      // If a cell of the tr contains the start of a rowspan
+      // If a cell of the tr contains the start of a rowSpan
       // the cells will be merged with the next row
       if (hasRowspan) {
         const { blocks } = editorOptions;
@@ -401,8 +401,8 @@ export const TableEditor = {
         const [[{ colSpan = 1 }, path], { ltr, rtl, ttb, btt }] =
           matrix[x][tdIndex];
 
-        // when inserting left and the right-to-left is greater than 1, the colspan is increased
-        // when inserting right and the left-to-right is greater than 1, the colspan is increased
+        // when inserting left and the right-to-left is greater than 1, the colSpan is increased
+        // when inserting right and the left-to-right is greater than 1, the colSpan is increased
         if (options.before ? rtl > 1 : ltr > 1) {
           Transforms.setNodes<CellElement>(
             editor,
@@ -410,7 +410,7 @@ export const TableEditor = {
             { at: path },
           );
 
-          // skip increasing the colspan for the same cell if it has a rowspan
+          // skip increasing the colSpan for the same cell if it has a rowSpan
           x += btt - 1;
           continue;
         }
@@ -437,7 +437,7 @@ export const TableEditor = {
             { at: path },
           );
 
-        // if the cell has no rowspan, just insert:
+        // if the cell has no rowSpan, just insert:
         if (ttb === 1) {
           insertTd(options.before ? path : Path.next(path));
           continue;
@@ -447,7 +447,7 @@ export const TableEditor = {
         for (let y = tdIndex; y >= 0; y--) {
           const [[, path], { ttb }] = matrix[x][y];
 
-          // skip cells which span through the row because of their rowspan attribute
+          // skip cells which span through the row because of their rowSpan attribute
           if (ttb !== 1) {
             continue;
           }
@@ -523,7 +523,7 @@ export const TableEditor = {
       for (let x = matrix.length - 1; x >= 0; x--) {
         const [[{ colSpan = 1 }, path], { ltr, rtl, ttb }] = matrix[x][tdIndex];
 
-        // skip "fake" cells which belong to a cell with a `rowspan`
+        // skip "fake" cells which belong to a cell with a `rowSpan`
         if (ttb > 1) {
           continue;
         }
@@ -610,12 +610,12 @@ export const TableEditor = {
       for (let x = selection.length - 1; x >= 0; x--, rowSpan++) {
         colSpan = 0;
         for (let y = selection[x].length - 1; y >= 0; y--, colSpan++) {
-          const [[, path], { rtl: colspan, ttb }] = selection[x][y];
+          const [[, path], { rtl: colSpan, ttb }] = selection[x][y];
 
-          y -= colspan - 1;
-          colSpan += colspan - 1;
+          y -= colSpan - 1;
+          colSpan += colSpan - 1;
 
-          // skip first cell and "fake" cells which belong to a cell with a `rowspan`
+          // skip first cell and "fake" cells which belong to a cell with a `rowSpan`
           if (Path.equals(basePath, path) || ttb > 1) {
             continue;
           }
@@ -676,7 +676,7 @@ export const TableEditor = {
         }
       }
 
-      // set the colspan to 1 when merging columns that match the matrix size
+      // set the colSpan to 1 when merging columns that match the matrix size
       if (selection.length === matrix.length) {
         colSpan = 1;
       }
@@ -723,7 +723,7 @@ export const TableEditor = {
           const { ltr: colSpan, rtl, btt: rowSpan, ttb } = context;
 
           if (rtl > 1) {
-            // get to the start of the colspan
+            // get to the start of the colSpan
             y -= rtl - 2;
             continue;
           }

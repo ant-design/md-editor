@@ -4,7 +4,7 @@ import { isElement } from '../utils';
 import { CellElement } from '../utils/types';
 
 /**
- * Normalizes the `rowspan` and `colspan` attributes of the `td` elements
+ * Normalizes the `rowSpan` and `colSpan` attributes of the `td` elements
  * by removing the attributes when their values is equal to 1.
  */
 export function normalizeAttributes<T extends Editor>(

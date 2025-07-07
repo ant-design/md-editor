@@ -243,97 +243,6 @@ const parseText = (
   return leafs;
 };
 
-/**
- * 计算表格单元格的合并信息
- * @param tableData - 表格数据矩阵
- * @returns 合并单元格配置数组
- */
-const calculateMergeCells = (
-  tableData: string[][],
-): Array<{
-  row: number;
-  col: number;
-  rowspan: number;
-  colspan: number;
-}> => {
-  if (!tableData.length) return [];
-
-  const mergeCells: Array<{
-    row: number;
-    col: number;
-    rowspan: number;
-    colspan: number;
-  }> = [];
-
-  const rows = tableData.length;
-  const cols = tableData[0]?.length || 0;
-  const processed = new Set<string>();
-
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      const cellKey = `${row}-${col}`;
-      if (processed.has(cellKey)) continue;
-
-      const cellValue = tableData[row]?.[col] || '';
-
-      // 跳过空单元格
-      if (!cellValue.trim()) {
-        processed.add(cellKey);
-        continue;
-      }
-
-      // 计算列合并 (colspan)
-      let colspan = 1;
-      for (let c = col + 1; c < cols; c++) {
-        const nextCell = tableData[row]?.[c] || '';
-        if (nextCell.trim() === '' || nextCell === cellValue) {
-          colspan++;
-        } else {
-          break;
-        }
-      }
-
-      // 计算行合并 (rowspan)
-      let rowspan = 1;
-      for (let r = row + 1; r < rows; r++) {
-        let canMerge = true;
-        // 检查这一行的对应列是否都可以合并
-        for (let c = col; c < col + colspan; c++) {
-          const nextRowCell = tableData[r]?.[c] || '';
-          if (nextRowCell.trim() !== '' && nextRowCell !== cellValue) {
-            canMerge = false;
-            break;
-          }
-        }
-        if (canMerge) {
-          rowspan++;
-        } else {
-          break;
-        }
-      }
-
-      // 标记所有被合并的单元格为已处理
-      for (let r = row; r < row + rowspan; r++) {
-        for (let c = col; c < col + colspan; c++) {
-          processed.add(`${r}-${c}`);
-        }
-      }
-
-      // 如果有合并，记录合并信息
-      if (rowspan > 1 || colspan > 1) {
-        mergeCells.push({
-          row,
-          col,
-          rowspan,
-          colspan,
-        });
-      }
-    }
-  }
-
-  return mergeCells;
-};
-
 const parseTableOrChart = (
   table: Table,
   preNode: RootContent,
@@ -440,45 +349,34 @@ const parseTableOrChart = (
     return EditorUtils.wrapperCardNode(node);
   }
 
-  // 构建表格数据矩阵用于合并单元格检测
-  const tableData: string[][] = table.children.map(
-    (row: any) =>
-      row.children?.map((cell: any) => {
-        return (
-          myRemark
-            .stringify({
-              type: 'root',
-              children: [cell],
-            })
-            ?.replace(/\n/g, '')
-            ?.replace(/\\(?=")/g, '')
-            ?.replace(/\\_/g, '')
-            ?.trim() || ''
-        );
-      }) || [],
-  );
-
   // 计算合并单元格信息
-  const mergeCells = calculateMergeCells(tableData);
+  const mergeCells = config.mergeCells || [];
 
   // 创建合并单元格映射，用于快速查找
   const mergeMap = new Map<
     string,
-    { rowspan: number; colspan: number; hidden?: boolean }
+    { rowSpan: number; colSpan: number; hidden?: boolean }
   >();
-  mergeCells.forEach(({ row, col, rowspan, colspan }: any) => {
-    // 主单元格
-    mergeMap.set(`${row}-${col}`, { rowspan, colspan });
+  mergeCells?.forEach(
+    ({ row, col, rowSpan, rowspan, colSpan, colspan }: any) => {
+      let rawRowSpan = rowSpan || rowspan;
+      let rawColSpan = colSpan || colspan;
+      // 主单元格
+      mergeMap.set(`${row}-${col}`, {
+        rowSpan: rawRowSpan,
+        colSpan: rawColSpan,
+      });
 
-    // 被合并的单元格标记为隐藏
-    for (let r = row; r < row + rowspan; r++) {
-      for (let c = col; c < col + colspan; c++) {
-        if (r !== row || c !== col) {
-          mergeMap.set(`${r}-${c}`, { rowspan: 1, colspan: 1, hidden: true });
+      // 被合并的单元格标记为隐藏
+      for (let r = row; r < row + rawRowSpan; r++) {
+        for (let c = col; c < col + rawColSpan; c++) {
+          if (r !== row || c !== col) {
+            mergeMap.set(`${r}-${c}`, { rowSpan: 1, colSpan: 1, hidden: true });
+          }
         }
       }
-    }
-  });
+    },
+  );
 
   const children = table.children.map((r: { children: any[] }, l: number) => {
     return {
@@ -495,11 +393,11 @@ const parseTableOrChart = (
             rows: l,
             cols: i,
             // 直接设置 rowSpan 和 colSpan
-            ...(mergeInfo?.rowspan && mergeInfo.rowspan > 1
-              ? { rowSpan: mergeInfo.rowspan }
+            ...(mergeInfo?.rowSpan && mergeInfo.rowSpan > 1
+              ? { rowSpan: mergeInfo.rowSpan }
               : {}),
-            ...(mergeInfo?.colspan && mergeInfo.colspan > 1
-              ? { colSpan: mergeInfo.colspan }
+            ...(mergeInfo?.colSpan && mergeInfo.colSpan > 1
+              ? { colSpan: mergeInfo.colSpan }
               : {}),
             // 如果是被合并的单元格，标记为隐藏
             ...(mergeInfo?.hidden ? { hidden: true } : {}),

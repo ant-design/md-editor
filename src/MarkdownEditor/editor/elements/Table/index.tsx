@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 'use client';
 
-import React, { useContext, useMemo } from 'react';
+import React from 'react';
 import { BaseElement } from 'slate/dist/interfaces';
 import { useSelStatus } from '../../../hooks/editor';
 import { TableCursor } from '../../../utils/slate-table';
@@ -12,7 +12,6 @@ import {
   useSlateStatic,
 } from '../../slate-react';
 import { SimpleTable } from './SimpleTable';
-import { TablePropsContext } from './TableContext';
 
 export type TableCustomElement =
   | TableNode
@@ -29,8 +28,8 @@ export interface TableNode {
     mergeCells?: Array<{
       row: number;
       col: number;
-      rowspan: number;
-      colspan: number;
+      rowSpan: number;
+      colSpan: number;
     }>;
     columns?: Array<any>; // 用于定义列属性，如宽度、对齐方式等
   };
@@ -97,7 +96,7 @@ export const Td: React.FC<
     style?: React.CSSProperties;
     cellPath?: number[];
   }
-> = ({ attributes, children, style, element, cellPath }) => {
+> = ({ attributes, children, style, element }) => {
   if (element.type !== 'table-cell') {
     throw new Error('Element "Td" must be of type "table-cell"');
   }
@@ -107,47 +106,7 @@ export const Td: React.FC<
   const editor = useSlateStatic();
   const selected = TableCursor.isSelected(editor, element);
 
-  const { tableNode } = useContext(TablePropsContext);
-
-  const mergeCell = useMemo(() => {
-    // 如果没有定义合并单元格，提前返回
-    if (!tableNode?.otherProps?.mergeCells?.length) return null;
-
-    const row = cellPath?.at(-2);
-    const col = cellPath?.at(-1);
-
-    // 如果单元格坐标无效，提前返回
-    if (row === undefined || col === undefined) return null;
-
-    // 查找此单元格的合并配置
-    const cellConfig = tableNode.otherProps.mergeCells.find(
-      (item) =>
-        item.row <= row &&
-        item.row + item.rowspan > row &&
-        item.col <= col &&
-        item.col + item.colspan > col,
-    );
-
-    // 如果没有匹配的合并单元格，提前返回
-    if (!cellConfig) return null;
-
-    // 如果这是合并的主单元格
-    if (cellConfig.row === row && cellConfig.col === col) {
-      return cellConfig;
-    }
-
-    // 如果这是合并的一部分被隐藏的单元格
-    return {
-      hidden: true,
-      ...cellConfig,
-    };
-  }, [
-    tableNode?.otherProps?.mergeCells,
-    cellPath?.at(-2), // 行
-    cellPath?.at(-1), // 列
-  ]);
-
-  if ((mergeCell as any)?.hidden) {
+  if (element.hidden) {
     return null;
   }
   return (
@@ -163,8 +122,8 @@ export const Td: React.FC<
         width: width || 'auto', // 如果有指定宽度则使用，否则自动
         ...style,
       }}
-      rowSpan={mergeCell?.rowspan}
-      colSpan={mergeCell?.colspan}
+      rowSpan={element?.rowSpan}
+      colSpan={element?.colSpan}
       {...attributes}
     >
       {children}
