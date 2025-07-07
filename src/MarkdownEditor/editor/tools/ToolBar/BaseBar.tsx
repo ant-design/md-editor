@@ -81,131 +81,166 @@ export const BaseToolBar = React.memo<{
   } = toolBarLogic;
 
   // 插入选项
-  const insertOptions = useMemo(
-    () =>
-      getInsertOptions(
-        {
-          isTop: false,
-        },
-        i18n.locale,
-      )
-        .map((o) => o?.children)
-        .flat(1)
-        .filter((o) => {
-          if (!editorProps?.image && o.task === 'uploadImage') {
-            return false;
-          }
-          return true;
-        })
-        .filter((o) => {
-          if (props.showInsertAction) {
-            return true;
-          }
-          if (o.task === 'list') {
-            return true;
-          }
-          return false;
-        }),
-    [editorProps, props.showInsertAction, i18n.locale],
-  );
+  const insertOptions = useMemo(() => {
+    const options = getInsertOptions({ isTop: false }, i18n.locale)
+      .map((o) => o?.children)
+      .flat()
+      .filter((o) => {
+        // 过滤上传图片功能
+        if (!editorProps?.image && o.task === 'uploadImage') return false;
+        // 根据 showInsertAction 决定显示哪些选项
+        return props.showInsertAction || o.task === 'list';
+      });
+
+    return options;
+  }, [editorProps?.image, props.showInsertAction, i18n.locale]);
 
   // 插入选项元素
   const insertOptionElements = useMemo(
     () =>
-      insertOptions.map((t) => (
+      insertOptions.map((option) => (
         <ToolBarItem
-          key={t.key}
-          title={t.label.join(' ')}
-          icon={t.icon}
-          onClick={() => handleInsert(t)}
+          key={option.key}
+          title={option.label.join(' ')}
+          icon={option.icon}
+          onClick={() => handleInsert(option)}
           className={classnames(`${baseClassName}-item`, hashId)}
         />
       )),
     [insertOptions, handleInsert, baseClassName, hashId],
   );
 
-  // 检查是否显示链接按钮
-  const shouldShowLinkButton = useMemo(() => {
-    return (
+  // 显示条件
+  const showConditions = useMemo(() => {
+    // 检查是否在表格内 - 支持更多表格相关节点类型
+    const isInTable =
       currentNode &&
-      ['head', 'paragraph', 'quote', 'b-list', 'n-list', 't-list'].includes(
-        currentNode?.[0]?.type as ToolsKeyType,
-      )
-    );
+      [
+        'table-cell',
+        'table-row',
+        'table',
+        'thead',
+        'tbody',
+        'th',
+        'td',
+      ].includes(currentNode?.[0]?.type);
+
+    return {
+      linkButton:
+        currentNode &&
+        ['head', 'paragraph', 'quote', 'b-list', 'n-list', 't-list'].includes(
+          currentNode?.[0]?.type as ToolsKeyType,
+        ) &&
+        !isInTable,
+      headingDropdown:
+        ['head', 'paragraph'].includes(currentNode?.[0]?.type) && !isInTable,
+      isInTable,
+    };
   }, [currentNode]);
 
-  // 检查是否显示标题下拉框
-  const shouldShowHeadingDropdown = useMemo(() => {
-    return ['head', 'paragraph'].includes(currentNode?.[0]?.type);
-  }, [currentNode]);
+  // 通用属性
+  const commonProps = {
+    baseClassName,
+    hashId,
+    i18n,
+  };
+
+  // 工具栏元素生成器
+  const createToolbarElement = (
+    key: string,
+    Component: React.ComponentType<any>,
+    props: any,
+  ) => <Component key={key} {...commonProps} {...props} />;
 
   // 渲染常规工具栏
   const renderFullToolbar = useMemo(() => {
     const elements: React.ReactNode[] = [];
 
+    // 如果在表格内，只显示基本格式化工具
+    if (showConditions.isInTable) {
+      // 清除格式按钮
+      elements.push(
+        createToolbarElement('clear', ClearFormatButton, {
+          onClear: handleClearFormat,
+        }),
+      );
+
+      // 格式化按钮
+      elements.push(
+        createToolbarElement('format', FormatButton, {
+          onFormat: handleFormat,
+        }),
+      );
+
+      // 颜色选择器
+      elements.push(
+        createToolbarElement('color', ColorPickerButton, {
+          highColor,
+          isHighColorActive,
+          onColorChange: handleColorChange,
+          onToggleHighColor: handleToggleHighColor,
+        }),
+      );
+
+      // 格式化工具（只显示加粗、斜体等基本格式）
+      elements.push(
+        createToolbarElement('formatting', FormattingTools, {
+          tools: toolsConfig,
+          editor: markdownEditorRef.current,
+          isCodeNode: isCodeNode(),
+          onToolClick: handleToolClick,
+          isFormatActive,
+          isInTable: true, // 传递表格内标志
+        }),
+      );
+
+      return elements;
+    }
+
+    // 非表格内的完整工具栏
     // 撤销重做按钮
     if (props.showEditor) {
       elements.push(
-        <UndoRedoButtons
-          key="undo-redo"
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          onUndo={handleUndo}
-          onRedo={handleRedo}
-        />,
+        createToolbarElement('undo-redo', UndoRedoButtons, {
+          onUndo: handleUndo,
+          onRedo: handleRedo,
+        }),
       );
     }
 
     // 清除格式按钮
     elements.push(
-      <ClearFormatButton
-        key="clear"
-        baseClassName={baseClassName}
-        hashId={hashId}
-        i18n={i18n}
-        onClear={handleClearFormat}
-      />,
+      createToolbarElement('clear', ClearFormatButton, {
+        onClear: handleClearFormat,
+      }),
     );
 
     // 格式化按钮
     elements.push(
-      <FormatButton
-        key="format"
-        baseClassName={baseClassName}
-        hashId={hashId}
-        i18n={i18n}
-        onFormat={handleFormat}
-      />,
+      createToolbarElement('format', FormatButton, {
+        onFormat: handleFormat,
+      }),
     );
 
     // 标题下拉框
-    if (shouldShowHeadingDropdown) {
+    if (showConditions.headingDropdown) {
       elements.push(
-        <HeadingDropdown
-          key="heading"
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          node={currentNode}
-          hideTools={props.hideTools}
-          onHeadingChange={handleHeadingChange}
-        />,
+        createToolbarElement('heading', HeadingDropdown, {
+          node: currentNode,
+          hideTools: props.hideTools,
+          onHeadingChange: handleHeadingChange,
+        }),
       );
     }
 
     // 颜色选择器
     elements.push(
-      <ColorPickerButton
-        key="color"
-        baseClassName={baseClassName}
-        hashId={hashId}
-        i18n={i18n}
-        highColor={highColor}
-        isHighColorActive={isHighColorActive}
-        onColorChange={handleColorChange}
-        onToggleHighColor={handleToggleHighColor}
-      />,
+      createToolbarElement('color', ColorPickerButton, {
+        highColor,
+        isHighColorActive,
+        onColorChange: handleColorChange,
+        onToggleHighColor: handleToggleHighColor,
+      }),
     );
 
     // 插入选项
@@ -213,74 +248,98 @@ export const BaseToolBar = React.memo<{
 
     // 格式化工具
     elements.push(
-      <FormattingTools
-        key="formatting"
-        baseClassName={baseClassName}
-        hashId={hashId}
-        i18n={i18n}
-        tools={toolsConfig}
-        editor={markdownEditorRef.current}
-        isCodeNode={isCodeNode()}
-        onToolClick={handleToolClick}
-        isFormatActive={isFormatActive}
-      />,
+      createToolbarElement('formatting', FormattingTools, {
+        tools: toolsConfig,
+        editor: markdownEditorRef.current,
+        isCodeNode: isCodeNode(),
+        onToolClick: handleToolClick,
+        isFormatActive,
+      }),
     );
 
     // 链接按钮
-    if (shouldShowLinkButton) {
+    if (showConditions.linkButton) {
       elements.push(
-        <LinkButton
-          key="link"
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          onInsertLink={handleInsertLink}
-          isLinkActive={isLinkActive}
-        />,
+        createToolbarElement('link', LinkButton, {
+          onInsertLink: handleInsertLink,
+          isLinkActive,
+        }),
       );
     }
 
     // 过滤隐藏的工具
-    if (props.hideTools) {
-      return elements.filter((element) => {
-        if (React.isValidElement(element) && element.key) {
-          return !props.hideTools?.includes(element.key as ToolsKeyType);
-        }
-        return true;
-      });
-    }
-
-    return elements;
+    return props.hideTools
+      ? elements.filter((element) => {
+          if (React.isValidElement(element) && element.key) {
+            return !props.hideTools?.includes(element.key as ToolsKeyType);
+          }
+          return true;
+        })
+      : elements;
   }, [
     props.showEditor,
     props.hideTools,
-    baseClassName,
-    hashId,
-    i18n,
+    showConditions,
+    currentNode,
+    highColor,
+    isHighColorActive,
+    insertOptionElements,
+    markdownEditorRef,
+    isCodeNode,
+    isFormatActive,
+    isLinkActive,
     handleUndo,
     handleRedo,
     handleClearFormat,
     handleFormat,
-    shouldShowHeadingDropdown,
-    currentNode,
     handleHeadingChange,
-    highColor,
-    isHighColorActive,
     handleColorChange,
     handleToggleHighColor,
-    insertOptionElements,
-    markdownEditorRef,
-    isCodeNode,
     handleToolClick,
-    isFormatActive,
-    shouldShowLinkButton,
     handleInsertLink,
-    isLinkActive,
   ]);
 
   // 渲染精简工具栏
   const renderMinToolbar = useMemo(() => {
     if (!props.min) return null;
+
+    // 如果在表格内，精简工具栏也要相应调整
+    if (showConditions.isInTable) {
+      return (
+        <>
+          {createToolbarElement('clear', ClearFormatButton, {
+            onClear: handleClearFormat,
+          })}
+
+          {createToolbarElement('color', ColorPickerButton, {
+            highColor,
+            isHighColorActive,
+            onColorChange: handleColorChange,
+            onToggleHighColor: handleToggleHighColor,
+          })}
+
+          {createToolbarElement('formatting', FormattingTools, {
+            tools: toolsConfig,
+            editor: markdownEditorRef.current,
+            isCodeNode: isCodeNode(),
+            onToolClick: handleToolClick,
+            isFormatActive,
+            isInTable: true,
+          })}
+        </>
+      );
+    }
+
+    const dropdownItems = insertOptions.map((option) => ({
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {option.icon}
+          {option.label?.at(0)}
+        </div>
+      ),
+      key: `min-${option.key}`,
+      onClick: () => handleInsert(option),
+    }));
 
     return (
       <>
@@ -294,22 +353,7 @@ export const BaseToolBar = React.memo<{
           )}
           tabIndex={-1}
         >
-          <Dropdown
-            menu={{
-              items: insertOptions.map((t) => ({
-                label: (
-                  <div
-                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-                  >
-                    {t.icon}
-                    {t.label?.at(0)}
-                  </div>
-                ),
-                key: `min-${t.key}`,
-                onClick: () => handleInsert(t),
-              })),
-            }}
-          >
+          <Dropdown menu={{ items: dropdownItems }}>
             <PlusCircleFilled />
           </Dropdown>
         </ToolBarItem>
@@ -324,107 +368,93 @@ export const BaseToolBar = React.memo<{
         />
 
         {/* 精简版的主要工具 */}
-        <UndoRedoButtons
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          onUndo={handleUndo}
-          onRedo={handleRedo}
-        />
+        {createToolbarElement('undo-redo', UndoRedoButtons, {
+          onUndo: handleUndo,
+          onRedo: handleRedo,
+        })}
 
-        <ClearFormatButton
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          onClear={handleClearFormat}
-        />
+        {createToolbarElement('clear', ClearFormatButton, {
+          onClear: handleClearFormat,
+        })}
 
-        <HeadingDropdown
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          node={currentNode}
-          hideTools={props.hideTools}
-          onHeadingChange={handleHeadingChange}
-        />
+        {createToolbarElement('heading', HeadingDropdown, {
+          node: currentNode,
+          hideTools: props.hideTools,
+          onHeadingChange: handleHeadingChange,
+        })}
 
-        <ColorPickerButton
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          highColor={highColor}
-          isHighColorActive={isHighColorActive}
-          onColorChange={handleColorChange}
-          onToggleHighColor={handleToggleHighColor}
-        />
+        {createToolbarElement('color', ColorPickerButton, {
+          highColor,
+          isHighColorActive,
+          onColorChange: handleColorChange,
+          onToggleHighColor: handleToggleHighColor,
+        })}
 
-        <FormattingTools
-          baseClassName={baseClassName}
-          hashId={hashId}
-          i18n={i18n}
-          tools={toolsConfig}
-          editor={markdownEditorRef.current}
-          isCodeNode={isCodeNode()}
-          onToolClick={handleToolClick}
-          isFormatActive={isFormatActive}
-        />
+        {createToolbarElement('formatting', FormattingTools, {
+          tools: toolsConfig,
+          editor: markdownEditorRef.current,
+          isCodeNode: isCodeNode(),
+          onToolClick: handleToolClick,
+          isFormatActive,
+        })}
       </>
     );
   }, [
     props.min,
-    baseClassName,
-    hashId,
     insertOptions,
     handleInsert,
-    i18n,
+    baseClassName,
+    hashId,
+    currentNode,
+    props.hideTools,
+    highColor,
+    isHighColorActive,
+    markdownEditorRef,
+    isCodeNode,
+    isFormatActive,
     handleUndo,
     handleRedo,
     handleClearFormat,
-    currentNode,
-    props.hideTools,
     handleHeadingChange,
-    highColor,
-    isHighColorActive,
     handleColorChange,
     handleToggleHighColor,
-    markdownEditorRef,
-    isCodeNode,
     handleToolClick,
-    isFormatActive,
   ]);
 
   // 渲染额外内容
   const renderExtra = useMemo(() => {
     if (!props.extra) return null;
 
+    const extraStyle = {
+      flex: 1,
+      display: 'flex' as const,
+      justifyContent: 'flex-end' as const,
+      alignItems: 'center' as const,
+      height: '100%',
+    };
+
     return (
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          height: '100%',
-        }}
-      >
+      <div style={extraStyle}>
         {props.extra.map((item, index) => {
+          const key = `extra-${index}`;
+
           if (React.isValidElement(item)) {
-            if (item.type === 'span') {
-              return (
-                <div
-                  className={classnames(`${baseClassName}-item`, hashId)}
-                  key={`extra-span-${index}`}
-                >
-                  {item}
-                </div>
-              );
-            }
-            return React.cloneElement(item, { key: `extra-item-${index}` });
+            return item.type === 'span' ? (
+              <div
+                className={classnames(`${baseClassName}-item`, hashId)}
+                key={`${key}-span`}
+              >
+                {item}
+              </div>
+            ) : (
+              React.cloneElement(item, { key })
+            );
           }
+
           return (
             <div
               className={classnames(`${baseClassName}-item`, hashId)}
-              key={`extra-div-${index}`}
+              key={`${key}-div`}
             >
               {item}
             </div>

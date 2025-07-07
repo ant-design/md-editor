@@ -18,6 +18,7 @@ interface FormattingToolsProps {
   isCodeNode: boolean;
   onToolClick: (tool: any) => void;
   isFormatActive: (type: string) => boolean;
+  isInTable?: boolean; // 新增：是否在表格内
 }
 
 export const FormattingTools = React.memo<FormattingToolsProps>(
@@ -30,10 +31,19 @@ export const FormattingTools = React.memo<FormattingToolsProps>(
     isCodeNode,
     onToolClick,
     isFormatActive,
+    isInTable = false,
   }) => {
+    // 在表格内时，只允许这些基本格式化工具：加粗、斜体、删除线、行内代码
+    const allowedInTable = ['bold', 'italic', 'strikethrough', 'inline-code'];
+
+    // 根据是否在表格内过滤工具，表格内不支持对齐等复杂格式
+    const filteredTools = isInTable
+      ? tools.filter((tool) => allowedInTable.includes(tool.key))
+      : tools;
+
     return (
       <>
-        {tools.map((tool) => {
+        {filteredTools.map((tool) => {
           const isActive = tool.isActive
             ? tool.isActive(editor)
             : isFormatActive(tool.type);
