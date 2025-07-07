@@ -19,7 +19,6 @@ export function withNormalization<T extends Editor>(
   editor = normalizeContent(editor, options);
   editor = normalizeSections(editor, options);
   editor = normalizeTable(editor);
-  // editor = normalizeTd(editor, options);
   editor = normalizeTr(editor, options);
 
   return editor;

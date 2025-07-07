@@ -29,8 +29,8 @@ export const WarpCard = (props: RenderElementProps) => {
         onMouseLeave={() => setIsHovered(false)}
         style={{
           ...props.element.style,
-          padding: 4,
-          borderRadius: 4,
+          padding: '12px 2px',
+          borderRadius: 8,
           display: props.element.block === false ? 'inline-flex' : 'flex',
           gap: 4,
           maxWidth: '100%',

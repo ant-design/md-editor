@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useContext, useMemo } from 'react';
+import { BaseElement } from 'slate/dist/interfaces';
 import { useSelStatus } from '../../../hooks/editor';
 import { TableCursor } from '../../../utils/slate-table';
 import {
@@ -87,7 +88,7 @@ export interface TdNode {
   type: 'table-cell';
   rowSpan?: number;
   colSpan?: number;
-  children: Array<TableCustomElement | Text>;
+  children: Array<TableCustomElement | BaseElement['children'] | Text>;
 }
 
 export const Td: React.FC<
