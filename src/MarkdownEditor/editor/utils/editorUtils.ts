@@ -225,7 +225,7 @@ export class EditorUtils {
         const [selectNodes, selectPath] = nodeEntries[0];
 
         // 处理列表转段落的特殊情况
-        if (selectNodes.type === 'list') {
+        if ((selectNodes as any).type === 'list') {
           Transforms.removeNodes(editor, {
             at: selectPath,
             voids: true,
@@ -495,7 +495,7 @@ export class EditorUtils {
       if (nodeEntries.length === 0) return false;
 
       const [node] = nodeEntries[0];
-      return value ? node[format] === value : !!node[format];
+      return value ? (node as any)[format] === value : !!(node as any)[format];
     } catch (error) {
       console.error('Error checking format active:', error);
       return false;

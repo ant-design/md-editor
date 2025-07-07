@@ -1,7 +1,15 @@
 import { BaseEditor, BaseElement } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { TableCustomElement } from './editor/elements/Table';
+import {
+  TdNode as TableCellNode,
+  TableCustomElement,
+  TableNode,
+  TrNode as TableRowNode,
+} from './editor/elements/Table';
 import { ReactEditor, RenderElementProps } from './editor/slate-react';
+
+// 重新导出表格相关类型
+export type { TableCellNode, TableNode, TableRowNode };
 
 type Align = 'left' | 'center' | 'right';
 

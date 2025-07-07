@@ -175,7 +175,8 @@ export const TableEditor = {
           type: blocks.tr,
           children: Array.from({ length: colLen - increasedRowspan }).map(
             () => ({
-              type: section.type === blocks.thead ? blocks.th : blocks.td,
+              type:
+                (section as any).type === blocks.thead ? blocks.th : blocks.td,
               children: [
                 {
                   type: blocks.content,
@@ -424,7 +425,8 @@ export const TableEditor = {
           Transforms.insertNodes(
             editor,
             {
-              type: section.type === blocks.thead ? blocks.th : blocks.td,
+              type:
+                (section as any).type === blocks.thead ? blocks.th : blocks.td,
               children: [
                 {
                   type: blocks.content,
@@ -775,7 +777,10 @@ export const TableEditor = {
                 Transforms.insertNodes(
                   editor,
                   {
-                    type: section.type === blocks.thead ? blocks.th : blocks.td,
+                    type:
+                      (section as any).type === blocks.thead
+                        ? blocks.th
+                        : blocks.td,
                     children: [
                       {
                         type: blocks.content,
@@ -800,7 +805,10 @@ export const TableEditor = {
                 Transforms.insertNodes(
                   editor,
                   {
-                    type: section.type === blocks.thead ? blocks.th : blocks.td,
+                    type:
+                      (section as any).type === blocks.thead
+                        ? blocks.th
+                        : blocks.td,
                     children: [
                       {
                         type: blocks.content,
@@ -819,7 +827,10 @@ export const TableEditor = {
             Transforms.insertNodes(
               editor,
               {
-                type: section.type === blocks.thead ? blocks.th : blocks.td,
+                type:
+                  (section as any).type === blocks.thead
+                    ? blocks.th
+                    : blocks.td,
                 children: [
                   {
                     type: blocks.content,

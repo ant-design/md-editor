@@ -1,13 +1,13 @@
 ﻿import dayjs from 'dayjs';
 import React, { useEffect, useMemo } from 'react';
 import { ErrorBoundary } from '../../MarkdownEditor/editor/elements/ErrorBoundary';
+import { TableNode } from '../../MarkdownEditor/editor/elements/Table';
 import {
   RenderElementProps,
   useSlate,
 } from '../../MarkdownEditor/editor/slate-react';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
-import { TableNode } from '../../MarkdownEditor/el';
 import { ChartRender } from './ChartRender';
 
 /**

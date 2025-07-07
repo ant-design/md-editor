@@ -1,15 +1,12 @@
-﻿import { CopyOutlined, FullscreenOutlined } from '@ant-design/icons';
-import { ConfigProvider, Modal, Popover } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { Node } from 'slate';
 import stringWidth from 'string-width';
 import { TableNode } from '.';
-import { I18nContext } from '../../../../i18n';
-import { parserSlateNodeToMarkdown } from '../../../index';
-import { ActionIconBox } from '../../components';
 import { RenderElementProps } from '../../slate-react';
 import { useEditorStore } from '../../store';
+import { ReadonlyTableComponent } from './ReadonlyTableComponent';
 import useScrollShadow from './useScrollShadow';
 
 /**
@@ -46,30 +43,31 @@ export const ReadonlyTable = ({
   children: React.ReactNode;
   hashId: string;
 } & RenderElementProps<TableNode>) => {
-  const { editorProps, readonly, markdownContainerRef } = useEditorStore();
+  const { readonly, markdownContainerRef } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const {
-    actions = {
-      download: 'csv',
-      fullScreen: 'modal',
-      copy: 'md',
-    },
-  } = editorProps?.tableConfig || {};
 
   const baseCls = getPrefixCls('md-editor-content-table');
-
   const tableTargetRef = useRef<HTMLTableElement>(null);
-  const modelTargetRef = useRef<HTMLDivElement>(null);
 
+  // 总是调用 hooks，避免条件调用
   const [tableRef, scrollState] = useScrollShadow();
 
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const i18n = useContext(I18nContext);
-
+  // 只在编辑模式下进行复杂的列宽计算
   const colWidths = useMemo(() => {
+    // readonly 模式下使用简化计算
+    if (readonly) {
+      const otherProps = props.element?.otherProps as any;
+      if (otherProps?.colWidths) {
+        return otherProps.colWidths;
+      }
+      const columnCount = props.element?.children?.[0]?.children?.length || 0;
+      if (columnCount === 0) return [];
+      return Array(columnCount).fill(120); // 固定宽度
+    }
+
     // 如果在props中存在，直接使用以避免计算
     if (props.element?.otherProps?.colWidths) {
-      return props.element?.otherProps?.colWidths;
+      return props.element?.otherProps?.colWidths as number[];
     }
 
     if (typeof window === 'undefined' || !props.element?.children?.length)
@@ -126,13 +124,17 @@ export const ReadonlyTable = ({
 
     return calculatedWidths;
   }, [
-      props.element?.otherProps?.colWidths,
+    readonly,
+    props.element?.otherProps?.colWidths,
     props.element?.children?.length,
     props.element?.children?.[0]?.children?.length,
+    markdownContainerRef,
   ]);
 
+  // 只在编辑模式下添加resize事件监听
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (readonly || typeof window === 'undefined') return;
+
     const resize = () => {
       if (process.env.NODE_ENV === 'test') return;
       let maxWidth = colWidths
@@ -157,17 +159,20 @@ export const ReadonlyTable = ({
       document.removeEventListener('md-resize', resize);
       window.removeEventListener('resize', resize);
     };
-  }, [colWidths]);
+  }, [colWidths, readonly, markdownContainerRef, tableRef]);
 
   useEffect(() => {
+    if (readonly) return;
     document.dispatchEvent(
       new CustomEvent('md-resize', {
         detail: {},
       }),
     );
-  }, []);
-  return useMemo(() => {
-    const dom = (
+  }, [readonly]);
+
+  // 缓存表格DOM，减少重复渲染
+  const tableDom = useMemo(
+    () => (
       <table
         ref={tableTargetRef}
         style={{
@@ -176,7 +181,7 @@ export const ReadonlyTable = ({
         className={classNames(`${baseCls}-editor-table`, hashId)}
       >
         <colgroup>
-          {(colWidths || []).map((colWidth: any, index: any) => {
+          {(colWidths || []).map((colWidth: number, index: number) => {
             return (
               <col
                 key={index}
@@ -191,183 +196,48 @@ export const ReadonlyTable = ({
         </colgroup>
         <tbody data-slate-node="element">{children}</tbody>
       </table>
-    );
-    if (!readonly)
-      return (
-        <div
-          className={classNames(baseCls, hashId)}
-          ref={tableRef}
-          style={{
-            flex: 1,
-            minWidth: 0,
-            boxShadow: `
-                      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtStart ? 'inset 0 8px 8px -8px rgba(0,0,0,0.1)' : ''}
-                      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtEnd ? 'inset 0 -8px 8px -8px rgba(0,0,0,0.1)' : ''}
-                      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtStart ? 'inset 8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
-                      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtEnd ? 'inset -8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
-                    `,
-          }}
-        >
-          {dom}
-        </div>
-      );
-    return (
-      <>
-        <Popover
-          trigger={['click', 'hover']}
-          arrow={false}
-          styles={{
-            body: {
-              padding: 8,
-            },
-          }}
-          align={{
-            offset: [4, 40],
-          }}
-          zIndex={999}
-          placement="topLeft"
-          content={
-            <div
-              style={{
-                display: 'flex',
-                gap: 8,
-              }}
-            >
-              {actions.fullScreen ? (
-                <ActionIconBox
-                  title={i18n?.locale?.fullScreen || '全屏'}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setPreviewOpen(true);
-                  }}
-                >
-                  <FullscreenOutlined />
-                </ActionIconBox>
-              ) : null}
-              {actions.copy ? (
-                <ActionIconBox
-                  title={i18n?.locale?.copy || '复制'}
-                  onClick={() => {
-                    if (location.protocol !== 'https:') {
-                      document.execCommand(
-                        'copy',
-                        false,
-                        parserSlateNodeToMarkdown([props.element]),
-                      );
-                      return;
-                    }
-                    const clipboardItems: ClipboardItems = [];
-                    navigator?.clipboard.write([
-                      new ClipboardItem({
-                        'application/x-slate-md-fragment': new Blob(
-                          [JSON.stringify(props.element)],
-                          { type: 'application/x-slate-md-fragment' },
-                        ),
-                      }),
-                    ]);
-                    if (actions.copy === 'html') {
-                      clipboardItems.push(
-                        new ClipboardItem({
-                          'text/plain': new Blob(
-                            [tableTargetRef.current?.innerHTML || ''],
-                            { type: 'text/plain' },
-                          ),
-                        }),
-                      );
-                    }
-                    if (actions.copy === 'md') {
-                      clipboardItems.push(
-                        new ClipboardItem({
-                          'text/plain': new Blob(
-                            [parserSlateNodeToMarkdown([props.element])],
-                            { type: 'text/plain' },
-                          ),
-                        }),
-                      );
-                    }
-                    if (actions.copy === 'csv') {
-                      new ClipboardItem({
-                        'text/plain': new Blob(
-                          [
-                            props.element?.otherProps?.columns
-                              .map((col: Record<string, any>) => col.title)
-                              .join(',') +
-                              '\n' +
-                              props.element?.otherProps?.dataSource
-                                .map((row: Record<string, any>) =>
-                                  Object.values(row).join(','),
-                                )
-                                .join('\n'),
-                          ],
-                          { type: 'text/plain' },
-                        ),
-                      });
-                    }
+    ),
+    [colWidths, children, hashId, baseCls],
+  );
 
-                    try {
-                      navigator?.clipboard.write(clipboardItems);
-                    } catch (error) {}
-                  }}
-                >
-                  <CopyOutlined />
-                </ActionIconBox>
-              ) : null}
-            </div>
-          }
-        >
-          <div
-            className={classNames(baseCls, hashId)}
-            ref={tableRef}
-            style={{
-              flex: 1,
-              minWidth: 0,
-              boxShadow: `
-                      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtStart ? 'inset 0 8px 8px -8px rgba(0,0,0,0.1)' : ''}
-                      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtEnd ? 'inset 0 -8px 8px -8px rgba(0,0,0,0.1)' : ''}
-                      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtStart ? 'inset 8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
-                      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtEnd ? 'inset -8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
-                    `,
-            }}
-          >
-            {dom}
-          </div>
-        </Popover>
-        <Modal
-          title={editorProps?.tableConfig?.previewTitle || '预览表格'}
-          open={previewOpen}
-          closable
-          footer={null}
-          afterClose={() => {
-            setPreviewOpen(false);
-          }}
-          width="80vw"
-          onCancel={() => {
-            setPreviewOpen(false);
-          }}
-        >
-          <div
-            className={classNames(
-              baseCls,
-              hashId,
-              getPrefixCls('md-editor-content'),
-            )}
-            style={{
-              flex: 1,
-              minWidth: 0,
-              overflow: 'auto',
-              width: 'calc(80vw - 64px)',
-            }}
-            ref={modelTargetRef}
-          >
-            <ConfigProvider
-              getPopupContainer={() => modelTargetRef.current || document.body}
-              getTargetContainer={() => modelTargetRef.current || document.body}
-            >
-              {dom}
-            </ConfigProvider>
-          </div>
-        </Modal>
-      </>
+  // 缓存boxShadow样式，只在scrollState变化时重新计算
+  const boxShadowStyle = useMemo(
+    () => ({
+      flex: 1,
+      minWidth: 0,
+      boxShadow: readonly
+        ? undefined
+        : `
+      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtStart ? 'inset 0 8px 8px -8px rgba(0,0,0,0.1)' : ''}
+      ${scrollState.vertical.hasScroll && !scrollState.vertical.isAtEnd ? 'inset 0 -8px 8px -8px rgba(0,0,0,0.1)' : ''}
+      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtStart ? 'inset 8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
+      ${scrollState.horizontal.hasScroll && !scrollState.horizontal.isAtEnd ? 'inset -8px 0 8px -8px rgba(0,0,0,0.1)' : ''}
+    `,
+    }),
+    [scrollState, readonly],
+  );
+
+  // readonly 模式渲染 - 使用优化的组件
+  if (readonly) {
+    return (
+      <ReadonlyTableComponent
+        hashId={hashId}
+        element={props.element}
+        baseCls={baseCls}
+      >
+        {children}
+      </ReadonlyTableComponent>
     );
-  }, [children, scrollState, previewOpen]);
+  }
+
+  // 编辑模式渲染
+  return (
+    <div
+      className={classNames(baseCls, hashId)}
+      ref={tableRef}
+      style={boxShadowStyle}
+    >
+      {tableDom}
+    </div>
+  );
 };

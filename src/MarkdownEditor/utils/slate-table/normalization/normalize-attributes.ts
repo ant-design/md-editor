@@ -1,7 +1,7 @@
-import { CellElement } from "../utils/types";
-import { Editor, Transforms } from "slate";
-import { WithTableOptions } from "../options";
-import { isElement } from "../utils";
+import { Editor, Transforms } from 'slate';
+import { WithTableOptions } from '../options';
+import { isElement } from '../utils';
+import { CellElement } from '../utils/types';
 
 /**
  * Normalizes the `rowspan` and `colspan` attributes of the `td` elements
@@ -9,7 +9,7 @@ import { isElement } from "../utils";
  */
 export function normalizeAttributes<T extends Editor>(
   editor: T,
-  { blocks: { td, th } }: WithTableOptions
+  { blocks: { td, th } }: WithTableOptions,
 ) {
   const { normalizeNode } = editor;
 
@@ -19,12 +19,12 @@ export function normalizeAttributes<T extends Editor>(
       const { rowSpan, colSpan } = node;
 
       if (rowSpan === 1 || colSpan === 1) {
-        const attributes: Array<keyof typeof node> = ["rowSpan", "colSpan"];
+        const attributes: Array<keyof typeof node> = ['rowSpan', 'colSpan'];
 
         return Transforms.unsetNodes(
           editor,
-          attributes.filter((attr) => node[attr] === 1),
-          { at: path }
+          (attributes as any).filter((attr: any) => node[attr] === 1),
+          { at: path },
         );
       }
     }
