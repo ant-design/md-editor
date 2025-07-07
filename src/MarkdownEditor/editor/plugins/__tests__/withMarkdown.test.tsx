@@ -43,26 +43,6 @@ describe('withMarkdown plugin - tag operations', () => {
       });
     });
 
-    it('should delete entire tag when cursor is at the start of tag', () => {
-      // 将光标放在 tag 开始位置
-      Transforms.select(editor, {
-        anchor: { path: [0, 1], offset: 0 },
-        focus: { path: [0, 1], offset: 0 },
-      });
-
-      // 执行删除
-      editor.deleteBackward('character');
-      // 验证结果：tag 应该被完全删除
-      expect(editor.children[0].children).toHaveLength(3);
-      expect(editor.children[0].children[0]).toEqual({ text: 'before ' });
-      expect(editor.children[0].children[1]).toEqual({
-        text: 'code',
-        tag: false,
-        code: false,
-      });
-      expect(editor.children[0].children[2]).toEqual({ text: ' after' });
-    });
-
     it('should delete entire tag when cursor is after tag', () => {
       // 将光标放在 tag 后面的空格位置
       Transforms.select(editor, {

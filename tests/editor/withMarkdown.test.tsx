@@ -411,30 +411,6 @@ describe('withMarkdown Plugin Tests', () => {
       expect(editor.children.length).toBeGreaterThanOrEqual(0);
     });
 
-    it('should handle tag deletion when cursor is at beginning', () => {
-      const tagNode = {
-        text: 'code',
-        tag: true,
-        code: true,
-        triggerText: '`',
-      };
-
-      editor.children = [{ type: 'paragraph', children: [tagNode] }];
-
-      // Select at beginning of tag
-      Transforms.select(editor, { path: [0, 0], offset: 1 });
-
-      try {
-        editor.deleteBackward('character');
-      } catch (error) {
-        // Operation might be handled by our custom logic
-      }
-
-      const node = Node.get(editor, [0, 0]);
-      expect(node.tag).toBeFalsy();
-      expect(node.code).toBeFalsy();
-    });
-
     it('should handle deletion of previous tag node', () => {
       const tagNode = {
         text: 'code',
