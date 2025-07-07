@@ -122,7 +122,6 @@ export const useToolBarLogic = ({
     (color: string) => {
       if (!markdownEditorRef.current || isCodeNode(markdownEditorRef.current))
         return;
-      localStorage.setItem('high-color', color);
       EditorUtils.highColor(markdownEditorRef.current, color);
       setHighColor(color);
       setRefresh((r) => !r);

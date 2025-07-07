@@ -96,6 +96,7 @@ export type ChartTypeConfig<T = Record<string, any>> = {
 export type ChartNode<T = Record<string, any>> = {
   contextProps?: T;
   type: 'chart';
+  children: BaseElement['children'];
   otherProps?: {
     showSource?: boolean;
     config: ChartTypeConfig | ChartTypeConfig[];

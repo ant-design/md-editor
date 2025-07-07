@@ -155,164 +155,191 @@ export class EditorUtils {
     Transforms.move(editor, { unit: 'offset', reverse: true });
   }
 
+  // 可清除的文本格式属性
+  private static readonly CLEARABLE_MARKS = [
+    'url',
+    'strikethrough',
+    'italic',
+    'code',
+    'bold',
+    'color',
+    'textColor',
+    'highColor',
+  ];
+
   /**
-   * 清除编辑器中选中的文本的所有标记。
+   * 清除编辑器中选中的文本的所有标记
    *
-   * @param editor - 编辑器实例。
-   * @param split - 是否分割节点，默认为 false。
+   * @param editor - 编辑器实例
+   * @param split - 是否在格式边界处分割文本节点，默认为 false
    *
-   * 如果编辑器中没有选中的文本，则直接返回。
-   * 使用 `Transforms.unsetNodes` 方法移除选中的文本节点中的以下标记：
-   * - 'url'
-   * - 'strikethrough'
-   * - 'italic'
-   * - 'code'
-   * - 'bold'
-   * - 'color'
-   * - 'textColor'
-   * - 'highColor'
+   * @description
+   * 该方法执行以下操作：
+   * 1. 移除选中文本的所有格式标记
+   * 2. 处理列表项的提升和转换
+   * 3. 将选中区域转换为段落格式
    *
-   * 获取选中节点的父节点，如果父节点是段落并且编辑器中存在该路径的父节点，
-   * 则获取父节点的父节点。如果节点类型是列表项，则提升节点。
-   * 最后，将选中节点的父节点类型设置为段落。
+   * 当 split=true 时，会在不同格式的边界处分割文本节点，
+   * 这允许对部分文本应用/移除格式而不影响相邻文本
    */
   static clearMarks(editor: Editor, split = false) {
     if (!editor.selection) return;
-    Transforms.unsetNodes(
-      editor,
-      [
-        'url',
-        'strikethrough',
-        'italic',
-        'code',
-        'bold',
-        'color',
-        'textColor',
-        'highColor',
-      ],
-      {
-        split,
-        match: Text.isText,
-      },
-    );
-    const parent = Path.parent(editor.selection.anchor.path);
 
-    let node = Node.get(editor, parent);
-    if (
-      node.type === 'paragraph' &&
-      Editor.hasPath(editor, Path.parent(parent))
-    ) {
-      node = Node.get(editor, Path.parent(parent));
-    }
-    if (node.type === 'list-item') {
-      Transforms.liftNodes(editor, {
-        at: Path.parent(editor.selection.anchor.path),
-        mode: 'highest',
-      });
-    }
-    const [[selectNodes, selectPath]] = Editor.nodes(editor, {
-      match: (n) => Element.isElement(n),
-      mode: 'highest',
-    }) as any;
-    if ((selectNodes as any).type === 'list') {
-      Transforms.removeNodes(editor, {
-        at: selectPath as any,
-        voids: true,
-      });
-      const paragraphNode = EditorUtils.listToParagraph(
-        editor,
-        selectNodes as any,
+    // 移除所有格式标记
+    Transforms.unsetNodes(editor, EditorUtils.CLEARABLE_MARKS, {
+      split,
+      match: Text.isText,
+    });
+
+    const anchorPath = editor.selection.anchor.path;
+    const parentPath = Path.parent(anchorPath);
+
+    try {
+      let node = Node.get(editor, parentPath);
+
+      // 向上查找非段落的父节点
+      if (
+        node.type === 'paragraph' &&
+        Editor.hasPath(editor, Path.parent(parentPath))
+      ) {
+        node = Node.get(editor, Path.parent(parentPath));
+      }
+
+      // 处理列表项的提升
+      if (node.type === 'list-item') {
+        Transforms.liftNodes(editor, {
+          at: Path.parent(anchorPath),
+          mode: 'highest',
+        });
+      }
+
+      // 查找最高级别的选中元素节点
+      const nodeEntries = Array.from(
+        Editor.nodes(editor, {
+          match: (n) => Element.isElement(n),
+          mode: 'highest',
+        }),
       );
-      Transforms.insertNodes(editor, paragraphNode, { at: editor.selection });
-      return;
+
+      if (nodeEntries.length > 0) {
+        const [selectNodes, selectPath] = nodeEntries[0];
+
+        // 处理列表转段落的特殊情况
+        if (selectNodes.type === 'list') {
+          Transforms.removeNodes(editor, {
+            at: selectPath,
+            voids: true,
+          });
+
+          const paragraphNodes = EditorUtils.listToParagraph(
+            editor,
+            selectNodes as ListNode,
+          );
+          if (paragraphNodes.length > 0) {
+            Transforms.insertNodes(editor, paragraphNodes, {
+              at: editor.selection,
+            });
+          }
+          return;
+        }
+      }
+
+      // 将选中区域转换为段落
+      Transforms.setNodes(editor, { type: 'paragraph' }, { at: parentPath });
+    } catch (error) {
+      console.error('Error in clearMarks:', error);
     }
-    Transforms.setNodes(
-      editor,
-      { type: 'paragraph' },
-      { at: Path.parent(editor.selection.anchor.path) },
-    );
   }
 
   /**
    * 将列表节点转换为段落节点数组
    *
-   * 该方法通过递归遍历列表节点及其子节点，提取所有段落节点，并将它们汇集成一个扁平化的数组。
-   *
    * @param editor - 编辑器实例
    * @param listNode - 要处理的列表节点
    * @returns 从列表节点中提取的所有段落节点的数组
    *
-   * @example
-   * const paragraphs = EditorUtils.listToParagraph(editor, someListNode);
-   * // 返回列表中所有段落节点的扁平数组
+   * @description
+   * 该方法通过递归遍历列表节点及其子节点，提取所有段落节点，
+   * 并将它们汇集成一个扁平化的数组。支持嵌套列表的处理。
    */
-  static listToParagraph(editor: Editor, listNode: ListNode) {
-    const paragraphNode: ParagraphNode[] = [];
-    const children = listNode.children;
-    if (children.length === 0) return [];
-    children?.forEach((item) => {
-      item?.children?.forEach((child: any) => {
-        if (child.type === 'paragraph') {
-          paragraphNode.push(child);
-        }
-        if (child.type === 'list') {
-          const childParagraphNode = EditorUtils.listToParagraph(editor, child);
-          paragraphNode.push(...childParagraphNode);
-        }
+  static listToParagraph(editor: Editor, listNode: ListNode): ParagraphNode[] {
+    if (!listNode.children || listNode.children.length === 0) {
+      return [];
+    }
+
+    const paragraphNodes: ParagraphNode[] = [];
+
+    const extractParagraphs = (children: any[]) => {
+      children.forEach((item) => {
+        if (!item?.children) return;
+
+        item.children.forEach((child: any) => {
+          if (child.type === 'paragraph') {
+            paragraphNodes.push(child);
+          } else if (child.type === 'list') {
+            // 递归处理嵌套列表
+            const nestedParagraphs = EditorUtils.listToParagraph(editor, child);
+            paragraphNodes.push(...nestedParagraphs);
+          }
+        });
       });
-    });
-    return paragraphNode?.flat(2) as any[];
+    };
+
+    extractParagraphs(listNode.children);
+
+    return paragraphNodes.flat() as ParagraphNode[];
   }
 
   /**
    * 替换编辑器中当前选中的节点
    *
-   * 该方法会查找当前选区中的最低块级节点，然后用新的节点替换它。
-   * 替换过程包括：查找最低块级节点，选中整个节点，插入新节点来替换原内容。
-   *
    * @param editor - 编辑器实例
    * @param newNode - 要插入的新节点数组
+   *
+   * @description
+   * 该方法会查找当前选区中的最低块级节点，然后用新的节点替换它。
+   * 替换过程包括：查找最低块级节点，选中整个节点，插入新节点来替换原内容。
    */
   static replaceSelectedNode = (editor: Editor, newNode: Elements[]) => {
-    // 查找当前选区的最低块级节点
-    const [match] = Editor.nodes(editor, {
-      mode: 'lowest',
-    });
-    if (match) {
-      let [node, path] = match as any[];
-      if ((node as any).text === '') {
-        // 如果节点是文本节点，则获取其父节点
-        const parent = Path.parent(path);
-        node = Node.get(editor, parent) as any;
-        path = parent as any;
-        // 删除选中的节点
-        Transforms.removeNodes(editor, {
-          at: path as any,
-        });
-        // 插入新节点替换原内容
-        Transforms.insertNodes(editor, newNode as any, {
-          at: path,
-          select: true,
-        });
-      } else {
-        Transforms.insertNodes(editor, newNode as any, {
-          select: true,
-        });
-      }
-    } else {
+    const nodeEntries = Array.from(
+      Editor.nodes(editor, {
+        mode: 'lowest',
+      }),
+    );
+
+    if (nodeEntries.length === 0) {
       // 如果没有选中节点，则直接插入新节点
       Transforms.insertNodes(editor, newNode);
+      return;
+    }
+
+    const [node, path] = nodeEntries[0] as [any, Path];
+
+    if (Text.isText(node) && node.text === '') {
+      // 如果是空文本节点，则操作其父节点
+      const parentPath = Path.parent(path);
+
+      Transforms.removeNodes(editor, { at: parentPath });
+      Transforms.insertNodes(editor, newNode, {
+        at: parentPath,
+        select: true,
+      });
+    } else {
+      // 直接插入新节点
+      Transforms.insertNodes(editor, newNode, {
+        select: true,
+      });
     }
   };
 
   /**
-   * 删除编辑器中的所有内容，并插入新的节点（如果提供）。
+   * 删除编辑器中的所有内容，并插入新的节点
    *
-   * @param editor - 编辑器实例。
-   * @param insertNodes - 要插入的新节点数组。如果未提供，将插入默认节点。
+   * @param editor - 编辑器实例
+   * @param insertNodes - 要插入的新节点数组。如果未提供，将插入默认段落节点
    */
-  static deleteAll(editor: Editor, insertNodes?: any[]) {
-    const nodes = Array.from(
+  static deleteAll(editor: Editor, insertNodes?: Elements[]) {
+    const allNodes = Array.from(
       Editor.nodes(editor, {
         at: [],
         match: (n) => Element.isElement(n),
@@ -320,33 +347,50 @@ export class EditorUtils {
         reverse: true,
       }),
     );
-    if (nodes.length) {
+
+    if (allNodes.length > 0) {
+      const firstNode = allNodes[allNodes.length - 1];
+      const lastNode = allNodes[0];
+
       Transforms.delete(editor, {
         at: {
-          anchor: Editor.start(editor, nodes[nodes.length - 1][1]),
-          focus: Editor.end(editor, nodes[0][1]),
+          anchor: Editor.start(editor, firstNode[1]),
+          focus: Editor.end(editor, lastNode[1]),
         },
       });
-      Transforms.delete(editor, { at: [0] });
+
+      // 删除剩余的第一个节点
+      if (Editor.hasPath(editor, [0])) {
+        Transforms.delete(editor, { at: [0] });
+      }
     }
-    if (!insertNodes) insertNodes = [EditorUtils.p];
-    Transforms.insertNodes(editor, insertNodes, { at: [0] });
+
+    const nodesToInsert = insertNodes || [EditorUtils.p];
+    Transforms.insertNodes(editor, nodesToInsert, { at: [0] });
   }
 
   /**
-   * 重置编辑器的内容，并可选地插入新的节点和强制重置历史记录。
+   * 重置编辑器的内容，并可选地插入新的节点和重置历史记录
    *
-   * @param editor - 要重置的编辑器实例。
-   * @param insertNodes - 可选的插入节点数组。如果未提供，则使用默认节点。
-   * @param force - 可选的布尔值或历史记录对象。如果为布尔值，则强制重置历史记录；如果为历史记录对象，则使用提供的历史记录。
+   * @param editor - 要重置的编辑器实例
+   * @param insertNodes - 可选的插入节点数组。如果未提供，则使用默认段落节点
+   * @param force - 可选的布尔值或历史记录对象。如果为布尔值，则强制重置历史记录；如果为历史记录对象，则使用提供的历史记录
    */
-  static reset(editor: Editor, insertNodes?: any[], force?: boolean | History) {
-    if (!insertNodes) insertNodes = [EditorUtils.p];
-    editor.children = JSON.parse(JSON.stringify(insertNodes));
+  static reset(
+    editor: Editor,
+    insertNodes?: Elements[],
+    force?: boolean | History,
+  ) {
+    const nodesToInsert = insertNodes || [EditorUtils.p];
+
+    // 深克隆节点以避免引用问题
+    editor.children = JSON.parse(JSON.stringify(nodesToInsert));
+
     if (force) {
       editor.history =
         typeof force === 'boolean' ? { redos: [], undos: [] } : force;
     }
+
     editor.onChange();
   }
 
@@ -432,53 +476,85 @@ export class EditorUtils {
   }
 
   /**
-   * 检查编辑器中是否有指定格式的活动节点。
+   * 检查编辑器中是否有指定格式的活动节点
    *
-   * @param editor - 编辑器实例。
-   * @param format - 要检查的格式名称。
-   * @param value - 可选的值，用于进一步验证格式是否匹配。
-   * @returns 如果存在匹配的格式节点，则返回 true；否则返回 false。
+   * @param editor - 编辑器实例
+   * @param format - 要检查的格式名称
+   * @param value - 可选的值，用于进一步验证格式是否匹配
+   * @returns 如果存在匹配的格式节点，则返回 true；否则返回 false
    */
-  static isFormatActive(editor: Editor, format: string, value?: any) {
+  static isFormatActive(editor: Editor, format: string, value?: any): boolean {
     try {
-      const [match] = Editor.nodes(editor, {
-        match: (n) => !!n[format],
-        mode: 'lowest',
-      });
-      //@ts-ignore
-      return value ? match?.[0]?.[format] === value : !!match;
-    } catch (e) {
+      const nodeEntries = Array.from(
+        Editor.nodes(editor, {
+          match: (n) => !!n[format],
+          mode: 'lowest',
+        }),
+      );
+
+      if (nodeEntries.length === 0) return false;
+
+      const [node] = nodeEntries[0];
+      return value ? node[format] === value : !!node[format];
+    } catch (error) {
+      console.error('Error checking format active:', error);
       return false;
     }
   }
 
-  static getUrl(editor: Editor) {
-    const [match] = Editor.nodes<any>(editor, {
-      match: (n) => Text.isText(n) && !!n?.url,
-      mode: 'lowest',
-    });
-    return (match?.[0]?.url as string) || '';
-  }
-
-  static toggleFormat(editor: Editor, format: any) {
-    const str = editor.selection ? Editor.string(editor, editor.selection) : '';
-    if (str) {
-      const isActive = EditorUtils.isFormatActive(editor, format);
-      Transforms.setNodes(
-        editor,
-        { [format]: isActive ? null : true },
-        { match: Text.isText, split: true },
+  /**
+   * 获取编辑器中选中文本的URL
+   *
+   * @param editor - 编辑器实例
+   * @returns 返回选中文本的URL，如果没有则返回空字符串
+   */
+  static getUrl(editor: Editor): string {
+    try {
+      const nodeEntries = Array.from(
+        Editor.nodes<any>(editor, {
+          match: (n) => Text.isText(n) && !!n?.url,
+          mode: 'lowest',
+        }),
       );
+
+      return nodeEntries.length > 0
+        ? (nodeEntries[0][0]?.url as string) || ''
+        : '';
+    } catch (error) {
+      console.error('Error getting URL:', error);
+      return '';
     }
   }
 
   /**
-   * 为编辑器中的文本节点设置高亮颜色。
+   * 切换文本格式（加粗、斜体等）
    *
-   * @param editor - 编辑器实例。
-   * @param color - 可选的高亮颜色字符串。如果未提供，则移除高亮颜色。
+   * @param editor - 编辑器实例
+   * @param format - 要切换的格式类型
+   */
+  static toggleFormat(editor: Editor, format: string) {
+    if (!editor.selection) return;
+
+    const selectedText = Editor.string(editor, editor.selection);
+    if (!selectedText) return;
+
+    const isActive = EditorUtils.isFormatActive(editor, format);
+
+    Transforms.setNodes(
+      editor,
+      { [format]: isActive ? null : true },
+      { match: Text.isText, split: true },
+    );
+  }
+
+  /**
+   * 为编辑器中的文本节点设置高亮颜色
+   *
+   * @param editor - 编辑器实例
+   * @param color - 可选的高亮颜色字符串。如果未提供，则移除高亮颜色
    */
   static highColor(editor: Editor, color?: string) {
+    if (!editor.selection) return;
     Transforms.setNodes(
       editor,
       { highColor: color },
@@ -488,10 +564,13 @@ export class EditorUtils {
 
   /**
    * 设置文本对齐方式
+   *
    * @param editor - 编辑器实例
    * @param alignment - 对齐方式：'left', 'center', 或 'right'
    */
   static setAlignment(editor: Editor, alignment: 'left' | 'center' | 'right') {
+    if (!editor.selection) return;
+
     Transforms.setNodes(
       editor,
       { align: alignment },
@@ -501,123 +580,213 @@ export class EditorUtils {
 
   /**
    * 检查当前选中块的对齐方式
+   *
    * @param editor - 编辑器实例
    * @param alignment - 要检查的对齐方式
    * @returns 是否处于指定的对齐方式
    */
-  static isAlignmentActive(editor: Editor, alignment: string) {
-    const [match] = Editor.nodes(editor, {
-      match: (n) => Element.isElement(n) && (n as any).align === alignment,
-    });
-    return !!match;
-  }
+  static isAlignmentActive(editor: Editor, alignment: string): boolean {
+    try {
+      const nodeEntries = Array.from(
+        Editor.nodes(editor, {
+          match: (n) => Element.isElement(n) && (n as any).align === alignment,
+        }),
+      );
 
-  static checkEnd(editor: Editor) {
-    const [node] = Editor.nodes<any>(editor, {
-      at: [],
-      mode: 'highest',
-      match: (n) => Element.isElement(n),
-      reverse: true,
-    });
-    if (
-      (node && node?.[0]?.type !== 'paragraph') ||
-      Node.string(node[0]) ||
-      (node?.[0]?.children?.length === 1 &&
-        node?.[0]?.children[0]?.type === 'media')
-    ) {
-      Transforms.insertNodes(editor, EditorUtils.p, {
-        at: Path.next(node[1]),
-      });
-      return true;
-    } else {
+      return nodeEntries.length > 0;
+    } catch (error) {
+      console.error('Error checking alignment active:', error);
       return false;
     }
   }
 
-  static checkSelEnd(editor: Editor, path: Path) {
-    let end = true;
-    let cur = Editor?.node(editor, path);
-    while (!Editor.isEditor(cur[0])) {
-      if (Editor.hasPath(editor, Path.next(cur[1]))) {
-        end = false;
-        break;
-      } else {
-        cur = Editor?.node(editor, Path.parent(cur[1]));
+  /**
+   * 检查编辑器末尾是否需要添加段落节点
+   *
+   * @param editor - 编辑器实例
+   * @returns 如果添加了段落节点则返回 true，否则返回 false
+   */
+  static checkEnd(editor: Editor): boolean {
+    try {
+      const nodeEntries = Array.from(
+        Editor.nodes<any>(editor, {
+          at: [],
+          mode: 'highest',
+          match: (n) => Element.isElement(n),
+          reverse: true,
+        }),
+      );
+
+      if (nodeEntries.length === 0) return false;
+
+      const [node, path] = nodeEntries[0];
+      const nodeString = Node.string(node);
+      const hasMediaChild =
+        node?.children?.length === 1 && node?.children[0]?.type === 'media';
+
+      if (node?.type !== 'paragraph' || nodeString || hasMediaChild) {
+        Transforms.insertNodes(editor, EditorUtils.p, {
+          at: Path.next(path),
+        });
+        return true;
       }
+
+      return false;
+    } catch (error) {
+      console.error('Error in checkEnd:', error);
+      return false;
     }
-    return end;
   }
-  static findPath(editor: Editor, el: any) {
+
+  /**
+   * 检查指定路径是否在编辑器末尾
+   *
+   * @param editor - 编辑器实例
+   * @param path - 要检查的路径
+   * @returns 如果路径在末尾则返回 true，否则返回 false
+   */
+  static checkSelEnd(editor: Editor, path: Path): boolean {
+    try {
+      let currentNode = Editor.node(editor, path);
+
+      while (!Editor.isEditor(currentNode[0])) {
+        if (Editor.hasPath(editor, Path.next(currentNode[1]))) {
+          return false;
+        }
+        currentNode = Editor.node(editor, Path.parent(currentNode[1]));
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Error in checkSelEnd:', error);
+      return false;
+    }
+  }
+  /**
+   * 安全地查找元素对应的Slate路径
+   *
+   * @param editor - 编辑器实例
+   * @param el - DOM元素
+   * @returns 元素对应的路径，如果查找失败则返回编辑器起始路径
+   */
+  static findPath(editor: Editor, el: any): Path {
     try {
       return ReactEditor.findPath(editor, el);
-    } catch (e) {
-      console.error('find path error', e);
+    } catch (error) {
+      console.error('find path error', error);
       return Editor.start(editor, []).path;
     }
   }
 
+  /**
+   * 创建媒体节点（图片、视频等）
+   *
+   * @param src - 媒体资源URL
+   * @param type - 媒体类型
+   * @param extraPros - 额外属性
+   * @returns 创建的媒体节点
+   */
   static createMediaNode(
     src: string | undefined,
     type: string,
     extraPros?: Record<string, any>,
-  ) {
+  ): CardNode | { text: string } {
     if (!src) {
       return { text: '' };
     }
-    try {
-      // Handle relative URLs by adding the current origin if needed
-      let fullSrc = src;
-      if (src && !src.match(/^(https?:\/\/|data:|file:)/)) {
-        // If URL doesn't have a protocol, add the current origin
-        if (src.startsWith('/')) {
-          // Root-relative URL
-          fullSrc = `${window.location.origin || ''}${src}`;
-        } else {
-          // Document-relative URL
-          fullSrc = `${window.location.origin || ''}/${src}`;
-        }
-      }
-      let urlParams = new URLSearchParams();
-      try {
-        urlParams = new URL(fullSrc).searchParams;
-      } catch (error) {}
 
+    try {
+      const fullSrc = EditorUtils.normalizeUrl(src);
+      const urlParams = EditorUtils.parseUrlParams(fullSrc);
       const altText = extraPros?.alt || urlParams.get('alt') || '';
 
       if (
         type === 'image' &&
-        ['image'].includes(getMediaType(src, extraPros?.alt || type))
+        EditorUtils.isImageType(src, extraPros?.alt || type)
       ) {
-        return {
-          type: 'card',
-          block: urlParams.get('block') || false,
-          children: [
-            {
-              type: 'card-before',
-              children: [{ text: '' }],
-            },
-            {
-              ...(extraPros || {}),
-              block: urlParams.get('block'),
-              type: 'image',
-              url: src,
-              mediaType: 'image',
-              alt: altText,
-              width: urlParams.get('width') || undefined,
-              height: urlParams.get('height') || undefined,
-              children: [{ text: '' }],
-            } as any,
-            {
-              type: 'card-after',
-              children: [{ text: '' }],
-            },
-          ],
-        };
+        return EditorUtils.createImageNode(src, altText, urlParams, extraPros);
       }
+
+      return EditorUtils.createGenericMediaNode(src, type, extraPros);
     } catch (error) {
-      console.error('Error parsing URL:', error, src);
+      console.error('Error creating media node:', error, src);
+      return EditorUtils.createGenericMediaNode(src, type, extraPros);
+    }
+  }
+
+  /**
+   * 标准化URL，添加协议前缀
+   */
+  private static normalizeUrl(src: string): string {
+    if (src.match(/^(https?:\/\/|data:|file:)/)) {
+      return src;
     }
 
+    const origin = window.location.origin || '';
+    return src.startsWith('/') ? `${origin}${src}` : `${origin}/${src}`;
+  }
+
+  /**
+   * 解析URL参数
+   */
+  private static parseUrlParams(url: string): URLSearchParams {
+    try {
+      return new URL(url).searchParams;
+    } catch {
+      return new URLSearchParams();
+    }
+  }
+
+  /**
+   * 检查是否为图片类型
+   */
+  private static isImageType(src: string, alt: string): boolean {
+    return ['image'].includes(getMediaType(src, alt));
+  }
+
+  /**
+   * 创建图片节点
+   */
+  private static createImageNode(
+    src: string,
+    altText: string,
+    urlParams: URLSearchParams,
+    extraPros?: Record<string, any>,
+  ): CardNode {
+    return {
+      type: 'card',
+      children: [
+        {
+          type: 'card-before',
+          children: [{ text: '' }],
+        },
+        {
+          ...(extraPros || {}),
+          block: urlParams.get('block'),
+          type: 'image',
+          url: src,
+          mediaType: 'image',
+          alt: altText,
+          width: urlParams.get('width') || undefined,
+          height: urlParams.get('height') || undefined,
+          children: [{ text: '' }],
+        } as any,
+        {
+          type: 'card-after',
+          children: [{ text: '' }],
+        },
+      ],
+    } as CardNode;
+  }
+
+  /**
+   * 创建通用媒体节点
+   */
+  private static createGenericMediaNode(
+    src: string,
+    type: string,
+    extraPros?: Record<string, any>,
+  ): CardNode {
     return {
       type: 'card',
       children: [
@@ -640,7 +809,14 @@ export class EditorUtils {
     } as CardNode;
   }
 
-  static wrapperCardNode(node: any, props: Record<string, any> = {}) {
+  /**
+   * 用卡片节点包装普通节点
+   *
+   * @param node - 要包装的节点
+   * @param props - 额外属性
+   * @returns 包装后的卡片节点
+   */
+  static wrapperCardNode(node: any, props: Record<string, any> = {}): CardNode {
     return {
       type: 'card',
       ...props,
