@@ -4,6 +4,7 @@
   EditOutlined,
 } from '@ant-design/icons';
 import { Button, Table, Typography } from 'antd';
+import copy from 'copy-to-clipboard';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
 import { I18nContext } from '../i18n';
@@ -235,7 +236,7 @@ export const TableSql = (
                 <ActionIconBox
                   title={locale.copy}
                   onClick={() => {
-                    navigator.clipboard.writeText(props.input?.sql || '');
+                    copy(props.input?.sql || '');
                   }}
                 >
                   <CopyOutlined />
@@ -333,7 +334,7 @@ export const TableSql = (
                   <ActionIconBox
                     title={locale.copy}
                     onClick={() => {
-                      navigator.clipboard.writeText(
+                      copy(
                         JSON.stringify(props.output?.tableData || {}, null, 2),
                       );
                     }}
@@ -413,7 +414,7 @@ export const TableSql = (
                   <ActionIconBox
                     title={locale.copy}
                     onClick={() => {
-                      navigator.clipboard.writeText(errorMsg);
+                      copy(errorMsg);
                     }}
                   >
                     <CopyOutlined />

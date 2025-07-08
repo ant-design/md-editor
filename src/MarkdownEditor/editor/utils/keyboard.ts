@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import copy from 'copy-to-clipboard';
 import isHotkey from 'is-hotkey';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Subject } from 'rxjs';
@@ -845,7 +846,7 @@ export const useSystemKeyboard = (
           node[0].height || ''
         }`;
         try {
-          navigator.clipboard.writeText(url);
+          copy(url);
         } catch (error) {}
         if (isHotkey('mod+x', e)) {
           Transforms.delete(store?.editor, { at: node[1] });
@@ -855,7 +856,7 @@ export const useSystemKeyboard = (
       if (node?.[0]?.type === 'attach') {
         const url = `attach://file?size=${node[0].size}&name=${node[0].name}&url=${node[0]?.url}`;
         try {
-          navigator.clipboard.writeText(url);
+          copy(url);
         } catch (error) {}
 
         if (isHotkey('mod+x', e)) {
