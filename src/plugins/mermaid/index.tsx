@@ -123,11 +123,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
                   e.stopPropagation();
                   try {
                     const code = props.element.value || '';
-                    if (location.protocol === 'https:') {
-                      navigator.clipboard.writeText(code);
-                    } else {
-                      copy(code);
-                    }
+                    copy(code);
                     message.success(i18n.locale?.copySuccess || '复制成功');
                   } catch (error) {}
                 }}

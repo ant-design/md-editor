@@ -279,13 +279,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
             e.stopPropagation();
             try {
               const code = element.value || '';
-              // 优先使用现代 Clipboard API
-              if (location.protocol === 'https:') {
-                navigator.clipboard.writeText(code);
-              } else {
-                // 降级到传统方式
-                copy(code);
-              }
+              copy(code);
               // 显示成功提示
               message.success(i18n.locale?.copySuccess || '复制成功');
             } catch (error) {

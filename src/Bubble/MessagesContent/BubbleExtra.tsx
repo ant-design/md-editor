@@ -315,17 +315,9 @@ export const BubbleExtra = ({
       style={{
         color: 'var(--color-icon-secondary)',
       }}
-      onClick={
-        navigator.clipboard
-          ? async () => {
-              await navigator.clipboard.writeText(
-                bubble.originData?.content || '',
-              );
-            }
-          : () => {
-              copy(bubble.originData?.content || '');
-            }
-      }
+      onClick={() => {
+        copy(bubble.originData?.content || '');
+      }}
       showTitle={false}
     >
       <CopyOutlined />
