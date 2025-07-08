@@ -34,7 +34,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         tabSize: 2,
         WebkitUserModify: 'read-only',
         boxSizing: 'border-box',
-        color: '#666f8d',
+        color: 'var(--color-icon-secondary)',
         zIndex: 10,
         display: 'flex',
         userSelect: 'none',

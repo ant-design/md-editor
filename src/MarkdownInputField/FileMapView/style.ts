@@ -34,7 +34,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '18px',
         opacity: 1,
         boxSizing: 'border-box',
-        color: '#666F8D',
+        color: 'var(--color-icon-secondary)',
         fontSize: '14px',
         border: '1px solid #E6ECF4',
 
@@ -45,7 +45,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-icon': {
           transform: 'rotate(-90deg)',
           transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-          color: '#666F8D',
+          color: 'var(--color-icon-secondary)',
           '&-collapse': {
             transform: 'rotate(90deg)',
           },

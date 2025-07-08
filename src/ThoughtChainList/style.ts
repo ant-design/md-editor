@@ -117,7 +117,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           gap: 8,
           '&-item': {
             lineHeight: '2em',
-            color: '#666F8D',
+            color: 'var(--color-icon-secondary)',
             display: 'flex',
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             fontSize: '1em',

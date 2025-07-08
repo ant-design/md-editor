@@ -93,6 +93,9 @@ export const cssVariables = {
   '--color-border-active': 'var(--color-gray-7)',
   '--color-border-disabled': 'var(--color-gray-3)',
 
+  // 图标颜色
+  '--color-icon-secondary': '#666F8D',
+
   // 字体
   '--font-family-base':
     '"AlibabaPuHuiTi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',

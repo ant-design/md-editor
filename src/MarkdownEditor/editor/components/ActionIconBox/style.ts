@@ -23,7 +23,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (
       justifyContent: 'center',
       borderRadius: token.borderRadius,
       fontSize: '1em',
-      color: style.color || '#666F8D',
+      color: style.color || 'var(--color-icon-secondary)',
       '&-noPadding': {
         padding: 0,
       },

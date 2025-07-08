@@ -37,13 +37,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-bubble-avatar-title': {
         fontSize: '1em',
         lineHeight: '24px',
-        color: '#666F8D',
+        color: 'var(--color-icon-secondary)',
         display: 'flex',
         alignItems: 'center',
         gap: 8,
         span: {
           fontSize: '1em',
-          color: '#666F8D',
+          color: 'var(--color-icon-secondary)',
           display: 'flex',
           alignItems: 'center',
         },
@@ -79,7 +79,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         lineHeight: '22px',
         padding: 0,
         backdropFilter: 'blur(10px)',
-        color: '#666F8D',
+        color: 'var(--color-icon-secondary)',
         boxShadow: '0px 1px 3px 0px rgba(25, 33, 61, 0.1)',
         backgroundColor: token.colorBgContainer,
         '&&-compact': {
