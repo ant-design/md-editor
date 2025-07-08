@@ -107,7 +107,7 @@ export const Td: React.FC<
   const selected = TableCursor.isSelected(editor, element);
 
   if (element.hidden) {
-    return null;
+    return <td style={{ display: 'none' }}></td>;
   }
   return (
     <td

@@ -66,48 +66,75 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           },
           td: {
             borderBottom: '1px solid var(--table-border-color)',
+            borderLeft: '1px solid var(--table-border-color)',
+          },
+          'td:first-child': {
+            borderLeft: 'none',
           },
           '&:last-child td': {
             borderBottom: 'none',
           },
         },
-        // 只为真正的表格四个角添加圆角，避免合并单元格的问题
-        'tr:first-child th:first-child, tr:first-child td:first-child': {
-          borderTopLeftRadius: 'var(--table-border-radius)',
+        // 表格圆角处理 - 重新设计逻辑
+        // 1. 先为所有单元格重置圆角
+        'th, td': {
+          borderRadius: '0',
         },
-        'tr:first-child th:last-child, tr:first-child td:last-child': {
-          borderTopRightRadius: 'var(--table-border-radius)',
-        },
-        'tr:last-child td:first-child, tr:last-child th:first-child': {
-          borderBottomLeftRadius: 'var(--table-border-radius)',
-        },
-        'tr:last-child td:last-child, tr:last-child th:last-child': {
-          borderBottomRightRadius: 'var(--table-border-radius)',
-        },
-        // 处理合并单元格的情况 - 重置所有内部单元格的圆角
-        'td[colspan], th[colspan], td[rowspan], th[rowspan]': {
-          borderRadius: 0,
-        },
-        // 确保合并单元格跨越边界时能正确显示圆角
-        'tr:first-child th[colspan]:first-child, tr:first-child td[colspan]:first-child':
+
+        // 2. 为表格四个角的单元格设置圆角（仅当它们不是合并单元格时）
+        'tr:first-child th:first-child:not([colspan]):not([rowspan]), tr:first-child td:first-child:not([colspan]):not([rowspan])':
           {
             borderTopLeftRadius: 'var(--table-border-radius)',
-            borderTopRightRadius: 0,
           },
-        'tr:first-child th[colspan]:last-child, tr:first-child td[colspan]:last-child':
+        'tr:first-child th:last-child:not([colspan]):not([rowspan]), tr:first-child td:last-child:not([colspan]):not([rowspan])':
           {
             borderTopRightRadius: 'var(--table-border-radius)',
-            borderTopLeftRadius: 0,
           },
-        'tr:last-child td[colspan]:first-child, tr:last-child th[colspan]:first-child':
+        'tr:last-child td:first-child:not([colspan]):not([rowspan]), tr:last-child th:first-child:not([colspan]):not([rowspan])':
           {
             borderBottomLeftRadius: 'var(--table-border-radius)',
-            borderBottomRightRadius: 0,
           },
-        'tr:last-child td[colspan]:last-child, tr:last-child th[colspan]:last-child':
+        'tr:last-child td:last-child:not([colspan]):not([rowspan]), tr:last-child th:last-child:not([colspan]):not([rowspan])':
           {
             borderBottomRightRadius: 'var(--table-border-radius)',
-            borderBottomLeftRadius: 0,
+          },
+
+        // 3. 处理合并单元格的圆角
+        // 左上角 - 第一行第一列的合并单元格
+        'tr:first-child th[colspan]:first-child, tr:first-child td[colspan]:first-child,tr:first-child th[rowspan]:first-child, tr:first-child td[rowspan]:first-child':
+          {
+            borderTopLeftRadius: 'var(--table-border-radius)',
+          },
+
+        // 右上角 - 第一行最后一列的合并单元格
+        'tr:first-child th[colspan]:last-child, tr:first-child td[colspan]:last-child,tr:first-child th[rowspan]:last-child, tr:first-child td[rowspan]:last-child':
+          {
+            borderTopRightRadius: 'var(--table-border-radius)',
+          },
+
+        // 左下角 - 最后一行第一列的合并单元格
+        'tr:last-child td[colspan]:first-child, tr:last-child th[colspan]:first-child,tr:last-child td[rowspan]:first-child, tr:last-child th[rowspan]:first-child':
+          {
+            borderBottomLeftRadius: 'var(--table-border-radius)',
+          },
+
+        // 右下角 - 最后一行最后一列的合并单元格
+        'tr:last-child td[colspan]:last-child, tr:last-child th[colspan]:last-child,tr:last-child td[rowspan]:last-child, tr:last-child th[rowspan]:last-child':
+          {
+            borderBottomRightRadius: 'var(--table-border-radius)',
+          },
+
+        // 4. 特殊处理：如果合并单元格跨越整个表格宽度
+        'tr:first-child:last-child th[colspan]:first-child:last-child, tr:first-child:last-child td[colspan]:first-child:last-child':
+          {
+            borderRadius: 'var(--table-border-radius)',
+          },
+
+        // 5. 特殊处理：如果合并单元格跨越整个表格高度
+        'th[rowspan]:first-child:last-child, td[rowspan]:first-child:last-child':
+          {
+            borderTopLeftRadius: 'var(--table-border-radius)',
+            borderBottomLeftRadius: 'var(--table-border-radius)',
           },
         'th,td': {
           padding: '8px 12px',
