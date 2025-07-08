@@ -286,22 +286,24 @@ export const ReadonlyTable = ({
                       );
                     }
                     if (actions.copy === 'csv') {
-                      new ClipboardItem({
-                        'text/plain': new Blob(
-                          [
-                            props.element?.otherProps?.columns
-                              .map((col: Record<string, any>) => col.title)
-                              .join(',') +
-                              '\n' +
-                              props.element?.otherProps?.dataSource
-                                .map((row: Record<string, any>) =>
-                                  Object.values(row).join(','),
-                                )
-                                .join('\n'),
-                          ],
-                          { type: 'text/plain' },
-                        ),
-                      });
+                      clipboardItems.push(
+                        new ClipboardItem({
+                          'text/plain': new Blob(
+                            [
+                              props.element?.otherProps?.columns
+                                .map((col: Record<string, any>) => col.title)
+                                .join(',') +
+                                '\n' +
+                                props.element?.otherProps?.dataSource
+                                  .map((row: Record<string, any>) =>
+                                    Object.values(row).join(','),
+                                  )
+                                  .join('\n'),
+                            ],
+                            { type: 'text/plain' },
+                          ),
+                        }),
+                      );
                     }
 
                     try {
