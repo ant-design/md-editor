@@ -1,6 +1,7 @@
 ﻿import { CopyOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Popover } from 'antd';
 import classNames from 'classnames';
+import copy from 'copy-to-clipboard';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Node } from 'slate';
 import stringWidth from 'string-width';
@@ -249,11 +250,7 @@ export const ReadonlyTable = ({
                   title={i18n?.locale?.copy || '复制'}
                   onClick={() => {
                     if (location.protocol !== 'https:') {
-                      document.execCommand(
-                        'copy',
-                        false,
-                        parserSlateNodeToMarkdown([props.element]),
-                      );
+                      copy(parserSlateNodeToMarkdown([props.element]));
                       return;
                     }
                     const clipboardItems: ClipboardItems = [];

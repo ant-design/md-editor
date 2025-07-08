@@ -1,6 +1,7 @@
 import { CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
 import { Ace } from 'ace-builds';
 import { message } from 'antd';
+import copy from 'copy-to-clipboard';
 import React, { useContext, useEffect, useRef } from 'react';
 import { useGetSetState } from 'react-use';
 import { Path } from 'slate';
@@ -125,8 +126,7 @@ export function MermaidElement(props: ElementProps<CodeNode>) {
                     if (location.protocol === 'https:') {
                       navigator.clipboard.writeText(code);
                     } else {
-                      //@ts-ignore
-                      document.execCommand('copy', false, code);
+                      copy(code);
                     }
                     message.success(i18n.locale?.copySuccess || '复制成功');
                   } catch (error) {}

@@ -5,6 +5,7 @@
   SelectOutlined,
 } from '@ant-design/icons';
 import { ConfigProvider, Divider } from 'antd';
+import copy from 'copy-to-clipboard';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ActionIconBox } from '../../index';
@@ -322,12 +323,7 @@ export const BubbleExtra = ({
               );
             }
           : () => {
-              const input = document.createElement('input');
-              document.body.appendChild(input);
-              input.setAttribute('value', bubble.originData?.content || '');
-              input.select();
-              document.execCommand('copy');
-              document.body.removeChild(input);
+              copy(bubble.originData?.content || '');
             }
       }
       showTitle={false}

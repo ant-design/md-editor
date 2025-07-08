@@ -12,6 +12,7 @@ import {
   FullscreenOutlined,
 } from '@ant-design/icons';
 import { message } from 'antd';
+import copy from 'copy-to-clipboard';
 import React, { useContext, useState } from 'react';
 import { I18nContext } from '../../../i18n';
 import { ActionIconBox } from '../../../MarkdownEditor/editor/components/ActionIconBox';
@@ -19,7 +20,6 @@ import { CodeNode } from '../../../MarkdownEditor/el';
 import { langIconMap } from '../langIconMap';
 import { LanguageSelector, LanguageSelectorProps } from './LanguageSelector';
 import { LoadImage } from './LoadImage';
-
 /**
  * 代码工具栏组件的属性接口
  */
@@ -284,13 +284,13 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
                 navigator.clipboard.writeText(code);
               } else {
                 // 降级到传统方式
-                //@ts-ignore
-                document.execCommand('copy', false, code);
+                copy(code);
               }
               // 显示成功提示
               message.success(i18n.locale?.copySuccess || '复制成功');
             } catch (error) {
               // 复制失败时静默处理
+              console.error('复制失败:', error);
             }
           }}
         >
