@@ -103,7 +103,7 @@
                 </div>
                 <div
                   class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: rgb(102, 111, 141); opacity: 1; transform: none;"
+                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary); opacity: 1; transform: none;"
                 >
                   <div
                     style="opacity: 1; transform: none;"
@@ -120,7 +120,7 @@
                       class="ant-md-editor-action-icon-box ant-md-editor-action-icon-box-only-icon"
                       data-testid="chat-item-copy-button"
                       role="button"
-                      style="color: rgb(102, 111, 141);"
+                      style="color: var(--color-icon-secondary);"
                       tabindex="0"
                     >
                       <span
