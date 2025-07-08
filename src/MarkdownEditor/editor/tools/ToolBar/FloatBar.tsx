@@ -1,5 +1,6 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 import React, { useCallback, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BaseRange, Editor, Range, Transforms } from 'slate';
@@ -111,13 +112,17 @@ export const FloatBar = (props: { readonly: boolean }) => {
 
   return ReactDOM.createPortal(
     wrapSSR(
-      <div
+      <motion.div
         style={{
           left: state.left,
           top: state.top,
           position: 'fixed',
+          opacity: state.open ? 1 : 0,
+          transition:
+            'opacity 0.2s ease-in-out,width 0.2s ease-in-out, top 0.2s ease-in-out',
           display: state.open ? undefined : 'none',
         }}
+        layout
         onMouseDown={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -129,7 +134,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
         ) : (
           <BaseToolBar prefix={baseClassName} hashId={hashId} />
         )}
-      </div>,
+      </motion.div>,
     ),
     document.body,
   );
