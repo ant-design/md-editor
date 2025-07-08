@@ -95,7 +95,7 @@ export const handleFilesPaste = async (
 ) => {
   try {
     const fileList = clipboardData.files;
-    if (fileList.length > 0) {
+    if (fileList.length > 0 && editorProps.image?.upload) {
       const hideLoading = message.loading('上传中...');
       try {
         const url = [];
