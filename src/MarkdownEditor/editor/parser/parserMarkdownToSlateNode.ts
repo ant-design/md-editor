@@ -31,7 +31,7 @@ import { MarkdownEditorPlugin } from '../../plugin';
 import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
-import parser from './remarkParse';
+import mdastParser from './remarkParse';
 
 // 类型定义
 type CodeElement = {
@@ -150,7 +150,9 @@ const getColumnAlignment = (
 
 const stringifyObj = remark()
   .use(remarkParse)
-  .use(remarkMath as any)
+  .use(remarkMath as any, {
+    singleDollarTextMath: false, // 禁用单美元符号数学公式
+  })
   .use(remarkRehype as any, { allowDangerousHtml: true })
   .use(rehypeRaw)
   .use(rehypeKatex as any)
@@ -1458,9 +1460,11 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
-  const markdownRoot = parser.parse(
+  const processedMarkdown = mdastParser.parse(
     preprocessMarkdownTableNewlines(md || ''),
-  ).children;
+  ) as any;
+
+  const markdownRoot = processedMarkdown.children;
 
   const schema =
     (plugins || [])?.length > 0

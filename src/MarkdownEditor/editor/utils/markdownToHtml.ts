@@ -18,7 +18,9 @@ export const markdownToHtml = async (markdown: string): Promise<string> => {
   const htmlContent = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkMath as any)
+    .use(remarkMath as any, {
+      singleDollarTextMath: false, // 禁用单美元符号数学公式
+    })
     .use(remarkFrontmatter, ['yaml'])
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
@@ -40,7 +42,9 @@ export const markdownToHtmlSync = (markdown: string): string => {
     const processor = unified()
       .use(remarkParse)
       .use(remarkGfm)
-      .use(remarkMath as any)
+      .use(remarkMath as any, {
+        singleDollarTextMath: false, // 禁用单美元符号数学公式
+      })
       .use(remarkFrontmatter, ['yaml'])
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw)

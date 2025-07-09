@@ -8,30 +8,163 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
-// 插件：处理加粗方式，确保 "**90%+**" 正常渲染
-function fixStrongFormatting() {
+/**
+ * Plugin to fix bold text containing special characters like **$9.698M**
+ *
+ * @returns {(tree: any) => void}
+ *   Transformer function.
+ */
+export function fixStrongWithSpecialChars() {
+  // 返回转换器函数
   return (tree: any) => {
-    visit(tree, 'strong', (node) => {
-      // 强制将不符合解析的加粗节点修正
-      if (
-        Array.isArray(node.children) &&
-        node.children.length === 1 &&
-        typeof node.children[0].value === 'string'
-      ) {
-        node.children[0].value = node.children[0].value.trim();
+    // 先尝试处理段落中的原始文本
+    visit(tree, 'paragraph', (paragraphNode: any) => {
+      if (Array.isArray(paragraphNode.children)) {
+        for (let i = 0; i < paragraphNode.children.length; i++) {
+          const child = paragraphNode.children[i];
+
+          if (
+            child.type === 'text' &&
+            child.value &&
+            typeof child.value === 'string'
+          ) {
+            // 匹配包含美元符号的加粗文本
+            const strongPattern = /\*\*([^*\n]*\$[^*\n]*?)\*\*/g;
+
+            if (strongPattern.test(child.value)) {
+              // 重置正则表达式
+              strongPattern.lastIndex = 0;
+
+              const newNodes: any[] = [];
+              let lastIndex = 0;
+              let match;
+
+              // 分割文本并创建新的节点结构
+              while ((match = strongPattern.exec(child.value)) !== null) {
+                // 添加匹配前的普通文本
+                if (match.index > lastIndex) {
+                  const beforeText = child.value.slice(lastIndex, match.index);
+                  if (beforeText) {
+                    newNodes.push({
+                      type: 'text',
+                      value: beforeText,
+                    });
+                  }
+                }
+
+                // 添加加粗节点
+                newNodes.push({
+                  type: 'strong',
+                  children: [
+                    {
+                      type: 'text',
+                      value: match[1],
+                    },
+                  ],
+                });
+
+                lastIndex = match.index + match[0].length;
+              }
+
+              // 添加剩余的普通文本
+              if (lastIndex < child.value.length) {
+                const afterText = child.value.slice(lastIndex);
+                if (afterText) {
+                  newNodes.push({
+                    type: 'text',
+                    value: afterText,
+                  });
+                }
+              }
+
+              // 替换当前文本节点
+              if (newNodes.length > 0) {
+                paragraphNode.children.splice(i, 1, ...newNodes);
+                i += newNodes.length - 1; // 调整索引以跳过新插入的节点
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // 处理所有文本节点（作为备用方案）
+    visit(tree, 'text', (node: any, index: number | undefined, parent: any) => {
+      if (node.value && typeof node.value === 'string') {
+        // 匹配包含美元符号的加粗文本
+        const strongPattern = /\*\*([^*\n]*\$[^*\n]*?)\*\*/g;
+
+        if (strongPattern.test(node.value)) {
+          // 重置正则表达式
+          strongPattern.lastIndex = 0;
+
+          const newNodes: any[] = [];
+          let lastIndex = 0;
+          let match;
+
+          // 分割文本并创建新的节点结构
+          while ((match = strongPattern.exec(node.value)) !== null) {
+            // 添加匹配前的普通文本
+            if (match.index > lastIndex) {
+              const beforeText = node.value.slice(lastIndex, match.index);
+              if (beforeText) {
+                newNodes.push({
+                  type: 'text',
+                  value: beforeText,
+                });
+              }
+            }
+
+            // 添加加粗节点
+            newNodes.push({
+              type: 'strong',
+              children: [
+                {
+                  type: 'text',
+                  value: match[1],
+                },
+              ],
+            });
+
+            lastIndex = match.index + match[0].length;
+          }
+
+          // 添加剩余的普通文本
+          if (lastIndex < node.value.length) {
+            const afterText = node.value.slice(lastIndex);
+            if (afterText) {
+              newNodes.push({
+                type: 'text',
+                value: afterText,
+              });
+            }
+          }
+
+          // 替换原节点
+          if (
+            parent &&
+            Array.isArray(parent.children) &&
+            typeof index === 'number'
+          ) {
+            parent.children.splice(index, 1, ...newNodes);
+          }
+        }
       }
     });
   };
 }
 
-const parser = unified()
+// 完整的 HTML 渲染解析器
+const markdownParser = unified()
   .use(remarkParse)
-  .use(remarkMath as any)
+  .use(remarkGfm) // GFM 插件
+  .use(fixStrongWithSpecialChars) // 修复包含特殊字符的加粗文本
+  .use(remarkMath as any, {
+    singleDollarTextMath: false, // 禁用单美元符号数学公式
+  })
   .use(remarkRehype as any, { allowDangerousHtml: true })
   .use(rehypeRaw)
   .use(rehypeKatex as any)
-  .use(remarkGfm)
-  .use(fixStrongFormatting) // 使用自定义插件修正加粗格式
   .use(remarkFrontmatter, ['yaml']);
 
-export default parser;
+export default markdownParser;
