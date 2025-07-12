@@ -674,7 +674,7 @@ for num in arr:
                         <span
                           data-slate-string="true"
                         >
-                          ）
+                          enumerate）
                         </span>
                       </span>
                     </span>
@@ -935,7 +935,7 @@ for num in arr:
                         <span
                           data-slate-string="true"
                         >
-                           循环
+                          while 循环
                         </span>
                       </span>
                     </span>

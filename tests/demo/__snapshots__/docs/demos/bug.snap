@@ -2132,6 +2132,27 @@
                         data-be="text"
                         data-slate-leaf="true"
                         draggable="false"
+                        style="font-weight: bold;"
+                      >
+                        <span
+                          data-testid="markdown-bold"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            U
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
                       >
                         <span
                           data-slate-string="true"
@@ -2282,6 +2303,27 @@
                               std::forward&lt;U&gt;(t)
                             </span>
                           </code>
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      data-slate-node="text"
+                    >
+                      <span
+                        class=" "
+                        data-be="text"
+                        data-slate-leaf="true"
+                        draggable="false"
+                        style="font-weight: bold;"
+                      >
+                        <span
+                          data-testid="markdown-bold"
+                        >
+                          <span
+                            data-slate-string="true"
+                          >
+                            std::forward&lt;U&gt;(t)
+                          </span>
                         </span>
                       </span>
                     </span>
@@ -2534,7 +2576,7 @@
                           <span
                             data-slate-string="true"
                           >
-                             构造函数
+                            optional&lt;T&gt; 构造函数
                           </span>
                         </span>
                       </span>
