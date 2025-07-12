@@ -981,7 +981,7 @@ Font Awesome图标：:fa-solid fa-rocket:
                   <span
                     data-slate-string="true"
                   >
-                    行内公式：E = mc^2
+                    行内公式：$E = mc^2$
                   </span>
                 </span>
               </span>

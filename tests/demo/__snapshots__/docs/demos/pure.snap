@@ -902,35 +902,10 @@ Font Awesome图标：:fa-solid fa-rocket:
                 <span
                   data-slate-string="true"
                 >
-                  行内公式：
+                  行内公式：$E = mc^2$
                 </span>
               </span>
             </span>
-            <code
-              data-slate-node="element"
-              style="display: inline-block;"
-            >
-              <div
-                style="display: none;"
-              >
-                <span
-                  data-slate-node="text"
-                >
-                  <span
-                    class=" "
-                    data-be="text"
-                    data-slate-leaf="true"
-                    draggable="false"
-                  >
-                    <span
-                      data-slate-string="true"
-                    >
-                      E = mc^2
-                    </span>
-                  </span>
-                </span>
-              </div>
-            </code>
           </div>
           <div
             class="ant-md-editor-drag-el"

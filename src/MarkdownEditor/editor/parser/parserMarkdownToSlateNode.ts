@@ -224,9 +224,18 @@ const parseText = (
       leafs = leafs.concat(parseText(n.children, { ...leaf, url: n?.url }));
     }
     if (n.type === 'inlineCode')
-      leafs.push({ ...leaf, text: n.value, code: true });
+      leafs.push({ ...leaf, text: (n as any).value, code: true });
+    if (n.type === 'inlineMath') {
+      // 处理内联数学公式，返回一个特殊的节点而不是叶子节点
+      leafs.push({
+        ...leaf,
+        type: 'inline-katex',
+        children: [{ text: (n as any).value }],
+      } as any);
+      continue; // 跳过后面的默认处理
+    }
     // @ts-ignore
-    leafs.push({ ...leaf, text: n.value || '' });
+    leafs.push({ ...leaf, text: (n as any).value || '' });
   }
   return leafs;
 };

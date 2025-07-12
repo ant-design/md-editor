@@ -1611,10 +1611,6 @@ exports[`should convert markdown to schema in ### 二、其他遍历 chunk 1`] =
               },
               {
                 "bold": true,
-                "text": "while",
-              },
-              {
-                "bold": true,
                 "text": " 循环",
               },
               {
@@ -4445,10 +4441,6 @@ exports[`should convert markdown to schema in 3. **同时获取索 chunk 1`] = `
               },
               {
                 "bold": true,
-                "text": "enumerate",
-              },
-              {
-                "bold": true,
                 "text": "）",
               },
             ],
@@ -4855,7 +4847,7 @@ exports[`should convert schema to markdown in ### 三、特殊场景 chunk 1`] =
 exports[`should convert schema to markdown in ### 二、其他遍历 chunk 1`] = `
 "### 二、其他遍历方式
 
-4. **使用** **\`while\`** **while** **循环**  
+4. **使用** **\`while\`** **循环**  
 通过计数器手动控制遍历：\`\`\`python
 i = 0
 while i < len(arr):
@@ -4983,7 +4975,7 @@ for i in range(len(arr)):
 `;
 
 exports[`should convert schema to markdown in 3. **同时获取索 chunk 1`] = `
-"3. **同时获取索引和值（****\`enumerate\`** **enumerate****）**
+"3. **同时获取索引和值（****\`enumerate\`** **）**
 
 \`\`\`python
 for index, value in enumerate(arr):
