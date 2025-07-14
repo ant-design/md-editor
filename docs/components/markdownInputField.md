@@ -280,3 +280,115 @@ export default () => {
   );
 };
 ```
+ 
+### 自定义插槽
+
+```tsx
+import { MarkdownInputField } from '@ant-design/md-editor';
+import { Button, Menu, Space } from 'antd';
+import React, { useRef, useState } from 'react';
+
+export default () => {
+    const [value, setValue] = useState('');
+    const markdownRef = useRef<any>(null);
+    const [dropdownItems, setDropdownItems] = useState<string[]>([]);
+
+    // 模拟一些插槽选项数据
+    const slotItems = [
+        {
+            label: '目标企业',
+            key: 'company',
+            items: ['阿里巴巴', '腾讯', '百度']
+        },
+        {
+            label: '时间范围',
+            key: 'timeRange',
+            items: ['近3年', '近5年', '近10年']
+        },
+        {
+            label: '财务指标',
+            key: 'financial',
+            items: ['资产总额', '营业收入', '净利润']
+        }
+    ];
+
+    // 示例：设置带插槽的内容
+    const setExampleContent = () => {
+        if (markdownRef.current?.store) {
+            markdownRef.current.store.setMDContent('帮我查询`${placeholder:目标企业;initialValue:小米集团}` `${placeholder:时间范围}`的`${placeholder:财务指标}`。');
+        }
+    };
+
+    // 示例：设置完整的查询语句
+    const setFullQuery = () => {
+        if (markdownRef.current?.store) {
+            markdownRef.current.store.setMDContent('帮我查询`${placeholder:目标企业}`近三年的资产总额。');
+        }
+    };
+
+    return (
+        <div style={{ padding: 20 }}>
+            <Space style={{ marginBottom: 16 }}>
+                <Button onClick={setExampleContent}>插入模板查询</Button>
+                <Button onClick={setFullQuery}>插入完整查询</Button>
+            </Space>
+
+            <MarkdownInputField
+                value={value}
+                inputRef={markdownRef}
+                style={{ minHeight: 200 }}
+                placeholder="试试输入模板查询，或者点击上方按钮插入示例..."
+                borderRadius={8}
+                onChange={(newValue) => {
+                    setValue(newValue);
+                }}
+                onSend={async (message) => {
+                    console.log('发送消息:', message);
+                }}
+                tagInputProps={{
+                    enable: true,
+                    items: slotItems,
+                    tagTextRender: (_, text) => {
+                        // 保持原始格式，不做处理
+                        return text.replaceAll('$', '');
+                    },
+                    onChange: (value: string, props) => {},
+                    onOpenChange: (open: boolean) => {
+                        if (!open) {
+                            setDropdownItems([]);
+                        }
+                    },
+                    dropdownRender: (_, props: any) => {
+                        const currentSlot = slotItems.find(
+                            (item) => item.label === props?.placeholder
+                        );
+                        return (
+                            <Menu
+                                items={currentSlot?.items?.map((item: string) => ({
+                                    key: item,
+                                    label: item,
+                                    type: 'item',
+                                }))}
+                                onClick={(value) => {
+                                    props.onSelect?.(value?.key);
+                                }}
+                            />
+                        );
+                    },
+                }}
+            />
+
+            <div style={{ marginTop: 20, color: '#666' }}>
+                <p>使用说明:</p>
+                <ul>
+                    <li>1. 点击上方按钮插入示例查询</li>
+                    <li>2. 在插槽位置选择具体的值</li>
+                    <li>3. 或者手动输入 `${"{placeholder:目标企业}"}` 格式的插槽</li>
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+
+```
