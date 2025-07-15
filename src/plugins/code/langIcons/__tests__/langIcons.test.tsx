@@ -43,7 +43,7 @@ describe('Language Icons', () => {
     ];
 
     popularLanguages.forEach(
-      ({ name, component: IconComponent, expectedColor, expectedFill }) => {
+      ({ name, component: IconComponent, expectedColor }) => {
         it(`应该渲染 ${name} 图标`, () => {
           const { container } = render(
             <IconComponent data-testid={`${name.toLowerCase()}-icon`} />,
