@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import dayjs from 'dayjs';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { formatTime } from '../src/utils/formatTime';
 
 describe('formatTime', () => {
@@ -29,7 +29,11 @@ describe('formatTime', () => {
 
     it('同一天内应该只显示时分秒', () => {
       // 设置当前时间为 2024-07-14 15:30:00
-      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function(this: any, time: any, unit: any) {
+      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function (
+        this: any,
+        time: any,
+        unit: any,
+      ) {
         if (unit === 'day') {
           return dayjs(this._d || this).format('YYYY-MM-DD') === '2024-07-14';
         }
@@ -45,7 +49,11 @@ describe('formatTime', () => {
     });
 
     it('同一年内不同天应该显示月-日 时:分:秒', () => {
-      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function(this: any, time: any, unit: any) {
+      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function (
+        this: any,
+        time: any,
+        unit: any,
+      ) {
         if (unit === 'day') {
           return false; // 不是同一天
         }
@@ -61,7 +69,11 @@ describe('formatTime', () => {
     });
 
     it('不同年份应该显示完整的年-月-日 时:分:秒', () => {
-      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function(this: any, time: any, unit: any) {
+      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function (
+        this: any,
+        time: any,
+        unit: any,
+      ) {
         if (unit === 'day') {
           return false; // 不是同一天
         }
@@ -77,12 +89,21 @@ describe('formatTime', () => {
     });
 
     it('应该正确处理0时刻的时间', () => {
-      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function(this: any, time: any, unit: any) {
+      vi.spyOn(dayjs.prototype, 'isSame').mockImplementation(function (
+        this: any,
+        time: any,
+        unit: any,
+      ) {
         if (unit === 'day') {
-          return dayjs(this._d || this).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD');
+          return (
+            dayjs(this._d || this).format('YYYY-MM-DD') ===
+            dayjs().format('YYYY-MM-DD')
+          );
         }
         if (unit === 'year') {
-          return dayjs(this._d || this).format('YYYY') === dayjs().format('YYYY');
+          return (
+            dayjs(this._d || this).format('YYYY') === dayjs().format('YYYY')
+          );
         }
         return false;
       });
@@ -122,8 +143,17 @@ describe('formatTime', () => {
     it('应该正确处理未来时间', () => {
       const futureTime = dayjs().add(2, 'hour').valueOf();
       const result = formatTime(futureTime);
-      // 未来时间（同一天）应该只显示时分秒
-      expect(result).toMatch(/^\d{2}:\d{2}:\d{2}$/);
+      // 未来时间，根据是否同一天来判断格式
+      // 如果是同一天，显示时分秒；如果是第二天，显示月-日格式
+      const now = dayjs();
+      const future = dayjs(futureTime);
+      if (future.isSame(now, 'day')) {
+        expect(result).toMatch(/^\d{2}:\d{2}:\d{2}$/);
+      } else if (future.isSame(now, 'year')) {
+        expect(result).toMatch(/^\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/);
+      } else {
+        expect(result).toMatch(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/);
+      }
     });
   });
 
@@ -136,7 +166,9 @@ describe('formatTime', () => {
       const timestamp = 1689336600000; // 2023-07-14 15:30:00 UTC
       const result = formatTime(timestamp);
       // 结果应该是有效的时间格式
-      expect(result).toMatch(/^\d{2}:\d{2}:\d{2}$|^\d{2}-\d{2} \d{2}:\d{2}:\d{2}$|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/);
+      expect(result).toMatch(
+        /^\d{2}:\d{2}:\d{2}$|^\d{2}-\d{2} \d{2}:\d{2}:\d{2}$|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/,
+      );
     });
 
     it('应该正确处理0时间戳', () => {
