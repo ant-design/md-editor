@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { generateHtmlDocument, exportHtml } from '../exportHtml';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { exportHtml, generateHtmlDocument } from '../exportHtml';
 
 describe('exportHtml utils', () => {
   // Mock DOM methods for testing
@@ -102,7 +102,9 @@ describe('exportHtml utils', () => {
       const result = generateHtmlDocument(content);
 
       expect(result).toContain('<meta charset="UTF-8">');
-      expect(result).toContain('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+      expect(result).toContain(
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+      );
     });
 
     it('应该处理空内容', () => {
@@ -139,14 +141,14 @@ describe('exportHtml utils', () => {
       // 验证 Blob 创建
       expect(global.Blob).toHaveBeenCalledWith(
         [expect.stringContaining(htmlContent)],
-        { type: 'text/html;charset=utf-8' }
+        { type: 'text/html;charset=utf-8' },
       );
 
       // 验证 URL 创建
       expect(mockCreateObjectURL).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'text/html;charset=utf-8',
-        })
+        }),
       );
 
       // 验证 DOM 操作
@@ -219,7 +221,7 @@ describe('exportHtml utils', () => {
           resolve();
         }, 150);
       });
-      
+
       expect(mockRemoveChild).toHaveBeenCalledWith(mockElement);
       expect(mockRevokeObjectURL).toHaveBeenCalledWith('blob:mock-url');
     });
@@ -231,11 +233,11 @@ describe('exportHtml utils', () => {
       });
 
       const htmlContent = '<h1>Test</h1>';
-      
+
       expect(() => exportHtml(htmlContent)).not.toThrow();
       expect(console.error).toHaveBeenCalledWith(
         'Error exporting HTML:',
-        expect.any(Error)
+        expect.any(Error),
       );
     });
 
@@ -244,11 +246,11 @@ describe('exportHtml utils', () => {
       (global.document.createElement as any).mockReturnValue(null);
 
       const htmlContent = '<h1>Test</h1>';
-      
+
       expect(() => exportHtml(htmlContent)).not.toThrow();
       expect(console.error).toHaveBeenCalledWith(
         'Error exporting HTML:',
-        expect.any(Error)
+        expect.any(Error),
       );
     });
 
@@ -264,7 +266,7 @@ describe('exportHtml utils', () => {
 
       expect(global.Blob).toHaveBeenCalledWith(
         [expect.stringContaining('<!DOCTYPE html>')],
-        { type: 'text/html;charset=utf-8' }
+        { type: 'text/html;charset=utf-8' },
       );
     });
 
@@ -297,7 +299,7 @@ describe('exportHtml utils', () => {
 
       expect(global.Blob).toHaveBeenCalledWith(
         [expect.stringContaining(complexHtml)],
-        { type: 'text/html;charset=utf-8' }
+        { type: 'text/html;charset=utf-8' },
       );
       expect(mockElement.download).toBe('complex.html');
     });
@@ -316,17 +318,20 @@ describe('exportHtml utils', () => {
       };
       (global.document.createElement as any).mockReturnValue(mockElement);
 
-      exportHtml(generateHtmlDocument(content, title, styles), 'integration-test.html');
+      exportHtml(
+        generateHtmlDocument(content, title, styles),
+        'integration-test.html',
+      );
 
       // 验证生成的HTML包含所有预期元素
       const generatedHtml = (global.Blob as any).mock.calls[0][0][0];
-      
+
       expect(generatedHtml).toContain('<!DOCTYPE html>');
       expect(generatedHtml).toContain(`<title>${title}</title>`);
       expect(generatedHtml).toContain(content);
       expect(generatedHtml).toContain(styles);
       expect(generatedHtml).toContain('font-family: -apple-system');
-      
+
       // 验证下载参数
       expect(mockElement.download).toBe('integration-test.html');
     });
@@ -345,7 +350,7 @@ describe('exportHtml utils', () => {
       exportHtml(generateHtmlDocument(content, title), 'special-chars.html');
 
       const generatedHtml = (global.Blob as any).mock.calls[0][0][0];
-      
+
       expect(generatedHtml).toContain(`<title>${title}</title>`);
       expect(generatedHtml).toContain(content);
     });
