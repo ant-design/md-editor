@@ -307,6 +307,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = (
 ) => {
   const {
     markdownEditorRef,
+    markdownContainerRef,
     openInsertCompletion,
     setOpenInsertCompletion,
     keyTask$,
@@ -659,14 +660,14 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = (
 
     const setupEventListeners = () => {
       if (typeof window === 'undefined') return;
-      window.addEventListener('keydown', keydown);
-      window.addEventListener('click', clickClose);
+      markdownContainerRef?.current?.addEventListener('keydown', keydown);
+      markdownContainerRef?.current?.addEventListener('click', clickClose);
     };
 
     const removeEventListeners = () => {
       if (typeof window === 'undefined') return;
-      window.removeEventListener('keydown', keydown);
-      window.removeEventListener('click', clickClose);
+      markdownContainerRef?.current?.removeEventListener('keydown', keydown);
+      markdownContainerRef?.current?.removeEventListener('click', clickClose);
     };
 
     if (openInsertCompletion) {

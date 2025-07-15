@@ -818,6 +818,7 @@ export const useSystemKeyboard = (
   }>,
   store: EditorStore,
   props: MarkdownEditorProps,
+  markdownContainerRef?: React.RefObject<HTMLDivElement>,
 ) => {
   const task = useMemo(() => {
     return new KeyboardTask(store, props);
@@ -912,9 +913,9 @@ export const useSystemKeyboard = (
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    window.addEventListener('keydown', keydown);
+    markdownContainerRef?.current?.addEventListener('keydown', keydown);
     return () => {
-      window.removeEventListener('keydown', keydown);
+      markdownContainerRef?.current?.removeEventListener('keydown', keydown);
     };
   }, []);
 };

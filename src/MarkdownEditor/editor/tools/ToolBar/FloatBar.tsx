@@ -82,9 +82,9 @@ export const FloatBar = (props: { readonly: boolean }) => {
         }
       }
     };
-    window.addEventListener('keydown', close);
+    markdownContainerRef?.current?.addEventListener('keydown', close);
     return () => {
-      window.removeEventListener('keydown', close);
+      markdownContainerRef?.current?.removeEventListener('keydown', close);
     };
   }, [state.open]);
 

@@ -72,6 +72,7 @@ Object.defineProperty(globalThis, 'IntersectionObserver', {
   })),
 });
 
+
 if (typeof globalThis !== 'undefined') {
   // ref: https://github.com/ant-design/ant-design/issues/18774
   if (!globalThis.matchMedia) {

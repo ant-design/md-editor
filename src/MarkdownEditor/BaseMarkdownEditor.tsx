@@ -553,7 +553,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   }, []);
 
   // 初始化键盘事件
-  useSystemKeyboard(keyTask$, instance.store, props);
+  useSystemKeyboard(keyTask$, instance.store, props,markdownContainerRef);
 
   // 导入外部 hooks
   useImperativeHandle(editorRef, () => {
