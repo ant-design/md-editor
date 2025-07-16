@@ -162,7 +162,13 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               />
             ))}
           </colgroup>
-          <tbody data-slate-node="element">{children}</tbody>
+          <tbody
+            style={{
+              userSelect: 'none',
+            }}
+          >
+            {children}
+          </tbody>
         </table>
       ),
       [colWidths, children, hashId, baseCls],
