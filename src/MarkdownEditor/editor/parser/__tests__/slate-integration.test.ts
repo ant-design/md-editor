@@ -83,7 +83,7 @@ describe('Slate Integration Tests', () => {
 
     // 检查加粗文本
     const boldTexts = paragraph.children.filter((child: any) => child.bold);
-    
+
     expect(boldTexts.length).toBe(2);
     expect(boldTexts[0]?.text).toBe('$9.698M');
     expect(boldTexts[1]?.text).toBe('$2.5M');
