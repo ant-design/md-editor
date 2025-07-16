@@ -1090,28 +1090,6 @@ Font Awesome图标：:fa-solid fa-rocket:
                 <span
                   data-slate-string="true"
                 >
-                  行内公式：$E = mc^2$
-                </span>
-              </span>
-            </span>
-          </div>
-          <div
-            class="ant-md-editor-drag-el"
-            data-be="paragraph"
-            data-slate-node="element"
-          >
-            <span
-              data-slate-node="text"
-            >
-              <span
-                class=" "
-                data-be="text"
-                data-slate-leaf="true"
-                draggable="false"
-              >
-                <span
-                  data-slate-string="true"
-                >
                   块级公式：
                 </span>
               </span>
