@@ -235,6 +235,7 @@ export const BaseToolBar = React.memo<{
           onToolClick: handleToolClick,
           isFormatActive,
           isInTable: true, // 传递表格内标志
+          hideTools: props.hideTools,
         }),
       );
 
@@ -298,6 +299,7 @@ export const BaseToolBar = React.memo<{
         isCodeNode: isCodeNode(),
         onToolClick: handleToolClick,
         isFormatActive,
+        hideTools: props.hideTools,
       }),
     );
 
@@ -369,6 +371,7 @@ export const BaseToolBar = React.memo<{
             onToolClick: handleToolClick,
             isFormatActive,
             isInTable: true,
+            hideTools: props.hideTools,
           })}
         </>
       );
@@ -440,6 +443,7 @@ export const BaseToolBar = React.memo<{
           isCodeNode: isCodeNode(),
           onToolClick: handleToolClick,
           isFormatActive,
+          hideTools: props.hideTools,
         })}
       </>
     );

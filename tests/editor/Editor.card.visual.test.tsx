@@ -1,38 +1,14 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import { BaseEditor, createEditor } from 'slate';
-import { HistoryEditor, withHistory } from 'slate-history';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { BaseMarkdownEditor } from '../../src/MarkdownEditor/BaseMarkdownEditor';
-import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
-import {
-  ReactEditor,
-  withReact,
-} from '../../src/MarkdownEditor/editor/slate-react';
-import { EditorUtils } from '../../src/MarkdownEditor/editor/utils/editorUtils';
 
 describe('Card Visual Effects Tests', () => {
-  let editor: BaseEditor & ReactEditor & HistoryEditor;
-
-  const createTestEditor = () => {
-    const baseEditor = withMarkdown(withHistory(withReact(createEditor())));
-    baseEditor.children = [{ type: 'paragraph', children: [{ text: '' }] }];
-    return baseEditor;
-  };
-
-  const createCardContent = () => {
-    return EditorUtils.createMediaNode('test.jpg', 'image');
-  };
-
   // 创建包含图片卡片的 Markdown 字符串
   const createCardMarkdown = () => {
     return '![](test.jpg)';
   };
-
-  beforeEach(() => {
-    editor = createTestEditor();
-  });
 
   describe('Card Selection Visual Indicators', () => {
     it('should be clickable and interactive', async () => {
@@ -90,8 +66,8 @@ describe('Card Visual Effects Tests', () => {
 
       // 验证基本样式（注意 React 会将数字转换为字符串并添加 px）
       expect(cardElement.style.position).toBe('relative');
-      expect(cardElement.style.padding).toBe('8px');
-      expect(cardElement.style.borderRadius).toBe('6px');
+      expect(cardElement.style.padding).toBe('12px 2px');
+      expect(cardElement.style.borderRadius).toBe('8px');
       // width 可能被其他样式覆盖，只验证基本的样式存在
       expect(cardElement.style.cursor).toBe('pointer');
       expect(cardElement.style.transition).toContain('ease-in-out');

@@ -19,6 +19,7 @@ interface FormattingToolsProps {
   onToolClick: (tool: any) => void;
   isFormatActive: (type: string) => boolean;
   isInTable?: boolean; // 新增：是否在表格内
+  hideTools?: string[]; // 新增：隐藏的工具列表
 }
 
 export const FormattingTools = React.memo<FormattingToolsProps>(
@@ -32,14 +33,20 @@ export const FormattingTools = React.memo<FormattingToolsProps>(
     onToolClick,
     isFormatActive,
     isInTable = false,
+    hideTools = [],
   }) => {
     // 在表格内时，只允许这些基本格式化工具：加粗、斜体、删除线、行内代码
     const allowedInTable = ['bold', 'italic', 'strikethrough', 'inline-code'];
 
     // 根据是否在表格内过滤工具，表格内不支持对齐等复杂格式
-    const filteredTools = isInTable
+    let filteredTools = isInTable
       ? tools.filter((tool) => allowedInTable.includes(tool.key))
       : tools;
+
+    // 过滤掉隐藏的工具
+    filteredTools = filteredTools.filter(
+      (tool) => !hideTools.includes(tool.key),
+    );
 
     return (
       <>

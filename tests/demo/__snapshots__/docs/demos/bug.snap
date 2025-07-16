@@ -3056,7 +3056,6 @@
               data-be="table"
               data-slate-node="element"
               draggable="false"
-              tabindex="0"
             >
               <div
                 aria-describedby="test-id"
@@ -3069,16 +3068,16 @@
                 >
                   <colgroup>
                     <col
-                      style="width: 84px; min-width: 84px; max-width: 84px;"
+                      style="width: 120px; min-width: 120px; max-width: 120px;"
                     />
                     <col
-                      style="width: 60px; min-width: 60px; max-width: 60px;"
+                      style="width: 120px; min-width: 120px; max-width: 120px;"
                     />
                     <col
-                      style="width: 60px; min-width: 60px; max-width: 60px;"
+                      style="width: 120px; min-width: 120px; max-width: 120px;"
                     />
                     <col
-                      style="width: 60px; min-width: 60px; max-width: 60px;"
+                      style="width: 120px; min-width: 120px; max-width: 120px;"
                     />
                   </colgroup>
                   <tbody
@@ -3088,9 +3087,8 @@
                       data-slate-node="element"
                     >
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3116,9 +3114,8 @@
                         </div>
                       </td>
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3144,9 +3141,8 @@
                         </div>
                       </td>
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3172,9 +3168,8 @@
                         </div>
                       </td>
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3204,9 +3199,8 @@
                       data-slate-node="element"
                     >
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3232,9 +3226,8 @@
                         </div>
                       </td>
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3260,9 +3253,8 @@
                         </div>
                       </td>
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"
@@ -3288,9 +3280,8 @@
                         </div>
                       </td>
                       <td
-                        data-be="td"
                         data-slate-node="element"
-                        style="overflow: auto; text-wrap: wrap; transition: text-align 0.2s ease-in-out;"
+                        style="background-color: transparent; word-wrap: break-word; word-break: break-all; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; text-align: left; width: auto; padding: 8px; vertical-align: middle;"
                       >
                         <div
                           class="ant-md-editor-drag-el"

@@ -245,18 +245,22 @@ describe('SlateMarkdownEditor', () => {
   it('should not apply eleItemRender to table cells and rows', () => {
     const initValue: Elements[] = [
       {
-        type: 'table-row',
+        type: 'table',
         children: [
           {
-            type: 'table-cell',
-            children: [{ text: 'Cell content' }],
+            type: 'table-row',
+            children: [
+              {
+                type: 'table-cell',
+                children: [{ text: 'Cell content' }],
+              },
+            ],
           },
         ],
       },
     ];
 
     renderEditor({ initValue, eleItemRender: customEleItemRender });
-
     expect(screen.getByText('Cell content')).toBeDefined();
     expect(screen.queryByTestId('custom-block-wrapper')).toBeNull();
   });
