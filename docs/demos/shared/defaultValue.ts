@@ -55,7 +55,7 @@ Font Awesome图标：:fa-solid fa-rocket:
 
 ### 2.2 数学公式支持
 
-行内公式：$E = mc^2$
+行内公式：$$E = mc^2$$
 
 块级公式：
 $$
