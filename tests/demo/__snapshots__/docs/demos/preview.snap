@@ -418,7 +418,7 @@ Font Awesome图标：:fa-solid fa-rocket:
                     />
                   </colgroup>
                   <tbody
-                    data-slate-node="element"
+                    style="user-select: none;"
                   >
                     <tr
                       data-slate-node="element"
@@ -2412,7 +2412,7 @@ deadline: 2023-12-31
                     />
                   </colgroup>
                   <tbody
-                    data-slate-node="element"
+                    style="user-select: none;"
                   >
                     <tr
                       data-slate-node="element"

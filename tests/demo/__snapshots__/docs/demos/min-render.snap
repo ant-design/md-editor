@@ -264,7 +264,7 @@
                         />
                       </colgroup>
                       <tbody
-                        data-slate-node="element"
+                        style="user-select: none;"
                       >
                         <tr
                           data-slate-node="element"
@@ -10677,7 +10677,7 @@
                         />
                       </colgroup>
                       <tbody
-                        data-slate-node="element"
+                        style="user-select: none;"
                       >
                         <tr
                           data-slate-node="element"

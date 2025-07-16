@@ -769,7 +769,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             />
           </colgroup>
           <tbody
-            data-slate-node="element"
+            style="user-select: none;"
           >
             <tr
               data-slate-node="element"
