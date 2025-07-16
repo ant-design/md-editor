@@ -19,7 +19,7 @@ export function* matrices(
   const [, tablePath] = table;
 
   for (const [, path] of Editor.nodes(editor, {
-    match: isOfType(editor, 'thead', 'tfoot'),
+    match: isOfType(editor, 'thead', 'table', 'tfoot'),
     at: tablePath,
   })) {
     const matrix: NodeEntry<CellElement>[][] = [];
