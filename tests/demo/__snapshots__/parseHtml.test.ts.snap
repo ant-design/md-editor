@@ -16,7 +16,7 @@ exports[`word parse > docxDeserializer 1`] = `
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -128,7 +128,7 @@ exports[`word parse > docxDeserializer 1`] = `
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -480,7 +480,7 @@ investing in energy infrastructure loans.",
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -692,7 +692,7 @@ across 16 offices on three continents.
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -917,7 +917,7 @@ STWD: Driven by the",
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1010,7 +1010,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1093,7 +1093,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1146,7 +1146,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1191,7 +1191,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1232,7 +1232,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1285,7 +1285,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1326,7 +1326,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1379,7 +1379,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1441,7 +1441,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",
@@ -1490,7 +1490,7 @@ Barry Stuart Sternlicht (born November 27, 1960) is an American billionaireand t
           },
           {
             "alt": "",
-            "block": null,
+            "block": false,
             "children": [
               {
                 "text": "",

@@ -6,7 +6,6 @@ import { html, rtl } from './word';
 describe('word parse', () => {
   it('docxDeserializer', () => {
     const fragment = docxDeserializer(rtl, html);
-
     expect(fragment).toMatchSnapshot();
   });
 });

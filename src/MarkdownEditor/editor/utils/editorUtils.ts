@@ -762,7 +762,7 @@ export class EditorUtils {
         },
         {
           ...(extraPros || {}),
-          block: urlParams.get('block'),
+          block: urlParams.get('block') || false,
           type: 'image',
           url: src,
           mediaType: 'image',
