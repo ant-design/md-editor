@@ -28,6 +28,7 @@ import { Media } from './media';
 import { Paragraph } from './paragraph';
 import { Schema } from './schema';
 import { tableRenderElement } from './Table';
+import { InlineKatex } from '../../../plugins/katex/InlineKatex';
 import { TagPopup } from './TagPopup';
 
 /**
