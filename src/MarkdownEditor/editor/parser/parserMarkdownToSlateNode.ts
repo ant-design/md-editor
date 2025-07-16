@@ -165,7 +165,7 @@ const getColumnAlignment = (
 const stringifyObj = remark()
   .use(remarkParse)
   .use(remarkMath as any, {
-    singleDollarTextMath: true, // 启用单美元符号数学公式
+    singleDollarTextMath: false, // 暂时禁用单美元符号，只使用双美元符号 $$...$$
   })
   .use(remarkRehype as any, { allowDangerousHtml: true })
   .use(rehypeRaw)

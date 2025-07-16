@@ -64,7 +64,7 @@ describe('Slate Integration Tests', () => {
     expect(normalTexts.length).toBeGreaterThan(0);
   });
 
-  it('should handle multiple **$amount** in one line', () => {
+  it('should handle multiple bold text with dollar amounts in one line', () => {
     const markdown = 'Revenue **$9.698M** and profit **$2.5M**.';
 
     const result = parserMarkdownToSlateNode(markdown);
@@ -83,9 +83,10 @@ describe('Slate Integration Tests', () => {
 
     // 检查加粗文本
     const boldTexts = paragraph.children.filter((child: any) => child.bold);
+    
     expect(boldTexts.length).toBe(2);
-    expect(boldTexts[0].text).toBe('$9.698M');
-    expect(boldTexts[1].text).toBe('$2.5M');
+    expect(boldTexts[0]?.text).toBe('$9.698M');
+    expect(boldTexts[1]?.text).toBe('$2.5M');
   });
 
   it('should ensure all nodes have proper children arrays', () => {

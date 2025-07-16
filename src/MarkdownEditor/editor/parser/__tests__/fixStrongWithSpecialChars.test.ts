@@ -54,7 +54,7 @@ describe('fixStrongWithSpecialChars', () => {
     expect(paragraph.children[2].value).toBe(' this quarter.');
   });
 
-  it('should handle multiple **$amount** in one line', () => {
+  it('should handle multiple bold text with dollar amounts in one line', () => {
     const parser = createParser();
     const markdown = 'Revenue **$9.698M** and profit **$2.5M**.';
 
