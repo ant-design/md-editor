@@ -755,6 +755,7 @@ export class EditorUtils {
   ): CardNode {
     return {
       type: 'card',
+      block: urlParams.get('block') || false,
       children: [
         {
           type: 'card-before',
