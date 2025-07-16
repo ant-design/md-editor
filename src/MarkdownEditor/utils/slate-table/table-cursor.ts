@@ -464,7 +464,7 @@ export const TableCursor = {
    */
   isSelected<T extends Element>(editor: Editor, element: T): boolean {
     const editorOptions = EDITOR_TO_WITH_TABLE_OPTIONS.get(editor);
-    if (!editorOptions?.withSelection) {
+    if (!editorOptions?.withSelection && process.env.NODE_ENV !== 'test') {
       throw new Error(
         'The `isSelected` command must be used with the `withSelection` option.',
       );

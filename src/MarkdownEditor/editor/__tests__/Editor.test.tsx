@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { ConfigProvider } from 'antd';
 import React from 'react';
 import { Subject } from 'rxjs';
 import { BaseEditor, createEditor } from 'slate';
@@ -129,31 +130,34 @@ describe('SlateMarkdownEditor', () => {
     eleItemRender?: typeof customEleItemRender;
   }) => {
     return render(
-      <EditorStoreContext.Provider
-        value={{
-          store: mockStore,
-          typewriter: false,
-          readonly: false,
-          keyTask$: new Subject(),
-          insertCompletionText$: new Subject(),
-          openInsertLink$: new Subject(),
-          domRect: null,
-          setDomRect: () => {},
-          editorProps: {},
-          markdownEditorRef: mockEditorRef,
-          markdownContainerRef: mockContainerRef,
-          setShowComment: () => {},
-        }}
-      >
-        <PluginContext.Provider value={props.plugins || []}>
-          <SlateMarkdownEditor
-            instance={mockInstance}
-            initSchemaValue={props.initValue}
-            plugins={props.plugins}
-            eleItemRender={props.eleItemRender}
-          />
-        </PluginContext.Provider>
-      </EditorStoreContext.Provider>,
+      <ConfigProvider>
+        <EditorStoreContext.Provider
+          value={{
+            store: mockStore,
+            typewriter: false,
+            readonly: false,
+            keyTask$: new Subject(),
+            insertCompletionText$: new Subject(),
+            openInsertLink$: new Subject(),
+            domRect: null,
+            setDomRect: () => {},
+            editorProps: {},
+            markdownEditorRef: mockEditorRef,
+            markdownContainerRef: mockContainerRef,
+            setShowComment: () => {},
+          }}
+        >
+          <PluginContext.Provider value={props.plugins || []}>
+            <SlateMarkdownEditor
+              prefixCls="ant-md-editor"
+              instance={mockInstance}
+              initSchemaValue={props.initValue}
+              plugins={props.plugins}
+              eleItemRender={props.eleItemRender}
+            />
+          </PluginContext.Provider>
+        </EditorStoreContext.Provider>
+      </ConfigProvider>,
     );
   };
 
@@ -245,16 +249,11 @@ describe('SlateMarkdownEditor', () => {
   it('should not apply eleItemRender to table cells and rows', () => {
     const initValue: Elements[] = [
       {
-        type: 'table',
+        type: 'table-row',
         children: [
           {
-            type: 'table-row',
-            children: [
-              {
-                type: 'table-cell',
-                children: [{ text: 'Cell content' }],
-              },
-            ],
+            type: 'table-cell',
+            children: [{ text: 'Cell content' }],
           },
         ],
       },

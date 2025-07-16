@@ -100,6 +100,7 @@ export const Td: React.FC<
   if (element.type !== 'table-cell') {
     throw new Error('Element "Td" must be of type "table-cell"');
   }
+
   const align = element?.align;
   const width = element?.width;
   useSlateSelection();
@@ -109,6 +110,7 @@ export const Td: React.FC<
   if (element.hidden) {
     return <td style={{ display: 'none' }}></td>;
   }
+
   return (
     <td
       style={{
