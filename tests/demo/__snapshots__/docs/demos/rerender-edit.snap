@@ -119,7 +119,7 @@
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -202,7 +202,7 @@ x^2^ 上标
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -285,7 +285,7 @@ x^2^ 上标
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -1275,7 +1275,7 @@ end{bmatrix}
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -1383,7 +1383,7 @@ function Counter() {
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -1457,7 +1457,7 @@ maxLevel: 3
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -1508,7 +1508,7 @@ maxLevel: 3
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -1569,7 +1569,7 @@ extensions:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -2085,7 +2085,7 @@ extensions:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -2162,7 +2162,7 @@ camera:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -2259,7 +2259,7 @@ title: 功能说明
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -2336,7 +2336,7 @@ function calculate(a, b) {
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -2976,7 +2976,7 @@ deadline: 2023-12-31
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -4094,7 +4094,7 @@ response:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -4170,7 +4170,7 @@ response:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -4267,7 +4267,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -4348,7 +4348,7 @@ apiKey: sk_live_•••••••••••••••••••••�
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -4449,7 +4449,7 @@ dark:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"
@@ -4526,7 +4526,7 @@ dark:
                   >
                     <div
                       contenteditable="false"
-                      style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                      style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                     />
                     <div
                       style="height: 200px; line-height: 22px;"

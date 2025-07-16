@@ -391,7 +391,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                       />
                       <div
                         style="height: 200px; line-height: 22px;"
@@ -445,7 +445,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                       />
                       <div
                         style="height: 200px; line-height: 22px;"
@@ -574,7 +574,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                       />
                       <div
                         style="height: 200px; line-height: 22px;"
@@ -674,7 +674,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                       />
                       <div
                         style="height: 200px; line-height: 22px;"
@@ -728,7 +728,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                       />
                       <div
                         style="height: 200px; line-height: 22px;"
@@ -857,7 +857,7 @@
                     >
                       <div
                         contenteditable="false"
-                        style="height: 1px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box;"
+                        style="height: 0px; width: 100%; position: sticky; left: 0px; top: 0px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.375em; z-index: 50; box-sizing: border-box; transition: all 0.2s ease-in-out;"
                       />
                       <div
                         style="height: 200px; line-height: 22px;"

@@ -113,7 +113,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       <div
         contentEditable={false}
         style={{
-          height: '1px',
+          height: '0px',
           width: '100%',
           position: 'sticky',
           left: 0,
@@ -124,6 +124,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
           paddingRight: '0.375em',
           zIndex: 50,
           boxSizing: 'border-box',
+          transition: 'all 0.2s ease-in-out',
         }}
       >
         {/* 选中状态下显示下拉按钮 */}
@@ -161,8 +162,8 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
       style={{
         height: '1.75em',
         backgroundColor: '#FFF',
-        paddingLeft: '0.75em',
-        paddingRight: '0.375em',
+        paddingLeft: '0.25em',
+        paddingRight: '0.25em',
         display: 'flex',
         alignItems: 'center',
         width: '100%',
@@ -175,7 +176,7 @@ export const CodeToolbar = (props: CodeToolbarProps) => {
         zIndex: 50,
         boxSizing: 'border-box',
         userSelect: 'none',
-        transition: 'border-color 0.2s ease-in-out',
+        transition: 'all 0.2s ease-in-out',
       }}
     >
       {/* 左侧：语言选择器或语言显示 */}
