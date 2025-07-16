@@ -1,10 +1,10 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { TableNode } from '../../../el';
+import { TableNode } from '.';
 import { RenderElementProps } from '../../slate-react';
-import { ReadonlyTable } from './ReadonlyTable';
 import { useTableStyle } from './style';
+import { ReadonlyTable } from './Table';
 import { TablePropsContext } from './TableContext';
 
 /**
@@ -17,17 +17,17 @@ export const SimpleTable = (props: RenderElementProps<TableNode>) => {
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
   return wrapSSR(
-    <TablePropsContext.Provider value={{}}>
+    <TablePropsContext.Provider
+      value={{
+        tablePath: props.element?.path,
+        tableNode: props.element as TableNode,
+      }}
+    >
       <div
         {...props.attributes}
         data-be={'table'}
         draggable={false}
         className={classNames(`${baseCls}-container`, hashId)}
-        tabIndex={0}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-        }}
       >
         <ReadonlyTable {...props} hashId={hashId}>
           {props.children}

@@ -8,7 +8,8 @@ import {
   Range,
   Transforms,
 } from 'slate';
-import { Elements, ListNode, TableRowNode } from '../../el';
+import { Elements, ListNode } from '../../el';
+import { TrNode } from '../elements/Table';
 import { decodeURIComponentUrl } from '../parser/parserMarkdownToSlateNode';
 import { EditorUtils } from '../utils/editorUtils';
 
@@ -97,7 +98,7 @@ export const MdElements: Record<string, MdNode> = {
                 children: [{ text: '' }],
               })),
             },
-          ] as TableRowNode[],
+          ] as TrNode[],
         }),
 
         { at: path },

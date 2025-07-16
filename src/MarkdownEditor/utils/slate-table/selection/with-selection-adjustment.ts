@@ -1,6 +1,6 @@
-import { Editor, Operation, Range } from 'slate';
-import { WithTableOptions } from '../options';
-import { hasCommon, isOfType } from '../utils';
+import { Editor, Operation, Range } from "slate";
+import { WithTableOptions } from "../options";
+import { hasCommon, isOfType } from "../utils";
 
 /**
  * Enhances the editor's selection behaviour when the selection
@@ -12,7 +12,7 @@ import { hasCommon, isOfType } from '../utils';
  */
 export function withSelectionAdjustment<T extends Editor>(
   editor: T,
-  { withSelectionAdjustment }: WithTableOptions,
+  { withSelectionAdjustment }: WithTableOptions
 ): T {
   if (!withSelectionAdjustment) {
     return editor;
@@ -33,18 +33,18 @@ export function withSelectionAdjustment<T extends Editor>(
     if (
       !Range.isRange(selection) ||
       Range.isCollapsed(selection) ||
-      hasCommon(editor, [selection.anchor.path, selection.focus.path], 'table')
+      hasCommon(editor, [selection.anchor.path, selection.focus.path], "table")
     ) {
       return apply(op);
     }
 
     const [anchor] = Editor.nodes(editor, {
-      match: isOfType(editor, 'table'),
+      match: isOfType(editor, "table"),
       at: selection.anchor,
     });
 
     const [focus] = Editor.nodes(editor, {
-      match: isOfType(editor, 'table'),
+      match: isOfType(editor, "table"),
       at: selection.focus,
     });
 

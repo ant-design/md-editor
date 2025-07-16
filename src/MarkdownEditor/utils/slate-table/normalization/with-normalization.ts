@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Editor } from 'slate';
 import { WithTableOptions } from '../options';
 import { normalizeAttributes } from './normalize-attributes';
@@ -18,7 +19,7 @@ export function withNormalization<T extends Editor>(
   editor = normalizeAttributes(editor, options);
   editor = normalizeContent(editor, options);
   editor = normalizeSections(editor, options);
-  editor = normalizeTable(editor, options);
+  editor = normalizeTable(editor);
   editor = normalizeTd(editor, options);
   editor = normalizeTr(editor, options);
 

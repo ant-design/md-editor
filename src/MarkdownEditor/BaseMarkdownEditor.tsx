@@ -29,9 +29,9 @@ import {
 } from './editor/tools/InsertAutocomplete';
 import { InsertLink } from './editor/tools/InsertLink';
 import { TocHeading } from './editor/tools/Leading';
-import { ToolBar } from './editor/tools/ToolBar';
 import { ToolsKeyType } from './editor/tools/ToolBar/BaseBar';
 import { FloatBar } from './editor/tools/ToolBar/FloatBar';
+import ToolBar from './editor/tools/ToolBar/ToolBar';
 import { EditorUtils } from './editor/utils/editorUtils';
 import {
   KeyboardTask,
@@ -43,6 +43,7 @@ import './index.css';
 import { MarkdownEditorPlugin, PluginContext } from './plugin';
 import { useStyle } from './style';
 import { exportHtml } from './utils/exportHtml';
+import { withTable } from './utils/slate-table/with-table';
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
@@ -442,7 +443,25 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // markdown 编辑器实例
   const markdownEditorRef = useRef(
     composeEditors(
-      withMarkdown(withReact(withHistory(createEditor()))),
+      withMarkdown(
+        withTable(withReact(withHistory(createEditor())), {
+          blocks: {
+            table: 'table',
+            thead: 'table-head',
+            tfoot: 'table-footer',
+            tr: 'table-row',
+            th: 'header-cell',
+            td: 'table-cell',
+            content: 'paragraph',
+          },
+          withDelete: true,
+          withFragments: true,
+          withInsertText: true,
+          withNormalization: true,
+          withSelection: true,
+          withSelectionAdjustment: true,
+        }),
+      ),
       props.plugins || [],
     ),
   );

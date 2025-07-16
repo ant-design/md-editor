@@ -10,10 +10,10 @@ export type WithType<T extends Element> = T & Record<'type', unknown>;
 export type NodeEntryWithContext = [
   NodeEntry<CellElement>,
   {
-    rtl: number; // right-to-left (colspan)
-    ltr: number; // left-to-right (colspan)
-    ttb: number; // top-to-bottom (rowspan)
-    btt: number; // bottom-to-top (rowspan)
+    rtl: number; // right-to-left (colSpan)
+    ltr: number; // left-to-right (colSpan)
+    ttb: number; // top-to-bottom (rowSpan)
+    btt: number; // bottom-to-top (rowSpan)
   },
 ];
 

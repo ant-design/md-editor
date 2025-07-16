@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableNode } from '../../../el';
+import { TableNode } from './index';
 
 export const TablePropsContext = React.createContext<{
   tablePath?: number[];

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { Editor, Location, Node, NodeEntry, Path, Transforms } from 'slate';
 import { DEFAULT_INSERT_TABLE_OPTIONS, InsertTableOptions } from './options';
 import { TableCursor } from './table-cursor';
@@ -98,6 +99,8 @@ export const TableEditor = {
         editor,
         'table', // current table
         'thead', // current section
+
+        'tfoot',
         'tr', // current row
         'td', // current cell
         'th',
@@ -124,7 +127,7 @@ export const TableEditor = {
 
         // When determining the exit condition, we consider two scenarios:
         // 1. If a row will be added above the current selection, we seek the first match.
-        // 2. Otherwise, if cells have a rowspan, we aim to find the last match.
+        // 2. Otherwise, if cells have a rowSpan, we aim to find the last match.
         if (options.before || btt < 2) {
           break outer;
         }
@@ -206,6 +209,8 @@ export const TableEditor = {
         editor,
         'table', // table
         'thead', // section
+
+        'tfoot',
         'tr', // row
         'td', // cell
         'th',
@@ -250,8 +255,8 @@ export const TableEditor = {
       }
     }
 
-    // Flags whether the tr has a cell with a rowspan attribute (greater than 1).
-    // If true, cells with a rowspan will be moved to the next tr.
+    // Flags whether the tr has a cell with a rowSpan attribute (greater than 1).
+    // If true, cells with a rowSpan will be moved to the next tr.
     let hasRowspan = false;
 
     // cells which span over multiple rows and have to be reduced
@@ -261,12 +266,12 @@ export const TableEditor = {
     for (let i = 0; i < matrix[trIndex].length; i++) {
       const [entry, { ltr: colSpan, ttb, btt }] = matrix[trIndex][i];
 
-      // checks if the cell marks the beginning of a rowspan.
+      // checks if the cell marks the beginning of a rowSpan.
       if (ttb === 1 && btt > 1) {
         hasRowspan = true;
       }
 
-      // check if the cell has a rowspan greater 1, indicating
+      // check if the cell has a rowSpan greater 1, indicating
       // it spans multiple rows.
       if (ttb > 1 || btt > 1) {
         toReduce.push(entry);
@@ -280,9 +285,9 @@ export const TableEditor = {
     for (let i = 0; hasRowspan && i < next?.length; i++) {
       const [entry, { ltr: colSpan, ttb }] = next[i];
 
-      // - If 1, it indicates the start of either a rowspan or a normal cell, and it can be carried over.
-      // - If 2, it signifies the start of a rowspan in the previous cell and should be carried over.
-      // - If greater than 2, the rowspan is above the current row and should not be carried over.
+      // - If 1, it indicates the start of either a rowSpan or a normal cell, and it can be carried over.
+      // - If 2, it signifies the start of a rowSpan in the previous cell and should be carried over.
+      // - If greater than 2, the rowSpan is above the current row and should not be carried over.
       if (ttb > 2) {
         continue;
       }
@@ -301,7 +306,7 @@ export const TableEditor = {
         );
       }
 
-      // If a cell of the tr contains the start of a rowspan
+      // If a cell of the tr contains the start of a rowSpan
       // the cells will be merged with the next row
       if (hasRowspan) {
         const { blocks } = editorOptions;
@@ -405,14 +410,14 @@ export const TableEditor = {
             { at: path },
           );
 
-          // skip increasing the colspan for the same cell if it has a rowspan
+          // skip increasing the colspan for the same cell if it has a rowSpan
           x += btt - 1;
           continue;
         }
 
         // section should always be present in the table
         const [[section]] = Editor.nodes(editor, {
-          match: isOfType(editor, 'thead'),
+          match: isOfType(editor, 'thead', 'tfoot'),
           at: path,
         });
 
@@ -432,7 +437,7 @@ export const TableEditor = {
             { at: path },
           );
 
-        // if the cell has no rowspan, just insert:
+        // if the cell has no rowSpan, just insert:
         if (ttb === 1) {
           insertTd(options.before ? path : Path.next(path));
           continue;
@@ -442,7 +447,7 @@ export const TableEditor = {
         for (let y = tdIndex; y >= 0; y--) {
           const [[, path], { ttb }] = matrix[x][y];
 
-          // skip cells which span through the row because of their rowspan attribute
+          // skip cells which span through the row because of their rowSpan attribute
           if (ttb !== 1) {
             continue;
           }
@@ -518,7 +523,7 @@ export const TableEditor = {
       for (let x = matrix.length - 1; x >= 0; x--) {
         const [[{ colSpan = 1 }, path], { ltr, rtl, ttb }] = matrix[x][tdIndex];
 
-        // skip "fake" cells which belong to a cell with a `rowspan`
+        // skip "fake" cells which belong to a cell with a `rowSpan`
         if (ttb > 1) {
           continue;
         }
@@ -558,7 +563,7 @@ export const TableEditor = {
   /**
    * Checks if the current selection can be merged. Merging is not possible when any of the following conditions are met:
    * - The selection is empty.
-   * - The selection is not within the same "thead", "tbody," or "tfoot" section.
+   * - The selection is not within the same "thead" or "tfoot" section.
    * @returns {boolean} `true` if the selection can be merged, otherwise `false`.
    */
   canMerge(editor: Editor): boolean {
@@ -573,7 +578,7 @@ export const TableEditor = {
     const [[, firstPath]] = matrix[0][0];
 
     // cannot merge when selection is not in common section
-    if (!hasCommon(editor, [firstPath, lastPath], 'thead')) {
+    if (!hasCommon(editor, [firstPath, lastPath], 'thead', 'tfoot')) {
       return false;
     }
 
@@ -605,12 +610,12 @@ export const TableEditor = {
       for (let x = selection.length - 1; x >= 0; x--, rowSpan++) {
         colSpan = 0;
         for (let y = selection[x].length - 1; y >= 0; y--, colSpan++) {
-          const [[, path], { rtl: colspan, ttb }] = selection[x][y];
+          let [[, path], { rtl: colspan, ttb }] = selection[x][y];
 
           y -= colspan - 1;
           colSpan += colspan - 1;
 
-          // skip first cell and "fake" cells which belong to a cell with a `rowspan`
+          // skip first cell and "fake" cells which belong to a cell with a `rowSpan`
           if (Path.equals(basePath, path) || ttb > 1) {
             continue;
           }
@@ -756,7 +761,7 @@ export const TableEditor = {
           }
 
           const [[section]] = Editor.nodes(editor, {
-            match: isOfType(editor, 'thead'),
+            match: isOfType(editor, 'thead', 'tfoot'),
             at: path,
           });
 

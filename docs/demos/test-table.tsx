@@ -79,7 +79,8 @@ export default () => {
             margin: 0,
             paddingLeft: 0,
           }}
-          onChange={(e) => {
+          onChange={(e, s) => {
+            console.log('onChange', e, s);
             markdownEditorRef.current?.store?.setMDContent?.(e);
           }}
           tableConfig={{

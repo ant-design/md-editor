@@ -18,20 +18,34 @@ import { Element } from 'slate';
 import {
   CardNode,
   ChartNode,
-  ColumnCellNode,
-  ColumnNode,
   CustomLeaf,
-  DescriptionNode,
   Elements,
   InlineKatexNode,
-  TableNode,
-  TableRowNode,
 } from '../../el';
 import { MarkdownEditorPlugin } from '../../plugin';
+import { TableNode, TrNode as TableRowNode } from '../elements/Table';
 import { htmlToFragmentList } from '../plugins/insertParsedHtmlNodes';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import mdastParser from './remarkParse';
+
+// 本地类型定义
+type ColumnCellNode = {
+  type: 'column-cell';
+  children: Elements[];
+};
+
+type ColumnNode = {
+  type: 'column-group';
+  children: ColumnCellNode[];
+  style?: any;
+  otherProps?: any;
+};
+
+type DescriptionNode = {
+  type: 'description';
+  children: Elements[];
+};
 
 // 类型定义
 type CodeElement = {
@@ -346,21 +360,76 @@ const parseTableOrChart = (
     return EditorUtils.wrapperCardNode(node);
   }
 
+  // 计算合并单元格信息
+  const mergeCells = config.mergeCells || [];
+
+  // 创建合并单元格映射，用于快速查找
+  const mergeMap = new Map<
+    string,
+    { rowSpan: number; colSpan: number; hidden?: boolean }
+  >();
+  mergeCells?.forEach(
+    ({ row, col, rowSpan, rowspan, colSpan, colspan }: any) => {
+      let rawRowSpan = rowSpan || rowspan;
+      let rawColSpan = colSpan || colspan;
+      // 主单元格
+      mergeMap.set(`${row}-${col}`, {
+        rowSpan: rawRowSpan,
+        colSpan: rawColSpan,
+      });
+
+      // 被合并的单元格标记为隐藏
+      for (let r = row; r < row + rawRowSpan; r++) {
+        for (let c = col; c < col + rawColSpan; c++) {
+          if (r !== row || c !== col) {
+            mergeMap.set(`${r}-${c}`, { rowSpan: 1, colSpan: 1, hidden: true });
+          }
+        }
+      }
+    },
+  );
+
   const children = table.children.map((r: { children: any[] }, l: number) => {
     return {
       type: 'table-row',
       align: aligns?.[l] || undefined,
       children: r.children.map(
         (c: { children: string | any[] }, i: string | number) => {
+          const mergeInfo = mergeMap.get(`${l}-${i}`);
+
           return {
             type: 'table-cell',
             align: aligns?.[i as number] || undefined,
             title: l === 0,
             rows: l,
             cols: i,
+            // 直接设置 rowSpan 和 colSpan
+            ...(mergeInfo?.rowSpan && mergeInfo.rowSpan > 1
+              ? { rowSpan: mergeInfo.rowSpan }
+              : {}),
+            ...(mergeInfo?.colSpan && mergeInfo.colSpan > 1
+              ? { colSpan: mergeInfo.colSpan }
+              : {}),
+            // 如果是被合并的单元格，标记为隐藏
+            ...(mergeInfo?.hidden ? { hidden: true } : {}),
             children: c.children?.length
-              ? parserBlock(c.children as any, false, c as any, plugins)
-              : [{ text: '' }],
+              ? [
+                  {
+                    type: 'paragraph',
+                    children: parserBlock(
+                      c.children as any,
+                      false,
+                      c as any,
+                      plugins,
+                    ),
+                  },
+                ]
+              : [
+                  {
+                    type: 'paragraph',
+                    children: [{ text: '' }],
+                  },
+                ],
           };
         },
       ),
@@ -398,9 +467,9 @@ const parserTableToDescription = (children: TableRowNode[]) => {
   const body = children.slice(1);
 
   const newChildren = body
-    .map((row) => {
+    .map((row: any) => {
       const list = row.children
-        .map((item, index) => {
+        .map((item: any, index: number) => {
           return [header.children[index], item];
         })
         .flat(1);

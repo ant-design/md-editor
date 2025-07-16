@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Node, Text } from 'slate';
 import stringWidth from 'string-width';
-import { ChartNode, ColumnNode, DescriptionNode, TableNode } from '../../el';
+import { ChartNode } from '../../el';
 import type { MarkdownEditorPlugin } from '../../plugin';
 import { getMediaType } from '../utils/dom';
 
@@ -607,7 +607,7 @@ const composeText = (t: Text, parent: any[]) => {
  * ```
  */
 const table = (
-  el: TableNode | ColumnNode | DescriptionNode | ChartNode,
+  el: ChartNode,
   parent: any[],
   plugins?: MarkdownEditorPlugin[],
 ) => {

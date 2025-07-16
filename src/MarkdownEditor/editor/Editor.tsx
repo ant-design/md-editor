@@ -82,8 +82,8 @@ const genTableMinSize = (
   if (!config) return elements;
 
   elements.forEach((element) => {
-    if (element.children) {
-      genTableMinSize(element.children, config);
+    if ((element as any).children) {
+      genTableMinSize((element as any).children, config);
     }
   });
 };
@@ -696,10 +696,6 @@ export const SlateMarkdownEditor = ({
     }
   };
 
-  const onError = (e: React.SyntheticEvent) => {
-    console.log('Editor error', e);
-  };
-
   const elementRenderElement = useCallback(
     (props: RenderElementProps) => {
       const defaultDom = (
@@ -851,7 +847,6 @@ export const SlateMarkdownEditor = ({
       >
         <Editable
           decorate={decorateFn}
-          onError={onError}
           onDragOver={(e) => e.preventDefault()}
           readOnly={readonly}
           spellCheck={false}

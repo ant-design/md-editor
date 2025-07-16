@@ -314,7 +314,7 @@ const genSlideStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRight: '1px solid rgb(209 213 219 / 0.8)',
         },
         'th:last-child,td:last-child': {
-          borderRight: '1px solid #e5e5e9',
+          borderRight: '1px solid #E7E9E8',
         },
         'th:last-child': {
           borderTopRightRadius: 8,

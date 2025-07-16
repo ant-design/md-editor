@@ -1,15 +1,17 @@
-import { CustomTypes, ExtendedType, Location } from 'slate';
+import { ExtendedType, Location } from 'slate';
+import { TableCustomElement } from '../../editor/elements/Table';
 
-type ElementType = ExtendedType<'Element', CustomTypes>['type'];
+type TableElementType = ExtendedType<'Element', TableCustomElement>['type'];
 
 export interface WithTableOptions {
   blocks: {
-    td: ElementType;
-    th: ElementType;
-    content: ElementType;
-    tr: ElementType;
-    table: ElementType;
-    thead: ElementType;
+    td: TableElementType;
+    th: TableElementType;
+    content: TableElementType;
+    tr: TableElementType;
+    table: TableElementType;
+    tfoot: TableElementType;
+    thead: TableElementType;
   };
   withDelete: boolean;
   withFragments: boolean;
@@ -22,11 +24,12 @@ export interface WithTableOptions {
 export const DEFAULT_WITH_TABLE_OPTIONS = {
   blocks: {
     td: 'table-cell',
-    th: 'table-cell',
+    th: 'header-cell',
     content: 'paragraph',
     tr: 'table-row',
     table: 'table',
-    thead: 'table-cell',
+    tfoot: 'table-footer',
+    thead: 'table-head',
   },
   withDelete: true,
   withFragments: true,

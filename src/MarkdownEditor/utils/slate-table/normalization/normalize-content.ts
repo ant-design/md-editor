@@ -10,8 +10,8 @@ export function normalizeContent<T extends Editor>(
   editor: T,
   { blocks }: WithTableOptions,
 ): T {
-  const { table, thead, tr, th, td, content } = blocks;
-  const FORBIDDEN = [table, thead, tr, th, td, content];
+  const { table, thead, tfoot, tr, th, td, content } = blocks;
+  const FORBIDDEN = [table, thead, tfoot, tr, th, td, content];
 
   const { normalizeNode } = editor;
 

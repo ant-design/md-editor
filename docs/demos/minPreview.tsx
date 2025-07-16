@@ -58,7 +58,7 @@ export default () => {
           width: '50vw',
           margin: '0 auto',
           height: '100vh',
-          border: '1px solid #e5e5e9',
+          border: '1px solid #E7E9E8',
         }}
         initValue={value}
       />
@@ -106,7 +106,7 @@ export default () => {
         style={{
           width: '50vw',
           margin: '0 auto',
-          border: '1px solid #e5e5e9',
+          border: '1px solid #E7E9E8',
           height: '100vh',
         }}
         onChange={(value, _) => {
