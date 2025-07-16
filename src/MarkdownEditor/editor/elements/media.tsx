@@ -13,7 +13,7 @@ import { AvatarList } from '../components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { useGetSetState } from '../utils';
 import { getMediaType } from '../utils/dom';
-import { ImageAndError } from './image';
+import { ImageAndError } from './Image';
 
 /**
  * 修复图片大小的问题

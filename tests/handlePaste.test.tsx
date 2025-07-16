@@ -119,7 +119,6 @@ describe('handlePaste utilities', () => {
           anchor: { path: [0, 0], offset: 0 },
           focus: { path: [0, 0], offset: 0 },
         },
-        {},
       );
 
       expect(result).toBe(true);
@@ -145,7 +144,6 @@ describe('handlePaste utilities', () => {
           anchor: { path: [0, 0], offset: 0 },
           focus: { path: [0, 0], offset: 0 },
         },
-        {},
       );
 
       expect(result).toBe(true);
@@ -168,7 +166,6 @@ describe('handlePaste utilities', () => {
           anchor: { path: [0, 0], offset: 0 },
           focus: { path: [0, 0], offset: 0 },
         },
-        { textAreaProps: { enable: true } },
       );
 
       expect(result).toBe(true);
