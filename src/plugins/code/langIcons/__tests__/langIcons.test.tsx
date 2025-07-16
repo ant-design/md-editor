@@ -3,6 +3,7 @@ import React from 'react';
 import { describe, expect, it } from 'vitest';
 
 // Import popular language icons
+import * as Icons from '../index';
 import {
   CssIcon,
   GoIcon,
@@ -24,6 +25,28 @@ import {
 } from '../index';
 
 describe('Language Icons', () => {
+  const iconNames = Object.keys(Icons).filter(
+    (name) => name.endsWith('Icon') && name !== 'LanguageIcons',
+  );
+  iconNames.forEach((name) => {
+    it(`应该渲染 ${name} 图标`, () => {
+      const IconComponent = Icons[name as 'AplIcon'] as unknown as any;
+      const { container } = render(
+        <IconComponent data-testid={`${name.toLowerCase()}-icon`} />,
+      );
+      expect(container).toMatchSnapshot();
+    });
+  });
+
+  iconNames.forEach((name) => {
+    it(`应该渲染 ${name} 48 size 图标`, () => {
+      const IconComponent = Icons[name as 'AplIcon'] as unknown as any;
+      const { container } = render(
+        <IconComponent size={48} data-testid={`${name.toLowerCase()}-icon`} />,
+      );
+      expect(container).toMatchSnapshot();
+    });
+  });
   describe('Popular Programming Languages', () => {
     const popularLanguages = [
       {
