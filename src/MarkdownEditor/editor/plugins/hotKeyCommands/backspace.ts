@@ -131,6 +131,17 @@ export class BackspaceKey {
       }
     }
     /**
+     * 处理表格单元格在起始位置的情况
+     */
+    if (el.type === 'table-cell' && sel.anchor.offset === 0) {
+      // 当光标在表格单元格的起始位置时，阻止继续退格
+      const start = Range.start(sel);
+      if (!Path.hasPrevious(start.path)) {
+        return true;
+      }
+    }
+
+    /**
      * 防止删除paragraph与空table-cell混合
      */
     if (sel.anchor.offset === 0) {

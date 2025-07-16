@@ -15,9 +15,6 @@ describe('fixStrongWithSpecialChars', () => {
     const ast = parser.parse(markdown);
     const result = parser.runSync(ast) as any;
 
-    console.log('输入:', markdown);
-    console.log('AST 结果:', JSON.stringify(result, null, 2));
-
     // 验证结构
     expect(result.type).toBe('root');
     expect(result.children).toHaveLength(1);
@@ -39,9 +36,6 @@ describe('fixStrongWithSpecialChars', () => {
 
     const ast = parser.parse(markdown);
     const result = parser.runSync(ast) as any;
-
-    console.log('输入:', markdown);
-    console.log('AST 结果:', JSON.stringify(result, null, 2));
 
     const paragraph = result.children[0] as any;
     expect(paragraph.type).toBe('paragraph');
@@ -66,9 +60,6 @@ describe('fixStrongWithSpecialChars', () => {
 
     const ast = parser.parse(markdown);
     const result = parser.runSync(ast) as any;
-
-    console.log('输入:', markdown);
-    console.log('AST 结果:', JSON.stringify(result, null, 2));
 
     const paragraph = result.children[0] as any;
     expect(paragraph.type).toBe('paragraph');
@@ -109,9 +100,6 @@ describe('fixStrongWithSpecialChars', () => {
       const ast = parser.parse(input);
       const result = parser.runSync(ast) as any;
 
-      console.log(`测试 ${input}:`);
-      console.log('AST 结果:', JSON.stringify(result, null, 2));
-
       const paragraph = result.children[0] as any;
       const strong = paragraph.children[0];
 
@@ -126,9 +114,6 @@ describe('fixStrongWithSpecialChars', () => {
 
     const ast = parser.parse(markdown);
     const result = parser.runSync(ast) as any;
-
-    console.log('输入:', markdown);
-    console.log('AST 结果:', JSON.stringify(result, null, 2));
 
     const paragraph = result.children[0] as any;
     const strong = paragraph.children[0];
@@ -145,13 +130,10 @@ describe('fixStrongWithSpecialChars', () => {
       { input: '**$-100**', desc: '负数金额' },
     ];
 
-    testCases.forEach(({ input, desc }) => {
+    testCases.forEach(({ input }) => {
       const parser = createParser();
       const ast = parser.parse(input);
       const result = parser.runSync(ast) as any;
-
-      console.log(`测试 ${desc} (${input}):`);
-      console.log('AST 结果:', JSON.stringify(result, null, 2));
 
       const paragraph = result.children[0] as any;
       const strong = paragraph.children[0];
