@@ -1418,7 +1418,7 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                     data-be="card"
                     data-slate-node="element"
                     role="button"
-                    style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+                    style="padding: 12px 2px; border-radius: 8px; display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
                     tabindex="0"
                   >
                     <span
@@ -2146,7 +2146,7 @@ ls -la | grep "test"
     data-be="card"
     data-slate-node="element"
     role="button"
-    style="padding: 12px 2px; border-radius: 8px; display: flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
+    style="padding: 12px 2px; border-radius: 8px; display: inline-flex; gap: 4px; max-width: 100%; align-items: flex-end; position: relative; width: max-content; cursor: pointer; background-color: transparent; transition: all 0.2s ease-in-out; outline: none;"
     tabindex="0"
   >
     <span
