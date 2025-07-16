@@ -141,14 +141,14 @@ export interface ComponentConfig {
 }
 
 export interface LowCodeSchema {
-  version: string;
-  name: string;
-  description: string;
-  author: string;
-  createTime: string;
-  updateTime: string;
-  pageConfig: PageConfig;
-  dataSources: DataSourceConfig;
+  version?: string;
+  name?: string;
+  description?: string;
+  author?: string;
+  createTime?: string;
+  updateTime?: string;
+  pageConfig?: PageConfig;
+  dataSources?: DataSourceConfig;
   component?: ComponentConfig;
   theme?: ThemeConfig;
   previewSettings?: PreviewSettings;
