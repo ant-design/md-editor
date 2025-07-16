@@ -37,7 +37,7 @@ describe('parseMarkdown plugin functionality', () => {
       parseMarkdown: [
         {
           match: (node): node is Blockquote => node.type === 'blockquote',
-          convert: (node) => ({
+          convert: () => ({
             type: 'blockquote',
             children: [
               {
@@ -64,7 +64,7 @@ describe('parseMarkdown plugin functionality', () => {
       parseMarkdown: [
         {
           match: (node) => node.type === 'nonexistent',
-          convert: (node) => ({
+          convert: () => ({
             type: 'paragraph',
             children: [{ text: 'custom' }],
           }),
@@ -94,7 +94,7 @@ describe('parseMarkdown plugin functionality', () => {
       parseMarkdown: [
         {
           match: (node): node is Code => node.type === 'code',
-          convert: (node) => ({
+          convert: () => ({
             type: 'code',
             language: 'plugin1',
             value: 'plugin1',
@@ -108,7 +108,7 @@ describe('parseMarkdown plugin functionality', () => {
       parseMarkdown: [
         {
           match: (node): node is Code => node.type === 'code',
-          convert: (node) => ({
+          convert: () => ({
             type: 'code',
             language: 'plugin2',
             value: 'plugin2',

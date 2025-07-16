@@ -131,7 +131,6 @@ describe('Editor Card Tests', () => {
         expect(editor.children[1]).toEqual(testNode);
       } catch (error) {
         // 如果插入操作被我们的逻辑拦截，这是预期的
-        console.log('Node insertion was intercepted as expected');
       }
     });
 

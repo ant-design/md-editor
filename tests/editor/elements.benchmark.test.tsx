@@ -108,16 +108,6 @@ describe('Performance Benchmark Tests', () => {
       const optimizedEnd = performance.now();
       const optimizedTime = optimizedEnd - optimizedStart;
 
-      console.log(
-        `未优化版本 ${RENDER_COUNT} 次渲染时间: ${unoptimizedTime.toFixed(2)}ms`,
-      );
-      console.log(
-        `优化版本 ${RENDER_COUNT} 次渲染时间: ${optimizedTime.toFixed(2)}ms`,
-      );
-      console.log(
-        `性能提升: ${(((unoptimizedTime - optimizedTime) / unoptimizedTime) * 100).toFixed(2)}%`,
-      );
-
       // 优化版本应该至少不会比未优化版本慢太多
       // 在某些情况下，memo 可能会增加轻微的开销，但应该在合理范围内
       expect(optimizedTime).toBeLessThan(unoptimizedTime * 2);
@@ -180,9 +170,6 @@ describe('Performance Benchmark Tests', () => {
         );
       }
 
-      console.log(`未优化版本重新渲染次数: ${unoptimizedRerenderCount}`);
-      console.log(`优化版本重新渲染次数: ${optimizedRerenderCount}`);
-
       // 两者的重新渲染次数应该相似，因为元素确实在变化
       expect(optimizedRerenderCount).toBeGreaterThan(0);
       expect(unoptimizedRerenderCount).toBeGreaterThan(0);
@@ -227,9 +214,6 @@ describe('Performance Benchmark Tests', () => {
       for (let i = 0; i < RERENDER_COUNT; i++) {
         rerender(<TestWrapper element={element} />);
       }
-
-      console.log(`包装组件渲染次数: ${wrapperRenderCount}`);
-      console.log(`Memo 化组件渲染次数: ${memoizedComponentRenderCount}`);
 
       // 包装组件应该渲染多次，但 memo 化的组件应该只渲染一次
       expect(wrapperRenderCount).toBeGreaterThan(RERENDER_COUNT);
@@ -278,8 +262,6 @@ describe('Performance Benchmark Tests', () => {
 
       const endTime = performance.now();
       const renderTime = endTime - startTime;
-
-      console.log(`复杂元素结构渲染时间: ${renderTime.toFixed(2)}ms`);
 
       // 复杂结构的渲染应该在合理时间内完成
       expect(renderTime).toBeLessThan(100);
@@ -352,9 +334,6 @@ describe('Performance Benchmark Tests', () => {
 
       const endTime = performance.now();
       const totalTime = endTime - startTime;
-
-      console.log(`500次快速prop更改总时间: ${totalTime.toFixed(2)}ms`);
-      console.log(`平均每次更改时间: ${(totalTime / 500).toFixed(2)}ms`);
 
       // 快速更改应该在合理时间内完成
       expect(totalTime).toBeLessThan(1000);

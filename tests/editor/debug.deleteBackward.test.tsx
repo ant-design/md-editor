@@ -54,8 +54,6 @@ describe('Debug deleteBackward behavior', () => {
       },
     ];
 
-    console.log('Before deletion:', JSON.stringify(editor.children, null, 2));
-
     // 选中空文本节点的开始位置
     Transforms.select(editor, {
       anchor: { path: [0, 1], offset: 0 },
@@ -64,8 +62,6 @@ describe('Debug deleteBackward behavior', () => {
 
     // 执行删除操作
     editor.deleteBackward('character');
-
-    console.log('After deletion:', JSON.stringify(editor.children, null, 2));
 
     // 基本验证测试运行成功
     expect(editor.children).toBeDefined();
@@ -89,11 +85,6 @@ describe('Debug deleteBackward behavior', () => {
       },
     ];
 
-    console.log(
-      'Before deletion (only node):',
-      JSON.stringify(editor.children, null, 2),
-    );
-
     // 选中第二个段落的开始位置
     Transforms.select(editor, {
       anchor: { path: [1, 0], offset: 0 },
@@ -102,11 +93,6 @@ describe('Debug deleteBackward behavior', () => {
 
     // 执行删除操作
     editor.deleteBackward('character');
-
-    console.log(
-      'After deletion (only node):',
-      JSON.stringify(editor.children, null, 2),
-    );
 
     // 基本验证测试运行成功
     expect(editor.children).toBeDefined();
@@ -132,11 +118,6 @@ describe('Debug deleteBackward behavior', () => {
       },
     ];
 
-    console.log(
-      'Before deletion (multiple siblings):',
-      JSON.stringify(editor.children, null, 2),
-    );
-
     // 选中第二个段落的开始位置
     Transforms.select(editor, {
       anchor: { path: [1, 0], offset: 0 },
@@ -145,11 +126,6 @@ describe('Debug deleteBackward behavior', () => {
 
     // 执行删除操作
     editor.deleteBackward('character');
-
-    console.log(
-      'After deletion (multiple siblings):',
-      JSON.stringify(editor.children, null, 2),
-    );
 
     // 基本验证测试运行成功
     expect(editor.children).toBeDefined();

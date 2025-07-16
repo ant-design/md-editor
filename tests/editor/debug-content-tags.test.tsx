@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { BaseEditor, createEditor, Node, Transforms } from 'slate';
+import { BaseEditor, createEditor, Transforms } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
@@ -54,10 +54,6 @@ describe('Debug Content Tags', () => {
       },
     ];
 
-    console.log('Before deleteBackward (code tag):');
-    console.log('Node:', JSON.stringify(Node.get(editor, [0, 0]), null, 2));
-    console.log('Trim length:', Node.get(editor, [0, 0]).text?.trim()?.length);
-
     // 选中标签节点的开始位置 (offset < 1)
     Transforms.select(editor, {
       anchor: { path: [0, 0], offset: 0 },
@@ -66,9 +62,6 @@ describe('Debug Content Tags', () => {
 
     // 执行删除操作
     editor.deleteBackward('character');
-
-    console.log('After deleteBackward (code tag):');
-    console.log('Node:', JSON.stringify(Node.get(editor, [0, 0]), null, 2));
 
     expect(true).toBe(true);
   });
@@ -88,10 +81,6 @@ describe('Debug Content Tags', () => {
       },
     ];
 
-    console.log('Before deleteBackward (tick + whitespace):');
-    console.log('Node:', JSON.stringify(Node.get(editor, [0, 0]), null, 2));
-    console.log('Trim length:', Node.get(editor, [0, 0]).text?.trim()?.length);
-
     // 选中标签节点的开始位置 (offset < 1)
     Transforms.select(editor, {
       anchor: { path: [0, 0], offset: 0 },
@@ -100,9 +89,6 @@ describe('Debug Content Tags', () => {
 
     // 执行删除操作
     editor.deleteBackward('character');
-
-    console.log('After deleteBackward (tick + whitespace):');
-    console.log('Node:', JSON.stringify(Node.get(editor, [0, 0]), null, 2));
 
     expect(true).toBe(true);
   });
