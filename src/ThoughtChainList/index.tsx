@@ -536,7 +536,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
     } = props;
     const context = useContext(ConfigProvider.ConfigContext);
     const [collapse, setCollapse] = React.useState<boolean>(false);
-    const prefixCls = context.getPrefixCls('thought-chain-list');
+    const prefixCls = context?.getPrefixCls('thought-chain-list');
     const { wrapSSR, hashId } = useStyle(prefixCls);
     const [docMeta, setDocMeta] = React.useState<Partial<DocMeta> | null>(null);
 
@@ -572,35 +572,35 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
 
       if (!loading && bubble?.isAborted) {
         if (time > 0) {
-          return `${locale.taskAborted}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`;
+          return `${locale?.taskAborted}, ${locale?.totalTimeUsed} ${time.toFixed(2)}s`;
         }
-        return locale.taskAborted;
+        return locale?.taskAborted;
       }
 
       if (!loading && bubble?.isFinished) {
         if (time > 0) {
           if (bubble?.isFinished) {
-            return `${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`;
+            return `${locale?.taskComplete}, ${locale?.totalTimeUsed} ${time.toFixed(2)}s`;
           }
           return (
             <FlipText
-              word={`${locale.taskComplete}, ${locale.totalTimeUsed} ${time.toFixed(2)}s`}
+              word={`${locale?.taskComplete}, ${locale?.totalTimeUsed} ${time.toFixed(2)}s`}
             />
           );
         }
-        return <FlipText word={locale.taskComplete} />;
+        return <FlipText word={locale?.taskComplete} />;
       }
 
       return (
         <div>
           {thoughtChainList.at(-1) && collapse ? (
-            compileTemplate(locale.inProgressTask, {
+            compileTemplate(locale?.inProgressTask, {
               taskName:
                 locale[thoughtChainList.at(-1)?.category || 'other'] || '',
             })
           ) : (
             <div>
-              {locale.thinking}
+              {locale?.thinking}
               <DotLoading />
             </div>
           )}

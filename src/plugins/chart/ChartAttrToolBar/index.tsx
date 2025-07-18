@@ -37,7 +37,7 @@ export const ChartAttrToolBar: React.FC<{
   }, [markdownEditorRef.current]);
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context.getPrefixCls(`chart-attr-toolbar`);
+  const baseClassName = context?.getPrefixCls(`chart-attr-toolbar`);
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
   return wrapSSR(

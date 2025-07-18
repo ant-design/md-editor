@@ -50,7 +50,7 @@ export const CommentList: React.FC<{
   const { markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
   const { setShowComment } = useContext(EditorStoreContext) || {};
-  const baseCls = context.getPrefixCls('md-editor-comment-view');
+  const baseCls = context?.getPrefixCls('md-editor-comment-view');
   const { wrapSSR, hashId } = useStyle(baseCls);
   return wrapSSR(
     <>

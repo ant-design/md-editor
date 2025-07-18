@@ -9,6 +9,7 @@ const SearchIcon: React.FC<{ width?: number; height?: number }> = ({
     height={height}
     viewBox="0 0 20 20"
     fill="none"
+    data-testid="search-icon"
     xmlns="http://www.w3.org/2000/svg"
   >
     <defs>

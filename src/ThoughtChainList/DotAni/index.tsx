@@ -3,6 +3,11 @@ import './index.css';
 
 export const DotLoading = () => {
   return (
-    <div className="md-editor-loader" role="progressbar" aria-label="Loading" />
+    <div
+      data-testid="dot-loading"
+      className="md-editor-loader"
+      role="progressbar"
+      aria-label="Loading"
+    />
   );
 };

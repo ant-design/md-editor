@@ -12,6 +12,7 @@ export const DatabaseIcon: React.FC<DatabaseIconProps> = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
+      data-testid="database-icon"
       height={size}
       viewBox="0 0 18 18"
       fill="none"

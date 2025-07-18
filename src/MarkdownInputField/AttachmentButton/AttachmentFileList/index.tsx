@@ -55,7 +55,7 @@ export const AttachmentFileList: React.FC<AttachmentFileListProps> = (
   props,
 ) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context.getPrefixCls('md-editor-attachment-list');
+  const prefix = context?.getPrefixCls('md-editor-attachment-list');
   const { wrapSSR, hashId } = useStyle(prefix);
   const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
 

@@ -18,7 +18,7 @@ export function LinkCard({
   }>
 >) {
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseCls = context.getPrefixCls('md-editor-link-card');
+  const baseCls = context?.getPrefixCls('md-editor-link-card');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const htmlRef = React.useRef<HTMLDivElement>(null);
   return wrapSSR(

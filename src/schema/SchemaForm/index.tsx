@@ -34,7 +34,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
     if (property.required) {
       rules.push({
         required: true,
-        message: `${locale.inputPlaceholder} ${property.title || property.description || ''}`,
+        message: `${locale?.inputPlaceholder} ${property.title || property.description || ''}`,
       });
     }
 
@@ -102,7 +102,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
   // 获取通用输入框属性
   const getCommonInputProps = useCallback(
     (property: SchemaProperty) => ({
-      placeholder: `${locale.inputPlaceholder} ${property.title || property.description}`,
+      placeholder: `${locale?.inputPlaceholder} ${property.title || property.description}`,
       readOnly: readonly,
       disabled: readonly,
     }),
@@ -156,7 +156,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
         return (
           <Form.Item name={name} style={{ margin: 0 }}>
             <Input
-              placeholder={locale.inputPlaceholder}
+              placeholder={locale?.inputPlaceholder}
               readOnly={readonly}
               disabled={readonly}
             />
@@ -254,7 +254,7 @@ export const SchemaForm: React.FC<SchemaFormProps> = ({
       if (!property.properties) {
         return (
           <Input
-            placeholder={`${locale.inputPlaceholder} ${property.title || property.description}`}
+            placeholder={`${locale?.inputPlaceholder} ${property.title || property.description}`}
             disabled
           />
         );

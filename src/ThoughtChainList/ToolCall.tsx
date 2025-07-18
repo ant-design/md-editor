@@ -92,7 +92,7 @@ export const ToolCall = (
                 justifyContent: 'space-between',
               }}
             >
-              {locale.executionParameters}
+              {locale?.executionParameters}
             </div>
             <div
               style={{
@@ -154,7 +154,7 @@ export const ToolCall = (
                 );
               }}
             >
-              {locale.cancel}
+              {locale?.cancel}
             </Button>
             <Button
               style={{
@@ -177,7 +177,7 @@ export const ToolCall = (
                 });
               }}
             >
-              {locale.retry}
+              {locale?.retry}
             </Button>
           </div>
         </div>
@@ -218,7 +218,7 @@ export const ToolCall = (
                 justifyContent: 'space-between',
               }}
             >
-              {locale.executionParameters}
+              {locale?.executionParameters}
               <div
                 style={{
                   display: 'flex',
@@ -231,7 +231,7 @@ export const ToolCall = (
                   <CostMillis costMillis={props.costMillis} />
                 ) : null}
                 <ActionIconBox
-                  title={locale.copy}
+                  title={locale?.copy}
                   onClick={() => {
                     copy(JSON.stringify(props.input?.inputArgs || {}, null, 2));
                   }}
@@ -240,7 +240,7 @@ export const ToolCall = (
                 </ActionIconBox>
                 {props.onChangeItem ? (
                   <ActionIconBox
-                    title={locale.edit}
+                    title={locale?.edit}
                     onClick={() => {
                       setEditor(true);
                     }}
@@ -296,7 +296,7 @@ export const ToolCall = (
                 borderRadius: '12px',
               }}
             >
-              {locale.apiCalling}
+              {locale?.apiCalling}
               <DotLoading />
             </div>
           ) : null}
@@ -324,7 +324,7 @@ export const ToolCall = (
                   justifyContent: 'space-between',
                 }}
               >
-                {locale.executionResult}
+                {locale?.executionResult}
                 <div
                   style={{
                     display: 'flex',
@@ -334,7 +334,7 @@ export const ToolCall = (
                   }}
                 >
                   <ActionIconBox
-                    title={locale.copy}
+                    title={locale?.copy}
                     onClick={() => {
                       copy(
                         JSON.stringify(props.output?.response || {}, null, 2),
@@ -407,7 +407,7 @@ export const ToolCall = (
                   }}
                 >
                   <CloseCircleFilled style={{ color: '#ff4d4f' }} />
-                  {locale.taskExecutionFailed}
+                  {locale?.taskExecutionFailed}
                 </div>
                 <div
                   style={{
@@ -418,7 +418,7 @@ export const ToolCall = (
                   }}
                 >
                   <ActionIconBox
-                    title={locale.copy}
+                    title={locale?.copy}
                     onClick={() => {
                       copy(errorMsg);
                     }}

@@ -307,7 +307,7 @@ export const I18nProvide: React.FC<{
   const context = useContext(ConfigProvider.ConfigContext);
   const [locale, setLocale] = useState(() => {
     if (context?.locale) {
-      return context.locale.locale?.toLocaleLowerCase() === 'zh-cn'
+      return context.locale?.locale?.toLocaleLowerCase() === 'zh-cn'
         ? cnLabels
         : enLabels;
     }

@@ -21,7 +21,7 @@ export const Description = (props: RenderElementProps) => {
   const { store, markdownContainerRef } = useEditorStore();
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseCls = context.getPrefixCls('md-editor-description');
+  const baseCls = context?.getPrefixCls('md-editor-description');
   const { wrapSSR, hashId } = useStyle(baseCls);
   return React.useMemo(() => {
     const subGroupLength =

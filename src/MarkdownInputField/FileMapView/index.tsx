@@ -44,7 +44,7 @@ export type { AttachmentFile } from '../AttachmentButton/AttachmentFileList';
  */
 export const FileMapView: React.FC<FileMapViewProps> = (props) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const prefix = context.getPrefixCls('md-editor-file-view-list');
+  const prefix = context?.getPrefixCls('md-editor-file-view-list');
   const { wrapSSR, hashId } = useStyle(prefix);
 
   const [collapse, setCollapse] = React.useState(false);

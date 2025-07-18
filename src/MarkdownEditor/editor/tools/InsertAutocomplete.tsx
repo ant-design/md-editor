@@ -170,25 +170,25 @@ export const getInsertOptions: (
       key: 'element',
       children: [
         {
-          label: [locale.table || '表格'],
+          label: [locale?.table || '表格'],
           key: 'table',
           task: 'insertTable',
           icon: <TableOutlined />,
         },
         {
-          label: [locale.column || '分栏'],
+          label: [locale?.column || '分栏'],
           key: 'column',
           task: 'insertColumn',
           icon: <ColumnIcon />,
         },
         {
-          label: [locale.quote || '引用'],
+          label: [locale?.quote || '引用'],
           key: 'quote',
           task: 'insertQuote',
           icon: <Quote />,
         },
         {
-          label: [locale.code || '代码'],
+          label: [locale?.code || '代码'],
           key: 'code',
           task: 'insertCode',
           icon: <CodeOutlined />,
@@ -200,7 +200,7 @@ export const getInsertOptions: (
       key: 'media',
       children: [
         {
-          label: [locale.localeImage || '本地图片'],
+          label: [locale?.localeImage || '本地图片'],
           task: 'uploadImage',
           key: 'localeImage',
           args: ['', true],
@@ -242,21 +242,21 @@ export const getInsertOptions: (
       key: 'head',
       children: [
         {
-          label: [locale.head1 || '主标题'],
+          label: [locale?.head1 || '主标题'],
           task: 'head',
           key: 'head1',
           args: [1],
           icon: <FontSizeOutlined />,
         },
         {
-          label: [locale.head2 || '段标题'],
+          label: [locale?.head2 || '段标题'],
           task: 'head',
           key: 'head2',
           icon: <FontSizeOutlined />,
           args: [2],
         },
         {
-          label: [locale.head3 || '小标题'],
+          label: [locale?.head3 || '小标题'],
           task: 'head',
           key: 'head3',
           icon: <FontSizeOutlined />,
@@ -709,7 +709,7 @@ export const InsertAutocomplete: React.FC<InsertAutocompleteProps> = (
   }, [openInsertCompletion]);
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context.getPrefixCls(`md-editor-insert-autocomplete`);
+  const baseClassName = context?.getPrefixCls(`md-editor-insert-autocomplete`);
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
 

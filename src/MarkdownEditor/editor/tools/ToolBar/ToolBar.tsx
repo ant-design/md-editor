@@ -14,7 +14,7 @@ const ToolBar = (props: {
   hideTools?: ToolsKeyType[];
 }) => {
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context.getPrefixCls(`md-editor-toolbar`);
+  const baseClassName = context?.getPrefixCls(`md-editor-toolbar`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
 
   return wrapSSR(

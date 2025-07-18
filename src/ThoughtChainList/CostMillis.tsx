@@ -12,18 +12,18 @@ const msToTimes = (ms: number | undefined, locale: LocalKeys) => {
   }
   let s = ms / 1000;
   if (s < 60) {
-    return `${s.toFixed(1)}${locale.seconds}`;
+    return `${s.toFixed(1)}${locale?.seconds || 's'}`;
   }
   let m = s / 60;
   if (m < 60) {
-    return `${m.toFixed(0)}${locale.minutes} ${s.toFixed(0)}${locale.seconds}`;
+    return `${m.toFixed(0)}${locale?.minutes || 'm'} ${s.toFixed(0)}${locale?.seconds || 's'}`;
   }
   let h = m / 60;
   if (h < 24) {
-    return `${h.toFixed(0)}${locale.hours} ${m.toFixed(0)}${locale.minutes} ${s.toFixed(0)}${locale.seconds}`;
+    return `${h.toFixed(0)}${locale?.hours || 'H'} ${m.toFixed(0)}${locale?.minutes || 'm'} ${s.toFixed(0)}${locale?.seconds || 's'}`;
   }
   let d = h / 24;
-  return `${d.toFixed(0)}${locale.days} ${h.toFixed(0)}${locale.hours} ${m.toFixed(0)}${locale.minutes} ${s.toFixed(0)}${locale.seconds}`;
+  return `${d.toFixed(0)}${locale?.days || 'D'} ${h.toFixed(0)}${locale?.hours || 'H'} ${m.toFixed(0)}${locale?.minutes || 'm'} ${s.toFixed(0)}${locale?.seconds || 's'}`;
 };
 
 /**

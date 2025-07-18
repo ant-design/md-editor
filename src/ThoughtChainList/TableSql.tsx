@@ -87,7 +87,7 @@ export const TableSql = (
                 justifyContent: 'space-between',
               }}
             >
-              {locale.executeSQL}
+              {locale?.executeSQL}
             </div>
             <div
               style={{
@@ -137,7 +137,7 @@ export const TableSql = (
                 );
               }}
             >
-              {locale.cancel}
+              {locale?.cancel}
             </Button>
             <Button
               style={{
@@ -160,7 +160,7 @@ export const TableSql = (
                 });
               }}
             >
-              {locale.retry}
+              {locale?.retry}
             </Button>
           </div>
         </div>
@@ -221,7 +221,7 @@ export const TableSql = (
                 justifyContent: 'space-between',
               }}
             >
-              {locale.executeSQL}
+              {locale?.executeSQL}
               <div
                 style={{
                   display: 'flex',
@@ -234,7 +234,7 @@ export const TableSql = (
                   <CostMillis costMillis={props.costMillis} />
                 ) : null}
                 <ActionIconBox
-                  title={locale.copy}
+                  title={locale?.copy}
                   onClick={() => {
                     copy(props.input?.sql || '');
                   }}
@@ -243,7 +243,7 @@ export const TableSql = (
                 </ActionIconBox>
                 {props.onChangeItem ? (
                   <ActionIconBox
-                    title={locale.edit}
+                    title={locale?.edit}
                     onClick={() => {
                       setEditor(true);
                     }}
@@ -295,7 +295,7 @@ export const TableSql = (
                 borderRadius: '12px',
               }}
             >
-              {locale.executing}
+              {locale?.executing}
             </div>
           ) : null}
           {props.isFinished && !errorMsg ? (
@@ -322,7 +322,7 @@ export const TableSql = (
                   justifyContent: 'space-between',
                 }}
               >
-                {locale.queryResults}
+                {locale?.queryResults}
                 <div
                   style={{
                     display: 'flex',
@@ -332,7 +332,7 @@ export const TableSql = (
                   }}
                 >
                   <ActionIconBox
-                    title={locale.copy}
+                    title={locale?.copy}
                     onClick={() => {
                       copy(
                         JSON.stringify(props.output?.tableData || {}, null, 2),
@@ -401,7 +401,7 @@ export const TableSql = (
                   }}
                 >
                   <CloseCircleFilled style={{ color: '#ff4d4f' }} />
-                  {locale.queryFailed}
+                  {locale?.queryFailed}
                 </div>
                 <div
                   style={{
@@ -412,7 +412,7 @@ export const TableSql = (
                   }}
                 >
                   <ActionIconBox
-                    title={locale.copy}
+                    title={locale?.copy}
                     onClick={() => {
                       copy(errorMsg);
                     }}

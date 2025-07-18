@@ -124,21 +124,21 @@ export const TaskRunning: React.FC<TaskRunningProps> = ({
 
   const context = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
-  const baseCls = context.getPrefixCls('task-running');
+  const baseCls = context?.getPrefixCls('task-running');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   // 合并默认文案和自定义文案
   const finalMessages = {
-    running: messages?.running || locale.agentRunBar.running,
+    running: messages?.running || locale?.agentRunBar.running,
     timeUsedPrefix:
-      messages?.timeUsedPrefix || locale.agentRunBar.timeUsedPrefix,
-    calling: messages?.calling || locale.agentRunBar.calling,
-    taskCompleted: messages?.taskCompleted || locale.agentRunBar.taskCompleted,
-    taskStopped: messages?.taskStopped || locale.agentRunBar.taskStopped,
-    taskReplaying: messages?.taskReplaying || locale.agentRunBar.taskReplaying,
-    createNewTask: messages?.createNewTask || locale.agentRunBar.createNewTask,
-    viewResult: messages?.viewResult || locale.agentRunBar.viewResult,
-    replayTask: messages?.replayTask || locale.agentRunBar.replayTask,
+      messages?.timeUsedPrefix || locale?.agentRunBar.timeUsedPrefix,
+    calling: messages?.calling || locale?.agentRunBar.calling,
+    taskCompleted: messages?.taskCompleted || locale?.agentRunBar.taskCompleted,
+    taskStopped: messages?.taskStopped || locale?.agentRunBar.taskStopped,
+    taskReplaying: messages?.taskReplaying || locale?.agentRunBar.taskReplaying,
+    createNewTask: messages?.createNewTask || locale?.agentRunBar.createNewTask,
+    viewResult: messages?.viewResult || locale?.agentRunBar.viewResult,
+    replayTask: messages?.replayTask || locale?.agentRunBar.replayTask,
   };
 
   return wrapSSR(

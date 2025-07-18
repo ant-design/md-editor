@@ -434,7 +434,7 @@ const MLeafComponent = (
   const { markdownEditorRef, markdownContainerRef, readonly } =
     useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
-  const mdEditorBaseClass = context.getPrefixCls('md-editor-content');
+  const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
   const leaf = props.leaf;
   const style: CSSProperties = {};
   let className = props.hashId + ' ';

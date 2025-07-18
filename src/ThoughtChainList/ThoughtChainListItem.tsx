@@ -43,6 +43,7 @@ const ThoughtChainItemDetail = React.memo<{
             isFinished={isFinished}
             key={thoughtChainListItem.runId}
             markdownRenderProps={markdownRenderProps}
+            data-testid="table-sql"
           />
         );
       case 'ToolCall':
@@ -52,6 +53,7 @@ const ThoughtChainItemDetail = React.memo<{
             key={thoughtChainListItem.runId}
             markdownRenderProps={markdownRenderProps}
             isFinished={isFinished}
+            data-testid="tool-call"
           />
         );
       case 'DeepThink':
@@ -61,6 +63,7 @@ const ThoughtChainItemDetail = React.memo<{
             isFinished={isFinished}
             key={thoughtChainListItem.runId}
             markdownRenderProps={markdownRenderProps}
+            data-testid="deep-think"
           />
         );
       case 'WebSearch':

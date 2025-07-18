@@ -48,7 +48,7 @@ export const AvatarList: React.FC<{
   style?: React.CSSProperties;
 }> = ({ displayList, style }) => {
   const context = React.useContext(ConfigProvider.ConfigContext);
-  const baseCls = context.getPrefixCls('md-editor-contributor-avatar-list');
+  const baseCls = context?.getPrefixCls('md-editor-contributor-avatar-list');
   const { wrapSSR, hashId } = useStyle(baseCls);
   return wrapSSR(
     <>

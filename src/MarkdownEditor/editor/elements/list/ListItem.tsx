@@ -194,7 +194,7 @@ export const ListItem = ({
   const context = useContext(ConfigProvider.ConfigContext);
   const listItemRender = editorProps?.comment?.listItemRender;
   const { hashId = '' } = useContext(ListContext) || {};
-  const baseCls = context.getPrefixCls('md-editor-list');
+  const baseCls = context?.getPrefixCls('md-editor-list');
 
   const checkbox = React.useMemo(() => {
     if (!isTask) return null;

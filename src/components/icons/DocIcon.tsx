@@ -9,6 +9,7 @@ export const DocIcon: React.FC<DocIconProps> = ({ size = 16, ...props }) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
+      data-testid="doc-icon"
       height={size}
       viewBox="0 0 16 16"
       fill="none"

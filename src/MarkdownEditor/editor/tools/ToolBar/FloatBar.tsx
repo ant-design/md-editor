@@ -104,7 +104,7 @@ export const FloatBar = (props: { readonly: boolean }) => {
   }, []);
 
   const context = useContext(ConfigProvider.ConfigContext);
-  const baseClassName = context.getPrefixCls(`md-editor-float-bar`);
+  const baseClassName = context?.getPrefixCls(`md-editor-float-bar`);
 
   const { wrapSSR, hashId } = useStyle(baseClassName);
 

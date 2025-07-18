@@ -64,13 +64,13 @@ export const TitleInfo = (props: {
         if (Array.isArray(metaList)) {
           if (metaList.length > 1) {
             if (props.category === 'RagRetrieval') {
-              infoTitle = locale.multipleKnowledgeBases;
+              infoTitle = locale?.multipleKnowledgeBases;
             } else if (props.category === 'TableSql') {
-              infoTitle = metaList.at(0)?.name + locale.multipleTables;
+              infoTitle = metaList.at(0)?.name + locale?.multipleTables;
             } else if (props.category === 'ToolCall') {
-              infoTitle = metaList.at(0)?.name + locale.multipleTools;
+              infoTitle = metaList.at(0)?.name + locale?.multipleTools;
             } else {
-              infoTitle = metaList.at(0)?.name + locale.multipleData;
+              infoTitle = metaList.at(0)?.name + locale?.multipleData;
             }
           }
           if (metaList.length === 1) {
@@ -189,7 +189,7 @@ export const TitleInfo = (props: {
 
   const extraTitleDom = (
     <ActionIconBox
-      title={collapse ? locale.expand : locale.collapse}
+      title={collapse ? locale?.expand : locale?.collapse}
       onClick={() => {
         setCollapse?.(!collapse);
       }}
@@ -201,12 +201,14 @@ export const TitleInfo = (props: {
   return useMemo(
     () => (
       <div
+        data-testid="title-info"
         className={classNames(
           `${props.prefixCls}-content-list-item-info`,
           props.hashId,
         )}
       >
         <div
+          data-testid="title-text"
           className={classNames(
             `${props.prefixCls}-content-list-item-info-title`,
             props.hashId,
