@@ -36,6 +36,7 @@ import { CostMillis } from './CostMillis';
  */
 export const TableSql = (
   props: {
+    'data-testid'?: string;
     isFinished?: boolean;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
@@ -56,6 +57,7 @@ export const TableSql = (
     if (editor) {
       return (
         <div
+          data-testid={props['data-testid']}
           style={{
             display: 'flex',
             gap: '10px',
@@ -190,6 +192,7 @@ export const TableSql = (
     return (
       <>
         <div
+          data-testid={props['data-testid']}
           style={{
             display: 'flex',
             gap: '10px',

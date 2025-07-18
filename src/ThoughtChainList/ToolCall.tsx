@@ -36,6 +36,7 @@ import { DotLoading } from './DotAni';
  */
 export const ToolCall = (
   props: {
+    'data-testid'?: string;
     isFinished?: boolean;
     onChangeItem?: (
       item: WhiteBoxProcessInterface,
@@ -187,6 +188,7 @@ export const ToolCall = (
     return (
       <>
         <div
+          data-testid={props['data-testid']}
           style={{
             display: 'flex',
             gap: '10px',

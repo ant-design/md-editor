@@ -1,8 +1,17 @@
 ﻿import React from 'react';
 
-export const CollapseIcon = () => {
+export const CollapseIcon = ({
+  'data-testid': testId,
+}: { 'data-testid'?: string } = {}) => {
   return (
-    <svg fill="none" version="1.1" width="1em" height="1em" viewBox="0 0 14 14">
+    <svg
+      data-testid={testId || 'collapse-icon'}
+      fill="none"
+      version="1.1"
+      width="1em"
+      height="1em"
+      viewBox="0 0 14 14"
+    >
       <defs>
         <clipPath id="master_svg0_787_08919/592_08638">
           <rect x="0" y="0" width="14" height="14" rx="0" />
@@ -56,9 +65,12 @@ export const CollapseIcon = () => {
   );
 };
 
-export const ExpandIcon = () => {
+export const ExpandIcon = ({
+  'data-testid': testId,
+}: { 'data-testid'?: string } = {}) => {
   return (
     <svg
+      data-testid={testId || 'expand-icon'}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="none"

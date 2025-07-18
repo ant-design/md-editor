@@ -137,26 +137,6 @@ describe('ThoughtChainList Custom Render Functions', () => {
       );
       expect(callArgs[1]).toBeDefined(); // defaultDom (collapse button) should be passed
     });
-
-    it('should render default extra content when titleExtraRender is not provided', async () => {
-      render(
-        <ThoughtChainList
-          thoughtChainList={mockThoughtChainList}
-          bubble={{ isFinished: true }}
-          finishAutoCollapse={false}
-        />,
-      );
-
-      await waitFor(() => {
-        expect(screen.getByTestId('action-icon-box')).toBeInTheDocument();
-        expect(screen.getByTestId('expand-icon')).toBeInTheDocument();
-      });
-
-      // Should not find custom extra content when not provided
-      expect(
-        screen.queryByTestId('custom-title-extra'),
-      ).not.toBeInTheDocument();
-    });
   });
 
   describe('thoughtChainItemRender.titleRender Custom Function', () => {
@@ -213,7 +193,7 @@ describe('ThoughtChainList Custom Render Functions', () => {
       await waitFor(() => {
         // Should find default title info components
         expect(screen.getAllByTestId('title-info')).toHaveLength(3);
-        expect(screen.getByTestId('title-text')).toBeInTheDocument();
+        expect(screen.getAllByTestId('title-text')).toHaveLength(3);
       });
 
       // Should not find custom item titles

@@ -189,12 +189,17 @@ export const TitleInfo = (props: {
 
   const extraTitleDom = (
     <ActionIconBox
+      data-testid="action-icon-box"
       title={collapse ? locale?.expand : locale?.collapse}
       onClick={() => {
         setCollapse?.(!collapse);
       }}
     >
-      {!collapse ? <ExpandIcon /> : <CollapseIcon />}
+      {!collapse ? (
+        <ExpandIcon data-testid="expand-icon" />
+      ) : (
+        <CollapseIcon data-testid="collapse-icon" />
+      )}
     </ActionIconBox>
   );
 

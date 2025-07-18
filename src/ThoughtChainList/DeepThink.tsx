@@ -10,6 +10,7 @@ import { MarkdownEditorUpdate } from './MarkdownEditor';
 
 export const DeepThink = (
   props: {
+    'data-testid'?: string;
     isFinished?: boolean;
     markdownRenderProps?: MarkdownEditorProps;
     onChangeItem?: (
@@ -32,6 +33,7 @@ export const DeepThink = (
     return (
       <>
         <div
+          data-testid={props['data-testid']}
           style={{
             display: 'flex',
             gap: '10px',

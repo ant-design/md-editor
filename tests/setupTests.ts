@@ -72,7 +72,6 @@ Object.defineProperty(globalThis, 'IntersectionObserver', {
   })),
 });
 
-
 if (typeof globalThis !== 'undefined') {
   // ref: https://github.com/ant-design/ant-design/issues/18774
   if (!globalThis.matchMedia) {
@@ -115,9 +114,36 @@ const localStorageMock = (() => {
     clear() {
       store = {};
     },
+    key(index: number) {
+      const keys = Object.keys(store);
+      return keys[index] || null;
+    },
+    get length() {
+      return Object.keys(store).length;
+    },
   };
 })();
 
 Object.defineProperty(globalThis, 'localStorage', {
   value: localStorageMock,
+  writable: true,
+  configurable: true,
+});
+
+Object.defineProperty(globalThis.window, 'localStorage', {
+  value: localStorageMock,
+  writable: true,
+  configurable: true,
+});
+
+Object.defineProperty(globalThis, 'sessionStorage', {
+  value: localStorageMock,
+  writable: true,
+  configurable: true,
+});
+
+Object.defineProperty(globalThis.window, 'sessionStorage', {
+  value: localStorageMock,
+  writable: true,
+  configurable: true,
 });
