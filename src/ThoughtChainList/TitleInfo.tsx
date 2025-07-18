@@ -37,6 +37,7 @@ export const TitleInfo = (props: {
   isFinished?: boolean;
   onMetaClick?: (meta: Partial<DocMeta>) => void;
   instanceId?: string;
+  titleExtraRender?: (defaultDom: React.ReactNode) => React.ReactNode;
   meta: Record<
     string,
     {
@@ -186,6 +187,17 @@ export const TitleInfo = (props: {
     });
   }, [props.title]);
 
+  const extraTitleDom = (
+    <ActionIconBox
+      title={collapse ? locale.expand : locale.collapse}
+      onClick={() => {
+        setCollapse?.(!collapse);
+      }}
+    >
+      {!collapse ? <ExpandIcon /> : <CollapseIcon />}
+    </ActionIconBox>
+  );
+
   return useMemo(
     () => (
       <div
@@ -209,14 +221,9 @@ export const TitleInfo = (props: {
             props.hashId,
           )}
         >
-          <ActionIconBox
-            title={collapse ? locale.expand : locale.collapse}
-            onClick={() => {
-              setCollapse?.(!collapse);
-            }}
-          >
-            {!collapse ? <ExpandIcon /> : <CollapseIcon />}
-          </ActionIconBox>
+          {props.titleExtraRender
+            ? props.titleExtraRender(extraTitleDom)
+            : extraTitleDom}
         </div>
       </div>
     ),

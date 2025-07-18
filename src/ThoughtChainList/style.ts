@@ -87,6 +87,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           overflow: 'hidden',
           lineHeight: 1,
         },
+        '&&-extra': {
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          flex: 1,
+          fontSize: '1em',
+          justifyContent: 'flex-end',
+        },
         '> div': {
           maxWidth: 'min(860px,calc(100% - 42px))',
           display: 'flex',

@@ -177,6 +177,28 @@ export interface ThoughtChainListProps {
     totalTimeUsed?: string;
     taskComplete?: string;
   };
+  titleExtraRender?: (
+    props: ThoughtChainListProps,
+    defaultDom: React.ReactNode,
+  ) => React.ReactNode;
+  titleRender?: (
+    props: ThoughtChainListProps,
+    defaultDom: React.ReactNode,
+  ) => React.ReactNode;
+  thoughtChainItemRender?: {
+    titleExtraRender?: (
+      item: WhiteBoxProcessInterface,
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode;
+    titleRender?: (
+      item: WhiteBoxProcessInterface,
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode;
+    contentRender?: (
+      item: WhiteBoxProcessInterface,
+      defaultDom: React.ReactNode,
+    ) => React.ReactNode;
+  };
   onDocMetaClick?: (docMeta: DocMeta | null) => void;
 }
 
@@ -189,6 +211,8 @@ const ThoughtChainTitle = React.memo<{
   endStatusDisplay: React.ReactNode;
   onCollapseToggle: () => void;
   locale: any;
+  titleRender?: (defaultDom: React.ReactNode) => React.ReactNode;
+  titleExtraRender?: (defaultDom: React.ReactNode) => React.ReactNode;
 }>(
   ({
     prefixCls,
@@ -198,15 +222,25 @@ const ThoughtChainTitle = React.memo<{
     endStatusDisplay,
     onCollapseToggle,
     locale,
+    ...props
   }) => {
-    return (
+    const extra = (
+      <ActionIconBox
+        title={collapse ? locale?.expand || '展开' : locale?.collapse || '收起'}
+        onClick={onCollapseToggle}
+      >
+        {!collapse ? <ExpandIcon /> : <CollapseIcon />}
+      </ActionIconBox>
+    );
+
+    const dom = (
       <motion.div
         className={classNames(`${prefixCls}-title`, hashId, {
           [`${prefixCls}-title-collapse`]: collapse,
           [`${prefixCls}-title-compact`]: compact,
         })}
       >
-        <div>
+        <div className={classNames(`${prefixCls}-title-content`, hashId)}>
           <MagicIcon
             style={{
               width: 15,
@@ -222,17 +256,15 @@ const ThoughtChainTitle = React.memo<{
             {endStatusDisplay}
           </span>
         </div>
-
-        <ActionIconBox
-          title={
-            collapse ? locale?.expand || '展开' : locale?.collapse || '收起'
-          }
-          onClick={onCollapseToggle}
-        >
-          {!collapse ? <ExpandIcon /> : <CollapseIcon />}
-        </ActionIconBox>
+        <span className={classNames(`${prefixCls}-title-extra`, hashId)}>
+          {props.titleExtraRender ? props.titleExtraRender(extra) : extra}
+        </span>
       </motion.div>
     );
+    if (props.titleRender) {
+      return props.titleRender(dom);
+    }
+    return dom;
   },
 );
 
@@ -285,23 +317,25 @@ const DocumentDrawer = React.memo<{
 });
 
 // 思维链列表内容组件 - 独立 memo
-const ThoughtChainContent = React.memo<{
-  prefixCls: string;
-  hashId: string;
-  collapse: boolean;
-  compact?: boolean;
-  thoughtChainList: WhiteBoxProcessInterface[];
-  bubble?: {
-    isFinished?: boolean;
-    endTime?: number;
-    createAt?: number;
-    isAborted?: boolean;
-  };
-  loading?: boolean;
-  markdownRenderProps?: MarkdownEditorProps;
-  onDocMetaClick: (docMeta: DocMeta) => void;
-  instanceId: string;
-}>(
+const ThoughtChainContent = React.memo<
+  {
+    prefixCls: string;
+    hashId: string;
+    collapse: boolean;
+    compact?: boolean;
+    thoughtChainList: WhiteBoxProcessInterface[];
+    bubble?: {
+      isFinished?: boolean;
+      endTime?: number;
+      createAt?: number;
+      isAborted?: boolean;
+    };
+    loading?: boolean;
+    markdownRenderProps?: MarkdownEditorProps;
+    onDocMetaClick: (docMeta: DocMeta) => void;
+    instanceId: string;
+  } & ThoughtChainListProps['thoughtChainItemRender']
+>(
   ({
     prefixCls,
     hashId,
@@ -313,6 +347,7 @@ const ThoughtChainContent = React.memo<{
     markdownRenderProps,
     onDocMetaClick,
     instanceId,
+    ...props
   }) => {
     const { containerRef } = useAutoScroll({
       SCROLL_TOLERANCE: 30,
@@ -438,6 +473,9 @@ const ThoughtChainContent = React.memo<{
                   }
                   setDocMeta={onDocMetaClick}
                   prefixCls={prefixCls}
+                  titleRender={props.titleRender}
+                  titleExtraRender={props.titleExtraRender}
+                  contentRender={props.contentRender}
                 />
               </ErrorBoundary>
             );
@@ -602,6 +640,16 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
               endStatusDisplay={endStatusDisplay}
               onCollapseToggle={handleCollapseToggle}
               locale={locale}
+              titleRender={
+                props.titleRender
+                  ? (defaultDom) => props.titleRender?.(props, defaultDom)
+                  : undefined
+              }
+              titleExtraRender={
+                props.titleExtraRender
+                  ? (defaultDom) => props.titleExtraRender?.(props, defaultDom)
+                  : undefined
+              }
             />
             <div
               style={{
@@ -622,6 +670,7 @@ export const ThoughtChainList: React.FC<ThoughtChainListProps> = React.memo(
                 markdownRenderProps={markdownRenderProps}
                 onDocMetaClick={handleDocMetaClick}
                 instanceId={instanceId}
+                {...props.thoughtChainItemRender}
               />
             </div>
           </motion.div>

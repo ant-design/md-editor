@@ -1,7 +1,7 @@
 ﻿import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useMemo } from 'react';
-import { DocMeta, WhiteBoxProcessInterface } from '.';
+import { DocMeta, ThoughtChainListProps, WhiteBoxProcessInterface } from '.';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DeepThink } from './DeepThink';
 import { RagRetrievalInfo } from './RagRetrievalInfo';
@@ -146,22 +146,24 @@ const ThoughtChainItemMotion = React.memo<{
  * @param {boolean} props.loading - 加载状态
  * @returns {JSX.Element} 任务列表组件
  */
-export const ThoughtChainListItem: React.FC<{
-  bubble?: {
+export const ThoughtChainListItem: React.FC<
+  {
+    bubble?: {
+      isFinished?: boolean;
+      endTime?: number;
+      createAt?: number;
+    };
+    hashId: string;
+    prefixCls: string;
+    index: number;
+    thoughtChainListItem: WhiteBoxProcessInterface & {
+      icon: React.ReactNode;
+    };
     isFinished?: boolean;
-    endTime?: number;
-    createAt?: number;
-  };
-  hashId: string;
-  prefixCls: string;
-  index: number;
-  thoughtChainListItem: WhiteBoxProcessInterface & {
-    icon: React.ReactNode;
-  };
-  isFinished?: boolean;
-  setDocMeta: (meta: Partial<DocMeta>) => void;
-  markdownRenderProps?: MarkdownEditorProps;
-}> = React.memo((props) => {
+    setDocMeta: (meta: Partial<DocMeta>) => void;
+    markdownRenderProps?: MarkdownEditorProps;
+  } & ThoughtChainListProps['thoughtChainItemRender']
+> = React.memo((props) => {
   const [collapse, setCollapse] = React.useState<boolean>(false);
   const { thoughtChainListItem, prefixCls, hashId, setDocMeta } = props;
 
@@ -190,6 +192,37 @@ export const ThoughtChainListItem: React.FC<{
     setCollapse(change);
   }, []);
 
+  const titleDom = (
+    <TitleInfo
+      title={thoughtChainListItem.info!}
+      costMillis={thoughtChainListItem.costMillis}
+      category={thoughtChainListItem.category!}
+      prefixCls={prefixCls}
+      hashId={hashId}
+      isFinished={isFinished}
+      setCollapse={handleCollapseChange}
+      collapse={collapse}
+      titleExtraRender={
+        props.titleExtraRender
+          ? (titleDom) =>
+              props?.titleExtraRender?.(thoughtChainListItem, titleDom)
+          : undefined
+      }
+      meta={thoughtChainListItem.meta?.data || {}}
+      onMetaClick={handleMetaClick}
+    />
+  );
+
+  const content = (
+    <ThoughtChainItemDetail
+      category={thoughtChainListItem.category}
+      thoughtChainListItem={thoughtChainListItem}
+      isFinished={isFinished}
+      markdownRenderProps={markdownRenderProps}
+      onMetaClick={handleMetaClick}
+    />
+  );
+
   return (
     <ThoughtChainItemMotion
       prefixCls={prefixCls}
@@ -212,18 +245,9 @@ export const ThoughtChainListItem: React.FC<{
           maxWidth: '100%',
         }}
       >
-        <TitleInfo
-          title={thoughtChainListItem.info!}
-          costMillis={thoughtChainListItem.costMillis}
-          category={thoughtChainListItem.category!}
-          prefixCls={prefixCls}
-          hashId={hashId}
-          isFinished={isFinished}
-          setCollapse={handleCollapseChange}
-          collapse={collapse}
-          meta={thoughtChainListItem.meta?.data || {}}
-          onMetaClick={handleMetaClick}
-        />
+        {props.titleRender
+          ? props.titleRender(thoughtChainListItem!, titleDom)
+          : titleDom}
         <div
           style={{
             display: 'flex',
@@ -235,13 +259,9 @@ export const ThoughtChainListItem: React.FC<{
             transitionBehavior: 'allow-discrete',
           }}
         >
-          <ThoughtChainItemDetail
-            category={thoughtChainListItem.category}
-            thoughtChainListItem={thoughtChainListItem}
-            isFinished={isFinished}
-            markdownRenderProps={markdownRenderProps}
-            onMetaClick={handleMetaClick}
-          />
+          {props.contentRender
+            ? props.contentRender(thoughtChainListItem, content)
+            : content}
         </div>
       </div>
     </ThoughtChainItemMotion>
