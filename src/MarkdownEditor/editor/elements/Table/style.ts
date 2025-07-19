@@ -42,6 +42,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontVariant: 'tabular-nums',
         borderRadius: 'var(--table-border-radius)',
         border: '1px solid var(--table-border-color)',
+
         th: {
           backgroundColor: 'var(--table-header-bg)',
           borderBottom: '1px solid var(--table-border-color)',

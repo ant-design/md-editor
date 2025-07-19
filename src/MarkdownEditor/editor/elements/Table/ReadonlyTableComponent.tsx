@@ -228,6 +228,14 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               flex: 1,
               minWidth: 0,
             }}
+            onDragStart={(e) => {
+              // 阻止拖拽开始时的文字选择
+              e.preventDefault();
+            }}
+            onDoubleClick={(e) => {
+              // 阻止双击选择文字
+              e.preventDefault();
+            }}
           >
             {tableDom}
           </div>
@@ -256,6 +264,18 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
                 width: 'calc(80vw - 64px)',
               }}
               ref={modelTargetRef}
+              onMouseDown={(e) => {
+                // 阻止默认的文字选择行为
+                e.preventDefault();
+              }}
+              onDragStart={(e) => {
+                // 阻止拖拽开始时的文字选择
+                e.preventDefault();
+              }}
+              onDoubleClick={(e) => {
+                // 阻止双击选择文字
+                e.preventDefault();
+              }}
             >
               <ConfigProvider
                 getPopupContainer={() =>

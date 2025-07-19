@@ -179,6 +179,11 @@ export const ReadonlyTable = ({
           userSelect: 'none',
         }}
         className={classNames(`${baseCls}-editor-table`, hashId)}
+        onDragStart={(e) => {
+          // 阻止拖拽开始事件
+          e.preventDefault();
+          return false;
+        }}
       >
         <colgroup>
           {(colWidths || []).map((colWidth: number, index: number) => {
@@ -242,6 +247,14 @@ export const ReadonlyTable = ({
       className={classNames(baseCls, hashId)}
       ref={tableRef}
       style={boxShadowStyle}
+      onDragStart={(e) => {
+        // 阻止拖拽开始时的文字选择
+        e.preventDefault();
+      }}
+      onDoubleClick={(e) => {
+        // 阻止双击选择文字
+        e.preventDefault();
+      }}
     >
       {tableDom}
     </div>

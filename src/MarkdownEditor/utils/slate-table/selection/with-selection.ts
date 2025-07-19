@@ -200,6 +200,15 @@ export function withSelection<T extends Editor>(
     EDITOR_TO_SELECTION.set(editor, selected);
     EDITOR_TO_SELECTION_SET.set(editor, selectedSet);
 
+    // 阻止文字选择，清除浏览器的默认选择
+    // 当用户在表格中进行单元格选择时，我们不希望同时触发文字选择
+    if (typeof window !== 'undefined' && window.getSelection) {
+      const browserSelection = window.getSelection();
+      if (browserSelection && browserSelection.rangeCount > 0) {
+        browserSelection.removeAllRanges();
+      }
+    }
+
     // 应用原始的选择操作
     apply(op);
   };
