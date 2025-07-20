@@ -63,7 +63,7 @@ export function useEditorStyleRegister(
   componentName: string,
   styleFn: (token: ChatTokenType) => CSSInterpolation,
 ) {
-  const { token, theme, hashId } = antdTheme.useToken();
+  const { token, theme, hashId } = antdTheme?.useToken?.() || {};
   const chatToken = {
     ...token,
     chatCls: '',

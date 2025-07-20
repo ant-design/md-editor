@@ -6,3 +6,4 @@ node_modules
 .DS_Store
 /docs-dist
 tsconfig.tsbuildinfo
+coverage/**
