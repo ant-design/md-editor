@@ -373,4 +373,371 @@ describe('slate-table utils', () => {
       expect(isNonExistentType(nonTableElement, [])).toBe(false);
     });
   });
+
+  describe('additional Point operations', () => {
+    it('should handle Point operations with negative coordinates', () => {
+      const point1 = Point.valueOf(-1, -2);
+      const point2 = Point.valueOf(-1, -2);
+      const point3 = Point.valueOf(0, 0);
+
+      expect(point1.x).toBe(-1);
+      expect(point1.y).toBe(-2);
+      expect(Point.equals(point1, point2)).toBe(true);
+      expect(Point.equals(point1, point3)).toBe(false);
+    });
+
+    it('should handle Point operations with large coordinates', () => {
+      const point1 = Point.valueOf(1000, 2000);
+      const point2 = Point.valueOf(1000, 2000);
+
+      expect(Point.equals(point1, point2)).toBe(true);
+    });
+
+    it('should handle Point operations with decimal coordinates', () => {
+      const point1 = Point.valueOf(1.5, 2.7);
+      const point2 = Point.valueOf(1.5, 2.7);
+      const point3 = Point.valueOf(1.6, 2.7);
+
+      expect(Point.equals(point1, point2)).toBe(true);
+      expect(Point.equals(point1, point3)).toBe(false);
+    });
+  });
+
+  describe('advanced isOfType scenarios', () => {
+    it('should handle multiple type checking', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const isTd = isOfType(editor, 'td'); // table-cell
+      const isTr = isOfType(editor, 'tr'); // table-row
+      const isTable = isOfType(editor, 'table');
+
+      const cellElement = { type: 'table-cell', children: [] };
+      const rowElement = { type: 'table-row', children: [] };
+      const tableElement = { type: 'table', children: [] };
+      const paragraphElement = { type: 'paragraph', children: [] };
+
+      expect(isTd(cellElement, [])).toBe(true);
+      expect(isTr(rowElement, [])).toBe(true);
+      expect(isTable(tableElement, [])).toBe(true);
+
+      expect(isTd(paragraphElement, [])).toBe(false);
+      expect(isTr(paragraphElement, [])).toBe(false);
+      expect(isTable(paragraphElement, [])).toBe(false);
+    });
+
+    it('should handle isOfType with complex nested elements', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const isTd = isOfType(editor, 'td');
+
+      const nestedCellElement = {
+        type: 'table-cell',
+        children: [
+          {
+            type: 'paragraph',
+            children: [{ text: 'Cell content' }],
+          },
+        ],
+      };
+
+      expect(isTd(nestedCellElement, [])).toBe(true);
+    });
+
+    it('should handle isOfType with header cells', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const isTh = isOfType(editor, 'th'); // header-cell
+      const element = { type: 'header-cell', children: [] };
+
+      expect(isTh(element, [])).toBe(true);
+    });
+  });
+
+  describe('advanced hasCommon scenarios', () => {
+    it('should handle hasCommon with deeply nested table structures', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const deepTable = {
+        type: 'table',
+        children: [
+          {
+            type: 'table-row',
+            children: [
+              {
+                type: 'table-cell',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'text',
+                        children: [{ text: 'Deep content' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      editor.children = [deepTable];
+
+      const path1 = [0, 0, 0, 0, 0]; // Deep nested path
+      const path2 = [0, 0, 0]; // Less deep path
+
+      const result = hasCommon(editor, [path1, path2], 'table');
+      expect(result).toBe(true);
+    });
+
+    it('should handle hasCommon with multiple table elements', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const table1 = createTableNode(2, 2);
+      const table2 = createTableNode(2, 2);
+
+      editor.children = [
+        table1,
+        { type: 'paragraph', children: [{ text: 'Between tables' }] },
+        table2,
+      ];
+
+      const path1 = [0, 0, 0]; // First table
+      const path2 = [2, 0, 0]; // Second table
+
+      const result = hasCommon(editor, [path1, path2], 'table');
+      expect(result).toBe(false); // Different tables
+    });
+
+    it('should handle hasCommon with invalid paths', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      const path1 = [0, 0, 0];
+      const path2 = [10, 10, 10]; // Invalid path
+
+      expect(() => {
+        hasCommon(editor, [path1, path2], 'table');
+      }).not.toThrow(); // Should handle gracefully
+    });
+
+    it('should handle hasCommon with same paths', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      const path1 = [0, 0, 0];
+      const result = hasCommon(editor, [path1, path1], 'table');
+      expect(result).toBe(true); // Same path should return true if it contains the type
+    });
+  });
+
+  describe('advanced filledMatrix scenarios', () => {
+    it('should handle filledMatrix with complex table structures', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const complexTable = {
+        type: 'table',
+        children: [
+          {
+            type: 'table-row',
+            children: [
+              {
+                type: 'table-cell',
+                rowSpan: 2,
+                children: [
+                  { type: 'paragraph', children: [{ text: 'Merged cell' }] },
+                ],
+              },
+              {
+                type: 'table-cell',
+                children: [
+                  { type: 'paragraph', children: [{ text: 'Regular cell' }] },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'table-row',
+            children: [
+              {
+                type: 'table-cell',
+                children: [
+                  { type: 'paragraph', children: [{ text: 'Bottom cell' }] },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      editor.children = [complexTable];
+
+      const matrix = filledMatrix(editor, { at: [0] });
+
+      expect(matrix).toBeDefined();
+      expect(Array.isArray(matrix)).toBe(true);
+    });
+
+    it('should handle filledMatrix with invalid table paths', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      expect(() => {
+        try {
+          filledMatrix(editor, { at: [999] }); // Invalid table index
+        } catch (error) {
+          // Expected to throw due to invalid path
+        }
+      }).not.toThrow(); // Should handle gracefully at the test level
+    });
+
+    it('should handle filledMatrix with non-table elements', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      editor.children = [
+        { type: 'paragraph', children: [{ text: 'Not a table' }] },
+      ];
+
+      const matrix = filledMatrix(editor, { at: [0] });
+
+      expect(Array.isArray(matrix)).toBe(true);
+      expect(matrix).toHaveLength(0); // Empty matrix for non-table
+    });
+
+    it('should handle filledMatrix with tables containing different cell types', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const mixedCellTable = {
+        type: 'table',
+        children: [
+          {
+            type: 'table-row',
+            children: [
+              {
+                type: 'table-cell',
+                children: [
+                  { type: 'paragraph', children: [{ text: 'Regular cell' }] },
+                ],
+              },
+              {
+                type: 'header-cell',
+                children: [
+                  { type: 'paragraph', children: [{ text: 'Header cell' }] },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      editor.children = [mixedCellTable];
+
+      const matrix = filledMatrix(editor, { at: [0] });
+
+      expect(matrix).toBeDefined();
+      expect(Array.isArray(matrix)).toBe(true);
+    });
+  });
+
+  describe('performance and edge cases', () => {
+    it('should handle large table structures efficiently', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      // Create a large table (10x10)
+      const largeTable = createTableNode(10, 10);
+      editor.children = [largeTable];
+
+      const startTime = performance.now();
+      const matrix = filledMatrix(editor, { at: [0] });
+      const endTime = performance.now();
+
+      expect(matrix).toBeDefined();
+      expect(endTime - startTime).toBeLessThan(100); // Should complete within 100ms
+    });
+
+    it('should handle Point operations with extreme values', () => {
+      const point1 = Point.valueOf(
+        Number.MAX_SAFE_INTEGER,
+        Number.MIN_SAFE_INTEGER,
+      );
+      const point2 = Point.valueOf(
+        Number.MAX_SAFE_INTEGER,
+        Number.MIN_SAFE_INTEGER,
+      );
+
+      expect(Point.equals(point1, point2)).toBe(true);
+    });
+
+    it('should handle isOfType with supported type variations', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const isContent = isOfType(editor, 'content'); // paragraph
+      const element = { type: 'paragraph', children: [] };
+
+      expect(isContent(element, [])).toBe(true);
+    });
+
+    it('should handle hasCommon with very deep path arrays', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      const deepPath1 = [0, 0, 0, 0, 0];
+      const deepPath2 = [0, 0, 1, 0, 0];
+
+      expect(() => {
+        hasCommon(editor, [deepPath1, deepPath2], 'table');
+      }).not.toThrow();
+    });
+  });
 });

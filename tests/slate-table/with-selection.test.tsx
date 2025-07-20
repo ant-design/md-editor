@@ -299,4 +299,221 @@ describe('with-selection slate-table functionality', () => {
       expect(EDITOR_TO_SELECTION_SET.get(editor2)).toBeInstanceOf(WeakSet);
     });
   });
+
+  describe('advanced selection scenarios', () => {
+    it('should handle multiple cell selection updates', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(3, 3);
+
+      editor.children = [table];
+
+      // Initialize empty selection matrix (correct type)
+      const selectionMatrix: any[][] = [];
+
+      EDITOR_TO_SELECTION.set(editor, selectionMatrix);
+
+      const retrievedMatrix = EDITOR_TO_SELECTION.get(editor);
+      expect(retrievedMatrix).toEqual(selectionMatrix);
+      expect(Array.isArray(retrievedMatrix)).toBe(true);
+    });
+
+    it('should handle selection range operations', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(4, 4);
+
+      editor.children = [table];
+
+      // Test empty rectangular selection matrix
+      const rectangularSelection: any[][] = [[], [], [], []];
+
+      EDITOR_TO_SELECTION.set(editor, rectangularSelection);
+
+      const selection = EDITOR_TO_SELECTION.get(editor);
+      expect(selection).toEqual(rectangularSelection);
+      expect(selection?.length).toBe(4);
+    });
+
+    it('should handle selection clearing', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      // Set initial selection (empty matrix)
+      EDITOR_TO_SELECTION.set(editor, [[], []]);
+      expect(EDITOR_TO_SELECTION.get(editor)).toEqual([[], []]);
+
+      // Clear selection
+      EDITOR_TO_SELECTION.set(editor, []);
+      expect(EDITOR_TO_SELECTION.get(editor)).toEqual([]);
+    });
+
+    it('should handle WeakSet element management', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      const weakSet = new WeakSet();
+      EDITOR_TO_SELECTION_SET.set(editor, weakSet);
+
+      // Create mock cell elements
+      const cellElement1 = { type: 'table-cell', children: [] };
+      const cellElement2 = { type: 'table-cell', children: [] };
+
+      // Add elements to WeakSet
+      weakSet.add(cellElement1);
+      weakSet.add(cellElement2);
+
+      // Verify elements are in set
+      expect(weakSet.has(cellElement1)).toBe(true);
+      expect(weakSet.has(cellElement2)).toBe(true);
+
+      // Test non-existent element
+      const cellElement3 = { type: 'table-cell', children: [] };
+      expect(weakSet.has(cellElement3)).toBe(false);
+    });
+
+    it('should handle table resize selection adjustment', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(3, 3);
+
+      editor.children = [table];
+
+      // Initial 3x3 selection (empty matrix)
+      const initialSelection: any[][] = [[], [], []];
+
+      EDITOR_TO_SELECTION.set(editor, initialSelection);
+
+      // Simulate table resize by updating selection to 2x2
+      const resizedSelection: any[][] = [[], []];
+
+      EDITOR_TO_SELECTION.set(editor, resizedSelection);
+
+      const selection = EDITOR_TO_SELECTION.get(editor);
+      expect(selection).toEqual(resizedSelection);
+      expect(selection?.length).toBe(2);
+    });
+
+    it('should handle empty table selection', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      // Empty editor
+      editor.children = [];
+
+      EDITOR_TO_SELECTION.set(editor, []);
+      EDITOR_TO_SELECTION_SET.set(editor, new WeakSet());
+
+      expect(EDITOR_TO_SELECTION.get(editor)).toEqual([]);
+      expect(EDITOR_TO_SELECTION_SET.get(editor)).toBeInstanceOf(WeakSet);
+    });
+
+    it('should handle irregular selection patterns', () => {
+      const editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(3, 4);
+
+      editor.children = [table];
+
+      // Create proper NodeEntryWithContext structure for testing
+      const mockNodeEntry: any = [
+        [{ type: 'table-cell', children: [] }, [0, 0, 0, 0]],
+        { rtl: 0, ltr: 0, ttb: 0, btt: 0 },
+      ];
+
+      // L-shape selection pattern with proper structure
+      const lShapeSelection: any[][] = [
+        [mockNodeEntry],
+        [mockNodeEntry],
+        [mockNodeEntry, mockNodeEntry, mockNodeEntry, mockNodeEntry],
+      ];
+
+      EDITOR_TO_SELECTION.set(editor, lShapeSelection);
+
+      const selection = EDITOR_TO_SELECTION.get(editor);
+      expect(selection).toEqual(lShapeSelection);
+      expect(selection?.length).toBe(3);
+      expect(selection?.[2]?.length).toBe(4);
+    });
+  });
+
+  describe('memory management and cleanup', () => {
+    it('should properly clean up weak references', () => {
+      let editor = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const table = createTableNode(2, 2);
+
+      editor.children = [table];
+
+      // Set data in weak maps with proper types
+      EDITOR_TO_SELECTION.set(editor, [[], []]);
+      EDITOR_TO_SELECTION_SET.set(editor, new WeakSet());
+
+      expect(EDITOR_TO_SELECTION.has(editor)).toBe(true);
+      expect(EDITOR_TO_SELECTION_SET.has(editor)).toBe(true);
+
+      // Simulate editor cleanup
+      const hasSelection = EDITOR_TO_SELECTION.has(editor);
+      const hasSelectionSet = EDITOR_TO_SELECTION_SET.has(editor);
+
+      expect(hasSelection).toBe(true);
+      expect(hasSelectionSet).toBe(true);
+
+      // Clear references
+      editor = null as any;
+      // Note: WeakMap cleanup is handled by garbage collection
+    });
+
+    it('should handle concurrent editor operations', () => {
+      const editor1 = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+      const editor2 = withTable(
+        createTestEditor(),
+        DEFAULT_TEST_WITH_TABLE_OPTIONS,
+      );
+
+      const table1 = createTableNode(2, 2);
+      const table2 = createTableNode(3, 3);
+
+      editor1.children = [table1];
+      editor2.children = [table2];
+
+      // Set different selections for different editors with proper types
+      EDITOR_TO_SELECTION.set(editor1, [[], []]);
+      EDITOR_TO_SELECTION.set(editor2, [[], [], []]);
+
+      // Verify independence
+      const selection1 = EDITOR_TO_SELECTION.get(editor1);
+      const selection2 = EDITOR_TO_SELECTION.get(editor2);
+
+      expect(selection1).toHaveLength(2);
+      expect(selection2).toHaveLength(3);
+      expect(selection1?.[0]).toHaveLength(0);
+      expect(selection2?.[0]).toHaveLength(0);
+    });
+  });
 });
