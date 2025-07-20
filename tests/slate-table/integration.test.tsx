@@ -230,7 +230,7 @@ describe('withTable plugin integration', () => {
       // Set initial selection with valid path for 3x3 table
       // [0, 1, 1, 0, 0] = table -> row 1 -> cell 1 -> paragraph -> text
       Transforms.select(editor, { path: [0, 1, 1, 0, 0], offset: 0 });
-      
+
       const initialSelection = editor.selection;
       expect(initialSelection).toBeDefined();
 
@@ -238,7 +238,8 @@ describe('withTable plugin integration', () => {
       editor.insertText('Test');
 
       expect(editor.selection).toBeDefined();
-    });    it('should handle selection across multiple cells', () => {
+    });
+    it('should handle selection across multiple cells', () => {
       const editor = withTable(
         createTestEditor(),
         DEFAULT_TEST_WITH_TABLE_OPTIONS,
