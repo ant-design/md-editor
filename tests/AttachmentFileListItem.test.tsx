@@ -44,7 +44,7 @@ describe('AttachmentFileListItem', () => {
     });
 
     // Create a new object that extends the File object
-    const mockFile = Object.create(file);
+    const mockFile = createMockFile(file);
     mockFile.uuid = overrides.uuid || 'test-uuid';
     mockFile.status = overrides.status || 'done';
     mockFile.url = overrides.url || 'http://example.com/test.txt';
