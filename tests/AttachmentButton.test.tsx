@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { message } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -113,7 +113,8 @@ describe('AttachmentButton', () => {
       expect(mockUpload).toHaveBeenCalledWith(
         expect.objectContaining({
           name: 'test.txt',
-          status: 'uploading',
+          status: 'done',
+          url: 'uploaded-url',
         }),
       );
       expect(mockOnFileMapChange).toHaveBeenCalled();
@@ -241,8 +242,10 @@ describe('AttachmentButton', () => {
     it('should render attachment button', () => {
       render(<AttachmentButton uploadImage={mockUploadImage} />);
 
-      // Look for the attachment button by class or other attributes
-      const attachmentButton = screen.getByRole('button', { hidden: true });
+      // Look for the attachment button by class
+      const attachmentButton = document.querySelector(
+        '.ant-md-editor-attachment-button',
+      );
       expect(attachmentButton).toBeInTheDocument();
     });
 
