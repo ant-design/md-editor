@@ -20,8 +20,8 @@ describe('useDebounceFn', () => {
     await act(async () => {
       const promise = result.current.run('arg1', 'arg2');
       expect(mockFn).toHaveBeenCalledWith('arg1', 'arg2');
-      const result = await promise;
-      expect(result).toBe('test result');
+      const promiseResult = await promise;
+      expect(promiseResult).toBe('test result');
     });
   });
 
@@ -33,8 +33,8 @@ describe('useDebounceFn', () => {
     await act(async () => {
       const promise = result.current.run('arg1', 'arg2');
       expect(mockFn).toHaveBeenCalledWith('arg1', 'arg2');
-      const result = await promise;
-      expect(result).toBe('test result');
+      const promiseResult = await promise;
+      expect(promiseResult).toBe('test result');
     });
   });
 
