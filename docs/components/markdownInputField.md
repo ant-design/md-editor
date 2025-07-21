@@ -20,7 +20,9 @@ nav:
 import { MarkdownInputField } from '@ant-design/md-editor';
 
 export default () => {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(
+    '`${placeholder:目标场景}` `${placeholder:目标事件}` 今天的拒绝率为什么下降？',
+  );
 
   return (
     <MarkdownInputField
