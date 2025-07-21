@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { AttachmentFileListItem } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileListItem';
 import { AttachmentFile } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList';
+import { AttachmentFileListItem } from '../src/MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileListItem';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
@@ -22,26 +22,41 @@ vi.mock('../src/icons/LoadingIcon', () => ({
 }));
 
 // Mock AttachmentFileIcon
-vi.mock('../src/MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileIcon', () => ({
-  AttachmentFileIcon: ({ file }: { file: any }) => (
-    <div data-testid="file-icon">{file.name}</div>
-  ),
-}));
+vi.mock(
+  '../src/MarkdownInputField/AttachmentButton/AttachmentFileList/AttachmentFileIcon',
+  () => ({
+    AttachmentFileIcon: ({ file }: { file: any }) => (
+      <div data-testid="file-icon">{file.name}</div>
+    ),
+  }),
+);
 
 describe('AttachmentFileListItem', () => {
   const mockOnDelete = vi.fn();
   const mockOnPreview = vi.fn();
   const mockOnDownload = vi.fn();
 
-  const createMockFile = (overrides: Partial<AttachmentFile> = {}): AttachmentFile => {
-    const file = new File(['test content'], 'test.txt', { type: 'text/plain' });
-    return Object.assign(file, {
-      uuid: 'test-uuid',
-      status: 'done' as const,
-      url: 'http://example.com/test.txt',
-      previewUrl: 'http://example.com/preview.txt',
-      ...overrides,
+  const createMockFile = (
+    overrides: Partial<AttachmentFile> = {},
+  ): AttachmentFile => {
+    const file = new File(['test content'], overrides.name || 'test.txt', {
+      type: overrides.type || 'text/plain',
     });
+
+    // Create a new object that extends the File object
+    const mockFile = Object.create(file);
+    mockFile.uuid = overrides.uuid || 'test-uuid';
+    mockFile.status = overrides.status || 'done';
+    mockFile.url = overrides.url || 'http://example.com/test.txt';
+    mockFile.previewUrl =
+      overrides.previewUrl || 'http://example.com/preview.txt';
+    mockFile.name = overrides.name || 'test.txt';
+    mockFile.type = overrides.type || 'text/plain';
+
+    // Copy over any additional overrides
+    Object.assign(mockFile, overrides);
+
+    return mockFile as AttachmentFile;
   };
 
   beforeEach(() => {
@@ -60,7 +75,7 @@ describe('AttachmentFileListItem', () => {
         className="test-class"
         prefixCls="test-prefix"
         hashId="test-hash"
-      />
+      />,
     );
 
     expect(screen.getByTestId('file-icon')).toBeInTheDocument();
@@ -69,7 +84,10 @@ describe('AttachmentFileListItem', () => {
   });
 
   it('should render loading icon when status is uploading', () => {
-    const file = createMockFile({ name: 'uploading-file.txt', status: 'uploading' });
+    const file = createMockFile({
+      name: 'uploading-file.txt',
+      status: 'uploading',
+    });
 
     render(
       <AttachmentFileListItem
@@ -77,7 +95,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
@@ -93,7 +111,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     expect(screen.queryByTestId('loading-icon')).not.toBeInTheDocument();
@@ -109,7 +127,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     const fileItem = screen.getByText('clickable-file.txt').closest('div');
@@ -119,7 +137,10 @@ describe('AttachmentFileListItem', () => {
   });
 
   it('should not call onPreview when clicked and status is uploading', () => {
-    const file = createMockFile({ name: 'uploading-file.txt', status: 'uploading' });
+    const file = createMockFile({
+      name: 'uploading-file.txt',
+      status: 'uploading',
+    });
 
     render(
       <AttachmentFileListItem
@@ -127,7 +148,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     const fileItem = screen.getByTestId('loading-icon').closest('div');
@@ -145,7 +166,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     const fileItem = screen.getByText('error-file.txt').closest('div');
@@ -164,7 +185,7 @@ describe('AttachmentFileListItem', () => {
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
         className="custom-class"
-      />
+      />,
     );
 
     expect(container.firstChild).toHaveClass('custom-class');
@@ -180,7 +201,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     // Should render without crashing
@@ -197,7 +218,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     expect(screen.getByText('large-file.txt')).toBeInTheDocument();
@@ -212,7 +233,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     // Check that the mocked AttachmentFileIcon receives the file
@@ -228,7 +249,7 @@ describe('AttachmentFileListItem', () => {
         onDelete={mockOnDelete}
         onPreview={mockOnPreview}
         onDownload={mockOnDownload}
-      />
+      />,
     );
 
     // Check that motion.div is rendered (mocked as regular div)
@@ -246,7 +267,7 @@ describe('AttachmentFileListItem', () => {
         onDownload={mockOnDownload}
         prefixCls="custom-prefix"
         hashId="custom-hash"
-      />
+      />,
     );
 
     // Should render with custom prefixCls (the loading icon container will have the class)
