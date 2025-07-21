@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Transforms } from 'slate';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { TableCursor } from '../../src/MarkdownEditor/utils/slate-table/table-cursor';
 import {
+  createComplexTable,
   createEditorWithTable,
   createTableNode,
-  createComplexTable,
   createTableWithHeader,
   TestEditor,
 } from './test-utils';
@@ -20,7 +20,7 @@ describe('TableCursor', () => {
   describe('isInTable', () => {
     it('should return true when cursor is inside a table', () => {
       const editor = createEditorWithTable();
-      
+
       // 将光标移动到表格内的第一个单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -32,7 +32,7 @@ describe('TableCursor', () => {
 
     it('should return false when cursor is outside a table', () => {
       const editor = createEditorWithTable();
-      
+
       // 将光标移动到表格前的段落
       Transforms.select(editor, {
         anchor: { path: [0, 0], offset: 0 },
@@ -60,7 +60,7 @@ describe('TableCursor', () => {
     it('should return false when not in a table cell', () => {
       // 移动到表格外
       Transforms.select(editor, { path: [0, 0], offset: 0 });
-      
+
       expect(TableCursor.isOnEdge(editor, 'start')).toBe(false);
       expect(TableCursor.isOnEdge(editor, 'end')).toBe(false);
       expect(TableCursor.isOnEdge(editor, 'top')).toBe(false);
@@ -69,7 +69,7 @@ describe('TableCursor', () => {
 
     it('should return false when no selection exists', () => {
       editor.selection = null;
-      
+
       expect(TableCursor.isOnEdge(editor, 'start')).toBe(false);
     });
   });
@@ -77,7 +77,7 @@ describe('TableCursor', () => {
   describe('isInFirstCell', () => {
     it('should return true when in first cell', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到第一个单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -89,7 +89,7 @@ describe('TableCursor', () => {
 
     it('should return false when not in first cell', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到第二个单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 1, 0], offset: 0 },
@@ -101,7 +101,7 @@ describe('TableCursor', () => {
 
     it('should return false when not in table', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到表格外
       Transforms.select(editor, { path: [0, 0], offset: 0 });
 
@@ -119,7 +119,7 @@ describe('TableCursor', () => {
   describe('isInLastCell', () => {
     it('should return true when in last cell', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到最后一个单元格
       Transforms.select(editor, {
         anchor: { path: [1, 1, 1, 0], offset: 0 },
@@ -131,7 +131,7 @@ describe('TableCursor', () => {
 
     it('should return false when not in last cell', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到第一个单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -145,7 +145,7 @@ describe('TableCursor', () => {
   describe('isInFirstRow', () => {
     it('should return true when in first row', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到第一行的任意单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -157,7 +157,7 @@ describe('TableCursor', () => {
 
     it('should return false when not in first row', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到第二行
       Transforms.select(editor, {
         anchor: { path: [1, 1, 0, 0], offset: 0 },
@@ -178,7 +178,7 @@ describe('TableCursor', () => {
   describe('isInLastRow', () => {
     it('should return true when in last row', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到最后一行
       Transforms.select(editor, {
         anchor: { path: [1, 1, 0, 0], offset: 0 },
@@ -190,7 +190,7 @@ describe('TableCursor', () => {
 
     it('should return false when not in last row', () => {
       const editor = createEditorWithTable();
-      
+
       // 移动到第一行
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -213,7 +213,7 @@ describe('TableCursor', () => {
 
       it('should return false when not in table', () => {
         const editor = createEditorWithTable();
-        
+
         // 移动到表格外
         Transforms.select(editor, { path: [0, 0], offset: 0 });
 
@@ -233,7 +233,7 @@ describe('TableCursor', () => {
 
       it('should return false when not in table', () => {
         const editor = createEditorWithTable();
-        
+
         // 移动到表格外
         Transforms.select(editor, { path: [0, 0], offset: 0 });
 
@@ -253,7 +253,7 @@ describe('TableCursor', () => {
 
       it('should return false when not in table', () => {
         const editor = createEditorWithTable();
-        
+
         // 移动到表格外
         Transforms.select(editor, { path: [0, 0], offset: 0 });
 
@@ -273,7 +273,7 @@ describe('TableCursor', () => {
 
       it('should return false when not in table', () => {
         const editor = createEditorWithTable();
-        
+
         // 移动到表格外
         Transforms.select(editor, { path: [0, 0], offset: 0 });
 
@@ -287,7 +287,7 @@ describe('TableCursor', () => {
     it('should handle tables with merged cells', () => {
       const complexTable = createComplexTable();
       const editor = createEditorWithTable(complexTable);
-      
+
       // 移动到表格第一个单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -302,7 +302,7 @@ describe('TableCursor', () => {
     it('should handle tables with header cells', () => {
       const tableWithHeader = createTableWithHeader();
       const editor = createEditorWithTable(tableWithHeader);
-      
+
       // 移动到表头单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -318,7 +318,7 @@ describe('TableCursor', () => {
   describe('edge cases', () => {
     it('should handle single cell tables', () => {
       const editor = createEditorWithTable(createTableNode(1, 1));
-      
+
       // 移动到唯一的单元格
       Transforms.select(editor, {
         anchor: { path: [1, 0, 0, 0], offset: 0 },
@@ -334,7 +334,7 @@ describe('TableCursor', () => {
 
     it('should handle methods that require withSelection option', () => {
       const editor = createEditorWithTable();
-      
+
       // 测试需要 withSelection 选项的方法
       expect(() => {
         const selection = TableCursor.selection(editor);
@@ -361,7 +361,7 @@ describe('TableCursor', () => {
         { type: 'table', children: [] },
         { type: 'paragraph', children: [{ text: 'After table' }] },
       ];
-      
+
       // 尝试移动到表格
       Transforms.select(editor, { path: [1], offset: 0 });
 
