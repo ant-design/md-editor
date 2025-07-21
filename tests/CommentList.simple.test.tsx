@@ -3,11 +3,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { CommentList } from '../src/MarkdownEditor/editor/components/CommentList';
 import {
   CommentDataType,
   MarkdownEditorProps,
 } from '../src/MarkdownEditor/BaseMarkdownEditor';
+import { CommentList } from '../src/MarkdownEditor/editor/components/CommentList';
 
 // Mock framer-motion to avoid animation issues in tests
 vi.mock('framer-motion', () => ({
@@ -102,32 +102,26 @@ describe('CommentList Component', () => {
   });
 
   const renderWithProvider = (component: React.ReactElement) => {
-    return render(
-      <ConfigProvider>
-        {component}
-      </ConfigProvider>
-    );
+    return render(<ConfigProvider>{component}</ConfigProvider>);
   };
 
   it('should render comment list with correct title and count', () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     expect(screen.getByText('划词评论 (2)')).toBeInTheDocument();
   });
 
   it('should render empty comment list', () => {
-    renderWithProvider(
-      <CommentList commentList={[]} comment={mockComment} />
-    );
+    renderWithProvider(<CommentList commentList={[]} comment={mockComment} />);
 
     expect(screen.getByText('划词评论 (0)')).toBeInTheDocument();
   });
 
   it('should render comment items with user information', () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     expect(screen.getByText('John Doe')).toBeInTheDocument();
@@ -138,7 +132,7 @@ describe('CommentList Component', () => {
 
   it('should render formatted time for comments', () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     expect(screen.getAllByText('2023-12-01 10:30:00')).toHaveLength(2);
@@ -146,7 +140,7 @@ describe('CommentList Component', () => {
 
   it('should render user avatars', () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     const avatars = screen.getAllByRole('img');
@@ -172,7 +166,7 @@ describe('CommentList Component', () => {
     ];
 
     renderWithProvider(
-      <CommentList commentList={commentWithoutAvatar} comment={mockComment} />
+      <CommentList commentList={commentWithoutAvatar} comment={mockComment} />,
     );
 
     expect(screen.getByText('JD')).toBeInTheDocument();
@@ -197,7 +191,7 @@ describe('CommentList Component', () => {
     ];
 
     renderWithProvider(
-      <CommentList commentList={commentSingleName} comment={mockComment} />
+      <CommentList commentList={commentSingleName} comment={mockComment} />,
     );
 
     expect(screen.getByText('J')).toBeInTheDocument();
@@ -222,7 +216,7 @@ describe('CommentList Component', () => {
     ];
 
     renderWithProvider(
-      <CommentList commentList={commentEmptyName} comment={mockComment} />
+      <CommentList commentList={commentEmptyName} comment={mockComment} />,
     );
 
     // Should render empty string for initials
@@ -232,20 +226,25 @@ describe('CommentList Component', () => {
 
   it('should call onClick when comment item is clicked', async () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
-    const firstComment = screen.getByText('This is a test comment').closest('div');
+    const firstComment = screen
+      .getByText('This is a test comment')
+      .closest('div');
     fireEvent.click(firstComment!);
 
     await waitFor(() => {
-      expect(mockComment.onClick).toHaveBeenCalledWith('comment-1', mockCommentData[0]);
+      expect(mockComment.onClick).toHaveBeenCalledWith(
+        'comment-1',
+        mockCommentData[0],
+      );
     });
   });
 
   it('should render action buttons when callbacks are provided', () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     // Check for presence of action icons
@@ -257,7 +256,10 @@ describe('CommentList Component', () => {
   it('should not render delete button when onDelete is not provided', () => {
     const commentWithoutDelete = { ...mockComment, onDelete: undefined };
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={commentWithoutDelete} />
+      <CommentList
+        commentList={mockCommentData}
+        comment={commentWithoutDelete}
+      />,
     );
 
     expect(screen.queryAllByLabelText('delete')).toHaveLength(0);
@@ -266,7 +268,10 @@ describe('CommentList Component', () => {
   it('should not render edit button when onEdit is not provided', () => {
     const commentWithoutEdit = { ...mockComment, onEdit: undefined };
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={commentWithoutEdit} />
+      <CommentList
+        commentList={mockCommentData}
+        comment={commentWithoutEdit}
+      />,
     );
 
     expect(screen.queryAllByLabelText('edit')).toHaveLength(0);
@@ -274,14 +279,17 @@ describe('CommentList Component', () => {
 
   it('should call onEdit when edit button is clicked', async () => {
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     const editIcons = screen.getAllByLabelText('edit');
     fireEvent.click(editIcons[0]);
 
     await waitFor(() => {
-      expect(mockComment.onEdit).toHaveBeenCalledWith('comment-1', mockCommentData[0]);
+      expect(mockComment.onEdit).toHaveBeenCalledWith(
+        'comment-1',
+        mockCommentData[0],
+      );
     });
   });
 
@@ -294,20 +302,23 @@ describe('CommentList Component', () => {
     global.window.scrollBy = vi.fn();
 
     renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     const exportIcons = screen.getAllByLabelText('export');
     fireEvent.click(exportIcons[0]);
 
     await waitFor(() => {
-      expect(mockComment.onClick).toHaveBeenCalledWith('comment-1', mockCommentData[0]);
+      expect(mockComment.onClick).toHaveBeenCalledWith(
+        'comment-1',
+        mockCommentData[0],
+      );
     });
   });
 
   it('should handle undefined comment list', () => {
     renderWithProvider(
-      <CommentList commentList={undefined as any} comment={mockComment} />
+      <CommentList commentList={undefined as any} comment={mockComment} />,
     );
 
     expect(screen.getByText('划词评论 ()')).toBeInTheDocument();
@@ -315,7 +326,7 @@ describe('CommentList Component', () => {
 
   it('should render with proper structure', () => {
     const { container } = renderWithProvider(
-      <CommentList commentList={mockCommentData} comment={mockComment} />
+      <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
     expect(container.firstChild).toBeInTheDocument();

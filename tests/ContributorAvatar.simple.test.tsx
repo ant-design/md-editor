@@ -4,8 +4,8 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
 import {
-  ContributorAvatar,
   AvatarList,
+  ContributorAvatar,
 } from '../src/MarkdownEditor/editor/components/ContributorAvatar';
 
 describe('ContributorAvatar Component', () => {
@@ -15,21 +15,13 @@ describe('ContributorAvatar Component', () => {
   };
 
   const renderWithProvider = (component: React.ReactElement) => {
-    return render(
-      <ConfigProvider>
-        {component}
-      </ConfigProvider>
-    );
+    return render(<ConfigProvider>{component}</ConfigProvider>);
   };
 
   describe('ContributorAvatar', () => {
     it('should render contributor avatar with name', () => {
       renderWithProvider(
-        <ContributorAvatar
-          item={mockItem}
-          index={0}
-          className="test-avatar"
-        />
+        <ContributorAvatar item={mockItem} index={0} className="test-avatar" />,
       );
 
       expect(screen.getByText('Jo')).toBeInTheDocument();
@@ -39,11 +31,7 @@ describe('ContributorAvatar Component', () => {
 
     it('should render avatar with correct background color based on index', () => {
       renderWithProvider(
-        <ContributorAvatar
-          item={mockItem}
-          index={0}
-          className="test-avatar"
-        />
+        <ContributorAvatar item={mockItem} index={0} className="test-avatar" />,
       );
 
       const avatarElement = screen.getByText('Jo').closest('span.ant-avatar');
@@ -56,7 +44,7 @@ describe('ContributorAvatar Component', () => {
           item={mockItem}
           index={6} // Should cycle back to index 0 color
           className="test-avatar"
-        />
+        />,
       );
 
       let avatarElement = screen.getByText('Jo').closest('span.ant-avatar');
@@ -69,7 +57,7 @@ describe('ContributorAvatar Component', () => {
             index={1}
             className="test-avatar"
           />
-        </ConfigProvider>
+        </ConfigProvider>,
       );
 
       avatarElement = screen.getByText('Jo').closest('span.ant-avatar');
@@ -83,7 +71,7 @@ describe('ContributorAvatar Component', () => {
           item={shortName}
           index={0}
           className="test-avatar"
-        />
+        />,
       );
 
       expect(screen.getByText('A')).toBeInTheDocument();
@@ -96,7 +84,7 @@ describe('ContributorAvatar Component', () => {
             index={0}
             className="test-avatar"
           />
-        </ConfigProvider>
+        </ConfigProvider>,
       );
 
       expect(screen.getByText('Ve')).toBeInTheDocument();
@@ -108,7 +96,7 @@ describe('ContributorAvatar Component', () => {
           item={undefined}
           index={0}
           className="test-avatar"
-        />
+        />,
       );
 
       const avatarContainer = document.querySelector('.test-avatar');
@@ -122,7 +110,7 @@ describe('ContributorAvatar Component', () => {
           item={itemWithoutName}
           index={0}
           className="test-avatar"
-        />
+        />,
       );
 
       const avatarContainer = document.querySelector('.test-avatar');
@@ -135,7 +123,7 @@ describe('ContributorAvatar Component', () => {
           item={mockItem}
           index={0}
           className="custom-class"
-        />
+        />,
       );
 
       const wrapper = document.querySelector('.custom-class');
@@ -144,10 +132,7 @@ describe('ContributorAvatar Component', () => {
 
     it('should use default index of 0 when not provided', () => {
       renderWithProvider(
-        <ContributorAvatar
-          item={mockItem}
-          className="test-avatar"
-        />
+        <ContributorAvatar item={mockItem} className="test-avatar" />,
       );
 
       const avatarElement = screen.getByText('Jo').closest('span.ant-avatar');
@@ -156,11 +141,7 @@ describe('ContributorAvatar Component', () => {
 
     it('should have cursor pointer style', () => {
       renderWithProvider(
-        <ContributorAvatar
-          item={mockItem}
-          index={0}
-          className="test-avatar"
-        />
+        <ContributorAvatar item={mockItem} index={0} className="test-avatar" />,
       );
 
       const avatarElement = screen.getByText('Jo').closest('span.ant-avatar');
@@ -169,11 +150,7 @@ describe('ContributorAvatar Component', () => {
 
     it('should render with correct size', () => {
       renderWithProvider(
-        <ContributorAvatar
-          item={mockItem}
-          index={0}
-          className="test-avatar"
-        />
+        <ContributorAvatar item={mockItem} index={0} className="test-avatar" />,
       );
 
       const avatarElement = screen.getByText('Jo').closest('span.ant-avatar');
@@ -190,9 +167,7 @@ describe('ContributorAvatar Component', () => {
     ];
 
     it('should render all avatars in the display list', () => {
-      renderWithProvider(
-        <AvatarList displayList={mockDisplayList} />
-      );
+      renderWithProvider(<AvatarList displayList={mockDisplayList} />);
 
       expect(screen.getByText('Jo')).toBeInTheDocument();
       expect(screen.getByText('Ja')).toBeInTheDocument();
@@ -200,9 +175,7 @@ describe('ContributorAvatar Component', () => {
     });
 
     it('should render empty list when no items provided', () => {
-      const { container } = renderWithProvider(
-        <AvatarList displayList={[]} />
-      );
+      const { container } = renderWithProvider(<AvatarList displayList={[]} />);
 
       // Should render the container but no avatar items
       expect(container.firstChild).toBeInTheDocument();
@@ -212,7 +185,7 @@ describe('ContributorAvatar Component', () => {
     it('should apply custom styles', () => {
       const customStyle = { margin: '10px', padding: '5px' };
       const { container } = renderWithProvider(
-        <AvatarList displayList={mockDisplayList} style={customStyle} />
+        <AvatarList displayList={mockDisplayList} style={customStyle} />,
       );
 
       const listContainer = container.firstChild as HTMLElement;
@@ -221,9 +194,7 @@ describe('ContributorAvatar Component', () => {
     });
 
     it('should assign unique keys to each avatar', () => {
-      renderWithProvider(
-        <AvatarList displayList={mockDisplayList} />
-      );
+      renderWithProvider(<AvatarList displayList={mockDisplayList} />);
 
       // All avatars should be rendered (React key prop doesn't show in DOM)
       const avatars = document.querySelectorAll('.ant-avatar');
@@ -231,12 +202,10 @@ describe('ContributorAvatar Component', () => {
     });
 
     it('should pass correct index to each ContributorAvatar', () => {
-      renderWithProvider(
-        <AvatarList displayList={mockDisplayList} />
-      );
+      renderWithProvider(<AvatarList displayList={mockDisplayList} />);
 
       const avatars = document.querySelectorAll('.ant-avatar');
-      
+
       // First avatar should have the first color
       expect(avatars[0]).toHaveStyle('background-color: rgb(245, 106, 0)');
       // Second avatar should have the second color
@@ -251,24 +220,24 @@ describe('ContributorAvatar Component', () => {
         { name: 'John Doe', collaboratorNumber: 2 },
       ];
 
-      renderWithProvider(
-        <AvatarList displayList={duplicateNames} />
-      );
+      renderWithProvider(<AvatarList displayList={duplicateNames} />);
 
       const avatars = document.querySelectorAll('.ant-avatar');
       expect(avatars).toHaveLength(2);
-      
+
       // Both should show the same initials but different colors
       expect(screen.getAllByText('Jo')).toHaveLength(2);
     });
 
     it('should render with proper CSS classes', () => {
       const { container } = renderWithProvider(
-        <AvatarList displayList={mockDisplayList} />
+        <AvatarList displayList={mockDisplayList} />,
       );
 
       const listContainer = container.firstChild;
-      expect(listContainer).toHaveClass('ant-md-editor-contributor-avatar-list');
+      expect(listContainer).toHaveClass(
+        'ant-md-editor-contributor-avatar-list',
+      );
     });
 
     it('should handle names with special characters', () => {
@@ -278,9 +247,7 @@ describe('ContributorAvatar Component', () => {
         { name: 'Müller Schmidt', collaboratorNumber: 3 },
       ];
 
-      renderWithProvider(
-        <AvatarList displayList={specialNames} />
-      );
+      renderWithProvider(<AvatarList displayList={specialNames} />);
 
       expect(screen.getByText('Jo')).toBeInTheDocument();
       expect(screen.getByText('张三')).toBeInTheDocument();
@@ -289,12 +256,13 @@ describe('ContributorAvatar Component', () => {
 
     it('should handle very long names', () => {
       const longNames = [
-        { name: 'Very Very Very Long Name That Exceeds Normal Length', collaboratorNumber: 1 },
+        {
+          name: 'Very Very Very Long Name That Exceeds Normal Length',
+          collaboratorNumber: 1,
+        },
       ];
 
-      renderWithProvider(
-        <AvatarList displayList={longNames} />
-      );
+      renderWithProvider(<AvatarList displayList={longNames} />);
 
       // Should only show first 2 characters
       expect(screen.getByText('Ve')).toBeInTheDocument();
@@ -302,7 +270,7 @@ describe('ContributorAvatar Component', () => {
 
     it('should maintain stable rendering with same props', () => {
       const { rerender } = renderWithProvider(
-        <AvatarList displayList={mockDisplayList} />
+        <AvatarList displayList={mockDisplayList} />,
       );
 
       const initialAvatars = document.querySelectorAll('.ant-avatar');
@@ -312,7 +280,7 @@ describe('ContributorAvatar Component', () => {
       rerender(
         <ConfigProvider>
           <AvatarList displayList={mockDisplayList} />
-        </ConfigProvider>
+        </ConfigProvider>,
       );
 
       const rerenderedAvatars = document.querySelectorAll('.ant-avatar');

@@ -255,7 +255,7 @@ describe('CommentList Component', () => {
       <CommentList commentList={mockCommentData} comment={mockComment} />,
     );
 
-    // Look for delete icons by aria-label  
+    // Look for delete icons by aria-label
     const deleteIcons = screen.getAllByLabelText('delete');
     expect(deleteIcons).toHaveLength(2);
   });

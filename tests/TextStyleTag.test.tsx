@@ -7,24 +7,18 @@ import { TextStyleTag } from '../src/MarkdownEditor/editor/components/fntTag';
 
 describe('TextStyleTag Component', () => {
   const renderWithProvider = (component: React.ReactElement) => {
-    return render(
-      <ConfigProvider>
-        {component}
-      </ConfigProvider>
-    );
+    return render(<ConfigProvider>{component}</ConfigProvider>);
   };
 
   it('should render children content', () => {
-    renderWithProvider(
-      <TextStyleTag>Hello World</TextStyleTag>
-    );
+    renderWithProvider(<TextStyleTag>Hello World</TextStyleTag>);
 
     expect(screen.getByText('Hello World')).toBeInTheDocument();
   });
 
   it('should render with correct HTML structure', () => {
     const { container } = renderWithProvider(
-      <TextStyleTag>Test Content</TextStyleTag>
+      <TextStyleTag>Test Content</TextStyleTag>,
     );
 
     const span = container.querySelector('span');
@@ -33,9 +27,7 @@ describe('TextStyleTag Component', () => {
   });
 
   it('should apply base CSS class', () => {
-    const { container } = renderWithProvider(
-      <TextStyleTag>Test</TextStyleTag>
-    );
+    const { container } = renderWithProvider(<TextStyleTag>Test</TextStyleTag>);
 
     const span = container.querySelector('span');
     expect(span).toHaveClass('ant-md-editor-text-style-tag');
@@ -46,7 +38,7 @@ describe('TextStyleTag Component', () => {
       <TextStyleTag>
         <strong>Bold Text</strong>
         <em>Italic Text</em>
-      </TextStyleTag>
+      </TextStyleTag>,
     );
 
     expect(screen.getByText('Bold Text')).toBeInTheDocument();
@@ -60,7 +52,7 @@ describe('TextStyleTag Component', () => {
           <span>Nested</span>
           <span>Content</span>
         </div>
-      </TextStyleTag>
+      </TextStyleTag>,
     );
 
     expect(screen.getByText('Nested')).toBeInTheDocument();
@@ -68,9 +60,7 @@ describe('TextStyleTag Component', () => {
   });
 
   it('should handle empty children', () => {
-    const { container } = renderWithProvider(
-      <TextStyleTag></TextStyleTag>
-    );
+    const { container } = renderWithProvider(<TextStyleTag></TextStyleTag>);
 
     const span = container.querySelector('span');
     expect(span).toBeInTheDocument();
@@ -79,7 +69,7 @@ describe('TextStyleTag Component', () => {
 
   it('should handle null children', () => {
     const { container } = renderWithProvider(
-      <TextStyleTag>{null}</TextStyleTag>
+      <TextStyleTag>{null}</TextStyleTag>,
     );
 
     const span = container.querySelector('span');
@@ -88,7 +78,7 @@ describe('TextStyleTag Component', () => {
 
   it('should handle undefined children', () => {
     const { container } = renderWithProvider(
-      <TextStyleTag>{undefined}</TextStyleTag>
+      <TextStyleTag>{undefined}</TextStyleTag>,
     );
 
     const span = container.querySelector('span');
@@ -97,7 +87,7 @@ describe('TextStyleTag Component', () => {
 
   it('should handle boolean children', () => {
     const { container } = renderWithProvider(
-      <TextStyleTag>{false}</TextStyleTag>
+      <TextStyleTag>{false}</TextStyleTag>,
     );
 
     const span = container.querySelector('span');
@@ -105,9 +95,7 @@ describe('TextStyleTag Component', () => {
   });
 
   it('should render numbers as children', () => {
-    renderWithProvider(
-      <TextStyleTag>{42}</TextStyleTag>
-    );
+    renderWithProvider(<TextStyleTag>{42}</TextStyleTag>);
 
     expect(screen.getByText('42')).toBeInTheDocument();
   });
@@ -119,7 +107,7 @@ describe('TextStyleTag Component', () => {
         {items.map((item, index) => (
           <span key={index}>{item}</span>
         ))}
-      </TextStyleTag>
+      </TextStyleTag>,
     );
 
     expect(screen.getByText('Item 1')).toBeInTheDocument();
@@ -134,7 +122,7 @@ describe('TextStyleTag Component', () => {
         <span>Element content</span>
         {123}
         {true && <em>Conditional content</em>}
-      </TextStyleTag>
+      </TextStyleTag>,
     );
 
     expect(screen.getByText(/Text content/)).toBeInTheDocument();
@@ -146,7 +134,7 @@ describe('TextStyleTag Component', () => {
 
   it('should maintain proper HTML semantics', () => {
     const { container } = renderWithProvider(
-      <TextStyleTag>Semantic Content</TextStyleTag>
+      <TextStyleTag>Semantic Content</TextStyleTag>,
     );
 
     const span = container.querySelector('span');
@@ -157,7 +145,7 @@ describe('TextStyleTag Component', () => {
     renderWithProvider(
       <TextStyleTag>
         <code>console.log(&quot;Hello&quot;)</code>
-      </TextStyleTag>
+      </TextStyleTag>,
     );
 
     expect(screen.getByText('console.log("Hello")')).toBeInTheDocument();
@@ -173,7 +161,7 @@ describe('TextStyleTag Component', () => {
     render(
       <ConfigProvider theme={customTheme}>
         <TextStyleTag>Themed Content</TextStyleTag>
-      </ConfigProvider>
+      </ConfigProvider>,
     );
 
     expect(screen.getByText('Themed Content')).toBeInTheDocument();
@@ -181,36 +169,31 @@ describe('TextStyleTag Component', () => {
 
   it('should handle special characters in content', () => {
     const specialChars = 'Special chars: !@#$%^&*()_+-=[]{}|;:,.<>?';
-    renderWithProvider(
-      <TextStyleTag>{specialChars}</TextStyleTag>
-    );
+    renderWithProvider(<TextStyleTag>{specialChars}</TextStyleTag>);
 
     expect(screen.getByText(specialChars)).toBeInTheDocument();
   });
 
   it('should handle unicode characters', () => {
     renderWithProvider(
-      <TextStyleTag>Unicode: 你好 🌟 Café naïve résumé</TextStyleTag>
+      <TextStyleTag>Unicode: 你好 🌟 Café naïve résumé</TextStyleTag>,
     );
 
-    expect(screen.getByText('Unicode: 你好 🌟 Café naïve résumé')).toBeInTheDocument();
+    expect(
+      screen.getByText('Unicode: 你好 🌟 Café naïve résumé'),
+    ).toBeInTheDocument();
   });
 
   it('should handle very long content', () => {
     const longContent = 'A'.repeat(1000);
-    renderWithProvider(
-      <TextStyleTag>{longContent}</TextStyleTag>
-    );
+    renderWithProvider(<TextStyleTag>{longContent}</TextStyleTag>);
 
     expect(screen.getByText(longContent)).toBeInTheDocument();
   });
 
   it('should handle whitespace and newlines', () => {
     renderWithProvider(
-      <TextStyleTag>
-        Content with
-        newlines and   spaces
-      </TextStyleTag>
+      <TextStyleTag>Content with newlines and spaces</TextStyleTag>,
     );
 
     expect(screen.getByText(/Content with/)).toBeInTheDocument();
@@ -218,7 +201,7 @@ describe('TextStyleTag Component', () => {
 
   it('should render consistently across multiple renders', () => {
     const { rerender } = renderWithProvider(
-      <TextStyleTag>Initial Content</TextStyleTag>
+      <TextStyleTag>Initial Content</TextStyleTag>,
     );
 
     expect(screen.getByText('Initial Content')).toBeInTheDocument();
@@ -226,7 +209,7 @@ describe('TextStyleTag Component', () => {
     rerender(
       <ConfigProvider>
         <TextStyleTag>Updated Content</TextStyleTag>
-      </ConfigProvider>
+      </ConfigProvider>,
     );
 
     expect(screen.getByText('Updated Content')).toBeInTheDocument();
@@ -235,7 +218,7 @@ describe('TextStyleTag Component', () => {
 
   it('should maintain accessibility', () => {
     const { container } = renderWithProvider(
-      <TextStyleTag>Accessible Content</TextStyleTag>
+      <TextStyleTag>Accessible Content</TextStyleTag>,
     );
 
     const span = container.querySelector('span');
