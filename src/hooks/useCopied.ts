@@ -11,7 +11,9 @@ export const useCopied = () => {
     }, 1000);
 
     return () => {
-      clearTimeout(timer);
+      if (typeof clearTimeout !== 'undefined') {
+        clearTimeout(timer);
+      }
     };
   }, [copied]);
 
