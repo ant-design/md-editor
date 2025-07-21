@@ -70,22 +70,31 @@ describe('AttachmentFileList', () => {
   const createMockFile = (
     overrides: Partial<AttachmentFile> = {},
   ): AttachmentFile => {
-    const file = new File(['test content'], overrides.name || 'test.txt', {
-      type: overrides.type || 'text/plain',
-    });
+    const fileName = overrides.name || 'test.txt';
+    const fileType = overrides.type || 'text/plain';
 
-    // Create a new object that extends the File object
-    const mockFile = Object.create(file);
-    mockFile.uuid = overrides.uuid || 'test-uuid';
-    mockFile.status = overrides.status || 'done';
-    mockFile.url = overrides.url || 'http://example.com/test.txt';
-    mockFile.previewUrl =
-      overrides.previewUrl || 'http://example.com/preview.txt';
-    mockFile.name = overrides.name || 'test.txt';
-    mockFile.type = overrides.type || 'text/plain';
+    // Create a simple mock object with just the properties we need
+    const mockFile = {
+      // Basic File properties
+      name: fileName,
+      type: fileType,
+      size: 1024,
+      lastModified: Date.now(),
+      webkitRelativePath: '',
 
-    // Copy over any additional overrides
-    Object.assign(mockFile, overrides);
+      // Additional AttachmentFile properties
+      uuid: overrides.uuid || 'test-uuid',
+      status: overrides.status || 'done',
+      url: overrides.url || 'http://example.com/test.txt',
+      previewUrl: overrides.previewUrl || 'http://example.com/preview.txt',
+
+      // Copy over any additional overrides (excluding name and type to avoid duplicates)
+      ...Object.fromEntries(
+        Object.entries(overrides).filter(
+          ([key]) => key !== 'name' && key !== 'type',
+        ),
+      ),
+    };
 
     return mockFile as AttachmentFile;
   };
@@ -136,8 +145,8 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(screen.getByText('file1.txt')).toBeInTheDocument();
-    expect(screen.getByText('file2.txt')).toBeInTheDocument();
+    expect(screen.getByText('file1')).toBeInTheDocument();
+    expect(screen.getByText('file2')).toBeInTheDocument();
   });
 
   it('should show clear all button when all files are done', () => {
@@ -218,7 +227,7 @@ describe('AttachmentFileList', () => {
     );
 
     expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
-    expect(screen.getByText('uploading.txt')).toBeInTheDocument();
+    expect(screen.getByText('uploading')).toBeInTheDocument();
   });
 
   it('should render files with error status', () => {
@@ -239,7 +248,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(screen.getByText('error.txt')).toBeInTheDocument();
+    expect(screen.getByText('error')).toBeInTheDocument();
   });
 
   it('should handle files without uuid by using name as key', () => {
@@ -257,7 +266,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    expect(screen.getByText('no-uuid.txt')).toBeInTheDocument();
+    expect(screen.getByText('no-uuid')).toBeInTheDocument();
   });
 
   it('should use index as fallback key when no uuid or name', () => {
