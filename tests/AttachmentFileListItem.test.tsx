@@ -39,24 +39,19 @@ describe('AttachmentFileListItem', () => {
   const createMockFile = (
     overrides: Partial<AttachmentFile> = {},
   ): AttachmentFile => {
-    const file = new File(['test content'], overrides.name || 'test.txt', {
-      type: overrides.type || 'text/plain',
-    });
+    const file = {
+      name: 'test.txt',
+      size: 1024,
+      type: 'text/plain',
+      lastModified: Date.now(),
+      status: 'done', // Default status
+      uuid: 'test-uuid',
+      url: 'http://example.com/test.txt',
+      previewUrl: 'http://example.com/preview.txt',
+      ...overrides,
+    };
 
-    // Create a new object that extends the File object
-    const mockFile = createMockFile(file);
-    mockFile.uuid = overrides.uuid || 'test-uuid';
-    mockFile.status = overrides.status || 'done';
-    mockFile.url = overrides.url || 'http://example.com/test.txt';
-    mockFile.previewUrl =
-      overrides.previewUrl || 'http://example.com/preview.txt';
-    mockFile.name = overrides.name || 'test.txt';
-    mockFile.type = overrides.type || 'text/plain';
-
-    // Copy over any additional overrides
-    Object.assign(mockFile, overrides);
-
-    return mockFile as AttachmentFile;
+    return file as AttachmentFile;
   };
 
   beforeEach(() => {
@@ -169,7 +164,7 @@ describe('AttachmentFileListItem', () => {
       />,
     );
 
-    const fileItem = screen.getByText('error-file.txt').closest('div');
+    const fileItem = screen.getByText('error-file').closest('div');
     fireEvent.click(fileItem!);
 
     expect(mockOnPreview).not.toHaveBeenCalled();
