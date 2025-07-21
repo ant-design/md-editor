@@ -1,21 +1,20 @@
-﻿import { useCallback, useRef } from 'react';
+﻿import { useCallback, useRef, useEffect } from 'react';
 
 export function useThrottleFn(fn: any, interval = 100) {
   const fnRef = useRef(fn);
   const timeoutRef = useRef<any>(null);
   const lastArgsRef = useRef<any>(null);
   const lastThisRef = useRef<any>(null);
-  const lastCallRef = useRef(Date.now());
+  const lastCallRef = useRef(0);
 
   fnRef.current = fn;
 
   const throttledFn = useCallback(
-    (...args: any) => {
+    function(this: any, ...args: any) {
       const now = Date.now();
       const remainingTime = interval - (now - lastCallRef.current);
 
       lastArgsRef.current = args;
-      //@ts-ignore
       lastThisRef.current = this;
 
       if (remainingTime <= 0) {
@@ -35,6 +34,15 @@ export function useThrottleFn(fn: any, interval = 100) {
     },
     [interval],
   );
+
+  // 清理超时
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return throttledFn;
 }

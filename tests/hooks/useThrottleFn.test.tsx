@@ -183,7 +183,13 @@ describe('useThrottleFn', () => {
   it('should clear timeout on unmount', () => {
     const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout');
     const mockFn = vi.fn();
-    const { unmount } = renderHook(() => useThrottleFn(mockFn, 100));
+    const { result, unmount } = renderHook(() => useThrottleFn(mockFn, 100));
+
+    // 调用函数来创建一个超时
+    act(() => {
+      result.current('first');
+      result.current('second'); // 这会创建一个超时
+    });
 
     unmount();
 

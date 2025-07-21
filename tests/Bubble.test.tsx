@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Bubble } from '../src/Bubble';
-import { BubbleConfigProvide } from '../src/Bubble/BubbleConfigProvide';
+import { BubbleProps } from '../src/Bubble/type';
+const BubbleConfigProvide = React.Fragment;
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
@@ -12,14 +13,20 @@ vi.mock('framer-motion', () => ({
 }));
 
 describe('Bubble', () => {
-  const defaultProps = {
+  const defaultProps: BubbleProps<Record<string, any>> = {
     placement: 'left' as const,
     avatar: {
       title: 'Test User',
       avatar: 'test-avatar.jpg',
     },
-    time: '2024-01-01 12:00:00',
-    children: 'Test message content',
+    time: 1716537600000,
+    originData: {
+      content: 'Test message content',
+      createAt: 1716537600000,
+      id: '123',
+      role: 'user',
+      updateAt: 1716537600000,
+    },
   };
 
   it('should render with default props', () => {

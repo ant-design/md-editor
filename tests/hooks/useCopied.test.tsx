@@ -66,8 +66,18 @@ describe('useCopied', () => {
       result.current.setCopied();
     });
 
+    // 等待一段时间，让第一个定时器开始运行
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+
     // 清除之前的spy调用记录
     clearTimeoutSpy.mockClear();
+
+    // 重置copied状态，这样再次调用setCopied时会设置新的定时器
+    act(() => {
+      vi.advanceTimersByTime(600); // 超过1000ms，copied变为false
+    });
 
     act(() => {
       result.current.setCopied();

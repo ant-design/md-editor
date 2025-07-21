@@ -43,16 +43,20 @@ describe('ContributorAvatar Component', () => {
       );
 
       let avatar = screen.getByText('Jo').closest('.ant-avatar');
-      expect(avatar).toHaveStyle('background-color: rgb(245, 106, 0)'); // Same as index 0
+      expect(avatar).toHaveStyle('background-color: rgb(255, 191, 0)'); // index 8 % 6 = 2, third color
 
       rerender(
         <ConfigProvider>
-          <ContributorAvatar item={mockItem} index={9} className="test-avatar" />
+          <ContributorAvatar
+            item={mockItem}
+            index={9}
+            className="test-avatar"
+          />
         </ConfigProvider>,
       );
 
       avatar = screen.getByText('Jo').closest('.ant-avatar');
-      expect(avatar).toHaveStyle('background-color: rgb(114, 101, 230)'); // index 1
+      expect(avatar).toHaveStyle('background-color: rgb(0, 162, 174)'); // index 9 % 6 = 3, fourth color
     });
 
     it('should render tooltip with user name', () => {
@@ -80,7 +84,11 @@ describe('ContributorAvatar Component', () => {
 
     it('should handle undefined item gracefully', () => {
       renderWithProvider(
-        <ContributorAvatar item={undefined} index={0} className="test-avatar" />,
+        <ContributorAvatar
+          item={undefined}
+          index={0}
+          className="test-avatar"
+        />,
       );
 
       const avatar = document.querySelector('.ant-avatar');
@@ -134,11 +142,7 @@ describe('ContributorAvatar Component', () => {
 
     it('should render with correct size', () => {
       renderWithProvider(
-        <ContributorAvatar
-          item={mockItem}
-          index={0}
-          className="test-avatar"
-        />,
+        <ContributorAvatar item={mockItem} index={0} className="test-avatar" />,
       );
 
       const avatar = screen.getByText('Jo').closest('.ant-avatar');
@@ -163,7 +167,9 @@ describe('ContributorAvatar Component', () => {
 
     it('should render empty list when no items provided', () => {
       renderWithProvider(<AvatarList displayList={[]} />);
-      const avatarList = document.querySelector('.ant-md-editor-contributor-avatar-list');
+      const avatarList = document.querySelector(
+        '.ant-md-editor-contributor-avatar-list',
+      );
       expect(avatarList?.children).toHaveLength(0);
     });
 
@@ -175,7 +181,9 @@ describe('ContributorAvatar Component', () => {
         />,
       );
 
-      const avatarList = document.querySelector('.ant-md-editor-contributor-avatar-list');
+      const avatarList = document.querySelector(
+        '.ant-md-editor-contributor-avatar-list',
+      );
       expect(avatarList).toHaveStyle('background: red');
     });
 
@@ -194,7 +202,7 @@ describe('ContributorAvatar Component', () => {
 
       // First avatar should have the first color
       expect(avatars[0]).toHaveStyle('background-color: rgb(245, 106, 0)');
-      // Second avatar should have the second color  
+      // Second avatar should have the second color
       expect(avatars[1]).toHaveStyle('background-color: rgb(114, 101, 230)');
       // Third avatar should have the third color
       expect(avatars[2]).toHaveStyle('background-color: rgb(255, 191, 0)');
@@ -217,10 +225,14 @@ describe('ContributorAvatar Component', () => {
     it('should render with proper CSS classes', () => {
       renderWithProvider(<AvatarList displayList={mockDisplayList} />);
 
-      const avatarList = document.querySelector('.ant-md-editor-contributor-avatar-list');
+      const avatarList = document.querySelector(
+        '.ant-md-editor-contributor-avatar-list',
+      );
       expect(avatarList).toBeInTheDocument();
 
-      const avatarItems = document.querySelectorAll('.ant-md-editor-contributor-avatar-list-item');
+      const avatarItems = document.querySelectorAll(
+        '.ant-md-editor-contributor-avatar-list-item',
+      );
       expect(avatarItems).toHaveLength(3);
     });
 
