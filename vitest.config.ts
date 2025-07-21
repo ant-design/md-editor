@@ -19,7 +19,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['text', 'text-summary', 'json', 'lcov'],
       include: ['src/**'],
-      exclude: ['tests/**', 'test/**'],
+      exclude: ['tests/**', 'src/MarkdownEditor/editor/slate-react', 'test/**'],
     },
   },
 });
