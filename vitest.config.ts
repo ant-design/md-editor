@@ -14,7 +14,7 @@ export default defineConfig({
     alias: {
       '@ant-design/md-editor': path.resolve(__dirname, './src'),
     },
-
+    maxWorkers: 3,
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'text-summary', 'json', 'lcov'],
