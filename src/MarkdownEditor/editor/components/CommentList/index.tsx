@@ -46,6 +46,8 @@ const itemVariants = {
 export const CommentList: React.FC<{
   commentList: CommentDataType[];
   comment: MarkdownEditorProps['comment'];
+  style?: React.CSSProperties;
+  className?: string;
 }> = (props) => {
   const { markdownEditorRef } = useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
@@ -60,7 +62,8 @@ export const CommentList: React.FC<{
         }}
       />
       <motion.div
-        className={classNames(hashId, baseCls)}
+        style={props.style}
+        className={classNames(hashId, props.className, baseCls)}
         initial={{ transform: 'translateX(100%)', opacity: 0 }}
         animate={{ transform: 'translateX(0)', opacity: 1 }}
         exit={{ transform: 'translateX(100%)', opacity: 0 }}

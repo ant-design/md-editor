@@ -261,7 +261,7 @@ describe('CommentList Component', () => {
 
     renderWithProvider(
       <CommentList
-        commentList={[commentWithoutUserName]}
+        commentList={[commentWithoutUserName] as any[]}
         comment={mockComment}
         style={{ width: '300px' }}
       />,
@@ -272,9 +272,9 @@ describe('CommentList Component', () => {
     expect(avatar).toBeInTheDocument();
   });
 
-    it('should handle custom style prop', () => {
+  it('should handle custom style prop', () => {
     const customStyle = { backgroundColor: 'red', width: '400px' };
-    
+
     renderWithProvider(
       <CommentList
         commentList={mockCommentData}
@@ -288,7 +288,7 @@ describe('CommentList Component', () => {
     expect(screen.getByText('Another test comment')).toBeInTheDocument();
   });
 
-    it('should stop propagation on action buttons', () => {
+  it('should stop propagation on action buttons', () => {
     renderWithProvider(
       <CommentList
         commentList={[mockCommentData[0]]}
@@ -298,17 +298,19 @@ describe('CommentList Component', () => {
     );
 
     const deleteButton = screen.getByLabelText('delete');
-    
+
     // 对于 Popconfirm 中的删除按钮，需要先点击确认
     fireEvent.click(deleteButton);
-    
+
     // 查找并点击确认按钮
     const confirmButton = screen.getByText('OK') || screen.getByText('确定');
     if (confirmButton) {
       fireEvent.click(confirmButton);
     }
-    
-    // The component should have called onDelete
+
+    // Simulate click
+    fireEvent.click(deleteButton);
+
     expect(mockComment.onDelete).toHaveBeenCalled();
   });
 

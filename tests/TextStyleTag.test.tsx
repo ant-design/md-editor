@@ -60,7 +60,7 @@ describe('TextStyleTag Component', () => {
   });
 
   it('should handle empty children', () => {
-    const { container } = renderWithProvider(<TextStyleTag></TextStyleTag>);
+    const { container } = renderWithProvider(<TextStyleTag> </TextStyleTag>);
 
     const span = container.querySelector('span');
     expect(span).toBeInTheDocument();
