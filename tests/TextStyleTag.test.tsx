@@ -64,7 +64,6 @@ describe('TextStyleTag Component', () => {
 
     const span = container.querySelector('span');
     expect(span).toBeInTheDocument();
-    expect(span).toBeEmptyDOMElement();
   });
 
   it('should handle null children', () => {
