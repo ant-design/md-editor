@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { motion } from 'framer-motion';
+import { merge } from 'lodash-es';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MagicIcon } from '../components/icons/MagicIcon';
@@ -17,9 +18,12 @@ import { FlipText } from './FlipText';
 import { useStyle } from './style';
 import { ThoughtChainListItem } from './ThoughtChainListItem';
 
-dayjs.extend(duration);
-
-import { merge } from 'lodash-es';
+// Initialize dayjs plugins
+try {
+  dayjs.extend(duration);
+} catch (error) {
+  console.warn('Failed to extend dayjs with duration plugin:', error);
+}
 
 export interface WhiteBoxProcessInterface {
   /** 分类类型

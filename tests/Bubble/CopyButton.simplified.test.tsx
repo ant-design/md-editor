@@ -2,7 +2,10 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { CopyButton } from '../../src/Bubble/MessagesContent/CopyButton';
+import {
+  CopyButton,
+  CopyIcon,
+} from '../../src/Bubble/MessagesContent/CopyButton';
 
 // Mock useCopied hook
 vi.mock('../../src/hooks/useCopied', () => ({
@@ -18,17 +21,13 @@ vi.mock('../../src/index', () => ({
     children,
     onClick,
     title,
-    style,
-    scale,
     'data-testid': dataTestId,
     ...props
   }: any) => (
     <span
       data-testid={dataTestId || 'action-icon-box'}
       onClick={onClick}
-      style={style}
       title={title}
-      data-scale={scale ? 'true' : 'false'}
       {...props}
     >
       {children}
@@ -65,37 +64,55 @@ describe('CopyButton', () => {
         expect(onClick).toHaveBeenCalled();
       });
     });
-
-    it('应该处理复制功能', async () => {
-      render(<CopyButton {...defaultProps} />);
-
-      const button = screen.getByTestId('test-copy-button');
-      fireEvent.click(button);
-
-      expect(button).toBeInTheDocument();
-    });
   });
 
   describe('子元素测试', () => {
     it('应该处理无子元素的情况', () => {
       render(<CopyButton {...defaultProps} />);
 
-      expect(screen.getByTestId('test-copy-button')).toBeInTheDocument();
+      // 应该渲染默认的 CopyIcon
+      expect(screen.getByTestId('copy-icon')).toBeInTheDocument();
+    });
+
+    it('应该渲染自定义子元素', () => {
+      render(
+        <CopyButton {...defaultProps}>
+          <span data-testid="custom-content">Custom Copy</span>
+        </CopyButton>,
+      );
+
+      expect(screen.getByTestId('custom-content')).toBeInTheDocument();
+      expect(screen.queryByTestId('copy-icon')).not.toBeInTheDocument();
     });
   });
 
   describe('CopyIcon测试', () => {
-    it('应该渲染CopyIcon', () => {
-      render(<CopyButton {...defaultProps} />);
+    it('应该正确渲染CopyIcon', () => {
+      render(<CopyIcon data-testid="copy-icon" />);
 
       expect(screen.getByTestId('copy-icon')).toBeInTheDocument();
     });
 
-    it('应该处理CopyIcon点击', () => {
-      render(<CopyButton {...defaultProps} />);
+    it('应该应用传入的props到CopyIcon', () => {
+      render(<CopyIcon data-testid="copy-icon" className="custom-class" />);
 
-      const copyIcon = screen.getByTestId('copy-icon');
-      expect(copyIcon).toBeInTheDocument();
+      const icon = screen.getByTestId('copy-icon');
+      expect(icon).toHaveClass('custom-class');
+    });
+  });
+
+  describe('错误处理测试', () => {
+    it('应该处理onClick正常执行', async () => {
+      const onClick = vi.fn();
+
+      render(<CopyButton {...defaultProps} onClick={onClick} />);
+
+      const button = screen.getByTestId('test-copy-button');
+      fireEvent.click(button);
+
+      await waitFor(() => {
+        expect(onClick).toHaveBeenCalled();
+      });
     });
   });
 });
