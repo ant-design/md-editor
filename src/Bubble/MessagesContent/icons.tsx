@@ -5,13 +5,16 @@ export const ReloadIcon = (
 ) => {
   const [rotation, setRotation] = React.useState(0);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
     setRotation((prevRotation) => prevRotation + 360);
+    // 调用传入的onClick
+    props.onClick?.(e);
   };
 
   const style = {
     transform: `rotate(${rotation}deg)`,
     transition: 'transform 0.5s ease-in-out',
+    ...props.style,
   };
 
   return (

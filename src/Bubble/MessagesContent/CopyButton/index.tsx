@@ -17,6 +17,7 @@ export const CopyIcon = (
       width="1em"
       height="1em"
       viewBox="0 0 14.087890625 14.66650390625"
+      data-testid="copy-icon"
     >
       <g>
         <path
@@ -34,10 +35,11 @@ export type CopyButtonProps = {
   className?: string;
   onClick?: (e: any) => any;
   children?: any;
+  'data-testid'?: string;
 } & Omit<ActionIconBoxProps, 'children'>;
 
 export const CopyButton = memo<CopyButtonProps>(
-  ({ className, onClick, ...props }) => {
+  ({ className, onClick, 'data-testid': dataTestId, ...props }) => {
     const { copied, setCopied } = useCopied();
     return (
       <ActionIconBox
@@ -46,6 +48,7 @@ export const CopyButton = memo<CopyButtonProps>(
           setCopied();
         }}
         {...props}
+        data-testid={dataTestId}
         title={copied ? '✅ 复制成功' : props.title}
       >
         {props.children || <CopyIcon className={className} />}
