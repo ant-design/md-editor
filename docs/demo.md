@@ -40,6 +40,16 @@ nav:
 
 <code src="./demos/rerender-edit.tsx" background="var(--main-bg-color)" title="编辑模式-动态render" iframe=540></code>
 
+## 扩展面板
+
+<code src="./demos/ChatExtensionPanel-shell-demo.tsx" background="var(--main-bg-color)" title="实时跟随-终端执行" iframe=540></code>
+
+<code src="./demos/ChatExtensionPanel-task-demo.tsx" background="var(--main-bg-color)" title="实时跟随-任务规划" iframe=540></code>
+
+<code src="./demos/ChatExtensionPanel-html-demo.tsx" background="var(--main-bg-color)" title="实时跟随-创建 HTML 文件" iframe=540></code>
+
+<code src="./demos/ChatExtensionPanel-think-demo.tsx" background="var(--main-bg-color)" title="实时跟随-深度思考" iframe=540></code>
+
 ## 特殊功能
 
 <code src="./demos/FncTooltip.tsx" background="var(--main-bg-color)" title="引用展示" iframe=540></code>
