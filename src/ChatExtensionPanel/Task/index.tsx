@@ -14,8 +14,9 @@ export interface TaskItemInput {
 export const TaskList: FC<{ item: TaskItemInput }> = ({ item }) => {
   // 默认的ThoughtChainList配置
   const getDefaultProps = (): Partial<ThoughtChainListProps> => ({
-    loading: false,
     style: { width: '100%' },
+    finishAutoCollapse: false,
+    titleRender: () => <></>,
   });
 
   // 合并默认配置和用户传入的配置
@@ -33,6 +34,11 @@ export const TaskList: FC<{ item: TaskItemInput }> = ({ item }) => {
       <ThoughtChainList
         {...getMergedProps(getDefaultProps())}
         thoughtChainList={item.content}
+        style={{
+          padding: 0,
+          borderRadius: 0,
+          boxShadow: 'none',
+        }}
       />
     </div>
   );

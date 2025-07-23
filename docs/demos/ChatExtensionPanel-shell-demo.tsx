@@ -34,6 +34,13 @@ find / -type f -size +100M 2>/dev/null | head -n 5
 \`\`\``,
         }}
         task={{
+          thoughtChainListProps: {
+            bubble: {
+              isFinished: true,
+              endTime: Date.now(),
+              createAt: Date.now(),
+            },
+          },
           content: [
             {
               category: 'TableSql',
