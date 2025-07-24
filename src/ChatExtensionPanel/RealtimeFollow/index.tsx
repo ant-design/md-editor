@@ -92,7 +92,14 @@ const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
   const IconComponent = config.icon;
 
   return (
-    <header className="chat-realtime-header">
+    <header
+      className="chat-realtime-header"
+      style={{
+        borderBottom: ['html', 'think'].includes(item.type)
+          ? '1px solid rgba(20, 22, 28, 0.07)'
+          : 'none',
+      }}
+    >
       <div className="chat-realtime-header-left">
         <div
           className="chat-realtime-header-icon"
@@ -122,7 +129,7 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
     readonly: true,
     toc: false,
     style: { width: '100%' },
-    contentStyle: { padding: 0 },
+    contentStyle: { padding: item.type === 'think' ? 16 : 0 },
   });
 
   // 合并默认配置和用户传入的配置
@@ -140,13 +147,13 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
       return (
         <MarkdownEditor
           {...getMergedProps({
-            ...getDefaultProps(),
-            className: 'chat-realtime--shell',
             codeProps: {
               theme: 'vs-dark', // TODO:黑色主题不生效
               showGutter: true, // 显示行号
               showLineNumbers: true, // 显示行号
             },
+            ...getDefaultProps(),
+            className: 'chat-realtime--shell',
           })}
           initValue={String(item.content)}
         />
@@ -175,7 +182,11 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
     case 'think': {
       return (
         <MarkdownEditor
-          {...getMergedProps(getDefaultProps())}
+          {...getMergedProps({
+            height: 550,
+            ...getDefaultProps(),
+            className: 'chat-realtime--think',
+          })}
           initValue={String(item.content)}
         />
       );
