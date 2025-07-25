@@ -2,22 +2,8 @@ import React, { useState } from 'react';
 import ExtensionPanel from '../../src/ExtensionPanel';
 
 export default () => {
-  const [activeTab, setActiveTab] = useState('file');
-  return (
-    <>
-      <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
-        <ExtensionPanel
-          title="扩展面板 Demo"
-          realtimeData={{
-            customTitle:'sssss',
-            customSubTitle:'fffff',
-            customIcon:()=>{
-              return <div>icon</div>
-            },
-            type: 'custom',
-            // title: '创建文件 mdir',
-            markdownEditorProps: { height: 300 },
-            content: `用户需要了解哪些菊科植物可以食用，以及它们是否有毒副作用。首先，我需要确认菊科植物的范围，因为菊科是一个很大的科，包含许多不同的属和种。常见的食用菊科植物可能包括菊花、蒲公英、向日葵、生菜、茼蒿等，但需要具体核实每个种类是否可食用以及安全性。
+  const [activeTab, setActiveTab] = useState('realtime');
+  const thinkContent = `用户需要了解哪些菊科植物可以食用，以及它们是否有毒副作用。首先，我需要确认菊科植物的范围，因为菊科是一个很大的科，包含许多不同的属和种。常见的食用菊科植物可能包括菊花、蒲公英、向日葵、生菜、茼蒿等，但需要具体核实每个种类是否可食用以及安全性。
 接下来，我需要考虑用户的需求是否涉及专业知识，特别是关于植物毒性的部分。虽然有些菊科植物是常见蔬菜，但也有一些可能含有毒素或引起过敏反应。例如，某些野生菊科植物可能有毒，或者同一属的不同种可能有差异。因此，必须确保信息的准确性，避免误导用户。
 由于当前时间是2025年，而我的知识截止到2023年，可能需要确认是否有新的研究或发现关于菊科植物的食用安全性。不过，考虑到植物学分类和毒性信息通常较为稳定，可能不需要最新数据，但为了确保全面性，最好通过搜索工具验证常见食用种类及其安全性。
 此外，用户可能希望得到一个清晰的列表，区分可食用部分（如叶子、花、种子）和可能的毒副作用，比如过敏反应、特定人群禁忌等。需要结构化地整理这些信息，可能分为可食用植物和注意事项两部分。
@@ -29,7 +15,63 @@ export default () => {
 提醒用户注意野生植物的辨别，避免误食有毒品种。
 需要注意的是，有些菊科植物可能在某些地区被食用，但在其他地区被认为有毒，或者不同的处理方式（如烹饪）会影响其安全性。因此，信息需要具有普遍性和可靠性，最好引用权威来源，如食品卫生机构或植物学资料。
 最后，确保回答清晰易懂，避免使用过于专业的术语，同时提供足够的细节帮助用户安全食用菊科植物。如果有不确定的信息，应明确指出，并建议咨询专业人士或参考权威资料。
-`,
+`;
+  const defaultValue = `
+  **关键亮点**：
+  1. 财务指标全面达标：毛利率61%/ROE22.9%/现金流充沛，展现优质印
+  钞机属性
+  2. 护城河立体化：政策壁垒+IP矩阵+自研技术+用户生态构建多维防御
+  3. 估值安全边际：PE处于历史低位，FCF收益率显著高于无风险利率
+
+  <!--{"mergeCells":[{"row":1,"col":0,"rowspan":13,"colspan":1}],"colWidths":[152,373,300,88]}-->
+| 大类别   | 子问题                          | 详情 | 是否符合 |
+|--------|-----------------------------|----|------|
+| **商业模式** | 要求行业空间大，至少得是千亿rmb利润规模以上，<br/>最好是万亿规模 [^1] | 中国游戏行业2023年市场规模超3000亿，网易作为头部企业直接受益 | 符合 |
+|        | 行业规>模会随着时间上升             | 移动游戏、云音乐等细分领域持续增长 | 符合 |
+|        | 显性进入壁垒：政策、牌照             | 游戏版号审批制形成政策壁垒 | 符合 |
+|        | 隐性进入壁垒                     | 长期积累的IP资源（如《梦幻西游》）和用户生态 | 优秀 |
+|        | 用户使用偏好                     | 多款游戏MAU超千万，云音乐月活1.9亿 | 优秀 |
+|        | 专利、技术优势                   | AI语音合成、游戏引擎等6000+专利 | 符合 |
+|        | 是否有网络效应                   | 游戏社交生态、云音乐社区形成网络效应 | 符合 |
+|        | 毛利率 > 40%                   | 2023年毛利率61% | 优秀 |
+|        | ROE > 20%                    | 2023年ROE 22.9% | 符合 |
+|        | 净利润 > 15%                   | 2023年净利润率28.4% | 优秀 |
+|        | 品牌优势                       | 中国第二大游戏厂商，多款国民级游戏 | 优秀 |
+|        | 成本优势                       | 自研引擎降低开发成本，规模效应显著 | 符合 |
+|        | 转换成本 | 游戏账号体系、社交关系链形成黏性 | 符合 |
+| **企业文化** | 是否股东导向                     | 连续6年分红，2023年股息支付率40% | 优秀 |
+|        | 是否言行一致                     | 战略聚焦"精品化"路线十年未变 | 符合 |
+|        | 是否行事风格谨慎                   | 资产负债率31%，现金占比超总资产65% | 优秀 |
+|        | 是否专注                       | 游戏业务占比73%，教育/音乐等协同发展 | 符合 |
+|        | 是否乱投资、乱花钱                 | 研发费用率16%，资本开支聚焦核心业务 | 符合 |
+|        | 是否有道德败坏的行为                 | 未出现重大伦理争议 | 符合 |
+|        | 是否强调用户导向，为消费者提供优质的产品与服务 | "游戏热爱者"品牌主张持续践行 | 优秀 |
+|        | 对员工是否权责到位                 | 实施"游戏制作人工作室"制度 | 符合 |
+|        | 是否内部选拔                     | CEO丁磊任职超20年，核心团队稳定 | 优秀 |
+|        | 是否公平合理、对等互利的对待上下游商业合作伙伴 | 与暴雪等国际大厂长期合作 | 符合 |
+| **估值**   | 当前P/S, P/E 在历史水平         | 当前PE 17.1倍，处于5年估值中枢低位 | 符合 |
+|        | FCF/Market Cap 与10年期国债收益率比较 | FCF收益率6.1% vs 国债4.7% | 优秀 |
+| **杂项**   | 是否不是政策不鼓励行业               | 游戏行业受版号监管但属合法经营 | 符合 |
+|        | 是否是政策支持行业                 | 数字文创入选"十四五"规划 | 符合 |
+|        | 不受关税影响                      | 主要市场在国内 | 优秀 |
+|        | 不受技术封锁影响                    | 自主引擎技术降低依赖 | 符合 |
+|        | 不受战争影响                      | 无直接关联 | 符合 |
+|        | 不受疫情影响                      | 线上业务受益 | 优秀 |
+
+  **潜在风险**：
+  版号审批节奏影响新游上线，需持续跟>踪《永劫无间》等旗舰产品表现
+`;
+  return (
+    <>
+      <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
+        <ExtensionPanel
+          title="扩展面板 Demo"
+          activeTab={activeTab}
+          realtimeData={{
+            type: 'custom',
+            customSubTitle: '创建文件 mdir',
+            markdownEditorProps: { height: 300 },
+            content: thinkContent,
           }}
           browserData={{
             title: '创建文件 mdir',
@@ -40,6 +82,7 @@ export default () => {
           onTabChange={(tabKey) => {
             // eslint-disable-next-line no-console
             console.log('切换到 tab:', tabKey);
+            setActiveTab(tabKey);
           }}
           onClose={() => {
             // eslint-disable-next-line no-console
@@ -52,18 +95,16 @@ export default () => {
       <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
         <ExtensionPanel
           title="扩展面板 Demo"
-          activeTab={activeTab}
           realtimeData={{
+            customTitle: 'sssss',
+            customSubTitle: 'fffff',
+            customIcon: () => {
+              return <div>icon</div>;
+            },
             type: 'custom',
-            customTitle: '创建文件 mdir',
+            // title: '创建文件 mdir',
             markdownEditorProps: { height: 300 },
-            content: (
-              <div>
-                <h1>自定义组件</h1>
-                <button onClick={() => alert('点击事件')}>点击我</button>
-                <p>这是完全自定义的React组件</p>
-              </div>
-            ),
+            content: defaultValue,
           }}
           browserData={{
             title: '创建文件 mdir',
@@ -74,7 +115,6 @@ export default () => {
           onTabChange={(tabKey) => {
             // eslint-disable-next-line no-console
             console.log('切换到 tab:', tabKey);
-            setActiveTab(tabKey);
           }}
           onClose={() => {
             // eslint-disable-next-line no-console

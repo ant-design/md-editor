@@ -8,7 +8,7 @@ export default () => {
         title="扩展面板 Demo"
         realtimeData={{
           type: 'shell',
-          title: '创建文件 mdir',
+          customSubTitle: '创建文件 mdir',
           content: `\`\`\`shell
 #!/bin/bash
 

@@ -8,7 +8,7 @@ export default () => {
         title="扩展面板 Demo"
         realtimeData={{
           type: 'html',
-          title: '创建 HTML 文件',
+          customSubTitle: '创建 HTML 文件',
           content: `<!DOCTYPE html>
       <html lang="zh-CN">
       <head>
