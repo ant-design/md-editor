@@ -1,15 +1,21 @@
-import React from 'react';
-import ChatExtensionPanel from '../../src/ChatExtensionPanel';
+import React, { useState } from 'react';
+import ExtensionPanel from '../../src/ExtensionPanel';
 
 export default () => {
+  const [activeTab, setActiveTab] = useState('file');
   return (
     <>
       <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
-        <ChatExtensionPanel
+        <ExtensionPanel
           title="扩展面板 Demo"
-          realtime={{
+          realtimeData={{
+            customTitle:'sssss',
+            customSubTitle:'fffff',
+            customIcon:()=>{
+              return <div>icon</div>
+            },
             type: 'custom',
-            title: '创建文件 mdir',
+            // title: '创建文件 mdir',
             markdownEditorProps: { height: 300 },
             content: `用户需要了解哪些菊科植物可以食用，以及它们是否有毒副作用。首先，我需要确认菊科植物的范围，因为菊科是一个很大的科，包含许多不同的属和种。常见的食用菊科植物可能包括菊花、蒲公英、向日葵、生菜、茼蒿等，但需要具体核实每个种类是否可食用以及安全性。
 接下来，我需要考虑用户的需求是否涉及专业知识，特别是关于植物毒性的部分。虽然有些菊科植物是常见蔬菜，但也有一些可能含有毒素或引起过敏反应。例如，某些野生菊科植物可能有毒，或者同一属的不同种可能有差异。因此，必须确保信息的准确性，避免误导用户。
@@ -25,15 +31,15 @@ export default () => {
 最后，确保回答清晰易懂，避免使用过于专业的术语，同时提供足够的细节帮助用户安全食用菊科植物。如果有不确定的信息，应明确指出，并建议咨询专业人士或参考权威资料。
 `,
           }}
-          browser={{
+          browserData={{
             title: '创建文件 mdir',
             content: `\`\`\`shell
           `,
           }}
-          file={<div>文件</div>}
-          onTabChange={(key) => {
+          fileData={<div>文件</div>}
+          onTabChange={(tabKey) => {
             // eslint-disable-next-line no-console
-            console.log('切换到 tab:', key);
+            console.log('切换到 tab:', tabKey);
           }}
           onClose={() => {
             // eslint-disable-next-line no-console
@@ -44,11 +50,12 @@ export default () => {
       </div>
 
       <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
-        <ChatExtensionPanel
+        <ExtensionPanel
           title="扩展面板 Demo"
-          realtime={{
+          activeTab={activeTab}
+          realtimeData={{
             type: 'custom',
-            title: '创建文件 mdir',
+            customTitle: '创建文件 mdir',
             markdownEditorProps: { height: 300 },
             content: (
               <div>
@@ -58,15 +65,16 @@ export default () => {
               </div>
             ),
           }}
-          browser={{
+          browserData={{
             title: '创建文件 mdir',
             content: `\`\`\`shell
           `,
           }}
-          file={<div>文件</div>}
-          onTabChange={(key) => {
+          fileData={<div>文件</div>}
+          onTabChange={(tabKey) => {
             // eslint-disable-next-line no-console
-            console.log('切换到 tab:', key);
+            console.log('切换到 tab:', tabKey);
+            setActiveTab(tabKey);
           }}
           onClose={() => {
             // eslint-disable-next-line no-console

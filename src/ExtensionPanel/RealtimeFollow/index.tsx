@@ -23,10 +23,13 @@ export interface ThinkContent {
 
 export interface RealtimeFollowItemInput {
   type: RealtimeFollowMode;
-  title?: string;
   content: string | DiffContent | HtmlContent | ThinkContent | React.ReactNode;
   // 支持MarkdownEditor的所有配置项
   markdownEditorProps?: Partial<MarkdownEditorProps>;
+  // 新增：可自定义的显示属性
+  customTitle?: string; // 自定义主标题，如"终端执行"
+  customSubTitle?: string; // 自定义副标题，如"创建文件mkdir"
+  customIcon?: React.ComponentType; // 自定义图标
 }
 
 // 获取不同type的配置信息
@@ -90,7 +93,11 @@ const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
   item,
 }) => {
   const config = getTypeConfig(item.type); // 根据传入的类型渲染不同的头部元素
-  const IconComponent = config.icon;
+  
+  // 优先使用传入的自定义属性，否则使用默认配置
+  const IconComponent = item.customIcon || config.icon;
+  const headerTitle = item.customTitle || config.title;
+  const headerSubTitle = item.customSubTitle;
 
   return (
     <header
@@ -109,8 +116,8 @@ const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
           <IconComponent />
         </div>
         <div className="chat-realtime-header-content">
-          <div className="chat-realtime-header-title">{config.title}</div>
-          <div className="chat-realtime-header-subtitle">{item?.title}</div>
+          <div className="chat-realtime-header-title">{headerTitle}</div>
+          <div className="chat-realtime-header-subtitle">{headerSubTitle}</div>
         </div>
       </div>
       <div className="chat-realtime-right">

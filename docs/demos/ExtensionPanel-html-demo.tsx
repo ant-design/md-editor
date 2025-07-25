@@ -1,12 +1,12 @@
 import React from 'react';
-import ChatExtensionPanel from '../../src/ChatExtensionPanel';
+import ExtensionPanel from '../../src/ExtensionPanel';
 
 export default () => {
   return (
     <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
-      <ChatExtensionPanel
+      <ExtensionPanel
         title="扩展面板 Demo"
-        realtime={{
+        realtimeData={{
           type: 'html',
           title: '创建 HTML 文件',
           content: `<!DOCTYPE html>
@@ -40,15 +40,15 @@ export default () => {
       </body>
       </html>`,
         }}
-        browser={{
+        browserData={{
           title: '创建文件 mdir',
           content: `\`\`\`shell
           `,
         }}
-        file={<div>文件</div>}
-        onTabChange={(key) => {
+        fileData={<div>文件</div>}
+        onTabChange={(tabKey) => {
           // eslint-disable-next-line no-console
-          console.log('切换到 tab:', key);
+          console.log('切换到 tab:', tabKey);
         }}
         onClose={() => {
           // eslint-disable-next-line no-console
