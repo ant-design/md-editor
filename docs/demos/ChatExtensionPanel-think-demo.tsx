@@ -3,14 +3,15 @@ import ChatExtensionPanel from '../../src/ChatExtensionPanel';
 
 export default () => {
   return (
-    <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
-      <ChatExtensionPanel
-        title="扩展面板 Demo"
-        realtime={{
-          type: 'think',
-          title: '创建文件 mdir',
-          markdownEditorProps: { height: 300 },
-          content: `用户需要了解哪些菊科植物可以食用，以及它们是否有毒副作用。首先，我需要确认菊科植物的范围，因为菊科是一个很大的科，包含许多不同的属和种。常见的食用菊科植物可能包括菊花、蒲公英、向日葵、生菜、茼蒿等，但需要具体核实每个种类是否可食用以及安全性。
+    <>
+      <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
+        <ChatExtensionPanel
+          title="扩展面板 Demo"
+          realtime={{
+            type: 'custom',
+            title: '创建文件 mdir',
+            markdownEditorProps: { height: 300 },
+            content: `用户需要了解哪些菊科植物可以食用，以及它们是否有毒副作用。首先，我需要确认菊科植物的范围，因为菊科是一个很大的科，包含许多不同的属和种。常见的食用菊科植物可能包括菊花、蒲公英、向日葵、生菜、茼蒿等，但需要具体核实每个种类是否可食用以及安全性。
 接下来，我需要考虑用户的需求是否涉及专业知识，特别是关于植物毒性的部分。虽然有些菊科植物是常见蔬菜，但也有一些可能含有毒素或引起过敏反应。例如，某些野生菊科植物可能有毒，或者同一属的不同种可能有差异。因此，必须确保信息的准确性，避免误导用户。
 由于当前时间是2025年，而我的知识截止到2023年，可能需要确认是否有新的研究或发现关于菊科植物的食用安全性。不过，考虑到植物学分类和毒性信息通常较为稳定，可能不需要最新数据，但为了确保全面性，最好通过搜索工具验证常见食用种类及其安全性。
 此外，用户可能希望得到一个清晰的列表，区分可食用部分（如叶子、花、种子）和可能的毒副作用，比如过敏反应、特定人群禁忌等。需要结构化地整理这些信息，可能分为可食用植物和注意事项两部分。
@@ -23,23 +24,57 @@ export default () => {
 需要注意的是，有些菊科植物可能在某些地区被食用，但在其他地区被认为有毒，或者不同的处理方式（如烹饪）会影响其安全性。因此，信息需要具有普遍性和可靠性，最好引用权威来源，如食品卫生机构或植物学资料。
 最后，确保回答清晰易懂，避免使用过于专业的术语，同时提供足够的细节帮助用户安全食用菊科植物。如果有不确定的信息，应明确指出，并建议咨询专业人士或参考权威资料。
 `,
-        }}
-        browser={{
-          title: '创建文件 mdir',
-          content: `\`\`\`shell
+          }}
+          browser={{
+            title: '创建文件 mdir',
+            content: `\`\`\`shell
           `,
-        }}
-        file={<div>文件</div>}
-        onTabChange={(key) => {
-          // eslint-disable-next-line no-console
-          console.log('切换到 tab:', key);
-        }}
-        onClose={() => {
-          // eslint-disable-next-line no-console
-          console.log('关闭面板');
-        }}
-        style={{ maxWidth: 480, margin: '0 auto' }}
-      />
-    </div>
+          }}
+          file={<div>文件</div>}
+          onTabChange={(key) => {
+            // eslint-disable-next-line no-console
+            console.log('切换到 tab:', key);
+          }}
+          onClose={() => {
+            // eslint-disable-next-line no-console
+            console.log('关闭面板');
+          }}
+          style={{ maxWidth: 480, margin: '0 auto' }}
+        />
+      </div>
+
+      <div style={{ padding: 24, background: '#f5f7fa', minHeight: 400 }}>
+        <ChatExtensionPanel
+          title="扩展面板 Demo"
+          realtime={{
+            type: 'custom',
+            title: '创建文件 mdir',
+            markdownEditorProps: { height: 300 },
+            content: (
+              <div>
+                <h1>自定义组件</h1>
+                <button onClick={() => alert('点击事件')}>点击我</button>
+                <p>这是完全自定义的React组件</p>
+              </div>
+            ),
+          }}
+          browser={{
+            title: '创建文件 mdir',
+            content: `\`\`\`shell
+          `,
+          }}
+          file={<div>文件</div>}
+          onTabChange={(key) => {
+            // eslint-disable-next-line no-console
+            console.log('切换到 tab:', key);
+          }}
+          onClose={() => {
+            // eslint-disable-next-line no-console
+            console.log('关闭面板');
+          }}
+          style={{ maxWidth: 480, margin: '0 auto' }}
+        />
+      </div>
+    </>
   );
 };

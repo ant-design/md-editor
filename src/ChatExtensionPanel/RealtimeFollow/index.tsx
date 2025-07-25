@@ -7,7 +7,7 @@ import TaskPlanIcon from '../icons/TaskPlanIcon';
 import ThinkIcon from '../icons/ThinkIcon';
 import './index.less';
 
-export type RealtimeFollowMode = 'shell' | 'task' | 'html' | 'think';
+export type RealtimeFollowMode = 'shell' | 'task' | 'html' | 'custom';
 
 export interface DiffContent {
   original: string;
@@ -20,10 +20,11 @@ export interface HtmlContent {
 export interface ThinkContent {
   text: string;
 }
+
 export interface RealtimeFollowItemInput {
   type: RealtimeFollowMode;
   title?: string;
-  content: string | DiffContent | HtmlContent | ThinkContent;
+  content: string | DiffContent | HtmlContent | ThinkContent | React.ReactNode;
   // 支持MarkdownEditor的所有配置项
   markdownEditorProps?: Partial<MarkdownEditorProps>;
 }
@@ -49,7 +50,7 @@ const getTypeConfig = (type: RealtimeFollowMode) => {
         title: '创建 HTML 文件',
         segmentedOptions: ['预览', '代码'],
       };
-    case 'think':
+    case 'custom':
       return {
         icon: ThinkIcon,
         title: '深度思考',
@@ -95,7 +96,7 @@ const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
     <header
       className="chat-realtime-header"
       style={{
-        borderBottom: ['html', 'think'].includes(item.type)
+        borderBottom: ['html', 'custom'].includes(item.type)
           ? '1px solid rgba(20, 22, 28, 0.07)'
           : 'none',
       }}
@@ -129,7 +130,7 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
     readonly: true,
     toc: false,
     style: { width: '100%' },
-    contentStyle: { padding: item.type === 'think' ? 16 : 0 },
+    contentStyle: { padding: item.type === 'custom' ? 16 : 0 },
   });
 
   // 合并默认配置和用户传入的配置
@@ -179,17 +180,23 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
         <div>html</div>
       );
     }
-    case 'think': {
-      return (
-        <MarkdownEditor
-          {...getMergedProps({
-            height: 550,
-            ...getDefaultProps(),
-            className: 'chat-realtime--think',
-          })}
-          initValue={String(item.content)}
-        />
-      );
+    case 'custom': {
+      // 如果是字符串，使用 MarkdownEditor
+      if (typeof item.content === 'string') {
+        return (
+          <MarkdownEditor
+            {...getMergedProps({
+              height: 550,
+              ...getDefaultProps(),
+              className: 'chat-realtime--custom',
+            })}
+            initValue={item.content}
+          />
+        );
+      }
+
+      // 其他情况作为 ReactNode 直接渲染
+      return item.content as React.ReactNode;
     }
     default:
       return null;
