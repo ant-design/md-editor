@@ -59,18 +59,7 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Card', () => ({
   ),
 }));
 
-vi.mock('../../../../src/MarkdownEditor/editor/elements/Column', () => ({
-  ColumnCell: ({ children, ...props }: any) => (
-    <div data-testid="column-cell" {...props}>
-      {children}
-    </div>
-  ),
-  ColumnGroup: ({ children, ...props }: any) => (
-    <div data-testid="column-group" {...props}>
-      {children}
-    </div>
-  ),
-}));
+
 
 vi.mock('../../../../src/MarkdownEditor/editor/elements/Comment', () => ({
   CommentView: ({ children, ...props }: any) => (
@@ -331,23 +320,7 @@ describe('Elements Index', () => {
         expect(screen.getByTestId('warp-card')).toBeInTheDocument();
       });
 
-      it('应该渲染列组元素', () => {
-        const props = {
-          ...defaultElementProps,
-          element: { type: 'column-group', children: [] },
-        };
-        render(<MElement {...props} />);
-        expect(screen.getByTestId('column-group')).toBeInTheDocument();
-      });
 
-      it('应该渲染列单元格元素', () => {
-        const props = {
-          ...defaultElementProps,
-          element: { type: 'column-cell', children: [] },
-        };
-        render(<MElement {...props} />);
-        expect(screen.getByTestId('column-cell')).toBeInTheDocument();
-      });
 
       it('应该渲染模式元素', () => {
         const props = {

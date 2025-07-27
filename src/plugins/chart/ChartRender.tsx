@@ -359,6 +359,7 @@ export const ChartRender: React.FC<{
         />
       );
     }
+
     if (chartType === 'area') {
       return (
         <Area

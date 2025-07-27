@@ -260,39 +260,6 @@ describe('KeyboardTask', () => {
     });
   });
 
-  describe('insertColumn', () => {
-    it('应该插入列', () => {
-      // Create a fresh editor with column structure
-      const freshEditor = withReact(createEditor());
-      freshEditor.children = [
-        {
-          type: 'column-group',
-          children: [
-            {
-              type: 'column-cell',
-              children: [{ text: 'Test' }],
-            },
-          ],
-        },
-      ];
-      const freshStore = { ...store, editor: freshEditor };
-      const freshKeyboardTask = new KeyboardTask(freshStore as any, mockProps);
-
-      // Mock curNodes to return a column-cell node
-      const mockNode = [
-        { type: 'column-cell', children: [{ text: 'Test' }] },
-        [0, 0],
-      ];
-      vi.spyOn(Editor, 'nodes').mockReturnValue([mockNode] as any);
-
-      const insertNodesSpy = vi.spyOn(Transforms, 'insertNodes');
-
-      freshKeyboardTask.insertColumn();
-
-      expect(insertNodesSpy).toHaveBeenCalled();
-    });
-  });
-
   describe('insertCode', () => {
     it('应该插入代码块', () => {
       // Mock curNodes to return a paragraph node

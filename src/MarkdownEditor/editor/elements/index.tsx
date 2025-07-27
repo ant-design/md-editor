@@ -15,7 +15,7 @@ import { slugify } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
 import { Blockquote } from './Blockquote';
 import { WarpCard } from './Card';
-import { ColumnCell, ColumnGroup } from './Column';
+
 import { CommentView } from './Comment';
 import { Description } from './Description';
 import { FootnoteDefinition } from './FootnoteDefinition';
@@ -151,10 +151,7 @@ const MElementComponent = (
           {props.children}
         </div>
       );
-    case 'column-group':
-      return <ColumnGroup {...props} />;
-    case 'column-cell':
-      return <ColumnCell {...props} />;
+
     case 'hr':
       return (
         <div

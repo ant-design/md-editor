@@ -193,9 +193,7 @@ const parserNode = (
     case 'chart':
       str += table(node, parent, plugins);
       break;
-    case 'column-group':
-      str += table(node, parent, plugins);
-      break;
+
     case 'description':
       str += handleDescription(node, preString, parent, plugins);
       break;
@@ -620,36 +618,6 @@ const table = (
 
   // 使用策略模式处理不同类型的表格
   const tableProcessors = {
-    'column-group': () => {
-      const row: string[] = new Array(children.length);
-
-      // 处理每个子元素，包括空的 column-cell
-      for (let i = 0; i < children.length; i++) {
-        const n = children[i];
-        if (n.type === 'column-cell') {
-          // 即使没有 children 也处理这个单元格
-          row[i] = n?.children
-            ? parserSlateNodeToMarkdown(
-                n.children,
-                '',
-                [...parent, n],
-                plugins,
-              ) || ''
-            : '';
-        } else {
-          row[i] = ''; // 非 column-cell 类型的元素设为空字符串
-        }
-      }
-
-      // 生成列标题
-      data[0] = Array.from(
-        { length: children.length },
-        (_, i) => `column${i + 1}`,
-      );
-      data[1] = row;
-      maxColumns = children.length;
-      return 2; // 返回实际行数
-    },
     default: () => {
       let rowIndex = 0;
       for (const c of children) {

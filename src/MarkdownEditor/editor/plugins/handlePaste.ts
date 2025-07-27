@@ -106,7 +106,9 @@ export const handleFilesPaste = async (
           }
         }
         const selection = editor?.selection?.focus?.path;
-        const node = selection ? Node.get(editor, Path.parent(selection)!) : null;
+        const node = selection
+          ? Node.get(editor, Path.parent(selection)!)
+          : null;
 
         const at = selection
           ? EditorUtils.findNext(editor, selection)!
@@ -119,7 +121,7 @@ export const handleFilesPaste = async (
             EditorUtils.createMediaNode(u, 'image'),
             {
               at: [
-                ...(node && (node.type === 'table-cell' || node.type === 'column-cell')
+                ...(node && node.type === 'table-cell'
                   ? selection!
                   : at
                     ? at
