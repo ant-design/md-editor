@@ -203,15 +203,23 @@ export class KeyboardTask {
       input.dataset.readonly = 'true';
       const hideLoading = message.loading('上传中...');
       try {
+        if (!this.props?.image?.upload) {
+          message.error('图片上传功能未配置');
+          return;
+        }
         const url =
-          (await this.props?.image?.upload?.(
+          (await this.props.image.upload(
             (Array.from(e.target.files) as File[]) || [],
           )) || [];
         [url].flat().forEach((u: string) => {
-          insertMedia(u);
+          if (u) {
+            insertMedia(u);
+          }
         });
         message.success('上传成功');
       } catch (error) {
+        console.error('图片上传失败:', error);
+        message.error('图片上传失败');
       } finally {
         hideLoading();
         input.value = '';

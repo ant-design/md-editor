@@ -47,6 +47,7 @@ export const ChartAttrToolBar: React.FC<{
         width: 'auto',
       }}
       contentEditable={false}
+      data-testid="chart-attr-toolbar"
       onClick={(e) => {
         e.stopPropagation();
       }}
