@@ -15,20 +15,25 @@ import { unified } from 'unified';
  * @returns The HTML string generated from the Markdown
  */
 export const markdownToHtml = async (markdown: string): Promise<string> => {
-  const htmlContent = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkMath as any, {
-      singleDollarTextMath: false, // 禁用单美元符号数学公式
-    })
-    .use(remarkFrontmatter, ['yaml'])
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(rehypeKatex as any)
-    .use(rehypeStringify)
-    .process(markdown);
+  try {
+    const htmlContent = await unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkMath as any, {
+        singleDollarTextMath: false, // 禁用单美元符号数学公式
+      })
+      .use(remarkFrontmatter, ['yaml'])
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeKatex as any)
+      .use(rehypeStringify)
+      .process(markdown);
 
-  return String(htmlContent);
+    return String(htmlContent);
+  } catch (error) {
+    console.error('Error converting markdown to HTML:', error);
+    return '';
+  }
 };
 
 /**

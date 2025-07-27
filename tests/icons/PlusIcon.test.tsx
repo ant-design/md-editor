@@ -9,7 +9,7 @@ describe('PlusIcon', () => {
     const svg = container.querySelector('svg');
 
     expect(svg).toBeInTheDocument();
-    expect(svg).toHaveAttribute('width', '1em');
+  expect(svg).toHaveAttribute('width', '1em');
     expect(svg).toHaveAttribute('height', '1em');
     expect(svg).toHaveAttribute('viewBox', '0 0 10.65625 10.6640625');
   });
