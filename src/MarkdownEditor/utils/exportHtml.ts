@@ -97,7 +97,9 @@ export const exportHtml = (
 
     // Cleanup
     setTimeout(() => {
-      document.body.removeChild(a);
+      if (typeof document !== 'undefined') {
+        document.body.removeChild(a);
+      }
       URL.revokeObjectURL(url);
     }, 100);
   } catch (error) {

@@ -29,19 +29,6 @@ import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import mdastParser from './remarkParse';
 
-// 本地类型定义
-type ColumnCellNode = {
-  type: 'column-cell';
-  children: Elements[];
-};
-
-type ColumnNode = {
-  type: 'column-group';
-  children: ColumnCellNode[];
-  style?: any;
-  otherProps?: any;
-};
-
 type DescriptionNode = {
   type: 'description';
   children: Elements[];
@@ -338,27 +325,6 @@ const parseTableOrChart = (
   /**
    * 如果是分栏，将表格转换为分栏节点
    */
-  if (isColumn) {
-    const children = table.children
-      ?.at(1)
-      ?.children?.map((c: { children: any[] }) => {
-        return {
-          type: 'column-cell',
-          children: c.children?.length
-            ? parserBlock(c.children as any, false, c as any, plugins)
-            : [{ text: '' }],
-        };
-      }) as ColumnCellNode[];
-    const node: ColumnNode = {
-      type: 'column-group',
-      children,
-      style: {
-        flex: 1,
-      },
-      otherProps: config,
-    };
-    return EditorUtils.wrapperCardNode(node);
-  }
 
   // 计算合并单元格信息
   const mergeCells = config.mergeCells || [];

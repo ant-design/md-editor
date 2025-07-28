@@ -168,7 +168,7 @@ export class KeyboardTask {
     input.type = 'file';
     input.accept = 'image/*';
     const insertMedia = async (url: string) => {
-      if (node && ['column-cell'].includes(node?.[0]?.type)) {
+      if (node) {
         Transforms.insertNodes(
           this.editor,
           [EditorUtils.createMediaNode(url, 'image', {})],
@@ -203,15 +203,23 @@ export class KeyboardTask {
       input.dataset.readonly = 'true';
       const hideLoading = message.loading('上传中...');
       try {
+        if (!this.props?.image?.upload) {
+          message.error('图片上传功能未配置');
+          return;
+        }
         const url =
-          (await this.props?.image?.upload?.(
+          (await this.props.image.upload(
             (Array.from(e.target.files) as File[]) || [],
           )) || [];
         [url].flat().forEach((u: string) => {
-          insertMedia(u);
+          if (u) {
+            insertMedia(u);
+          }
         });
         message.success('上传成功');
       } catch (error) {
+        console.error('图片上传失败:', error);
+        message.error('图片上传失败');
       } finally {
         hideLoading();
         input.value = '';
@@ -491,39 +499,6 @@ export class KeyboardTask {
    * 在当前位置插入一个两列的分栏布局。
    * 如果当前节点是空段落，会被删除。
    */
-  insertColumn() {
-    const [node] = this.curNodes;
-    if (node) {
-      const path =
-        node?.[0]?.type === 'paragraph' ? node[1] : Path.next(node[1]);
-      if (node?.[0]?.type === 'paragraph' && !Node.string(node[0])) {
-        Transforms.delete(this.editor, { at: node[1] });
-      }
-      Transforms.insertNodes(
-        this.editor,
-        EditorUtils.wrapperCardNode({
-          type: 'column-group',
-          otherProps: {
-            elementType: 'column',
-          },
-          style: {
-            flex: 1,
-          },
-          children: [
-            {
-              type: 'column-cell',
-              children: [{ text: '' }],
-            },
-            {
-              type: 'column-cell',
-              children: [{ text: '' }],
-            },
-          ],
-        }),
-        { at: path, select: true },
-      );
-    }
-  }
 
   /**
    * 插入代码块
@@ -535,23 +510,9 @@ export class KeyboardTask {
    */
   insertCode(type?: 'mermaid' | 'html') {
     const [node] = this.curNodes;
-    if (node && ['column-cell'].includes(node?.[0]?.type)) {
-      Transforms.insertNodes(
-        this.editor,
-        {
-          type: 'code',
-          language: undefined,
-          value: '',
-          children: [{ text: '' }],
-          render: type === 'html' ? true : undefined,
-        },
-        { at: [...node[1], 0] },
-      );
-      return;
-    }
-    if (node && ['paragraph', 'head'].includes(node?.[0]?.type)) {
+    if (node && node[0] && ['paragraph', 'head'].includes(node[0].type)) {
       const path =
-        node?.[0]?.type === 'paragraph' && !Node.string(node[0])
+        node[0].type === 'paragraph' && !Node.string(node[0])
           ? node[1]
           : Path.next(node[1]);
       let lang = '';

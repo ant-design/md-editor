@@ -185,15 +185,19 @@ const upLoadFile = async (fragmentList: any[], editorProps: any) => {
       const url = fragment.url;
       if (url?.startsWith('blob:')) {
         const file = await blobToFile(fragment?.url, 'image.png');
-        const serverUrl = [await editorProps.image?.upload?.([file])].flat(1);
-        fragment.url = serverUrl?.[0];
-        fragment.downloadUrl = serverUrl?.[0];
+        if (editorProps.image?.upload) {
+          const serverUrl = [await editorProps.image.upload([file])].flat(1);
+          fragment.url = serverUrl?.[0];
+          fragment.downloadUrl = serverUrl?.[0];
+        }
       } else {
-        const serverUrl = [
-          await editorProps.image?.upload?.([fragment?.url]),
-        ].flat(1);
-        fragment.url = serverUrl?.[0];
-        fragment.downloadUrl = serverUrl?.[0];
+        if (editorProps.image?.upload) {
+          const serverUrl = [
+            await editorProps.image.upload([fragment?.url]),
+          ].flat(1);
+          fragment.url = serverUrl?.[0];
+          fragment.downloadUrl = serverUrl?.[0];
+        }
       }
     }
     if (fragment?.children) {

@@ -100,11 +100,15 @@ export const handleFilesPaste = async (
       try {
         const url = [];
         for await (const file of fileList) {
-          const serverUrl = await editorProps.image?.upload?.([file]);
-          url.push(serverUrl);
+          if (editorProps.image?.upload) {
+            const serverUrl = await editorProps.image.upload([file]);
+            url.push(serverUrl);
+          }
         }
         const selection = editor?.selection?.focus?.path;
-        const node = Node.get(editor, Path.parent(selection!)!);
+        const node = selection
+          ? Node.get(editor, Path.parent(selection)!)
+          : null;
 
         const at = selection
           ? EditorUtils.findNext(editor, selection)!
@@ -117,7 +121,7 @@ export const handleFilesPaste = async (
             EditorUtils.createMediaNode(u, 'image'),
             {
               at: [
-                ...(node.type === 'table-cell' || node.type === 'column-cell'
+                ...(node && node.type === 'table-cell'
                   ? selection!
                   : at
                     ? at

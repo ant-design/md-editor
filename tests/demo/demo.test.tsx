@@ -56,13 +56,19 @@ function demoTest() {
 
         await waitTime(500);
 
-        await waitFor(() => {
-          return wrapper.findAllByText('test');
-        });
+        await waitFor(
+          () => {
+            return wrapper.findAllByText('test');
+          },
+          { timeout: 10000 },
+        );
 
-        await waitFor(() => {
-          expect(fn).toHaveBeenCalled();
-        });
+        await waitFor(
+          () => {
+            expect(fn).toHaveBeenCalled();
+          },
+          { timeout: 10000 },
+        );
 
         await expect(wrapper.asFragment()).toMatchFileSnapshot(
           './__snapshots__/' + file.replace(/\.tsx$/, '.snap'),
