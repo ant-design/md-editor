@@ -17,7 +17,9 @@ export const CommentView = (props: {
   if (props.commentItem?.length) {
     return (
       <span
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           setShowComment?.(props.commentItem);
         }}
       >

@@ -43,7 +43,7 @@ export const ReadonlyBaseBar = (props: {
   const listDom = useMemo(() => {
     let list = [];
 
-    if (editorProps?.comment?.onSubmit) {
+    if (editorProps?.comment?.enable && editorProps?.comment?.onSubmit) {
       list.push(
         <div
           role="button"

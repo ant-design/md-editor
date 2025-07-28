@@ -703,7 +703,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                 props.reportMode ? (
                   <FloatBar readonly />
                 ) : null
-              ) : toolBar?.enable || props.floatBar?.enable === false ? null : (
+              ) : toolBar?.enable && props.floatBar?.enable !== false ? null : (
                 <FloatBar readonly={false} />
               )}
               {editorMountStatus &&
