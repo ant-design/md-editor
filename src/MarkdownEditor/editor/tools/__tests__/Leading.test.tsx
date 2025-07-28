@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -154,5 +154,43 @@ describe('TocHeading Component', () => {
     const anchor = container.querySelector('.ant-anchor');
     expect(anchor).toBeDefined();
     expect(container).toMatchSnapshot();
+  });
+});
+
+describe('TocHeading Component with Custom Container', () => {
+  it('should render with custom container when useCustomContainer is true', () => {
+    const mockSchema = [
+      {
+        type: 'head' as const,
+        level: 1,
+        children: [{ text: 'Test Heading 1' }],
+      },
+      {
+        type: 'head' as const,
+        level: 2,
+        children: [{ text: 'Test Heading 2' }],
+      },
+    ];
+
+    render(<TocHeading schema={mockSchema} useCustomContainer={true} />);
+
+    // 验证组件正常渲染
+    expect(screen.getByText('Test Heading 1')).toBeInTheDocument();
+    expect(screen.getByText('Test Heading 2')).toBeInTheDocument();
+  });
+
+  it('should render without custom container when useCustomContainer is false', () => {
+    const mockSchema = [
+      {
+        type: 'head' as const,
+        level: 1,
+        children: [{ text: 'Test Heading' }],
+      },
+    ];
+
+    render(<TocHeading schema={mockSchema} useCustomContainer={false} />);
+
+    // 验证组件正常渲染
+    expect(screen.getByText('Test Heading')).toBeInTheDocument();
   });
 });

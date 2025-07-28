@@ -715,7 +715,11 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                     comment={props.comment}
                   />
                 ) : (
-                  <TocHeading schema={schema} anchorProps={props.anchorProps} />
+                  <TocHeading
+                    schema={schema}
+                    anchorProps={props.anchorProps}
+                    useCustomContainer={true}
+                  />
                 )
               ) : null}
             </div>

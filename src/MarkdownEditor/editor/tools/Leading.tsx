@@ -1,6 +1,12 @@
-import { Anchor, AnchorProps } from 'antd';
+import { Anchor, AnchorProps, ConfigProvider } from 'antd';
 import { nanoid } from 'nanoid';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { Node } from 'slate';
 import {
@@ -184,6 +190,59 @@ function convertToAnchorItems(node: TreeNode): AnchorItem[] {
 }
 
 /**
+ * 目录容器组件
+ * 用于处理目录的边界和溢出情况
+ */
+const TocContainer: React.FC<{
+  children: React.ReactNode;
+  containerRef: React.MutableRefObject<HTMLDivElement | null>;
+}> = ({ children, containerRef }) => {
+  const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
+
+  useEffect(() => {
+    const updateRect = () => {
+      if (containerRef.current) {
+        setContainerRect(containerRef.current.getBoundingClientRect());
+      }
+    };
+
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect);
+
+    return () => {
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect);
+    };
+  }, [containerRef]);
+
+  // 检查容器是否在视口内且有足够的空间
+  const shouldRenderInContainer = useMemo(() => {
+    if (!containerRect) return false;
+
+    const isInViewport =
+      containerRect.top < window.innerHeight && containerRect.bottom > 0;
+    const hasEnoughSpace = containerRect.height > 200; // 最小高度要求
+
+    return isInViewport && hasEnoughSpace;
+  }, [containerRect]);
+
+  return (
+    <ConfigProvider
+      getPopupContainer={() => {
+        if (shouldRenderInContainer && containerRef.current) {
+          return containerRef.current;
+        }
+        return document.body;
+      }}
+      getTargetContainer={() => containerRef.current || document.body}
+    >
+      {children}
+    </ConfigProvider>
+  );
+};
+
+/**
  * 目录组件属性接口
  */
 interface TocHeadingProps {
@@ -191,6 +250,8 @@ interface TocHeadingProps {
   schema: Elements[];
   /** Anchor 组件的额外属性 */
   anchorProps?: AnchorProps;
+  /** 是否使用自定义容器渲染，防止遮挡外部 DOM */
+  useCustomContainer?: boolean;
 }
 
 /**
@@ -210,6 +271,7 @@ interface TocHeadingProps {
 export const TocHeading: React.FC<TocHeadingProps> = ({
   schema,
   anchorProps,
+  useCustomContainer = true,
 }) => {
   const { markdownContainerRef } = useEditorStore();
 
@@ -430,19 +492,41 @@ export const TocHeading: React.FC<TocHeadingProps> = ({
     return null;
   }
 
+  // 如果禁用了自定义容器，直接渲染 Anchor
+  if (!useCustomContainer) {
+    return (
+      <Anchor
+        style={{
+          minWidth: 200,
+          maxHeight: 'min(calc(100vh - 180px), 70vh)',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          paddingRight: 4,
+        }}
+        offsetTop={96}
+        onClick={handleAnchorClick}
+        {...anchorProps}
+        items={items}
+      />
+    );
+  }
+
+  // 使用自定义容器渲染
   return (
-    <Anchor
-      style={{
-        minWidth: 200,
-        maxHeight: 'min(calc(100vh - 180px), 70vh)',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        paddingRight: 4,
-      }}
-      offsetTop={96}
-      onClick={handleAnchorClick}
-      {...anchorProps}
-      items={items}
-    />
+    <TocContainer containerRef={markdownContainerRef}>
+      <Anchor
+        style={{
+          minWidth: 200,
+          maxHeight: 'min(calc(100vh - 180px), 70vh)',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          paddingRight: 4,
+        }}
+        offsetTop={96}
+        onClick={handleAnchorClick}
+        {...anchorProps}
+        items={items}
+      />
+    </TocContainer>
   );
 };
