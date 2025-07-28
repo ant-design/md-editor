@@ -1,42 +1,69 @@
-.ant-extension-panel {
+.workspace {
   height: 100%;
   border-radius: 20px;
   background: #ffffff;
   border: 1px solid rgba(140, 171, 255, 0.12);
   box-shadow: 0px 1.5px 2px -1px rgba(0, 19, 41, 0.07);
   
-  &-header {
+  &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 12px 16px;
   }
   
-  &-title {
+  &__title {
     font-size: 15px;
     font-weight: 600;
     color: #343a45;
   }
   
-  &-close {
+  &__close {
     padding: 5px;
     border-radius: 6px;
     color: #959da8;
     cursor: pointer;
+    transition: all 0.2s ease;
+    
     &:hover {
       color: rgb(0 0 0 / 88%);
       background-color: #f0f0f0;
     }
+    
+    &:focus {
+      outline: 2px solid #1890ff;
+      outline-offset: 2px;
+    }
   }
   
-  &-tabs {
+  &__tabs {
     margin: 12px 16px;
   }
   
-  &-segmented--item {
+  &__tab-item {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4px;
   }
+  
+  &__tab-title {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  
+  &__content {
+    height: calc(100% - 60px);
+    overflow: hidden;
+    padding: 0 16px 16px;
+  }
+}
+
+// 兼容旧版本的类名
+.ant-extension-panel {
+  @extend .workspace;
+}
+
+.ant-workspace {
+  @extend .workspace;
 }

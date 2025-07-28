@@ -9,8 +9,8 @@ export type {
 } from './Bubble/type';
 export * from './components/Loading';
 export { Loading } from './components/Loading';
-export { default as ExtensionPanel } from './ExtensionPanel';
-export type { ExtensionPanelProps, ExtensionTab } from './ExtensionPanel/types';
+export { default as Workspace } from './Workspace';
+export type { WorkspaceProps, TabItem, TabConfiguration } from './Workspace/types';
 export * from './hooks/useAutoScroll';
 export * from './hooks/useRefFunction';
 export * from './hooks/useStyle';

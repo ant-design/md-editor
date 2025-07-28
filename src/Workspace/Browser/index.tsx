@@ -8,7 +8,7 @@ export interface BrowserItemInput {
   markdownEditorProps?: Partial<MarkdownEditorProps>;
 }
 
-export const BrowserList: FC<{ item: BrowserItemInput }> = ({ item }) => {
+export const BrowserList: FC<{ data: BrowserItemInput }> = ({ data }) => {
   // 默认的MarkdownEditor配置
   const getDefaultProps = (): Partial<MarkdownEditorProps> => ({
     readonly: true,
@@ -23,20 +23,20 @@ export const BrowserList: FC<{ item: BrowserItemInput }> = ({ item }) => {
   ): Partial<MarkdownEditorProps> => {
     return {
       ...defaultProps,
-      ...item.markdownEditorProps,
+      ...data.markdownEditorProps,
     };
   };
 
   return (
     <div className="chat-browser-list">
-      {item.title && (
+      {data.title && (
         <div className="chat-browser-header">
-          <div className="chat-browser-title">{item.title}</div>
+          <div className="chat-browser-title">{data.title}</div>
         </div>
       )}
       <MarkdownEditor
         {...getMergedProps(getDefaultProps())}
-        initValue={item.content}
+        initValue={data.content}
       />
     </div>
   );

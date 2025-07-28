@@ -3,27 +3,24 @@ import React, { useState } from 'react';
 import { MarkdownEditor, MarkdownEditorProps } from '../../MarkdownEditor';
 import HtmlIcon from '../icons/HtmlIcon';
 import ShellIcon from '../icons/ShellIcon';
-import TaskPlanIcon from '../icons/TaskPlanIcon';
 import ThinkIcon from '../icons/ThinkIcon';
 import './index.less';
 
-export type RealtimeFollowMode = 'shell' | 'task' | 'html' | 'custom';
+export type RealtimeFollowMode = 'shell' | 'html' | 'markdown';
 
 export interface DiffContent {
   original: string;
   modified: string;
 }
+
 export interface HtmlContent {
   html: string;
   status?: 'generating' | 'done' | 'error';
 }
-export interface ThinkContent {
-  text: string;
-}
 
-export interface RealtimeFollowItemInput {
+export interface RealtimeFollowData {
   type: RealtimeFollowMode;
-  content: string | DiffContent | HtmlContent | ThinkContent | React.ReactNode;
+  content: string | DiffContent | HtmlContent;
   // 支持MarkdownEditor的所有配置项
   markdownEditorProps?: Partial<MarkdownEditorProps>;
   // 新增：可自定义的显示属性
@@ -41,28 +38,22 @@ const getTypeConfig = (type: RealtimeFollowMode) => {
         title: '终端执行',
         segmentedOptions: null,
       };
-    case 'task':
-      return {
-        icon: TaskPlanIcon,
-        title: '任务规划',
-        segmentedOptions: ['差异', '原始', '已修改'],
-      };
     case 'html':
       return {
         icon: HtmlIcon,
         title: '创建 HTML 文件',
         segmentedOptions: ['预览', '代码'],
       };
-    case 'custom':
+    case 'markdown':
       return {
         icon: ThinkIcon,
-        title: '深度思考',
+        title: 'Markdown 内容',
         segmentedOptions: null,
       };
     default:
       return {
         icon: ShellIcon,
-        defaultTitle: '终端执行',
+        title: '终端执行',
         segmentedOptions: null,
       };
   }
@@ -89,21 +80,21 @@ const SegmentedControl: React.FC<{ options: string[] }> = ({ options }) => {
 };
 
 // 头部组件
-const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
-  item,
+const RealtimeHeader: React.FC<{ data: RealtimeFollowData }> = ({
+  data,
 }) => {
-  const config = getTypeConfig(item.type); // 根据传入的类型渲染不同的头部元素
+  const config = getTypeConfig(data.type); // 根据传入的类型渲染不同的头部元素
   
   // 优先使用传入的自定义属性，否则使用默认配置
-  const IconComponent = item.customIcon || config.icon;
-  const headerTitle = item.customTitle || config.title;
-  const headerSubTitle = item.customSubTitle;
+  const IconComponent = data.customIcon || config.icon;
+  const headerTitle = data.customTitle || config.title;
+  const headerSubTitle = data.customSubTitle;
 
   return (
     <header
       className="chat-realtime-header"
       style={{
-        borderBottom: ['html', 'custom'].includes(item.type)
+        borderBottom: ['html', 'markdown'].includes(data.type)
           ? '1px solid rgba(20, 22, 28, 0.07)'
           : 'none',
       }}
@@ -111,7 +102,7 @@ const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
       <div className="chat-realtime-header-left">
         <div
           className="chat-realtime-header-icon"
-          style={{ background: item?.type === 'html' ? '#E0F9FF' : '#EEF1F6' }}
+          style={{ background: data?.type === 'html' ? '#E0F9FF' : '#EEF1F6' }}
         >
           <IconComponent />
         </div>
@@ -129,15 +120,15 @@ const RealtimeHeader: React.FC<{ item: RealtimeFollowItemInput }> = ({
   );
 };
 
-export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
-  item,
+export const RealtimeFollow: React.FC<{ data: RealtimeFollowData }> = ({
+  data,
 }) => {
   // 默认的MarkdownEditor配置
   const getDefaultProps = (): Partial<MarkdownEditorProps> => ({
     readonly: true,
     toc: false,
     style: { width: '100%' },
-    contentStyle: { padding: item.type === 'custom' ? 16 : 0 },
+    contentStyle: { padding: data.type === 'markdown' ? 16 : 0 },
   });
 
   // 合并默认配置和用户传入的配置
@@ -146,11 +137,11 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
   ): Partial<MarkdownEditorProps> => {
     return {
       ...defaultProps,
-      ...item.markdownEditorProps,
+      ...data.markdownEditorProps,
     };
   };
 
-  switch (item.type) {
+  switch (data.type) {
     case 'shell':
       return (
         <MarkdownEditor
@@ -163,47 +154,26 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
             ...getDefaultProps(),
             className: 'chat-realtime--shell',
           })}
-          initValue={String(item.content)}
+          initValue={String(data.content)}
         />
       );
-    case 'task': {
-      // 任务规划：进行文件对比，展示差异、原始、已修改
-      return (
-        <MarkdownEditor
-          {...getMergedProps({
-            ...getDefaultProps(),
-            codeProps: {
-              showGutter: true, // 显示行号
-              showLineNumbers: true, // 显示行号
-            },
-          })}
-          initValue={String(item.content)}
-        />
-      );
-    }
     case 'html': {
       return (
         // 创建html文件：展示html文件的预览和代码
         <div>html</div>
       );
     }
-    case 'custom': {
-      // 如果是字符串，使用 MarkdownEditor
-      if (typeof item.content === 'string') {
-        return (
-          <MarkdownEditor
-            {...getMergedProps({
-              height: 550,
-              ...getDefaultProps(),
-              className: 'chat-realtime--custom',
-            })}
-            initValue={item.content}
-          />
-        );
-      }
-
-      // 其他情况作为 ReactNode 直接渲染
-      return item.content as React.ReactNode;
+    case 'markdown': {
+      return (
+        <MarkdownEditor
+          {...getMergedProps({
+            height: 550,
+            ...getDefaultProps(),
+            className: 'chat-realtime--markdown',
+          })}
+          initValue={String(data.content)}
+        />
+      );
     }
     default:
       return null;
@@ -211,12 +181,12 @@ export const RealtimeFollow: React.FC<{ item: RealtimeFollowItemInput }> = ({
 };
 
 export const RealtimeFollowList: React.FC<{
-  item: RealtimeFollowItemInput; // 改为单个对象
-}> = ({ item }) => {
+  data: RealtimeFollowData; // 改为单个对象
+}> = ({ data }) => {
   return (
     <div>
-      <RealtimeHeader item={item} />
-      <RealtimeFollow item={item} />
+      <RealtimeHeader data={data} />
+      <RealtimeFollow data={data} />
     </div>
   );
 };

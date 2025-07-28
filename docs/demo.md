@@ -40,15 +40,9 @@ nav:
 
 <code src="./demos/rerender-edit.tsx" background="var(--main-bg-color)" title="编辑模式-动态render" iframe=540></code>
 
-## 扩展面板
+## 工作空间
 
-<code src="./demos/ExtensionPanel-shell-demo.tsx" background="var(--main-bg-color)" title="实时跟随-终端执行" iframe=540></code>
-
-<code src="./demos/ExtensionPanel-task-demo.tsx" background="var(--main-bg-color)" title="实时跟随-任务规划" iframe=540></code>
-
-<code src="./demos/ExtensionPanel-html-demo.tsx" background="var(--main-bg-color)" title="实时跟随-创建 HTML 文件" iframe=540></code>
-
-<code src="./demos/ExtensionPanel-think-demo.tsx" background="var(--main-bg-color)" title="实时跟随-深度思考&自定义渲染" iframe=540></code>
+<code src="./demos/Workspace-demo.tsx" background="var(--main-bg-color)" title="工作空间" iframe=540></code>
 
 ## 特殊功能
 

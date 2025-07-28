@@ -11,7 +11,7 @@ export interface TaskItemInput {
   thoughtChainListProps?: Partial<ThoughtChainListProps>;
 }
 
-export const TaskList: FC<{ item: TaskItemInput }> = ({ item }) => {
+export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
   // 默认的ThoughtChainList配置
   const getDefaultProps = (): Partial<ThoughtChainListProps> => ({
     style: { width: '100%' },
@@ -25,7 +25,7 @@ export const TaskList: FC<{ item: TaskItemInput }> = ({ item }) => {
   ): Partial<ThoughtChainListProps> => {
     return {
       ...defaultProps,
-      ...item.thoughtChainListProps,
+      ...data.thoughtChainListProps,
     };
   };
 
@@ -33,7 +33,7 @@ export const TaskList: FC<{ item: TaskItemInput }> = ({ item }) => {
     <div className="chat-task-list">
       <ThoughtChainList
         {...getMergedProps(getDefaultProps())}
-        thoughtChainList={item.content}
+        thoughtChainList={data.content}
         style={{
           padding: 0,
           borderRadius: 0,
