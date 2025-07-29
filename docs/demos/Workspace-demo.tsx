@@ -88,21 +88,32 @@ find / -type f -size +100M 2>/dev/null | head -n 5
           tab={{
             key: 'files',
           }}
-          data={
-            <div style={{ padding: '16px' }}>
-              <h4>项目文件结构</h4>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                <li>📁 src/</li>
-                <li style={{ marginLeft: '20px' }}>📁 components/</li>
-                <li style={{ marginLeft: '40px' }}>📄 Workspace.tsx</li>
-                <li style={{ marginLeft: '40px' }}>📄 index.less</li>
-                <li style={{ marginLeft: '20px' }}>📁 hooks/</li>
-                <li style={{ marginLeft: '40px' }}>📄 useWorkspace.ts</li>
-                <li>📁 docs/</li>
-                <li style={{ marginLeft: '20px' }}>📄 README.md</li>
-              </ul>
-            </div>
-          }
+          data={{
+            mode: 'flat',
+            files: [
+              {
+                id: '1',
+                name: '项目需求文档.docx',
+                type: 'doc',
+                size: '2.3MB',
+                createTime: '12:30',
+              },
+              {
+                id: '2',
+                name: '用户手册.docx',
+                type: 'doc',
+                size: '1.8MB',
+                createTime: '09:15',
+              },
+              {
+                id: '3',
+                name: '技术规范.docx',
+                type: 'doc',
+                size: '3.1MB',
+                createTime: '14:45',
+              },
+            ],
+          }}
         />
       </Workspace>
     </div>

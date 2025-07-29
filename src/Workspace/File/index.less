@@ -1,1 +1,168 @@
- 
+// 文件组件样式
+.workspace-file-container {
+  // 分组展示模式
+  &--group {
+    .workspace-file-group {
+      // 分组标题栏
+      &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 8px 12px 8px 0px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &-left {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        &-right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+
+      // 展开收起图标
+      &__toggle-icon {
+        font-size: 12px;
+        color: #6c757d;
+        transition: transform 0.2s ease;
+      }
+
+      // 文件类型图标
+      &__type-icon {
+        display: flex;
+        align-items: center;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      // 文件类型名称
+      &__type-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: #343a45;
+      }
+
+      // 文件数量
+      &__count {
+        font-size: 12px;
+        color: #6c757d;
+        background: #e9ecef;
+        padding: 2px 6px;
+        border-radius: 10px;
+        min-width: 20px;
+        text-align: center;
+      }
+
+      // 下载图标
+      &__download-icon {
+        font-size: 14px;
+        color: #6c757d;
+        cursor: pointer;
+        padding: 2px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: #007bff;
+          background: #f8f9fa;
+        }
+      }
+
+      // 分组内容区域
+      &__content {
+      }
+    }
+  }
+
+  // 平铺展示模式
+  &--flat {
+  }
+}
+
+// 文件项样式
+.workspace-file-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background: rgba(20, 22, 28, 0.03);
+    box-sizing: border-box;
+    border: 0px solid rgba(20, 22, 28, 0.07);
+  }
+
+  // 文件图标
+  &__icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  // 文件信息
+  &__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 文件名
+  &__name {
+    font-size: 14px;
+    color: #343a40;
+    font-weight: 400;
+    line-height: 1.4;
+    word-break: break-all;
+    margin-bottom: 4px;
+  }
+
+  // 文件详情容器
+  &__details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  // 文件类型
+  &__type {
+    font-size: 12px;
+    color: #6c757d;
+    line-height: 1.2;
+  }
+
+  // 文件大小
+  &__size {
+    font-size: 12px;
+    color: #6c757d;
+    line-height: 1.2;
+  }
+
+  // 创建时间
+  &__time {
+    font-size: 12px;
+    color: #6c757d;
+    line-height: 1.2;
+  }
+}

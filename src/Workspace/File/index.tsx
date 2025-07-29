@@ -1,14 +1,20 @@
-import React, { type FC, type ReactNode } from 'react';
+import React, { type FC } from 'react';
+import type { FileComponentData } from '../types';
+import { FileComponent } from './FileComponent';
 import './index.less';
 
-export interface FileData {
-  content: ReactNode;
-}
+// 主要的文件组件
+export const NewFileComponent: FC<{ data?: FileComponentData }> = ({
+  data,
+}) => {
+  return <FileComponent data={data} />;
+};
 
-export const FileList: FC<{ data: ReactNode }> = ({ data }) => {
-  return (
-    <div className="chat-file-list">
-      {data}
-    </div>
-  );
-}; 
+// 导出类型和工具函数
+export type {
+  FileComponentData,
+  FileGroup,
+  FileItem,
+  FileType,
+} from '../types';
+export { getFileTypeIcon } from './utils';

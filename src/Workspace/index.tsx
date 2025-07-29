@@ -2,7 +2,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Segmented } from 'antd';
 import React, { type FC, useEffect, useMemo, useState } from 'react';
 import { BrowserList } from './Browser';
-import { FileList } from './File';
+import { NewFileComponent } from './File';
 import BrowserIcon from './icons/BrowserIcon';
 import FileIcon from './icons/FileIcon';
 import RealtimeIcon from './icons/RealtimeIcon';
@@ -18,7 +18,7 @@ import type {
   TaskProps,
   FileProps,
   CustomProps,
-  TabConfiguration 
+  TabConfiguration
 } from './types';
 
 const CSS_PREFIX = 'workspace';
@@ -85,7 +85,7 @@ const TaskComponent: FC<TaskProps> = ({ data }) =>
   data ? <TaskList data={data} /> : null;
 
 const FileComponent: FC<FileProps> = ({ data }) => 
-  data ? <FileList data={data} /> : null;
+  <NewFileComponent data={data} />;
 
 const CustomComponent: FC<CustomProps> = ({ children }) => 
   children || null;

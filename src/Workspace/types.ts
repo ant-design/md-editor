@@ -46,8 +46,45 @@ export interface TaskProps extends BaseChildProps {
   data?: TaskItemInput;
 }
 
+// 文件类型枚举
+export type FileType = 'csv' | 'doc' | 'excel' | 'md' | 'xml' | 'unknown';
+
+// 单个文件项数据结构
+export interface FileItem {
+  id: string;
+  name: string;
+  type: FileType;
+  size?: string;
+  createTime?: string; // 创建时间
+  url?: string;
+  downloadUrl?: string; // 下载链接，如果提供则组件内部直接下载
+  icon?: ReactNode; // 自定义图标
+  [key: string]: any; // 允许扩展其他属性
+}
+
+// 文件分组数据结构
+export interface FileGroup {
+  type: FileType;
+  typeName: string;
+  files: FileItem[];
+  collapsed?: boolean; // 是否折叠，仅分组展示时有效
+  icon?: ReactNode; // 分组自定义图标
+}
+
+// 文件组件数据结构
+export interface FileComponentData {
+  mode: 'group' | 'flat'; // 展示模式：分组或平铺
+  groups?: FileGroup[]; // 分组数据，mode为group时使用
+  files?: FileItem[]; // 平铺文件列表，mode为flat时使用
+  onGroupDownload?: (files: FileItem[], groupType?: FileType) => void; // 分组下载回调
+  onDownload?: (file: FileItem) => void; // 单文件下载回调
+  onFileClick?: (file: FileItem) => void; // 文件点击回调
+  onToggleGroup?: (groupType: FileType, collapsed: boolean) => void; // 切换分组展开/收起回调
+}
+
+// 文件组件属性
 export interface FileProps extends BaseChildProps {
-  data?: ReactNode;
+  data?: FileComponentData;
 }
 
 export interface CustomProps extends BaseChildProps {
