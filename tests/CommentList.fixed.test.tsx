@@ -259,7 +259,7 @@ describe('CommentList Component', () => {
 
     renderWithProvider(
       <CommentList
-        commentList={[commentWithoutUserName]}
+        commentList={[commentWithoutUserName] as any[]}
         comment={mockComment}
         style={{ width: '300px' }}
       />,

@@ -650,7 +650,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               ...style,
             }}
           >
-            {!readonly && toolBar?.enable ? (
+            {!readonly && toolBar?.enable !== false ? (
               <div
                 style={{
                   width: '100%',
@@ -701,9 +701,11 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               />
               {readonly ? (
                 props.reportMode ? (
-                  <FloatBar readonly />
+                  props.floatBar?.enable === false ? null : (
+                    <FloatBar readonly />
+                  )
                 ) : null
-              ) : toolBar?.enable || props.floatBar?.enable === false ? null : (
+              ) : props.floatBar?.enable === false ? null : (
                 <FloatBar readonly={false} />
               )}
               {editorMountStatus &&
@@ -715,7 +717,11 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                     comment={props.comment}
                   />
                 ) : (
-                  <TocHeading schema={schema} anchorProps={props.anchorProps} />
+                  <TocHeading
+                    schema={schema}
+                    anchorProps={props.anchorProps}
+                    useCustomContainer={true}
+                  />
                 )
               ) : null}
             </div>

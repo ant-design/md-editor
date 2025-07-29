@@ -97,7 +97,6 @@
                             data-slate-node="text"
                           >
                             <span
-                              class=" "
                               data-be="text"
                               data-slate-leaf="true"
                               draggable="false"
@@ -178,7 +177,6 @@
                               data-slate-node="text"
                             >
                               <span
-                                class=" "
                                 data-be="text"
                                 data-slate-leaf="true"
                                 draggable="false"
@@ -285,7 +283,6 @@
                             data-slate-node="text"
                           >
                             <span
-                              class=" "
                               data-be="text"
                               data-slate-leaf="true"
                               draggable="false"

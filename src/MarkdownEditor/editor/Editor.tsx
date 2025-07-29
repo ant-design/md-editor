@@ -263,10 +263,10 @@ export const SlateMarkdownEditor = ({
     const container = markdownContainerRef?.current;
     if (!container) return;
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (e: MouseEvent) => {
+      e.preventDefault();
       handleSelectionChange.run();
     };
-
     container.addEventListener('mouseup', handleMouseUp);
 
     return () => {
@@ -894,7 +894,10 @@ export const SlateMarkdownEditor = ({
             onPaste(event);
           }}
           onCopy={(event: React.ClipboardEvent<HTMLDivElement>) => {
-            handleClipboardCopy(event, 'copy');
+            const handled = handleClipboardCopy(event, 'copy');
+            if (!handled) {
+              event.preventDefault();
+            }
           }}
           renderElement={elementRenderElement}
           onKeyDown={handleKeyDown}

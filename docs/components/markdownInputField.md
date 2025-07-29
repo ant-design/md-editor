@@ -27,7 +27,10 @@ export default () => {
   return (
     <MarkdownInputField
       value={value}
-      onChange={(newValue) => setValue(newValue)}
+      onChange={(newValue) => {
+        setValue(newValue);
+        console.log('newValue', newValue);
+      }}
       placeholder="请输入内容..."
       onSend={async (text) => {
         console.log('发送内容:', text);

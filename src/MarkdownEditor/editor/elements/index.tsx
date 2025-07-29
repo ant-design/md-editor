@@ -434,7 +434,7 @@ const MLeafComponent = (
   const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
   const leaf = props.leaf;
   const style: CSSProperties = {};
-  let className = props.hashId + ' ';
+  let prefixClassName = classNames(props.hashId);
   let children = <>{props.children}</>;
 
   if (leaf.code || leaf.tag) {
@@ -545,7 +545,11 @@ const MLeafComponent = (
   }
   if (leaf.strikethrough) children = <s>{children}</s>;
   if (leaf.italic) style.fontStyle = 'italic';
-  if (leaf.html) className += ' ' + mdEditorBaseClass + '-m-html';
+  if (leaf.html)
+    prefixClassName = classNames(
+      prefixClassName,
+      mdEditorBaseClass + '-m-html',
+    );
   if (leaf.current) {
     style.background = '#f59e0b';
   }
@@ -607,7 +611,6 @@ const MLeafComponent = (
           }}
           id={leaf?.url}
           data-slate-inline={true}
-          className={`${className}`}
           style={{
             ...style,
             textDecoration: 'underline',
@@ -624,6 +627,11 @@ const MLeafComponent = (
     );
   }
 
+  const fncClassName = classNames(prefixClassName?.trim(), props.hashId, {
+    [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
+    [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
+    [`${mdEditorBaseClass}-comment`]: leaf.comment,
+  });
   let dom = (
     <span
       {...props.attributes}
@@ -648,11 +656,7 @@ const MLeafComponent = (
       data-fnd-name={
         leaf.fnd ? leaf.text?.replace(/\[\^(.+)]:?/g, '$1') : undefined
       }
-      className={classNames(className, props.hashId, {
-        [`${mdEditorBaseClass}-fnc`]: leaf.fnc,
-        [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
-        [`${mdEditorBaseClass}-comment`]: leaf.comment,
-      })}
+      className={fncClassName ? fncClassName : undefined}
       style={{
         fontSize: leaf.fnc ? 10 : undefined,
         ...(leaf.url
@@ -696,10 +700,11 @@ const MLeafComponent = (
 
   return (
     <CommentView
+      id={`comment-${props.leaf?.id}`}
       comment={props.comment}
       commentItem={leaf?.comment ? (leaf.data as any) : null}
     >
-      <span id={`comment-${props.leaf?.id}`}>{dom}</span>
+      {dom}
     </CommentView>
   );
 };

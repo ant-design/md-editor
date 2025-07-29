@@ -59,6 +59,10 @@ nav:
 
 <code src="./demos/ThoughtChainList.tsx"  background="var(--main-bg-color)" title="思维链" iframe=540 ></code>
 
+## TocHeading 测试
+
+<code src="./demos/toc-simple-demo.tsx" background="var(--main-bg-color)" title="TocHeading 简单测试" iframe=540></code>
+
 ## 开发调试
 
 <code src="./demos/bug.tsx" background="var(--main-bg-color)" debug title="bug" iframe=540></code>
