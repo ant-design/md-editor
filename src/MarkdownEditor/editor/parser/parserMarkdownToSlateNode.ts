@@ -14,6 +14,7 @@ import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { Element } from 'slate';
+import { fixStrongWithSpecialChars } from './remarkParse';
 
 import {
   CardNode,
@@ -151,6 +152,7 @@ const getColumnAlignment = (
 
 const stringifyObj = remark()
   .use(remarkParse)
+  .use(fixStrongWithSpecialChars)
   .use(remarkMath as any, {
     singleDollarTextMath: false, // 暂时禁用单美元符号，只使用双美元符号 $$...$$
   })
@@ -320,7 +322,6 @@ const parseTableOrChart = (
   const aligns = table.align;
 
   const isChart = config?.chartType || config?.at?.(0)?.chartType;
-  const isColumn = config?.elementType === 'column';
 
   /**
    * 如果是分栏，将表格转换为分栏节点
