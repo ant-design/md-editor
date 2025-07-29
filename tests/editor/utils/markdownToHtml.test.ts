@@ -243,4 +243,68 @@ title: Test
       expect(result).toBe('processed content');
     });
   });
+
+  describe('fixStrongWithSpecialChars 功能测试', () => {
+    it('应该正确处理包含美元符号的加粗文本', async () => {
+      const markdown = 'Revenue is **$9.698M** this quarter.';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toBe('processed content');
+    });
+
+    it('应该处理多个包含特殊字符的加粗文本', async () => {
+      const markdown =
+        'Revenue **$9.698M** and profit **$2.5M** with growth **$123.45K**.';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toBe('processed content');
+    });
+
+    it('应该处理不同货币格式的加粗文本', async () => {
+      const testCases = [
+        '**$1,000**',
+        '**$9.698M**',
+        '**$123.45K**',
+        '**$1.2B**',
+        '**$999.99**',
+      ];
+
+      for (const testCase of testCases) {
+        const result = await markdownToHtml(testCase);
+        expect(result).toBe('processed content');
+      }
+    });
+
+    it('应该处理混合文本中的特殊字符加粗', async () => {
+      const markdown =
+        'The quarterly report shows **$9.698M** revenue, **$2.5M** profit, and **$123.45K** growth.';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toBe('processed content');
+    });
+
+    it('应该处理边界情况', async () => {
+      const edgeCases = ['**$**', '**$ **', '**$0**', '**$-100**'];
+
+      for (const edgeCase of edgeCases) {
+        const result = await markdownToHtml(edgeCase);
+        expect(result).toBe('processed content');
+      }
+    });
+
+    it('应该不影响普通加粗文本', async () => {
+      const markdown =
+        'This is **normal bold text** without special characters.';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toBe('processed content');
+    });
+
+    it('应该处理同步版本的 fixStrongWithSpecialChars', () => {
+      const markdown = 'Revenue is **$9.698M** this quarter.';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toBe('processed content');
+    });
+  });
 });
