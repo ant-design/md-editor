@@ -669,26 +669,28 @@ export const Editable = forwardRef(
             !IS_NODE_MAP_DIRTY.get(editor)
           ) {
             const [targetRange] = (event as any).getTargetRanges();
-
             if (targetRange) {
-              const range = ReactEditor.toSlateRange(editor, targetRange, {
-                exactMatch: false,
-                suppressThrow: false,
-              });
+              try {
+                const range = ReactEditor.toSlateRange(editor, targetRange, {
+                  exactMatch: false,
+                  suppressThrow: false,
+                });
 
-              if (!selection || !Range.equals(selection, range)) {
-                native = false;
+                if (!selection || !Range.equals(selection, range)) {
+                  native = false;
+                  const selectionRef =
+                    !isCompositionChange &&
+                    editor.selection &&
+                    Editor.rangeRef(editor, editor.selection);
 
-                const selectionRef =
-                  !isCompositionChange &&
-                  editor.selection &&
-                  Editor.rangeRef(editor, editor.selection);
+                  Transforms.select(editor, range);
 
-                Transforms.select(editor, range);
-
-                if (selectionRef) {
-                  EDITOR_TO_USER_SELECTION.set(editor, selectionRef);
+                  if (selectionRef) {
+                    EDITOR_TO_USER_SELECTION.set(editor, selectionRef);
+                  }
                 }
+              } catch (error) {
+                console.log('error', error);
               }
             }
           }

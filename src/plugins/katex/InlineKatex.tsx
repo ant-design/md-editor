@@ -2,7 +2,6 @@ import katex from 'katex';
 import React, { useEffect, useRef } from 'react';
 import { Editor, Node, Transforms } from 'slate';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
-import { InlineChromiumBugfix } from '../../MarkdownEditor/editor/utils/InlineChromiumBugfix';
 import { ElementProps, InlineKatexNode } from '../../MarkdownEditor/el';
 import { useSelStatus } from '../../MarkdownEditor/hooks/editor';
 import './katex.min.css';
@@ -29,7 +28,7 @@ export const InlineKatex = ({
     }
   }, [selected]);
   if (process.env.NODE_ENV === 'test') {
-    return <InlineChromiumBugfix />;
+    return <span contentEditable={false} style={{ fontSize: 0 }} />;
   }
 
   if (readonly) {

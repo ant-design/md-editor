@@ -679,6 +679,12 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
                       paddingRight: rightPadding || 52,
                     }
               }
+              toolBar={{
+                enable: false,
+              }}
+              floatBar={{
+                enable: false,
+              }}
               readonly={isLoading}
               contentStyle={{
                 padding: '8px',
@@ -706,12 +712,6 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = (
               }}
               titlePlaceholderContent={props.placeholder}
               toc={false}
-              toolBar={{
-                enable: false,
-              }}
-              floatBar={{
-                enable: false,
-              }}
             />
           </div>
           {props.toolsRender ? (

@@ -33,6 +33,7 @@ const Text = (props: {
     parent,
     renderPlaceholder,
     renderLeaf,
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     renderText = (props: RenderTextProps) => <DefaultText {...props} />,
     text,
   } = props;
@@ -94,6 +95,16 @@ const Text = (props: {
   });
 };
 
+export const InlineChromiumBugfix = React.memo(() => (
+  <span
+    className={'h-0 leading-none opacity-0'}
+    contentEditable={false}
+    style={{ fontSize: 0 }}
+  >
+    {String.fromCodePoint(160)}
+  </span>
+));
+
 const MemoizedText = React.memo(Text, (prev, next) => {
   return (
     next.parent === prev.parent &&
@@ -108,7 +119,13 @@ const MemoizedText = React.memo(Text, (prev, next) => {
 
 export const DefaultText = (props: RenderTextProps) => {
   const { attributes, children } = props;
-  return <span {...attributes}>{children}</span>;
+  return (
+    <span {...attributes}>
+      {!props.text?.text && <InlineChromiumBugfix />}
+      {children}
+      {!props.text?.text && <InlineChromiumBugfix />}
+    </span>
+  );
 };
 
 export default MemoizedText;

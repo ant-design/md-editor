@@ -9,6 +9,7 @@ export const CommentView = (props: {
   children: React.ReactNode;
   comment: MarkdownEditorProps['comment'];
   commentItem: CommentDataType[];
+  id: string;
 }) => {
   const { setShowComment } = useContext(EditorStoreContext) || {};
   if (!props.commentItem?.length) {
@@ -17,6 +18,8 @@ export const CommentView = (props: {
   if (props.commentItem?.length) {
     return (
       <span
+        data-be="comment-text"
+        id={props.id}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
