@@ -24,17 +24,17 @@ const FileItemComponent: FC<{
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    
+
     // 优先使用用户传入的下载方法
     if (onDownload) {
       onDownload(file);
       return;
     }
-    
-    // 如果有downloadUrl，组件内部直接下载
-    if (file.downloadUrl) {
+
+    // 使用url作为下载链接
+    if (file.url) {
       const link = document.createElement('a');
-      link.href = file.downloadUrl;
+      link.href = file.url;
       link.download = file.name;
       document.body.appendChild(link);
       link.click();
@@ -42,8 +42,8 @@ const FileItemComponent: FC<{
     }
   };
 
-  // 判断是否显示下载按钮：有用户方法或有downloadUrl
-  const showDownloadButton = onDownload || file.downloadUrl;
+  // 判断是否显示下载按钮：有用户方法或有url
+  const showDownloadButton = onDownload || file.url;
 
   return (
     <div
@@ -66,10 +66,18 @@ const FileItemComponent: FC<{
         <div className="workspace-file-item__details">
           <span className="workspace-file-item__type">{file.type}</span>
           {file.size && (
-            <span className="workspace-file-item__size">{file.size}</span>
+            <>
+              <span className="workspace-file-item__separator">|</span>
+              <span className="workspace-file-item__size">{file.size}</span>
+            </>
           )}
-          {file.createTime && (
-            <span className="workspace-file-item__time">{file.createTime}</span>
+          {file.lastModified && (
+            <>
+              <span className="workspace-file-item__separator">|</span>
+              <span className="workspace-file-item__time">
+                {file.lastModified}
+              </span>
+            </>
           )}
         </div>
       </div>
@@ -163,7 +171,11 @@ const FileGroupComponent: FC<{
 }> = ({ group, onToggle, onGroupDownload, onDownload, onFileClick }) => {
   return (
     <div className="workspace-file-group">
-      <GroupHeader group={group} onToggle={onToggle} onGroupDownload={onGroupDownload} />
+      <GroupHeader
+        group={group}
+        onToggle={onToggle}
+        onGroupDownload={onGroupDownload}
+      />
       {!group.collapsed && (
         <div className="workspace-file-group__content">
           {group.files.map((file) => (
@@ -186,7 +198,15 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
     return null;
   }
 
-  const { mode, groups, files, onGroupDownload, onDownload, onFileClick, onToggleGroup } = data;
+  const {
+    mode,
+    groups,
+    files,
+    onGroupDownload,
+    onDownload,
+    onFileClick,
+    onToggleGroup,
+  } = data;
 
   // 分组展示模式
   if (mode === 'group' && groups) {
@@ -211,9 +231,9 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
     return (
       <div className="workspace-file-container workspace-file-container--flat">
         {files.map((file) => (
-          <FileItemComponent 
-            key={file.id} 
-            file={file} 
+          <FileItemComponent
+            key={file.id}
+            file={file}
             onClick={onFileClick}
             onDownload={onDownload}
           />

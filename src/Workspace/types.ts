@@ -55,9 +55,9 @@ export interface FileItem {
   name: string;
   type: FileType;
   size?: string;
-  createTime?: string; // 创建时间
-  url?: string;
-  downloadUrl?: string; // 下载链接，如果提供则组件内部直接下载
+  lastModified?: string; // 最后修改时间
+  url?: string; // 下载链接
+  previewUrl?: string; // 预览链接
   icon?: ReactNode; // 自定义图标
   [key: string]: any; // 允许扩展其他属性
 }

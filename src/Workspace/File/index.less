@@ -72,7 +72,6 @@
         transition: all 0.2s ease;
 
         &:hover {
-          color: #007bff;
           background: #f8f9fa;
         }
       }
@@ -141,28 +140,30 @@
   &__details {
     display: flex;
     align-items: center;
-    gap: 8px;
     flex-wrap: wrap;
   }
 
-  // 文件类型
-  &__type {
-    font-size: 12px;
-    color: #6c757d;
-    line-height: 1.2;
-  }
-
-  // 文件大小
-  &__size {
-    font-size: 12px;
-    color: #6c757d;
-    line-height: 1.2;
-  }
-
-  // 创建时间
+  // 文件类型、大小、时间
+  &__type,
+  &__size,
   &__time {
     font-size: 12px;
+    color: #959da8;
+  }
+
+  // 分割符
+  &__separator {
+    font-size: 10px;
+    color: rgba(20, 22, 28, 0.07);
+    margin: 0 4px;
+  }
+
+  &__actions {
+    font-size: 14px;
     color: #6c757d;
-    line-height: 1.2;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
   }
 }

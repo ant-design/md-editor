@@ -22,21 +22,23 @@ const WorkspaceFileDemo: React.FC = () => {
             name: '项目需求文档.docx',
             type: 'doc',
             size: '2.3MB',
-            createTime: '12:30',
+            lastModified: '12:30',
+            url: '/downloads/project-requirements.docx',
+            previewUrl: '/preview/project-requirements.docx',
           },
           {
             id: '2',
             name: '用户手册.docx',
             type: 'doc',
             size: '1.8MB',
-            createTime: '09:15',
+            lastModified: '09:15',
           },
           {
             id: '3',
             name: '技术规范.docx',
             type: 'doc',
             size: '3.1MB',
-            createTime: '14:45',
+            lastModified: '14:45',
           },
         ],
       },
@@ -50,14 +52,15 @@ const WorkspaceFileDemo: React.FC = () => {
             name: '数据统计表.xlsx',
             type: 'excel',
             size: '1.2MB',
-            createTime: '10:20',
+            lastModified: '10:20',
+            url: '/downloads/data-statistics.xlsx',
           },
           {
             id: '5',
             name: '财务报表.xlsx',
             type: 'excel',
             size: '2.8MB',
-            createTime: '16:30',
+            lastModified: '16:30',
           },
         ],
       },
@@ -71,21 +74,21 @@ const WorkspaceFileDemo: React.FC = () => {
             name: '用户数据.csv',
             type: 'csv',
             size: '856KB',
-            createTime: '08:45',
+            lastModified: '08:45',
           },
           {
             id: '7',
             name: '销售记录.csv',
             type: 'csv',
             size: '1.1MB',
-            createTime: '11:25',
+            lastModified: '11:25',
           },
           {
             id: '8',
             name: '产品目录.csv',
             type: 'csv',
             size: '432KB',
-            createTime: '15:10',
+            lastModified: '15:10',
           },
         ],
       },
@@ -99,26 +102,27 @@ const WorkspaceFileDemo: React.FC = () => {
             name: 'README.md',
             type: 'md',
             size: '15KB',
-            createTime: '07:30',
+            lastModified: '07:30',
+            url: '/downloads/readme.md',
+            previewUrl: '/preview/readme.md',
           },
           {
             id: '10',
             name: 'API文档.md',
             type: 'md',
             size: '28KB',
-            createTime: '13:20',
+            lastModified: '13:20',
           },
         ],
       },
     ],
-    onDownload: (files: FileItem[], groupType?: FileType) => {
-      if (groupType) {
-        console.log(`下载${groupType}类型的所有文件:`, files);
-        alert(`正在下载${files.length}个${groupType}文件...`);
-      } else {
-        console.log('下载文件:', files);
-        alert(`正在下载文件: ${files[0]?.name}`);
-      }
+    onDownload: (file: FileItem) => {
+      console.log('下载单个文件:', file);
+      alert(`正在下载文件: ${file.name}`);
+    },
+    onGroupDownload: (files: FileItem[], groupType?: FileType) => {
+      console.log(`下载${groupType}类型的所有文件:`, files);
+      alert(`正在下载${files.length}个${groupType}文件...`);
     },
     onToggleGroup: (groupType: FileType, collapsed: boolean) => {
       console.log(`切换分组 ${groupType} 状态:`, collapsed ? '收起' : '展开');
@@ -198,32 +202,6 @@ const WorkspaceFileDemo: React.FC = () => {
             </div>
           </Workspace.Custom>
         </Workspace>
-      </div>
-
-      <div style={{ marginTop: '20px' }}>
-        <h3>功能说明：</h3>
-        <ul>
-          <li>
-            <strong>分组展示</strong>：文件按类型分组，支持展开/收起
-          </li>
-          <li>
-            <strong>平铺展示</strong>：所有文件平铺显示
-          </li>
-          <li>
-            <strong>文件点击</strong>：点击文件名可触发自定义操作
-          </li>
-          <li>
-            <strong>批量下载</strong>
-            ：点击分组右侧的下载图标可下载该类型所有文件
-          </li>
-          <li>
-            <strong>默认图标</strong>
-            ：系统提供CSV、Doc、Excel、Markdown、XML等文件类型图标
-          </li>
-          <li>
-            <strong>自定义图标</strong>：可以为单个文件或文件分组设置自定义图标
-          </li>
-        </ul>
       </div>
     </div>
   );
