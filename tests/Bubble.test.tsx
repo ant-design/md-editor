@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Bubble } from '../src/Bubble';
@@ -25,6 +25,13 @@ vi.mock('framer-motion', () => ({
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   },
 }));
+
+// Mock clipboard API
+Object.assign(navigator, {
+  clipboard: {
+    writeText: vi.fn(() => Promise.resolve()),
+  },
+});
 
 describe('Bubble', () => {
   const defaultProps: BubbleProps<Record<string, any>> = {
@@ -174,5 +181,222 @@ describe('Bubble', () => {
     // 检查自定义样式是否被应用
     const titleElement = screen.getByText('Test User');
     expect(titleElement).toBeInTheDocument();
+  });
+
+  it('should handle shouldShowCopy as boolean true', () => {
+    const propsWithAssistantRole = {
+      ...defaultProps,
+      originData: {
+        content: 'Test message content',
+        createAt: 1716537600000,
+        id: '123',
+        role: 'assistant' as const,
+        updateAt: 1716537600000,
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithAssistantRole} shouldShowCopy={true} />
+      </BubbleConfigProvide>,
+    );
+
+    // 验证复制按钮存在
+    const copyButton = screen.queryByTestId('chat-item-copy-button');
+    expect(copyButton).toBeInTheDocument();
+  });
+
+  it('should handle shouldShowCopy as boolean false', () => {
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...defaultProps} shouldShowCopy={false} />
+      </BubbleConfigProvide>,
+    );
+
+    // 验证复制按钮不存在
+    const copyButton = screen.queryByTestId('chat-item-copy-button');
+    expect(copyButton).not.toBeInTheDocument();
+  });
+
+  it('should handle shouldShowCopy as function returning true', () => {
+    const shouldShowCopyFn = vi.fn().mockReturnValue(true);
+    const propsWithAssistantRole = {
+      ...defaultProps,
+      originData: {
+        content: 'Test message content',
+        createAt: 1716537600000,
+        id: '123',
+        role: 'assistant' as const,
+        updateAt: 1716537600000,
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithAssistantRole} shouldShowCopy={shouldShowCopyFn} />
+      </BubbleConfigProvide>,
+    );
+
+    // 验证函数被正确调用
+    expect(shouldShowCopyFn).toHaveBeenCalled();
+
+    // 验证复制按钮存在
+    const copyButton = screen.queryByTestId('chat-item-copy-button');
+    expect(copyButton).toBeInTheDocument();
+  });
+
+  it('should handle shouldShowCopy as function returning false', () => {
+    const shouldShowCopyFn = vi.fn().mockReturnValue(false);
+    const propsWithAssistantRole = {
+      ...defaultProps,
+      originData: {
+        content: 'Test message content',
+        createAt: 1716537600000,
+        id: '123',
+        role: 'assistant' as const,
+        updateAt: 1716537600000,
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithAssistantRole} shouldShowCopy={shouldShowCopyFn} />
+      </BubbleConfigProvide>,
+    );
+
+    // 验证函数被正确调用
+    expect(shouldShowCopyFn).toHaveBeenCalled();
+
+    // 验证复制按钮不存在
+    const copyButton = screen.queryByTestId('chat-item-copy-button');
+    expect(copyButton).not.toBeInTheDocument();
+  });
+
+  it('should call onCancelLike when cancel like button is clicked', async () => {
+    const onCancelLike = vi.fn();
+    const propsWithFeedback = {
+      ...defaultProps,
+      onCancelLike,
+      onLike: vi.fn(),
+      originData: {
+        ...defaultProps.originData,
+        content: 'Test message content',
+        role: 'assistant' as const,
+        createAt: 1716537600000,
+        id: '123',
+        updateAt: 1716537600000,
+        feedback: 'thumbsUp' as const, // 已经点赞
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithFeedback} />
+      </BubbleConfigProvide>,
+    );
+
+    // 查找点赞按钮（此时应该是取消点赞状态）
+    const likeButton = screen.queryByTestId('like-button');
+    expect(likeButton).toBeInTheDocument();
+
+    // 点击取消点赞按钮
+    if (likeButton) {
+      fireEvent.click(likeButton);
+      await waitFor(() => {
+        expect(onCancelLike).toHaveBeenCalled();
+      });
+    }
+  });
+
+  it('should handle onCancelLike with error gracefully', async () => {
+    const onCancelLike = vi
+      .fn()
+      .mockRejectedValue(new Error('Cancel like failed'));
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    const propsWithFeedback = {
+      ...defaultProps,
+      onCancelLike,
+      onLike: vi.fn(),
+      originData: {
+        ...defaultProps.originData,
+        content: 'Test message content',
+        role: 'assistant' as const,
+        createAt: 1716537600000,
+        id: '123',
+        updateAt: 1716537600000,
+        feedback: 'thumbsUp' as const,
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithFeedback} />
+      </BubbleConfigProvide>,
+    );
+
+    const likeButton = screen.queryByTestId('like-button');
+    if (likeButton) {
+      fireEvent.click(likeButton);
+      await waitFor(() => {
+        expect(onCancelLike).toHaveBeenCalled();
+      });
+    }
+
+    consoleSpy.mockRestore();
+  });
+
+  it('should show copy button by default when shouldShowCopy is undefined', () => {
+    const propsWithAssistantRole = {
+      ...defaultProps,
+      originData: {
+        content: 'Test message content',
+        createAt: 1716537600000,
+        id: '123',
+        role: 'assistant' as const,
+        updateAt: 1716537600000,
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithAssistantRole} />
+      </BubbleConfigProvide>,
+    );
+
+    // 默认情况下应该显示复制按钮
+    const copyButton = screen.queryByTestId('chat-item-copy-button');
+    expect(copyButton).toBeInTheDocument();
+  });
+
+  it('should pass bubble data to shouldShowCopy function', () => {
+    const shouldShowCopyFn = vi.fn().mockReturnValue(true);
+    const propsWithAssistantRole = {
+      ...defaultProps,
+      originData: {
+        content: 'Test message content',
+        createAt: 1716537600000,
+        id: '123',
+        role: 'assistant' as const,
+        updateAt: 1716537600000,
+      },
+    };
+
+    render(
+      <BubbleConfigProvide>
+        <Bubble {...propsWithAssistantRole} shouldShowCopy={shouldShowCopyFn} />
+      </BubbleConfigProvide>,
+    );
+
+    // 验证函数被调用时传入了正确的 bubble 数据
+    expect(shouldShowCopyFn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        originData: expect.objectContaining({
+          content: 'Test message content',
+          id: '123',
+          role: 'assistant',
+        }),
+      }),
+    );
   });
 });
