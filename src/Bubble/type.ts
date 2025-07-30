@@ -467,7 +467,7 @@ export interface BubbleProps<T = Record<string, any>>
    * @callback
    * @optional
    */
-  onCancelLike?: () => void;
+  onCancelLike?: (e: BubbleProps['originData']) => void;
 
   /**
    * 控制复制按钮的显示

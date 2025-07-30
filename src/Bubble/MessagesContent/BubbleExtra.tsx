@@ -50,7 +50,7 @@ export type BubbleExtraProps = {
    * @callback
    * @optional
    */
-  onCancelLike?: () => void;
+  onCancelLike?: (e: BubbleProps['originData']) => void;
 
   /**
    * 控制复制按钮的显示
@@ -298,7 +298,7 @@ export const BubbleExtra = ({
                   originalData?.feedback === 'thumbsUp' &&
                   props.onCancelLike
                 ) {
-                  await props.onCancelLike?.();
+                  await props.onCancelLike?.(bubble.originData);
                 }
                 return;
               }
