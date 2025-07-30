@@ -381,11 +381,6 @@ export interface BubbleProps<T = Record<string, any>>
   originData?: T & MessageBubbleData;
 
   /**
-   * 是否为最后一条消息
-   */
-  isLast?: boolean;
-
-  /**
    * 消息ID
    */
   id?: string;

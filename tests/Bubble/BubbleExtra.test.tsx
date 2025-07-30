@@ -85,7 +85,6 @@ describe('BubbleExtra', () => {
     bubble: {
       id: 'test-id',
       content: 'Test content',
-      isLast: true,
       isFinished: true,
       isAborted: false,
       uuid: 1,
@@ -138,13 +137,9 @@ describe('BubbleExtra', () => {
       expect(container).toBeInTheDocument();
     });
 
-    it('应该处理非最新消息', () => {
+    it('应该渲染基本内容', () => {
       const props = {
         ...defaultProps,
-        bubble: {
-          ...defaultProps.bubble,
-          isLast: false,
-        },
       };
 
       render(<BubbleExtra {...props} />);

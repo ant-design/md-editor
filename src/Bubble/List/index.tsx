@@ -152,10 +152,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
   const deps = useMemo(() => [props.style], [JSON.stringify(props.style)]);
 
   const bubbleListDom = useMemo(() => {
-    return bubbleList.map((item, index) => {
-      const isLast = bubbleList.length - 1 === index;
-      //@ts-ignore
-      item.isLast = isLast;
+    return bubbleList.map((item) => {
       return (
         <Bubble
           key={item.id}
@@ -165,7 +162,6 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
             ...(item as any).meta,
           }}
           id={item.id}
-          isLast={isLast}
           style={{
             ...styles?.bubbleListItemStyle,
           }}

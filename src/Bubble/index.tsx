@@ -151,7 +151,6 @@ export const Bubble: React.FC<
       slidesModeProps={props.slidesModeProps}
       onReply={props.onReply}
       id={props.id}
-      isLast={props.isLast ?? true}
       originData={props.originData}
       placement={props.originData?.role === 'user' ? 'right' : 'left'}
       time={props.originData?.updateAt || props.originData?.createAt}
@@ -171,7 +170,6 @@ export const Bubble: React.FC<
     props.originData?.feedback,
     props.originData?.isAborted,
     props.originData?.isFinished,
-    props.isLast,
     props.deps,
   ]);
 

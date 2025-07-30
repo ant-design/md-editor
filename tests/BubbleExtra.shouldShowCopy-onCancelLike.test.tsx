@@ -91,7 +91,6 @@ describe('BubbleExtra - shouldShowCopy and onCancelLike Tests', () => {
   const defaultBubbleProps = {
     id: 'test-id',
     content: 'Test message content',
-    isLast: true,
     isFinished: true,
     isAborted: false,
     uuid: 1,

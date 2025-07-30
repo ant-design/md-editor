@@ -202,7 +202,6 @@ export const BubbleMessageDisplay: React.FC<
             extra={null}
             typing={false}
             originData={props.originData}
-            isLatest={!!props.isLast}
             content={props.originData?.content as string}
           />
         </div>
@@ -445,7 +444,6 @@ export const BubbleMessageDisplay: React.FC<
         slidesMode={slidesMode}
         onCloseSlides={() => setSlidesMode(false)}
         typing={typing}
-        isLatest={!!props.isLast}
         docListNode={docInfoDom}
         extra={isExtraNull ? null : extra}
         htmlRef={props.bubbleListRef}
@@ -464,7 +462,6 @@ export const BubbleMessageDisplay: React.FC<
     props?.originData?.feedback,
     props.originData?.isFinished,
     props.originData?.isAborted,
-    props.isLast,
     slidesMode,
     isExtraNull,
     props.deps,

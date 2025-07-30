@@ -80,14 +80,6 @@ export type BubbleExtraProps = {
   readonly?: boolean;
 
   /**
-   * 是否为最新消息
-   * @description 用于标识当前消息是否为对话中的最新消息
-   * @default false
-   * @optional
-   */
-  isLatest?: boolean;
-
-  /**
    * 聊天项的数据
    * @description 包含聊天消息的完整信息
    */
@@ -180,11 +172,6 @@ export type BubbleExtraProps = {
       reply: React.ReactNode;
     },
   ) => React.ReactNode;
-};
-
-const listItemVariants = {
-  visible: { opacity: 1, y: 0 },
-  hidden: { opacity: 0, y: 10 },
 };
 
 /**
@@ -410,20 +397,6 @@ export const BubbleExtra = ({
     [shouldShowCopy, context?.locale, bubble.originData?.content],
   );
 
-  const warpDivAnimation = useMemo(
-    () => (divDom: React.ReactNode) => {
-      if (!bubble.isLast) {
-        return divDom;
-      }
-      if (process.env.NODE_ENV === 'test') {
-        return divDom;
-      }
-
-      return <motion.div variants={listItemVariants}>{divDom}</motion.div>;
-    },
-    [bubble.isLast],
-  );
-
   const slidesModeButton = useMemo(
     () =>
       props.slidesModeProps?.enable ? (
@@ -470,36 +443,21 @@ export const BubbleExtra = ({
           animate="visible"
           className={`${prefixCls}-action-box`}
         >
-          {copyDom ? warpDivAnimation(copyDom) : null}
-          {navigator.clipboard &&
-          copyDom &&
-          (like || disLike) &&
-          bubble.isLast ? (
-            <motion.div variants={listItemVariants}>
-              <Divider
-                type="vertical"
-                style={{
-                  margin: '0px 2px',
-                }}
-              />
-            </motion.div>
-          ) : null}
-          <>
-            {like ? warpDivAnimation(like) : null}
-            {disLike ? warpDivAnimation(disLike) : null}
-          </>
-          {slidesModeButton ? warpDivAnimation(slidesModeButton) : null}
+          {copyDom ? copyDom : null}
+          {copyDom && (like || disLike) && (
+            <Divider
+              type="vertical"
+              style={{
+                margin: '0px 2px',
+              }}
+            />
+          )}
+          {like ? like : null}
+          {disLike ? disLike : null}
+          {slidesModeButton ? slidesModeButton : null}
         </motion.div>
       ) : null,
-    [
-      copyDom,
-      like,
-      disLike,
-      prefixCls,
-      bubble.isLast,
-      slidesModeButton,
-      warpDivAnimation,
-    ],
+    [copyDom, like, disLike, prefixCls, slidesModeButton],
   );
 
   const reSend = useMemo(() => {
@@ -549,10 +507,6 @@ export const BubbleExtra = ({
   useEffect(() => {
     props.onRenderExtraNull?.(!dom && !reSend);
   }, [dom]);
-
-  if (!bubble.isLast) {
-    return dom;
-  }
 
   const typing =
     originalData?.isAborted !== true &&
