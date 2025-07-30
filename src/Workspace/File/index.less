@@ -159,11 +159,172 @@
   }
 
   &__actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // 操作图标基础样式
+  &__preview-icon,
+  &__download-icon {
     font-size: 14px;
     color: #6c757d;
     cursor: pointer;
     padding: 4px;
     border-radius: 4px;
     transition: all 0.2s ease;
+
+    &:hover {
+      background: #f8f9fa;
+    }
+  }
+}
+
+// 预览组件样式
+.workspace-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+
+  // 预览头部
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid rgba(20, 22, 28, 0.07);
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  // 返回按钮
+  &__back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #767E8B;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+
+  // 返回图标
+  &__back-icon {
+    font-size: 16px;
+  }
+
+  // 文件信息容器
+  &__file-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  // 文件标题行（包含图标和文件名）
+  &__file-title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // 文件图标
+  &__file-icon {
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  // 文件名
+  &__file-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #343A45;
+  }
+
+  // 生成时间
+  &__generate-time {
+    font-size: 12px;
+    color: #767E8B;
+  }
+
+  // 操作按钮容器
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  // 操作按钮
+  &__action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #8c8c8c;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+
+    &:hover {
+      background: #f0f0f0;
+      color: #767E8B;
+    }
+
+    svg {
+      font-size: 14px;
+    }
+  }
+
+  // 预览内容区域
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  // iframe 预览
+  &__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    flex: 1;
+  }
+
+  // 占位符
+  &__placeholder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+  }
+
+  // 占位符内容
+  &__placeholder-content {
+    text-align: center;
+    color: #8c8c8c;
+
+    p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
   }
 }

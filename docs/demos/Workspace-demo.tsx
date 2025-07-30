@@ -12,8 +12,6 @@ const Demo = () => {
         <Workspace.Realtime
           tab={{
             key: 'realtime',
-            // icon: <SearchOutlined />,
-            // title: '实时跟随',
           }}
           data={{
             type: 'shell',
@@ -42,6 +40,7 @@ find / -type f -size +100M 2>/dev/null | head -n 5
 \`\`\``,
             customTitle: '系统监控',
             customSubTitle: '实时监控系统状态',
+            markdownEditorProps: { typewriter: false },
           }}
         />
 
@@ -97,6 +96,7 @@ find / -type f -size +100M 2>/dev/null | head -n 5
                 type: 'doc',
                 size: '2.3MB',
                 createTime: '12:30',
+                url: '/downloads/project-requirements.docx',
               },
               {
                 id: '2',

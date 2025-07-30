@@ -80,6 +80,7 @@ export interface FileComponentData {
   onDownload?: (file: FileItem) => void; // 单文件下载回调
   onFileClick?: (file: FileItem) => void; // 文件点击回调
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void; // 切换分组展开/收起回调
+  onPreview?: (file: FileItem) => void; // 文件预览回调
 }
 
 // 文件组件属性

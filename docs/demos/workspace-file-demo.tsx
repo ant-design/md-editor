@@ -24,7 +24,6 @@ const WorkspaceFileDemo: React.FC = () => {
             size: '2.3MB',
             lastModified: '12:30',
             url: '/downloads/project-requirements.docx',
-            previewUrl: '/preview/project-requirements.docx',
           },
           {
             id: '2',

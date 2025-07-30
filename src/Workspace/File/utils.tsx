@@ -5,7 +5,7 @@ import FileIcon from '../icons/FileIcon';
 import MdIcon from '../icons/MdIcon';
 import XlsxIcon from '../icons/XlsxIcon';
 import XmlIcon from '../icons/XmlIcon';
-import type { FileType } from '../types';
+import type { FileType, FileItem } from '../types';
 
 // 文件类型到图标的映射
 const FILE_TYPE_ICON_MAP: Record<FileType, React.ReactNode> = {
@@ -31,4 +31,67 @@ export const getFileTypeIcon = (
     return customIcon;
   }
   return FILE_TYPE_ICON_MAP[type] || FILE_TYPE_ICON_MAP.unknown;
+};
+
+// 图片文件扩展名
+const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
+
+// 文本文件扩展名
+const TEXT_EXTENSIONS = ['txt', 'md', 'markdown', 'csv', 'xml', 'json', 'html', 'htm', 'css', 'js', 'javascript', 'ts', 'typescript', 'jsx', 'tsx'];
+
+// 其他支持预览的文件扩展名
+const OTHER_PREVIEWABLE_EXTENSIONS = ['pdf'];
+
+// 支持预览的文件类型
+const PREVIEWABLE_TYPES: FileType[] = ['md', 'csv', 'xml'];
+
+/**
+ * 获取文件扩展名
+ * @param fileName 文件名
+ * @returns 文件扩展名（小写）
+ */
+const getFileExtension = (fileName: string): string => {
+  return fileName.split('.').pop()?.toLowerCase() || '';
+};
+
+/**
+ * 判断文件是否支持预览
+ * @param file 文件对象
+ * @returns 是否支持预览
+ */
+export const canPreviewFile = (file: FileItem): boolean => {
+  // 如果有预览链接，直接支持预览
+  if (file.previewUrl) {
+    return true;
+  }
+
+  // 检查文件类型是否支持预览
+  if (PREVIEWABLE_TYPES.includes(file.type)) {
+    return true;
+  }
+
+  // 根据文件扩展名判断
+  const extension = getFileExtension(file.name || '');
+  
+  return [...IMAGE_EXTENSIONS, ...TEXT_EXTENSIONS, ...OTHER_PREVIEWABLE_EXTENSIONS].includes(extension);
+};
+
+/**
+ * 判断文件是否为图片
+ * @param file 文件对象
+ * @returns 是否为图片
+ */
+export const isImageFile = (file: FileItem): boolean => {
+  const extension = getFileExtension(file.name || '');
+  return IMAGE_EXTENSIONS.includes(extension);
+};
+
+/**
+ * 判断文件是否为文本文件
+ * @param file 文件对象
+ * @returns 是否为文本文件
+ */
+export const isTextFile = (file: FileItem): boolean => {
+  const extension = getFileExtension(file.name || '');
+  return TEXT_EXTENSIONS.includes(extension);
 };
