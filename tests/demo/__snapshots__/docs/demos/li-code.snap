@@ -115,9 +115,8 @@
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -132,9 +131,8 @@
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -804,9 +802,8 @@ for num in arr:
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -821,9 +818,8 @@ for num in arr:
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -1299,9 +1295,8 @@ while i &lt; len(arr):
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -1316,9 +1311,8 @@ while i &lt; len(arr):
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -1741,9 +1735,8 @@ for fruit in fruits:
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -1758,9 +1751,8 @@ for fruit in fruits:
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -1976,9 +1968,8 @@ for fruit in fruits:
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -1993,9 +1984,8 @@ for fruit in fruits:
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -2202,9 +2192,8 @@ while i &lt; len(fruits):
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -2219,9 +2208,8 @@ while i &lt; len(fruits):
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -2402,9 +2390,8 @@ while i &lt; len(fruits):
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -2419,9 +2406,8 @@ while i &lt; len(fruits):
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -2603,9 +2589,8 @@ while i &lt; len(fruits):
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -2620,9 +2605,8 @@ while i &lt; len(fruits):
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
