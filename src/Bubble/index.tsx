@@ -13,6 +13,7 @@ import { MessagesContext } from './MessagesContent/BubbleContext';
 import { useStyle } from './style';
 import { BubbleTitle } from './Title';
 import type { BubbleMetaData, BubbleProps } from './type';
+export * from './type';
 
 const runRender = (
   render: any,

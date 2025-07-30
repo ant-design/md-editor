@@ -45,6 +45,26 @@ export type BubbleExtraProps = {
   onLike?: () => void;
 
   /**
+   * 取消点赞的回调函数
+   * @description 当用户点击取消点赞按钮时触发
+   * @callback
+   * @optional
+   */
+  onCancelLike?: () => void;
+
+  /**
+   * 控制复制按钮的显示
+   * @description 控制复制按钮是否显示的函数或布尔值
+   * - 如果传入函数，则调用函数判断是否显示，函数接收 bubble 作为参数
+   * - 如果传入布尔值，则直接使用该值控制显示
+   * - 如果未传入（undefined），则使用默认逻辑判断
+   * @param bubble - 聊天项的数据对象
+   * @returns 是否显示复制按钮
+   * @optional
+   */
+  shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
+
+  /**
    * 额外操作组件的自定义样式
    * @description 用于自定义额外操作区域的样式
    * @optional
@@ -223,6 +243,39 @@ export const BubbleExtra = ({
     (props.onDisLike || originalData?.feedback) &&
     originalData?.feedback !== 'thumbsUp';
 
+  // 获取点赞按钮的标题文本
+  const likeButtonTitle = useMemo(() => {
+    if (alreadyFeedback && originalData?.feedback === 'thumbsUp') {
+      // 已经点赞的情况
+      if (props.onCancelLike) {
+        return context?.locale?.['chat.message.cancel-like'] || '取消点赞';
+      } else {
+        return (
+          context?.locale?.['chat.message.feedback-success'] || '已经反馈过了哦'
+        );
+      }
+    } else {
+      // 未点赞的情况
+      return context?.locale?.['chat.message.like'] || '喜欢';
+    }
+  }, [
+    alreadyFeedback,
+    originalData?.feedback,
+    !!props.onCancelLike,
+    context?.locale,
+  ]);
+
+  // 获取点踩按钮的标题文本
+  const getDislikeButtonTitle = useMemo(() => {
+    if (alreadyFeedback) {
+      return (
+        context?.locale?.['chat.message.feedback-success'] || '已经反馈过了哦'
+      );
+    } else {
+      return context?.locale?.['chat.message.dislike'] || '不喜欢';
+    }
+  }, [alreadyFeedback, context?.locale]);
+
   const like = useMemo(
     () =>
       shouldShowLike ? (
@@ -233,16 +286,20 @@ export const BubbleExtra = ({
             color: 'var(--color-icon-secondary)',
           }}
           active={alreadyFeedback}
-          title={
-            alreadyFeedback
-              ? context?.locale?.['chat.message.feedback-success'] ||
-                '已经反馈过了哦'
-              : context?.locale?.['chat.message.like'] || '喜欢'
-          }
-          onClick={async () => {
+          title={likeButtonTitle}
+          onClick={async (e: any) => {
+            e?.preventDefault?.();
+            e?.stopPropagation?.();
             try {
+              // 处理取消点赞
               if (alreadyFeedback) {
-                // message.error('您已经点过赞或踩了');
+                // 如果已经点赞且支持取消点赞
+                if (
+                  originalData?.feedback === 'thumbsUp' &&
+                  props.onCancelLike
+                ) {
+                  await props.onCancelLike?.();
+                }
                 return;
               }
               await props.onLike?.();
@@ -254,7 +311,12 @@ export const BubbleExtra = ({
           <LikeOutlined />
         </ActionIconBox>
       ) : null,
-    [shouldShowLike, alreadyFeedback, originalData?.isFinished],
+    [
+      shouldShowLike,
+      alreadyFeedback,
+      originalData?.isFinished,
+      props.onCancelLike,
+    ],
   );
 
   const disLike = useMemo(
@@ -267,12 +329,7 @@ export const BubbleExtra = ({
           }}
           scale
           active={alreadyFeedback}
-          title={
-            alreadyFeedback
-              ? context?.locale?.['chat.message.feedback-success'] ||
-                '已经反馈过了哦'
-              : context?.locale?.['chat.message.dislike'] || '不喜欢'
-          }
+          title={getDislikeButtonTitle}
           onClick={async () => {
             try {
               if (alreadyFeedback) {
@@ -292,111 +349,158 @@ export const BubbleExtra = ({
   /**
    * 判断是否应该显示复制选项。
    *
-   * 复制选项显示的条件是：
-   * - `navigator.clipboard` API 可用。
-   * - 聊天项的原始数据包含内容。
-   * - 聊天项的原始数据在额外字段中没有回答状态。
-   * - 聊天项的内容不等于本地化的 'chat.message.aborted' 消息或其默认值 '回答已停止生成'。
+   * 复制选项显示需要满足以下条件：
+   * 1. 基础条件（必须全部满足）：
+   *    - `navigator.clipboard` API 可用。
+   *    - 聊天项的原始数据包含内容
+   *    - 聊天项的原始数据在额外字段中没有回答状态
+   *    - 聊天项的内容不等于本地化的 'chat.message.aborted' 消息或其默认值 '回答已停止生成'
+   * 2. 第4个条件：shouldShowCopy 控制
+   *    - 如果用户传递了 shouldShowCopy 函数，则调用函数判断
+   *    - 如果用户传递了 shouldShowCopy 布尔值，则直接使用该值
+   *    - 如果用户未传递 shouldShowCopy（undefined），则默认为 true
    *
    * @constant
    * @type {boolean}
    */
-  const shouldShowCopy =
-    originalData?.content &&
-    !originalData?.extra?.answerStatus &&
-    originalData?.content !==
-      (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
+  const shouldShowCopy = useMemo(() => {
+    const defaultConditions =
+      originalData?.content &&
+      !originalData?.extra?.answerStatus &&
+      originalData?.content !==
+        (context?.locale?.['chat.message.aborted'] || '回答已停止生成');
 
-  const copyDom = shouldShowCopy ? (
-    <CopyButton
-      data-testid="chat-item-copy-button"
-      title={context?.locale?.['chat.message.copy'] || '复制'}
-      scale
-      style={{
-        color: 'var(--color-icon-secondary)',
-      }}
-      onClick={() => {
-        copy(bubble.originData?.content || '');
-      }}
-      showTitle={false}
-    >
-      <CopyOutlined />
-    </CopyButton>
-  ) : null;
-
-  const warpDivAnimation = (divDom: React.ReactNode) => {
-    if (!bubble.isLast) {
-      return divDom;
-    }
-    if (process.env.NODE_ENV === 'test') {
-      return divDom;
+    if (!defaultConditions) {
+      return false;
     }
 
-    return <motion.div variants={listItemVariants}>{divDom}</motion.div>;
-  };
+    if (typeof props.shouldShowCopy === 'function') {
+      return props.shouldShowCopy(bubble);
+    } else if (typeof props.shouldShowCopy === 'boolean') {
+      return props.shouldShowCopy;
+    }
 
-  const dom =
-    copyDom || like || disLike ? (
-      <motion.div
-        style={{
-          display: 'flex',
-          gap: 8,
-          alignItems: 'center',
-        }}
-        variants={{
-          visible: {
-            opacity: 1,
-            transition: {
-              when: 'beforeChildren',
-              staggerChildren: 0.1,
-              delayChildren: 0.5,
+    return true;
+  }, [
+    props.shouldShowCopy,
+    bubble,
+    originalData?.content,
+    originalData?.extra?.answerStatus,
+    context?.locale,
+  ]);
+
+  const copyDom = useMemo(
+    () =>
+      shouldShowCopy ? (
+        <CopyButton
+          data-testid="chat-item-copy-button"
+          title={context?.locale?.['chat.message.copy'] || '复制'}
+          scale
+          style={{
+            color: 'var(--color-icon-secondary)',
+          }}
+          onClick={() => {
+            copy(bubble.originData?.content || '');
+          }}
+          showTitle={false}
+        >
+          <CopyOutlined />
+        </CopyButton>
+      ) : null,
+    [shouldShowCopy, context?.locale, bubble.originData?.content],
+  );
+
+  const warpDivAnimation = useMemo(
+    () => (divDom: React.ReactNode) => {
+      if (!bubble.isLast) {
+        return divDom;
+      }
+      if (process.env.NODE_ENV === 'test') {
+        return divDom;
+      }
+
+      return <motion.div variants={listItemVariants}>{divDom}</motion.div>;
+    },
+    [bubble.isLast],
+  );
+
+  const slidesModeButton = useMemo(
+    () =>
+      props.slidesModeProps?.enable ? (
+        <ActionIconBox
+          onClick={props.onOpenSlidesMode}
+          title="幻灯片模式"
+          style={{
+            color: 'var(--color-icon-secondary)',
+          }}
+        >
+          <SelectOutlined />
+        </ActionIconBox>
+      ) : null,
+    [props.slidesModeProps?.enable, props.onOpenSlidesMode],
+  );
+
+  const dom = useMemo(
+    () =>
+      copyDom || like || disLike ? (
+        <motion.div
+          style={{
+            display: 'flex',
+            gap: 8,
+            alignItems: 'center',
+          }}
+          variants={{
+            visible: {
+              opacity: 1,
+              transition: {
+                when: 'beforeChildren',
+                staggerChildren: 0.1,
+                delayChildren: 0.5,
+              },
             },
-          },
-          hidden: {
-            opacity: 0,
-            transition: {
-              when: 'afterChildren',
+            hidden: {
+              opacity: 0,
+              transition: {
+                when: 'afterChildren',
+              },
             },
-          },
-        }}
-        whileInView="visible"
-        initial="hidden"
-        animate="visible"
-        className={`${prefixCls}-action-box`}
-      >
-        {copyDom ? warpDivAnimation(copyDom) : null}
-        {navigator.clipboard &&
-        copyDom &&
-        (like || disLike) &&
-        bubble.isLast ? (
-          <motion.div variants={listItemVariants}>
-            <Divider
-              type="vertical"
-              style={{
-                margin: '0px 2px',
-              }}
-            />
-          </motion.div>
-        ) : null}
-        <>
-          {like ? warpDivAnimation(like) : null}
-          {disLike ? warpDivAnimation(disLike) : null}
-        </>
-        {props.slidesModeProps?.enable
-          ? warpDivAnimation(
-              <ActionIconBox
-                onClick={props.onOpenSlidesMode}
-                title="幻灯片模式"
+          }}
+          whileInView="visible"
+          initial="hidden"
+          animate="visible"
+          className={`${prefixCls}-action-box`}
+        >
+          {copyDom ? warpDivAnimation(copyDom) : null}
+          {navigator.clipboard &&
+          copyDom &&
+          (like || disLike) &&
+          bubble.isLast ? (
+            <motion.div variants={listItemVariants}>
+              <Divider
+                type="vertical"
                 style={{
-                  color: 'var(--color-icon-secondary)',
+                  margin: '0px 2px',
                 }}
-              >
-                <SelectOutlined />
-              </ActionIconBox>,
-            )
-          : null}
-      </motion.div>
-    ) : null;
+              />
+            </motion.div>
+          ) : null}
+          <>
+            {like ? warpDivAnimation(like) : null}
+            {disLike ? warpDivAnimation(disLike) : null}
+          </>
+          {slidesModeButton ? warpDivAnimation(slidesModeButton) : null}
+        </motion.div>
+      ) : null,
+    [
+      copyDom,
+      like,
+      disLike,
+      prefixCls,
+      bubble.isLast,
+      slidesModeButton,
+      warpDivAnimation,
+    ],
+  );
 
   const reSend = useMemo(() => {
     if (originalData?.isAborted && !originalData.isFinished) {
@@ -465,28 +569,7 @@ export const BubbleExtra = ({
   }
 
   return (
-    <motion.div
-      variants={{
-        visible: {
-          x: 0,
-          opacity: 1,
-          transition: {
-            when: 'beforeChildren',
-            staggerChildren: 0.1,
-            delayChildren: 0.5,
-          },
-        },
-        hidden: {
-          opacity: 0,
-          x: 4,
-          transition: {
-            when: 'afterChildren',
-          },
-        },
-      }}
-      whileInView="visible"
-      initial="hidden"
-      animate="visible"
+    <div
       className={prefixCls}
       style={{
         display: 'flex',
@@ -501,26 +584,24 @@ export const BubbleExtra = ({
         ...props.style,
       }}
     >
-      <motion.div variants={listItemVariants}>{reSend || <div />}</motion.div>
-      {originalData?.isAborted ? (
-        <motion.div variants={listItemVariants}>{copyDom}</motion.div>
-      ) : (
-        props.render?.(
-          {
-            ...props,
-            bubble,
-            onReply,
-            onRenderExtraNull: props.onRenderExtraNull,
-            slidesModeProps: props.slidesModeProps,
-          },
-          {
-            like,
-            disLike,
-            copy: copyDom,
-            reply: reSend,
-          },
-        ) || dom
-      )}
-    </motion.div>
+      {reSend || <div />}
+      {originalData?.isAborted
+        ? copyDom
+        : props.render?.(
+            {
+              ...props,
+              bubble,
+              onReply,
+              onRenderExtraNull: props.onRenderExtraNull,
+              slidesModeProps: props.slidesModeProps,
+            },
+            {
+              like,
+              disLike,
+              copy: copyDom,
+              reply: reSend,
+            },
+          ) || dom}
+    </div>
   );
 };

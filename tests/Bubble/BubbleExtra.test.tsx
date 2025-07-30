@@ -94,6 +94,21 @@ describe('BubbleExtra', () => {
           content: 'Test preset message',
         },
       },
+      originData: {
+        id: 'test-id',
+        role: 'assistant' as const,
+        content: 'Test content',
+        createAt: Date.now(),
+        updateAt: Date.now(),
+        isFinished: true,
+        isAborted: false,
+        uuid: 1,
+        extra: {
+          preMessage: {
+            content: 'Test preset message',
+          },
+        },
+      },
     },
     style: {},
   };
@@ -291,6 +306,110 @@ describe('BubbleExtra', () => {
 
       expect(screen.getByTestId('like-button')).toBeInTheDocument();
       expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
+    });
+  });
+
+  describe('shouldShowCopy 测试', () => {
+    it('应该在默认情况下显示复制按钮', () => {
+      const props = {
+        ...defaultProps,
+        // shouldShowCopy 为 undefined，应该使用默认逻辑
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 默认情况下，如果满足基本条件，应该显示复制按钮
+      expect(screen.queryByTestId('chat-item-copy-button')).toBeInTheDocument();
+    });
+
+    it('应该根据布尔值控制复制按钮显示', () => {
+      const props = {
+        ...defaultProps,
+        shouldShowCopy: false,
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 明确设置为 false，不应该显示复制按钮
+      expect(
+        screen.queryByTestId('chat-item-copy-button'),
+      ).not.toBeInTheDocument();
+    });
+
+    it('应该根据布尔值显示复制按钮', () => {
+      const props = {
+        ...defaultProps,
+        shouldShowCopy: true,
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 明确设置为 true，应该显示复制按钮
+      expect(screen.queryByTestId('chat-item-copy-button')).toBeInTheDocument();
+    });
+
+    it('应该根据函数返回值控制复制按钮显示', () => {
+      const shouldShowCopyFn = vi.fn(() => false);
+      const props = {
+        ...defaultProps,
+        shouldShowCopy: shouldShowCopyFn,
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 函数返回 false，不应该显示复制按钮
+      expect(
+        screen.queryByTestId('chat-item-copy-button'),
+      ).not.toBeInTheDocument();
+      // 确保函数被调用并传入了正确的参数
+      expect(shouldShowCopyFn).toHaveBeenCalledWith(props.bubble);
+    });
+
+    it('应该根据函数返回值显示复制按钮', () => {
+      const shouldShowCopyFn = vi.fn(() => true);
+      const props = {
+        ...defaultProps,
+        shouldShowCopy: shouldShowCopyFn,
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 函数返回 true，应该显示复制按钮
+      expect(screen.queryByTestId('chat-item-copy-button')).toBeInTheDocument();
+      // 确保函数被调用并传入了正确的参数
+      expect(shouldShowCopyFn).toHaveBeenCalledWith(props.bubble);
+    });
+
+    it('当基础条件不满足时，shouldShowCopy 无效', () => {
+      const props = {
+        ...defaultProps,
+        shouldShowCopy: true,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            id: 'test-id',
+            role: 'assistant' as const,
+            content: '', // 内容为空，不满足基础条件
+            createAt: Date.now(),
+            updateAt: Date.now(),
+            isFinished: true,
+            isAborted: false,
+            uuid: 1,
+            extra: {
+              preMessage: {
+                content: 'Test preset message',
+              },
+            },
+          },
+        },
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 即使 shouldShowCopy 为 true，但基础条件不满足，仍不显示复制按钮
+      expect(
+        screen.queryByTestId('chat-item-copy-button'),
+      ).not.toBeInTheDocument();
     });
   });
 });
