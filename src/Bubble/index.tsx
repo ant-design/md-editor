@@ -158,6 +158,8 @@ export const Bubble: React.FC<
       onLike={props.onLike}
       customConfig={props?.bubbleRenderConfig?.customConfig}
       pure={props.pure}
+      onCancelLike={props.onCancelLike}
+      shouldShowCopy={props.shouldShowCopy}
     />
   );
 

@@ -460,6 +460,26 @@ export interface BubbleProps<T = Record<string, any>>
    * 气泡引用
    */
   bubbleRef?: any;
+
+  /**
+   * 取消点赞的回调函数
+   * @description 当用户点击取消点赞按钮时触发
+   * @callback
+   * @optional
+   */
+  onCancelLike?: () => void;
+
+  /**
+   * 控制复制按钮的显示
+   * @description 控制复制按钮是否显示的函数或布尔值
+   * - 如果传入函数，则调用函数判断是否显示，函数接收 bubble 作为参数
+   * - 如果传入布尔值，则直接使用该值控制显示
+   * - 如果未传入（undefined），则使用默认逻辑判断
+   * @param bubble - 聊天项的数据对象
+   * @returns 是否显示复制按钮
+   * @optional
+   */
+  shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
 }
 
 /**

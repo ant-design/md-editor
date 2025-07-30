@@ -216,6 +216,8 @@ export const BubbleMessageDisplay: React.FC<
         render={props?.bubbleRenderConfig?.bubbleRightExtraRender}
         bubble={props as any}
         onReply={props.onReply}
+        onCancelLike={props.onCancelLike}
+        shouldShowCopy={props.shouldShowCopy}
         onDisLike={
           props.onDisLike
             ? async () => {
