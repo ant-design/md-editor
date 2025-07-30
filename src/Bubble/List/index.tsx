@@ -152,6 +152,12 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
   const deps = useMemo(() => [props.style], [JSON.stringify(props.style)]);
 
   const bubbleListDom = useMemo(() => {
+    const latestItem = bubbleList.at(-1);
+
+    if (latestItem && latestItem.role === 'user') {
+      latestItem.isLatest = true;
+    }
+
     return bubbleList.map((item) => {
       return (
         <Bubble

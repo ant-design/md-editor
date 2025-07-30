@@ -265,6 +265,14 @@ export interface MessageBubbleData<
    * @example new Map([["file1", { name: "示例.pdf", size: 1024, type: "application/pdf" }]])
    */
   fileMap?: Map<string, AttachmentFile>;
+
+  /**
+   * @title 是否为最后一个节点
+   * @description 用于标识当前消息是否为对话中的最新消息
+   * @default false
+   * @optional
+   */
+  isLatest?: boolean;
 }
 
 /**
