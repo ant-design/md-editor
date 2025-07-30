@@ -15,6 +15,7 @@ import { BubbleTitle } from './Title';
 import type { BubbleMetaData, BubbleProps } from './type';
 export * from './MessagesContent/BubbleContext';
 export * from './type';
+
 const runRender = (
   render: any,
   props: BubbleProps,

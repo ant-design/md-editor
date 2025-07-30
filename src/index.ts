@@ -1,7 +1,6 @@
 export * from './AgentRunBar';
 export * from './Bubble';
-export { Bubble } from './Bubble';
-export { BubbleList } from './Bubble/List';
+export * from './Bubble/List';
 export type {
   BubbleMetaData,
   BubbleProps,
