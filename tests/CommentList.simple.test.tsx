@@ -17,24 +17,6 @@ vi.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: any) => children,
 }));
 
-// Mock slate editor ref
-const mockMarkdownEditorRef = {
-  current: {
-    insertNodes: vi.fn(),
-    deleteNode: vi.fn(),
-  },
-};
-
-// Mock editor store
-vi.mock('../src/MarkdownEditor/editor/store', () => ({
-  useEditorStore: () => ({
-    markdownEditorRef: mockMarkdownEditorRef,
-  }),
-  EditorStoreContext: React.createContext({
-    setShowComment: vi.fn(),
-  }),
-}));
-
 // Mock Slate Transforms
 vi.mock('slate', () => ({
   Transforms: {
