@@ -12,7 +12,7 @@ const WorkspaceFileDemo: React.FC = () => {
     {
       name: '文档',
       type: 'doc',
-      typeName: '文档',
+      typeName: 'docx',
       collapsed: true,
       children: [
         {

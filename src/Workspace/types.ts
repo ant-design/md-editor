@@ -52,27 +52,26 @@ export type FileType = 'csv' | 'doc' | 'excel' | 'md' | 'xml' | 'unknown';
 // 文件节点基础属性
 export interface FileNodeBase {
   id?: string;
-  name: string;
-  type: FileType;
-  icon?: ReactNode;
+  name: string; // 文件名
+  type: FileType; // 文件类型
+  icon?: ReactNode;// 文件图标
 }
 
 // 文件节点（叶子节点）
 export interface FileNode extends FileNodeBase {
-  size?: string;
-  lastModified?: string;
-  url?: string;
-  file?: File | Blob;// 文件源，优先级高于url
-  mimeType?: string; // 标准MIME类型，如：image/png、application/pdf
-  previewUrl?: string;
-  [key: string]: any;
+  size?: string; // TODO:文件大小，后续考虑支持number，自动转换单位
+  lastModified?: string; // TODO:文件修改时间，后续考虑支持number时间戳，自动转换单位
+  url?: string; // 文件下载地址，默认和预览地址一样
+  file?: File | Blob; // 文件源，优先级高于url
+  previewUrl?: string; // 文件预览地址
+  [key: string]: any; // 扩展字段
 }
 
 // 分组节点
 export interface GroupNode extends FileNodeBase {
-  typeName: string;
-  collapsed?: boolean;
-  children: FileNode[];
+  typeName: string; // 展示在分组上的名称
+  collapsed?: boolean; // 分组是否可折叠
+  children: FileNode[]; // 分组下的文件
 }
 
 // 文件组件属性

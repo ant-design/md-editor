@@ -7,7 +7,7 @@ import XlsxIcon from '../icons/XlsxIcon';
 import XmlIcon from '../icons/XmlIcon';
 import type { FileNode, FileType } from '../types';
 
-// 文件类型到图标的映射
+// TODO:文件类型到图标的映射，！！缺少默认文件图标和pdf图标，
 const FILE_TYPE_ICON_MAP: Record<FileType, React.ReactNode> = {
   csv: <CsvIcon />,
   doc: <DocsIcon />,
