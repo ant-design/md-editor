@@ -138,7 +138,7 @@ function convertTableToMarkdown(
       ' |\n';
   }
 
-  return result + '\n';
+  return result.trim() + '\n';
 }
 
 /**

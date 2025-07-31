@@ -22,7 +22,7 @@ nav:
 
 ### 基础配置
 
-```typescript
+```typescript | pure
 type ChartConfig = {
   chartType: string; // 图表类型
   x: string; // X轴字段

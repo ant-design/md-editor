@@ -76,16 +76,11 @@ describe('HTML to Markdown Utils', () => {
     });
 
     it('应该转换表格', () => {
-      const html = `
-        <table>
-          <tr><th>姓名</th><th>年龄</th></tr>
-          <tr><td>张三</td><td>25</td></tr>
-          <tr><td>李四</td><td>30</td></tr>
-        </table>
-      `;
+      const html =
+        '<table><tr><th>姓名</th><th>年龄</th></tr><tr><td>张三</td><td>25</td></tr><tr><td>李四</td><td>30</td></tr></table>';
       const result = htmlToMarkdown(html);
       expect(result).toBe(
-        '| 姓名 | 年龄 |\n| --- | --- |\n| 张三 | 25 |\n| 李四 | 30 |\n\n',
+        '| 姓名 | 年龄 |\n| --- | --- |\n| 张三 | 25 |\n| 李四 | 30 |\n',
       );
     });
 
