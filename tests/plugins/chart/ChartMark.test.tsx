@@ -85,7 +85,7 @@ describe('ChartMark Components', () => {
     yField: 'value',
     index: 0,
     chartRef: { current: null } as any,
-  };
+  } as any;
 
   beforeEach(() => {
     vi.clearAllMocks();
