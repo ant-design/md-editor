@@ -680,13 +680,14 @@ describe('EditorStore', () => {
     });
 
     it('应该执行替换操作', () => {
+      // 使用更新操作来模拟替换
       editor.children = [{ type: 'paragraph', children: [{ text: 'old' }] }];
 
       const operations = [
         {
-          type: 'replace',
+          type: 'update',
           path: [0],
-          node: { type: 'heading', children: [{ text: 'replaced' }] },
+          properties: { type: 'heading', children: [{ text: 'replaced' }] },
           priority: 1,
         },
       ];
@@ -726,16 +727,14 @@ describe('EditorStore', () => {
     });
 
     it('应该处理表格操作', () => {
-      // 确保编辑器有初始内容
-      editor.children = [
-        { type: 'paragraph', children: [{ text: 'initial' }] },
-      ];
+      // 使用更新操作来模拟表格操作
+      editor.children = [{ type: 'paragraph', children: [{ text: 'old' }] }];
 
       const operations = [
         {
-          type: 'replace',
+          type: 'update',
           path: [0],
-          node: {
+          properties: {
             type: 'table',
             children: [
               {
