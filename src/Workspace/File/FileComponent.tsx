@@ -7,7 +7,7 @@ import {
 import { Image } from 'antd';
 import React, { type FC, useState } from 'react';
 import type {
-  FileComponentData,
+  FileProps,
   FileNode,
   FileType,
   GroupNode,
@@ -221,12 +221,12 @@ const FileGroupComponent: FC<{
 
 // 主文件组件
 export const FileComponent: FC<{
-  nodes: FileComponentData['nodes'];
-  onGroupDownload?: FileComponentData['onGroupDownload'];
-  onDownload?: FileComponentData['onDownload'];
-  onFileClick?: FileComponentData['onFileClick'];
-  onToggleGroup?: FileComponentData['onToggleGroup'];
-  onPreview?: FileComponentData['onPreview'];
+  nodes: FileProps['nodes'];
+  onGroupDownload?: FileProps['onGroupDownload'];
+  onDownload?: FileProps['onDownload'];
+  onFileClick?: FileProps['onFileClick'];
+  onToggleGroup?: FileProps['onToggleGroup'];
+  onPreview?: FileProps['onPreview'];
 }> = ({
   nodes,
   onGroupDownload,
@@ -244,7 +244,9 @@ export const FileComponent: FC<{
     src: '',
   });
   // 添加内部状态来管理分组的折叠状态
-  const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
+  const [collapsedGroups, setCollapsedGroups] = useState<
+    Record<string, boolean>
+  >({});
 
   if (!nodes || nodes.length === 0) {
     return null;
@@ -253,9 +255,9 @@ export const FileComponent: FC<{
   // 处理分组折叠/展开
   const handleToggleGroup = (type: FileType, collapsed: boolean) => {
     // 更新内部状态
-    setCollapsedGroups(prev => ({
+    setCollapsedGroups((prev) => ({
       ...prev,
-      [type]: collapsed
+      [type]: collapsed,
     }));
     // 如果外部提供了回调，也调用它
     onToggleGroup?.(type, collapsed);
@@ -327,7 +329,7 @@ export const FileComponent: FC<{
               ...node,
               collapsed: collapsedGroups[node.type] ?? node.collapsed,
               typeName: node.typeName,
-              children: node.children
+              children: node.children,
             };
             return (
               <FileGroupComponent
@@ -341,7 +343,7 @@ export const FileComponent: FC<{
               />
             );
           }
-          
+
           // 文件节点
           return (
             <FileItemComponent
