@@ -49,38 +49,38 @@ export interface TaskProps extends BaseChildProps {
 // 文件类型枚举
 export type FileType = 'csv' | 'doc' | 'excel' | 'md' | 'xml' | 'unknown';
 
-// 单个文件项数据结构
-export interface FileItem {
-  id: string;
+// 文件节点基础属性
+export interface FileNodeBase {
+  id?: string;
   name: string;
   type: FileType;
-  size?: string;
-  lastModified?: string; // 最后修改时间
-  url?: string; // 下载链接
-  previewUrl?: string; // 预览链接
-  icon?: ReactNode; // 自定义图标
-  [key: string]: any; // 允许扩展其他属性
+  icon?: ReactNode;
 }
 
-// 文件分组数据结构
-export interface FileGroup {
-  type: FileType;
+// 文件节点（叶子节点）
+export interface FileNode extends FileNodeBase {
+  size?: string;
+  lastModified?: string;
+  url?: string;
+  previewUrl?: string;
+  [key: string]: any;
+}
+
+// 分组节点
+export interface GroupNode extends FileNodeBase {
   typeName: string;
-  files: FileItem[];
-  collapsed?: boolean; // 是否折叠，仅分组展示时有效
-  icon?: ReactNode; // 分组自定义图标
+  collapsed?: boolean;
+  children: FileNode[];
 }
 
 // 文件组件数据结构
 export interface FileComponentData {
-  mode: 'group' | 'flat'; // 展示模式：分组或平铺
-  groups?: FileGroup[]; // 分组数据，mode为group时使用
-  files?: FileItem[]; // 平铺文件列表，mode为flat时使用
-  onGroupDownload?: (files: FileItem[], groupType?: FileType) => void; // 分组下载回调
-  onDownload?: (file: FileItem) => void; // 单文件下载回调
-  onFileClick?: (file: FileItem) => void; // 文件点击回调
-  onToggleGroup?: (groupType: FileType, collapsed: boolean) => void; // 切换分组展开/收起回调
-  onPreview?: (file: FileItem) => void; // 文件预览回调
+  nodes: (GroupNode | FileNode)[];
+  onGroupDownload?: (files: FileNode[], groupType?: FileType) => void;
+  onDownload?: (file: FileNode) => void;
+  onFileClick?: (file: FileNode) => void;
+  onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
+  onPreview?: (file: FileNode) => void;
 }
 
 // 文件组件属性

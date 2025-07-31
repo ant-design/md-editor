@@ -8,19 +8,29 @@ import { Image } from 'antd';
 import React, { type FC, useState } from 'react';
 import type {
   FileComponentData,
-  FileGroup,
-  FileItem,
+  FileNode,
   FileType,
+  GroupNode,
 } from '../types';
 import { PreviewComponent } from './PreviewComponent';
 import { canPreviewFile, getFileTypeIcon, isImageFile } from './utils';
 
+// 通用的键盘事件处理函数
+const handleKeyboardEvent = (
+  e: React.KeyboardEvent,
+  callback: (e: any) => void,
+) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    callback(e);
+  }
+};
+
 // 文件项组件
 const FileItemComponent: FC<{
-  file: FileItem;
-  onClick?: (file: FileItem) => void;
-  onDownload?: (file: FileItem) => void;
-  onPreview?: (file: FileItem) => void;
+  file: FileNode;
+  onClick?: (file: FileNode) => void;
+  onDownload?: (file: FileNode) => void;
+  onPreview?: (file: FileNode) => void;
 }> = ({ file, onClick, onDownload, onPreview }) => {
   const handleClick = () => {
     onClick?.(file);
@@ -53,7 +63,7 @@ const FileItemComponent: FC<{
 
   // 判断是否显示下载按钮：有用户方法或有url
   const showDownloadButton = onDownload || file.url;
-  
+
   // 判断是否显示预览按钮：支持预览且有预览回调
   const showPreviewButton = onPreview && canPreviewFile(file);
 
@@ -63,11 +73,7 @@ const FileItemComponent: FC<{
       onClick={handleClick}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleClick();
-        }
-      }}
+      onKeyDown={(e) => handleKeyboardEvent(e, handleClick)}
       aria-label={`文件：${file.name}`}
     >
       <div className="workspace-file-item__icon">
@@ -101,11 +107,7 @@ const FileItemComponent: FC<{
               onClick={handlePreview}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handlePreview(e as any);
-                }
-              }}
+              onKeyDown={(e) => handleKeyboardEvent(e, handlePreview)}
               aria-label={`预览文件：${file.name}`}
             />
           )}
@@ -115,11 +117,7 @@ const FileItemComponent: FC<{
               onClick={handleDownload}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handleDownload(e as any);
-                }
-              }}
+              onKeyDown={(e) => handleKeyboardEvent(e, handleDownload)}
               aria-label={`下载文件：${file.name}`}
             />
           )}
@@ -131,9 +129,9 @@ const FileItemComponent: FC<{
 
 // 分组标题栏组件
 const GroupHeader: FC<{
-  group: FileGroup;
+  group: GroupNode;
   onToggle?: (type: FileType, collapsed: boolean) => void;
-  onGroupDownload?: (files: FileItem[], groupType: FileType) => void;
+  onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
 }> = ({ group, onToggle, onGroupDownload }) => {
   const handleToggle = () => {
     onToggle?.(group.type, !group.collapsed);
@@ -141,10 +139,10 @@ const GroupHeader: FC<{
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onGroupDownload?.(group.files, group.type);
+    onGroupDownload?.(group.children, group.type);
   };
 
-  const CollapsedIcon = group.collapsed ? RightOutlined : DownOutlined;
+  const CollapseIcon = group.collapsed ? RightOutlined : DownOutlined;
 
   return (
     <div
@@ -152,15 +150,11 @@ const GroupHeader: FC<{
       onClick={handleToggle}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleToggle();
-        }
-      }}
+      onKeyDown={(e) => handleKeyboardEvent(e, handleToggle)}
       aria-label={`${group.collapsed ? '展开' : '收起'}${group.typeName}分组`}
     >
       <div className="workspace-file-group__header-left">
-        <CollapsedIcon className="workspace-file-group__toggle-icon" />
+        <CollapseIcon className="workspace-file-group__toggle-icon" />
         <div className="workspace-file-group__type-icon">
           {getFileTypeIcon(group.type, group.icon)}
         </div>
@@ -170,18 +164,14 @@ const GroupHeader: FC<{
       </div>
       <div className="workspace-file-group__header-right">
         <span className="workspace-file-group__count">
-          {group.files.length}
+          {group.children.length}
         </span>
         <DownloadOutlined
           className="workspace-file-group__download-icon"
           onClick={handleDownload}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleDownload(e as any);
-            }
-          }}
+          onKeyDown={(e) => handleKeyboardEvent(e, handleDownload)}
           aria-label={`下载${group.typeName}文件`}
         />
       </div>
@@ -191,15 +181,22 @@ const GroupHeader: FC<{
 
 // 文件分组组件
 const FileGroupComponent: FC<{
-  group: FileGroup;
+  group: GroupNode;
   onToggle?: (type: FileType, collapsed: boolean) => void;
-  onGroupDownload?: (files: FileItem[], groupType: FileType) => void;
-  onDownload?: (file: FileItem) => void;
-  onFileClick?: (file: FileItem) => void;
-  onPreview?: (file: FileItem) => void;
-}> = ({ group, onToggle, onGroupDownload, onDownload, onFileClick, onPreview }) => {
+  onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
+  onDownload?: (file: FileNode) => void;
+  onFileClick?: (file: FileNode) => void;
+  onPreview?: (file: FileNode) => void;
+}> = ({
+  group,
+  onToggle,
+  onGroupDownload,
+  onDownload,
+  onFileClick,
+  onPreview,
+}) => {
   return (
-    <div className="workspace-file-group">
+    <div className="workspace-file-container--group">
       <GroupHeader
         group={group}
         onToggle={onToggle}
@@ -207,7 +204,7 @@ const FileGroupComponent: FC<{
       />
       {!group.collapsed && (
         <div className="workspace-file-group__content">
-          {group.files.map((file) => (
+          {group.children.map((file) => (
             <FileItemComponent
               key={file.id}
               file={file}
@@ -224,20 +221,23 @@ const FileGroupComponent: FC<{
 
 // 主文件组件
 export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
-  const [previewFile, setPreviewFile] = useState<FileItem | null>(null);
-  const [imagePreview, setImagePreview] = useState<{ visible: boolean; src: string }>({
+  const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
+  const [imagePreview, setImagePreview] = useState<{
+    visible: boolean;
+    src: string;
+  }>({
     visible: false,
     src: '',
   });
+  // 添加内部状态来管理分组的折叠状态
+  const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
 
   if (!data) {
     return null;
   }
 
   const {
-    mode,
-    groups,
-    files,
+    nodes,
     onGroupDownload,
     onDownload,
     onFileClick,
@@ -245,8 +245,19 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
     onPreview,
   } = data;
 
+  // 处理分组折叠/展开
+  const handleToggleGroup = (type: FileType, collapsed: boolean) => {
+    // 更新内部状态
+    setCollapsedGroups(prev => ({
+      ...prev,
+      [type]: collapsed
+    }));
+    // 如果外部提供了回调，也调用它
+    onToggleGroup?.(type, collapsed);
+  };
+
   // 预览文件处理
-  const handlePreview = (file: FileItem) => {
+  const handlePreview = (file: FileNode) => {
     if (onPreview) {
       onPreview(file);
     } else {
@@ -268,19 +279,19 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
   };
 
   // 处理预览页面的下载
-  const handlePreviewDownload = (file: FileItem) => {
+  const handleDownloadInPreview = (file: FileNode) => {
     onDownload?.(file);
   };
 
   // 图片预览组件
-  const imagePreviewComponent = (
+  const ImagePreviewComponent = (
     <Image
       style={{ display: 'none' }}
       src={imagePreview.src}
       preview={{
         visible: imagePreview.visible,
         onVisibleChange: (visible) => {
-          setImagePreview(prev => ({ ...prev, visible }));
+          setImagePreview((prev) => ({ ...prev, visible }));
         },
       }}
     />
@@ -290,61 +301,55 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
   if (previewFile) {
     return (
       <>
-        <PreviewComponent 
-          file={previewFile} 
+        <PreviewComponent
+          file={previewFile}
           onBack={handleBackToList}
-          onDownload={handlePreviewDownload}
+          onDownload={handleDownloadInPreview}
         />
-        {imagePreviewComponent}
+        {ImagePreviewComponent}
       </>
     );
   }
 
-  // 分组展示模式
-  if (mode === 'group' && groups) {
-    return (
-      <>
-        <div className="workspace-file-container workspace-file-container--group">
-          {groups.map((group) => (
-            <FileGroupComponent
-              key={group.type}
-              group={group}
-              onToggle={onToggleGroup}
-              onGroupDownload={onGroupDownload}
-              onDownload={onDownload}
-              onFileClick={onFileClick}
-              onPreview={handlePreview}
-            />
-          ))}
-        </div>
-        {imagePreviewComponent}
-      </>
-    );
-  }
-
-  // 平铺展示模式
-  if (mode === 'flat' && files) {
-    return (
-      <>
-        <div className="workspace-file-container workspace-file-container--flat">
-          {files.map((file) => (
+  // 渲染文件列表
+  return (
+    <>
+      <div className="workspace-file-container">
+        {nodes.map((node) => {
+          if ('children' in node && 'typeName' in node) {
+            // 分组节点，使用内部状态覆盖外部的 collapsed 属性
+            const groupNode: GroupNode = {
+              ...node,
+              collapsed: collapsedGroups[node.type] ?? node.collapsed,
+              typeName: node.typeName,
+              children: node.children
+            };
+            return (
+              <FileGroupComponent
+                key={node.id}
+                group={groupNode}
+                onToggle={handleToggleGroup}
+                onGroupDownload={onGroupDownload}
+                onDownload={onDownload}
+                onFileClick={onFileClick}
+                onPreview={handlePreview}
+              />
+            );
+          }
+          
+          // 文件节点
+          return (
             <FileItemComponent
-              key={file.id}
-              file={file}
+              key={node.id}
+              file={node as FileNode}
               onClick={onFileClick}
               onDownload={onDownload}
               onPreview={handlePreview}
             />
-          ))}
-        </div>
-        {imagePreviewComponent}
-      </>
-    );
-  }
-
-  return (
-    <>
-      {imagePreviewComponent}
+          );
+        })}
+      </div>
+      {ImagePreviewComponent}
     </>
   );
 };

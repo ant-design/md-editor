@@ -6,7 +6,7 @@ const Demo = () => {
     <div style={{ height: 600, width: 400 }}>
       <Workspace
         title="开发工作空间"
-        onTabChange={(key) => console.log('切换到标签页:', key)}
+        onTabChange={(key: string) => console.log('切换到标签页:', key)}
         onClose={() => console.log('关闭工作空间')}
       >
         <Workspace.Realtime
@@ -88,8 +88,7 @@ find / -type f -size +100M 2>/dev/null | head -n 5
             key: 'files',
           }}
           data={{
-            mode: 'flat',
-            files: [
+            nodes: [
               {
                 id: '1',
                 name: '项目需求文档.docx',
