@@ -73,19 +73,14 @@ export interface GroupNode extends FileNodeBase {
   children: FileNode[];
 }
 
-// 文件组件数据结构
-export interface FileComponentData {
+// 文件组件属性
+export interface FileProps extends BaseChildProps {
   nodes: (GroupNode | FileNode)[];
   onGroupDownload?: (files: FileNode[], groupType?: FileType) => void;
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
   onPreview?: (file: FileNode) => void;
-}
-
-// 文件组件属性
-export interface FileProps extends BaseChildProps {
-  data?: FileComponentData;
 }
 
 export interface CustomProps extends BaseChildProps {

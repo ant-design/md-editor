@@ -220,7 +220,21 @@ const FileGroupComponent: FC<{
 };
 
 // 主文件组件
-export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
+export const FileComponent: FC<{
+  nodes: FileComponentData['nodes'];
+  onGroupDownload?: FileComponentData['onGroupDownload'];
+  onDownload?: FileComponentData['onDownload'];
+  onFileClick?: FileComponentData['onFileClick'];
+  onToggleGroup?: FileComponentData['onToggleGroup'];
+  onPreview?: FileComponentData['onPreview'];
+}> = ({
+  nodes,
+  onGroupDownload,
+  onDownload,
+  onFileClick,
+  onToggleGroup,
+  onPreview,
+}) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     visible: boolean;
@@ -232,18 +246,9 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
   // 添加内部状态来管理分组的折叠状态
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
 
-  if (!data) {
+  if (!nodes || nodes.length === 0) {
     return null;
   }
-
-  const {
-    nodes,
-    onGroupDownload,
-    onDownload,
-    onFileClick,
-    onToggleGroup,
-    onPreview,
-  } = data;
 
   // 处理分组折叠/展开
   const handleToggleGroup = (type: FileType, collapsed: boolean) => {
@@ -315,7 +320,7 @@ export const FileComponent: FC<{ data?: FileComponentData }> = ({ data }) => {
   return (
     <>
       <div className="workspace-file-container">
-        {nodes.map((node) => {
+        {nodes.map((node: FileNode | GroupNode) => {
           if ('children' in node && 'typeName' in node) {
             // 分组节点，使用内部状态覆盖外部的 collapsed 属性
             const groupNode: GroupNode = {

@@ -2,7 +2,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Segmented } from 'antd';
 import React, { type FC, useEffect, useMemo, useState } from 'react';
 import { BrowserList } from './Browser';
-import { NewFileComponent } from './File';
+import { File } from './File';
 import BrowserIcon from './icons/BrowserIcon';
 import FileIcon from './icons/FileIcon';
 import RealtimeIcon from './icons/RealtimeIcon';
@@ -84,8 +84,7 @@ const BrowserComponent: FC<BrowserProps> = ({ data }) =>
 const TaskComponent: FC<TaskProps> = ({ data }) => 
   data ? <TaskList data={data} /> : null;
 
-const FileComponent: FC<FileProps> = ({ data }) => 
-  <NewFileComponent data={data} />;
+const FileComponent: FC<FileProps> = (props) => <File {...props} />;
 
 const CustomComponent: FC<CustomProps> = ({ children }) => 
   children || null;

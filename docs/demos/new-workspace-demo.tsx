@@ -87,32 +87,30 @@ find / -type f -size +100M 2>/dev/null | head -n 5
           tab={{
             key: 'files',
           }}
-          data={{
-            nodes: [
-              {
-                id: '1',
-                name: '项目需求文档.docx',
-                type: 'doc',
-                size: '2.3MB',
-                createTime: '12:30',
-                url: '/downloads/project-requirements.docx',
-              },
-              {
-                id: '2',
-                name: '用户手册.docx',
-                type: 'doc',
-                size: '1.8MB',
-                createTime: '09:15',
-              },
-              {
-                id: '3',
-                name: '技术规范.docx',
-                type: 'doc',
-                size: '3.1MB',
-                createTime: '14:45',
-              },
-            ],
-          }}
+          nodes={[
+            {
+              id: '1',
+              name: '项目需求文档.docx',
+              type: 'doc',
+              size: '2.3MB',
+              createTime: '12:30',
+              url: '/downloads/project-requirements.docx',
+            },
+            {
+              id: '2',
+              name: '用户手册.docx',
+              type: 'doc',
+              size: '1.8MB',
+              createTime: '09:15',
+            },
+            {
+              id: '3',
+              name: '技术规范.docx',
+              type: 'doc',
+              size: '3.1MB',
+              createTime: '14:45',
+            },
+          ]}
         />
       </Workspace>
     </div>
