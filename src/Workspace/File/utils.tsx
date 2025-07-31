@@ -5,7 +5,7 @@ import FileIcon from '../icons/FileIcon';
 import MdIcon from '../icons/MdIcon';
 import XlsxIcon from '../icons/XlsxIcon';
 import XmlIcon from '../icons/XmlIcon';
-import type { FileType, FileItem } from '../types';
+import type { FileNode, FileType } from '../types';
 
 // 文件类型到图标的映射
 const FILE_TYPE_ICON_MAP: Record<FileType, React.ReactNode> = {
@@ -37,7 +37,23 @@ export const getFileTypeIcon = (
 const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
 
 // 文本文件扩展名
-const TEXT_EXTENSIONS = ['txt', 'md', 'markdown', 'csv', 'xml', 'json', 'html', 'htm', 'css', 'js', 'javascript', 'ts', 'typescript', 'jsx', 'tsx'];
+const TEXT_EXTENSIONS = [
+  'txt',
+  'md',
+  'markdown',
+  'csv',
+  'xml',
+  'json',
+  'html',
+  'htm',
+  'css',
+  'js',
+  'javascript',
+  'ts',
+  'typescript',
+  'jsx',
+  'tsx',
+];
 
 // 其他支持预览的文件扩展名
 const OTHER_PREVIEWABLE_EXTENSIONS = ['pdf'];
@@ -59,7 +75,7 @@ const getFileExtension = (fileName: string): string => {
  * @param file 文件对象
  * @returns 是否支持预览
  */
-export const canPreviewFile = (file: FileItem): boolean => {
+export const canPreviewFile = (file: FileNode): boolean => {
   // 如果有预览链接，直接支持预览
   if (file.previewUrl) {
     return true;
@@ -72,8 +88,12 @@ export const canPreviewFile = (file: FileItem): boolean => {
 
   // 根据文件扩展名判断
   const extension = getFileExtension(file.name || '');
-  
-  return [...IMAGE_EXTENSIONS, ...TEXT_EXTENSIONS, ...OTHER_PREVIEWABLE_EXTENSIONS].includes(extension);
+
+  return [
+    ...IMAGE_EXTENSIONS,
+    ...TEXT_EXTENSIONS,
+    ...OTHER_PREVIEWABLE_EXTENSIONS,
+  ].includes(extension);
 };
 
 /**
@@ -81,7 +101,7 @@ export const canPreviewFile = (file: FileItem): boolean => {
  * @param file 文件对象
  * @returns 是否为图片
  */
-export const isImageFile = (file: FileItem): boolean => {
+export const isImageFile = (file: FileNode): boolean => {
   const extension = getFileExtension(file.name || '');
   return IMAGE_EXTENSIONS.includes(extension);
 };
@@ -91,7 +111,7 @@ export const isImageFile = (file: FileItem): boolean => {
  * @param file 文件对象
  * @returns 是否为文本文件
  */
-export const isTextFile = (file: FileItem): boolean => {
+export const isTextFile = (file: FileNode): boolean => {
   const extension = getFileExtension(file.name || '');
   return TEXT_EXTENSIONS.includes(extension);
 };

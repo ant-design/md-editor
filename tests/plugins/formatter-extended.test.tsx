@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, act } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -502,27 +502,20 @@ describe('Formatter Plugin Extended Tests', () => {
       expect(screen.getByTestId('sanitized-4')).toHaveTextContent('🚀👍💻');
     });
 
-    it('应该处理超长文本', () => {
+    it('应该处理超长文本', async () => {
       const TestLongText = () => {
         const longText = 'A'.repeat(10000);
         const [processed, setProcessed] = React.useState(false);
         const [result, setResult] = React.useState('');
 
         React.useEffect(() => {
-          // 模拟处理超长文本
           const processLongText = async () => {
-            // 分块处理大文本
             const chunkSize = 1000;
             let processedText = '';
 
             for (let i = 0; i < longText.length; i += chunkSize) {
               const chunk = longText.slice(i, i + chunkSize);
               processedText += chunk.toLowerCase();
-
-              // 模拟异步处理
-              await new Promise<void>((resolve) => {
-                setTimeout(() => resolve(), 1);
-              });
             }
 
             setResult(`处理了 ${processedText.length} 个字符`);
@@ -545,8 +538,13 @@ describe('Formatter Plugin Extended Tests', () => {
 
       render(<TestLongText />);
 
-      // 初始状态应该是处理中
-      expect(screen.getByTestId('processing')).toBeInTheDocument();
+      // 等待处理完成
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      });
+
+      // 验证结果
+      expect(screen.getByTestId('long-text-result')).toHaveTextContent('处理了 10000 个字符');
     });
   });
 });

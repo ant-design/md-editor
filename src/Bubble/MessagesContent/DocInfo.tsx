@@ -1,10 +1,11 @@
 ﻿import { ExportOutlined, RightOutlined } from '@ant-design/icons';
+import { Chunk, DocMeta } from '@ant-design/md-editor/ThoughtChainList';
 import { ConfigProvider, Descriptions, Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
-import { ActionIconBox, Chunk, DocMeta, MarkdownEditor } from '../../index';
+import { ActionIconBox, MarkdownEditor } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { useStyle } from './docInfoStyle';
 

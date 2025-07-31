@@ -1,5 +1,5 @@
 import React from 'react';
-import Workspace from '../../src/Workspace';
+import { Workspace } from '@ant-design/md-editor';
 
 const Demo = () => {
   return (

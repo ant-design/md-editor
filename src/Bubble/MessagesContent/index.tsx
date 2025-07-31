@@ -1,14 +1,12 @@
 import { ExportOutlined } from '@ant-design/icons';
+import {
+  Chunk,
+  WhiteBoxProcessInterface,
+} from '@ant-design/md-editor/ThoughtChainList';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { LoadingIcon } from '../../icons/LoadingIcon';
-import {
-  ActionIconBox,
-  Chunk,
-  MarkdownEditor,
-  useRefFunction,
-  WhiteBoxProcessInterface,
-} from '../../index';
+import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
 import { BubbleExtra } from './BubbleExtra';

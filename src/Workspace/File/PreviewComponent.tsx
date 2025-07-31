@@ -1,12 +1,12 @@
 import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
 import React, { type FC } from 'react';
-import type { FileItem } from '../types';
+import { FileNode } from '../types';
 import { getFileTypeIcon, isTextFile } from './utils';
 
 interface PreviewComponentProps {
-  file: FileItem;
+  file: FileNode;
   onBack: () => void;
-  onDownload?: (file: FileItem) => void;
+  onDownload?: (file: FileNode) => void;
 }
 
 export const PreviewComponent: FC<PreviewComponentProps> = ({

@@ -1,11 +1,11 @@
 import { CoffeeOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
-import Workspace from '../../src/Workspace';
-import type {
+import { Workspace } from '@ant-design/md-editor';
+import {
   FileNode,
   FileType,
   GroupNode,
-} from '../../src/Workspace/types';
+} from '@ant-design/md-editor/Workspace/types';
+import React, { useEffect, useState } from 'react';
 
 const WorkspaceFileDemo: React.FC = () => {
   const [nodes, setNodes] = useState<(FileNode | GroupNode)[]>([

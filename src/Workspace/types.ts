@@ -62,6 +62,8 @@ export interface FileNode extends FileNodeBase {
   size?: string;
   lastModified?: string;
   url?: string;
+  file?: File | Blob;// 文件源，优先级高于url
+  mimeType?: string; // 标准MIME类型，如：image/png、application/pdf
   previewUrl?: string;
   [key: string]: any;
 }
