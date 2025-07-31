@@ -171,18 +171,44 @@ const myRemark = {
 
 const findImageElement = (str: string) => {
   try {
+    // 匹配完整的 HTML 标签，包括自闭合和带结束标签的
     const match = str.match(
-      /^\s*<(img|video|iframe)[^>\n]*\/?>(.*<\/(?:img|video|iframe)>:?)?\s*$/,
+      /^\s*<(img|video|iframe)[^>\n]*\/?>(.*<\/(?:img|video|iframe)>)?\s*$/,
     );
-    if (match) {
-      const url = match[0].match(/src="([^"\n]+)"/);
-      const height = match[0].match(/height="(\d+)"/);
-      const align = match[0].match(/data-align="(\w+)"/);
+    // 如果没有匹配到完整标签，尝试匹配自闭合标签
+    const selfClosingMatch = str.match(/^\s*<(img|video|iframe)[^>\n]*\/>\s*$/);
+    // 尝试匹配完整的开始和结束标签
+    const fullTagMatch = str.match(
+      /^\s*<(img|video|iframe)[^>\n]*>.*?<\/(?:img|video|iframe)>\s*$/,
+    );
+    // 尝试匹配只有开始标签的情况
+    const startTagMatch = str.match(/^\s*<(img|video|iframe)[^>\n]*>\s*$/);
+    const fullMatch =
+      fullTagMatch || match || selfClosingMatch || startTagMatch;
+    if (fullMatch) {
+      const tagName = fullMatch[0].match(/<(img|video|iframe)/)?.[1];
+      const url = fullMatch[0].match(/src="([^"\n]+)"/);
+      const height = fullMatch[0].match(/height="(\d+)"/);
+      const width = fullMatch[0].match(/width="(\d+)"/);
+      const align = fullMatch[0].match(/data-align="(\w+)"/);
+      const controls = fullMatch[0].match(/controls/);
+      const autoplay = fullMatch[0].match(/autoplay/);
+      const loop = fullMatch[0].match(/loop/);
+      const muted = fullMatch[0].match(/muted/);
+      const poster = fullMatch[0].match(/poster="([^"\n]+)"/);
+
       return {
         url: url?.[1],
         height: height ? +height[1] : undefined,
+        width: width ? +width[1] : undefined,
         align: align?.[1],
-        alt: match[0].match(/alt="([^"\n]+)"/)?.[1],
+        alt: fullMatch[0].match(/alt="([^"\n]+)"/)?.[1],
+        tagName,
+        controls: !!controls,
+        autoplay: !!autoplay,
+        loop: !!loop,
+        muted: !!muted,
+        poster: poster?.[1],
       };
     }
     return null;
@@ -508,33 +534,52 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
 
   let el: any;
   if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
-    const img = findImageElement(currentElement.value);
-    if (img) {
-      el = EditorUtils.createMediaNode(
-        decodeURIComponentUrl(img?.url || '')!,
-        'image',
-        { align: img.align, alt: img.alt, height: img?.height },
-      );
-    } else {
-      if (currentElement.value === '<br/>') {
-        el = { type: 'paragraph', children: [{ text: '' }] };
-      } else {
-        el = currentElement.value.match(
-          /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
-        )
-          ? htmlToFragmentList(currentElement.value, '')
-          : {
-              type: 'code',
-              language: 'html',
-              render: true,
-              value: currentElement.value,
-              children: [
-                {
-                  text: currentElement.value,
-                },
-              ],
-            };
+    const mediaElement = findImageElement(currentElement.value);
+    if (mediaElement) {
+      // 根据标签类型确定媒体类型
+      let mediaType = 'image';
+      if (mediaElement.tagName === 'video') {
+        mediaType = 'video';
+      } else if (mediaElement.tagName === 'iframe') {
+        mediaType = 'iframe';
       }
+
+      el = EditorUtils.createMediaNode(
+        decodeURIComponentUrl(mediaElement?.url || '')!,
+        mediaType,
+        {
+          align: mediaElement.align,
+          alt: mediaElement.alt,
+          height: mediaElement?.height,
+          width: mediaElement?.width,
+          controls: mediaElement?.controls,
+          autoplay: mediaElement?.autoplay,
+          loop: mediaElement?.loop,
+          muted: mediaElement?.muted,
+          poster: mediaElement?.poster,
+        },
+      );
+    } else if (currentElement.value === '<br/>') {
+      el = { type: 'paragraph', children: [{ text: '' }] };
+    } else if (currentElement.value.match(/^<\/(img|video|iframe)>/)) {
+      // 如果是媒体标签的结束标签，跳过处理
+      el = null;
+    } else {
+      el = currentElement.value.match(
+        /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
+      )
+        ? htmlToFragmentList(currentElement.value, '')
+        : {
+            type: 'code',
+            language: 'html',
+            render: true,
+            value: currentElement.value,
+            children: [
+              {
+                text: currentElement.value,
+              },
+            ],
+          };
     }
   } else {
     el = processInlineHtml(currentElement, htmlTag);
@@ -578,9 +623,27 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
     }
     return null;
   } else {
-    const img = findImageElement(currentElement.value);
-    if (img) {
-      return EditorUtils.createMediaNode(img?.url, 'image', img);
+    const mediaElement = findImageElement(currentElement.value);
+    if (mediaElement) {
+      // 根据标签类型确定媒体类型
+      let mediaType = 'image';
+      if (mediaElement.tagName === 'video') {
+        mediaType = 'video';
+      } else if (mediaElement.tagName === 'iframe') {
+        mediaType = 'iframe';
+      }
+
+      return EditorUtils.createMediaNode(mediaElement?.url, mediaType, {
+        align: mediaElement.align,
+        alt: mediaElement.alt,
+        height: mediaElement?.height,
+        width: mediaElement?.width,
+        controls: mediaElement?.controls,
+        autoplay: mediaElement?.autoplay,
+        loop: mediaElement?.loop,
+        muted: mediaElement?.muted,
+        poster: mediaElement?.poster,
+      });
     } else {
       return { text: currentElement.value };
     }
@@ -897,15 +960,35 @@ const handleParagraph = (
         ),
       );
     } else if (currentChild.type === 'html') {
-      const img = findImageElement(currentChild.value);
-      if (img) {
+      // 检查是否是结束标签
+      if (currentChild.value.match(/^<\/(img|video|iframe)>/)) {
+        // 跳过结束标签
+        continue;
+      }
+
+      const mediaElement = findImageElement(currentChild.value);
+      if (mediaElement) {
+        // 根据标签类型确定媒体类型
+        let mediaType = 'image';
+        if (mediaElement.tagName === 'video') {
+          mediaType = 'video';
+        } else if (mediaElement.tagName === 'iframe') {
+          mediaType = 'iframe';
+        }
+
         elements.push(
           EditorUtils.createMediaNode(
-            decodeURIComponentUrl(img?.url || ''),
-            'image',
+            decodeURIComponentUrl(mediaElement?.url || ''),
+            mediaType,
             {
-              alt: img.alt,
-              height: img.height,
+              alt: mediaElement.alt,
+              height: mediaElement?.height,
+              width: mediaElement?.width,
+              controls: mediaElement?.controls,
+              autoplay: mediaElement?.autoplay,
+              loop: mediaElement?.loop,
+              muted: mediaElement?.muted,
+              poster: mediaElement?.poster,
             },
           ),
         );

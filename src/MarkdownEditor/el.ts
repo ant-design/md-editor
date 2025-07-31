@@ -170,6 +170,12 @@ export type MediaNode<T = Record<string, any>> = {
   children: BaseElement['children'];
   align?: 'left' | 'right';
   mediaType?: string;
+  // Video specific properties
+  controls?: boolean;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  poster?: string;
 };
 
 export type LinkCardNode<T = Record<string, any>> = {
