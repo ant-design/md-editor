@@ -81,7 +81,7 @@ const SchemaJsonEditor: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setJsonInput(e.target.value);
   };
 

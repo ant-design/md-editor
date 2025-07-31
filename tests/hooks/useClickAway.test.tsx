@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import useClickAway from '../../src/hooks/useClickAway.ts';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import useClickAway from '../../src/hooks/useClickAway';
 
 describe('useClickAway', () => {
   let mockCallback: ReturnType<typeof vi.fn>;
@@ -49,7 +49,7 @@ describe('useClickAway', () => {
     const parentElement = document.createElement('div');
     const childElement = document.createElement('div');
     parentElement.appendChild(childElement);
-    mockRef.current = childElement;
+    (mockRef as any).current = childElement;
 
     renderHook(() => useClickAway(mockCallback, mockRef));
 
@@ -73,7 +73,9 @@ describe('useClickAway', () => {
   });
 
   it('should handle undefined ref gracefully', () => {
-    const undefinedRef = { current: undefined };
+    const undefinedRef = {
+      current: undefined,
+    } as React.RefObject<HTMLDivElement>;
 
     expect(() => {
       renderHook(() => useClickAway(mockCallback, undefinedRef));

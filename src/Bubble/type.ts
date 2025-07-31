@@ -102,7 +102,7 @@ export interface MessageBubbleData<
    * @description 消息的显示内容，可以是React元素
    * @example <div>Hello, world!</div>
    */
-  content: React.ReactNode;
+  content?: React.ReactNode;
 
   /**
    * @title 原始内容
@@ -470,7 +470,7 @@ export interface BubbleProps<T = Record<string, any>>
    * @callback
    * @optional
    */
-  nponCancelLike?: (e: BubbleProps['originData']) => void;
+  onCancelLike?: (e: BubbleProps['originData']) => void;
 
   /**
    * 控制复制按钮的显示

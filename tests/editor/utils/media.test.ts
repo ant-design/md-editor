@@ -1,8 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Transforms } from 'slate';
-import { getRemoteMediaType, convertRemoteImages } from '../../../src/MarkdownEditor/editor/utils/media';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ReactEditor } from '../../../src/MarkdownEditor/editor/slate-react';
 import { EditorStore } from '../../../src/MarkdownEditor/editor/store';
+import {
+  convertRemoteImages,
+  getRemoteMediaType,
+} from '../../../src/MarkdownEditor/editor/utils/media';
 
 // Mock dependencies
 vi.mock('slate', () => ({
@@ -36,7 +39,9 @@ describe('Media Utils', () => {
     });
 
     it('应该处理data URL', async () => {
-      const result = await getRemoteMediaType('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+      const result = await getRemoteMediaType(
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+      );
       expect(result).toBe('png');
     });
 
@@ -162,14 +167,14 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'https://example.com/image.png',
         children: [{ text: '' }],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
       expect(Transforms.setNodes).toHaveBeenCalledWith(
         mockStore.editor,
         { url: 'https://example.com/image.png' },
-        { at: [0, 0] }
+        { at: [0, 0] },
       );
     });
 
@@ -192,14 +197,16 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
         children: [{ text: '' }],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
       expect(Transforms.setNodes).toHaveBeenCalledWith(
         mockStore.editor,
-        { url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==' },
-        { at: [0, 0] }
+        {
+          url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+        },
+        { at: [0, 0] },
       );
     });
 
@@ -213,7 +220,7 @@ describe('Media Utils', () => {
             children: [{ text: '' }],
           },
         ],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -227,7 +234,7 @@ describe('Media Utils', () => {
       const mockNode = {
         type: 'paragraph',
         children: [],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -241,7 +248,7 @@ describe('Media Utils', () => {
       const mockNode = {
         type: 'paragraph',
         children: [{ text: 'Hello' }],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -255,7 +262,7 @@ describe('Media Utils', () => {
       const mockNode = {
         type: 'media',
         children: [{ text: '' }],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -270,7 +277,7 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'data:invalid;base64,123',
         children: [{ text: '' }],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -282,13 +289,15 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'https://example.com/image.png',
         children: [{ text: '' }],
-      };
+      } as any;
 
       (Transforms.setNodes as any).mockImplementation(() => {
         throw new Error('Set nodes failed');
       });
 
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -300,7 +309,7 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
         children: [{ text: '' }],
-      };
+      } as any;
 
       (ReactEditor.findPath as any).mockImplementation(() => {
         throw new Error('Find path failed');
@@ -318,7 +327,7 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'https://example.com/image.png',
         children: [{ text: '' }],
-      };
+      } as any;
 
       await convertRemoteImages(mockNode, mockStore);
 
@@ -330,7 +339,7 @@ describe('Media Utils', () => {
         type: 'media',
         url: 'https://example.com/image.png',
         children: [{ text: '' }],
-      };
+      } as any;
 
       const storeWithoutEditor = {
         markdownEditorRef: { current: null },
@@ -342,4 +351,4 @@ describe('Media Utils', () => {
       expect(Transforms.setNodes).not.toHaveBeenCalled();
     });
   });
-}); 
+});
