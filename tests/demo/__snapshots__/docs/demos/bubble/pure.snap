@@ -60,7 +60,7 @@
               >
                 <div
                   class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%); padding: 0px; margin: 0px;"
+                  style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; padding: 0px; margin: 0px;"
                 >
                   <div
                     style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none;"
@@ -102,13 +102,9 @@
                 </div>
                 <div
                   class="ant-chat-item-extra"
-                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary); opacity: 1; transform: none;"
+                  style="display: flex; gap: 8px; height: 2.8em; align-items: center; justify-content: space-between; width: 100%; min-width: 215px; padding: 0px 12px; color: var(--color-icon-secondary);"
                 >
-                  <div
-                    style="opacity: 1; transform: none;"
-                  >
-                    <div />
-                  </div>
+                  <div />
                   <div
                     class="ant-chat-item-extra-action-box"
                     style="display: flex; gap: 8px; align-items: center; opacity: 1;"
@@ -206,7 +202,7 @@
                 >
                   <div
                     class="markdown-editor ant-md-editor ant-md-editor-readonly"
-                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%; min-width: min(undefinedpx,100%);"
+                    style="width: 100%; height: auto; display: flex; flex-direction: column; max-height: 100%;"
                   >
                     <div
                       style="padding: 12px 20px; overflow: auto; display: flex; height: 100%; position: relative; gap: 24px; outline: none; color: rgb(255, 255, 255);"

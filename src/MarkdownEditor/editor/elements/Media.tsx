@@ -270,10 +270,14 @@ export function Media({
     if (state().type === 'video')
       return (
         <video
-          controls
+          controls={element.controls !== false}
+          autoPlay={element.autoplay}
+          loop={element.loop}
+          muted={element.muted}
+          poster={element.poster}
           style={{
-            width: '100%',
-            height: 'auto',
+            width: element.width ? `${element.width}px` : '100%',
+            height: element.height ? `${element.height}px` : 'auto',
             maxWidth: 600,
           }}
           src={state()?.url || ''}

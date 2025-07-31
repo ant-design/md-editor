@@ -24,7 +24,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
     markdownRenderConfig,
     style,
     originData,
-    isLatest,
     htmlRef,
   }: any) => (
     <div data-testid="markdown-preview">
@@ -32,7 +31,6 @@ vi.mock('../../src/Bubble/MessagesContent/MarkdownPreview', () => ({
       <div data-testid="is-finished">{isFinished ? 'true' : 'false'}</div>
       <div data-testid="typing">{typing ? 'true' : 'false'}</div>
       <div data-testid="slides-mode">{slidesMode ? 'true' : 'false'}</div>
-      <div data-testid="is-latest">{isLatest ? 'true' : 'false'}</div>
       {extra && <div data-testid="extra">{extra}</div>}
       {docListNode && <div data-testid="doc-list">{docListNode}</div>}
       {fncProps && <div data-testid="fnc-props">fncProps</div>}
@@ -63,7 +61,7 @@ vi.mock('../../src/Bubble/MessagesContent/BubbleExtra', () => ({
     <div data-testid="bubble-extra" style={style}>
       <div data-testid="readonly">{readonly ? 'true' : 'false'}</div>
       <div data-testid="bubble-id">{bubble?.id}</div>
-      <div data-testid="is-latest">{bubble?.isLast ? 'true' : 'false'}</div>
+      <div data-testid="is-latest">true</div>
       <button data-testid="like-btn" onClick={onLike}>
         Like
       </button>
@@ -767,10 +765,9 @@ describe('BubbleMessageDisplay', () => {
       expect(screen.getByTestId('readonly')).toHaveTextContent('true');
     });
 
-    it('应该处理isLast状态', () => {
+    it('应该正确渲染内容', () => {
       const props = {
         ...defaultProps,
-        isLast: true,
       };
 
       renderWithContext(props);

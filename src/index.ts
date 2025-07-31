@@ -1,7 +1,6 @@
 export * from './AgentRunBar';
 export * from './Bubble';
-export { Bubble } from './Bubble';
-export { BubbleList } from './Bubble/List';
+export * from './Bubble/List';
 export type {
   BubbleMetaData,
   BubbleProps,
@@ -29,6 +28,15 @@ export { useEditorStore } from './MarkdownEditor/editor/store';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';
 export { markdownToHtmlSync } from './MarkdownEditor/editor/utils/markdownToHtml';
+// HTML to Markdown conversion utilities
+export {
+  batchHtmlToMarkdown,
+  cleanHtml,
+  extractTextFromHtml,
+  htmlToMarkdown,
+  isHtml,
+  type HtmlToMarkdownOptions,
+} from './MarkdownEditor/editor/utils/htmlToMarkdown';
 export * from './MarkdownEditor/el';
 export { useSelStatus } from './MarkdownEditor/hooks/editor';
 export * from './MarkdownEditor/plugin';

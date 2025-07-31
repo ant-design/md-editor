@@ -812,9 +812,8 @@ alert("它会被特殊渲染！");
               data-slate-node="text"
             >
               <span
-                class="h-0 leading-none opacity-0"
                 contenteditable="false"
-                style="font-size: 0px;"
+                style="font-size: 0px; opacity: 0; line-height: 0;"
               >
                  
               </span>
@@ -828,9 +827,8 @@ alert("它会被特殊渲染！");
                 />
               </span>
               <span
-                class="h-0 leading-none opacity-0"
                 contenteditable="false"
-                style="font-size: 0px;"
+                style="font-size: 0px; opacity: 0; line-height: 0;"
               >
                  
               </span>
@@ -887,9 +885,8 @@ alert("它会被特殊渲染！");
                 data-slate-node="text"
               >
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>
@@ -907,9 +904,8 @@ alert("它会被特殊渲染！");
                   </span>
                 </span>
                 <span
-                  class="h-0 leading-none opacity-0"
                   contenteditable="false"
-                  style="font-size: 0px;"
+                  style="font-size: 0px; opacity: 0; line-height: 0;"
                 >
                    
                 </span>

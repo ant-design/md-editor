@@ -102,7 +102,7 @@ export interface MessageBubbleData<
    * @description 消息的显示内容，可以是React元素
    * @example <div>Hello, world!</div>
    */
-  content: React.ReactNode;
+  content?: React.ReactNode;
 
   /**
    * @title 原始内容
@@ -265,6 +265,14 @@ export interface MessageBubbleData<
    * @example new Map([["file1", { name: "示例.pdf", size: 1024, type: "application/pdf" }]])
    */
   fileMap?: Map<string, AttachmentFile>;
+
+  /**
+   * @title 是否为最后一个节点
+   * @description 用于标识当前消息是否为对话中的最新消息
+   * @default false
+   * @optional
+   */
+  isLatest?: boolean;
 }
 
 /**
@@ -381,11 +389,6 @@ export interface BubbleProps<T = Record<string, any>>
   originData?: T & MessageBubbleData;
 
   /**
-   * 是否为最后一条消息
-   */
-  isLast?: boolean;
-
-  /**
    * 消息ID
    */
   id?: string;
@@ -460,81 +463,24 @@ export interface BubbleProps<T = Record<string, any>>
    * 气泡引用
    */
   bubbleRef?: any;
-}
-
-/**
- * 气泡列表组件属性
- */
-export interface BubbleListProps extends BubbleItemStyleProps {
-  /**
-   * 消息列表数据
-   */
-  bubbleList: MessageBubbleData[];
 
   /**
-   * 列表容器引用
+   * 取消点赞的回调函数
+   * @description 当用户点击取消点赞按钮时触发
+   * @callback
+   * @optional
    */
-  bubbleListRef: React.MutableRefObject<HTMLDivElement | null>;
+  onCancelLike?: (e: BubbleProps['originData']) => void;
 
   /**
-   * 气泡引用
+   * 控制复制按钮的显示
+   * @description 控制复制按钮是否显示的函数或布尔值
+   * - 如果传入函数，则调用函数判断是否显示，函数接收 bubble 作为参数
+   * - 如果传入布尔值，则直接使用该值控制显示
+   * - 如果未传入（undefined），则使用默认逻辑判断
+   * @param bubble - 聊天项的数据对象
+   * @returns 是否显示复制按钮
+   * @optional
    */
-  bubbleRef: React.MutableRefObject<any>;
-
-  /**
-   * 是否加载中
-   */
-  loading: boolean;
-
-  /**
-   * 用户元数据
-   */
-  userMeta?: BubbleMetaData;
-
-  /**
-   * 助手元数据
-   */
-  assistantMeta?: BubbleMetaData;
-
-  /**
-   * 是否只读
-   */
-  readonly?: boolean;
-
-  /**
-   * 渲染配置
-   */
-  bubbleRenderConfig?: BubbleRenderConfig;
-
-  /**
-   * Markdown 渲染配置
-   */
-  markdownRenderConfig?: MarkdownEditorProps;
-
-  /**
-   * 文档列表配置
-   */
-  docListProps?: DocInfoListProps & {
-    enable?: boolean;
-  };
-
-  /**
-   * 不喜欢回调
-   */
-  onDisLike?: BubbleProps['onDisLike'];
-
-  /**
-   * 喜欢回调
-   */
-  onLike?: BubbleProps['onLike'];
-
-  /**
-   * 回复回调
-   */
-  onReply?: BubbleProps['onReply'];
-
-  /**
-   * 幻灯片模式配置
-   */
-  slidesModeProps?: BubbleProps['slidesModeProps'];
+  shouldShowCopy?: boolean | ((bubble: BubbleExtraProps['bubble']) => boolean);
 }

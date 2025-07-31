@@ -27,7 +27,7 @@ vi.mock('chart.js', () => ({
 
 // Mock react-chartjs-2
 vi.mock('react-chartjs-2', () => ({
-  Line: ({ data, options }: any) => (
+  Line: ({ data }: any) => (
     <div
       data-testid="line-chart"
       data-labels={JSON.stringify(data?.labels)}
@@ -36,7 +36,7 @@ vi.mock('react-chartjs-2', () => ({
       Line Chart
     </div>
   ),
-  Bar: ({ data, options }: any) => (
+  Bar: ({ data }: any) => (
     <div
       data-testid="bar-chart"
       data-labels={JSON.stringify(data?.labels)}
@@ -45,7 +45,7 @@ vi.mock('react-chartjs-2', () => ({
       Bar Chart
     </div>
   ),
-  Doughnut: ({ data, options }: any) => (
+  Doughnut: ({ data }: any) => (
     <div
       data-testid="doughnut-chart"
       data-labels={JSON.stringify(data?.labels)}
@@ -84,8 +84,8 @@ describe('ChartMark Components', () => {
     xField: 'name',
     yField: 'value',
     index: 0,
-    chartRef: { current: null },
-  };
+    chartRef: { current: null } as any,
+  } as any;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -127,13 +127,13 @@ describe('ChartMark Components', () => {
     });
 
     it('应该处理 undefined 数据', () => {
-      const props = { ...defaultProps, data: undefined };
+      const props = { ...defaultProps, data: undefined as any };
       render(<Line {...props} />);
       expect(screen.getByTestId('line-chart')).toBeInTheDocument();
     });
 
     it('应该处理 null 数据', () => {
-      const props = { ...defaultProps, data: null };
+      const props = { ...defaultProps, data: null as any };
       render(<Line {...props} />);
       expect(screen.getByTestId('line-chart')).toBeInTheDocument();
     });
@@ -312,7 +312,11 @@ describe('ChartMark Components', () => {
 
     it('应该正确渲染容器', () => {
       render(
-        <Container chartRef={mockChartRef} htmlRef={mockHtmlRef} index={0}>
+        <Container
+          chartRef={mockChartRef as any}
+          htmlRef={mockHtmlRef}
+          index={0}
+        >
           <div>Test Content</div>
         </Container>,
       );
@@ -321,7 +325,11 @@ describe('ChartMark Components', () => {
 
     it('应该处理不同的索引值', () => {
       render(
-        <Container chartRef={mockChartRef} htmlRef={mockHtmlRef} index={5}>
+        <Container
+          chartRef={mockChartRef as any}
+          htmlRef={mockHtmlRef}
+          index={5}
+        >
           <div>Index 5 Content</div>
         </Container>,
       );
@@ -343,8 +351,8 @@ describe('ChartMark Components', () => {
 
       it('应该处理空值', () => {
         expect(stringFormatNumber('')).toBe('');
-        expect(stringFormatNumber(null)).toBe(null);
-        expect(stringFormatNumber(undefined)).toBe(undefined);
+        expect(stringFormatNumber(null as any)).toBe(null);
+        expect(stringFormatNumber(undefined as any)).toBe(undefined);
       });
 
       it('应该处理零值', () => {

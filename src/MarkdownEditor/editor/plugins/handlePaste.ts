@@ -4,7 +4,7 @@ import { Elements, MarkdownEditorProps } from '../../BaseMarkdownEditor';
 import { isMarkdown } from '../utils';
 import { getMediaType } from '../utils/dom';
 import { EditorUtils } from '../utils/editorUtils';
-import { isHtml } from '../utils/isMarkdown';
+import { isHtml } from '../utils/htmlToMarkdown';
 import { toUnixPath } from '../utils/path';
 import { insertParsedHtmlNodes } from './insertParsedHtmlNodes';
 import { parseMarkdownToNodesAndInsert } from './parseMarkdownToNodesAndInsert';

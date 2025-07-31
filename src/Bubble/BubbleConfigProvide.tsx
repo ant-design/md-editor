@@ -41,6 +41,7 @@ export type ChatConfigType = {
     'chat.message.copy.success': string;
     'chat.message.copy.error': string;
     'chat.message.like': string;
+    'chat.message.cancel-like': string;
     'chat.message.feedback-success': string;
     'chat.message.dislike': string;
     'chat.message.exception': string;
@@ -69,6 +70,7 @@ export const zhCN: ChatConfigType['locale'] = {
   'chat.message.copy.success': '复制成功',
   'chat.message.copy.error': '复制失败',
   'chat.message.like': '喜欢',
+  'chat.message.cancel-like': '取消点赞',
   'chat.message.feedback-success': '已经反馈过了哦',
   'chat.message.dislike': '不喜欢',
   'chat.helloMessage.pre_hello_text': '您好，我是',
@@ -96,6 +98,7 @@ export const enUS: ChatConfigType['locale'] = {
   'chat.message.copy': 'Copying',
   'chat.message.copy.success': 'Copying was successful',
   'chat.message.like': 'Like',
+  'chat.message.cancel-like': 'Cancel Like',
   'chat.message.feedback-success': 'Feedback has been received.',
   'chat.message.dislike': 'Dislike',
   'chat.helloMessage.pre_hello_text': 'Hello',

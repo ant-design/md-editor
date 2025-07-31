@@ -97,9 +97,8 @@ const Text = (props: {
 
 export const InlineChromiumBugfix = React.memo(() => (
   <span
-    className={'h-0 leading-none opacity-0'}
     contentEditable={false}
-    style={{ fontSize: 0 }}
+    style={{ fontSize: 0, opacity: 0, lineHeight: 0 }}
   >
     {String.fromCodePoint(160)}
   </span>

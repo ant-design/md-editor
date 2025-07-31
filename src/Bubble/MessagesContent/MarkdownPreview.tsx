@@ -1,5 +1,5 @@
 ﻿import { CloseCircleFilled } from '@ant-design/icons';
-import { ConfigProvider, Popover, theme } from 'antd';
+import { ConfigProvider, theme } from 'antd';
 import React, { useContext, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -20,7 +20,6 @@ import { MessagesContext } from './BubbleContext';
  *
  * @param {Object} props - 组件的属性。
  * @param {string} props.content - 要渲染的 Markdown 内容。
- * @param {boolean} props.isLatest - 是否是最新的消息。
  * @param {MarkdownEditorProps['fncProps']} props.fncProps - Markdown 编辑器的函数属性。
  * @param {boolean} [props.typing] - 是否启用打字机效果。
  * @param {React.ReactNode} props.extra - 额外的 React 节点。
@@ -32,8 +31,6 @@ import { MessagesContext } from './BubbleContext';
 export interface MarkdownPreviewProps {
   /** markdown 源文本内容，例如: "# 标题\n这是正文" */
   content: string;
-  /** 是否为最新的消息，用于控制样式展示，例如: true */
-  isLatest: boolean;
   /** markdown 编辑器的功能属性配置，控制编辑器行为 */
   fncProps?: MarkdownEditorProps['fncProps'];
   /** 是否启用打字机效果，例如: true */
@@ -62,7 +59,6 @@ export interface MarkdownPreviewProps {
  * @param {Object} props - 组件属性
  * @param {string} props.content - Markdown 内容
  * @param {ReactNode} props.extra - 额外的内容
- * @param {boolean} props.isLatest - 是否为最新消息
  * @param {boolean} props.typing - 是否正在输入
  * @param {React.RefObject} props.htmlRef - HTML 元素的引用
  * @param {Object} props.fncProps - 功能属性
@@ -85,7 +81,6 @@ export interface MarkdownPreviewProps {
  * ```tsx
  * <MarkdownPreview
  *   content="# Hello World"
- *   isLatest={true}
  *   typing={false}
  *   htmlRef={ref}
  * />
@@ -95,7 +90,6 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   const {
     content,
     extra,
-    isLatest = false,
     typing,
     htmlRef,
     fncProps,
@@ -108,16 +102,10 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
     undefined,
   );
 
-  const { hidePadding, message, setMessage } =
-    useContext(MessagesContext) || {};
+  const { hidePadding } = useContext(MessagesContext) || {};
 
   const { locale, standalone } = useContext(BubbleConfigContext) || {};
   const { token } = theme.useToken();
-
-  useEffect(() => {
-    if (!message) return;
-    setMessage(message);
-  }, [props?.isLatest]);
 
   useEffect(() => {
     if (isFinished) {
@@ -127,8 +115,8 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   }, [isFinished]);
 
   const isPaddingHidden = useMemo(() => {
-    return extra && isLatest && !typing;
-  }, [extra, isLatest, typing]);
+    return extra && !typing;
+  }, [extra, typing]);
 
   useEffect(() => {
     const schema = parserMdToSchema(content).schema;
@@ -136,6 +124,11 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   }, [content]);
 
   const markdown = useMemo(() => {
+    const minWidth = content?.includes?.('chartType')
+      ? standalone
+        ? Math.max((htmlRef?.current?.clientWidth || 600) - 23, 500)
+        : Math.min((htmlRef?.current?.clientWidth || 600) - 128, 500)
+      : undefined;
     return slidesMode ? (
       ReactDOM.createPortal(
         <div
@@ -191,13 +184,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         }}
         typewriter={typing}
         style={{
-          minWidth: `min(${
-            content?.includes?.('chartType')
-              ? standalone
-                ? Math.max((htmlRef?.current?.clientWidth || 600) - 23, 500)
-                : Math.min((htmlRef?.current?.clientWidth || 600) - 128, 500)
-              : undefined
-          }px,100%)`,
+          minWidth: minWidth ? `min(${minWidth}px,100%)` : undefined,
           maxWidth: standalone ? '100%' : undefined,
           padding: isPaddingHidden ? 0 : undefined,
           margin: isPaddingHidden ? 0 : undefined,
@@ -220,45 +207,6 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
       {locale?.['chat.message.exception'] || '出现点意外情况，请重新发送'}
     </div>
   );
-
-  if (isLatest || !extra) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minWidth: 0,
-          maxWidth: '100%',
-        }}
-      >
-        <ErrorBoundary fallback={errorDom}>
-          {markdown}
-          {docListNode}
-        </ErrorBoundary>
-        {extra}
-      </div>
-    );
-  }
-
-  if (extra) {
-    return (
-      <Popover content={extra} placement="bottomRight">
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '100%',
-            minWidth: 0,
-          }}
-        >
-          <ErrorBoundary fallback={errorDom}>
-            {markdown}
-            {docListNode}
-          </ErrorBoundary>
-        </div>
-      </Popover>
-    );
-  }
 
   return (
     <div

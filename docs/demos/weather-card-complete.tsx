@@ -151,7 +151,7 @@ const WeatherCardComplete: React.FC = () => {
       },
     },
   };
-  const handleValuesChange = (_, values: Record<string, any>) => {
+  const handleValuesChange = (_: any, values: Record<string, any>) => {
     // 验证数据
     const validationResult = validator.validate(schema);
     if (validationResult?.valid) {

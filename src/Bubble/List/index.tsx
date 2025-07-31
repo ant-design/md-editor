@@ -117,10 +117,37 @@ export type BubbleListProps = {
 
   onDisLike?: BubbleProps['onDisLike'];
   onLike?: BubbleProps['onLike'];
+  onCancelLike?: BubbleProps['onCancelLike'];
   onReply?: BubbleProps['onReply'];
   slidesModeProps?: BubbleProps['slidesModeProps'];
   markdownRenderConfig?: BubbleProps['markdownRenderConfig'];
   docListProps?: BubbleProps['docListProps'];
+
+  /**
+   * 动态控制复制按钮的显隐
+   */
+  shouldShowCopy?: boolean | ((bubbleItem: any) => boolean);
+
+  /**
+   * 滚动事件的回调
+   */
+  onScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
+
+  /**
+   * 滚轮事件的回调
+   */
+  onWheel?: (
+    e: React.WheelEvent<HTMLDivElement>,
+    bubbleListRef: HTMLDivElement | null,
+  ) => void;
+
+  /**
+   * 触摸移动事件的回调
+   */
+  onTouchMove?: (
+    e: React.TouchEvent<HTMLDivElement>,
+    bubbleListRef: HTMLDivElement | null,
+  ) => void;
 };
 
 /**
@@ -142,6 +169,9 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
     assistantMeta,
     bubbleList = [],
     style,
+    onScroll,
+    onWheel,
+    onTouchMove,
   } = props;
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
 
@@ -154,8 +184,9 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
   const bubbleListDom = useMemo(() => {
     return bubbleList.map((item, index) => {
       const isLast = bubbleList.length - 1 === index;
-      //@ts-ignore
-      item.isLast = isLast;
+      const placement = item.role === 'user' ? 'right' : 'left';
+      // 保持向后兼容性，设置isLatest
+      (item as any).isLatest = isLast;
       return (
         <Bubble
           key={item.id}
@@ -165,12 +196,11 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
             ...(item as any).meta,
           }}
           id={item.id}
-          isLast={isLast}
           style={{
             ...styles?.bubbleListItemStyle,
           }}
           originData={item}
-          placement={item.role === 'user' ? 'right' : 'left'}
+          placement={placement}
           time={item.updateAt || item.createAt}
           deps={deps}
           pure={props.pure}
@@ -184,7 +214,7 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
             ...styles,
             bubbleListItemContentStyle: {
               ...styles?.bubbleListItemContentStyle,
-              ...(item.role === 'user'
+              ...(placement === 'right'
                 ? styles?.bubbleListRightItemContentStyle
                 : styles?.bubbleListLeftItemContentStyle),
             },
@@ -194,7 +224,9 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
           onReply={props.onReply}
           onDisLike={props.onDisLike}
           onLike={props.onLike}
+          onCancelLike={props.onCancelLike}
           customConfig={props?.bubbleRenderConfig?.customConfig}
+          shouldShowCopy={props.shouldShowCopy}
         />
       );
     });
@@ -226,6 +258,9 @@ export const BubbleList: React.FC<BubbleListProps> = (props) => {
       data-chat-list={bubbleList.length}
       style={style}
       ref={bubbleListRef}
+      onScroll={onScroll}
+      onWheel={(e) => onWheel?.(e, bubbleListRef?.current || null)}
+      onTouchMove={(e) => onTouchMove?.(e, bubbleListRef?.current || null)}
     >
       <div>{bubbleListDom}</div>
     </div>,

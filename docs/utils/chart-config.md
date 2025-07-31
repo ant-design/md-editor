@@ -1,3 +1,9 @@
+---
+nav:
+  title: 高级功能
+  order: 4
+---
+
 # 图表配置文档
 
 ## 配置方式
@@ -16,7 +22,7 @@
 
 ### 基础配置
 
-```typescript
+```typescript | pure
 type ChartConfig = {
   chartType: string; // 图表类型
   x: string; // X轴字段

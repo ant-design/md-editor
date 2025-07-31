@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { standardPlugins } from '../../src/plugins/defaultPlugins';
 
 // Mock plugins
