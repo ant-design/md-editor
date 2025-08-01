@@ -650,7 +650,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               ...style,
             }}
           >
-            {!readonly && toolBar?.enable !== false ? (
+            {!readonly && toolBar?.enable === true ? (
               <div
                 style={{
                   width: '100%',

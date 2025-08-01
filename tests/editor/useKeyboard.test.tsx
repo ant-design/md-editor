@@ -486,10 +486,6 @@ describe('useKeyboard Hook Tests', () => {
       );
       const firstHandler = result.current;
 
-      // 创建新的编辑器引用
-      const newEditor = createTestEditor();
-      const newEditorRef = { current: newEditor };
-
       rerender();
       const secondHandler = result.current;
 
