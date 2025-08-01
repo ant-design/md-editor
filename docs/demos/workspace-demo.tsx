@@ -1,9 +1,9 @@
-import React from 'react';
 import { Workspace } from '@ant-design/md-editor';
+import React from 'react';
 
 const Demo = () => {
   return (
-    <div style={{ height: 600, width: 400 }}>
+    <div style={{ height: 600, width: '100%' }}>
       <Workspace
         title="开发工作空间"
         onTabChange={(key: string) => console.log('切换到标签页:', key)}
@@ -13,11 +13,10 @@ const Demo = () => {
         <Workspace.Realtime
           tab={{
             key: 'realtime',
-            title: '系统监控',
           }}
           data={{
-            type: 'shell',
-            content: `\`\`\`shell
+            type: 'md',
+            content: `
 # 系统性能监控脚本
 
 # CPU 使用情况
@@ -39,10 +38,9 @@ uptime
 # 网络连接状态
 echo -e "\\n网络连接状态:"
 netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head -n 5
-\`\`\``,
-            customTitle: '系统性能监控',
-            customSubTitle: '实时监控关键系统指标',
-            markdownEditorProps: { 
+`,
+            customTitle: '深度思考',
+            markdownEditorProps: {
               typewriter: false,
             },
           }}
@@ -100,7 +98,6 @@ netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sor
         <Workspace.File
           tab={{
             key: 'files',
-            title: '文件管理',
           }}
           nodes={[
             {
@@ -124,7 +121,9 @@ netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sor
               name: '技术文档.pdf',
               type: 'pdf',
               size: '3.2MB',
-              lastModified: new Date(Date.now() - 86400000).toLocaleTimeString(),
+              lastModified: new Date(
+                Date.now() - 86400000,
+              ).toLocaleTimeString(),
               url: '/docs/technical-doc.pdf',
             },
             {
@@ -140,7 +139,9 @@ netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sor
               name: '接口文档.md',
               type: 'markdown',
               size: '0.3MB',
-              lastModified: new Date(Date.now() - 14400000).toLocaleTimeString(),
+              lastModified: new Date(
+                Date.now() - 14400000,
+              ).toLocaleTimeString(),
               url: '/docs/api.md',
             },
             {
@@ -148,9 +149,11 @@ netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sor
               name: '配置说明.html',
               type: 'plainText',
               size: '0.1MB',
-              lastModified: new Date(Date.now() - 28800000).toLocaleTimeString(),
+              lastModified: new Date(
+                Date.now() - 28800000,
+              ).toLocaleTimeString(),
               url: '/docs/config.html',
-            }
+            },
           ]}
         />
       </Workspace>
@@ -159,4 +162,3 @@ netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sor
 };
 
 export default Demo;
-
