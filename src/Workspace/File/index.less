@@ -1,3 +1,24 @@
+// 变量定义
+@primary-text-color: #343a40;
+@secondary-text-color: #6c757d;
+@border-color: rgba(20, 22, 28, 0.07);
+@hover-bg-color: #f8f9fa;
+@light-bg-color: #fafafa;
+
+// 通用混入
+.icon-base() {
+  font-size: 14px;
+  color: @secondary-text-color;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: @hover-bg-color;
+  }
+}
+
 // 文件组件样式
 .workspace-file-container {
   // 分组展示模式
@@ -13,12 +34,7 @@
         cursor: pointer;
         transition: all 0.2s ease;
 
-        &-left {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
+        &-left,
         &-right {
           display: flex;
           align-items: center;
@@ -29,7 +45,7 @@
       // 展开收起图标
       &__toggle-icon {
         font-size: 12px;
-        color: #6c757d;
+        color: @secondary-text-color;
         transition: transform 0.2s ease;
       }
 
@@ -46,15 +62,19 @@
 
       // 文件类型名称
       &__type-name {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         font-size: 13px;
         font-weight: 500;
-        color: #343a45;
+        color: @primary-text-color;
       }
 
       // 文件数量
       &__count {
         font-size: 12px;
-        color: #6c757d;
+        color: @secondary-text-color;
         background: #e9ecef;
         padding: 2px 6px;
         border-radius: 10px;
@@ -64,26 +84,14 @@
 
       // 下载图标
       &__download-icon {
-        font-size: 14px;
-        color: #6c757d;
-        cursor: pointer;
-        padding: 2px;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-
-        &:hover {
-          background: #f8f9fa;
-        }
+        .icon-base();
       }
 
       // 分组内容区域
       &__content {
+        padding-left: 12px;
       }
     }
-  }
-
-  // 平铺展示模式
-  &--flat {
   }
 }
 
@@ -92,11 +100,11 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-bottom: 4px;
   padding: 4px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-bottom: 4px;
 
   &:last-child {
     margin-bottom: 0;
@@ -105,7 +113,7 @@
   &:hover {
     background: rgba(20, 22, 28, 0.03);
     box-sizing: border-box;
-    border: 0px solid rgba(20, 22, 28, 0.07);
+    border: 0px solid @border-color;
   }
 
   // 文件图标
@@ -129,11 +137,10 @@
   // 文件名
   &__name {
     font-size: 14px;
-    color: #343a40;
+    color: @primary-text-color;
     font-weight: 400;
     line-height: 1.4;
     word-break: break-all;
-    margin-bottom: 4px;
   }
 
   // 文件详情容器
@@ -154,7 +161,7 @@
   // 分割符
   &__separator {
     font-size: 10px;
-    color: rgba(20, 22, 28, 0.07);
+    color: @border-color;
     margin: 0 4px;
   }
 
@@ -164,19 +171,10 @@
     gap: 4px;
   }
 
-  // 操作图标基础样式
+  // 操作图标
   &__preview-icon,
   &__download-icon {
-    font-size: 14px;
-    color: #6c757d;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: #f8f9fa;
-    }
+    .icon-base();
   }
 }
 
@@ -193,7 +191,7 @@
     align-items: center;
     gap: 4px;
     padding: 8px 12px 8px 0;
-    border-bottom: 1px solid rgba(20, 22, 28, 0.07);
+    border-bottom: 1px solid @border-color;
     background: #fff;
     flex-shrink: 0;
   }
@@ -208,7 +206,7 @@
     border: none;
     background: none;
     cursor: pointer;
-    color: #767E8B;
+    color: #767e8b;
     transition: all 0.2s ease;
     border-radius: 4px;
 
@@ -230,7 +228,7 @@
     gap: 4px;
   }
 
-  // 文件标题行（包含图标和文件名）
+  // 文件标题行
   &__file-title {
     display: flex;
     align-items: center;
@@ -252,13 +250,13 @@
   &__file-name {
     font-size: 14px;
     font-weight: 500;
-    color: #343A45;
+    color: @primary-text-color;
   }
 
   // 生成时间
   &__generate-time {
     font-size: 12px;
-    color: #767E8B;
+    color: #767e8b;
   }
 
   // 操作按钮容器
@@ -284,7 +282,7 @@
 
     &:hover {
       background: #f0f0f0;
-      color: #767E8B;
+      color: #767e8b;
     }
 
     svg {
@@ -314,7 +312,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fafafa;
+    background: @light-bg-color;
   }
 
   // 占位符内容

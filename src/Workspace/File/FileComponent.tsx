@@ -4,7 +4,7 @@ import {
   EyeOutlined,
   RightOutlined,
 } from '@ant-design/icons';
-import { Image } from 'antd';
+import { Image, Typography } from 'antd';
 import React, { type FC, useState } from 'react';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
@@ -61,7 +61,8 @@ const FileItemComponent: FC<{
   };
 
   // 判断是否显示下载按钮：有用户方法、有url、有content或有file对象
-  const showDownloadButton = onDownload || file.url || file.content || file.file;
+  const showDownloadButton =
+    onDownload || file.url || file.content || file.file;
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -77,7 +78,7 @@ const FileItemComponent: FC<{
     try {
       // 创建下载链接
       const link = document.createElement('a');
-      
+
       if (file.url) {
         // 使用url作为下载链接
         link.href = file.url;
@@ -95,8 +96,9 @@ const FileItemComponent: FC<{
       }
 
       // 设置文件名（如果是 File 对象且没有指定文件名，使用 File 对象的名称）
-      link.download = file.name || (file.file instanceof File ? file.file.name : '');
-      
+      link.download =
+        file.name || (file.file instanceof File ? file.file.name : '');
+
       // 执行下载
       document.body.appendChild(link);
       link.click();
@@ -126,25 +128,31 @@ const FileItemComponent: FC<{
             {getFileTypeIcon(file.type, file.icon, file.name)}
           </div>
           <div className="workspace-file-item__info">
-            <div className="workspace-file-item__name">{file.name}</div>
+            <div className="workspace-file-item__name">
+              <Typography.Text ellipsis={{ tooltip: file.name }}>
+                {file.name}
+              </Typography.Text>
+            </div>
             <div className="workspace-file-item__details">
-              <span className="workspace-file-item__type">{file.type}</span>
-              {file.size && (
-                <>
-                  <span className="workspace-file-item__separator">|</span>
-                  <span className="workspace-file-item__size">
-                    {formatFileSize(file.size)}
-                  </span>
-                </>
-              )}
-              {file.lastModified && (
-                <>
-                  <span className="workspace-file-item__separator">|</span>
-                  <span className="workspace-file-item__time">
-                    {formatLastModified(file.lastModified)}
-                  </span>
-                </>
-              )}
+              <Typography.Text type="secondary" ellipsis>
+                <span className="workspace-file-item__type">{file.type}</span>
+                {file.size && (
+                  <>
+                    <span className="workspace-file-item__separator">|</span>
+                    <span className="workspace-file-item__size">
+                      {formatFileSize(file.size)}
+                    </span>
+                  </>
+                )}
+                {file.lastModified && (
+                  <>
+                    <span className="workspace-file-item__separator">|</span>
+                    <span className="workspace-file-item__time">
+                      {formatLastModified(file.lastModified)}
+                    </span>
+                  </>
+                )}
+              </Typography.Text>
             </div>
           </div>
           <div
