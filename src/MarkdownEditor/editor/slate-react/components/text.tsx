@@ -122,7 +122,6 @@ export const DefaultText = (props: RenderTextProps) => {
     <span {...attributes}>
       {!props.text?.text && <InlineChromiumBugfix />}
       {children}
-      {!props.text?.text && <InlineChromiumBugfix />}
     </span>
   );
 };
