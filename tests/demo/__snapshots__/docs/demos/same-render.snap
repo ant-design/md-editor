@@ -493,12 +493,6 @@
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -507,12 +501,6 @@
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -557,12 +545,6 @@
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-be="text"
                   data-slate-leaf="true"
                   draggable="false"
@@ -574,12 +556,6 @@
                     ﻿
                     <br />
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </span>
@@ -846,12 +822,6 @@
                             data-slate-node="text"
                           >
                             <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
-                            </span>
-                            <span
                               data-be="text"
                               data-slate-leaf="true"
                               draggable="false"
@@ -863,12 +833,6 @@
                                 ﻿
                                 <br />
                               </span>
-                            </span>
-                            <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
                             </span>
                           </span>
                         </div>
@@ -1076,12 +1040,6 @@
                             data-slate-node="text"
                           >
                             <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
-                            </span>
-                            <span
                               data-be="text"
                               data-slate-leaf="true"
                               draggable="false"
@@ -1093,12 +1051,6 @@
                                 ﻿
                                 <br />
                               </span>
-                            </span>
-                            <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
                             </span>
                           </span>
                         </div>
@@ -1306,12 +1258,6 @@
                             data-slate-node="text"
                           >
                             <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
-                            </span>
-                            <span
                               data-be="text"
                               data-slate-leaf="true"
                               draggable="false"
@@ -1323,12 +1269,6 @@
                                 ﻿
                                 <br />
                               </span>
-                            </span>
-                            <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
                             </span>
                           </span>
                         </div>
@@ -1425,12 +1365,6 @@
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-be="text"
                   data-slate-leaf="true"
                   draggable="false"
@@ -1442,12 +1376,6 @@
                     ﻿
                     <br />
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </span>
@@ -1467,12 +1395,6 @@
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -1481,12 +1403,6 @@
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -1609,12 +1525,6 @@ class SyntaxHighlighter {
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -1623,12 +1533,6 @@ class SyntaxHighlighter {
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -2150,12 +2054,6 @@ class EditorCore {
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -2164,12 +2062,6 @@ class EditorCore {
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -2226,12 +2118,6 @@ class EditorCore {
               data-slate-node="text"
             >
               <span
-                contenteditable="false"
-                style="font-size: 0px; opacity: 0; line-height: 0;"
-              >
-                 
-              </span>
-              <span
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -2243,12 +2129,6 @@ class EditorCore {
                   ﻿
                   <br />
                 </span>
-              </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; opacity: 0; line-height: 0;"
-              >
-                 
               </span>
             </span>
           </div>

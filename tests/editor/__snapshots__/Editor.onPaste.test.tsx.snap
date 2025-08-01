@@ -23,12 +23,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
       data-slate-node="text"
     >
       <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
-      </span>
-      <span
         data-be="text"
         data-slate-leaf="true"
         draggable="false"
@@ -40,12 +34,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
           ﻿
           <br />
         </span>
-      </span>
-      <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
       </span>
     </span>
   </div>
@@ -709,12 +697,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         data-slate-node="text"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
-        </span>
-        <span
           data-be="text"
           data-slate-leaf="true"
           draggable="false"
@@ -726,12 +708,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             ﻿
             <br />
           </span>
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
         </span>
       </span>
     </span>
@@ -1404,12 +1380,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         data-slate-node="text"
                       >
                         <span
-                          contenteditable="false"
-                          style="font-size: 0px; opacity: 0; line-height: 0;"
-                        >
-                           
-                        </span>
-                        <span
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -1421,12 +1391,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                             ﻿
                             <br />
                           </span>
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; opacity: 0; line-height: 0;"
-                        >
-                           
                         </span>
                       </span>
                     </span>
@@ -1519,12 +1483,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                             data-slate-node="text"
                           >
                             <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
-                            </span>
-                            <span
                               data-be="text"
                               data-slate-leaf="true"
                               draggable="false"
@@ -1536,12 +1494,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                                 ﻿
                                 <br />
                               </span>
-                            </span>
-                            <span
-                              contenteditable="false"
-                              style="font-size: 0px; opacity: 0; line-height: 0;"
-                            >
-                               
                             </span>
                           </span>
                         </div>
@@ -1556,12 +1508,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                         data-slate-node="text"
                       >
                         <span
-                          contenteditable="false"
-                          style="font-size: 0px; opacity: 0; line-height: 0;"
-                        >
-                           
-                        </span>
-                        <span
                           data-be="text"
                           data-slate-leaf="true"
                           draggable="false"
@@ -1573,12 +1519,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
                             ﻿
                             <br />
                           </span>
-                        </span>
-                        <span
-                          contenteditable="false"
-                          style="font-size: 0px; opacity: 0; line-height: 0;"
-                        >
-                           
                         </span>
                       </span>
                     </span>
@@ -1599,12 +1539,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
         data-slate-node="text"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
-        </span>
-        <span
           data-be="text"
           data-slate-leaf="true"
           draggable="false"
@@ -1616,12 +1550,6 @@ exports[`Editor onPaste function > should handle Markdown with complex nested st
             ﻿
             <br />
           </span>
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
         </span>
       </span>
     </span>
@@ -2125,12 +2053,6 @@ ls -la | grep "test"
       data-slate-node="text"
     >
       <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
-      </span>
-      <span
         data-be="text"
         data-slate-leaf="true"
         draggable="false"
@@ -2142,12 +2064,6 @@ ls -la | grep "test"
           ﻿
           <br />
         </span>
-      </span>
-      <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
       </span>
     </span>
   </div>
@@ -2169,12 +2085,6 @@ ls -la | grep "test"
         data-slate-node="text"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
-        </span>
-        <span
           data-be="text"
           data-slate-leaf="true"
           draggable="false"
@@ -2186,12 +2096,6 @@ ls -la | grep "test"
             ﻿
             <br />
           </span>
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
         </span>
       </span>
     </span>
@@ -2284,12 +2188,6 @@ ls -la | grep "test"
             data-slate-node="text"
           >
             <span
-              contenteditable="false"
-              style="font-size: 0px; opacity: 0; line-height: 0;"
-            >
-               
-            </span>
-            <span
               data-be="text"
               data-slate-leaf="true"
               draggable="false"
@@ -2301,12 +2199,6 @@ ls -la | grep "test"
                 ﻿
                 <br />
               </span>
-            </span>
-            <span
-              contenteditable="false"
-              style="font-size: 0px; opacity: 0; line-height: 0;"
-            >
-               
             </span>
           </span>
         </div>
@@ -2321,12 +2213,6 @@ ls -la | grep "test"
         data-slate-node="text"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
-        </span>
-        <span
           data-be="text"
           data-slate-leaf="true"
           draggable="false"
@@ -2338,12 +2224,6 @@ ls -la | grep "test"
             ﻿
             <br />
           </span>
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
         </span>
       </span>
     </span>
@@ -2357,12 +2237,6 @@ ls -la | grep "test"
       data-slate-node="text"
     >
       <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
-      </span>
-      <span
         data-be="text"
         data-slate-leaf="true"
         draggable="false"
@@ -2374,12 +2248,6 @@ ls -la | grep "test"
           ﻿
           <br />
         </span>
-      </span>
-      <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
       </span>
     </span>
   </div>
@@ -2420,12 +2288,6 @@ ls -la | grep "test"
         data-slate-node="text"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
-        </span>
-        <span
           data-slate-leaf="true"
         >
           <span
@@ -2434,12 +2296,6 @@ ls -la | grep "test"
           >
             ﻿
           </span>
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
         </span>
       </span>
     </div>
@@ -2480,12 +2336,6 @@ ls -la | grep "test"
         data-slate-node="text"
       >
         <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
-        </span>
-        <span
           data-slate-leaf="true"
         >
           <span
@@ -2494,12 +2344,6 @@ ls -la | grep "test"
           >
             ﻿
           </span>
-        </span>
-        <span
-          contenteditable="false"
-          style="font-size: 0px; opacity: 0; line-height: 0;"
-        >
-           
         </span>
       </span>
     </div>
@@ -3176,12 +3020,6 @@ exports[`Editor onPaste function > should render editor and handle basic paste e
       data-slate-node="text"
     >
       <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
-      </span>
-      <span
         data-be="text"
         data-slate-leaf="true"
         draggable="false"
@@ -3193,12 +3031,6 @@ exports[`Editor onPaste function > should render editor and handle basic paste e
           ﻿
           <br />
         </span>
-      </span>
-      <span
-        contenteditable="false"
-        style="font-size: 0px; opacity: 0; line-height: 0;"
-      >
-         
       </span>
     </span>
   </div>

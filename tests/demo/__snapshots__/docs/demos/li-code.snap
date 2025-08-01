@@ -115,12 +115,6 @@
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -129,12 +123,6 @@
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -802,12 +790,6 @@ for num in arr:
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -816,12 +798,6 @@ for num in arr:
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -1295,12 +1271,6 @@ while i &lt; len(arr):
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -1309,12 +1279,6 @@ while i &lt; len(arr):
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -1735,12 +1699,6 @@ for fruit in fruits:
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -1749,12 +1707,6 @@ for fruit in fruits:
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -1968,12 +1920,6 @@ for fruit in fruits:
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -1982,12 +1928,6 @@ for fruit in fruits:
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -2192,12 +2132,6 @@ while i &lt; len(fruits):
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -2206,12 +2140,6 @@ while i &lt; len(fruits):
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -2390,12 +2318,6 @@ while i &lt; len(fruits):
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -2404,12 +2326,6 @@ while i &lt; len(fruits):
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>
@@ -2589,12 +2505,6 @@ while i &lt; len(fruits):
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-slate-leaf="true"
                 >
                   <span
@@ -2603,12 +2513,6 @@ while i &lt; len(fruits):
                   >
                     ﻿
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>

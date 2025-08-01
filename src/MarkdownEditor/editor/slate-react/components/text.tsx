@@ -98,11 +98,20 @@ const Text = (props: {
 export const InlineChromiumBugfix = React.memo(() => (
   <span
     contentEditable={false}
-    style={{ fontSize: 0, opacity: 0, lineHeight: 0 }}
+    style={{ fontSize: 0, opacity: 0, width: 0, height: 0, lineHeight: 0 }}
   >
     {String.fromCodePoint(160)}
   </span>
 ));
+
+function isSafari() {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+  let ua = navigator.userAgent;
+
+  return ua.includes('Safari') && !ua.includes('Chrome');
+}
 
 const MemoizedText = React.memo(Text, (prev, next) => {
   return (
@@ -120,9 +129,9 @@ export const DefaultText = (props: RenderTextProps) => {
   const { attributes, children } = props;
   return (
     <span {...attributes}>
-      {!props.text?.text && <InlineChromiumBugfix />}
+      {!props.text?.text && isSafari() && <InlineChromiumBugfix />}
       {children}
-      {!props.text?.text && <InlineChromiumBugfix />}
+      {!props.text?.text && isSafari() && <InlineChromiumBugfix />}
     </span>
   );
 };
