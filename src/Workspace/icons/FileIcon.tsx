@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FileIcon: React.FC = () => (
+const FileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -9,6 +9,7 @@ const FileIcon: React.FC = () => (
     width="13.333333969116211"
     height="14.666666030883789"
     viewBox="0 0 13.333333969116211 14.666666030883789"
+    {...props}
   >
     <g>
       <path

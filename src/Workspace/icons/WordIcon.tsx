@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DocsIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+const WordIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -9,6 +9,7 @@ const DocsIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     width="16"
     height="16"
     viewBox="0 0 16 16"
+    {...props}
   >
     <g>
       <g>
@@ -32,4 +33,4 @@ const DocsIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export default DocsIcon;
+export default WordIcon;

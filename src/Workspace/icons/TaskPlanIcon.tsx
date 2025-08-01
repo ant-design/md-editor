@@ -9,6 +9,7 @@ const TaskPlanIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     width="21.999048233032227"
     height="20"
     viewBox="0 0 21.999048233032227 20"
+    {...props}
   >
     <g>
       <path

@@ -1,117 +1,187 @@
 import React from 'react';
-import CsvIcon from '../icons/CsvIcon';
-import DocsIcon from '../icons/DocsIcon';
-import FileIcon from '../icons/FileIcon';
+import { FileType, FileCategory, getFileCategory, type FileNode, getMimeType as getTypeMimeType, FILE_TYPES } from '../types';
 import MdIcon from '../icons/MdIcon';
-import XlsxIcon from '../icons/XlsxIcon';
 import XmlIcon from '../icons/XmlIcon';
-import type { FileNode, FileType } from '../types';
+import XlsxIcon from '../icons/XlsxIcon';
+import HtmlIcon from '../icons/HtmlIcon';
+import WordIcon from '../icons/WordIcon';
+import CsvIcon from '../icons/CsvIcon';
+import PdfIcon from '../icons/PdfIcon';
 
-// TODO:文件类型到图标的映射，！！缺少默认文件图标和pdf图标，
-const FILE_TYPE_ICON_MAP: Record<FileType, React.ReactNode> = {
+// 文件扩展名到图标的映射
+const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
+  xlsx: <XlsxIcon />,
+  xls: <XlsxIcon />,
+  doc: <WordIcon />,
+  docx: <WordIcon />,
+  pdf: <PdfIcon />,
   csv: <CsvIcon />,
-  doc: <DocsIcon />,
-  excel: <XlsxIcon />,
-  md: <MdIcon />,
   xml: <XmlIcon />,
-  unknown: <FileIcon />,
+  html: <HtmlIcon />,
+  md: <MdIcon />,
+  markdown: <MdIcon />,
+};
+
+// 文件类型到默认图标的映射
+const TYPE_ICON_MAP: Record<FileCategory, React.ReactNode> = {
+  [FileCategory.Text]: <MdIcon />,
+  [FileCategory.PDF]: <PdfIcon />,
+  [FileCategory.Word]: <WordIcon />,
+  [FileCategory.Excel]: <XlsxIcon />,
+  [FileCategory.Image]: <MdIcon />,
+  [FileCategory.Video]: <MdIcon />,
+  [FileCategory.Other]: <MdIcon />,
 };
 
 /**
- * 根据文件类型获取对应的图标
- * @param type 文件类型
- * @param customIcon 自定义图标，如果提供则优先使用
- * @returns React节点图标
+ * 获取文件的实际类型
  */
-export const getFileTypeIcon = (
-  type: FileType,
-  customIcon?: React.ReactNode,
-): React.ReactNode => {
+export const getActualFileType = (file: FileNode): FileType => {
+  // 1. 优先使用文件的type属性
+  if (file.type && file.type in FILE_TYPES) {
+    return file.type;
+  }
+
+  // 2. 如果有File对象，使用File对象的类型
+  if (file.file) {
+    const mimeType = file.file.type;
+    for (const [type, definition] of Object.entries(FILE_TYPES)) {
+      if (definition.mimeTypes.includes(mimeType)) {
+        return type as FileType;
+      }
+    }
+  }
+
+  // 3. 根据文件名后缀判断
+  if (file.name) {
+    const extension = file.name.split('.').pop()?.toLowerCase();
+    if (extension) {
+      for (const [type, definition] of Object.entries(FILE_TYPES)) {
+        if (definition.extensions.includes(extension)) {
+          return type as FileType;
+        }
+      }
+    }
+  }
+
+  // 4. 如果有URL，根据URL后缀判断
+  if (file.url) {
+    const urlExtension = file.url.split('.').pop()?.split('?')[0]?.toLowerCase();
+    if (urlExtension) {
+      for (const [type, definition] of Object.entries(FILE_TYPES)) {
+        if (definition.extensions.includes(urlExtension)) {
+          return type as FileType;
+        }
+      }
+    }
+  }
+
+  return 'plainText';
+};
+
+/**
+ * 判断文件是否可以预览
+ */
+export const canPreviewFile = (file: FileNode): boolean => {
+  // 如果是content来源，支持预览
+  if (file.content) {
+    return true;
+  }
+
+  const actualType = getActualFileType(file);
+  const category = getFileCategory(actualType);
+
+  // 如果是图片，支持所有来源预览
+  if (category === FileCategory.Image) {
+    return true;
+  }
+
+  // 如果是URL来源且不是图片，不支持预览
+  if (file.url) {
+    return false;
+  }
+
+  // 其他情况下支持的类型
+  return (
+    category === FileCategory.Video ||
+    category === FileCategory.PDF ||
+    category === FileCategory.Text
+  );
+};
+
+/**
+ * 获取预览源URL
+ */
+export const getPreviewSource = (file: FileNode): string | null => {
+  if (file.file) {
+    return URL.createObjectURL(file.file);
+  }
+
+  if (file.content) {
+    const blob = new Blob([file.content], { type: 'text/plain' });
+    return URL.createObjectURL(blob);
+  }
+
+  if (file.url && isImageFile(file)) {
+    return file.url;
+  }
+
+  return null;
+};
+
+/**
+ * 获取文件类型图标
+ */
+export const getFileTypeIcon = (type: FileType, customIcon?: React.ReactNode, fileName?: string) => {
   if (customIcon) {
     return customIcon;
   }
-  return FILE_TYPE_ICON_MAP[type] || FILE_TYPE_ICON_MAP.unknown;
-};
 
-// 图片文件扩展名
-const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
-
-// 文本文件扩展名
-const TEXT_EXTENSIONS = [
-  'txt',
-  'md',
-  'markdown',
-  'csv',
-  'xml',
-  'json',
-  'html',
-  'htm',
-  'css',
-  'js',
-  'javascript',
-  'ts',
-  'typescript',
-  'jsx',
-  'tsx',
-];
-
-// 其他支持预览的文件扩展名
-const OTHER_PREVIEWABLE_EXTENSIONS = ['pdf'];
-
-// 支持预览的文件类型
-const PREVIEWABLE_TYPES: FileType[] = ['md', 'csv', 'xml'];
-
-/**
- * 获取文件扩展名
- * @param fileName 文件名
- * @returns 文件扩展名（小写）
- */
-const getFileExtension = (fileName: string): string => {
-  return fileName.split('.').pop()?.toLowerCase() || '';
-};
-
-/**
- * 判断文件是否支持预览
- * @param file 文件对象
- * @returns 是否支持预览
- */
-export const canPreviewFile = (file: FileNode): boolean => {
-  // 如果有预览链接，直接支持预览
-  if (file.previewUrl) {
-    return true;
+  if (fileName) {
+    const extension = fileName.split('.').pop()?.toLowerCase();
+    if (extension && extension in EXTENSION_ICON_MAP) {
+      return EXTENSION_ICON_MAP[extension];
+    }
   }
 
-  // 检查文件类型是否支持预览
-  if (PREVIEWABLE_TYPES.includes(file.type)) {
-    return true;
+  const fileDefinition = FILE_TYPES[type];
+  if (fileDefinition && fileDefinition.extensions[0] in EXTENSION_ICON_MAP) {
+    return EXTENSION_ICON_MAP[fileDefinition.extensions[0]];
   }
 
-  // 根据文件扩展名判断
-  const extension = getFileExtension(file.name || '');
-
-  return [
-    ...IMAGE_EXTENSIONS,
-    ...TEXT_EXTENSIONS,
-    ...OTHER_PREVIEWABLE_EXTENSIONS,
-  ].includes(extension);
+  return TYPE_ICON_MAP[getFileCategory(type)] || <MdIcon />;
 };
 
 /**
- * 判断文件是否为图片
- * @param file 文件对象
- * @returns 是否为图片
+ * 文件类型判断函数
  */
 export const isImageFile = (file: FileNode): boolean => {
-  const extension = getFileExtension(file.name || '');
-  return IMAGE_EXTENSIONS.includes(extension);
+  return getFileCategory(getActualFileType(file)) === FileCategory.Image;
+};
+
+export const isVideoFile = (file: FileNode): boolean => {
+  return getFileCategory(getActualFileType(file)) === FileCategory.Video;
+};
+
+export const isPdfFile = (file: FileNode): boolean => {
+  return getFileCategory(getActualFileType(file)) === FileCategory.PDF;
+};
+
+export const isTextFile = (file: FileNode): boolean => {
+  return getFileCategory(getActualFileType(file)) === FileCategory.Text;
 };
 
 /**
- * 判断文件是否为文本文件
- * @param file 文件对象
- * @returns 是否为文本文件
+ * 获取文件的 MIME 类型
+ * @param fileNode 文件节点对象
+ * @returns MIME 类型字符串
  */
-export const isTextFile = (file: FileNode): boolean => {
-  const extension = getFileExtension(file.name || '');
-  return TEXT_EXTENSIONS.includes(extension);
+export const getMimeType = (fileNode: FileNode): string => {
+  // 如果有原生 File/Blob 对象，使用其原生的 MIME 类型
+  if (fileNode.file) {
+    return fileNode.file.type || '未知类型';
+  }
+
+  // 使用 types.ts 中的 getMimeType 函数
+  return getTypeMimeType(fileNode.type);
 };

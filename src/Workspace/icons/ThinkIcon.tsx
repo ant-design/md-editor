@@ -9,6 +9,7 @@ const ThinkIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     width="22.009868621826172"
     height="22.006362915039062"
     viewBox="0 0 22.009868621826172 22.006362915039062"
+    {...props}
   >
     <g>
       <path

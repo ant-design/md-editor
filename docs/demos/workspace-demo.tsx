@@ -9,107 +9,148 @@ const Demo = () => {
         onTabChange={(key: string) => console.log('切换到标签页:', key)}
         onClose={() => console.log('关闭工作空间')}
       >
+        {/* 实时监控标签页 */}
         <Workspace.Realtime
           tab={{
             key: 'realtime',
+            title: '系统监控',
           }}
           data={{
             type: 'shell',
             content: `\`\`\`shell
-#!/bin/bash
+# 系统性能监控脚本
 
-# 系统信息
-echo "系统信息:"
-uname -a
+# CPU 使用情况
+echo "CPU 使用情况:"
+top -bn1 | head -n 3
 
-# 磁盘空间
-echo -e "\\n磁盘使用情况:"
-df -h
-
-# 内存使用
+# 内存使用情况
 echo -e "\\n内存使用情况:"
 free -h
 
-# 列出当前目录
-echo -e "\\n当前目录内容:"
-ls -la
+# 磁盘使用情况
+echo -e "\\n磁盘使用情况:"
+df -h | grep '^/dev'
 
-# 查找大文件
-echo -e "\\n查找大于100MB的文件:"
-find / -type f -size +100M 2>/dev/null | head -n 5
+# 系统负载
+echo -e "\\n系统负载:"
+uptime
+
+# 网络连接状态
+echo -e "\\n网络连接状态:"
+netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head -n 5
 \`\`\``,
-            customTitle: '系统监控',
-            customSubTitle: '实时监控系统状态',
-            markdownEditorProps: { typewriter: false },
+            customTitle: '系统性能监控',
+            customSubTitle: '实时监控关键系统指标',
+            markdownEditorProps: { 
+              typewriter: false,
+            },
           }}
         />
 
+        {/* 任务执行标签页 */}
         <Workspace.Task
           tab={{
             key: 'tasks',
+            title: '任务列表',
           }}
           data={{
             content: [
               {
-                category: 'DeepThink' as const,
-                info: '分析系统性能',
-                runId: 'task-1',
+                category: 'DeepThink',
+                info: '性能分析报告',
+                runId: 'perf-analysis',
                 output: {
-                  data: '正在分析系统CPU、内存和磁盘使用情况...',
-                  type: 'END' as const,
+                  data: '正在生成系统性能分析报告，包含 CPU、内存、磁盘 IO 和网络性能指标...',
+                  type: 'RUNNING',
                 },
               },
               {
-                category: 'ToolCall' as const,
-                info: '执行监控脚本',
-                runId: 'task-2',
+                category: 'ToolCall',
+                info: '日志分析',
+                runId: 'log-analysis',
                 input: {
                   inputArgs: {
                     params: {
-                      script: 'system_monitor.sh',
-                      args: ['--verbose', '--output=json'],
+                      logPath: '/var/log/system.log',
+                      pattern: 'ERROR|WARN',
+                      timeRange: '24h',
                     },
                   },
                 },
                 output: {
-                  response: {
-                    error: false,
-                    data: '监控脚本执行成功，系统状态正常',
-                  },
-                  type: 'END' as const,
+                  data: '已完成最近24小时的日志分析，发现3个错误和5个警告',
+                  type: 'END',
+                },
+              },
+              {
+                category: 'DeepThink',
+                info: '安全扫描',
+                runId: 'security-scan',
+                output: {
+                  data: '完成系统安全扫描，未发现重大安全隐患',
+                  type: 'END',
                 },
               },
             ],
           }}
         />
 
+        {/* 文件管理标签页 */}
         <Workspace.File
           tab={{
             key: 'files',
+            title: '文件管理',
           }}
           nodes={[
             {
               id: '1',
-              name: '项目需求文档.docx',
-              type: 'doc',
-              size: '2.3MB',
-              createTime: '12:30',
-              url: '/downloads/project-requirements.docx',
+              name: '项目计划.docx',
+              type: 'word',
+              size: '2.5MB',
+              lastModified: new Date(Date.now() - 3600000).toLocaleTimeString(),
+              url: '/docs/project-plan.docx',
             },
             {
               id: '2',
-              name: '用户手册.docx',
-              type: 'doc',
+              name: '数据分析.xlsx',
+              type: 'excel',
               size: '1.8MB',
-              createTime: '09:15',
+              lastModified: new Date(Date.now() - 7200000).toLocaleTimeString(),
+              url: '/docs/data-analysis.xlsx',
             },
             {
               id: '3',
-              name: '技术规范.docx',
-              type: 'doc',
-              size: '3.1MB',
-              createTime: '14:45',
+              name: '技术文档.pdf',
+              type: 'pdf',
+              size: '3.2MB',
+              lastModified: new Date(Date.now() - 86400000).toLocaleTimeString(),
+              url: '/docs/technical-doc.pdf',
             },
+            {
+              id: '4',
+              name: '系统架构图.png',
+              type: 'image',
+              size: '0.5MB',
+              lastModified: new Date(Date.now() - 1800000).toLocaleTimeString(),
+              url: '/images/architecture.png',
+            },
+            {
+              id: '5',
+              name: '接口文档.md',
+              type: 'markdown',
+              size: '0.3MB',
+              lastModified: new Date(Date.now() - 14400000).toLocaleTimeString(),
+              url: '/docs/api.md',
+            },
+            {
+              id: '6',
+              name: '配置说明.html',
+              type: 'plainText',
+              size: '0.1MB',
+              lastModified: new Date(Date.now() - 28800000).toLocaleTimeString(),
+              url: '/docs/config.html',
+            }
           ]}
         />
       </Workspace>
@@ -118,3 +159,4 @@ find / -type f -size +100M 2>/dev/null | head -n 5
 };
 
 export default Demo;
+

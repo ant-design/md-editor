@@ -7,30 +7,41 @@ import {
 } from '@ant-design/md-editor/Workspace/types';
 import React, { useEffect, useState } from 'react';
 
+// 自定义 markdownEditorProps 配置
+const customMarkdownEditorProps = {
+  height: '300px',
+  width: '100%',
+  style: {
+    fontSize: '16px',
+    lineHeight: '1.6',
+  },
+};
+
 const WorkspaceFileDemo: React.FC = () => {
   const [nodes, setNodes] = useState<(FileNode | GroupNode)[]>([
     {
-      name: '文档',
-      type: 'doc',
-      typeName: 'docx',
+      name: 'Word文档',
+      type: 'word',
+      displayName: 'Word文档',
       collapsed: true,
       children: [
         {
           name: '项目需求文档.docx',
-          type: 'doc',
+          type: 'word',
           size: '2.3MB',
           lastModified: '12:30',
           url: '/downloads/project-requirements.docx',
         },
         {
-          name: '用户手册.docx',
-          type: 'doc',
+          name: 'md-preview用户手册.docx',
+          type: 'plainText',
           size: '1.8MB',
           lastModified: '09:15',
+          content: '# 项目需求文档',
         },
         {
           name: '技术规范.docx',
-          type: 'doc',
+          type: 'word',
           size: '3.1MB',
           lastModified: '14:45',
         },
@@ -39,7 +50,7 @@ const WorkspaceFileDemo: React.FC = () => {
     {
       name: 'Excel表格',
       type: 'excel',
-      typeName: 'Excel表格',
+      displayName: 'Excel表格',
       children: [
         {
           name: '数据统计表.xlsx',
@@ -57,47 +68,137 @@ const WorkspaceFileDemo: React.FC = () => {
       ],
     },
     {
+      name: 'PDF文档',
+      type: 'pdf',
+      displayName: 'PDF文档',
+      children: [
+        {
+          name: '产品说明书.pdf',
+          type: 'pdf',
+          size: '3.2MB',
+          lastModified: '11:20',
+          url: '/downloads/product-manual.pdf',
+        },
+        {
+          name: '研究报告.pdf',
+          type: 'pdf',
+          size: '4.5MB',
+          lastModified: '13:45',
+        },
+      ],
+    },
+    {
       name: 'CSV文件',
-      type: 'csv',
-      typeName: 'CSV文件',
+      type: 'plainText',
+      displayName: 'CSV文件',
       children: [
         {
           name: '用户数据.csv',
-          type: 'csv',
+          type: 'plainText',
           size: '856KB',
           lastModified: '08:45',
+          url: '/downloads/user-data.csv',
         },
         {
           name: '销售记录.csv',
-          type: 'csv',
+          type: 'plainText',
           size: '1.1MB',
           lastModified: '11:25',
         },
         {
           name: '产品目录.csv',
-          type: 'csv',
+          type: 'plainText',
           size: '432KB',
           lastModified: '15:10',
+          content: '产品目录',
         },
       ],
     },
     {
       name: 'Markdown文档',
-      type: 'md',
-      typeName: 'Markdown文档',
+      type: 'markdown',
+      displayName: 'Markdown文档',
       children: [
         {
           name: 'README.md',
-          type: 'md',
+          type: 'markdown',
           size: '15KB',
           lastModified: '07:30',
           url: '/downloads/readme.md',
         },
         {
-          name: 'API文档.md',
-          type: 'md',
+          name: 'API文档-文本.md',
+          type: 'markdown',
           size: '28KB',
+          content: `# API文档
+
+## 代码示例
+\`\`\`typescript
+const example = () => {
+  console.log("Hello World");
+}
+\`\`\`
+
+## 表格示例
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| name | string | 文件名 |
+| type | string | 文件类型 |
+
+## 数学公式
+$E = mc^2$
+
+## 流程图
+\`\`\`mermaid
+graph TD
+    A[开始] --> B{是否继续?}
+    B -- Yes --> C[继续]
+    B -- No --> D[结束]
+\`\`\`
+`,
           lastModified: '13:20',
+        },
+      ],
+    },
+    {
+      name: '图片',
+      type: 'image',
+      displayName: '图片文件',
+      children: [
+        {
+          name: '产品展示.jpg',
+          type: 'image',
+          size: '1.5MB',
+          lastModified: '09:30',
+          url: '/downloads/product.jpg',
+        },
+        {
+          name: '用户界面.png',
+          type: 'image',
+          size: '2.1MB',
+          lastModified: '14:20',
+          url: '/downloads/ui.png',
+        },
+      ],
+    },
+    {
+      name: '视频',
+      type: 'video',
+      displayName: '视频文件',
+      children: [
+        {
+          name: '产品演示.mp4',
+          type: 'video',
+          size: '15.5MB',
+          lastModified: '10:30',
+          url: '/downloads/demo.mp4',
+        },
+        {
+          name: '教程.webm',
+          type: 'video',
+          size: '12.1MB',
+          lastModified: '15:20',
+          url: '/downloads/tutorial.webm',
         },
       ],
     },
@@ -114,8 +215,30 @@ const WorkspaceFileDemo: React.FC = () => {
 
   const handleGroupDownload = (files: FileNode[], groupType?: FileType) => {
     console.log('下载文件组:', files);
+    // 获取文件类型的可读名称
+    const getTypeDisplayName = (type: FileType) => {
+      switch (type) {
+        case 'plainText':
+          return '文本文件';
+        case 'image':
+          return '图片文件';
+        case 'video':
+          return '视频文件';
+        case 'pdf':
+          return 'PDF文档';
+        case 'word':
+          return 'Word文档';
+        case 'excel':
+          return 'Excel表格';
+        case 'markdown':
+          return 'Markdown文档';
+        default:
+          return '文件';
+      }
+    };
+
     alert(
-      `正在下载${files.length}个${groupType ? groupType + '文件' : '文件'}...`,
+      `正在下载${files.length}个${groupType ? getTypeDisplayName(groupType) : '文件'}...`,
     );
   };
 
@@ -140,6 +263,7 @@ const WorkspaceFileDemo: React.FC = () => {
             onDownload={handleDownload}
             onGroupDownload={handleGroupDownload}
             onToggleGroup={handleToggleGroup}
+            markdownEditorProps={customMarkdownEditorProps}
           />
           <Workspace.Custom
             tab={{
@@ -158,5 +282,4 @@ const WorkspaceFileDemo: React.FC = () => {
     </div>
   );
 };
-
 export default WorkspaceFileDemo;

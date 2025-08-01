@@ -147,7 +147,7 @@ export const RealtimeFollow: React.FC<{ data: RealtimeFollowData }> = ({
         <MarkdownEditor
           {...getMergedProps({
             codeProps: {
-              theme: 'vs-dark', // TODO:黑色主题不生效
+              // theme: 'vs-dark', // TODO:黑色主题不生效
               showGutter: true, // 显示行号
               showLineNumbers: true, // 显示行号
             },

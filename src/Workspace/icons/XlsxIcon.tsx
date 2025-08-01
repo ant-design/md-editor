@@ -9,6 +9,7 @@ const XlsxIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     width="16"
     height="16"
     viewBox="0 0 16 16"
+    {...props}
   >
     <g>
       <g>

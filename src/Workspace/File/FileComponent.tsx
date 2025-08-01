@@ -13,7 +13,9 @@ import type {
   GroupNode,
 } from '../types';
 import { PreviewComponent } from './PreviewComponent';
-import { canPreviewFile, getFileTypeIcon, isImageFile } from './utils';
+import { getFileTypeIcon, isImageFile, canPreviewFile } from './utils';
+import { formatFileSize, formatLastModified } from '../utils';
+import type { MarkdownEditorProps } from '../../MarkdownEditor';
 
 // 通用的键盘事件处理函数
 const handleKeyboardEvent = (
@@ -24,6 +26,32 @@ const handleKeyboardEvent = (
     callback(e);
   }
 };
+
+// 通用的可访问按钮组件
+interface AccessibleButtonProps {
+  icon: React.ReactNode;
+  onClick: (e: React.MouseEvent) => void;
+  className?: string;
+  ariaLabel: string;
+}
+
+const AccessibleButton: FC<AccessibleButtonProps> = ({
+  icon,
+  onClick,
+  className,
+  ariaLabel,
+}) => (
+  <div
+    className={className}
+    onClick={onClick}
+    role="button"
+    tabIndex={0}
+    onKeyDown={(e) => handleKeyboardEvent(e, onClick)}
+    aria-label={ariaLabel}
+  >
+    {icon}
+  </div>
+);
 
 // 文件项组件
 const FileItemComponent: FC<{
@@ -68,62 +96,60 @@ const FileItemComponent: FC<{
   const showPreviewButton = onPreview && canPreviewFile(file);
 
   return (
-    <div
-      className="workspace-file-item"
+    <AccessibleButton
+      icon={
+        <>
+          <div className="workspace-file-item__icon">
+            {getFileTypeIcon(file.type, file.icon, file.name)}
+          </div>
+          <div className="workspace-file-item__info">
+            <div className="workspace-file-item__name">{file.name}</div>
+            <div className="workspace-file-item__details">
+              <span className="workspace-file-item__type">{file.type}</span>
+              {file.size && (
+                <>
+                  <span className="workspace-file-item__separator">|</span>
+                  <span className="workspace-file-item__size">
+                    {formatFileSize(file.size)}
+                  </span>
+                </>
+              )}
+              {file.lastModified && (
+                <>
+                  <span className="workspace-file-item__separator">|</span>
+                  <span className="workspace-file-item__time">
+                    {formatLastModified(file.lastModified)}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+          {(showPreviewButton || showDownloadButton) && (
+            <div className="workspace-file-item__actions" onClick={e => e.stopPropagation()}>
+              {showPreviewButton && (
+                <AccessibleButton
+                  icon={<EyeOutlined />}
+                  onClick={handlePreview}
+                  className="workspace-file-item__preview-icon"
+                  ariaLabel={`预览文件：${file.name}`}
+                />
+              )}
+              {showDownloadButton && (
+                <AccessibleButton
+                  icon={<DownloadOutlined />}
+                  onClick={handleDownload}
+                  className="workspace-file-item__download-icon"
+                  ariaLabel={`下载文件：${file.name}`}
+                />
+              )}
+            </div>
+          )}
+        </>
+      }
       onClick={handleClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => handleKeyboardEvent(e, handleClick)}
-      aria-label={`文件：${file.name}`}
-    >
-      <div className="workspace-file-item__icon">
-        {getFileTypeIcon(file.type, file.icon)}
-      </div>
-      <div className="workspace-file-item__info">
-        <div className="workspace-file-item__name">{file.name}</div>
-        <div className="workspace-file-item__details">
-          <span className="workspace-file-item__type">{file.type}</span>
-          {file.size && (
-            <>
-              <span className="workspace-file-item__separator">|</span>
-              <span className="workspace-file-item__size">{file.size}</span>
-            </>
-          )}
-          {file.lastModified && (
-            <>
-              <span className="workspace-file-item__separator">|</span>
-              <span className="workspace-file-item__time">
-                {file.lastModified}
-              </span>
-            </>
-          )}
-        </div>
-      </div>
-      {(showPreviewButton || showDownloadButton) && (
-        <div className="workspace-file-item__actions">
-          {showPreviewButton && (
-            <EyeOutlined
-              className="workspace-file-item__preview-icon"
-              onClick={handlePreview}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => handleKeyboardEvent(e, handlePreview)}
-              aria-label={`预览文件：${file.name}`}
-            />
-          )}
-          {showDownloadButton && (
-            <DownloadOutlined
-              className="workspace-file-item__download-icon"
-              onClick={handleDownload}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => handleKeyboardEvent(e, handleDownload)}
-              aria-label={`下载文件：${file.name}`}
-            />
-          )}
-        </div>
-      )}
-    </div>
+      className="workspace-file-item"
+      ariaLabel={`文件：${file.name}`}
+    />
   );
 };
 
@@ -144,38 +170,43 @@ const GroupHeader: FC<{
 
   const CollapseIcon = group.collapsed ? RightOutlined : DownOutlined;
 
+  // 获取分组的代表性文件名，用于决定图标
+  const getRepresentativeFileName = (): string | undefined => {
+    if (group.children.length === 0) return undefined;
+    // 优先使用第一个文件的名称
+    return group.children[0].name;
+  };
+
   return (
-    <div
-      className="workspace-file-group__header"
+    <AccessibleButton
+      icon={
+        <>
+          <div className="workspace-file-group__header-left">
+            <CollapseIcon className="workspace-file-group__toggle-icon" />
+            <div className="workspace-file-group__type-icon">
+              {getFileTypeIcon(group.type, group.icon, getRepresentativeFileName())}
+            </div>
+            <span className="workspace-file-group__type-name">
+              {group.displayName}
+            </span>
+          </div>
+          <div className="workspace-file-group__header-right">
+            <span className="workspace-file-group__count">
+              {group.children.length}
+            </span>
+            <AccessibleButton
+              icon={<DownloadOutlined />}
+              onClick={handleDownload}
+              className="workspace-file-group__download-icon"
+              ariaLabel={`下载${group.displayName}文件`}
+            />
+          </div>
+        </>
+      }
       onClick={handleToggle}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => handleKeyboardEvent(e, handleToggle)}
-      aria-label={`${group.collapsed ? '展开' : '收起'}${group.typeName}分组`}
-    >
-      <div className="workspace-file-group__header-left">
-        <CollapseIcon className="workspace-file-group__toggle-icon" />
-        <div className="workspace-file-group__type-icon">
-          {getFileTypeIcon(group.type, group.icon)}
-        </div>
-        <span className="workspace-file-group__type-name">
-          {group.typeName}
-        </span>
-      </div>
-      <div className="workspace-file-group__header-right">
-        <span className="workspace-file-group__count">
-          {group.children.length}
-        </span>
-        <DownloadOutlined
-          className="workspace-file-group__download-icon"
-          onClick={handleDownload}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => handleKeyboardEvent(e, handleDownload)}
-          aria-label={`下载${group.typeName}文件`}
-        />
-      </div>
-    </div>
+      className="workspace-file-group__header"
+      ariaLabel={`${group.collapsed ? '展开' : '收起'}${group.displayName}分组`}
+    />
   );
 };
 
@@ -227,6 +258,13 @@ export const FileComponent: FC<{
   onFileClick?: FileProps['onFileClick'];
   onToggleGroup?: FileProps['onToggleGroup'];
   onPreview?: FileProps['onPreview'];
+  /**
+   * MarkdownEditor 的配置项，用于自定义预览效果
+   * @description 这里的配置会覆盖默认的预览配置
+   */
+  markdownEditorProps?: Partial<
+    Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
+  >;
 }> = ({
   nodes,
   onGroupDownload,
@@ -234,6 +272,7 @@ export const FileComponent: FC<{
   onFileClick,
   onToggleGroup,
   onPreview,
+  markdownEditorProps,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [imagePreview, setImagePreview] = useState<{
@@ -312,6 +351,7 @@ export const FileComponent: FC<{
           file={previewFile}
           onBack={handleBackToList}
           onDownload={handleDownloadInPreview}
+          markdownEditorProps={markdownEditorProps}
         />
         {ImagePreviewComponent}
       </>
@@ -323,12 +363,12 @@ export const FileComponent: FC<{
     <>
       <div className="workspace-file-container">
         {nodes.map((node: FileNode | GroupNode) => {
-          if ('children' in node && 'typeName' in node) {
+          if ('children' in node && 'displayName' in node) {
             // 分组节点，使用内部状态覆盖外部的 collapsed 属性
             const groupNode: GroupNode = {
               ...node,
               collapsed: collapsedGroups[node.type] ?? node.collapsed,
-              typeName: node.typeName,
+              displayName: node.displayName,
               children: node.children,
             };
             return (
