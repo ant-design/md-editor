@@ -345,12 +345,6 @@ alert("它会被特殊渲染！");
               data-slate-node="text"
             >
               <span
-                contenteditable="false"
-                style="font-size: 0px; opacity: 0; line-height: 0;"
-              >
-                 
-              </span>
-              <span
                 data-be="text"
                 data-slate-leaf="true"
                 draggable="false"
@@ -358,12 +352,6 @@ alert("它会被特殊渲染！");
                 <span
                   data-slate-string="true"
                 />
-              </span>
-              <span
-                contenteditable="false"
-                style="font-size: 0px; opacity: 0; line-height: 0;"
-              >
-                 
               </span>
             </span>
             <div
@@ -418,12 +406,6 @@ alert("它会被特殊渲染！");
                 data-slate-node="text"
               >
                 <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
-                </span>
-                <span
                   data-be="text"
                   data-slate-leaf="true"
                   draggable="false"
@@ -435,12 +417,6 @@ alert("它会被特殊渲染！");
                     ﻿
                     <br />
                   </span>
-                </span>
-                <span
-                  contenteditable="false"
-                  style="font-size: 0px; opacity: 0; line-height: 0;"
-                >
-                   
                 </span>
               </span>
             </div>

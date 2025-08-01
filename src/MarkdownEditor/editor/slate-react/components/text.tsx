@@ -104,6 +104,15 @@ export const InlineChromiumBugfix = React.memo(() => (
   </span>
 ));
 
+function isSafari() {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+  let ua = navigator.userAgent;
+
+  return ua.includes('Safari') && !ua.includes('Chrome');
+}
+
 const MemoizedText = React.memo(Text, (prev, next) => {
   return (
     next.parent === prev.parent &&
@@ -120,8 +129,9 @@ export const DefaultText = (props: RenderTextProps) => {
   const { attributes, children } = props;
   return (
     <span {...attributes}>
+      {!props.text?.text && isSafari() && <InlineChromiumBugfix />}
       {children}
-      {!props.text?.text && <InlineChromiumBugfix />}
+      {!props.text?.text && isSafari() && <InlineChromiumBugfix />}
     </span>
   );
 };
