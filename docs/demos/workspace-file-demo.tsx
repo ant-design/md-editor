@@ -22,7 +22,6 @@ const WorkspaceFileDemo: React.FC = () => {
     {
       name: 'Word文档',
       type: 'word',
-      displayName: 'Word文档',
       collapsed: true,
       children: [
         {
@@ -50,7 +49,6 @@ const WorkspaceFileDemo: React.FC = () => {
     {
       name: 'Excel表格',
       type: 'excel',
-      displayName: 'Excel表格',
       children: [
         {
           name: '数据统计表.xlsx',
@@ -64,13 +62,13 @@ const WorkspaceFileDemo: React.FC = () => {
           type: 'excel',
           size: '2.8MB',
           lastModified: '16:30',
+          content: '12345财务报表内容678'
         },
       ],
     },
     {
       name: 'PDF文档',
       type: 'pdf',
-      displayName: 'PDF文档',
       children: [
         {
           name: '产品说明书.pdf',
@@ -90,14 +88,13 @@ const WorkspaceFileDemo: React.FC = () => {
     {
       name: 'CSV文件',
       type: 'plainText',
-      displayName: 'CSV文件',
       children: [
         {
           name: '用户数据.csv',
           type: 'plainText',
           size: '856KB',
           lastModified: '08:45',
-          url: '/downloads/user-data.csv',
+          content: '下载/downloads/user-data.csv',
         },
         {
           name: '销售记录.csv',
@@ -117,7 +114,6 @@ const WorkspaceFileDemo: React.FC = () => {
     {
       name: 'Markdown文档',
       type: 'markdown',
-      displayName: 'Markdown文档',
       children: [
         {
           name: 'README.md',
@@ -163,7 +159,6 @@ graph TD
     {
       name: '图片',
       type: 'image',
-      displayName: '图片文件',
       children: [
         {
           name: '产品展示.jpg',
@@ -184,7 +179,6 @@ graph TD
     {
       name: '视频',
       type: 'video',
-      displayName: '视频文件',
       children: [
         {
           name: '产品演示.mp4',
@@ -203,9 +197,8 @@ graph TD
       ],
     },
     {
-      name: '压缩包',
       type: 'archive',
-      displayName: '压缩包文件',
+      name: '压缩包文件',
       children: [
         {
           name: '项目源码.zip',
@@ -290,7 +283,7 @@ graph TD
         <Workspace title="文件管理">
           <Workspace.File
             nodes={nodes}
-            onDownload={handleDownload}
+            // onDownload={handleDownload}
             onGroupDownload={handleGroupDownload}
             onToggleGroup={handleToggleGroup}
             markdownEditorProps={customMarkdownEditorProps}

@@ -60,6 +60,9 @@ const FileItemComponent: FC<{
     onClick?.(file);
   };
 
+  // 判断是否显示下载按钮：有用户方法、有url、有content或有file对象
+  const showDownloadButton = onDownload || file.url || file.content || file.file;
+
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
 
@@ -69,14 +72,40 @@ const FileItemComponent: FC<{
       return;
     }
 
-    // 使用url作为下载链接
-    if (file.url) {
+    let blobUrl: string | null = null;
+
+    try {
+      // 创建下载链接
       const link = document.createElement('a');
-      link.href = file.url;
-      link.download = file.name;
+      
+      if (file.url) {
+        // 使用url作为下载链接
+        link.href = file.url;
+      } else if (file.content) {
+        // 使用文件内容创建 Blob 对象
+        const blob = new Blob([file.content], { type: 'text/plain' });
+        blobUrl = URL.createObjectURL(blob);
+        link.href = blobUrl;
+      } else if (file.file instanceof File || file.file instanceof Blob) {
+        // 处理 File 或 Blob 对象
+        blobUrl = URL.createObjectURL(file.file);
+        link.href = blobUrl;
+      } else {
+        return; // 没有可下载的内容
+      }
+
+      // 设置文件名（如果是 File 对象且没有指定文件名，使用 File 对象的名称）
+      link.download = file.name || (file.file instanceof File ? file.file.name : '');
+      
+      // 执行下载
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    } finally {
+      // 清理 Blob URL
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
     }
   };
 
@@ -84,9 +113,6 @@ const FileItemComponent: FC<{
     e.stopPropagation();
     onPreview?.(file);
   };
-
-  // 判断是否显示下载按钮：有用户方法或有url
-  const showDownloadButton = onDownload || file.url;
 
   // 判断是否显示预览按钮：支持预览且有预览回调
   const showPreviewButton =
@@ -121,29 +147,27 @@ const FileItemComponent: FC<{
               )}
             </div>
           </div>
-          {(showPreviewButton || showDownloadButton) && (
-            <div
-              className="workspace-file-item__actions"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {showPreviewButton && (
-                <AccessibleButton
-                  icon={<EyeOutlined />}
-                  onClick={handlePreview}
-                  className="workspace-file-item__preview-icon"
-                  ariaLabel={`预览文件：${file.name}`}
-                />
-              )}
-              {showDownloadButton && (
-                <AccessibleButton
-                  icon={<DownloadOutlined />}
-                  onClick={handleDownload}
-                  className="workspace-file-item__download-icon"
-                  ariaLabel={`下载文件：${file.name}`}
-                />
-              )}
-            </div>
-          )}
+          <div
+            className="workspace-file-item__actions"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {showPreviewButton && (
+              <AccessibleButton
+                icon={<EyeOutlined />}
+                onClick={handlePreview}
+                className="workspace-file-item__preview-icon"
+                ariaLabel={`预览文件：${file.name}`}
+              />
+            )}
+            {showDownloadButton && (
+              <AccessibleButton
+                icon={<DownloadOutlined />}
+                onClick={handleDownload}
+                className="workspace-file-item__download-icon"
+                ariaLabel={`下载文件：${file.name}`}
+              />
+            )}
+          </div>
         </>
       }
       onClick={handleClick}
@@ -191,7 +215,7 @@ const GroupHeader: FC<{
               )}
             </div>
             <span className="workspace-file-group__type-name">
-              {group.displayName}
+              {group.name}
             </span>
           </div>
           <div className="workspace-file-group__header-right">
@@ -202,14 +226,14 @@ const GroupHeader: FC<{
               icon={<DownloadOutlined />}
               onClick={handleDownload}
               className="workspace-file-group__download-icon"
-              ariaLabel={`下载${group.displayName}文件`}
+              ariaLabel={`下载${group.name}文件`}
             />
           </div>
         </>
       }
       onClick={handleToggle}
       className="workspace-file-group__header"
-      ariaLabel={`${group.collapsed ? '展开' : '收起'}${group.displayName}分组`}
+      ariaLabel={`${group.collapsed ? '展开' : '收起'}${group.name}分组`}
     />
   );
 };
@@ -310,20 +334,19 @@ export const FileComponent: FC<{
   const handlePreview = (file: FileNode) => {
     if (onPreview) {
       onPreview(file);
-    } else {
-      // 如果是图片文件，使用 Antd Image 组件预览
-      if (isImageFile(file)) {
-        // 预览优先使用 previewUrl，如果没有则使用 url
-        const previewSrc = file.previewUrl || file.url || '';
-        setImagePreview({
-          visible: true,
-          src: previewSrc,
-        });
-      } else {
-        // 非图片文件进入预览页面
-        setPreviewFile(file);
-      }
+      return;
     }
+
+    if (isImageFile(file)) {
+      const previewSrc = file.previewUrl || file.url || '';
+      setImagePreview({
+        visible: true,
+        src: previewSrc,
+      });
+      return;
+    }
+
+    setPreviewFile(file);
   };
 
   const handleBackToList = () => {
@@ -369,13 +392,11 @@ export const FileComponent: FC<{
     <>
       <div className="workspace-file-container">
         {nodes.map((node: FileNode | GroupNode) => {
-          if ('children' in node && 'displayName' in node) {
+          if ('children' in node) {
             // 分组节点，使用内部状态覆盖外部的 collapsed 属性
             const groupNode: GroupNode = {
               ...node,
               collapsed: collapsedGroups[node.type] ?? node.collapsed,
-              displayName: node.displayName,
-              children: node.children,
             };
             return (
               <FileGroupComponent

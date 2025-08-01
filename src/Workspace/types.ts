@@ -158,7 +158,7 @@ export interface FileNode extends BaseNode {
    * @description 当传入 string 类型时，将直接显示该字符串
    */
   size?: string | number;
-  
+
   /**
    * 文件最后修改时间
    * @description 当传入 number 类型时（时间戳，单位：毫秒），会自动转换为 "MM-DD HH:mm" 格式
@@ -174,7 +174,6 @@ export interface FileNode extends BaseNode {
 
 // 分组节点
 export interface GroupNode extends BaseNode {
-  displayName: string;
   collapsed?: boolean;
   children: FileNode[];
 }
