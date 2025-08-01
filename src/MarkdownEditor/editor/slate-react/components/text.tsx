@@ -98,7 +98,7 @@ const Text = (props: {
 export const InlineChromiumBugfix = React.memo(() => (
   <span
     contentEditable={false}
-    style={{ fontSize: 0, opacity: 0, lineHeight: 0 }}
+    style={{ fontSize: 0, opacity: 0, width: 0, height: 0, lineHeight: 0 }}
   >
     {String.fromCodePoint(160)}
   </span>
@@ -120,8 +120,8 @@ export const DefaultText = (props: RenderTextProps) => {
   const { attributes, children } = props;
   return (
     <span {...attributes}>
-      {!props.text?.text && <InlineChromiumBugfix />}
       {children}
+      {!props.text?.text && <InlineChromiumBugfix />}
     </span>
   );
 };
