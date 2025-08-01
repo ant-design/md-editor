@@ -6,16 +6,12 @@ import {
 } from '@ant-design/icons';
 import { Image } from 'antd';
 import React, { type FC, useState } from 'react';
-import type {
-  FileProps,
-  FileNode,
-  FileType,
-  GroupNode,
-} from '../types';
-import { PreviewComponent } from './PreviewComponent';
-import { getFileTypeIcon, isImageFile, canPreviewFile } from './utils';
-import { formatFileSize, formatLastModified } from '../utils';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
+import type { FileNode, FileProps, FileType, GroupNode } from '../types';
+import { formatFileSize, formatLastModified } from '../utils';
+import { fileTypeProcessor, isImageFile } from './FileTypeProcessor';
+import { PreviewComponent } from './PreviewComponent';
+import { getFileTypeIcon } from './utils';
 
 // 通用的键盘事件处理函数
 const handleKeyboardEvent = (
@@ -93,7 +89,8 @@ const FileItemComponent: FC<{
   const showDownloadButton = onDownload || file.url;
 
   // 判断是否显示预览按钮：支持预览且有预览回调
-  const showPreviewButton = onPreview && canPreviewFile(file);
+  const showPreviewButton =
+    onPreview && fileTypeProcessor.processFile(file).canPreview;
 
   return (
     <AccessibleButton
@@ -125,7 +122,10 @@ const FileItemComponent: FC<{
             </div>
           </div>
           {(showPreviewButton || showDownloadButton) && (
-            <div className="workspace-file-item__actions" onClick={e => e.stopPropagation()}>
+            <div
+              className="workspace-file-item__actions"
+              onClick={(e) => e.stopPropagation()}
+            >
               {showPreviewButton && (
                 <AccessibleButton
                   icon={<EyeOutlined />}
@@ -184,7 +184,11 @@ const GroupHeader: FC<{
           <div className="workspace-file-group__header-left">
             <CollapseIcon className="workspace-file-group__toggle-icon" />
             <div className="workspace-file-group__type-icon">
-              {getFileTypeIcon(group.type, group.icon, getRepresentativeFileName())}
+              {getFileTypeIcon(
+                group.type,
+                group.icon,
+                getRepresentativeFileName(),
+              )}
             </div>
             <span className="workspace-file-group__type-name">
               {group.displayName}
@@ -309,9 +313,11 @@ export const FileComponent: FC<{
     } else {
       // 如果是图片文件，使用 Antd Image 组件预览
       if (isImageFile(file)) {
+        // 预览优先使用 previewUrl，如果没有则使用 url
+        const previewSrc = file.previewUrl || file.url || '';
         setImagePreview({
           visible: true,
-          src: file.url || '',
+          src: previewSrc,
         });
       } else {
         // 非图片文件进入预览页面

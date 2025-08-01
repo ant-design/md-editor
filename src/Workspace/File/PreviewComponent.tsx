@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, DownloadOutlined } from '@ant-design/icons';
-import { Image, Spin } from 'antd';
+import { Alert, Image, Spin } from 'antd';
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import {
   MarkdownEditor,
@@ -7,15 +7,8 @@ import {
   type MarkdownEditorProps,
 } from '../../MarkdownEditor';
 import { FileNode } from '../types';
-import {
-  getFileTypeIcon,
-  getMimeType,
-  getPreviewSource,
-  isImageFile,
-  isPdfFile,
-  isTextFile,
-  isVideoFile,
-} from './utils';
+import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
+import { getFileTypeIcon } from './utils';
 
 interface PreviewComponentProps {
   file: FileNode;
@@ -68,134 +61,213 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   markdownEditorProps,
 }) => {
   const editorRef = useRef<MarkdownEditorInstance>();
+  const [processResult, setProcessResult] = useState<FileProcessResult | null>(
+    null,
+  );
+  const [textContent, setTextContent] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const handleDownload = () => {
     onDownload?.(file);
   };
 
-  const previewSource = getPreviewSource(file);
-  const mimeType = getMimeType(file);
-  const [textContent, setTextContent] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
+  // 处理文件
+  useEffect(() => {
+    try {
+      const result = fileTypeProcessor.processFile(file);
+      setProcessResult(result);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '文件处理失败');
+    }
+  }, [file]);
 
   // 获取文本内容
   useEffect(() => {
-    if (!isTextFile(file)) return;
+    if (!processResult) return;
 
-    // 如果有直接的内容，直接使用
-    if (typeof file.content === 'string') {
-      setTextContent(file.content);
+    const { typeInference, dataSource } = processResult;
+
+    // 只处理文本类型文件
+    if (typeInference.category !== 'text') return;
+
+    // 如果数据源直接提供了内容
+    if (dataSource.content) {
+      setTextContent(dataSource.content);
       return;
     }
 
-    // 否则尝试从 URL 加载内容
-    if (previewSource) {
+    // 否则通过URL加载内容
+    if (dataSource.previewUrl) {
       setIsLoading(true);
-      fetch(previewSource)
-        .then((response) => response.text())
+      setError(null);
+
+      fetch(dataSource.previewUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          return response.text();
+        })
         .then(setTextContent)
-        .catch((error) => {
-          console.error('加载文本内容失败:', error);
-          setTextContent('加载文本内容失败');
+        .catch((err) => {
+          const errorMessage =
+            err instanceof Error ? err.message : '加载文本内容失败';
+          setError(errorMessage);
+          console.error('加载文本内容失败:', err);
         })
         .finally(() => {
           setIsLoading(false);
         });
     }
-  }, [file, previewSource]);
+  }, [processResult]);
 
-  // 监听 textContent 变化
+  // 更新编辑器内容
   useEffect(() => {
     if (editorRef.current?.store && textContent) {
       editorRef.current.store.setMDContent(textContent);
     }
   }, [textContent]);
 
-  // 清理 Blob URL
+  // 清理资源
   useEffect(() => {
     return () => {
-      if (previewSource?.startsWith('blob:')) {
-        URL.revokeObjectURL(previewSource);
+      if (processResult) {
+        fileTypeProcessor.cleanupResult(processResult);
       }
     };
-  }, [previewSource]);
+  }, [processResult]);
 
   const renderPreviewContent = () => {
-    // 文本预览（包括 markdown 和 plainText）
-    if (isTextFile(file)) {
-      if (isLoading) {
-        return (
-          <PlaceholderContent>
-            <Spin size="large" tip="正在加载文本内容..." />
-          </PlaceholderContent>
-        );
-      }
-
+    if (!processResult) {
       return (
-        <div className={`${PREFIX}__text`}>
-          <MarkdownEditor
-            {...markdownEditorProps}
-            editorRef={editorRef}
-            initValue=""
-            readonly
-          />
-        </div>
-      );
-    }
-
-    // 其他类型文件需要预览源
-    if (!previewSource) {
-      return (
-        <PlaceholderContent file={file} showFileInfo>
-          <p>暂不支持预览此文件类型</p>
+        <PlaceholderContent>
+          <Spin size="large" tip="正在处理文件..." />
         </PlaceholderContent>
       );
     }
 
-    // 图片预览
-    if (isImageFile(file)) {
+    if (error) {
       return (
-        <div className={`${PREFIX}__image`}>
-          <Image src={previewSource} alt={file.name} />
-        </div>
+        <PlaceholderContent>
+          <Alert
+            message="文件处理失败"
+            description={error}
+            type="error"
+            showIcon
+          />
+        </PlaceholderContent>
       );
     }
 
-    // 视频预览
-    if (isVideoFile(file)) {
+    const { typeInference, dataSource, canPreview, previewMode } =
+      processResult;
+
+    // 如果不支持预览
+    if (!canPreview || previewMode === 'none') {
       return (
-        <video
-          className={`${PREFIX}__video`}
-          src={previewSource}
-          controls
-          controlsList="nodownload"
-          preload="metadata"
+        <PlaceholderContent
+          file={file}
+          showFileInfo
+          onDownload={handleDownload}
         >
-          <track kind="captions" />
-          您的浏览器不支持视频播放
-        </video>
+          <p>此文件类型不支持预览</p>
+          <p>文件类型：{typeInference.fileType}</p>
+          <p>MIME类型：{dataSource.mimeType}</p>
+        </PlaceholderContent>
       );
     }
 
-    // PDF 预览
-    if (isPdfFile(file)) {
-      return (
-        <embed
-          className={`${PREFIX}__pdf`}
-          src={previewSource}
-          type="application/pdf"
-          width="100%"
-          height="100%"
-        />
-      );
-    }
+    // 根据文件类型渲染预览内容
+    switch (typeInference.category) {
+      case 'text':
+        if (isLoading) {
+          return (
+            <PlaceholderContent>
+              <Spin size="large" tip="正在加载文本内容..." />
+            </PlaceholderContent>
+          );
+        }
 
-    // 其他类型，显示下载提示
-    return (
-      <PlaceholderContent file={file} showFileInfo onDownload={handleDownload}>
-        <p>此文件类型不支持预览</p>
-        <p>文件类型：{mimeType}</p>
-      </PlaceholderContent>
-    );
+        return (
+          <div className={`${PREFIX}__text`}>
+            <MarkdownEditor
+              {...markdownEditorProps}
+              editorRef={editorRef}
+              initValue=""
+              readonly
+            />
+          </div>
+        );
+
+      case 'image':
+        if (!dataSource.previewUrl) {
+          return (
+            <PlaceholderContent>
+              <p>无法获取图片预览</p>
+            </PlaceholderContent>
+          );
+        }
+
+        return (
+          <div className={`${PREFIX}__image`}>
+            <Image src={dataSource.previewUrl} alt={file.name} />
+          </div>
+        );
+
+      case 'video':
+        if (!dataSource.previewUrl) {
+          return (
+            <PlaceholderContent>
+              <p>无法获取视频预览</p>
+            </PlaceholderContent>
+          );
+        }
+
+        return (
+          <video
+            className={`${PREFIX}__video`}
+            src={dataSource.previewUrl}
+            controls
+            controlsList="nodownload"
+            preload="metadata"
+          >
+            <track kind="captions" />
+            您的浏览器不支持视频播放
+          </video>
+        );
+
+      case 'pdf':
+        if (!dataSource.previewUrl) {
+          return (
+            <PlaceholderContent>
+              <p>无法获取PDF预览</p>
+            </PlaceholderContent>
+          );
+        }
+
+        return (
+          <embed
+            className={`${PREFIX}__pdf`}
+            src={dataSource.previewUrl}
+            type="application/pdf"
+            width="100%"
+            height="100%"
+          />
+        );
+
+      default:
+        return (
+          <PlaceholderContent
+            file={file}
+            showFileInfo
+            onDownload={handleDownload}
+          >
+            <p>未知的文件类型</p>
+            <p>文件类型：{typeInference.fileType}</p>
+          </PlaceholderContent>
+        );
+    }
   };
 
   return (

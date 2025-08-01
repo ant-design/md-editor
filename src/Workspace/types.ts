@@ -55,6 +55,7 @@ export enum FileCategory {
   PDF = 'pdf',
   Word = 'word',
   Excel = 'excel',
+  Archive = 'archive',
   Other = 'other',
 }
 
@@ -122,6 +123,19 @@ export const FILE_TYPES: Record<string, FileTypeDefinition> = {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     ],
     name: 'Excel表格',
+  },
+  archive: {
+    category: FileCategory.Archive,
+    extensions: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2'],
+    mimeTypes: [
+      'application/zip',
+      'application/x-rar-compressed',
+      'application/x-7z-compressed',
+      'application/x-tar',
+      'application/gzip',
+      'application/x-bzip2',
+    ],
+    name: '压缩文件',
   },
 } as const;
 

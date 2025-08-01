@@ -107,7 +107,7 @@
                     <span
                       class="workspace__tab-title"
                     >
-                      实时跟随
+                      系统监控
                     </span>
                   </div>
                 </div>
@@ -166,7 +166,7 @@
                     <span
                       class="workspace__tab-title"
                     >
-                      任务
+                      任务列表
                     </span>
                   </div>
                 </div>
@@ -208,7 +208,7 @@
                     <span
                       class="workspace__tab-title"
                     >
-                      文件
+                      文件管理
                     </span>
                   </div>
                 </div>
@@ -256,12 +256,12 @@
                   <div
                     class="chat-realtime-header-title"
                   >
-                    系统监控
+                    系统性能监控
                   </div>
                   <div
                     class="chat-realtime-header-subtitle"
                   >
-                    实时监控系统状态
+                    实时监控关键系统指标
                   </div>
                 </div>
               </div>
@@ -315,7 +315,7 @@
                           <div
                             style="height: 0.5px; overflow: hidden; opacity: 0; pointer-events: none;"
                           >
-                            #!/bin/bash  # 系统信息 echo "系统信息:" uname -a  # 磁盘空间 echo -e "\n磁盘使用情况:" df -h  # 内存使用 echo -e "\n内存使用情况:" free -h  # 列出当前目录 echo -e "\n当前目录内容:" ls -la  # 查找大文件 echo -e "\n查找大于100MB的文件:" find / -type f -size +100M 2&gt;/dev/null | head -n 5
+                            # 系统性能监控脚本  # CPU 使用情况 echo "CPU 使用情况:" top -bn1 | head -n 3  # 内存使用情况 echo -e "\n内存使用情况:" free -h  # 磁盘使用情况 echo -e "\n磁盘使用情况:" df -h | grep '^/dev'  # 系统负载 echo -e "\n系统负载:" uptime  # 网络连接状态 echo -e "\n网络连接状态:" netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head -n 5
                             <span
                               data-slate-node="text"
                             >
@@ -327,27 +327,27 @@
                                 <span
                                   data-slate-string="true"
                                 >
-                                  #!/bin/bash
+                                  # 系统性能监控脚本
 
-# 系统信息
-echo "系统信息:"
-uname -a
+# CPU 使用情况
+echo "CPU 使用情况:"
+top -bn1 | head -n 3
 
-# 磁盘空间
-echo -e "\n磁盘使用情况:"
-df -h
-
-# 内存使用
+# 内存使用情况
 echo -e "\n内存使用情况:"
 free -h
 
-# 列出当前目录
-echo -e "\n当前目录内容:"
-ls -la
+# 磁盘使用情况
+echo -e "\n磁盘使用情况:"
+df -h | grep '^/dev'
 
-# 查找大文件
-echo -e "\n查找大于100MB的文件:"
-find / -type f -size +100M 2&gt;/dev/null | head -n 5
+# 系统负载
+echo -e "\n系统负载:"
+uptime
+
+# 网络连接状态
+echo -e "\n网络连接状态:"
+netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head -n 5
                                 </span>
                               </span>
                             </span>

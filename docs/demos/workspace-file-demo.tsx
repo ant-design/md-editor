@@ -202,6 +202,34 @@ graph TD
         },
       ],
     },
+    {
+      name: '压缩包',
+      type: 'archive',
+      displayName: '压缩包文件',
+      children: [
+        {
+          name: '项目源码.zip',
+          type: 'archive',
+          size: '25.5MB',
+          lastModified: '16:30',
+          url: '/downloads/source-code.zip',
+        },
+        {
+          name: '资源文件.rar',
+          type: 'archive',
+          size: '18.2MB',
+          lastModified: '17:45',
+          url: '/downloads/resources.rar',
+        },
+        {
+          name: '文档备份.7z',
+          type: 'archive',
+          size: '8.7MB',
+          lastModified: '18:20',
+          url: '/downloads/docs-backup.7z',
+        },
+      ],
+    },
   ]);
 
   useEffect(() => {
@@ -232,6 +260,8 @@ graph TD
           return 'Excel表格';
         case 'markdown':
           return 'Markdown文档';
+        case 'archive':
+          return '压缩包文件';
         default:
           return '文件';
       }

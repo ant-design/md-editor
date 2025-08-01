@@ -1,6 +1,6 @@
 import React from 'react';
 
-const zipIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+const ArchiveIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,4 +41,4 @@ const zipIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   );
 };
 
-export default zipIcon;
+export default ArchiveIcon;
