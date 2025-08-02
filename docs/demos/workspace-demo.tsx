@@ -1,7 +1,26 @@
 import { Workspace } from '@ant-design/md-editor';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { defaultValue } from './shared/defaultValue';
 
 const Demo = () => {
+  const [mdContent, setMdContent] = useState('');
+  useEffect(() => {
+    // setMdContent(defaultValue);
+    let md = '';
+    const list = defaultValue.split('');
+    const run = async () => {
+      for await (const item of list) {
+        md += item;
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            setMdContent(md);
+            resolve(true);
+          }, 10);
+        });
+      }
+    };
+    run();
+  }, []);
   return (
     <div style={{ height: 600, width: '100%' }}>
       <Workspace
@@ -16,33 +35,8 @@ const Demo = () => {
           }}
           data={{
             type: 'md',
-            content: `
-# 系统性能监控脚本
-
-# CPU 使用情况
-echo "CPU 使用情况:"
-top -bn1 | head -n 3
-
-# 内存使用情况
-echo -e "\\n内存使用情况:"
-free -h
-
-# 磁盘使用情况
-echo -e "\\n磁盘使用情况:"
-df -h | grep '^/dev'
-
-# 系统负载
-echo -e "\\n系统负载:"
-uptime
-
-# 网络连接状态
-echo -e "\\n网络连接状态:"
-netstat -n | awk '/ESTABLISHED/ {print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head -n 5
-`,
-            customTitle: '深度思考',
-            markdownEditorProps: {
-              typewriter: false,
-            },
+            content: mdContent,
+            title: '深度思考',
           }}
         />
 

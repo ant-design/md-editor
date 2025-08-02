@@ -1,6 +1,10 @@
-import { Segmented } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { MarkdownEditor, MarkdownEditorProps, MarkdownEditorInstance } from '../../MarkdownEditor';
+import React, { useEffect, useRef } from 'react';
+import {
+  MarkdownEditor,
+  MarkdownEditorInstance,
+  MarkdownEditorProps,
+} from '../../MarkdownEditor';
+import { parserMdToSchema } from '../../MarkdownEditor/editor/parser/parserMdToSchema';
 import HtmlIcon from '../icons/HtmlIcon';
 import ShellIcon from '../icons/ShellIcon';
 import ThinkIcon from '../icons/ThinkIcon';
@@ -23,11 +27,11 @@ export interface RealtimeFollowData {
   content: string | DiffContent | HtmlContent;
   // 支持MarkdownEditor的所有配置项
   markdownEditorProps?: Partial<MarkdownEditorProps>;
-  // 新增：可自定义的显示属性
-  customTitle?: string; // 自定义主标题，如"终端执行"
-  customSubTitle?: string; // 自定义副标题，如"创建文件mkdir"
-  customIcon?: React.ComponentType; // 自定义图标
+  title?: string; // 自定义主标题，如"终端执行"
+  subTitle?: string; // 自定义副标题，如"创建文件mkdir"
+  icon?: React.ComponentType; // 自定义图标
   typewriter?: boolean; // 是否启用打印机效果
+  rightContent?: React.ReactNode; // 自定义右侧内容
 }
 
 // 获取不同type的配置信息
@@ -37,60 +41,34 @@ const getTypeConfig = (type: RealtimeFollowMode) => {
       return {
         icon: ShellIcon,
         title: '终端执行',
-        segmentedOptions: null,
       };
     case 'html':
       return {
         icon: HtmlIcon,
         title: '创建 HTML 文件',
-        segmentedOptions: ['预览', '代码'],
       };
     case 'markdown':
     case 'md':
       return {
         icon: ThinkIcon,
         title: 'Markdown 内容',
-        segmentedOptions: null,
       };
     default:
       return {
         icon: ShellIcon,
         title: '终端执行',
-        segmentedOptions: null,
       };
   }
 };
 
-// Segmented 组件
-const SegmentedControl: React.FC<{ options: string[] }> = ({ options }) => {
-  const [selectedValue, setSelectedValue] = useState<string>(options[0]);
-
-  return (
-    <div className="chat-realtime-segmented-control">
-      <Segmented
-        options={options}
-        value={selectedValue}
-        onChange={(value) => {
-          setSelectedValue(value as string);
-          // TODO: 实现选项切换事件
-          console.log(`切换到 ${value} 选项`);
-        }}
-        size="small"
-      />
-    </div>
-  );
-};
-
 // 头部组件
-const RealtimeHeader: React.FC<{ data: RealtimeFollowData }> = ({
-  data,
-}) => {
+const RealtimeHeader: React.FC<{ data: RealtimeFollowData }> = ({ data }) => {
   const config = getTypeConfig(data.type); // 根据传入的类型渲染不同的头部元素
-  
+
   // 优先使用传入的自定义属性，否则使用默认配置
-  const IconComponent = data.customIcon || config.icon;
-  const headerTitle = data.customTitle || config.title;
-  const headerSubTitle = data.customSubTitle;
+  const IconComponent = data.icon || config.icon;
+  const headerTitle = data.title || config.title;
+  const headerSubTitle = data.subTitle;
 
   return (
     <header
@@ -113,94 +91,94 @@ const RealtimeHeader: React.FC<{ data: RealtimeFollowData }> = ({
           <div className="chat-realtime-header-subtitle">{headerSubTitle}</div>
         </div>
       </div>
-      <div className="chat-realtime-right">
-        {config.segmentedOptions && (
-          <SegmentedControl options={config.segmentedOptions} />
-        )}
-      </div>
+      <div className="chat-realtime-right">{data.rightContent}</div>
     </header>
   );
+};
+
+// 获取不同type的MarkdownEditor配置
+const getEditorConfig = (
+  type: RealtimeFollowMode,
+): Partial<MarkdownEditorProps> => {
+  const baseConfig = {
+    readonly: true,
+    toc: false,
+    style: { width: '100%' },
+    typewriter: true,
+  };
+
+  switch (type) {
+    case 'shell':
+      return {
+        ...baseConfig,
+        contentStyle: { padding: 0 },
+        className: 'chat-realtime--shell',
+        codeProps: {
+          showGutter: true,
+          showLineNumbers: true,
+        },
+      };
+    case 'markdown':
+    case 'md':
+      return {
+        ...baseConfig,
+        contentStyle: { padding: 16 },
+        className: 'chat-realtime--markdown',
+        height: '100%',
+      };
+    default:
+      return baseConfig;
+  }
 };
 
 export const RealtimeFollow: React.FC<{ data: RealtimeFollowData }> = ({
   data,
 }) => {
-  const shellEditorRef = useRef<MarkdownEditorInstance>();
-  const markdownEditorRef = useRef<MarkdownEditorInstance>();
-
+  const mdInstance = useRef<MarkdownEditorInstance>();
   // 更新编辑器内容的effect
   useEffect(() => {
-    if (data.type === 'shell' && shellEditorRef.current?.store) {
-      shellEditorRef.current.store.setMDContent(String(data.content));
-    } else if (['markdown', 'md'].includes(data.type) && markdownEditorRef.current?.store) {
-      markdownEditorRef.current.store.setMDContent(String(data.content));
+    if (
+      mdInstance.current?.store &&
+      (data.type === 'shell' || ['markdown', 'md'].includes(data.type))
+    ) {
+      const content = String(data.content);
+      const { schema } = parserMdToSchema(
+        content,
+        mdInstance.current.store.plugins,
+      );
+      mdInstance.current.store.updateNodeList(schema);
     }
   }, [data.content, data.type]);
 
-  // 默认的MarkdownEditor配置
-  const getDefaultProps = (): Partial<MarkdownEditorProps> => ({
-    readonly: true,
-    toc: false,
-    style: { width: '100%' },
-    contentStyle: { padding: data.type === 'markdown' ? 16 : 0 },
-    typewriter: data.typewriter ?? true, // 开启打印机效果，则默认为 true
-  });
+  if (data.type === 'html') {
+    return <div>html</div>;
+  }
 
-  // 合并默认配置和用户传入的配置
-  const getMergedProps = (
-    defaultProps: Partial<MarkdownEditorProps>,
-  ): Partial<MarkdownEditorProps> => ({
+  if (!['shell', 'markdown', 'md'].includes(data.type)) {
+    return null;
+  }
+
+  const defaultProps = getEditorConfig(data.type);
+  const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
-  });
+    typewriter: data.typewriter ?? defaultProps.typewriter,
+  };
 
-  switch (data.type) {
-    case 'shell':
-      return (
-        <MarkdownEditor
-          {...getMergedProps({
-            codeProps: {
-              // theme: 'vs-dark', // TODO:黑色主题不生效
-              showGutter: true, // 显示行号
-              showLineNumbers: true, // 显示行号
-            },
-            ...getDefaultProps(),
-            className: 'chat-realtime--shell',
-          })}
-          editorRef={shellEditorRef}
-          initValue={String(data.content)}
-        />
-      );
-    case 'html': {
-      return (
-        // 创建html文件：展示html文件的预览和代码
-        <div>html</div>
-      );
-    }
-    case 'markdown':
-    case 'md': {
-      return (
-        <MarkdownEditor
-          {...getMergedProps({
-            height: 550,
-            ...getDefaultProps(),
-            className: 'chat-realtime--markdown',
-          })}
-          editorRef={markdownEditorRef}
-          initValue={String(data.content)}
-        />
-      );
-    }
-    default:
-      return null;
-  }
+  return (
+    <MarkdownEditor
+      {...mergedProps}
+      editorRef={mdInstance}
+      initValue={String(data.content)}
+    />
+  );
 };
 
 export const RealtimeFollowList: React.FC<{
-  data: RealtimeFollowData; // 改为单个对象
+  data: RealtimeFollowData;
 }> = ({ data }) => {
   return (
-    <div>
+    <div className="chat-realtime-container">
       <RealtimeHeader data={data} />
       <RealtimeFollow data={data} />
     </div>
