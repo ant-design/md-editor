@@ -15,21 +15,19 @@ export const CommentView = (props: {
   if (!props.commentItem?.length) {
     return <>{props.children}</>;
   }
-  if (props.commentItem?.length) {
-    return (
-      <span
-        data-be="comment-text"
-        id={props.id}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setShowComment?.(props.commentItem);
-        }}
-      >
-        {props.children}
-      </span>
-    );
-  }
+  return (
+    <span
+      data-be="comment-text"
+      id={props.id}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowComment?.(props.commentItem);
+      }}
+    >
+      {props.children}
+    </span>
+  );
 };
 
 export const CommentCreate = (props: {
