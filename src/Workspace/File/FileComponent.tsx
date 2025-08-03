@@ -23,6 +23,46 @@ const handleKeyboardEvent = (
   }
 };
 
+// 通用的下载处理函数
+const handleFileDownload = (file: FileNode) => {
+  let blobUrl: string | null = null;
+
+  try {
+    // 创建下载链接
+    const link = document.createElement('a');
+
+    if (file.url) {
+      // 使用url作为下载链接
+      link.href = file.url;
+    } else if (file.content) {
+      // 使用文件内容创建 Blob 对象
+      const blob = new Blob([file.content], { type: 'text/plain' });
+      blobUrl = URL.createObjectURL(blob);
+      link.href = blobUrl;
+    } else if (file.file instanceof File || file.file instanceof Blob) {
+      // 处理 File 或 Blob 对象
+      blobUrl = URL.createObjectURL(file.file);
+      link.href = blobUrl;
+    } else {
+      return; // 没有可下载的内容
+    }
+
+    // 设置文件名（如果是 File 对象且没有指定文件名，使用 File 对象的名称）
+    link.download =
+      file.name || (file.file instanceof File ? file.file.name : '');
+
+    // 执行下载
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } finally {
+    // 清理 Blob URL
+    if (blobUrl) {
+      URL.revokeObjectURL(blobUrl);
+    }
+  }
+};
+
 // 通用的可访问按钮组件
 interface AccessibleButtonProps {
   icon: React.ReactNode;
@@ -73,42 +113,7 @@ const FileItemComponent: FC<{
       return;
     }
 
-    let blobUrl: string | null = null;
-
-    try {
-      // 创建下载链接
-      const link = document.createElement('a');
-
-      if (file.url) {
-        // 使用url作为下载链接
-        link.href = file.url;
-      } else if (file.content) {
-        // 使用文件内容创建 Blob 对象
-        const blob = new Blob([file.content], { type: 'text/plain' });
-        blobUrl = URL.createObjectURL(blob);
-        link.href = blobUrl;
-      } else if (file.file instanceof File || file.file instanceof Blob) {
-        // 处理 File 或 Blob 对象
-        blobUrl = URL.createObjectURL(file.file);
-        link.href = blobUrl;
-      } else {
-        return; // 没有可下载的内容
-      }
-
-      // 设置文件名（如果是 File 对象且没有指定文件名，使用 File 对象的名称）
-      link.download =
-        file.name || (file.file instanceof File ? file.file.name : '');
-
-      // 执行下载
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } finally {
-      // 清理 Blob URL
-      if (blobUrl) {
-        URL.revokeObjectURL(blobUrl);
-      }
-    }
+    handleFileDownload(file);
   };
 
   const handlePreview = (e: React.MouseEvent) => {
@@ -363,7 +368,13 @@ export const FileComponent: FC<{
 
   // 处理预览页面的下载
   const handleDownloadInPreview = (file: FileNode) => {
-    onDownload?.(file);
+    // 优先使用用户传入的下载方法
+    if (onDownload) {
+      onDownload(file);
+      return;
+    }
+
+    handleFileDownload(file);
   };
 
   // 图片预览组件
