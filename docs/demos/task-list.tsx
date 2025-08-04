@@ -1,41 +1,48 @@
 import { TaskList, ToolUseBar } from '@ant-design/md-editor';
 import React, { useState } from 'react';
 
-type TaskStatus = 'success' | 'error' | 'pending';
+type TaskStatus = 'success' | 'pending';
 
 export default () => {
   const [items] = useState([
     {
       key: '1',
-      title: '已完成任务',
-      content: '这是一个已完成的任务内容',
+      title: '创建全面的 Tesla 股票分析任务列表',
+      content: [
+        <div key="1">Get stock chart 获取股票图表</div>,
+        <div key="2">Get stock holders 获取股票持有人</div>,
+        <div key="3">Get stock insights 获取股票洞察</div>,
+        <div key="4">Get stock profile 获取股票概况</div>,
+        <div key="5">Get stock SEC filing 获取股票 SEC 备案</div>,
+        <div key="6">
+          Get what analysts say about the stock 获取分析师对股票的评价
+        </div>,
+      ],
       status: 'success' as TaskStatus,
     },
     {
       key: '2',
-      title: '进行中任务',
+      title: '创建全面的 Tesla 股票分析任务列表',
       content: [
-        <div key="1">这是一个进行中的任务内容</div>,
-        <div key="2">可以包含多个内容项</div>,
         <ToolUseBar
           tools={[
             {
               id: '1',
-              toolName: 'Search Code',
-              toolTarget: 'baidu.com',
-              time: '1.3s',
+              toolName: '工具类/工具名称',
+              toolTarget: '操作...',
+              time: '3',
             },
             {
               id: '2',
-              toolName: 'Read File',
-              toolTarget: 'xxx.docx',
-              time: '2.3s',
+              toolName: '工具类/工具名称',
+              toolTarget: '操作...',
+              time: '3',
             },
             {
               id: '3',
-              toolName: 'Edit File',
-              toolTarget: 'xx.md',
-              time: '2.3s',
+              toolName: '工具类/工具名称',
+              toolTarget: '操作...',
+              time: '3',
             },
           ]}
         />,
@@ -44,15 +51,21 @@ export default () => {
     },
     {
       key: '3',
-      title: '错误任务',
-      content: '这是一个出错的任务内容',
-      status: 'error' as TaskStatus,
+      title: '创建全面的 Tesla 股票分析任务列表',
+      content: [
+        <div key="1">Get stock chart 获取股票图表</div>,
+        <div key="2">Get stock holders 获取股票持有人</div>,
+        <div key="3" style={{ color: '#1890ff' }}>
+          Get stock insights 编辑文件 股票洞察.md
+        </div>,
+      ],
+      status: 'pending' as TaskStatus,
     },
   ]);
 
   return (
     <div style={{ padding: 24 }}>
-      <h3>基础用法</h3>
+      <h3>Tesla 股票分析任务列表示例</h3>
       <TaskList items={items} />
     </div>
   );

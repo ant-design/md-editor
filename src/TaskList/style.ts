@@ -19,7 +19,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '9px 0 0',
+        padding: '8px 0 0',
         gap: 4,
       },
 
@@ -44,6 +44,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-status': {
         display: 'flex',
+        lineHeight: '20px',
+        height: 20,
         alignItems: 'center',
         color: 'rgba(0, 3, 9, 0.45)',
         svg: {
@@ -66,10 +68,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-title`]: {
           marginLeft: 12,
-          fontSize: 12,
-          fontWeight: 500,
           lineHeight: '20px',
-          color: 'rgba(0, 3, 9, 0.85)',
+          textAlign: 'justify',
+          letterSpacing: 'normal',
+          color: '#343A45',
+          fontSize: '13px',
+          fontWeight: 600,
         },
 
         [`${token.componentCls}-loading`]: {
@@ -84,6 +88,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           lineHeight: '20px',
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
         },
 
         [`${token.componentCls}-arrow`]: {
@@ -108,6 +113,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 4,
+          fontSize: '12px',
+          fontWeight: 'normal',
+          lineHeight: '160%',
+          letterSpacing: 'normal',
+          color: '#767E8B',
         },
       },
     },

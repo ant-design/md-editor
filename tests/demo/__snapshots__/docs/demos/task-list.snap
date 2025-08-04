@@ -19,7 +19,7 @@
             class="task-list-left "
           >
             <div
-              class="task-list-status "
+              class="task-list-status task-list-status-success "
             >
               <span
                 aria-label="check-circle"
@@ -79,7 +79,7 @@
             class="task-list-left "
           >
             <div
-              class="task-list-status "
+              class="task-list-status task-list-status-pending "
             >
               <span
                 aria-label="loading"
@@ -339,7 +339,7 @@
             class="task-list-left "
           >
             <div
-              class="task-list-status "
+              class="task-list-status task-list-status-error "
             >
               <span
                 aria-label="close-circle"

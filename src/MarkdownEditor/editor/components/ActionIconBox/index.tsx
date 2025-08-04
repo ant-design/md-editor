@@ -1,7 +1,7 @@
 ﻿import { LoadingOutlined } from '@ant-design/icons';
 import { ConfigProvider, Tooltip, TooltipProps } from 'antd';
 import cx from 'classnames';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useStyle } from './style';
 
 export type ActionIconBoxProps = {
@@ -21,6 +21,7 @@ export type ActionIconBoxProps = {
   onInit?: () => void;
   'data-testid'?: string;
   noPadding?: boolean;
+  iconStyle?: React.CSSProperties;
 };
 /**
  * Represents an icon item component.
@@ -35,6 +36,22 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
   useEffect(() => {
     props.onInit?.();
   }, []);
+
+  const icon = useMemo(() => {
+    return loading || props.loading ? (
+      <LoadingOutlined />
+    ) : (
+      React.cloneElement(props.children as any, {
+        // @ts-ignore
+        ...props?.children?.props,
+        style: {
+          // @ts-ignore
+          ...props?.children?.props?.style,
+          ...props.iconStyle,
+        },
+      })
+    );
+  }, [loading, props.loading, props?.iconStyle]);
 
   return wrapSSR(
     <Tooltip title={props.title} {...props.tooltipProps}>
@@ -71,14 +88,7 @@ export const ActionIconBox: React.FC<ActionIconBoxProps> = (props) => {
         }}
         style={props.style}
       >
-        {loading || props.loading ? (
-          <LoadingOutlined />
-        ) : (
-          React.cloneElement(props.children as any, {
-            // @ts-ignore
-            ...props?.children?.props,
-          })
-        )}
+        {icon}
         {props.showTitle && <span>{props.title}</span>}
       </span>
     </Tooltip>,
